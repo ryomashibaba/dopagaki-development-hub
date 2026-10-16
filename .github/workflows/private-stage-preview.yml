@@ -89,3 +89,48 @@ jobs:
       - name: Deploy stage preview to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  verify-public:
+    needs: publish
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Verify live Pages HTTP, four JSONs and deployed commit
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          const base='https://ryomashibaba.github.io/dopagaki-development-hub/';
+          const names=['EP-001','HG-001','HS-001','WV-001'];
+          const suffix='_P62_KINETIC_ARCHITECTURE.json';
+          async function fetchOK(path) {
+            const response=await fetch(new URL(path,base),{headers:{'Cache-Control':'no-cache'},signal:AbortSignal.timeout(12000)});
+            assert.equal(response.status,200,'HTTP '+response.status+' '+path);
+            return response;
+          }
+          let info;
+          for(let retry=0;retry<20;retry++){
+            try {
+              info=await (await fetchOK('build-info.json')).json();
+              if(info.gitCommit===process.env.EXPECTED_SHA)break;
+              console.log('Deployed SHA not propagated yet:',info.gitCommit);
+            }catch(e){console.log('Pages propagation pending:',e.message);}
+            if(retry===19)throw Error('Pages never exposed expected commit');
+            await new Promise(resolve=>setTimeout(resolve,3000));
+          }
+          assert.equal(info.gitCommit,process.env.EXPECTED_SHA);
+          assert.equal(info.stageCount,4);
+          assert.equal(info.movingObstacleCount,24);
+          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs']){
+            const response=await fetchOK(path);
+            assert((await response.text()).length>300,'Empty public asset: '+path);
+          }
+          for(const id of names){
+            const doc=await (await fetchOK('generated/'+id+suffix)).json();
+            assert.equal(doc.stageForge.id,id);
+            assert.equal(doc.movingObstacles.length,6);
+          }
+          console.log('PUBLIC HTTP VERIFIED',process.env.EXPECTED_SHA,'4 stages / 24 obstacles');
+          NODE

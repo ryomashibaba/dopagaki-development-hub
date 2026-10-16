@@ -41,3 +41,10 @@ Cloudflare Pages may be connected later for a shorter `.pages.dev` hostname, but
 - `.github/workflows/private-stage-preview.yml`: renamed internally to P64 public QA-gated deployment (filename retained to preserve CI continuity).
 
 The original P63 commit remains available in Git history. Publishing the site does not modify the original game or Moving Lab.
+
+
+## P65 experimental 3D Drive Lab
+
+`/drive3d/` adds a **separate** 3D WebGL2 preview. It loads the exact frozen P62 stage JSON and runs the reference-only B48 `compile` + `Runner` at `DT=1/240`, including B51-C moving collision. Basic steering, start selection, pause, reset and fixed ball-relative camera are provided. GPU-visible surfaces are simplified render meshes, not evidence of final asset quality. Human playtesting and full four-stage realtime FPS acceptance remain unverified. The existing `/web/` P64 2D inspector and all reference physics modules are preserved.
+
+`verify-public` runs after successful Pages deployment and checks public HTTP 200 for home, build-info, 2D and 3D previews, plus 4 actual JSONs and that deployment build SHA matches the current `main` push. If it fails, do not claim live HTTP verification; inspect its logs before accepting the release.
