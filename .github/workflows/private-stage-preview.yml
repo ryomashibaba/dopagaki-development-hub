@@ -1,4 +1,4 @@
-name: DOPAGAKI P63 quality-gated private preview
+name: DOPAGAKI P64 public stage preview (QA-gated)
 on:
   push:
     branches: [main]
@@ -8,26 +8,28 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: dopagaki-p63-${{ github.ref }}
+  group: dopagaki-p64-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   qa:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Frozen original, B48 schema, B45 constants and moving modes
+      - name: P62 SHA, B48 surface, moving obstacles, frozen B45 physics
         run: npm run test:core
-      - name: Deterministic P62 source regeneration
+      - name: Reproduce all four stages deterministically
         run: npm run test:repro
-      - name: Build private inspector with corrected P62 filenames
-        run: npm run build:private
-      - name: HTTP smoke / real JSON references / old-404 regression
+      - name: Build exact public stage assets
+        run: npm run build:site
+      - name: Check HTTP 200, imports, and P62-404 regression
+        env:
+          DOPAGAKI_BUILD_DIR: dist-site
         run: npm run smoke
-      - name: Check safe-public fallback contains no private sources
+      - name: Keep optional public-safe fallback tested
         run: |
           npm run build:public-safe
           npm run test:core
@@ -35,55 +37,55 @@ jobs:
     needs: qa
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      DOPAGAKI_BUILD_DIR: dist-site
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install pinned Playwright test runner
+      - name: Install Playwright
         run: npm install --no-audit --no-fund
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
-      - name: Build protected-preview assets
-        run: npm run build:private
-      - name: Real Chromium 4-stage inspector smoke
+      - name: Build the exact public website
+        run: npm run build:site
+      - name: Chromium: four stages, changing focus, timeline, HTTP errors
         run: npm run test:browser
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: p63-chromium-failure-${{ github.run_id }}
+          name: p64-chromium-failure-${{ github.run_id }}
           path: |
             playwright-report/
             test-results/
           if-no-files-found: ignore
           retention-days: 7
-  deploy:
+  publish:
     needs: [qa, browser]
-    if: >-
-      github.event_name != 'pull_request' &&
-      github.ref == 'refs/heads/main' &&
-      vars.DOPAGAKI_DEPLOY_ENABLED == 'true' &&
-      vars.DOPAGAKI_ACCESS_CONFIRMED == 'true'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: read
-      deployments: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Fail closed if private-access check missing
-        env:
-          SITE_URL: ${{ vars.DOPAGAKI_PROTECTED_SITE_URL }}
-        run: node scripts/verify-protected-site.mjs
-      - name: Build only after protection and QA checks
-        run: npm run build:private
-      - name: Deploy protected Pages project
-        uses: cloudflare/wrangler-action@v4
+      - name: Build release after QA and Chromium PASS
+        run: npm run build:site
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload immutable static site build
+        uses: actions/upload-pages-artifact@v4
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist-private --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME }} --branch=main
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          path: dist-site
+      - name: Deploy stage preview to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

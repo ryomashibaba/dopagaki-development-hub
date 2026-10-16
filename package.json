@@ -1,18 +1,20 @@
 {
   "name": "dopagaki-development-hub",
   "private": true,
-  "version": "0.63.0",
+  "version": "0.64.0",
   "type": "module",
-  "description": "Private P63 stage QA and gated Cloudflare deployment bootstrap",
+  "description": "QA-gated public DOPAGAKI stage inspector and GitHub Pages static website",
   "scripts": {
     "test:core": "node --test tests/*.test.mjs",
     "build:private": "node scripts/build.mjs private",
     "build:public-safe": "node scripts/build.mjs public-safe",
     "smoke": "node scripts/smoke-http.mjs",
     "test:browser": "playwright test",
-    "test:all": "npm run test:core && npm run build:private && npm run smoke",
+    "test:all": "npm run test:core && npm run test:repro && npm run build:site && node scripts/smoke-http.mjs",
     "serve:private": "node scripts/serve.mjs dist-private 4373",
-    "test:repro": "node private/generate_p62.mjs && node scripts/check-regenerate.mjs"
+    "test:repro": "node private/generate_p62.mjs && node scripts/check-regenerate.mjs",
+    "build:site": "node scripts/build.mjs public",
+    "smoke:site": "node scripts/build.mjs public && node scripts/smoke-http.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1"
