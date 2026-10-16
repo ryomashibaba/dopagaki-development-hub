@@ -162,7 +162,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P75 EXPERIMENTAL — survival-primary score and per-spawn personal best; near-miss bonus never exceeds 5% of combined score. P69 course and B48 physics remain unchanged; physics PR is HOLD.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P76 EXPERIMENTAL — native start-to-spiral through the 180° HALO RETURN hairpin PASS (16.82s, no air). Entire finish and human playfeel NOT approved; B48 physics unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
@@ -192,6 +192,7 @@ function updateChapterHUD(){
  const x=runner.p[0];
  let name='RESONANCE CATHEDRAL',hint='巨大共鳴管・高速3D走行';
  if(id.includes('SPIRAL_CATHEDRAL')){name='450° SPIRAL DESCENT';hint=id.endsWith('-06')?'螺旋出口！前方の広い接続路で左へ強く操舵':'大空洞を旋回 / バンクの傾斜を利用';}
+ else if(id.includes('PIPE_RETURN')){name='HALO RETURN — 180° SKY HAIRPIN';hint='半径260mの巨大カーブ / 螺旋へ自然接続';}
  else if(id.includes('FORK_APPROACH')){name='CHOOSE YOUR SKYLINE';hint='左へしっかり寄せながら立体分岐へ / 道幅が変化';}
  else if(id.includes('FORK_L')){name='BELL VAULT';hint='外周の低層分岐';}
  else if(id.includes('FORK_R')){name='ORGAN SKYBRIDGE';hint='高層の空中分岐';}
