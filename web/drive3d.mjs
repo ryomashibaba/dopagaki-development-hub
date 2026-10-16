@@ -3,11 +3,12 @@ import {compile} from '../reference_only/director/collision.js';
 import {Runner,DT} from '../reference_only/director/physics.js';
 import {movingObstaclePose} from '../reference_only/director/moving/moving-obstacles.mjs';
 import {fixtureTriangles} from '../reference_only/director/game-fixtures.js';
+import {epicGeometry} from './p66-visual.mjs';
 
 const $=id=>document.getElementById(id);
-const assets={'EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
+const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,ball,obstacles={};
+let gl,program,locations={},roads,lines,ball,scenery,obstacles={};
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
@@ -74,7 +75,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);roads=mesh(vertex);lines=mesh(wire);
+ discard(roads);discard(lines);discard(scenery);roads=mesh(vertex);lines=mesh(wire);const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
 }
 function draw(m,center=[0,0,0],size=[1,1,1],angle=0,primitive=gl.TRIANGLES){
  if(!m||!m.count)return;
@@ -94,7 +95,7 @@ function render(){
  const target=add(add(p,mul(f,20)),[0,1,0]),front=norm(sub(target,eye)),side=norm(cross(front,[0,1,0])),up=norm(cross(side,front));
  gl.uniform3fv(locations.eye,eye);gl.uniform3fv(locations.camFront,front);gl.uniform3fv(locations.camRight,side);gl.uniform3fv(locations.camUp,up);
  gl.uniform1f(locations.aspect,w/h);
- draw(roads);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
+ draw(scenery);draw(roads);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  for(const o of doc.movingObstacles){
   if(!o.enabled)continue;
   const pose=movingObstaclePose(o,runner.time);
@@ -108,7 +109,7 @@ function restart(){
  runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent='3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P66 RESONANCE CATHEDRAL / 450° spiral → 2-tier fork → 6 machines → natural jump (B48 native)':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
