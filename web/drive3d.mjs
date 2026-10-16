@@ -109,7 +109,7 @@ function restart(){
  runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P66 RESONANCE CATHEDRAL / 450° spiral → 2-tier fork → 6 machines → natural jump (B48 native)':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P67 RESONANCE CATHEDRAL (experimental) — 430m banked entrance and spiral, right fork, 4/4 natural jump landing; spiral exit / left fork HOLD. P66 RESONANCE CATHEDRAL / 450° spiral → 2-tier fork → 6 machines → natural jump (B48 native)':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
