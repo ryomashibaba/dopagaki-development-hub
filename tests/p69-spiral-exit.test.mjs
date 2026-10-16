@@ -49,7 +49,7 @@ function drive(doc,maxSeconds,steer=0,hold=0){
  return {time:+runner.time.toFixed(2),status:runner.status,failure:runner.failure?.reason||null,air,approach,spiralSegment,last:runner.surface,pos:runner.p.map(x=>+x.toFixed(1)),speed:+Math.hypot(...runner.v).toFixed(1)};
 }
 test('P69 find real physically seamless spiral-to-fork catch without altering B45',()=>{
- for(const [steer,hold] of [[0,0],[-.14,2.5],[-.22,2.3],[-.35,1.8]]){
+ for(const [steer,hold] of [[-.5,4.5],[-.75,4.5],[-1,5],[-.85,6]]){
   const stage=course(150,true,.9,0);
   const result=drive(stage,85,steer,hold);
   console.log('P69_EXIT_PROBE '+JSON.stringify({steer,hold,...result}));
