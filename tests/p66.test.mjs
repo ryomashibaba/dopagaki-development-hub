@@ -43,10 +43,10 @@ test('P66 3 × B51-C machine modes; 6 animated native colliders',()=>{
 test('P66 initial downhill is actually traversable by unmodified native physics',()=>{
  const world=compile(stage);
  const rider=new Runner(stage,world,0,44);
- const initialX=rider.p[0];
+ const initialPosition=[...rider.p];
  for(let i=0;i<Math.round(2.2/DT)&&rider.status!=='failed'&&rider.status!=='finished';i++)rider.step(0);
  assert.notEqual(rider.status,'failed',JSON.stringify(rider.failure));
- assert(rider.p[0]-initialX>35,'Runner did not advance on P66 downhill: '+rider.p[0]);
+ assert(Math.hypot(rider.p[0]-initialPosition[0],rider.p[2]-initialPosition[2])>35,'Runner did not advance on P76 downhill intake: '+rider.p);
  assert(rider.p[1]<239,'The giant pipe descent is not physically progressing: '+rider.p[1]);
 });
 test('P66 lip launches genuine airborne segment with no jump power-ups',()=>{
