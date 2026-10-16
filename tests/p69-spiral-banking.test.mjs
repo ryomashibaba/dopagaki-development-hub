@@ -40,11 +40,12 @@ function drive(doc,spawn,seconds=24,speed=44){
 test('P69 geometry-only banking probes do not claim readiness',()=>{
  for(const [label,bank,width] of [
   ['OUTER_HIGH_025',-.25,96],
-  ['OUTER_HIGH_035',-.35,96],
-  ['OUTER_HIGH_045',-.45,96]
+  ['TAPER_EXIT',t=>-.25*(1-ease(Math.min(1,Math.max(0,(t-.84)/.16)))),96],
+  ['TAPER_ENTRY_EXIT',t=>-.25-.53*(1-ease(Math.min(1,t/.08)))+.25*ease(Math.min(1,Math.max(0,(t-.84)/.16))),96]
  ]){
   const course=banked(bank,width);
-  const result=drive(course,1,65);
-  console.log('P69_PROBE '+JSON.stringify({label,bank,width,...result}));
+  const result=drive(course,1,75);
+  const opening=label==='TAPER_ENTRY_EXIT'?drive(course,0,28):null;
+  console.log('P69_PROBE '+JSON.stringify({label,bank:typeof bank==='number'?bank:'tapered',width,...result,opening}));
  }
 });
