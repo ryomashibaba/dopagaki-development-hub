@@ -6,7 +6,8 @@
  * All body details remain within 0.501 of the unit collision box. Only
  * stationary floor/trajectory guides are decorative and NON-COLLIDABLE.
  */
-import {movingObstaclePose} from '../reference_only/director/moving/moving-obstacles.mjs';
+// Source-provided B51-C pose sampler is injected by the host; avoids any
+// duplicate physics implementation or deployment/source-relative import drift.
 
 const PALETTE=Object.freeze({
  fail:{body:[.36,.055,.12],light:[1,.15,.23],edge:[1,.49,.22]},
@@ -110,13 +111,14 @@ export function makeMachineMeshes(obstacles){
  }));
 }
 /** Informational proximity only — NOT a collision or time-to-contact prediction. */
-export function nearestMachineCue(obstacles,position,forward,simulationTime,maxDistance=220){
+export function nearestMachineCue(obstacles,position,forward,simulationTime,maxDistance=220,poseAt){
+ if(typeof poseAt!=='function')throw Error('Physical B51-C pose sampler is required');
  if(!Array.isArray(obstacles)||!obstacles.length)return null;
  const flat=Math.hypot(forward[0],forward[2])||1,f=[forward[0]/flat,forward[2]/flat];
  let nearest=null;
  for(const ob of obstacles){
   if(ob.enabled===false)continue;
-  const p=movingObstaclePose(ob,simulationTime),dx=p.center[0]-position[0],dz=p.center[2]-position[2];
+  const p=poseAt(ob,simulationTime),dx=p.center[0]-position[0],dz=p.center[2]-position[2];
   const distance=Math.hypot(dx,dz),ahead=dx*f[0]+dz*f[1];
   if(ahead<-10||distance>maxDistance||Math.abs(p.center[1]-position[1])>85)continue;
   const current={id:ob.id,type:ob.type,mode:visualMode(ob),distance:Math.round(distance),
