@@ -22,21 +22,24 @@ test('P65 WebGL2 drives frozen P62 with actual B48 Runner on two stages',async({
 });
 
 
-test('P73 cathedral: actual 3D moving machinery and hazard cue',async({page})=>{
+test('P74 cathedral: collision-accurate skill feedback and live machinery',async({page})=>{
  test.setTimeout(120000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  page.on('response',response=>{if(response.url().includes('P66_ECHO_RUSH')&&!response.ok())errors.push('P66 JSON HTTP '+response.status())});
  await page.goto('/drive3d/');
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
- await expect(page.locator('#stage option:checked')).toContainText('P73 ECHO PIPE');
+ await expect(page.locator('#stage option:checked')).toContainText('P74 ECHO PIPE');
  await expect(page.locator('#spawn option')).toHaveCount(7);
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','6');
+ await expect(page.locator('#nearMissCount')).toHaveText('0');
+ await expect(page.locator('#nearMissBurst')).toBeHidden();
+ await expect(page.locator('#view')).toHaveAttribute('data-near-miss-count','0');
  await expect(page.locator('#view')).toBeVisible();
  await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');
- await expect(page.locator('#appStatus')).toContainText('P73 EXPERIMENTAL');
+ await expect(page.locator('#appStatus')).toContainText('P74 EXPERIMENTAL');
  // The real P69 machine chamber includes three physical movement mechanisms.
  // Heads-up cues are derived from sampled B51 motion, not a fake preset label.
  await page.locator('#spawn').selectOption('4');
@@ -62,6 +65,8 @@ test('P73 cathedral: actual 3D moving machinery and hazard cue',async({page})=>{
  await page.locator('#pause').click();
  await expect(page.locator('#pause')).toContainText('一時停止');
  await page.locator('#spawn').selectOption('5');
+ await expect(page.locator('#nearMissCount')).toHaveText('0');
+ await expect(page.locator('#nearMissBurst')).toBeHidden();
  await page.keyboard.down('KeyA');await page.waitForTimeout(500);await page.keyboard.up('KeyA');
  await expect(page.locator('#simTime')).not.toHaveText('0.00 s');
  expect(errors).toEqual([]);
