@@ -5,6 +5,7 @@ test('P65 WebGL2 drives frozen P62 with actual B48 Runner on two stages',async({
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  page.on('response',r=>{if(r.url().includes('/generated/')&&!r.ok())errors.push('JSON '+r.status())});
  await page.goto('/drive3d/');
+ await page.locator('#stage').selectOption('EP-001');
  await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:60000});
  await expect(page.locator('#spawn option').first()).toBeAttached();
  await expect(page.locator('#speed')).not.toHaveText('--');
