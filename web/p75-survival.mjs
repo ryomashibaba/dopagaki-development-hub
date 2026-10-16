@@ -24,8 +24,10 @@ export function runRecordKey(stageId,spawn){
 }
 export function buildRunRecord({stageId,spawn,seconds,nearMisses=0,outcome}){
  if(!['failed','finished'].includes(outcome))throw Error('Only completed or failed runs can be recorded');
- const score=survivalScore(seconds,nearMisses);
- return {schema:RECORD_SCHEMA,stageId,spawn,seconds:Number(seconds.toFixed(3)),nearMisses,
+ const rounded=Number(seconds.toFixed(3));
+ const score=survivalScore(rounded,nearMisses);
+ runRecordKey(stageId,spawn);
+ return {schema:RECORD_SCHEMA,stageId,spawn,seconds:rounded,nearMisses,
   outcome,...score};
 }
 export function betterRecord(a,b){
