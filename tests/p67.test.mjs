@@ -60,4 +60,9 @@ test('P67 diagnostics: turn/branch candidates and actual road transitions',()=>{
  const results=[[0,44,0,12],[1,44,0,12],[2,44,0,12],[3,44,0,12],[4,44,0,7],[6,44,-.35,7],[6,44,0,7],[6,44,.35,7]].map(x=>run(...x));
  for(const value of results)console.log('P67_ROUTE_DIAG '+JSON.stringify(value));
  assert(results.length===8);
+ const intro=results.find(x=>x.spawn===0),right=results.find(x=>x.spawn===3);
+ assert.equal(intro.fail,null,'P67 first 12s must remain physically traversable');
+ assert.equal(intro.airFrames,0,'P67 first 12s must remain grounded');
+ assert.equal(right.fail,null,'P67 right branch must safely reach the merge');
+ assert.equal(right.airFrames,0,'P67 right branch should stay on physical road');
 });
