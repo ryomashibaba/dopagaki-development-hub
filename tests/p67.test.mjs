@@ -49,7 +49,7 @@ function run(spawn,speed,steer=0,seconds=7.5){
  }
  return {spawn,speed,steer,time:+runner.time.toFixed(2),status:runner.status,fail:runner.failure?.reason??null,
  x:+runner.p[0].toFixed(1),y:+runner.p[1].toFixed(1),z:+runner.p[2].toFixed(1),
- maxX:+maxX.toFixed(1),surface:lastSurface,airFrames,airFramesAfterLip,landed,events:runner.events.filter(e=>['contact','air','moving-contact','failure','finish'].includes(e.type)).slice(-6).map(e=>e.type+':'+(e.surface||e.mode||e.reason||''))};
+ maxX:+maxX.toFixed(1),surface:lastSurface,airFrames,airFramesAfterLip,landed,branchSurfaces:[...new Set(runner.events.filter(e=>e.type==='contact'&&/FORK_[LR]/.test(e.surface)).map(e=>e.surface))],events:runner.events.filter(e=>['contact','air','moving-contact','failure','finish'].includes(e.type)).slice(-6).map(e=>e.type+':'+(e.surface||e.mode||e.reason||''))};
 }
 test('P67 diagnostics: physical jump must be measured for different launch speeds',()=>{
  const results=[38,44,52,60].map(speed=>run(5,speed,0,6.0));
@@ -57,7 +57,7 @@ test('P67 diagnostics: physical jump must be measured for different launch speed
  assert(results.every(x=>x.airFramesAfterLip>=30&&x.landed&&!x.fail),'P67 true jump landing must succeed at every tested speed: '+JSON.stringify(results));
 });
 test('P67 diagnostics: turn/branch candidates and actual road transitions',()=>{
- const results=[[0,44,0,12],[1,44,0,12],[2,44,0,12],[3,44,0,12],[4,44,0,7],[6,44,-1,7],[6,44,0,7],[6,44,1,7]].map(x=>run(...x));
+ const results=[[0,44,0,12],[1,44,0,12],[2,44,0,12],[3,44,0,12],[4,44,0,7],[6,44,-.35,7],[6,44,0,7],[6,44,.35,7]].map(x=>run(...x));
  for(const value of results)console.log('P67_ROUTE_DIAG '+JSON.stringify(value));
  assert(results.length===8);
 });
