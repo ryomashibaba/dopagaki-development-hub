@@ -6,11 +6,12 @@ import {fixtureTriangles} from '../reference_only/director/game-fixtures.js';
 import {epicGeometry} from './p66-visual.mjs';
 import {capturePose,resolveDisplayPose,createCameraState,advanceCamera,viewForPose,cameraYawErrorRadians} from './drive3d-camera.mjs';
 import {stepFixedClock} from './drive3d-loop.mjs';
+import {makeMachineMeshes,nearestMachineCue,obstacleBodyVertices} from './p73-machine-visual.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,ball,scenery,obstacles={};
+let gl,program,locations={},roads,lines,ball,scenery,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
@@ -58,9 +59,8 @@ function init(){
  for(const name of ['eye','camRight','camUp','camFront','translation','scale','yaw','aspect'])locations[name]=gl.getUniformLocation(program,name);
  gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(.019,.041,.083,1);
  ball=mesh(orb());
- obstacles={
-  fail:mesh(box([1,.16,.23])),bounce:mesh(box([1,.78,.18])),push:mesh(box([.74,.28,1]))
- };
+ for(const type of ['slider','rotator','piston'])for(const mode of ['fail','bounce','push'])
+  machineMeshes[type+':'+mode]=mesh(obstacleBodyVertices(type,mode));
 }
 function buildVisual(stage){
  const vertex=[],wire=[];
@@ -78,7 +78,11 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(scenery);roads=mesh(vertex);lines=mesh(wire);const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
+ discard(roads);discard(lines);discard(scenery);
+ for(const entry of guideMeshes)discard(entry.mesh);
+ guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
+ roads=mesh(vertex);lines=mesh(wire);const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
+ canvas.dataset.machineCount=String((stage.movingObstacles||[]).filter(x=>x.enabled!==false).length);
 }
 function draw(m,center=[0,0,0],size=[1,1,1],angle=0,primitive=gl.TRIANGLES){
  if(!m||!m.count)return;
@@ -106,10 +110,13 @@ function render(frameSeconds){
  canvas.dataset.cameraHeadingLagDegrees=(headingError*180/Math.PI).toFixed(2);
  gl.uniform1f(locations.aspect,w/h);
  draw(scenery);draw(roads);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
+ // Non-collidable trajectory guides. Actual machine solids use exact B51 poses.
+ for(const guide of guideMeshes)draw(guide.mesh,[0,0,0],[1,1,1],0,gl.LINES);
  for(const o of doc.movingObstacles){
   if(!o.enabled)continue;
   const obstaclePose=movingObstaclePose(o,pose.time);
-  draw(obstacles[o.collision?.mode||'fail'],obstaclePose.center,obstaclePose.halfSize.map(x=>2*x),obstaclePose.yawRadians);
+  const key=o.type+':'+(o.collision?.mode||'fail');
+  draw(machineMeshes[key],obstaclePose.center,obstaclePose.halfSize.map(x=>2*x),obstaclePose.yawRadians);
  }
  draw(ball,pose.position);
 }
@@ -120,7 +127,7 @@ function restart(){
  previousPose=currentPose=capturePose(runner);cameraState=createCameraState(currentPose.forward);frameSkips=0;headingError=0;
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P72 EXPERIMENTAL — camera A/B and 10/15fps catch-up enabled; P69 course and B48 baseline physics remain unchanged; separate physics PR awaits approval.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P73 EXPERIMENTAL — distinct moving machinery and physically faithful motion preview; P69 course and frozen B48 physics unchanged. The separate physical engine remains HOLD.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
@@ -167,6 +174,13 @@ function hud(){
  $('speed').textContent=Math.hypot(...runner.v).toFixed(1);
  $('simTime').textContent=runner.time.toFixed(2)+' s';$('contacts').textContent=String(runner.collisions);
  $('ground').textContent=runner.grounded?'接地':'空中';$('fps').textContent=String(Math.round(fps));
+ const machineLabel=$('machineCue');
+ if(machineLabel){
+  const cue=nearestMachineCue(doc.movingObstacles,runner.p,runner.forward,runner.time,220,movingObstaclePose);
+  machineLabel.hidden=!cue;
+  machineLabel.dataset.mode=cue?.mode||'none';
+  if(cue)machineLabel.textContent=cue.typeLabel+' / '+cue.modeLabel+' · '+cue.lateralLabel+' '+cue.distance+'m';
+ }
  updateChapterHUD();
  if(runner.status==='failed'&&!status.dataset.failed){
   status.className='status alert';status.textContent='試走終了: '+(runner.failure?.reason||'衝突')+'。Rで再スタート';
