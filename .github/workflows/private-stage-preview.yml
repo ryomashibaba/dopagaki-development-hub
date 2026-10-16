@@ -1,0 +1,89 @@
+name: DOPAGAKI P63 quality-gated private preview
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: dopagaki-p63-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen original, B48 schema, B45 constants and moving modes
+        run: npm run test:core
+      - name: Deterministic P62 source regeneration
+        run: npm run test:repro
+      - name: Build private inspector with corrected P62 filenames
+        run: npm run build:private
+      - name: HTTP smoke / real JSON references / old-404 regression
+        run: npm run smoke
+      - name: Check safe-public fallback contains no private sources
+        run: |
+          npm run build:public-safe
+          npm run test:core
+  browser:
+    needs: qa
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned Playwright test runner
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Build protected-preview assets
+        run: npm run build:private
+      - name: Real Chromium 4-stage inspector smoke
+        run: npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: p63-chromium-failure-${{ github.run_id }}
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+  deploy:
+    needs: [qa, browser]
+    if: >-
+      github.event_name != 'pull_request' &&
+      github.ref == 'refs/heads/main' &&
+      vars.DOPAGAKI_DEPLOY_ENABLED == 'true' &&
+      vars.DOPAGAKI_ACCESS_CONFIRMED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fail closed if private-access check missing
+        env:
+          SITE_URL: ${{ vars.DOPAGAKI_PROTECTED_SITE_URL }}
+        run: node scripts/verify-protected-site.mjs
+      - name: Build only after protection and QA checks
+        run: npm run build:private
+      - name: Deploy protected Pages project
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist-private --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME }} --branch=main
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

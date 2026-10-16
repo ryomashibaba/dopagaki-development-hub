@@ -1,0 +1,16 @@
+{
+  "schema": "dopagaki.pipeline.input/1",
+  "revision": "P62-404-FIXED",
+  "source_archive": "DOPAGAKI_STAGE_FORGE_P62_INSPECTOR_404_FIXED_P31_PENDING.zip",
+  "input_sha256": {
+    "EP-001_P62_KINETIC_ARCHITECTURE.json": "175258286d181999ca505bfaeab5a31e48daa02095a43350bf8c7a05b66c142f",
+    "HG-001_P62_KINETIC_ARCHITECTURE.json": "445b0f76c4ec882ee88385e8b4c9e73b8bf5e386fba4df5b900096f363afe8d4",
+    "HS-001_P62_KINETIC_ARCHITECTURE.json": "d3b7a3d4fda645ea3eb7af5dc11746436caed954c48e4f1f306df0b2fa9658da",
+    "WV-001_P62_KINETIC_ARCHITECTURE.json": "75f54275ac18611a03ecddb5e9951e69477ef11a33661b4d91055b3c948f54a3"
+  },
+  "upstream": {
+    "MovingLab": "ryomashibaba/dopagaki-track-director-cloud@23500101e2ff873a125faab0707622f5a1298e8b",
+    "StageForge": "ryomashibaba/dopagaki-stage-forge@915fb440d5db5eaac0ead0f607d9bab8e591c4c8"
+  },
+  "note": "Pinned read-only B48 reference. Moving Lab remains canonical for physics; never edit vendor code here."
+}

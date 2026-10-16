@@ -1,0 +1,2 @@
+import {defineConfig,devices} from '@playwright/test';
+export default defineConfig({testDir:'./tests/browser',timeout:30000,retries:1,workers:1,reporter:[['list'],['html',{open:'never'}]],use:{baseURL:'http://127.0.0.1:4373',...devices['Desktop Chrome'],trace:'on-first-retry',screenshot:'only-on-failure'},webServer:{command:'node scripts/serve.mjs dist-private 4373',url:'http://127.0.0.1:4373/build-info.json',reuseExistingServer:!process.env.CI,timeout:20000}});

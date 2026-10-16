@@ -1,0 +1,193 @@
+{
+  "qa": "P62 finite sample audits and exact B48 schema; no human Chrome claim",
+  "b45Frozen": true,
+  "dt": 0.004166666666666667,
+  "results": [
+    {
+      "stage": "EP-001",
+      "parentSHA256": "9fb6baf74c65ba13125569cba47d09b027cbae5da405fee093c97b19a39bf1df",
+      "parentMatched": true,
+      "roadUnchanged": true,
+      "priorFixedUnchanged": true,
+      "priorMovingUnchanged": true,
+      "scenicSurfacesModified": [
+        {
+          "id": "EP-001-P56-L-MONUMENT",
+          "rideable": false,
+          "collidable": false
+        },
+        {
+          "id": "EP-001-P56-R-MONUMENT",
+          "rideable": false,
+          "collidable": false
+        }
+      ],
+      "surfaces": 32,
+      "fixtures": 151,
+      "moving": 6,
+      "newFixed": 22,
+      "newMoving": [
+        {
+          "id": "p62-EP-001-L-piston",
+          "type": "piston",
+          "mode": "bounce"
+        },
+        {
+          "id": "p62-EP-001-R-slider",
+          "type": "slider",
+          "mode": "fail"
+        }
+      ],
+      "degenerateTriangles": 0,
+      "solidTriangles": 148928,
+      "roadProbeCount": 7770,
+      "newStaticIntrusions": [],
+      "intrusionCount": 0,
+      "movingFixedOverlaps": [],
+      "movingFixedOverlapCount": 0,
+      "movingPeerOverlaps": [],
+      "movingPeerOverlapCount": 0,
+      "pass": true
+    },
+    {
+      "stage": "HG-001",
+      "parentSHA256": "423eaab0962d2e4537cf9ae9ca24ec4c9b387f446df6f1d1a9ac2a413519dac2",
+      "parentMatched": true,
+      "roadUnchanged": true,
+      "priorFixedUnchanged": true,
+      "priorMovingUnchanged": true,
+      "scenicSurfacesModified": [
+        {
+          "id": "HG-001-P56-L-MONUMENT",
+          "rideable": false,
+          "collidable": false
+        },
+        {
+          "id": "HG-001-P56-R-MONUMENT",
+          "rideable": false,
+          "collidable": false
+        }
+      ],
+      "surfaces": 32,
+      "fixtures": 151,
+      "moving": 6,
+      "newFixed": 22,
+      "newMoving": [
+        {
+          "id": "p62-HG-001-L-piston",
+          "type": "piston",
+          "mode": "push"
+        },
+        {
+          "id": "p62-HG-001-R-slider",
+          "type": "slider",
+          "mode": "fail"
+        }
+      ],
+      "degenerateTriangles": 0,
+      "solidTriangles": 134168,
+      "roadProbeCount": 8547,
+      "newStaticIntrusions": [],
+      "intrusionCount": 0,
+      "movingFixedOverlaps": [],
+      "movingFixedOverlapCount": 0,
+      "movingPeerOverlaps": [],
+      "movingPeerOverlapCount": 0,
+      "pass": true
+    },
+    {
+      "stage": "HS-001",
+      "parentSHA256": "e87aeead6b9f9816c5db7e8c7b39471f5ee955b16501bd3a3df2fd893bb85b12",
+      "parentMatched": true,
+      "roadUnchanged": true,
+      "priorFixedUnchanged": true,
+      "priorMovingUnchanged": true,
+      "scenicSurfacesModified": [
+        {
+          "id": "HS-001-P56-L-MONUMENT",
+          "rideable": false,
+          "collidable": false
+        },
+        {
+          "id": "HS-001-P56-R-MONUMENT",
+          "rideable": false,
+          "collidable": false
+        }
+      ],
+      "surfaces": 32,
+      "fixtures": 151,
+      "moving": 6,
+      "newFixed": 22,
+      "newMoving": [
+        {
+          "id": "p62-HS-001-L-rotator",
+          "type": "rotator",
+          "mode": "bounce"
+        },
+        {
+          "id": "p62-HS-001-R-piston",
+          "type": "piston",
+          "mode": "push"
+        }
+      ],
+      "degenerateTriangles": 0,
+      "solidTriangles": 156056,
+      "roadProbeCount": 7770,
+      "newStaticIntrusions": [],
+      "intrusionCount": 0,
+      "movingFixedOverlaps": [],
+      "movingFixedOverlapCount": 0,
+      "movingPeerOverlaps": [],
+      "movingPeerOverlapCount": 0,
+      "pass": true
+    },
+    {
+      "stage": "WV-001",
+      "parentSHA256": "33e4151d3dbe09ddad90de24464618923115974bbf0b23a7511f859bdad6951a",
+      "parentMatched": true,
+      "roadUnchanged": true,
+      "priorFixedUnchanged": true,
+      "priorMovingUnchanged": true,
+      "scenicSurfacesModified": [
+        {
+          "id": "WV-001-P56-L-MONUMENT",
+          "rideable": false,
+          "collidable": false
+        },
+        {
+          "id": "WV-001-P56-R-MONUMENT",
+          "rideable": false,
+          "collidable": false
+        }
+      ],
+      "surfaces": 32,
+      "fixtures": 152,
+      "moving": 6,
+      "newFixed": 22,
+      "newMoving": [
+        {
+          "id": "p62-WV-001-L-slider",
+          "type": "slider",
+          "mode": "fail"
+        },
+        {
+          "id": "p62-WV-001-R-rotator",
+          "type": "rotator",
+          "mode": "bounce"
+        }
+      ],
+      "degenerateTriangles": 0,
+      "solidTriangles": 158660,
+      "roadProbeCount": 10101,
+      "newStaticIntrusions": [],
+      "intrusionCount": 0,
+      "movingFixedOverlaps": [],
+      "movingFixedOverlapCount": 0,
+      "movingPeerOverlaps": [],
+      "movingPeerOverlapCount": 0,
+      "pass": true
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

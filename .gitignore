@@ -1,0 +1,12 @@
+node_modules/
+dist/
+dist-private/
+playwright-report/
+test-results/
+*.log
+.env
+.env.*
+!*.example
+.DS_Store
+private/generated/
+private/reports/P62_GENERATION.json

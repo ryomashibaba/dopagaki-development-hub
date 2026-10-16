@@ -1,0 +1,540 @@
+{
+  "scope": "P62 real B48 fixed-step native guided start -> chosen Y fork -> merge -> goal, no human play verification",
+  "total": 24,
+  "passed": 24,
+  "contactCases": 2,
+  "observedNaturalContacts": [
+    {
+      "stage": "EP-001",
+      "branch": "L",
+      "speed": 40,
+      "contact": {
+        "type": "moving-contact",
+        "id": "p60-EP-001-piston",
+        "mode": "bounce",
+        "t": 22.27169251189103,
+        "normal": [
+          -0.9063077870366499,
+          0,
+          0.42261826174069944
+        ],
+        "position": [
+          647.7371452210998,
+          128.25847689521188,
+          -11.342854217487123
+        ],
+        "deltaVelocity": [
+          -12.666564518529093,
+          0,
+          5.906516037504498
+        ]
+      },
+      "seconds": 40.542
+    },
+    {
+      "stage": "HG-001",
+      "branch": "R",
+      "speed": 40,
+      "contact": {
+        "type": "moving-contact",
+        "id": "p60-HG-001-piston",
+        "mode": "push",
+        "t": 35.676344906368534,
+        "normal": [
+          0.6812649971020557,
+          -0.04636241351372619,
+          -0.7305672661273005
+        ],
+        "position": [
+          267.72756299338937,
+          84.43147614661675,
+          -396.6467287665736
+        ],
+        "deltaVelocity": [
+          14.709344461104601,
+          -1.001021208079783,
+          -15.77384074506345
+        ]
+      },
+      "seconds": 50.283
+    }
+  ],
+  "cases": [
+    {
+      "stage": "EP-001",
+      "branch": "L",
+      "speed": 28,
+      "status": "finished",
+      "pass": true,
+      "seconds": 43.675,
+      "strategy": "early-right-avoidance",
+      "branchVisited": [
+        "ENTRY",
+        "L",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "EP-001_P62_L_START_28_evasion_trial.json",
+      "sha256": "3d991c60ea6edb995e4a47b1bb70681d4642231d6e78c6c73a254dae8e32486d",
+      "failure": null
+    },
+    {
+      "stage": "EP-001",
+      "branch": "L",
+      "speed": 40,
+      "status": "finished",
+      "pass": true,
+      "seconds": 40.542,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "L",
+        "MERGE"
+      ],
+      "movingContactEvents": [
+        {
+          "type": "moving-contact",
+          "id": "p60-EP-001-piston",
+          "mode": "bounce",
+          "t": 22.27169251189103,
+          "normal": [
+            -0.9063077870366499,
+            0,
+            0.42261826174069944
+          ],
+          "position": [
+            647.7371452210998,
+            128.25847689521188,
+            -11.342854217487123
+          ],
+          "deltaVelocity": [
+            -12.666564518529093,
+            0,
+            5.906516037504498
+          ]
+        }
+      ],
+      "trialFile": "EP-001_P62_L_START_40_center_trial.json",
+      "sha256": "68d0a842e6e471faf714c0d5b9d0d4eb7bb7f207fecdf1a2bb09189e2c9a0547",
+      "failure": null
+    },
+    {
+      "stage": "EP-001",
+      "branch": "L",
+      "speed": 52,
+      "status": "finished",
+      "pass": true,
+      "seconds": 37.7,
+      "strategy": "early-right-avoidance",
+      "branchVisited": [
+        "ENTRY",
+        "L",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "EP-001_P62_L_START_52_evasion_trial.json",
+      "sha256": "b7b86ede4c78e3094f73cf02950f462f5f64f51b79e2f516a2ef0c399307dd0a",
+      "failure": null
+    },
+    {
+      "stage": "EP-001",
+      "branch": "R",
+      "speed": 28,
+      "status": "finished",
+      "pass": true,
+      "seconds": 44.396,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "R",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "EP-001_P62_R_START_28_center_trial.json",
+      "sha256": "2cf97ee5ce6b56434260ec7c9e941e1f7594b0bab52bea7fc8fb5924e868a242",
+      "failure": null
+    },
+    {
+      "stage": "EP-001",
+      "branch": "R",
+      "speed": 40,
+      "status": "finished",
+      "pass": true,
+      "seconds": 41.208,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "R",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "EP-001_P62_R_START_40_center_trial.json",
+      "sha256": "0096dab8a4cd5f832e447052bcc7759130131cb651b35b62512c52eae573ae78",
+      "failure": null
+    },
+    {
+      "stage": "EP-001",
+      "branch": "R",
+      "speed": 52,
+      "status": "finished",
+      "pass": true,
+      "seconds": 38.346,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "R",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "EP-001_P62_R_START_52_center_trial.json",
+      "sha256": "1b60c07fa1ae59a5079db6c0800b7a0664ddc58eaf753e19170bdab13e74bc73",
+      "failure": null
+    },
+    {
+      "stage": "HS-001",
+      "branch": "L",
+      "speed": 28,
+      "status": "finished",
+      "pass": true,
+      "seconds": 48.488,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "L",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "HS-001_P62_L_START_28_center_trial.json",
+      "sha256": "f92213ef0c037360e9bad29e87c2b1911c9b8c9b93b78a4b011ee0540ab4d2fa",
+      "failure": null
+    },
+    {
+      "stage": "HS-001",
+      "branch": "L",
+      "speed": 40,
+      "status": "finished",
+      "pass": true,
+      "seconds": 44.825,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "L",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "HS-001_P62_L_START_40_center_trial.json",
+      "sha256": "bcc81ce37790e5250b9620a3729eb296e6a6d1a6ba4ccf1fb0c49da4d8422762",
+      "failure": null
+    },
+    {
+      "stage": "HS-001",
+      "branch": "L",
+      "speed": 52,
+      "status": "finished",
+      "pass": true,
+      "seconds": 41.496,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "L",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "HS-001_P62_L_START_52_center_trial.json",
+      "sha256": "2389be5e1925e18cfd0cdf3996989e35cacf0abc877bbcea85613fe0c96ca1a0",
+      "failure": null
+    },
+    {
+      "stage": "HS-001",
+      "branch": "R",
+      "speed": 28,
+      "status": "finished",
+      "pass": true,
+      "seconds": 49.033,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "R",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "HS-001_P62_R_START_28_center_trial.json",
+      "sha256": "aa546e4496c5e7db18c8cb93688fed074ca7477d9f0a71812770dc6e34ec8fba",
+      "failure": null
+    },
+    {
+      "stage": "HS-001",
+      "branch": "R",
+      "speed": 40,
+      "status": "finished",
+      "pass": true,
+      "seconds": 45.313,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "R",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "HS-001_P62_R_START_40_center_trial.json",
+      "sha256": "42b580273fdc8f882f655685fa207e6cb67b02521902e41cca7577982c0a1558",
+      "failure": null
+    },
+    {
+      "stage": "HS-001",
+      "branch": "R",
+      "speed": 52,
+      "status": "finished",
+      "pass": true,
+      "seconds": 41.925,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "R",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "HS-001_P62_R_START_52_center_trial.json",
+      "sha256": "7cbd8816737e42d19284b05e2ed93260a9583087dfdba29cac88c5708a4875b9",
+      "failure": null
+    },
+    {
+      "stage": "WV-001",
+      "branch": "L",
+      "speed": 28,
+      "status": "finished",
+      "pass": true,
+      "seconds": 60.163,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "L",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "WV-001_P62_L_START_28_center_trial.json",
+      "sha256": "29d780df98166eaf6e33eafbaec57a0cfeb39c35e47e122410f13c5378798d4a",
+      "failure": null
+    },
+    {
+      "stage": "WV-001",
+      "branch": "L",
+      "speed": 40,
+      "status": "finished",
+      "pass": true,
+      "seconds": 55.746,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "L",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "WV-001_P62_L_START_40_center_trial.json",
+      "sha256": "592acc02cb986e4aa42b2fc9860c6dc47ddf6a07d894d274ca02566dcba6ac14",
+      "failure": null
+    },
+    {
+      "stage": "WV-001",
+      "branch": "L",
+      "speed": 52,
+      "status": "finished",
+      "pass": true,
+      "seconds": 51.863,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "L",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "WV-001_P62_L_START_52_center_trial.json",
+      "sha256": "78a2be1eea6355207882de1a5d3f04c8b418f24557cd8ba0ef3ae6d9f38a6b52",
+      "failure": null
+    },
+    {
+      "stage": "WV-001",
+      "branch": "R",
+      "speed": 28,
+      "status": "finished",
+      "pass": true,
+      "seconds": 59.963,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "R",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "WV-001_P62_R_START_28_center_trial.json",
+      "sha256": "610dc4762e62fe886d9962f63f74e383c024ce9cb049ce17d93e8fb08a2f8d24",
+      "failure": null
+    },
+    {
+      "stage": "WV-001",
+      "branch": "R",
+      "speed": 40,
+      "status": "finished",
+      "pass": true,
+      "seconds": 55.55,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "R",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "WV-001_P62_R_START_40_center_trial.json",
+      "sha256": "e0be08547907e1beefc6e3fe7a1c447612bd3196bed748103dd6d7067985d356",
+      "failure": null
+    },
+    {
+      "stage": "WV-001",
+      "branch": "R",
+      "speed": 52,
+      "status": "finished",
+      "pass": true,
+      "seconds": 51.654,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "R",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "WV-001_P62_R_START_52_center_trial.json",
+      "sha256": "dfd694edce52a42e81e7cfbd8f75c05291bbad7c372fa954ed464699960f16ca",
+      "failure": null
+    },
+    {
+      "stage": "HG-001",
+      "branch": "L",
+      "speed": 28,
+      "status": "finished",
+      "pass": true,
+      "seconds": 54.496,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "L",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "HG-001_P62_L_START_28_center_trial.json",
+      "sha256": "b202178809b74e07abd39aafc83fe735dbc25fdd387c71ddd226b0e25c359735",
+      "failure": null
+    },
+    {
+      "stage": "HG-001",
+      "branch": "L",
+      "speed": 40,
+      "status": "finished",
+      "pass": true,
+      "seconds": 50.25,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "L",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "HG-001_P62_L_START_40_center_trial.json",
+      "sha256": "f8944b4afc53d51b121b135f9bb08f88709dd093c291e8ee99bdc028073b16fa",
+      "failure": null
+    },
+    {
+      "stage": "HG-001",
+      "branch": "L",
+      "speed": 52,
+      "status": "finished",
+      "pass": true,
+      "seconds": 46.454,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "L",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "HG-001_P62_L_START_52_center_trial.json",
+      "sha256": "1c567d79ee0fb5d8d125f9feeb350695d2a24afafbce6d8b64fce9d247ee7103",
+      "failure": null
+    },
+    {
+      "stage": "HG-001",
+      "branch": "R",
+      "speed": 28,
+      "status": "finished",
+      "pass": true,
+      "seconds": 54.175,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "R",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "HG-001_P62_R_START_28_center_trial.json",
+      "sha256": "286eccfebf00e54cf17d642007930a11d9536c6cf1be7b11b7fe8236f1e16f7c",
+      "failure": null
+    },
+    {
+      "stage": "HG-001",
+      "branch": "R",
+      "speed": 40,
+      "status": "finished",
+      "pass": true,
+      "seconds": 50.283,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "R",
+        "MERGE"
+      ],
+      "movingContactEvents": [
+        {
+          "type": "moving-contact",
+          "id": "p60-HG-001-piston",
+          "mode": "push",
+          "t": 35.676344906368534,
+          "normal": [
+            0.6812649971020557,
+            -0.04636241351372619,
+            -0.7305672661273005
+          ],
+          "position": [
+            267.72756299338937,
+            84.43147614661675,
+            -396.6467287665736
+          ],
+          "deltaVelocity": [
+            14.709344461104601,
+            -1.001021208079783,
+            -15.77384074506345
+          ]
+        }
+      ],
+      "trialFile": "HG-001_P62_R_START_40_center_trial.json",
+      "sha256": "d20e0507df4bf3dd4e134acc083e3b33db6163f416eade4693fc01bfaebad055",
+      "failure": null
+    },
+    {
+      "stage": "HG-001",
+      "branch": "R",
+      "speed": 52,
+      "status": "finished",
+      "pass": true,
+      "seconds": 46.175,
+      "strategy": "center-target",
+      "branchVisited": [
+        "ENTRY",
+        "R",
+        "MERGE"
+      ],
+      "movingContactEvents": [],
+      "trialFile": "HG-001_P62_R_START_52_center_trial.json",
+      "sha256": "f79a007e82d3198168a7ae9581883a9528713de244ce990cd99e46f69315a09c",
+      "failure": null
+    }
+  ]
+}
