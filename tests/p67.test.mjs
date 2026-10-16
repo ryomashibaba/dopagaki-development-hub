@@ -38,18 +38,18 @@ test('P67 all physical chapter joins at exact XYZ, excluding deliberate jump voi
 });
 function run(spawn,speed,steer=0,seconds=7.5){
  const runner=new Runner(course,world,spawn,speed);
- let groundedAtLanding=false,landed=false,air=false,airFrames=0,airFramesAfterLip=0,maxX=runner.p[0],lastSurface=runner.surface;
+ let groundedAtLanding=false,landed=false,air=false,airFrames=0,airFramesAfterLip=0,maxX=runner.p[0],lastSurface=runner.surface,firstAir=null,lastGround=null;
  const landedSurfaces=new Set();
  for(let i=0;i<Math.round(seconds/DT)&&runner.status!=='failed'&&runner.status!=='finished';i++){
   runner.step(steer);
   maxX=Math.max(maxX,runner.p[0]);
-  if(!runner.grounded){air=true;airFrames++;if(runner.p[0]>=p('GAP_TAKEOFF-01',1)[0])airFramesAfterLip++;}
+  if(!runner.grounded){if(!firstAir)firstAir={t:+runner.time.toFixed(2),p:runner.p.map(x=>+x.toFixed(1)),speed:+Math.hypot(...runner.v).toFixed(1),lastGround};air=true;airFrames++;if(runner.p[0]>=p('GAP_TAKEOFF-01',1)[0])airFramesAfterLip++;}else{lastGround={t:+runner.time.toFixed(2),p:runner.p.map(x=>+x.toFixed(1)),speed:+Math.hypot(...runner.v).toFixed(1),surface:runner.surface};}
   if(runner.grounded&&runner.surface?.includes('GAP_LANDING')){landed=true;groundedAtLanding=true;landedSurfaces.add(runner.surface);}
   lastSurface=runner.surface;
  }
  return {spawn,speed,steer,time:+runner.time.toFixed(2),status:runner.status,fail:runner.failure?.reason??null,
  x:+runner.p[0].toFixed(1),y:+runner.p[1].toFixed(1),z:+runner.p[2].toFixed(1),
- maxX:+maxX.toFixed(1),surface:lastSurface,airFrames,airFramesAfterLip,landed,branchSurfaces:[...new Set(runner.events.filter(e=>e.type==='contact'&&/FORK_[LR]/.test(e.surface)).map(e=>e.surface))],events:runner.events.filter(e=>['contact','air','moving-contact','failure','finish'].includes(e.type)).slice(-6).map(e=>e.type+':'+(e.surface||e.mode||e.reason||''))};
+ maxX:+maxX.toFixed(1),surface:lastSurface,firstAir,airFrames,airFramesAfterLip,landed,branchSurfaces:[...new Set(runner.events.filter(e=>e.type==='contact'&&/FORK_[LR]/.test(e.surface)).map(e=>e.surface))],events:runner.events.filter(e=>['contact','air','moving-contact','failure','finish'].includes(e.type)).slice(-6).map(e=>e.type+':'+(e.surface||e.mode||e.reason||''))};
 }
 test('P67 diagnostics: physical jump must be measured for different launch speeds',()=>{
  const results=[38,44,52,60].map(speed=>run(5,speed,0,6.0));
