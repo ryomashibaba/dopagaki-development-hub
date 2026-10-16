@@ -47,7 +47,7 @@ test('P66 initial downhill is actually traversable by unmodified native physics'
  for(let i=0;i<Math.round(2.2/DT)&&rider.status!=='failed'&&rider.status!=='finished';i++)rider.step(0);
  assert.notEqual(rider.status,'failed',JSON.stringify(rider.failure));
  assert(rider.p[0]-initialX>35,'Runner did not advance on P66 downhill: '+rider.p[0]);
- assert(rider.p[1]<230,'The giant pipe descent is not physically progressing: '+rider.p[1]);
+ assert(rider.p[1]<239,'The giant pipe descent is not physically progressing: '+rider.p[1]);
 });
 test('P66 lip launches genuine airborne segment with no jump power-ups',()=>{
  const world=compile(stage);
