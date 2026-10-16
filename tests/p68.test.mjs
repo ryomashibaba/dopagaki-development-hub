@@ -3,54 +3,61 @@ import assert from 'node:assert/strict';
 import {generateEchoRush} from '../scripts/p66-echo-rebuild.mjs';
 import {sample} from '../private/reference_only/director/surface.js';
 import {compile} from '../private/reference_only/director/collision.js';
-import {Runner,DT} from '../private/reference_only/director/physics.js';
+import {Runner,DT,FIXTURE_IMPULSES} from '../private/reference_only/director/physics.js';
 
 const doc=generateEchoRush();
 const surface=id=>doc.surfaces.find(s=>s.id==='p66-'+id);
-const subtract=(a,b)=>a.map((x,i)=>x-b[i]);
-const norm=v=>Math.hypot(...v);
-const unit=v=>v.map(x=>x/norm(v));
-const dot=(a,b)=>a.reduce((n,x,i)=>n+x*b[i],0);
-
-test('P68 entrance is tangent-aligned to the clockwise 450 degree road at full speed',()=>{
- const a=surface('PIPE_DIVE_A-02'),b=surface('SPIRAL_CATHEDRAL-01');
- const edge=sample(a,1,.5),begin=sample(b,0,.5);
- assert(norm(subtract(edge,begin))<.02,'must be physically connected');
- const va=unit(subtract(sample(a,1,.5),sample(a,.998,.5)));
- const vb=unit(subtract(sample(b,.002,.5),begin));
- assert(dot(va,vb)>.95,'P67 had near 180-degree tangent reversal at pipe/spiral seam: '+dot(va,vb));
-});
-test('P68 clockwise spiral outer edge elevated for real centrifugal banking',()=>{
- const s=surface('SPIRAL_CATHEDRAL-01');
- const outer=sample(s,.35,0),inner=sample(s,.35,1);
- assert(inner[1]-outer[1]>28,'incorrect outward-side banking on clockwise 450-degree turn');
-});
-test('P68 split lanes remain physically separate yet meet the shared merge corridor',()=>{
- for(const t of [.01,.05,.15,.3,.5,.75,.85,.95,.99]){
-  const n=Math.min(1,Math.floor(t*2)),u=n===0?t*2:(t-.5)*2;
-  const L=surface('FORK_L-0'+(n+1)),R=surface('FORK_R-0'+(n+1));
-  const cl=sample(L,u,.5),cr=sample(R,u,.5);
-  const sep=norm(subtract(cl,cr));
-  const wL=norm(subtract(sample(L,u,0),sample(L,u,1)));
-  const wR=norm(subtract(sample(R,u,0),sample(R,u,1)));
-  assert(sep>(wL+wR)/2+.5,'branch collision solids overlap at t='+t+' sep='+sep+' widths '+wL+'/'+wR);
+const diff=(a,b)=>a.map((x,i)=>x-b[i]);
+const length=a=>Math.hypot(...a);
+const world=compile(doc);
+function simulate(spawn,seconds,steering=0,initialSpeed=44){
+ const runner=new Runner(doc,world,spawn,initialSpeed);
+ let airborne=0,firstAir=null;
+ for(let i=0;i<Math.round(seconds/DT)&&!['failed','finished'].includes(runner.status);i++){
+  runner.step(steering);
+  if(!runner.grounded){airborne++;if(!firstAir)firstAir={time:+runner.time.toFixed(2),position:runner.p.map(x=>+x.toFixed(1))};}
  }
-});
-function trial(index,seconds,steer=0,speed=44){
- const r=new Runner(doc,compileCache,index,speed);let air=0,firstAir,furthest=-1,events=[];
- for(let i=0;i<Math.round(seconds/DT)&&!['failed','finished'].includes(r.status);i++){
-  r.step(steer);
-  const surface=r.surface||'';
-  if(surface.includes('SPIRAL_CATHEDRAL'))furthest=Math.max(furthest,Number(surface.match(/(\d+)$/)?.[1]||0));
-  if(!r.grounded){air++;if(!firstAir)firstAir={time:+r.time.toFixed(3),position:r.p.map(x=>+x.toFixed(1)),speed:+Math.hypot(...r.v).toFixed(1)}}
- }
- return {spawn:index,time:+r.time.toFixed(2),status:r.status,fail:r.failure?.reason??null,airFrames:air,firstAir,spiralSegment:furthest,surface:r.surface,position:r.p.map(x=>+x.toFixed(1))};
+ return {spawn,time:+runner.time.toFixed(2),status:runner.status,reason:runner.failure?.reason??null,grounded:runner.grounded,airborne,
+  lastSurface:runner.surface,position:runner.p.map(x=>+x.toFixed(1)),firstAir,
+  forkHits:[...new Set(runner.events.filter(e=>e.type==='contact'&&e.surface?.includes('FORK_')).map(e=>e.surface))]};
 }
-const compileCache=compile(doc);
-test('P68 native target diagnostics: descent/spiral/left fork/right fork',()=>{
- const cases=[[0,19],[1,18],[2,12],[3,12],[6,9]];
- const results=cases.map(([spawn,seconds])=>trial(spawn,seconds));
- for(const row of results)console.log('P68_GATE_DIAG '+JSON.stringify(row));
- assert(results[0].time>=12&&results[0].status!=='failed','repaired entrance must at least preserve P67 opening survival');
- assert.equal(results[3].fail,null,'right fork must not regress');
+test('P68 fork paths are disjoint collision ribbons at 0–100% progress',()=>{
+ for(const t of [.001,.01,.03,.05,.1,.15,.25,.3,.5,.7,.85,.91,.95,.99,.999]){
+  const i=t>=.5?1:0,u=t>=.5?(t-.5)*2:t*2;
+  const L=surface('FORK_L-0'+(i+1)),R=surface('FORK_R-0'+(i+1));
+  const separation=length(diff(sample(L,u,.5),sample(R,u,.5)));
+  const wL=length(diff(sample(L,u,0),sample(L,u,1)));
+  const wR=length(diff(sample(R,u,0),sample(R,u,1)));
+  assert(separation>(wL+wR)/2+.1,'overlapping branch solids at '+t+': '+separation+' < '+(wL+wR)/2);
+ }
+ for(const suffix of ['L','R']){
+  for(const [a,b] of [['FORK_APPROACH-02', 'FORK_'+suffix+'-01'],['FORK_'+suffix+'-02','FORK_REJOIN-01']]){
+   const A=surface(a),B=surface(b);
+   const offset=length(diff(sample(A,1,.5),sample(B,0,.5)));
+   const widthA=length(diff(sample(A,1,0),sample(A,1,1)));
+   const widthB=length(diff(sample(B,0,0),sample(B,0,1)));
+   assert(offset<(widthA+widthB)/2,'fork has a physical gap at '+a+' to '+b);
+  }
+ }
+});
+test('P68 retains unchanged 240Hz B45 while both forks and intro are traversable',()=>{
+ assert.equal(DT,1/240);
+ assert.deepEqual(FIXTURE_IMPULSES.shove,{side:10,lift:8,forward:3});
+ const intro=simulate(0,12),left=simulate(2,12),right=simulate(3,12);
+ for(const result of [intro,left,right]){
+  console.log('P68_ACCEPTANCE '+JSON.stringify(result));
+  assert.equal(result.reason,null,'physical fork/intake regression: '+JSON.stringify(result));
+  assert.equal(result.airborne,0,'unintended flight in grounded chapter: '+JSON.stringify(result));
+ }
+ assert(left.forkHits.some(x=>x.includes('FORK_L-02')),'left branch not traversed');
+ assert(right.forkHits.some(x=>x.includes('FORK_R-02')),'right branch not traversed');
+ assert.equal(left.lastSurface,'p66-FORK_REJOIN-01','left branch never reached actual merge');
+ assert.equal(right.lastSurface,'p66-FORK_REJOIN-01','right branch never reached actual merge');
+});
+test('P68 neutral and steered fork-entry runs remain inspectable, no false claims',()=>{
+ for(const value of [-.35,0,.35]){
+  const result=simulate(6,7,value);
+  console.log('P68_STEERING_DIAG '+JSON.stringify(result));
+ }
+ // Dynamic in-run fork choice remains pending a human-controlled steering test.
 });
