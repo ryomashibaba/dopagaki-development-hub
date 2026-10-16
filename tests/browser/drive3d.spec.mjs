@@ -37,6 +37,12 @@ test('P73 cathedral: actual 3D moving machinery and hazard cue',async({page})=>{
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');
  await expect(page.locator('#appStatus')).toContainText('P73 EXPERIMENTAL');
+ // The real P69 machine chamber includes three physical movement mechanisms.
+ // Heads-up cues are derived from sampled B51 motion, not a fake preset label.
+ await page.locator('#spawn').selectOption('4');
+ await expect(page.locator('#machineCue')).toBeVisible({timeout:10000});
+ await expect(page.locator('#machineCue')).toContainText(/SLIDER|ROTATOR|PISTON/);
+ await expect(page.locator('#machineCue')).toHaveAttribute('data-mode',/fail|bounce|push/);
  // Compare raw and filtered heading without restarting or touching B48 Runner.
  await expect(page.locator('#cameraCompare')).toHaveAttribute('aria-pressed','false');
  await page.locator('#cameraCompare').click();
