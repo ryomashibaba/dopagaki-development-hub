@@ -35,10 +35,23 @@ export function interpolatePose(previous,current,alpha){
   time:mix(previous.time,current.time,t)
  };
 }
+/**
+ * P71 — avoid interpolation into the past while simulation is paused/finished.
+ * A paused or failed run displays the last committed ball pose exactly.
+ */
+export function resolveDisplayPose(previous,current,remainder,step,simActive){
+ if(!current)throw Error('No committed physics pose');
+ if(!simActive||!previous)return interpolatePose(current,current,1);
+ const alpha=step>0?clamp(remainder/step,0,1):1;
+ return interpolatePose(previous,current,alpha);
+}
+export function cameraYawErrorRadians(state,forward){
+ return Math.abs(shortest(state.yaw,yawOf(forward,state.yaw)));
+}
 export function createCameraState(forward){return {yaw:yawOf(forward)};}
 export function advanceCamera(state,forward,elapsed,tau=cameraTuning.headingResponseSeconds){
  const target=yawOf(forward,state.yaw);
- const dt=clamp(elapsed,0,.05),a=tau>0?1-Math.exp(-dt/tau):1;
+ const dt=clamp(elapsed,0,.1),a=tau>0?1-Math.exp(-dt/tau):1;
  return {yaw:state.yaw+shortest(state.yaw,target)*a};
 }
 export function viewForPose(pose,state){

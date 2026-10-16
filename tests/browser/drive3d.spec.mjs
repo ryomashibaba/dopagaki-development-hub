@@ -22,20 +22,37 @@ test('P65 WebGL2 drives frozen P62 with actual B48 Runner on two stages',async({
 });
 
 
-test('P70 experimental cathedral: stable camera and real WebGL2',async({page})=>{
+test('P71 experimental cathedral: live stable/raw camera and freeze pause',async({page})=>{
  test.setTimeout(120000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  page.on('response',response=>{if(response.url().includes('P66_ECHO_RUSH')&&!response.ok())errors.push('P66 JSON HTTP '+response.status())});
  await page.goto('/drive3d/');
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
- await expect(page.locator('#stage option:checked')).toContainText('P70 ECHO PIPE');
+ await expect(page.locator('#stage option:checked')).toContainText('P71 ECHO PIPE');
  await expect(page.locator('#spawn option')).toHaveCount(7);
  await expect(page.locator('#view')).toBeVisible();
  await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');
- await expect(page.locator('#appStatus')).toContainText('P69 EXPERIMENTAL');
+ await expect(page.locator('#appStatus')).toContainText('P71 CAMERA EXPERIMENTAL');
+ // Compare raw and filtered heading without restarting or touching B48 Runner.
+ await expect(page.locator('#cameraCompare')).toHaveAttribute('aria-pressed','false');
+ await page.locator('#cameraCompare').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-unfiltered-heading');
+ await expect(page.locator('#cameraCompare')).toHaveAttribute('aria-pressed','true');
+ await page.locator('#cameraCompare').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
+ await expect(page.locator('#cameraCompare')).toHaveAttribute('aria-pressed','false');
+ await page.locator('#pause').click();
+ await expect(page.locator('#pause')).toContainText('再開');
+ await page.waitForTimeout(650);
+ const stopped=await page.locator('#simTime').textContent();
+ await page.waitForTimeout(650);
+ expect(await page.locator('#simTime').textContent()).toBe(stopped);
+ await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
+ await page.locator('#pause').click();
+ await expect(page.locator('#pause')).toContainText('一時停止');
  await page.locator('#spawn').selectOption('5');
  await page.keyboard.down('KeyA');await page.waitForTimeout(500);await page.keyboard.up('KeyA');
  await expect(page.locator('#simTime')).not.toHaveText('0.00 s');

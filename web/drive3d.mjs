@@ -4,14 +4,14 @@ import {Runner,DT} from '../reference_only/director/physics.js';
 import {movingObstaclePose} from '../reference_only/director/moving/moving-obstacles.mjs';
 import {fixtureTriangles} from '../reference_only/director/game-fixtures.js';
 import {epicGeometry} from './p66-visual.mjs';
-import {capturePose,interpolatePose,createCameraState,advanceCamera,viewForPose} from './drive3d-camera.mjs';
+import {capturePose,resolveDisplayPose,createCameraState,advanceCamera,viewForPose,cameraYawErrorRadians} from './drive3d-camera.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,ball,scenery,obstacles={};
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
-let previousPose=null,currentPose=null,cameraState=null;
+let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -93,11 +93,16 @@ function render(frameSeconds){
  gl.viewport(0,0,w,h);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
  if(!runner)return;
  // Render-time interpolation leaves native B48 physics untouched.
- const pose=interpolatePose(previousPose,currentPose,accum/DT);
- cameraState=advanceCamera(cameraState,pose.forward,frameSeconds);
+ const active=!paused&&runner.status==='running';
+ const pose=resolveDisplayPose(previousPose,currentPose,accum,DT,active);
+ cameraState=comparisonMode==='stable'
+  ?advanceCamera(cameraState,pose.forward,active?frameSeconds:0)
+  :createCameraState(pose.forward);
+ headingError=cameraYawErrorRadians(cameraState,pose.forward);
  const view=viewForPose(pose,cameraState);
  gl.uniform3fv(locations.eye,view.eye);gl.uniform3fv(locations.camFront,view.front);gl.uniform3fv(locations.camRight,view.right);gl.uniform3fv(locations.camUp,view.up);
- canvas.dataset.cameraMode='ball-lock-interpolated';
+ canvas.dataset.cameraMode=comparisonMode==='stable'?'ball-lock-interpolated':'ball-lock-unfiltered-heading';
+ canvas.dataset.cameraHeadingLagDegrees=(headingError*180/Math.PI).toFixed(2);
  gl.uniform1f(locations.aspect,w/h);
  draw(scenery);draw(roads);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  for(const o of doc.movingObstacles){
@@ -111,10 +116,10 @@ function restart(){
  if(!doc||!world)return;
  const spawn=Math.min(doc.spawns.length-1,Math.max(0,Number($('spawn').value)||0));
  runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
- previousPose=currentPose=capturePose(runner);cameraState=createCameraState(currentPose.forward);
+ previousPose=currentPose=capturePose(runner);cameraState=createCameraState(currentPose.forward);frameSkips=0;headingError=0;
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P69 EXPERIMENTAL — 450° six-segment spiral to natural takeoff: native scripted LEFT steering PASS from spiral spawn; exit requires active steering. Full run from very first spawn and human playfeel are NOT approved.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P71 CAMERA EXPERIMENTAL — camera A/B and low-FPS telemetry enabled; course/physics are P69, native physical improvements await separate physics review.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
@@ -178,10 +183,14 @@ function tick(now){
    runner.step(steer);currentPose=capturePose(runner);
    accum-=DT;n++;if(runner.status==='failed'||runner.status==='finished')break;
   }
-  if(n===12)accum=Math.min(Math.max(0,accum),DT);
+  if(n===12&&accum>=DT){frameSkips++;accum=Math.min(Math.max(0,accum),DT);}
  }
  frames++;
- if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();}
+ if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
+  const lag=$('cameraInfo');if(lag)lag.textContent=comparisonMode==='stable'
+   ?'方向補間：有効 / 角度差 '+(headingError*180/Math.PI).toFixed(1)+'°'+(frameSkips?' / 低FPS警告 '+frameSkips+'回':'')
+   :'方向補間：OFF（比較用） / 物理は変更なし';
+ }
  render(elapsed);
 }
 function bindHold(id,set){
@@ -189,6 +198,13 @@ function bindHold(id,set){
  for(const name of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(name,()=>set(false));
 }
 bindHold('left',v=>left=v);bindHold('right',v=>right=v);
+$('cameraCompare').addEventListener('click',()=>{
+ comparisonMode=comparisonMode==='stable'?'raw':'stable';
+ $('cameraCompare').textContent=comparisonMode==='stable'?'カメラ比較：安定':'カメラ比較：生の方向';
+ $('cameraCompare').setAttribute('aria-pressed',String(comparisonMode==='raw'));
+ // Switching between visualizations is deliberately instantaneous and does not modify Runner.
+ if(currentPose)cameraState=createCameraState(currentPose.forward);
+});
 function toggle(){paused=!paused;$('pause').textContent=paused?'再開 (Space)':'一時停止 (Space)';}
 window.addEventListener('keydown',e=>{
  if(['KeyA','KeyD','ArrowLeft','ArrowRight','KeyR','Space'].includes(e.code)&&!['SELECT','INPUT'].includes(document.activeElement?.tagName)){
