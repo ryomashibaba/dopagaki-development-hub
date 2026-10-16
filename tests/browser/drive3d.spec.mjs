@@ -75,3 +75,32 @@ test('P75: survival scoring and per-spawn best coexist with real 3D machinery',a
  await expect(page.locator('#simTime')).not.toHaveText('0.00 s');
  expect(errors).toEqual([]);
 });
+
+test('P75 actual 240Hz machine failure settles score, saves local best and retries',async({page})=>{
+ test.setTimeout(120000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await page.locator('#spawn').selectOption('4');
+ await expect(page.locator('#runResult')).toBeVisible({timeout:30000});
+ await expect(page.locator('#resultTitle')).toContainText('RUN ENDED');
+ await expect(page.locator('#resultScore')).toContainText('PTS');
+ const record=await page.evaluate(()=>JSON.parse(localStorage.getItem('dopagaki:survival:1:EP-P66:4')));
+ expect(record).not.toBeNull();
+ expect(record.schema).toBe('dopagaki.survival-record/1');
+ expect(record.outcome).toBe('failed');
+ expect(record.seconds).toBeGreaterThan(0);
+ expect(record.bonus/(record.total||1)).toBeLessThanOrEqual(.05);
+ const best=record.seconds.toFixed(2)+' s';
+ await page.locator('#retryRun').click();
+ await expect(page.locator('#runResult')).toBeHidden();
+ await expect(page.locator('#runScore')).toHaveText('0');
+ await expect(page.locator('#bestSurvival')).toHaveText(best);
+ await page.reload();
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await page.locator('#spawn').selectOption('4');
+ await expect(page.locator('#bestSurvival')).toHaveText(best);
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#bestSurvival')).toHaveText('—');
+ expect(errors).toEqual([]);
+});
