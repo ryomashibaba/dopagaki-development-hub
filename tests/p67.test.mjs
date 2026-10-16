@@ -28,10 +28,15 @@ const transitions=[
  ['MACHINE_CHAMBER-03','GAP_TAKEOFF-01'],
  ['GAP_LANDING-01','GAP_LANDING-02']
 ];
-test('P67 all physical chapter joins at exact XYZ, excluding deliberate jump void',()=>{
+test('P68 connected road coverage and safe staggered forks excluding deliberate jump void',()=>{
  for(const [a,b] of transitions){
   const d=gap(p(a,1),p(b,0));
-  assert(d<.02,a+' to '+b+' had '+d.toFixed(3)+'m unplanned missing road');
+  const atSplit=(a==='FORK_APPROACH-02'&&/FORK_[LR]-01/.test(b));
+  const atMerge=(b==='FORK_REJOIN-01'&&/FORK_[LR]-02/.test(a));
+  // Deliberate staggered lane joins: physical cross-sections overlap without
+  // placing two solid ribbons on top of each other (the old left merge deadlock).
+  if(atSplit||atMerge)assert(d>=8&&d<=12,a+' -> '+b+' lateral overlap not safe: '+d);
+  else assert(d<.02,a+' to '+b+' had '+d.toFixed(3)+'m unplanned missing road');
  }
  const realGap=gap(p('GAP_TAKEOFF-01',1),p('GAP_LANDING-01',0));
  assert(realGap>=25,'jump must remain an actual physical gap, found '+realGap);
