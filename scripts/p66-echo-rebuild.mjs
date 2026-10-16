@@ -11,11 +11,11 @@ const ease=t=>t*t*(3-2*t);
 const vec=(x,y,z)=>[x,y,z];
 const normalized=a=>{const n=Math.hypot(...a)||1;return a.map(x=>x/n);};
 const portions=[
-  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const q=clamp((t-.60)/.40);return t<=.60?vec(-1080+550*t,245-95*ease(t),-160):vec(-750+150*Math.sin(PI*q/2),245-95*ease(t),-10-150*Math.cos(PI*q/2));},pieces:2,width:48,bank:t=>-.48*ease(clamp((t-.55)/.45))},
+  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const q=clamp((t-.10)/.90);return t<=.10?vec(-1105+750*t,245-95*ease(t),-440):vec(-1030+430*Math.sin(PI*q/2),245-95*ease(t),-10-430*Math.cos(PI*q/2));},pieces:2,width:92,bank:t=>-.78*ease(clamp((t-.04)/.31))},
   {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-170+430*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+430*Math.sin(PI+2.5*PI*t)),pieces:6,width:96,bank:t=>.79},
   {id:'FORK_APPROACH',name:'03 / GIANT BELLS — fork entry',fn:t=>vec(-450+320*t,92-8*ease(t),-160+30*Math.sin(PI*t)**2),pieces:2,width:40,bank:t=>.04*Math.sin(TAU*t)},
-  {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-160+105*Math.sin(PI*t)**2),pieces:2,width:25,bank:t=>.12*Math.sin(PI*t)},
-  {id:'FORK_R',name:'04 R / ORGAN SKYBRIDGE — upper fork',fn:t=>vec(-130+430*t,84-4*ease(t)+19*Math.sin(PI*t)**2,-160-112*Math.sin(PI*t)**2),pieces:2,width:25,bank:t=>-.14*Math.sin(PI*t)},
+  {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-160+105*Math.sin(PI*t)**2),pieces:2,width:45,bank:t=>-.46*Math.sin(PI*t)*Math.cos(TAU*t)},
+  {id:'FORK_R',name:'04 R / ORGAN SKYBRIDGE — upper fork',fn:t=>vec(-130+430*t,84-4*ease(t)+19*Math.sin(PI*t)**2,-160-112*Math.sin(PI*t)**2),pieces:2,width:45,bank:t=>.46*Math.sin(PI*t)*Math.cos(TAU*t)},
   {id:'FORK_REJOIN',name:'05 / TWO-LAYER REJOIN',fn:t=>vec(300+260*t,80-7*ease(t),-160+28*Math.sin(PI*t)**2),pieces:1,width:36,bank:t=>.07*Math.sin(PI*t)},
   {id:'MACHINE_CHAMBER',name:'06 / MACHINE GAUNTLET — rotating masses',fn:t=>vec(560+460*t,73-3*ease(t),-160-62*Math.sin(.5*PI*t)**2),pieces:3,width:36,bank:t=>-.1*Math.sin(PI*t)},
   {id:'GAP_TAKEOFF',name:'07 / SKY CRACK — unassisted ramp',fn:t=>vec(1020+180*t,70+18*t*t,-222-17*Math.sin(PI*t)**2),pieces:1,width:30,bank:t=>.04*Math.sin(PI*t)},
@@ -38,7 +38,7 @@ const roadSurface=(id,title,fn,a,b,width,bank)=>{
    points.push(vec(p[0]+right[0]*side*Math.cos(theta),p[1]+side*Math.sin(theta),p[2]+right[2]*side*Math.cos(theta)));
   }
  }
- return {id,name:title,rows,cols,points,resolution:2,rideable:true,collidable:true,material:'road',thickness:1.3};
+ return {id,name:title,rows,cols,points,resolution:id.includes('SPIRAL_CATHEDRAL')||id.includes('PIPE_DIVE')?4:2,rideable:true,collidable:true,material:'road',thickness:1.3};
 };
 const roads=[],chunks={};
 for(const part of portions){
@@ -57,8 +57,8 @@ const spawnAt=(name,k,piece,u=.06)=>({name,surface:chunks[k][piece].id,u,v:.5});
 const spawns=[
  spawnAt('00 / 全編・巨大管へ突入','PIPE_DIVE_A',0),
  spawnAt('01 / 大空洞450°急旋回','SPIRAL_CATHEDRAL',0,.2),
- spawnAt('02 / 立体分岐（左・大聖堂）','FORK_L',0),
- spawnAt('03 / 立体分岐（右・空中橋）','FORK_R',0),
+ spawnAt('02 / 立体分岐（左・大聖堂）','FORK_L',0,.28),
+ spawnAt('03 / 立体分岐（右・空中橋）','FORK_R',0,.28),
  spawnAt('04 / 巨大機械回避','MACHINE_CHAMBER',0),
  spawnAt('05 / 自然ジャンプへ接近','GAP_TAKEOFF',0,.74),
  spawnAt('06 / Y字分岐を走行中に選択','FORK_APPROACH',1,.40)
