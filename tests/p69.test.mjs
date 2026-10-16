@@ -6,7 +6,7 @@ import {Runner,DT,FIXTURE_IMPULSES} from '../private/reference_only/director/phy
 
 test('P69 native 450-degree spiral traverses six segments and reaches natural jump runway with actual steering',()=>{
  const course=generateEchoRush();
- assert.equal(course.surfaces.length,21);
+ assert.equal(course.surfaces.length,23);
  assert.equal(course.stageForge.spiralExit,'NATIVE_SCRIPTED_FROM_SPIRAL_SPAWN_PASS');
  assert.equal(DT,1/240);
  assert.deepEqual(FIXTURE_IMPULSES.shove,{side:10,lift:8,forward:3});

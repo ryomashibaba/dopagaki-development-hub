@@ -12,7 +12,9 @@ const norm=a=>Math.hypot(...a);
 const gap=(a,b)=>norm(a.map((x,i)=>x-b[i]));
 const transitions=[
  ['PIPE_DIVE_A-01','PIPE_DIVE_A-02'],
- ['PIPE_DIVE_A-02','SPIRAL_CATHEDRAL-01'],
+ ['PIPE_DIVE_A-02','PIPE_RETURN-01'],
+ ['PIPE_RETURN-01','PIPE_RETURN-02'],
+ ['PIPE_RETURN-02','SPIRAL_CATHEDRAL-01'],
  ...Array.from({length:5},(_,i)=>['SPIRAL_CATHEDRAL-'+String(i+1).padStart(2,'0'),'SPIRAL_CATHEDRAL-'+String(i+2).padStart(2,'0')]),
  ['SPIRAL_CATHEDRAL-06','FORK_APPROACH-01'],
  ['FORK_APPROACH-01','FORK_APPROACH-02'],
