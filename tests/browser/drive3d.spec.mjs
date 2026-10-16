@@ -36,6 +36,23 @@ test('P71 experimental cathedral: live stable/raw camera and freeze pause',async
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');
  await expect(page.locator('#appStatus')).toContainText('P71 CAMERA EXPERIMENTAL');
+ // Compare raw and filtered heading without restarting or touching B48 Runner.
+ await expect(page.locator('#cameraCompare')).toHaveAttribute('aria-pressed','false');
+ await page.locator('#cameraCompare').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-unfiltered-heading');
+ await expect(page.locator('#cameraCompare')).toHaveAttribute('aria-pressed','true');
+ await page.locator('#cameraCompare').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
+ await expect(page.locator('#cameraCompare')).toHaveAttribute('aria-pressed','false');
+ await page.locator('#pause').click();
+ await expect(page.locator('#pause')).toContainText('再開');
+ await page.waitForTimeout(650);
+ const stopped=await page.locator('#simTime').textContent();
+ await page.waitForTimeout(650);
+ expect(await page.locator('#simTime').textContent()).toBe(stopped);
+ await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
+ await page.locator('#pause').click();
+ await expect(page.locator('#pause')).toContainText('一時停止');
  await page.locator('#spawn').selectOption('5');
  await page.keyboard.down('KeyA');await page.waitForTimeout(500);await page.keyboard.up('KeyA');
  await expect(page.locator('#simTime')).not.toHaveText('0.00 s');
