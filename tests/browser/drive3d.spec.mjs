@@ -29,7 +29,7 @@ test('P66 experimental cathedral: real Chromium 3D load, fork & gap spawns, WebG
  await page.goto('/drive3d/');
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await expect(page.locator('#appStatus')).toContainText('P66 RESONANCE CATHEDRAL',{timeout:75000});
- await expect(page.locator('#spawn option')).toHaveCount(6);
+ await expect(page.locator('#spawn option')).toHaveCount(7);
  await expect(page.locator('#view')).toBeVisible();
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');

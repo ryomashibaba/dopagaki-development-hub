@@ -65,25 +65,25 @@ export function epicGeometry(stage){
   for(const z of [-132,112])prism(v,[x,196,z],[8,175,10],[.08,.22,.4]);
  }
  for(let i=0;i<12;i++){
-  const theta=TAU*i/12,rr=205,x=-450+rr*Math.cos(theta),z=-10+rr*Math.sin(theta);
+  const theta=TAU*i/12,rr=483,x=-170+rr*Math.cos(theta),z=-10+rr*Math.sin(theta);
   prism(v,[x,165,z],[12,250,12],[.11,.16,.32]);
   prism(v,[x,277,z],[16,6,16],[.2,.8,.96]);
  }
  for(let i=0;i<8;i++){
-  const x=-50+i*46;
-  prism(v,[x,175,310],[20,130,18],[.24,.11,.4]);
-  prism(v,[x,178,-45],[17,152,15],[.1,.33,.6]);
+  const x=230+i*46;
+  prism(v,[x,175,-270],[20,130,18],[.24,.11,.4]);
+  prism(v,[x,178,-625],[17,152,15],[.1,.33,.6]);
  }
  for(let i=0;i<8;i++){
-  const x=650+i*42;
-  prism(v,[x,145,210],[9,130,9],[.24,.16,.36]);
-  prism(v,[x,147,8],[10,137,10],[.08,.32,.56]);
+  const x=930+i*42;
+  prism(v,[x,145,-370],[9,130,9],[.24,.16,.36]);
+  prism(v,[x,147,-572],[10,137,10],[.08,.32,.56]);
  }
  // A visible abyss beneath the genuine physical jump gap.
  for(let i=0;i<12;i++){
-  const x=1090+i*32;
-  prism(v,[x,-18,-8],[12,3,210],[.07,.23,.44]);
-  prism(v,[x,-15,-3],[3,2,220],[.08,.6,.82]);
+  const x=1370+i*32;
+  prism(v,[x,-18,-588],[12,3,210],[.07,.23,.44]);
+  prism(v,[x,-15,-583],[3,2,220],[.08,.6,.82]);
  }
  return v;
 }
