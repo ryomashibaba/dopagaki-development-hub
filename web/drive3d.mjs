@@ -1,12 +1,13 @@
 import {sample} from '../reference_only/director/surface.js';
 import {compile} from '../reference_only/director/collision.js';
-import {Runner,DT} from '../reference_only/director/physics.js';
-import {movingObstaclePose} from '../reference_only/director/moving/moving-obstacles.mjs';
+import {Runner,DT,RADIUS} from '../reference_only/director/physics.js';
+import {movingObstaclePose,sphereBoxSeparation} from '../reference_only/director/moving/moving-obstacles.mjs';
 import {fixtureTriangles} from '../reference_only/director/game-fixtures.js';
 import {epicGeometry} from './p66-visual.mjs';
 import {capturePose,resolveDisplayPose,createCameraState,advanceCamera,viewForPose,cameraYawErrorRadians} from './drive3d-camera.mjs';
 import {stepFixedClock} from './drive3d-loop.mjs';
 import {makeMachineMeshes,nearestMachineCue,obstacleBodyVertices} from './p73-machine-visual.mjs';
+import {createNearMissTracker,stepNearMiss,nearMissDisplay} from './p74-nearmiss.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -14,6 +15,7 @@ const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,ball,scenery,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
+let nearMissTracker=createNearMissTracker();
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -125,9 +127,12 @@ function restart(){
  const spawn=Math.min(doc.spawns.length-1,Math.max(0,Number($('spawn').value)||0));
  runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
  previousPose=currentPose=capturePose(runner);cameraState=createCameraState(currentPose.forward);frameSkips=0;headingError=0;
+ nearMissTracker=createNearMissTracker();
+ $('nearMissCount').textContent='0';$('nearMissBurst').hidden=true;
+ canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P73 EXPERIMENTAL — distinct moving machinery and physically faithful motion preview; P69 course and frozen B48 physics unchanged. The separate physical engine remains HOLD.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P74 EXPERIMENTAL — skill-based near-miss feedback from actual moving OBB clearance; P69 course and frozen B48 physics unchanged. Physics PR remains HOLD.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
@@ -195,11 +200,19 @@ function tick(now){
   const progressed=stepFixedClock(accum,elapsed,DT,()=>{
    previousPose=currentPose;
    runner.step(steer);currentPose=capturePose(runner);
+   const near=stepNearMiss(nearMissTracker,doc.movingObstacles,runner,movingObstaclePose,sphereBoxSeparation,RADIUS);
+   if(near){
+    $('nearMissCount').textContent=String(near.total);
+    canvas.dataset.nearMissCount=String(near.total);
+    $('nearMissBurst').hidden=false;
+    $('nearMissBurst').textContent='NEAR MISS  ·  '+near.clearance.toFixed(2)+'m  /  ×'+near.total;
+   }
    return runner.status!=='failed'&&runner.status!=='finished';
   });
   accum=progressed.accumulator;
   if(progressed.overloaded)frameSkips++;
  }
+ if(runner&&nearMissTracker){const current=nearMissDisplay(nearMissTracker,runner.time);$('nearMissBurst').hidden=!current;}
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
   const lag=$('cameraInfo');if(lag)lag.textContent=comparisonMode==='stable'
