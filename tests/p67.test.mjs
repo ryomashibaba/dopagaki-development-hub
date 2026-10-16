@@ -43,7 +43,7 @@ function run(spawn,speed,steer=0,seconds=7.5){
  for(let i=0;i<Math.round(seconds/DT)&&runner.status!=='failed'&&runner.status!=='finished';i++){
   runner.step(steer);
   maxX=Math.max(maxX,runner.p[0]);
-  if(!runner.grounded){air=true;airFrames++;if(runner.p[0]>=1200)airFramesAfterLip++;}
+  if(!runner.grounded){air=true;airFrames++;if(runner.p[0]>=p('GAP_TAKEOFF-01',1)[0])airFramesAfterLip++;}
   if(runner.grounded&&runner.surface?.includes('GAP_LANDING')){landed=true;groundedAtLanding=true;landedSurfaces.add(runner.surface);}
   lastSurface=runner.surface;
  }
