@@ -23,7 +23,7 @@ test('P68 entrance is tangent-aligned to the clockwise 450 degree road at full s
 test('P68 clockwise spiral outer edge elevated for real centrifugal banking',()=>{
  const s=surface('SPIRAL_CATHEDRAL-01');
  const outer=sample(s,.35,0),inner=sample(s,.35,1);
- assert(outer[1]-inner[1]>50,'incorrect inward-side banking');
+ assert(inner[1]-outer[1]>50,'incorrect outward-side banking on reversed 450-degree turn');
 });
 function trial(index,seconds,steer=0,speed=44){
  const r=new Runner(doc,compileCache,index,speed);let air=0,firstAir,furthest=-1,events=[];
