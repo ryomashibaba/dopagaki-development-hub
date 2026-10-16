@@ -124,7 +124,7 @@ const doc={
   design:'REAL 3D RUSH COURSE; NOT P62 RESKIN',physicalChapters:9,
   features:['95m pipe descent','520m semicircular return skyway','450-degree 3D cathedral spiral','two physical route branches','six moving machine encounters','25m real road gap with natural ramp launch','multilevel architectural fly-through'],
   oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,spiralExitControl:'STRONG_LEFT_STEER_APPROX_5S_AT_EXIT',dualForkNativeQA:'BOTH_12_SECOND_RUNS_PASS',dynamicMidForkChoice:'NOT_YET_VERIFIED',
-  humanPlaytest:'NOT_RUN',spiralExit:'NATIVE_SCRIPTED_FROM_SPIRAL_SPAWN_PASS',fullStartToFinish:'NOT_YET_VERIFIED',intakeToSpiral:'P76_NATIVE_QA_PENDING',finalVisualQuality:'NOT_APPROVED'}
+  humanPlaytest:'NOT_RUN',spiralExit:'NATIVE_SCRIPTED_FROM_SPIRAL_SPAWN_PASS',fullStartToFinish:'NOT_YET_VERIFIED',intakeToSpiral:'P76_NATIVE_SPAWN0_16_82S_NO_AIR_PASS',finalVisualQuality:'NOT_APPROVED'}
 };
 export function generateEchoRush(){return validate(doc);}
 export const P66_GEOMETRY=Object.freeze({roadSurfaces:roads.length,gapMeters:25,spiralAngleDegrees:450,physicalBranches:2,moving:6});
