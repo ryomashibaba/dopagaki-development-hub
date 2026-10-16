@@ -22,7 +22,7 @@ test('P65 WebGL2 drives frozen P62 with actual B48 Runner on two stages',async({
 });
 
 
-test('P66 experimental cathedral: real Chromium 3D load, fork & gap spawns, WebGL geometry',async({page})=>{
+test('P68 experimental cathedral: actual Chromium WebGL2 and both fork spawns',async({page})=>{
  test.setTimeout(120000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  page.on('response',response=>{if(response.url().includes('P66_ECHO_RUSH')&&!response.ok())errors.push('P66 JSON HTTP '+response.status())});
@@ -34,7 +34,7 @@ test('P66 experimental cathedral: real Chromium 3D load, fork & gap spawns, WebG
  await expect(page.locator('#view')).toBeVisible();
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');
- await expect(page.locator('#appStatus')).toContainText('P66');
+ await expect(page.locator('#appStatus')).toContainText('P68 EXPERIMENTAL');
  await page.locator('#spawn').selectOption('5');
  await page.keyboard.down('KeyA');await page.waitForTimeout(500);await page.keyboard.up('KeyA');
  await expect(page.locator('#simTime')).not.toHaveText('0.00 s');
