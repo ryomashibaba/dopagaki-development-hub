@@ -12,7 +12,7 @@ const vec=(x,y,z)=>[x,y,z];
 const normalized=a=>{const n=Math.hypot(...a)||1;return a.map(x=>x/n);};
 const portions=[
   {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const q=clamp((t-.60)/.40);return t<=.60?vec(-1080+550*t,245-95*ease(t),-160):vec(-750+150*Math.sin(PI*q/2),245-95*ease(t),-10-150*Math.cos(PI*q/2));},pieces:2,width:48,bank:t=>-.48*ease(clamp((t-.55)/.45))},
-  {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-450+150*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+150*Math.sin(PI+2.5*PI*t)),pieces:6,width:66,bank:t=>.54},
+  {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-170+430*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+430*Math.sin(PI+2.5*PI*t)),pieces:6,width:96,bank:t=>.79},
   {id:'FORK_APPROACH',name:'03 / GIANT BELLS — fork entry',fn:t=>vec(-450+320*t,92-8*ease(t),-160+30*Math.sin(PI*t)**2),pieces:2,width:40,bank:t=>.04*Math.sin(TAU*t)},
   {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-160+105*Math.sin(PI*t)**2),pieces:2,width:25,bank:t=>.12*Math.sin(PI*t)},
   {id:'FORK_R',name:'04 R / ORGAN SKYBRIDGE — upper fork',fn:t=>vec(-130+430*t,84-4*ease(t)+19*Math.sin(PI*t)**2,-160-112*Math.sin(PI*t)**2),pieces:2,width:25,bank:t=>-.14*Math.sin(PI*t)},
@@ -22,6 +22,9 @@ const portions=[
   // 25 metres of genuine missing physical road. No hidden bridge or jump pad.
   {id:'GAP_LANDING',name:'08 / FALLING SKY — descending touchdown',fn:t=>vec(1225+275*t,83-38*ease(t),-222+60*Math.sin(PI*t)**2),pieces:2,width:39,bank:t=>-.08*Math.sin(PI*t)}
 ];
+// Retain exact C0 physical joins while enlarging the 450-degree spiral for high-speed descent.
+// The downstream course is translated (not scaled), so its 25m natural jump remains real.
+for(const section of portions.slice(2)){const original=section.fn;section.fn=t=>{const q=original(t);return [q[0]+280,q[1],q[2]-280];};}
 const roadSurface=(id,title,fn,a,b,width,bank)=>{
  const rows=25,cols=5,points=[];
  for(let i=0;i<rows;i++){
@@ -92,14 +95,14 @@ for(let i=0;i<4;i++){
 // it does not participate in B48 collision and does not consume the 32-surface physics cap.
 const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CATHEDRAL',
  pipeRings:Array.from({length:6},(_,i)=>{const t=.07+i*.16,p=portions[0].fn(t);return {center:[p[0],p[1]+13,p[2]],axis:t>.62?'z':'x',radius:68+i*4,width:6};}),
- spiralRings:Array.from({length:6},(_,i)=>({center:[-450,70+i*30,-10],axis:'y',radius:158,width:7})),
+ spiralRings:Array.from({length:6},(_,i)=>({center:[-170,70+i*30,-10],axis:'y',radius:435,width:7})),
  organPipes:Array.from({length:18},(_,i)=>{
   const side=i%2?1:-1,q=Math.floor(i/2);
   return {center:[-1070+q*74,122,side*(110+q%3*18)],radius:13+q%3*6,height:175+q%4*31};
  }),
- branchHoops:Array.from({length:9},(_,i)=>({center:[-115+i*81,99,-160+(i%2?82:-82)],axis:'x',radius:65,width:4})),
- machinery:Array.from({length:10},(_,i)=>({center:[590+i*43,95,-221],axis:'x',radius:58+(i%3)*8,width:7})),
- abyssPylons:Array.from({length:8},(_,i)=>({center:[1080+i*57,-9,i%2?-140:-312],radius:11,height:175+(i%3)*35}))
+ branchHoops:Array.from({length:9},(_,i)=>({center:[165+i*81,99,-440+(i%2?82:-82)],axis:'x',radius:65,width:4})),
+ machinery:Array.from({length:10},(_,i)=>({center:[870+i*43,95,-501],axis:'x',radius:58+(i%3)*8,width:7})),
+ abyssPylons:Array.from({length:8},(_,i)=>({center:[1360+i*57,-9,i%2?-420:-592],radius:11,height:175+(i%3)*35}))
 };
 const doc={
  schema:'dopagaki.track-director/1',
