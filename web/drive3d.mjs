@@ -8,6 +8,7 @@ import {capturePose,resolveDisplayPose,createCameraState,advanceCamera,viewForPo
 import {stepFixedClock} from './drive3d-loop.mjs';
 import {makeMachineMeshes,nearestMachineCue,obstacleBodyVertices} from './p73-machine-visual.mjs';
 import {createNearMissTracker,stepNearMiss,nearMissDisplay} from './p74-nearmiss.mjs';
+import {survivalScore,buildRunRecord,readBest,storeBest,scoreString} from './p75-survival.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -15,7 +16,7 @@ const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,ball,scenery,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
-let nearMissTracker=createNearMissTracker();
+let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -122,17 +123,46 @@ function render(frameSeconds){
  }
  draw(ball,pose.position);
 }
+function browserRecordStore(){try{return window.localStorage;}catch{return null;}}
+function updateRunScore(){
+ if(!runner||!doc)return;
+ const score=survivalScore(runner.time,nearMissTracker.total);
+ $('runScore').textContent=scoreString(score.total);
+ $('survivalComponent').textContent=scoreString(score.survival);
+ $('bonusComponent').textContent=scoreString(score.bonus);
+ $('bestSurvival').textContent=personalBest?personalBest.seconds.toFixed(2)+' s':'—';
+ canvas.dataset.survivalScore=String(score.total);
+}
+function settleRun(){
+ if(!runner||runCommitted||!['failed','finished'].includes(runner.status))return;
+ runCommitted=true;
+ const record=buildRunRecord({stageId:doc.stageForge.id,spawn:runner.spawnIndex,
+  seconds:runner.time,nearMisses:nearMissTracker.total,outcome:runner.status});
+ const compared=storeBest(browserRecordStore(),record);
+ personalBest=compared.best;
+ const result=$('runResult');result.hidden=false;
+ $('resultTitle').textContent=runner.status==='finished'?'COURSE CLEAR':'RUN ENDED';
+ $('resultScore').textContent=scoreString(record.total)+' PTS · '+record.seconds.toFixed(2)+' s';
+ $('resultDetails').textContent='生存 '+scoreString(record.survival)+' ＋ 回避 '+scoreString(record.bonus)
+  +' / NEAR MISS '+nearMissTracker.total+'回'+(compared.improved?' · NEW BEST!':'');
+ result.dataset.outcome=runner.status;
+ canvas.dataset.runOutcome=runner.status;
+ updateRunScore();
+}
 function restart(){
  if(!doc||!world)return;
  const spawn=Math.min(doc.spawns.length-1,Math.max(0,Number($('spawn').value)||0));
  runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
  previousPose=currentPose=capturePose(runner);cameraState=createCameraState(currentPose.forward);frameSkips=0;headingError=0;
- nearMissTracker=createNearMissTracker();
+ nearMissTracker=createNearMissTracker();runCommitted=false;
+ personalBest=readBest(browserRecordStore(),doc.stageForge.id,spawn);
+ $('runResult').hidden=true;canvas.dataset.runOutcome='running';
  $('nearMissCount').textContent='0';$('nearMissBurst').hidden=true;
+ updateRunScore();
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P74 EXPERIMENTAL — skill-based near-miss feedback from actual moving OBB clearance; P69 course and frozen B48 physics unchanged. Physics PR remains HOLD.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P75 EXPERIMENTAL — survival-primary score and per-spawn personal best; near-miss bonus never exceeds 5% of combined score. P69 course and B48 physics remain unchanged; physics PR is HOLD.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
@@ -179,6 +209,7 @@ function hud(){
  $('speed').textContent=Math.hypot(...runner.v).toFixed(1);
  $('simTime').textContent=runner.time.toFixed(2)+' s';$('contacts').textContent=String(runner.collisions);
  $('ground').textContent=runner.grounded?'接地':'空中';$('fps').textContent=String(Math.round(fps));
+ updateRunScore();
  const machineLabel=$('machineCue');
  if(machineLabel){
   const cue=nearestMachineCue(doc.movingObstacles,runner.p,runner.forward,runner.time,220,movingObstaclePose);
@@ -211,6 +242,7 @@ function tick(now){
   });
   accum=progressed.accumulator;
   if(progressed.overloaded)frameSkips++;
+  settleRun();
  }
  if(runner&&nearMissTracker){const current=nearMissDisplay(nearMissTracker,runner.time);$('nearMissBurst').hidden=!current;}
  frames++;
@@ -245,6 +277,6 @@ window.addEventListener('keyup',e=>keys.delete(e.code));
 window.addEventListener('blur',()=>{keys.clear();left=false;right=false;});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){last=0;accum=0;previousPose=currentPose;}});
 $('stage').addEventListener('change',load);$('spawn').addEventListener('change',restart);
-$('restart').addEventListener('click',restart);$('pause').addEventListener('click',toggle);
+$('restart').addEventListener('click',restart);$('retryRun').addEventListener('click',restart);$('pause').addEventListener('click',toggle);
 try{init();requestAnimationFrame(tick);load();}
 catch(e){status.className='status alert';status.textContent='WebGL2 unsupported: '+e.message;console.error(e);}
