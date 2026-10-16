@@ -22,16 +22,17 @@ test('P65 WebGL2 drives frozen P62 with actual B48 Runner on two stages',async({
 });
 
 
-test('P69 experimental cathedral: actual Chromium WebGL2 and spiral exit',async({page})=>{
+test('P70 experimental cathedral: stable camera and real WebGL2',async({page})=>{
  test.setTimeout(120000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  page.on('response',response=>{if(response.url().includes('P66_ECHO_RUSH')&&!response.ok())errors.push('P66 JSON HTTP '+response.status())});
  await page.goto('/drive3d/');
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
- await expect(page.locator('#stage option:checked')).toContainText('P69 ECHO PIPE');
+ await expect(page.locator('#stage option:checked')).toContainText('P70 ECHO PIPE');
  await expect(page.locator('#spawn option')).toHaveCount(7);
  await expect(page.locator('#view')).toBeVisible();
+ await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');
  await expect(page.locator('#appStatus')).toContainText('P69 EXPERIMENTAL');
