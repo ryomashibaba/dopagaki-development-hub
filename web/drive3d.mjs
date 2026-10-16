@@ -4,12 +4,14 @@ import {Runner,DT} from '../reference_only/director/physics.js';
 import {movingObstaclePose} from '../reference_only/director/moving/moving-obstacles.mjs';
 import {fixtureTriangles} from '../reference_only/director/game-fixtures.js';
 import {epicGeometry} from './p66-visual.mjs';
+import {capturePose,interpolatePose,createCameraState,advanceCamera,viewForPose} from './drive3d-camera.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,ball,scenery,obstacles={};
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
+let previousPose=null,currentPose=null,cameraState=null;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -84,36 +86,39 @@ function draw(m,center=[0,0,0],size=[1,1,1],angle=0,primitive=gl.TRIANGLES){
  gl.vertexAttribPointer(0,3,gl.FLOAT,false,24,0);gl.vertexAttribPointer(1,3,gl.FLOAT,false,24,12);
  gl.drawArrays(primitive,0,m.count);
 }
-function render(){
+function render(frameSeconds){
  if(!gl)return;
  const pixelRatio=Math.min(2,window.devicePixelRatio||1),w=Math.floor(canvas.clientWidth*pixelRatio),h=Math.floor(canvas.clientHeight*pixelRatio);
  if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}if(!w||!h)return;
  gl.viewport(0,0,w,h);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
  if(!runner)return;
- // Fixed ball-relative follow camera; position and forward derived from the actual B48 Runner state.
- const f=norm(runner.forward),p=runner.p,eye=add(sub(p,mul(f,14)),[0,7,0]);
- const target=add(add(p,mul(f,20)),[0,1,0]),front=norm(sub(target,eye)),side=norm(cross(front,[0,1,0])),up=norm(cross(side,front));
- gl.uniform3fv(locations.eye,eye);gl.uniform3fv(locations.camFront,front);gl.uniform3fv(locations.camRight,side);gl.uniform3fv(locations.camUp,up);
+ // Render-time interpolation leaves native B48 physics untouched.
+ const pose=interpolatePose(previousPose,currentPose,accum/DT);
+ cameraState=advanceCamera(cameraState,pose.forward,frameSeconds);
+ const view=viewForPose(pose,cameraState);
+ gl.uniform3fv(locations.eye,view.eye);gl.uniform3fv(locations.camFront,view.front);gl.uniform3fv(locations.camRight,view.right);gl.uniform3fv(locations.camUp,view.up);
+ canvas.dataset.cameraMode='ball-lock-interpolated';
  gl.uniform1f(locations.aspect,w/h);
  draw(scenery);draw(roads);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  for(const o of doc.movingObstacles){
   if(!o.enabled)continue;
-  const pose=movingObstaclePose(o,runner.time);
-  draw(obstacles[o.collision?.mode||'fail'],pose.center,pose.halfSize.map(x=>2*x),pose.yawRadians);
+  const obstaclePose=movingObstaclePose(o,pose.time);
+  draw(obstacles[o.collision?.mode||'fail'],obstaclePose.center,obstaclePose.halfSize.map(x=>2*x),obstaclePose.yawRadians);
  }
- draw(ball,runner.p);
+ draw(ball,pose.position);
 }
 function restart(){
  if(!doc||!world)return;
  const spawn=Math.min(doc.spawns.length-1,Math.max(0,Number($('spawn').value)||0));
  runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
+ previousPose=currentPose=capturePose(runner);cameraState=createCameraState(currentPose.forward);
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
  status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P69 EXPERIMENTAL — 450° six-segment spiral to natural takeoff: native scripted LEFT steering PASS from spiral spawn; exit requires active steering. Full run from very first spawn and human playfeel are NOT approved.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
- runner=null;doc=null;world=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
+ runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
  try{
   const response=await fetch('../generated/'+assets[id],{cache:'no-store'});
   if(!response.ok)throw Error('Stage JSON HTTP '+response.status);
@@ -168,12 +173,16 @@ function tick(now){
  if(runner&&!paused&&runner.status!=='failed'&&runner.status!=='finished'){
   accum+=elapsed;let n=0;
   const steer=Number(right||keys.has('KeyD')||keys.has('ArrowRight'))-Number(left||keys.has('KeyA')||keys.has('ArrowLeft'));
-  while(accum>=DT&&n<12){runner.step(steer);accum-=DT;n++;if(runner.status==='failed'||runner.status==='finished')break;}
-  if(n===12)accum=0;
+  while(accum>=DT&&n<12){
+   previousPose=currentPose;
+   runner.step(steer);currentPose=capturePose(runner);
+   accum-=DT;n++;if(runner.status==='failed'||runner.status==='finished')break;
+  }
+  if(n===12)accum=Math.min(Math.max(0,accum),DT);
  }
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();}
- render();
+ render(elapsed);
 }
 function bindHold(id,set){
  const b=$(id);b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture(e.pointerId);set(true);});
