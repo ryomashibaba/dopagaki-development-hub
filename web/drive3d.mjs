@@ -176,7 +176,7 @@ function hud(){
  $('ground').textContent=runner.grounded?'接地':'空中';$('fps').textContent=String(Math.round(fps));
  const machineLabel=$('machineCue');
  if(machineLabel){
-  const cue=nearestMachineCue(doc.movingObstacles,runner.p,runner.forward,runner.time);
+  const cue=nearestMachineCue(doc.movingObstacles,runner.p,runner.forward,runner.time,220,movingObstaclePose);
   machineLabel.hidden=!cue;
   machineLabel.dataset.mode=cue?.mode||'none';
   if(cue)machineLabel.textContent=cue.typeLabel+' / '+cue.modeLabel+' · '+cue.lateralLabel+' '+cue.distance+'m';
