@@ -4,6 +4,7 @@ import {generateEchoRush} from '../scripts/p66-echo-rebuild.mjs';
 import {sample} from '../private/reference_only/director/surface.js';
 import {compile} from '../private/reference_only/director/collision.js';
 import {Runner,DT,FIXTURE_IMPULSES} from '../private/reference_only/director/physics.js';
+import {epicGeometry} from '../web/p66-visual.mjs';
 
 const doc=generateEchoRush();
 const surface=id=>doc.surfaces.find(s=>s.id==='p66-'+id);
@@ -21,6 +22,15 @@ function simulate(spawn,seconds,steering=0,initialSpeed=44){
   lastSurface:runner.surface,position:runner.p.map(x=>+x.toFixed(1)),firstAir,
   forkHits:[...new Set(runner.events.filter(e=>e.type==='contact'&&e.surface?.includes('FORK_')).map(e=>e.surface))]};
 }
+test('P68 epic dual-fork megastructures are real GPU meshes, not collision surfaces',()=>{
+ const b=doc.visualBlueprint;
+ assert.equal(b.bellVaults.length,6);assert.equal(b.skyPortals.length,6);
+ assert.equal(b.bellTowers.length,6);assert.equal(b.skyPylons.length,6);
+ const vertices=epicGeometry(doc);
+ assert(vertices.length>60000&&vertices.length%6===0,'missing enormous scene geometry');
+ assert.equal(doc.surfaces.length,22,'must preserve B48 physical surface budget');
+ assert.equal(doc.stageForge.spiralExit,'HOLD','do not mislabel unfinished spiral exit as verified');
+});
 test('P68 fork paths are disjoint collision ribbons at 0–100% progress',()=>{
  for(const t of [.001,.01,.03,.05,.1,.15,.25,.3,.5,.7,.85,.91,.95,.99,.999]){
   const i=t>=.5?1:0,u=t>=.5?(t-.5)*2:t*2;
