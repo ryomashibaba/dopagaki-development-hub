@@ -11,7 +11,11 @@ const ease=t=>t*t*(3-2*t);
 const vec=(x,y,z)=>[x,y,z];
 const normalized=a=>{const n=Math.hypot(...a)||1;return a.map(x=>x/n);};
 const portions=[
-  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const q=clamp((t-.10)/.90);return t<=.10?vec(-1105+750*t,245-95*ease(t),-440):vec(-1030+430*Math.sin(PI*q/2),245-95*ease(t),-10-430*Math.cos(PI*q/2));},pieces:2,width:92,bank:t=>-.78*ease(clamp((t-.04)/.31))},
+  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>vec(-1105-15*ease(t),245-95*ease(t),-440+430*t),pieces:2,width:116,bank:t=>.045*Math.sin(PI*t)},
+  // P76: genuine 180-degree sweep, with no position snap or forced turn.
+  // Starts at (-1120,150,-10) heading +Z and reaches the unchanged
+  // 450-degree spiral entrance (-600,150,-10) heading -Z.
+  {id:'PIPE_RETURN',name:'02 / HALO RETURN — giant 180-degree sky hairpin',fn:t=>vec(-860-260*Math.cos(PI*t),150,-10+260*Math.sin(PI*t)),pieces:2,width:t=>145+18*Math.sin(PI*t),bank:t=>.30*Math.sin(PI*t)-.25*ease(clamp((t-.84)/.16))},
   {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-170+430*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+430*Math.sin(PI+2.5*PI*t)),pieces:6,width:96,bank:t=>-.25*(1-ease(clamp((t-.77)/.23)))},
   {id:'FORK_APPROACH',name:'03 / GIANT BELLS — fork entry',fn:t=>vec(-450+320*t,92-8*ease(t),-160+30*Math.sin(PI*t)**2),pieces:2,width:t=>40+110*(1-ease(clamp(t/.9))),bank:t=>.04*Math.sin(TAU*t)},
   {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-150+105*Math.sin(PI*t)**2),pieces:2,width:t=>18+27*Math.sin(PI*t)**2+15*Math.sin(PI*t),bank:t=>-.28*Math.sin(PI*t)*Math.cos(TAU*t)},
@@ -24,7 +28,7 @@ const portions=[
 ];
 // Retain exact C0 physical joins while enlarging the 450-degree spiral for high-speed descent.
 // The downstream course is translated (not scaled), so its 25m natural jump remains real.
-for(const section of portions.slice(2)){const original=section.fn;section.fn=t=>{const q=original(t);return [q[0]+280,q[1],q[2]-280];};}
+for(const section of portions.slice(3)){const original=section.fn;section.fn=t=>{const q=original(t);return [q[0]+280,q[1],q[2]-280];};}
 const roadSurface=(id,title,fn,a,b,width,bank)=>{
  const rows=25,cols=5,points=[];
  for(let i=0;i<rows;i++){
@@ -50,7 +54,7 @@ for(const part of portions){
   roads.push(s);chunks[part.id].push(s);
  }
 }
-const entryOrder=['PIPE_DIVE_A','SPIRAL_CATHEDRAL','FORK_APPROACH','FORK_L','FORK_REJOIN','MACHINE_CHAMBER','GAP_TAKEOFF','GAP_LANDING'];
+const entryOrder=['PIPE_DIVE_A','PIPE_RETURN','SPIRAL_CATHEDRAL','FORK_APPROACH','FORK_L','FORK_REJOIN','MACHINE_CHAMBER','GAP_TAKEOFF','GAP_LANDING'];
 const route=entryOrder.flatMap(k=>chunks[k].flatMap(s=>Array.from({length:15},(_,i)=>sample(s,(i+.01)/15,.5))));
 route.push(sample(chunks.GAP_LANDING.at(-1),.999,.5));
 const routeSegments=roads.map(s=>({surface:s.id,u0:0,u1:1,v:.5}));
@@ -95,7 +99,8 @@ for(let i=0;i<4;i++){
 // Scenery only. Large-scale architecture is rendered by the separate P66 WebGL mesh adapter;
 // it does not participate in B48 collision and does not consume the 32-surface physics cap.
 const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CATHEDRAL',
- pipeRings:Array.from({length:6},(_,i)=>{const t=.07+i*.16,p=portions[0].fn(t);return {center:[p[0],p[1]+13,p[2]],axis:t>.62?'z':'x',radius:68+i*4,width:6};}),
+ pipeRings:Array.from({length:6},(_,i)=>{const t=.07+i*.16,p=portions[0].fn(t);return {center:[p[0],p[1]+13,p[2]],axis:'z',radius:68+i*4,width:6};}),
+ returnHoops:Array.from({length:9},(_,i)=>{const t=(i+.5)/10,p=portions[1].fn(t);return {center:[p[0],p[1]+20,p[2]],axis:t<.28||t>.72?'z':'x',radius:81+11*Math.sin(PI*t),width:5};}),
  spiralRings:Array.from({length:6},(_,i)=>({center:[-170,70+i*30,-10],axis:'y',radius:435,width:7})),
  organPipes:Array.from({length:18},(_,i)=>{
   const side=i%2?1:-1,q=Math.floor(i/2);
@@ -113,14 +118,14 @@ const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CA
 };
 const doc={
  schema:'dopagaki.track-director/1',
- name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P69 SPIRAL EXIT PLAYABLE',
+ name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P76 HALO RETURN INTAKE',
  surfaces:roads,route,routeSegments,spawns,autoRoute:true,generatedRoute:true,fixtures,movingObstacles,
  visualBlueprint,
- stageForge:{id:'EP-P66',batch:'P69_SPIRAL_BANK_AND_STEERABLE_FORK_FUNNEL',status:'EXPERIMENTAL_HUMAN_UNTESTED',
-  design:'REAL 3D RUSH COURSE; NOT P62 RESKIN',physicalChapters:8,
-  features:['95m pipe descent','450-degree 3D cathedral spiral','two physical route branches','six moving machine encounters','25m real road gap with natural ramp launch','multilevel architectural fly-through'],
+ stageForge:{id:'EP-P66',batch:'P76_PHYSICAL_INTAKE_HAIRPIN',status:'EXPERIMENTAL_HUMAN_UNTESTED',
+  design:'REAL 3D RUSH COURSE; NOT P62 RESKIN',physicalChapters:9,
+  features:['95m pipe descent','520m semicircular return skyway','450-degree 3D cathedral spiral','two physical route branches','six moving machine encounters','25m real road gap with natural ramp launch','multilevel architectural fly-through'],
   oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,spiralExitControl:'STRONG_LEFT_STEER_APPROX_5S_AT_EXIT',dualForkNativeQA:'BOTH_12_SECOND_RUNS_PASS',dynamicMidForkChoice:'NOT_YET_VERIFIED',
-  humanPlaytest:'NOT_RUN',spiralExit:'NATIVE_SCRIPTED_FROM_SPIRAL_SPAWN_PASS',finalVisualQuality:'NOT_APPROVED'}
+  humanPlaytest:'NOT_RUN',spiralExit:'NATIVE_SCRIPTED_FROM_SPIRAL_SPAWN_PASS',fullStartToFinish:'NOT_YET_VERIFIED',intakeToSpiral:'P76_NATIVE_QA_PENDING',finalVisualQuality:'NOT_APPROVED'}
 };
 export function generateEchoRush(){return validate(doc);}
 export const P66_GEOMETRY=Object.freeze({roadSurfaces:roads.length,gapMeters:25,spiralAngleDegrees:450,physicalBranches:2,moving:6});
