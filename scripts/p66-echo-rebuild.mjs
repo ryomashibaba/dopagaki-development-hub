@@ -15,7 +15,7 @@ const portions=[
   // P76: genuine 180-degree sweep, with no position snap or forced turn.
   // Starts at (-1120,150,-10) heading +Z and reaches the unchanged
   // 450-degree spiral entrance (-600,150,-10) heading -Z.
-  {id:'PIPE_RETURN',name:'02 / HALO RETURN — giant 180-degree sky hairpin',fn:t=>vec(-860-260*Math.cos(PI*t),150,-10+260*Math.sin(PI*t)),pieces:2,width:t=>145+18*Math.sin(PI*t),bank:t=>.32*Math.sin(PI*t)-.25*ease(clamp((t-.42)/.58))},
+  {id:'PIPE_RETURN',name:'02 / HALO RETURN — giant 180-degree sky hairpin',fn:t=>vec(-860-260*Math.cos(PI*t),150,-10+260*Math.sin(PI*t)),pieces:2,width:t=>145+18*Math.sin(PI*t),bank:t=>.30*Math.sin(PI*t)-.25*ease(clamp((t-.55)/.45))},
   {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-170+430*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+430*Math.sin(PI+2.5*PI*t)),pieces:6,width:96,bank:t=>-.25*(1-ease(clamp((t-.77)/.23)))},
   {id:'FORK_APPROACH',name:'03 / GIANT BELLS — fork entry',fn:t=>vec(-450+320*t,92-8*ease(t),-160+30*Math.sin(PI*t)**2),pieces:2,width:t=>40+110*(1-ease(clamp(t/.9))),bank:t=>.04*Math.sin(TAU*t)},
   {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-150+105*Math.sin(PI*t)**2),pieces:2,width:t=>18+27*Math.sin(PI*t)**2+15*Math.sin(PI*t),bank:t=>-.28*Math.sin(PI*t)*Math.cos(TAU*t)},
