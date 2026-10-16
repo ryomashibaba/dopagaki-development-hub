@@ -132,11 +132,31 @@ async function load(){
   status.className='status alert';status.textContent='3D load error: '+e.message;console.error(e);
  }
 }
+function updateChapterHUD(){
+ const el=$('chapterHud');if(!el)return;
+ if(doc?.stageForge?.id!=='EP-P66'){el.textContent='P62 / ORIGINAL STAGE';return;}
+ const id=runner.surface||runner.lastSurface||'';
+ const x=runner.p[0];
+ let name='RESONANCE CATHEDRAL',hint='巨大共鳴管・高速3D走行';
+ if(id.includes('SPIRAL_CATHEDRAL')){name='450° SPIRAL DESCENT';hint='大空洞を旋回 / バンクの傾斜を利用';}
+ else if(id.includes('FORK_APPROACH')){name='CHOOSE YOUR SKYLINE';hint='左右操舵で別ルートへ / 道の端に注意';}
+ else if(id.includes('FORK_L')){name='BELL VAULT';hint='外周の低層分岐';}
+ else if(id.includes('FORK_R')){name='ORGAN SKYBRIDGE';hint='高層の空中分岐';}
+ else if(id.includes('MACHINE_CHAMBER')){name='MACHINE GAUNTLET';hint='動体を回避 / 中央固定は危険';}
+ else if(id.includes('GAP_TAKEOFF')){name='NATURAL LAUNCH';hint='坂で飛び出す / ジャンプボタンは不要';}
+ else if(id.includes('GAP_LANDING')){name='TOUCHDOWN';hint='着地後のラインを整える';}
+ else if(id.includes('FORK_REJOIN')){name='LEVEL CROSSING';hint='左右ルートが再合流';}
+ else if(x>=1200&&!runner.grounded){name='AIRBORNE';hint='空中移動中 / 着地点を確認';}
+ else if(id.includes('PIPE_DIVE')){name='PIPE BREACH';hint='巨大共鳴管へ突入';}
+ const small=document.createElement('small');small.textContent=hint;
+ el.replaceChildren(document.createTextNode(name),small);
+}
 function hud(){
  if(!runner)return;
  $('speed').textContent=Math.hypot(...runner.v).toFixed(1);
  $('simTime').textContent=runner.time.toFixed(2)+' s';$('contacts').textContent=String(runner.collisions);
  $('ground').textContent=runner.grounded?'接地':'空中';$('fps').textContent=String(Math.round(fps));
+ updateChapterHUD();
  if(runner.status==='failed'&&!status.dataset.failed){
   status.className='status alert';status.textContent='試走終了: '+(runner.failure?.reason||'衝突')+'。Rで再スタート';
   status.dataset.failed='1';
