@@ -11,7 +11,7 @@ const ease=t=>t*t*(3-2*t);
 const vec=(x,y,z)=>[x,y,z];
 const normalized=a=>{const n=Math.hypot(...a)||1;return a.map(x=>x/n);};
 const portions=[
-  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>vec(-1105-15*ease(t),245-95*ease(t),-440+430*t),pieces:2,width:116,bank:t=>.045*Math.sin(PI*t)},
+  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>vec(-1105-15*ease(t),245-95*ease(clamp(t/.72)), -440+430*t),pieces:2,width:116,bank:t=>.045*Math.sin(PI*t)},
   // P76: genuine 180-degree sweep, with no position snap or forced turn.
   // Starts at (-1120,150,-10) heading +Z and reaches the unchanged
   // 450-degree spiral entrance (-600,150,-10) heading -Z.
