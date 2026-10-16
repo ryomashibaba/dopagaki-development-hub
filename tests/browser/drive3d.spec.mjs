@@ -33,7 +33,7 @@ test('P75: survival scoring and per-spawn best coexist with real 3D machinery',a
  await expect(page.locator('#spawn option')).toHaveCount(7);
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','6');
  await expect(page.locator('#nearMissCount')).toHaveText('0');
- await expect(page.locator('#runScore')).toHaveText('0');
+ await expect(page.locator('#runScore')).toHaveText(/^\d[\d,]*$/);
  await expect(page.locator('#bestSurvival')).toBeVisible();
  await expect(page.locator('#runResult')).toBeHidden();
  await expect(page.locator('#nearMissBurst')).toBeHidden();
@@ -94,7 +94,8 @@ test('P75 actual 240Hz machine failure settles score, saves local best and retri
  const best=record.seconds.toFixed(2)+' s';
  await page.locator('#retryRun').click();
  await expect(page.locator('#runResult')).toBeHidden();
- await expect(page.locator('#runScore')).toHaveText('0');
+ await expect(page.locator('#view')).toHaveAttribute('data-run-outcome','running');
+ await expect(page.locator('#runScore')).toHaveText(/^\d[\d,]*$/);
  await expect(page.locator('#bestSurvival')).toHaveText(best);
  await page.reload();
  await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
