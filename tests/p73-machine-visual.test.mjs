@@ -61,18 +61,18 @@ test('P73 nearest upcoming moving machine cue is genuinely forward-facing, mode-
  const first=course.movingObstacles[0];
  const p=movingObstaclePose(first,0);
  const ahead=[p.center[0]-60,p.center[1],p.center[2]];
- const cue=nearestMachineCue([first],ahead,[1,0,0],0);
+ const cue=nearestMachineCue([first],ahead,[1,0,0],0,220,movingObstaclePose);
  assert.equal(cue.id,first.id);
  assert.equal(cue.typeLabel,'SLIDER');
  assert.equal(cue.mode,'fail');
  assert.equal(cue.modeLabel,'接触で失敗');
  assert(cue.distance>=50&&cue.distance<=80);
- assert.equal(nearestMachineCue([first],ahead,[-1,0,0],0),null);
- assert.equal(nearestMachineCue([first],ahead,[1,0,0],0,10),null);
- assert.equal(nearestMachineCue([],ahead,[1,0,0],0),null);
+ assert.equal(nearestMachineCue([first],ahead,[-1,0,0],0,220,movingObstaclePose),null);
+ assert.equal(nearestMachineCue([first],ahead,[1,0,0],0,10,movingObstaclePose),null);
+ assert.equal(nearestMachineCue([],ahead,[1,0,0],0,220,movingObstaclePose),null);
  for(const ob of course.movingObstacles){
   const state=movingObstaclePose(ob,1.2);
-  const hint=nearestMachineCue([ob],[state.center[0]-30,state.center[1],state.center[2]],[1,0,0],1.2);
+  const hint=nearestMachineCue([ob],[state.center[0]-30,state.center[1],state.center[2]],[1,0,0],1.2,220,movingObstaclePose);
   assert(hint&&modeSet.has(hint.mode));
  }
 });
