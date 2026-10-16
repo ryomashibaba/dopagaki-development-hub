@@ -43,7 +43,7 @@ const roadSurface=(id,title,fn,a,b,width,bank)=>{
    points.push(vec(p[0]+right[0]*side*Math.cos(theta),p[1]+side*Math.sin(theta),p[2]+right[2]*side*Math.cos(theta)));
   }
  }
- return {id,name:title,rows,cols,points,resolution:id.includes('SPIRAL_CATHEDRAL')||id.includes('PIPE_DIVE')?4:2,rideable:true,collidable:true,material:'road',thickness:1.3};
+ return {id,name:title,rows,cols,points,resolution:id.includes('PIPE_RETURN')?8:id.includes('SPIRAL_CATHEDRAL')||id.includes('PIPE_DIVE')?4:2,rideable:true,collidable:true,material:'road',thickness:1.3};
 };
 const roads=[],chunks={};
 for(const part of portions){
