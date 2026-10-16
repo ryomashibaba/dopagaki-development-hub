@@ -5,7 +5,9 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const port=43731;
-const child=spawn(process.execPath,['scripts/serve.mjs','dist-private',String(port)],{cwd:root,stdio:'pipe'});
+const buildDirectory=process.env.DOPAGAKI_BUILD_DIR||'dist-private';
+if(!['dist-private','dist-site'].includes(buildDirectory))throw Error('Unsupported build directory: '+buildDirectory);
+const child=spawn(process.execPath,['scripts/serve.mjs',buildDirectory,String(port)],{cwd:root,stdio:'pipe'});
 const host=`http://127.0.0.1:${port}`;
 async function untilReady(){for(let i=0;i<50;i++){try{const r=await fetch(host+'/');if(r.ok)return;}catch{}await new Promise(r=>setTimeout(r,100));}throw Error('Local HTTP server did not start: '+(await new Promise(resolve=>{let s='';child.stderr.on('data',b=>s+=b.toString());setTimeout(()=>resolve(s),100)})));}
 try{
