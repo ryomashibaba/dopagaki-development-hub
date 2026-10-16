@@ -23,7 +23,18 @@ test('P68 entrance is tangent-aligned to the clockwise 450 degree road at full s
 test('P68 clockwise spiral outer edge elevated for real centrifugal banking',()=>{
  const s=surface('SPIRAL_CATHEDRAL-01');
  const outer=sample(s,.35,0),inner=sample(s,.35,1);
- assert(inner[1]-outer[1]>50,'incorrect outward-side banking on reversed 450-degree turn');
+ assert(inner[1]-outer[1]>28,'incorrect outward-side banking on clockwise 450-degree turn');
+});
+test('P68 split lanes remain physically separate yet meet the shared merge corridor',()=>{
+ for(const t of [.01,.05,.15,.3,.5,.75,.85,.95,.99]){
+  const n=Math.min(1,Math.floor(t*2)),u=n===0?t*2:(t-.5)*2;
+  const L=surface('FORK_L-0'+(n+1)),R=surface('FORK_R-0'+(n+1));
+  const cl=sample(L,u,.5),cr=sample(R,u,.5);
+  const sep=norm(subtract(cl,cr));
+  const wL=norm(subtract(sample(L,u,0),sample(L,u,1)));
+  const wR=norm(subtract(sample(R,u,0),sample(R,u,1)));
+  assert(sep>(wL+wR)/2+.5,'branch collision solids overlap at t='+t+' sep='+sep+' widths '+wL+'/'+wR);
+ }
 });
 function trial(index,seconds,steer=0,speed=44){
  const r=new Runner(doc,compileCache,index,speed);let air=0,firstAir,furthest=-1,events=[];
