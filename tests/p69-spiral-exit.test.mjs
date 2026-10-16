@@ -6,14 +6,14 @@ import {Runner,DT} from '../private/reference_only/director/physics.js';
 const PI=Math.PI;
 const ease=t=>t*t*(3-2*t);
 const clamp=t=>Math.max(0,Math.min(1,t));
-function course(funnelWidth=0){
+function course(funnelWidth=0,fade=false){
  const doc=generateEchoRush();
  for(let segment=0;segment<6;segment++){
   const s=doc.surfaces.find(s=>s.id==='p66-SPIRAL_CATHEDRAL-'+String(segment+1).padStart(2,'0'));
   for(let i=0;i<s.rows;i++){
    const u=i/(s.rows-1),t=(segment+u)/6,theta=PI+2.5*PI*t;
    const p=[-170+430*Math.cos(theta),150-58*ease(t),-10+430*Math.sin(theta)];
-   const b=-.25,w=96*(.95+.05*Math.cos(2*PI*u));
+   const b=fade?-.25*(1-ease(clamp((t-.77)/.23))):-.25,w=96*(.95+.05*Math.cos(2*PI*u));
    for(let j=0;j<s.cols;j++){
     const side=(j/(s.cols-1)-.5)*w;
     s.points[i*s.cols+j]=[p[0]-Math.cos(theta)*side*Math.cos(b),p[1]+side*Math.sin(b),p[2]-Math.sin(theta)*side*Math.cos(b)];
@@ -48,10 +48,10 @@ function drive(doc,maxSeconds){
  return {time:+runner.time.toFixed(2),status:runner.status,failure:runner.failure?.reason||null,air,approach,spiralSegment,last:runner.surface,pos:runner.p.map(x=>+x.toFixed(1)),speed:+Math.hypot(...runner.v).toFixed(1)};
 }
 test('P69 find real physically seamless spiral-to-fork catch without altering B45',()=>{
- for(const width of [0,150,210]){
-  const stage=course(width);
+ for(const [width,fade] of [[0,true],[150,true],[210,true]]){
+  const stage=course(width,fade);
   const result=drive(stage,85);
-  console.log('P69_EXIT_PROBE '+JSON.stringify({width,...result}));
+  console.log('P69_EXIT_PROBE '+JSON.stringify({width,fade,...result}));
   assert.equal(stage.surfaces.length,21);
  }
 });
