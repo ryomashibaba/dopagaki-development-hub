@@ -5,6 +5,7 @@ import {movingObstaclePose} from '../reference_only/director/moving/moving-obsta
 import {fixtureTriangles} from '../reference_only/director/game-fixtures.js';
 import {epicGeometry} from './p66-visual.mjs';
 import {capturePose,resolveDisplayPose,createCameraState,advanceCamera,viewForPose,cameraYawErrorRadians} from './drive3d-camera.mjs';
+import {stepFixedClock} from './drive3d-loop.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -174,16 +175,16 @@ function hud(){
 }
 function tick(now){
  requestAnimationFrame(tick);
- if(!last)last=now;const elapsed=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
+ if(!last)last=now;const elapsed=Math.min(.125,Math.max(0,(now-last)/1000));last=now;
  if(runner&&!paused&&runner.status!=='failed'&&runner.status!=='finished'){
-  accum+=elapsed;let n=0;
   const steer=Number(right||keys.has('KeyD')||keys.has('ArrowRight'))-Number(left||keys.has('KeyA')||keys.has('ArrowLeft'));
-  while(accum>=DT&&n<12){
+  const progressed=stepFixedClock(accum,elapsed,DT,()=>{
    previousPose=currentPose;
    runner.step(steer);currentPose=capturePose(runner);
-   accum-=DT;n++;if(runner.status==='failed'||runner.status==='finished')break;
-  }
-  if(n===12&&accum>=DT){frameSkips++;accum=Math.min(Math.max(0,accum),DT);}
+   return runner.status!=='failed'&&runner.status!=='finished';
+  });
+  accum=progressed.accumulator;
+  if(progressed.overloaded)frameSkips++;
  }
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
@@ -215,6 +216,7 @@ window.addEventListener('keydown',e=>{
 });
 window.addEventListener('keyup',e=>keys.delete(e.code));
 window.addEventListener('blur',()=>{keys.clear();left=false;right=false;});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){last=0;accum=0;previousPose=currentPose;}});
 $('stage').addEventListener('change',load);$('spawn').addEventListener('change',restart);
 $('restart').addEventListener('click',restart);$('pause').addEventListener('click',toggle);
 try{init();requestAnimationFrame(tick);load();}
