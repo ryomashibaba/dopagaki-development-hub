@@ -9,7 +9,8 @@ export const FRAME_LIMIT_SECONDS=.125;
 export const MAX_STEPS_PER_RENDER=30;
 export function stepFixedClock(accumulator,renderDelta,physicsDelta,step,onStep,maxSteps=MAX_STEPS_PER_RENDER){
  if(!(physicsDelta>0)||!Number.isFinite(physicsDelta))throw Error('Invalid fixed physics step');
- const dt=Math.max(0,Math.min(FRAME_LIMIT_SECONDS,Number.isFinite(renderDelta)?renderDelta:0));
+ const original=Math.max(0,Number.isFinite(renderDelta)?renderDelta:0);
+ const dt=Math.min(FRAME_LIMIT_SECONDS,original);
  let remaining=Math.max(0,Number.isFinite(accumulator)?accumulator:0)+dt;
  let executed=0;
  const budget=Math.max(1,Math.floor(maxSteps));
@@ -20,7 +21,7 @@ export function stepFixedClock(accumulator,renderDelta,physicsDelta,step,onStep,
   executed++;
   if(halted)break;
  }
- const overloaded=!halted&&remaining+1e-12>=physicsDelta;
+ const overloaded=original>FRAME_LIMIT_SECONDS+1e-9||(!halted&&remaining+1e-12>=physicsDelta);
  if(overloaded)remaining=Math.min(remaining,physicsDelta);
  return {accumulator:remaining,steps:executed,overloaded,halted,elapsed:dt};
 }
