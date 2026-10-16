@@ -12,7 +12,7 @@ const vec=(x,y,z)=>[x,y,z];
 const normalized=a=>{const n=Math.hypot(...a)||1;return a.map(x=>x/n);};
 const portions=[
   {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>vec(-1080+480*Math.sin(PI*t/2),245-95*ease(t),-10+80*(t-1)*t),pieces:2,width:34,bank:t=>.055*Math.sin(PI*t)},
-  {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-450+150*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+150*Math.sin(PI+2.5*PI*t)),pieces:6,width:33,bank:t=>.22},
+  {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-450+150*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+150*Math.sin(PI+2.5*PI*t)),pieces:6,width:66,bank:t=>.54},
   {id:'FORK_APPROACH',name:'03 / GIANT BELLS — fork entry',fn:t=>vec(-450+320*t,92-8*ease(t),-160+30*Math.sin(PI*t)**2),pieces:2,width:40,bank:t=>.04*Math.sin(TAU*t)},
   {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-160+105*Math.sin(PI*t)**2),pieces:2,width:25,bank:t=>.12*Math.sin(PI*t)},
   {id:'FORK_R',name:'04 R / ORGAN SKYBRIDGE — upper fork',fn:t=>vec(-130+430*t,84-4*ease(t)+19*Math.sin(PI*t)**2,-160-112*Math.sin(PI*t)**2),pieces:2,width:25,bank:t=>-.14*Math.sin(PI*t)},
@@ -53,11 +53,12 @@ const routeSegments=roads.map(s=>({surface:s.id,u0:0,u1:1,v:.5}));
 const spawnAt=(name,k,piece,u=.06)=>({name,surface:chunks[k][piece].id,u,v:.5});
 const spawns=[
  spawnAt('00 / 全編・巨大管へ突入','PIPE_DIVE_A',0),
- spawnAt('01 / 大空洞450°急旋回','SPIRAL_CATHEDRAL',0),
+ spawnAt('01 / 大空洞450°急旋回','SPIRAL_CATHEDRAL',0,.2),
  spawnAt('02 / 立体分岐（左・大聖堂）','FORK_L',0),
  spawnAt('03 / 立体分岐（右・空中橋）','FORK_R',0),
  spawnAt('04 / 巨大機械回避','MACHINE_CHAMBER',0),
- spawnAt('05 / 自然ジャンプへ接近','GAP_TAKEOFF',0,.74)
+ spawnAt('05 / 自然ジャンプへ接近','GAP_TAKEOFF',0,.74),
+ spawnAt('06 / Y字分岐を走行中に選択','FORK_APPROACH',1,.40)
 ];
 // B51-C: three distinct native moving obstacle mechanisms. Center lane is not permanently safe.
 const lateral=(p,delta)=>[p[0],p[1],p[2]+delta];
