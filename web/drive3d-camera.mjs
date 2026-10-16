@@ -51,7 +51,7 @@ export function cameraYawErrorRadians(state,forward){
 export function createCameraState(forward){return {yaw:yawOf(forward)};}
 export function advanceCamera(state,forward,elapsed,tau=cameraTuning.headingResponseSeconds){
  const target=yawOf(forward,state.yaw);
- const dt=clamp(elapsed,0,.05),a=tau>0?1-Math.exp(-dt/tau):1;
+ const dt=clamp(elapsed,0,.1),a=tau>0?1-Math.exp(-dt/tau):1;
  return {yaw:state.yaw+shortest(state.yaw,target)*a};
 }
 export function viewForPose(pose,state){
