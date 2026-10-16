@@ -120,7 +120,7 @@ function restart(){
  previousPose=currentPose=capturePose(runner);cameraState=createCameraState(currentPose.forward);frameSkips=0;headingError=0;
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P71 CAMERA EXPERIMENTAL — camera A/B and low-FPS telemetry enabled; course/physics are P69, native physical improvements await separate physics review.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P72 EXPERIMENTAL — camera A/B and 10/15fps catch-up enabled; P69 course and B48 baseline physics remain unchanged; separate physics PR awaits approval.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
