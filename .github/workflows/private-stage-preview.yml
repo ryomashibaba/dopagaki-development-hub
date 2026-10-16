@@ -50,7 +50,7 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Build the exact public website
         run: npm run build:site
-      - name: Chromium: four stages, changing focus, timeline, HTTP errors
+      - name: 'Chromium: four stages, changing focus, timeline, HTTP errors'
         run: npm run test:browser
       - uses: actions/upload-artifact@v4
         if: failure()
