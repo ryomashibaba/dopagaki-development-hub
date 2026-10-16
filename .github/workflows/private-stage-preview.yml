@@ -121,7 +121,7 @@ jobs:
             await new Promise(resolve=>setTimeout(resolve,3000));
           }
           assert.equal(info.gitCommit,process.env.EXPECTED_SHA);
-          assert.equal(info.version,'P67');
+          assert.equal(info.version,'P68');
           assert.equal(info.stageCount,4);
           assert.equal(info.experimentalStageCount,1);
           assert.equal(info.movingObstacleCount,24);
