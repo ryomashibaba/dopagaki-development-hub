@@ -11,7 +11,7 @@ const ease=t=>t*t*(3-2*t);
 const vec=(x,y,z)=>[x,y,z];
 const normalized=a=>{const n=Math.hypot(...a)||1;return a.map(x=>x/n);};
 const portions=[
-  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>vec(-1080+480*Math.sin(PI*t/2),245-95*ease(t),-10+80*(t-1)*t),pieces:2,width:34,bank:t=>.055*Math.sin(PI*t)},
+  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const q=clamp((t-.60)/.40);return t<=.60?vec(-1080+550*t,245-95*ease(t),-160):vec(-750+150*Math.sin(PI*q/2),245-95*ease(t),-10-150*Math.cos(PI*q/2));},pieces:2,width:48,bank:t=>-.48*ease(clamp((t-.55)/.45))},
   {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-450+150*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+150*Math.sin(PI+2.5*PI*t)),pieces:6,width:66,bank:t=>.54},
   {id:'FORK_APPROACH',name:'03 / GIANT BELLS — fork entry',fn:t=>vec(-450+320*t,92-8*ease(t),-160+30*Math.sin(PI*t)**2),pieces:2,width:40,bank:t=>.04*Math.sin(TAU*t)},
   {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-160+105*Math.sin(PI*t)**2),pieces:2,width:25,bank:t=>.12*Math.sin(PI*t)},
@@ -91,7 +91,7 @@ for(let i=0;i<4;i++){
 // Scenery only. Large-scale architecture is rendered by the separate P66 WebGL mesh adapter;
 // it does not participate in B48 collision and does not consume the 32-surface physics cap.
 const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CATHEDRAL',
- pipeRings:Array.from({length:6},(_,i)=>({center:[-1060+i*86,190-i*13,-10],axis:'x',radius:75+i*3,width:6})),
+ pipeRings:Array.from({length:6},(_,i)=>{const t=.07+i*.16,p=portions[0].fn(t);return {center:[p[0],p[1]+13,p[2]],axis:t>.62?'z':'x',radius:68+i*4,width:6};}),
  spiralRings:Array.from({length:6},(_,i)=>({center:[-450,70+i*30,-10],axis:'y',radius:158,width:7})),
  organPipes:Array.from({length:18},(_,i)=>{
   const side=i%2?1:-1,q=Math.floor(i/2);
