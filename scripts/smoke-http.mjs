@@ -19,7 +19,7 @@ try{
  const page=await (await fetch(host+'/web/')).text();
  for(const file of files)assert(page.includes(file),`Inspector missing ${file}`);
  const drive=await(await fetch(host+'/drive3d/')).text();assert(drive.includes('drive3d.mjs'),'Missing 3D module');
- const p66=await(await fetch(host+'/generated/P66_ECHO_RUSH.json')).json();assert.equal(p66.stageForge.id,'EP-P66');assert.equal(p66.movingObstacles.length,6);assert(p66.visualBlueprint.spiralRings.length>=5);
+ const p66=await(await fetch(host+'/generated/P66_ECHO_RUSH.json')).json();assert.equal(p66.stageForge.id,'EP-P66');assert.equal(p66.movingObstacles.length,6);assert(p66.visualBlueprint.spiralRings.length>=5);assert.equal(p66.visualBlueprint.returnHoops.length,9);assert.equal(p66.surfaces.length,23);
  const moduleText=await(await fetch(host+'/drive3d/drive3d.mjs')).text();assert(moduleText.includes('Runner,DT')&&moduleText.includes('movingObstaclePose')&&moduleText.includes('drive3d-camera.mjs')&&moduleText.includes('drive3d-loop.mjs')&&moduleText.includes('p73-machine-visual.mjs')&&moduleText.includes('p74-nearmiss.mjs')&&moduleText.includes('p75-survival.mjs'),'3D page not connected to B48 Runner or Moving Lab');
  console.log('HTTP PASS',urls.length,'valid assets; old 404 path rejected; stage imports verified');
 }catch(e){console.error(e);process.exitCode=1;}finally{child.kill('SIGTERM');}
