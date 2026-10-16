@@ -121,11 +121,11 @@ jobs:
             await new Promise(resolve=>setTimeout(resolve,3000));
           }
           assert.equal(info.gitCommit,process.env.EXPECTED_SHA);
-          assert.equal(info.version,'P73');
+          assert.equal(info.version,'P74');
           assert.equal(info.stageCount,4);
           assert.equal(info.experimentalStageCount,1);
           assert.equal(info.movingObstacleCount,24);
-          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs']){
+          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs']){
             const response=await fetchOK(path);
             assert((await response.text()).length>300,'Empty public asset: '+path);
           }
