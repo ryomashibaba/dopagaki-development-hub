@@ -175,7 +175,7 @@ function hud(){
 }
 function tick(now){
  requestAnimationFrame(tick);
- if(!last)last=now;const elapsed=Math.min(.125,Math.max(0,(now-last)/1000));last=now;
+ if(!last)last=now;const elapsed=Math.max(0,(now-last)/1000);last=now;
  if(runner&&!paused&&runner.status!=='failed'&&runner.status!=='finished'){
   const steer=Number(right||keys.has('KeyD')||keys.has('ArrowRight'))-Number(left||keys.has('KeyA')||keys.has('ArrowLeft'));
   const progressed=stepFixedClock(accum,elapsed,DT,()=>{
