@@ -35,11 +35,12 @@ function course(funnelWidth=0,fade=false,taper=.44,bump=0){
  }
  return doc;
 }
-function drive(doc,maxSeconds){
+function drive(doc,maxSeconds,steer=0,hold=0){
  const runner=new Runner(doc,compile(doc),1,44);
  let air=null,approach=null,spiralSegment=0;
  for(let i=0;i<Math.round(maxSeconds/DT)&&!['failed','finished'].includes(runner.status);i++){
-  runner.step(0);
+  const input=runner.time>=62.15&&runner.time<62.15+hold?steer:0;
+  runner.step(input);
   if(!runner.grounded&&!air)air={t:+runner.time.toFixed(2),p:runner.p.map(x=>+x.toFixed(1)),last:runner.events.at(-1)?.surface||null};
   if(runner.surface?.includes('FORK_APPROACH')&&!approach)approach={t:+runner.time.toFixed(2),surface:runner.surface};
   const match=runner.surface?.match(/SPIRAL_CATHEDRAL-(\d+)/);
@@ -48,10 +49,10 @@ function drive(doc,maxSeconds){
  return {time:+runner.time.toFixed(2),status:runner.status,failure:runner.failure?.reason||null,air,approach,spiralSegment,last:runner.surface,pos:runner.p.map(x=>+x.toFixed(1)),speed:+Math.hypot(...runner.v).toFixed(1)};
 }
 test('P69 find real physically seamless spiral-to-fork catch without altering B45',()=>{
- for(const [width,fade,taper,bump] of [[150,true,.9,0],[150,true,.44,35],[180,true,.8,35]]){
-  const stage=course(width,fade,taper,bump);
-  const result=drive(stage,85);
-  console.log('P69_EXIT_PROBE '+JSON.stringify({width,fade,taper,bump,...result}));
+ for(const [steer,hold] of [[0,0],[-.14,2.5],[-.22,2.3],[-.35,1.8]]){
+  const stage=course(150,true,.9,0);
+  const result=drive(stage,85,steer,hold);
+  console.log('P69_EXIT_PROBE '+JSON.stringify({steer,hold,...result}));
   assert.equal(stage.surfaces.length,21);
  }
 });
