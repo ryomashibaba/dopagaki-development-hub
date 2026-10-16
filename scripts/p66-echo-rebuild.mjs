@@ -11,8 +11,8 @@ const ease=t=>t*t*(3-2*t);
 const vec=(x,y,z)=>[x,y,z];
 const normalized=a=>{const n=Math.hypot(...a)||1;return a.map(x=>x/n);};
 const portions=[
-  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const q=clamp((t-.10)/.90);return t<=.10?vec(-1105+750*t,245-95*ease(t),-440):vec(-1030+430*Math.sin(PI*q/2),245-95*ease(t),-10-430*Math.cos(PI*q/2));},pieces:2,width:92,bank:t=>-.78*ease(clamp((t-.04)/.31))},
-  {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-170+430*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+430*Math.sin(PI+2.5*PI*t)),pieces:6,width:96,bank:t=>.79},
+  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const h=t*t*(3-2*t),a=t*t*t-2*t*t+t,b=t*t*t-t*t;return vec(-1105*(1-h)-600*h+1250*a,245-95*ease(t),-440*(1-h)-10*h-1260*b);},pieces:2,width:92,bank:t=>-.78*ease(clamp((t-.06)/.88))},
+  {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-170+430*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+430*Math.sin(PI+2.5*PI*t)),pieces:6,width:96,bank:t=>-.79},
   {id:'FORK_APPROACH',name:'03 / GIANT BELLS — fork entry',fn:t=>vec(-450+320*t,92-8*ease(t),-160+30*Math.sin(PI*t)**2),pieces:2,width:40,bank:t=>.04*Math.sin(TAU*t)},
   {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-160+105*Math.sin(PI*t)**2),pieces:2,width:45,bank:t=>-.46*Math.sin(PI*t)*Math.cos(TAU*t)},
   {id:'FORK_R',name:'04 R / ORGAN SKYBRIDGE — upper fork',fn:t=>vec(-130+430*t,84-4*ease(t)+19*Math.sin(PI*t)**2,-160-112*Math.sin(PI*t)**2),pieces:2,width:45,bank:t=>.46*Math.sin(PI*t)*Math.cos(TAU*t)},
@@ -106,10 +106,10 @@ const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CA
 };
 const doc={
  schema:'dopagaki.track-director/1',
- name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P67 ROUTE CONTINUITY',
+ name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P68 PHYSICAL BANKING',
  surfaces:roads,route,routeSegments,spawns,autoRoute:true,generatedRoute:true,fixtures,movingObstacles,
  visualBlueprint,
- stageForge:{id:'EP-P66',batch:'P67_ROUTE_CONTINUITY',status:'EXPERIMENTAL_HUMAN_UNTESTED',
+ stageForge:{id:'EP-P66',batch:'P68_CORRECT_BANKING_C1_TANGENT',status:'EXPERIMENTAL_HUMAN_UNTESTED',
   design:'REAL 3D RUSH COURSE; NOT P62 RESKIN',physicalChapters:8,
   features:['95m pipe descent','450-degree 3D cathedral spiral','two physical route branches','six moving machine encounters','25m real road gap with natural ramp launch','multilevel architectural fly-through'],
   oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,dynamicMidForkChoice:'NOT_YET_VERIFIED',
