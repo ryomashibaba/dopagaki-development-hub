@@ -7,7 +7,7 @@
  */
 import assert from 'node:assert/strict';
 import path from 'node:path';
-import {pathToFileURL} from 'node:url';
+import {pathToFileURL,fileURLToPath} from 'node:url';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {generateEchoRush} from './p66-echo-rebuild.mjs';
@@ -96,7 +96,7 @@ export async function physicsHandoff({candidatePath=null,full=false}={}){
   candidateSHA256:hash,source:'PRIVATE_LOCAL_TEST_ONLY',tested:select.map(x=>x.id),
   baseline,baselinePass:baseline.every(isApprovedCourseCase),candidate:results,passed};
 }
-if(process.argv[1]&&path.resolve(process.argv[1])===path.resolve(new URL(import.meta.url).pathname)){
+if(process.argv[1]&&path.resolve(process.argv[1])===path.resolve(fileURLToPath(import.meta.url))){
  const result=await physicsHandoff({candidatePath:process.env.DOPAGAKI_PHYSICS_CANDIDATE||null,full:process.env.DOPAGAKI_PHYSICS_FULL==='1'});
  console.log('P72_PHYSICS_HANDOFF '+JSON.stringify(result));
  if(!result.baselinePass||result.passed===false)process.exitCode=1;
