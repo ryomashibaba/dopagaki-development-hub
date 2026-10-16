@@ -14,8 +14,8 @@ const portions=[
   {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const q=clamp((t-.10)/.90);return t<=.10?vec(-1105+750*t,245-95*ease(t),-440):vec(-1030+430*Math.sin(PI*q/2),245-95*ease(t),-10-430*Math.cos(PI*q/2));},pieces:2,width:92,bank:t=>-.78*ease(clamp((t-.04)/.31))},
   {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-170+430*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+430*Math.sin(PI+2.5*PI*t)),pieces:6,width:96,bank:t=>.79},
   {id:'FORK_APPROACH',name:'03 / GIANT BELLS — fork entry',fn:t=>vec(-450+320*t,92-8*ease(t),-160+30*Math.sin(PI*t)**2),pieces:2,width:40,bank:t=>.04*Math.sin(TAU*t)},
-  {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-160+105*Math.sin(PI*t)**2),pieces:2,width:45,bank:t=>-.46*Math.sin(PI*t)*Math.cos(TAU*t)},
-  {id:'FORK_R',name:'04 R / ORGAN SKYBRIDGE — upper fork',fn:t=>vec(-130+430*t,84-4*ease(t)+19*Math.sin(PI*t)**2,-160-112*Math.sin(PI*t)**2),pieces:2,width:45,bank:t=>.46*Math.sin(PI*t)*Math.cos(TAU*t)},
+  {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-150+105*Math.sin(PI*t)**2),pieces:2,width:t=>18+27*Math.sin(PI*t)**2+15*Math.sin(PI*t),bank:t=>-.28*Math.sin(PI*t)*Math.cos(TAU*t)},
+  {id:'FORK_R',name:'04 R / ORGAN SKYBRIDGE — upper fork',fn:t=>vec(-130+430*t,84-4*ease(t)+19*Math.sin(PI*t)**2,-170-112*Math.sin(PI*t)**2),pieces:2,width:t=>18+27*Math.sin(PI*t)**2+15*Math.sin(PI*t),bank:t=>.28*Math.sin(PI*t)*Math.cos(TAU*t)},
   {id:'FORK_REJOIN',name:'05 / TWO-LAYER REJOIN',fn:t=>vec(300+260*t,80-7*ease(t),-160+28*Math.sin(PI*t)**2),pieces:1,width:36,bank:t=>.07*Math.sin(PI*t)},
   {id:'MACHINE_CHAMBER',name:'06 / MACHINE GAUNTLET — rotating masses',fn:t=>vec(560+460*t,73-3*ease(t),-160-62*Math.sin(.5*PI*t)**2),pieces:3,width:36,bank:t=>-.1*Math.sin(PI*t)},
   {id:'GAP_TAKEOFF',name:'07 / SKY CRACK — unassisted ramp',fn:t=>vec(1020+180*t,70+18*t*t,-222-17*Math.sin(PI*t)**2),pieces:1,width:30,bank:t=>.04*Math.sin(PI*t)},
@@ -32,7 +32,8 @@ const roadSurface=(id,title,fn,a,b,width,bank)=>{
   const dx=after[0]-before[0],dz=after[2]-before[2];
   const right=normalized([-dz,0,dx]);
   const theta=bank(t);
-  const widthAt=width*(.95+.05*Math.cos(TAU*u));
+  const nominalWidth=typeof width==='function'?width(t):width;
+  const widthAt=nominalWidth*(.95+.05*Math.cos(TAU*u));
   for(let j=0;j<cols;j++){
    const side=(j/(cols-1)-.5)*widthAt;
    points.push(vec(p[0]+right[0]*side*Math.cos(theta),p[1]+side*Math.sin(theta),p[2]+right[2]*side*Math.cos(theta)));
@@ -101,19 +102,25 @@ const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CA
   return {center:[-1070+q*74,122,side*(110+q%3*18)],radius:13+q%3*6,height:175+q%4*31};
  }),
  branchHoops:Array.from({length:9},(_,i)=>({center:[165+i*81,99,-440+(i%2?82:-82)],axis:'x',radius:65,width:4})),
+ // P68: two distinct megastructure silhouettes, physically disconnected from collision.
+ bellVaults:Array.from({length:6},(_,i)=>{const t=(i+.7)/7,p=portions.find(x=>x.id==='FORK_L').fn(t);return {center:[p[0],p[1]+36,p[2]],axis:'x',radius:35+8*Math.sin(PI*t),width:5.5};}),
+ skyPortals:Array.from({length:6},(_,i)=>{const t=(i+.5)/7,p=portions.find(x=>x.id==='FORK_R').fn(t);return {center:[p[0],p[1]+44,p[2]],axis:'x',radius:42+11*Math.sin(PI*t),width:5};}),
+ bellTowers:Array.from({length:6},(_,i)=>{const t=(i+.65)/7,p=portions.find(x=>x.id==='FORK_L').fn(t);return {center:[p[0],p[1]+52,p[2]+65],radius:9+(i%3)*2,height:126+i%3*27};}),
+ skyPylons:Array.from({length:6},(_,i)=>{const t=(i+.55)/7,p=portions.find(x=>x.id==='FORK_R').fn(t);return {center:[p[0],p[1]+67,p[2]-72],radius:7+(i%2)*3,height:138+(i%4)*17};}),
+
  machinery:Array.from({length:10},(_,i)=>({center:[870+i*43,95,-501],axis:'x',radius:58+(i%3)*8,width:7})),
  abyssPylons:Array.from({length:8},(_,i)=>({center:[1360+i*57,-9,i%2?-420:-592],radius:11,height:175+(i%3)*35}))
 };
 const doc={
  schema:'dopagaki.track-director/1',
- name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P67 ROUTE CONTINUITY',
+ name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P68 DUAL-FORK CONTINUITY',
  surfaces:roads,route,routeSegments,spawns,autoRoute:true,generatedRoute:true,fixtures,movingObstacles,
  visualBlueprint,
- stageForge:{id:'EP-P66',batch:'P67_ROUTE_CONTINUITY',status:'EXPERIMENTAL_HUMAN_UNTESTED',
+ stageForge:{id:'EP-P66',batch:'P68_DUAL_FORK_LANE_CLEARANCE',status:'EXPERIMENTAL_HUMAN_UNTESTED',
   design:'REAL 3D RUSH COURSE; NOT P62 RESKIN',physicalChapters:8,
   features:['95m pipe descent','450-degree 3D cathedral spiral','two physical route branches','six moving machine encounters','25m real road gap with natural ramp launch','multilevel architectural fly-through'],
-  oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,dynamicMidForkChoice:'NOT_YET_VERIFIED',
-  humanPlaytest:'NOT_RUN',finalVisualQuality:'NOT_APPROVED'}
+  oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,dualForkNativeQA:'BOTH_12_SECOND_RUNS_PASS',dynamicMidForkChoice:'NOT_YET_VERIFIED',
+  humanPlaytest:'NOT_RUN',spiralExit:'HOLD',finalVisualQuality:'NOT_APPROVED'}
 };
 export function generateEchoRush(){return validate(doc);}
 export const P66_GEOMETRY=Object.freeze({roadSurfaces:roads.length,gapMeters:25,spiralAngleDegrees:450,physicalBranches:2,moving:6});

@@ -55,6 +55,16 @@ export function epicGeometry(stage){
  for(let i=0;i<b.pipeRings.length;i++)annulus(v,b.pipeRings[i],i%2?[.07,.34,.55]:[.22,.7,.88]);
  for(let i=0;i<b.spiralRings.length;i++)annulus(v,b.spiralRings[i],i%2?[.21,.21,.65]:[.29,.76,.9]);
  for(let i=0;i<b.branchHoops.length;i++)annulus(v,b.branchHoops[i],i%2?[.53,.28,.77]:[.14,.63,.88]);
+ // P68 fork megastructures: cathedral vault and high-sky portal lanes are not repeated straight-road props.
+ for(let i=0;i<(b.bellVaults?.length||0);i++)annulus(v,b.bellVaults[i],i%2?[.64,.27,.85]:[.34,.79,1]);
+ for(let i=0;i<(b.skyPortals?.length||0);i++)annulus(v,b.skyPortals[i],i%2?[.12,.62,1]:[.48,.91,.97]);
+ for(const x of b.bellTowers??[])cylinder(v,x.center,x.radius,x.height,[.15,.11,.32],[.76,.39,.96]);
+ for(const x of b.skyPylons??[])cylinder(v,x.center,x.radius,x.height,[.08,.2,.38],[.31,.88,1]);
+ for(const [index,x] of (b.bellVaults??[]).entries()){
+  const y=x.center[1]+x.radius+18;
+  prism(v,[x.center[0],y,x.center[2]],[8,8,100],[.36,.21,.58]);
+  prism(v,[x.center[0],y+17,x.center[2]+35],[9,34,9],[.48,.29,.69]);
+ }
  for(let i=0;i<b.machinery.length;i++)annulus(v,b.machinery[i],i%2?[.38,.16,.7]:[.24,.64,.88]);
  for(const x of b.organPipes)cylinder(v,x.center,x.radius,x.height,[.06,.17,.33],[.25,.86,1]);
  for(const x of b.abyssPylons)cylinder(v,x.center,x.radius,x.height,[.1,.16,.3],[.24,.6,1]);
