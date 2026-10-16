@@ -7,7 +7,7 @@
  */
 export const FRAME_LIMIT_SECONDS=.125;
 export const MAX_STEPS_PER_RENDER=30;
-export function stepFixedClock(accumulator,renderDelta,physicsDelta,step,onStep,maxSteps=MAX_STEPS_PER_RENDER){
+export function stepFixedClock(accumulator,renderDelta,physicsDelta,onStep,maxSteps=MAX_STEPS_PER_RENDER){
  if(!(physicsDelta>0)||!Number.isFinite(physicsDelta))throw Error('Invalid fixed physics step');
  const original=Math.max(0,Number.isFinite(renderDelta)?renderDelta:0);
  const dt=Math.min(FRAME_LIMIT_SECONDS,original);
