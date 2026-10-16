@@ -84,10 +84,9 @@ for(let i=0;i<6;i++){
 }
 const fixtures=[];
 const mark=(kind,id,p,size,yaw=0)=>fixtures.push({id,kind,position:p,size,yaw,enabled:true});
-for(let i=0;i<5;i++){
- const t=.14+i*.17,p=portions.find(q=>q.id==='PIPE_DIVE_A').fn(t);
- mark('tunnel','p66-pipe-arch-'+i,[p[0],p[1]-1,p[2]],[73,55,3],90);
-}
+// P76: old P66 collision-only arch fixtures would cut through the newly
+// aligned intake road. The monumental visual-only pipeRings and returnHoops
+// provide the architecture without fake blockers in the travel lane.
 for(let i=0;i<6;i++){
  const t=.08+i*.16,p=machine(t);
  mark('marker','p66-warning-'+i,[p[0]-15,p[1],p[2]+(i%2?14:-14)],[1.5,5,1],0);
