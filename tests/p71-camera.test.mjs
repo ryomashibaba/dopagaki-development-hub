@@ -43,6 +43,17 @@ test('P71 long frame jumps do not cause unbounded camera yaw rotation or screen 
  const pause=advanceCamera(delayed,heading(-2),0);
  assert.deepEqual(pause,delayed);
 });
+test('P71 yaw response remains consistent even at 10/15fps (stalled physics not accelerated)',()=>{
+ const run=fps=>{
+  let state=createCameraState(heading(0));
+  for(let i=0;i<fps;i++)state=advanceCamera(state,heading(Math.PI/2),1/fps);
+  return state.yaw;
+ };
+ const reference=run(60);
+ for(const fps of [10,15,30,120]){
+  eps(run(fps),reference,.0001);
+ }
+});
 test('P71 actual camera ball lock survives 80–140 m/s curve progression across frame rates',()=>{
  for(const fps of [15,30,60,120]){
   let state=createCameraState(heading(0));
