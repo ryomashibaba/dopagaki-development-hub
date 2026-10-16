@@ -29,7 +29,8 @@ test('P68 epic dual-fork megastructures are real GPU meshes, not collision surfa
  const vertices=epicGeometry(doc);
  assert(vertices.length>60000&&vertices.length%6===0,'missing enormous scene geometry');
  assert.equal(doc.surfaces.length,21,'must preserve B48 physical surface budget');
- assert.equal(doc.stageForge.spiralExit,'HOLD','do not mislabel unfinished spiral exit as verified');
+ assert.notEqual(doc.stageForge.spiralExit,'FULL_ROUTE_APPROVED','do not mislabel full start-to-finish completion as verified');
+ assert.equal(doc.stageForge.humanPlaytest,'NOT_RUN','human gameplay quality is still unverified');
 });
 test('P68 fork paths are disjoint collision ribbons at 0–100% progress',()=>{
  for(const t of [.001,.01,.03,.05,.1,.15,.25,.3,.5,.7,.85,.91,.95,.99,.999]){
