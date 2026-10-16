@@ -102,6 +102,12 @@ const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CA
   return {center:[-1070+q*74,122,side*(110+q%3*18)],radius:13+q%3*6,height:175+q%4*31};
  }),
  branchHoops:Array.from({length:9},(_,i)=>({center:[165+i*81,99,-440+(i%2?82:-82)],axis:'x',radius:65,width:4})),
+ // P68: two distinct megastructure silhouettes, physically disconnected from collision.
+ bellVaults:Array.from({length:6},(_,i)=>{const t=(i+.7)/7,p=portions.find(x=>x.id==='FORK_L').fn(t);return {center:[p[0],p[1]+36,p[2]],axis:'x',radius:35+8*Math.sin(PI*t),width:5.5};}),
+ skyPortals:Array.from({length:6},(_,i)=>{const t=(i+.5)/7,p=portions.find(x=>x.id==='FORK_R').fn(t);return {center:[p[0],p[1]+44,p[2]],axis:'x',radius:42+11*Math.sin(PI*t),width:5};}),
+ bellTowers:Array.from({length:6},(_,i)=>{const t=(i+.65)/7,p=portions.find(x=>x.id==='FORK_L').fn(t);return {center:[p[0],p[1]+52,p[2]+65],radius:9+(i%3)*2,height:126+i%3*27};}),
+ skyPylons:Array.from({length:6},(_,i)=>{const t=(i+.55)/7,p=portions.find(x=>x.id==='FORK_R').fn(t);return {center:[p[0],p[1]+67,p[2]-72],radius:7+(i%2)*3,height:138+(i%4)*17};}),
+
  machinery:Array.from({length:10},(_,i)=>({center:[870+i*43,95,-501],axis:'x',radius:58+(i%3)*8,width:7})),
  abyssPylons:Array.from({length:8},(_,i)=>({center:[1360+i*57,-9,i%2?-420:-592],radius:11,height:175+(i%3)*35}))
 };
@@ -113,8 +119,8 @@ const doc={
  stageForge:{id:'EP-P66',batch:'P68_DUAL_FORK_LANE_CLEARANCE',status:'EXPERIMENTAL_HUMAN_UNTESTED',
   design:'REAL 3D RUSH COURSE; NOT P62 RESKIN',physicalChapters:8,
   features:['95m pipe descent','450-degree 3D cathedral spiral','two physical route branches','six moving machine encounters','25m real road gap with natural ramp launch','multilevel architectural fly-through'],
-  oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,dynamicMidForkChoice:'NOT_YET_VERIFIED',
-  humanPlaytest:'NOT_RUN',finalVisualQuality:'NOT_APPROVED'}
+  oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,dualForkNativeQA:'BOTH_12_SECOND_RUNS_PASS',dynamicMidForkChoice:'NOT_YET_VERIFIED',
+  humanPlaytest:'NOT_RUN',spiralExit:'HOLD',finalVisualQuality:'NOT_APPROVED'}
 };
 export function generateEchoRush(){return validate(doc);}
 export const P66_GEOMETRY=Object.freeze({roadSurfaces:roads.length,gapMeters:25,spiralAngleDegrees:450,physicalBranches:2,moving:6});
