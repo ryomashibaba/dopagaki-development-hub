@@ -57,7 +57,7 @@ const spawns=[
  spawnAt('02 / 立体分岐（左・大聖堂）','FORK_L',0),
  spawnAt('03 / 立体分岐（右・空中橋）','FORK_R',0),
  spawnAt('04 / 巨大機械回避','MACHINE_CHAMBER',0),
- spawnAt('05 / 自然ジャンプへ接近','GAP_TAKEOFF',0)
+ spawnAt('05 / 自然ジャンプへ接近','GAP_TAKEOFF',0,.74)
 ];
 // B51-C: three distinct native moving obstacle mechanisms. Center lane is not permanently safe.
 const lateral=(p,delta)=>[p[0],p[1],p[2]+delta];
