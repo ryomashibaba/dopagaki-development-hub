@@ -35,18 +35,16 @@ function drive(doc,spawn,seconds=24,speed=44){
   if(m)maxSegment=Math.max(maxSegment,Number(m[1]));
   if(!r.grounded&&!firstAir)firstAir={t:+r.time.toFixed(2),p:r.p.map(n=>+n.toFixed(1)),speed:+Math.hypot(...r.v).toFixed(1),last:r.events.at(-1)?.surface||null};
  }
- return {seconds:+r.time.toFixed(2),status:r.status,fail:r.failure?.reason||null,maxSegment,firstAir,position:r.p.map(n=>+n.toFixed(1)),grounded:r.grounded,contacts:r.collisions};
+ return {seconds:+r.time.toFixed(2),status:r.status,fail:r.failure?.reason||null,maxSegment,firstAir,position:r.p.map(n=>+n.toFixed(1)),speed:+Math.hypot(...r.v).toFixed(1),grounded:r.grounded,lastSurface:r.surface,contacts:r.collisions};
 }
 test('P69 geometry-only banking probes do not claim readiness',()=>{
  for(const [label,bank,width] of [
-  ['P68_BASELINE',.79,96],
+  ['OUTER_HIGH_025',-.25,96],
   ['OUTER_HIGH_035',-.35,96],
-  ['OUTER_HIGH_055',-.55,96],
-  ['OUTER_HIGH_075',-.75,96],
-  ['OUTER_HIGH_055_WIDE',-.55,130]
+  ['OUTER_HIGH_045',-.45,96]
  ]){
   const course=banked(bank,width);
-  const result=drive(course,1,24);
+  const result=drive(course,1,65);
   console.log('P69_PROBE '+JSON.stringify({label,bank,width,...result}));
  }
 });
