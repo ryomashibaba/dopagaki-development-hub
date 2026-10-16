@@ -54,10 +54,10 @@ function run(spawn,speed,steer=0,seconds=7.5){
 test('P67 diagnostics: physical jump must be measured for different launch speeds',()=>{
  const results=[38,44,52,60].map(speed=>run(5,speed,0,6.0));
  for(const value of results)console.log('P67_JUMP_DIAG '+JSON.stringify(value));
- assert(results.some(x=>x.airFramesAfterLip>=15),'the 25m gap still fails to produce a real post-lip flight');
+ assert(results.every(x=>x.airFramesAfterLip>=30&&x.landed&&!x.fail),'P67 true jump landing must succeed at every tested speed: '+JSON.stringify(results));
 });
 test('P67 diagnostics: turn/branch candidates and actual road transitions',()=>{
- const results=[[0,44,0,12],[1,44,0,15],[2,44,0,14],[3,44,0,14],[4,44,0,8]].map(x=>run(...x));
+ const results=[[0,44,0,12],[1,44,0,12],[2,44,0,12],[3,44,0,12],[4,44,0,7],[6,44,-1,7],[6,44,0,7],[6,44,1,7]].map(x=>run(...x));
  for(const value of results)console.log('P67_ROUTE_DIAG '+JSON.stringify(value));
- assert(results.length===5);
+ assert(results.length===8);
 });
