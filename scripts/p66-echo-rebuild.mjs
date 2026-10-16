@@ -11,8 +11,8 @@ const ease=t=>t*t*(3-2*t);
 const vec=(x,y,z)=>[x,y,z];
 const normalized=a=>{const n=Math.hypot(...a)||1;return a.map(x=>x/n);};
 const portions=[
-  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const q=clamp((t-.10)/.90);return t<=.10?vec(-1105+750*t,245-95*ease(t),-440):vec(-1030+430*Math.sin(PI*q/2),245-95*ease(t),-10-430*Math.cos(PI*q/2));},pieces:2,width:96,bank:t=>.40*ease(clamp((t-.04)/.31))},
-  {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-170+430*Math.cos(PI-2.5*PI*t),150-58*ease(t),-10+430*Math.sin(PI-2.5*PI*t)),pieces:6,width:96,bank:t=>.40},
+  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const q=clamp((t-.10)/.90);return t<=.10?vec(-1105+750*t,245-95*ease(t),-440):vec(-1030+430*Math.sin(PI*q/2),245-95*ease(t),-10-430*Math.cos(PI*q/2));},pieces:2,width:92,bank:t=>-.78*ease(clamp((t-.04)/.31))},
+  {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-170+430*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+430*Math.sin(PI+2.5*PI*t)),pieces:6,width:96,bank:t=>.79},
   {id:'FORK_APPROACH',name:'03 / GIANT BELLS — fork entry',fn:t=>vec(-450+320*t,92-8*ease(t),-160+30*Math.sin(PI*t)**2),pieces:2,width:40,bank:t=>.04*Math.sin(TAU*t)},
   {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-150+105*Math.sin(PI*t)**2),pieces:2,width:t=>18+27*Math.sin(PI*t)**2+15*Math.sin(PI*t),bank:t=>-.28*Math.sin(PI*t)*Math.cos(TAU*t)},
   {id:'FORK_R',name:'04 R / ORGAN SKYBRIDGE — upper fork',fn:t=>vec(-130+430*t,84-4*ease(t)+19*Math.sin(PI*t)**2,-170-112*Math.sin(PI*t)**2),pieces:2,width:t=>18+27*Math.sin(PI*t)**2+15*Math.sin(PI*t),bank:t=>.28*Math.sin(PI*t)*Math.cos(TAU*t)},
@@ -24,7 +24,7 @@ const portions=[
 ];
 // Retain exact C0 physical joins while enlarging the 450-degree spiral for high-speed descent.
 // The downstream course is translated (not scaled), so its 25m natural jump remains real.
-for(const section of portions.slice(2)){const original=section.fn;section.fn=t=>{const q=original(t);return [q[0]+280,q[1],q[2]+580];};}
+for(const section of portions.slice(2)){const original=section.fn;section.fn=t=>{const q=original(t);return [q[0]+280,q[1],q[2]-280];};}
 const roadSurface=(id,title,fn,a,b,width,bank)=>{
  const rows=25,cols=5,points=[];
  for(let i=0;i<rows;i++){
@@ -101,16 +101,16 @@ const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CA
   const side=i%2?1:-1,q=Math.floor(i/2);
   return {center:[-1070+q*74,122,side*(110+q%3*18)],radius:13+q%3*6,height:175+q%4*31};
  }),
- branchHoops:Array.from({length:9},(_,i)=>({center:[165+i*81,99,420+(i%2?82:-82)],axis:'x',radius:65,width:4})),
- machinery:Array.from({length:10},(_,i)=>({center:[870+i*43,95,359],axis:'x',radius:58+(i%3)*8,width:7})),
- abyssPylons:Array.from({length:8},(_,i)=>({center:[1360+i*57,-9,i%2?440:268],radius:11,height:175+(i%3)*35}))
+ branchHoops:Array.from({length:9},(_,i)=>({center:[165+i*81,99,-440+(i%2?82:-82)],axis:'x',radius:65,width:4})),
+ machinery:Array.from({length:10},(_,i)=>({center:[870+i*43,95,-501],axis:'x',radius:58+(i%3)*8,width:7})),
+ abyssPylons:Array.from({length:8},(_,i)=>({center:[1360+i*57,-9,i%2?-420:-592],radius:11,height:175+(i%3)*35}))
 };
 const doc={
  schema:'dopagaki.track-director/1',
- name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P68 PHYSICAL BANKING',
+ name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P68 DUAL-FORK CONTINUITY',
  surfaces:roads,route,routeSegments,spawns,autoRoute:true,generatedRoute:true,fixtures,movingObstacles,
  visualBlueprint,
- stageForge:{id:'EP-P66',batch:'P68_CORRECT_BANKING_C1_TANGENT',status:'EXPERIMENTAL_HUMAN_UNTESTED',
+ stageForge:{id:'EP-P66',batch:'P68_DUAL_FORK_LANE_CLEARANCE',status:'EXPERIMENTAL_HUMAN_UNTESTED',
   design:'REAL 3D RUSH COURSE; NOT P62 RESKIN',physicalChapters:8,
   features:['95m pipe descent','450-degree 3D cathedral spiral','two physical route branches','six moving machine encounters','25m real road gap with natural ramp launch','multilevel architectural fly-through'],
   oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,dynamicMidForkChoice:'NOT_YET_VERIFIED',
