@@ -13,9 +13,10 @@ function direction(runner){
  const v=runner.v||[0,0,0],f=runner.forward||[0,0,1],speed=Math.hypot(v[0],v[2]);
  return speed>6?[v[0]/speed,0,v[2]/speed]:f;
 }
-export function stepNearMiss(tracker,obstacles,runner,poseAt,separate){
+export function stepNearMiss(tracker,obstacles,runner,poseAt,separate,ballRadius){
  if(typeof poseAt!=='function'||typeof separate!=='function')throw Error('Canonical moving-obstacle pose and sphere separation are required');
  if(!tracker||!(tracker.byId instanceof Map))throw Error('Missing near-miss tracker');
+ if(!(ballRadius>0&&Number.isFinite(ballRadius)))throw Error('Valid physical ball radius is required');
  const events=runner.events||[];
  for(let i=tracker.eventCursor;i<events.length;i++){
   const e=events[i];
@@ -51,7 +52,7 @@ export function stepNearMiss(tracker,obstacles,runner,poseAt,separate){
   // Expensive exact OBB separation only in the actionable vicinity. This
   // catches the ball radius and the machine's *real* sampled yaw/size.
   if(distance<Math.max(30,...p.halfSize)+15){
-   const separation=separate(runner.p,runner.doc?.ballRadius||.65,p).separation;
+   const separation=separate(runner.p,ballRadius,p).separation;
    if(separation<=.05)state.contacted=true;
    else state.minClearance=Math.min(state.minClearance,separation);
   }
