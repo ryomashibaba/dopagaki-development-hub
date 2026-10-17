@@ -14,6 +14,7 @@ import {PRACTICE_CHAPTERS,createPracticeSeek,advancePracticeSeek,practiceElapsed
 import {FLOW_CHAPTERS,flowLineVertices,flowProgressState} from './p80-trackflow.mjs';
 import {locateRoadLateral,edgeRadarLabel} from './p81-edge-radar.mjs';
 import {megastructureGeometry} from './p82-megastructure.mjs';
+import {createRenderQuality,sampleRenderQuality,framebufferDimensions,renderScaleLabel} from './p83-render-quality.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -23,6 +24,7 @@ let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
+let renderQuality=createRenderQuality('auto');
 let practiceMode=false,practiceStartedAt=null,seekingChapter=null,lastEdgeRadarAt=0;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
@@ -111,7 +113,10 @@ function draw(m,center=[0,0,0],size=[1,1,1],angle=0,primitive=gl.TRIANGLES){
 }
 function render(frameSeconds){
  if(!gl)return;
- const pixelRatio=Math.min(2,window.devicePixelRatio||1),w=Math.floor(canvas.clientWidth*pixelRatio),h=Math.floor(canvas.clientHeight*pixelRatio);
+ const {width:w,height:h,ratio}=framebufferDimensions(canvas.clientWidth,canvas.clientHeight,window.devicePixelRatio||1,renderQuality);
+ canvas.dataset.renderMode=renderQuality.mode;
+ canvas.dataset.renderScale=renderQuality.scale.toFixed(2);
+ canvas.dataset.rasterRatio=ratio.toFixed(2);
  if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}if(!w||!h)return;
  gl.viewport(0,0,w,h);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
  if(!runner)return;
@@ -199,7 +204,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P82 EXPERIMENTAL — CATHEDRAL SKYWORLD with P81 bank radar and P79 native practice; B48 physics unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P83 EXPERIMENTAL — adaptive raster-quality controls for cathedral skyline; P82 architecture and P81 bank radar retained, physical B48 untouched.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
  // until the next 500ms HUD refresh and mistakenly read a time regression.
@@ -335,6 +340,8 @@ function tick(now){
  if(runner&&now-lastEdgeRadarAt>100){lastEdgeRadarAt=now;updateEdgeRadar();}
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
+  renderQuality=sampleRenderQuality(renderQuality,fps,{active:Boolean(runner&&!paused&&!seekingChapter&&!demoMode&&runner.status==='running'&&document.visibilityState==='visible')});
+  $('renderScaleInfo').textContent=renderScaleLabel(renderQuality)+' / '+canvas.width+'×'+canvas.height+'px';
   const lag=$('cameraInfo');if(lag)lag.textContent=comparisonMode==='stable'
    ?'方向補間：有効 / 角度差 '+(headingError*180/Math.PI).toFixed(1)+'°'+(frameSkips?' / 低FPS警告 '+frameSkips+'回':'')
    :'方向補間：OFF（比較用） / 物理は変更なし';
@@ -346,6 +353,10 @@ function bindHold(id,set){
  for(const name of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(name,()=>set(false));
 }
 bindHold('left',v=>left=v);bindHold('right',v=>right=v);
+$('renderQuality').addEventListener('change',()=>{
+ renderQuality=createRenderQuality($('renderQuality').value);
+ $('renderScaleInfo').textContent=renderScaleLabel(renderQuality);
+});
 $('megaWorld').addEventListener('click',()=>{
  if(!megaWorld)return;
  megaEnabled=!megaEnabled;
@@ -369,7 +380,7 @@ window.addEventListener('keydown',e=>{
 });
 window.addEventListener('keyup',e=>keys.delete(e.code));
 window.addEventListener('blur',()=>{keys.clear();left=false;right=false;});
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){last=0;accum=0;previousPose=currentPose;}});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){last=0;accum=0;previousPose=currentPose;fpsAt=0;frames=0;}});
 function completePracticeTakeover(){
  // Keep exactly the original physics Runner, collision bridge, time and speed.
  demoMode=false;practiceMode=true;seekingChapter=null;
