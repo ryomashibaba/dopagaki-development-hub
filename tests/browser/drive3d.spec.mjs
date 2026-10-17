@@ -528,7 +528,7 @@ test('P93 independent 3990m VOID BREAKER is an actual native B48 playable 3D wor
  await expect(page.locator('#view')).toHaveAttribute('data-mega-world','enabled');
  await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
  expect(Number(await page.locator('#view').getAttribute('data-mega-triangle-count'))).toBeGreaterThan(3000);
- await expect(page.locator('#demoRun')).toBeDisabled();
+ await expect(page.locator('#demoRun')).toBeEnabled();
  await expect(page.locator('#practiceRun')).toBeDisabled();
  const candidate=await page.evaluate(async()=>await(await fetch('../generated/P93_VOID_BREAKER.json')).json());
  expect(candidate.stageForge.id).toBe('VB-P93');
