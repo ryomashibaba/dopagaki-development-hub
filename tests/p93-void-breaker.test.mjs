@@ -21,7 +21,7 @@ test('P93 is an original 3990m seven-skin physical world, NOT a P66 course reski
  assert(doc.routeSegments.length===7);
  assert(doc.fixtures.length===0&&doc.movingObstacles.length===0,'no hidden jump boosters or reset');
  assert.equal(doc.stageForge.humanPlaytest,'NOT_RUN');
- assert.equal(doc.stageForge.fullStartToFinish,'NOT_YET_PROVEN');
+ assert.equal(doc.stageForge.fullStartToFinish,'NATIVE_SCRIPTED_240HZ_7_OF_7_PASS_P94');
  assert.equal(JSON.stringify(base),baseBefore,'P93 must not mutate frozen P66');
  assert.equal(base.surfaces.length,23);
  assert.equal(DT,1/240);assert.equal(RADIUS,.65);
