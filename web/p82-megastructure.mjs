@@ -155,8 +155,8 @@ function layeredSkyline(v){
   }
  }
 }
-export function megastructureGeometry(stage){
- if(stage?.stageForge?.id==='VB-P93')return voidBreakerGeometry(stage);
+export function megastructureGeometry(stage,sample){
+ if(stage?.stageForge?.id==='VB-P93')return voidBreakerGeometry(stage,sample);
  if(stage?.stageForge?.id!=='EP-P66')return {vertices:[],beams:0,sections:[]};
  if(!stage.visualBlueprint||stage.visualBlueprint.schema!=='dopagaki.stageforge.visual/1')
   throw Error('P82 requires the original P66 visual blueprint');
