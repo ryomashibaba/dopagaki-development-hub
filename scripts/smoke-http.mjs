@@ -13,7 +13,7 @@ async function untilReady(){for(let i=0;i<50;i++){try{const r=await fetch(host+'
 try{
  await untilReady();
  const files=fs.readdirSync(path.join(root,'private/stages'));
- const urls=['/','/web/','/drive3d/','/drive3d/drive3d.mjs','/drive3d/drive3d-camera.mjs','/drive3d/drive3d-loop.mjs','/drive3d/p66-visual.mjs','/drive3d/p73-machine-visual.mjs','/drive3d/p74-nearmiss.mjs','/drive3d/p75-survival.mjs','/drive3d/p78-demo.mjs','/drive3d/p79-practice.mjs','/drive3d/p80-trackflow.mjs','/drive3d/p81-edge-radar.mjs','/drive3d/p82-megastructure.mjs','/drive3d/p83-render-quality.mjs','/drive3d/p84-visibility.mjs','/drive3d/p85-energyball.mjs','/drive3d/p86-chapter-splits.mjs','/drive3d/p87-ghost.mjs','/drive3d/p88-ghost-gap.mjs','/drive3d/p89-ghost-sector-pace.mjs','/drive3d/p90-racecard.mjs','/drive3d/p91-approach-beacons.mjs','/drive3d/p92-failure-practice.mjs','/drive3d/p93-void-breaker-visual.mjs','/drive3d/p94-native-steer.mjs','/generated/P93_VOID_BREAKER.json','/generated/P94_VOID_NATIVE_ACCEPTANCE.json','/generated/P95_VOID_HAZARD_CANDIDATE.json','/generated/P66_ECHO_RUSH.json','/generated/P87_REFERENCE_GHOST.json','/build-info.json','/reports/P62_FULL_RUN_MATRIX.json','/reference_only/director/moving/moving-obstacles.mjs','/reference_only/director/surface.js',...files.map(x=>'/generated/'+x)];
+ const urls=['/','/web/','/drive3d/','/drive3d/drive3d.mjs','/drive3d/drive3d-camera.mjs','/drive3d/drive3d-loop.mjs','/drive3d/p66-visual.mjs','/drive3d/p73-machine-visual.mjs','/drive3d/p74-nearmiss.mjs','/drive3d/p75-survival.mjs','/drive3d/p78-demo.mjs','/drive3d/p79-practice.mjs','/drive3d/p80-trackflow.mjs','/drive3d/p81-edge-radar.mjs','/drive3d/p82-megastructure.mjs','/drive3d/p83-render-quality.mjs','/drive3d/p84-visibility.mjs','/drive3d/p85-energyball.mjs','/drive3d/p86-chapter-splits.mjs','/drive3d/p87-ghost.mjs','/drive3d/p88-ghost-gap.mjs','/drive3d/p89-ghost-sector-pace.mjs','/drive3d/p90-racecard.mjs','/drive3d/p91-approach-beacons.mjs','/drive3d/p92-failure-practice.mjs','/drive3d/p93-void-breaker-visual.mjs','/drive3d/p94-native-steer.mjs','/generated/P93_VOID_BREAKER.json','/generated/P94_VOID_NATIVE_ACCEPTANCE.json','/generated/P95_VOID_HAZARD_CANDIDATE.json','/generated/P96_NATIVE_DODGE_ACCEPTANCE.json','/drive3d/p95-hazard-layout.mjs','/drive3d/p96-avoidance-steer.mjs','/generated/P66_ECHO_RUSH.json','/generated/P87_REFERENCE_GHOST.json','/build-info.json','/reports/P62_FULL_RUN_MATRIX.json','/reference_only/director/moving/moving-obstacles.mjs','/reference_only/director/surface.js',...files.map(x=>'/generated/'+x)];
  for(const pathname of urls){const r=await fetch(host+pathname);assert.equal(r.status,200,`HTTP ${r.status} ${pathname}`);const type=r.headers.get('content-type')||'';assert(!type.includes('text/html')||pathname==='/'||pathname==='/web/'||pathname==='/drive3d/','JSON/JS must not be HTML');if(pathname.endsWith('.json'))JSON.parse(await r.text());else await r.arrayBuffer();}
  const missing=await fetch(host+'/generated/EP-001_P62_GRAZING_CONTACT_BALANCE.json');assert.equal(missing.status,404,'Old erroneous filename should not exist');
  const home=await(await fetch(host+'/')).text();
@@ -32,7 +32,11 @@ try{
  assert.equal(p94.humanPlaytest,'NOT_RUN');
  const p95=await(await fetch(host+'/generated/P95_VOID_HAZARD_CANDIDATE.json')).json();
  assert.equal(p95.stageForge.id,'VB-P95');assert.equal(p95.movingObstacles.length,12);
- assert.equal(p95.stageForge.fullStartToFinish,'NOT_YET_PROVEN_WITH_HAZARDS');
+ assert.equal(p95.stageForge.fullStartToFinish,'SCRIPTED_240HZ_12_ACTIVE_7_OF_7_PASS_P96');
+ const p96=await(await fetch(host+'/generated/P96_NATIVE_DODGE_ACCEPTANCE.json')).json();
+ assert.equal(p96.activeCollidingMachines,12);assert.equal(p96.scriptedFullPass,true);
+ assert.equal(p96.best.visited.length,7);assert.equal(p96.best.finishEvent,true);
+ assert.equal(p96.best.machineContacts.length,0);assert.equal(p96.humanPlaytest,'NOT_RUN');
  assert.equal(p95.stageForge.inheritedP94Evidence,false);
  const ghost=await(await fetch(host+'/generated/P87_REFERENCE_GHOST.json')).json();
  assert.equal(ghost.schema,'dopagaki.native-reference-ghost/1');
