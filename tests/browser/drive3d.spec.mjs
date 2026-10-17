@@ -291,7 +291,7 @@ test('P84 real sampled road shoulder visibility and atmospheric fog toggles do n
  await page.goto('/drive3d/');
  await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
  await expect(page.locator('#view')).toHaveAttribute('data-visibility-fx','enabled');
- await expect(page.locator('#view')).toHaveAttribute('data-shoulder-beacons',/^[1-9]\\d*$/);
+ await expect(page.locator('#view')).toHaveAttribute('data-shoulder-beacons',/^[1-9][0-9]*$/);
  const count=Number(await page.locator('#view').getAttribute('data-shoulder-beacons'));
  expect(count).toBeGreaterThan(120);
  await expect(page.locator('#visibilityFx')).toHaveAttribute('aria-pressed','true');
