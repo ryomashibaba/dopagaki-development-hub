@@ -12,11 +12,12 @@ import {survivalScore,buildRunRecord,readBest,storeBest,scoreString} from './p75
 import {createNativeDemoState,recordDemoMilestone,nativeDemoSteer,isDemoEligible} from './p78-demo.mjs';
 import {PRACTICE_CHAPTERS,createPracticeSeek,advancePracticeSeek,practiceElapsed} from './p79-practice.mjs';
 import {FLOW_CHAPTERS,flowLineVertices,flowProgressState} from './p80-trackflow.mjs';
+import {megastructureGeometry} from './p81-megastructure.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,flowRoads,ball,scenery,machineMeshes={},guideMeshes=[];
+let gl,program,locations={},roads,lines,flowRoads,ball,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
@@ -86,13 +87,18 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(flowRoads);discard(scenery);
+ discard(roads);discard(lines);discard(flowRoads);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
  const flow=flowLineVertices(stage,sample,frame);flowRoads=mesh(flow.vertices);
  canvas.dataset.flowMarkers=String(flow.markers);
  const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
+ const mega=megastructureGeometry(stage);megaWorld=mega.vertices.length?mesh(mega.vertices):null;
+ canvas.dataset.megaTriangleCount=String(mega.vertices.length/18);
+ canvas.dataset.megaSectionCount=String(mega.sections.length);
+ $('megaWorld').disabled=!megaWorld;
+ $('megaWorld').textContent=megaWorld?(megaEnabled?'巨大都市構造：ON':'巨大都市構造：OFF'):'巨大都市構造：対象外';
  canvas.dataset.machineCount=String((stage.movingObstacles||[]).filter(x=>x.enabled!==false).length);
 }
 function draw(m,center=[0,0,0],size=[1,1,1],angle=0,primitive=gl.TRIANGLES){
@@ -120,7 +126,9 @@ function render(frameSeconds){
  canvas.dataset.cameraMode=comparisonMode==='stable'?'ball-lock-interpolated':'ball-lock-unfiltered-heading';
  canvas.dataset.cameraHeadingLagDegrees=(headingError*180/Math.PI).toFixed(2);
  gl.uniform1f(locations.aspect,w/h);
- draw(scenery);draw(roads);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
+ draw(scenery);if(megaEnabled)draw(megaWorld);
+ canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
+ draw(roads);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
  // Non-collidable trajectory guides. Actual machine solids use exact B51 poses.
  for(const guide of guideMeshes)draw(guide.mesh,[0,0,0],[1,1,1],0,gl.LINES);
@@ -189,7 +197,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P80 EXPERIMENTAL — dual-lane neon travel-direction markers and actual chapter progress; P79 native 240Hz practice and B48 physics preserved.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P81 EXPERIMENTAL — dual-lane neon travel-direction markers and actual chapter progress; P79 native 240Hz practice and B48 physics preserved.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
@@ -318,6 +326,12 @@ function bindHold(id,set){
  for(const name of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(name,()=>set(false));
 }
 bindHold('left',v=>left=v);bindHold('right',v=>right=v);
+$('megaWorld').addEventListener('click',()=>{
+ if(!megaWorld)return;
+ megaEnabled=!megaEnabled;
+ $('megaWorld').textContent=megaEnabled?'巨大都市構造：ON':'巨大都市構造：OFF';
+ $('megaWorld').setAttribute('aria-pressed',String(megaEnabled));
+});
 $('cameraCompare').addEventListener('click',()=>{
  comparisonMode=comparisonMode==='stable'?'raw':'stable';
  $('cameraCompare').textContent=comparisonMode==='stable'?'カメラ比較：安定':'カメラ比較：生の方向';
