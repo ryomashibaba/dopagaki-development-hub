@@ -481,9 +481,7 @@ test('P92 failed manual run offers instant native-replayed chapter practice with
  test.setTimeout(150000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('/drive3d/');
- await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:75000}).catch(async()=>{
-  await expect(page.locator('#appStatus')).toContainText('P91 EXPERIMENTAL',{timeout:75000});
- });
+ await expect(page.locator('#appStatus')).toContainText('P91 EXPERIMENTAL',{timeout:75000});
  await expect(page.locator('#retryPractice')).toBeHidden();
  await page.locator('#spawn').selectOption('4');
  await expect(page.locator('#runResult')).toBeVisible({timeout:40000});
