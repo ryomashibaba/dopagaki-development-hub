@@ -534,7 +534,7 @@ test('P93 independent 3990m VOID BREAKER is an actual native B48 playable 3D wor
  expect(candidate.stageForge.id).toBe('VB-P93');
  expect(candidate.stageForge.humanPlaytest).toBe('NOT_RUN');
  expect(candidate.surfaces).toHaveLength(7);
- expect(candidate.stageForge.fullStartToFinish).toBe('NOT_YET_PROVEN');
+ expect(candidate.stageForge.fullStartToFinish).toBe('NATIVE_SCRIPTED_240HZ_7_OF_7_PASS_P94');
  await page.locator('#spawn').selectOption('2');
  await expect(page.locator('#appStatus')).toContainText('P93 VOID BREAKER');
  await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
