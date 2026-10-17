@@ -347,9 +347,10 @@ function tick(now){
   const manualSteer=Number(right||keys.has('KeyD')||keys.has('ArrowRight'))-Number(left||keys.has('KeyA')||keys.has('ArrowLeft'));
   const progressed=stepFixedClock(accum,elapsed*(demoMode?Number($('demoSpeed').value):1),DT,()=>{
    previousPose=currentPose;
+   const priorContact=runner.surface;
    runner.step(demoMode?nativeDemoSteer(demoDirector,runner):manualSteer);currentPose=capturePose(runner);
    if(runner.status==='running'){
-    if(wasGrounded&&!runner.grounded&&runner.lastSurface?.includes('GAP_TAKEOFF'))gameAudio.effect('jump');
+    if(wasGrounded&&!runner.grounded&&priorContact?.includes('GAP_TAKEOFF'))gameAudio.effect('jump');
     else if(!wasGrounded&&runner.grounded&&runner.surface?.includes('GAP_LANDING'))gameAudio.effect('land');
    }
    wasGrounded=runner.grounded;
