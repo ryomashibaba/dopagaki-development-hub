@@ -21,6 +21,7 @@ import {createChapterSplits,observeChapterSplits,chapterTimerView,readChapterBes
 import {validateGhost,referenceGhostAt,ghostEligible,ghostLatticeVertices} from './p87-ghost.mjs';
 import {ghostGapView} from './p88-ghost-gap.mjs';
 import {validateReferenceSectors,compareGhostSector,paceCaption} from './p89-ghost-sector-pace.mjs';
+import {buildRacecard,racecardTotals,racecardDeltaText} from './p90-racecard.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -203,12 +204,27 @@ function publishGhostPace(last){
  canvas.dataset.ghostPaceStatus=pace?.sign||'off';
  if(pace)field.textContent=paceCaption(pace)+' · 同じ区間の実通過時刻で比較';
 }
+function publishRacecard(){
+ const panel=$('ghostRacecard');if(!panel)return;
+ const eligible=Boolean(ghostEnabled&&ghostData&&runner&&ghostEligible(doc,runner.spawnIndex,demoMode?'spectator-demo':practiceMode?'practice':'manual'));
+ panel.hidden=!eligible;canvas.dataset.ghostRacecard=eligible?'visible':'off';
+ if(!eligible)return;
+ const rows=buildRacecard(chapterTracker?.completed||[],ghostData);
+ const summary=racecardTotals(rows);
+ $('racecardProgress').textContent=summary.completed+'/8 SECTORS · '+(summary.currentDelta===null?'実通過を待機':racecardDeltaText(summary.currentDelta)+' 対基準');
+ $('racecardRows').replaceChildren(...rows.map(item=>{
+  const row=document.createElement('div');row.className='racecardRow';row.dataset.status=item.status;
+  const label=document.createElement('span');label.textContent=(item.index+1)+'. '+item.label;
+  const value=document.createElement('strong');value.textContent=racecardDeltaText(item.delta);
+  row.append(label,value);return row;
+ }));
+}
 function publishChapterTiming(){
  if(!runner||!doc)return;
  const panel=$('chapterTiming');
  const view=chapterTimerView(chapterTracker,runner.time);
  panel.hidden=!view.visible;
- if(!view.visible){canvas.dataset.chapterTimeId='none';publishGhostPace(null);return;}
+ if(!view.visible){canvas.dataset.chapterTimeId='none';publishGhostPace(null);publishRacecard();return;}
  canvas.dataset.chapterTimeId=view.id;
  canvas.dataset.completedSplits=String(view.completed);
  $('splitCurrent').textContent=view.label+'  ·  '+splitSeconds(view.elapsed);
@@ -216,6 +232,7 @@ function publishChapterTiming(){
  $('splitBest').textContent=best?'BEST '+splitSeconds(best.duration):'BEST —';
  $('splitLast').textContent=view.latest?'前区間 '+view.latest.label+'  '+splitSeconds(view.latest.duration):'区間通過で計測';
  publishGhostPace(view.latest);
+ publishRacecard();
  $('splitHistory').replaceChildren(...chapterTracker.completed.slice(-3).map(record=>{
   const span=document.createElement('span');
   span.textContent=record.label+' '+splitSeconds(record.duration);
@@ -455,6 +472,7 @@ $('ghostToggle').addEventListener('click',()=>{
  ghostEnabled=!ghostEnabled;
  $('ghostToggle').textContent=ghostEnabled?'基準ゴースト：ON（非衝突）':'基準ゴースト：OFF';
  if(!ghostEnabled)$('ghostGap').hidden=true;
+ publishRacecard();
  $('ghostToggle').setAttribute('aria-pressed',String(ghostEnabled));
  publishChapterTiming();
 });
