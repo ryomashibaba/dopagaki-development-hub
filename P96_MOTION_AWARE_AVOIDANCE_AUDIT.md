@@ -17,3 +17,22 @@ P95 authored 12 real moving B51-C obstacles onto an independent full 3990m VOID 
 3. Never merge or cite physical-specialist P97 Draft/HOLD; its repo is unrelated to this P96 audit.
 
 **Production remains** https://dopagaki-slope.sora-110029.chatgpt.site/. GitHub Pages is only DEV/STAGING. Original site and P62, P66, P93, P94 protected. No Work usage; user Windows operation zero.
+
+## Measured result — native B48+B51-C (PR#41 initial QA)
+| Scripted steering profile | Native result | 7 real sections | Time | Moving collisions |
+|---|---|---:|---:|---:|
+| near-soft | HOLD, physically wedged by last piston in PRISM_CREST | 6/7 | 35.017s | 2 contacts (push) |
+| early-soft | TRUE NATIVE FINISH | 7/7 | 39.904s | 0 |
+| early-strong | TRUE NATIVE FINISH | 7/7 | 39.992s | 0 |
+| fast-switch | TRUE NATIVE FINISH | 7/7 | 40.704s | 0 |
+
+The physical overlap of all **12 genuine B51-C colliders remains enabled**. The pass was obtained through normal native [-1,1] steering only. The result does not prove safety for arbitrary lanes/timings, human feasibility or satisfactory game difficulty.
+
+## P96 code / player-facing preview
+- P95 original hazard station definitions are moved to a single read-only `web/p95-hazard-layout.mjs` import, with identical 12 obstacles, spacing and timestamps.
+- `web/p96-avoidance-steer.mjs` is the identical pure input algorithm used by Node and on-screen **opt-in P95 spectator**. No physical pose math is copied. The caller supplies the existing exact native B51-C sampler; the Node adapter is `scripts/p96-avoidance-controller.mjs`.
+- `web/p78-demo.mjs` retains unmodified original P66 and P94 spectator methods, adding P95 only when explicitly enabled. P79 practice, human manual steering and PB saving remain separate; spectator results are never stored as personal best.
+- `scripts/p96-acceptance-evidence.mjs` fails closed if the exact 7/7 actual native pass with all 12 active obstacles, 0 collider contacts and all 12 hazard decisions regresses. Public proof artifact is `generated/P96_NATIVE_DODGE_ACCEPTANCE.json`.
+- New full native spectator regression and Chromium visual spectator-to-finish check are required before staging promotion.
+
+**Status boundary:** P96 validates a scripted physical completion, while `humanPlaytest: NOT_RUN` and `difficultyAndFairness: HOLD` remain. GitHub Pages dev staging is not the official DOPAGAKI production site.
