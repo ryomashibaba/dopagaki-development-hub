@@ -17,6 +17,7 @@ import {megastructureGeometry} from './p82-megastructure.mjs';
 import {createRenderQuality,sampleRenderQuality,framebufferDimensions,renderScaleLabel} from './p83-render-quality.mjs';
 import {roadShoulderLights,FOG_START_METERS,FOG_SPAN_METERS,FOG_MAX} from './p84-visibility.mjs';
 import {makeEnergyBallVisual,energyBallFrame} from './p85-energyball.mjs';
+import {createChapterSplits,observeChapterSplits,chapterTimerView,readChapterBest,storeChapterBest,splitSeconds} from './p86-chapter-splits.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -28,6 +29,7 @@ let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null
 let demoMode=false,demoDirector=createNativeDemoState();
 let renderQuality=createRenderQuality('auto'),visibilityFx=true;
 let practiceMode=false,practiceStartedAt=null,seekingChapter=null,lastEdgeRadarAt=0;
+let chapterTracker=null,latestSplit=null;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -180,6 +182,37 @@ function updateRunScore(){
  $('bestSurvival').textContent=personalBest?personalBest.seconds.toFixed(2)+' s':'—';
  canvas.dataset.survivalScore=String(score.total);
 }
+function publishChapterTiming(){
+ if(!runner||!doc)return;
+ const panel=$('chapterTiming');
+ const view=chapterTimerView(chapterTracker,runner.time);
+ panel.hidden=!view.visible;
+ if(!view.visible){canvas.dataset.chapterTimeId='none';return;}
+ canvas.dataset.chapterTimeId=view.id;
+ canvas.dataset.completedSplits=String(view.completed);
+ $('splitCurrent').textContent=view.label+'  ·  '+splitSeconds(view.elapsed);
+ const best=readChapterBest(browserRecordStore(),doc.stageForge.id,runner.spawnIndex,view.id);
+ $('splitBest').textContent=best?'BEST '+splitSeconds(best.duration):'BEST —';
+ $('splitLast').textContent=view.latest?'前区間 '+view.latest.label+'  '+splitSeconds(view.latest.duration):'区間通過で計測';
+ $('splitHistory').replaceChildren(...chapterTracker.completed.slice(-3).map(record=>{
+  const span=document.createElement('span');
+  span.textContent=record.label+' '+splitSeconds(record.duration);
+  return span;
+ }));
+ const visible=latestSplit&&runner.time>=latestSplit.time&&runner.time<latestSplit.time+2.2;
+ $('splitBurst').hidden=!visible;
+}
+function updateNativeChapterTime(){
+ const event=observeChapterSplits(chapterTracker,runner.surface,runner.lastSurface,runner.time,runner.status);
+ if(!event)return;
+ const best=(!demoMode&&!practiceMode)
+  ?storeChapterBest(browserRecordStore(),event)
+  :{best:null,improved:false,saved:false};
+ latestSplit=event;
+ $('splitBurst').textContent='SECTOR '+event.label+'  '+splitSeconds(event.duration)
+  +(best.improved?'  ·  NEW BEST':'');
+ canvas.dataset.completedSplits=String(chapterTracker.completed.length);
+}
 function settleRun(){
  if(!runner||runCommitted||!['failed','finished'].includes(runner.status))return;
  if(demoMode||practiceMode){
@@ -220,6 +253,9 @@ function restart(){
  $('demoRun').setAttribute('aria-pressed',String(demoMode));
  previousPose=currentPose=capturePose(runner);cameraState=createCameraState(currentPose.forward);frameSkips=0;headingError=0;
  nearMissTracker=createNearMissTracker();runCommitted=false;
+ chapterTracker=createChapterSplits(doc.stageForge?.id,spawn,runner.surface,runner.time);latestSplit=null;
+ $('splitBurst').hidden=true;canvas.dataset.completedSplits='0';
+ canvas.dataset.chapterTimeId='none';
  personalBest=readBest(browserRecordStore(),doc.stageForge.id,spawn);
  $('runResult').hidden=true;canvas.dataset.runOutcome='running';
  $('nearMissCount').textContent='0';$('nearMissBurst').hidden=true;
@@ -227,7 +263,8 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P85 EXPERIMENTAL — luminous energy ball and true-velocity speed trails; P84 skyline/shoulder lights, frozen B48 physics and P62 originals unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P86 EXPERIMENTAL — genuine 240Hz chapter times and manual-only best sectors; native 83-second route, P85 energy ball, frozen B48 physics and P62 originals unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ publishChapterTiming();
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
  // until the next 500ms HUD refresh and mistakenly read a time regression.
@@ -315,7 +352,7 @@ function hud(){
   machineLabel.dataset.mode=cue?.mode||'none';
   if(cue)machineLabel.textContent=cue.typeLabel+' / '+cue.modeLabel+' · '+cue.lateralLabel+' '+cue.distance+'m';
  }
- updateChapterHUD();updateTrackFlowHUD();
+ updateChapterHUD();updateTrackFlowHUD();publishChapterTiming();
  if(runner.status==='failed'&&!status.dataset.failed){
   status.className='status alert';status.textContent='試走終了: '+(runner.failure?.reason||'衝突')+'。Rで再スタート';
   status.dataset.failed='1';
@@ -345,6 +382,7 @@ function tick(now){
    previousPose=currentPose;
    runner.step(demoMode?nativeDemoSteer(demoDirector,runner):manualSteer);currentPose=capturePose(runner);
    if(demoMode)recordDemoMilestone(demoDirector,runner);
+   updateNativeChapterTime();
    const near=stepNearMiss(nearMissTracker,doc.movingObstacles,runner,movingObstaclePose,sphereBoxSeparation,RADIUS);
    if(near){
     $('nearMissCount').textContent=String(near.total);
@@ -359,6 +397,7 @@ function tick(now){
   settleRun();
  }
  if(runner&&nearMissTracker){const current=nearMissDisplay(nearMissTracker,runner.time);$('nearMissBurst').hidden=!current;}
+ if(runner&&latestSplit)$('splitBurst').hidden=!(runner.time>=latestSplit.time&&runner.time<latestSplit.time+2.2);
  if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / 約83.2s';
  if(runner&&now-lastEdgeRadarAt>100){lastEdgeRadarAt=now;updateEdgeRadar();}
  frames++;
@@ -421,6 +460,8 @@ function completePracticeTakeover(){
  // Keep exactly the original physics Runner, collision bridge, time and speed.
  demoMode=false;practiceMode=true;seekingChapter=null;
  practiceStartedAt=runner.time;accum=0;last=0;paused=false;
+ chapterTracker=createChapterSplits(doc.stageForge?.id,runner.spawnIndex,runner.surface,runner.time);
+ latestSplit=null;$('splitBurst').hidden=true;
  nearMissTracker=createNearMissTracker();
  nearMissTracker.eventCursor=runner.events.length;
  $('nearMissCount').textContent='0';$('nearMissBurst').hidden=true;

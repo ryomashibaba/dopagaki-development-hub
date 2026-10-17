@@ -121,11 +121,11 @@ jobs:
             await new Promise(resolve=>setTimeout(resolve,3000));
           }
           assert.equal(info.gitCommit,process.env.EXPECTED_SHA);
-          assert.equal(info.version,'P85');
+          assert.equal(info.version,'P86');
           assert.equal(info.stageCount,4);
           assert.equal(info.experimentalStageCount,1);
           assert.equal(info.movingObstacleCount,24);
-          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs','drive3d/p75-survival.mjs','drive3d/p78-demo.mjs','drive3d/p79-practice.mjs','drive3d/p80-trackflow.mjs','drive3d/p81-edge-radar.mjs','drive3d/p82-megastructure.mjs','drive3d/p83-render-quality.mjs','drive3d/p84-visibility.mjs','drive3d/p85-energyball.mjs']){
+          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs','drive3d/p75-survival.mjs','drive3d/p78-demo.mjs','drive3d/p79-practice.mjs','drive3d/p80-trackflow.mjs','drive3d/p81-edge-radar.mjs','drive3d/p82-megastructure.mjs','drive3d/p83-render-quality.mjs','drive3d/p84-visibility.mjs','drive3d/p85-energyball.mjs','drive3d/p86-chapter-splits.mjs']){
             const response=await fetchOK(path);
             assert((await response.text()).length>300,'Empty public asset: '+path);
           }
