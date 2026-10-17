@@ -522,7 +522,7 @@ test('P93 independent 3990m VOID BREAKER is an actual native B48 playable 3D wor
  await page.goto('/drive3d/');
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await page.locator('#stage').selectOption('VB-P93');
- await expect(page.locator('#appStatus')).toContainText('P93 VOID BREAKER',{timeout:75000});
+ await expect(page.locator('#appStatus')).toContainText('P94 VOID BREAKER',{timeout:75000});
  await expect(page.locator('#spawn option')).toHaveCount(6);
  await expect(page.locator('#view')).toHaveAttribute('data-mega-section-count','7');
  await expect(page.locator('#view')).toHaveAttribute('data-mega-world','enabled');
@@ -536,7 +536,7 @@ test('P93 independent 3990m VOID BREAKER is an actual native B48 playable 3D wor
  expect(candidate.surfaces).toHaveLength(7);
  expect(candidate.stageForge.fullStartToFinish).toBe('NATIVE_SCRIPTED_240HZ_7_OF_7_PASS_P94');
  await page.locator('#spawn').selectOption('2');
- await expect(page.locator('#appStatus')).toContainText('P93 VOID BREAKER');
+ await expect(page.locator('#appStatus')).toContainText('P94 VOID BREAKER');
  await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
  await expect(page.locator('#simTime')).not.toHaveText('0.00 s',{timeout:25000});
  await expect(page.locator('#runResult')).toBeHidden();
@@ -550,5 +550,29 @@ test('P93 independent 3990m VOID BREAKER is an actual native B48 playable 3D wor
  await page.locator('#stage').selectOption('EP-001');
  await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:75000});
  await expect(page.locator('#view')).toHaveAttribute('data-mega-section-count','0');
+ expect(errors).toEqual([]);
+});
+
+test('P94 real native 240Hz spectator completes the entire seven-road VOID BREAKER without modifying player bests',async({page})=>{
+ test.setTimeout(115000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await page.locator('#stage').selectOption('VB-P93');
+ await expect(page.locator('#appStatus')).toContainText('P94 VOID BREAKER',{timeout:75000});
+ await expect(page.locator('#demoRun')).toBeEnabled();
+ await expect(page.locator('#practiceRun')).toBeDisabled();
+ const original=await page.evaluate(()=>JSON.stringify({...localStorage}));
+ await page.locator('#demoSpeed').selectOption('2');
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
+ await expect(page.locator('#demoBanner')).toBeVisible();
+ await expect(page.locator('#resultTitle')).toHaveText('DEMO COMPLETE',{timeout:85000});
+ await expect(page.locator('#view')).toHaveAttribute('data-run-outcome','finished');
+ await expect(page.locator('#resultScore')).toContainText('実物理');
+ const afterwards=await page.evaluate(()=>JSON.stringify({...localStorage}));
+ expect(afterwards).toBe(original);
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ await expect(page.locator('#runResult')).toBeHidden();
  expect(errors).toEqual([]);
 });
