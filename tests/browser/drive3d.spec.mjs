@@ -22,14 +22,14 @@ test('P65 WebGL2 drives frozen P62 with actual B48 Runner on two stages',async({
 });
 
 
-test('P78: full native route, isolated spectator demo and original four stages coexist',async({page})=>{
+test('P79: full native route, chapter training and original four stages coexist',async({page})=>{
  test.setTimeout(120000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  page.on('response',response=>{if(response.url().includes('P66_ECHO_RUSH')&&!response.ok())errors.push('P66 JSON HTTP '+response.status())});
  await page.goto('/drive3d/');
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
- await expect(page.locator('#stage option:checked')).toContainText('P78 ECHO PIPE');
+ await expect(page.locator('#stage option:checked')).toContainText('P79 ECHO PIPE');
  await expect(page.locator('#spawn option')).toHaveCount(7);
  const newCourse=await page.evaluate(async()=>await(await fetch('../generated/P66_ECHO_RUSH.json')).json());
  expect(newCourse.surfaces.length).toBe(23);
@@ -46,7 +46,7 @@ test('P78: full native route, isolated spectator demo and original four stages c
  await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');
- await expect(page.locator('#appStatus')).toContainText('P78 EXPERIMENTAL');
+ await expect(page.locator('#appStatus')).toContainText('P79 EXPERIMENTAL');
  // The real P69 machine chamber includes three physical movement mechanisms.
  // Heads-up cues are derived from sampled B51 motion, not a fake preset label.
  await page.locator('#spawn').selectOption('4');
