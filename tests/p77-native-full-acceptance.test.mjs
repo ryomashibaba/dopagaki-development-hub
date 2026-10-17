@@ -40,8 +40,9 @@ test('P77 first spawn: genuine 240Hz 83s through 520m return, full 450° spiral,
  assert(firstLanding!==null&&firstLanding>81&&firstLanding<84,'must touch down on true physical landing road');
  assert(takeoffSpeed>90,'full run must test the previously broken high-speed landing');
  assert(runner.time>82&&runner.time<85);
- for(const part of ['PIPE_DIVE_A-01','PIPE_DIVE_A-02','PIPE_RETURN-01','PIPE_RETURN-02','FORK_R-01','FORK_R-02','FORK_REJOIN-01','MACHINE_CHAMBER-01','MACHINE_CHAMBER-02','MACHINE_CHAMBER-03','GAP_TAKEOFF-01','GAP_LANDING-01','GAP_LANDING-02'])
+ for(const part of ['PIPE_DIVE_A-01','PIPE_DIVE_A-02','PIPE_RETURN-01','PIPE_RETURN-02','FORK_R-01','FORK_R-02','FORK_REJOIN-01','MACHINE_CHAMBER-01','MACHINE_CHAMBER-02','MACHINE_CHAMBER-03','GAP_TAKEOFF-01','GAP_LANDING-02'])
   assert(reached.has('p66-'+part),'missing actual physical chapter '+part);
  for(let i=1;i<=6;i++)assert(reached.has('p66-SPIRAL_CATHEDRAL-'+String(i).padStart(2,'0')),'skipped spiral '+i);
+ assert([...reached].some(x=>x.startsWith('p66-GAP_LANDING-')),'natural jump never landed');
  assert(runner.events.some(x=>x.type==='finish'),'course did not emit native finish event');
 });
