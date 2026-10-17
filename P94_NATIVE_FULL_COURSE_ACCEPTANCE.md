@@ -12,7 +12,9 @@
 ## Why separate from P93 and production
 P93 had a real WebGL course and initial 1.5s native runs per spawn, but neither native full route nor actual human viability was shown. This P94 instrument fills the evidence gap before any talk of gameplay approval.
 
-Until a 7/7 true finish passes, **do not amend** P93's metadata `fullStartToFinish: NOT_YET_PROVEN` or `humanPlaytest: NOT_RUN`. If the candidate fails, use its *exact* real failure location for subsequent **candidate-only** physical geometry refinement. Keep P66 P77 83s full run and P87 ghost, P62 frozen originals, and P97 Draft/HOLD unchanged.
+**Measured P94 result (native B48, exact 240Hz, current shared spectator driver):** corrective steering FINISHED in **38.317s**, with all **7/7 real authored road surfaces**, **4,063.33m actual travel**, and **139.50m/s maximum speed**. Neutral driving failed at **27.637s**, after **4/7** surfaces, from a true fall off the lower reversal. Both traces and truthful PASS/HOLD statuses are published as the deterministic build artifact `generated/P94_VOID_NATIVE_ACCEPTANCE.json`. The result is repeatable under Node regression and Chromium opt-in spectator demonstration.
+
+This evidence permits updating P93 metadata to `fullStartToFinish: NATIVE_SCRIPTED_240HZ_7_OF_7_PASS_P94`. **It does not authorize** changing `humanPlaytest: NOT_RUN`, declaring balanced difficulty, integrating physical P97 Draft/HOLD, or promoting the world to the ChatGPT Site production game. Keep P66 P77 83s full run and P87 ghost and P62 frozen originals unchanged.
 
 No updates to production ChatGPT site. GitHub Pages staging only, and human review still required after any scripted PASS.
 
