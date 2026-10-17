@@ -11,9 +11,9 @@ const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 export function soundEvent(step,velocity=44){
  if(!Number.isSafeInteger(step)||step<0)throw Error('Invalid sound step');
  const gain=clamp((Math.max(0,velocity)-25)/115,0,1);
- const intro=step<4;
+ const intro=step<10;
  const beat=step%16;
- const motifIndex=Math.floor((step-4)/2)%MOTIF_MIDI.length;
+ const motifIndex=Math.floor((step-10)/2)%MOTIF_MIDI.length;
  return {intro,beat,accent:beat%4===0,hat:step%2===1,
   melodic:!intro&&step%2===0,
   pitch:midiHz(MOTIF_MIDI[Math.max(0,motifIndex)]+(gain>.7?12:0)),
@@ -21,7 +21,7 @@ export function soundEvent(step,velocity=44){
 }
 export function createArcadeAudio(contextFactory){
  let ctx=null,master=null,enabled=false,nextStep=0,nextAt=0,muted=false;
- let queued=0,events=0;
+ let queued=0,events=0,tailUntil=0;
  const factory=contextFactory||(()=>new (globalThis.AudioContext||globalThis.webkitAudioContext)());
  function oscillator(frequency,when,duration,amplitude,type='triangle'){
   const osc=ctx.createOscillator(),amp=ctx.createGain();
@@ -48,7 +48,8 @@ export function createArcadeAudio(contextFactory){
   }
   try{
    if(typeof ctx.resume==='function')await ctx.resume();
-   enabled=true;muted=false;nextAt=ctx.currentTime+.025;nextStep=0;
+   enabled=true;muted=false;nextAt=ctx.currentTime+.025;nextStep=0;tailUntil=0;
+   master.gain.setValueAtTime(0,ctx.currentTime);
    return true;
   }catch{return false;}
  }
@@ -58,12 +59,13 @@ export function createArcadeAudio(contextFactory){
   return false;
  }
  function reset(){
-  nextStep=0;nextAt=ctx?ctx.currentTime+.035:0;
+  nextStep=0;nextAt=ctx?ctx.currentTime+.035:0;tailUntil=0;
   // Pause/restart cancels next scheduled tails through the shared envelope.
  }
  function effect(name){
   if(!enabled||!ctx)return false;
   const t=ctx.currentTime+.012;
+  if(name==='finish'||name==='failed')tailUntil=t+1.1;
   if(name==='near-miss'){
    tone(523,t,.17,.15,'sine');
    tone(784,t+.075,.22,.12,'triangle');
@@ -83,7 +85,7 @@ export function createArcadeAudio(contextFactory){
  function tick({velocity=44,running=true,paused=false,visible=true}={}){
   if(!enabled||!ctx)return {scheduled:0,enabled:false};
   const active=running&&!paused&&visible;
-  master.gain.setTargetAtTime(active?.25:0,ctx.currentTime,.035);
+  master.gain.setTargetAtTime((active||(visible&&ctx.currentTime<tailUntil)) ? .25 : 0,ctx.currentTime,.035);
   if(!active){nextAt=ctx.currentTime+.035;return {scheduled:0,enabled:true};}
   const now=ctx.currentTime;
   if(nextAt<now-.1){nextAt=now+.025;} // skip stale clock, not the native physics
