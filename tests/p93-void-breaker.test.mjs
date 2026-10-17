@@ -42,14 +42,14 @@ test('P93 has mathematically joined physical segments with genuine ±100m elevat
 });
 test('P93 WebGL architecture renders 7 massive chapters with immutable B48 road geometry',()=>{
  const doc=generateVoidBreaker(),before=JSON.stringify(doc);
- const a=voidBreakerGeometry(doc);
+ const a=voidBreakerGeometry(doc,sample);
  assert.equal(a.sections.length,7);
  assert(a.sections.every(x=>x.triangles>300),'missing real 3D roof/bridge section');
  assert(a.vertices.length>25000,'world architectural detail is trivial');
  assert(a.vertices.length<500000,'GPU vertex budget exceeded');
  assert.equal(a.vertices.length%18,0,'triangles must be xyz-rgb');
  assert(a.vertices.every(Number.isFinite));
- assert.deepEqual(voidBreakerGeometry(generateEchoRush()),{vertices:[],beams:0,sections:[]});
+ assert.deepEqual(voidBreakerGeometry(generateEchoRush(),sample),{vertices:[],beams:0,sections:[]});
  assert.equal(JSON.stringify(doc),before,'visuals may never mutate physical road');
 });
 test('P93 each physical chapter can initialize an actual unmodified 240Hz Runner and progress',()=>{
