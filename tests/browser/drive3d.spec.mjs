@@ -400,6 +400,7 @@ test('P87 opt-in native reference ghost is visible only in manual full-start pla
  await page.locator('#ghostToggle').click();
  await expect(page.locator('#ghostToggle')).toHaveAttribute('aria-pressed','true');
  await expect(page.locator('#view')).toHaveAttribute('data-ghost-mode','reference-visible');
+ await expect(page.locator('#simTime')).not.toHaveText('0.00 s',{timeout:10000});
  const time=Number((await page.locator('#simTime').textContent()).replace(' s',''));
  expect(time).toBeGreaterThan(0);
  // Ghost is a wireframe draw only; physical run stays manual and scores normally.
