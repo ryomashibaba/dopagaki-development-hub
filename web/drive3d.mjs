@@ -22,11 +22,12 @@ import {validateGhost,referenceGhostAt,ghostEligible,ghostLatticeVertices} from 
 import {ghostGapView} from './p88-ghost-gap.mjs';
 import {validateReferenceSectors,compareGhostSector,paceCaption} from './p89-ghost-sector-pace.mjs';
 import {buildRacecard,racecardTotals,racecardDeltaText} from './p90-racecard.mjs';
+import {approachBeaconVertices} from './p91-approach-beacons.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,flowRoads,shoulderLights,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
+let gl,program,locations={},roads,lines,flowRoads,shoulderLights,approachBeacons,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
@@ -101,12 +102,15 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(flowRoads);discard(shoulderLights);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
  const flow=flowLineVertices(stage,sample,frame);flowRoads=mesh(flow.vertices);
  canvas.dataset.flowMarkers=String(flow.markers);
+ const approach=approachBeaconVertices(stage,sample,frame);approachBeacons=mesh(approach.vertices);
+ canvas.dataset.approachBeacons=String(approach.markerCount);
+ canvas.dataset.approachRegions=approach.regions.join(',')||'none';
  const reflectors=roadShoulderLights(stage,sample,frame);shoulderLights=mesh(reflectors.vertices);
  canvas.dataset.shoulderBeacons=String(reflectors.beacons);
  const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
@@ -153,6 +157,7 @@ function render(frameSeconds){
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
  draw(roads);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
+ draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);
  if(visibilityFx)draw(shoulderLights,[0,0,0],[1,1,1],0,gl.LINES);
  // Non-collidable trajectory guides. Actual machine solids use exact B51 poses.
  for(const guide of guideMeshes)draw(guide.mesh,[0,0,0],[1,1,1],0,gl.LINES);
