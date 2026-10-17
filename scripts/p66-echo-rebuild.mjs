@@ -24,7 +24,7 @@ const portions=[
   {id:'MACHINE_CHAMBER',name:'06 / MACHINE GAUNTLET — rotating masses',fn:t=>vec(560+460*t,73-3*ease(t),-160-62*Math.sin(.5*PI*t)**2),pieces:3,width:36,bank:t=>-.1*Math.sin(PI*t)},
   {id:'GAP_TAKEOFF',name:'07 / SKY CRACK — unassisted ramp',fn:t=>vec(1020+180*t,70+18*t*t,-222-17*Math.sin(PI*t)**2),pieces:1,width:30,bank:t=>.04*Math.sin(PI*t)},
   // 25 metres of genuine missing physical road. No hidden bridge or jump pad.
-  {id:'GAP_LANDING',name:'08 / FALLING SKY — descending touchdown',fn:t=>vec(1225+275*t,83-38*ease(t),-222+60*Math.sin(PI*t)**2),pieces:2,width:39,bank:t=>-.08*Math.sin(PI*t)}
+  {id:'GAP_LANDING',name:'08 / FALLING SKY — descending touchdown',fn:t=>vec(1225+275*t,83-38*ease(t)-8*ease(clamp((t-.42)/.40)),-222+60*Math.sin(PI*t)**2),pieces:2,width:39,bank:t=>-.08*Math.sin(PI*t)}
 ];
 // Retain exact C0 physical joins while enlarging the 450-degree spiral for high-speed descent.
 // The downstream course is translated (not scaled), so its 25m natural jump remains real.
@@ -117,14 +117,14 @@ const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CA
 };
 const doc={
  schema:'dopagaki.track-director/1',
- name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P76 HALO RETURN INTAKE',
+ name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P77 FIRST-SPAWN FINISH PROVEN',
  surfaces:roads,route,routeSegments,spawns,autoRoute:true,generatedRoute:true,fixtures,movingObstacles,
  visualBlueprint,
  stageForge:{id:'EP-P66',batch:'P76_PHYSICAL_INTAKE_HAIRPIN',status:'EXPERIMENTAL_HUMAN_UNTESTED',
   design:'REAL 3D RUSH COURSE; NOT P62 RESKIN',physicalChapters:9,
   features:['95m pipe descent','520m semicircular return skyway','450-degree 3D cathedral spiral','two physical route branches','six moving machine encounters','25m real road gap with natural ramp launch','multilevel architectural fly-through'],
-  oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,spiralExitControl:'STRONG_LEFT_STEER_APPROX_5S_AT_EXIT',dualForkNativeQA:'BOTH_12_SECOND_RUNS_PASS',dynamicMidForkChoice:'NOT_YET_VERIFIED',
-  humanPlaytest:'NOT_RUN',spiralExit:'NATIVE_SCRIPTED_FROM_SPIRAL_SPAWN_PASS',fullStartToFinish:'NOT_YET_VERIFIED',intakeToSpiral:'P76_NATIVE_SPAWN0_16_82S_NO_AIR_PASS',finalVisualQuality:'NOT_APPROVED'}
+  oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,highSpeedLandingDropMeters:8,spiralExitControl:'STRONG_LEFT_STEER_APPROX_5S_AT_EXIT',dualForkNativeQA:'BOTH_12_SECOND_RUNS_PASS',dynamicMidForkChoice:'NOT_YET_VERIFIED',
+  humanPlaytest:'NOT_RUN',spiralExit:'NATIVE_SCRIPTED_FROM_SPIRAL_SPAWN_PASS',fullStartToFinish:'NATIVE_SCRIPTED_SPAWN0_TO_FINISH_PASS',fullRouteControl:'FORK_ENTRY_LEFT_5S_THEN_MACHINE_RIGHT_LEFT_BRIEF_PULSES',humanFullRun:'NOT_RUN',intakeToSpiral:'P76_NATIVE_SPAWN0_16_82S_NO_AIR_PASS',finalVisualQuality:'NOT_APPROVED'}
 };
 export function generateEchoRush(){return validate(doc);}
 export const P66_GEOMETRY=Object.freeze({roadSurfaces:roads.length,gapMeters:25,spiralAngleDegrees:450,physicalBranches:2,moving:6});

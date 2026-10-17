@@ -28,7 +28,8 @@ test('P76 genuine 180-degree return arc replaces opposite-heading pipe/spiral co
  }
  const first=center('PIPE_DIVE_A-01',0),end=center('PIPE_RETURN-02',1);
  assert(dist(first,end)>450);
- assert.equal(doc.stageForge.fullStartToFinish,'NOT_YET_VERIFIED');
+ assert.equal(doc.stageForge.fullStartToFinish,'NATIVE_SCRIPTED_SPAWN0_TO_FINISH_PASS');
+ assert.equal(doc.stageForge.humanFullRun,'NOT_RUN');
  assert.equal(doc.stageForge.humanPlaytest,'NOT_RUN');
  assert.equal(DT,1/240);
  assert.equal(RADIUS,.65);
