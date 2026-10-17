@@ -209,3 +209,25 @@ test('P80 authentic road-skin neon chevrons and live eight-section progress pres
  await expect(page.locator('#flowProgress')).toBeHidden();
  expect(errors).toEqual([]);
 });
+
+test('P81 real banked-road edge radar tracks native contact and hides during airborne flight',async({page})=>{
+ test.setTimeout(130000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await expect(page.locator('#edgeRadar')).toBeVisible({timeout:20000});
+ await expect(page.locator('#view')).toHaveAttribute('data-edge-status',/clear|caution|danger/);
+ await expect(page.locator('#edgeRadar')).toHaveAttribute('data-v',/^-?\d+\.\d{3}$/);
+ await expect(page.locator('#edgeTilt')).toContainText('面傾斜');
+ await expect(page.locator('#edgeLabel')).not.toHaveText('');
+ await page.locator('#pause').click();
+ await expect(page.locator('#pause')).toContainText('再開');
+ await page.locator('#spawn').selectOption('1');
+ await expect(page.locator('#edgeRadar')).toBeVisible();
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter','SPIRAL');
+ await expect(page.locator('#view')).toHaveAttribute('data-edge-status',/clear|caution|danger/);
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:60000});
+ await expect(page.locator('#edgeRadar')).toBeVisible({timeout:15000});
+ expect(errors).toEqual([]);
+});
