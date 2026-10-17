@@ -37,6 +37,14 @@ jobs:
             echo 'Native trial reports are in the job logs under P95_HAZARD_NATIVE.'
             echo 'QA SUCCESS does NOT certify full-machine-course completion or human fairness.'
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: P96 physical dodge plan audit (4 profiles, human playability HOLD)
+        run: |
+          node scripts/p96-native-dodge-probe.mjs | tee p96-dodge-profiles.jsonl
+          {
+            echo '### P96 physical motion-aware dodge audit'
+            echo 'Each P96_NATIVE_* log is 240Hz true collision/finish evidence.'
+            echo 'A green CI proves the probe executed, not that any plan won.'
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets
