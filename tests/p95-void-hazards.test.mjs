@@ -12,7 +12,7 @@ test('P95 adds 12 ACTUAL B51-C moving colliders to separate experimental stage w
  const original=generateVoidBreaker(),baseline=JSON.stringify(original),d=generateVoidHazardCandidate();
  assert.equal(P95_HAZARD_COUNT,12);
  assert.equal(d.stageForge.id,'VB-P95');
- assert.equal(d.stageForge.fullStartToFinish,'NOT_YET_PROVEN_WITH_HAZARDS');
+ assert.equal(d.stageForge.fullStartToFinish,'SCRIPTED_240HZ_12_ACTIVE_7_OF_7_PASS_P96');
  assert.equal(d.stageForge.humanPlaytest,'NOT_RUN');
  assert.equal(d.stageForge.inheritedP94Evidence,false);
  assert.equal('fullRouteControl' in d.stageForge,false);
