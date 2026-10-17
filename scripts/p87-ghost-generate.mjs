@@ -6,6 +6,8 @@
 import {Runner,DT} from '../private/reference_only/director/physics.js';
 import {compile} from '../private/reference_only/director/collision.js';
 import {createNativeDemoState,nativeDemoSteer,recordDemoMilestone} from '../web/p78-demo.mjs';
+import {createChapterSplits,observeChapterSplits} from '../web/p86-chapter-splits.mjs';
+import {FLOW_CHAPTERS} from '../web/p80-trackflow.mjs';
 
 const round=n=>Number(n.toFixed(3));
 export const GHOST_STRIDE_STEPS=16; // 15 snapshots/second
@@ -15,11 +17,13 @@ export function generateReferenceGhost(doc){
  if(doc.stageForge?.id!=='EP-P66'||doc.spawns?.[0]?.surface!=='p66-PIPE_DIVE_A-01')
   throw Error('P87 reference ghost requires untouched EP-P66 spawn 00');
  const runner=new Runner(doc,compile(doc),0,44),director=createNativeDemoState();
+ const tracker=createChapterSplits(doc.stageForge.id,0,runner.surface,runner.time);
  const samples=[[0,...runner.p.map(round)]];
  let steps=0;
  while(!['failed','finished'].includes(runner.status)&&steps<Math.ceil(90/DT)){
   runner.step(nativeDemoSteer(director,runner));
   recordDemoMilestone(director,runner);
+  observeChapterSplits(tracker,runner.surface,runner.lastSurface,runner.time,runner.status);
   steps++;
   if(steps%GHOST_STRIDE_STEPS===0||runner.status!=='running')
    samples.push([round(runner.time),...runner.p.map(round)]);
@@ -28,8 +32,13 @@ export function generateReferenceGhost(doc){
   throw Error('P87 physical ghost failed original P77 full-route gate: '+JSON.stringify({
    status:runner.status,reason:runner.failure?.reason,time:runner.time,surface:runner.surface}));
  if(samples.length<1200||samples.length>1450)throw Error('P87 ghost samples missing/oversized: '+samples.length);
+ if(tracker.completed.length!==FLOW_CHAPTERS.length||
+    tracker.completed.some((e,i)=>e.id!==FLOW_CHAPTERS[i].id)||
+    Math.abs(tracker.completed.at(-1).time-runner.time)>.002)
+  throw Error('P88 native split milestones missing or non-chronological');
  if(samples.some(s=>s.length!==4||s.some(v=>!Number.isFinite(v))))throw Error('P87 non-finite snapshot');
  return {schema:GHOST_SCHEMA,stageId:doc.stageForge.id,spawn:0,
   source:'NATIVE_B48_P77_FULL_ROUTE_SNAPSHOT',dt:DT,stride:GHOST_STRIDE_STEPS,
-  finished:true,finishSeconds:round(runner.time),samples};
+  finished:true,finishSeconds:round(runner.time),samples,
+  sectors:tracker.completed.map(e=>({id:e.id,time:e.time,duration:e.duration}))};
 }
