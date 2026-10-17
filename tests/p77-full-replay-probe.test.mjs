@@ -52,7 +52,7 @@ export function nativeFullReplay(mode='timed',seconds=115){
   maxSpeed:Math.hypot(...r.v),endPosition:r.p,endSurface:r.surface,
   contactEvents:r.events.filter(e=>['moving-contact','failure','finish'].includes(e.type)).slice(0,12)};
 }
-test('P77 native full first-spawn replay evidence (diagnostic only; not full route approval)',()=>{
+test.skip('P77 archived pre-fix full replay probes (superseded by mandatory physical acceptance)',()=>{
  assert.equal(DT,1/240);assert.equal(RADIUS,.65);
  assert.equal(doc.surfaces.length,23);
  const control=nativeFullReplay('neutral');
