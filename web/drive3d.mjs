@@ -470,7 +470,7 @@ function tick(now){
  }
  if(runner&&nearMissTracker){const current=nearMissDisplay(nearMissTracker,runner.time);$('nearMissBurst').hidden=!current;}
  if(runner&&latestSplit)$('splitBurst').hidden=!(runner.time>=latestSplit.time&&runner.time<latestSplit.time+2.2);
- if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / '+(doc?.stageForge?.id==='VB-P93'?'約38.5s':'約83.2s');
+ if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / '+(doc?.stageForge?.id==='VB-P93'?'約38s':'約83.2s');
  if(runner&&now-lastEdgeRadarAt>100){lastEdgeRadarAt=now;updateEdgeRadar();}
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
