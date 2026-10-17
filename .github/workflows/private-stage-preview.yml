@@ -121,11 +121,11 @@ jobs:
             await new Promise(resolve=>setTimeout(resolve,3000));
           }
           assert.equal(info.gitCommit,process.env.EXPECTED_SHA);
-          assert.equal(info.version,'P92');
+          assert.equal(info.version,'P93');
           assert.equal(info.stageCount,4);
-          assert.equal(info.experimentalStageCount,1);
+          assert.equal(info.experimentalStageCount,2);
           assert.equal(info.movingObstacleCount,24);
-          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs','drive3d/p75-survival.mjs','drive3d/p78-demo.mjs','drive3d/p79-practice.mjs','drive3d/p80-trackflow.mjs','drive3d/p81-edge-radar.mjs','drive3d/p82-megastructure.mjs','drive3d/p83-render-quality.mjs','drive3d/p84-visibility.mjs','drive3d/p85-energyball.mjs','drive3d/p86-chapter-splits.mjs','drive3d/p87-ghost.mjs','drive3d/p88-ghost-gap.mjs','drive3d/p89-ghost-sector-pace.mjs','drive3d/p90-racecard.mjs','drive3d/p91-approach-beacons.mjs','drive3d/p92-failure-practice.mjs','generated/P87_REFERENCE_GHOST.json']){
+          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs','drive3d/p75-survival.mjs','drive3d/p78-demo.mjs','drive3d/p79-practice.mjs','drive3d/p80-trackflow.mjs','drive3d/p81-edge-radar.mjs','drive3d/p82-megastructure.mjs','drive3d/p83-render-quality.mjs','drive3d/p84-visibility.mjs','drive3d/p85-energyball.mjs','drive3d/p86-chapter-splits.mjs','drive3d/p87-ghost.mjs','drive3d/p88-ghost-gap.mjs','drive3d/p89-ghost-sector-pace.mjs','drive3d/p90-racecard.mjs','drive3d/p91-approach-beacons.mjs','drive3d/p92-failure-practice.mjs','drive3d/p93-void-breaker-visual.mjs','generated/P93_VOID_BREAKER.json','generated/P87_REFERENCE_GHOST.json']){
             const response=await fetchOK(path);
             assert((await response.text()).length>300,'Empty public asset: '+path);
           }
@@ -138,6 +138,10 @@ jobs:
           assert.equal(p66.stageForge.id,'EP-P66');
           assert.equal(p66.movingObstacles.length,6);
           assert(p66.visualBlueprint.spiralRings.length>=5);
+          const p93=await(await fetchOK('generated/P93_VOID_BREAKER.json')).json();
+          assert.equal(p93.stageForge.id,'VB-P93');
+          assert.equal(p93.surfaces.length,7);
+          assert.equal(p93.stageForge.humanPlaytest,'NOT_RUN');
           const ghost=await(await fetchOK('generated/P87_REFERENCE_GHOST.json')).json();
           assert.equal(ghost.schema,'dopagaki.native-reference-ghost/1');
           assert(ghost.finished&&ghost.finishSeconds>82&&ghost.finishSeconds<85);
