@@ -199,7 +199,11 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P82 EXPERIMENTAL — dual-lane neon travel-direction markers and actual chapter progress; P79 native 240Hz practice and B48 physics preserved.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P82 EXPERIMENTAL — CATHEDRAL SKYWORLD with P81 bank radar and P79 native practice; B48 physics unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ // Synchronize the visible world-clock immediately after replacing Runner.
+ // Otherwise a spectator can see a stale timer from the previous practice run
+ // until the next 500ms HUD refresh and mistakenly read a time regression.
+ hud();
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
@@ -381,6 +385,7 @@ function completePracticeTakeover(){
  $('demoRun').textContent='全編デモを見る（自動操舵）';
  $('demoRun').setAttribute('aria-pressed','false');
  status.textContent='P79 実物理の区間練習中 — 自動操舵OFF、自己ベスト対象外。';
+ hud();
  updateRunScore();
 }
 function exitPractice(){
