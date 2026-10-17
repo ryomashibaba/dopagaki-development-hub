@@ -51,6 +51,26 @@ export function runNativeVoidBreaker(profile='corrective',{seconds=145,doc=null,
   caveat:'Scripted controller is NOT evidence of human completion, fair handling or production readiness.'
  };
 }
+/**
+ * Frozen-source repeatable acceptance artifact. Deliberately excludes
+ * nondeterministic host wall time; captures real native frame outcomes.
+ */
+export function generateVoidAcceptanceEvidence(doc=generateVoidBreaker()){
+ const world=compile(doc);
+ const trim=({hostMilliseconds,...data})=>data;
+ const neutral=trim(runNativeVoidBreaker('neutral',{doc,world}));
+ const corrective=trim(runNativeVoidBreaker('corrective',{doc,world}));
+ if(corrective.status!=='NATIVE_FULL_PASS'||corrective.runnerStatus!=='finished'||
+    corrective.visited.length!==P94_TRACK.length||!corrective.finishEvent||
+    corrective.distanceMeters<3400||corrective.time>120){
+  throw Error('P94 physical evidence regressed: '+JSON.stringify({status:corrective.status,reason:corrective.reason,visited:corrective.visited,time:corrective.time,distanceMeters:corrective.distanceMeters}));
+ }
+ if(neutral.status==='NATIVE_FULL_PASS')throw Error('P94 no-input difficulty gate changed; review human challenge before accepting');
+ return {schema:'dopagaki.void-breaker.acceptance-evidence/1',stageId:doc.stageForge.id,
+  course:'VB-P93/3990m',physics:'UNMODIFIED_B48_240HZ',source:'GENERATED_FROM_NATIVE_RUNNER',
+  scriptedFullPass:true,humanPlaytest:'NOT_RUN',neutral,corrective};
+}
+
 if(process.argv[1]&&fileURLToPath(import.meta.url)===process.argv[1]){
  const doc=generateVoidBreaker(),world=compile(doc);
  const profiles=process.argv.slice(2).filter(x=>['neutral','gentle','corrective'].includes(x));
