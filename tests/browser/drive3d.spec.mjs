@@ -424,3 +424,38 @@ test('P87 opt-in native reference ghost is visible only in manual full-start pla
  await expect(page.locator('#view')).toHaveAttribute('data-ghost-mode','off');
  expect(errors).toEqual([]);
 });
+
+test('P88 native ghost pace appears only after a real manual sector crossing',async({page})=>{
+ test.setTimeout(125000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await expect(page.locator('#ghostPace')).toBeHidden();
+ await expect(page.locator('#view')).toHaveAttribute('data-ghost-pace-status','off');
+ await page.locator('#ghostToggle').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-ghost-pace-status','off');
+ // Unlike reading two positions at the same time, this compares equivalent
+ // actual physical road-sector crossings in the original B48 Runner.
+ await expect(page.locator('#view')).toHaveAttribute('data-completed-splits',/^[1-8]$/,{timeout:48000});
+ await expect(page.locator('#ghostPace')).toBeVisible();
+ await expect(page.locator('#ghostPace')).toContainText(/基準|同一区間/);
+ await expect(page.locator('#ghostPace')).toHaveAttribute('data-status',/ahead|behind|tie/);
+ await page.locator('#ghostToggle').click();
+ await expect(page.locator('#ghostPace')).toBeHidden();
+ await expect(page.locator('#view')).toHaveAttribute('data-ghost-pace-status','off');
+ await page.locator('#ghostToggle').click();
+ await expect(page.locator('#ghostPace')).toBeVisible();
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
+ await expect(page.locator('#ghostPace')).toBeHidden();
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ await expect(page.locator('#ghostPace')).toBeHidden();
+ await page.locator('#spawn').selectOption('2');
+ await expect(page.locator('#ghostToggle')).toBeDisabled();
+ await expect(page.locator('#ghostPace')).toBeHidden();
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:60000});
+ await expect(page.locator('#ghostPace')).toBeHidden();
+ expect(errors).toEqual([]);
+});
