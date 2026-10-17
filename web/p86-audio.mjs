@@ -21,7 +21,7 @@ export function soundEvent(step,velocity=44){
 }
 export function createArcadeAudio(contextFactory){
  let ctx=null,master=null,enabled=false,nextStep=0,nextAt=0,muted=false;
- let queued=0,events=0,tailUntil=0;
+ let queued=0,events=0,tailUntil=0,gainTarget=null;
  const factory=contextFactory||(()=>new (globalThis.AudioContext||globalThis.webkitAudioContext)());
  function oscillator(frequency,when,duration,amplitude,type='triangle'){
   const osc=ctx.createOscillator(),amp=ctx.createGain();
@@ -48,13 +48,13 @@ export function createArcadeAudio(contextFactory){
   }
   try{
    if(typeof ctx.resume==='function')await ctx.resume();
-   enabled=true;muted=false;nextAt=ctx.currentTime+.025;nextStep=0;tailUntil=0;
+   enabled=true;muted=false;nextAt=ctx.currentTime+.025;nextStep=0;tailUntil=0;gainTarget=null;
    master.gain.setValueAtTime(0,ctx.currentTime);
    return true;
   }catch{return false;}
  }
  async function disable(){
-  enabled=false;muted=true;
+  enabled=false;muted=true;gainTarget=0;
   try{master?.gain.setTargetAtTime?.(0,ctx.currentTime,.012);await ctx?.suspend?.();}catch{}
   return false;
  }
@@ -85,7 +85,8 @@ export function createArcadeAudio(contextFactory){
  function tick({velocity=44,running=true,paused=false,visible=true}={}){
   if(!enabled||!ctx)return {scheduled:0,enabled:false};
   const active=running&&!paused&&visible;
-  master.gain.setTargetAtTime((active||(visible&&ctx.currentTime<tailUntil)) ? .25 : 0,ctx.currentTime,.035);
+  const wantedGain=(active||(visible&&ctx.currentTime<tailUntil)) ? .25 : 0;
+  if(wantedGain!==gainTarget){master.gain.setTargetAtTime(wantedGain,ctx.currentTime,.035);gainTarget=wantedGain;}
   if(!active){nextAt=ctx.currentTime+.035;return {scheduled:0,enabled:true};}
   const now=ctx.currentTime;
   if(nextAt<now-.1){nextAt=now+.025;} // skip stale clock, not the native physics
