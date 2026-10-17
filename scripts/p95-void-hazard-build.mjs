@@ -50,8 +50,10 @@ export function generateVoidHazardCandidate(){
   }
  }
  doc.movingObstacles=normalizeMovingObstacles({movingObstacles:hazards});
+ // The P94 full-run proof belongs to VB-P93 only, not this new hazard build.
+ const {fullRouteControl,neutralRun,...baseMetadata}=doc.stageForge;
  doc.stageForge={
-  ...doc.stageForge,id:'VB-P95',batch:'P95_MOVING_HAZARD_PLAYTEST_CANDIDATE',
+  ...baseMetadata,id:'VB-P95',batch:'P95_MOVING_HAZARD_PLAYTEST_CANDIDATE',
   status:'EXPERIMENTAL_NATIVE_FULL_RUN_UNPROVEN',
   design:'VOID BREAKER original physical road plus native 12-machine hazard challenge',
   hazards:{source:'B51-C_NATIVELY_COLLIDING',count:hazards.length,types:['slider','rotator','piston'],
