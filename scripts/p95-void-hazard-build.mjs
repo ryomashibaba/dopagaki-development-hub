@@ -9,18 +9,12 @@
 import {generateVoidBreaker} from './p93-void-breaker-build.mjs';
 import {sample,frame,validate} from '../private/reference_only/director/surface.js';
 import {normalizeMovingObstacles} from '../private/reference_only/director/moving/moving-obstacles.mjs';
+import {P95_HAZARD_SPECS} from '../web/p95-hazard-layout.mjs';
+export {P95_HAZARD_SPECS};
 
 const additions=(a,b,k=1)=>a.map((v,i)=>v+b[i]*k);
 const norm=a=>{const d=Math.hypot(...a)||1;return a.map(v=>v/d)};
-export const P95_HAZARD_SPECS=Object.freeze([
- // The machine course is spread through the two giant U-turns, the scissor
- // crossing and both late-game high-altitude corridors.
- [1,.22,0,-16],[1,.57,1,14],[1,.84,2,-5],
- [2,.26,0,12],[2,.64,1,-18],
- [3,.18,2,7],[3,.48,0,-13],[3,.82,1,16],
- [4,.35,2,-8],[4,.78,0,16],
- [5,.30,1,-16],[5,.73,2,8]
-]);
+
 export const P95_HAZARD_COUNT=P95_HAZARD_SPECS.length;
 export function generateVoidHazardCandidate(){
  const baseline=generateVoidBreaker();
