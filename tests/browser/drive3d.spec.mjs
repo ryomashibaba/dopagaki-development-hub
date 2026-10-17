@@ -54,7 +54,7 @@ test('P79: full native route, chapter training and original four stages coexist'
  await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');
- await expect(page.locator('#appStatus')).toContainText('P89 EXPERIMENTAL');
+ await expect(page.locator('#appStatus')).toContainText('P91 EXPERIMENTAL');
  // The real P69 machine chamber includes three physical movement mechanisms.
  // Heads-up cues are derived from sampled B51 motion, not a fake preset label.
  await page.locator('#spawn').selectOption('4');
@@ -464,7 +464,7 @@ test('P91 visible physical-road approach markers guide human decisions without c
  test.setTimeout(110000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('/drive3d/');
- await expect(page.locator('#appStatus')).toContainText('P89 EXPERIMENTAL',{timeout:75000});
+ await expect(page.locator('#appStatus')).toContainText('P91 EXPERIMENTAL',{timeout:75000});
  await expect(page.locator('#view')).toHaveAttribute('data-approach-regions','FORK,MACHINES,NATURAL_GAP');
  await expect(page.locator('#view')).toHaveAttribute('data-approach-beacons','68');
  await expect(page.locator('body')).toContainText('P91：分岐前は左右2色の路面矢印');
