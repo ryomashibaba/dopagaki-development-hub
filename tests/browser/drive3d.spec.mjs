@@ -608,3 +608,32 @@ test('P95 12 physically animated hazards render in independent stage, while orig
  await expect(page.locator('#view')).toHaveAttribute('data-mega-section-count','0');
  expect(errors).toEqual([]);
 });
+
+test('P96 on-screen spectator physically dodges all 12 live machines, completes VB-P95 and never updates best records',async({page})=>{
+ test.setTimeout(145000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await page.locator('#stage').selectOption('VB-P95');
+ await expect(page.locator('#appStatus')).toContainText('P96 VOID BREAKER',{timeout:75000});
+ await expect(page.locator('#view')).toHaveAttribute('data-machine-count','12');
+ await expect(page.locator('#demoRun')).toBeEnabled();
+ await expect(page.locator('#practiceRun')).toBeDisabled();
+ const before=await page.evaluate(()=>JSON.stringify({...localStorage}));
+ await page.locator('#demoSpeed').selectOption('2');
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
+ await expect(page.locator('#demoBanner')).toBeVisible();
+ await expect(page.locator('#resultTitle')).toHaveText('DEMO COMPLETE',{timeout:99000});
+ await expect(page.locator('#view')).toHaveAttribute('data-run-outcome','finished');
+ const after=await page.evaluate(()=>JSON.stringify({...localStorage}));
+ expect(after).toBe(before);
+ const proof=await page.evaluate(async()=>await(await fetch('../generated/P96_NATIVE_DODGE_ACCEPTANCE.json')).json());
+ expect(proof.activeCollidingMachines).toBe(12);
+ expect(proof.best.visited).toHaveLength(7);
+ expect(proof.best.machineContacts).toHaveLength(0);
+ expect(proof.humanPlaytest).toBe('NOT_RUN');
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ await expect(page.locator('#runResult')).toBeHidden();
+ expect(errors).toEqual([]);
+});
