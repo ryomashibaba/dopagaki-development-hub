@@ -29,6 +29,14 @@ jobs:
             echo 'Native Runner replay under neutral and scripted steering (NOT human test).'
             echo 'See the log lines prefixed P94_VOID_NATIVE for full diagnostics.'
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: P95 experimental machine gauntlet native 240Hz probes (candidate HOLD)
+        run: |
+          node scripts/p95-hazard-probe.mjs | tee p95-machine-probe.jsonl
+          {
+            echo '### P95 experimental B51-C moving hazard pilot'
+            echo 'Native trial reports are in the job logs under P95_HAZARD_NATIVE.'
+            echo 'QA SUCCESS does NOT certify full-machine-course completion or human fairness.'
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets
