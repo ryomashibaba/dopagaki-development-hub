@@ -8,6 +8,7 @@ import {generateVoidBreaker} from './p93-void-breaker-build.mjs';
 import {compile} from '../private/reference_only/director/collision.js';
 import {Runner,DT} from '../private/reference_only/director/physics.js';
 import {p94NativeSteer} from '../web/p94-native-steer.mjs';
+export const P94_TRACK=['ABYSS_DIVE','CROWN_REVERSAL','SCISSOR_RISE','LOWER_REVERSAL','VOID_SURGE','PRISM_CREST','FINISH_RIDGE'].map(s=>'p93-'+s+'-01');
 
 export function runNativeVoidBreaker(profile='corrective',{seconds=145,doc=null,world=null}={}){
  if(!['neutral','gentle','corrective'].includes(profile))throw Error('Unknown P94 controller profile');
