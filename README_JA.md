@@ -1,4 +1,4 @@
-> **公開チャネル (2026-10-17 確定)**: 最終本番は [DOPAGAKI SLOPE](https://dopagaki-slope.sora-110029.chatgpt.site/) です。ここで自動公開される [GitHub Pages](https://ryomashibaba.github.io/dopagaki-development-hub/drive3d/) は**開発・検証専用**であり、本番サイトへ自動反映する仕組みは確認されていません。P92ではP91の3D試走に、手動失敗から既存P79の実物理区間練習を直接始める機能を追加しています。以下のP64に関する説明は開発当時の記録です。詳細: [公開チャネル方針](docs/RELEASE_CHANNEL_POLICY_JA.md)。
+> **公開チャネル (2026-10-17 確定)**: 最終本番は [DOPAGAKI SLOPE](https://dopagaki-slope.sora-110029.chatgpt.site/) です。ここで自動公開される [GitHub Pages](https://ryomashibaba.github.io/dopagaki-development-hub/drive3d/) は**開発・検証専用**であり、本番サイトへ自動反映する仕組みは確認されていません。P93では既存P62/P66の原本を変更せず、約3,990m・7実道路面の独立したVOID BREAKER試走候補を追加しています。人間の全編完走・操作感は未認定です。以下のP64に関する説明は開発当時の記録です。詳細: [公開チャネル方針](docs/RELEASE_CHANNEL_POLICY_JA.md)。
 
 # DOPAGAKI Development Hub — P64 Public Preview
 
