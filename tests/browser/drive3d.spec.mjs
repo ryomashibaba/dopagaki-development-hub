@@ -576,3 +576,35 @@ test('P94 real native 240Hz spectator completes the entire seven-road VOID BREAK
  await expect(page.locator('#runResult')).toBeHidden();
  expect(errors).toEqual([]);
 });
+
+test('P95 12 physically animated hazards render in independent stage, while original P94 proof and all P62 remain',async({page})=>{
+ test.setTimeout(120000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ page.on('response',r=>{if(r.url().includes('P95_VOID_HAZARD')&&!r.ok())errors.push('P95 stage HTTP '+r.status())});
+ await page.goto('/drive3d/');
+ await page.locator('#stage').selectOption('VB-P95');
+ await expect(page.locator('#appStatus')).toContainText('P95 VOID BREAKER HAZARD TRIAL',{timeout:75000});
+ await expect(page.locator('#view')).toHaveAttribute('data-machine-count','12');
+ await expect(page.locator('#view')).toHaveAttribute('data-mega-section-count','7');
+ await expect(page.locator('#view')).toHaveAttribute('data-mega-world','enabled');
+ await expect(page.locator('#spawn option')).toHaveCount(6);
+ await expect(page.locator('#demoRun')).toBeDisabled();
+ await expect(page.locator('#practiceRun')).toBeDisabled();
+ const candidate=await page.evaluate(async()=>await(await fetch('../generated/P95_VOID_HAZARD_CANDIDATE.json')).json());
+ expect(candidate.stageForge.id).toBe('VB-P95');
+ expect(candidate.stageForge.fullStartToFinish).toBe('NOT_YET_PROVEN_WITH_HAZARDS');
+ expect(candidate.stageForge.inheritedP94Evidence).toBe(false);
+ expect(candidate.movingObstacles).toHaveLength(12);
+ expect(new Set(candidate.movingObstacles.map(o=>o.type))).toEqual(new Set(['slider','rotator','piston']));
+ await page.locator('#stage').selectOption('VB-P93');
+ await expect(page.locator('#appStatus')).toContainText('P94 VOID BREAKER',{timeout:75000});
+ await expect(page.locator('#view')).toHaveAttribute('data-machine-count','0');
+ await expect(page.locator('#demoRun')).toBeEnabled();
+ const original=await page.evaluate(async()=>await(await fetch('../generated/P94_VOID_NATIVE_ACCEPTANCE.json')).json());
+ expect(original.corrective.runnerStatus).toBe('finished');
+ expect(original.corrective.visited).toHaveLength(7);
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:75000});
+ await expect(page.locator('#view')).toHaveAttribute('data-mega-section-count','0');
+ expect(errors).toEqual([]);
+});
