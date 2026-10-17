@@ -244,3 +244,43 @@ test('P81 real banked-road edge radar tracks native contact and hides during air
  await expect(page.locator('#edgeRadar')).toBeVisible({timeout:15000});
  expect(errors).toEqual([]);
 });
+
+
+test('P83 real WebGL2 framebuffer quality modes preserve playable physics and giant city toggle',async({page})=>{
+ test.setTimeout(120000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await expect(page.locator('#renderQuality')).toHaveValue('auto');
+ await expect(page.locator('#view')).toHaveAttribute('data-render-mode','auto');
+ await expect(page.locator('#view')).toHaveAttribute('data-render-scale','1.00');
+ const read=()=>page.locator('#view').evaluate(c=>({
+  w:c.width,h:c.height,cssW:c.clientWidth,cssH:c.clientHeight,
+  dpr:Math.min(2,devicePixelRatio||1),physics:c.dataset.runMode,mega:c.dataset.megaWorld
+ }));
+ const full=await read();
+ await page.locator('#renderQuality').selectOption('performance');
+ await expect(page.locator('#view')).toHaveAttribute('data-render-mode','performance');
+ await expect(page.locator('#view')).toHaveAttribute('data-render-scale','0.60');
+ await expect(page.locator('#renderScaleInfo')).toContainText('60%');
+ const fast=await read();
+ expect(fast.w).toBeLessThan(full.w);
+ expect(fast.h).toBeLessThan(full.h);
+ expect(fast.cssW).toBe(full.cssW);
+ expect(fast.cssH).toBe(full.cssH);
+ expect(Math.abs(fast.w-Math.floor(fast.cssW*fast.dpr*.6))).toBeLessThanOrEqual(2);
+ await page.locator('#megaWorld').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-mega-world','disabled');
+ await page.locator('#renderQuality').selectOption('quality');
+ await expect(page.locator('#view')).toHaveAttribute('data-render-scale','1.00');
+ await page.locator('#renderQuality').selectOption('balanced');
+ await expect(page.locator('#view')).toHaveAttribute('data-render-scale','0.80');
+ await page.locator('#renderQuality').selectOption('auto');
+ await expect(page.locator('#view')).toHaveAttribute('data-render-mode','auto');
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ await expect(page.locator('#simTime')).not.toHaveText('0.00 s');
+ await page.locator('#spawn').selectOption('1');
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter','SPIRAL');
+ await expect(page.locator('#renderQuality')).toHaveValue('auto');
+ expect(errors).toEqual([]);
+});
