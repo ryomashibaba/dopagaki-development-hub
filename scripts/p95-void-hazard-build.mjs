@@ -48,11 +48,11 @@ export function generateVoidHazardCandidate(){
  const {fullRouteControl,neutralRun,...baseMetadata}=doc.stageForge;
  doc.stageForge={
   ...baseMetadata,id:'VB-P95',batch:'P95_MOVING_HAZARD_PLAYTEST_CANDIDATE',
-  status:'EXPERIMENTAL_NATIVE_FULL_RUN_UNPROVEN',
+  status:'EXPERIMENTAL_SCRIPTED_NATIVE_PASS_HUMAN_HOLD',
   design:'VOID BREAKER original physical road plus native 12-machine hazard challenge',
   hazards:{source:'B51-C_NATIVELY_COLLIDING',count:hazards.length,types:['slider','rotator','piston'],
    modes:['fail','bounce','push'],humanFairness:'UNTESTED'},
-  fullStartToFinish:'NOT_YET_PROVEN_WITH_HAZARDS',
+  fullStartToFinish:'SCRIPTED_240HZ_12_ACTIVE_7_OF_7_PASS_P96',
   humanPlaytest:'NOT_RUN',finalVisualQuality:'NOT_APPROVED',
   basedOnIndependentRoadStage:'VB-P93',
   inheritedP94Evidence:false
