@@ -321,7 +321,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='VB-P95'?'P95 VOID BREAKER HAZARD TRIAL — 12 genuine native B51-C colliders; full-run and human fairness HOLD.':doc.stageForge?.id==='VB-P93'?'P94 VOID BREAKER — genuine 3990m 7/7 native scripted finish verified; human playability and final art NOT APPROVED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='VB-P95'?'P96 VOID BREAKER — 12 real moving B51-C obstacles, 7/7 native scripted finish; human difficulty/fairness HOLD.':doc.stageForge?.id==='VB-P93'?'P94 VOID BREAKER — genuine 3990m 7/7 native scripted finish verified; human playability and final art NOT APPROVED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  publishChapterTiming();
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
@@ -470,7 +470,7 @@ function tick(now){
  }
  if(runner&&nearMissTracker){const current=nearMissDisplay(nearMissTracker,runner.time);$('nearMissBurst').hidden=!current;}
  if(runner&&latestSplit)$('splitBurst').hidden=!(runner.time>=latestSplit.time&&runner.time<latestSplit.time+2.2);
- if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / '+(doc?.stageForge?.id==='VB-P93'?'約38s':'約83.2s');
+ if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / '+(doc?.stageForge?.id==='VB-P95'?'約40s':doc?.stageForge?.id==='VB-P93'?'約38s':'約83.2s');
  if(runner&&now-lastEdgeRadarAt>100){lastEdgeRadarAt=now;updateEdgeRadar();}
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
