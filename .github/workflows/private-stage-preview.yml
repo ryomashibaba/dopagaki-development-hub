@@ -21,6 +21,14 @@ jobs:
           node-version: '22'
       - name: P62 SHA, B48 surface, moving obstacles, frozen B45 physics
         run: npm run test:core
+      - name: P94 native 240Hz full course observability (HOLD until full completion)
+        run: |
+          node scripts/p94-void-native-acceptance.mjs neutral corrective | tee p94-void-physics-report.jsonl
+          {
+            echo '### P94 VOID BREAKER physical acceptance probe'
+            echo 'Native Runner replay under neutral and scripted steering (NOT human test).'
+            echo 'See the log lines prefixed P94_VOID_NATIVE for full diagnostics.'
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets
