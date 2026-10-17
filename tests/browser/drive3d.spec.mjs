@@ -387,3 +387,39 @@ test('P86 live native chapter timing enters HALO, demo cannot save best and prac
  await expect(page.locator('#chapterTiming')).toBeHidden();
  expect(errors).toEqual([]);
 });
+
+
+test('P87 opt-in native reference ghost is visible only in manual full-start play, never spectator or P62',async({page})=>{
+ test.setTimeout(120000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await expect(page.locator('#ghostToggle')).toBeEnabled();
+ await expect(page.locator('#ghostToggle')).toHaveAttribute('aria-pressed','false');
+ await expect(page.locator('#view')).toHaveAttribute('data-ghost-mode','off');
+ await page.locator('#ghostToggle').click();
+ await expect(page.locator('#ghostToggle')).toHaveAttribute('aria-pressed','true');
+ await expect(page.locator('#view')).toHaveAttribute('data-ghost-mode','reference-visible');
+ const time=Number((await page.locator('#simTime').textContent()).replace(' s',''));
+ expect(time).toBeGreaterThan(0);
+ // Ghost is a wireframe draw only; physical run stays manual and scores normally.
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ await page.locator('#spawn').selectOption('1');
+ await expect(page.locator('#ghostToggle')).toBeDisabled();
+ await expect(page.locator('#view')).toHaveAttribute('data-ghost-mode','off');
+ await page.locator('#spawn').selectOption('0');
+ await expect(page.locator('#ghostToggle')).toBeEnabled();
+ await expect(page.locator('#view')).toHaveAttribute('data-ghost-mode','reference-visible');
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
+ await expect(page.locator('#ghostToggle')).toBeDisabled();
+ await expect(page.locator('#view')).toHaveAttribute('data-ghost-mode','off');
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ await expect(page.locator('#ghostToggle')).toBeEnabled();
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:60000});
+ await expect(page.locator('#ghostToggle')).toBeDisabled();
+ await expect(page.locator('#view')).toHaveAttribute('data-ghost-mode','off');
+ expect(errors).toEqual([]);
+});
