@@ -78,6 +78,8 @@ export function generateVoidBreaker(){
     '740m opposing hairpin and 155m underpass drop','two-level crossing',
     'prism crest and high-speed finishing ridge'],
    preExistingCourseModified:false,physicsModified:false,autoSteerAssistanceAdded:false,
-   humanPlaytest:'NOT_RUN',fullStartToFinish:'NOT_YET_PROVEN',finalVisualQuality:'NOT_APPROVED'}
+   humanPlaytest:'NOT_RUN',fullStartToFinish:'NATIVE_SCRIPTED_240HZ_7_OF_7_PASS_P94',
+   fullRouteControl:'P94_B48_CENTERLINE_CORRECTIVE_INPUT_NO_TELEPORT',
+   neutralRun:'HOLD_FALL_AFTER_FOUR_SECTIONS',finalVisualQuality:'NOT_APPROVED'}
  });
 }
