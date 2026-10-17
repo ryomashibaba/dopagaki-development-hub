@@ -313,3 +313,49 @@ test('P84 real sampled road shoulder visibility and atmospheric fog toggles do n
  await expect(page.locator('#view')).toHaveAttribute('data-visibility-fx','enabled');
  expect(errors).toEqual([]);
 });
+
+
+test('P85 real WebGL2 luminous energy ball and velocity trails stay visual-only and user-toggleable',async({page})=>{
+ test.setTimeout(120000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await expect(page.locator('#energyFx')).toHaveAttribute('aria-pressed','true');
+ await expect(page.locator('#view')).toHaveAttribute('data-energy-mode','enhanced');
+ await expect(page.locator('#view')).toHaveAttribute('data-energy-trail','active');
+ const vertices=Number(await page.locator('#view').getAttribute('data-energy-vertices'));
+ expect(vertices).toBeGreaterThan(4000);
+ expect(vertices).toBeLessThan(13500);
+ const before=await page.locator('#view').evaluate(c=>({
+  speed:document.getElementById('speed').textContent,
+  spawn:document.getElementById('spawn').value,
+  physics:c.dataset.runMode,
+  camera:c.dataset.cameraMode
+ }));
+ await page.locator('#energyFx').click();
+ await expect(page.locator('#energyFx')).toHaveAttribute('aria-pressed','false');
+ await expect(page.locator('#view')).toHaveAttribute('data-energy-mode','classic');
+ await expect(page.locator('#view')).toHaveAttribute('data-energy-trail','inactive');
+ await page.locator('#energyFx').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-energy-mode','enhanced');
+ await page.locator('#renderQuality').selectOption('performance');
+ await expect(page.locator('#view')).toHaveAttribute('data-render-scale','0.60');
+ await expect(page.locator('#view')).toHaveAttribute('data-energy-trail','inactive');
+ await page.locator('#renderQuality').selectOption('quality');
+ await expect(page.locator('#view')).toHaveAttribute('data-energy-trail','active');
+ await page.locator('#pause').click();
+ await expect(page.locator('#pause')).toContainText('再開');
+ const paused=await page.locator('#simTime').textContent();
+ await page.waitForTimeout(650);
+ expect(await page.locator('#simTime').textContent()).toBe(paused);
+ await expect(page.locator('#view')).toHaveAttribute('data-energy-mode','enhanced');
+ await page.locator('#pause').click();
+ await page.locator('#spawn').selectOption('1');
+ await expect(page.locator('#view')).toHaveAttribute('data-energy-mode','enhanced');
+ await expect(page.locator('#view')).toHaveAttribute('data-camera-mode',before.camera);
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode',before.physics);
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:60000});
+ await expect(page.locator('#view')).toHaveAttribute('data-energy-mode','enhanced');
+ expect(errors).toEqual([]);
+});
