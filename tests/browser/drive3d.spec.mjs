@@ -29,7 +29,7 @@ test('P79: full native route, chapter training and original four stages coexist'
  await page.goto('/drive3d/');
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
- await expect(page.locator('#stage option:checked')).toContainText('P89 ECHO PIPE');
+ await expect(page.locator('#stage option:checked')).toContainText('P90 ECHO PIPE');
  await expect(page.locator('#spawn option')).toHaveCount(7);
  const newCourse=await page.evaluate(async()=>await(await fetch('../generated/P66_ECHO_RUSH.json')).json());
  expect(newCourse.surfaces.length).toBe(23);
@@ -425,7 +425,7 @@ test('P87 opt-in native reference ghost is visible only in manual full-start pla
  expect(errors).toEqual([]);
 });
 
-test('P89 player vs native sector ghost pace uses real crossings, not same-clock distance',async({page})=>{
+test('P90 player vs native sector ghost racecard uses real crossings, not same-clock distance',async({page})=>{
  test.setTimeout(125000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('/drive3d/');
@@ -436,6 +436,9 @@ test('P89 player vs native sector ghost pace uses real crossings, not same-clock
  await expect(page.locator('#view')).toHaveAttribute('data-ghost-mode','reference-visible');
  await expect(page.locator('#view')).toHaveAttribute('data-completed-splits',/^[1-8]$/,{timeout:48000});
  await expect(page.locator('#ghostPace')).toBeVisible();
+ await expect(page.locator('#ghostRacecard')).toBeVisible();
+ await expect(page.locator('.racecardRow')).toHaveCount(8);
+ await expect(page.locator('#racecardProgress')).toContainText('/8 SECTORS');
  await expect(page.locator('#ghostPace')).toContainText('同じ区間');
  await expect(page.locator('#ghostPace')).toHaveAttribute('data-status',/ahead|behind|tie/);
  await expect(page.locator('#ghostGap')).toBeVisible();
