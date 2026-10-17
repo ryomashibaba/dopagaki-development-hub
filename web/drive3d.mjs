@@ -18,18 +18,19 @@ import {createRenderQuality,sampleRenderQuality,framebufferDimensions,renderScal
 import {roadShoulderLights,FOG_START_METERS,FOG_SPAN_METERS,FOG_MAX} from './p84-visibility.mjs';
 import {makeEnergyBallVisual,energyBallFrame} from './p85-energyball.mjs';
 import {createChapterSplits,observeChapterSplits,chapterTimerView,readChapterBest,storeChapterBest,splitSeconds} from './p86-chapter-splits.mjs';
+import {validateGhost,referenceGhostAt,ghostEligible,ghostLatticeVertices} from './p87-ghost.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,flowRoads,shoulderLights,ball,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
+let gl,program,locations={},roads,lines,flowRoads,shoulderLights,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
 let renderQuality=createRenderQuality('auto'),visibilityFx=true;
 let practiceMode=false,practiceStartedAt=null,seekingChapter=null,lastEdgeRadarAt=0;
-let chapterTracker=null,latestSplit=null;
+let chapterTracker=null,latestSplit=null,ghostData=null,ghostEnabled=false;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -74,7 +75,7 @@ function init(){
  gl.useProgram(program);
  for(const name of ['eye','camRight','camUp','camFront','translation','scale','yaw','aspect','fogStrength','fogStart','fogSpan'])locations[name]=gl.getUniformLocation(program,name);
  gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(.019,.041,.083,1);
- ball=mesh(orb());
+ ball=mesh(orb());ghostMesh=mesh(ghostLatticeVertices());
  const energyVisual=makeEnergyBallVisual();
  for(const key of ['shell','filaments','orbits','trails'])energyMeshes[key]=mesh(energyVisual[key]);
  canvas.dataset.energyVertices=String(energyVisual.totalVertices);
@@ -168,6 +169,11 @@ function render(frameSeconds){
   if(effect.trailActive)draw(energyMeshes.trails,pose.position,
    [1,1,effect.trailScale],effect.directionYaw,gl.LINES);
  }else draw(ball,pose.position);
+ const liveMode=demoMode?'spectator-demo':practiceMode?'practice':'manual';
+ const canGhost=ghostEnabled&&ghostData&&ghostEligible(doc,runner.spawnIndex,liveMode);
+ const ghostPosition=canGhost?referenceGhostAt(ghostData,pose.time):null;
+ if(ghostPosition)draw(ghostMesh,ghostPosition,[1,1,1],0,gl.LINES);
+ canvas.dataset.ghostMode=ghostPosition?'reference-visible':canGhost?'reference-finished':'off';
  canvas.dataset.energyMode=energyFx?'enhanced':'classic';
  canvas.dataset.energyTrail=energyFx&&effect.trailActive?'active':'inactive';
 }
@@ -241,7 +247,10 @@ function restart(){
  if(!doc||!world)return;
  seekingChapter=null;
  const spawn=Math.min(doc.spawns.length-1,Math.max(0,Number($('spawn').value)||0));
- runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
+ const eligible=Boolean(ghostData&&ghostEligible(doc,spawn,demoMode?'spectator-demo':practiceMode?'practice':'manual'));
+  $('ghostToggle').disabled=!eligible;
+  $('ghostToggle').title=eligible?'開始地点00の手動走行にだけ適用':'実物理ゴーストはECHO PIPE開始00の手動走行のみ';
+  runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
  demoDirector=createNativeDemoState();
  canvas.dataset.runMode=demoMode?'spectator-demo':practiceMode?'practice':'manual';
  lastEdgeRadarAt=0;$('edgeRadar').hidden=true;canvas.dataset.edgeStatus='unavailable';
@@ -263,7 +272,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P86 EXPERIMENTAL — genuine 240Hz chapter times and manual-only best sectors; native 83-second route, P85 energy ball, frozen B48 physics and P62 originals unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P87 EXPERIMENTAL — optional noncolliding native 83s reference ghost with manual-only 8-sector timing; original 240Hz B48 physics and frozen P62 stages unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  publishChapterTiming();
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
@@ -272,7 +281,7 @@ function restart(){
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
- runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
+ runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
  try{
   const response=await fetch('../generated/'+assets[id],{cache:'no-store'});
   if(!response.ok)throw Error('Stage JSON HTTP '+response.status);
@@ -282,7 +291,14 @@ async function load(){
   await new Promise(resolve=>requestAnimationFrame(resolve));
   const compiled=compile(value);
   if(seq!==loading)return;
-  buildVisual(value);doc=value;world=compiled;
+  let replay=null;
+   if(value.stageForge?.id==='EP-P66'){
+    const ghostResponse=await fetch('../generated/P87_REFERENCE_GHOST.json',{cache:'no-store'});
+    if(!ghostResponse.ok)throw Error('Reference ghost HTTP '+ghostResponse.status);
+    replay=validateGhost(await ghostResponse.json());
+   }
+   if(seq!==loading)return;
+   buildVisual(value);doc=value;world=compiled;ghostData=replay;
   $('demoRun').disabled=!isDemoEligible(doc);
    $('practiceRun').disabled=!isDemoEligible(doc);
    $('practiceChapter').disabled=!isDemoEligible(doc);
@@ -415,6 +431,12 @@ function bindHold(id,set){
  for(const name of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(name,()=>set(false));
 }
 bindHold('left',v=>left=v);bindHold('right',v=>right=v);
+$('ghostToggle').addEventListener('click',()=>{
+ if($('ghostToggle').disabled)return;
+ ghostEnabled=!ghostEnabled;
+ $('ghostToggle').textContent=ghostEnabled?'基準ゴースト：ON（非衝突）':'基準ゴースト：OFF';
+ $('ghostToggle').setAttribute('aria-pressed',String(ghostEnabled));
+});
 $('energyFx').addEventListener('click',()=>{
  energyFx=!energyFx;
  $('energyFx').textContent=energyFx?'エネルギーボール：ON':'エネルギーボール：OFF（従来表示）';
