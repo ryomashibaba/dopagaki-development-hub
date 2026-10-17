@@ -12,6 +12,7 @@ import {survivalScore,buildRunRecord,readBest,storeBest,scoreString} from './p75
 import {createNativeDemoState,recordDemoMilestone,nativeDemoSteer,isDemoEligible} from './p78-demo.mjs';
 import {PRACTICE_CHAPTERS,createPracticeSeek,advancePracticeSeek,practiceElapsed} from './p79-practice.mjs';
 import {FLOW_CHAPTERS,flowLineVertices,flowProgressState} from './p80-trackflow.mjs';
+import {locateRoadLateral,edgeRadarLabel} from './p81-edge-radar.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -21,7 +22,7 @@ let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
-let practiceMode=false,practiceStartedAt=null,seekingChapter=null;
+let practiceMode=false,practiceStartedAt=null,seekingChapter=null,lastEdgeRadarAt=0;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -174,6 +175,7 @@ function restart(){
  runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
  demoDirector=createNativeDemoState();
  canvas.dataset.runMode=demoMode?'spectator-demo':practiceMode?'practice':'manual';
+ lastEdgeRadarAt=0;$('edgeRadar').hidden=true;canvas.dataset.edgeStatus='unavailable';
  $('demoBanner').hidden=!demoMode;
  $('takeoverRun').hidden=!demoMode;
  $('practiceBanner').hidden=!practiceMode;
@@ -189,7 +191,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P80 EXPERIMENTAL — dual-lane neon travel-direction markers and actual chapter progress; P79 native 240Hz practice and B48 physics preserved.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P81 EXPERIMENTAL — dual-lane neon travel-direction markers and actual chapter progress; P79 native 240Hz practice and B48 physics preserved.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
@@ -246,6 +248,19 @@ function updateChapterHUD(){
  else if(id.includes('PIPE_DIVE')){name='PIPE BREACH';hint='巨大共鳴管へ突入';}
  const small=document.createElement('small');small.textContent=hint;
  el.replaceChildren(document.createTextNode(name),small);
+}
+function updateEdgeRadar(){
+ const root=$('edgeRadar');if(!root||!runner||!doc)return;
+ const result=locateRoadLateral(doc,runner.surface,runner.p,sample,frame,{grounded:runner.grounded,ballRadius:RADIUS});
+ root.hidden=!result;
+ if(!result){canvas.dataset.edgeStatus='airborne-or-unavailable';return;}
+ root.dataset.severity=result.severity;
+ root.dataset.edge=result.edge.toLowerCase();
+ root.dataset.v=result.v.toFixed(3);
+ canvas.dataset.edgeStatus=result.severity;
+ $('edgeMarker').style.left=(Math.max(0,Math.min(1,result.v))*100).toFixed(1)+'%';
+ $('edgeLabel').textContent=edgeRadarLabel(result);
+ $('edgeTilt').textContent='面傾斜 '+result.tiltDegrees.toFixed(0)+'°';
 }
 function hud(){
  if(!runner)return;
@@ -305,6 +320,7 @@ function tick(now){
  }
  if(runner&&nearMissTracker){const current=nearMissDisplay(nearMissTracker,runner.time);$('nearMissBurst').hidden=!current;}
  if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / 約83.2s';
+ if(runner&&now-lastEdgeRadarAt>100){lastEdgeRadarAt=now;updateEdgeRadar();}
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
   const lag=$('cameraInfo');if(lag)lag.textContent=comparisonMode==='stable'

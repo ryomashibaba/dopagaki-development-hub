@@ -29,7 +29,7 @@ test('P79: full native route, chapter training and original four stages coexist'
  await page.goto('/drive3d/');
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
- await expect(page.locator('#stage option:checked')).toContainText('P80 ECHO PIPE');
+ await expect(page.locator('#stage option:checked')).toContainText('P81 ECHO PIPE');
  await expect(page.locator('#spawn option')).toHaveCount(7);
  const newCourse=await page.evaluate(async()=>await(await fetch('../generated/P66_ECHO_RUSH.json')).json());
  expect(newCourse.surfaces.length).toBe(23);
@@ -46,7 +46,7 @@ test('P79: full native route, chapter training and original four stages coexist'
  await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');
- await expect(page.locator('#appStatus')).toContainText('P80 EXPERIMENTAL');
+ await expect(page.locator('#appStatus')).toContainText('P81 EXPERIMENTAL');
  // The real P69 machine chamber includes three physical movement mechanisms.
  // Heads-up cues are derived from sampled B51 motion, not a fake preset label.
  await page.locator('#spawn').selectOption('4');
@@ -207,5 +207,27 @@ test('P80 authentic road-skin neon chevrons and live eight-section progress pres
  await page.locator('#stage').selectOption('EP-001');
  await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:60000});
  await expect(page.locator('#flowProgress')).toBeHidden();
+ expect(errors).toEqual([]);
+});
+
+test('P81 real banked-road edge radar tracks native contact and hides during airborne flight',async({page})=>{
+ test.setTimeout(130000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await expect(page.locator('#edgeRadar')).toBeVisible({timeout:20000});
+ await expect(page.locator('#view')).toHaveAttribute('data-edge-status',/clear|caution|danger/);
+ await expect(page.locator('#edgeRadar')).toHaveAttribute('data-v',/^-?\d+\.\d{3}$/);
+ await expect(page.locator('#edgeTilt')).toContainText('面傾斜');
+ await expect(page.locator('#edgeLabel')).not.toHaveText('');
+ await page.locator('#pause').click();
+ await expect(page.locator('#pause')).toContainText('再開');
+ await page.locator('#spawn').selectOption('1');
+ await expect(page.locator('#edgeRadar')).toBeVisible();
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter','SPIRAL');
+ await expect(page.locator('#view')).toHaveAttribute('data-edge-status',/clear|caution|danger/);
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:60000});
+ await expect(page.locator('#edgeRadar')).toBeVisible({timeout:15000});
  expect(errors).toEqual([]);
 });
