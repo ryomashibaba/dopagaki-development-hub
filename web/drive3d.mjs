@@ -249,6 +249,8 @@ function restart(){
  const spawn=Math.min(doc.spawns.length-1,Math.max(0,Number($('spawn').value)||0));
  const eligible=Boolean(ghostData&&ghostEligible(doc,spawn,demoMode?'spectator-demo':practiceMode?'practice':'manual'));
   $('ghostToggle').disabled=!eligible;
+  $('ghostToggle').textContent=!eligible?'基準ゴースト：対象外':ghostEnabled?'基準ゴースト：ON（非衝突）':'基準ゴースト：OFF';
+  $('ghostToggle').setAttribute('aria-pressed',String(eligible&&ghostEnabled));
   $('ghostToggle').title=eligible?'開始地点00の手動走行にだけ適用':'実物理ゴーストはECHO PIPE開始00の手動走行のみ';
   runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
  demoDirector=createNativeDemoState();
