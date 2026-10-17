@@ -19,6 +19,7 @@ import {roadShoulderLights,FOG_START_METERS,FOG_SPAN_METERS,FOG_MAX} from './p84
 import {makeEnergyBallVisual,energyBallFrame} from './p85-energyball.mjs';
 import {createChapterSplits,observeChapterSplits,chapterTimerView,readChapterBest,storeChapterBest,splitSeconds} from './p86-chapter-splits.mjs';
 import {validateGhost,referenceGhostAt,ghostEligible,ghostLatticeVertices} from './p87-ghost.mjs';
+import {ghostGapView} from './p88-ghost-gap.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -174,6 +175,10 @@ function render(frameSeconds){
  const ghostPosition=canGhost?referenceGhostAt(ghostData,pose.time):null;
  if(ghostPosition)draw(ghostMesh,ghostPosition,[1,1,1],0,gl.LINES);
  canvas.dataset.ghostMode=ghostPosition?'reference-visible':canGhost?'reference-finished':'off';
+ const gap=ghostGapView(ghostData,doc,runner.spawnIndex,liveMode,ghostEnabled,pose.position,pose.time);
+ const gapHud=$('ghostGap');gapHud.hidden=!gap.visible;
+ if(gap.visible){gapHud.textContent='GHOST · 同時刻距離 '+gap.meters.toFixed(1)+' m';gapHud.dataset.close=String(gap.withinTenMeters);}
+ canvas.dataset.ghostSeparation=gap.visible?gap.meters.toFixed(1):'off';
  canvas.dataset.energyMode=energyFx?'enhanced':'classic';
  canvas.dataset.energyTrail=energyFx&&effect.trailActive?'active':'inactive';
 }
@@ -274,7 +279,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P87 EXPERIMENTAL — optional noncolliding native 83s reference ghost with manual-only 8-sector timing; original 240Hz B48 physics and frozen P62 stages unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P88 EXPERIMENTAL — optional noncolliding native 83s reference ghost and same-time distance HUD with manual-only 8-sector timing; original 240Hz B48 physics and frozen P62 stages unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  publishChapterTiming();
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
@@ -437,6 +442,7 @@ $('ghostToggle').addEventListener('click',()=>{
  if($('ghostToggle').disabled)return;
  ghostEnabled=!ghostEnabled;
  $('ghostToggle').textContent=ghostEnabled?'基準ゴースト：ON（非衝突）':'基準ゴースト：OFF';
+ if(!ghostEnabled)$('ghostGap').hidden=true;
  $('ghostToggle').setAttribute('aria-pressed',String(ghostEnabled));
 });
 $('energyFx').addEventListener('click',()=>{
