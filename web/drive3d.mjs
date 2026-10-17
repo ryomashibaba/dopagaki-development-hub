@@ -162,7 +162,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P76 EXPERIMENTAL — native start-to-spiral through the 180° HALO RETURN hairpin PASS (16.82s, no air). Entire finish and human playfeel NOT approved; B48 physics unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P77 EXPERIMENTAL — scripted first-spawn FULL FINISH in real B48 240Hz physics (83.21s) PASS, including six spiral segments, true moving machine avoidance and natural jump landing. Human unassisted playfeel NOT approved.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
