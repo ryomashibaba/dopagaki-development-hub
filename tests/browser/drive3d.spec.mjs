@@ -22,14 +22,14 @@ test('P65 WebGL2 drives frozen P62 with actual B48 Runner on two stages',async({
 });
 
 
-test('P78: full native route, isolated spectator demo and original four stages coexist',async({page})=>{
+test('P79: full native route, chapter training and original four stages coexist',async({page})=>{
  test.setTimeout(120000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  page.on('response',response=>{if(response.url().includes('P66_ECHO_RUSH')&&!response.ok())errors.push('P66 JSON HTTP '+response.status())});
  await page.goto('/drive3d/');
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
- await expect(page.locator('#stage option:checked')).toContainText('P78 ECHO PIPE');
+ await expect(page.locator('#stage option:checked')).toContainText('P79 ECHO PIPE');
  await expect(page.locator('#spawn option')).toHaveCount(7);
  const newCourse=await page.evaluate(async()=>await(await fetch('../generated/P66_ECHO_RUSH.json')).json());
  expect(newCourse.surfaces.length).toBe(23);
@@ -46,7 +46,7 @@ test('P78: full native route, isolated spectator demo and original four stages c
  await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');
- await expect(page.locator('#appStatus')).toContainText('P78 EXPERIMENTAL');
+ await expect(page.locator('#appStatus')).toContainText('P79 EXPERIMENTAL');
  // The real P69 machine chamber includes three physical movement mechanisms.
  // Heads-up cues are derived from sampled B51 motion, not a fake preset label.
  await page.locator('#spawn').selectOption('4');
@@ -136,5 +136,46 @@ test('P78 explicitly separated spectator demo resets to manual and cannot save o
  await page.locator('#stage').selectOption('EP-001');
  await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:60000});
  await expect(page.locator('#demoRun')).toBeDisabled();
+ expect(errors).toEqual([]);
+});
+
+test('P79 fast native replay gives manual control at real HALO RETURN and never stores records',async({page})=>{
+ test.setTimeout(150000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await expect(page.locator('#practiceRun')).toBeEnabled();
+ await expect(page.locator('#practiceChapter option')).toHaveCount(7);
+ await expect(page.locator('#practiceBanner')).toBeHidden();
+ await page.locator('#practiceChapter').selectOption('return');
+ await page.locator('#practiceRun').click();
+ await expect(page.locator('#practiceBanner')).toBeVisible();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','practice',{timeout:90000});
+ await expect(page.locator('#practiceProgress')).toContainText('自分で操作中');
+ const resumed=await page.locator('#simTime').textContent();
+ expect(parseFloat(resumed)).toBeGreaterThan(5);
+ await page.keyboard.down('ArrowRight');await page.waitForTimeout(250);await page.keyboard.up('ArrowRight');
+ await expect(page.locator('#runScore')).toHaveText(/^\d[\d,]*$/);
+ const recorded=await page.evaluate(()=>localStorage.getItem('dopagaki:survival:1:EP-P66:0'));
+ expect(recorded).toBeNull();
+ await page.locator('#practiceRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ await expect(page.locator('#practiceBanner')).toBeHidden();
+ // Spectator takeover preserves native Runner instead of creating a practice checkpoint.
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
+ await expect(page.locator('#takeoverRun')).toBeVisible();
+ const demoClock=parseFloat(await page.locator('#simTime').textContent());
+ await page.locator('#takeoverRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','practice');
+ await expect(page.locator('#takeoverRun')).toBeHidden();
+ await expect(page.locator('#practiceBanner')).toBeVisible();
+ const takeoverClock=parseFloat(await page.locator('#simTime').textContent());
+ expect(takeoverClock).toBeGreaterThanOrEqual(demoClock);
+ expect(await page.evaluate(()=>localStorage.getItem('dopagaki:survival:1:EP-P66:0'))).toBeNull();
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#practiceRun')).toBeDisabled();
+ await expect(page.locator('#practiceChapter')).toBeDisabled();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
  expect(errors).toEqual([]);
 });
