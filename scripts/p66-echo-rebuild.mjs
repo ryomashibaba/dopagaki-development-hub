@@ -10,8 +10,29 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const ease=t=>t*t*(3-2*t);
 const vec=(x,y,z)=>[x,y,z];
 const normalized=a=>{const n=Math.hypot(...a)||1;return a.map(x=>x/n);};
+// P76: a genuinely physical 180° elevated return around the cathedral.
+// The intake starts heading +X and meets the spiral heading -Z, with a
+// continuous tangent, matching height and bank at the join. No magic turn.
+const pipeBendAt=.46;
+function pipeCenter(t){
+ const y=245-95*ease(t);
+ if(t<=pipeBendAt){
+  const u=clamp(t/pipeBendAt),v=1-u;
+  // 2D cubic enters a R430m semicircle tangent to +Z.
+  const x=v*v*v*(-1105)+3*v*v*u*(-760)+3*v*u*u*260+u*u*u*260;
+  const z=v*v*v*(-440)+3*v*v*u*(-440)+3*v*u*u*(-440)+u*u*u*(-10);
+  return vec(x,y,z);
+ }
+ const angle=PI*clamp((t-pipeBendAt)/(1-pipeBendAt));
+ return vec(-170+430*Math.cos(angle),y,-10+430*Math.sin(angle));
+}
+function pipeBank(t){
+ const intake=-.78*ease(clamp((t-.04)/.31));
+ const endBlend=ease(clamp((t-.25)/.21));
+ return intake*(1-endBlend)-.25*endBlend;
+}
 const portions=[
-  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const q=clamp((t-.10)/.90);return t<=.10?vec(-1105+750*t,245-95*ease(t),-440):vec(-1030+430*Math.sin(PI*q/2),245-95*ease(t),-10-430*Math.cos(PI*q/2));},pieces:2,width:92,bank:t=>-.78*ease(clamp((t-.04)/.31))},
+  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — grand U-turn to cathedral',fn:pipeCenter,pieces:2,width:92,bank:pipeBank},
   {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-170+430*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+430*Math.sin(PI+2.5*PI*t)),pieces:6,width:96,bank:t=>-.25*(1-ease(clamp((t-.77)/.23)))},
   {id:'FORK_APPROACH',name:'03 / GIANT BELLS — fork entry',fn:t=>vec(-450+320*t,92-8*ease(t),-160+30*Math.sin(PI*t)**2),pieces:2,width:t=>40+110*(1-ease(clamp(t/.9))),bank:t=>.04*Math.sin(TAU*t)},
   {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-150+105*Math.sin(PI*t)**2),pieces:2,width:t=>18+27*Math.sin(PI*t)**2+15*Math.sin(PI*t),bank:t=>-.28*Math.sin(PI*t)*Math.cos(TAU*t)},
@@ -22,6 +43,7 @@ const portions=[
   // 25 metres of genuine missing physical road. No hidden bridge or jump pad.
   {id:'GAP_LANDING',name:'08 / FALLING SKY — descending touchdown',fn:t=>vec(1225+275*t,83-38*ease(t),-222+60*Math.sin(PI*t)**2),pieces:2,width:39,bank:t=>-.08*Math.sin(PI*t)}
 ];
+// P76 intake exits with a C1 tangent into the existing 450° spiral.
 // Retain exact C0 physical joins while enlarging the 450-degree spiral for high-speed descent.
 // The downstream course is translated (not scaled), so its 25m natural jump remains real.
 for(const section of portions.slice(2)){const original=section.fn;section.fn=t=>{const q=original(t);return [q[0]+280,q[1],q[2]-280];};}
@@ -95,7 +117,7 @@ for(let i=0;i<4;i++){
 // Scenery only. Large-scale architecture is rendered by the separate P66 WebGL mesh adapter;
 // it does not participate in B48 collision and does not consume the 32-surface physics cap.
 const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CATHEDRAL',
- pipeRings:Array.from({length:6},(_,i)=>{const t=.07+i*.16,p=portions[0].fn(t);return {center:[p[0],p[1]+13,p[2]],axis:t>.62?'z':'x',radius:68+i*4,width:6};}),
+ pipeRings:Array.from({length:12},(_,i)=>{const t=.04+i*.083,p=pipeCenter(t),a=pipeCenter(clamp(t-.001)),b=pipeCenter(clamp(t+.001));return {center:[p[0],p[1]+13,p[2]],axis:Math.abs(b[0]-a[0])>=Math.abs(b[2]-a[2])?'x':'z',radius:68+i%4*5,width:6};}),
  spiralRings:Array.from({length:6},(_,i)=>({center:[-170,70+i*30,-10],axis:'y',radius:435,width:7})),
  organPipes:Array.from({length:18},(_,i)=>{
   const side=i%2?1:-1,q=Math.floor(i/2);
@@ -113,13 +135,13 @@ const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CA
 };
 const doc={
  schema:'dopagaki.track-director/1',
- name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P69 SPIRAL EXIT PLAYABLE',
+ name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P76 PIPE U-TURN',
  surfaces:roads,route,routeSegments,spawns,autoRoute:true,generatedRoute:true,fixtures,movingObstacles,
  visualBlueprint,
- stageForge:{id:'EP-P66',batch:'P69_SPIRAL_BANK_AND_STEERABLE_FORK_FUNNEL',status:'EXPERIMENTAL_HUMAN_UNTESTED',
+ stageForge:{id:'EP-P66',batch:'P76_REAL_PHYSICAL_PIPE_U_BEND',status:'EXPERIMENTAL_HUMAN_UNTESTED',
   design:'REAL 3D RUSH COURSE; NOT P62 RESKIN',physicalChapters:8,
-  features:['95m pipe descent','450-degree 3D cathedral spiral','two physical route branches','six moving machine encounters','25m real road gap with natural ramp launch','multilevel architectural fly-through'],
-  oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,spiralExitControl:'STRONG_LEFT_STEER_APPROX_5S_AT_EXIT',dualForkNativeQA:'BOTH_12_SECOND_RUNS_PASS',dynamicMidForkChoice:'NOT_YET_VERIFIED',
+  features:['95m descending giant physical U-turn intake','450-degree 3D cathedral spiral','two physical route branches','six moving machine encounters','25m real road gap with natural ramp launch','multilevel architectural fly-through'],
+  oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,introJoin:'C1_HEADING_MATCHED_HUMAN_UNTESTED',spiralExitControl:'STRONG_LEFT_STEER_APPROX_5S_AT_EXIT',dualForkNativeQA:'BOTH_12_SECOND_RUNS_PASS',dynamicMidForkChoice:'NOT_YET_VERIFIED',
   humanPlaytest:'NOT_RUN',spiralExit:'NATIVE_SCRIPTED_FROM_SPIRAL_SPAWN_PASS',finalVisualQuality:'NOT_APPROVED'}
 };
 export function generateEchoRush(){return validate(doc);}
