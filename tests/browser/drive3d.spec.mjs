@@ -109,3 +109,32 @@ test('P75 actual 240Hz machine failure settles score, saves local best and retri
  await expect(page.locator('#bestSurvival')).toHaveText('—');
  expect(errors).toEqual([]);
 });
+
+test('P78 explicitly separated spectator demo resets to manual and cannot save or alter best records',async({page})=>{
+ test.setTimeout(120000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await expect(page.locator('#demoRun')).toBeEnabled();
+ await expect(page.locator('#demoBanner')).toBeHidden();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
+ await expect(page.locator('#demoRun')).toHaveAttribute('aria-pressed','true');
+ await expect(page.locator('#demoBanner')).toBeVisible();
+ await expect(page.locator('#spawn')).toHaveValue('0');
+ await expect(page.locator('#demoElapsed')).not.toContainText('0.0s',{timeout:10000});
+ // Spectator frames must never commit a player's personal best.
+ const bestDuringDemo=await page.evaluate(()=>localStorage.getItem('dopagaki:survival:1:EP-P66:0'));
+ expect(bestDuringDemo).toBeNull();
+ await page.locator('#demoSpeed').selectOption('1');
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ await expect(page.locator('#demoBanner')).toBeHidden();
+ await expect(page.locator('#demoRun')).toHaveAttribute('aria-pressed','false');
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:60000});
+ await expect(page.locator('#demoRun')).toBeDisabled();
+ expect(errors).toEqual([]);
+});
