@@ -25,7 +25,7 @@ export const P95_HAZARD_COUNT=P95_HAZARD_SPECS.length;
 export function generateVoidHazardCandidate(){
  const baseline=generateVoidBreaker();
  const doc=structuredClone(baseline),hazards=[];
- for(let i=0;i<specs.length;i++){
+ for(let i=0;i<P95_HAZARD_SPECS.length;i++){
   const [surfaceIndex,u,type,offset]=P95_HAZARD_SPECS[i],road=doc.surfaces[surfaceIndex],
    c=sample(road,u,.5),f=frame(road,u,.5);
   const tangent=norm([f.forward[0],0,f.forward[2]]),
