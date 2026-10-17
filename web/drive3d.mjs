@@ -162,7 +162,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P75 EXPERIMENTAL — survival-primary score and per-spawn personal best; near-miss bonus never exceeds 5% of combined score. P69 course and B48 physics remain unchanged; physics PR is HOLD.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P76 EXPERIMENTAL — genuine 180° HALO return connecting pipe to preserved 450° spiral; native first-spawn continuity under test; B48 physics unchanged, physical-engine PR HOLD.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
@@ -200,6 +200,7 @@ function updateChapterHUD(){
  else if(id.includes('GAP_LANDING')){name='TOUCHDOWN';hint='着地後のラインを整える';}
  else if(id.includes('FORK_REJOIN')){name='LEVEL CROSSING';hint='左右ルートが再合流';}
  else if(x>=1200&&!runner.grounded){name='AIRBORNE';hint='空中移動中 / 着地点を確認';}
+ else if(id.includes('PIPE_RETURN_ARC')){name='HALO RETURN';hint='180°巨大折り返し回廊 / 強いバンクを慎重に操舵';}
  else if(id.includes('PIPE_DIVE')){name='PIPE BREACH';hint='巨大共鳴管へ突入';}
  const small=document.createElement('small');small.textContent=hint;
  el.replaceChildren(document.createTextNode(name),small);
