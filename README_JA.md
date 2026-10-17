@@ -1,3 +1,5 @@
+> **公開チャネル (2026-10-17 確定)**: 最終本番は [DOPAGAKI SLOPE](https://dopagaki-slope.sora-110029.chatgpt.site/) です。ここで自動公開される [GitHub Pages](https://ryomashibaba.github.io/dopagaki-development-hub/drive3d/) は**開発・検証専用**であり、本番サイトへ自動反映する仕組みは確認されていません。現行の実験版はP90の3D試走まで実装済みです。以下のP64に関する説明は開発当時の記録です。詳細: [公開チャネル方針](docs/RELEASE_CHANNEL_POLICY_JA.md)。
+
 # DOPAGAKI Development Hub — P64 Public Preview
 
 2026-10-16 / 4 P62 stages / 24 moving obstacles / public QA-gated site.

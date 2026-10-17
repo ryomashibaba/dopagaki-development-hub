@@ -16,6 +16,9 @@ try{
  const urls=['/','/web/','/drive3d/','/drive3d/drive3d.mjs','/drive3d/drive3d-camera.mjs','/drive3d/drive3d-loop.mjs','/drive3d/p66-visual.mjs','/drive3d/p73-machine-visual.mjs','/drive3d/p74-nearmiss.mjs','/drive3d/p75-survival.mjs','/drive3d/p78-demo.mjs','/drive3d/p79-practice.mjs','/drive3d/p80-trackflow.mjs','/drive3d/p81-edge-radar.mjs','/drive3d/p82-megastructure.mjs','/drive3d/p83-render-quality.mjs','/drive3d/p84-visibility.mjs','/drive3d/p85-energyball.mjs','/drive3d/p86-chapter-splits.mjs','/drive3d/p87-ghost.mjs','/drive3d/p88-ghost-gap.mjs','/drive3d/p89-ghost-sector-pace.mjs','/drive3d/p90-racecard.mjs','/generated/P66_ECHO_RUSH.json','/generated/P87_REFERENCE_GHOST.json','/build-info.json','/reports/P62_FULL_RUN_MATRIX.json','/reference_only/director/moving/moving-obstacles.mjs','/reference_only/director/surface.js',...files.map(x=>'/generated/'+x)];
  for(const pathname of urls){const r=await fetch(host+pathname);assert.equal(r.status,200,`HTTP ${r.status} ${pathname}`);const type=r.headers.get('content-type')||'';assert(!type.includes('text/html')||pathname==='/'||pathname==='/web/'||pathname==='/drive3d/','JSON/JS must not be HTML');if(pathname.endsWith('.json'))JSON.parse(await r.text());else await r.arrayBuffer();}
  const missing=await fetch(host+'/generated/EP-001_P62_GRAZING_CONTACT_BALANCE.json');assert.equal(missing.status,404,'Old erroneous filename should not exist');
+ const home=await(await fetch(host+'/')).text();
+ assert(home.includes('開発・検証専用ページ'),'Hub homepage must remain a staging environment');
+ assert(home.includes('https://dopagaki-slope.sora-110029.chatgpt.site/'),'Official production link missing');
  const page=await (await fetch(host+'/web/')).text();
  for(const file of files)assert(page.includes(file),`Inspector missing ${file}`);
  const drive=await(await fetch(host+'/drive3d/')).text();assert(drive.includes('drive3d.mjs'),'Missing 3D module');
