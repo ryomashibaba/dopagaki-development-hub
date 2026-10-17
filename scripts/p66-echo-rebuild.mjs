@@ -11,7 +11,11 @@ const ease=t=>t*t*(3-2*t);
 const vec=(x,y,z)=>[x,y,z];
 const normalized=a=>{const n=Math.hypot(...a)||1;return a.map(x=>x/n);};
 const portions=[
-  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const q=clamp((t-.10)/.90);return t<=.10?vec(-1105+750*t,245-95*ease(t),-440):vec(-1030+430*Math.sin(PI*q/2),245-95*ease(t),-10-430*Math.cos(PI*q/2));},pieces:2,width:92,bank:t=>-.78*ease(clamp((t-.04)/.31))},
+  // P76: genuine U-turn entrance. The old pipe ended heading +Z into a
+  // spiral starting -Z. A 240 m radius return arc is physical road, not a
+  // camera trick, invisible teleporter or steering assist.
+  {id:'PIPE_DIVE_A',name:'01 / PIPE BREACH — suspended intake',fn:t=>{const q=clamp((t-.10)/.90);return t<=.10?vec(-1105+750*t,245-95*ease(t),-440):vec(-1030+430*Math.sin(PI*q/2)-480*ease(q),245-95*ease(t),-10-430*Math.cos(PI*q/2));},pieces:2,width:92,bank:t=>-.78*ease(clamp((t-.04)/.31))*(1-.679487*ease(clamp((t-.75)/.25)))},
+  {id:'PIPE_RETURN',name:'01 B / SKY TURNAROUND — 240 m return',fn:t=>vec(-840-240*Math.cos(PI*t),150,-10+240*Math.sin(PI*t)),pieces:2,width:96,bank:t=>-.25-.035*Math.sin(PI*t)**2},
   {id:'SPIRAL_CATHEDRAL',name:'02 / CATHEDRAL SPIRAL — 450° downward',fn:t=>vec(-170+430*Math.cos(PI+2.5*PI*t),150-58*ease(t),-10+430*Math.sin(PI+2.5*PI*t)),pieces:6,width:96,bank:t=>-.25*(1-ease(clamp((t-.77)/.23)))},
   {id:'FORK_APPROACH',name:'03 / GIANT BELLS — fork entry',fn:t=>vec(-450+320*t,92-8*ease(t),-160+30*Math.sin(PI*t)**2),pieces:2,width:t=>40+110*(1-ease(clamp(t/.9))),bank:t=>.04*Math.sin(TAU*t)},
   {id:'FORK_L',name:'04 L / BELL VAULT — outer bank',fn:t=>vec(-130+430*t,84-4*ease(t)-8*Math.sin(PI*t)**2,-150+105*Math.sin(PI*t)**2),pieces:2,width:t=>18+27*Math.sin(PI*t)**2+15*Math.sin(PI*t),bank:t=>-.28*Math.sin(PI*t)*Math.cos(TAU*t)},
@@ -24,7 +28,7 @@ const portions=[
 ];
 // Retain exact C0 physical joins while enlarging the 450-degree spiral for high-speed descent.
 // The downstream course is translated (not scaled), so its 25m natural jump remains real.
-for(const section of portions.slice(2)){const original=section.fn;section.fn=t=>{const q=original(t);return [q[0]+280,q[1],q[2]-280];};}
+for(const section of portions.slice(3)){const original=section.fn;section.fn=t=>{const q=original(t);return [q[0]+280,q[1],q[2]-280];};}
 const roadSurface=(id,title,fn,a,b,width,bank)=>{
  const rows=25,cols=5,points=[];
  for(let i=0;i<rows;i++){
@@ -50,7 +54,7 @@ for(const part of portions){
   roads.push(s);chunks[part.id].push(s);
  }
 }
-const entryOrder=['PIPE_DIVE_A','SPIRAL_CATHEDRAL','FORK_APPROACH','FORK_L','FORK_REJOIN','MACHINE_CHAMBER','GAP_TAKEOFF','GAP_LANDING'];
+const entryOrder=['PIPE_DIVE_A','PIPE_RETURN','SPIRAL_CATHEDRAL','FORK_APPROACH','FORK_L','FORK_REJOIN','MACHINE_CHAMBER','GAP_TAKEOFF','GAP_LANDING'];
 const route=entryOrder.flatMap(k=>chunks[k].flatMap(s=>Array.from({length:15},(_,i)=>sample(s,(i+.01)/15,.5))));
 route.push(sample(chunks.GAP_LANDING.at(-1),.999,.5));
 const routeSegments=roads.map(s=>({surface:s.id,u0:0,u1:1,v:.5}));
@@ -113,14 +117,14 @@ const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CA
 };
 const doc={
  schema:'dopagaki.track-director/1',
- name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P69 SPIRAL EXIT PLAYABLE',
+ name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P76 PIPE RETURN EXPERIMENT',
  surfaces:roads,route,routeSegments,spawns,autoRoute:true,generatedRoute:true,fixtures,movingObstacles,
  visualBlueprint,
- stageForge:{id:'EP-P66',batch:'P69_SPIRAL_BANK_AND_STEERABLE_FORK_FUNNEL',status:'EXPERIMENTAL_HUMAN_UNTESTED',
+ stageForge:{id:'EP-P66',batch:'P76_PHYSICAL_PIPE_RETURN',status:'EXPERIMENTAL_HUMAN_UNTESTED',
   design:'REAL 3D RUSH COURSE; NOT P62 RESKIN',physicalChapters:8,
-  features:['95m pipe descent','450-degree 3D cathedral spiral','two physical route branches','six moving machine encounters','25m real road gap with natural ramp launch','multilevel architectural fly-through'],
+  features:['95m pipe descent','240m-radius physical intake turnaround','450-degree 3D cathedral spiral','two physical route branches','six moving machine encounters','25m real road gap with natural ramp launch','multilevel architectural fly-through'],
   oldP62FilesModified:false,B45PhysicsModified:false,jumpBoosterPlaced:false,spiralExitControl:'STRONG_LEFT_STEER_APPROX_5S_AT_EXIT',dualForkNativeQA:'BOTH_12_SECOND_RUNS_PASS',dynamicMidForkChoice:'NOT_YET_VERIFIED',
-  humanPlaytest:'NOT_RUN',spiralExit:'NATIVE_SCRIPTED_FROM_SPIRAL_SPAWN_PASS',finalVisualQuality:'NOT_APPROVED'}
+  humanPlaytest:'NOT_RUN',fullStartToEnd:'NOT_VERIFIED',spiralExit:'NATIVE_SCRIPTED_FROM_SPIRAL_SPAWN_PASS',finalVisualQuality:'NOT_APPROVED'}
 };
 export function generateEchoRush(){return validate(doc);}
 export const P66_GEOMETRY=Object.freeze({roadSurfaces:roads.length,gapMeters:25,spiralAngleDegrees:450,physicalBranches:2,moving:6});
