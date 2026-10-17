@@ -40,7 +40,7 @@ function replay(course,spawn,speed,seconds){
   jump:[...visited].some(x=>x.includes('GAP_TAKEOFF')),
   surface:rider.surface,position:rider.p,samples};
 }
-test('P77 native real-jump landing profile experiments — read-only, not release criteria',()=>{
+test.skip('P77 archived landing profile experiments; production now uses 8m drop',()=>{
  for(const amount of [0,8,16]){
   const course=adaptLanding(amount);
   const full=replay(course,0,44,92);
