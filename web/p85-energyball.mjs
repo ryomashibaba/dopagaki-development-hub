@@ -101,9 +101,9 @@ export function energyBallFrame(physicsTime,velocity,forward,renderScale=1){
   orbitAngle:(physicsTime*.9)%TAU,
   directionYaw:yaw,
   speed,
-  trailActive:speed>=31&&renderScale>.55,
+  trailActive:speed>=31&&renderScale>.65,
   trailScale:clamp(1+.85*intense,1,2.0),
-  orbitActive:renderScale>.55,
+  orbitActive:renderScale>.65,
   qualityScale:renderScale,
   // Conservative worst-case bound of the geometry's -4.45m baseline span.
   trailMaxMeters:g(Math.min(MAX_TRAIL_METERS,(.55+4.0)*clamp(1+.85*intense,1,2)))
