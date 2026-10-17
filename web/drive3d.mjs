@@ -1,4 +1,4 @@
-import {sample} from '../reference_only/director/surface.js';
+import {sample,frame} from '../reference_only/director/surface.js';
 import {compile} from '../reference_only/director/collision.js';
 import {Runner,DT,RADIUS} from '../reference_only/director/physics.js';
 import {movingObstaclePose,sphereBoxSeparation} from '../reference_only/director/moving/moving-obstacles.mjs';
@@ -11,11 +11,12 @@ import {createNearMissTracker,stepNearMiss,nearMissDisplay} from './p74-nearmiss
 import {survivalScore,buildRunRecord,readBest,storeBest,scoreString} from './p75-survival.mjs';
 import {createNativeDemoState,recordDemoMilestone,nativeDemoSteer,isDemoEligible} from './p78-demo.mjs';
 import {PRACTICE_CHAPTERS,createPracticeSeek,advancePracticeSeek,practiceElapsed} from './p79-practice.mjs';
+import {FLOW_CHAPTERS,flowLineVertices,flowProgressState} from './p80-trackflow.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,ball,scenery,machineMeshes={},guideMeshes=[];
+let gl,program,locations={},roads,lines,flowRoads,ball,scenery,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
@@ -85,10 +86,13 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(scenery);
+ discard(roads);discard(lines);discard(flowRoads);discard(scenery);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
- roads=mesh(vertex);lines=mesh(wire);const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
+ roads=mesh(vertex);lines=mesh(wire);
+ const flow=flowLineVertices(stage,sample,frame);flowRoads=mesh(flow.vertices);
+ canvas.dataset.flowMarkers=String(flow.markers);
+ const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
  canvas.dataset.machineCount=String((stage.movingObstacles||[]).filter(x=>x.enabled!==false).length);
 }
 function draw(m,center=[0,0,0],size=[1,1,1],angle=0,primitive=gl.TRIANGLES){
@@ -117,6 +121,7 @@ function render(frameSeconds){
  canvas.dataset.cameraHeadingLagDegrees=(headingError*180/Math.PI).toFixed(2);
  gl.uniform1f(locations.aspect,w/h);
  draw(scenery);draw(roads);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
+ draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
  // Non-collidable trajectory guides. Actual machine solids use exact B51 poses.
  for(const guide of guideMeshes)draw(guide.mesh,[0,0,0],[1,1,1],0,gl.LINES);
  for(const o of doc.movingObstacles){
@@ -184,7 +189,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P79 EXPERIMENTAL — opt-in native chapter practice and spectator takeover, preserving actual B48 240Hz momentum/machines; practice cannot save personal best.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P80 EXPERIMENTAL — dual-lane neon travel-direction markers and actual chapter progress; P79 native 240Hz practice and B48 physics preserved.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
@@ -209,6 +214,18 @@ async function load(){
   if(seq!==loading)return;
   status.className='status alert';status.textContent='3D load error: '+e.message;console.error(e);
  }
+}
+function updateTrackFlowHUD(){
+ const bar=$('flowProgress');if(!bar||!doc||!runner)return;
+ const flow=flowProgressState(doc,runner.surface,runner.lastSurface,runner.status);
+ bar.hidden=!flow.visible;
+ if(!flow.visible)return;
+ bar.replaceChildren(...flow.stages.map(step=>{
+  const el=document.createElement('span');el.textContent=step.label;
+  el.dataset.state=step.state;el.setAttribute('aria-current',step.state==='current'?'step':'false');
+  return el;
+ }));
+ canvas.dataset.flowChapter=flow.label;
 }
 function updateChapterHUD(){
  const el=$('chapterHud');if(!el)return;
@@ -243,7 +260,7 @@ function hud(){
   machineLabel.dataset.mode=cue?.mode||'none';
   if(cue)machineLabel.textContent=cue.typeLabel+' / '+cue.modeLabel+' · '+cue.lateralLabel+' '+cue.distance+'m';
  }
- updateChapterHUD();
+ updateChapterHUD();updateTrackFlowHUD();
  if(runner.status==='failed'&&!status.dataset.failed){
   status.className='status alert';status.textContent='試走終了: '+(runner.failure?.reason||'衝突')+'。Rで再スタート';
   status.dataset.failed='1';

@@ -29,7 +29,7 @@ test('P79: full native route, chapter training and original four stages coexist'
  await page.goto('/drive3d/');
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
- await expect(page.locator('#stage option:checked')).toContainText('P79 ECHO PIPE');
+ await expect(page.locator('#stage option:checked')).toContainText('P80 ECHO PIPE');
  await expect(page.locator('#spawn option')).toHaveCount(7);
  const newCourse=await page.evaluate(async()=>await(await fetch('../generated/P66_ECHO_RUSH.json')).json());
  expect(newCourse.surfaces.length).toBe(23);
@@ -46,7 +46,7 @@ test('P79: full native route, chapter training and original four stages coexist'
  await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');
- await expect(page.locator('#appStatus')).toContainText('P79 EXPERIMENTAL');
+ await expect(page.locator('#appStatus')).toContainText('P80 EXPERIMENTAL');
  // The real P69 machine chamber includes three physical movement mechanisms.
  // Heads-up cues are derived from sampled B51 motion, not a fake preset label.
  await page.locator('#spawn').selectOption('4');
@@ -177,5 +177,35 @@ test('P79 fast native replay gives manual control at real HALO RETURN and never 
  await expect(page.locator('#practiceRun')).toBeDisabled();
  await expect(page.locator('#practiceChapter')).toBeDisabled();
  await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ expect(errors).toEqual([]);
+});
+
+test('P80 authentic road-skin neon chevrons and live eight-section progress preserve input, camera and P62 isolation',async({page})=>{
+ test.setTimeout(120000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-markers',/^[1-9]\d*$/);
+ const count=Number(await page.locator('#view').getAttribute('data-flow-markers'));
+ expect(count).toBeGreaterThan(40);
+ await expect(page.locator('#flowProgress')).toBeVisible();
+ await expect(page.locator('#flowProgress span')).toHaveCount(8);
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter','PIPE');
+ await expect(page.locator('#flowProgress span[data-state="current"]')).toHaveText('PIPE');
+ await page.locator('#spawn').selectOption('1');
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter','SPIRAL');
+ await expect(page.locator('#flowProgress span[data-state="current"]')).toHaveText('SPIRAL');
+ await page.locator('#spawn').selectOption('4');
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter','MACHINES');
+ await expect(page.locator('#flowProgress span[data-state="current"]')).toHaveText('MACHINES');
+ await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
+ await page.locator('#practiceChapter').selectOption('return');
+ await page.locator('#practiceRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','practice',{timeout:90000});
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter',/HALO|SPIRAL/);
+ await page.locator('#practiceRun').click();
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:60000});
+ await expect(page.locator('#flowProgress')).toBeHidden();
  expect(errors).toEqual([]);
 });
