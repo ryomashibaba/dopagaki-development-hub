@@ -96,7 +96,7 @@ test('P86 exact P77/P78 full native 240Hz Runner finishes 8 sections without mod
  assert(events.every((x,i)=>i===0||x.time>events[i-1].time),'physical split times must progress');
  assert.equal(events.at(-1).time,Number(runner.time.toFixed(3)));
  assert(runner.time>82&&runner.time<85);
- assert.equal(runner.failure,null);
+ assert.equal(runner.failure??null,null);
  console.log('P86_NATIVE_FULL_CHAPTER_SPLITS '+JSON.stringify({time:Number(runner.time.toFixed(3)),
   chapters:events.map(x=>({id:x.id,duration:x.duration,at:x.time}))}));
 });
