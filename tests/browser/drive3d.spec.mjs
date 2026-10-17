@@ -170,7 +170,12 @@ test('P79 fast native replay gives manual control at real HALO RETURN and never 
  await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
  await expect(page.locator('#practiceBanner')).toBeHidden();
  // Spectator takeover preserves native Runner instead of creating a practice checkpoint.
- await page.locator('#demoRun').click();
+ // The displayed time must synchronously reset with the NEW Runner; a stale
+ // previous-practice clock caused a false apparent time reversal under slower GPUs.
+ const instantDemoClock=await page.locator('#demoRun').evaluate(button=>{
+  button.click();return document.getElementById('simTime').textContent;
+ });
+ expect(instantDemoClock).toBe('0.00 s');
  await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
  await expect(page.locator('#takeoverRun')).toBeVisible();
  const demoClock=parseFloat(await page.locator('#simTime').textContent());
