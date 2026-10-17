@@ -1,4 +1,4 @@
-> **公開チャネル (2026-10-17 確定)**: 最終本番は [DOPAGAKI SLOPE](https://dopagaki-slope.sora-110029.chatgpt.site/) です。ここで自動公開される [GitHub Pages](https://ryomashibaba.github.io/dopagaki-development-hub/drive3d/) は**開発・検証専用**であり、本番サイトへ自動反映する仕組みは確認されていません。P95では、全編実物理完走済みのP94 VOID BREAKERを保護しながら、12基の動く障害物を導入した独立ステージ候補を追加しています。新コースの障害物込み全編完走・人間の操作感は未認定です。本番サイトには未反映です。以下のP64に関する説明は開発当時の記録です。詳細: [公開チャネル方針](docs/RELEASE_CHANNEL_POLICY_JA.md)。
+> **公開チャネル (2026-10-17 確定)**: 最終本番は [DOPAGAKI SLOPE](https://dopagaki-slope.sora-110029.chatgpt.site/) です。ここで自動公開される [GitHub Pages](https://ryomashibaba.github.io/dopagaki-development-hub/drive3d/) は**開発・検証専用**であり、本番サイトへ自動反映する仕組みは確認されていません。P96では、12基の本物の動く障害物を正規240Hz物理の通常操舵のみで全編回避・完走することを実証し、観戦専用デモを開発版に追加しています。人間の操作感・難易度と本番公開は引き続きHOLDです。以下のP64に関する説明は開発当時の記録です。詳細: [公開チャネル方針](docs/RELEASE_CHANNEL_POLICY_JA.md)。
 
 # DOPAGAKI Development Hub — P64 Public Preview
 

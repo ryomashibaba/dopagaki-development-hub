@@ -9,24 +9,18 @@
 import {generateVoidBreaker} from './p93-void-breaker-build.mjs';
 import {sample,frame,validate} from '../private/reference_only/director/surface.js';
 import {normalizeMovingObstacles} from '../private/reference_only/director/moving/moving-obstacles.mjs';
+import {P95_HAZARD_SPECS} from '../web/p95-hazard-layout.mjs';
+export {P95_HAZARD_SPECS};
 
 const additions=(a,b,k=1)=>a.map((v,i)=>v+b[i]*k);
 const norm=a=>{const d=Math.hypot(...a)||1;return a.map(v=>v/d)};
-const specs=Object.freeze([
- // The machine course is spread through the two giant U-turns, the scissor
- // crossing and both late-game high-altitude corridors.
- [1,.22,0,-16],[1,.57,1,14],[1,.84,2,-5],
- [2,.26,0,12],[2,.64,1,-18],
- [3,.18,2,7],[3,.48,0,-13],[3,.82,1,16],
- [4,.35,2,-8],[4,.78,0,16],
- [5,.30,1,-16],[5,.73,2,8]
-]);
-export const P95_HAZARD_COUNT=specs.length;
+
+export const P95_HAZARD_COUNT=P95_HAZARD_SPECS.length;
 export function generateVoidHazardCandidate(){
  const baseline=generateVoidBreaker();
  const doc=structuredClone(baseline),hazards=[];
- for(let i=0;i<specs.length;i++){
-  const [surfaceIndex,u,type,offset]=specs[i],road=doc.surfaces[surfaceIndex],
+ for(let i=0;i<P95_HAZARD_SPECS.length;i++){
+  const [surfaceIndex,u,type,offset]=P95_HAZARD_SPECS[i],road=doc.surfaces[surfaceIndex],
    c=sample(road,u,.5),f=frame(road,u,.5);
   const tangent=norm([f.forward[0],0,f.forward[2]]),
    side=norm([-tangent[2],0,tangent[0]]);
@@ -54,11 +48,11 @@ export function generateVoidHazardCandidate(){
  const {fullRouteControl,neutralRun,...baseMetadata}=doc.stageForge;
  doc.stageForge={
   ...baseMetadata,id:'VB-P95',batch:'P95_MOVING_HAZARD_PLAYTEST_CANDIDATE',
-  status:'EXPERIMENTAL_NATIVE_FULL_RUN_UNPROVEN',
+  status:'EXPERIMENTAL_SCRIPTED_NATIVE_PASS_HUMAN_HOLD',
   design:'VOID BREAKER original physical road plus native 12-machine hazard challenge',
   hazards:{source:'B51-C_NATIVELY_COLLIDING',count:hazards.length,types:['slider','rotator','piston'],
    modes:['fail','bounce','push'],humanFairness:'UNTESTED'},
-  fullStartToFinish:'NOT_YET_PROVEN_WITH_HAZARDS',
+  fullStartToFinish:'SCRIPTED_240HZ_12_ACTIVE_7_OF_7_PASS_P96',
   humanPlaytest:'NOT_RUN',finalVisualQuality:'NOT_APPROVED',
   basedOnIndependentRoadStage:'VB-P93',
   inheritedP94Evidence:false
