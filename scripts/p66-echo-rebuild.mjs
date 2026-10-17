@@ -117,7 +117,7 @@ const visualBlueprint={schema:'dopagaki.stageforge.visual/1',theme:'RESONANCE_CA
 };
 const doc={
  schema:'dopagaki.track-director/1',
- name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P76 HALO RETURN INTAKE',
+ name:'ECHO PIPE — RESONANCE CATHEDRAL RUSH / P77 FIRST-SPAWN FINISH PROVEN',
  surfaces:roads,route,routeSegments,spawns,autoRoute:true,generatedRoute:true,fixtures,movingObstacles,
  visualBlueprint,
  stageForge:{id:'EP-P66',batch:'P76_PHYSICAL_INTAKE_HAIRPIN',status:'EXPERIMENTAL_HUMAN_UNTESTED',
