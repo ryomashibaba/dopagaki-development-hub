@@ -476,3 +476,41 @@ test('P91 visible physical-road approach markers guide human decisions without c
  await expect(page.locator('#view')).toHaveAttribute('data-approach-beacons','68',{timeout:75000});
  expect(errors).toEqual([]);
 });
+
+test('P92 failed manual run offers instant native-replayed chapter practice with best record isolation',async({page})=>{
+ test.setTimeout(150000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#appStatus')).toContainText('P91 EXPERIMENTAL',{timeout:75000});
+ await expect(page.locator('#retryPractice')).toBeHidden();
+ await page.locator('#spawn').selectOption('4');
+ await expect(page.locator('#runResult')).toBeVisible({timeout:40000});
+ await expect(page.locator('#resultTitle')).toHaveText('RUN ENDED');
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ await expect(page.locator('#view')).toHaveAttribute('data-failure-practice','machines');
+ await expect(page.locator('#retryPractice')).toBeVisible();
+ const original=await page.evaluate(()=>localStorage.getItem('dopagaki:survival:1:EP-P66:4'));
+ expect(original).not.toBeNull();
+ await page.locator('#retryPractice').click();
+ await expect(page.locator('#retryPractice')).toBeHidden();
+ await expect(page.locator('#runResult')).toBeHidden();
+ await expect(page.locator('#practiceBanner')).toBeVisible();
+ await expect(page.locator('#practiceChapter')).toHaveValue('machines');
+ await expect(page.locator('#spawn')).toHaveValue('0');
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode',/practice(-seek)?/);
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','practice',{timeout:85000});
+ await expect(page.locator('#practiceProgress')).toContainText('自分で操作中');
+ const store=await page.evaluate(()=>({
+  original:localStorage.getItem('dopagaki:survival:1:EP-P66:4'),
+  spawn0:localStorage.getItem('dopagaki:survival:1:EP-P66:0')
+ }));
+ expect(store.original).toBe(original);
+ expect(store.spawn0).toBeNull();
+ await page.locator('#practiceRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ await expect(page.locator('#retryPractice')).toBeHidden();
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:75000});
+ await expect(page.locator('#retryPractice')).toBeHidden();
+ expect(errors).toEqual([]);
+});
