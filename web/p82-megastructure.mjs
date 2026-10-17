@@ -4,6 +4,7 @@
  * NEVER supply these triangles to native Runner, compile(), CCD or geometry JSON.
  * All prisms are architectural silhouettes rather than usable rideable roads.
  */
+import {voidBreakerGeometry} from './p93-void-breaker-visual.mjs';
 const PI=Math.PI,TAU=2*PI;
 const plus=(a,b)=>a.map((v,i)=>v+b[i]);
 const scale=(a,k)=>a.map(v=>v*k);
@@ -154,7 +155,8 @@ function layeredSkyline(v){
   }
  }
 }
-export function megastructureGeometry(stage){
+export function megastructureGeometry(stage,sample){
+ if(stage?.stageForge?.id==='VB-P93')return voidBreakerGeometry(stage,sample);
  if(stage?.stageForge?.id!=='EP-P66')return {vertices:[],beams:0,sections:[]};
  if(!stage.visualBlueprint||stage.visualBlueprint.schema!=='dopagaki.stageforge.visual/1')
   throw Error('P82 requires the original P66 visual blueprint');

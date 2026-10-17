@@ -26,7 +26,7 @@ import {approachBeaconVertices} from './p91-approach-beacons.mjs';
 import {failurePracticeChapter} from './p92-failure-practice.mjs';
 
 const $=id=>document.getElementById(id);
-const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
+const assets={'VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,flowRoads,shoulderLights,approachBeacons,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
@@ -115,7 +115,7 @@ function buildVisual(stage){
  const reflectors=roadShoulderLights(stage,sample,frame);shoulderLights=mesh(reflectors.vertices);
  canvas.dataset.shoulderBeacons=String(reflectors.beacons);
  const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
- const mega=megastructureGeometry(stage);megaWorld=mega.vertices.length?mesh(mega.vertices):null;
+ const mega=megastructureGeometry(stage,sample);megaWorld=mega.vertices.length?mesh(mega.vertices):null;
  canvas.dataset.megaTriangleCount=String(mega.vertices.length/18);
  canvas.dataset.megaSectionCount=String(mega.sections.length);
  $('megaWorld').disabled=!megaWorld;
@@ -321,7 +321,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='VB-P93'?'P93 VOID BREAKER — 7 genuine 3D road skins and 3990m candidate; human full run NOT YET VERIFIED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  publishChapterTiming();
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
@@ -374,6 +374,12 @@ function updateTrackFlowHUD(){
 }
 function updateChapterHUD(){
  const el=$('chapterHud');if(!el)return;
+ if(doc?.stageForge?.id==='VB-P93'){
+  const surface=doc.surfaces.find(s=>s.id===runner?.surface||s.id===runner?.lastSurface);
+  const sub=document.createElement('small');sub.textContent='本物の3D道路・バンク・高低差 / 走行品質は検証候補';
+  el.replaceChildren(document.createTextNode(surface?.name||'VOID BREAKER · SCISSOR ABYSS'),sub);
+  return;
+ }
  if(doc?.stageForge?.id!=='EP-P66'){el.textContent='P62 / ORIGINAL STAGE';return;}
  const id=runner.surface||runner.lastSurface||'';
  const x=runner.p[0];
