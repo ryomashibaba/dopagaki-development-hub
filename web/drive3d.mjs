@@ -115,7 +115,7 @@ function buildVisual(stage){
  const reflectors=roadShoulderLights(stage,sample,frame);shoulderLights=mesh(reflectors.vertices);
  canvas.dataset.shoulderBeacons=String(reflectors.beacons);
  const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
- const mega=megastructureGeometry(stage);megaWorld=mega.vertices.length?mesh(mega.vertices):null;
+ const mega=megastructureGeometry(stage,sample);megaWorld=mega.vertices.length?mesh(mega.vertices):null;
  canvas.dataset.megaTriangleCount=String(mega.vertices.length/18);
  canvas.dataset.megaSectionCount=String(mega.sections.length);
  $('megaWorld').disabled=!megaWorld;
