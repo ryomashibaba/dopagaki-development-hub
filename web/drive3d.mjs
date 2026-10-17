@@ -18,6 +18,7 @@ import {createRenderQuality,sampleRenderQuality,framebufferDimensions,renderScal
 import {roadShoulderLights,FOG_START_METERS,FOG_SPAN_METERS,FOG_MAX} from './p84-visibility.mjs';
 import {makeEnergyBallVisual,energyBallFrame} from './p85-energyball.mjs';
 import {createChapterSplits,observeChapterSplits,chapterTimerView,readChapterBest,storeChapterBest,splitSeconds} from './p86-chapter-splits.mjs';
+import {createArcadeAudio} from './p87-audio.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -29,6 +30,7 @@ let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null
 let demoMode=false,demoDirector=createNativeDemoState();
 let renderQuality=createRenderQuality('auto'),visibilityFx=true;
 let practiceMode=false,practiceStartedAt=null,seekingChapter=null,lastEdgeRadarAt=0;
+const gameAudio=createArcadeAudio();let wasGrounded=true;
 let chapterTracker=null,latestSplit=null;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
@@ -215,6 +217,7 @@ function updateNativeChapterTime(){
 }
 function settleRun(){
  if(!runner||runCommitted||!['failed','finished'].includes(runner.status))return;
+ gameAudio.effect(runner.status==='finished'?'finish':'failed');
  if(demoMode||practiceMode){
   runCommitted=true;const result=$('runResult');result.hidden=false;
   $('resultTitle').textContent=practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
@@ -242,6 +245,7 @@ function restart(){
  seekingChapter=null;
  const spawn=Math.min(doc.spawns.length-1,Math.max(0,Number($('spawn').value)||0));
  runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
+ wasGrounded=runner.grounded;gameAudio.reset();
  demoDirector=createNativeDemoState();
  canvas.dataset.runMode=demoMode?'spectator-demo':practiceMode?'practice':'manual';
  lastEdgeRadarAt=0;$('edgeRadar').hidden=true;canvas.dataset.edgeStatus='unavailable';
@@ -263,7 +267,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P86 EXPERIMENTAL — genuine 240Hz chapter times and manual-only best sectors; native 83-second route, P85 energy ball, frozen B48 physics and P62 originals unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P87 EXPERIMENTAL — opt-in original six-note arcade soundtrack; P86 native sector timing, P85 energy ball and frozen B48/P62 remain unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  publishChapterTiming();
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
@@ -380,11 +384,18 @@ function tick(now){
   const manualSteer=Number(right||keys.has('KeyD')||keys.has('ArrowRight'))-Number(left||keys.has('KeyA')||keys.has('ArrowLeft'));
   const progressed=stepFixedClock(accum,elapsed*(demoMode?Number($('demoSpeed').value):1),DT,()=>{
    previousPose=currentPose;
+   const priorContact=runner.surface;
    runner.step(demoMode?nativeDemoSteer(demoDirector,runner):manualSteer);currentPose=capturePose(runner);
+   if(runner.status==='running'){
+    if(wasGrounded&&!runner.grounded&&priorContact?.includes('GAP_TAKEOFF'))gameAudio.effect('jump');
+    else if(!wasGrounded&&runner.grounded&&runner.surface?.includes('GAP_LANDING'))gameAudio.effect('land');
+   }
+   wasGrounded=runner.grounded;
    if(demoMode)recordDemoMilestone(demoDirector,runner);
    updateNativeChapterTime();
    const near=stepNearMiss(nearMissTracker,doc.movingObstacles,runner,movingObstaclePose,sphereBoxSeparation,RADIUS);
    if(near){
+    gameAudio.effect('near-miss');
     $('nearMissCount').textContent=String(near.total);
     canvas.dataset.nearMissCount=String(near.total);
     $('nearMissBurst').hidden=false;
@@ -397,6 +408,7 @@ function tick(now){
   settleRun();
  }
  if(runner&&nearMissTracker){const current=nearMissDisplay(nearMissTracker,runner.time);$('nearMissBurst').hidden=!current;}
+ gameAudio.tick({velocity:runner?Math.hypot(...runner.v):0,running:Boolean(runner&&runner.status==='running'&&!seekingChapter),paused,visible:document.visibilityState==='visible'});
  if(runner&&latestSplit)$('splitBurst').hidden=!(runner.time>=latestSplit.time&&runner.time<latestSplit.time+2.2);
  if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / 約83.2s';
  if(runner&&now-lastEdgeRadarAt>100){lastEdgeRadarAt=now;updateEdgeRadar();}
@@ -415,7 +427,18 @@ function bindHold(id,set){
  for(const name of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(name,()=>set(false));
 }
 bindHold('left',v=>left=v);bindHold('right',v=>right=v);
-$('energyFx').addEventListener('click',()=>{
+$('soundToggle').addEventListener('click',async()=>{
+  const wasEnabled=gameAudio.state.enabled;
+  if(wasEnabled)await gameAudio.disable();else await gameAudio.enable();
+  const on=gameAudio.state.enabled;
+  $('soundToggle').textContent=on?'音楽・効果音：ON':'音楽・効果音：OFF';
+  $('soundToggle').setAttribute('aria-pressed',String(on));
+  canvas.dataset.audioMode=on?'enabled':'muted';
+  $('audioInfo').textContent=on
+   ?'オリジナル試作音源 / 音楽・NEAR MISS・ジャンプ・着地・ゴール連動'
+   :(!wasEnabled?'音声利用不可、またはブラウザが再生を許可していません。':'ミュート中 / 操作や物理演算は継続');
+ });
+ $('energyFx').addEventListener('click',()=>{
  energyFx=!energyFx;
  $('energyFx').textContent=energyFx?'エネルギーボール：ON':'エネルギーボール：OFF（従来表示）';
  $('energyFx').setAttribute('aria-pressed',String(energyFx));
