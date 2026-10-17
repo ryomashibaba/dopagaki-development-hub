@@ -403,7 +403,10 @@ $('cameraCompare').addEventListener('click',()=>{
  // Switching between visualizations is deliberately instantaneous and does not modify Runner.
  if(currentPose)cameraState=createCameraState(currentPose.forward);
 });
-function toggle(){paused=!paused;$('pause').textContent=paused?'再開 (Space)':'一時停止 (Space)';}
+function toggle(){paused=!paused;$('pause').textContent=paused?'再開 (Space)':'一時停止 (Space)';
+ // Stop HUD drift: the native 240Hz clock is frozen immediately on pause,
+ // so publish that exact committed time instead of waiting for the 500ms HUD refresh.
+ if(runner)hud();}
 window.addEventListener('keydown',e=>{
  if(['KeyA','KeyD','ArrowLeft','ArrowRight','KeyR','Space'].includes(e.code)&&!['SELECT','INPUT'].includes(document.activeElement?.tagName)){
   e.preventDefault();keys.add(e.code);
