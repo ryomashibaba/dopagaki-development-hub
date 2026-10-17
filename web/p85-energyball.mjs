@@ -60,9 +60,11 @@ export function makeEnergyBallVisual(){
   for(let i=0;i<64;i++){
    if((i+ring*2)%14===0)continue;
    const a=TAU*i/64,b=TAU*(i+1)/64,r=ORBIT_RADIUS;
+   // Both tilted ring planes use orthogonal unit basis vectors so their
+   // swept radius never exceeds the declared GPU-only visual envelope.
    const point=t=>ring===0?
-    [r*Math.cos(t),.19*Math.sin(t),r*Math.sin(t)]:
-    [r*.77*Math.cos(t),r*Math.sin(t),r*.77*Math.sin(t)];
+    [r*Math.cos(t)*Math.cos(.23),r*Math.cos(t)*Math.sin(.23),r*Math.sin(t)]:
+    [r*.77*Math.cos(t),r*Math.sin(t),r*Math.sqrt(1-.77*.77)*Math.cos(t)];
    line(orbits,point(a),point(b),ring?FUCHSIA:TEAL);
   }
  }
