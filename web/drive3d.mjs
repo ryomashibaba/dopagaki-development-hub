@@ -23,6 +23,7 @@ import {ghostGapView} from './p88-ghost-gap.mjs';
 import {validateReferenceSectors,compareGhostSector,paceCaption} from './p89-ghost-sector-pace.mjs';
 import {buildRacecard,racecardTotals,racecardDeltaText} from './p90-racecard.mjs';
 import {approachBeaconVertices} from './p91-approach-beacons.mjs';
+import {failurePracticeChapter} from './p92-failure-practice.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -33,7 +34,7 @@ let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
 let renderQuality=createRenderQuality('auto'),visibilityFx=true;
-let practiceMode=false,practiceStartedAt=null,seekingChapter=null,lastEdgeRadarAt=0;
+let practiceMode=false,practiceStartedAt=null,seekingChapter=null,retryChapterId=null,lastEdgeRadarAt=0;
 let chapterTracker=null,latestSplit=null,ghostData=null,ghostEnabled=false;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
@@ -260,6 +261,7 @@ function updateNativeChapterTime(){
 function settleRun(){
  if(!runner||runCommitted||!['failed','finished'].includes(runner.status))return;
  if(demoMode||practiceMode){
+  retryChapterId=null;$('retryPractice').hidden=true;
   runCommitted=true;const result=$('runResult');result.hidden=false;
   $('resultTitle').textContent=practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
   $('resultScore').textContent=(practiceMode?practiceElapsed(runner.time,practiceStartedAt):runner.time).toFixed(2)+' s · 実物理'+(practiceMode?'操作練習':'観戦デモ');
@@ -279,11 +281,18 @@ function settleRun(){
   +' / NEAR MISS '+nearMissTracker.total+'回'+(compared.improved?' · NEW BEST!':'');
  result.dataset.outcome=runner.status;
  canvas.dataset.runOutcome=runner.status;
+ // Select the most recent REAL physical road, not a fabricated checkpoint.
+ // P79 native replay then runs from the authored spawn 00 before control takeover.
+ retryChapterId=failurePracticeChapter({stageId:doc.stageForge.id,mode:'manual',status:runner.status,
+  surface:runner.failure?.surface??runner.surface,lastSurface:runner.lastSurface,records:runner.records});
+ $('retryPractice').hidden=!retryChapterId;
+ $('retryPractice').textContent=retryChapterId?'失敗した区間を練習（実物理で再走）':'';
+ canvas.dataset.failurePractice=retryChapterId||'none';
  updateRunScore();
 }
 function restart(){
  if(!doc||!world)return;
- seekingChapter=null;
+ seekingChapter=null;retryChapterId=null;$('retryPractice').hidden=true;canvas.dataset.failurePractice='none';
  const spawn=Math.min(doc.spawns.length-1,Math.max(0,Number($('spawn').value)||0));
  const eligible=Boolean(ghostData&&ghostEligible(doc,spawn,demoMode?'spectator-demo':practiceMode?'practice':'manual'));
   $('ghostToggle').disabled=!eligible;
@@ -557,6 +566,13 @@ function startPractice(){
  $('practiceProgress').textContent='実物理の再走開始 · '+seekingChapter.chapter.label;
  $('practiceRun').textContent='練習終了 → 通常走行';
 }
+function startFailurePractice(){
+ const chapter=retryChapterId;
+ if(!chapter||doc?.stageForge?.id!=='EP-P66'||runner?.status!=='failed'||demoMode||practiceMode)return;
+ if(!PRACTICE_CHAPTERS.some(c=>c.id===chapter))return;
+ $('practiceChapter').value=chapter;
+ startPractice(); // P79: native 240Hz replay from spawn 00, never a teleport.
+}
 function takeoverDemo(){
  if(!demoMode||!runner||runner.status!=='running')return;
  completePracticeTakeover();
@@ -573,6 +589,7 @@ function startDemo(){
 $('demoRun').addEventListener('click',()=>demoMode?exitDemo():startDemo());
 $('practiceRun').addEventListener('click',()=>practiceMode?exitPractice():startPractice());
 $('takeoverRun').addEventListener('click',takeoverDemo);
+$('retryPractice').addEventListener('click',startFailurePractice);
 for(const chapter of PRACTICE_CHAPTERS){const option=document.createElement('option');option.value=chapter.id;option.textContent=chapter.label;$('practiceChapter').append(option);}
 $('practiceChapter').value='fork';
 $('stage').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;load();});
