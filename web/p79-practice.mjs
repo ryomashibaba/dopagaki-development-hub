@@ -13,7 +13,7 @@ export const PRACTICE_CHAPTERS=Object.freeze([
  Object.freeze({id:'rejoin',surface:'p66-FORK_REJOIN-01',label:'合流〜機械地帯'}),
  Object.freeze({id:'machines',surface:'p66-MACHINE_CHAMBER-01',label:'移動障害物の入り口'}),
  Object.freeze({id:'jump',surface:'p66-GAP_TAKEOFF-01',label:'自然ジャンプの手前'}),
- Object.freeze({id:'landing',surface:'p66-GAP_LANDING-01',label:'空中から着地する瞬間'})
+ Object.freeze({id:'landing',surface:'p66-GAP_LANDING-02',label:'実際の着地点（第2区画）'})
 ]);
 export const SEEK_BATCH_STEPS=96;
 export function createPracticeSeek(chapterId){
