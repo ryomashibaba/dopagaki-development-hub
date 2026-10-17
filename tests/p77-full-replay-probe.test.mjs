@@ -12,11 +12,10 @@ export function nativeFullReplay(mode='timed',seconds=115){
  let firstAtSpiral=0;
  const maxSteps=Math.round(seconds/DT);
  for(let k=0;k<maxSteps&&!['failed','finished'].includes(r.status);k++){
-  const relative=firstSpiral?r.time-firstSpiral:null;
-  // Former P69 successful steering was a strong-left 5s at the spiral exit
-  // 62.15 seconds after spawn 1 (.2 through spiral part 1). For start 00
-  // the true entrance begins at t~16.82; do not assume that offset is exact.
-  const steering=mode==='neutral'?0:relative!==null&&relative>66.8&&relative<71.8?-1:0;
+  // P69's manual-left instruction worked immediately after FORK_APPROACH.
+  // Starting from spawn00 reaches that surface at an independently measured time.
+  // Replay the player's left input for five seconds at that actual milestone.
+  const steering=mode==='neutral'?0:firstFork&&r.time>=firstFork&&r.time<firstFork+5?-1:0;
   r.step(steering);
   if(r.surface){
    visited.add(r.surface);
