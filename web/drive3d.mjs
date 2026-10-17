@@ -10,6 +10,7 @@ import {makeMachineMeshes,nearestMachineCue,obstacleBodyVertices} from './p73-ma
 import {createNearMissTracker,stepNearMiss,nearMissDisplay} from './p74-nearmiss.mjs';
 import {survivalScore,buildRunRecord,readBest,storeBest,scoreString} from './p75-survival.mjs';
 import {createNativeDemoState,recordDemoMilestone,nativeDemoSteer,isDemoEligible} from './p78-demo.mjs';
+import {PRACTICE_CHAPTERS,createPracticeSeek,advancePracticeSeek,practiceElapsed} from './p79-practice.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -19,6 +20,7 @@ let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
+let practiceMode=false,practiceStartedAt=null,seekingChapter=null;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -128,7 +130,8 @@ function render(frameSeconds){
 function browserRecordStore(){try{return window.localStorage;}catch{return null;}}
 function updateRunScore(){
  if(!runner||!doc)return;
- const score=survivalScore(runner.time,nearMissTracker.total);
+ const clock=practiceMode?practiceElapsed(runner.time,practiceStartedAt):runner.time;
+ const score=survivalScore(clock,nearMissTracker.total);
  $('runScore').textContent=scoreString(score.total);
  $('survivalComponent').textContent=scoreString(score.survival);
  $('bonusComponent').textContent=scoreString(score.bonus);
@@ -137,11 +140,11 @@ function updateRunScore(){
 }
 function settleRun(){
  if(!runner||runCommitted||!['failed','finished'].includes(runner.status))return;
- if(demoMode){
+ if(demoMode||practiceMode){
   runCommitted=true;const result=$('runResult');result.hidden=false;
-  $('resultTitle').textContent=runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED';
-  $('resultScore').textContent=runner.time.toFixed(2)+' s · 実物理の観戦デモ';
-  $('resultDetails').textContent='デモは自己ベストへ保存しません。通常プレイで挑戦してください。';
+  $('resultTitle').textContent=practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
+  $('resultScore').textContent=(practiceMode?practiceElapsed(runner.time,practiceStartedAt):runner.time).toFixed(2)+' s · 実物理'+(practiceMode?'操作練習':'観戦デモ');
+  $('resultDetails').textContent=(practiceMode?'練習':'観戦デモ')+'は自己ベストへ保存しません。通常プレイで挑戦してください。';
   result.dataset.outcome=runner.status;canvas.dataset.runOutcome=runner.status;
   return;
  }
@@ -161,11 +164,15 @@ function settleRun(){
 }
 function restart(){
  if(!doc||!world)return;
+ seekingChapter=null;
  const spawn=Math.min(doc.spawns.length-1,Math.max(0,Number($('spawn').value)||0));
  runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
  demoDirector=createNativeDemoState();
- canvas.dataset.runMode=demoMode?'spectator-demo':'manual';
+ canvas.dataset.runMode=demoMode?'spectator-demo':practiceMode?'practice':'manual';
  $('demoBanner').hidden=!demoMode;
+ $('takeoverRun').hidden=!demoMode;
+ $('practiceBanner').hidden=!practiceMode;
+ $('practiceRun').textContent=practiceMode?'練習終了 → 通常走行':'指定区間から練習（実物理）';
  $('demoRun').textContent=demoMode?'デモ終了 → 自分でプレイ':'全編デモを見る（自動操舵）';
  $('demoRun').setAttribute('aria-pressed',String(demoMode));
  previousPose=currentPose=capturePose(runner);cameraState=createCameraState(currentPose.forward);frameSkips=0;headingError=0;
@@ -177,7 +184,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P78 EXPERIMENTAL — spectator full-course scripted native run; DEMO never saves a personal best, real B48/CCD untouched, human playfeel NOT APPROVED.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P79 EXPERIMENTAL — opt-in native chapter practice and spectator takeover, preserving actual B48 240Hz momentum/machines; practice cannot save personal best.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
@@ -193,6 +200,8 @@ async function load(){
   if(seq!==loading)return;
   buildVisual(value);doc=value;world=compiled;
   $('demoRun').disabled=!isDemoEligible(doc);
+   $('practiceRun').disabled=!isDemoEligible(doc);
+   $('practiceChapter').disabled=!isDemoEligible(doc);
   $('spawn').replaceChildren();
   value.spawns.forEach((s,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=s.name||'開始地点 '+(i+1);$('spawn').append(option);});
   restart();
@@ -243,7 +252,22 @@ function hud(){
 function tick(now){
  requestAnimationFrame(tick);
  if(!last)last=now;const elapsed=Math.max(0,(now-last)/1000);last=now;
- if(runner&&!paused&&runner.status!=='failed'&&runner.status!=='finished'){
+ if(seekingChapter&&runner){
+  const step=advancePracticeSeek(seekingChapter,runner);
+  previousPose=currentPose=capturePose(runner);
+  cameraState=createCameraState(currentPose.forward);
+  accum=0;
+  $('practiceProgress').textContent='実物理で追走中 '+runner.time.toFixed(1)+'s / '+seekingChapter.chapter.label;
+  if(step.status==='ready'){
+   completePracticeTakeover();
+  }else if(step.status==='failed'){
+   const where=seekingChapter.chapter.label;
+   seekingChapter=null;paused=true;
+   $('practiceProgress').textContent='この区間への追走に失敗しました: '+where+' / 他の区間を選んでください';
+   canvas.dataset.runMode='practice-seek-failed';
+  }
+ }
+ else if(runner&&!paused&&runner.status!=='failed'&&runner.status!=='finished'){
   const manualSteer=Number(right||keys.has('KeyD')||keys.has('ArrowRight'))-Number(left||keys.has('KeyA')||keys.has('ArrowLeft'));
   const progressed=stepFixedClock(accum,elapsed*(demoMode?Number($('demoSpeed').value):1),DT,()=>{
    previousPose=currentPose;
@@ -288,24 +312,65 @@ function toggle(){paused=!paused;$('pause').textContent=paused?'再開 (Space)':
 window.addEventListener('keydown',e=>{
  if(['KeyA','KeyD','ArrowLeft','ArrowRight','KeyR','Space'].includes(e.code)&&!['SELECT','INPUT'].includes(document.activeElement?.tagName)){
   e.preventDefault();keys.add(e.code);
-  if(!e.repeat&&e.code==='KeyR'){if(demoMode)exitDemo();else restart();}
+  if(!e.repeat&&e.code==='KeyR'){if(practiceMode)exitPractice();else if(demoMode)exitDemo();else restart();}
   if(!e.repeat&&e.code==='Space')toggle();
  }
 });
 window.addEventListener('keyup',e=>keys.delete(e.code));
 window.addEventListener('blur',()=>{keys.clear();left=false;right=false;});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){last=0;accum=0;previousPose=currentPose;}});
+function completePracticeTakeover(){
+ // Keep exactly the original physics Runner, collision bridge, time and speed.
+ demoMode=false;practiceMode=true;seekingChapter=null;
+ practiceStartedAt=runner.time;accum=0;last=0;paused=false;
+ nearMissTracker=createNearMissTracker();
+ nearMissTracker.eventCursor=runner.events.length;
+ $('nearMissCount').textContent='0';$('nearMissBurst').hidden=true;
+ canvas.dataset.nearMissCount='0';canvas.dataset.runMode='practice';
+ $('demoBanner').hidden=true;$('takeoverRun').hidden=true;
+ $('practiceBanner').hidden=false;
+ $('practiceProgress').textContent='自分で操作中 / '+runner.time.toFixed(1)+'sから開始 · A/Dで操舵';
+ $('practiceRun').textContent='練習終了 → 通常走行';
+ $('demoRun').textContent='全編デモを見る（自動操舵）';
+ $('demoRun').setAttribute('aria-pressed','false');
+ status.textContent='P79 実物理の区間練習中 — 自動操舵OFF、自己ベスト対象外。';
+ updateRunScore();
+}
+function exitPractice(){
+ practiceMode=false;seekingChapter=null;practiceStartedAt=null;
+ demoMode=false;left=false;right=false;keys.clear();restart();
+}
+function startPractice(){
+ if(!isDemoEligible(doc)||!runner)return;
+ demoMode=false;practiceMode=true;practiceStartedAt=null;
+ left=false;right=false;keys.clear();$('spawn').value='0';
+ restart();
+ seekingChapter=createPracticeSeek($('practiceChapter').value);
+ canvas.dataset.runMode='practice-seek';
+ $('practiceBanner').hidden=false;
+ $('practiceProgress').textContent='実物理の再走開始 · '+seekingChapter.chapter.label;
+ $('practiceRun').textContent='練習終了 → 通常走行';
+}
+function takeoverDemo(){
+ if(!demoMode||!runner||runner.status!=='running')return;
+ completePracticeTakeover();
+}
 function exitDemo(){
  if(!demoMode)return;
  demoMode=false;left=false;right=false;keys.clear();restart();
 }
 function startDemo(){
  if(!isDemoEligible(doc)||!runner)return;
+ practiceMode=false;practiceStartedAt=null;seekingChapter=null;
  demoMode=true;left=false;right=false;keys.clear();$('spawn').value='0';restart();
 }
 $('demoRun').addEventListener('click',()=>demoMode?exitDemo():startDemo());
-$('stage').addEventListener('change',()=>{demoMode=false;load();});
-$('spawn').addEventListener('change',()=>{demoMode=false;restart();});
-$('restart').addEventListener('click',()=>demoMode?exitDemo():restart());$('retryRun').addEventListener('click',()=>demoMode?exitDemo():restart());$('pause').addEventListener('click',toggle);
+$('practiceRun').addEventListener('click',()=>practiceMode?exitPractice():startPractice());
+$('takeoverRun').addEventListener('click',takeoverDemo);
+for(const chapter of PRACTICE_CHAPTERS){const option=document.createElement('option');option.value=chapter.id;option.textContent=chapter.label;$('practiceChapter').append(option);}
+$('practiceChapter').value='fork';
+$('stage').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;load();});
+$('spawn').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;restart();});
+$('restart').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('retryRun').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('pause').addEventListener('click',toggle);
 try{init();requestAnimationFrame(tick);load();}
 catch(e){status.className='status alert';status.textContent='WebGL2 unsupported: '+e.message;console.error(e);}
