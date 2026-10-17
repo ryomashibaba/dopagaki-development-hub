@@ -20,6 +20,7 @@ import {makeEnergyBallVisual,energyBallFrame} from './p85-energyball.mjs';
 import {createChapterSplits,observeChapterSplits,chapterTimerView,readChapterBest,storeChapterBest,splitSeconds} from './p86-chapter-splits.mjs';
 import {validateGhost,referenceGhostAt,ghostEligible,ghostLatticeVertices} from './p87-ghost.mjs';
 import {ghostGapView} from './p88-ghost-gap.mjs';
+import {validateReferenceSectors,compareGhostSector,paceCaption} from './p89-ghost-sector-pace.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -193,18 +194,28 @@ function updateRunScore(){
  $('bestSurvival').textContent=personalBest?personalBest.seconds.toFixed(2)+' s':'—';
  canvas.dataset.survivalScore=String(score.total);
 }
+function publishGhostPace(last){
+ const field=$('ghostPace');if(!field)return;
+ const eligible=Boolean(ghostEnabled&&ghostData&&runner&&ghostEligible(doc,runner.spawnIndex,
+  demoMode?'spectator-demo':practiceMode?'practice':'manual'));
+ const pace=eligible?compareGhostSector(last,ghostData):null;
+ field.hidden=!pace;field.dataset.status=pace?.sign||'off';
+ canvas.dataset.ghostPaceStatus=pace?.sign||'off';
+ if(pace)field.textContent=paceCaption(pace)+' · 同じ区間の実通過時刻で比較';
+}
 function publishChapterTiming(){
  if(!runner||!doc)return;
  const panel=$('chapterTiming');
  const view=chapterTimerView(chapterTracker,runner.time);
  panel.hidden=!view.visible;
- if(!view.visible){canvas.dataset.chapterTimeId='none';return;}
+ if(!view.visible){canvas.dataset.chapterTimeId='none';publishGhostPace(null);return;}
  canvas.dataset.chapterTimeId=view.id;
  canvas.dataset.completedSplits=String(view.completed);
  $('splitCurrent').textContent=view.label+'  ·  '+splitSeconds(view.elapsed);
  const best=readChapterBest(browserRecordStore(),doc.stageForge.id,runner.spawnIndex,view.id);
  $('splitBest').textContent=best?'BEST '+splitSeconds(best.duration):'BEST —';
  $('splitLast').textContent=view.latest?'前区間 '+view.latest.label+'  '+splitSeconds(view.latest.duration):'区間通過で計測';
+ publishGhostPace(view.latest);
  $('splitHistory').replaceChildren(...chapterTracker.completed.slice(-3).map(record=>{
   const span=document.createElement('span');
   span.textContent=record.label+' '+splitSeconds(record.duration);
@@ -279,7 +290,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P88 EXPERIMENTAL — optional noncolliding native 83s reference ghost and same-time distance HUD with manual-only 8-sector timing; original 240Hz B48 physics and frozen P62 stages unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P89 EXPERIMENTAL — 83s ghost: same-clock 3D gap plus same-sector native time delta; manual-only and no B48 physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  publishChapterTiming();
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
@@ -303,6 +314,7 @@ async function load(){
     const ghostResponse=await fetch('../generated/P87_REFERENCE_GHOST.json',{cache:'no-store'});
     if(!ghostResponse.ok)throw Error('Reference ghost HTTP '+ghostResponse.status);
     replay=validateGhost(await ghostResponse.json());
+    validateReferenceSectors(replay);
    }
    if(seq!==loading)return;
    buildVisual(value);doc=value;world=compiled;ghostData=replay;
@@ -444,6 +456,7 @@ $('ghostToggle').addEventListener('click',()=>{
  $('ghostToggle').textContent=ghostEnabled?'基準ゴースト：ON（非衝突）':'基準ゴースト：OFF';
  if(!ghostEnabled)$('ghostGap').hidden=true;
  $('ghostToggle').setAttribute('aria-pressed',String(ghostEnabled));
+ publishChapterTiming();
 });
 $('energyFx').addEventListener('click',()=>{
  energyFx=!energyFx;
