@@ -19,7 +19,7 @@ test('P94 gate: an early valid physical run cannot be misreported as a full P93 
  assert.deepEqual(out.probeTrace[0].road,doc.spawns[0].surface);
  assert.equal(JSON.stringify(doc),before,'sampling must not alter physical course');
  assert.equal(doc.stageForge.humanPlaytest,'NOT_RUN');
- assert.equal(doc.stageForge.fullStartToFinish,'NOT_YET_PROVEN');
+ assert.equal(doc.stageForge.fullStartToFinish,'NATIVE_SCRIPTED_240HZ_7_OF_7_PASS_P94');
 });
 
 test('P94 prevents invalid artificial QA driver profiles and unbounded simulation',()=>{
