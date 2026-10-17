@@ -34,7 +34,7 @@ test('P78 spectator replays full P77 proven native trajectory without changing R
  assert(runner.events.some(x=>x.type==='finish'));
  assert.equal(doc.stageForge.humanPlaytest,'NOT_RUN','Do not falsely certify human play');
 });
-test('P78 demo director defaults neutral, steering pulses are deterministic and mode is restricted to P69 ECHO stage',()=>{
+test('P78 original ECHO steering unchanged while P94 independent real-physics demonstration is eligible',()=>{
  const state=createNativeDemoState();
  const r={time:0,surface:'p66-PIPE_DIVE_A-01'};
  assert.equal(nativeDemoSteer(state,r),0);
@@ -45,6 +45,7 @@ test('P78 demo director defaults neutral, steering pulses are deterministic and 
  r.time=75.5;assert.equal(nativeDemoSteer(state,r),1);
  r.time=76;assert.equal(nativeDemoSteer(state,r),-1);
  r.time=77;assert.equal(nativeDemoSteer(state,r),0);
+ assert.equal(isDemoEligible({stageForge:{id:'VB-P93'}}),true);
  assert.equal(isDemoEligible({stageForge:{id:'EP-001'}}),false);
  assert.equal(isDemoEligible(null),false);
 });
