@@ -16,11 +16,12 @@ import {locateRoadLateral,edgeRadarLabel} from './p81-edge-radar.mjs';
 import {megastructureGeometry} from './p82-megastructure.mjs';
 import {createRenderQuality,sampleRenderQuality,framebufferDimensions,renderScaleLabel} from './p83-render-quality.mjs';
 import {roadShoulderLights,FOG_START_METERS,FOG_SPAN_METERS,FOG_MAX} from './p84-visibility.mjs';
+import {makeEnergyBallVisual,energyBallFrame} from './p85-energyball.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,flowRoads,shoulderLights,ball,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
+let gl,program,locations={},roads,lines,flowRoads,shoulderLights,ball,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
@@ -72,6 +73,9 @@ function init(){
  for(const name of ['eye','camRight','camUp','camFront','translation','scale','yaw','aspect','fogStrength','fogStart','fogSpan'])locations[name]=gl.getUniformLocation(program,name);
  gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(.019,.041,.083,1);
  ball=mesh(orb());
+ const energyVisual=makeEnergyBallVisual();
+ for(const key of ['shell','filaments','orbits','trails'])energyMeshes[key]=mesh(energyVisual[key]);
+ canvas.dataset.energyVertices=String(energyVisual.totalVertices);
  for(const type of ['slider','rotator','piston'])for(const mode of ['fail','bounce','push'])
   machineMeshes[type+':'+mode]=mesh(obstacleBodyVertices(type,mode));
 }
@@ -152,7 +156,18 @@ function render(frameSeconds){
   const key=o.type+':'+(o.collision?.mode||'fail');
   draw(machineMeshes[key],obstaclePose.center,obstaclePose.halfSize.map(x=>2*x),obstaclePose.yawRadians);
  }
- draw(ball,pose.position);
+ // P85: energy ball is strictly display-only, tied to the native 240Hz
+ // position and simulation clock. There is no physical effect or steering aid.
+ const effect=energyBallFrame(pose.time,runner.v,pose.forward,renderQuality.scale);
+ if(energyFx){
+  draw(energyMeshes.shell,pose.position,[1,1,1],effect.spin);
+  draw(energyMeshes.filaments,pose.position,[1,1,1],effect.spin*.84,gl.LINES);
+  if(effect.orbitActive)draw(energyMeshes.orbits,pose.position,[1,1,1],effect.orbitAngle,gl.LINES);
+  if(effect.trailActive)draw(energyMeshes.trails,pose.position,
+   [1,1,effect.trailScale],effect.directionYaw,gl.LINES);
+ }else draw(ball,pose.position);
+ canvas.dataset.energyMode=energyFx?'enhanced':'classic';
+ canvas.dataset.energyTrail=energyFx&&effect.trailActive?'active':'inactive';
 }
 function browserRecordStore(){try{return window.localStorage;}catch{return null;}}
 function updateRunScore(){
@@ -212,7 +227,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P84 EXPERIMENTAL — true-surface shoulder reflectors and optional atmospheric distance fade; giant P83 skyline, physical B48 and all P62 originals unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P85 EXPERIMENTAL — luminous energy ball and true-velocity speed trails; P84 skyline/shoulder lights, frozen B48 physics and P62 originals unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
  // until the next 500ms HUD refresh and mistakenly read a time regression.
@@ -361,6 +376,11 @@ function bindHold(id,set){
  for(const name of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(name,()=>set(false));
 }
 bindHold('left',v=>left=v);bindHold('right',v=>right=v);
+$('energyFx').addEventListener('click',()=>{
+ energyFx=!energyFx;
+ $('energyFx').textContent=energyFx?'エネルギーボール：ON':'エネルギーボール：OFF（従来表示）';
+ $('energyFx').setAttribute('aria-pressed',String(energyFx));
+});
 $('visibilityFx').addEventListener('click',()=>{
  visibilityFx=!visibilityFx;
  $('visibilityFx').textContent=visibilityFx?'道路端ライト・遠景：ON':'道路端ライト・遠景：OFF';
