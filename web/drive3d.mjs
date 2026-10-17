@@ -321,7 +321,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='VB-P93'?'P93 VOID BREAKER — 7 genuine 3D road skins and 3990m candidate; human full run NOT YET VERIFIED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='VB-P93'?'P94 VOID BREAKER — genuine 3990m 7/7 native scripted finish verified; human playability and final art NOT APPROVED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  publishChapterTiming();
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
@@ -350,8 +350,8 @@ async function load(){
    if(seq!==loading)return;
    buildVisual(value);doc=value;world=compiled;ghostData=replay;
   $('demoRun').disabled=!isDemoEligible(doc);
-   $('practiceRun').disabled=!isDemoEligible(doc);
-   $('practiceChapter').disabled=!isDemoEligible(doc);
+   $('practiceRun').disabled=doc.stageForge?.id!=='EP-P66';
+   $('practiceChapter').disabled=doc.stageForge?.id!=='EP-P66';
   $('spawn').replaceChildren();
   value.spawns.forEach((s,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=s.name||'開始地点 '+(i+1);$('spawn').append(option);});
   restart();
@@ -470,7 +470,7 @@ function tick(now){
  }
  if(runner&&nearMissTracker){const current=nearMissDisplay(nearMissTracker,runner.time);$('nearMissBurst').hidden=!current;}
  if(runner&&latestSplit)$('splitBurst').hidden=!(runner.time>=latestSplit.time&&runner.time<latestSplit.time+2.2);
- if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / 約83.2s';
+ if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / '+(doc?.stageForge?.id==='VB-P93'?'約38.5s':'約83.2s');
  if(runner&&now-lastEdgeRadarAt>100){lastEdgeRadarAt=now;updateEdgeRadar();}
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
@@ -562,7 +562,7 @@ function exitPractice(){
  demoMode=false;left=false;right=false;keys.clear();restart();
 }
 function startPractice(){
- if(!isDemoEligible(doc)||!runner)return;
+ if(doc?.stageForge?.id!=='EP-P66'||!runner)return;
  demoMode=false;practiceMode=true;practiceStartedAt=null;
  left=false;right=false;keys.clear();$('spawn').value='0';
  restart();
