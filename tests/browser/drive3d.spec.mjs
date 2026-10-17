@@ -155,7 +155,7 @@ test('P79 fast native replay gives manual control at real HALO RETURN and never 
  const resumed=await page.locator('#simTime').textContent();
  expect(parseFloat(resumed)).toBeGreaterThan(5);
  await page.keyboard.down('ArrowRight');await page.waitForTimeout(250);await page.keyboard.up('ArrowRight');
- await expect(page.locator('#runScore')).toHaveText(/^\\d[\\d,]*$/);
+ await expect(page.locator('#runScore')).toHaveText(/^\d[\d,]*$/);
  const recorded=await page.evaluate(()=>localStorage.getItem('dopagaki:survival:1:EP-P66:0'));
  expect(recorded).toBeNull();
  await page.locator('#practiceRun').click();
