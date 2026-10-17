@@ -179,3 +179,33 @@ test('P79 fast native replay gives manual control at real HALO RETURN and never 
  await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
  expect(errors).toEqual([]);
 });
+
+test('P80 authentic road-skin neon chevrons and live eight-section progress preserve input, camera and P62 isolation',async({page})=>{
+ test.setTimeout(120000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-markers',/^[1-9]\d*$/);
+ const count=Number(await page.locator('#view').getAttribute('data-flow-markers'));
+ expect(count).toBeGreaterThan(40);
+ await expect(page.locator('#flowProgress')).toBeVisible();
+ await expect(page.locator('#flowProgress span')).toHaveCount(8);
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter','PIPE');
+ await expect(page.locator('#flowProgress span[data-state="current"]')).toHaveText('PIPE');
+ await page.locator('#spawn').selectOption('1');
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter','SPIRAL');
+ await expect(page.locator('#flowProgress span[data-state="current"]')).toHaveText('SPIRAL');
+ await page.locator('#spawn').selectOption('4');
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter','MACHINES');
+ await expect(page.locator('#flowProgress span[data-state="current"]')).toHaveText('MACHINES');
+ await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
+ await page.locator('#practiceChapter').selectOption('return');
+ await page.locator('#practiceRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','practice',{timeout:90000});
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter',/HALO|SPIRAL/);
+ await page.locator('#practiceRun').click();
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:60000});
+ await expect(page.locator('#flowProgress')).toBeHidden();
+ expect(errors).toEqual([]);
+});
