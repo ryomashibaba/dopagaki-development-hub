@@ -29,6 +29,14 @@ jobs:
             echo 'Native Runner replay under neutral and scripted steering (NOT human test).'
             echo 'See the log lines prefixed P94_VOID_NATIVE for full diagnostics.'
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: P95 experimental machine gauntlet native 240Hz probes (candidate HOLD)
+        run: |
+          node scripts/p95-hazard-probe.mjs | tee p95-machine-probe.jsonl
+          {
+            echo '### P95 experimental B51-C moving hazard pilot'
+            echo 'Native trial reports are in the job logs under P95_HAZARD_NATIVE.'
+            echo 'QA SUCCESS does NOT certify full-machine-course completion or human fairness.'
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets
@@ -129,11 +137,12 @@ jobs:
             await new Promise(resolve=>setTimeout(resolve,3000));
           }
           assert.equal(info.gitCommit,process.env.EXPECTED_SHA);
-          assert.equal(info.version,'P94');
+          assert.equal(info.version,'P95');
           assert.equal(info.stageCount,4);
-          assert.equal(info.experimentalStageCount,2);
+          assert.equal(info.experimentalStageCount,3);
           assert.equal(info.movingObstacleCount,24);
-          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs','drive3d/p75-survival.mjs','drive3d/p78-demo.mjs','drive3d/p79-practice.mjs','drive3d/p80-trackflow.mjs','drive3d/p81-edge-radar.mjs','drive3d/p82-megastructure.mjs','drive3d/p83-render-quality.mjs','drive3d/p84-visibility.mjs','drive3d/p85-energyball.mjs','drive3d/p86-chapter-splits.mjs','drive3d/p87-ghost.mjs','drive3d/p88-ghost-gap.mjs','drive3d/p89-ghost-sector-pace.mjs','drive3d/p90-racecard.mjs','drive3d/p91-approach-beacons.mjs','drive3d/p92-failure-practice.mjs','drive3d/p93-void-breaker-visual.mjs','drive3d/p94-native-steer.mjs','generated/P93_VOID_BREAKER.json','generated/P94_VOID_NATIVE_ACCEPTANCE.json','generated/P87_REFERENCE_GHOST.json']){
+          assert.equal(info.experimentalMovingObstacleCount,12);
+          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs','drive3d/p75-survival.mjs','drive3d/p78-demo.mjs','drive3d/p79-practice.mjs','drive3d/p80-trackflow.mjs','drive3d/p81-edge-radar.mjs','drive3d/p82-megastructure.mjs','drive3d/p83-render-quality.mjs','drive3d/p84-visibility.mjs','drive3d/p85-energyball.mjs','drive3d/p86-chapter-splits.mjs','drive3d/p87-ghost.mjs','drive3d/p88-ghost-gap.mjs','drive3d/p89-ghost-sector-pace.mjs','drive3d/p90-racecard.mjs','drive3d/p91-approach-beacons.mjs','drive3d/p92-failure-practice.mjs','drive3d/p93-void-breaker-visual.mjs','drive3d/p94-native-steer.mjs','generated/P93_VOID_BREAKER.json','generated/P94_VOID_NATIVE_ACCEPTANCE.json','generated/P95_VOID_HAZARD_CANDIDATE.json','generated/P87_REFERENCE_GHOST.json']){
             const response=await fetchOK(path);
             assert((await response.text()).length>300,'Empty public asset: '+path);
           }
@@ -156,6 +165,12 @@ jobs:
           assert.equal(p94.corrective.visited.length,7);assert(p94.corrective.distanceMeters>3400);
           assert.equal(p94.neutral.status,'HOLD_NOT_FULLY_TRAVERSED');
           assert.equal(p94.humanPlaytest,'NOT_RUN');
+          const p95=await(await fetchOK('generated/P95_VOID_HAZARD_CANDIDATE.json')).json();
+          assert.equal(p95.stageForge.id,'VB-P95');
+          assert.equal(p95.movingObstacles.length,12);
+          assert.equal(p95.stageForge.humanPlaytest,'NOT_RUN');
+          assert.equal(p95.stageForge.fullStartToFinish,'NOT_YET_PROVEN_WITH_HAZARDS');
+          assert.equal(p95.stageForge.inheritedP94Evidence,false);
           const ghost=await(await fetchOK('generated/P87_REFERENCE_GHOST.json')).json();
           assert.equal(ghost.schema,'dopagaki.native-reference-ghost/1');
           assert(ghost.finished&&ghost.finishSeconds>82&&ghost.finishSeconds<85);
