@@ -452,7 +452,7 @@ function tick(now){
   const manualSteer=Number(right||keys.has('KeyD')||keys.has('ArrowRight'))-Number(left||keys.has('KeyA')||keys.has('ArrowLeft'));
   const progressed=stepFixedClock(accum,elapsed*(demoMode?Number($('demoSpeed').value):1),DT,()=>{
    previousPose=currentPose;
-   runner.step(demoMode?nativeDemoSteer(demoDirector,runner):manualSteer);currentPose=capturePose(runner);
+   runner.step(demoMode?nativeDemoSteer(demoDirector,runner,movingObstaclePose):manualSteer);currentPose=capturePose(runner);
    if(demoMode)recordDemoMilestone(demoDirector,runner);
    updateNativeChapterTime();
    const near=stepNearMiss(nearMissTracker,doc.movingObstacles,runner,movingObstaclePose,sphereBoxSeparation,RADIUS);
