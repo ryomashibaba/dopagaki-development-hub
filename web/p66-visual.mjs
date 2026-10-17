@@ -53,6 +53,7 @@ export function epicGeometry(stage){
  const v=[],b=stage.visualBlueprint;
  if(!b||b.schema!=='dopagaki.stageforge.visual/1')throw Error('P66 visual blueprint missing');
  for(let i=0;i<b.pipeRings.length;i++)annulus(v,b.pipeRings[i],i%2?[.07,.34,.55]:[.22,.7,.88]);
+ for(let i=0;i<(b.returnPortals?.length||0);i++)annulus(v,b.returnPortals[i],i%2?[.13,.48,.86]:[.31,.94,.99]);
  for(let i=0;i<b.spiralRings.length;i++)annulus(v,b.spiralRings[i],i%2?[.21,.21,.65]:[.29,.76,.9]);
  for(let i=0;i<b.branchHoops.length;i++)annulus(v,b.branchHoops[i],i%2?[.53,.28,.77]:[.14,.63,.88]);
  // P68 fork megastructures: cathedral vault and high-sky portal lanes are not repeated straight-road props.
