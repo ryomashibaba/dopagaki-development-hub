@@ -9,6 +9,7 @@ import {stepFixedClock} from './drive3d-loop.mjs';
 import {makeMachineMeshes,nearestMachineCue,obstacleBodyVertices} from './p73-machine-visual.mjs';
 import {createNearMissTracker,stepNearMiss,nearMissDisplay} from './p74-nearmiss.mjs';
 import {survivalScore,buildRunRecord,readBest,storeBest,scoreString} from './p75-survival.mjs';
+import {createNativeDemoState,recordDemoMilestone,nativeDemoSteer,isDemoEligible} from './p78-demo.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -17,6 +18,7 @@ let gl,program,locations={},roads,lines,ball,scenery,machineMeshes={},guideMeshe
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
+let demoMode=false,demoDirector=createNativeDemoState();
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -135,6 +137,14 @@ function updateRunScore(){
 }
 function settleRun(){
  if(!runner||runCommitted||!['failed','finished'].includes(runner.status))return;
+ if(demoMode){
+  runCommitted=true;const result=$('runResult');result.hidden=false;
+  $('resultTitle').textContent=runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED';
+  $('resultScore').textContent=runner.time.toFixed(2)+' s · 実物理の観戦デモ';
+  $('resultDetails').textContent='デモは自己ベストへ保存しません。通常プレイで挑戦してください。';
+  result.dataset.outcome=runner.status;canvas.dataset.runOutcome=runner.status;
+  return;
+ }
  runCommitted=true;
  const record=buildRunRecord({stageId:doc.stageForge.id,spawn:runner.spawnIndex,
   seconds:runner.time,nearMisses:nearMissTracker.total,outcome:runner.status});
@@ -153,6 +163,11 @@ function restart(){
  if(!doc||!world)return;
  const spawn=Math.min(doc.spawns.length-1,Math.max(0,Number($('spawn').value)||0));
  runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
+ demoDirector=createNativeDemoState();
+ canvas.dataset.runMode=demoMode?'spectator-demo':'manual';
+ $('demoBanner').hidden=!demoMode;
+ $('demoRun').textContent=demoMode?'デモ終了 → 自分でプレイ':'全編デモを見る（自動操舵）';
+ $('demoRun').setAttribute('aria-pressed',String(demoMode));
  previousPose=currentPose=capturePose(runner);cameraState=createCameraState(currentPose.forward);frameSkips=0;headingError=0;
  nearMissTracker=createNearMissTracker();runCommitted=false;
  personalBest=readBest(browserRecordStore(),doc.stageForge.id,spawn);
@@ -162,7 +177,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P77 EXPERIMENTAL — scripted first-spawn FULL FINISH in real B48 240Hz physics (83.21s) PASS, including six spiral segments, true moving machine avoidance and natural jump landing. Human unassisted playfeel NOT approved.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P78 EXPERIMENTAL — spectator full-course scripted native run; DEMO never saves a personal best, real B48/CCD untouched, human playfeel NOT APPROVED.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
@@ -177,6 +192,7 @@ async function load(){
   const compiled=compile(value);
   if(seq!==loading)return;
   buildVisual(value);doc=value;world=compiled;
+  $('demoRun').disabled=!isDemoEligible(doc);
   $('spawn').replaceChildren();
   value.spawns.forEach((s,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=s.name||'開始地点 '+(i+1);$('spawn').append(option);});
   restart();
@@ -228,10 +244,11 @@ function tick(now){
  requestAnimationFrame(tick);
  if(!last)last=now;const elapsed=Math.max(0,(now-last)/1000);last=now;
  if(runner&&!paused&&runner.status!=='failed'&&runner.status!=='finished'){
-  const steer=Number(right||keys.has('KeyD')||keys.has('ArrowRight'))-Number(left||keys.has('KeyA')||keys.has('ArrowLeft'));
-  const progressed=stepFixedClock(accum,elapsed,DT,()=>{
+  const manualSteer=Number(right||keys.has('KeyD')||keys.has('ArrowRight'))-Number(left||keys.has('KeyA')||keys.has('ArrowLeft'));
+  const progressed=stepFixedClock(accum,elapsed*(demoMode?Number($('demoSpeed').value):1),DT,()=>{
    previousPose=currentPose;
-   runner.step(steer);currentPose=capturePose(runner);
+   runner.step(demoMode?nativeDemoSteer(demoDirector,runner):manualSteer);currentPose=capturePose(runner);
+   if(demoMode)recordDemoMilestone(demoDirector,runner);
    const near=stepNearMiss(nearMissTracker,doc.movingObstacles,runner,movingObstaclePose,sphereBoxSeparation,RADIUS);
    if(near){
     $('nearMissCount').textContent=String(near.total);
@@ -246,6 +263,7 @@ function tick(now){
   settleRun();
  }
  if(runner&&nearMissTracker){const current=nearMissDisplay(nearMissTracker,runner.time);$('nearMissBurst').hidden=!current;}
+ if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / 約83.2s';
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
   const lag=$('cameraInfo');if(lag)lag.textContent=comparisonMode==='stable'
@@ -270,14 +288,24 @@ function toggle(){paused=!paused;$('pause').textContent=paused?'再開 (Space)':
 window.addEventListener('keydown',e=>{
  if(['KeyA','KeyD','ArrowLeft','ArrowRight','KeyR','Space'].includes(e.code)&&!['SELECT','INPUT'].includes(document.activeElement?.tagName)){
   e.preventDefault();keys.add(e.code);
-  if(!e.repeat&&e.code==='KeyR')restart();
+  if(!e.repeat&&e.code==='KeyR'){if(demoMode)exitDemo();else restart();}
   if(!e.repeat&&e.code==='Space')toggle();
  }
 });
 window.addEventListener('keyup',e=>keys.delete(e.code));
 window.addEventListener('blur',()=>{keys.clear();left=false;right=false;});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){last=0;accum=0;previousPose=currentPose;}});
-$('stage').addEventListener('change',load);$('spawn').addEventListener('change',restart);
-$('restart').addEventListener('click',restart);$('retryRun').addEventListener('click',restart);$('pause').addEventListener('click',toggle);
+function exitDemo(){
+ if(!demoMode)return;
+ demoMode=false;left=false;right=false;keys.clear();restart();
+}
+function startDemo(){
+ if(!isDemoEligible(doc)||!runner)return;
+ demoMode=true;left=false;right=false;keys.clear();$('spawn').value='0';restart();
+}
+$('demoRun').addEventListener('click',()=>demoMode?exitDemo():startDemo());
+$('stage').addEventListener('change',()=>{demoMode=false;load();});
+$('spawn').addEventListener('change',()=>{demoMode=false;restart();});
+$('restart').addEventListener('click',()=>demoMode?exitDemo():restart());$('retryRun').addEventListener('click',()=>demoMode?exitDemo():restart());$('pause').addEventListener('click',toggle);
 try{init();requestAnimationFrame(tick);load();}
 catch(e){status.className='status alert';status.textContent='WebGL2 unsupported: '+e.message;console.error(e);}
