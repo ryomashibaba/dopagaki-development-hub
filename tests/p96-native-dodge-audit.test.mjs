@@ -32,7 +32,7 @@ test('P96 controller gives bounded real manual-compatible steer commands; unchan
  }
  assert.equal(JSON.stringify(doc),before);
  assert.equal(doc.stageForge.humanPlaytest,'NOT_RUN');
- assert.equal(doc.stageForge.fullStartToFinish,'NOT_YET_PROVEN_WITH_HAZARDS');
+ assert.equal(doc.stageForge.fullStartToFinish,'SCRIPTED_240HZ_12_ACTIVE_7_OF_7_PASS_P96');
 });
 test('P96 bounded partial native route cannot ever be falsely accepted as full win',()=>{
  const doc=generateVoidHazardCandidate(),world=compile(doc);
