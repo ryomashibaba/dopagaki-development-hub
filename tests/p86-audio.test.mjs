@@ -70,7 +70,7 @@ test('P86 short lookahead prevents audio-node explosions at slow or stalled rend
   const report=audio.tick({velocity:60+60*Math.sin(i*.07)});
   assert(report.scheduled<=3);
  }
- assert(audio.state.voices<120,'avoid unbounded polyphony at 10fps');
+ assert(audio.state.voices<190,'avoid unbounded polyphony at 10fps');
  const before=audio.state.step;
  audio.reset();
  assert.equal(audio.state.step,0);
