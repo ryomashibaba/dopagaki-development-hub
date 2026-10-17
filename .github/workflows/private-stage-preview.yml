@@ -129,11 +129,11 @@ jobs:
             await new Promise(resolve=>setTimeout(resolve,3000));
           }
           assert.equal(info.gitCommit,process.env.EXPECTED_SHA);
-          assert.equal(info.version,'P93');
+          assert.equal(info.version,'P94');
           assert.equal(info.stageCount,4);
           assert.equal(info.experimentalStageCount,2);
           assert.equal(info.movingObstacleCount,24);
-          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs','drive3d/p75-survival.mjs','drive3d/p78-demo.mjs','drive3d/p79-practice.mjs','drive3d/p80-trackflow.mjs','drive3d/p81-edge-radar.mjs','drive3d/p82-megastructure.mjs','drive3d/p83-render-quality.mjs','drive3d/p84-visibility.mjs','drive3d/p85-energyball.mjs','drive3d/p86-chapter-splits.mjs','drive3d/p87-ghost.mjs','drive3d/p88-ghost-gap.mjs','drive3d/p89-ghost-sector-pace.mjs','drive3d/p90-racecard.mjs','drive3d/p91-approach-beacons.mjs','drive3d/p92-failure-practice.mjs','drive3d/p93-void-breaker-visual.mjs','generated/P93_VOID_BREAKER.json','generated/P87_REFERENCE_GHOST.json']){
+          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs','drive3d/p75-survival.mjs','drive3d/p78-demo.mjs','drive3d/p79-practice.mjs','drive3d/p80-trackflow.mjs','drive3d/p81-edge-radar.mjs','drive3d/p82-megastructure.mjs','drive3d/p83-render-quality.mjs','drive3d/p84-visibility.mjs','drive3d/p85-energyball.mjs','drive3d/p86-chapter-splits.mjs','drive3d/p87-ghost.mjs','drive3d/p88-ghost-gap.mjs','drive3d/p89-ghost-sector-pace.mjs','drive3d/p90-racecard.mjs','drive3d/p91-approach-beacons.mjs','drive3d/p92-failure-practice.mjs','drive3d/p93-void-breaker-visual.mjs','drive3d/p94-native-steer.mjs','generated/P93_VOID_BREAKER.json','generated/P94_VOID_NATIVE_ACCEPTANCE.json','generated/P87_REFERENCE_GHOST.json']){
             const response=await fetchOK(path);
             assert((await response.text()).length>300,'Empty public asset: '+path);
           }
@@ -150,6 +150,12 @@ jobs:
           assert.equal(p93.stageForge.id,'VB-P93');
           assert.equal(p93.surfaces.length,7);
           assert.equal(p93.stageForge.humanPlaytest,'NOT_RUN');
+          assert.equal(p93.stageForge.fullStartToFinish,'NATIVE_SCRIPTED_240HZ_7_OF_7_PASS_P94');
+          const p94=await(await fetchOK('generated/P94_VOID_NATIVE_ACCEPTANCE.json')).json();
+          assert.equal(p94.scriptedFullPass,true);assert.equal(p94.corrective.runnerStatus,'finished');
+          assert.equal(p94.corrective.visited.length,7);assert(p94.corrective.distanceMeters>3400);
+          assert.equal(p94.neutral.status,'HOLD_NOT_FULLY_TRAVERSED');
+          assert.equal(p94.humanPlaytest,'NOT_RUN');
           const ghost=await(await fetchOK('generated/P87_REFERENCE_GHOST.json')).json();
           assert.equal(ghost.schema,'dopagaki.native-reference-ghost/1');
           assert(ghost.finished&&ghost.finishSeconds>82&&ghost.finishSeconds<85);
