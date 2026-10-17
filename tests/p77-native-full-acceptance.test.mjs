@@ -34,7 +34,7 @@ test('P77 first spawn: genuine 240Hz 83s through 520m return, full 450° spiral,
   contacts};
  console.log('P77_ACCEPTED_NATIVE_FULL_START_TO_FINISH '+JSON.stringify(evidence));
  assert.equal(runner.status,'finished','full native run must finish, not merely reach jump');
- assert.equal(runner.failure,null);
+ assert.equal(runner.failure??null,null);
  assert(contacts.length===0,'scripted player inputs must avoid the six moving machines, not disable their collision');
  assert(firstAir!==null&&firstAir>79&&firstAir<81,'natural jump must be from genuine ramp after no airborne earlier');
  assert(firstLanding!==null&&firstLanding>81&&firstLanding<84,'must touch down on true physical landing road');
