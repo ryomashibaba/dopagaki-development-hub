@@ -191,7 +191,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P80 EXPERIMENTAL — dual-lane neon travel-direction markers and actual chapter progress; P79 native 240Hz practice and B48 physics preserved.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P81 EXPERIMENTAL — dual-lane neon travel-direction markers and actual chapter progress; P79 native 240Hz practice and B48 physics preserved.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
