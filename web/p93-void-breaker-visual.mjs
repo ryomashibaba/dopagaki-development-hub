@@ -5,7 +5,6 @@
  * Samples the real P93 track geometry; none of these triangles are given
  * to compile(), collisions, or the B48 Runner.
  */
-import {sample} from '../reference_only/director/surface.js';
 const add=(a,b)=>a.map((v,i)=>v+b[i]);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const mul=(a,k)=>a.map(x=>x*k);
@@ -34,8 +33,9 @@ const CHAPTERS=[
  {main:[.36,.16,.62],light:[.96,.65,1],tower:170},
  {main:[.10,.39,.50],light:[.42,1,.96],tower:160}
 ];
-export function voidBreakerGeometry(stage){
+export function voidBreakerGeometry(stage,sample){
  if(stage?.stageForge?.id!=='VB-P93')return {vertices:[],beams:0,sections:[]};
+ if(typeof sample!=='function')throw Error('P93 requires exact B48 read-only sampler');
  const roads=stage.surfaces.filter(s=>s.rideable&&s.collidable);
  if(roads.length!==7||!roads.every(s=>s.id.startsWith('p93-')))throw Error('P93 visual requires 7 authentic physical road skins');
  const vertices=[],sections=[];
