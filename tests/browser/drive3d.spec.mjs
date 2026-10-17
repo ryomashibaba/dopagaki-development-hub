@@ -29,7 +29,7 @@ test('P79: full native route, chapter training and original four stages coexist'
  await page.goto('/drive3d/');
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
- await expect(page.locator('#stage option:checked')).toContainText('P83 ECHO PIPE');
+ await expect(page.locator('#stage option:checked')).toContainText('P84 ECHO PIPE');
  await expect(page.locator('#spawn option')).toHaveCount(7);
  const newCourse=await page.evaluate(async()=>await(await fetch('../generated/P66_ECHO_RUSH.json')).json());
  expect(newCourse.surfaces.length).toBe(23);
@@ -54,7 +54,7 @@ test('P79: full native route, chapter training and original four stages coexist'
  await expect(page.locator('#view')).toHaveAttribute('data-camera-mode','ball-lock-interpolated');
  expect(await page.locator('#view').evaluate(c=>Boolean(c.getContext('webgl2')))).toBe(true);
  await page.locator('#spawn').selectOption('2');
- await expect(page.locator('#appStatus')).toContainText('P83 EXPERIMENTAL');
+ await expect(page.locator('#appStatus')).toContainText('P84 EXPERIMENTAL');
  // The real P69 machine chamber includes three physical movement mechanisms.
  // Heads-up cues are derived from sampled B51 motion, not a fake preset label.
  await page.locator('#spawn').selectOption('4');
@@ -282,5 +282,34 @@ test('P83 real WebGL2 framebuffer quality modes preserve playable physics and gi
  await page.locator('#spawn').selectOption('1');
  await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter','SPIRAL');
  await expect(page.locator('#renderQuality')).toHaveValue('auto');
+ expect(errors).toEqual([]);
+});
+
+test('P84 real sampled road shoulder visibility and atmospheric fog toggles do not affect native racing',async({page})=>{
+ test.setTimeout(120000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#spawn option')).toHaveCount(7,{timeout:75000});
+ await expect(page.locator('#view')).toHaveAttribute('data-visibility-fx','enabled');
+ await expect(page.locator('#view')).toHaveAttribute('data-shoulder-beacons',/^[1-9][0-9]*$/);
+ const count=Number(await page.locator('#view').getAttribute('data-shoulder-beacons'));
+ expect(count).toBeGreaterThan(120);
+ await expect(page.locator('#visibilityFx')).toHaveAttribute('aria-pressed','true');
+ await page.locator('#visibilityFx').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-visibility-fx','disabled');
+ await expect(page.locator('#visibilityFx')).toHaveAttribute('aria-pressed','false');
+ await page.locator('#visibilityFx').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-visibility-fx','enabled');
+ await page.locator('#renderQuality').selectOption('performance');
+ await expect(page.locator('#view')).toHaveAttribute('data-render-scale','0.60');
+ await page.locator('#megaWorld').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-mega-world','disabled');
+ await page.locator('#spawn').selectOption('1');
+ await expect(page.locator('#view')).toHaveAttribute('data-flow-chapter','SPIRAL');
+ await expect(page.locator('#simTime')).not.toHaveText('0.00 s');
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#appStatus')).toContainText('3D ready',{timeout:60000});
+ await expect(page.locator('#view')).toHaveAttribute('data-shoulder-beacons','0');
+ await expect(page.locator('#view')).toHaveAttribute('data-visibility-fx','enabled');
  expect(errors).toEqual([]);
 });

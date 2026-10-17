@@ -15,16 +15,17 @@ import {FLOW_CHAPTERS,flowLineVertices,flowProgressState} from './p80-trackflow.
 import {locateRoadLateral,edgeRadarLabel} from './p81-edge-radar.mjs';
 import {megastructureGeometry} from './p82-megastructure.mjs';
 import {createRenderQuality,sampleRenderQuality,framebufferDimensions,renderScaleLabel} from './p83-render-quality.mjs';
+import {roadShoulderLights,FOG_START_METERS,FOG_SPAN_METERS,FOG_MAX} from './p84-visibility.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,flowRoads,ball,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
+let gl,program,locations={},roads,lines,flowRoads,shoulderLights,ball,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
-let renderQuality=createRenderQuality('auto');
+let renderQuality=createRenderQuality('auto'),visibilityFx=true;
 let practiceMode=false,practiceStartedAt=null,seekingChapter=null,lastEdgeRadarAt=0;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
@@ -54,21 +55,21 @@ function init(){
  const vertex=[
  '#version 300 es','precision highp float;',
  'layout(location=0) in vec3 p;layout(location=1) in vec3 color;',
- 'uniform vec3 eye,camRight,camUp,camFront,translation,scale;uniform float yaw,aspect;',
- 'out vec3 shade;',
+ 'uniform vec3 eye,camRight,camUp,camFront,translation,scale;uniform float yaw,aspect,fogStrength,fogStart,fogSpan;',
+ 'out vec3 shade;out float haze;',
  'void main(){vec3 d=p*scale;float c=cos(yaw),s=sin(yaw);',
  'vec3 w=vec3(c*d.x+s*d.z,d.y,-s*d.x+c*d.z)+translation-eye;',
  'float x=dot(w,camRight),y=dot(w,camUp),z=dot(w,camFront);',
- 'gl_Position=vec4(1.35*x/aspect,1.35*y,1.00022*z-1.30014,z);shade=color;}'
+ 'gl_Position=vec4(1.35*x/aspect,1.35*y,1.00022*z-1.30014,z);shade=color;haze=clamp((length(w)-fogStart)/fogSpan,0.0,'+FOG_MAX.toFixed(2)+')*fogStrength;}'
  ].join('\n');
  const fragment=[
- '#version 300 es','precision highp float;in vec3 shade;out vec4 outColor;',
- 'void main(){outColor=vec4(shade,1.0);}'
+ '#version 300 es','precision highp float;in vec3 shade;in float haze;out vec4 outColor;',
+ 'void main(){outColor=vec4(mix(shade,vec3(.019,.041,.083),haze),1.0);}'
  ].join('\n');
  program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);
  if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));
  gl.useProgram(program);
- for(const name of ['eye','camRight','camUp','camFront','translation','scale','yaw','aspect'])locations[name]=gl.getUniformLocation(program,name);
+ for(const name of ['eye','camRight','camUp','camFront','translation','scale','yaw','aspect','fogStrength','fogStart','fogSpan'])locations[name]=gl.getUniformLocation(program,name);
  gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(.019,.041,.083,1);
  ball=mesh(orb());
  for(const type of ['slider','rotator','piston'])for(const mode of ['fail','bounce','push'])
@@ -90,12 +91,14 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(flowRoads);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(flowRoads);discard(shoulderLights);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
  const flow=flowLineVertices(stage,sample,frame);flowRoads=mesh(flow.vertices);
  canvas.dataset.flowMarkers=String(flow.markers);
+ const reflectors=roadShoulderLights(stage,sample,frame);shoulderLights=mesh(reflectors.vertices);
+ canvas.dataset.shoulderBeacons=String(reflectors.beacons);
  const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
  const mega=megastructureGeometry(stage);megaWorld=mega.vertices.length?mesh(mega.vertices):null;
  canvas.dataset.megaTriangleCount=String(mega.vertices.length/18);
@@ -132,10 +135,15 @@ function render(frameSeconds){
  canvas.dataset.cameraMode=comparisonMode==='stable'?'ball-lock-interpolated':'ball-lock-unfiltered-heading';
  canvas.dataset.cameraHeadingLagDegrees=(headingError*180/Math.PI).toFixed(2);
  gl.uniform1f(locations.aspect,w/h);
+ gl.uniform1f(locations.fogStrength,visibilityFx?1:0);
+ gl.uniform1f(locations.fogStart,FOG_START_METERS);
+ gl.uniform1f(locations.fogSpan,FOG_SPAN_METERS);
+ canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
  draw(scenery);if(megaEnabled)draw(megaWorld);
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
  draw(roads);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
+ if(visibilityFx)draw(shoulderLights,[0,0,0],[1,1,1],0,gl.LINES);
  // Non-collidable trajectory guides. Actual machine solids use exact B51 poses.
  for(const guide of guideMeshes)draw(guide.mesh,[0,0,0],[1,1,1],0,gl.LINES);
  for(const o of doc.movingObstacles){
@@ -204,7 +212,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P83 EXPERIMENTAL — adaptive raster-quality controls for cathedral skyline; P82 architecture and P81 bank radar retained, physical B48 untouched.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='EP-P66'?'P84 EXPERIMENTAL — true-surface shoulder reflectors and optional atmospheric distance fade; giant P83 skyline, physical B48 and all P62 originals unchanged.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
  // until the next 500ms HUD refresh and mistakenly read a time regression.
@@ -353,6 +361,11 @@ function bindHold(id,set){
  for(const name of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(name,()=>set(false));
 }
 bindHold('left',v=>left=v);bindHold('right',v=>right=v);
+$('visibilityFx').addEventListener('click',()=>{
+ visibilityFx=!visibilityFx;
+ $('visibilityFx').textContent=visibilityFx?'道路端ライト・遠景：ON':'道路端ライト・遠景：OFF';
+ $('visibilityFx').setAttribute('aria-pressed',String(visibilityFx));
+});
 $('renderQuality').addEventListener('change',()=>{
  renderQuality=createRenderQuality($('renderQuality').value);
  $('renderScaleInfo').textContent=renderScaleLabel(renderQuality);
