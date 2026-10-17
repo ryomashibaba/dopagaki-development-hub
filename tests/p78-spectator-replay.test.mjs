@@ -26,7 +26,7 @@ test('P78 spectator replays full P77 proven native trajectory without changing R
  assert.equal(runner.status,'finished','Native spectator must truly finish full route');
  assert.equal(unsafe.length,0,'Cannot fake moving-obstacle survival');
  assert(Math.abs(finish-DEMO_EXPECTED_FINISH_SECONDS)<.5);
- assert(state.forkAt>59&&state.forkAt<64);
+ assert(state.forkAt>58.8&&state.forkAt<59.2,'fork entry time must match real P77 contact');
  assert(sampled.atReturn>0&&sampled.atSpiral>sampled.atReturn);
  assert(sampled.atFork>sampled.atSpiral&&sampled.atMachine>sampled.atFork);
  assert(sampled.atJump>sampled.atMachine&&sampled.atLanding>sampled.atJump);
