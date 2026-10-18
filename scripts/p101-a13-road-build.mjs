@@ -44,7 +44,7 @@ export function generateP101A13RoadCandidate(){
    collision:{mode:'fail'},motion:{axis:side,amplitude:19+(i%3)*3,timing}};
   if(kind===1)return {...common,type:'rotator',position:at(3.1),size:[32,5.4,4.6],
    collision:{mode:'bounce',restitution:.65},
-   motion:{direction:i%2?-1:1,baseAngleDegrees:12+i*29,timing}};
+   motion:{direction:i%2?-1:1,baseAngleDegrees:(12+i*29)%360,timing}};
   return {...common,type:'piston',position:at(8.2),size:[22,6.3,8.5],
    collision:{mode:'push',pushStrength:1.12},motion:{stroke:13,timing}};
  });
