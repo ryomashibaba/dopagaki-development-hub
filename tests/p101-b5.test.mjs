@@ -59,3 +59,15 @@ test('P101 B5 genuine 240Hz runner starts on new physical skin and respects stro
  assert(normal.v.every(Number.isFinite)&&hyper.v.every(Number.isFinite));
  assert.equal(normal.doc.stageForge.variant,'B5_HYPER_ARC_ISOLATED');
 });
+
+test('B5 A4 longer real 180deg drop stays inside physical B48 world and preserves native seams',()=>{
+ const original=generateP101B5Speedway();
+ const stage=generateP101B5Speedway({lowerReversalLength:1950}),p=measureP101B5Geometry(stage);
+ assert.equal(original.stageForge.nominalLengthMeters,6930);
+ assert.equal(stage.stageForge.nominalLengthMeters,7430);
+ assert(p.bounds.every(b=>Math.max(Math.abs(b.min),Math.abs(b.max))<2000));
+ assert(p.seams.every(s=>s.gap<3&&s.cosine>.93));
+ assert.equal(stage.movingObstacles.length,12);
+ assert.throws(()=>generateP101B5Speedway({lowerReversalLength:2050}));
+ assert.throws(()=>generateP101B5Speedway({lowerReversalLength:1250}));
+});

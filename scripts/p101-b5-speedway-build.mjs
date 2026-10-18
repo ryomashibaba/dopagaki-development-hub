@@ -76,14 +76,14 @@ export function generateP101B5Speedway(){
  doc.route.push(sample(roads.at(-1),.999,.5));
  // All six B48 authored true-physics spawns now attach to the new roads by
  // unchanged surface id/u/v; no teleporting or speed forcing.
- doc.name='P101 HYPER ARC / 6.93km HIGH-SPEED 3D B48 PHYSICAL CANDIDATE';
+ doc.name='P101 HYPER ARC / '+((P101_B5_LENGTH-1450+lowerReversalLength)/1000).toFixed(2)+'km HIGH-SPEED 3D B48 PHYSICAL CANDIDATE';
  doc.stageForge={
   ...origin.stageForge,
   id:'VB-P101',variant:'B5_HYPER_ARC_ISOLATED',
-  batch:'P101_B5_INDEPENDENT_6930M_GIANT_RADIUS_PHYSICAL_TRIAL',
+  batch:'P101_B5_INDEPENDENT_GIANT_RADIUS_PHYSICAL_TRIAL',
   status:'EXPERIMENTAL_UNPROVEN_NATIVE_HUMAN_HOLD',
   name:'VOID BREAKER / HYPER ARC (B5 PROTOTYPE)',
-  roadRedesign:'INDEPENDENT_6930M_LARGE_RADIUS_180_TURNS_31X5_NATIVE',
+  roadRedesign:'INDEPENDENT_LONG_ARC_180_TURNS_31X5_NATIVE',
   baseStage:'VB-P100',
   nominalLengthMeters:P101_B5_LENGTH,physicalChapters:7,
   actualRoads:diagnostics,

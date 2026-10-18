@@ -31,6 +31,10 @@ jobs:
         run: |
           set -o pipefail
           node scripts/p101-b5-steering-sweep.mjs | tee p101-b5-steering-grid.jsonl
+      - name: B5 A4 true 155m drop high-radius physical road length comparison
+        run: |
+          set -o pipefail
+          node scripts/p101-b5-long-drop.mjs | tee p101-b5-long-drop.jsonl
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -39,5 +43,6 @@ jobs:
             p101-b5-true-native.jsonl
             p101-b5-speed-sweep.jsonl
             p101-b5-steering-grid.jsonl
+            p101-b5-long-drop.jsonl
           if-no-files-found: ignore
           retention-days: 7
