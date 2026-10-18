@@ -39,7 +39,10 @@ export function voidBreakerGeometry(stage,sample){
  const roads=stage.surfaces.filter(s=>s.rideable&&s.collidable);
  if(roads.length!==7||!roads.every(s=>s.id.startsWith('p93-')))throw Error('P93 visual requires 7 authentic physical road skins');
  const vertices=[],sections=[];
- const portalCount=6,exteriorStandOff=26;
+ const p100=stage.stageForge.id==='VB-P100';
+ // P100 actual Chromium sightline audit: opening real curves while keeping
+ // the proven P98/P99 monumental skyline unaffected.
+ const portalCount=p100?4:6,exteriorStandOff=p100?56:26;
  for(let n=0;n<roads.length;n++){
   const s=roads[n],palette=CHAPTERS[n],before=vertices.length;
   // Giant superstructures separate each distinctly authored bend/drop.
@@ -56,8 +59,8 @@ export function voidBreakerGeometry(stage,sample){
    const footing=34+(n%3)*12;
    const leftBase=add(a,[0,-footing,0]),rightBase=add(b,[0,-footing,0]);
    const leftTop=add(a,[0,height,0]),rightTop=add(b,[0,height,0]);
-   beam(vertices,leftBase,leftTop,8+(n%2)*4,9,palette.main);
-   beam(vertices,rightBase,rightTop,8+(j%2)*3,9,palette.main);
+   beam(vertices,leftBase,leftTop,p100?7:8+(n%2)*4,9,palette.main);
+   beam(vertices,rightBase,rightTop,p100?7:8+(j%2)*3,9,palette.main);
    // Sharp cantilever roof over the track: real tunnel-like skyline without collision.
    const peak=mul(add(leftTop,rightTop),.5);
    const crown=add(peak,[0,45+(j%3)*13,0]);
@@ -73,7 +76,7 @@ export function voidBreakerGeometry(stage,sample){
     beam(vertices,add(b,[0,-14,0]),add(b,[0,-105-(j%2)*35,0]),7,9,palette.main);
    }
    // Alternating huge exterior blades emphasize high speed and directional rhythm.
-   if(j%2===1){
+   if(j%2===1&&(!p100||j===portalCount-1)){
     const blade=add(a,[0,35,0]),tip=add(a,[-28,145+(j%3)*30,22]);
     beam(vertices,blade,tip,11,12,palette.light);
    }
@@ -83,5 +86,5 @@ export function voidBreakerGeometry(stage,sample){
  }
  if(vertices.length>500000||vertices.some(v=>!Number.isFinite(v)))throw Error('P93 visual GPU budget or coordinate validation failed');
  return {vertices,beams:Math.round(vertices.length/216),sections,
-  visualReadability:'P98_SIX_EXTERIOR_GATES_PER_CHAPTER_WITH_OFFROAD_COLUMNS'};
+  visualReadability:p100?'P100_FOUR_WIDE_SETBACK_PORTALS_PER_CHAPTER':'P98_SIX_EXTERIOR_GATES_PER_CHAPTER_WITH_OFFROAD_COLUMNS'};
 }

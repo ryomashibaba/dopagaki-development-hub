@@ -7,6 +7,9 @@ import {compile} from '../private/reference_only/director/collision.js';
 import {Runner,DT} from '../private/reference_only/director/physics.js';
 import {p94NativeSteer} from '../web/p94-native-steer.mjs';
 import {P95_HAZARD_SPECS} from '../web/p95-hazard-layout.mjs';
+import {voidBreakerGeometry} from '../web/p93-void-breaker-visual.mjs';
+import {p100RoadReadGeometry} from '../web/p100-road-read.mjs';
+import {frame} from '../private/reference_only/director/surface.js';
 
 test('P100 changes genuine seven B48 collidable 3D skins, not visual props or HUD',()=>{
  const original=generateP99VariableWidthCandidate(),snapshot=JSON.stringify(original);
@@ -80,4 +83,20 @@ test('P100 meaningful vertical terrain pulses do not bury or levitate the twelve
  }
  assert.equal(p100HeightRetention(0,.5),1);
  assert.equal(p100HeightRetention(6,.5),1);
+});
+
+test('P100 road readability uses authentic B48 skin, open skyline and P99 frozen art',()=>{
+ const original=generateP99VariableWidthCandidate(),before=JSON.stringify(original),stage=generateP100TerrainPulseCandidate();
+ const city=voidBreakerGeometry(stage,sample),previous=voidBreakerGeometry(original,sample);
+ assert.equal(city.sections.reduce((n,s)=>n+s.portalCount,0),28);
+ assert(city.sections.every(s=>s.exteriorClearanceMeters===56));
+ assert.equal(previous.sections.reduce((n,s)=>n+s.portalCount,0),42);
+ assert(previous.sections.every(s=>s.exteriorClearanceMeters===26));
+ const visual=p100RoadReadGeometry(stage,sample,frame);
+ assert(visual.vertices.length>20000&&visual.vertices.length<115000);
+ assert.equal(visual.stripes,7*4*52);
+ assert.equal(visual.flowBars,7*2*19);
+ assert(visual.vertices.every(Number.isFinite));
+ assert.equal(p100RoadReadGeometry(original,sample,frame).vertices.length,0);
+ assert.equal(JSON.stringify(original),before);
 });

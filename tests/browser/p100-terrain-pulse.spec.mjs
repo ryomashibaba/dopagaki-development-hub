@@ -7,6 +7,9 @@ test('P100 is a genuinely reshaped optional WebGL2 road candidate, real spectato
  await page.locator('#stage').selectOption('VB-P100');
  await expect(page.locator('#appStatus')).toContainText('P100 TERRAIN PULSE',{timeout:75000});
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','12');
+ await expect(page.locator('#view')).toHaveAttribute('data-arch-portal-count','28');
+ await expect(page.locator('#view')).toHaveAttribute('data-road-read-stripes','1456');
+ await expect(page.locator('#view')).toHaveAttribute('data-road-read-bars','266');
  await expect(page.locator('#demoRun')).toBeEnabled();
  const doc=await page.evaluate(async()=>{
   const [a,b]=await Promise.all([
@@ -42,6 +45,14 @@ test('P100 near-soft native spectator physically finishes 7/7 with 12 active mac
  await page.locator('#demoRun').click();
  await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
  await page.waitForFunction(()=>Number.parseFloat(document.querySelector('#simTime')?.textContent||'0')>12,null,{timeout:75000});
+ // The previous full-size spectator caption obscured machine warnings.
+ const overlaps=await page.evaluate(()=>{
+   const a=document.querySelector('#demoBanner'),b=document.querySelector('#machineCue');
+   if(a.hidden||b.hidden)return false;
+   const x=a.getBoundingClientRect(),y=b.getBoundingClientRect();
+   return x.left<y.right&&x.right>y.left&&x.top<y.bottom&&x.bottom>y.top;
+ });
+ expect(overlaps,'spectator overlay must not obscure B51-C warning').toBe(false);
  await page.locator('#view').screenshot({path:testInfo.outputPath('p100-midcourse-real-12s.png')});
  await expect(page.locator('#resultTitle')).toHaveText('DEMO COMPLETE',{timeout:100000});
  await expect(page.locator('#view')).toHaveAttribute('data-run-outcome','finished');

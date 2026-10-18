@@ -57,6 +57,7 @@ if(includeStages){
  copy('web/p95-hazard-layout.mjs','drive3d/p95-hazard-layout.mjs');
  copy('web/p96-avoidance-steer.mjs','drive3d/p96-avoidance-steer.mjs');
  copy('web/p97-roadplay-gates.mjs','drive3d/p97-roadplay-gates.mjs');
+ copy('web/p100-road-read.mjs','drive3d/p100-road-read.mjs');
  const nativeCourse=generateEchoRush();
  write('generated/P66_ECHO_RUSH.json',JSON.stringify(nativeCourse,null,2)+'\n');
  const voidStage=generateVoidBreaker();
