@@ -40,9 +40,13 @@ test('P101 B4 changes only its own actual 3D roads and machine anchors; P100 is 
    assert.deepEqual(b[k],a[k],'B51-C native semantics changed: '+k);
   const [section,u,type,offset]=P95_HAZARD_SPECS[i],road=next.surfaces[section];
   const mid=sample(road,u,.5);
-  const distance=Math.hypot(b.position[0]-mid[0],b.position[2]-mid[2]);
-  assert(Math.abs(distance-Math.abs(offset))<1.5,'P101 machine detached from real road '+i);
-  assert(Math.abs(b.position[1]-mid[1]-[3,2.3,6.4][type])<.2,'P101 machine elevated incorrectly '+i);
+  if(section!==1){
+   assert.deepEqual(b,a,'unchanged physical road must keep P100 authored machine untouched '+i);
+  }else{
+   const distance=Math.hypot(b.position[0]-mid[0],b.position[2]-mid[2]);
+   assert(Math.abs(distance-Math.abs(offset))<1.5,'P101 modified-road machine detached '+i);
+   assert(Math.abs(b.position[1]-mid[1]-[3,2.3,6.4][type])<.2,'P101 modified-road machine elevation '+i);
+  }
  }
  const audit=p101CurvatureReport(next);
  assert.equal(audit.length,7);

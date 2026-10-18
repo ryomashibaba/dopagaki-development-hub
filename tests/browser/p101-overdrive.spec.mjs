@@ -50,7 +50,9 @@ test('P101 B4 genuinely reshapes physical hairpins independently from frozen P10
  expect(physical.stations).toBe(12);
  expect(physical.unchangedEnds).toBe(true);
  expect(physical.machines).toBe(true);
- expect(physical.mids.filter(d=>d>8).length).toBeGreaterThanOrEqual(4);
+ expect(physical.mids.filter(d=>d>8).length).toBe(1);
+ expect(physical.mids[1]).toBeGreaterThan(8);
+ physical.mids.forEach((d,i)=>{if(i!==1)expect(d).toBe(0)});
  expect(physical.curvature).toHaveLength(7);
  for(const [spawn,title] of [['1','sky-crown'],['3','lower-hairpin'],['4','late-surge']]){
   await page.locator('#spawn').selectOption(spawn);

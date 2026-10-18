@@ -8,7 +8,8 @@ import {generateP100TerrainPulseCandidate} from './p100-terrain-pulse-build.mjs'
 import {P101_DEFAULT,P101_TUNINGS} from '../web/p101-overdrive.mjs';
 import {validate,sample} from '../private/reference_only/director/surface.js';
 import {P101_B4_PROFILES,p101ReshapeRoad,p101ReanchorMachines,p101CurvatureReport} from './p101-high-radius-build.mjs';
-export function generateP101OverdriveCandidate({radiusWeights=Array(7).fill(1)}={}){
+export const P101_B4E_PLAYABLE_BASELINE=Object.freeze([0,.30,0,0,0,0,0]);
+export function generateP101OverdriveCandidate({radiusWeights=P101_B4E_PLAYABLE_BASELINE}={}){
  if(!Array.isArray(radiusWeights)||radiusWeights.length!==7||radiusWeights.some(x=>!Number.isFinite(x)||x<0||x>1.6))
   throw Error('P101 physical radiusWeights must be 7 bounded explicit strengths');
  const original=generateP100TerrainPulseCandidate(),next=structuredClone(original);
@@ -17,13 +18,14 @@ export function generateP101OverdriveCandidate({radiusWeights=Array(7).fill(1)}=
  next.movingObstacles=p101ReanchorMachines(original.movingObstacles,next.surfaces,{weights:radiusWeights});
  next.route=next.surfaces.flatMap(s=>Array.from({length:22},(_,i)=>sample(s,(i+.015)/22,.5)));
  next.route.push(sample(next.surfaces.at(-1),.999,.5));
- next.name='VOID BREAKER / HIGH-RADIUS VELOCITY OVERDRIVE — P101 PHYSICAL TRIAL';
+ next.name='VOID BREAKER / VELOCITY OVERDRIVE — P101 B4E SAFE-GEOMETRY TRIAL';
  next.stageForge={
   ...original.stageForge,
-  id:'VB-P101',batch:'P101_SPEED_LATERAL_ACCELERATION_PHYSICAL_HOLD',
+  id:'VB-P101',batch:'P101_B4E_ISOLATED_SAFE_BASELINE_SPEED_TRIAL',
   name:'VOID BREAKER / VELOCITY OVERDRIVE',
-  status:'EXPERIMENTAL_B4_HIGH_RADIUS_NATIVE_AND_HUMAN_HOLD',
-  roadRedesign:'P101_ONLY_REAL_B48_HIGH_RADIUS_7_SKINS',
+  status:'EXPERIMENTAL_B4E_NATIVE_BASE_SPEED_PASS_FAST_HUMAN_HOLD',
+  roadRedesign:'P101_ONLY_B48_REAL_HAIRPIN_SECTION_II_ISOLATED',
+  baselineGeometryEvidence:'SECTION_II_30PCT_7_OF_7_240HZ_PASS_41_242S_ZERO_EXTRA_ACCEL',
   radiusProfiles:P101_B4_PROFILES.map(x=>({...x})),
   radiusWeights:[...radiusWeights],
   P100SurfacesModified:false,
