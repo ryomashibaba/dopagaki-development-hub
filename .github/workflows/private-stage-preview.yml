@@ -77,6 +77,15 @@ jobs:
       - name: 'Chromium: four stages, changing focus, timeline, HTTP errors'
         run: npm run test:browser
       - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p98-real-playfeel-frames-${{ github.run_id }}
+          path: |
+            test-results/**/p98-*.png
+            test-results/**/p98-playfeel-report.json
+          if-no-files-found: ignore
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: p64-chromium-failure-${{ github.run_id }}
