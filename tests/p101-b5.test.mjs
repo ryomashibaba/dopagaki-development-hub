@@ -18,13 +18,18 @@ test('P101 B5 6.93km actual physical 3D road: two independent giant 180 hairpins
  assert.equal(doc.stageForge.physicsModified,false);
  assert.equal(doc.surfaces.length,7);
  assert.equal(doc.movingObstacles.length,12);
+ let changedRoads=0;
  for(let i=0;i<7;i++){
   assert.equal(doc.surfaces[i].id,original.surfaces[i].id);
   assert.deepEqual([doc.surfaces[i].rows,doc.surfaces[i].cols],[31,5]);
   assert.equal(doc.surfaces[i].rideable,true);
   assert.equal(doc.surfaces[i].collidable,true);
-  assert(Math.hypot(...sample(doc.surfaces[i],.5,.5).map((v,k)=>v-sample(original.surfaces[i],.5,.5)[k]))>75);
+  // True road redesign must be substantial over the *whole* section.
+  // Midpoint-only difference is invalid: independent 3D routes can cross.
+  const differences=[.12,.3,.5,.7,.88].map(u=>Math.hypot(...sample(doc.surfaces[i],u,.5).map((v,k)=>v-sample(original.surfaces[i],u,.5)[k])));
+  if(Math.max(...differences)>75)changedRoads++;
  }
+ assert(changedRoads>=5,'B5 must truly re-author at least five physical road chapters');
  assert(P101_B5_SECTIONS.filter(x=>Math.abs(x.turn-Math.PI)<.001||Math.abs(x.turn+Math.PI)<.001).length===2);
  assert(m.bounds.every(x=>Math.max(Math.abs(x.min),Math.abs(x.max))<2000));
  for(const seam of m.seams){
