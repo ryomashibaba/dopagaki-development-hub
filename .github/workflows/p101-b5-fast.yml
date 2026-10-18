@@ -23,10 +23,16 @@ jobs:
         run: |
           set -o pipefail
           node scripts/p101-b5-native-fast.mjs | tee p101-b5-true-native.jsonl
+      - name: P101 B5 genuine speed tuning, fine forward power sweep (full native 240Hz)
+        run: |
+          set -o pipefail
+          node scripts/p101-b5-speed-tune.mjs | tee p101-b5-speed-sweep.jsonl
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: p101-b5-physical-evidence-${{ github.run_id }}
-          path: p101-b5-true-native.jsonl
+          path: |
+            p101-b5-true-native.jsonl
+            p101-b5-speed-sweep.jsonl
           if-no-files-found: ignore
           retention-days: 7
