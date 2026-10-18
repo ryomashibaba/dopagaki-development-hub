@@ -38,6 +38,11 @@ jobs:
           set -o pipefail
           node --test tests/p101-a13-w7-candidate-matrix.test.mjs
           node scripts/p101-a13-w7-candidate-matrix.mjs --w7c-only | tee a13-w7c-matrix.jsonl
+      - name: W7D actual native 16-solid hazard physical footprint (no human claim)
+        run: |
+          set -o pipefail
+          node --test tests/p101-a13-w7-road-occupancy.test.mjs
+          node scripts/p101-a13-w7-road-occupancy.mjs | tee a13-w7d-exposure.jsonl
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -47,6 +52,7 @@ jobs:
             a13-w6-ablation.jsonl
             a13-w6b-28aware.jsonl
             a13-w7c-matrix.jsonl
+            a13-w7d-exposure.jsonl
           if-no-files-found: ignore
           retention-days: 7
   b5-native:
