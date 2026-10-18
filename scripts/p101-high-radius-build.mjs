@@ -34,9 +34,10 @@ export function p101ReshapeRoad(original,index,{scale=1}={}){
  const profile=P101_B4_PROFILES[index],s=structuredClone(original);
  if(s.rows!==31||s.cols!==5||!s.rideable||!s.collidable)throw Error('P101 requires unchanged B48 physical surface topology');
  const old=original.points;
- // Only interior rows mutate. End-row positions and derivatives remain
- // anchored to the frozen P100 chapter boundaries.
- for(let i=1;i<30;i++){
+ // The first TWO and last TWO physical control rows never change. Catmull-Rom
+ // endpoint positions AND boundary tangents therefore remain exact P100
+ // at every 3D chapter join — no hidden seam launch or continuity compromise.
+ for(let i=2;i<29;i++){
   const u=i/30,pulse=p101HighRadiusPulse(u),a=old[(i-1)*5+2],b=old[(i+1)*5+2];
   const dx=b[0]-a[0],dz=b[2]-a[2],dist=norm([dx,dz]);
   const lateral=[-dz/dist,0,dx/dist];

@@ -28,7 +28,7 @@ test('P101 B4 changes only its own actual 3D roads and machine anchors; P100 is 
   assert.equal(road.cols,5);
   assert.equal(road.rideable,true);
   assert.equal(road.collidable,true);
-  for(const row of [0,30])for(let col=0;col<5;col++)
+  for(const row of [0,1,29,30])for(let col=0;col<5;col++)
    assert.deepEqual(road.points[row*5+col],old.points[row*5+col],'chapter joint moved');
   const delta=Math.hypot(...sample(road,.5,.5).map((x,j)=>x-sample(old,.5,.5)[j]));
   if(delta>8)substantiallyChanged++;
