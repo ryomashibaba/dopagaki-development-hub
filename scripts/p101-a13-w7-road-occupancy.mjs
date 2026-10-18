@@ -15,8 +15,7 @@ const docForPassedTrial=()=>{
  if(!choice)throw Error('Frozen 7/7 52.046s W7 candidate missing');
  return makeW7TrialDoc(choice);
 };
-export function runW7PhysicalExposure(){
- const doc=docForPassedTrial();
+export function runW7PhysicalExposure(doc=docForPassedTrial(),candidate=W7_PASSING_TRIAL_ID){
  const bodyStatuses=[];
  for(let i=0;i<16;i++){
   const [s,u,type]=A13_HAZARD_SPECS[i];
@@ -46,7 +45,7 @@ export function runW7PhysicalExposure(){
  }
  return {schema:'dopagaki.a13-w7d-native-ground-occupancy/1',
   physics:'TRUE_B51C_MOVING_POSE_AND_SPHERE_OBB_ON_TRUE_B48_ROAD',humanFeasibility:'NOT_TESTED',
-  candidate:W7_PASSING_TRIAL_ID,roadCount:7,nativeMachines:doc.movingObstacles.length,
+  candidate,roadCount:7,nativeMachines:doc.movingObstacles.length,
   addedMachines:16,physicalFootprintCount:bodyStatuses.filter(x=>x.phasesTouchingRoad>0).length,
   centerlineThreatCount:bodyStatuses.filter(x=>x.centerlineCollisionSamples>0).length,
   hazards:bodyStatuses};

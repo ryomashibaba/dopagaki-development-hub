@@ -45,7 +45,13 @@ export const W7_TRIALS=Object.freeze([
  Object.freeze({id:'w7c-edges-120-turn4',widths:[1,1,1,0,1,1,1],roadsideFactor:1.2}),
  Object.freeze({id:'w7c-edges-120-middle',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideFactor:1.2}),
  Object.freeze({id:'w7c-target08-24',widths:[1,1,1,1,1,1,1],shift02:26,shift03:27,shift05:-26,shift08:24}),
- Object.freeze({id:'w7c-target08-40-turn4',widths:[1,1,1,0,1,1,1],shift02:26,shift03:27,shift05:-26,shift08:40})
+ Object.freeze({id:'w7c-target08-40-turn4',widths:[1,1,1,0,1,1,1],shift02:26,shift03:27,shift05:-26,shift08:40}),
+ // W7E: preserve narrower-but-landable W7C physical skin, but increase
+ // real on-road footprints so the added 16 machines aren't decoration.
+ Object.freeze({id:'w7e-balanced',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[1,1.1,.9],verticalByType:[-.5,0,-1.3]}),
+ Object.freeze({id:'w7e-active',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.85,.98,.8],verticalByType:[-.8,0,-2]}),
+ Object.freeze({id:'w7e-middle',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.95,1.05,.85],verticalByType:[-.7,0,-1.5]}),
+ Object.freeze({id:'w7e-ramp',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.90,1.08,.9],verticalByType:[-.6,0,-1.9]})
 ]);
 export function makeW7TrialDoc(trial){
  if(!W7_TRIALS.includes(trial))throw Error('W7 uses declared native trial only');
@@ -61,18 +67,24 @@ export function makeW7TrialDoc(trial){
  }
  // Global lane-edge occupancy study: targets real control-point halfwidth;
  // preserves the alternating lane-side pattern of the authored 16 stations.
- if(trial.roadsideFactor!==undefined){
-  if(!(trial.roadsideFactor>=.8&&trial.roadsideFactor<=1.5))throw Error('W7C bounded shoulder factor required');
+ if(trial.roadsideFactor!==undefined||trial.roadsideByType!==undefined){
+  if(trial.roadsideFactor!==undefined&&!(trial.roadsideFactor>=.8&&trial.roadsideFactor<=1.5))throw Error('W7C bounded shoulder factor required');
+  if(trial.roadsideByType!==undefined&&(!Array.isArray(trial.roadsideByType)||trial.roadsideByType.length!==3||trial.roadsideByType.some(x=>x<.7||x>1.5)))throw Error('W7E bounded kind-specific road-edge factors');
   for(let k=0;k<A13_HAZARD_SPECS.length;k++){
    const [section,u,type,offset]=A13_HAZARD_SPECS[k],s=doc.surfaces[section];
    const row=Math.round(u*30),point=s.points[row*5+2],edge=s.points[row*5];
    const half=hyp(point.map((x,j)=>x-edge[j]));
-   const target=Math.sign(offset)*half*trial.roadsideFactor;
+   const factor=trial.roadsideByType?.[type]??trial.roadsideFactor;
+   const target=Math.sign(offset)*half*factor;
    const delta=target-offset;
    const f=frame(s,u,.5),forward=normalize([f.forward[0],0,f.forward[2]]);
    const side=normalize([-forward[2],0,forward[0]]);
    const ob=doc.movingObstacles[12+k];
    ob.position=ob.position.map((x,j)=>x+delta*side[j]);
+   if(trial.verticalByType){
+    if(trial.verticalByType.length!==3||trial.verticalByType.some(x=>x>0||x< -3))throw Error('W7E no arbitrary collider elevation');
+    ob.position[1]+=trial.verticalByType[type];
+   }
   }
  }
  for(const [index,delta] of [[13,trial.shift02],[14,trial.shift03],[16,trial.shift05??0],[19,trial.shift08??0]]){
@@ -113,11 +125,11 @@ export function runW7Trial(trial,{maxSeconds=68}={}){
   seconds:round(runner.time),peakMps:round(peak,1),longestAir:round(airLongest),
   contacts, failure:runner.failure?{reason:runner.failure.reason,t:round(runner.failure.t),
    position:runner.failure.position.map(x=>round(x,1))}:null,
-  widths:trial.widths,shift02:trial.shift02,shift03:trial.shift03,shift05:trial.shift05??0,shift08:trial.shift08??0,roadsideFactor:trial.roadsideFactor??null,trace};
+  widths:trial.widths,shift02:trial.shift02,shift03:trial.shift03,shift05:trial.shift05??0,shift08:trial.shift08??0,roadsideFactor:trial.roadsideFactor??null,roadsideByType:trial.roadsideByType??null,verticalByType:trial.verticalByType??null,trace};
 }
 export function runW7Matrix(trials=W7_TRIALS){return trials.map(x=>runW7Trial(x));}
 if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
- const records=runW7Matrix(process.argv.includes('--w7c-only')?W7_TRIALS.filter(t=>t.id.startsWith('w7c-')):process.argv.includes('--w7b-only')?W7_TRIALS.filter(t=>t.id.startsWith('w7b-')):W7_TRIALS);
+ const records=runW7Matrix(process.argv.includes('--w7e-only')?W7_TRIALS.filter(t=>t.id.startsWith('w7e-')):process.argv.includes('--w7c-only')?W7_TRIALS.filter(t=>t.id.startsWith('w7c-')):process.argv.includes('--w7b-only')?W7_TRIALS.filter(t=>t.id.startsWith('w7b-')):W7_TRIALS);
  for(const r of records)console.log('A13_W7_TRIAL '+JSON.stringify({...r,trace:undefined}));
  console.log('A13_W7_TRACE '+JSON.stringify(Object.fromEntries(records.map(x=>[x.id,x.trace]))));
  if(records.some(r=>r.nativePhysicsHz!==240||r.nativeMachines!==28))

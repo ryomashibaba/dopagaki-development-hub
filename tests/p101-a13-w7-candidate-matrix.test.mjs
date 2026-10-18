@@ -29,7 +29,7 @@ test('W7 only repositions additional moving colliders and interpolates real road
    assert.equal(o.id,base.id);assert.equal(o.type,base.type);
    assert.deepEqual(o.size,base.size);assert.deepEqual(o.motion,base.motion);
    assert.deepEqual(o.collision,base.collision);
-   if(trial.roadsideFactor===undefined&&!([13,14,16,19].includes(i)))assert.deepEqual(o,base);
+   if(trial.roadsideFactor===undefined&&trial.roadsideByType===undefined&&!([13,14,16,19].includes(i)))assert.deepEqual(o,base);
   }
  }
  assert.equal(JSON.stringify(original),snap);
