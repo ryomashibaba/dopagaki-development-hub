@@ -45,6 +45,14 @@ jobs:
             echo 'Each P96_NATIVE_* log is 240Hz true collision/finish evidence.'
             echo 'A green CI proves the probe executed, not that any plan won.'
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: P99 authentic varied-width roads + 12 active B51-C: native 240Hz gameplay probe
+        run: |
+          node scripts/p99-real-roadplay-probe.mjs | tee p99-physical-run.jsonl
+          {
+            echo '### P99 separate REAL physical roadplay candidate'
+            echo 'Seven actual width-modulated B48 skins with 12 active B51-C machines.'
+            echo 'P99_NATIVE_* log lines are physical trials, never human fairness approval.'
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets
@@ -154,12 +162,12 @@ jobs:
             await new Promise(resolve=>setTimeout(resolve,3000));
           }
           assert.equal(info.gitCommit,process.env.EXPECTED_SHA);
-          assert.equal(info.version,'P98');
+          assert.equal(info.version,'P99');
           assert.equal(info.stageCount,4);
-          assert.equal(info.experimentalStageCount,3);
+          assert.equal(info.experimentalStageCount,4);
           assert.equal(info.movingObstacleCount,24);
-          assert.equal(info.experimentalMovingObstacleCount,12);
-          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs','drive3d/p75-survival.mjs','drive3d/p78-demo.mjs','drive3d/p79-practice.mjs','drive3d/p80-trackflow.mjs','drive3d/p81-edge-radar.mjs','drive3d/p82-megastructure.mjs','drive3d/p83-render-quality.mjs','drive3d/p84-visibility.mjs','drive3d/p85-energyball.mjs','drive3d/p86-chapter-splits.mjs','drive3d/p87-ghost.mjs','drive3d/p88-ghost-gap.mjs','drive3d/p89-ghost-sector-pace.mjs','drive3d/p90-racecard.mjs','drive3d/p91-approach-beacons.mjs','drive3d/p92-failure-practice.mjs','drive3d/p93-void-breaker-visual.mjs','drive3d/p94-native-steer.mjs','generated/P93_VOID_BREAKER.json','generated/P94_VOID_NATIVE_ACCEPTANCE.json','generated/P95_VOID_HAZARD_CANDIDATE.json','generated/P96_NATIVE_DODGE_ACCEPTANCE.json','drive3d/p95-hazard-layout.mjs','drive3d/p96-avoidance-steer.mjs','drive3d/p97-roadplay-gates.mjs','generated/P97_ROADPLAY_READABILITY.json','generated/P87_REFERENCE_GHOST.json']){
+          assert.equal(info.experimentalMovingObstacleCount,24);
+          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs','drive3d/p75-survival.mjs','drive3d/p78-demo.mjs','drive3d/p79-practice.mjs','drive3d/p80-trackflow.mjs','drive3d/p81-edge-radar.mjs','drive3d/p82-megastructure.mjs','drive3d/p83-render-quality.mjs','drive3d/p84-visibility.mjs','drive3d/p85-energyball.mjs','drive3d/p86-chapter-splits.mjs','drive3d/p87-ghost.mjs','drive3d/p88-ghost-gap.mjs','drive3d/p89-ghost-sector-pace.mjs','drive3d/p90-racecard.mjs','drive3d/p91-approach-beacons.mjs','drive3d/p92-failure-practice.mjs','drive3d/p93-void-breaker-visual.mjs','drive3d/p94-native-steer.mjs','generated/P93_VOID_BREAKER.json','generated/P94_VOID_NATIVE_ACCEPTANCE.json','generated/P95_VOID_HAZARD_CANDIDATE.json','generated/P96_NATIVE_DODGE_ACCEPTANCE.json','drive3d/p95-hazard-layout.mjs','drive3d/p96-avoidance-steer.mjs','drive3d/p97-roadplay-gates.mjs','generated/P97_ROADPLAY_READABILITY.json','generated/P99_PRESSURE_LINES.json','generated/P99_PHYSICAL_TRIAL.json','generated/P87_REFERENCE_GHOST.json']){
             const response=await fetchOK(path);
             assert((await response.text()).length>300,'Empty public asset: '+path);
           }
@@ -200,6 +208,13 @@ jobs:
           // P98 browser verifies the 42 giant portals + real road-edge markers visually.
           assert.equal(p97.warningBudgetSeconds,3.08);assert.equal(p97.humanPlaytest,'NOT_RUN');
           assert.equal(p97.fairness,'UNASSESSED');
+          const p99=await(await fetchOK('generated/P99_PRESSURE_LINES.json')).json();
+          const native99=await(await fetchOK('generated/P99_PHYSICAL_TRIAL.json')).json();
+          assert.equal(p99.stageForge.id,'VB-P99');
+          assert.equal(p99.surfaces.length,7);assert.equal(p99.movingObstacles.length,12);
+          assert.equal(p99.stageForge.priorP96CompletionApplicable,false);
+          assert.equal(native99.activeColliders,12);assert.equal(native99.physicalWidths.length,7);
+          assert.equal(native99.humanPlaytest,'NOT_RUN');
           const ghost=await(await fetchOK('generated/P87_REFERENCE_GHOST.json')).json();
           assert.equal(ghost.schema,'dopagaki.native-reference-ghost/1');
           assert(ghost.finished&&ghost.finishSeconds>82&&ghost.finishSeconds<85);
