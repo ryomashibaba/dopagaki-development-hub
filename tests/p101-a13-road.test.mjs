@@ -10,6 +10,7 @@ import {p101Step} from '../web/p101-overdrive.mjs';
 import {A13_HAZARD_SPECS} from '../web/p101-a13-hazard-layout.mjs';
 import {movingObstaclePose,sphereBoxSeparation} from '../private/reference_only/director/moving/moving-obstacles.mjs';
 import {makeHazardRoadPlan} from '../web/p97-roadplay-gates.mjs';
+import {a13MachineMegastructures} from '../web/p101-a13-architecture.mjs';
 
 test('A13 independent genuine collidable narrower geometry keeps B5 intact and retains 12 authentic B51-C obstacles',()=>{
  const b5=generateP101B5Speedway({lowerReversalLength:1800}),frozen=JSON.stringify(b5);
@@ -69,4 +70,15 @@ test('A13 W3 has 16 added large NATIVE moving B51-C colliders, actual pose chang
  }
  assert(moved>=12,'native pose sampler confirms actual moving bodies');
  assert.equal(large,16);
+});
+
+test('A13 W4 megastructure frames are road-anchored GPU-only; machine colliders stay native',()=>{
+ const doc=generateP101A13RoadCandidate(),arch=a13MachineMegastructures(doc,sample);
+ assert.equal(arch.structures,16);
+ assert.equal(arch.nativeMachineCount,28);
+ assert.equal(arch.collidable,false);
+ assert(arch.vertices.length>5000&&arch.vertices.length<95000);
+ assert(arch.vertices.every(Number.isFinite));
+ const base=a13MachineMegastructures(generateP101B5Speedway({lowerReversalLength:1800}),sample);
+ assert.equal(base.structures,0);
 });
