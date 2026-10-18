@@ -72,7 +72,7 @@ test('P97 per-machine reaction-time audit reports honest warning budgets, not fa
  assert.equal(doc.stageForge.fullStartToFinish,'SCRIPTED_240HZ_12_ACTIVE_7_OF_7_PASS_P96');
 });
 
-test('P97 doesn't disturb P96 actual 12-collider continuous native finish at 240Hz',()=>{
+test('P97 preserves P96 actual 12-collider continuous native finish at 240Hz',()=>{
  const proof=generateP96DodgeEvidence();
  assert.equal(proof.activeCollidingMachines,12);
  assert.equal(proof.best.status,'SCRIPTED_NATIVE_FULL_PASS');
