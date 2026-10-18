@@ -11,38 +11,22 @@ concurrency:
 jobs:
   b5-native:
     runs-on: ubuntu-latest
-    timeout-minutes: 13
+    timeout-minutes: 9
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate authored full 3D seams, 2000m bounds, 12 B51-C machines and frozen original
-        run: node --test tests/p101-b5.test.mjs
-      - name: Measure all authentic 240Hz B48 collision runs (no scripted success assertion)
+      - name: Protect P100/P101 B4E, B5 real geometry, B48 240Hz and original 12 machines
+        run: node --test tests/p101-b5.test.mjs tests/p101-overdrive.test.mjs
+      - name: B5 A5 physically finish 7.28km near 200m/s at 8 true native speed settings
         run: |
           set -o pipefail
-          node scripts/p101-b5-native-fast.mjs | tee p101-b5-true-native.jsonl
-      - name: P101 B5 genuine speed tuning, fine forward power sweep (full native 240Hz)
-        run: |
-          set -o pipefail
-          node scripts/p101-b5-speed-tune.mjs | tee p101-b5-speed-sweep.jsonl
-      - name: B5 real physics steering input sensitivity at strong native 4.8x lateral authority
-        run: |
-          set -o pipefail
-          node scripts/p101-b5-steering-sweep.mjs | tee p101-b5-steering-grid.jsonl
-      - name: B5 A4 true 155m drop high-radius physical road length comparison
-        run: |
-          set -o pipefail
-          node scripts/p101-b5-long-drop.mjs | tee p101-b5-long-drop.jsonl
+          node scripts/p101-b5-a5-narrow.mjs | tee p101-b5-a5-narrow.jsonl
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: p101-b5-physical-evidence-${{ github.run_id }}
-          path: |
-            p101-b5-true-native.jsonl
-            p101-b5-speed-sweep.jsonl
-            p101-b5-steering-grid.jsonl
-            p101-b5-long-drop.jsonl
+          name: p101-b5-a5-native-evidence-${{ github.run_id }}
+          path: p101-b5-a5-narrow.jsonl
           if-no-files-found: ignore
           retention-days: 7
