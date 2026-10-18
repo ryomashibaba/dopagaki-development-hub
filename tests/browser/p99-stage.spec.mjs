@@ -13,7 +13,14 @@ test('P99 authentic variable-width corridor with 12 B51-C machines is independen
  await expect(page.locator('#view')).toHaveAttribute('data-arch-portal-count','42');
  await expect(page.locator('#spawn option')).toHaveCount(6);
  await expect(page.locator('#demoRun')).toBeEnabled();
- await page.locator('#view').screenshot({path:testInfo.outputPath('p99-narrow-surface.png')});
+ // P99 and P95 have intentionally identical-width START SEAMS. A start-frame
+ // image alone cannot prove a visible difference. Take both at actual t>=12s,
+ // once the physical sky-crown corridor is inside its compressed width window.
+ await page.locator('#demoSpeed').selectOption('2');
+ await page.locator('#demoRun').click();
+ await page.waitForFunction(t=>(parseFloat(document.querySelector('#simTime')?.textContent)||0)>=t,12,{timeout:75000});
+ await page.locator('#view').screenshot({path:testInfo.outputPath('p99-narrow-crown-12s.png')});
+ await page.locator('#demoRun').click();
  await expect(page.locator('#practiceRun')).toBeDisabled();
  const raw=await page.evaluate(async()=>{
   const [d,base,e]=await Promise.all([
@@ -40,7 +47,11 @@ test('P99 authentic variable-width corridor with 12 B51-C machines is independen
  await page.locator('#stage').selectOption('VB-P95');
  await expect(page.locator('#appStatus')).toContainText('P96 VOID BREAKER',{timeout:75000});
  await expect(page.locator('#demoRun')).toBeEnabled();
- await page.locator('#view').screenshot({path:testInfo.outputPath('p99-original-wide-surface.png')});
+ await page.locator('#demoSpeed').selectOption('2');
+ await page.locator('#demoRun').click();
+ await page.waitForFunction(t=>(parseFloat(document.querySelector('#simTime')?.textContent)||0)>=t,12,{timeout:75000});
+ await page.locator('#view').screenshot({path:testInfo.outputPath('p99-original-wide-crown-12s.png')});
+ await page.locator('#demoRun').click();
  await page.locator('#stage').selectOption('VB-P93');
  await expect(page.locator('#appStatus')).toContainText('P94 VOID BREAKER',{timeout:75000});
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','0');
