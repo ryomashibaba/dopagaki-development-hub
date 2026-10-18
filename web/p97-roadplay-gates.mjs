@@ -92,12 +92,14 @@ function paintRoadGate(out,solid,plan,at,machine,grade,sample,frame){
  const lift=(point,h)=>add(point,mul(normal,h));
  // Real-world 2.6m-wide solid surface stripe, visible at high speed where
  // the GL.LINES portal alone would be a single-pixel line.
- const back=positionAtDistance(plan,at-1.3),front=positionAtDistance(plan,at+1.3);
- if(back.segment.surface===found.segment.surface&&front.segment.surface===found.segment.surface){
-  const a=lift(sample(s,back.u,.10),.48),b=lift(sample(s,front.u,.10),.48);
-  const c=lift(sample(s,front.u,.90),.48),d=lift(sample(s,back.u,.90),.48);
-  quad(solid,a,b,c,d,shade);
- }
+ // Keep each ribbon on a SINGLE real Catmull-Rom skin. Near surface
+ // transitions shorten the stripe rather than dropping the warning entirely
+ // or spanning disconnected geometry in world space.
+ const du=1.3/Math.max(1,found.segment.total);
+ const u0=clamp(u-du),u1=clamp(u+du);
+ const a=lift(sample(s,u0,.10),.48),b=lift(sample(s,u1,.10),.48);
+ const c=lift(sample(s,u1,.90),.48),d=lift(sample(s,u0,.90),.48);
+ quad(solid,a,b,c,d,shade);
  const l=sample(s,u,.075),r=sample(s,u,.925);
  const center=sample(s,u,.5);
  const dl=norm(sub(center,l)),dr=norm(sub(r,center));
