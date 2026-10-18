@@ -14,9 +14,14 @@ test('P98 real browser frame evidence from live P97 12-machine VOID BREAKER run'
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.setViewportSize({width:1440,height:900});
  await page.goto('/drive3d/');
+ await expect(page.locator('.historyDisclosure')).toHaveCount(2);
+ const controlsAt=await page.locator('#stage').evaluate(el=>el.getBoundingClientRect().top);
+ expect(controlsAt).toBeLessThan(530);
  await page.locator('#stage').selectOption('VB-P95');
  await expect(page.locator('#view')).toHaveAttribute('data-hazard-gate-count','36',{timeout:75000});
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','12');
+ await expect(page.locator('#view')).toHaveAttribute('data-arch-portal-count','42');
+ await page.waitForFunction(()=>Number(document.querySelector('#view')?.dataset.roadBeaconCount)>150,null,{timeout:75000});
  await page.locator('#demoSpeed').selectOption('2');
  await page.locator('#demoRun').click();
  await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
@@ -50,6 +55,8 @@ test('P98 real browser frame evidence from live P97 12-machine VOID BREAKER run'
     runMode:cv.dataset.runMode,
     resolution:[cv.width,cv.height],
     movingMachineCount:Number(cv.dataset.machineCount),
+    exteriorPortalCount:Number(cv.dataset.archPortalCount),
+    actualRoadEdgeBeacons:Number(cv.dataset.roadBeaconCount),
     hazardGateCount:Number(cv.dataset.hazardGateCount),
     hazardUrgency:cv.dataset.hazardUrgency,
     hazardTarget:cv.dataset.hazardTarget,
@@ -73,6 +80,7 @@ test('P98 real browser frame evidence from live P97 12-machine VOID BREAKER run'
  expect(errors).toEqual([]);
  expect(results).toHaveLength(4);
  expect(results.every(s=>s.runMode==='spectator-demo'&&s.movingMachineCount===12&&s.hazardGateCount===36)).toBe(true);
+ expect(results.every(s=>s.exteriorPortalCount===42&&s.actualRoadEdgeBeacons>150)).toBe(true);
  expect(results.every(s=>s.fps>0&&s.resolution[0]>0&&s.resolution[1]>0)).toBe(true);
  expect(results.every(s=>s.cameraMode==='ball-lock-interpolated')).toBe(true);
  expect(results.every(s=>s.viewportCanvasTop>=-3&&s.viewportCanvasBottom<=903)).toBe(true);
