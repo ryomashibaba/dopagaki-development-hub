@@ -22,11 +22,11 @@ const frameDurationBin=(bins,count,q)=>{
  return null;
 };
 export function createB5ManualAudit({stageId,profile='OVERDRIVE',startSpeed=52,spawnIndex=0}={}){
- if(!['VB-P101-B5','VB-P101-A13'].includes(stageId)||!['OVERDRIVE','RAPID','HYPER'].includes(profile)||
+ if(!['VB-P101-B5','VB-P101-A13','VB-P101-A13-W7F'].includes(stageId)||!['OVERDRIVE','RAPID','HYPER'].includes(profile)||
     !number(startSpeed)||startSpeed<1||startSpeed>200||
     !Number.isInteger(spawnIndex)||spawnIndex<0)throw Error('B5 A11 manual audit is isolated to real B5 input');
  return {
-  schema:stageId==='VB-P101-A13'?A13_MANUAL_SCHEMA:B5_MANUAL_SCHEMA,stageId,profile,startSpeed,spawnIndex,
+  schema:stageId.startsWith('VB-P101-A13')?A13_MANUAL_SCHEMA:B5_MANUAL_SCHEMA,stageId,profile,startSpeed,spawnIndex,
   source:'ACTUAL_MANUAL_BROWSER_RUN_NOT_SCRIPTED_NOT_HUMAN_FAIRNESS_CERTIFIED',
   samples:[],maxSpeed:startSpeed,inputs:{leftSamples:0,rightSamples:0,neutralSamples:0},
   hazards:{visibleSamples:0,immediateSamples:0,steeringWhileVisibleSamples:0},

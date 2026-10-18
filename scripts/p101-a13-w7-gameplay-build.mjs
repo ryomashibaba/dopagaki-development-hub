@@ -16,7 +16,7 @@ export function generateP101A13W7Candidate(){
  const {studyOnly,...base}=doc.stageForge;
  doc.name='A13 W7F / HYPER RUSH — 7.28km, 28 native moving hazards, HUMAN HOLD';
  doc.stageForge={...base,
-  revision:'W7F',selectedTrial:A13_W7_SELECTED,
+  revision:'W7F',recordStageId:'VB-P101-A13-W7F',selectedTrial:A13_W7_SELECTED,
   batch:'P101_A13_W7F_240HZ_NATIVE_28_MOVING_SCRIPTED_PASS_HUMAN_HOLD',
   name:'VOID BREAKER / A13 ACTIVE DANGER CIRCUIT W7F',
   fullStartToFinish:'P101_A13_W7F_7_OF_7_53_275S_28_NATIVE_MOVING_SCRIPTED_ONLY',

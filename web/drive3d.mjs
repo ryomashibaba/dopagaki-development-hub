@@ -322,7 +322,7 @@ function settleRun(){
   contacts:runner.collisions,nearMisses:nearMissTracker.total,
   failure:runner.failure?.reason||null
  });
- const record=buildRunRecord({stageId:doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?'VB-P101-A13':p101B5RecordStageId(doc),spawn:runner.spawnIndex,
+ const record=buildRunRecord({stageId:doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.recordStageId||'VB-P101-A13'):p101B5RecordStageId(doc),spawn:runner.spawnIndex,
   seconds:runner.time,nearMisses:nearMissTracker.total,outcome:runner.status});
  const compared=storeBest(browserRecordStore(),record);
  personalBest=compared.best;
@@ -363,7 +363,7 @@ function restart(){
   runner=new Runner(doc,world,spawn,physicalLaunch);runner.assist=true;accum=0;paused=false;
   canvas.dataset.b5LaunchMps=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'52':'off';
   b5ManualAudit=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)&&!demoMode&&!practiceMode
-   ?createB5ManualAudit({stageId:doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?'VB-P101-A13':'VB-P101-B5',profile:$('p101Profile').value,startSpeed:physicalLaunch,spawnIndex:spawn}):null;
+   ?createB5ManualAudit({stageId:doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.recordStageId||'VB-P101-A13'):'VB-P101-B5',profile:$('p101Profile').value,startSpeed:physicalLaunch,spawnIndex:spawn}):null;
   $('b5QaPanel').hidden=!['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant);
   $('b5QaTitle').textContent=doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?'A13 W7F · 手動試走レポート':'B5 · 手動試走レポート';
   $('b5QaStatus').textContent='手動試走の観測値を端末内で記録。自動送信はありません。';
@@ -384,7 +384,7 @@ function restart(){
  chapterTracker=createChapterSplits(doc.stageForge?.id,spawn,runner.surface,runner.time);latestSplit=null;
  $('splitBurst').hidden=true;canvas.dataset.completedSplits='0';
  canvas.dataset.chapterTimeId='none';
- personalBest=readBest(browserRecordStore(),doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?'VB-P101-A13':p101B5RecordStageId(doc),spawn);
+ personalBest=readBest(browserRecordStore(),doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.recordStageId||'VB-P101-A13'):p101B5RecordStageId(doc),spawn);
  $('runResult').hidden=true;$('b5ResultExport').hidden=true;canvas.dataset.runOutcome='running';
  $('nearMissCount').textContent='0';$('nearMissBurst').hidden=true;
  updateRunScore();
@@ -707,7 +707,7 @@ function exportLocalManualQa(){
  });
  const blob=new Blob([json],{type:'application/json;charset=utf-8'});
  const url=URL.createObjectURL(blob),a=document.createElement('a');
- const prefix=audit.stageId==='VB-P101-A13'?'P101_A13':'P101_B5';
+ const prefix=audit.stageId==='VB-P101-A13-W7F'?'P101_A13_W7F':audit.stageId==='VB-P101-A13'?'P101_A13_W1':'P101_B5';
  a.href=url;a.download=prefix+'_MANUAL_QA_'+(audit.final?.status||'ongoing')+'.json';
  document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);
  $('b5QaStatus').textContent='試走JSONを端末へ保存しました（自動送信なし）。';
