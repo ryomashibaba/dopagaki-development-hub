@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generateP101OverdriveCandidate} from '../scripts/p101-overdrive-build.mjs';
 import {generateP100TerrainPulseCandidate} from '../scripts/p100-terrain-pulse-build.mjs';
-import {p101Step,p101Tune,P101_TUNINGS,P101_STEP} from '../web/p101-overdrive.mjs';
+import {p101Step,p101Tune,P101_TUNINGS,P101_STEP,p101AnticipateRoadHeading,P101_HEADING} from '../web/p101-overdrive.mjs';
 import {compile} from '../private/reference_only/director/collision.js';
 import {Runner,DT} from '../private/reference_only/director/physics.js';
 import {P101_EARLY_WARN_DISTANCES} from '../web/p97-roadplay-gates.mjs';
@@ -57,4 +57,23 @@ test('P101 free steering accelerates forward without resetting velocity or bypas
 test('P101 high-speed machine anticipation starts farther away, without changing B48 or P100 rules',()=>{
  assert.deepEqual(P101_EARLY_WARN_DISTANCES,[690,470,240]);
  assert(P101_EARLY_WARN_DISTANCES[0]/225>3);
+});
+
+test('P101 course heading follows only real current rideable skin, rotates at bounded rate, no position snap',()=>{
+ const doc=generateP101OverdriveCandidate(),world=compile(doc);
+ const runner=new Runner(doc,world,0,44),p=[...runner.p],v=[...runner.v];
+ runner.forward=[0,0,1];
+ const oldYaw=Math.atan2(runner.forward[0],runner.forward[2]);
+ const result=p101AnticipateRoadHeading(runner);
+ assert.equal(result.applied,true);
+ assert(result.previewMeters>=18&&result.previewMeters<=76);
+ const newYaw=Math.atan2(runner.forward[0],runner.forward[2]);
+ const angle=Math.abs(Math.atan2(Math.sin(newYaw-oldYaw),Math.cos(newYaw-oldYaw)));
+ assert(angle<=P101_HEADING.maxYawRadiansPerSecond*P101_STEP+1e-8);
+ assert.deepEqual(runner.p,p,'visual/tangent steering cannot move the ball');
+ assert.deepEqual(runner.v,v,'native velocity cannot be overwritten by heading lookahead');
+ runner.grounded=false;
+ const forward=[...runner.forward];
+ assert.equal(p101AnticipateRoadHeading(runner).applied,false);
+ assert.deepEqual(runner.forward,forward,'no airborne snapping');
 });
