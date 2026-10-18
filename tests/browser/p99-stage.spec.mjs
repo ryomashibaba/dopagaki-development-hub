@@ -12,7 +12,7 @@ test('P99 authentic variable-width corridor with 12 B51-C machines is independen
  await expect(page.locator('#view')).toHaveAttribute('data-mega-section-count','7');
  await expect(page.locator('#view')).toHaveAttribute('data-arch-portal-count','42');
  await expect(page.locator('#spawn option')).toHaveCount(6);
- await expect(page.locator('#demoRun')).toBeDisabled();
+ await expect(page.locator('#demoRun')).toBeEnabled();
  await expect(page.locator('#practiceRun')).toBeDisabled();
  const raw=await page.evaluate(async()=>{
   const [d,base,e]=await Promise.all([
