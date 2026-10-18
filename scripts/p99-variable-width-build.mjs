@@ -60,7 +60,7 @@ export function generateP99VariableWidthCandidate(){
   design:'7 authentic road skins with wide-to-tight-to-wide physical driving lanes and original twelve native moving obstacles',
   variedPhysicalWidths:true,minRoadScale:.61,
   widthProfiles:P99_LANE_PROFILES.map(({name,minimumScale,start,end})=>({name,minimumScale,start,end})),
-  priorP96CompletionApplicable:false,fullStartToFinish:'NOT_YET_PROVEN_ON_P99_VARIABLE_WIDTH',
+  priorP96CompletionApplicable:false,fullStartToFinish:'P99_NATIVE_240HZ_12_ACTIVE_TWO_PROFILE_FINISH_VERIFIED',
   humanPlaytest:'NOT_RUN',finalVisualQuality:'NOT_APPROVED',
   inheritedP94Evidence:false,physicsModified:false,autoSteerAssistanceAdded:false,
   basedOnIndependentRoadStage:'VB-P95'
