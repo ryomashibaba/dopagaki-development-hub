@@ -17,3 +17,5 @@ Further gates before main merge: inspect actual mid-curve Chromium screenshots, 
 ## Independent native QA gate observed on original P100 geometry
 
 GitHub Actions run `39101404829` native QA: **near-soft 40.104s** and **early-soft 39.817s**, both physical 7/7 finishes and zero native moving contacts with all twelve colliders enabled. Early-strong fell at 20.504s and fast-switch at 21.633s, proving input-policy tradeoffs. These results are not player difficulty proof. New P100 spectator reuses near-soft input only in explicit demo mode and never stores PB; browser full finish is a separate required gate. Continue to hold main merge until browser and real image review.
+
+Road hazard-anchor audit reports each existing native machine's lateral distance from the **reshaped** physical road, physical half-width, off-road center amount and vertical offset. Native collision eligibility still does not imply every obstacle is a meaningful encounter; the report must be examined before approving manual fairness. Chromium saves P100's initial, midcourse and finished actual WebGL images as a workflow artifact for a separate visual review.
