@@ -25,6 +25,7 @@ export const P101_B4_PROFILES=Object.freeze([
 const norm=v=>Math.hypot(...v)||1;
 export function p101HighRadiusPulse(u){
  if(!Number.isFinite(u)||u<0||u>1)throw Error('P101 road-pulse u outside physical road');
+ if(u===0||u===1)return 0; // exact chapter seam invariance
  return Math.sin(Math.PI*u)**2;
 }
 export function p101ReshapeRoad(original,index,{scale=1}={}){
