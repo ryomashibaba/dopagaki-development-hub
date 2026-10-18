@@ -1,0 +1,11 @@
+# P101 B5 / HYPER ARC — Independent physical high-speed route experiment
+
+The core complaint is low sensation of speed. Confirmed preferred remedy: considerably increase REAL forward speed, while increasing actual controllable lateral acceleration to 4.8×/6×, rather than just narrowing the 60–100m road. Camera remains ball-relative stable, score based primarily on survival, real curves/drops and naturally launched jumps preserved. No fake HUD velocity or magic snapping.
+
+**B4E stable control source remains unchanged**. The existing P101 branch selectable course is still the proven only-II-30%-reshape candidate, with 7/7 scripted 41.242s at its low-speed comparable profile. B4 geometry sweeps and B2/B3 acceleration trials never proved a 200m/s final run. Do not promote.
+
+B5 adds a brand NEW independently generated 6,930m 3D B48 road with real 31×5 physical collision skins. It retains seven original chapter themes and two 180° hairpins but lengths are increased so big turn radius approaches 450m. Lengths [600,1500,950,1450,1000,750,680]m; elevation deltas [-120,-40,+110,-155,-10,+95,-30]m. Gentle authored S bends, wide/tight/wide physical road width and bank. Source x/z follows a bounded serpentine to remain within B48 ±2,000m world coordinates. All seven physical roads are genuinely reauthored (unlike failed side-bulge) and 12 original B51-C slider/rotator/piston native collision objects are *reanchored* to them, with exact same type, collision mode, timings, volumes, IDs.
+
+All B5 validation is separated from published P101 using an independent `generateP101B5Speedway()` source. P101 B5 is NOT a playable public stage, NOT automatically finished, NOT human verified. It may be rejected on real 240Hz evidence. The B5 fast lane runs unit geometry/physics tests and 5 real-time-step native 240Hz sweeps with P96 scripted steering as a research-only controller; no forced speed, false collision pass, safe lane or score modification.
+
+Release gates: B5 true 7/7 high-speed >200m/s success with real moving hazards; collision, artifact/visual review, manual Windows/iPhone input, stable frame rate, visually legible machine warning, camera stability; then (and only then) consider Playable B5, normal CI and public GitHub Pages staging. `main`, P100 and both production chatgpt.site URLs unchanged. Work usage not required.
