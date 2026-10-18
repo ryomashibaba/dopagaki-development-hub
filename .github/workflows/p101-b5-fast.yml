@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '22'
       - name: Regress actual P100/P101 B4E, B5 geometry seams, native 12 obstacle mechanics
-        run: node --test tests/p101-b5.test.mjs tests/p101-overdrive.test.mjs
+        run: node --test tests/p101-b5.test.mjs tests/p101-overdrive.test.mjs tests/p101-b5-forward.test.mjs
       - name: B5 A6 true 240Hz 7.28km course 155m-drop safe-then-surge acceleration test
         run: |
           set -o pipefail

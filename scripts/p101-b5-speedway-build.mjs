@@ -93,7 +93,14 @@ export function generateP101B5Speedway({lowerReversalLength=1450}={}){
   allTwelveNativeMachines:true,
   physicalSpeedRequirement:'GREATER_THAN_200MPS_7_OF_7_NATIVE_UNPROVEN',
   humanPlaytest:'NOT_RUN',fairness:'NOT_APPROVED',
-  fullStartToFinish:'NOT_VERIFIED_P101_B5',spectatorFullRun:'DISABLED_UNTIL_P101_B5_PROVEN',
+  fullStartToFinish:lowerReversalLength===1800?
+   'P101_B5_A6_NATIVE_240HZ_12_MOVING_ENABLED_205_26MPS_7_OF_7_SCRIPTED_ONLY':
+   'NOT_VERIFIED_P101_B5',
+  genuineFastLaw:lowerReversalLength===1800?
+   {nativeProfile:'OVERDRIVE',baseForwardScale:.12,afterSection:4,
+    positiveLateAddition:.13,transitionU:.45,physicsHz:240,
+    manualFairness:'NOT_RUN'}:null,
+  spectatorFullRun:'DISABLED_UNTIL_HUMAN_VISUAL_AND_INPUT_REVIEW',
   defaultTuning:P101_DEFAULT,tunings:Object.values(P101_TUNINGS).map(x=>({...x})),
   physicsModified:false,externalPerStepForce:true,
   P100SurfacesModified:false,
