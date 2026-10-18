@@ -21,13 +21,16 @@ test('P97 draws 36 physical-road-anchored 400/270/140m warnings for all 12 nativ
   assert.deepEqual(gates.map(g=>Number((s.distance-g.distance).toFixed(2))),[400,270,140]);
  }
  assert(markers.vertices.length>1000&&markers.vertices.length<20000);
+ assert(markers.solidVertices.length>=36*36&&markers.solidVertices.length<15000);
+ assert.equal(markers.solidVertices.length%18,0);
+ assert(markers.solidVertices.every(Number.isFinite));
  assert.equal(markers.vertices.length%12,0,'line vertices contain xyz and RGB pairs');
  assert(markers.vertices.every(Number.isFinite));
  assert.deepEqual(hazardRoadGateVertices(doc,sample,frame),markers,'readability geometry must be deterministic');
  assert.equal(JSON.stringify(doc),before,'new visual gates must never modify road, hazards or game physics');
  const untouched=generateVoidBreaker();
  assert.equal(makeHazardRoadPlan(untouched,sample),null);
- assert.deepEqual(hazardRoadGateVertices(untouched,sample,frame),{vertices:[],gates:[],stations:0});
+ assert.deepEqual(hazardRoadGateVertices(untouched,sample,frame),{vertices:[],solidVertices:[],gates:[],stations:0});
 });
 
 test('P97 route-aware advance warning follows authored road not misleading 3D Euclidean crossover; predicted pose from true native B51-C',()=>{
