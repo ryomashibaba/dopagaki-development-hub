@@ -35,13 +35,15 @@ function widths(t,base,index){
  const pulse=sin(PI*t)**2;
  return base*(1-[.16,.22,.18,.23,.18,.15,.14][index]*pulse);
 }
-export function generateP101B5Speedway(){
+export function generateP101B5Speedway({lowerReversalLength=1450}={}){
+ if(!Number.isFinite(lowerReversalLength)||lowerReversalLength<1450||lowerReversalLength>1950)throw Error('B5 section IV arc length must remain 1450–1950m');
  const origin=generateP100TerrainPulseCandidate();
  const doc=structuredClone(origin);
  let x=-1400,z=-800,y=245,yaw=.15;
  const roads=[],diagnostics=[];
- for(let k=0;k<P101_B5_SECTIONS.length;k++){
-  const conf=P101_B5_SECTIONS[k],baseYaw=yaw,baseY=y,steps=600;
+ const sections=P101_B5_SECTIONS.map((section,i)=>i===3?{...section,length:lowerReversalLength}:section);
+ for(let k=0;k<sections.length;k++){
+  const conf=sections[k],baseYaw=yaw,baseY=y,steps=600;
   const heading=t=>baseYaw+conf.turn*ease(t)+conf.wave*(sin(2*PI*conf.cycles*t))*sin(PI*t)**2;
   const centers=[[x,baseY,z]];
   for(let i=1;i<=steps;i++){
@@ -85,7 +87,8 @@ export function generateP101B5Speedway(){
   name:'VOID BREAKER / HYPER ARC (B5 PROTOTYPE)',
   roadRedesign:'INDEPENDENT_LONG_ARC_180_TURNS_31X5_NATIVE',
   baseStage:'VB-P100',
-  nominalLengthMeters:P101_B5_LENGTH,physicalChapters:7,
+  nominalLengthMeters:P101_B5_LENGTH-1450+lowerReversalLength,physicalChapters:7,
+   lowerReversalLength,
   actualRoads:diagnostics,
   allTwelveNativeMachines:true,
   physicalSpeedRequirement:'GREATER_THAN_200MPS_7_OF_7_NATIVE_UNPROVEN',
@@ -110,5 +113,5 @@ export function measureP101B5Geometry(doc){
   const cos=norms[0]*norms[1]?tangentA.reduce((sum,v,j)=>sum+v*tangentB[j],0)/(norms[0]*norms[1]):0;
   return {between:`${i}-${i+1}`,gap:Math.hypot(...a.map((v,j)=>v-b[j])),cosine:cos};
  });
- return {bounds,seams,nominalLength:P101_B5_LENGTH,roads:doc.surfaces.length,machines:doc.movingObstacles.length};
+ return {bounds,seams,nominalLength:doc.stageForge.nominalLengthMeters,roads:doc.surfaces.length,machines:doc.movingObstacles.length};
 }
