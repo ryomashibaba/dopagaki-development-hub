@@ -68,11 +68,11 @@ jobs:
           set -o pipefail
           node scripts/p101-native-probe.mjs | tee p101-native-hold.jsonl
           echo '### P101 real B48 physical 4x / 4.8x / 6x lateral trial: HUMAN HANDLING AND FULL FINISH HOLD' >> "$GITHUB_STEP_SUMMARY"
-      - name: P101 steering scaling vs native 240Hz physical turn and machine safety exploratory study
+      - name: P101 B2 physical speed-envelope across all seven real roads (continuous acceleration, human HOLD)
         run: |
           set -o pipefail
-          node scripts/p101-steering-recon.mjs | tee p101-recon.jsonl
-          echo '### P101 oversteer diagnostic: no autonomous finish/human fairness claim' >> "$GITHUB_STEP_SUMMARY"
+          node scripts/p101-speed-envelope.mjs | tee p101-speed-envelope.jsonl
+          echo '### P101 independent B2 speed versus curve stability (no pass inferred from any native script)' >> "$GITHUB_STEP_SUMMARY"
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets
