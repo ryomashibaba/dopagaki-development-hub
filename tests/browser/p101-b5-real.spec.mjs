@@ -7,6 +7,15 @@ test('B5 PR-only playable real WebGL two opposed 180 turns and verified physical
  await expect(page.locator('#appStatus')).toContainText('B5 HYPER ARC',{timeout:80000});
  await expect(page.locator('#view')).toHaveAttribute('data-b5-physical-stage','true');
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','12');
+ const optical=await page.locator('#view').evaluate(el=>({
+   dashes:Number(el.dataset.b5OpticalDashes),
+   edgeTicks:Number(el.dataset.b5OpticalEdgeTicks),
+   noCollision:el.dataset.b5OpticalNonCollision
+ }));
+ expect(optical.dashes).toBeGreaterThan(500);
+ expect(optical.dashes).toBeLessThan(1100);
+ expect(optical.edgeTicks).toBe(optical.dashes);
+ expect(optical.noCollision).toBe('true');
  await expect(page.locator('#p101Controls')).toBeVisible();
  await expect(page.locator('#demoRun')).toBeDisabled();
  await expect(page.locator('#p101Profile')).toHaveValue('OVERDRIVE');
@@ -36,6 +45,7 @@ test('B5 PR-only playable real WebGL two opposed 180 turns and verified physical
  await expect(page.locator('#speed')).not.toHaveText('44.0');
  await page.locator('#stage').selectOption('VB-P100');
  await expect(page.locator('#view')).toHaveAttribute('data-b5-physical-stage','false');
+ await expect(page.locator('#view')).toHaveAttribute('data-b5-optical-dashes','0');
  await expect(page.locator('#p101Controls')).toBeHidden();
  expect(errors).toEqual([]);
 });

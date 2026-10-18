@@ -28,11 +28,12 @@ import {hazardRoadGateVertices,makeHazardRoadPlan,nextRoadHazardCue} from './p97
 import {p100RoadReadGeometry} from './p100-road-read.mjs';
 import {p101Step,P101_DEFAULT} from './p101-overdrive.mjs';
 import {p101B5ForwardScale,createP101B5SurgeState} from './p101-b5-forward.mjs';
+import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,p100RoadRead,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
+let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
@@ -108,13 +109,18 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
  const roadRead=p100RoadReadGeometry(stage,sample,frame);p100RoadRead=mesh(roadRead.vertices);
  canvas.dataset.roadReadStripes=String(roadRead.stripes);
  canvas.dataset.roadReadBars=String(roadRead.flowBars);
+ const b5Optics=p101B5OpticalRoadGeometry(stage,sample,frame);
+ p101B5RoadOptic=mesh(b5Optics.vertices);
+ canvas.dataset.b5OpticalDashes=String(b5Optics.dashes);
+ canvas.dataset.b5OpticalEdgeTicks=String(b5Optics.edgeTicks);
+ canvas.dataset.b5OpticalNonCollision=String(b5Optics.nonCollision);
  canvas.parentElement.dataset.stageId=stage.stageForge.id;
  const caption=document.querySelector('.righttag');
  if(caption){
@@ -177,7 +183,7 @@ function render(frameSeconds){
  canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
  draw(scenery);if(megaEnabled)draw(megaWorld);
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
- draw(roads);draw(p100RoadRead);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
+ draw(roads);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
  draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);
  draw(hazardGateSolidMesh);
