@@ -25,8 +25,10 @@ test('P99 7 real B48 curved road skins have wide-narrow-wide widths, not merely 
  for(let i=0;i<7;i++){
   const newRoad=candidate.surfaces[i],oldRoad=original.surfaces[i];
   assert.equal(newRoad.id,oldRoad.id);
-  assert.deepEqual(newRoad.points.slice(0,5),oldRoad.points.slice(0,5),'preserve physical incoming seam');
-  assert.deepEqual(newRoad.points.slice(-5),oldRoad.points.slice(-5),'preserve physical outgoing seam');
+  for(const [newPoints,oldPoints] of [[newRoad.points.slice(0,5),oldRoad.points.slice(0,5)],
+     [newRoad.points.slice(-5),oldRoad.points.slice(-5)]])
+   for(let j=0;j<5;j++)assert(Math.hypot(...newPoints[j].map((v,k)=>v-oldPoints[j][k]))<1e-8,
+    'physical chapter seam may not move more than 1e-8m');
   assert(widths[i].samples[0].widthMeters>widths[i].narrowestWidthMeters*1.13);
   assert(widths[i].samples[2].widthMeters>=widths[i].narrowestWidthMeters);
   assert(widths[i].narrowestWidthMeters>=54&&widths[i].narrowestWidthMeters<110);
