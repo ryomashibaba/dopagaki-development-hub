@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 
 /** P99 must be an actual B48 different physical course, not a road paint. */
-test('P99 authentic variable-width corridor with 12 B51-C machines is independently playable in Chromium',async({page})=>{
+test('P99 authentic variable-width corridor with 12 B51-C machines is independently playable in Chromium',async({page},testInfo)=>{
  test.setTimeout(125000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('/drive3d/');
@@ -13,6 +13,7 @@ test('P99 authentic variable-width corridor with 12 B51-C machines is independen
  await expect(page.locator('#view')).toHaveAttribute('data-arch-portal-count','42');
  await expect(page.locator('#spawn option')).toHaveCount(6);
  await expect(page.locator('#demoRun')).toBeEnabled();
+ await page.locator('#view').screenshot({path:testInfo.outputPath('p99-narrow-surface.png')});
  await expect(page.locator('#practiceRun')).toBeDisabled();
  const raw=await page.evaluate(async()=>{
   const [d,base,e]=await Promise.all([
@@ -39,8 +40,36 @@ test('P99 authentic variable-width corridor with 12 B51-C machines is independen
  await page.locator('#stage').selectOption('VB-P95');
  await expect(page.locator('#appStatus')).toContainText('P96 VOID BREAKER',{timeout:75000});
  await expect(page.locator('#demoRun')).toBeEnabled();
+ await page.locator('#view').screenshot({path:testInfo.outputPath('p99-original-wide-surface.png')});
  await page.locator('#stage').selectOption('VB-P93');
  await expect(page.locator('#appStatus')).toContainText('P94 VOID BREAKER',{timeout:75000});
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','0');
+ expect(errors).toEqual([]);
+});
+
+test('P99 native 240Hz spectator physically finishes 7 variable-width surfaces, avoids all 12 live machines, keeps PB unchanged',async({page})=>{
+ test.setTimeout(135000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await page.locator('#stage').selectOption('VB-P99');
+ await expect(page.locator('#appStatus')).toContainText('P99 PRESSURE LINES',{timeout:75000});
+ await expect(page.locator('#view')).toHaveAttribute('data-machine-count','12');
+ await expect(page.locator('#demoRun')).toBeEnabled();
+ await expect(page.locator('#practiceRun')).toBeDisabled();
+ const before=await page.evaluate(()=>JSON.stringify({...localStorage}));
+ await page.locator('#demoSpeed').selectOption('2');
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
+ await expect(page.locator('#resultTitle')).toHaveText('DEMO COMPLETE',{timeout:100000});
+ await expect(page.locator('#view')).toHaveAttribute('data-run-outcome','finished');
+ const after=await page.evaluate(()=>JSON.stringify({...localStorage}));
+ expect(after).toBe(before);
+ const proof=await page.evaluate(async()=>await(await fetch('../generated/P99_PHYSICAL_TRIAL.json')).json());
+ expect(proof.activeColliders).toBe(12);
+ expect(proof.scriptedProfileWins).toBeGreaterThanOrEqual(2);
+ expect(proof.nativeProfiles.filter(x=>x.status==='SCRIPTED_NATIVE_FULL_PASS').length).toBeGreaterThanOrEqual(2);
+ expect(proof.humanPlaytest).toBe('NOT_RUN');
+ await page.locator('#demoRun').click();
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
  expect(errors).toEqual([]);
 });
