@@ -346,7 +346,7 @@ function restart(){
   runner=new Runner(doc,world,spawn,physicalLaunch);runner.assist=true;accum=0;paused=false;
   canvas.dataset.b5LaunchMps=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'52':'off';
   b5ManualAudit=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'&&!demoMode&&!practiceMode
-   ?createB5ManualAudit({stageId:'VB-P101-B5',profile:$('p101Profile').value,startSpeed:physicalLaunch}):null;
+   ?createB5ManualAudit({stageId:'VB-P101-B5',profile:$('p101Profile').value,startSpeed:physicalLaunch,spawnIndex:spawn}):null;
   $('b5QaPanel').hidden=doc.stageForge.variant!=='B5_HYPER_ARC_ISOLATED';
   $('b5QaStatus').textContent='手動試走の観測値を端末内で記録。自動送信はありません。';
   p101B5Surge=createP101B5SurgeState();
@@ -495,6 +495,7 @@ function hud(){
 function tick(now){
  requestAnimationFrame(tick);
  if(!last)last=now;const elapsed=Math.max(0,(now-last)/1000);last=now;
+ let b5PhysicsOverloaded=false;
  if(seekingChapter&&runner){
   const step=advancePracticeSeek(seekingChapter,runner);
   previousPose=currentPose=capturePose(runner);
@@ -533,7 +534,7 @@ function tick(now){
    return runner.status!=='failed'&&runner.status!=='finished';
   });
   accum=progressed.accumulator;
-  if(progressed.overloaded)frameSkips++;
+  if(progressed.overloaded){frameSkips++;b5PhysicsOverloaded=true;}
   settleRun();
  }
  if(runner&&nearMissTracker){const current=nearMissDisplay(nearMissTracker,runner.time);$('nearMissBurst').hidden=!current;}
@@ -541,7 +542,7 @@ function tick(now){
  if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / '+(doc?.stageForge?.id==='VB-P100'?'約40s':doc?.stageForge?.id==='VB-P99'?'約39s':doc?.stageForge?.id==='VB-P95'?'約40s':doc?.stageForge?.id==='VB-P93'?'約38s':'約83.2s');
  if(runner&&now-lastEdgeRadarAt>100){lastEdgeRadarAt=now;updateEdgeRadar();}
  if(b5ManualAudit&&runner&&!paused&&runner.status==='running'&&document.visibilityState==='visible')
-  recordB5ManualFrame(b5ManualAudit,elapsed);
+  recordB5ManualFrame(b5ManualAudit,elapsed,{physicsOverloaded:b5PhysicsOverloaded});
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
   if(b5ManualAudit&&runner&&runner.status==='running'&&!paused&&document.visibilityState==='visible'){

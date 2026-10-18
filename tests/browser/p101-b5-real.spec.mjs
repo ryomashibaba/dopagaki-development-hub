@@ -57,6 +57,8 @@ test('B5 PR-only playable real WebGL two opposed 180 turns and verified physical
  expect(qa.schema).toBe('dopagaki.b5-manual-qa/1');
  expect(qa.stageId).toBe('VB-P101-B5');
  expect(qa.startSpeed).toBe(52);
+ expect(qa.spawnIndex).toBe(3);
+ if(qa.summary)expect(qa.summary.fullCourseCompletionFromStart00).toBe(false);
  expect(qa.survey).toEqual({speedFeel:4,steeringFeel:2,hazardLegibility:3,note:'高速カーブの操舵と障害物を確認'});
  expect(qa.samples.length).toBeGreaterThan(0);
  expect(qa.source).toContain('NOT_SCRIPTED');

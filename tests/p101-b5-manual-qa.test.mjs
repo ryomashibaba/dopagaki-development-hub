@@ -48,3 +48,25 @@ test('A11 manual QA: short or interrupted report never claims full completion or
  assert.equal(final.fpsP10,null);
  assert.equal(final.observedSteeringFraction,null);
 });
+
+test('A12 read-only full-frame FPS and physics backlog: full-run evidence needs spawn 00',()=>{
+ assert.throws(()=>createB5ManualAudit({stageId:'VB-P101-B5',spawnIndex:-1}));
+ const a=createB5ManualAudit({stageId:'VB-P101-B5',spawnIndex:3});
+ for(let i=0;i<8;i++)assert(recordB5ManualFrame(a,1/60));
+ assert(recordB5ManualFrame(a,1/20,{physicsOverloaded:true}));
+ assert(recordB5ManualFrame(a,1/20));
+ assert(recordB5ManualSample(a,fake(0)));
+ const final=finalizeB5ManualAudit(a,{status:'finished',time:10,contacts:0,nearMisses:0});
+ assert.equal(final.fullCourseCompletionFromStart00,false);
+ assert.equal(final.renderFrameFpsP10,20);
+ assert.equal(final.renderFrameFpsMedian,59.7);
+ assert.equal(final.physicsOverloadedAnimationFrames,1);
+ assert.equal(final.physicsOverloadedFrameShare,.1);
+ const saved=JSON.parse(exportB5ManualAudit(a));
+ assert.equal(saved.spawnIndex,3);
+ assert.equal(saved.summary.fullCourseCompletionFromStart00,false);
+ const control=createB5ManualAudit({stageId:'VB-P101-B5',spawnIndex:0});
+ assert.equal(finalizeB5ManualAudit(control,{status:'finished',time:12,contacts:0,nearMisses:0}).fullCourseCompletionFromStart00,true);
+ assert.equal(control.final.renderFrameFpsP10,null);
+ assert.equal(control.final.physicsOverloadedFrameShare,null);
+});
