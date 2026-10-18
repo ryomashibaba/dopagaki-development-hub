@@ -79,13 +79,25 @@ export function makeHazardRoadPlan(doc,sample){
 function line(v,a,b,c){
  v.push(...a,...c,...b,...c);
 }
-function paintRoadGate(out,plan,at,machine,grade,sample,frame){
+function quad(v,a,b,c,d,color){
+ v.push(...a,...color,...b,...color,...c,...color);
+ v.push(...a,...color,...c,...color,...d,...color);
+}
+function paintRoadGate(out,solid,plan,at,machine,grade,sample,frame){
  const found=positionAtDistance(plan,at);
  const s=found.segment.source,u=found.u;
  const color=COL[machine.mode],intensity=grade===0?.82:grade===1?1:.88;
  const shade=color.map(c=>clamp(c*intensity));
  const normal=norm(frame(s,u,.5).normal);
  const lift=(point,h)=>add(point,mul(normal,h));
+ // Real-world 2.6m-wide solid surface stripe, visible at high speed where
+ // the GL.LINES portal alone would be a single-pixel line.
+ const back=positionAtDistance(plan,at-1.3),front=positionAtDistance(plan,at+1.3);
+ if(back.segment.surface===found.segment.surface&&front.segment.surface===found.segment.surface){
+  const a=lift(sample(s,back.u,.10),.48),b=lift(sample(s,front.u,.10),.48);
+  const c=lift(sample(s,front.u,.90),.48),d=lift(sample(s,back.u,.90),.48);
+  quad(solid,a,b,c,d,shade);
+ }
  const l=sample(s,u,.075),r=sample(s,u,.925);
  const center=sample(s,u,.5);
  const dl=norm(sub(center,l)),dr=norm(sub(r,center));
@@ -107,16 +119,16 @@ function paintRoadGate(out,plan,at,machine,grade,sample,frame){
 }
 /** Render-only line geometry (XYZ RGB for existing WebGL2 LINES pipeline). */
 export function hazardRoadGateVertices(doc,sample,frame){
- if(doc?.stageForge?.id!=='VB-P95')return {vertices:[],gates:[],stations:0};
- const plan=makeHazardRoadPlan(doc,sample),vertices=[],gates=[];
+ if(doc?.stageForge?.id!=='VB-P95')return {vertices:[],solidVertices:[],gates:[],stations:0};
+ const plan=makeHazardRoadPlan(doc,sample),vertices=[],solidVertices=[],gates=[];
  for(const station of plan.stations)for(let grade=0;grade<DISTANCES.length;grade++){
   const d=station.distance-DISTANCES[grade];
   if(d<=5)continue;
-  gates.push(paintRoadGate(vertices,plan,d,station,grade,sample,frame));
+  gates.push(paintRoadGate(vertices,solidVertices,plan,d,station,grade,sample,frame));
  }
- if(vertices.length%12!==0||!vertices.every(Number.isFinite)||vertices.length>20000)
+ if(vertices.length%12!==0||solidVertices.length%18!==0||!vertices.every(Number.isFinite)||!solidVertices.every(Number.isFinite)||vertices.length+solidVertices.length>32000)
   throw Error('P97 gate geometry invalid or outside GPU budget');
- return {vertices,gates,stations:plan.stations.length};
+ return {vertices,solidVertices,gates,stations:plan.stations.length};
 }
 /** Readable, *estimated* encounter timing for true forthcoming course hazard. */
 export function nextRoadHazardCue(doc,runner,plan,poseAt,{range=430}={}){
