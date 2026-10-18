@@ -16,6 +16,13 @@ if(doc?.stageForge?.variant!=='B5_HYPER_ARC_ISOLATED'||
  throw Error('Wrong B5 review geometry/thrust/obstacle configuration');
 if(!fs.existsSync(path.join(source,'drive3d','p101-b5-manual-qa.mjs')))
  throw Error('B5 manual real-world observation module missing');
+const a13Path=path.join(source,'generated','P101_A13_W7_GAMEPLAY.json');
+if(!fs.existsSync(a13Path))throw Error('A13 W7F real 28-machine QA stage missing');
+const a13=JSON.parse(fs.readFileSync(a13Path,'utf8'));
+if(a13.stageForge.revision!=='W7F'||a13.stageForge.productionPromoted!==false||
+   a13.stageForge.humanPlaytest!=='NOT_RUN'||a13.movingObstacles.length!==28||
+   a13.stageForge.nativeScriptedProof?.physicsHz!==240)
+ throw Error('Refusing to pack wrong A13 W7F physics or unapproved stage');
 fs.rmSync(out,{recursive:true,force:true});
 fs.cpSync(source,out,{recursive:true});
 const server=`import http from 'node:http';
@@ -43,9 +50,10 @@ const server=http.createServer((req,res)=>{
  }catch(e){res.writeHead(400);res.end('Bad URL');}
 });
 server.listen(0,'127.0.0.1',()=>{
- const port=server.address().port,url='http://127.0.0.1:'+port+'/drive3d/';
- console.log('P101 B5 / LOCAL ONLY  '+url);
- console.log('画面のステージ選択から ◆ P101 B5 HYPER ARC を選択してください。');
+ const port=server.address().port,w7=process.argv.includes('--a13');
+ const url='http://127.0.0.1:'+port+'/drive3d/?stage='+(w7?'VB-P101-A13':'VB-P101-B5');
+ console.log('P101 '+(w7?'A13 W7F':'B5')+' / LOCAL ONLY  '+url);
+ console.log('指定ステージを自動で選択します。ロード後、A/Dまたは左右キーで手動走行してください。');
  console.log('試走終了後「試走レポートをJSON保存」で記録を保存できます。');
  console.log('このウィンドウを閉じると試走サーバーは停止します。');
  if(process.platform==='win32'){
@@ -57,6 +65,20 @@ server.listen(0,'127.0.0.1',()=>{
 `;
 fs.writeFileSync(path.join(out,'_LOCAL_ONLY_SERVER.mjs'),server);
 fs.writeFileSync(path.join(out,'RUN_B5_QA.cmd'),`@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs"\r\npause\r\n`);
+fs.writeFileSync(path.join(out,'RUN_A13_W7F_QA.cmd'),`@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" --a13\r\npause\r\n`);
+const w7Readme=`P101 A13 W7F / Windowsローカル手動QA — Draft PR専用・非公開
+
+1. RUN_A13_W7F_QA.cmd をダブルクリック（Node.js 22以上）。
+2. ブラウザがW7Fを自動選択して開きます。A/D または←→で手動走行してください。
+3. 画面の「A13 W7F · 手動試走レポート」からJSONを保存してください。
+4. その P101_A13_MANUAL_QA_*.json をチャットへ添付してください。
+
+正規B48/B51-C 240Hz・52m/s始動・28基の本物の動体。
+7/7区間、53.275秒、最高203.6m/sは補正操舵スクリプトによる確認であり、
+人間の操作・楽しさ・難易度・FPSの合格ではありません。
+旧W1とB5、公開ゲームサイトは未変更。ローカル127.0.0.1のみ、データ自動送信なし。
+`;
+fs.writeFileSync(path.join(out,'START_A13_W7F_JA.txt'),w7Readme,'utf8');
 const readme=`P101 B5 / Windows手動品質評価パック — 開発PR内だけの試験版
 
 1. このZIPを任意のフォルダーに解凍します。

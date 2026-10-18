@@ -717,6 +717,9 @@ $('retryPractice').addEventListener('click',startFailurePractice);
 for(const chapter of PRACTICE_CHAPTERS){const option=document.createElement('option');option.value=chapter.id;option.textContent=chapter.label;$('practiceChapter').append(option);}
 $('practiceChapter').value='fork';
 $('stage').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;load();});
+// Explicit local QA launch may select a validated stage; never starts a demo or autopilot.
+const requestedStage=new URLSearchParams(window.location.search).get('stage');
+if(requestedStage&&Object.hasOwn(assets,requestedStage))$('stage').value=requestedStage;
  $('p101Profile').addEventListener('change',()=>{if(doc?.stageForge?.id==='VB-P101')restart();});
 $('spawn').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;restart();});
 $('restart').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('retryRun').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('pause').addEventListener('click',toggle);

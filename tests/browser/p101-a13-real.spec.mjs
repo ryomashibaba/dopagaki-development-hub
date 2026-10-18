@@ -3,8 +3,8 @@ import fs from 'node:fs/promises';
 test('A13 isolated WebGL: 28 native solid machines, real narrowed roads, save and distinct B5 baseline',async({page},info)=>{
  test.setTimeout(120000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto('/drive3d/');
- await page.locator('#stage').selectOption('VB-P101-A13');
+ await page.goto('/drive3d/?stage=VB-P101-A13');
+ await expect(page.locator('#stage')).toHaveValue('VB-P101-A13');
  await expect(page.locator('#appStatus')).toContainText('P101 A13',{timeout:90000});
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','28');
  await expect(page.locator('#view')).toHaveAttribute('data-hazard-station-count','28');
