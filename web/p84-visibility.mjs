@@ -34,10 +34,13 @@ export function roadShoulderLights(doc,sample,frame,{spacing=38,maxPerSurface=70
  if(!(spacing>=18&&spacing<=150)||!Number.isInteger(maxPerSurface)||maxPerSurface<1||maxPerSurface>100)
   throw Error('Invalid road visibility density');
  const v=[];let beacons=0,roads=0;
- // The high-speed shoulder installation is authored for experimental P66
- // only; immutable P62 original stages are left visually untouched.
- if(doc?.stageForge?.id!=='EP-P66')return {vertices:v,beacons,roads,physical:false};
- for(const s of doc.surfaces||[]){
+ // P98 actual Chromium frames showed VOID BREAKER's huge cyan road had almost
+ // no visible edges at 100–140m/s. Reuse ORIGINAL B48 road-edge reflectors
+ // without adding collision walls, lane assistance or modifying physics.
+ // P62 immutable originals remain excluded; P66 original geometry unchanged.
+ const isVoid=['VB-P93','VB-P95'].includes(doc?.stageForge?.id);
+ if(doc?.stageForge?.id!=='EP-P66'&&!isVoid)return {vertices:v,beacons,roads,physical:false};
+ for(const [roadIndex,s] of (doc.surfaces||[]).entries()){
   if(!s.rideable||s.visible===false)continue;
   roads++;
   let length=0,previous=sample(s,0,.5);
@@ -47,7 +50,7 @@ export function roadShoulderLights(doc,sample,frame,{spacing=38,maxPerSurface=70
   const count=Math.min(maxPerSurface,Math.floor(length/spacing));
   if(count<=0)continue;
   const category=chapterFromSurface(s.id)?.id||'other';
-  const color=COLORS[category],lower=color.map(x=>x*.42);
+  const color=isVoid?(roadIndex%2?[.93,.65,1]:[.54,1,.85]):COLORS[category],lower=color.map(x=>x*.42);
   for(let i=0;i<count;i++){
    const u=(i+.5)/count;
    if(u<=.012||u>=.988)continue;

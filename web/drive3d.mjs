@@ -118,9 +118,11 @@ function buildVisual(stage){
  canvas.dataset.approachBeacons=String(approach.markerCount);
  canvas.dataset.approachRegions=approach.regions.join(',')||'none';
  const reflectors=roadShoulderLights(stage,sample,frame);shoulderLights=mesh(reflectors.vertices);
+ canvas.dataset.roadBeaconCount=String(reflectors.beacons);
  canvas.dataset.shoulderBeacons=String(reflectors.beacons);
  const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
  const mega=megastructureGeometry(stage,sample);megaWorld=mega.vertices.length?mesh(mega.vertices):null;
+ canvas.dataset.archPortalCount=String((mega.sections||[]).reduce((n,x)=>n+(x.portalCount||0),0));
  canvas.dataset.megaTriangleCount=String(mega.vertices.length/18);
  canvas.dataset.megaSectionCount=String(mega.sections.length);
  $('megaWorld').disabled=!megaWorld;
@@ -607,6 +609,10 @@ function startDemo(){
  if(!isDemoEligible(doc)||!runner)return;
  practiceMode=false;practiceStartedAt=null;seekingChapter=null;
  demoMode=true;left=false;right=false;keys.clear();$('spawn').value='0';restart();
+ // P98: right-hand setup controls can be several screens below the race.
+ // Bring the REAL live canvas into view when spectator play begins, otherwise
+ // the player watches a scrolled-off simulation without realizing it.
+ canvas.scrollIntoView({block:'start',behavior:'auto'});
 }
 $('demoRun').addEventListener('click',()=>demoMode?exitDemo():startDemo());
 $('practiceRun').addEventListener('click',()=>practiceMode?exitPractice():startPractice());
