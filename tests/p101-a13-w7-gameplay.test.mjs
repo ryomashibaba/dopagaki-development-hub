@@ -1,0 +1,23 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {generateP101A13W7Candidate,A13_W7_SELECTED} from '../scripts/p101-a13-w7-gameplay-build.mjs';
+import {generateP101A13RoadCandidate} from '../scripts/p101-a13-road-build.mjs';
+import {generateP101B5Speedway} from '../scripts/p101-b5-speedway-build.mjs';
+import {makeW7TrialDoc,W7_TRIALS} from '../scripts/p101-a13-w7-candidate-matrix.mjs';
+test('Selected W7F 7/7 tested surfaces, machine poses, W1 + B5 protection, human HOLD',()=>{
+ const w1=generateP101A13RoadCandidate(),b5=generateP101B5Speedway({lowerReversalLength:1800});
+ const snapshot=JSON.stringify([w1,b5]),stage=generateP101A13W7Candidate();
+ const bench=makeW7TrialDoc(W7_TRIALS.find(x=>x.id===A13_W7_SELECTED));
+ assert.deepEqual(stage.surfaces,bench.surfaces);
+ assert.deepEqual(stage.movingObstacles,bench.movingObstacles);
+ assert.equal(stage.stageForge.revision,'W7F');
+ assert.equal(stage.stageForge.fullStartToFinish.includes('SCRIPTED_ONLY'),true);
+ assert.equal(stage.stageForge.nativeScriptedProof.movingColliders,28);
+ assert.equal(stage.stageForge.productionPromoted,false);
+ assert.equal(stage.stageForge.humanPlaytest,'NOT_RUN');
+ assert.equal(stage.stageForge.gameAutoSteering,false);
+ assert.equal(stage.stageForge.genuineFastLaw,null);
+ assert.equal(stage.movingObstacles.length,28);
+ assert.deepEqual(stage.movingObstacles.slice(0,12),b5.movingObstacles);
+ assert.equal(JSON.stringify([w1,b5]),snapshot);
+});

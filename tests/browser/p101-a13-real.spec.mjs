@@ -11,10 +11,13 @@ test('A13 isolated WebGL: 28 native solid machines, real narrowed roads, save an
  await expect(page.locator('#view')).toHaveAttribute('data-a13-machine-architecture','16');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-architecture-non-collision','true');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-custom-moving-shapes','16');
+ await expect(page.locator('#view')).toHaveAttribute('data-a13-version','W7F');
  await expect(page.locator('#b5QaPanel')).toBeVisible();
  await expect(page.locator('#p101Profile')).toHaveValue('OVERDRIVE');
- const data=await page.evaluate(async()=>await (await fetch('../generated/P101_A13_GAMEPLAY_W1.json')).json());
- expect(data.stageForge.fullStartToFinish).toBe('NOT_VERIFIED_A13');
+ const data=await page.evaluate(async()=>await (await fetch('../generated/P101_A13_W7_GAMEPLAY.json')).json());
+ expect(data.stageForge.fullStartToFinish).toContain('SCRIPTED_ONLY');
+ expect(data.stageForge.revision).toBe('W7F');
+ expect(data.stageForge.nativeScriptedProof).toMatchObject({physicsHz:240,sections:7,movingColliders:28,elapsedSeconds:53.275});
  expect(data.stageForge.humanPlaytest).toBe('NOT_RUN');
  expect(data.stageForge.genuineFastLaw).toBeNull();
  expect(data.stageForge.productionPromoted).toBe(false);
@@ -38,6 +41,7 @@ test('A13 isolated WebGL: 28 native solid machines, real narrowed roads, save an
  await page.locator('#stage').selectOption('VB-P101-B5');
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','12');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-custom-moving-shapes','0');
+ await expect(page.locator('#view')).toHaveAttribute('data-a13-version','none');
  await expect(page.locator('#appStatus')).toContainText('B5 HYPER ARC');
  expect(errors).toEqual([]);
 });

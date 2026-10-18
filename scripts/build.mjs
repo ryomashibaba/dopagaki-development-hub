@@ -10,6 +10,7 @@ import {generateP100TerrainPulseCandidate} from './p100-terrain-pulse-build.mjs'
 import {generateP101OverdriveCandidate} from './p101-overdrive-build.mjs';
 import {generateP101B5Speedway} from './p101-b5-speedway-build.mjs';
 import {generateP101A13RoadCandidate} from './p101-a13-road-build.mjs';
+import {generateP101A13W7Candidate} from './p101-a13-w7-gameplay-build.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
 import {generateP97RoadplayEvidence} from './p97-roadplay-evidence.mjs';
 import {generateP96DodgeEvidence} from './p96-acceptance-evidence.mjs';
@@ -85,6 +86,7 @@ if(includeStages){
  write('generated/P101_VELOCITY_OVERDRIVE.json',JSON.stringify(generateP101OverdriveCandidate(),null,2)+'\n');
  write('generated/P101_B5_HYPER_ARC.json',JSON.stringify(generateP101B5Speedway({lowerReversalLength:1800}),null,2)+'\n');
  write('generated/P101_A13_GAMEPLAY_W1.json',JSON.stringify(generateP101A13RoadCandidate(),null,2)+'\n');
+ write('generated/P101_A13_W7_GAMEPLAY.json',JSON.stringify(generateP101A13W7Candidate(),null,2)+'\n');
  write('generated/P99_PHYSICAL_TRIAL.json',JSON.stringify(makeP99PhysicalEvidence(pressureLines),null,2)+'\n');
  write('generated/P87_REFERENCE_GHOST.json',JSON.stringify(generateReferenceGhost(nativeCourse))+'\n');
  for(const file of names)copy('private/stages/'+file,'generated/'+file);

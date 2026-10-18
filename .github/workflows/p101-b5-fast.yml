@@ -19,40 +19,17 @@ jobs:
           node-version: '22'
       - name: A13 shape integrity and actual native road machine tests
         run: node --test tests/p101-a13-road.test.mjs tests/p101-a13-machine-visual.test.mjs
-      - name: A13 true 240Hz 28-machine pilot (finish NOT required, record failures)
+      - name: A13 W7F exact browser-stage 7-skin, 28-machine structural QA
+        run: node --test tests/p101-a13-w7-gameplay.test.mjs
+      - name: A13 W7F current selected native 240Hz 7-of-7 proof (not human)
         run: |
           set -o pipefail
-          node scripts/p101-a13-native-pilot.mjs | tee a13-native-pilot.jsonl
-      - name: A13 W6 2x2 240Hz causal ablations (failure is evidence, no finish assumption)
-        run: |
-          set -o pipefail
-          node --test tests/p101-a13-ablation.test.mjs
-          node scripts/p101-a13-ablation.mjs | tee a13-w6-ablation.jsonl
-      - name: A13 W6B 28-station scripted steering feasibility only (NEVER in gameplay)
-        run: |
-          set -o pipefail
-          node --test tests/p101-a13-28aware-audit.test.mjs
-          node scripts/p101-a13-28aware-audit.mjs | tee a13-w6b-28aware.jsonl
-      - name: W7 true 240Hz 8-candidate actual shoulder/width diagnostic (unshipped)
-        run: |
-          set -o pipefail
-          node --test tests/p101-a13-w7-candidate-matrix.test.mjs
-          node scripts/p101-a13-w7e-audit.mjs | tee a13-w7f-audit.jsonl
-      - name: W7D actual native 16-solid hazard physical footprint (no human claim)
-        run: |
-          set -o pipefail
-          node --test tests/p101-a13-w7-road-occupancy.test.mjs
-          node scripts/p101-a13-w7-road-occupancy.mjs | tee a13-w7d-exposure.jsonl
+          node scripts/p101-a13-w7-native-verify.mjs | tee a13-w7f-selected-native.jsonl
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: p101-a13-native-pilot-${{ github.run_id }}
-          path: |
-            a13-native-pilot.jsonl
-            a13-w6-ablation.jsonl
-            a13-w6b-28aware.jsonl
-            a13-w7f-audit.jsonl
-            a13-w7d-exposure.jsonl
+          path: a13-w7f-selected-native.jsonl
           if-no-files-found: ignore
           retention-days: 7
   b5-native:
