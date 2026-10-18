@@ -1,11 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generateP99VariableWidthCandidate} from '../scripts/p99-variable-width-build.mjs';
-import {generateP100TerrainPulseCandidate,P100_TERRAIN_PROFILES,p100Displacement} from '../scripts/p100-terrain-pulse-build.mjs';
+import {generateP100TerrainPulseCandidate,P100_TERRAIN_PROFILES,p100Displacement,p100HeightRetention} from '../scripts/p100-terrain-pulse-build.mjs';
 import {sample,validate} from '../private/reference_only/director/surface.js';
 import {compile} from '../private/reference_only/director/collision.js';
 import {Runner,DT} from '../private/reference_only/director/physics.js';
 import {p94NativeSteer} from '../web/p94-native-steer.mjs';
+import {P95_HAZARD_SPECS} from '../web/p95-hazard-layout.mjs';
 
 test('P100 changes genuine seven B48 collidable 3D skins, not visual props or HUD',()=>{
  const original=generateP99VariableWidthCandidate(),snapshot=JSON.stringify(original);
@@ -62,4 +63,21 @@ test('P100 independent physical spawn contacts remain legal at native 240Hz',()=
   assert.notEqual(r.status,'failed','P100 invalid spawn '+i+' '+JSON.stringify(r.failure));
   assert(r.time>.9);
  }
+});
+
+test('P100 meaningful vertical terrain pulses do not bury or levitate the twelve genuine moving machines',()=>{
+ const p99=generateP99VariableWidthCandidate(),p100=generateP100TerrainPulseCandidate();
+ const expectedHeights={slider:3,rotator:2.3,piston:6.4};
+ assert.equal(P95_HAZARD_SPECS.length,12);
+ for(const [index,[section,u]] of P95_HAZARD_SPECS.entries()){
+  assert.equal(p100HeightRetention(section,u),0,'hazard center must retain original authored road height');
+  const before=sample(p99.surfaces[section],u,.5),after=sample(p100.surfaces[section],u,.5);
+  assert(Math.abs(before[1]-after[1])<2.4,'P100 highway crests may not bury/float hazard '+index);
+  const center=p100.movingObstacles[index].position;
+  const clearance=center[1]-after[1];
+  assert(Math.abs(clearance-expectedHeights[p100.movingObstacles[index].type])<2.4,
+   'B51-C authored machine clearance drift at '+index+': '+clearance);
+ }
+ assert.equal(p100HeightRetention(0,.5),1);
+ assert.equal(p100HeightRetention(6,.5),1);
 });

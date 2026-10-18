@@ -5,6 +5,7 @@
  */
 import {generateP99VariableWidthCandidate} from './p99-variable-width-build.mjs';
 import {sample,validate} from '../private/reference_only/director/surface.js';
+import {P95_HAZARD_SPECS} from '../web/p95-hazard-layout.mjs';
 
 export const P100_TERRAIN_PROFILES=Object.freeze([
  {name:'ABYSS / descending slalom',lateral:17,height:7,camber:1.4,cycles:1.5,phase:-.45},
@@ -17,6 +18,19 @@ export const P100_TERRAIN_PROFILES=Object.freeze([
 ]);
 const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 const length=v=>Math.hypot(...v)||1;
+const smooth=t=>{const x=clamp(t,0,1);return x*x*(3-2*x);};
+// Keep real existing B51-C machines at a useful natural road height while
+// preserving the new crests/dips between hazard stations. No machine moves.
+export const P100_HAZARD_BLEND_RADIUS=.13;
+export function p100HeightRetention(section,u){
+ if(!Number.isInteger(section)||section<0||section>6||!Number.isFinite(u)||u<0||u>1)throw Error('P100 valid section/u required');
+ let factor=1;
+ for(const [atSection,station] of P95_HAZARD_SPECS){
+  if(atSection!==section)continue;
+  factor=Math.min(factor,smooth(Math.abs(u-station)/P100_HAZARD_BLEND_RADIUS));
+ }
+ return factor;
+}
 export function p100Displacement(profile,u){
  if(!profile||!Number.isFinite(u)||u<0||u>1)throw Error('P100 valid road parameter required');
  // Twice differentiable at both chapter seams; no displacement or slope jump.
@@ -27,7 +41,7 @@ export function p100Displacement(profile,u){
   camber:profile.camber*envelope*Math.sin(2*Math.PI*u+profile.phase-.4)
  };
 }
-function deformRoad(road,profile){
+function deformRoad(road,profile,sectionIndex){
  const target=structuredClone(road);
  if(target.rows!==31||target.cols!==5)throw Error('P100 requires unchanged P99 B48 lattice');
  const source=road.points;
@@ -40,7 +54,7 @@ function deformRoad(road,profile){
    const p=source[index+j],side=(j-2)/2;
    target.points[index+j]=[
     p[0]+left[0]*d.lateral,
-    p[1]+d.height+side*d.camber,
+    p[1]+d.height*p100HeightRetention(sectionIndex,u)+side*d.camber,
     p[2]+left[2]*d.lateral
    ];
   }
@@ -50,7 +64,7 @@ function deformRoad(road,profile){
 export function generateP100TerrainPulseCandidate(){
  const baseline=generateP99VariableWidthCandidate();
  const doc=structuredClone(baseline);
- doc.surfaces=baseline.surfaces.map((s,i)=>deformRoad(s,P100_TERRAIN_PROFILES[i]));
+ doc.surfaces=baseline.surfaces.map((s,i)=>deformRoad(s,P100_TERRAIN_PROFILES[i],i));
  doc.route=doc.surfaces.flatMap(s=>Array.from({length:22},(_,i)=>sample(s,(i+.015)/22,.5)));
  doc.route.push(sample(doc.surfaces.at(-1),.999,.5));
  doc.name='VOID BREAKER / TERRAIN PULSE — P100 NATIVE VERIFIED HUMAN TRIAL';
