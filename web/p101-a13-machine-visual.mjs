@@ -30,7 +30,7 @@ export function a13MachineBodyVertices(type,mode){
   // Wide beveled hazard wedges on each exposed face, with a directional
   // taper; their motion comes exclusively from native movingObstaclePose.
   for(let j=0;j<5;j++){
-   const x=-.46+j*.19;
+   const x=-.44+j*.17; // keep diagonal wedge tips inside the real collision OBB
    const color=j%2?bright(glow,.36):bright(glow,.78);
    const offset=type==='rotator'?(j%2?-.1:.1):type==='slider'?(j%2?.08:-.08):0;
    quad(out,[x,-.40,z],[x+.085,-.40,z],[x+.15+offset,.38,z],[x+.06+offset,.38,z],color);
