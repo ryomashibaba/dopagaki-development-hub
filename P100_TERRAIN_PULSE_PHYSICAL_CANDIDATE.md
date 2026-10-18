@@ -31,3 +31,7 @@ Run `39102461770` exposed a real bug: the P100 native proof had thrown an except
 ## Height-blend regression isolation
 
 After vertical anchors were recovered, all four original QA steering profiles fell off in SCISSOR RISE around t=21s; correction is not accepted. Instead of blindly loosening physics or moving machines, a PR-only 8-configuration native 240Hz sweep varies the span and gain of the **physical** elevation blend while retaining lateral bends, camber, the B48 engine and all twelve machine definitions. This is diagnostic research and cannot auto-promote an experimental configuration. Select one only after independent full-course confirmation; remove temporary sweep before merging.
+
+## Selected terrain compensation / temporary study removed
+
+The eight-case independent 240Hz native sweep found radius 0.13, height scale 0.25 to restore **two genuine native 7/7 finishes** without levitating or burying the fixed original 12 machines: near-soft 40.275s, early-soft 39.654s. Height compensation retains the giant inherited P93 vertical drops, strong S-bends and real bank deformation while reducing only *new* road-height wiggles to 25%. This sweep was exploratory; the exact frozen canonical generator must independently reproduce successes with fail-closed workflow and real Chromium spectator before stage can be merged. Staging release verification checks exact P100 geometry, unchanged machines, build SHA, and no human approval claim.
