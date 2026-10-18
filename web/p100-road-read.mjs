@@ -20,7 +20,7 @@ function lifted(surface,u,v,sample,frame){
  return add(p,mul(normal,.2*sign));
 }
 export function p100RoadReadGeometry(stage,sample,frame){
- if(stage?.stageForge?.id!=='VB-P100')return {vertices:[],stripes:0,flowBars:0};
+ if(!['VB-P100','VB-P101'].includes(stage?.stageForge?.id))return {vertices:[],stripes:0,flowBars:0};
  if(typeof sample!=='function'||typeof frame!=='function')throw Error('P100 visual requires exact B48 skin sampler');
  if(stage.surfaces?.length!==7)throw Error('P100 requires seven real road surfaces');
  const vertices=[];let stripes=0,flowBars=0;

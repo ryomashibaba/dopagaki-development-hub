@@ -26,9 +26,10 @@ import {approachBeaconVertices} from './p91-approach-beacons.mjs';
 import {failurePracticeChapter} from './p92-failure-practice.mjs';
 import {hazardRoadGateVertices,makeHazardRoadPlan,nextRoadHazardCue} from './p97-roadplay-gates.mjs';
 import {p100RoadReadGeometry} from './p100-road-read.mjs';
+import {p101Step,P101_DEFAULT} from './p101-overdrive.mjs';
 
 const $=id=>document.getElementById(id);
-const assets={'VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
+const assets={'VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
@@ -324,6 +325,7 @@ function restart(){
  canvas.dataset.runMode=demoMode?'spectator-demo':practiceMode?'practice':'manual';
  lastEdgeRadarAt=0;$('edgeRadar').hidden=true;canvas.dataset.edgeStatus='unavailable';
  $('demoBanner').hidden=!demoMode;
+ canvas.dataset.overdriveProfile=doc.stageForge.id==='VB-P101'?$('p101Profile').value:'off';
  $('takeoverRun').hidden=!demoMode;
  $('practiceBanner').hidden=!practiceMode;
  $('practiceRun').textContent=practiceMode?'練習終了 → 通常走行':'指定区間から練習（実物理）';
@@ -341,7 +343,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='VB-P100'?'P100 TERRAIN PULSE — authentic 3D S-bends, real crests and moving road camber; P99 baseline unchanged; 7/7 real 240Hz two-profile native finish confirmed, human fairness and final art HOLD.':doc.stageForge?.id==='VB-P99'?'P99 PRESSURE LINES — real 7-skin variable-width roads and 12 native moving hazards; two real native 240Hz profile finishes confirmed; human fairness and full visual quality HOLD.':doc.stageForge?.id==='VB-P95'?'P96 VOID BREAKER — 12 real moving B51-C obstacles, 7/7 native scripted finish; human difficulty/fairness HOLD.':doc.stageForge?.id==='VB-P93'?'P94 VOID BREAKER — genuine 3990m 7/7 native scripted finish verified; human playability and final art NOT APPROVED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='VB-P101'?'P101 VELOCITY OVERDRIVE — 4×/4.8×/6× genuine lateral acceleration and enhanced forward speed; 240Hz CCD. Human fairness and full-run QA HOLD. P100 baseline unchanged.':doc.stageForge?.id==='VB-P100'?'P100 TERRAIN PULSE — authentic 3D S-bends, real crests and moving road camber; P99 baseline unchanged; 7/7 real 240Hz two-profile native finish confirmed, human fairness and final art HOLD.':doc.stageForge?.id==='VB-P99'?'P99 PRESSURE LINES — real 7-skin variable-width roads and 12 native moving hazards; two real native 240Hz profile finishes confirmed; human fairness and full visual quality HOLD.':doc.stageForge?.id==='VB-P95'?'P96 VOID BREAKER — 12 real moving B51-C obstacles, 7/7 native scripted finish; human difficulty/fairness HOLD.':doc.stageForge?.id==='VB-P93'?'P94 VOID BREAKER — genuine 3990m 7/7 native scripted finish verified; human playability and final art NOT APPROVED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  publishChapterTiming();
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
@@ -370,6 +372,8 @@ async function load(){
    if(seq!==loading)return;
    buildVisual(value);doc=value;world=compiled;ghostData=replay;
   $('demoRun').disabled=!isDemoEligible(doc);
+  $('p101Controls').hidden=doc.stageForge.id!=='VB-P101';
+  canvas.dataset.p101Experimental=String(doc.stageForge.id==='VB-P101');
    $('practiceRun').disabled=doc.stageForge?.id!=='EP-P66';
    $('practiceChapter').disabled=doc.stageForge?.id!=='EP-P66';
   $('spawn').replaceChildren();
@@ -394,7 +398,7 @@ function updateTrackFlowHUD(){
 }
 function updateChapterHUD(){
  const el=$('chapterHud');if(!el)return;
- if(['VB-P93','VB-P95','VB-P99','VB-P100'].includes(doc?.stageForge?.id)){
+ if(['VB-P93','VB-P95','VB-P99','VB-P100','VB-P101'].includes(doc?.stageForge?.id)){
   const surface=doc.surfaces.find(s=>s.id===runner?.surface||s.id===runner?.lastSurface);
   const sub=document.createElement('small');sub.textContent='本物の3D道路・バンク・高低差 / 走行品質は検証候補';
   el.replaceChildren(document.createTextNode(surface?.name||'VOID BREAKER · SCISSOR ABYSS'),sub);
@@ -439,9 +443,9 @@ function hud(){
  updateRunScore();
  const machineLabel=$('machineCue');
  if(machineLabel){
-  const advance=['VB-P95','VB-P99','VB-P100'].includes(doc?.stageForge?.id)
-   ?nextRoadHazardCue(doc,runner,hazardRoadPlan,movingObstaclePose):null;
-  const cue=['VB-P95','VB-P99','VB-P100'].includes(doc?.stageForge?.id)?advance
+  const advance=['VB-P95','VB-P99','VB-P100','VB-P101'].includes(doc?.stageForge?.id)
+   ?nextRoadHazardCue(doc,runner,hazardRoadPlan,movingObstaclePose,doc.stageForge.id==='VB-P101'?{range:720}:undefined):null;
+  const cue=['VB-P95','VB-P99','VB-P100','VB-P101'].includes(doc?.stageForge?.id)?advance
    :nearestMachineCue(doc.movingObstacles,runner.p,runner.forward,runner.time,220,movingObstaclePose);
   machineLabel.hidden=!cue;
   machineLabel.dataset.mode=cue?.mode||'none';
@@ -480,7 +484,10 @@ function tick(now){
   const manualSteer=Number(right||keys.has('KeyD')||keys.has('ArrowRight'))-Number(left||keys.has('KeyA')||keys.has('ArrowLeft'));
   const progressed=stepFixedClock(accum,elapsed*(demoMode?Number($('demoSpeed').value):1),DT,()=>{
    previousPose=currentPose;
-   runner.step(demoMode?nativeDemoSteer(demoDirector,runner,movingObstaclePose):manualSteer);currentPose=capturePose(runner);
+   const steer=demoMode?nativeDemoSteer(demoDirector,runner,movingObstaclePose):manualSteer;
+    if(doc.stageForge.id==='VB-P101')p101Step(runner,steer,$('p101Profile').value||P101_DEFAULT);
+    else runner.step(steer);
+    currentPose=capturePose(runner);
    if(demoMode)recordDemoMilestone(demoDirector,runner);
    updateNativeChapterTime();
    const near=stepNearMiss(nearMissTracker,doc.movingObstacles,runner,movingObstaclePose,sphereBoxSeparation,RADIUS);
@@ -631,6 +638,7 @@ $('retryPractice').addEventListener('click',startFailurePractice);
 for(const chapter of PRACTICE_CHAPTERS){const option=document.createElement('option');option.value=chapter.id;option.textContent=chapter.label;$('practiceChapter').append(option);}
 $('practiceChapter').value='fork';
 $('stage').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;load();});
+ $('p101Profile').addEventListener('change',()=>{if(doc?.stageForge?.id==='VB-P101')restart();});
 $('spawn').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;restart();});
 $('restart').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('retryRun').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('pause').addEventListener('click',toggle);
 try{init();requestAnimationFrame(tick);load();}

@@ -34,12 +34,12 @@ const CHAPTERS=[
  {main:[.10,.39,.50],light:[.42,1,.96],tower:160}
 ];
 export function voidBreakerGeometry(stage,sample){
- if(!['VB-P93','VB-P95','VB-P99','VB-P100'].includes(stage?.stageForge?.id))return {vertices:[],beams:0,sections:[]};
+ if(!['VB-P93','VB-P95','VB-P99','VB-P100','VB-P101'].includes(stage?.stageForge?.id))return {vertices:[],beams:0,sections:[]};
  if(typeof sample!=='function')throw Error('P93 requires exact B48 read-only sampler');
  const roads=stage.surfaces.filter(s=>s.rideable&&s.collidable);
  if(roads.length!==7||!roads.every(s=>s.id.startsWith('p93-')))throw Error('P93 visual requires 7 authentic physical road skins');
  const vertices=[],sections=[];
- const p100=stage.stageForge.id==='VB-P100';
+ const p100=['VB-P100','VB-P101'].includes(stage.stageForge.id);
  // P100 actual Chromium sightline audit: opening real curves while keeping
  // the proven P98/P99 monumental skyline unaffected.
  const portalCount=p100?4:6,exteriorStandOff=p100?56:26;
