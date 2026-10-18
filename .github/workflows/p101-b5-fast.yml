@@ -33,6 +33,11 @@ jobs:
           set -o pipefail
           node --test tests/p101-a13-28aware-audit.test.mjs
           node scripts/p101-a13-28aware-audit.mjs | tee a13-w6b-28aware.jsonl
+      - name: W7 true 240Hz 8-candidate actual shoulder/width diagnostic (unshipped)
+        run: |
+          set -o pipefail
+          node --test tests/p101-a13-w7-candidate-matrix.test.mjs
+          node scripts/p101-a13-w7-candidate-matrix.mjs | tee a13-w7-matrix.jsonl
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -41,6 +46,7 @@ jobs:
             a13-native-pilot.jsonl
             a13-w6-ablation.jsonl
             a13-w6b-28aware.jsonl
+            a13-w7-matrix.jsonl
           if-no-files-found: ignore
           retention-days: 7
   b5-native:
