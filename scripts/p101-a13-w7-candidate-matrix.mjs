@@ -11,6 +11,7 @@
 import {generateP101A13RoadCandidate} from './p101-a13-road-build.mjs';
 import {generateP101B5Speedway} from './p101-b5-speedway-build.mjs';
 import {frame,sample} from '../private/reference_only/director/surface.js';
+import {A13_HAZARD_SPECS} from '../web/p101-a13-hazard-layout.mjs';
 import {compile} from '../private/reference_only/director/collision.js';
 import {Runner,DT} from '../private/reference_only/director/physics.js';
 import {movingObstaclePose} from '../private/reference_only/director/moving/moving-obstacles.mjs';
@@ -35,7 +36,16 @@ export const W7_TRIALS=Object.freeze([
  Object.freeze({id:'w7b-rotor05-34',widths:[1,1,1,1,1,1,1],shift02:26,shift03:27,shift05:-34}),
  Object.freeze({id:'w7b-rotor05-42',widths:[1,1,1,1,1,1,1],shift02:26,shift03:27,shift05:-42}),
  Object.freeze({id:'w7b-rotor05-26-turn4',widths:[1,1,1,0,1,1,1],shift02:26,shift03:27,shift05:-26}),
- Object.freeze({id:'w7b-rotor05-34-half',widths:[.5,.5,.5,.5,.5,.5,.5],shift02:26,shift03:27,shift05:-34})
+ Object.freeze({id:'w7b-rotor05-34-half',widths:[.5,.5,.5,.5,.5,.5,.5],shift02:26,shift03:27,shift05:-34}),
+ // W7C: margin of actual B48 road as an alternating native moving machine
+ // shoulder placement. Never remove the real colliders or fake safe passages.
+ Object.freeze({id:'w7c-edges-100',widths:[1,1,1,1,1,1,1],roadsideFactor:1}),
+ Object.freeze({id:'w7c-edges-120',widths:[1,1,1,1,1,1,1],roadsideFactor:1.2}),
+ Object.freeze({id:'w7c-edges-135',widths:[1,1,1,1,1,1,1],roadsideFactor:1.35}),
+ Object.freeze({id:'w7c-edges-120-turn4',widths:[1,1,1,0,1,1,1],roadsideFactor:1.2}),
+ Object.freeze({id:'w7c-edges-120-middle',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideFactor:1.2}),
+ Object.freeze({id:'w7c-target08-24',widths:[1,1,1,1,1,1,1],shift02:26,shift03:27,shift05:-26,shift08:24}),
+ Object.freeze({id:'w7c-target08-40-turn4',widths:[1,1,1,0,1,1,1],shift02:26,shift03:27,shift05:-26,shift08:40})
 ]);
 export function makeW7TrialDoc(trial){
  if(!W7_TRIALS.includes(trial))throw Error('W7 uses declared native trial only');
@@ -49,10 +59,26 @@ export function makeW7TrialDoc(trial){
    physical[j]=wide[j].map((x,k)=>x+(physical[j][k]-x)*t);
   }
  }
- for(const [index,delta] of [[13,trial.shift02],[14,trial.shift03],[16,trial.shift05??0]]){
+ // Global lane-edge occupancy study: targets real control-point halfwidth;
+ // preserves the alternating lane-side pattern of the authored 16 stations.
+ if(trial.roadsideFactor!==undefined){
+  if(!(trial.roadsideFactor>=.8&&trial.roadsideFactor<=1.5))throw Error('W7C bounded shoulder factor required');
+  for(let k=0;k<A13_HAZARD_SPECS.length;k++){
+   const [section,u,type,offset]=A13_HAZARD_SPECS[k],s=doc.surfaces[section];
+   const row=Math.round(u*30),point=s.points[row*5+2],edge=s.points[row*5];
+   const half=hyp(point.map((x,j)=>x-edge[j]));
+   const target=Math.sign(offset)*half*trial.roadsideFactor;
+   const delta=target-offset;
+   const f=frame(s,u,.5),forward=normalize([f.forward[0],0,f.forward[2]]);
+   const side=normalize([-forward[2],0,forward[0]]);
+   const ob=doc.movingObstacles[12+k];
+   ob.position=ob.position.map((x,j)=>x+delta*side[j]);
+  }
+ }
+ for(const [index,delta] of [[13,trial.shift02],[14,trial.shift03],[16,trial.shift05??0],[19,trial.shift08??0]]){
   if(!delta)continue;
   // Hazard indexes 13/14 are *new* #02/#03; untouched original 12 frozen.
-  const section=index===13?0:index===14?1:2,u=index===13?.73:index===14?.40:.14;
+  const section=index===13?0:index===14?1:index===16?2:3,u=index===13?.73:index===14?.40:index===16?.14:.10;
   const f=frame(doc.surfaces[section],u,.5);
   const forward=normalize([f.forward[0],0,f.forward[2]]);
   const side=normalize([-forward[2],0,forward[0]]);
@@ -87,11 +113,11 @@ export function runW7Trial(trial,{maxSeconds=68}={}){
   seconds:round(runner.time),peakMps:round(peak,1),longestAir:round(airLongest),
   contacts, failure:runner.failure?{reason:runner.failure.reason,t:round(runner.failure.t),
    position:runner.failure.position.map(x=>round(x,1))}:null,
-  widths:trial.widths,shift02:trial.shift02,shift03:trial.shift03,shift05:trial.shift05??0,trace};
+  widths:trial.widths,shift02:trial.shift02,shift03:trial.shift03,shift05:trial.shift05??0,shift08:trial.shift08??0,roadsideFactor:trial.roadsideFactor??null,trace};
 }
 export function runW7Matrix(trials=W7_TRIALS){return trials.map(x=>runW7Trial(x));}
 if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
- const records=runW7Matrix(process.argv.includes('--w7b-only')?W7_TRIALS.filter(t=>t.id.startsWith('w7b-')):W7_TRIALS);
+ const records=runW7Matrix(process.argv.includes('--w7c-only')?W7_TRIALS.filter(t=>t.id.startsWith('w7c-')):process.argv.includes('--w7b-only')?W7_TRIALS.filter(t=>t.id.startsWith('w7b-')):W7_TRIALS);
  for(const r of records)console.log('A13_W7_TRIAL '+JSON.stringify({...r,trace:undefined}));
  console.log('A13_W7_TRACE '+JSON.stringify(Object.fromEntries(records.map(x=>[x.id,x.trace]))));
  if(records.some(r=>r.nativePhysicsHz!==240||r.nativeMachines!==28))
