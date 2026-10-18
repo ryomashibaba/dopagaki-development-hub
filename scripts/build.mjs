@@ -64,6 +64,7 @@ if(includeStages){
  copy('web/p101-overdrive.mjs','drive3d/p101-overdrive.mjs');
  copy('web/p101-b5-forward.mjs','drive3d/p101-b5-forward.mjs');
  copy('web/p101-a13-forward.mjs','drive3d/p101-a13-forward.mjs');
+ copy('web/p101-a13-hazard-layout.mjs','drive3d/p101-a13-hazard-layout.mjs');
  copy('web/p101-b5-road-optic.mjs','drive3d/p101-b5-road-optic.mjs');
  copy('web/p101-b5-manual-qa.mjs','drive3d/p101-b5-manual-qa.mjs');
  const nativeCourse=generateEchoRush();

@@ -7,6 +7,9 @@ import {sample} from '../private/reference_only/director/surface.js';
 import {compile} from '../private/reference_only/director/collision.js';
 import {Runner,DT} from '../private/reference_only/director/physics.js';
 import {p101Step} from '../web/p101-overdrive.mjs';
+import {A13_HAZARD_SPECS} from '../web/p101-a13-hazard-layout.mjs';
+import {movingObstaclePose,sphereBoxSeparation} from '../private/reference_only/director/moving/moving-obstacles.mjs';
+import {makeHazardRoadPlan} from '../web/p97-roadplay-gates.mjs';
 
 test('A13 independent genuine collidable narrower geometry keeps B5 intact and retains 12 authentic B51-C obstacles',()=>{
  const b5=generateP101B5Speedway({lowerReversalLength:1800}),frozen=JSON.stringify(b5);
@@ -17,7 +20,9 @@ test('A13 independent genuine collidable narrower geometry keeps B5 intact and r
  assert.equal(doc.stageForge.nominalLengthMeters,7280);
  assert.equal(doc.stageForge.productionPromoted,false);
  assert.equal(doc.surfaces.length,7);
- assert.deepEqual(doc.movingObstacles,b5.movingObstacles);
+ assert.equal(doc.movingObstacles.length,12+A13_HAZARD_SPECS.length);
+ assert.deepEqual(doc.movingObstacles.slice(0,12),b5.movingObstacles);
+ assert.equal(doc.stageForge.totalMovingHazards,28);
  assert.deepEqual(doc.spawns,b5.spawns);
  for(let i=0;i<7;i++){
   const s=doc.surfaces[i],orig=b5.surfaces[i];
@@ -47,4 +52,21 @@ test('A13 uses real 240Hz Runner, forwards positive-only B5 force schedule but d
  assert.notDeepEqual(a.p,b.p,'A13 retains actual manual steering');
  assert(a.p.every(Number.isFinite)&&b.v.every(Number.isFinite));
  assert.equal(doc.stageForge.humanPlaytest,'NOT_RUN');
+});
+
+test('A13 W3 has 16 added large NATIVE moving B51-C colliders, actual pose changes and sorted warning stations',()=>{
+ const doc=generateP101A13RoadCandidate(),plan=makeHazardRoadPlan(doc,sample);
+ assert.equal(doc.movingObstacles.length,28);
+ assert.equal(plan.stations.length,28);
+ assert(plan.stations.every((s,i)=>i===0||s.distance>=plan.stations[i-1].distance));
+ let moved=0,large=0;
+ for(const ob of doc.movingObstacles.slice(12)){
+  assert(ob.enabled&&['fail','bounce','push'].includes(ob.collision.mode));
+  const a=movingObstaclePose(ob,0),b=movingObstaclePose(ob,ob.period*.22);
+  if(Math.hypot(...a.center.map((x,i)=>x-b.center[i]))>1)moved++;
+  if(Math.max(...ob.size)>=22)large++;
+  assert(sphereBoxSeparation(a.center,.65,a).separation<0,'B51 solid body must physically collide');
+ }
+ assert(moved>=12,'native pose sampler confirms actual moving bodies');
+ assert.equal(large,16);
 });

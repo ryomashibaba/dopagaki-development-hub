@@ -10,6 +10,7 @@
  * timing algorithm. No collision, camera, velocity or player input edits.
  */
 import {P95_HAZARD_SPECS} from './p95-hazard-layout.mjs';
+import {A13_HAZARD_SPECS,a13MachineId} from './p101-a13-hazard-layout.mjs';
 const DISTANCES=Object.freeze([400,270,140]);
 export const P101_EARLY_WARN_DISTANCES=Object.freeze([690,470,240]);
 const COL={
@@ -58,16 +59,19 @@ const modeLabel=mode=>mode==='fail'?'衝突で失敗':mode==='bounce'?'衝突で
 export function makeHazardRoadPlan(doc,sample){
  if(!['VB-P95','VB-P99','VB-P100','VB-P101'].includes(doc?.stageForge?.id))return null;
  if(typeof sample!=='function')throw Error('Exact physical B48 surface sample required');
- if(doc.movingObstacles?.length!==12||doc.surfaces?.length!==7)throw Error('P97 gate requires original 12 machines and 7 real road skins');
+ const a13=doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED';
+ const allSpecs=a13?[...P95_HAZARD_SPECS,...A13_HAZARD_SPECS]:P95_HAZARD_SPECS;
+ if(doc.movingObstacles?.length!==allSpecs.length||doc.surfaces?.length!==7)throw Error('P97 gate requires precise native machine station count and 7 real road skins');
  let length=0;
  const roads=doc.surfaces.map(surface=>{
   const seg=segments(Array.from({length:129},(_,i)=>sample(surface,i/128,.5)));
   const result={surface:surface.id,source:surface,start:length,...seg};
   length+=seg.total;return result;
  });
- const stations=P95_HAZARD_SPECS.map(([section,u,type],i)=>{
+ const stations=allSpecs.map(([section,u,type],i)=>{
   const road=roads[section],ob=doc.movingObstacles[i];
-  if(ob.id!=='p95-hazard-'+String(i+1).padStart(2,'0')||ob.enabled===false)
+  const correctId=i<12?'p95-hazard-'+String(i+1).padStart(2,'0'):a13MachineId(i-12);
+  if(ob.id!==correctId||ob.enabled===false)
    throw Error('Native hazard identity drift at '+i);
   const center=sample(road.source,u,.5);
   const ahead=sample(road.source,clamp(u+.004),.5);
@@ -75,6 +79,7 @@ export function makeHazardRoadPlan(doc,sample){
   return {id:ob.id,ob,section,u,type,center,tangent:sub(ahead,behind),
    distance:road.start+progression(road,u),mode:ob.collision.mode};
  });
+ stations.sort((a,b)=>a.distance-b.distance);
  return {roads,stations,totalDistance:length};
 }
 function line(v,a,b,c){
