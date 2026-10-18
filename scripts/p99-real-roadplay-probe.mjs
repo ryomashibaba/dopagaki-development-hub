@@ -15,10 +15,14 @@ export function makeP99PhysicalEvidence(doc=generateP99VariableWidthCandidate())
   const {trace,...summary}=r;
   return {...summary,head:trace.slice(0,3),tail:trace.slice(-5)};
  });
- const passed=results.filter(x=>x.status==='SCRIPTED_NATIVE_FULL_PASS'&&x.visited.length===7&&x.finishEvent);
+ const passed=results.filter(x=>x.status==='SCRIPTED_NATIVE_FULL_PASS'&&x.visited.length===7&&x.finishEvent&&x.machineContacts.length===0);
+ const failed=results.filter(x=>x.status==='HOLD_NOT_FULLY_TRAVERSED');
  const machineCount=doc.movingObstacles.filter(x=>x.enabled!==false).length;
  const widths=measureP99LaneWidths(doc);
  if(machineCount!==12||widths.length!==7)throw Error('P99 genuine physical road/moving-machine evidence incomplete');
+ // Source metadata is permitted only because the exact new stage was physically
+ // proven here, never because the P96 wider road completed in a prior release.
+ if(passed.length<2||failed.length<1)throw Error('P99 gameplay gate regressed: expected 2+ native completions and a meaningful physical failure');
  return {
   schema:'dopagaki.p99.native-roadplay/1',
   stageId:doc.stageForge.id,originalP95StageUntouched:true,
