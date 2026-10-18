@@ -607,6 +607,10 @@ function startDemo(){
  if(!isDemoEligible(doc)||!runner)return;
  practiceMode=false;practiceStartedAt=null;seekingChapter=null;
  demoMode=true;left=false;right=false;keys.clear();$('spawn').value='0';restart();
+ // P98: right-hand setup controls can be several screens below the race.
+ // Bring the REAL live canvas into view when spectator play begins, otherwise
+ // the player watches a scrolled-off simulation without realizing it.
+ canvas.scrollIntoView({block:'start',behavior:'auto'});
 }
 $('demoRun').addEventListener('click',()=>demoMode?exitDemo():startDemo());
 $('practiceRun').addEventListener('click',()=>practiceMode?exitPractice():startPractice());
