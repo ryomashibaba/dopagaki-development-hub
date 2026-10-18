@@ -22,12 +22,13 @@ const smooth=t=>{const x=clamp(t,0,1);return x*x*(3-2*x);};
 // Keep real existing B51-C machines at a useful natural road height while
 // preserving the new crests/dips between hazard stations. No machine moves.
 export const P100_HAZARD_BLEND_RADIUS=.13;
-export function p100HeightRetention(section,u){
+export function p100HeightRetention(section,u,radius=P100_HAZARD_BLEND_RADIUS){
  if(!Number.isInteger(section)||section<0||section>6||!Number.isFinite(u)||u<0||u>1)throw Error('P100 valid section/u required');
+ if(!Number.isFinite(radius)||radius<.05||radius>.6)throw Error('P100 finite blend radius .05-.60 required');
  let factor=1;
  for(const [atSection,station] of P95_HAZARD_SPECS){
   if(atSection!==section)continue;
-  factor=Math.min(factor,smooth(Math.abs(u-station)/P100_HAZARD_BLEND_RADIUS));
+  factor=Math.min(factor,smooth(Math.abs(u-station)/radius));
  }
  return factor;
 }
@@ -41,7 +42,7 @@ export function p100Displacement(profile,u){
   camber:profile.camber*envelope*Math.sin(2*Math.PI*u+profile.phase-.4)
  };
 }
-function deformRoad(road,profile,sectionIndex){
+function deformRoad(road,profile,sectionIndex,{heightBlendRadius,heightScale}){
  const target=structuredClone(road);
  if(target.rows!==31||target.cols!==5)throw Error('P100 requires unchanged P99 B48 lattice');
  const source=road.points;
@@ -54,17 +55,19 @@ function deformRoad(road,profile,sectionIndex){
    const p=source[index+j],side=(j-2)/2;
    target.points[index+j]=[
     p[0]+left[0]*d.lateral,
-    p[1]+d.height*p100HeightRetention(sectionIndex,u)+side*d.camber,
+    p[1]+d.height*heightScale*p100HeightRetention(sectionIndex,u,heightBlendRadius)+side*d.camber,
     p[2]+left[2]*d.lateral
    ];
   }
  }
  return target;
 }
-export function generateP100TerrainPulseCandidate(){
+export function generateP100TerrainPulseCandidate({heightBlendRadius=P100_HAZARD_BLEND_RADIUS,heightScale=1}={}){
+ if(!Number.isFinite(heightBlendRadius)||heightBlendRadius<.05||heightBlendRadius>.6||!Number.isFinite(heightScale)||heightScale<.1||heightScale>1.2)
+  throw Error('P100 valid experiment options required');
  const baseline=generateP99VariableWidthCandidate();
  const doc=structuredClone(baseline);
- doc.surfaces=baseline.surfaces.map((s,i)=>deformRoad(s,P100_TERRAIN_PROFILES[i],i));
+ doc.surfaces=baseline.surfaces.map((s,i)=>deformRoad(s,P100_TERRAIN_PROFILES[i],i,{heightBlendRadius,heightScale}));
  doc.route=doc.surfaces.flatMap(s=>Array.from({length:22},(_,i)=>sample(s,(i+.015)/22,.5)));
  doc.route.push(sample(doc.surfaces.at(-1),.999,.5));
  doc.name='VOID BREAKER / TERRAIN PULSE — P100 NATIVE VERIFIED HUMAN TRIAL';
@@ -74,7 +77,7 @@ export function generateP100TerrainPulseCandidate(){
   name:'VOID BREAKER / TERRAIN PULSE',
   status:'EXPERIMENTAL_SCRIPTED_NATIVE_PASS_HUMAN_HOLD',
   design:'True variable-centerline physical S-curves, rolling heights and changing camber across all seven P99 rideable B48 skins',
-  geometryProfiles:P100_TERRAIN_PROFILES.map(x=>({...x})),
+  geometryProfiles:P100_TERRAIN_PROFILES.map(x=>({...x})),heightBlendRadius,heightScale,
   basedOnIndependentRoadStage:'VB-P99',
   priorP96CompletionApplicable:false,priorP99CompletionApplicable:false,
   fullStartToFinish:'P100_NATIVE_240HZ_12_ACTIVE_TWO_PROFILE_FINISH_VERIFIED',humanPlaytest:'NOT_RUN',

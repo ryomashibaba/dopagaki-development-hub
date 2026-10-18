@@ -27,3 +27,7 @@ The first P100 native audit found all 12 machine centers horizontally within the
 ## CI fail-closed correction
 
 Run `39102461770` exposed a real bug: the P100 native proof had thrown an exception after height redesign, but `node ... | tee` without pipefail hid the command exit code and reported QA SUCCESS. This was **not** a verified finish. All five existing QA pipelines now set `set -o pipefail`; P100 reports each independent steering attempt and hazard elevation before failing the run if near-soft and at least two real 7/7 full finishes cannot be reproduced. The previous P100 finish proof is invalid for changed geometry until reconfirmed. No main merge on an erroneous green status.
+
+## Height-blend regression isolation
+
+After vertical anchors were recovered, all four original QA steering profiles fell off in SCISSOR RISE around t=21s; correction is not accepted. Instead of blindly loosening physics or moving machines, a PR-only 8-configuration native 240Hz sweep varies the span and gain of the **physical** elevation blend while retaining lateral bends, camber, the B48 engine and all twelve machine definitions. This is diagnostic research and cannot auto-promote an experimental configuration. Select one only after independent full-course confirmation; remove temporary sweep before merging.

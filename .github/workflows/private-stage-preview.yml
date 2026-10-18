@@ -57,6 +57,10 @@ jobs:
             echo 'Seven actual width-modulated B48 skins with 12 active B51-C machines.'
             echo 'P99_NATIVE_* log lines are physical trials, never human fairness approval.'
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: P100 temporary native terrain-curvature parameter study (PR investigation only)
+        run: |
+          set -o pipefail
+          node scripts/p100-geometry-recon.mjs | tee p100-geometry-recon.jsonl
       - name: P100 real changed-centerline + twelve-machine native 240Hz audit (HOLD until proven)
         run: |
           set -o pipefail
