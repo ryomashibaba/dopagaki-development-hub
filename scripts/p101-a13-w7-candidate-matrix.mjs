@@ -51,7 +51,15 @@ export const W7_TRIALS=Object.freeze([
  Object.freeze({id:'w7e-balanced',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[1,1.1,.9],verticalByType:[-.5,0,-1.3]}),
  Object.freeze({id:'w7e-active',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.85,.98,.8],verticalByType:[-.8,0,-2]}),
  Object.freeze({id:'w7e-middle',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.95,1.05,.85],verticalByType:[-.7,0,-1.5]}),
- Object.freeze({id:'w7e-ramp',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.90,1.08,.9],verticalByType:[-.6,0,-1.9]})
+ Object.freeze({id:'w7e-ramp',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.90,1.08,.9],verticalByType:[-.6,0,-1.9]}),
+ // W7F: W7E measured only 9/16 road-active hazards. Seek real on-surface
+ // footprints without falsely declaring the centerline safe/unsafe.
+ Object.freeze({id:'w7f-gentle',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.75,.8,.75],verticalByType:[-.8,-.5,-1.6]}),
+ Object.freeze({id:'w7f-balance',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.65,.8,.65],verticalByType:[-.8,-.5,-1.6]}),
+ Object.freeze({id:'w7f-rotor',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.7,.6,.7],verticalByType:[-.8,-.5,-1.8]}),
+ Object.freeze({id:'w7f-dynamic',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.65,.65,.7],verticalByType:[-.8,-.5,-1.8]}),
+ Object.freeze({id:'w7f-strong',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.55,.65,.6],verticalByType:[-.8,-.5,-1.8]}),
+ Object.freeze({id:'w7f-lowrotor',widths:[.65,.65,.65,.15,.65,.65,.65],roadsideByType:[.75,.75,.75],verticalByType:[-.8,-1,-1.8]})
 ]);
 export function makeW7TrialDoc(trial){
  if(!W7_TRIALS.includes(trial))throw Error('W7 uses declared native trial only');
@@ -69,7 +77,7 @@ export function makeW7TrialDoc(trial){
  // preserves the alternating lane-side pattern of the authored 16 stations.
  if(trial.roadsideFactor!==undefined||trial.roadsideByType!==undefined){
   if(trial.roadsideFactor!==undefined&&!(trial.roadsideFactor>=.8&&trial.roadsideFactor<=1.5))throw Error('W7C bounded shoulder factor required');
-  if(trial.roadsideByType!==undefined&&(!Array.isArray(trial.roadsideByType)||trial.roadsideByType.length!==3||trial.roadsideByType.some(x=>x<.7||x>1.5)))throw Error('W7E bounded kind-specific road-edge factors');
+  if(trial.roadsideByType!==undefined&&(!Array.isArray(trial.roadsideByType)||trial.roadsideByType.length!==3||trial.roadsideByType.some(x=>x<.45||x>1.5)))throw Error('W7E bounded kind-specific road-edge factors');
   for(let k=0;k<A13_HAZARD_SPECS.length;k++){
    const [section,u,type,offset]=A13_HAZARD_SPECS[k],s=doc.surfaces[section];
    const row=Math.round(u*30),point=s.points[row*5+2],edge=s.points[row*5];
