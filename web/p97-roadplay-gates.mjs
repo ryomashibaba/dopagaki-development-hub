@@ -14,7 +14,7 @@ const DISTANCES=Object.freeze([400,270,140]);
 const COL={
  fail:[1,.26,.34],bounce:[1,.78,.28],push:[.76,.42,1]
 };
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const sub=(a,b)=>a.map((x,i)=>x-b[i]);
 const add=(a,b)=>a.map((x,i)=>x+b[i]);
 const mul=(a,f)=>a.map(v=>v*f);
