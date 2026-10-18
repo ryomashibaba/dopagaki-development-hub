@@ -55,7 +55,7 @@ export function generateP99VariableWidthCandidate(){
  // phases, collision modes, dimensions and CCD motion; no obstacle is disabled.
  doc.stageForge={
   ...doc.stageForge,id:'VB-P99',batch:'P99_VARIABLE_WIDTH_HUMAN_DRIVING_CANDIDATE',
-  status:'EXPERIMENTAL_NEW_PHYSICAL_ROADPLAY_NATIVE_HOLD',
+  status:'EXPERIMENTAL_SCRIPTED_NATIVE_FINISH_HUMAN_HOLD',
   name:'VOID BREAKER / PRESSURE LINES',
   design:'7 authentic road skins with wide-to-tight-to-wide physical driving lanes and original twelve native moving obstacles',
   variedPhysicalWidths:true,minRoadScale:.61,
