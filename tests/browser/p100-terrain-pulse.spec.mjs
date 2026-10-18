@@ -13,8 +13,11 @@ test('P100 is a genuinely reshaped optional WebGL2 road candidate, no fake spect
    fetch('../generated/P100_TERRAIN_PULSE.json').then(r=>r.json()),
    fetch('../generated/P99_PRESSURE_LINES.json').then(r=>r.json())
   ]);
-  const old=b.surfaces[0].points[12*5+2],current=a.surfaces[0].points[12*5+2];
-  return {stage:a.stageForge.id,changedMeters:Math.hypot(...current.map((x,i)=>x-old[i])),
+  const changedMeters=Math.max(...[6,9,12,15,18,21,24].map(row=>{
+   const old=b.surfaces[0].points[row*5+2],current=a.surfaces[0].points[row*5+2];
+   return Math.hypot(...current.map((x,i)=>x-old[i]));
+  }));
+  return {stage:a.stageForge.id,changedMeters,
    machinesEqual:JSON.stringify(a.movingObstacles)===JSON.stringify(b.movingObstacles),
    status:a.stageForge.fullStartToFinish,human:a.stageForge.humanPlaytest};
  });
