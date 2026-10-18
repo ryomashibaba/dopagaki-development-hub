@@ -128,3 +128,13 @@ test('P101 B3 continuous late-surge acceleration preserves all seven original ph
  assert.deepEqual(runner.v,v);
  assert.equal(runner.doc.stageForge.id,stage);
 });
+
+test('P101 B4C curve entry/exit pulse accelerates gently and curvature audit includes shoulders',()=>{
+ const pulse=p101HighRadiusPulse(2/30);
+ assert(pulse>0&&pulse<.003,'first deformable control row must not create abrupt radius knee');
+ assert.equal(p101HighRadiusPulse(0),0);
+ assert.equal(p101HighRadiusPulse(1),0);
+ const stage=generateP101OverdriveCandidate(),r=p101CurvatureReport(stage);
+ assert(r.every(s=>s.entryMinRadiusMeters>0&&s.exitMinRadiusMeters>0));
+ assert(r.every(s=>s.minRadiusMeters<=s.entryMinRadiusMeters&&s.minRadiusMeters<=s.exitMinRadiusMeters));
+});

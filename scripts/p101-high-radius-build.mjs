@@ -26,7 +26,8 @@ const norm=v=>Math.hypot(...v)||1;
 export function p101HighRadiusPulse(u){
  if(!Number.isFinite(u)||u<0||u>1)throw Error('P101 road-pulse u outside physical road');
  if(u===0||u===1)return 0; // exact chapter seam invariance
- return Math.sin(Math.PI*u)**2;
+ const wave=Math.sin(Math.PI*u);
+ return wave**4; // C2-smooth entry/exit, prevents abrupt early hairpin curvature
 }
 export function p101ReshapeRoad(original,index,{scale=1}={}){
  if(!Number.isInteger(index)||index<0||index>=P101_B4_PROFILES.length||!Number.isFinite(scale)||scale<.1||scale>1.6)
@@ -80,9 +81,15 @@ function radiusAt(road,u){
 /** Real horizontal turning-radius observations, not a victory criterion. */
 export function p101CurvatureReport(stage){
  return stage.surfaces.map((road,i)=>{
-  const samples=Array.from({length:69},(_,j)=>radiusAt(road,.10+j*.8/68));
-  const sorted=samples.slice().sort((a,b)=>a-b);
+  // Include the shoulders of each hairpin: ignoring the first/last 10% let
+  // the previous B4 candidate falsely appear better while falling in II.
+  const samples=Array.from({length:97},(_,j)=>({u:.02+j*.96/96,r:radiusAt(road,.02+j*.96/96)}));
+  const sorted=samples.map(x=>x.r).sort((a,b)=>a-b);
+  const entry=samples.filter(x=>x.u<=.15).map(x=>x.r);
+  const exit=samples.filter(x=>x.u>=.85).map(x=>x.r);
   return {section:i,name:P101_B4_PROFILES[i].name,
+   entryMinRadiusMeters:+Math.min(...entry).toFixed(2),
+   exitMinRadiusMeters:+Math.min(...exit).toFixed(2),
    minRadiusMeters:+sorted[0].toFixed(2),
    p10RadiusMeters:+sorted[Math.floor(sorted.length*.10)].toFixed(2),
    medianRadiusMeters:+sorted[Math.floor(sorted.length*.5)].toFixed(2)};
