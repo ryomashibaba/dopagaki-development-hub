@@ -37,7 +37,7 @@ jobs:
         run: |
           set -o pipefail
           node --test tests/p101-a13-w7-candidate-matrix.test.mjs
-          node scripts/p101-a13-w7-candidate-matrix.mjs | tee a13-w7-matrix.jsonl
+          node scripts/p101-a13-w7-candidate-matrix.mjs --w7b-only | tee a13-w7b-matrix.jsonl
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -46,7 +46,7 @@ jobs:
             a13-native-pilot.jsonl
             a13-w6-ablation.jsonl
             a13-w6b-28aware.jsonl
-            a13-w7-matrix.jsonl
+            a13-w7b-matrix.jsonl
           if-no-files-found: ignore
           retention-days: 7
   b5-native:
