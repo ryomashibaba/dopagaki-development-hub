@@ -23,6 +23,7 @@ jobs:
         run: npm run test:core
       - name: P94 native 240Hz full course observability (HOLD until full completion)
         run: |
+          set -o pipefail
           node scripts/p94-void-native-acceptance.mjs neutral corrective | tee p94-void-physics-report.jsonl
           {
             echo '### P94 VOID BREAKER physical acceptance probe'
@@ -31,6 +32,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
       - name: P95 experimental machine gauntlet native 240Hz probes (candidate HOLD)
         run: |
+          set -o pipefail
           node scripts/p95-hazard-probe.mjs | tee p95-machine-probe.jsonl
           {
             echo '### P95 experimental B51-C moving hazard pilot'
@@ -39,6 +41,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
       - name: P96 physical dodge plan audit (4 profiles, human playability HOLD)
         run: |
+          set -o pipefail
           node scripts/p96-native-dodge-probe.mjs | tee p96-dodge-profiles.jsonl
           {
             echo '### P96 physical motion-aware dodge audit'
@@ -47,6 +50,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
       - name: 'P99 authentic varied-width roads and 12 moving machines — native 240Hz probe'
         run: |
+          set -o pipefail
           node scripts/p99-real-roadplay-probe.mjs | tee p99-physical-run.jsonl
           {
             echo '### P99 separate REAL physical roadplay candidate'
@@ -55,6 +59,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
       - name: P100 real changed-centerline + twelve-machine native 240Hz audit (HOLD until proven)
         run: |
+          set -o pipefail
           node scripts/p100-native-sweep.mjs | tee p100-native-trial.jsonl
           echo '### P100 independent S-bend/crest physical candidate; human handling HOLD' >> "$GITHUB_STEP_SUMMARY"
           echo 'P100_NATIVE_* lines report every real 240Hz attempt; CI green is NOT full finish approval.' >> "$GITHUB_STEP_SUMMARY"

@@ -23,3 +23,7 @@ Road hazard-anchor audit reports each existing native machine's lateral distance
 ## Actual machine elevation repair (after measured anchor audit)
 
 The first P100 native audit found all 12 machine centers horizontally within the road corridor, but several vertical offsets were badly displaced by the new road crests (for example slider 07 ~10.62m above the center road; slider 04 ~-1.55m below). P100 now **only reduces the new height displacement smoothly within 13% of each existing machine station**. It neither moves a B51-C machine nor changes its CCD, timing, mode, size or motion. Between machine stations, actual road crests, S-curves and banking continue. A new B48-sampled physics unit test fails if any authored machine height clearance drifts beyond 2.4m from original. The previously observed full run is invalidated by this terrain edit and must be re-proven via new 240Hz and Chromium gates before merge.
+
+## CI fail-closed correction
+
+Run `39102461770` exposed a real bug: the P100 native proof had thrown an exception after height redesign, but `node ... | tee` without pipefail hid the command exit code and reported QA SUCCESS. This was **not** a verified finish. All five existing QA pipelines now set `set -o pipefail`; P100 reports each independent steering attempt and hazard elevation before failing the run if near-soft and at least two real 7/7 full finishes cannot be reproduced. The previous P100 finish proof is invalid for changed geometry until reconfirmed. No main merge on an erroneous green status.
