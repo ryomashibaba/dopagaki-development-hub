@@ -25,6 +25,8 @@ export function probeP100(){
   caveat:'Only an independent P100 probe. No automated finish is evidence of human fairness.'
  };
  if(result.enabledMovingColliders!==12)throw Error('P100 real moving machine count regressed');
+ if(finish.length<2||!finish.some(a=>a.profile==='near-soft')||attempts.every(a=>a.status==='SCRIPTED_NATIVE_FULL_PASS'))
+  throw Error('P100 spectator gate rejected: require near-soft and 2 full native finishes plus meaningful failure');
  return result;
 }
 if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){

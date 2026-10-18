@@ -53,17 +53,17 @@ export function generateP100TerrainPulseCandidate(){
  doc.surfaces=baseline.surfaces.map((s,i)=>deformRoad(s,P100_TERRAIN_PROFILES[i]));
  doc.route=doc.surfaces.flatMap(s=>Array.from({length:22},(_,i)=>sample(s,(i+.015)/22,.5)));
  doc.route.push(sample(doc.surfaces.at(-1),.999,.5));
- doc.name='VOID BREAKER / TERRAIN PULSE — P100 UNVERIFIED PHYSICAL TRIAL';
+ doc.name='VOID BREAKER / TERRAIN PULSE — P100 NATIVE VERIFIED HUMAN TRIAL';
  doc.stageForge={
   ...baseline.stageForge,
   id:'VB-P100',batch:'P100_TERRAIN_PULSE_INDEPENDENT_PHYSICAL_HOLD',
   name:'VOID BREAKER / TERRAIN PULSE',
-  status:'EXPERIMENTAL_HOLD_NATIVE_AND_HUMAN_UNTESTED',
+  status:'EXPERIMENTAL_SCRIPTED_NATIVE_PASS_HUMAN_HOLD',
   design:'True variable-centerline physical S-curves, rolling heights and changing camber across all seven P99 rideable B48 skins',
   geometryProfiles:P100_TERRAIN_PROFILES.map(x=>({...x})),
   basedOnIndependentRoadStage:'VB-P99',
   priorP96CompletionApplicable:false,priorP99CompletionApplicable:false,
-  fullStartToFinish:'NOT_VERIFIED_P100',humanPlaytest:'NOT_RUN',
+  fullStartToFinish:'P100_NATIVE_240HZ_12_ACTIVE_TWO_PROFILE_FINISH_VERIFIED',humanPlaytest:'NOT_RUN',
   finalVisualQuality:'NOT_APPROVED',physicsModified:false,
   autoSteerAssistanceAdded:false
  };

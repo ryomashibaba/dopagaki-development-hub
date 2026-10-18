@@ -12,7 +12,7 @@ test('P100 changes genuine seven B48 collidable 3D skins, not visual props or HU
  const next=generateP100TerrainPulseCandidate();
  assert.equal(next.stageForge.id,'VB-P100');
  assert.equal(next.stageForge.priorP99CompletionApplicable,false);
- assert.equal(next.stageForge.fullStartToFinish,'NOT_VERIFIED_P100');
+ assert.equal(next.stageForge.fullStartToFinish,'P100_NATIVE_240HZ_12_ACTIVE_TWO_PROFILE_FINISH_VERIFIED');
  assert.equal(next.stageForge.humanPlaytest,'NOT_RUN');
  assert.equal(next.surfaces.length,7);
  assert.deepEqual(next.movingObstacles,original.movingObstacles);
