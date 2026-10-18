@@ -82,4 +82,7 @@ test('A13 isolated manual QA records real edge state and no inherited scripted f
  const summary=finalizeB5ManualAudit(a,{status:'failed',time:.5,contacts:0,nearMisses:0});
  assert.equal(summary.fullCourseCompletionFromStart00,false);
  assert.equal(JSON.parse(exportB5ManualAudit(a)).stageId,'VB-P101-A13');
+ const w7=createB5ManualAudit({stageId:'VB-P101-A13-W7F',profile:'OVERDRIVE',startSpeed:52,spawnIndex:0});
+ assert.equal(w7.schema,'dopagaki.a13-manual-qa/1');
+ assert.equal(JSON.parse(exportB5ManualAudit(w7)).stageId,'VB-P101-A13-W7F');
 });

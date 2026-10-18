@@ -20,7 +20,7 @@ jobs:
       - name: A13 shape integrity and actual native road machine tests
         run: node --test tests/p101-a13-road.test.mjs tests/p101-a13-machine-visual.test.mjs
       - name: A13 W7F exact browser-stage 7-skin, 28-machine structural QA
-        run: node --test tests/p101-a13-w7-gameplay.test.mjs
+        run: node --test tests/p101-a13-w7-gameplay.test.mjs tests/p101-a13-road-art.test.mjs
       - name: A13 W7F current selected native 240Hz 7-of-7 proof (not human)
         run: |
           set -o pipefail

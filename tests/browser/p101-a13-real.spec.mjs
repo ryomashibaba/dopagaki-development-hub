@@ -12,6 +12,8 @@ test('A13 isolated WebGL: 28 native solid machines, real narrowed roads, save an
  await expect(page.locator('#view')).toHaveAttribute('data-a13-architecture-non-collision','true');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-custom-moving-shapes','16');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-version','W7F');
+ await expect(page.locator('#view')).toHaveAttribute('data-a13-road-art-non-collision','true');
+ await expect(page.locator('#view')).toHaveAttribute('data-a13-road-art-segments',/^[1-9][0-9]{2}$/);
  await expect(page.locator('#b5QaPanel')).toBeVisible();
  await expect(page.locator('#p101Profile')).toHaveValue('OVERDRIVE');
  const data=await page.evaluate(async()=>await (await fetch('../generated/P101_A13_W7_GAMEPLAY.json')).json());
@@ -33,15 +35,16 @@ test('A13 isolated WebGL: 28 native solid machines, real narrowed roads, save an
  const download=page.waitForEvent('download');
  await page.locator('#b5QaExport').click();
  const d=await download;
- expect(d.suggestedFilename()).toMatch(/^P101_A13_MANUAL_QA_(ongoing|failed|finished)\.json$/);
+ expect(d.suggestedFilename()).toMatch(/^P101_A13_W7F_MANUAL_QA_(ongoing|failed|finished)\.json$/);
  const qa=JSON.parse(await fs.readFile(await d.path(),'utf8'));
  expect(qa.schema).toBe('dopagaki.a13-manual-qa/1');
- expect(qa.stageId).toBe('VB-P101-A13');
+ expect(qa.stageId).toBe('VB-P101-A13-W7F');
  expect(qa.samples.length).toBeGreaterThan(0);
  await page.locator('#stage').selectOption('VB-P101-B5');
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','12');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-custom-moving-shapes','0');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-version','none');
+ await expect(page.locator('#view')).toHaveAttribute('data-a13-road-art-segments','0');
  await expect(page.locator('#appStatus')).toContainText('B5 HYPER ARC');
  expect(errors).toEqual([]);
 });

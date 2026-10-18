@@ -11,6 +11,7 @@ test('Selected W7F 7/7 tested surfaces, machine poses, W1 + B5 protection, human
  assert.deepEqual(stage.surfaces,bench.surfaces);
  assert.deepEqual(stage.movingObstacles,bench.movingObstacles);
  assert.equal(stage.stageForge.revision,'W7F');
+ assert.equal(stage.stageForge.recordStageId,'VB-P101-A13-W7F');
  assert.equal(stage.stageForge.fullStartToFinish.includes('SCRIPTED_ONLY'),true);
  assert.equal(stage.stageForge.nativeScriptedProof.movingColliders,28);
  assert.equal(stage.stageForge.productionPromoted,false);
