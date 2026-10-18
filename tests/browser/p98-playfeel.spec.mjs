@@ -20,6 +20,12 @@ test('P98 real browser frame evidence from live P97 12-machine VOID BREAKER run'
  await page.locator('#demoSpeed').selectOption('2');
  await page.locator('#demoRun').click();
  await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
+ // This was a real P98 failure mode: clicking the lower setup controls used
+ // to leave the actual ball/road canvas above the viewport.
+ await page.waitForFunction(()=>{
+  const box=document.querySelector('#view')?.getBoundingClientRect();
+  return box&&box.top>=-3&&box.top<window.innerHeight/5&&box.bottom<=window.innerHeight+3;
+ },null,{timeout:5000});
  const results=[];
  for(const [target,label] of [[3,'opening'],[12,'crown'],[23,'underpass'],[33,'surge']]){
   await page.waitForFunction(t=>(parseFloat(document.querySelector('#simTime')?.textContent)||0)>=t,target,{timeout:75000});
@@ -32,7 +38,11 @@ test('P98 real browser frame evidence from live P97 12-machine VOID BREAKER run'
     gl.readPixels(Math.floor(cv.width/2),Math.floor(cv.height/2),1,1,gl.RGBA,gl.UNSIGNED_BYTE,pixel);
     rgba=Array.from(pixel);
    }
+   const box=cv.getBoundingClientRect();
    return {
+    viewportCanvasTop:Number(box.top.toFixed(1)),
+    viewportCanvasBottom:Number(box.bottom.toFixed(1)),
+    pageScrollY:Math.round(window.scrollY),
     simSeconds:parseFloat(document.querySelector('#simTime')?.textContent)||0,
     fps:parseFloat(document.querySelector('#fps')?.textContent)||0,
     cameraHeadingLagDegrees:parseFloat(cv.dataset.cameraHeadingLagDegrees)||0,
@@ -50,6 +60,7 @@ test('P98 real browser frame evidence from live P97 12-machine VOID BREAKER run'
   });
   const screenshot=testInfo.outputPath('p98-'+label+'-'+target+'s.png');
   await page.screenshot({path:screenshot,fullPage:false,animations:'disabled'});
+  await page.locator('#view').screenshot({path:testInfo.outputPath('p98-'+label+'-'+target+'s-canvas.png'),animations:'disabled'});
   results.push({label,target,...data});
  }
  await expect(page.locator('#resultTitle')).toHaveText('DEMO COMPLETE',{timeout:85000});
@@ -64,4 +75,5 @@ test('P98 real browser frame evidence from live P97 12-machine VOID BREAKER run'
  expect(results.every(s=>s.runMode==='spectator-demo'&&s.movingMachineCount===12&&s.hazardGateCount===36)).toBe(true);
  expect(results.every(s=>s.fps>0&&s.resolution[0]>0&&s.resolution[1]>0)).toBe(true);
  expect(results.every(s=>s.cameraMode==='ball-lock-interpolated')).toBe(true);
+ expect(results.every(s=>s.viewportCanvasTop>=-3&&s.viewportCanvasBottom<=903)).toBe(true);
 });
