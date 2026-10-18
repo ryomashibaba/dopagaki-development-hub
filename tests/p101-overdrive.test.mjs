@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generateP101OverdriveCandidate} from '../scripts/p101-overdrive-build.mjs';
 import {generateP100TerrainPulseCandidate} from '../scripts/p100-terrain-pulse-build.mjs';
-import {p101Step,p101Tune,P101_TUNINGS,P101_STEP} from '../web/p101-overdrive.mjs';
+import {p101Step,p101Tune,P101_TUNINGS,P101_STEP,p101LateSurgeGain,P101_LATE_PLANS,p101RoadProgress} from '../web/p101-overdrive.mjs';
 import {compile} from '../private/reference_only/director/collision.js';
 import {Runner,DT} from '../private/reference_only/director/physics.js';
 import {P101_EARLY_WARN_DISTANCES} from '../web/p97-roadplay-gates.mjs';
@@ -67,4 +67,26 @@ test('P101 native speed sweep adjusts only optional experimental forward impulse
  assert.equal(base.time,noExtra.time);
  assert.throws(()=>p101Step(new Runner(stage,world,0,44),1,'OVERDRIVE',{forwardScale:-.5}));
  assert.throws(()=>p101Step(new Runner(stage,world,0,44),1,'OVERDRIVE',{forwardScale:2}));
+});
+
+test('P101 B3 continuous late-surge acceleration preserves all seven original physical roads',()=>{
+ const doc=generateP101OverdriveCandidate(),world=compile(doc);
+ const runner=new Runner(doc,world,0,44);
+ assert.equal(p101RoadProgress(runner).section,0);
+ for(const mode of Object.keys(P101_LATE_PLANS)){
+  for(let section=0;section<4;section++)assert.equal(p101LateSurgeGain(section,.5,mode),0);
+  for(let section=4;section<7;section++){
+   const prior=section===4?0:P101_LATE_PLANS[mode][section-5];
+   const next=P101_LATE_PLANS[mode][section-4];
+   assert.equal(p101LateSurgeGain(section,0,mode),prior);
+   assert.equal(p101LateSurgeGain(section,1,mode),next);
+   for(let i=0;i<=100;i++)assert(p101LateSurgeGain(section,i/100,mode)>=0);
+  }
+ }
+ const p=[...runner.p],v=[...runner.v];
+ const stage=runner.doc.stageForge.id;
+ assert.throws(()=>p101Step(runner,0,'OVERDRIVE',{lateSurge:'UNKNOWN'}));
+ assert.deepEqual(runner.p,p);
+ assert.deepEqual(runner.v,v);
+ assert.equal(runner.doc.stageForge.id,stage);
 });
