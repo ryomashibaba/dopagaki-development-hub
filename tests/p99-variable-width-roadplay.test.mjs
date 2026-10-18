@@ -13,7 +13,7 @@ test('P99 7 real B48 curved road skins have wide-narrow-wide widths, not merely 
  assert.equal(candidate.stageForge.variedPhysicalWidths,true);
  assert.equal(candidate.stageForge.humanPlaytest,'NOT_RUN');
  assert.equal(candidate.stageForge.priorP96CompletionApplicable,false);
- assert.equal(candidate.stageForge.fullStartToFinish,'NOT_YET_PROVEN_ON_P99_VARIABLE_WIDTH');
+ assert.equal(candidate.stageForge.fullStartToFinish,'P99_NATIVE_240HZ_12_ACTIVE_TWO_PROFILE_FINISH_VERIFIED');
  assert.equal(candidate.surfaces.length,7);
  assert.equal(candidate.movingObstacles.length,12);
  assert.deepEqual(candidate.movingObstacles,original.movingObstacles,
