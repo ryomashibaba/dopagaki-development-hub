@@ -6,15 +6,26 @@
  */
 import {generateP100TerrainPulseCandidate} from './p100-terrain-pulse-build.mjs';
 import {P101_DEFAULT,P101_TUNINGS} from '../web/p101-overdrive.mjs';
-import {validate} from '../private/reference_only/director/surface.js';
+import {validate,sample} from '../private/reference_only/director/surface.js';
+import {P101_B4_PROFILES,p101ReshapeRoad,p101ReanchorMachines,p101CurvatureReport} from './p101-high-radius-build.mjs';
 export function generateP101OverdriveCandidate(){
  const original=generateP100TerrainPulseCandidate(),next=structuredClone(original);
- next.name='VOID BREAKER / VELOCITY OVERDRIVE — P101 REAL-PHYSICS TRIAL';
+ // Independently regenerate P101-only road physics while leaving P100 byte-identical.
+ next.surfaces=original.surfaces.map((s,i)=>p101ReshapeRoad(s,i));
+ next.movingObstacles=p101ReanchorMachines(original.movingObstacles,next.surfaces);
+ next.route=next.surfaces.flatMap(s=>Array.from({length:22},(_,i)=>sample(s,(i+.015)/22,.5)));
+ next.route.push(sample(next.surfaces.at(-1),.999,.5));
+ next.name='VOID BREAKER / HIGH-RADIUS VELOCITY OVERDRIVE — P101 PHYSICAL TRIAL';
  next.stageForge={
   ...original.stageForge,
   id:'VB-P101',batch:'P101_SPEED_LATERAL_ACCELERATION_PHYSICAL_HOLD',
   name:'VOID BREAKER / VELOCITY OVERDRIVE',
-  status:'EXPERIMENTAL_NATIVE_AND_HUMAN_HOLD',
+  status:'EXPERIMENTAL_B4_HIGH_RADIUS_NATIVE_AND_HUMAN_HOLD',
+  roadRedesign:'P101_ONLY_REAL_B48_HIGH_RADIUS_7_SKINS',
+  radiusProfiles:P101_B4_PROFILES.map(x=>({...x})),
+  P100SurfacesModified:false,
+  B51NativeMachineCountUnchanged:12,
+  machineAnchors:'P101_REANCHORED_TO_ACTUAL_RESHAPED_B48_SURFACE',
   baseStage:'VB-P100',
   firstPartyPhysics:'FROZEN_B48_CORE_WITH_ADDITIVE_240HZ_ACCELERATION_ADAPTER',
   movementLaw:'FORWARD_TANGENTIAL_EXTRA_ACCEL_AND_PLAYER_LATERAL_INPUT_ONLY',
@@ -28,5 +39,7 @@ export function generateP101OverdriveCandidate(){
   physicsModified:false,
   externalPerStepForce:true
  };
- return validate(next);
+ const result=validate(next);
+ result.stageForge.curvatureAudit=p101CurvatureReport(result);
+ return validate(result);
 }

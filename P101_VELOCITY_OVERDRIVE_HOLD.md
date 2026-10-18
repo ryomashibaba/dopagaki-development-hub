@@ -34,3 +34,17 @@ The six *real* 240Hz cases showed near-soft/early-soft with zero extra forward a
 
 ## Phase B3 / genuinely accelerating late-surging trial (not approved)
 An opt-in **test-only** B3 law allocates positive additional acceleration to physical chapters V / VI / VII, smoothly and monotonically, while I–IV keep native B48 slight ongoing acceleration. Its moderate / balanced / aggressive modes never brake, hard-cap, teleport, warp the camera, alter lateral control, or rewrite P100 geometry. This probes whether the final wide highway can genuinely reach 180–220m/s *without* failing early 180-degree U turns. If all trials fail, next task is a redesigned P101-only true B48 high-radius road, not a dishonest completion claim. Default manual P101 preset still uses the original full acceleration pending independent native and human acceptance.
+
+## Phase B4 — real physical high-radius geometry (new branch-only candidate)
+B2/B3 evidence shows native acceleration alone cannot hold 155–205m/s around the physically tight P100 U-bends. This phase edits **only the P101 B48 collidable 31x5 control-point lattices** rather than changing speed readout, hiding obstacles, teleports or auto-steering. Exterior smooth turn-envelope displacements: section II +115m, III +35m, IV +125m, V +80m, VI +48m, VII +38m with additional actual B48 bank roll 4–9m across half-width. Section I is unchanged to preserve the big initial natural dive. Endpoints of every chapter remain byte-identical to frozen P100 and envelope derivative goes to zero at both ends. Preserve the 7-chapter macro structure, high-altitude course, real S-bends, natural jumps, wide physical corridor, constant slight acceleration and fixed-relative camera.
+
+All twelve existing B51-C machine types, collision modes, sizes, timing phases, periods and identities remain; P101-only positions and slider side axes are reanchored to their *real new* section/surface tangents and same original lateral offsets. No machine disabled or removed. The original P100 coordinates and obstacles remain exactly untouched.
+
+Measured result and curvature profile from `scripts/p101-b4-road-proof.mjs` are **required before assuming any improvement**. Source QA script probes five independent authentic 240Hz cases and reports earlier failures alongside gains; reject the whole candidate if invalid topology, machine attachment, 2000m coordinate limits or regressions. The planned subsequent review is road visual screenshots plus user hands-on driving, not automated scripted-finish as a proxy for human fairness. Staging and production remain unchanged.
+
+## Direction and efficiency audit
+1. **True objective:** make the ball visibly much faster and **retain 4.8–6× lateral player control**, not narrow the road or replace 3D geometry with HUD tricks.
+2. **Course evolution:** preserve enormous real U-turns, elevation and architecture while reducing real curvature dynamically, and keep meaningful moving obstacles.
+3. **Protection:** P62/P66/P93/P99/P100, B48/B51-C core, survival-priority score, camera relative lock, natural jump and both chatgpt.site production URLs are immutable.
+4. **Evidence:** early pilot high-speed failures, B1 rejected yaw patch, B2 0% extra true 7/7 at 136.5m/s, B3 all 3 native failures at 155–174m/s are reported honestly. 200m/s high-radius success remains UNPROVEN until latest native QA.
+5. **Delivery:** one batch 7-surface B4 physical design plus full 240Hz differential probe, Draft PR #46 only, no Work handoff, no automatic production promotion.

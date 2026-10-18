@@ -7,12 +7,50 @@ import {p101Step,p101Tune,P101_TUNINGS,P101_STEP,p101LateSurgeGain,P101_LATE_PLA
 import {compile} from '../private/reference_only/director/collision.js';
 import {Runner,DT} from '../private/reference_only/director/physics.js';
 import {P101_EARLY_WARN_DISTANCES} from '../web/p97-roadplay-gates.mjs';
+import {P101_B4_PROFILES,p101HighRadiusPulse,p101CurvatureReport} from '../scripts/p101-high-radius-build.mjs';
+import {sample} from '../private/reference_only/director/surface.js';
+import {P95_HAZARD_SPECS} from '../web/p95-hazard-layout.mjs';
 
-test('P101 is physically identical to P100 and declares distinct HOLD evidence',()=>{
+test('P101 B4 changes only its own actual 3D roads and machine anchors; P100 is intact',()=>{
  const baseline=generateP100TerrainPulseCandidate(),copy=JSON.stringify(baseline);
  const next=generateP101OverdriveCandidate();
- for(const property of ['surfaces','movingObstacles','route','spawns','fixtures','routeSegments'])
+ for(const property of ['spawns','fixtures','routeSegments'])
   assert.deepEqual(next[property],baseline[property],property+' changed without approval');
+ assert.equal(next.surfaces.length,7);
+ assert.equal(next.movingObstacles.length,12);
+ assert.equal(next.stageForge.P100SurfacesModified,false);
+ assert.equal(next.stageForge.roadRedesign,'P101_ONLY_REAL_B48_HIGH_RADIUS_7_SKINS');
+ let substantiallyChanged=0;
+ for(let i=0;i<7;i++){
+  const old=baseline.surfaces[i],road=next.surfaces[i];
+  assert.equal(road.id,old.id);
+  assert.equal(road.rows,31);
+  assert.equal(road.cols,5);
+  assert.equal(road.rideable,true);
+  assert.equal(road.collidable,true);
+  for(const row of [0,30])for(let col=0;col<5;col++)
+   assert.deepEqual(road.points[row*5+col],old.points[row*5+col],'chapter joint moved');
+  const delta=Math.hypot(...sample(road,.5,.5).map((x,j)=>x-sample(old,.5,.5)[j]));
+  if(delta>8)substantiallyChanged++;
+ }
+ assert(substantiallyChanged>=4,'P101 B4 must modify at least four physically collidable roads');
+ for(let i=0;i<12;i++){
+  const a=baseline.movingObstacles[i],b=next.movingObstacles[i];
+  for(const k of ['id','type','size','collision','phase','period','enabled'])
+   assert.deepEqual(b[k],a[k],'B51-C native semantics changed: '+k);
+  const [section,u,type,offset]=P95_HAZARD_SPECS[i],road=next.surfaces[section];
+  const mid=sample(road,u,.5);
+  const distance=Math.hypot(b.position[0]-mid[0],b.position[2]-mid[2]);
+  assert(Math.abs(distance-Math.abs(offset))<1.5,'P101 machine detached from real road '+i);
+  assert(Math.abs(b.position[1]-mid[1]-[3,2.3,6.4][type])<.2,'P101 machine elevated incorrectly '+i);
+ }
+ const audit=p101CurvatureReport(next);
+ assert.equal(audit.length,7);
+ assert(audit.every(x=>x.minRadiusMeters>0&&Number.isFinite(x.medianRadiusMeters)));
+ assert.equal(P101_B4_PROFILES.length,7);
+ assert.equal(p101HighRadiusPulse(0),0);
+ assert.equal(p101HighRadiusPulse(1),0);
+ assert(p101HighRadiusPulse(.5)>.99);
  assert.equal(next.stageForge.id,'VB-P101');
  assert.equal(next.stageForge.fullStartToFinish,'NOT_VERIFIED_P101');
  assert.equal(next.stageForge.humanPlaytest,'NOT_RUN');

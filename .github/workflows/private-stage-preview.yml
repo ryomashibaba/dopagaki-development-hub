@@ -78,6 +78,11 @@ jobs:
           set -o pipefail
           node scripts/p101-late-surge-probe.mjs | tee p101-late-surge.jsonl
           echo '### P101 native curve-safe accelerating-only late surge: human fairness NOT certified' >> "$GITHUB_STEP_SUMMARY"
+      - name: P101 B4 real high-radius road 240Hz curve/physics comparative audit (PR/HOLD)
+        run: |
+          set -o pipefail
+          node scripts/p101-b4-road-proof.mjs | tee p101-b4-native.jsonl
+          echo '### P101 B4 physical high-radius seven-section 240Hz study; no human game approval' >> "$GITHUB_STEP_SUMMARY"
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets
