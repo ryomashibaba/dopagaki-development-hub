@@ -23,10 +23,16 @@ jobs:
         run: |
           set -o pipefail
           node scripts/p101-b5-a6-surge.mjs | tee p101-b5-a6-true-physics.jsonl
+      - name: B5 A9 real startup-speed safety envelope using EXACT browser physical boost law
+        run: |
+          set -o pipefail
+          node scripts/p101-b5-startup.mjs | tee p101-b5-startup.jsonl
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: p101-b5-a6-physical-results-${{ github.run_id }}
-          path: p101-b5-a6-true-physics.jsonl
+          path: |
+            p101-b5-a6-true-physics.jsonl
+            p101-b5-startup.jsonl
           if-no-files-found: ignore
           retention-days: 7
