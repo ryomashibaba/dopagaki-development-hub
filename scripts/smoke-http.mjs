@@ -13,7 +13,7 @@ async function untilReady(){for(let i=0;i<50;i++){try{const r=await fetch(host+'
 try{
  await untilReady();
  const files=fs.readdirSync(path.join(root,'private/stages'));
- const urls=['/','/web/','/drive3d/','/drive3d/drive3d.mjs','/drive3d/drive3d-camera.mjs','/drive3d/drive3d-loop.mjs','/drive3d/p66-visual.mjs','/drive3d/p73-machine-visual.mjs','/drive3d/p74-nearmiss.mjs','/drive3d/p75-survival.mjs','/drive3d/p78-demo.mjs','/drive3d/p79-practice.mjs','/drive3d/p80-trackflow.mjs','/drive3d/p81-edge-radar.mjs','/drive3d/p82-megastructure.mjs','/drive3d/p83-render-quality.mjs','/drive3d/p84-visibility.mjs','/drive3d/p85-energyball.mjs','/drive3d/p86-chapter-splits.mjs','/drive3d/p87-ghost.mjs','/drive3d/p88-ghost-gap.mjs','/drive3d/p89-ghost-sector-pace.mjs','/drive3d/p90-racecard.mjs','/drive3d/p91-approach-beacons.mjs','/drive3d/p92-failure-practice.mjs','/drive3d/p93-void-breaker-visual.mjs','/drive3d/p94-native-steer.mjs','/generated/P93_VOID_BREAKER.json','/generated/P94_VOID_NATIVE_ACCEPTANCE.json','/generated/P95_VOID_HAZARD_CANDIDATE.json','/generated/P96_NATIVE_DODGE_ACCEPTANCE.json','/drive3d/p95-hazard-layout.mjs','/drive3d/p96-avoidance-steer.mjs','/drive3d/p97-roadplay-gates.mjs','/generated/P97_ROADPLAY_READABILITY.json','/generated/P66_ECHO_RUSH.json','/generated/P87_REFERENCE_GHOST.json','/build-info.json','/reports/P62_FULL_RUN_MATRIX.json','/reference_only/director/moving/moving-obstacles.mjs','/reference_only/director/surface.js',...files.map(x=>'/generated/'+x)];
+ const urls=['/','/web/','/drive3d/','/drive3d/drive3d.mjs','/drive3d/drive3d-camera.mjs','/drive3d/drive3d-loop.mjs','/drive3d/p66-visual.mjs','/drive3d/p73-machine-visual.mjs','/drive3d/p74-nearmiss.mjs','/drive3d/p75-survival.mjs','/drive3d/p78-demo.mjs','/drive3d/p79-practice.mjs','/drive3d/p80-trackflow.mjs','/drive3d/p81-edge-radar.mjs','/drive3d/p82-megastructure.mjs','/drive3d/p83-render-quality.mjs','/drive3d/p84-visibility.mjs','/drive3d/p85-energyball.mjs','/drive3d/p86-chapter-splits.mjs','/drive3d/p87-ghost.mjs','/drive3d/p88-ghost-gap.mjs','/drive3d/p89-ghost-sector-pace.mjs','/drive3d/p90-racecard.mjs','/drive3d/p91-approach-beacons.mjs','/drive3d/p92-failure-practice.mjs','/drive3d/p93-void-breaker-visual.mjs','/drive3d/p94-native-steer.mjs','/generated/P93_VOID_BREAKER.json','/generated/P94_VOID_NATIVE_ACCEPTANCE.json','/generated/P95_VOID_HAZARD_CANDIDATE.json','/generated/P96_NATIVE_DODGE_ACCEPTANCE.json','/drive3d/p95-hazard-layout.mjs','/drive3d/p96-avoidance-steer.mjs','/drive3d/p97-roadplay-gates.mjs','/generated/P97_ROADPLAY_READABILITY.json','/generated/P99_PRESSURE_LINES.json','/generated/P99_PHYSICAL_TRIAL.json','/generated/P66_ECHO_RUSH.json','/generated/P87_REFERENCE_GHOST.json','/build-info.json','/reports/P62_FULL_RUN_MATRIX.json','/reference_only/director/moving/moving-obstacles.mjs','/reference_only/director/surface.js',...files.map(x=>'/generated/'+x)];
  for(const pathname of urls){const r=await fetch(host+pathname);assert.equal(r.status,200,`HTTP ${r.status} ${pathname}`);const type=r.headers.get('content-type')||'';assert(!type.includes('text/html')||pathname==='/'||pathname==='/web/'||pathname==='/drive3d/','JSON/JS must not be HTML');if(pathname.endsWith('.json'))JSON.parse(await r.text());else await r.arrayBuffer();}
  const missing=await fetch(host+'/generated/EP-001_P62_GRAZING_CONTACT_BALANCE.json');assert.equal(missing.status,404,'Old erroneous filename should not exist');
  const home=await(await fetch(host+'/')).text();
@@ -42,6 +42,13 @@ try{
  assert.equal(p97.nativeCollidersActive,12);assert.equal(p97.advanceGateCount,36);
  assert.equal(p97.warningBudgetSeconds,3.08);assert.equal(p97.humanPlaytest,'NOT_RUN');
  assert.equal(p97.fairness,'UNASSESSED');
+ const p99=await(await fetch(host+'/generated/P99_PRESSURE_LINES.json')).json();
+ const proof99=await(await fetch(host+'/generated/P99_PHYSICAL_TRIAL.json')).json();
+ assert.equal(p99.stageForge.id,'VB-P99');assert.equal(p99.surfaces.length,7);
+ assert.equal(p99.movingObstacles.length,12);
+ assert.equal(p99.stageForge.priorP96CompletionApplicable,false);
+ assert.equal(proof99.activeColliders,12);assert.equal(proof99.physicalWidths.length,7);
+ assert.equal(proof99.humanPlaytest,'NOT_RUN');
  const ghost=await(await fetch(host+'/generated/P87_REFERENCE_GHOST.json')).json();
  assert.equal(ghost.schema,'dopagaki.native-reference-ghost/1');
  assert(ghost.finished&&ghost.finishSeconds>82&&ghost.finishSeconds<85);
