@@ -34,7 +34,7 @@ const CHAPTERS=[
  {main:[.10,.39,.50],light:[.42,1,.96],tower:160}
 ];
 export function voidBreakerGeometry(stage,sample){
- if(!['VB-P93','VB-P95','VB-P99'].includes(stage?.stageForge?.id))return {vertices:[],beams:0,sections:[]};
+ if(!['VB-P93','VB-P95','VB-P99','VB-P100'].includes(stage?.stageForge?.id))return {vertices:[],beams:0,sections:[]};
  if(typeof sample!=='function')throw Error('P93 requires exact B48 read-only sampler');
  const roads=stage.surfaces.filter(s=>s.rideable&&s.collidable);
  if(roads.length!==7||!roads.every(s=>s.id.startsWith('p93-')))throw Error('P93 visual requires 7 authentic physical road skins');

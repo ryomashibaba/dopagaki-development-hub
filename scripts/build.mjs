@@ -6,6 +6,7 @@ import {generateVoidBreaker} from './p93-void-breaker-build.mjs';
 import {generateVoidAcceptanceEvidence} from './p94-void-native-acceptance.mjs';
 import {generateVoidHazardCandidate} from './p95-void-hazard-build.mjs';
 import {generateP99VariableWidthCandidate} from './p99-variable-width-build.mjs';
+import {generateP100TerrainPulseCandidate} from './p100-terrain-pulse-build.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
 import {generateP97RoadplayEvidence} from './p97-roadplay-evidence.mjs';
 import {generateP96DodgeEvidence} from './p96-acceptance-evidence.mjs';
@@ -67,6 +68,8 @@ if(includeStages){
  write('generated/P97_ROADPLAY_READABILITY.json',JSON.stringify(generateP97RoadplayEvidence(hazardTrial),null,2)+'\n');
  const pressureLines=generateP99VariableWidthCandidate();
  write('generated/P99_PRESSURE_LINES.json',JSON.stringify(pressureLines,null,2)+'\n');
+ const terrainPulse=generateP100TerrainPulseCandidate();
+ write('generated/P100_TERRAIN_PULSE.json',JSON.stringify(terrainPulse,null,2)+'\n');
  write('generated/P99_PHYSICAL_TRIAL.json',JSON.stringify(makeP99PhysicalEvidence(pressureLines),null,2)+'\n');
  write('generated/P87_REFERENCE_GHOST.json',JSON.stringify(generateReferenceGhost(nativeCourse))+'\n');
  for(const file of names)copy('private/stages/'+file,'generated/'+file);

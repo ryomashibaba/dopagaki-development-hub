@@ -53,6 +53,11 @@ jobs:
             echo 'Seven actual width-modulated B48 skins with 12 active B51-C machines.'
             echo 'P99_NATIVE_* log lines are physical trials, never human fairness approval.'
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: P100 real changed-centerline + twelve-machine native 240Hz audit (HOLD until proven)
+        run: |
+          node scripts/p100-native-sweep.mjs | tee p100-native-trial.jsonl
+          echo '### P100 independent S-bend/crest physical candidate; human handling HOLD' >> "$GITHUB_STEP_SUMMARY"
+          echo 'P100_NATIVE_* lines report every real 240Hz attempt; CI green is NOT full finish approval.' >> "$GITHUB_STEP_SUMMARY"
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets

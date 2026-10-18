@@ -38,7 +38,7 @@ export function roadShoulderLights(doc,sample,frame,{spacing=38,maxPerSurface=70
  // no visible edges at 100–140m/s. Reuse ORIGINAL B48 road-edge reflectors
  // without adding collision walls, lane assistance or modifying physics.
  // P62 immutable originals remain excluded; P66 original geometry unchanged.
- const isVoid=['VB-P93','VB-P95','VB-P99'].includes(doc?.stageForge?.id);
+ const isVoid=['VB-P93','VB-P95','VB-P99','VB-P100'].includes(doc?.stageForge?.id);
  if(doc?.stageForge?.id!=='EP-P66'&&!isVoid)return {vertices:v,beacons,roads,physical:false};
  for(const [roadIndex,s] of (doc.surfaces||[]).entries()){
   if(!s.rideable||s.visible===false)continue;
