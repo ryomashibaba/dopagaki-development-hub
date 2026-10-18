@@ -45,7 +45,7 @@ jobs:
             echo 'Each P96_NATIVE_* log is 240Hz true collision/finish evidence.'
             echo 'A green CI proves the probe executed, not that any plan won.'
           } >> "$GITHUB_STEP_SUMMARY"
-      - name: P99 authentic varied-width roads + 12 active B51-C: native 240Hz gameplay probe
+      - name: 'P99 authentic varied-width roads and 12 moving machines — native 240Hz probe'
         run: |
           node scripts/p99-real-roadplay-probe.mjs | tee p99-physical-run.jsonl
           {
