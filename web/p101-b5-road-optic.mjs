@@ -41,7 +41,7 @@ function physicalDistanceIndex(road,sample){
  }};
 }
 export function p101B5OpticalRoadGeometry(doc,sample,frame){
- if(doc?.stageForge?.variant!=='B5_HYPER_ARC_ISOLATED')return {vertices:[],dashes:0,edgeTicks:0,distanceMeters:0,nonCollision:true};
+ if(!['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc?.stageForge?.variant))return {vertices:[],dashes:0,edgeTicks:0,distanceMeters:0,nonCollision:true};
  if(doc.surfaces?.length!==7||typeof sample!=='function'||typeof frame!=='function')
   throw Error('B5 optical cues require seven real B48 collidable surfaces and sampler');
  let dashes=0,edgeTicks=0,distanceMeters=0;
