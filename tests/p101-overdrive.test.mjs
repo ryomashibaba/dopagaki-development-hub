@@ -19,7 +19,7 @@ test('P101 B4 changes only its own actual 3D roads and machine anchors; P100 is 
  assert.equal(next.surfaces.length,7);
  assert.equal(next.movingObstacles.length,12);
  assert.equal(next.stageForge.P100SurfacesModified,false);
- assert.equal(next.stageForge.roadRedesign,'P101_ONLY_REAL_B48_HIGH_RADIUS_7_SKINS');
+ assert.equal(next.stageForge.roadRedesign,'P101_ONLY_B48_REAL_HAIRPIN_SECTION_II_ISOLATED');
  let substantiallyChanged=0;
  for(let i=0;i<7;i++){
   const old=baseline.surfaces[i],road=next.surfaces[i];
@@ -33,7 +33,8 @@ test('P101 B4 changes only its own actual 3D roads and machine anchors; P100 is 
   const delta=Math.hypot(...sample(road,.5,.5).map((x,j)=>x-sample(old,.5,.5)[j]));
   if(delta>8)substantiallyChanged++;
  }
- assert(substantiallyChanged>=4,'P101 B4 must modify at least four physically collidable roads');
+ assert.equal(substantiallyChanged,1,'B4E only the native-proven second physical road is reshaped');
+ for(let i=0;i<7;i++)if(i!==1)assert.deepEqual(next.surfaces[i],baseline.surfaces[i],'unchanged physical P100 road '+i);
  for(let i=0;i<12;i++){
   const a=baseline.movingObstacles[i],b=next.movingObstacles[i];
   for(const k of ['id','type','size','collision','phase','period','enabled'])
