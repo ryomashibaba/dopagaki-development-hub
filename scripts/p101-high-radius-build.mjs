@@ -30,9 +30,10 @@ export function p101HighRadiusPulse(u){
  return wave**4; // C2-smooth entry/exit, prevents abrupt early hairpin curvature
 }
 export function p101ReshapeRoad(original,index,{scale=1}={}){
- if(!Number.isInteger(index)||index<0||index>=P101_B4_PROFILES.length||!Number.isFinite(scale)||scale<.1||scale>1.6)
+ if(!Number.isInteger(index)||index<0||index>=P101_B4_PROFILES.length||!Number.isFinite(scale)||scale<0||scale>1.6)
   throw Error('P101 invalid high-radius profile');
  const profile=P101_B4_PROFILES[index],s=structuredClone(original);
+ if(scale===0)return s; // exact P100 geometry for isolated real physical control
  if(s.rows!==31||s.cols!==5||!s.rideable||!s.collidable)throw Error('P101 requires unchanged B48 physical surface topology');
  const old=original.points;
  // The first TWO and last TWO physical control rows never change. Catmull-Rom
@@ -58,10 +59,12 @@ export function p101ReshapeRoad(original,index,{scale=1}={}){
 const add=(a,b,k=1)=>a.map((v,i)=>v+b[i]*k);
 const unit=v=>v.map(x=>x/norm(v));
 /** Native authored machine parameters protected; only P101 physical anchors move. */
-export function p101ReanchorMachines(sourceMachines,surfaces){
+export function p101ReanchorMachines(sourceMachines,surfaces,{weights=Array(7).fill(1)}={}){
  if(sourceMachines.length!==P95_HAZARD_SPECS.length||surfaces.length!==7)throw Error('P101 requires exact 12 original B51-C machines');
  return sourceMachines.map((ob,i)=>{
-  const [section,u,typeIndex,offset]=P95_HAZARD_SPECS[i],road=surfaces[section],f=frame(road,u,.5);
+  const [section,u,typeIndex,offset]=P95_HAZARD_SPECS[i];
+  if(weights[section]===0)return structuredClone(ob); // preserve exact original station/axis when its road is unchanged
+  const road=surfaces[section],f=frame(road,u,.5);
   const tangent=unit([f.forward[0],0,f.forward[2]]);
   const side=unit([-tangent[2],0,tangent[0]]);
   const position=add(add(sample(road,u,.5),side,offset),[0,1,0],[3,2.3,6.4][typeIndex]);

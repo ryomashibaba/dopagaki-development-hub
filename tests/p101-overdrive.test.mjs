@@ -138,3 +138,18 @@ test('P101 B4C curve entry/exit pulse accelerates gently and curvature audit inc
  assert(r.every(s=>s.entryMinRadiusMeters>0&&s.exitMinRadiusMeters>0));
  assert(r.every(s=>s.minRadiusMeters<=s.entryMinRadiusMeters&&s.minRadiusMeters<=s.exitMinRadiusMeters));
 });
+
+test('P101 B4D exact P100 benchmark has identical physical geometry and B51-C obstacle placements',()=>{
+ const src=generateP100TerrainPulseCandidate(),identical=generateP101OverdriveCandidate({radiusWeights:[0,0,0,0,0,0,0]});
+ assert.deepEqual(identical.surfaces,src.surfaces);
+ assert.deepEqual(identical.movingObstacles,src.movingObstacles);
+ assert.deepEqual(identical.route,src.route);
+ assert.equal(identical.stageForge.id,'VB-P101');
+ assert.throws(()=>generateP101OverdriveCandidate({radiusWeights:[1,1]}));
+ assert.throws(()=>generateP101OverdriveCandidate({radiusWeights:[0,0,0,-1,0,0,0]}));
+ const mild=generateP101OverdriveCandidate({radiusWeights:[0,.15,0,0,0,0,0]});
+ for(let section=0;section<7;section++)if(section!==1)
+   assert.deepEqual(mild.surfaces[section],src.surfaces[section]);
+ for(let i=0;i<12;i++)if(P95_HAZARD_SPECS[i][0]!==1)
+   assert.deepEqual(mild.movingObstacles[i],src.movingObstacles[i]);
+});

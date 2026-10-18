@@ -83,6 +83,11 @@ jobs:
           set -o pipefail
           node scripts/p101-b4-road-proof.mjs | tee p101-b4-native.jsonl
           echo '### P101 B4 physical high-radius seven-section 240Hz study; no human game approval' >> "$GITHUB_STEP_SUMMARY"
+      - name: P101 B4D isolate true II hairpin and late road physical geometry against P100
+        run: |
+          set -o pipefail
+          node scripts/p101-b4-isolation.mjs | tee p101-b4d-causal.jsonl
+          echo '### P101 B4D native 240Hz isolated surface causality, no human-play claim' >> "$GITHUB_STEP_SUMMARY"
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets
