@@ -27,7 +27,7 @@ import {failurePracticeChapter} from './p92-failure-practice.mjs';
 import {hazardRoadGateVertices,makeHazardRoadPlan,nextRoadHazardCue} from './p97-roadplay-gates.mjs';
 import {p100RoadReadGeometry} from './p100-road-read.mjs';
 import {p101Step,P101_DEFAULT} from './p101-overdrive.mjs';
-import {p101B5ForwardScale,createP101B5SurgeState} from './p101-b5-forward.mjs';
+import {p101B5ForwardScale,createP101B5SurgeState,p101B5RecordStageId} from './p101-b5-forward.mjs';
 import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
 
 const $=id=>document.getElementById(id);
@@ -299,7 +299,7 @@ function settleRun(){
   return;
  }
  runCommitted=true;
- const record=buildRunRecord({stageId:doc.stageForge.id,spawn:runner.spawnIndex,
+ const record=buildRunRecord({stageId:p101B5RecordStageId(doc),spawn:runner.spawnIndex,
   seconds:runner.time,nearMisses:nearMissTracker.total,outcome:runner.status});
  const compared=storeBest(browserRecordStore(),record);
  personalBest=compared.best;
@@ -328,7 +328,9 @@ function restart(){
   $('ghostToggle').textContent=!eligible?'基準ゴースト：対象外':ghostEnabled?'基準ゴースト：ON（非衝突）':'基準ゴースト：OFF';
   $('ghostToggle').setAttribute('aria-pressed',String(eligible&&ghostEnabled));
   $('ghostToggle').title=eligible?'開始地点00の手動走行にだけ適用':'実物理ゴーストはECHO PIPE開始00の手動走行のみ';
-  runner=new Runner(doc,world,spawn,44);runner.assist=true;accum=0;paused=false;
+  const physicalLaunch=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?52:44;
+  runner=new Runner(doc,world,spawn,physicalLaunch);runner.assist=true;accum=0;paused=false;
+  canvas.dataset.b5LaunchMps=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'52':'off';
   p101B5Surge=createP101B5SurgeState();
   canvas.dataset.b5PhysicalStage=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'true':'false';
  demoDirector=createNativeDemoState();
@@ -346,14 +348,14 @@ function restart(){
  chapterTracker=createChapterSplits(doc.stageForge?.id,spawn,runner.surface,runner.time);latestSplit=null;
  $('splitBurst').hidden=true;canvas.dataset.completedSplits='0';
  canvas.dataset.chapterTimeId='none';
- personalBest=readBest(browserRecordStore(),doc.stageForge.id,spawn);
+ personalBest=readBest(browserRecordStore(),p101B5RecordStageId(doc),spawn);
  $('runResult').hidden=true;canvas.dataset.runOutcome='running';
  $('nearMissCount').textContent='0';$('nearMissBurst').hidden=true;
  updateRunScore();
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.variant==='B5_HYPER_ARC_ISOLATED'?'P101 B5 HYPER ARC — 7.28km true giant 3D 180° curves, 12 real moving machines, native 240Hz 205.26m/s SCRIPTED finish proven. Human steering/visual/phone FPS HOLD. P100 unchanged.':doc.stageForge?.id==='VB-P101'?'P101 VELOCITY OVERDRIVE — 4×/4.8×/6× genuine lateral acceleration and enhanced forward speed; 240Hz CCD. Human fairness and full-run QA HOLD. P100 baseline unchanged.':doc.stageForge?.id==='VB-P100'?'P100 TERRAIN PULSE — authentic 3D S-bends, real crests and moving road camber; P99 baseline unchanged; 7/7 real 240Hz two-profile native finish confirmed, human fairness and final art HOLD.':doc.stageForge?.id==='VB-P99'?'P99 PRESSURE LINES — real 7-skin variable-width roads and 12 native moving hazards; two real native 240Hz profile finishes confirmed; human fairness and full visual quality HOLD.':doc.stageForge?.id==='VB-P95'?'P96 VOID BREAKER — 12 real moving B51-C obstacles, 7/7 native scripted finish; human difficulty/fairness HOLD.':doc.stageForge?.id==='VB-P93'?'P94 VOID BREAKER — genuine 3990m 7/7 native scripted finish verified; human playability and final art NOT APPROVED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.variant==='B5_HYPER_ARC_ISOLATED'?'P101 B5 HYPER ARC — 7.28km true giant 3D 180° curves, 12 real moving machines, native 240Hz 206.28m/s SCRIPTED finish proven, 52m/s launch. Human steering/visual/phone FPS HOLD. P100 unchanged.':doc.stageForge?.id==='VB-P101'?'P101 VELOCITY OVERDRIVE — 4×/4.8×/6× genuine lateral acceleration and enhanced forward speed; 240Hz CCD. Human fairness and full-run QA HOLD. P100 baseline unchanged.':doc.stageForge?.id==='VB-P100'?'P100 TERRAIN PULSE — authentic 3D S-bends, real crests and moving road camber; P99 baseline unchanged; 7/7 real 240Hz two-profile native finish confirmed, human fairness and final art HOLD.':doc.stageForge?.id==='VB-P99'?'P99 PRESSURE LINES — real 7-skin variable-width roads and 12 native moving hazards; two real native 240Hz profile finishes confirmed; human fairness and full visual quality HOLD.':doc.stageForge?.id==='VB-P95'?'P96 VOID BREAKER — 12 real moving B51-C obstacles, 7/7 native scripted finish; human difficulty/fairness HOLD.':doc.stageForge?.id==='VB-P93'?'P94 VOID BREAKER — genuine 3990m 7/7 native scripted finish verified; human playability and final art NOT APPROVED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  publishChapterTiming();
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run

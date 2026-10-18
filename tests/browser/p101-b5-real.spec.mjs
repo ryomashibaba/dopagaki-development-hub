@@ -6,6 +6,7 @@ test('B5 PR-only playable real WebGL two opposed 180 turns and verified physical
  await page.locator('#stage').selectOption('VB-P101-B5');
  await expect(page.locator('#appStatus')).toContainText('B5 HYPER ARC',{timeout:80000});
  await expect(page.locator('#view')).toHaveAttribute('data-b5-physical-stage','true');
+ await expect(page.locator('#view')).toHaveAttribute('data-b5-launch-mps','52');
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','12');
  const optical=await page.locator('#view').evaluate(el=>({
    dashes:Number(el.dataset.b5OpticalDashes),
@@ -33,7 +34,7 @@ test('B5 PR-only playable real WebGL two opposed 180 turns and verified physical
  expect(stage.machines).toBe(12);
  expect(stage.roadLengths[3]).toBe(1800);
  expect(stage.variant).toBe('B5_HYPER_ARC_ISOLATED');
- expect(stage.profile).toMatchObject({baseForwardScale:.12,afterSection:4,positiveLateAddition:.13});
+ expect(stage.profile).toMatchObject({baseForwardScale:.12,afterSection:4,positiveLateAddition:.13,provenStartSpeedMps:52,provenPeakSpeedMps:206.28});
  expect(stage.verified).toContain('SCRIPTED_ONLY');
  await page.locator('#view').screenshot({path:info.outputPath('p101-b5-real-opening-webgl.png')});
  await page.locator('#spawn').selectOption('3');
@@ -45,6 +46,7 @@ test('B5 PR-only playable real WebGL two opposed 180 turns and verified physical
  await expect(page.locator('#speed')).not.toHaveText('44.0');
  await page.locator('#stage').selectOption('VB-P100');
  await expect(page.locator('#view')).toHaveAttribute('data-b5-physical-stage','false');
+ await expect(page.locator('#view')).toHaveAttribute('data-b5-launch-mps','off');
  await expect(page.locator('#view')).toHaveAttribute('data-b5-optical-dashes','0');
  await expect(page.locator('#p101Controls')).toBeHidden();
  expect(errors).toEqual([]);

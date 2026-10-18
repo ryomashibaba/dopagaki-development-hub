@@ -11,7 +11,7 @@ const smooth=v=>{const x=clamp(v,0,1);return x*x*(3-2*x);};
 export const P101_B5_PROVEN_LAW=Object.freeze({
  activeVariant:'B5_HYPER_ARC_ISOLATED',requiredLowerReversalLength:1800,
  baseForwardScale:.12,positiveLateAddition:.13,startSection:4,rampProgress:.45,
- profile:'OVERDRIVE',verifiedNativePeakSpeedMps:205.26,verifiedNativeSeconds:53.15,
+ profile:'OVERDRIVE',nativeStartSpeedMps:52,verifiedNativePeakSpeedMps:206.28,verifiedNativeSeconds:51.992,
  humanApproval:'NOT_RUN'
 });
 export function createP101B5SurgeState(){return {section:0,u:0};}
@@ -29,4 +29,11 @@ export function p101B5ForwardScale(runner,state){
  const l=P101_B5_PROVEN_LAW;
  const ramp=state.section<l.startSection?0:state.section>l.startSection?1:smooth(state.u/l.rampProgress);
  return l.baseForwardScale+l.positiveLateAddition*ramp;
+}
+
+/** B5 is a distinct user course even while its physics stage id stays VB-P101. */
+export function p101B5RecordStageId(doc){
+ const id=doc?.stageForge?.id;
+ if(doc?.stageForge?.variant==='B5_HYPER_ARC_ISOLATED'&&id==='VB-P101')return 'VB-P101-B5';
+ return id;
 }
