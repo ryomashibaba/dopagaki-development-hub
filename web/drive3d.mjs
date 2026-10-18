@@ -118,9 +118,11 @@ function buildVisual(stage){
  canvas.dataset.approachBeacons=String(approach.markerCount);
  canvas.dataset.approachRegions=approach.regions.join(',')||'none';
  const reflectors=roadShoulderLights(stage,sample,frame);shoulderLights=mesh(reflectors.vertices);
+ canvas.dataset.roadBeaconCount=String(reflectors.beacons);
  canvas.dataset.shoulderBeacons=String(reflectors.beacons);
  const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
  const mega=megastructureGeometry(stage,sample);megaWorld=mega.vertices.length?mesh(mega.vertices):null;
+ canvas.dataset.archPortalCount=String((mega.sections||[]).reduce((n,x)=>n+(x.portalCount||0),0));
  canvas.dataset.megaTriangleCount=String(mega.vertices.length/18);
  canvas.dataset.megaSectionCount=String(mega.sections.length);
  $('megaWorld').disabled=!megaWorld;
