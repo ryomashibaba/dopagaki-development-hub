@@ -113,6 +113,11 @@ function buildVisual(stage){
  canvas.dataset.roadReadStripes=String(roadRead.stripes);
  canvas.dataset.roadReadBars=String(roadRead.flowBars);
  canvas.parentElement.dataset.stageId=stage.stageForge.id;
+ const caption=document.querySelector('.righttag');
+ if(caption){
+  if(stage.stageForge.id==='VB-P100')caption.textContent='P100 · DEV ONLY · HUMAN QA HOLD';
+  else caption.innerHTML='P97 / REAL ROAD PREWARNING · HUMAN QA HOLD<br>NOT FINAL GAME';
+ }
  const flow=flowLineVertices(stage,sample,frame);flowRoads=mesh(flow.vertices);
  canvas.dataset.flowMarkers=String(flow.markers);
  const approach=approachBeaconVertices(stage,sample,frame);approachBeacons=mesh(approach.vertices);

@@ -6,10 +6,10 @@
 const add=(a,b)=>a.map((x,i)=>x+b[i]);
 const mul=(a,k)=>a.map(x=>x*k);
 const colorSets=[
- {edge:[.34,.95,1],stitch:[.39,.70,.98]},
- {edge:[.91,.60,1],stitch:[.64,.75,1]},
- {edge:[.51,1,.87],stitch:[.27,.70,.73]},
- {edge:[1,.70,.47],stitch:[.75,.54,.36]}
+ {edge:[.34,.95,1],stitch:[.20,.53,.74]},
+ {edge:[.91,.60,1],stitch:[.39,.47,.73]},
+ {edge:[.51,1,.87],stitch:[.19,.48,.50]},
+ {edge:[1,.70,.47],stitch:[.51,.38,.25]}
 ];
 function append(v,a,b,c,d,color){
  for(const p of [a,b,c,a,c,d])v.push(...p,...color);
@@ -36,10 +36,10 @@ export function p100RoadReadGeometry(stage,sample,frame){
     stripes++;
    }
   }
-  // Short staggered tread marks indicate forward perspective, not a safe centerline.
+  // Thin recessed optic ticks indicate perspective, never solid pads/boosters or a safe centerline.
   for(let i=1;i<=19;i++){
-   const u=i/20,delta=.0035;
-   for(const [a,b] of [[.31,.38],[.62,.69]]){
+   const u=i/20,delta=.001;
+   for(const [a,b] of [[.315,.33],[.67,.685]]){
     append(vertices,lifted(s,u-delta,a,sample,frame),lifted(s,u+delta,a,sample,frame),
      lifted(s,u+delta,b,sample,frame),lifted(s,u-delta,b,sample,frame),palette.stitch);
     flowBars++;

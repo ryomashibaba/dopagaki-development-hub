@@ -53,6 +53,12 @@ test('P100 near-soft native spectator physically finishes 7/7 with 12 active mac
    return x.left<y.right&&x.right>y.left&&x.top<y.bottom&&x.bottom>y.top;
  });
  expect(overlaps,'spectator overlay must not obscure B51-C warning').toBe(false);
+ const chapterClash=await page.evaluate(()=>{
+   const a=document.querySelector('.righttag').getBoundingClientRect();
+   const b=document.querySelector('#chapterHud').getBoundingClientRect();
+   return a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;
+ });
+ expect(chapterClash,'stage heading must not overlap dev caution').toBe(false);
  await page.locator('#view').screenshot({path:testInfo.outputPath('p100-midcourse-real-12s.png')});
  await expect(page.locator('#resultTitle')).toHaveText('DEMO COMPLETE',{timeout:100000});
  await expect(page.locator('#view')).toHaveAttribute('data-run-outcome','finished');
