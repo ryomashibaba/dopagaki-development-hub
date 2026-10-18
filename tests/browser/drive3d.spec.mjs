@@ -637,3 +637,46 @@ test('P96 on-screen spectator physically dodges all 12 live machines, completes 
  await expect(page.locator('#runResult')).toBeHidden();
  expect(errors).toEqual([]);
 });
+
+test('P97 solid on-road 36 hazard gates and native B51-C advance cue are visible only in actual 12-machine trial',async({page})=>{
+ test.setTimeout(120000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/drive3d/');
+ await expect(page.locator('#view')).toHaveAttribute('data-hazard-gate-count','0');
+ await page.locator('#stage').selectOption('VB-P95');
+ await expect(page.locator('#appStatus')).toContainText('P96 VOID BREAKER',{timeout:75000});
+ await expect(page.locator('#view')).toHaveAttribute('data-hazard-gate-count','36');
+ await expect(page.locator('#view')).toHaveAttribute('data-hazard-station-count','12');
+ await expect(page.locator('#view')).toHaveAttribute('data-machine-count','12');
+ await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
+ const evidence=await page.evaluate(async()=>{
+  const {makeHazardRoadPlan,hazardRoadGateVertices,nextRoadHazardCue,hazardSpacingAudit}=await import('./p97-roadplay-gates.mjs');
+  const {sample,frame}=await import('../reference_only/director/surface.js');
+  const {movingObstaclePose}=await import('../reference_only/director/moving/moving-obstacles.mjs');
+  const d=await(await fetch('../generated/P95_VOID_HAZARD_CANDIDATE.json')).json();
+  const plan=makeHazardRoadPlan(d,sample);
+  const geometry=hazardRoadGateVertices(d,sample,frame);
+  const fake={surface:d.surfaces[0].id,lastSurface:d.surfaces[0].id,p:sample(d.surfaces[0],.6,.5),v:[110,0,0],time:2};
+  const cue=nextRoadHazardCue(d,fake,plan,movingObstaclePose);
+  return {stations:plan.stations.length,gates:geometry.gates.length,
+   triangles:geometry.solidVertices.length/18,lines:geometry.vertices.length/12,
+   cue,spacing:hazardSpacingAudit(plan)[1]};
+ });
+ expect(evidence.stations).toBe(12);
+ expect(evidence.gates).toBe(36);
+ expect(evidence.triangles).toBeGreaterThan(50);
+ expect(evidence.lines).toBeGreaterThan(150);
+ expect(evidence.cue.id).toBe('p95-hazard-01');
+ expect(evidence.cue.assurance).toBe('APPROXIMATE_POSITION_ONLY_NOT_SAFE_LANE');
+ expect(evidence.cue.etaSeconds).toBeGreaterThan(1.5);
+ expect(evidence.spacing.spacingMeters).toBeGreaterThan(0);
+ await page.locator('#spawn').selectOption('1');
+ await expect(page.locator('#view')).toHaveAttribute('data-hazard-target','p95-hazard-01',{timeout:5000});
+ await expect(page.locator('#machineCue')).toContainText('安全な道の保証なし',{timeout:5000});
+ await page.locator('#stage').selectOption('VB-P93');
+ await expect(page.locator('#view')).toHaveAttribute('data-hazard-gate-count','0',{timeout:75000});
+ await expect(page.locator('#view')).toHaveAttribute('data-machine-count','0');
+ await page.locator('#stage').selectOption('EP-001');
+ await expect(page.locator('#view')).toHaveAttribute('data-hazard-gate-count','0',{timeout:75000});
+ expect(errors).toEqual([]);
+});

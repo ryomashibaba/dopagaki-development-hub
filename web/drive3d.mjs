@@ -24,11 +24,12 @@ import {validateReferenceSectors,compareGhostSector,paceCaption} from './p89-gho
 import {buildRacecard,racecardTotals,racecardDeltaText} from './p90-racecard.mjs';
 import {approachBeaconVertices} from './p91-approach-beacons.mjs';
 import {failurePracticeChapter} from './p92-failure-practice.mjs';
+import {hazardRoadGateVertices,makeHazardRoadPlan,nextRoadHazardCue} from './p97-roadplay-gates.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,flowRoads,shoulderLights,approachBeacons,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
+let gl,program,locations={},roads,lines,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
@@ -103,13 +104,17 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
  const flow=flowLineVertices(stage,sample,frame);flowRoads=mesh(flow.vertices);
  canvas.dataset.flowMarkers=String(flow.markers);
  const approach=approachBeaconVertices(stage,sample,frame);approachBeacons=mesh(approach.vertices);
+ const p97=hazardRoadGateVertices(stage,sample,frame);
+ hazardGateMesh=mesh(p97.vertices);hazardGateSolidMesh=mesh(p97.solidVertices);hazardRoadPlan=makeHazardRoadPlan(stage,sample);
+ canvas.dataset.hazardGateCount=String(p97.gates.length);
+ canvas.dataset.hazardStationCount=String(p97.stations);
  canvas.dataset.approachBeacons=String(approach.markerCount);
  canvas.dataset.approachRegions=approach.regions.join(',')||'none';
  const reflectors=roadShoulderLights(stage,sample,frame);shoulderLights=mesh(reflectors.vertices);
@@ -121,6 +126,7 @@ function buildVisual(stage){
  $('megaWorld').disabled=!megaWorld;
  $('megaWorld').textContent=megaWorld?(megaEnabled?'巨大都市構造：ON':'巨大都市構造：OFF'):'巨大都市構造：対象外';
  canvas.dataset.machineCount=String((stage.movingObstacles||[]).filter(x=>x.enabled!==false).length);
+ canvas.dataset.hazardUrgency='none';canvas.dataset.hazardTarget='none';canvas.dataset.hazardEta='none';
 }
 function draw(m,center=[0,0,0],size=[1,1,1],angle=0,primitive=gl.TRIANGLES){
  if(!m||!m.count)return;
@@ -159,6 +165,8 @@ function render(frameSeconds){
  draw(roads);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
  draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);
+ draw(hazardGateSolidMesh);
+ draw(hazardGateMesh,[0,0,0],[1,1,1],0,gl.LINES);
  if(visibilityFx)draw(shoulderLights,[0,0,0],[1,1,1],0,gl.LINES);
  // Non-collidable trajectory guides. Actual machine solids use exact B51 poses.
  for(const guide of guideMeshes)draw(guide.mesh,[0,0,0],[1,1,1],0,gl.LINES);
@@ -419,10 +427,18 @@ function hud(){
  updateRunScore();
  const machineLabel=$('machineCue');
  if(machineLabel){
-  const cue=nearestMachineCue(doc.movingObstacles,runner.p,runner.forward,runner.time,220,movingObstaclePose);
+  const advance=doc?.stageForge?.id==='VB-P95'
+   ?nextRoadHazardCue(doc,runner,hazardRoadPlan,movingObstaclePose):null;
+  const cue=doc?.stageForge?.id==='VB-P95'?advance
+   :nearestMachineCue(doc.movingObstacles,runner.p,runner.forward,runner.time,220,movingObstaclePose);
   machineLabel.hidden=!cue;
   machineLabel.dataset.mode=cue?.mode||'none';
-  if(cue)machineLabel.textContent=cue.typeLabel+' / '+cue.modeLabel+' · '+cue.lateralLabel+' '+cue.distance+'m';
+  machineLabel.dataset.urgency=advance?.urgency||'none';
+  canvas.dataset.hazardUrgency=advance?.urgency||'none';
+  canvas.dataset.hazardTarget=advance?.id||'none';
+  canvas.dataset.hazardEta=advance?advance.etaSeconds.toFixed(1):'none';
+  if(advance)machineLabel.textContent='先の動体 '+advance.id.slice(-2)+' / '+advance.modeLabel+' · 約'+advance.meters+'m / '+advance.etaSeconds.toFixed(1)+'秒 · 予測位置 '+advance.sideLabel+'（安全な道の保証なし）';
+  else if(cue)machineLabel.textContent=cue.typeLabel+' / '+cue.modeLabel+' · '+cue.lateralLabel+' '+cue.distance+'m';
  }
  updateChapterHUD();updateTrackFlowHUD();publishChapterTiming();
  if(runner.status==='failed'&&!status.dataset.failed){
