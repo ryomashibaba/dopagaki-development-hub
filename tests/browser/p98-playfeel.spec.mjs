@@ -22,7 +22,7 @@ test('P98 real browser frame evidence from live P97 12-machine VOID BREAKER run'
  await expect(page.locator('#view')).toHaveAttribute('data-run-mode','spectator-demo');
  const results=[];
  for(const [target,label] of [[3,'opening'],[12,'crown'],[23,'underpass'],[33,'surge']]){
-  await page.waitForFunction(t=>parseFloat(document.querySelector('#simTime')?.textContent)||0>=t,target,{timeout:75000});
+  await page.waitForFunction(t=>(parseFloat(document.querySelector('#simTime')?.textContent)||0)>=t,target,{timeout:75000});
   const data=await page.evaluate(()=>{
    const cv=document.querySelector('#view');
    const gl=cv.getContext('webgl2');
