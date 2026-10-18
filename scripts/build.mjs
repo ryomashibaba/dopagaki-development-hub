@@ -63,6 +63,7 @@ if(includeStages){
  copy('web/p101-overdrive.mjs','drive3d/p101-overdrive.mjs');
  copy('web/p101-b5-forward.mjs','drive3d/p101-b5-forward.mjs');
  copy('web/p101-b5-road-optic.mjs','drive3d/p101-b5-road-optic.mjs');
+ copy('web/p101-b5-manual-qa.mjs','drive3d/p101-b5-manual-qa.mjs');
  const nativeCourse=generateEchoRush();
  write('generated/P66_ECHO_RUSH.json',JSON.stringify(nativeCourse,null,2)+'\n');
  const voidStage=generateVoidBreaker();

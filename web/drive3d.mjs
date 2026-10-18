@@ -29,6 +29,7 @@ import {p100RoadReadGeometry} from './p100-road-read.mjs';
 import {p101Step,P101_DEFAULT} from './p101-overdrive.mjs';
 import {p101B5ForwardScale,createP101B5SurgeState,p101B5RecordStageId} from './p101-b5-forward.mjs';
 import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
+import {createB5ManualAudit,recordB5ManualSample,recordB5ManualFrame,finalizeB5ManualAudit,exportB5ManualAudit} from './p101-b5-manual-qa.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -42,6 +43,7 @@ let renderQuality=createRenderQuality('auto'),visibilityFx=true;
 let practiceMode=false,practiceStartedAt=null,seekingChapter=null,retryChapterId=null,lastEdgeRadarAt=0;
 let chapterTracker=null,latestSplit=null,ghostData=null,ghostEnabled=false;
 let p101B5Surge=createP101B5SurgeState();
+let b5ManualAudit=null,b5PreviousAudit=null;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -299,6 +301,11 @@ function settleRun(){
   return;
  }
  runCommitted=true;
+ if(b5ManualAudit)finalizeB5ManualAudit(b5ManualAudit,{
+  status:runner.status,time:runner.time,surface:runner.surface||runner.lastSurface,
+  contacts:runner.collisions,nearMisses:nearMissTracker.total,
+  failure:runner.failure?.reason||null
+ });
  const record=buildRunRecord({stageId:p101B5RecordStageId(doc),spawn:runner.spawnIndex,
   seconds:runner.time,nearMisses:nearMissTracker.total,outcome:runner.status});
  const compared=storeBest(browserRecordStore(),record);
@@ -321,6 +328,13 @@ function settleRun(){
 }
 function restart(){
  if(!doc||!world)return;
+ if(b5ManualAudit){
+  if(!b5ManualAudit.final)finalizeB5ManualAudit(b5ManualAudit,{
+   status:'interrupted',time:runner?.time??0,surface:runner?.surface||runner?.lastSurface||null,
+   contacts:runner?.collisions??0,nearMisses:nearMissTracker?.total??0
+  });
+  b5PreviousAudit=b5ManualAudit;
+ }
  seekingChapter=null;retryChapterId=null;$('retryPractice').hidden=true;canvas.dataset.failurePractice='none';
  const spawn=Math.min(doc.spawns.length-1,Math.max(0,Number($('spawn').value)||0));
  const eligible=Boolean(ghostData&&ghostEligible(doc,spawn,demoMode?'spectator-demo':practiceMode?'practice':'manual'));
@@ -331,6 +345,10 @@ function restart(){
   const physicalLaunch=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?52:44;
   runner=new Runner(doc,world,spawn,physicalLaunch);runner.assist=true;accum=0;paused=false;
   canvas.dataset.b5LaunchMps=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'52':'off';
+  b5ManualAudit=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'&&!demoMode&&!practiceMode
+   ?createB5ManualAudit({stageId:'VB-P101-B5',profile:$('p101Profile').value,startSpeed:physicalLaunch}):null;
+  $('b5QaPanel').hidden=doc.stageForge.variant!=='B5_HYPER_ARC_ISOLATED';
+  $('b5QaStatus').textContent='手動試走の観測値を端末内で記録。自動送信はありません。';
   p101B5Surge=createP101B5SurgeState();
   canvas.dataset.b5PhysicalStage=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'true':'false';
  demoDirector=createNativeDemoState();
@@ -522,8 +540,23 @@ function tick(now){
  if(runner&&latestSplit)$('splitBurst').hidden=!(runner.time>=latestSplit.time&&runner.time<latestSplit.time+2.2);
  if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / '+(doc?.stageForge?.id==='VB-P100'?'約40s':doc?.stageForge?.id==='VB-P99'?'約39s':doc?.stageForge?.id==='VB-P95'?'約40s':doc?.stageForge?.id==='VB-P93'?'約38s':'約83.2s');
  if(runner&&now-lastEdgeRadarAt>100){lastEdgeRadarAt=now;updateEdgeRadar();}
+ if(b5ManualAudit&&runner&&!paused&&runner.status==='running'&&document.visibilityState==='visible')
+  recordB5ManualFrame(b5ManualAudit,elapsed);
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
+  if(b5ManualAudit&&runner&&runner.status==='running'&&!paused&&document.visibilityState==='visible'){
+   const input=Number(right||keys.has('KeyD')||keys.has('ArrowRight'))
+    -Number(left||keys.has('KeyA')||keys.has('ArrowLeft'));
+   const cue=hazardRoadPlan?nextRoadHazardCue(doc,runner,hazardRoadPlan,movingObstaclePose,{range:720}):null;
+   recordB5ManualSample(b5ManualAudit,{
+    time:runner.time,speed:Math.hypot(...runner.v),fps,frameDelta:elapsed,input,
+    surface:runner.surface||runner.lastSurface,grounded:runner.grounded,
+    hazard:cue?.id||'none',urgency:cue?.urgency||'none',
+    edge:canvas.dataset.edgeStatus
+   });
+   $('b5QaStatus').textContent='手動QA '+b5ManualAudit.samples.length+'サンプル / '
+    +Math.round(b5ManualAudit.maxSpeed)+'m/s最高 / FPS観測中';
+  }
   renderQuality=sampleRenderQuality(renderQuality,fps,{active:Boolean(runner&&!paused&&!seekingChapter&&!demoMode&&runner.status==='running'&&document.visibilityState==='visible')});
   $('renderScaleInfo').textContent=renderScaleLabel(renderQuality)+' / '+canvas.width+'×'+canvas.height+'px';
   const lag=$('cameraInfo');if(lag)lag.textContent=comparisonMode==='stable'
@@ -578,7 +611,7 @@ function toggle(){paused=!paused;$('pause').textContent=paused?'再開 (Space)':
  // so publish that exact committed time instead of waiting for the 500ms HUD refresh.
  if(runner)hud();}
 window.addEventListener('keydown',e=>{
- if(['KeyA','KeyD','ArrowLeft','ArrowRight','KeyR','Space'].includes(e.code)&&!['SELECT','INPUT'].includes(document.activeElement?.tagName)){
+ if(['KeyA','KeyD','ArrowLeft','ArrowRight','KeyR','Space'].includes(e.code)&&!['SELECT','INPUT','TEXTAREA'].includes(document.activeElement?.tagName)){
   e.preventDefault();keys.add(e.code);
   if(!e.repeat&&e.code==='KeyR'){if(practiceMode)exitPractice();else if(demoMode)exitDemo();else restart();}
   if(!e.repeat&&e.code==='Space')toggle();
@@ -646,6 +679,20 @@ function startDemo(){
  // the player watches a scrolled-off simulation without realizing it.
  canvas.scrollIntoView({block:'start',behavior:'auto'});
 }
+$('b5QaExport').addEventListener('click',()=>{
+ const audit=b5ManualAudit?.samples.length?b5ManualAudit:b5PreviousAudit;
+ if(!audit){$('b5QaStatus').textContent='最初にB5を手動で走ってください。';return;}
+ const val=id=>{const n=Number($(id).value);return n>=1&&n<=5?n:null;};
+ const json=exportB5ManualAudit(audit,{
+  speedFeel:val('b5SpeedFeel'),steeringFeel:val('b5SteeringFeel'),
+  hazardLegibility:val('b5HazardFeel'),note:$('b5QaNote').value
+ });
+ const blob=new Blob([json],{type:'application/json;charset=utf-8'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='P101_B5_MANUAL_QA_'+(audit.final?.status||'ongoing')+'.json';
+ document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);
+ $('b5QaStatus').textContent='B5手動試走レポートを端末へ保存しました（自動送信なし）。';
+});
 $('demoRun').addEventListener('click',()=>demoMode?exitDemo():startDemo());
 $('practiceRun').addEventListener('click',()=>practiceMode?exitPractice():startPractice());
 $('takeoverRun').addEventListener('click',takeoverDemo);

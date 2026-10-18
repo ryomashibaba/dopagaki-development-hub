@@ -1,4 +1,5 @@
 import {test,expect} from '@playwright/test';
+import fs from 'node:fs/promises';
 test('B5 PR-only playable real WebGL two opposed 180 turns and verified physical power law manual input',async({page},info)=>{
  test.setTimeout(110000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
@@ -43,9 +44,28 @@ test('B5 PR-only playable real WebGL two opposed 180 turns and verified physical
  await page.keyboard.down('ArrowRight');
  await page.waitForFunction(()=>Number.parseFloat(document.querySelector('#simTime')?.textContent||'0')>1.5,null,{timeout:40000});
  await page.keyboard.up('ArrowRight');
+ await expect(page.locator('#b5QaPanel')).toBeVisible();
+ await page.locator('#b5SpeedFeel').selectOption('4');
+ await page.locator('#b5SteeringFeel').selectOption('2');
+ await page.locator('#b5HazardFeel').selectOption('3');
+ await page.locator('#b5QaNote').fill('高速カーブの操舵と障害物を確認');
+ const dl=page.waitForEvent('download');
+ await page.locator('#b5QaExport').click();
+ const report=await dl;
+ expect(report.suggestedFilename()).toMatch(/^P101_B5_MANUAL_QA_(ongoing|failed|finished)\.json$/);
+ const qa=JSON.parse(await fs.readFile(await report.path(),'utf8'));
+ expect(qa.schema).toBe('dopagaki.b5-manual-qa/1');
+ expect(qa.stageId).toBe('VB-P101-B5');
+ expect(qa.startSpeed).toBe(52);
+ expect(qa.survey).toEqual({speedFeel:4,steeringFeel:2,hazardLegibility:3,note:'高速カーブの操舵と障害物を確認'});
+ expect(qa.samples.length).toBeGreaterThan(0);
+ expect(qa.source).toContain('NOT_SCRIPTED');
+ await expect(page.locator('#b5QaStatus')).toContainText('保存しました');
+
  await expect(page.locator('#speed')).not.toHaveText('44.0');
  await page.locator('#stage').selectOption('VB-P100');
  await expect(page.locator('#view')).toHaveAttribute('data-b5-physical-stage','false');
+ await expect(page.locator('#b5QaPanel')).toBeHidden();
  await expect(page.locator('#view')).toHaveAttribute('data-b5-launch-mps','off');
  await expect(page.locator('#view')).toHaveAttribute('data-b5-optical-dashes','0');
  await expect(page.locator('#p101Controls')).toBeHidden();

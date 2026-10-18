@@ -27,6 +27,18 @@ jobs:
         run: |
           set -o pipefail
           node scripts/p101-b5-startup.mjs | tee p101-b5-startup.jsonl
+      - name: A11 manual in-browser audit, no automatic report transmission or physics drift
+        run: node --test tests/p101-b5-manual-qa.test.mjs
+      - name: Package A11 PR-only Windows one-click offline-local B5 manual QA
+        run: |
+          npm run build:site
+          node scripts/pack-p101-b5-review.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p101-b5-a11-local-oneclick-review-${{ github.run_id }}
+          path: b5-manual-review/
+          if-no-files-found: error
+          retention-days: 7
       - uses: actions/upload-artifact@v4
         if: always()
         with:
