@@ -154,7 +154,7 @@ jobs:
             await new Promise(resolve=>setTimeout(resolve,3000));
           }
           assert.equal(info.gitCommit,process.env.EXPECTED_SHA);
-          assert.equal(info.version,'P97');
+          assert.equal(info.version,'P98');
           assert.equal(info.stageCount,4);
           assert.equal(info.experimentalStageCount,3);
           assert.equal(info.movingObstacleCount,24);
@@ -197,6 +197,7 @@ jobs:
           assert.equal(p95.stageForge.inheritedP94Evidence,false);
           const p97=await(await fetchOK('generated/P97_ROADPLAY_READABILITY.json')).json();
           assert.equal(p97.advanceGateCount,36);assert.equal(p97.nativeCollidersActive,12);
+          // P98 browser verifies the 42 giant portals + real road-edge markers visually.
           assert.equal(p97.warningBudgetSeconds,3.08);assert.equal(p97.humanPlaytest,'NOT_RUN');
           assert.equal(p97.fairness,'UNASSESSED');
           const ghost=await(await fetchOK('generated/P87_REFERENCE_GHOST.json')).json();
