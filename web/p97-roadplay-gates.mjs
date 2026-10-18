@@ -11,6 +11,7 @@
  */
 import {P95_HAZARD_SPECS} from './p95-hazard-layout.mjs';
 const DISTANCES=Object.freeze([400,270,140]);
+export const P101_EARLY_WARN_DISTANCES=Object.freeze([690,470,240]);
 const COL={
  fail:[1,.26,.34],bounce:[1,.78,.28],push:[.76,.42,1]
 };
@@ -123,8 +124,9 @@ function paintRoadGate(out,solid,plan,at,machine,grade,sample,frame){
 export function hazardRoadGateVertices(doc,sample,frame){
  if(!['VB-P95','VB-P99','VB-P100','VB-P101'].includes(doc?.stageForge?.id))return {vertices:[],solidVertices:[],gates:[],stations:0};
  const plan=makeHazardRoadPlan(doc,sample),vertices=[],solidVertices=[],gates=[];
- for(const station of plan.stations)for(let grade=0;grade<DISTANCES.length;grade++){
-  const d=station.distance-DISTANCES[grade];
+ const distances=doc.stageForge.id==='VB-P101'?P101_EARLY_WARN_DISTANCES:DISTANCES;
+ for(const station of plan.stations)for(let grade=0;grade<distances.length;grade++){
+  const d=station.distance-distances[grade];
   if(d<=5)continue;
   gates.push(paintRoadGate(vertices,solidVertices,plan,d,station,grade,sample,frame));
  }

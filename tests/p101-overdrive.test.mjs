@@ -6,6 +6,7 @@ import {generateP100TerrainPulseCandidate} from '../scripts/p100-terrain-pulse-b
 import {p101Step,p101Tune,P101_TUNINGS,P101_STEP} from '../web/p101-overdrive.mjs';
 import {compile} from '../private/reference_only/director/collision.js';
 import {Runner,DT} from '../private/reference_only/director/physics.js';
+import {P101_EARLY_WARN_DISTANCES} from '../web/p97-roadplay-gates.mjs';
 
 test('P101 is physically identical to P100 and declares distinct HOLD evidence',()=>{
  const baseline=generateP100TerrainPulseCandidate(),copy=JSON.stringify(baseline);
@@ -51,4 +52,9 @@ test('P101 free steering accelerates forward without resetting velocity or bypas
  assert.equal(overdrive.time,standard.time);
  assert.equal(overdrive.collisions>=0,true);
  assert(overdrive.events.every(e=>e.type!=='teleport'));
+});
+
+test('P101 high-speed machine anticipation starts farther away, without changing B48 or P100 rules',()=>{
+ assert.deepEqual(P101_EARLY_WARN_DISTANCES,[690,470,240]);
+ assert(P101_EARLY_WARN_DISTANCES[0]/225>3);
 });

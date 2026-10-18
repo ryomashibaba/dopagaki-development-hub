@@ -17,3 +17,6 @@ Improve sense of speed primarily through genuine longitudinal velocity and **muc
 ## Safety gates
 
 **P101 is independent / GitHub PR DRAFT; no merge, no GitHub Pages publish, no production site modification.** Any quality regression holds the PR. No heavy Work mode was used.
+
+## First native truth (PR #46)
+The initial genuine 240Hz test showed acceleration and side control really work but the old P100 steering QA policy is too aggressive / not fast enough: RAPID peak 223.99m/s, side 37.11m/s, fall 19.475s after 3 roads; OVERDRIVE peak 201.08m/s, side 32.63m/s, fall 11.758s after 2 roads; HYPER peak 278.83m/s, side 54.17m/s, fall 18.342s after 3 roads. **0/3 7-road finishes.** No success claims. Next read-only native study scales the QA steering to avoid overreaction and varies read-ahead. The actual human manual input is not reduced; preset 4x/4.8x/6x are maintained. Experimental visual warning strips move to 690/470/240m (P101 only), because at 225m/s a 400m warning gives under 1.8s. No B48 physics, P100 geometry or machine changes.
