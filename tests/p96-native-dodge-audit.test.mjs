@@ -16,7 +16,7 @@ test('P96 plan samples the original seven B48 surface guides and twelve B51-C ma
  assert(plan.stations.every((s,i)=>s.id===doc.movingObstacles[i].id));
  assert(plan.stations.every((s,i)=>i===0||s.at>plan.stations[i-1].at));
  assert.equal(JSON.stringify(doc),before);
- assert.throws(()=>makeP96RoutePlan(generateVoidBreaker(),r),/P95 candidate only/);
+ assert.throws(()=>makeP96RoutePlan(generateVoidBreaker(),r),/P95\\/P99 physical candidates only/);
 });
 test('P96 controller gives bounded real manual-compatible steer commands; unchanged physics and untouched PB',()=>{
  const doc=generateVoidHazardCandidate(),r=new Runner(doc,compile(doc),0,44);
