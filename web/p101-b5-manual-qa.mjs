@@ -7,6 +7,8 @@
  * of keyboard text; JSON is exported only via explicit user interaction.
  */
 export const B5_MANUAL_SCHEMA='dopagaki.b5-manual-qa/1';
+export const A13_MANUAL_SCHEMA='dopagaki.a13-manual-qa/1';
+const validAudit=a=>Boolean(a&&(a.schema===B5_MANUAL_SCHEMA||a.schema===A13_MANUAL_SCHEMA));
 const number=n=>typeof n==='number'&&Number.isFinite(n);
 const rounded=(n,d=2)=>Number(n.toFixed(d));
 const quantile=(sorted,q)=>sorted.length?sorted[Math.min(sorted.length-1,Math.floor((sorted.length-1)*q))]:null;
@@ -20,11 +22,11 @@ const frameDurationBin=(bins,count,q)=>{
  return null;
 };
 export function createB5ManualAudit({stageId,profile='OVERDRIVE',startSpeed=52,spawnIndex=0}={}){
- if(stageId!=='VB-P101-B5'||!['OVERDRIVE','RAPID','HYPER'].includes(profile)||
+ if(!['VB-P101-B5','VB-P101-A13'].includes(stageId)||!['OVERDRIVE','RAPID','HYPER'].includes(profile)||
     !number(startSpeed)||startSpeed<1||startSpeed>200||
     !Number.isInteger(spawnIndex)||spawnIndex<0)throw Error('B5 A11 manual audit is isolated to real B5 input');
  return {
-  schema:B5_MANUAL_SCHEMA,stageId,profile,startSpeed,spawnIndex,
+  schema:stageId==='VB-P101-A13'?A13_MANUAL_SCHEMA:B5_MANUAL_SCHEMA,stageId,profile,startSpeed,spawnIndex,
   source:'ACTUAL_MANUAL_BROWSER_RUN_NOT_SCRIPTED_NOT_HUMAN_FAIRNESS_CERTIFIED',
   samples:[],maxSpeed:startSpeed,inputs:{leftSamples:0,rightSamples:0,neutralSamples:0},
   hazards:{visibleSamples:0,immediateSamples:0,steeringWhileVisibleSamples:0},
@@ -33,7 +35,7 @@ export function createB5ManualAudit({stageId,profile='OVERDRIVE',startSpeed=52,s
  };
 }
 export function recordB5ManualFrame(a,seconds,{physicsOverloaded=false}={}){
- if(!a||a.schema!==B5_MANUAL_SCHEMA||a.final)return false;
+ if(!a||!validAudit(a)||a.final)return false;
  if(!number(seconds)||seconds<=0||seconds>1)return false;
  a.performance.measuredFrames++;
  if(seconds>1/30)a.performance.slowFrames++;
@@ -44,7 +46,7 @@ export function recordB5ManualFrame(a,seconds,{physicsOverloaded=false}={}){
  return true;
 }
 export function recordB5ManualSample(a,x){
- if(!a||a.schema!==B5_MANUAL_SCHEMA||a.final)return false;
+ if(!a||!validAudit(a)||a.final)return false;
  if(!x||![x.time,x.speed,x.fps,x.frameDelta].every(number)||
     x.time<0||x.speed<0||x.fps<0||x.frameDelta<0||x.frameDelta>2||
     ![-1,0,1].includes(x.input))throw Error('A11 requires finite legitimate browser sample');
@@ -57,7 +59,7 @@ export function recordB5ManualSample(a,x){
    surface:typeof x.surface==='string'?x.surface.slice(0,80):null,
    grounded:Boolean(x.grounded),hazard:typeof x.hazard==='string'?x.hazard.slice(0,32):'none',
    urgency:['none','advance','approaching','immediate'].includes(x.urgency)?x.urgency:'none',
-   edge:['safe','caution','danger'].includes(x.edge)?x.edge:'unavailable'};
+   edge:x.edge==='clear'||x.edge==='safe'?'safe':['caution','danger'].includes(x.edge)?x.edge:'unavailable'};
  a.samples.push(sample);
  a.maxSpeed=Math.max(a.maxSpeed,x.speed);
  if(x.input<0)a.inputs.leftSamples++;
@@ -71,7 +73,7 @@ export function recordB5ManualSample(a,x){
  return true;
 }
 export function finalizeB5ManualAudit(a,{status,time,surface=null,contacts=0,nearMisses=0,failure=null}={}){
- if(!a||a.schema!==B5_MANUAL_SCHEMA)throw Error('Invalid B5 observation');
+ if(!a||!validAudit(a))throw Error('Invalid B5 observation');
  if(a.final)return a.final;
  if(!['failed','finished','interrupted'].includes(status)||!number(time)||time<0||
   !Number.isInteger(contacts)||contacts<0||!Number.isInteger(nearMisses)||nearMisses<0)
@@ -106,7 +108,7 @@ export function finalizeB5ManualAudit(a,{status,time,surface=null,contacts=0,nea
  return a.final;
 }
 export function exportB5ManualAudit(a,{speedFeel=null,steeringFeel=null,hazardLegibility=null,note=''}={}){
- if(!a||a.schema!==B5_MANUAL_SCHEMA)throw Error('B5 audit not initialized');
+ if(!a||!validAudit(a))throw Error('B5 audit not initialized');
  for(const [name,v] of Object.entries({speedFeel,steeringFeel,hazardLegibility}))
   if(v!==null&&(!Number.isInteger(v)||v<1||v>5))throw Error('Invalid voluntary player rating: '+name);
  if(typeof note!=='string')throw Error('Player note must be text');

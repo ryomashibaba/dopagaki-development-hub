@@ -293,6 +293,7 @@ function updateNativeChapterTime(){
 function settleRun(){
  if(!runner||runCommitted||!['failed','finished'].includes(runner.status))return;
  if(demoMode||practiceMode){
+  $('b5ResultExport').hidden=true;
   retryChapterId=null;$('retryPractice').hidden=true;
   runCommitted=true;const result=$('runResult');result.hidden=false;
   $('resultTitle').textContent=practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
@@ -312,6 +313,7 @@ function settleRun(){
  const compared=storeBest(browserRecordStore(),record);
  personalBest=compared.best;
  const result=$('runResult');result.hidden=false;
+ $('b5ResultExport').hidden=!b5ManualAudit;
  $('resultTitle').textContent=runner.status==='finished'?'COURSE CLEAR':'RUN ENDED';
  $('resultScore').textContent=scoreString(record.total)+' PTS · '+record.seconds.toFixed(2)+' s';
  $('resultDetails').textContent='生存 '+scoreString(record.survival)+' ＋ 回避 '+scoreString(record.bonus)
@@ -346,9 +348,10 @@ function restart(){
   const physicalLaunch=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)?52:44;
   runner=new Runner(doc,world,spawn,physicalLaunch);runner.assist=true;accum=0;paused=false;
   canvas.dataset.b5LaunchMps=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'52':'off';
-  b5ManualAudit=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'&&!demoMode&&!practiceMode
-   ?createB5ManualAudit({stageId:'VB-P101-B5',profile:$('p101Profile').value,startSpeed:physicalLaunch,spawnIndex:spawn}):null;
-  $('b5QaPanel').hidden=doc.stageForge.variant!=='B5_HYPER_ARC_ISOLATED';
+  b5ManualAudit=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)&&!demoMode&&!practiceMode
+   ?createB5ManualAudit({stageId:doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?'VB-P101-A13':'VB-P101-B5',profile:$('p101Profile').value,startSpeed:physicalLaunch,spawnIndex:spawn}):null;
+  $('b5QaPanel').hidden=!['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant);
+  $('b5QaTitle').textContent=doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?'A13 W1 · 手動試走レポート':'B5 · 手動試走レポート';
   $('b5QaStatus').textContent='手動試走の観測値を端末内で記録。自動送信はありません。';
   p101B5Surge=createP101B5SurgeState();a13Surge=createA13SurgeState();
   canvas.dataset.b5PhysicalStage=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'true':'false';
@@ -368,7 +371,7 @@ function restart(){
  $('splitBurst').hidden=true;canvas.dataset.completedSplits='0';
  canvas.dataset.chapterTimeId='none';
  personalBest=readBest(browserRecordStore(),doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?'VB-P101-A13':p101B5RecordStageId(doc),spawn);
- $('runResult').hidden=true;canvas.dataset.runOutcome='running';
+ $('runResult').hidden=true;$('b5ResultExport').hidden=true;canvas.dataset.runOutcome='running';
  $('nearMissCount').textContent='0';$('nearMissBurst').hidden=true;
  updateRunScore();
  canvas.dataset.nearMissCount='0';
@@ -680,9 +683,9 @@ function startDemo(){
  // the player watches a scrolled-off simulation without realizing it.
  canvas.scrollIntoView({block:'start',behavior:'auto'});
 }
-$('b5QaExport').addEventListener('click',()=>{
+function exportLocalManualQa(){
  const audit=b5ManualAudit?.samples.length?b5ManualAudit:b5PreviousAudit;
- if(!audit){$('b5QaStatus').textContent='最初にB5を手動で走ってください。';return;}
+ if(!audit){$('b5QaStatus').textContent='まずB5またはA13を手動で走ってください。';return;}
  const val=id=>{const n=Number($(id).value);return n>=1&&n<=5?n:null;};
  const json=exportB5ManualAudit(audit,{
   speedFeel:val('b5SpeedFeel'),steeringFeel:val('b5SteeringFeel'),
@@ -690,10 +693,14 @@ $('b5QaExport').addEventListener('click',()=>{
  });
  const blob=new Blob([json],{type:'application/json;charset=utf-8'});
  const url=URL.createObjectURL(blob),a=document.createElement('a');
- a.href=url;a.download='P101_B5_MANUAL_QA_'+(audit.final?.status||'ongoing')+'.json';
+ const prefix=audit.stageId==='VB-P101-A13'?'P101_A13':'P101_B5';
+ a.href=url;a.download=prefix+'_MANUAL_QA_'+(audit.final?.status||'ongoing')+'.json';
  document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);
- $('b5QaStatus').textContent='B5手動試走レポートを端末へ保存しました（自動送信なし）。';
-});
+ $('b5QaStatus').textContent='試走JSONを端末へ保存しました（自動送信なし）。';
+}
+$('b5QaExport').addEventListener('click',exportLocalManualQa);
+$('b5ResultExport').addEventListener('click',exportLocalManualQa);
+
 $('demoRun').addEventListener('click',()=>demoMode?exitDemo():startDemo());
 $('practiceRun').addEventListener('click',()=>practiceMode?exitPractice():startPractice());
 $('takeoverRun').addEventListener('click',takeoverDemo);

@@ -35,6 +35,9 @@ test('A11 manual QA: real B5 only, privacy-safe 2Hz observability, quantiles and
   assert(!JSON.stringify(json).includes(forbidden));
  assert.equal(json.samples.length,3);
  assert.throws(()=>exportB5ManualAudit(a,{steeringFeel:6}));
+ const clear=createB5ManualAudit({stageId:'VB-P101-B5'});
+ assert(recordB5ManualSample(clear,{...fake(0),edge:'clear'}));
+ assert.equal(clear.samples[0].edge,'safe','P81 clear was incorrectly exported as unavailable');
 });
 test('A11 manual QA: short or interrupted report never claims full completion or human certification',()=>{
  const a=createB5ManualAudit({stageId:'VB-P101-B5',profile:'HYPER',startSpeed:52});
@@ -69,4 +72,14 @@ test('A12 read-only full-frame FPS and physics backlog: full-run evidence needs 
  assert.equal(finalizeB5ManualAudit(control,{status:'finished',time:12,contacts:0,nearMisses:0}).fullCourseCompletionFromStart00,true);
  assert.equal(control.final.renderFrameFpsP10,null);
  assert.equal(control.final.physicsOverloadedFrameShare,null);
+});
+
+test('A13 isolated manual QA records real edge state and no inherited scripted finish',()=>{
+ const a=createB5ManualAudit({stageId:'VB-P101-A13',profile:'OVERDRIVE',startSpeed:52,spawnIndex:0});
+ assert.equal(a.schema,'dopagaki.a13-manual-qa/1');
+ assert(recordB5ManualSample(a,{...fake(0),edge:'clear'}));
+ assert.equal(a.samples[0].edge,'safe');
+ const summary=finalizeB5ManualAudit(a,{status:'failed',time:.5,contacts:0,nearMisses:0});
+ assert.equal(summary.fullCourseCompletionFromStart00,false);
+ assert.equal(JSON.parse(exportB5ManualAudit(a)).stageId,'VB-P101-A13');
 });
