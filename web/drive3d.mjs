@@ -25,11 +25,12 @@ import {buildRacecard,racecardTotals,racecardDeltaText} from './p90-racecard.mjs
 import {approachBeaconVertices} from './p91-approach-beacons.mjs';
 import {failurePracticeChapter} from './p92-failure-practice.mjs';
 import {hazardRoadGateVertices,makeHazardRoadPlan,nextRoadHazardCue} from './p97-roadplay-gates.mjs';
+import {p100RoadReadGeometry} from './p100-road-read.mjs';
 
 const $=id=>document.getElementById(id);
-const assets={'VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
+const assets={'VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
+let gl,program,locations={},roads,lines,p100RoadRead,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
@@ -104,10 +105,19 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
+ const roadRead=p100RoadReadGeometry(stage,sample,frame);p100RoadRead=mesh(roadRead.vertices);
+ canvas.dataset.roadReadStripes=String(roadRead.stripes);
+ canvas.dataset.roadReadBars=String(roadRead.flowBars);
+ canvas.parentElement.dataset.stageId=stage.stageForge.id;
+ const caption=document.querySelector('.righttag');
+ if(caption){
+  if(stage.stageForge.id==='VB-P100')caption.textContent='P100 · DEV ONLY · HUMAN QA HOLD';
+  else caption.innerHTML='P97 / REAL ROAD PREWARNING · HUMAN QA HOLD<br>NOT FINAL GAME';
+ }
  const flow=flowLineVertices(stage,sample,frame);flowRoads=mesh(flow.vertices);
  canvas.dataset.flowMarkers=String(flow.markers);
  const approach=approachBeaconVertices(stage,sample,frame);approachBeacons=mesh(approach.vertices);
@@ -164,7 +174,7 @@ function render(frameSeconds){
  canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
  draw(scenery);if(megaEnabled)draw(megaWorld);
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
- draw(roads);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
+ draw(roads);draw(p100RoadRead);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
  draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);
  draw(hazardGateSolidMesh);
@@ -331,7 +341,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.id==='VB-P99'?'P99 PRESSURE LINES — real 7-skin variable-width roads and 12 native moving hazards; two real native 240Hz profile finishes confirmed; human fairness and full visual quality HOLD.':doc.stageForge?.id==='VB-P95'?'P96 VOID BREAKER — 12 real moving B51-C obstacles, 7/7 native scripted finish; human difficulty/fairness HOLD.':doc.stageForge?.id==='VB-P93'?'P94 VOID BREAKER — genuine 3990m 7/7 native scripted finish verified; human playability and final art NOT APPROVED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.id==='VB-P100'?'P100 TERRAIN PULSE — authentic 3D S-bends, real crests and moving road camber; P99 baseline unchanged; 7/7 real 240Hz two-profile native finish confirmed, human fairness and final art HOLD.':doc.stageForge?.id==='VB-P99'?'P99 PRESSURE LINES — real 7-skin variable-width roads and 12 native moving hazards; two real native 240Hz profile finishes confirmed; human fairness and full visual quality HOLD.':doc.stageForge?.id==='VB-P95'?'P96 VOID BREAKER — 12 real moving B51-C obstacles, 7/7 native scripted finish; human difficulty/fairness HOLD.':doc.stageForge?.id==='VB-P93'?'P94 VOID BREAKER — genuine 3990m 7/7 native scripted finish verified; human playability and final art NOT APPROVED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  publishChapterTiming();
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
@@ -384,7 +394,7 @@ function updateTrackFlowHUD(){
 }
 function updateChapterHUD(){
  const el=$('chapterHud');if(!el)return;
- if(['VB-P93','VB-P95','VB-P99'].includes(doc?.stageForge?.id)){
+ if(['VB-P93','VB-P95','VB-P99','VB-P100'].includes(doc?.stageForge?.id)){
   const surface=doc.surfaces.find(s=>s.id===runner?.surface||s.id===runner?.lastSurface);
   const sub=document.createElement('small');sub.textContent='本物の3D道路・バンク・高低差 / 走行品質は検証候補';
   el.replaceChildren(document.createTextNode(surface?.name||'VOID BREAKER · SCISSOR ABYSS'),sub);
@@ -429,9 +439,9 @@ function hud(){
  updateRunScore();
  const machineLabel=$('machineCue');
  if(machineLabel){
-  const advance=['VB-P95','VB-P99'].includes(doc?.stageForge?.id)
+  const advance=['VB-P95','VB-P99','VB-P100'].includes(doc?.stageForge?.id)
    ?nextRoadHazardCue(doc,runner,hazardRoadPlan,movingObstaclePose):null;
-  const cue=['VB-P95','VB-P99'].includes(doc?.stageForge?.id)?advance
+  const cue=['VB-P95','VB-P99','VB-P100'].includes(doc?.stageForge?.id)?advance
    :nearestMachineCue(doc.movingObstacles,runner.p,runner.forward,runner.time,220,movingObstaclePose);
   machineLabel.hidden=!cue;
   machineLabel.dataset.mode=cue?.mode||'none';
@@ -488,7 +498,7 @@ function tick(now){
  }
  if(runner&&nearMissTracker){const current=nearMissDisplay(nearMissTracker,runner.time);$('nearMissBurst').hidden=!current;}
  if(runner&&latestSplit)$('splitBurst').hidden=!(runner.time>=latestSplit.time&&runner.time<latestSplit.time+2.2);
- if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / '+(doc?.stageForge?.id==='VB-P99'?'約39s':doc?.stageForge?.id==='VB-P95'?'約40s':doc?.stageForge?.id==='VB-P93'?'約38s':'約83.2s');
+ if(demoMode&&runner)$('demoElapsed').textContent=runner.time.toFixed(1)+'s / '+(doc?.stageForge?.id==='VB-P100'?'約40s':doc?.stageForge?.id==='VB-P99'?'約39s':doc?.stageForge?.id==='VB-P95'?'約40s':doc?.stageForge?.id==='VB-P93'?'約38s':'約83.2s');
  if(runner&&now-lastEdgeRadarAt>100){lastEdgeRadarAt=now;updateEdgeRadar();}
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();

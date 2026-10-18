@@ -15,14 +15,14 @@ export function recordDemoMilestone(state,runner){
 }
 export function nativeDemoSteer(state,runner,poseAt){
  if(runner?.doc?.stageForge?.id==='VB-P93')return p94NativeSteer(runner,'corrective');
- if(['VB-P95','VB-P99'].includes(runner?.doc?.stageForge?.id)){
+ if(['VB-P95','VB-P99','VB-P100'].includes(runner?.doc?.stageForge?.id)){
   if(typeof poseAt!=='function')throw Error('Native physical B51-C pose sampler required for P96 spectator');
   if(!state.p96Plan)state.p96Plan=makeP96RoutePlan(runner.doc,runner);
-  return p96DodgeSteer(runner,state.p96Plan,runner.doc.stageForge.id==='VB-P99'?'near-soft':'early-soft',poseAt).input;
+  return p96DodgeSteer(runner,state.p96Plan,['VB-P99','VB-P100'].includes(runner.doc.stageForge.id)?'near-soft':'early-soft',poseAt).input;
  }
  let steer=state.forkAt!==null&&runner.time>=state.forkAt&&runner.time<state.forkAt+5?-1:0;
  if(runner.time>=75.45&&runner.time<75.90)steer=1;
  else if(runner.time>=75.90&&runner.time<76.35)steer=-1;
  return steer;
 }
-export const isDemoEligible=doc=>['EP-P66','VB-P93','VB-P95','VB-P99'].includes(doc?.stageForge?.id);
+export const isDemoEligible=doc=>['EP-P66','VB-P93','VB-P95','VB-P99','VB-P100'].includes(doc?.stageForge?.id);

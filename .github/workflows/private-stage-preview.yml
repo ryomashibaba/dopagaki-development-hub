@@ -23,6 +23,7 @@ jobs:
         run: npm run test:core
       - name: P94 native 240Hz full course observability (HOLD until full completion)
         run: |
+          set -o pipefail
           node scripts/p94-void-native-acceptance.mjs neutral corrective | tee p94-void-physics-report.jsonl
           {
             echo '### P94 VOID BREAKER physical acceptance probe'
@@ -31,6 +32,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
       - name: P95 experimental machine gauntlet native 240Hz probes (candidate HOLD)
         run: |
+          set -o pipefail
           node scripts/p95-hazard-probe.mjs | tee p95-machine-probe.jsonl
           {
             echo '### P95 experimental B51-C moving hazard pilot'
@@ -39,6 +41,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
       - name: P96 physical dodge plan audit (4 profiles, human playability HOLD)
         run: |
+          set -o pipefail
           node scripts/p96-native-dodge-probe.mjs | tee p96-dodge-profiles.jsonl
           {
             echo '### P96 physical motion-aware dodge audit'
@@ -47,12 +50,19 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
       - name: 'P99 authentic varied-width roads and 12 moving machines — native 240Hz probe'
         run: |
+          set -o pipefail
           node scripts/p99-real-roadplay-probe.mjs | tee p99-physical-run.jsonl
           {
             echo '### P99 separate REAL physical roadplay candidate'
             echo 'Seven actual width-modulated B48 skins with 12 active B51-C machines.'
             echo 'P99_NATIVE_* log lines are physical trials, never human fairness approval.'
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: P100 real changed-centerline + twelve-machine native 240Hz audit (HOLD until proven)
+        run: |
+          set -o pipefail
+          node scripts/p100-native-sweep.mjs | tee p100-native-trial.jsonl
+          echo '### P100 independent S-bend/crest physical candidate; human handling HOLD' >> "$GITHUB_STEP_SUMMARY"
+          echo 'P100_NATIVE_* lines report every real 240Hz attempt; CI green is NOT full finish approval.' >> "$GITHUB_STEP_SUMMARY"
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets
@@ -99,6 +109,14 @@ jobs:
           name: p99-physical-roadplay-comparison-${{ github.run_id }}
           path: |
             test-results/**/p99-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p100-terrain-pulse-real-frames-${{ github.run_id }}
+          path: |
+            test-results/**/p100-*.png
           if-no-files-found: ignore
           retention-days: 7
       - uses: actions/upload-artifact@v4
@@ -170,12 +188,12 @@ jobs:
             await new Promise(resolve=>setTimeout(resolve,3000));
           }
           assert.equal(info.gitCommit,process.env.EXPECTED_SHA);
-          assert.equal(info.version,'P99');
+          assert.equal(info.version,'P100');
           assert.equal(info.stageCount,4);
           assert.equal(info.experimentalStageCount,4);
           assert.equal(info.movingObstacleCount,24);
           assert.equal(info.experimentalMovingObstacleCount,24);
-          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs','drive3d/p75-survival.mjs','drive3d/p78-demo.mjs','drive3d/p79-practice.mjs','drive3d/p80-trackflow.mjs','drive3d/p81-edge-radar.mjs','drive3d/p82-megastructure.mjs','drive3d/p83-render-quality.mjs','drive3d/p84-visibility.mjs','drive3d/p85-energyball.mjs','drive3d/p86-chapter-splits.mjs','drive3d/p87-ghost.mjs','drive3d/p88-ghost-gap.mjs','drive3d/p89-ghost-sector-pace.mjs','drive3d/p90-racecard.mjs','drive3d/p91-approach-beacons.mjs','drive3d/p92-failure-practice.mjs','drive3d/p93-void-breaker-visual.mjs','drive3d/p94-native-steer.mjs','generated/P93_VOID_BREAKER.json','generated/P94_VOID_NATIVE_ACCEPTANCE.json','generated/P95_VOID_HAZARD_CANDIDATE.json','generated/P96_NATIVE_DODGE_ACCEPTANCE.json','drive3d/p95-hazard-layout.mjs','drive3d/p96-avoidance-steer.mjs','drive3d/p97-roadplay-gates.mjs','generated/P97_ROADPLAY_READABILITY.json','generated/P99_PRESSURE_LINES.json','generated/P99_PHYSICAL_TRIAL.json','generated/P87_REFERENCE_GHOST.json']){
+          for(const path of ['','web/','drive3d/','drive3d/drive3d.mjs','drive3d/drive3d-camera.mjs','drive3d/drive3d-loop.mjs','drive3d/p73-machine-visual.mjs','drive3d/p74-nearmiss.mjs','drive3d/p75-survival.mjs','drive3d/p78-demo.mjs','drive3d/p79-practice.mjs','drive3d/p80-trackflow.mjs','drive3d/p81-edge-radar.mjs','drive3d/p82-megastructure.mjs','drive3d/p83-render-quality.mjs','drive3d/p84-visibility.mjs','drive3d/p85-energyball.mjs','drive3d/p86-chapter-splits.mjs','drive3d/p87-ghost.mjs','drive3d/p88-ghost-gap.mjs','drive3d/p89-ghost-sector-pace.mjs','drive3d/p90-racecard.mjs','drive3d/p91-approach-beacons.mjs','drive3d/p92-failure-practice.mjs','drive3d/p93-void-breaker-visual.mjs','drive3d/p94-native-steer.mjs','generated/P93_VOID_BREAKER.json','generated/P94_VOID_NATIVE_ACCEPTANCE.json','generated/P95_VOID_HAZARD_CANDIDATE.json','generated/P96_NATIVE_DODGE_ACCEPTANCE.json','drive3d/p95-hazard-layout.mjs','drive3d/p96-avoidance-steer.mjs','drive3d/p97-roadplay-gates.mjs','generated/P97_ROADPLAY_READABILITY.json','generated/P99_PRESSURE_LINES.json','generated/P99_PHYSICAL_TRIAL.json','generated/P100_TERRAIN_PULSE.json','generated/P87_REFERENCE_GHOST.json']){
             const response=await fetchOK(path);
             assert((await response.text()).length>300,'Empty public asset: '+path);
           }
@@ -223,6 +241,22 @@ jobs:
           assert.equal(p99.stageForge.priorP96CompletionApplicable,false);
           assert.equal(native99.activeColliders,12);assert.equal(native99.physicalWidths.length,7);
           assert.equal(native99.humanPlaytest,'NOT_RUN');
+          const p100=await(await fetchOK('generated/P100_TERRAIN_PULSE.json')).json();
+          assert.equal(p100.stageForge.id,'VB-P100');
+          assert.equal(p100.surfaces.length,7);
+          assert.equal(p100.movingObstacles.length,12);
+          assert.equal(p100.stageForge.heightScale,0.25);
+          assert.equal(p100.stageForge.humanPlaytest,'NOT_RUN');
+          assert.equal(p100.stageForge.fullStartToFinish,'P100_NATIVE_240HZ_12_ACTIVE_TWO_PROFILE_FINISH_VERIFIED');
+          assert.equal(JSON.stringify(p100.movingObstacles),JSON.stringify(p99.movingObstacles),'P100 machines modified');
+          let realBends=0;
+          for(let i=0;i<7;i++){
+            assert(p100.surfaces[i].collidable&&p100.surfaces[i].rideable);
+            const delta=Math.max(...[6,9,12,15,18,21,24].map(row=>
+              Math.hypot(...p100.surfaces[i].points[row*5+2].map((x,j)=>x-p99.surfaces[i].points[row*5+2][j]))));
+            if(delta>5)realBends++;
+          }
+          assert(realBends>=5,'P100 real physical road deformation missing on published site');
           const ghost=await(await fetchOK('generated/P87_REFERENCE_GHOST.json')).json();
           assert.equal(ghost.schema,'dopagaki.native-reference-ghost/1');
           assert(ghost.finished&&ghost.finishSeconds>82&&ghost.finishSeconds<85);
