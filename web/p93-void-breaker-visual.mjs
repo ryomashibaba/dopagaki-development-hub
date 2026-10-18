@@ -39,12 +39,19 @@ export function voidBreakerGeometry(stage,sample){
  const roads=stage.surfaces.filter(s=>s.rideable&&s.collidable);
  if(roads.length!==7||!roads.every(s=>s.id.startsWith('p93-')))throw Error('P93 visual requires 7 authentic physical road skins');
  const vertices=[],sections=[];
+ const portalCount=6,exteriorStandOff=26;
  for(let n=0;n<roads.length;n++){
   const s=roads[n],palette=CHAPTERS[n],before=vertices.length;
   // Giant superstructures separate each distinctly authored bend/drop.
-  for(let j=0;j<10;j++){
-   const t=(j+.5)/10;
-   const a=sample(s,t,.025),b=sample(s,t,.975);
+  for(let j=0;j<portalCount;j++){
+   const t=(j+.5)/portalCount;
+   const c=sample(s,t,.5),leftEdge=sample(s,t,0),rightEdge=sample(s,t,1);
+   // Visual QA P98: old towers stood nearly ON the physical B48 road edge
+   // every ~40–85m, filling the driver's horizon with false collision walls.
+   // Keep monumental exterior towers, but at least 26m OUTSIDE each real edge.
+   // This is GPU geometry only and never changes the 7 native road skins.
+   const a=add(leftEdge,mul(norm(sub(leftEdge,c)),exteriorStandOff));
+   const b=add(rightEdge,mul(norm(sub(rightEdge,c)),exteriorStandOff));
    const height=palette.tower+(j%3)*23;
    const footing=34+(n%3)*12;
    const leftBase=add(a,[0,-footing,0]),rightBase=add(b,[0,-footing,0]);
@@ -71,8 +78,10 @@ export function voidBreakerGeometry(stage,sample){
     beam(vertices,blade,tip,11,12,palette.light);
    }
   }
-  sections.push({name:s.id,triangles:(vertices.length-before)/18});
+  sections.push({name:s.id,triangles:(vertices.length-before)/18,
+   exteriorClearanceMeters:exteriorStandOff,portalCount});
  }
  if(vertices.length>500000||vertices.some(v=>!Number.isFinite(v)))throw Error('P93 visual GPU budget or coordinate validation failed');
- return {vertices,beams:Math.round(vertices.length/216),sections};
+ return {vertices,beams:Math.round(vertices.length/216),sections,
+  visualReadability:'P98_SIX_EXTERIOR_GATES_PER_CHAPTER_WITH_OFFROAD_COLUMNS'};
 }
