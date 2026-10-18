@@ -5,6 +5,7 @@ import {generateEchoRush} from './p66-echo-rebuild.mjs';
 import {generateVoidBreaker} from './p93-void-breaker-build.mjs';
 import {generateVoidAcceptanceEvidence} from './p94-void-native-acceptance.mjs';
 import {generateVoidHazardCandidate} from './p95-void-hazard-build.mjs';
+import {generateP97RoadplayEvidence} from './p97-roadplay-evidence.mjs';
 import {generateP96DodgeEvidence} from './p96-acceptance-evidence.mjs';
 import {generateReferenceGhost} from './p87-ghost-generate.mjs';
 import {fileURLToPath} from 'node:url';
@@ -61,6 +62,7 @@ if(includeStages){
  const hazardTrial=generateVoidHazardCandidate();
  write('generated/P95_VOID_HAZARD_CANDIDATE.json',JSON.stringify(hazardTrial,null,2)+'\n');
  write('generated/P96_NATIVE_DODGE_ACCEPTANCE.json',JSON.stringify(generateP96DodgeEvidence(hazardTrial),null,2)+'\n');
+ write('generated/P97_ROADPLAY_READABILITY.json',JSON.stringify(generateP97RoadplayEvidence(hazardTrial),null,2)+'\n');
  write('generated/P87_REFERENCE_GHOST.json',JSON.stringify(generateReferenceGhost(nativeCourse))+'\n');
  for(const file of names)copy('private/stages/'+file,'generated/'+file);
  copy('private/reports/P62_FULL_RUN_MATRIX.json','reports/P62_FULL_RUN_MATRIX.json');
