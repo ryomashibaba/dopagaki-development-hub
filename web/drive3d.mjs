@@ -338,7 +338,8 @@ function settleRun(){
  if(b5ManualAudit)finalizeB5ManualAudit(b5ManualAudit,{
   status:runner.status,time:runner.time,surface:runner.surface||runner.lastSurface,
   contacts:runner.collisions,nearMisses:nearMissTracker.total,
-  failure:runner.failure?.reason||null
+  failure:runner.failure?.reason||null,
+  collisionEvents:runner.events // G5-A: read-only; exported only after explicit save
  });
  const record=buildRunRecord({stageId:doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.recordStageId||'VB-P101-A13'):p101B5RecordStageId(doc),spawn:runner.spawnIndex,
   seconds:runner.time,nearMisses:nearMissTracker.total,outcome:runner.status});
