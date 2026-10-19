@@ -41,6 +41,11 @@ export function a13RacingRoadArt(doc,sample,frame){
   throw Error('W8 must use seven actual collidable B48 skin surfaces');
  const vertices=[];let segments=0;
  for(const [section,s] of doc.surfaces.entries()){
+  // W9-C2: a 22m wide S-crest cannot carry all W8 giant chevrons:
+  // overlapping paint hid the true road edge and upcoming curvature in
+  // matched real-WebGL images. Remove them ONLY on that one trial surface.
+  // Real physical edge lighting from P100/P101 remains unchanged.
+  if(doc.stageForge.w9c2PhysicalStudy?.section===section)continue;
   const profile=arc(s,sample),[glow,glow2,accent]=palette[section];
   for(let d=7;d+25<profile.total;d+=34){
    const a=profile.u(d),b=profile.u(d+19),c=profile.u(d+25);
