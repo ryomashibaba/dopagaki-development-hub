@@ -26,7 +26,7 @@ import {approachBeaconVertices} from './p91-approach-beacons.mjs';
 import {failurePracticeChapter} from './p92-failure-practice.mjs';
 import {hazardRoadGateVertices,makeHazardRoadPlan,nextRoadHazardCue} from './p97-roadplay-gates.mjs';
 import {p100RoadReadGeometry} from './p100-road-read.mjs';
-import {p101Step,P101_DEFAULT} from './p101-overdrive.mjs';
+import {p101Step,P101_DEFAULT,p101ReboundRecoveryState} from './p101-overdrive.mjs';
 import {p101B5ForwardScale,createP101B5SurgeState,p101B5RecordStageId} from './p101-b5-forward.mjs';
 import {p101A13ForwardScale,createA13SurgeState} from './p101-a13-forward.mjs';
 import {a13MachineMegastructures} from './p101-a13-architecture.mjs';
@@ -546,7 +546,7 @@ function hud(){
  if(!runner)return;
  $('speed').textContent=Math.hypot(...runner.v).toFixed(1);
  $('simTime').textContent=runner.time.toFixed(2)+' s';$('contacts').textContent=String(runner.collisions);
- $('ground').textContent=runner.grounded?'接地':'空中';$('fps').textContent=String(Math.round(fps));
+ $('ground').textContent=(runner.grounded?'接地':'空中')+(p101ReboundRecoveryState(runner).active?' / 非致死衝突から復帰中':'');$('fps').textContent=String(Math.round(fps));
  updateRunScore();
  const machineLabel=$('machineCue');
  if(machineLabel){
@@ -595,7 +595,12 @@ function tick(now){
    const steer=demoMode?nativeDemoSteer(demoDirector,runner,movingObstaclePose):manualSteer;
     if(doc.stageForge.id==='VB-P101'){
       const physicalPower=doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED' ?p101A13ForwardScale(runner,a13Surge):doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED' ?p101B5ForwardScale(runner,p101B5Surge):1;
-      p101Step(runner,steer,$('p101Profile').value||P101_DEFAULT,{forwardScale:physicalPower});
+      p101Step(runner,steer,$('p101Profile').value||P101_DEFAULT,{
+        forwardScale:physicalPower,
+        // G5-C1 human trial only; driver assist is still the native arcade
+        // steering system, while the recovery throttle changes no collisions.
+        collisionRecovery:!demoMode&&!practiceMode&&!seekingChapter
+       });
     }else runner.step(steer);
     currentPose=capturePose(runner);
    if(demoMode)recordDemoMilestone(demoDirector,runner);
