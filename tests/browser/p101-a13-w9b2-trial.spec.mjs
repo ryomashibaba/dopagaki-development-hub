@@ -82,7 +82,7 @@ test('W9-B2 isolated playable real-bank trial vs W7F Gold with independent manua
  expect(physicalComparison.nonbankDifferences).toBe(0);
  expect(physicalComparison.unchangedMovingBodies).toBe(true);
  expect(physicalComparison.movingColliderCount).toBe(28);
- await fs.writeFile(info.outputPath('w9b3-visual-audit.json'),JSON.stringify(physicalComparison,null,2)+'\\n');
+ await fs.writeFile(info.outputPath('w9b3-visual-audit.json'),JSON.stringify(physicalComparison,null,2));
  await page.locator('#stage').selectOption('VB-P101-B5');
  await expect(page.locator('#appStatus')).toContainText('B5 HYPER ARC');
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','12');
