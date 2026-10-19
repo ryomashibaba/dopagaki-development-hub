@@ -109,3 +109,16 @@ test('actual 240Hz B48 Runner remains unmodified without contact: 28m trial and 
  const b5=generateP101B5Speedway({lowerReversalLength:1800});
  assert.equal(b5.stageForge.variant,'B5_HYPER_ARC_ISOLATED');
 });
+
+test('W9-C2 S-crest retains the approved-feel G5-C1 recovery law in manual trials only',()=>{
+ for(const recordStageId of ['VB-P101-A13-W9C2-RIBBON','VB-P101-A13-W9C2-EDGE']){
+  const engaged=mockRunner({recordStageId,reverseMps:-65});
+  const unchanged=mockRunner({recordStageId,reverseMps:-65});
+  run(engaged,490,{forwardScale:.12,collisionRecovery:true});
+  run(unchanged,490,{forwardScale:.12,collisionRecovery:false});
+  assert(engaged.v[2]>28,'C2 manual real physics must not get trapped in sustained reverse');
+  assert(unchanged.v[2]<-55,'autopilot/explicit opt-out must retain prior physical trace');
+  assert.equal(engaged.events.filter(e=>e.type==='rebound-recovery-start').length,1);
+  assert.equal(p101ReboundRecoveryState(engaged).active,false);
+ }
+});
