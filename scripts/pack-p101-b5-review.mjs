@@ -83,7 +83,7 @@ server.listen(0,'127.0.0.1',()=>{
  if(g5b&&!ultra&&!control)throw Error('G5-B visual candidate requires W9-C1 only');
  if([w7,ultra,control].filter(Boolean).length>1)throw Error('Only one trial selection allowed');
  const stage=ultra?'VB-P101-A13-W9C1-ULTRA':control?'VB-P101-A13-W9C1-CONTROL':w7?'VB-P101-A13':'VB-P101-B5';
- const url='http://127.0.0.1:'+port+'/drive3d/?stage='+stage+(g5b?'&g5b=on':'');
+ const url='http://127.0.0.1:'+port+'/drive3d/?stage='+stage+(g5b?'#g5b=on':'');
  console.log('P101 '+stage+' / LOCAL ONLY  '+url);
  console.log('指定ステージを自動で選択します。ロード後、A/Dまたは左右キーで手動走行してください。');
  console.log('試走終了後「試走レポートをJSON保存」で記録を保存できます。');
