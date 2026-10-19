@@ -52,7 +52,7 @@ let chapterTracker=null,latestSplit=null,ghostData=null,ghostEnabled=false;
 let p101B5Surge=createP101B5SurgeState(),a13Surge=createA13SurgeState();
 let b5ManualAudit=null,b5PreviousAudit=null,w9c1CueProfile=null;
 // Explicit candidate opt-in via URL; no normal game, road or global toggle changes.
-const g5bVisualOptIn=new URLSearchParams(window.location.search).get('g5b')==='on';
+const g5bVisualOptIn=new URLSearchParams(window.location.search).get('g5b')==='on'||new URLSearchParams(window.location.hash.slice(1)).get('g5b')==='on';
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
