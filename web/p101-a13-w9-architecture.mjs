@@ -14,6 +14,7 @@ const lerp=(p,q,t)=>add(mul(p,1-t),mul(q,t));
 const up=(p,h)=>add(p,[0,h,0]);
 const normHorizontal=p=>{const h=Math.hypot(p[0],p[2]);if(h<.001)throw Error('W9 cannot resolve actual road width');return [p[0]/h,0,p[2]/h];};
 const sub=(p,q)=>p.map((x,i)=>x-q[i]);
+const inset=(p,q,meters)=>add(p,mul(normHorizontal(sub(q,p)),meters));
 function triangle(out,a,b,c,rgb){for(const p of [a,b,c])out.push(...p,...rgb);}
 function quad(out,a,b,c,d,rgb){triangle(out,a,b,c,rgb);triangle(out,a,c,d,rgb);}
 function panel(out,a,b,c,d,rgb){quad(out,a,b,c,d,rgb);quad(out,d,c,b,a,rgb.map(x=>x*.72));}
@@ -67,14 +68,20 @@ export function a13W9HeroArchitecture(doc,sample){
    panel(vertices,a.rimR,b.rimR,b.openR,a.openR,SKYLIGHT);
    if(i%4===0){
     const p=profiles[i+1];
-    panel(vertices,a.wallL,p.wallL,p.roofL,a.roofL,EDGE);
-    panel(vertices,a.wallR,a.roofR,p.roofR,p.wallR,EDGE);
-    panel(vertices,a.roofL,p.roofL,p.openL,a.openL,DARK);
-    panel(vertices,a.openR,p.openR,p.roofR,a.roofR,DARK);
+    // Recessed plane separation prevents shimmer from coplanar wall/roof overlays.
+    panel(vertices,inset(a.wallL,a.wallR,1.2),inset(p.wallL,p.wallR,1.2),
+      inset(p.roofL,p.roofR,1.2),inset(a.roofL,a.roofR,1.2),FACET);
+    panel(vertices,inset(a.wallR,a.wallL,1.2),inset(a.roofR,a.roofL,1.2),
+      inset(p.roofR,p.roofL,1.2),inset(p.wallR,p.wallL,1.2),FACET);
+    panel(vertices,up(a.roofL,-1.1),up(p.roofL,-1.1),up(p.openL,-1.1),up(a.openL,-1.1),DARK);
+    panel(vertices,up(a.openR,-1.1),up(p.openR,-1.1),up(p.roofR,-1.1),up(a.roofR,-1.1),DARK);
    }
+   // Cyan navigation trims remain outside real B48 physical road edges.
    if(i%2===0){
-    panel(vertices,up(a.wallL,9),up(b.wallL,9),up(b.wallL,10.2),up(a.wallL,10.2),EDGE);
-    panel(vertices,up(a.wallR,9),up(a.wallR,10.2),up(b.wallR,10.2),up(b.wallR,9),EDGE);
+    const l0=inset(a.wallL,a.wallR,1.25),l1=inset(b.wallL,b.wallR,1.25);
+    const r0=inset(a.wallR,a.wallL,1.25),r1=inset(b.wallR,b.wallL,1.25);
+    panel(vertices,up(l0,9),up(l1,9),up(l1,10.2),up(l0,10.2),EDGE);
+    panel(vertices,up(r0,9),up(r0,10.2),up(r1,10.2),up(r1,9),EDGE);
    }
   }
   // Entry/exit roof crowns stay overhead and leave the road entirely open.
