@@ -39,7 +39,10 @@ export function validateW9C1HumanReport(report,kind){
  return {
   kind,stageId:report.stageId,nominalCoreWidthMeters:kind==='control'?28:14,
   spawnIndex:report.spawnIndex,profile:report.profile,startSpeedMps:report.startSpeed,
-  finalStatus:summary?.status??'ongoing',
+  // A manual capture of an active 240Hz run is NOT an actual terminal finish.
+  captureStatus:report.captureStatus??'LEGACY_UNKNOWN',
+  finalStatus:report.captureStatus==='RUNNING_SNAPSHOT_NOT_TERMINAL'
+   ?'running-snapshot':summary?.status??'ongoing',
   physicsSeconds:rounded(summary?.physicsSeconds),
   lastSurface:limitString(summary?.lastSurface),
   peakSpeedMps:rounded(summary?.peakSpeedMps),
@@ -65,14 +68,15 @@ export function compareW9C1HumanReports(controlReport,ultraReport){
  const sameStartSpeed=control.startSpeedMps===ultra.startSpeedMps;
  const bothStart00=control.spawnIndex===0&&ultra.spawnIndex===0;
  const bothHaveCoreHud=control.firstCoreHudSeconds!==null&&ultra.firstCoreHudSeconds!==null;
- const bothTerminated=control.finalStatus!=='ongoing'&&ultra.finalStatus!=='ongoing';
+ const bothTerminated=['failed','finished','interrupted'].includes(control.finalStatus)&&
+  ['failed','finished','interrupted'].includes(ultra.finalStatus);
  const repeatedHumanRuns=1; // one uploaded file each, not a statistical comparison
  const flags=[];
  if(!bothStart00)flags.push('開始地点00同士ではないため、狭路への実速度到達や全体生存を比較できません');
  if(!sameProfile)flags.push('前進/操舵プロファイルが一致しません');
  if(!sameStartSpeed)flags.push('開始速度が一致しません');
  if(!bothHaveCoreHud)flags.push('双方が狭路コアへ到達したHUD記録はまだありません');
- if(!bothTerminated)flags.push('終了状態がない走行が含まれます');
+ if(!bothTerminated)flags.push('途中スナップショットまたは終了状態のない走行が含まれます');
  if(control.samplingRows===0||ultra.samplingRows===0)flags.push('入力・FPS等の観測サンプルが不足しています');
  flags.push('各版1走行の比較です。成績差は操作・障害物タイミング・偶然でも変わります');
  flags.push('HUDの表示履歴は人間が警告を見た証拠ではありません');
