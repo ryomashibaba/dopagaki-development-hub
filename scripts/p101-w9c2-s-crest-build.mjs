@@ -96,7 +96,7 @@ export function generateP101W9C2SCrestCandidate(kind='ribbon'){
   revision:choice.revision,recordStageId:choice.recordStageId,
   sourceBaseline:'W7F_GOLD_IMMUTABLE',
   selectedTrial:'w9c2-s-crest-'+kind,
-  slopeDNAStudy:{
+  w9c2PhysicalStudy:{
    section:p.section,
    sectionNominalMeters:p.sectionNominalMeters,
    realB48Surface:true,physicalSurfaceAndViewSameSource:true,
