@@ -5,7 +5,7 @@
  * Never edits velocity or transforms after Runner construction; any steering
  * is the existing 'corrective' script and native P101 4.8x player input.
  */
-import {generateP101W9C2SCrestCandidate,W9C2_STUDY} from './p101-w9c2-s-crest-build.mjs';
+import {generateP101W9C2SCrestCandidate,W9C2_STUDY,W9C2_G3B_OFFLINE} from './p101-w9c2-s-crest-build.mjs';
 import {generateP101A13W7Candidate} from './p101-a13-w7-gameplay-build.mjs';
 import {sample,frame} from '../private/reference_only/director/surface.js';
 import {compile} from '../private/reference_only/director/collision.js';
@@ -60,7 +60,7 @@ function makeLocalSpawnDoc(original){
  return doc;
 }
 export function runW9C2G3Passage(kind,speed,{maxSeconds=MAX_SECONDS}={}){
- if(!['gold','ribbon','edge'].includes(kind)||![52,105,150].includes(speed)||
+ if(!['gold','ribbon','edge',...Object.keys(W9C2_G3B_OFFLINE)].includes(kind)||![52,105,150].includes(speed)||
   !Number.isFinite(maxSeconds)||maxSeconds<5||maxSeconds>16)throw Error('W9-C2 strict native QA matrix');
  const basis=kind==='gold'?generateP101A13W7Candidate():generateP101W9C2SCrestCandidate(kind);
  const doc=makeLocalSpawnDoc(basis),road=doc.surfaces[W9C2_STUDY.section];
@@ -116,6 +116,19 @@ export function runW9C2G3Passage(kind,speed,{maxSeconds=MAX_SECONDS}={}){
    'Road edge clearance sampled after collision resolution','No real-world runtime FPS evidence',
    'Obstacle collisions and air state are native, but a pass never certifies fairness']};
 }
+export function runW9C2G3BMatrix(){
+ const out=[];
+ for(const kind of ['gold',...Object.keys(W9C2_G3B_OFFLINE)]){
+  const doc=kind==='gold'?generateP101A13W7Candidate():generateP101W9C2SCrestCandidate(kind);
+  const shape=w9c2CurvatureDiagnostics(doc);
+  for(const speed of [52,105,150])out.push({kind,speed,shape,
+   actual:runW9C2G3Passage(kind,speed)});
+ }
+ return {schema:'dopagaki.w9c2.g3b-softened-risk-matrix/1',cases:out,
+  promotion:'OFFLINE_DIAGNOSTIC_ONLY_NOT_SELECTABLE',originalG3ModelsUnmodified:true,
+  productionApproved:false,humanFairness:'HOLD',humanEnjoyment:'HOLD',
+  noRealPlatformGap:true,fullCourseScriptedFinish:'NOT_MEASURED'};
+}
 export function runW9C2G3Matrix(){
  const out=[];
  for(const kind of ['gold','ribbon','edge']){
@@ -130,5 +143,7 @@ export function runW9C2G3Matrix(){
   generatedAt:null};
 }
 if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
- console.log('W9C2_G3_NATIVE_MATRIX '+JSON.stringify(runW9C2G3Matrix()));
+ if(process.argv.includes('--g3b'))
+  console.log('W9C2_G3B_NATIVE_MATRIX '+JSON.stringify(runW9C2G3BMatrix()));
+ else console.log('W9C2_G3_NATIVE_MATRIX '+JSON.stringify(runW9C2G3Matrix()));
 }
