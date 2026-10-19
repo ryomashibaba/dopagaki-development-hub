@@ -40,7 +40,7 @@ const frameDurationBin=(bins,count,q)=>{
  return null;
 };
 export function createB5ManualAudit({stageId,profile='OVERDRIVE',startSpeed=52,spawnIndex=0}={}){
- if(!['VB-P101-B5','VB-P101-A13','VB-P101-A13-W7F','VB-P101-A13-W9X-B1','VB-P101-A13-W9C1-CONTROL','VB-P101-A13-W9C1-ULTRA'].includes(stageId)||!['OVERDRIVE','RAPID','HYPER'].includes(profile)||
+ if(!['VB-P101-B5','VB-P101-A13','VB-P101-A13-W7F','VB-P101-A13-W9X-B1','VB-P101-A13-W9C1-CONTROL','VB-P101-A13-W9C1-ULTRA','VB-P101-A13-W9C2-RIBBON','VB-P101-A13-W9C2-EDGE'].includes(stageId)||!['OVERDRIVE','RAPID','HYPER'].includes(profile)||
     !number(startSpeed)||startSpeed<1||startSpeed>200||
     !Number.isInteger(spawnIndex)||spawnIndex<0)throw Error('Manual audit must use allowlisted actual A13/B5 stage and valid controls');
  return {
