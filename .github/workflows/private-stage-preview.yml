@@ -100,6 +100,18 @@ jobs:
           path: w9c0-slope40-audit.json
           if-no-files-found: error
           retention-days: 7
+      - name: W9-C1 ABYSS 240Hz true B48 road candidate diagnostics (human HOLD)
+        run: |
+          set -o pipefail
+          node scripts/p101-w9c1-native-probe.mjs | tee w9c1-abyss-native.jsonl
+          echo '### W9-C1 28m vs 14m B48 native observations; NOT human fairness proof' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p101-w9c1-abyss-native-${{ github.run_id }}
+          path: w9c1-abyss-native.jsonl
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets
@@ -165,6 +177,15 @@ jobs:
             test-results/**/w7f-lower-reversal-real-webgl.png
             test-results/**/w9b3-visual-audit.json
           if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p101-w9c1-actual-webgl-${{ github.run_id }}
+          path: |
+            test-results/**/w9c1-*.png
+            test-results/**/w9c1-browser-physical-width-audit.json
+          if-no-files-found: ignore
           retention-days: 7
       - uses: actions/upload-artifact@v4
         if: always()
