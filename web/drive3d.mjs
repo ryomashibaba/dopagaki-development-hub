@@ -822,7 +822,7 @@ function exportLocalManualQa(){
  const blob=new Blob([json],{type:'application/json;charset=utf-8'});
  const url=URL.createObjectURL(blob),a=document.createElement('a');
  const prefix=audit.stageId==='VB-P101-A13-W9C1-ULTRA'?'P101_A13_W9C1_ULTRA':audit.stageId==='VB-P101-A13-W9C1-CONTROL'?'P101_A13_W9C1_CONTROL':audit.stageId==='VB-P101-A13-W9C2-RIBBON'?'P101_A13_W9C2_RIBBON':audit.stageId==='VB-P101-A13-W9C2-EDGE'?'P101_A13_W9C2_EDGE':audit.stageId==='VB-P101-A13-W9X-B1'?'P101_A13_W9X_B1':audit.stageId==='VB-P101-A13-W7F'?'P101_A13_W7F':audit.stageId==='VB-P101-A13'?'P101_A13_W1':'P101_B5';
- a.href=url;a.download=prefix+'_MANUAL_QA_'+(audit.final?.status||'running_snapshot')+'.json';
+ a.href=url;a.download=prefix+'_MANUAL_QA_'+(audit.final?.status||(audit.stageId.includes('W9C1-')||audit.stageId.includes('W9C2-')?'running_snapshot':'ongoing'))+'.json';
  document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);
  $('b5QaStatus').textContent='試走JSONを端末へ保存しました（自動送信なし）。';
 }
