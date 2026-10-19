@@ -1,0 +1,30 @@
+name: W9-C2 G1 true physical S-crest QA (nonpublishing)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-s-crest-build.mjs'
+      - 'tests/p101-w9c2-s-crest.test.mjs'
+      - '.github/workflows/p101-w9c2-physical-fast.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-real-geometry-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  isolated-physics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Genuine Catmull-Rom S curve, playable width, zero degenerates and frozen baseline
+        run: node --test tests/p101-w9c2-s-crest.test.mjs
+      - name: Prove unchanged W9-C1 physical geometry and G5-C1 collision recovery
+        run: node --test tests/p101-w9c1-physical.test.mjs tests/p101-rebound-recovery.test.mjs
+      - name: Draw source geometry telemetry (no publish)
+        run: |
+          node --input-type=module -e "import {generateP101W9C2SCrestCandidate as gen} from './scripts/p101-w9c2-s-crest-build.mjs'; for(const kind of ['ribbon','edge']){const d=gen(kind);console.log('W9C2_G1',JSON.stringify({kind,nominal:d.stageForge.slopeDNAStudy,otherRoads:d.surfaces.length,moving:d.movingObstacles.length,promoted:d.stageForge.productionPromoted}));}"
