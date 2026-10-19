@@ -9,6 +9,11 @@ test('A13 isolated WebGL: 28 native solid machines, real narrowed roads, save an
  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','28');
  await expect(page.locator('#view')).toHaveAttribute('data-hazard-station-count','28');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-machine-architecture','16');
+ await expect(page.locator('#view')).toHaveAttribute('data-a13-w9-facilities','2');
+ await expect(page.locator('#view')).toHaveAttribute('data-a13-w9-sections','0,3');
+ await expect(page.locator('#view')).toHaveAttribute('data-a13-w9-wall-plates','208');
+ await expect(page.locator('#view')).toHaveAttribute('data-a13-w9-roof-plates','104');
+ await expect(page.locator('#view')).toHaveAttribute('data-a13-w9-non-collision','true');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-architecture-non-collision','true');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-custom-moving-shapes','16');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-version','W7F');
@@ -45,6 +50,8 @@ test('A13 isolated WebGL: 28 native solid machines, real narrowed roads, save an
  await expect(page.locator('#view')).toHaveAttribute('data-a13-custom-moving-shapes','0');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-version','none');
  await expect(page.locator('#view')).toHaveAttribute('data-a13-road-art-segments','0');
+ await expect(page.locator('#view')).toHaveAttribute('data-a13-w9-facilities','0');
+ await expect(page.locator('#view')).toHaveAttribute('data-a13-w9-wall-plates','0');
  await expect(page.locator('#appStatus')).toContainText('B5 HYPER ARC');
  expect(errors).toEqual([]);
 });
