@@ -27,4 +27,4 @@ jobs:
         run: node --test tests/p101-w9c1-physical.test.mjs tests/p101-rebound-recovery.test.mjs
       - name: Draw source geometry telemetry (no publish)
         run: |
-          node --input-type=module -e "import {generateP101W9C2SCrestCandidate as gen} from './scripts/p101-w9c2-s-crest-build.mjs'; for(const kind of ['ribbon','edge']){const d=gen(kind);console.log('W9C2_G1',JSON.stringify({kind,nominal:d.stageForge.slopeDNAStudy,otherRoads:d.surfaces.length,moving:d.movingObstacles.length,promoted:d.stageForge.productionPromoted}));}"
+          node --input-type=module -e "import {generateP101W9C2SCrestCandidate as gen} from './scripts/p101-w9c2-s-crest-build.mjs'; for(const kind of ['ribbon','edge']){const d=gen(kind);console.log('W9C2_G1',JSON.stringify({kind,nominal:d.stageForge.w9c2PhysicalStudy,otherRoads:d.surfaces.length,moving:d.movingObstacles.length,promoted:d.stageForge.productionPromoted}));}"
