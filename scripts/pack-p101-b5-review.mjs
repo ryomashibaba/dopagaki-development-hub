@@ -23,6 +23,19 @@ if(a13.stageForge.revision!=='W7F'||a13.stageForge.productionPromoted!==false||
    a13.stageForge.humanPlaytest!=='NOT_RUN'||a13.movingObstacles.length!==28||
    a13.stageForge.nativeScriptedProof?.physicsHz!==240)
  throw Error('Refusing to pack wrong A13 W7F physics or unapproved stage');
+// W9-C1 G3: independent 28m and 14m TRUE B48 road studies, not release.
+for(const [kind,width] of [['CONTROL',28],['ULTRA',14]]){
+ const file=path.join(source,'generated','P101_A13_W9C1_'+kind+'_TRIAL.json');
+ if(!fs.existsSync(file))throw Error('W9-C1 separate local manual review stage missing: '+kind);
+ const c1=JSON.parse(fs.readFileSync(file,'utf8'));
+ if(c1.stageForge.recordStageId!=='VB-P101-A13-W9C1-'+kind||
+    c1.stageForge.slopeDNAStudy?.nominalCoreWidthMeters!==width||
+    !c1.stageForge.slopeDNAStudy?.realB48Surface||c1.surfaces.length!==7||
+    c1.movingObstacles.length!==28||c1.stageForge.productionPromoted!==false||
+    c1.stageForge.humanPlaytest!=='NOT_RUN')throw Error('Wrong W9-C1 QA asset '+kind);
+}
+if(!fs.existsSync(path.join(source,'drive3d','p101-w9c1-approach-cue.mjs')))
+ throw Error('W9-C1 HUD/physical marker module missing');
 fs.rmSync(out,{recursive:true,force:true});
 fs.cpSync(source,out,{recursive:true});
 const server=`import http from 'node:http';
@@ -51,8 +64,11 @@ const server=http.createServer((req,res)=>{
 });
 server.listen(0,'127.0.0.1',()=>{
  const port=server.address().port,w7=process.argv.includes('--a13');
- const url='http://127.0.0.1:'+port+'/drive3d/?stage='+(w7?'VB-P101-A13':'VB-P101-B5');
- console.log('P101 '+(w7?'A13 W7F':'B5')+' / LOCAL ONLY  '+url);
+ const ultra=process.argv.includes('--w9c1-ultra'),control=process.argv.includes('--w9c1-control');
+ if([w7,ultra,control].filter(Boolean).length>1)throw Error('Only one trial selection allowed');
+ const stage=ultra?'VB-P101-A13-W9C1-ULTRA':control?'VB-P101-A13-W9C1-CONTROL':w7?'VB-P101-A13':'VB-P101-B5';
+ const url='http://127.0.0.1:'+port+'/drive3d/?stage='+stage;
+ console.log('P101 '+stage+' / LOCAL ONLY  '+url);
  console.log('指定ステージを自動で選択します。ロード後、A/Dまたは左右キーで手動走行してください。');
  console.log('試走終了後「試走レポートをJSON保存」で記録を保存できます。');
  console.log('このウィンドウを閉じると試走サーバーは停止します。');
@@ -66,6 +82,28 @@ server.listen(0,'127.0.0.1',()=>{
 fs.writeFileSync(path.join(out,'_LOCAL_ONLY_SERVER.mjs'),server);
 fs.writeFileSync(path.join(out,'RUN_B5_QA.cmd'),`@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs"\r\npause\r\n`);
 fs.writeFileSync(path.join(out,'RUN_A13_W7F_QA.cmd'),`@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" --a13\r\npause\r\n`);
+for(const [kind,flag] of [['14m','--w9c1-ultra'],['28m','--w9c1-control']]){
+ fs.writeFileSync(path.join(out,'RUN_W9C1_'+kind+'_QA.cmd'),
+  '@echo off\\r\\nchcp 65001 >nul\\r\\ncd /d "%~dp0"\\r\\nwhere node >nul 2>nul\\r\\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\\r\\nnode "_LOCAL_ONLY_SERVER.mjs" '+flag+'\\r\\npause\\r\\n');
+}
+fs.writeFileSync(path.join(out,'START_W9C1_JA.txt'),
+`W9-C1 ABYSS DIVE / Windows手動QA — PR #46 Draft/HOLD のみ
+
+1. RUN_W9C1_14m_QA.cmd をダブルクリック。実14m超細道の独立版が開きます。
+2. 28mと比較するときは RUN_W9C1_28m_QA.cmd をダブルクリック。
+3. ステージ開始00から A/D または左右キーで自動前進のボールを操作。
+4. 90mからの狭路予告HUD、表示される距離/現速度換算秒数、道路端の視認性を確認。
+5. 任意の試走評価とコメントを付け「試走レポートをJSON保存」。
+6. ダウンロードした P101_A13_W9C1_*_MANUAL_QA_*.json をチャットに添付。
+
+画面の「約x.x秒」は現在速度での推定であり、視覚反応時間の保証ではありません。
+本当の道路はB48 240Hz、ボール半径0.65m、移動機械28基。
+310–360m（約50m）が評価コア、前後200–440mは滑らかな幅遷移。
+開始地点の局所QA確認用再発進52m/sは通常走行の中途速度を再現しません。
+人間の公平性/実機FPS/楽しいかどうかは未認定。
+127.0.0.1のみで起動、ユーザー情報の自動送信なし。
+W7F/B5/W9-X/main/本番は一切変更していません。公開・マージ不可。
+`,'utf8');
 const w7Readme=`P101 A13 W7F / Windowsローカル手動QA — Draft PR専用・非公開
 
 1. RUN_A13_W7F_QA.cmd をダブルクリック（Node.js 22以上）。

@@ -36,3 +36,18 @@ test('W9-C1 true B48 arc cue is trial-only, bounded and never authorizes human f
  }
  assert.equal(JSON.stringify(gold),frozen);
 });
+
+import {createB5ManualAudit,recordB5ManualSample,exportB5ManualAudit} from '../web/p101-b5-manual-qa.mjs';
+test('W9-C1 manual exports include optional observed cue samples, without changing B5 schema',()=>{
+ const opts={time:2,speed:73,fps:56,frameDelta:.017,input:-1,edge:'caution',surface:'s1',
+  grounded:true,hazard:'none',w9c1NoticePhase:'approach',w9c1NoticeEtaSeconds:2.4,w9c1NoticeNominalMeters:145};
+ const c1=createB5ManualAudit({stageId:'VB-P101-A13-W9C1-ULTRA'});
+ assert.equal(recordB5ManualSample(c1,opts),true);
+ const sample=JSON.parse(exportB5ManualAudit(c1)).samples[0];
+ assert.equal(sample.w9c1NoticePhase,'approach');
+ assert.equal(sample.w9c1EtaAtCurrentSpeedSeconds,2.4);
+ assert.equal(sample.w9c1NominalRoadMeters,145);
+ const b5=createB5ManualAudit({stageId:'VB-P101-B5'});
+ assert.equal(recordB5ManualSample(b5,opts),true);
+ assert.equal('w9c1NoticePhase' in JSON.parse(exportB5ManualAudit(b5)).samples[0],false);
+});
