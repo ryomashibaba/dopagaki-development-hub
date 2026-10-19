@@ -9,6 +9,7 @@ import {sample,frame,tessellate} from '../private/reference_only/director/surfac
 import {compile} from '../private/reference_only/director/collision.js';
 import {Runner,DT,RADIUS} from '../private/reference_only/director/physics.js';
 import {p101Step} from '../web/p101-overdrive.mjs';
+import {a13RacingRoadArt} from '../web/p101-a13-road-art.mjs';
 
 const length=(a,b)=>Math.hypot(...a.map((x,j)=>x-b[j]));
 const width=(s,u)=>length(sample(s,u,0),sample(s,u,1));
@@ -97,4 +98,18 @@ test('W9-C2 G1 untouched 240Hz physics supports actual initial launch, no collis
  assert(runner.p.every(Number.isFinite));
  assert(runner.v.every(Number.isFinite));
  assert(runner.events.every(e=>e.type!=='teleport'&&e.type!=='boost-by-course-fix'));
+});
+
+test('W9-C2 G2B reduce ambiguous paint ONLY on the real S-crest, keep Gold drawing identical',()=>{
+ const gold=generateP101A13W7Candidate(),before=JSON.stringify(gold);
+ const old=a13RacingRoadArt(gold,sample,frame);
+ const candidate=generateP101W9C2SCrestCandidate('edge');
+ const slim=a13RacingRoadArt(candidate,sample,frame);
+ assert.equal(slim.nonCollision,true);
+ assert(slim.vertices.every(Number.isFinite));
+ assert(slim.segments>140);
+ assert(slim.segments<old.segments-12,'S-crest high-density chevrons were not removed');
+ assert.equal(JSON.stringify(gold),before);
+ assert.equal(a13RacingRoadArt(gold,sample,frame).segments,old.segments,
+  'W7F Gold art must be identical before and after W9-C2 render');
 });
