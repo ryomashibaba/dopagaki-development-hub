@@ -6,7 +6,9 @@
 export const W9C1_CUE=Object.freeze({
  noticeNominalM:90,coreBeginNominalM:310,coreEndNominalM:360,
  releaseNominalM:440,sectionNominalM:600,arcSamples:120,
- markerMeters:Object.freeze([90,145,200,250,280])
+ markerMeters:Object.freeze([90,145,200,250,280]),
+ edgeBeginNominalM:90,edgeEndNominalM:400,edgeStepNominalM:5,
+ edgeWidthMeters:.6,edgeInsetFraction:.015
 });
 const distance=(a,b)=>Math.hypot(...a.map((v,k)=>v-b[k]));
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
@@ -50,7 +52,7 @@ export function readW9C1Cue(profile,{surfaceId,u,grounded,speedMps}={}){
   noticeIsRendered:true,etaIsPrediction:false,
   humanVisibilityConfirmed:false};
 }
-export function w9c1ApproachMarks(doc,sample,frame){
+export function w9c1ApproachMarks(doc,sample,frame,{includeEdges=true}={}){
  const profile=makeW9C1CueProfile(doc,sample);
  if(!profile)return {vertices:[],stations:0,nonCollision:true};
  if(typeof frame!=='function')throw Error('W9-C1 physical frame sampler required');
@@ -76,7 +78,31 @@ export function w9c1ApproachMarks(doc,sample,frame){
    quad(u,v,.94,.98,[.58,1,.92]);
   }
  }
+ // Follow BOTH true physical edges through the taper and the narrow core.
+ // Flat strips on the skin, not rails, overhead gates or a safe driving line.
+ const edgeVertexStart=vertices.length;
+ let edgeSegments=0;
+ if(includeEdges){
+  const cfg=W9C1_CUE;
+  for(let m=cfg.edgeBeginNominalM;m<cfg.edgeEndNominalM;m+=cfg.edgeStepNominalM){
+   const a=m/cfg.sectionNominalM;
+   const b=Math.min(m+cfg.edgeStepNominalM,cfg.edgeEndNominalM)/cfg.sectionNominalM;
+   const band=u=>{
+    const width=distance(sample(road,u,0),sample(road,u,1));
+    if(!Number.isFinite(width)||width<4)throw Error('W9-C1 edge width invalid');
+    return [cfg.edgeInsetFraction,cfg.edgeInsetFraction+cfg.edgeWidthMeters/width];
+   };
+   const [a0,a1]=band(a),[b0,b1]=band(b),color=[.35,.95,1];
+   for(const side of [0,1]){
+    const v=x=>side?1-x:x;
+    tri([a,v(a0)],[b,v(b0)],[b,v(b1)],color);
+    tri([a,v(a0)],[b,v(b1)],[a,v(a1)],color);
+    edgeSegments++;
+   }
+  }
+ }
  if(!vertices.length||vertices.length%18!==0||!vertices.every(Number.isFinite))
   throw Error('W9-C1 geometry nonfinite');
- return {vertices,stations:W9C1_CUE.markerMeters.length,nonCollision:true};
+ return {vertices,stations:W9C1_CUE.markerMeters.length,nonCollision:true,
+  edgeSegments,edgeVertexStart,edgeVertexCount:(vertices.length-edgeVertexStart)/6};
 }

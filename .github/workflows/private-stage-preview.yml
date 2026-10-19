@@ -185,6 +185,8 @@ jobs:
           path: |
             test-results/**/w9c1-*.png
             test-results/**/w9c1-browser-physical-width-audit.json
+            test-results/**/w9c1-approach-browser-audit.json
+            test-results/**/w9c1-edge-visibility-audit.json
           if-no-files-found: ignore
           retention-days: 7
       - uses: actions/upload-artifact@v4

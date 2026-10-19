@@ -51,3 +51,39 @@ test('W9-C1 manual exports include optional observed cue samples, without changi
  assert.equal(recordB5ManualSample(b5,opts),true);
  assert.equal('w9c1NoticePhase' in JSON.parse(exportB5ManualAudit(b5)).samples[0],false);
 });
+
+test('W9-C1 edge strips track actual skins without changing any stage data',()=>{
+ for(const kind of ['control','ultra']){
+  const doc=generateP101W9C1AbyssCandidate(kind),before=JSON.stringify(doc);
+  const marks=w9c1ApproachMarks(doc,sample,frame);
+  const baseline=w9c1ApproachMarks(doc,sample,frame,{includeEdges:false});
+  assert.deepEqual(marks.vertices.slice(0,marks.edgeVertexStart),baseline.vertices);
+  assert.equal(marks.edgeSegments,124);
+  assert.equal(marks.edgeVertexCount,744);
+  // Every vertex is a physical sample + 34cm normal lift; test actual 3D
+  // coordinates, not just metadata or a synthetic flat-road mock.
+  let cursor=marks.edgeVertexStart;
+  for(let m=90;m<400;m+=5){
+   const a=m/600,b=(m+5)/600;
+   const band=u=>{
+    const width=Math.hypot(...sample(doc.surfaces[0],u,0).map((x,k)=>x-sample(doc.surfaces[0],u,1)[k]));
+    return [.015,.015+.6/width];
+   };
+   const [a0,a1]=band(a),[b0,b1]=band(b);
+   for(const side of [0,1]){
+    const v=x=>side?1-x:x;
+    const points=[[a,v(a0)],[b,v(b0)],[b,v(b1)],[a,v(a0)],[b,v(b1)],[a,v(a1)]];
+    const stripWidth=Math.hypot(...sample(doc.surfaces[0],a,v(a0)).map((x,k)=>x-sample(doc.surfaces[0],a,v(a1))[k]));
+    assert.ok(stripWidth>.3&&stripWidth<1.2,'physical edge stripe width '+stripWidth);
+    for(const [u,vv] of points){
+     const p=sample(doc.surfaces[0],u,vv),n=frame(doc.surfaces[0],u,vv).normal;
+     const q=p.map((x,k)=>x+(n[1]<0?-1:1)*n[k]*.34);
+     assert.ok(Math.hypot(...q.map((x,k)=>x-marks.vertices[cursor+k]))<1e-9);
+     cursor+=6;
+    }
+   }
+  }
+  assert.equal(cursor,marks.vertices.length);
+  assert.equal(JSON.stringify(doc),before,'decor must never mutate physical data');
+ }
+});

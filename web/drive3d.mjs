@@ -145,6 +145,7 @@ function buildVisual(stage){
    w9c1MarkMesh=mesh(w9c1Marks.vertices);
    canvas.dataset.w9c1NoticeMarkers=String(w9c1Marks.stations);
    canvas.dataset.w9c1NoticeNonCollision=String(w9c1Marks.nonCollision);
+   canvas.dataset.w9c1EdgeSegments=String(w9c1Marks.edgeSegments??0);
    canvas.dataset.a13RoadArtSegments=String(art.segments);
    canvas.dataset.a13RoadArtNonCollision=String(art.nonCollision);
   canvas.dataset.a13MachineArchitecture=String(arch.structures);
