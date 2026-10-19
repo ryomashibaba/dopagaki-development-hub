@@ -31,7 +31,9 @@ test('W9-C2 G1 separate two actual 31x5 physical S-crest variants, preserving al
   assert.equal(doc.surfaces.length,7);
   assert.equal(doc.movingObstacles.length,28);
   assert.deepEqual(doc.movingObstacles,gold.movingObstacles,'all original 28 B51-C bodies must be byte-identical');
-  assert.deepEqual(doc.spawns,gold.spawns,'no artificial checkpoint or speed reset');
+  assert.deepEqual(doc.spawns.slice(0,gold.spawns.length),gold.spawns,'the six canonical physical starts must not change');
+  assert.equal(doc.spawns.length,gold.spawns.length+2);
+  assert(doc.spawns.slice(-2).every(x=>x.surface===s.id&&x.name.includes('52m/s local restart')));
   assert.deepEqual(doc.routeSegments,gold.routeSegments);
   for(let section=0;section<7;section++)if(section!==W9C2_STUDY.section)
    assert.deepEqual(doc.surfaces[section],gold.surfaces[section],'wrong road changed: '+section);
