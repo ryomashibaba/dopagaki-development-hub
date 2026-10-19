@@ -85,4 +85,11 @@ test('A13 isolated manual QA records real edge state and no inherited scripted f
  const w7=createB5ManualAudit({stageId:'VB-P101-A13-W7F',profile:'OVERDRIVE',startSpeed:52,spawnIndex:0});
  assert.equal(w7.schema,'dopagaki.a13-manual-qa/1');
  assert.equal(JSON.parse(exportB5ManualAudit(w7)).stageId,'VB-P101-A13-W7F');
+ const w9=createB5ManualAudit({stageId:'VB-P101-A13-W9X-B1',profile:'OVERDRIVE',startSpeed:52,spawnIndex:3});
+ assert.equal(w9.schema,'dopagaki.a13-manual-qa/1');
+ assert.equal(w9.stageId,'VB-P101-A13-W9X-B1');
+ assert(recordB5ManualSample(w9,{...fake(0),edge:'caution'}));
+ assert.equal(JSON.parse(exportB5ManualAudit(w9)).stageId,'VB-P101-A13-W9X-B1');
+ assert.equal(finalizeB5ManualAudit(w9,{status:'finished',time:2.3,contacts:0,nearMisses:0}).fullCourseCompletionFromStart00,false);
+ assert.throws(()=>createB5ManualAudit({stageId:'VB-P101-A13-W9X-B2'}),'unapproved stage ID must remain blocked');
 });
