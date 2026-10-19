@@ -1,0 +1,50 @@
+name: W9-C1 G5-B visual candidate fast QA (nonpublishing)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/p101-w9c1-g5b-skyline.mjs'
+      - 'web/drive3d.mjs'
+      - 'tests/p101-w9c1-g5b-skyline.test.mjs'
+      - 'tests/browser/p101-w9c1-g5b-skyline.spec.mjs'
+      - 'scripts/build.mjs'
+      - '.github/workflows/p101-w9c1-g5b-fast.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g5b-visual-fast-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  g5b:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    env:
+      DOPAGAKI_BUILD_DIR: dist-site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: GPU geometry and baseline isolation unit checks
+        run: node --test tests/p101-w9c1-g5b-skyline.test.mjs
+      - name: Install browser test dependencies
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Build exact PR-only review site (never publish)
+        run: npm run build:site
+      - name: G5-B same-spawn actual WebGL before-after screenshots
+        run: npx playwright test tests/browser/p101-w9c1-g5b-skyline.spec.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w9c1-g5b-only-real-webgl-${{ github.run_id }}
+          path: |
+            test-results/**/w9c1-g5b-*.png
+            test-results/**/w9c1-g5b-visual-audit.json
+            test-results/**/test-failed-*.png
+            test-results/**/error-context.md
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 7
