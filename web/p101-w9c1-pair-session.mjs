@@ -62,9 +62,7 @@ function useReport(report,kind){
  else {$('save').disabled=false;showComparison();}
 }
 game.addEventListener('load',()=>{
- $('capture').textContent='W9-C1の読み込みが完了しました。A / D または左右キーで手動操作。';
- if(mode==='control')$('next').disabled=false;
- else $('save').disabled=false;
+ $('capture').textContent='実物理の道路と障害物を読み込んでいます...';
 });
 window.addEventListener('message',event=>{
  if(event.origin!==window.location.origin||event.source!==game.contentWindow||
