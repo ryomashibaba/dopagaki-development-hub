@@ -53,6 +53,8 @@ let p101B5Surge=createP101B5SurgeState(),a13Surge=createA13SurgeState();
 let b5ManualAudit=null,b5PreviousAudit=null,w9c1CueProfile=null;
 // Explicit candidate opt-in via URL; no normal game, road or global toggle changes.
 const g5bVisualOptIn=new URLSearchParams(window.location.search).get('g5b')==='on'||new URLSearchParams(window.location.hash.slice(1)).get('g5b')==='on';
+const guidedPairTrial=new URLSearchParams(window.location.search).get('guided')==='1';
+const pairTrialIds=new Set(['VB-P101-A13-W9C1-CONTROL','VB-P101-A13-W9C1-ULTRA']);
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -352,6 +354,8 @@ function settleRun(){
   failure:runner.failure?.reason||null,
   collisionEvents:runner.events // G5-A: read-only; exported only after explicit save
  });
+ // G5-C3: notify only the same-origin explicit guided parent, in memory.
+ sendGuidedPairReport(null);
  const record=buildRunRecord({stageId:doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.recordStageId||'VB-P101-A13'):p101B5RecordStageId(doc),spawn:runner.spawnIndex,
   seconds:runner.time,nearMisses:nearMissTracker.total,outcome:runner.status});
  const compared=storeBest(browserRecordStore(),record);
@@ -765,6 +769,33 @@ function startDemo(){
  // the player watches a scrolled-off simulation without realizing it.
  canvas.scrollIntoView({block:'start',behavior:'auto'});
 }
+function pairSnapshot(){
+ if(!runner||!b5ManualAudit||!doc||!pairTrialIds.has(b5ManualAudit.stageId)||
+    b5ManualAudit.stageId!==doc.stageForge?.recordStageId||
+    demoMode||practiceMode||seekingChapter)return null;
+ if(b5ManualAudit.final)return null;
+ return {time:runner.time,surface:runner.surface||runner.lastSurface,
+  contacts:runner.collisions,nearMisses:nearMissTracker.total,
+  collisionEvents:runner.events};
+}
+function sendGuidedPairReport(requestId=null){
+ if(!guidedPairTrial||window.parent===window||!b5ManualAudit||
+    !pairTrialIds.has(b5ManualAudit.stageId)||demoMode||practiceMode||seekingChapter)return;
+ const json=exportB5ManualAudit(b5ManualAudit,{snapshot:pairSnapshot()});
+ window.parent.postMessage({type:'dopagaki.w9c1.g5c3.report/1',
+  requestId,stageId:b5ManualAudit.stageId,report:JSON.parse(json)},window.location.origin);
+}
+window.addEventListener('message',event=>{
+ // Guard the exact embedding frame and local origin: no remote submission.
+ if(!guidedPairTrial||event.origin!==window.location.origin||
+    event.source!==window.parent||event.data?.type!=='dopagaki.w9c1.g5c3.capture/1')return;
+ if(!b5ManualAudit||!pairTrialIds.has(b5ManualAudit.stageId)||
+    !runner||demoMode||practiceMode||seekingChapter)return;
+ // A deliberate capture pauses the runner; does not invent a failure,
+ // collision or finish, and never modifies its physical velocity.
+ if(!b5ManualAudit.final){paused=true;accum=0;$('pause').textContent='再開 (Space)';}
+ sendGuidedPairReport(Number.isSafeInteger(event.data.requestId)?event.data.requestId:null);
+});
 function exportLocalManualQa(){
  const audit=b5ManualAudit?.samples.length?b5ManualAudit:b5PreviousAudit;
  if(!audit){$('b5QaStatus').textContent='まずB5またはA13を手動で走ってください。';return;}
@@ -777,12 +808,13 @@ function exportLocalManualQa(){
    edgeReadability:val('w9c1EdgeReadability'),
    failureFairness:val('w9c1FailureFairness'),
    failureAttribution:$('w9c1FailureCause').value
-  }:null
+  }:null,
+  snapshot:audit===b5ManualAudit?pairSnapshot():null
  });
  const blob=new Blob([json],{type:'application/json;charset=utf-8'});
  const url=URL.createObjectURL(blob),a=document.createElement('a');
  const prefix=audit.stageId==='VB-P101-A13-W9C1-ULTRA'?'P101_A13_W9C1_ULTRA':audit.stageId==='VB-P101-A13-W9C1-CONTROL'?'P101_A13_W9C1_CONTROL':audit.stageId==='VB-P101-A13-W9X-B1'?'P101_A13_W9X_B1':audit.stageId==='VB-P101-A13-W7F'?'P101_A13_W7F':audit.stageId==='VB-P101-A13'?'P101_A13_W1':'P101_B5';
- a.href=url;a.download=prefix+'_MANUAL_QA_'+(audit.final?.status||'ongoing')+'.json';
+ a.href=url;a.download=prefix+'_MANUAL_QA_'+(audit.final?.status||'running_snapshot')+'.json';
  document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);
  $('b5QaStatus').textContent='試走JSONを端末へ保存しました（自動送信なし）。';
 }
