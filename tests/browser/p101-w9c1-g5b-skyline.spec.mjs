@@ -34,7 +34,7 @@ test('W9-C1 G5-B opt-in WebGL skyline: isolated matched images and no physics ad
    if(mode==='on'){
     expect(stats.stations).toBeGreaterThan(40);
     expect(stats.triangles).toBeGreaterThan(3000);
-    expect(stats.clearance).toBeGreaterThanOrEqual(38);
+    expect(stats.clearance).toBeGreaterThanOrEqual(65);
    }else{
     expect(stats.stations).toBe(0);
     expect(stats.triangles).toBe(0);
