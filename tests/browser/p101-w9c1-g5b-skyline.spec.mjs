@@ -27,7 +27,7 @@ test('W9-C1 G5-B opt-in WebGL skyline: isolated matched images and no physics ad
    await expect(view).toHaveAttribute('data-machine-count','28');
    await expect(view).toHaveAttribute('data-w9c1-isolated','true');
    const stats=await view.evaluate(el=>({
-    stations:Number(el.dataset.g5bStations),triangles:Number(el.dataset.g5bTriangles),
+    stations:Number(el.dataset.g5bStations),heroBlades:Number(el.dataset.g5bHeroBlades),triangles:Number(el.dataset.g5bTriangles),
     clearance:Number(el.dataset.g5bClearance),nonCollision:el.dataset.g5bNonCollision,
     physicalRoadWidth:Number(el.dataset.w9c1Width),runMode:el.dataset.runMode
    }));
