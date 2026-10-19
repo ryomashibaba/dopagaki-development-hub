@@ -180,16 +180,31 @@ export function finalizeB5ManualAudit(a,{status,time,surface=null,contacts=0,nea
  }
  return a.final;
 }
-export function exportB5ManualAudit(a,{speedFeel=null,steeringFeel=null,hazardLegibility=null,note='',w9c1Feedback=null}={}){
+export function exportB5ManualAudit(a,{speedFeel=null,steeringFeel=null,hazardLegibility=null,note='',w9c1Feedback=null,snapshot=null}={}){
  if(!a||!validAudit(a))throw Error('B5 audit not initialized');
  for(const [name,v] of Object.entries({speedFeel,steeringFeel,hazardLegibility}))
   if(v!==null&&(!Number.isInteger(v)||v<1||v>5))throw Error('Invalid voluntary player rating: '+name);
  if(typeof note!=='string')throw Error('Player note must be text');
+ // Explicitly exporting an in-progress run produces a truthful observation
+ // endpoint without mutating the ongoing audit or terminating real physics.
+ let observedSnapshot=null;
+ if(!a.final&&snapshot!==null){
+  if(!snapshot||!number(snapshot.time)||snapshot.time<0||
+     !Number.isInteger(snapshot.contacts)||snapshot.contacts<0||
+     !Number.isInteger(snapshot.nearMisses)||snapshot.nearMisses<0)
+    throw Error('G5-C3 live snapshot requires observed time and collision counts');
+  observedSnapshot=finalizeB5ManualAudit({...a,final:null},{
+   status:'interrupted',time:snapshot.time,surface:snapshot.surface??null,
+   contacts:snapshot.contacts,nearMisses:snapshot.nearMisses,
+   failure:null,collisionEvents:snapshot.collisionEvents??[]
+  });
+ }
  // No local storage keys, absolute file paths, user agent or identifying details.
  const result={schema:a.schema,stageId:a.stageId,profile:a.profile,
   startSpeed:a.startSpeed,spawnIndex:a.spawnIndex,source:a.source,
   survey:{speedFeel,steeringFeel,hazardLegibility,note:note.slice(0,900)},
-  summary:a.final,samples:a.samples.map(x=>({...x}))};
+  captureStatus:a.final?'TERMINAL_OBSERVATION':observedSnapshot?'RUNNING_SNAPSHOT_NOT_TERMINAL':'UNFINALIZED_NO_SNAPSHOT',
+  summary:a.final??observedSnapshot,samples:a.samples.map(x=>({...x}))};
  if(isW9C1(a)){
   const fb=w9c1Feedback??{};
   const ratings=['warningSeenEarly','edgeReadability','failureFairness'];
