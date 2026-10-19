@@ -37,7 +37,7 @@ import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
 import {createB5ManualAudit,recordB5ManualSample,recordB5ManualFrame,finalizeB5ManualAudit,exportB5ManualAudit} from './p101-b5-manual-qa.mjs';
 
 const $=id=>document.getElementById(id);
-const assets={'VB-P101-A13':'P101_A13_W7_GAMEPLAY.json','VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
+const assets={'VB-P101-A13':'P101_A13_W7_GAMEPLAY.json','VB-P101-A13-W9X-B1':'P101_A13_W9X_B1_TRIAL.json','VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
@@ -171,6 +171,8 @@ function buildVisual(stage){
  canvas.dataset.machineCount=String((stage.movingObstacles||[]).filter(x=>x.enabled!==false).length);
  canvas.dataset.a13CustomMovingShapes=String(stage.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?stage.movingObstacles.filter(o=>o.id.startsWith('a13-machine-')).length:0);
  canvas.dataset.a13Version=stage.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(stage.stageForge.revision||'W1'):'none';
+ canvas.dataset.w9Trial=String(stage.stageForge.recordStageId==='VB-P101-A13-W9X-B1');
+ canvas.dataset.w9BankAmplitude=String(stage.stageForge.bankTrial?.amplitudeMeters??0);
  canvas.dataset.hazardUrgency='none';canvas.dataset.hazardTarget='none';canvas.dataset.hazardEta='none';
 }
 function draw(m,center=[0,0,0],size=[1,1,1],angle=0,primitive=gl.TRIANGLES){
@@ -372,7 +374,8 @@ function restart(){
   b5ManualAudit=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)&&!demoMode&&!practiceMode
    ?createB5ManualAudit({stageId:doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.recordStageId||'VB-P101-A13'):'VB-P101-B5',profile:$('p101Profile').value,startSpeed:physicalLaunch,spawnIndex:spawn}):null;
   $('b5QaPanel').hidden=!['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant);
-  $('b5QaTitle').textContent=doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?'A13 W7F · 手動試走レポート':'B5 · 手動試走レポート';
+  $('b5QaTitle').textContent=doc.stageForge.recordStageId==='VB-P101-A13-W9X-B1'?'W9-X-B1 · 独立手動試走レポート':doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?'A13 W7F · 手動試走レポート':'B5 · 手動試走レポート';
+  $('w9TrialWarning').hidden=doc.stageForge.recordStageId!=='VB-P101-A13-W9X-B1';
   $('b5QaStatus').textContent='手動試走の観測値を端末内で記録。自動送信はありません。';
   p101B5Surge=createP101B5SurgeState();a13Surge=createA13SurgeState();
   canvas.dataset.b5PhysicalStage=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'true':'false';
@@ -398,7 +401,7 @@ function restart(){
  canvas.dataset.nearMissCount='0';
  $('pause').textContent='一時停止 (Space)';
  delete status.dataset.failed;
- status.className='status';status.textContent=doc.stageForge?.variant==='A13_GAMEPLAY_ISOLATED'?'P101 A13 W7F — 7.28km・正規240Hz・28基の実移動障害物・52m/s始動。自動試走7/7完走 53.275秒 / 203.6m/s（人間の難易度・視認性は未検証）。B5保護 / DRAFT HOLD。':doc.stageForge?.variant==='B5_HYPER_ARC_ISOLATED'?'P101 B5 HYPER ARC — 7.28km true giant 3D 180° curves, 12 real moving machines, native 240Hz 206.28m/s SCRIPTED finish proven, 52m/s launch. Human steering/visual/phone FPS HOLD. P100 unchanged.':doc.stageForge?.id==='VB-P101'?'P101 VELOCITY OVERDRIVE — 4×/4.8×/6× genuine lateral acceleration and enhanced forward speed; 240Hz CCD. Human fairness and full-run QA HOLD. P100 baseline unchanged.':doc.stageForge?.id==='VB-P100'?'P100 TERRAIN PULSE — authentic 3D S-bends, real crests and moving road camber; P99 baseline unchanged; 7/7 real 240Hz two-profile native finish confirmed, human fairness and final art HOLD.':doc.stageForge?.id==='VB-P99'?'P99 PRESSURE LINES — real 7-skin variable-width roads and 12 native moving hazards; two real native 240Hz profile finishes confirmed; human fairness and full visual quality HOLD.':doc.stageForge?.id==='VB-P95'?'P96 VOID BREAKER — 12 real moving B51-C obstacles, 7/7 native scripted finish; human difficulty/fairness HOLD.':doc.stageForge?.id==='VB-P93'?'P94 VOID BREAKER — genuine 3990m 7/7 native scripted finish verified; human playability and final art NOT APPROVED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
+ status.className='status';status.textContent=doc.stageForge?.recordStageId==='VB-P101-A13-W9X-B1'?'W9-X-B1 UNDERPASS DUAL-APEX — 7.28km / 28基 / 実B48路面の交互バンク8m / 240Hz / 52m/s始動。自動7/7は補正操舵のみ・手動の公平性や楽しさは未検証。W7F Goldは変更なし・試走記録は独立。DRAFT HOLD。':doc.stageForge?.variant==='A13_GAMEPLAY_ISOLATED'?'P101 A13 W7F — 7.28km・正規240Hz・28基の実移動障害物・52m/s始動。自動試走7/7完走 53.275秒 / 203.6m/s（人間の難易度・視認性は未検証）。B5保護 / DRAFT HOLD。':doc.stageForge?.variant==='B5_HYPER_ARC_ISOLATED'?'P101 B5 HYPER ARC — 7.28km true giant 3D 180° curves, 12 real moving machines, native 240Hz 206.28m/s SCRIPTED finish proven, 52m/s launch. Human steering/visual/phone FPS HOLD. P100 unchanged.':doc.stageForge?.id==='VB-P101'?'P101 VELOCITY OVERDRIVE — 4×/4.8×/6× genuine lateral acceleration and enhanced forward speed; 240Hz CCD. Human fairness and full-run QA HOLD. P100 baseline unchanged.':doc.stageForge?.id==='VB-P100'?'P100 TERRAIN PULSE — authentic 3D S-bends, real crests and moving road camber; P99 baseline unchanged; 7/7 real 240Hz two-profile native finish confirmed, human fairness and final art HOLD.':doc.stageForge?.id==='VB-P99'?'P99 PRESSURE LINES — real 7-skin variable-width roads and 12 native moving hazards; two real native 240Hz profile finishes confirmed; human fairness and full visual quality HOLD.':doc.stageForge?.id==='VB-P95'?'P96 VOID BREAKER — 12 real moving B51-C obstacles, 7/7 native scripted finish; human difficulty/fairness HOLD.':doc.stageForge?.id==='VB-P93'?'P94 VOID BREAKER — genuine 3990m 7/7 native scripted finish verified; human playability and final art NOT APPROVED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  publishChapterTiming();
  // Synchronize the visible world-clock immediately after replacing Runner.
  // Otherwise a spectator can see a stale timer from the previous practice run
@@ -426,7 +429,7 @@ async function load(){
    }
    if(seq!==loading)return;
    buildVisual(value);doc=value;world=compiled;ghostData=replay;
-  $('demoRun').disabled=!isDemoEligible(doc);
+  $('demoRun').disabled=!isDemoEligible(doc)||id==='VB-P101-A13-W9X-B1';
   $('p101Controls').hidden=doc.stageForge.id!=='VB-P101';
   canvas.dataset.p101Experimental=String(doc.stageForge.id==='VB-P101');
    $('practiceRun').disabled=doc.stageForge?.id!=='EP-P66';
@@ -714,7 +717,7 @@ function exportLocalManualQa(){
  });
  const blob=new Blob([json],{type:'application/json;charset=utf-8'});
  const url=URL.createObjectURL(blob),a=document.createElement('a');
- const prefix=audit.stageId==='VB-P101-A13-W7F'?'P101_A13_W7F':audit.stageId==='VB-P101-A13'?'P101_A13_W1':'P101_B5';
+ const prefix=audit.stageId==='VB-P101-A13-W9X-B1'?'P101_A13_W9X_B1':audit.stageId==='VB-P101-A13-W7F'?'P101_A13_W7F':audit.stageId==='VB-P101-A13'?'P101_A13_W1':'P101_B5';
  a.href=url;a.download=prefix+'_MANUAL_QA_'+(audit.final?.status||'ongoing')+'.json';
  document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);
  $('b5QaStatus').textContent='試走JSONを端末へ保存しました（自動送信なし）。';
