@@ -14,7 +14,13 @@ test('W9-C1 G5-B opt-in WebGL skyline: isolated matched images and no physics ad
    await page.clock.install({time:new Date('2026-10-19T00:00:00Z')});
    await page.clock.pauseAt(new Date('2026-10-19T00:00:01Z'));
    await page.goto('/drive3d/?stage=VB-P101-A13-W9C1-'+kind+'&g5b='+mode);
-   await expect(page.locator('#appStatus')).toContainText('W9-C1 ABYSS DIVE',{timeout:90000});
+   // Stage loading deliberately waits for requestAnimationFrame; a paused
+   // Playwright clock cannot reach that callback without runFor().
+   for(let i=0;i<150;i++){
+    await page.clock.runFor(100);
+    if((await page.locator('#appStatus').textContent()).includes('W9-C1 ABYSS DIVE'))break;
+   }
+   await expect(page.locator('#appStatus')).toContainText('W9-C1 ABYSS DIVE',{timeout:15000});
    const view=page.locator('#view');
    await expect(view).toHaveAttribute('data-g5b-mode',mode==='on'?'candidate':'off');
    await expect(view).toHaveAttribute('data-g5b-non-collision','true');
