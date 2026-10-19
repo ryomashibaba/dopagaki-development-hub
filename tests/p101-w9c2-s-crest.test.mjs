@@ -26,8 +26,8 @@ test('W9-C2 G1 separate two actual 31x5 physical S-crest variants, preserving al
   assert.equal(doc.stageForge.humanPlaytest,'NOT_RUN');
   assert.equal(doc.stageForge.nativeScriptedProof,null);
   assert.equal(doc.stageForge.fullStartToFinish,'NOT_VERIFIED_W9_C2');
-  assert.equal(doc.stageForge.slopeDNAStudy.trueJumpGapImplemented,false);
-  assert.equal(doc.stageForge.slopeDNAStudy.slopeDnaContributionMeters,'NOT_APPROVED_FOR_COUNT');
+  assert.equal(doc.stageForge.w9c2PhysicalStudy.trueJumpGapImplemented,false);
+  assert.equal(doc.stageForge.w9c2PhysicalStudy.slopeDnaContributionMeters,'NOT_APPROVED_FOR_COUNT');
   assert.equal(doc.surfaces.length,7);
   assert.equal(doc.movingObstacles.length,28);
   assert.deepEqual(doc.movingObstacles,gold.movingObstacles,'all original 28 B51-C bodies must be byte-identical');
@@ -48,9 +48,9 @@ test('W9-C2 G1 separate two actual 31x5 physical S-crest variants, preserving al
   }
   assert.deepEqual(doc.route.at(-1),gold.route.at(-1));
   assert.equal(tessellate(s).degenerate,0);
-  assert(doc.stageForge.slopeDNAStudy.modifiedControlPoints>=35,'not enough real physical 3D changes');
-  assert(doc.stageForge.slopeDNAStudy.maxHorizontalDeltaMeters>10);
-  assert(doc.stageForge.slopeDNAStudy.maxVerticalDeltaMeters>7);
+  assert(doc.stageForge.w9c2PhysicalStudy.modifiedControlPoints>=35,'not enough real physical 3D changes');
+  assert(doc.stageForge.w9c2PhysicalStudy.maxHorizontalDeltaMeters>10);
+  assert(doc.stageForge.w9c2PhysicalStudy.maxVerticalDeltaMeters>7);
   assert(width(s,(W9C2_STUDY.startU+W9C2_STUDY.endU)/2)<width(old,.455)-15);
   assert(width(s,.455)>12,'true playable width collapsed');
   assert(Math.abs(width(s,.455)-plan.coreWidthMeters)<3,
