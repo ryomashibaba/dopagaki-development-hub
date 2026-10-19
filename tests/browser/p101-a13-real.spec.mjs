@@ -28,6 +28,17 @@ test('A13 isolated WebGL: 28 native solid machines, real narrowed roads, save an
  expect(data.stageForge.humanPlaytest).toBe('NOT_RUN');
  expect(data.stageForge.genuineFastLaw).toBeNull();
  expect(data.stageForge.productionPromoted).toBe(false);
+ const w9x=await page.evaluate(async()=>await (await fetch('../generated/P101_A13_W9X_B1_TRIAL.json')).json());
+ expect(w9x.stageForge.revision).toBe('W9-X-B1');
+ expect(w9x.stageForge.recordStageId).toBe('VB-P101-A13-W9X-B1');
+ expect(w9x.stageForge.humanPlaytest).toBe('NOT_RUN');
+ expect(w9x.stageForge.productionPromoted).toBe(false);
+ expect(w9x.stageForge.nativeScriptedProof).toBeNull();
+ expect(w9x.movingObstacles).toEqual(data.movingObstacles);
+ expect(w9x.route).toEqual(data.route);
+ expect(w9x.surfaces.filter((s,i)=>i!==3)).toEqual(data.surfaces.filter((s,i)=>i!==3));
+ expect(w9x.surfaces[3].points[77][1]).toBe(data.surfaces[3].points[77][1]);
+ expect(w9x.surfaces[3].points[76][1]).not.toBe(data.surfaces[3].points[76][1]);
  expect(data.surfaces.length).toBe(7);
  expect(data.movingObstacles.length).toBe(28);
  await page.locator('#view').screenshot({path:info.outputPath('p101-a13-opening-webgl.png')});
