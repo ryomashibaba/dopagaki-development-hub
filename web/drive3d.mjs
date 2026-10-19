@@ -140,6 +140,7 @@ function buildVisual(stage){
    g5bSceneryMesh=g5b.active?mesh(g5b.vertices):null;
    canvas.dataset.g5bMode=g5b.active?'candidate':'off';
    canvas.dataset.g5bStations=String(g5b.stations);
+   canvas.dataset.g5bHeroBlades=String(g5b.heroBlades);
    canvas.dataset.g5bTriangles=String(g5b.vertices.length/18);
    canvas.dataset.g5bClearance=String(g5b.minimumEdgeClearanceMeters??0);
    canvas.dataset.g5bNonCollision=String(g5b.nonCollision);
