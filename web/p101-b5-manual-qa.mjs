@@ -14,7 +14,7 @@ const number=n=>typeof n==='number'&&Number.isFinite(n);
 const rounded=(n,d=2)=>Number(n.toFixed(d));
 const quantile=(sorted,q)=>sorted.length?sorted[Math.min(sorted.length-1,Math.floor((sorted.length-1)*q))]:null;
 // G5-A: bounded, allowlisted, observational collision records for W9-C1 only.
-const G5_COLLISION_TYPES=new Set(['moving-contact','static-fatal-contact','moving-crush','air','contact']);
+const G5_COLLISION_TYPES=new Set(['moving-contact','static-fatal-contact','moving-crush','air','contact','rebound-recovery-start','rebound-recovery-end']);
 const g5Vector=v=>Array.isArray(v)&&v.length===3&&v.every(number)?v.map(n=>rounded(n,4)):null;
 const g5Scalar=n=>number(n)?rounded(n,4):null;
 const g5Text=s=>typeof s==='string'?s.slice(0,80):null;
@@ -27,6 +27,7 @@ function g5DiagnosticEvent(e){
   forwardBeforeMps:g5Scalar(e.forwardBeforeMps),forwardAfterMps:g5Scalar(e.forwardAfterMps),
   inwardNormalMps:g5Scalar(e.inwardNormalMps),
   surfaceVelocity:g5Vector(e.surfaceVelocity),deltaVelocity:g5Vector(e.deltaVelocity),
+  recoveryReason:g5Text(e.reason),peakAppliedAccelMps2:g5Scalar(e.peakAppliedAccelMps2),
   crushIds:Array.isArray(e.ids)?e.ids.slice(0,8).map(g5Text):null};
 }
 // A12: 0.25ms animation-frame duration histogram, bounded memory, no game physics coupling.
@@ -148,6 +149,17 @@ export function finalizeB5ManualAudit(a,{status,time,surface=null,contacts=0,nea
   warningAssessment:'VISIBILITY_SAMPLES_ONLY_NOT_REACTION_TIME_OR_FAIRNESS_PROOF',
   renderFpsIsNotPhysicsHz:true,physicsHz:240
  };
+ // Only actual emitted recovery events enter the voluntary local JSON.
+ // No machine has been hit merely because the option was enabled.
+ if(Array.isArray(collisionEvents)){
+  const rebound=collisionEvents.filter(e=>e&&
+   ['rebound-recovery-start','rebound-recovery-end'].includes(e.type)&&number(e.t));
+  if(rebound.length)a.final.nonlethalReboundRecovery={
+   schema:'dopagaki.nonlethal-rebound-recovery/1',
+   observedEvents:rebound.slice(-24).map(g5DiagnosticEvent),
+   truncated:rebound.length>24,automaticFairnessApproval:false
+  };
+ }
  if(isW9C1(a)){
   const h=a.w9c1Observed;
   a.final.w9c1G4Telemetry={
