@@ -56,6 +56,10 @@ export function generateP101W9C1AbyssCandidate(kind){
  }
  if(changed<30||Math.abs(minimumControlWidth-choice.widthMeters)>1e-6)
    throw Error('W9-C1 is not a measurable true physical narrow-road change');
+ // QA-only start locations; the canonical 6 spawns and original zero-start run remain intact.
+ // These starts use 52m/s, not the speed reached by a full run at 200/320m.
+ doc.spawns.push({name:'W9-C1 QA / 200m approach (52m/s local reset, NOT full-speed proof)',surface:road.id,u:1/3,v:.5});
+ doc.spawns.push({name:'W9-C1 QA / 320m narrow core (52m/s local reset, NOT full-speed proof)',surface:road.id,u:8/15,v:.5});
  doc.name='P101 W9-C1 / ABYSS DIVE '+kind.toUpperCase()+' B48 ROAD STUDY / HOLD';
  doc.stageForge={...doc.stageForge,revision:choice.revision,
    recordStageId:choice.recordStageId,
