@@ -8,6 +8,8 @@ const add=(a,b)=>a.map((v,i)=>v+b[i]);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const mul=(a,n)=>a.map(v=>v*n);
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const normalized=v=>mul(v,1/(Math.hypot(...v)||1));
 const normHorizontal=v=>{
  const d=Math.hypot(v[0],v[2]);
  if(d<1e-6)throw Error('G5-B cannot establish a horizontal road frame');
@@ -43,6 +45,21 @@ function solid(vertices,center,forward,outward,length,width,height,color){
   [2,6,7,3,.97],[0,2,3,1,.7],[4,5,7,6,1.05]
  ]){const tint=shade(color,factor);triangle(vertices,p[a],p[b],p[c],tint);triangle(vertices,p[a],p[c],p[d],tint);}
 }
+// A diagonal faceted megaspire, with a real empty triangular aperture.
+// It is not a road portal and does not bridge across the driving line.
+function beam(vertices,a,b,width,depth,color){
+ const axis=normalized(sub(b,a));
+ if(Math.hypot(...sub(b,a))<.01)throw Error('G5-B diagonal blade collapsed');
+ const across=normalized(cross(axis,Math.abs(axis[1])>.94?[0,0,1]:[0,1,0]));
+ const up=normalized(cross(across,axis));
+ const point=(center,l,u)=>add(center,add(mul(across,l*width/2),mul(up,u*depth/2)));
+ const p=[point(a,-1,-1),point(a,1,-1),point(a,1,1),point(a,-1,1),
+  point(b,-1,-1),point(b,1,-1),point(b,1,1),point(b,-1,1)];
+ for(const [i,j,k,l] of [[0,1,2,3],[4,7,6,5],[0,4,5,1],[3,2,6,7],[0,3,7,4],[1,5,6,2]]){
+  triangle(vertices,p[i],p[j],p[k],color);
+  triangle(vertices,p[i],p[k],p[l],color);
+ }
+}
 function stationFrame(road,u,side,sample){
  const center=sample(road,u,.5),edge=sample(road,u,side===-1?0:1);
  const back=sample(road,Math.max(0,u-.004),.5);
@@ -59,7 +76,7 @@ function outboard(frame,clearance,width,forwardShift=0,height=0){
   add(mul(frame.forward,forwardShift),[0,height,0]));
 }
 export function w9c1G5BSkyline(stage,sample,{enabled=false}={}){
- const empty={vertices:[],stations:0,masses:0,luminousPanels:0,
+ const empty={vertices:[],stations:0,masses:0,luminousPanels:0,heroBlades:0,
   nonCollision:true,minimumEdgeClearanceMeters:null,active:false,reason:'HOLD'};
  if(!enabled||!VISUAL_STAGE_IDS.has(stage?.stageForge?.recordStageId))return empty;
  if(stage?.stageForge?.variant!=='A13_GAMEPLAY_ISOLATED'||
@@ -67,7 +84,7 @@ export function w9c1G5BSkyline(stage,sample,{enabled=false}={}){
     typeof sample!=='function'||
     stage.surfaces.some(s=>!s.rideable||!s.collidable||s.rows!==31||s.cols!==5))
   throw Error('G5-B requires intact W9-C1 genuine 7-road/28-machine isolation');
- const vertices=[];let stations=0,masses=0,luminousPanels=0,minClearance=Infinity;
+ const vertices=[];let stations=0,masses=0,luminousPanels=0,heroBlades=0,minClearance=Infinity;
  for(let chapter=0;chapter<7;chapter++){
   const road=stage.surfaces[chapter];
   // Uneven spacing deliberately avoids a repetitive corridor of small poles.
@@ -106,6 +123,18 @@ export function w9c1G5BSkyline(stage,sample,{enabled=false}={}){
      f.forward,f.outward,along*.42,lightWidth,1.9,palette.glow);luminousPanels++;
     solid(vertices,outboard(f,clearance+29,1.3,along*.22,height+96),
      f.forward,f.outward,1.3,1.3,56+phase*14,palette.glow);luminousPanels++;
+    if(j%2===0){
+     // A single immense open V-spire from the same distant outboard landmark,
+     // NEVER a full opaque wall along the road.
+     const root=outboard(f,clearance+36,10,-along*.23,height*.28);
+     const second=outboard(f,clearance+36,10,along*.50,height*.25);
+     const tip=add(root,add(mul(f.outward,42+phase*7),
+      add(mul(f.forward,(j%3===0?-1:1)*(35+phase*7)),[0,175+phase*24,0])));
+     beam(vertices,root,tip,8.5,11,palette.face);
+     beam(vertices,second,tip,5.5,8,palette.mass);
+     beam(vertices,add(tip,[0,-12,0]),add(tip,[0,21,0]),1.7,2.1,palette.glow);
+     heroBlades++;
+    }
     stations++;
    }
   }
@@ -113,7 +142,7 @@ export function w9c1G5BSkyline(stage,sample,{enabled=false}={}){
  if(vertices.length>G5B_PARAMETERS.maxVertexFloats||
     vertices.length%18!==0||!vertices.every(Number.isFinite))
   throw Error('G5-B exceeded finite GPU geometry budget');
- return {vertices,stations,masses,luminousPanels,nonCollision:true,
+ return {vertices,stations,masses,luminousPanels,heroBlades,nonCollision:true,
   minimumEdgeClearanceMeters:minClearance,active:true,
   reason:'W9-C1 ONLY / G5-B VISUAL CANDIDATE / HUMAN APPROVAL HOLD'};
 }
