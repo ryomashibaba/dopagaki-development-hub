@@ -97,7 +97,7 @@ export function w9c1G5BSkyline(stage,sample,{enabled=false}={}){
     solid(vertices,outboard(f,clearance+23,wingWidth,-along*.38,height*.77),
      f.forward,f.outward,along*.42,wingWidth,height*.73,palette.mass);masses++;
     // Precise thin outboard light seam: never marks a fake road.
-    const lightWidth=.9,lightClearance=clearance-.05;
+    const lightWidth=.9,lightClearance=clearance+.1;
     solid(vertices,outboard(f,lightClearance,lightWidth,-along*.28,height*.58),
      f.forward,f.outward,along*.45,lightWidth,1.9,palette.glow);luminousPanels++;
     // Elevated vertical luminous fin, independent of the obstacle palette.
