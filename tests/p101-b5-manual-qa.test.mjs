@@ -131,3 +131,35 @@ test('W9-C1 G4 separate opt-in human perception and precise HUD telemetry, B5 un
  assert.equal('w9c1G4' in JSON.parse(exportB5ManualAudit(b5)),false);
  assert.throws(()=>exportB5ManualAudit(b5,{w9c1Feedback:{warningSeenEarly:4}}));
 });
+
+
+test('W9-C1 G5-A exported diagnostic is read-only, bounded, direction-aware and cannot certify play',()=>{
+ const c1=createB5ManualAudit({stageId:'VB-P101-A13-W9C1-CONTROL',spawnIndex:0});
+ const collisionEvents=[
+  {type:'moving-contact',t:20.65,id:'a13-machine-05',obstacleType:'piston',mode:'push',
+   normal:[0,0,-1],position:[1,2,3],velocityBefore:[0,2,140],velocityAfter:[5,15,-91],
+   forward:[0,0,1],forwardBeforeMps:140,forwardAfterMps:-91,
+   deltaVelocity:[5,13,-231],surfaceVelocity:[0,0,-15]},
+  {type:'air',t:20.97,position:[2,3,4],surface:null},
+  {type:'static-fatal-contact',t:22.533,surface:'p93-SCISSOR_RISE-01',
+   part:'barrier',normal:[0,0,1],position:[4,5,6],velocityBefore:[3,-10,-79],
+   forward:[0,0,1],forwardBeforeMps:-79,inwardNormalMps:-79}
+ ];
+ finalizeB5ManualAudit(c1,{status:'failed',time:22.533,contacts:123,
+  failure:'衝突専用面へ衝突',collisionEvents});
+ const saved=JSON.parse(exportB5ManualAudit(c1));
+ assert.equal(saved.summary.w9c1G5Diagnostics.version,'W9-C1-G5-A-READONLY/1');
+ assert.equal(saved.summary.w9c1G5Diagnostics.matchingEventCount,3);
+ assert.equal(saved.summary.w9c1G5Diagnostics.events[0].forwardAfterMps,-91);
+ assert.equal(saved.summary.w9c1G5Diagnostics.events[2].surface,'p93-SCISSOR_RISE-01');
+ assert.equal(saved.w9c1G4.humanApproval,'HOLD_NO_AUTOMATIC_PASS');
+ const many=createB5ManualAudit({stageId:'VB-P101-A13-W9C1-ULTRA'});
+ finalizeB5ManualAudit(many,{status:'interrupted',time:3,
+  collisionEvents:Array.from({length:100},(_,i)=>({type:'air',t:i/10,position:[0,1,2]}))});
+ assert.equal(many.final.w9c1G5Diagnostics.events.length,64);
+ assert.equal(many.final.w9c1G5Diagnostics.truncated,true);
+ const b5=createB5ManualAudit({stageId:'VB-P101-B5'});
+ finalizeB5ManualAudit(b5,{status:'failed',time:1,collisionEvents});
+ assert.equal('w9c1G5Diagnostics' in b5.final,false,
+  'legacy B5 exports must not receive W9-C1-only telemetry');
+});
