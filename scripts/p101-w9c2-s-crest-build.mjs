@@ -25,6 +25,17 @@ export const W9C2_VARIANTS=Object.freeze({
   recordStageId:'VB-P101-A13-W9C2-EDGE',
   coreWidthMeters:22,lateralPeakScaleMeters:42,crestHeightMeters:20,bankEdgeMeters:5})
 });
+// G3B is OFFLINE / not in the selector or public assets: bound the actual
+// 150m/s failures without silently making the already-reviewed two shapes
+// weaker or claiming that a very mild S is automatically fun.
+export const W9C2_G3B_OFFLINE=Object.freeze({
+ arc:Object.freeze({id:'g3b-arc',revision:'W9-C2-G3B-ARC',
+  recordStageId:'VB-P101-A13-W9C2-G3B-ARC',
+  coreWidthMeters:36,lateralPeakScaleMeters:6,crestHeightMeters:3,bankEdgeMeters:1.3}),
+ ridge:Object.freeze({id:'g3b-ridge',revision:'W9-C2-G3B-RIDGE',
+  recordStageId:'VB-P101-A13-W9C2-G3B-RIDGE',
+  coreWidthMeters:28,lateralPeakScaleMeters:10,crestHeightMeters:5,bankEdgeMeters:2})
+});
 const distance=(a,b)=>Math.hypot(...a.map((v,k)=>v-b[k]));
 const sub=(a,b)=>a.map((v,k)=>v-b[k]);
 const add=(a,b)=>a.map((v,k)=>v+b[k]);
@@ -34,7 +45,7 @@ const clamp=x=>Math.max(0,Math.min(1,x));
 const smooth=t=>{const q=clamp(t);return q*q*(3-2*q);};
 const field=t=>Math.sin(Math.PI*t)**2;
 export function w9c2ShapeAt(u,kind='ribbon'){
- const plan=W9C2_VARIANTS[kind];if(!plan)throw Error('W9-C2 variant must be ribbon or edge');
+ const plan=W9C2_VARIANTS[kind]??W9C2_G3B_OFFLINE[kind];if(!plan)throw Error('W9-C2 declared variant required');
  if(!Number.isFinite(u)||u<0||u>1)throw Error('W9-C2 normalized u required');
  const p=W9C2_STUDY;
  if(u<=p.startU||u>=p.endU)return {active:false,pulse:0,offsetMeters:0,riseMeters:0,bankEdgeMeters:0};
@@ -45,7 +56,8 @@ export function w9c2ShapeAt(u,kind='ribbon'){
   bankEdgeMeters:plan.bankEdgeMeters*Math.sin(2*Math.PI*t)*pulse};
 }
 export function generateP101W9C2SCrestCandidate(kind='ribbon'){
- const choice=W9C2_VARIANTS[kind];if(!choice)throw Error('W9-C2 exact declared variant required');
+ const choice=W9C2_VARIANTS[kind]??W9C2_G3B_OFFLINE[kind];if(!choice)throw Error('W9-C2 exact declared variant required');
+ const offlineG3B=Object.hasOwn(W9C2_G3B_OFFLINE,kind);
  const doc=generateP101A13W7Candidate(),p=W9C2_STUDY;
  if(doc.stageForge.revision!=='W7F'||doc.stageForge.recordStageId!=='VB-P101-A13-W7F'||
     doc.surfaces.length!==7||doc.movingObstacles.length!==28||doc.route.length!==155)
@@ -79,7 +91,7 @@ export function generateP101W9C2SCrestCandidate(kind='ribbon'){
    maxVertical=Math.max(maxVertical,Math.abs(candidate[1]-orig[1]));
   }
  }
- if(changed<30||maxHorizontal<10||maxVertical<7)
+ if(changed<30||maxHorizontal<(offlineG3B?4:10)||maxVertical<(offlineG3B?2:7))
   throw Error('W9-C2 actual B48 S-crest was not measurably constructed');
  // Original route is constructed from 22 centerline samples per B5 road.
  // Re-sample the affected physical track's route entries only to keep
@@ -118,9 +130,10 @@ export function generateP101W9C2SCrestCandidate(kind='ribbon'){
    trueJumpGapImplemented:false,
    slopeDnaContributionMeters:'NOT_APPROVED_FOR_COUNT',
    adjacentHazardAnchorsChanged:false,
-   realPhysicalCollision:true
+   realPhysicalCollision:true,
+   g3bOfflineNotSelectable:offlineG3B
   },
-  status:'W9_C2_ISOLATED_REAL_S_CURVE_OFFLINE_QA_HOLD',
+  status:offlineG3B?'W9_C2_G3B_MOTION_RISK_ONLY_NOT_SELECTABLE':'W9_C2_ISOLATED_REAL_S_CURVE_OFFLINE_QA_HOLD',
   nativeScriptedProof:null,fullStartToFinish:'NOT_VERIFIED_W9_C2',
   studyOnly:'NOT_SELECTED_FOR_GAMEPLAY',
   humanPlaytest:'NOT_RUN',fairness:'NOT_APPROVED',
