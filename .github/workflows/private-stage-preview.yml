@@ -147,6 +147,16 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
+          name: p101-w9x-vs-w7f-actual-webgl-${{ github.run_id }}
+          path: |
+            test-results/**/w9x-*.png
+            test-results/**/w7f-lower-reversal-real-webgl.png
+            test-results/**/w9b3-visual-audit.json
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
           name: p101-a13-actual-webgl-playtest-images-${{ github.run_id }}
           path: |
             test-results/**/p101-a13-*.png
