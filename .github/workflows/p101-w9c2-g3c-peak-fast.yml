@@ -1,0 +1,55 @@
+name: W9-C2 G3C actual 205mps stress QA (nonpublishing)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g3-native-passage.mjs'
+      - 'scripts/p101-w9c2-s-crest-build.mjs'
+      - '.github/workflows/p101-w9c2-g3c-peak-fast.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g3c-205mps-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-peak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Reference shape, original Gold, 240Hz integrity
+        run: node --test tests/p101-w9c2-g3b-candidate.test.mjs tests/p101-w9c2-g3-native.test.mjs
+      - name: Six authentic 180/205mps native physics cases
+        run: |
+          node scripts/p101-w9c2-g3-native-passage.mjs --g3c > W9C2_G3C_RAW.jsonl
+          node --input-type=module -e "
+            import fs from 'node:fs';
+            const s=fs.readFileSync('W9C2_G3C_RAW.jsonl','utf8').trim();
+            const prefix='W9C2_G3C_NATIVE_MATRIX ';
+            if(!s.startsWith(prefix))throw Error('G3C results absent');
+            const d=JSON.parse(s.slice(prefix.length));
+            if(d.cases.length!==6||d.productionApproved!==false||d.cases.some(c=>
+              c.actual.physicsHz!==240||c.actual.machineBodies!==28||
+              !c.actual.readyOnRealPhysicalRoad||!c.actual.explicitSyntheticLocalStart))
+              throw Error('G3C invalid native or provenance check');
+            fs.writeFileSync('W9C2_G3C_FULL_EVIDENCE.json',JSON.stringify(d,null,2)+'\n');
+            for(const c of d.cases)console.log('W9C2_G3C_ROW',JSON.stringify({
+              kind:c.kind,startSpeed:c.speed,exited:c.actual.exited,
+              outcome:c.actual.status,airborne:c.actual.airborneSeconds,
+              lastU:c.actual.maxU,margin:c.actual.minimumObservedMarginMeters,
+              failure:c.actual.failure
+            }));
+          "
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w9c2-g3c-205mps-gate-${{ github.run_id }}
+          path: |
+            W9C2_G3C_FULL_EVIDENCE.json
+            W9C2_G3C_RAW.jsonl
+          if-no-files-found: ignore
+          retention-days: 10
