@@ -33,6 +33,7 @@ test('G5-B genuine B48 edge registration: enormous varied off-road GPU-only mass
   assert.ok(candidate.stations>=45,'need substantial architectural skyline mass');
   assert.equal(candidate.masses,candidate.stations*4);
   assert.equal(candidate.luminousPanels,candidate.stations*2);
+  assert.ok(candidate.heroBlades>=20&&candidate.heroBlades<=30,'massive blade count must remain bounded');
   assert.ok(candidate.vertices.length>50000&&candidate.vertices.length<G5B_PARAMETERS.maxVertexFloats);
   assert.equal(candidate.vertices.length%18,0);
   assert.ok(candidate.vertices.every(Number.isFinite));
