@@ -91,6 +91,12 @@ export function generateP101W9C2SCrestCandidate(kind='ribbon'){
  if(!doc.route.every((v,j)=>j>=p.section*22&&j<(p.section+1)*22||
     v.every((x,k)=>x===originalRoute[j][k])))
   throw Error('W9-C2 unexpectedly changed unaffected route sections');
+ // Additional explicit LOCAL VISUAL QA starts. They DO NOT replace start00,
+ // prove actual long-course entry speed or modify the native force law.
+ doc.spawns.push({name:'W9-C2 QA / S entry u=.35 (52m/s local restart, NOT full speed)',
+  surface:s.id,u:.35,v:.5});
+ doc.spawns.push({name:'W9-C2 QA / S crest u=.455 (52m/s local restart, NOT full speed)',
+  surface:s.id,u:.455,v:.5});
  doc.name='W9-C2 S-CREST '+kind.toUpperCase()+' / TRUE PHYSICAL FLOATING ROAD HOLD';
  doc.stageForge={...doc.stageForge,
   revision:choice.revision,recordStageId:choice.recordStageId,
