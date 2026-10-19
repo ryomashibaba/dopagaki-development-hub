@@ -29,7 +29,7 @@ test('G5-B genuine B48 edge registration: enormous varied off-road GPU-only mass
   const candidate=w9c1G5BSkyline(road,sample,{enabled:true});
   assert.equal(candidate.active,true);
   assert.equal(candidate.nonCollision,true);
-  assert.equal(candidate.minimumEdgeClearanceMeters,38);
+  assert.equal(candidate.minimumEdgeClearanceMeters,65);
   assert.ok(candidate.stations>=45,'need substantial architectural skyline mass');
   assert.equal(candidate.masses,candidate.stations*4);
   assert.equal(candidate.luminousPanels,candidate.stations*2);
