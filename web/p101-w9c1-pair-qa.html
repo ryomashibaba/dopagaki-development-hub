@@ -74,7 +74,7 @@ $('compare').addEventListener('click',async()=>{
   for(const [key,label] of labels){
    const tr=document.createElement('tr');
    for(const value of [label,printable(current.control[key]),printable(current.ultra[key])]){
-    const cell=document.createElement(key===labels[0][0]?'td':'td');cell.textContent=value;tr.append(cell);
+    const cell=document.createElement('td');cell.textContent=value;tr.append(cell);
    }
    rows.append(tr);
   }
