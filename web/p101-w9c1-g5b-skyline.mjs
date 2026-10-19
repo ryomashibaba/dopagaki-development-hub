@@ -16,7 +16,7 @@ const normHorizontal=v=>{
 const VISUAL_STAGE_IDS=new Set(['VB-P101-A13-W9C1-CONTROL','VB-P101-A13-W9C1-ULTRA']);
 export const G5B_PARAMETERS=Object.freeze({
  enabledByDefault:false,
- minimumClearanceFromPhysicalEdgeMeters:38,
+ minimumClearanceFromPhysicalEdgeMeters:65,
  candidateOnly:true,
  maxVertexFloats:240000
 });
@@ -71,38 +71,41 @@ export function w9c1G5BSkyline(stage,sample,{enabled=false}={}){
  for(let chapter=0;chapter<7;chapter++){
   const road=stage.surfaces[chapter];
   // Uneven spacing deliberately avoids a repetitive corridor of small poles.
-  const marks=chapter===0?[.11,.23,.37,.55,.72,.87]:[.16,.39,.62,.85];
+  // G5-B2: separated landmark islands instead of continuous side walls.
+  const marks=chapter===0?[.16,.40,.66,.88]:[.13,.38,.65,.88];
   const palette=PALETTE[chapter%PALETTE.length];
   for(let j=0;j<marks.length;j++){
    for(const side of [-1,1]){
     if(chapter!==0&&j%4===3&&side===1)continue; // asymmetric skyline
-    const f=stationFrame(road,marks[j],side,sample);
+    // The opposite-side structure is intentionally longitudinally staggered.
+    const landmarkU=Math.min(.97,marks[j]+(side===1?.095:0));
+    const f=stationFrame(road,landmarkU,side,sample);
     const phase=(chapter*7+j*3+(side===1?2:0))%5;
-    const clearance=38+phase*6;
-    const width=25+(phase%3)*6;
-    const height=102+phase*26+((chapter+j)%3)*14;
-    const along=75+phase*16;
-    const base=outboard(f,clearance,width,0,height/2-26);
+    const clearance=65+phase*11;
+    const width=18+(phase%3)*8;
+    const height=122+phase*23+((chapter+j)%3)*14;
+    const along=38+phase*9;
     minClearance=Math.min(minClearance,clearance);
-    // Very large separated hanging cliff / terrestrial foundation.
-    solid(vertices,base,f.forward,f.outward,along,width,height,palette.mass);masses++;
-    const lower=outboard(f,clearance+7,width*.75,-along*.16,-66);
-    solid(vertices,lower,f.forward,f.outward,along*.66,width*.75,106+phase*14,palette.face);masses++;
-    // Floating roof mass: visibly DETACHED from the cliff below.
-    const capWidth=width+16,capClearance=clearance+10;
-    solid(vertices,outboard(f,capClearance,capWidth,along*.26,height+37),
-     f.forward,f.outward,along*1.2,capWidth,20+phase*3,palette.face);masses++;
-    // Tall ascending wing – not a bridge across the actual driving lane.
-    const wingWidth=width*.72;
-    solid(vertices,outboard(f,clearance+23,wingWidth,-along*.38,height*.77),
-     f.forward,f.outward,along*.42,wingWidth,height*.73,palette.mass);masses++;
-    // Precise thin outboard light seam: never marks a fake road.
-    const lightWidth=.9,lightClearance=clearance+.1;
-    solid(vertices,outboard(f,lightClearance,lightWidth,-along*.28,height*.58),
-     f.forward,f.outward,along*.45,lightWidth,1.9,palette.glow);luminousPanels++;
-    // Elevated vertical luminous fin, independent of the obstacle palette.
-    solid(vertices,outboard(f,clearance+3,1.3,along*.23,height+52),
-     f.forward,f.outward,1.3,1.3,54+phase*14,palette.glow);luminousPanels++;
+    // Lower foundation ends below the REAL road level, preserving open sky.
+    const cliff=outboard(f,clearance,width,0,-height/2-7);
+    solid(vertices,cliff,f.forward,f.outward,along*1.1,width,height,palette.mass);masses++;
+    const rootWidth=width*.7;
+    const lower=outboard(f,clearance+12,rootWidth,-along*.16,-104);
+    solid(vertices,lower,f.forward,f.outward,along*.68,rootWidth,148+phase*10,palette.face);masses++;
+    // Detached upper crown with spacious negative-space separation.
+    const capWidth=width+14,capClearance=clearance+33;
+    solid(vertices,outboard(f,capClearance,capWidth,along*.24,height+52),
+     f.forward,f.outward,along*1.26,capWidth,17+phase*3,palette.face);masses++;
+    // Tall narrow ascending fin, not an opaque broad roadside corridor.
+    const wingWidth=width*.55;
+    solid(vertices,outboard(f,clearance+24,wingWidth,-along*.3,height*.94),
+     f.forward,f.outward,along*.38,wingWidth,height*.60,palette.mass);masses++;
+    // Emissive detail hangs high in the sky, not on the traversable lane.
+    const lightWidth=.9,lightClearance=clearance+24;
+    solid(vertices,outboard(f,lightClearance,lightWidth,-along*.25,height*1.04),
+     f.forward,f.outward,along*.42,lightWidth,1.9,palette.glow);luminousPanels++;
+    solid(vertices,outboard(f,clearance+29,1.3,along*.22,height+96),
+     f.forward,f.outward,1.3,1.3,56+phase*14,palette.glow);luminousPanels++;
     stations++;
    }
   }
