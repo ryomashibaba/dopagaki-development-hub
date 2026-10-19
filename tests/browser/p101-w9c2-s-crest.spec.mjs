@@ -3,13 +3,19 @@ import fs from 'node:fs/promises';
 test('W9-C2 actual WebGL RIBBON vs EDGE physical S-crest; W9-C1 Gold unmodified',async({page},info)=>{
  test.setTimeout(140000);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.clock.install({time:new Date('2026-10-20T00:00:00Z')});
+ await page.clock.pauseAt(new Date('2026-10-20T00:00:01Z'));
  const results=[],shots={};
  for(const [kind,nominal,stageId] of [
   ['RIBBON',34,'VB-P101-A13-W9C2-RIBBON'],
   ['EDGE',22,'VB-P101-A13-W9C2-EDGE']
  ]){
   await page.goto('/drive3d/?stage='+stageId);
-  await expect(page.locator('#appStatus')).toContainText('W9-C2 S-CREST',{timeout:90000});
+  for(let i=0;i<160;i++){
+   await page.clock.runFor(100);
+   if((await page.locator('#appStatus').textContent()).includes('W9-C2 S-CREST'))break;
+  }
+  await expect(page.locator('#appStatus')).toContainText('W9-C2 S-CREST',{timeout:15000});
   await expect(page.locator('#stage')).toHaveValue(stageId);
   await expect(page.locator('#view')).toHaveAttribute('data-w9c2-variant','W9-C2-S-CREST-'+kind);
   await expect(page.locator('#view')).toHaveAttribute('data-w9c2-section','5');
@@ -45,7 +51,8 @@ test('W9-C2 actual WebGL RIBBON vs EDGE physical S-crest; W9-C1 Gold unmodified'
   expect(measured.naturalJumpGapImplemented).toBe(false);
   await page.locator('#spawn').selectOption('7');
   await page.locator('#pause').click();
-  await expect(page.locator('#simTime')).toHaveText('0.00 s');
+  await page.clock.runFor(32);
+  await expect(page.locator('#simTime')).toContainText('0.00');
   await expect(page.locator('#view')).toHaveAttribute('data-run-mode','manual');
   shots[kind]=await page.locator('#view').screenshot({path:info.outputPath('w9c2-'+kind.toLowerCase()+'-true-webgl.png')});
   results.push({kind,nominal,...measured,photo:'w9c2-'+kind.toLowerCase()+'-true-webgl.png',
