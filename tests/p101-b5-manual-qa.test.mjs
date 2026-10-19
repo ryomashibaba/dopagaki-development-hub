@@ -103,7 +103,7 @@ test('W9-C1 G4 separate opt-in human perception and precise HUD telemetry, B5 un
  const c1=createB5ManualAudit({stageId:'VB-P101-A13-W9C1-CONTROL',spawnIndex:0});
  assert.equal(observeW9C1ManualCue(c1,{phase:'approach'},1.2),true);
  assert.equal(observeW9C1ManualCue(c1,{phase:'approach'},1.3),true);
- assert.equal(observeW9C1ManualCue(c1,{phase:'core'},4.6),true);
+ assert.equal(observeW9C1ManualCue(c1,{phase:'core',speedMps:85},4.6),true);
  assert.equal(observeW9C1ManualCue(c1,{phase:'exit'},5.3),true);
  assert.equal(observeW9C1ManualCue(c1,{phase:'bad'},5.5),false);
  assert.equal(recordB5ManualSample(c1,{...fake(1),w9c1NoticePhase:'approach',w9c1NoticeEtaSeconds:3.4,w9c1NoticeNominalMeters:110}),true);
@@ -117,10 +117,14 @@ test('W9-C1 G4 separate opt-in human perception and precise HUD telemetry, B5 un
  assert.equal(report.w9c1G4.selfReport.failureAttribution,'edge-unreadable');
  assert.equal(report.w9c1G4.humanApproval,'HOLD_NO_AUTOMATIC_PASS');
  assert.equal(report.w9c1G4.actualEntrySpeedProven,true);
+ assert.equal(report.w9c1G4.observedCoreSpeedMps,85);
  assert.throws(()=>exportB5ManualAudit(c1,{w9c1Feedback:{warningSeenEarly:7}}));
  assert.throws(()=>exportB5ManualAudit(c1,{w9c1Feedback:{failureAttribution:'undefined-option'}}));
  const ultra=createB5ManualAudit({stageId:'VB-P101-A13-W9C1-ULTRA',spawnIndex:7});
  assert.equal(JSON.parse(exportB5ManualAudit(ultra)).w9c1G4.actualEntrySpeedProven,false);
+ const early=createB5ManualAudit({stageId:'VB-P101-A13-W9C1-CONTROL',spawnIndex:0});
+ assert.equal(JSON.parse(exportB5ManualAudit(early)).w9c1G4.actualEntrySpeedProven,false,
+  'starting at 00 alone is not evidence of reaching ABYSS core');
  assert.equal(finalizeB5ManualAudit(ultra,{status:'interrupted',time:1.1}).w9c1G4Telemetry.observedHudLeadSeconds,null);
  const b5=createB5ManualAudit({stageId:'VB-P101-B5'});
  assert.equal(observeW9C1ManualCue(b5,{phase:'approach'},1),false);

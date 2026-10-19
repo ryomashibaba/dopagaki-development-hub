@@ -34,7 +34,7 @@ export function createB5ManualAudit({stageId,profile='OVERDRIVE',startSpeed=52,s
   performance:{slowFrames:0,measuredFrames:0,physicsOverloadedFrames:0,frameMsBins:new Uint32Array(4001)},firstContactTime:null,
   // G4: sampling is observational only. It never claims the user saw a cue.
   w9c1Observed:stageId.includes('W9C1-')?{
-   firstHudApproachSeconds:null,firstHudCoreSeconds:null,lastHudExitSeconds:null,
+   firstHudApproachSeconds:null,firstHudCoreSeconds:null,firstHudCoreSpeedMps:null,lastHudExitSeconds:null,
    approachUpdates:0,coreUpdates:0,exitUpdates:0
   }:null,
   final:null,lastSampleAt:-Infinity
@@ -92,7 +92,10 @@ export function observeW9C1ManualCue(a,cue,physicsSeconds){
  const obj=a.w9c1Observed,phase=cue.phase;
  obj[phase+'Updates']++;
  if(phase==='approach'&&obj.firstHudApproachSeconds===null)obj.firstHudApproachSeconds=rounded(physicsSeconds,3);
- if(phase==='core'&&obj.firstHudCoreSeconds===null)obj.firstHudCoreSeconds=rounded(physicsSeconds,3);
+ if(phase==='core'&&obj.firstHudCoreSeconds===null){
+  obj.firstHudCoreSeconds=rounded(physicsSeconds,3);
+  if(number(cue.speedMps)&&cue.speedMps>=0)obj.firstHudCoreSpeedMps=rounded(cue.speedMps);
+ }
  if(phase==='exit')obj.lastHudExitSeconds=rounded(physicsSeconds,3);
  return true;
 }
@@ -170,7 +173,10 @@ export function exportB5ManualAudit(a,{speedFeel=null,steeringFeel=null,hazardLe
     failureAttribution
    },
    observedHud:a.w9c1Observed?{...a.w9c1Observed}:null,
-   actualEntrySpeedProven:a.spawnIndex===0,
+   // A start-00 selection does not prove this run survived to the narrow core.
+   fullStartSpawnSelected:a.spawnIndex===0,
+   observedCoreSpeedMps:a.w9c1Observed?.firstHudCoreSpeedMps??null,
+   actualEntrySpeedProven:a.spawnIndex===0&&number(a.w9c1Observed?.firstHudCoreSpeedMps),
    humanApproval:'HOLD_NO_AUTOMATIC_PASS',
    note:'Ratings require an actual person. Missing ratings are NOT a passing score.'
   };

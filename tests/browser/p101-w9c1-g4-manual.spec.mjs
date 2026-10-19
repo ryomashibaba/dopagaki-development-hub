@@ -27,7 +27,9 @@ test('W9-C1 G4 survey exists only on separate 14m and 28m stages and exports ind
   expect(report.w9c1G4.selfReport.edgeReadability).toBe(3);
   expect(report.w9c1G4.selfReport.failureAttribution).toBe('no-failure');
   expect(report.w9c1G4.humanApproval).toBe('HOLD_NO_AUTOMATIC_PASS');
-  expect(report.w9c1G4.actualEntrySpeedProven).toBe(true);
+  expect(report.w9c1G4.fullStartSpawnSelected).toBe(true);
+  expect(report.w9c1G4.actualEntrySpeedProven).toBe(false);
+  expect(report.w9c1G4.observedCoreSpeedMps).toBe(null);
   expect(report.samples.length).toBeGreaterThan(0);
  }
  await page.locator('#stage').selectOption('VB-P101-A13');
