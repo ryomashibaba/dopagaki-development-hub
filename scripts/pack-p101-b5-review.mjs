@@ -34,6 +34,8 @@ for(const [kind,width] of [['CONTROL',28],['ULTRA',14]]){
     c1.movingObstacles.length!==28||c1.stageForge.productionPromoted!==false||
     c1.stageForge.humanPlaytest!=='NOT_RUN')throw Error('Wrong W9-C1 QA asset '+kind);
 }
+if(!fs.existsSync(path.join(source,'drive3d','p101-w9c1-g5b-skyline.mjs')))
+ throw Error('G5-B isolated skyline candidate module missing from local pack');
 if(!fs.existsSync(path.join(source,'drive3d','p101-w9c1-approach-cue.mjs')))
  throw Error('W9-C1 HUD/physical marker module missing');
 const html=fs.readFileSync(path.join(source,'drive3d','index.html'),'utf8');
@@ -77,9 +79,11 @@ const server=http.createServer((req,res)=>{
 server.listen(0,'127.0.0.1',()=>{
  const port=server.address().port,w7=process.argv.includes('--a13');
  const ultra=process.argv.includes('--w9c1-ultra'),control=process.argv.includes('--w9c1-control');
+ const g5b=process.argv.includes('--g5b');
+ if(g5b&&!ultra&&!control)throw Error('G5-B visual candidate requires W9-C1 only');
  if([w7,ultra,control].filter(Boolean).length>1)throw Error('Only one trial selection allowed');
  const stage=ultra?'VB-P101-A13-W9C1-ULTRA':control?'VB-P101-A13-W9C1-CONTROL':w7?'VB-P101-A13':'VB-P101-B5';
- const url='http://127.0.0.1:'+port+'/drive3d/?stage='+stage;
+ const url='http://127.0.0.1:'+port+'/drive3d/?stage='+stage+(g5b?'&g5b=on':'');
  console.log('P101 '+stage+' / LOCAL ONLY  '+url);
  console.log('指定ステージを自動で選択します。ロード後、A/Dまたは左右キーで手動走行してください。');
  console.log('試走終了後「試走レポートをJSON保存」で記録を保存できます。');
@@ -98,8 +102,23 @@ for(const [kind,flag] of [['14m','--w9c1-ultra'],['28m','--w9c1-control']]){
  fs.writeFileSync(path.join(out,'RUN_W9C1_'+kind+'_QA.cmd'),
   '@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" '+flag+'\r\npause\r\n');
 }
+
+// G5-B visual-candidate shortcuts remain separate from the G4 baseline.
+for(const [kind,flag] of [['14m','--w9c1-ultra'],['28m','--w9c1-control']]){
+ fs.writeFileSync(path.join(out,'RUN_W9C1_'+kind+'_G5B_VIEW.cmd'),
+  '@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" '+flag+' --g5b\r\npause\r\n');
+}
 fs.writeFileSync(path.join(out,'START_W9C1_JA.txt'),
-`W9-C1 ABYSS DIVE G4 / Windows手動QA — PR #46 Draft/HOLD のみ
+`W9-C1 ABYSS DIVE G4 + G5-B / Windows手動QA — PR #46 Draft/HOLD のみ
+
+G5-B景観比較:
+- 既存の RUN_W9C1_28m_QA.cmd : 従来景観（G5-B OFF）
+- 新規 RUN_W9C1_28m_G5B_VIEW.cmd : 同じ28m道路 + 巨大景観（G5-B ON）
+- 14m版も RUN_W9C1_14m_QA.cmd / RUN_W9C1_14m_G5B_VIEW.cmd の組合せ。
+- 前景の道路端と障害物が隠れないか、巨大さ、周辺の奥行き、FPSを比較。
+- G5-Bは描画だけ。差分で操舵や接触判定が変わったと推論しない。
+- 評価未了のためG5-B既定OFF、製品やmainへ反映しない。
+
 
 1. RUN_W9C1_14m_QA.cmd をダブルクリック。実14m超細道の独立版が開きます。
 2. 28mと比較するときは RUN_W9C1_28m_QA.cmd をダブルクリック。
