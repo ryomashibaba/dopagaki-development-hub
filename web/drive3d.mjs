@@ -378,7 +378,8 @@ function restart(){
  if(b5ManualAudit){
   if(!b5ManualAudit.final)finalizeB5ManualAudit(b5ManualAudit,{
    status:'interrupted',time:runner?.time??0,surface:runner?.surface||runner?.lastSurface||null,
-   contacts:runner?.collisions??0,nearMisses:nearMissTracker?.total??0
+   contacts:runner?.collisions??0,nearMisses:nearMissTracker?.total??0,
+   collisionEvents:runner?.events??[] // preserve verified rebound events on restart
   });
   b5PreviousAudit=b5ManualAudit;
  }
