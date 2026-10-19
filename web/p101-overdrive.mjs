@@ -63,7 +63,88 @@ export function p101RoadProgress(runner){
  }
  return {section,u:near.u};
 }
-export function p101Step(runner,input=0,mode=P101_DEFAULT,{forwardScale=1,lateSurge=null}={}){
+/**
+ * P101 nonlethal rebound recovery - candidate, W9-C1/B5 MANUAL ONLY.
+ * The normal 1.1 + 7.5*.12 = ~2.0 m/s2 forward force takes ~15 s to undo
+ * a -30 m/s bounce on level road. Apply a temporary, bounded *physical*
+ * longitudinal driving force after a legitimate nonlethal moving contact.
+ * Never touch native CCD/impulses, position, colliders, gravity, side steering,
+ * stages W7F Gold/W9-X/P100, or native scripted baseline when not opted in.
+ */
+export const P101_REBOUND_RECOVERY=Object.freeze({
+ maxForwardAccelMps2:440,
+ reverseBaseAccelMps2:180,
+ reverseSpeedGain:2.6,
+ positiveAccelMps2:135,
+ restoreForwardMps:28,
+ armBelowForwardMps:16,
+ minimumReboundSeconds:.16,
+ maxRecoverySeconds:3,
+ rearmCooldownSeconds:.45,
+ eligibleRecordIds:Object.freeze(['VB-P101-A13-W9C1-CONTROL','VB-P101-A13-W9C1-ULTRA'])
+});
+const nonlethalRecovery=new WeakMap();
+function reboundEligible(runner){
+ const sf=runner?.doc?.stageForge;
+ return sf?.id==='VB-P101'&&(
+  sf.variant==='B5_HYPER_ARC_ISOLATED'||
+  (sf.variant==='A13_GAMEPLAY_ISOLATED'&&P101_REBOUND_RECOVERY.eligibleRecordIds.includes(sf.recordStageId)));
+}
+function reboundFrame(runner){
+ // The native B48 runner owns the forward axis, not the velocity heading.
+ const up=normal(runner.normal),ahead=normal(runner.forward);
+ const tangent=ahead.map((x,i)=>x-up[i]*dot(ahead,up));
+ return Math.hypot(...tangent)>1e-7?normal(tangent):ahead;
+}
+export function p101ReboundRecoveryState(runner){
+ const s=runner&&nonlethalRecovery.get(runner);
+ if(!s||runner.time<s.armedAt)return {active:false,armedAt:null,obstacleId:null};
+ return {active:true,armedAt:s.armedAt,obstacleId:s.obstacleId};
+}
+function endReboundRecovery(runner,reason,s){
+ const forwardMps=dot(runner.v,reboundFrame(runner));
+ runner.events?.push({type:'rebound-recovery-end',t:runner.time,id:s.obstacleId,
+  reason,forwardAfterMps:forwardMps,peakAppliedAccelMps2:s.peakAccel});
+ nonlethalRecovery.delete(runner);
+}
+function applyReboundRecovery(runner){
+ const s=nonlethalRecovery.get(runner);
+ if(!s)return;
+ if(runner.time<s.armedAt){nonlethalRecovery.delete(runner);return;} // resumeAt reset
+ const elapsed=runner.time-s.armedAt,forward=reboundFrame(runner);
+ const speed=dot(runner.v,forward);
+ if(speed>=P101_REBOUND_RECOVERY.restoreForwardMps){
+  endReboundRecovery(runner,'forward-restored',s);return;
+ }
+ if(elapsed>=P101_REBOUND_RECOVERY.maxRecoverySeconds){
+  endReboundRecovery(runner,'window-expired',s);return;
+ }
+ // Never accelerate a floating ball toward an artificial floor/landing.
+ if(!runner.grounded||elapsed<P101_REBOUND_RECOVERY.minimumReboundSeconds)return;
+ const cfg=P101_REBOUND_RECOVERY;
+ const force=speed<0
+  ?Math.min(cfg.maxForwardAccelMps2,cfg.reverseBaseAccelMps2+(-speed)*cfg.reverseSpeedGain)
+  :cfg.positiveAccelMps2*Math.max(0,1-speed/cfg.restoreForwardMps);
+ if(force<=0)return;
+ s.peakAccel=Math.max(s.peakAccel,force);
+ runner.v=runner.v.map((v,i)=>v+P101_STEP*force*forward[i]);
+}
+function captureNonlethalContact(runner,startingEventIndex){
+ if(!Array.isArray(runner.events)||runner.status==='failed'||runner.status==='finished')return;
+ const cfg=P101_REBOUND_RECOVERY;
+ const candidate=runner.events.slice(startingEventIndex).find(e=>
+  e.type==='moving-contact'&&(e.mode==='push'||e.mode==='bounce'));
+ if(!candidate)return;
+ const forwardMps=dot(runner.v,reboundFrame(runner));
+ if(forwardMps>=cfg.armBelowForwardMps)return;
+ const existing=nonlethalRecovery.get(runner);
+ if(existing&&runner.time-existing.armedAt<cfg.rearmCooldownSeconds)return;
+ nonlethalRecovery.set(runner,{armedAt:runner.time,obstacleId:candidate.id,peakAccel:0});
+ runner.events.push({type:'rebound-recovery-start',t:runner.time,id:candidate.id,
+  mode:candidate.mode,forwardBeforeMps:candidate.forwardBeforeMps??null,
+  forwardAfterMps:forwardMps});
+}
+export function p101Step(runner,input=0,mode=P101_DEFAULT,{forwardScale=1,lateSurge=null,collisionRecovery=false}={}){
  if(!runner||typeof runner.step!=='function')throw Error('Native B48 runner required');
  if(runner.doc?.stageForge?.id!=='VB-P101')throw Error('P101 acceleration may only affect the independent P101 stage');
  const config=p101Tune(mode),steer=clamp(input,-1,1);
@@ -85,5 +166,11 @@ export function p101Step(runner,input=0,mode=P101_DEFAULT,{forwardScale=1,lateSu
  const gain=lateSurge===null?1:(()=>{const p=p101RoadProgress(runner);return p101LateSurgeGain(p.section,p.u,lateSurge);})();
  const extraForward=config.extraForward*forwardScale*gain;
  runner.v=runner.v.map((v,i)=>v+P101_STEP*(right[i]*extraSide+f[i]*extraForward));
+ // Opted-in local human trials only. W7F Gold/W9-X and scripted native QA
+ // continue using their exact pre-existing force law.
+ const recoveryAllowed=collisionRecovery===true&&reboundEligible(runner);
+ if(recoveryAllowed)applyReboundRecovery(runner);
+ const eventCursor=recoveryAllowed?(runner.events?.length??0):0;
  runner.step(steer); // The native 240 Hz B48/B51-C physics owns all movement and collisions.
+ if(recoveryAllowed)captureNonlethalContact(runner,eventCursor);
 }
