@@ -81,7 +81,8 @@ export const P101_REBOUND_RECOVERY=Object.freeze({
  minimumReboundSeconds:.16,
  maxRecoverySeconds:3,
  rearmCooldownSeconds:.45,
- eligibleRecordIds:Object.freeze(['VB-P101-A13-W9C1-CONTROL','VB-P101-A13-W9C1-ULTRA'])
+ eligibleRecordIds:Object.freeze(['VB-P101-A13-W9C1-CONTROL','VB-P101-A13-W9C1-ULTRA',
+  'VB-P101-A13-W9C2-RIBBON','VB-P101-A13-W9C2-EDGE'])
 });
 const nonlethalRecovery=new WeakMap();
 function reboundEligible(runner){
