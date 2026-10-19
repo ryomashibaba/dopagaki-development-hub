@@ -88,6 +88,18 @@ jobs:
           set -o pipefail
           node scripts/p101-b4-isolation.mjs | tee p101-b4d-causal.jsonl
           echo '### P101 B4D native 240Hz isolated surface causality, no human-play claim' >> "$GITHUB_STEP_SUMMARY"
+      - name: W9-C0 Slope DNA 40% read-only physical inventory
+        run: |
+          node scripts/p101-w9c0-slope-audit.mjs > w9c0-slope40-audit.json
+          node -e "const a=require('./w9c0-slope40-audit.json'); if(a.target.plannedMeters!==2910||a.measured.nativeMachines!==28||a.safety.productionPromoted) process.exit(1)"
+          echo '### W9-C0 40% Slope DNA audit (PLAN ONLY / no terrain construction)' >> "$GITHUB_STEP_SUMMARY"
+          echo '18 proposed zones total 2910/7280m; 3 ultra-narrow prototypes total 180m. See JSON artifact.' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p101-w9c0-slope40-inventory-${{ github.run_id }}
+          path: w9c0-slope40-audit.json
+          if-no-files-found: error
+          retention-days: 7
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets
