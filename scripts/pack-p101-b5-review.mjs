@@ -84,7 +84,7 @@ fs.writeFileSync(path.join(out,'RUN_B5_QA.cmd'),`@echo off\r\nchcp 65001 >nul\r\
 fs.writeFileSync(path.join(out,'RUN_A13_W7F_QA.cmd'),`@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" --a13\r\npause\r\n`);
 for(const [kind,flag] of [['14m','--w9c1-ultra'],['28m','--w9c1-control']]){
  fs.writeFileSync(path.join(out,'RUN_W9C1_'+kind+'_QA.cmd'),
-  '@echo off\\r\\nchcp 65001 >nul\\r\\ncd /d "%~dp0"\\r\\nwhere node >nul 2>nul\\r\\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\\r\\nnode "_LOCAL_ONLY_SERVER.mjs" '+flag+'\\r\\npause\\r\\n');
+  '@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" '+flag+'\r\npause\r\n');
 }
 fs.writeFileSync(path.join(out,'START_W9C1_JA.txt'),
 `W9-C1 ABYSS DIVE / Windows手動QA — PR #46 Draft/HOLD のみ
