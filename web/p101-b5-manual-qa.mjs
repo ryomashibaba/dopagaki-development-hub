@@ -13,6 +13,22 @@ const isW9C1=a=>Boolean(a&&['VB-P101-A13-W9C1-CONTROL','VB-P101-A13-W9C1-ULTRA']
 const number=n=>typeof n==='number'&&Number.isFinite(n);
 const rounded=(n,d=2)=>Number(n.toFixed(d));
 const quantile=(sorted,q)=>sorted.length?sorted[Math.min(sorted.length-1,Math.floor((sorted.length-1)*q))]:null;
+// G5-A: bounded, allowlisted, observational collision records for W9-C1 only.
+const G5_COLLISION_TYPES=new Set(['moving-contact','static-fatal-contact','moving-crush','air','contact']);
+const g5Vector=v=>Array.isArray(v)&&v.length===3&&v.every(number)?v.map(n=>rounded(n,4)):null;
+const g5Scalar=n=>number(n)?rounded(n,4):null;
+const g5Text=s=>typeof s==='string'?s.slice(0,80):null;
+function g5DiagnosticEvent(e){
+ return {type:e.type,timeSeconds:g5Scalar(e.t),obstacleId:g5Text(e.id),
+  obstacleType:g5Text(e.obstacleType),mode:g5Text(e.mode),
+  surface:g5Text(e.surface),part:g5Text(e.part),position:g5Vector(e.position),
+  normal:g5Vector(e.normal),velocityBefore:g5Vector(e.velocityBefore),
+  velocityAfter:g5Vector(e.velocityAfter),forwardAxis:g5Vector(e.forward),
+  forwardBeforeMps:g5Scalar(e.forwardBeforeMps),forwardAfterMps:g5Scalar(e.forwardAfterMps),
+  inwardNormalMps:g5Scalar(e.inwardNormalMps),
+  surfaceVelocity:g5Vector(e.surfaceVelocity),deltaVelocity:g5Vector(e.deltaVelocity),
+  crushIds:Array.isArray(e.ids)?e.ids.slice(0,8).map(g5Text):null};
+}
 // A12: 0.25ms animation-frame duration histogram, bounded memory, no game physics coupling.
 // The 90th percentile frame duration corresponds to the ~10th percentile frame FPS.
 const frameDurationBin=(bins,count,q)=>{
@@ -99,7 +115,7 @@ export function observeW9C1ManualCue(a,cue,physicsSeconds){
  if(phase==='exit')obj.lastHudExitSeconds=rounded(physicsSeconds,3);
  return true;
 }
-export function finalizeB5ManualAudit(a,{status,time,surface=null,contacts=0,nearMisses=0,failure=null}={}){
+export function finalizeB5ManualAudit(a,{status,time,surface=null,contacts=0,nearMisses=0,failure=null,collisionEvents=[]}={}){
  if(!a||!validAudit(a))throw Error('Invalid B5 observation');
  if(a.final)return a.final;
  if(!['failed','finished','interrupted'].includes(status)||!number(time)||time<0||
@@ -140,6 +156,14 @@ export function finalizeB5ManualAudit(a,{status,time,surface=null,contacts=0,nea
     ?rounded(Math.max(0,h.firstHudCoreSeconds-h.firstHudApproachSeconds),3):null,
    sampling:'HUD_STATE_AT_RENDER_INTERVAL; NOT USER_EYE_TRACKING; NOT HUMAN_REACTION_TIME',
    fairnessCertified:false
+  };
+  const selected=Array.isArray(collisionEvents)
+   ?collisionEvents.filter(e=>e&&G5_COLLISION_TYPES.has(e.type)&&number(e.t)): [];
+  a.final.w9c1G5Diagnostics={
+   version:'W9-C1-G5-A-READONLY/1',
+   matchingEventCount:selected.length,truncated:selected.length>64,
+   events:selected.slice(-64).map(g5DiagnosticEvent),
+   note:'Only observed physics events. A collision chain or human fairness is not proven by this trace.'
   };
  }
  return a.final;
