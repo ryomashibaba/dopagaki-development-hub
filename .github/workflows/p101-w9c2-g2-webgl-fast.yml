@@ -7,6 +7,7 @@ on:
       - 'scripts/build.mjs'
       - 'web/drive3d.mjs'
       - 'web/drive3d.html'
+      - 'web/p101-a13-road-art.mjs'
       - 'web/p101-b5-manual-qa.mjs'
       - 'web/p101-overdrive.mjs'
       - 'tests/p101-w9c2-s-crest.test.mjs'
