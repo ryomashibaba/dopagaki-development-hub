@@ -65,7 +65,14 @@ game.addEventListener('load',()=>{
  $('capture').textContent='実物理の道路と障害物を読み込んでいます...';
 });
 window.addEventListener('message',event=>{
- if(event.origin!==window.location.origin||event.source!==game.contentWindow||
+ if(event.origin!==window.location.origin||event.source!==game.contentWindow)return;
+ if(event.data?.type==='dopagaki.w9c1.g5c3.ready/1'&&event.data.stageId===STAGE[mode]){
+  $('capture').textContent='実物理の試走準備完了。A / Dまたは左右キーで手動操作してください。';
+  if(mode==='control')$('next').disabled=false;
+  else $('save').disabled=false;
+  return;
+ }
+ if(
     event.data?.type!=='dopagaki.w9c1.g5c3.report/1')return;
  const m=event.data;
  if(m.stageId!==STAGE[mode]||m.report?.stageId!==STAGE[mode])return;
