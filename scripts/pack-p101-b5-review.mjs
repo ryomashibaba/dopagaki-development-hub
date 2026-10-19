@@ -34,6 +34,9 @@ for(const [kind,width] of [['CONTROL',28],['ULTRA',14]]){
     c1.movingObstacles.length!==28||c1.stageForge.productionPromoted!==false||
     c1.stageForge.humanPlaytest!=='NOT_RUN')throw Error('Wrong W9-C1 QA asset '+kind);
 }
+if(!fs.existsSync(path.join(source,'w9c1-pair-session','index.html'))||
+   !fs.existsSync(path.join(source,'w9c1-pair-session','session.mjs')))
+ throw Error('G5-C3 one-page human trial not bundled');
 if(!fs.existsSync(path.join(source,'w9c1-pair-qa','comparison.mjs'))||
    !fs.existsSync(path.join(source,'w9c1-pair-qa','index.html')))
  throw Error('G5-C2 local 28m/14m paired QA reviewer missing from PR build');
@@ -82,14 +85,17 @@ const server=http.createServer((req,res)=>{
 server.listen(0,'127.0.0.1',()=>{
  const port=server.address().port,w7=process.argv.includes('--a13');
  const ultra=process.argv.includes('--w9c1-ultra'),control=process.argv.includes('--w9c1-control');
- const g5b=process.argv.includes('--g5b'),pairReview=process.argv.includes('--pair-review');
- if(pairReview&&(w7||ultra||control||g5b))throw Error('G5-C2 pair review must stay isolated');
+ const g5b=process.argv.includes('--g5b'),pairReview=process.argv.includes('--pair-review'),
+  pairSession=process.argv.includes('--pair-session');
+ if((pairReview||pairSession)&&(w7||ultra||control||g5b||pairReview&&pairSession))
+  throw Error('W9-C1 pairing tools must stay isolated');
  if(g5b&&!ultra&&!control)throw Error('G5-B visual candidate requires W9-C1 only');
  if([w7,ultra,control].filter(Boolean).length>1)throw Error('Only one trial selection allowed');
  const stage=ultra?'VB-P101-A13-W9C1-ULTRA':control?'VB-P101-A13-W9C1-CONTROL':w7?'VB-P101-A13':'VB-P101-B5';
- const url=pairReview?'http://127.0.0.1:'+port+'/w9c1-pair-qa/':
+ const url=pairSession?'http://127.0.0.1:'+port+'/w9c1-pair-session/':
+  pairReview?'http://127.0.0.1:'+port+'/w9c1-pair-qa/':
   'http://127.0.0.1:'+port+'/drive3d/?stage='+stage+(g5b?'#g5b=on':'');
- console.log('P101 '+(pairReview?'G5-C2 MANUAL REPORT COMPARISON':stage)+' / LOCAL ONLY  '+url);
+ console.log('P101 '+(pairSession?'G5-C3 ONE-TAB MANUAL PAIR':pairReview?'G5-C2 MANUAL REPORT COMPARISON':stage)+' / LOCAL ONLY  '+url);
  console.log('指定ステージを自動で選択します。ロード後、A/Dまたは左右キーで手動走行してください。');
  console.log('試走終了後「試走レポートをJSON保存」で記録を保存できます。');
  console.log('このウィンドウを閉じると試走サーバーは停止します。');
@@ -108,6 +114,8 @@ for(const [kind,flag] of [['14m','--w9c1-ultra'],['28m','--w9c1-control']]){
   '@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" '+flag+'\r\npause\r\n');
 }
 
+fs.writeFileSync(path.join(out,'RUN_W9C1_ONE_CLICK_PAIR.cmd'),
+ '@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" --pair-session\r\npause\r\n');
 fs.writeFileSync(path.join(out,'RUN_W9C1_COMPARE_REPORTS.cmd'),
  '@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" --pair-review\r\npause\r\n');
 // G5-B visual-candidate shortcuts remain separate from the G4 baseline.
@@ -116,9 +124,18 @@ for(const [kind,flag] of [['14m','--w9c1-ultra'],['28m','--w9c1-control']]){
   '@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" '+flag+' --g5b\r\npause\r\n');
 }
 fs.writeFileSync(path.join(out,'START_W9C1_JA.txt'),
-`W9-C1 ABYSS DIVE G4 + G5-B + G5-C2 / Windows手動QA — PR #46 Draft/HOLD のみ
+`W9-C1 ABYSS DIVE G4 + G5-B + G5-C2 + G5-C3 / Windows手動QA — PR #46 Draft/HOLD のみ
 
-G5-C2 28m対14mの1回操作比較:
+G5-C3 最短の操作:
+1. RUN_W9C1_ONE_CLICK_PAIR.cmd を一度だけダブルクリック。
+2. 同じ画面で28m CONTROLを手動試走。終了後「28mを記録して14mへ進む」を押す。
+3. 14m ULTRAを手動試走。終了後「比較JSONを保存」を押す。
+4. 比較JSON 1件だけをこのチャットに添付。個別JSONを探す必要なし。
+※ 途中でボタンを押した場合は「途中スナップショット」と明記され、完走扱いにしない。
+※ クラッシュ/意図しないブラウザ終了では未保存データは消える。自動送信や永続保存なし。
+※ G5-C1非致死衝突復帰調整や手動操舵を変更しない。
+
+G5-C2 28m対14mの従来比較（必要な場合だけ）:
 - まず28m版と14m版を開始地点00で1走行ずつ行い、各試走JSONを保存。
 - RUN_W9C1_COMPARE_REPORTS.cmd をダブルクリック。開いたページで2件選択・比較。
 - 初期速度とOVERDRIVE設定を揃える。ゲーム内容や設定は自動変更しない。
