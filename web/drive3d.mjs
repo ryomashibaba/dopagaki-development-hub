@@ -33,13 +33,14 @@ import {a13MachineMegastructures} from './p101-a13-architecture.mjs';
 import {a13W9HeroArchitecture} from './p101-a13-w9-architecture.mjs';
 import {a13MachineBodyVertices} from './p101-a13-machine-visual.mjs';
 import {a13RacingRoadArt} from './p101-a13-road-art.mjs';
+import {makeW9C1CueProfile,readW9C1Cue,w9c1ApproachMarks} from './p101-w9c1-approach-cue.mjs';
 import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
 import {createB5ManualAudit,recordB5ManualSample,recordB5ManualFrame,finalizeB5ManualAudit,exportB5ManualAudit} from './p101-b5-manual-qa.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'VB-P101-A13':'P101_A13_W7_GAMEPLAY.json','VB-P101-A13-W9X-B1':'P101_A13_W9X_B1_TRIAL.json','VB-P101-A13-W9C1-CONTROL':'P101_A13_W9C1_CONTROL_TRIAL.json','VB-P101-A13-W9C1-ULTRA':'P101_A13_W9C1_ULTRA_TRIAL.json','VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
+let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
@@ -48,7 +49,7 @@ let renderQuality=createRenderQuality('auto'),visibilityFx=true;
 let practiceMode=false,practiceStartedAt=null,seekingChapter=null,retryChapterId=null,lastEdgeRadarAt=0;
 let chapterTracker=null,latestSplit=null,ghostData=null,ghostEnabled=false;
 let p101B5Surge=createP101B5SurgeState(),a13Surge=createA13SurgeState();
-let b5ManualAudit=null,b5PreviousAudit=null;
+let b5ManualAudit=null,b5PreviousAudit=null,w9c1CueProfile=null;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -117,7 +118,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(w9c1MarkMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
@@ -139,6 +140,11 @@ function buildVisual(stage){
   canvas.dataset.a13W9NonCollision=String(hero.nonCollision);
    const art=a13RacingRoadArt(stage,sample,frame);
    a13RoadArtMesh=mesh(art.vertices);
+   w9c1CueProfile=makeW9C1CueProfile(stage,sample);
+   const w9c1Marks=w9c1ApproachMarks(stage,sample,frame);
+   w9c1MarkMesh=mesh(w9c1Marks.vertices);
+   canvas.dataset.w9c1NoticeMarkers=String(w9c1Marks.stations);
+   canvas.dataset.w9c1NoticeNonCollision=String(w9c1Marks.nonCollision);
    canvas.dataset.a13RoadArtSegments=String(art.segments);
    canvas.dataset.a13RoadArtNonCollision=String(art.nonCollision);
   canvas.dataset.a13MachineArchitecture=String(arch.structures);
@@ -211,7 +217,7 @@ function render(frameSeconds){
  canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
  draw(scenery);if(megaEnabled)draw(megaWorld);draw(a13ArchMesh);
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
- draw(roads);draw(a13RoadArtMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
+ draw(roads);draw(a13RoadArtMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
  draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);
  draw(hazardGateSolidMesh);
@@ -385,6 +391,8 @@ function restart(){
  demoDirector=createNativeDemoState();
  canvas.dataset.runMode=demoMode?'spectator-demo':practiceMode?'practice':'manual';
  lastEdgeRadarAt=0;$('edgeRadar').hidden=true;canvas.dataset.edgeStatus='unavailable';
+ $('w9c1Notice').hidden=true;canvas.dataset.w9c1NoticePhase='none';
+ canvas.dataset.w9c1NoticeEta='none';canvas.dataset.w9c1NoticeDistance='none';
  $('demoBanner').hidden=!demoMode;
  canvas.dataset.overdriveProfile=doc.stageForge.id==='VB-P101'?$('p101Profile').value:'off';
  $('takeoverRun').hidden=!demoMode;
@@ -483,9 +491,32 @@ function updateChapterHUD(){
  const small=document.createElement('small');small.textContent=hint;
  el.replaceChildren(document.createTextNode(name),small);
 }
+function updateW9C1Notice(edge){
+ const root=$('w9c1Notice');
+ if(!root||!runner)return;
+ const cue=runner.status==='failed'||runner.status==='finished'?null:
+  readW9C1Cue(w9c1CueProfile,{
+   surfaceId:runner.surface,u:edge?.u,grounded:runner.grounded,
+   speedMps:Math.hypot(...runner.v)
+  });
+ root.hidden=!cue;
+ canvas.dataset.w9c1NoticePhase=cue?.phase||'none';
+ canvas.dataset.w9c1NoticeEta=cue?cue.instantaneousEtaSeconds.toFixed(2):'none';
+ canvas.dataset.w9c1NoticeDistance=cue?cue.physicalDistanceToCoreMeters.toFixed(1):'none';
+ canvas.dataset.w9c1NoticePosition=cue?cue.nominalPositionMeters.toFixed(1):'none';
+ if(!cue)return;
+ root.dataset.phase=cue.phase;
+ $('w9c1NoticeTitle').textContent=cue.phase==='approach'
+  ?'ABYSS · まもなく'+cue.widthMeters+'m狭路'
+  :cue.phase==='core'?'ABYSS · '+cue.widthMeters+'m超狭路区間':'ABYSS · 狭路からの復帰';
+ $('w9c1NoticeDetail').textContent=cue.phase==='approach'
+  ?'実路面に沿い約'+Math.round(cue.physicalDistanceToCoreMeters)+'m / 現速度換算 '+cue.instantaneousEtaSeconds.toFixed(1)+'秒先 · 左右の道路端に注意'
+  :'実道路幅'+cue.widthMeters+'m · 操舵できる余裕は未検証';
+}
 function updateEdgeRadar(){
  const root=$('edgeRadar');if(!root||!runner||!doc)return;
  const result=locateRoadLateral(doc,runner.surface,runner.p,sample,frame,{grounded:runner.grounded,ballRadius:RADIUS});
+ updateW9C1Notice(result);
  root.hidden=!result;
  if(!result){canvas.dataset.edgeStatus='airborne-or-unavailable';return;}
  root.dataset.severity=result.severity;
@@ -583,7 +614,10 @@ function tick(now){
     time:runner.time,speed:Math.hypot(...runner.v),fps,frameDelta:elapsed,input,
     surface:runner.surface||runner.lastSurface,grounded:runner.grounded,
     hazard:cue?.id||'none',urgency:cue?.urgency||'none',
-    edge:canvas.dataset.edgeStatus
+    edge:canvas.dataset.edgeStatus,
+    w9c1NoticePhase:canvas.dataset.w9c1NoticePhase,
+    w9c1NoticeEtaSeconds:Number(canvas.dataset.w9c1NoticeEta),
+    w9c1NoticeNominalMeters:Number(canvas.dataset.w9c1NoticePosition)
    });
    $('b5QaStatus').textContent='手動QA '+b5ManualAudit.samples.length+'サンプル / '
     +Math.round(b5ManualAudit.maxSpeed)+'m/s最高 / FPS観測中';

@@ -60,6 +60,14 @@ export function recordB5ManualSample(a,x){
    grounded:Boolean(x.grounded),hazard:typeof x.hazard==='string'?x.hazard.slice(0,32):'none',
    urgency:['none','advance','approaching','immediate'].includes(x.urgency)?x.urgency:'none',
    edge:x.edge==='clear'||x.edge==='safe'?'safe':['caution','danger'].includes(x.edge)?x.edge:'unavailable'};
+ // Read-only HUD telemetry for W9-C1; never used as steering or physics feedback.
+ if(a.stageId.endsWith('W9C1-CONTROL')||a.stageId.endsWith('W9C1-ULTRA')){
+  sample.w9c1NoticePhase=['approach','core','exit'].includes(x.w9c1NoticePhase)?x.w9c1NoticePhase:'none';
+  sample.w9c1EtaAtCurrentSpeedSeconds=number(x.w9c1NoticeEtaSeconds)&&x.w9c1NoticeEtaSeconds>=0
+   ?rounded(x.w9c1NoticeEtaSeconds):null;
+  sample.w9c1NominalRoadMeters=number(x.w9c1NoticeNominalMeters)&&x.w9c1NoticeNominalMeters>=0
+   ?rounded(x.w9c1NoticeNominalMeters):null;
+ }
  a.samples.push(sample);
  a.maxSpeed=Math.max(a.maxSpeed,x.speed);
  if(x.input<0)a.inputs.leftSamples++;
