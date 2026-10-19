@@ -8,7 +8,7 @@ import {sample} from '../private/reference_only/director/surface.js';
 
 test('G5-B default OFF and strict W9-C1 only (Gold, B5, other stages unchanged)',()=>{
  assert.equal(G5B_PARAMETERS.enabledByDefault,false);
- for(const variant of ['CONTROL','ULTRA']){
+ for(const variant of ['control','ultra']){
   const road=generateP101W9C1AbyssCandidate(variant);
   assert.equal(w9c1G5BSkyline(road,sample).active,false);
   assert.equal(w9c1G5BSkyline(road,sample).vertices.length,0);
@@ -24,7 +24,7 @@ test('G5-B default OFF and strict W9-C1 only (Gold, B5, other stages unchanged)'
 });
 
 test('G5-B genuine B48 edge registration: enormous varied off-road GPU-only masses',()=>{
- for(const variant of ['CONTROL','ULTRA']){
+ for(const variant of ['control','ultra']){
   const road=generateP101W9C1AbyssCandidate(variant),original=JSON.stringify(road);
   const candidate=w9c1G5BSkyline(road,sample,{enabled:true});
   assert.equal(candidate.active,true);
@@ -41,7 +41,7 @@ test('G5-B genuine B48 edge registration: enormous varied off-road GPU-only mass
 });
 
 test('G5-B cannot be accidentally used on a mutated physics stage',()=>{
- const road=generateP101W9C1AbyssCandidate('CONTROL');
+ const road=generateP101W9C1AbyssCandidate('control');
  road.movingObstacles.pop();
  assert.throws(()=>w9c1G5BSkyline(road,sample,{enabled:true}),/intact W9-C1/);
 });
