@@ -34,6 +34,9 @@ for(const [kind,width] of [['CONTROL',28],['ULTRA',14]]){
     c1.movingObstacles.length!==28||c1.stageForge.productionPromoted!==false||
     c1.stageForge.humanPlaytest!=='NOT_RUN')throw Error('Wrong W9-C1 QA asset '+kind);
 }
+if(!fs.existsSync(path.join(source,'w9c1-pair-qa','comparison.mjs'))||
+   !fs.existsSync(path.join(source,'w9c1-pair-qa','index.html')))
+ throw Error('G5-C2 local 28m/14m paired QA reviewer missing from PR build');
 if(!fs.existsSync(path.join(source,'drive3d','p101-w9c1-g5b-skyline.mjs')))
  throw Error('G5-B isolated skyline candidate module missing from local pack');
 if(!fs.existsSync(path.join(source,'drive3d','p101-w9c1-approach-cue.mjs')))
@@ -79,12 +82,14 @@ const server=http.createServer((req,res)=>{
 server.listen(0,'127.0.0.1',()=>{
  const port=server.address().port,w7=process.argv.includes('--a13');
  const ultra=process.argv.includes('--w9c1-ultra'),control=process.argv.includes('--w9c1-control');
- const g5b=process.argv.includes('--g5b');
+ const g5b=process.argv.includes('--g5b'),pairReview=process.argv.includes('--pair-review');
+ if(pairReview&&(w7||ultra||control||g5b))throw Error('G5-C2 pair review must stay isolated');
  if(g5b&&!ultra&&!control)throw Error('G5-B visual candidate requires W9-C1 only');
  if([w7,ultra,control].filter(Boolean).length>1)throw Error('Only one trial selection allowed');
  const stage=ultra?'VB-P101-A13-W9C1-ULTRA':control?'VB-P101-A13-W9C1-CONTROL':w7?'VB-P101-A13':'VB-P101-B5';
- const url='http://127.0.0.1:'+port+'/drive3d/?stage='+stage+(g5b?'#g5b=on':'');
- console.log('P101 '+stage+' / LOCAL ONLY  '+url);
+ const url=pairReview?'http://127.0.0.1:'+port+'/w9c1-pair-qa/':
+  'http://127.0.0.1:'+port+'/drive3d/?stage='+stage+(g5b?'#g5b=on':'');
+ console.log('P101 '+(pairReview?'G5-C2 MANUAL REPORT COMPARISON':stage)+' / LOCAL ONLY  '+url);
  console.log('指定ステージを自動で選択します。ロード後、A/Dまたは左右キーで手動走行してください。');
  console.log('試走終了後「試走レポートをJSON保存」で記録を保存できます。');
  console.log('このウィンドウを閉じると試走サーバーは停止します。');
@@ -103,13 +108,22 @@ for(const [kind,flag] of [['14m','--w9c1-ultra'],['28m','--w9c1-control']]){
   '@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" '+flag+'\r\npause\r\n');
 }
 
+fs.writeFileSync(path.join(out,'RUN_W9C1_COMPARE_REPORTS.cmd'),
+ '@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" --pair-review\r\npause\r\n');
 // G5-B visual-candidate shortcuts remain separate from the G4 baseline.
 for(const [kind,flag] of [['14m','--w9c1-ultra'],['28m','--w9c1-control']]){
  fs.writeFileSync(path.join(out,'RUN_W9C1_'+kind+'_G5B_VIEW.cmd'),
   '@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" '+flag+' --g5b\r\npause\r\n');
 }
 fs.writeFileSync(path.join(out,'START_W9C1_JA.txt'),
-`W9-C1 ABYSS DIVE G4 + G5-B / Windows手動QA — PR #46 Draft/HOLD のみ
+`W9-C1 ABYSS DIVE G4 + G5-B + G5-C2 / Windows手動QA — PR #46 Draft/HOLD のみ
+
+G5-C2 28m対14mの1回操作比較:
+- まず28m版と14m版を開始地点00で1走行ずつ行い、各試走JSONを保存。
+- RUN_W9C1_COMPARE_REPORTS.cmd をダブルクリック。開いたページで2件選択・比較。
+- 初期速度とOVERDRIVE設定を揃える。ゲーム内容や設定は自動変更しない。
+- 比較結果のJSONを1件にしてチャット添付可能。元の2件の保存データは維持。
+- 人間の公平性・優劣・楽しさは自動認定しない。データ送信なし。
 
 G5-B景観比較:
 - 既存の RUN_W9C1_28m_QA.cmd : 従来景観（G5-B OFF）
