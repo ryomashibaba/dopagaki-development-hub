@@ -31,8 +31,10 @@ test('W9-C1 G4 survey exists only on separate 14m and 28m stages and exports ind
   expect(report.samples.length).toBeGreaterThan(0);
  }
  await page.locator('#stage').selectOption('VB-P101-A13');
+ await expect(page.locator('#appStatus')).toContainText('A13 W7F',{timeout:80000});
  await expect(page.locator('#w9c1G4Survey')).toBeHidden();
  await page.locator('#stage').selectOption('VB-P101-B5');
+ await expect(page.locator('#appStatus')).toContainText('P101 B5 HYPER ARC',{timeout:80000});
  await expect(page.locator('#w9c1G4Survey')).toBeHidden();
  expect(errors).toEqual([]);
 });

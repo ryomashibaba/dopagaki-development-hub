@@ -41,12 +41,15 @@ if(!html.includes('w9c1G4Survey')||!html.includes('w9c1FailureCause'))
  throw Error('G4 independent human evaluation controls missing from build');
 fs.rmSync(out,{recursive:true,force:true});
 fs.cpSync(source,out,{recursive:true});
-const buildRef=process.env.GITHUB_SHA||'LOCAL_UNVERIFIED_HEAD';
+// On pull_request GITHUB_SHA may refer to an ephemeral merge commit.
+const event=process.env.GITHUB_EVENT_PATH&&fs.existsSync(process.env.GITHUB_EVENT_PATH)
+ ?JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH,'utf8')):null;
+const buildRef=event?.pull_request?.head?.sha||process.env.GITHUB_SHA||'LOCAL_UNVERIFIED_HEAD';
 fs.writeFileSync(path.join(out,'W9C1_G4_BUILD_INFO.txt'),
- 'W9-C1 G4 Windows QA / BUILD SHA: '+buildRef+'\\n'
- +'Trial: CONTROL 28m vs ULTRA 14m\\n'
- +'Human fairness and stage promotion: HOLD\\n'
- +'Local-only, no network report submission.\\n','utf8');
+ 'W9-C1 G4 Windows QA / BUILD SHA: '+buildRef+'\n'
+ +'Trial: CONTROL 28m vs ULTRA 14m\n'
+ +'Human fairness and stage promotion: HOLD\n'
+ +'Local-only, no network report submission.\n','utf8');
 const server=`import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
