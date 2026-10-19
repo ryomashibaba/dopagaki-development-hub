@@ -97,3 +97,33 @@ test('A13 isolated manual QA records real edge state and no inherited scripted f
  }
  assert.throws(()=>createB5ManualAudit({stageId:'VB-P101-A13-W9X-B2'}),'unapproved stage ID must remain blocked');
 });
+
+test('W9-C1 G4 separate opt-in human perception and precise HUD telemetry, B5 unchanged',async()=>{
+ const {observeW9C1ManualCue}=await import('../web/p101-b5-manual-qa.mjs');
+ const c1=createB5ManualAudit({stageId:'VB-P101-A13-W9C1-CONTROL',spawnIndex:0});
+ assert.equal(observeW9C1ManualCue(c1,{phase:'approach'},1.2),true);
+ assert.equal(observeW9C1ManualCue(c1,{phase:'approach'},1.3),true);
+ assert.equal(observeW9C1ManualCue(c1,{phase:'core'},4.6),true);
+ assert.equal(observeW9C1ManualCue(c1,{phase:'exit'},5.3),true);
+ assert.equal(observeW9C1ManualCue(c1,{phase:'bad'},5.5),false);
+ assert.equal(recordB5ManualSample(c1,{...fake(1),w9c1NoticePhase:'approach',w9c1NoticeEtaSeconds:3.4,w9c1NoticeNominalMeters:110}),true);
+ const result=finalizeB5ManualAudit(c1,{status:'failed',time:6.1,contacts:0,nearMisses:0,failure:'コースから落下'});
+ assert.equal(result.w9c1G4Telemetry.observedHudLeadSeconds,3.4);
+ assert.equal(result.w9c1G4Telemetry.fairnessCertified,false);
+ const report=JSON.parse(exportB5ManualAudit(c1,{
+  w9c1Feedback:{warningSeenEarly:4,edgeReadability:3,failureFairness:2,failureAttribution:'edge-unreadable'}
+ }));
+ assert.equal(report.w9c1G4.selfReport.warningSeenEarly,4);
+ assert.equal(report.w9c1G4.selfReport.failureAttribution,'edge-unreadable');
+ assert.equal(report.w9c1G4.humanApproval,'HOLD_NO_AUTOMATIC_PASS');
+ assert.equal(report.w9c1G4.actualEntrySpeedProven,true);
+ assert.throws(()=>exportB5ManualAudit(c1,{w9c1Feedback:{warningSeenEarly:7}}));
+ assert.throws(()=>exportB5ManualAudit(c1,{w9c1Feedback:{failureAttribution:'undefined-option'}}));
+ const ultra=createB5ManualAudit({stageId:'VB-P101-A13-W9C1-ULTRA',spawnIndex:7});
+ assert.equal(JSON.parse(exportB5ManualAudit(ultra)).w9c1G4.actualEntrySpeedProven,false);
+ assert.equal(finalizeB5ManualAudit(ultra,{status:'interrupted',time:1.1}).w9c1G4Telemetry.observedHudLeadSeconds,null);
+ const b5=createB5ManualAudit({stageId:'VB-P101-B5'});
+ assert.equal(observeW9C1ManualCue(b5,{phase:'approach'},1),false);
+ assert.equal('w9c1G4' in JSON.parse(exportB5ManualAudit(b5)),false);
+ assert.throws(()=>exportB5ManualAudit(b5,{w9c1Feedback:{warningSeenEarly:4}}));
+});

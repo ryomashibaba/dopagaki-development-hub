@@ -9,6 +9,7 @@
 export const B5_MANUAL_SCHEMA='dopagaki.b5-manual-qa/1';
 export const A13_MANUAL_SCHEMA='dopagaki.a13-manual-qa/1';
 const validAudit=a=>Boolean(a&&(a.schema===B5_MANUAL_SCHEMA||a.schema===A13_MANUAL_SCHEMA));
+const isW9C1=a=>Boolean(a&&['VB-P101-A13-W9C1-CONTROL','VB-P101-A13-W9C1-ULTRA'].includes(a.stageId));
 const number=n=>typeof n==='number'&&Number.isFinite(n);
 const rounded=(n,d=2)=>Number(n.toFixed(d));
 const quantile=(sorted,q)=>sorted.length?sorted[Math.min(sorted.length-1,Math.floor((sorted.length-1)*q))]:null;
@@ -31,6 +32,11 @@ export function createB5ManualAudit({stageId,profile='OVERDRIVE',startSpeed=52,s
   samples:[],maxSpeed:startSpeed,inputs:{leftSamples:0,rightSamples:0,neutralSamples:0},
   hazards:{visibleSamples:0,immediateSamples:0,steeringWhileVisibleSamples:0},
   performance:{slowFrames:0,measuredFrames:0,physicsOverloadedFrames:0,frameMsBins:new Uint32Array(4001)},firstContactTime:null,
+  // G4: sampling is observational only. It never claims the user saw a cue.
+  w9c1Observed:stageId.includes('W9C1-')?{
+   firstHudApproachSeconds:null,firstHudCoreSeconds:null,lastHudExitSeconds:null,
+   approachUpdates:0,coreUpdates:0,exitUpdates:0
+  }:null,
   final:null,lastSampleAt:-Infinity
  };
 }
@@ -80,6 +86,16 @@ export function recordB5ManualSample(a,x){
  }
  return true;
 }
+export function observeW9C1ManualCue(a,cue,physicsSeconds){
+ if(!isW9C1(a)||!validAudit(a)||a.final||!number(physicsSeconds)||physicsSeconds<0)return false;
+ if(!cue||!['approach','core','exit'].includes(cue.phase))return false;
+ const obj=a.w9c1Observed,phase=cue.phase;
+ obj[phase+'Updates']++;
+ if(phase==='approach'&&obj.firstHudApproachSeconds===null)obj.firstHudApproachSeconds=rounded(physicsSeconds,3);
+ if(phase==='core'&&obj.firstHudCoreSeconds===null)obj.firstHudCoreSeconds=rounded(physicsSeconds,3);
+ if(phase==='exit')obj.lastHudExitSeconds=rounded(physicsSeconds,3);
+ return true;
+}
 export function finalizeB5ManualAudit(a,{status,time,surface=null,contacts=0,nearMisses=0,failure=null}={}){
  if(!a||!validAudit(a))throw Error('Invalid B5 observation');
  if(a.final)return a.final;
@@ -113,9 +129,19 @@ export function finalizeB5ManualAudit(a,{status,time,surface=null,contacts=0,nea
   warningAssessment:'VISIBILITY_SAMPLES_ONLY_NOT_REACTION_TIME_OR_FAIRNESS_PROOF',
   renderFpsIsNotPhysicsHz:true,physicsHz:240
  };
+ if(isW9C1(a)){
+  const h=a.w9c1Observed;
+  a.final.w9c1G4Telemetry={
+   ...h,
+   observedHudLeadSeconds:h.firstHudApproachSeconds!==null&&h.firstHudCoreSeconds!==null
+    ?rounded(Math.max(0,h.firstHudCoreSeconds-h.firstHudApproachSeconds),3):null,
+   sampling:'HUD_STATE_AT_RENDER_INTERVAL; NOT USER_EYE_TRACKING; NOT HUMAN_REACTION_TIME',
+   fairnessCertified:false
+  };
+ }
  return a.final;
 }
-export function exportB5ManualAudit(a,{speedFeel=null,steeringFeel=null,hazardLegibility=null,note=''}={}){
+export function exportB5ManualAudit(a,{speedFeel=null,steeringFeel=null,hazardLegibility=null,note='',w9c1Feedback=null}={}){
  if(!a||!validAudit(a))throw Error('B5 audit not initialized');
  for(const [name,v] of Object.entries({speedFeel,steeringFeel,hazardLegibility}))
   if(v!==null&&(!Number.isInteger(v)||v<1||v>5))throw Error('Invalid voluntary player rating: '+name);
@@ -125,5 +151,31 @@ export function exportB5ManualAudit(a,{speedFeel=null,steeringFeel=null,hazardLe
   startSpeed:a.startSpeed,spawnIndex:a.spawnIndex,source:a.source,
   survey:{speedFeel,steeringFeel,hazardLegibility,note:note.slice(0,900)},
   summary:a.final,samples:a.samples.map(x=>({...x}))};
+ if(isW9C1(a)){
+  const fb=w9c1Feedback??{};
+  const ratings=['warningSeenEarly','edgeReadability','failureFairness'];
+  for(const key of ratings){
+   const value=fb[key]??null;
+   if(value!==null&&(!Number.isInteger(value)||value<1||value>5))throw Error('Invalid G4 rating '+key);
+  }
+  const causes=['unrated','no-failure','own-input','late-warning','edge-unreadable','steering-insufficient','machine','other'];
+  const failureAttribution=fb.failureAttribution??'unrated';
+  if(!causes.includes(failureAttribution))throw Error('Invalid G4 failure attribution');
+  result.w9c1G4={
+   version:'W9-C1-G4-HUMAN-SURVEY/1',
+   selfReport:{
+    warningSeenEarly:fb.warningSeenEarly??null,
+    edgeReadability:fb.edgeReadability??null,
+    failureFairness:fb.failureFairness??null,
+    failureAttribution
+   },
+   observedHud:a.w9c1Observed?{...a.w9c1Observed}:null,
+   actualEntrySpeedProven:a.spawnIndex===0,
+   humanApproval:'HOLD_NO_AUTOMATIC_PASS',
+   note:'Ratings require an actual person. Missing ratings are NOT a passing score.'
+  };
+ }else if(w9c1Feedback!==null){
+  throw Error('G4 feedback is exclusive to W9-C1');
+ }
  return JSON.stringify(result,null,2)+'\n';
 }

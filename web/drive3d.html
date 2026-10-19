@@ -27,6 +27,19 @@
 <label>疾走感（任意）<select id="b5SpeedFeel"><option value="0">未評価</option><option value="1">1 非常に弱い</option><option value="2">2 弱い</option><option value="3">3 普通</option><option value="4">4 良い</option><option value="5">5 非常に良い</option></select></label>
 <label>左右操作のしやすさ（任意）<select id="b5SteeringFeel"><option value="0">未評価</option><option value="1">1 操作困難</option><option value="2">2 難しい</option><option value="3">3 普通</option><option value="4">4 操作しやすい</option><option value="5">5 とても良い</option></select></label>
 <label>障害物の見やすさ（任意）<select id="b5HazardFeel"><option value="0">未評価</option><option value="1">1 見えない</option><option value="2">2 見づらい</option><option value="3">3 普通</option><option value="4">4 見やすい</option><option value="5">5 とても見やすい</option></select></label>
+<section id="w9c1G4Survey" hidden aria-label="W9-C1 G4 狭路の人間評価" style="padding:10px;margin:10px 0;border:1px solid #467e91;border-radius:9px;background:#0c2335">
+<strong style="color:#9ef9e9">W9-C1 G4：狭路の比較評価（任意・手動）</strong>
+<small>まず開始地点00で操作してから回答。各項目の1〜5はあなたの体感であり、自動計測の合否には使用しません。</small>
+<label>狭路への接近を早めに認識できたか
+<select id="w9c1WarningSeen"><option value="0">未評価</option><option value="1">1 直前でも分からない</option><option value="2">2 気付くのが遅い</option><option value="3">3 普通</option><option value="4">4 余裕を持って気付ける</option><option value="5">5 かなり早く認識できる</option></select></label>
+<label>14m／28m道路の左右端が見分けやすいか
+<select id="w9c1EdgeReadability"><option value="0">未評価</option><option value="1">1 端が分からない</option><option value="2">2 見づらい</option><option value="3">3 普通</option><option value="4">4 明瞭</option><option value="5">5 非常に明瞭</option></select></label>
+<label>失敗・回避の納得感（失敗がなければ未評価）
+<select id="w9c1FailureFairness"><option value="0">未評価</option><option value="1">1 不公平</option><option value="2">2 理不尽に感じた</option><option value="3">3 判断が難しい</option><option value="4">4 おおむね納得</option><option value="5">5 完全に納得</option></select></label>
+<label>失敗した場合の主な原因（自己申告）
+<select id="w9c1FailureCause"><option value="unrated">未評価</option><option value="no-failure">失敗していない</option><option value="own-input">自分の操作ミス</option><option value="late-warning">警告が遅かった</option><option value="edge-unreadable">道路端が見づらかった</option><option value="steering-insufficient">横移動能力が足りなかった</option><option value="machine">移動障害物</option><option value="other">その他（メモへ）</option></select></label>
+<small>この評価は保存ボタンでのみ端末内JSONになります。14m／28mは別々のJSONに保存してください。</small>
+</section>
 <label>違和感・改善点（任意）<textarea id="b5QaNote" maxlength="900" placeholder="例：第4区間の傾斜で横移動が追いつかない"></textarea></label>
 <button id="b5QaExport" type="button" style="width:100%">試走レポートをJSON保存</button>
 <small>開始地点00からの試走を推奨。ゲームオーバー画面から直接保存できます。FPSは描画速度の測定値であり、240Hz物理の動作保証ではありません。自動操舵の完走記録を手動の評価として扱いません。</small>

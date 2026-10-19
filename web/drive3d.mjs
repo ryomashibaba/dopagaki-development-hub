@@ -35,7 +35,7 @@ import {a13MachineBodyVertices} from './p101-a13-machine-visual.mjs';
 import {a13RacingRoadArt} from './p101-a13-road-art.mjs';
 import {makeW9C1CueProfile,readW9C1Cue,w9c1ApproachMarks} from './p101-w9c1-approach-cue.mjs';
 import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
-import {createB5ManualAudit,recordB5ManualSample,recordB5ManualFrame,finalizeB5ManualAudit,exportB5ManualAudit} from './p101-b5-manual-qa.mjs';
+import {createB5ManualAudit,recordB5ManualSample,recordB5ManualFrame,observeW9C1ManualCue,finalizeB5ManualAudit,exportB5ManualAudit} from './p101-b5-manual-qa.mjs';
 
 const $=id=>document.getElementById(id);
 const assets={'VB-P101-A13':'P101_A13_W7_GAMEPLAY.json','VB-P101-A13-W9X-B1':'P101_A13_W9X_B1_TRIAL.json','VB-P101-A13-W9C1-CONTROL':'P101_A13_W9C1_CONTROL_TRIAL.json','VB-P101-A13-W9C1-ULTRA':'P101_A13_W9C1_ULTRA_TRIAL.json','VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
@@ -386,6 +386,7 @@ function restart(){
   $('b5QaTitle').textContent=doc.stageForge.slopeDNAStudy?.realB48Surface?'W9-C1 ABYSS '+doc.stageForge.slopeDNAStudy.nominalCoreWidthMeters+'m · 独立手動試走':doc.stageForge.recordStageId==='VB-P101-A13-W9X-B1'?'W9-X-B1 · 独立手動試走レポート':doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?'A13 W7F · 手動試走レポート':'B5 · 手動試走レポート';
   $('w9TrialWarning').hidden=doc.stageForge.recordStageId!=='VB-P101-A13-W9X-B1';
   $('w9c1TrialWarning').hidden=!doc.stageForge.slopeDNAStudy?.realB48Surface;
+  $('w9c1G4Survey').hidden=!doc.stageForge.slopeDNAStudy?.realB48Surface;
   $('b5QaStatus').textContent='手動試走の観測値を端末内で記録。自動送信はありません。';
   p101B5Surge=createP101B5SurgeState();a13Surge=createA13SurgeState();
   canvas.dataset.b5PhysicalStage=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'true':'false';
@@ -501,6 +502,7 @@ function updateW9C1Notice(edge){
    speedMps:Math.hypot(...runner.v)
   });
  root.hidden=!cue;
+ if(b5ManualAudit&&cue)observeW9C1ManualCue(b5ManualAudit,cue,runner.time);
  canvas.dataset.w9c1NoticePhase=cue?.phase||'none';
  canvas.dataset.w9c1NoticeEta=cue?cue.instantaneousEtaSeconds.toFixed(2):'none';
  canvas.dataset.w9c1NoticeDistance=cue?cue.physicalDistanceToCoreMeters.toFixed(1):'none';
@@ -751,7 +753,13 @@ function exportLocalManualQa(){
  const val=id=>{const n=Number($(id).value);return n>=1&&n<=5?n:null;};
  const json=exportB5ManualAudit(audit,{
   speedFeel:val('b5SpeedFeel'),steeringFeel:val('b5SteeringFeel'),
-  hazardLegibility:val('b5HazardFeel'),note:$('b5QaNote').value
+  hazardLegibility:val('b5HazardFeel'),note:$('b5QaNote').value,
+  w9c1Feedback:audit.stageId.includes('W9C1-')?{
+   warningSeenEarly:val('w9c1WarningSeen'),
+   edgeReadability:val('w9c1EdgeReadability'),
+   failureFairness:val('w9c1FailureFairness'),
+   failureAttribution:$('w9c1FailureCause').value
+  }:null
  });
  const blob=new Blob([json],{type:'application/json;charset=utf-8'});
  const url=URL.createObjectURL(blob),a=document.createElement('a');

@@ -36,8 +36,17 @@ for(const [kind,width] of [['CONTROL',28],['ULTRA',14]]){
 }
 if(!fs.existsSync(path.join(source,'drive3d','p101-w9c1-approach-cue.mjs')))
  throw Error('W9-C1 HUD/physical marker module missing');
+const html=fs.readFileSync(path.join(source,'drive3d','index.html'),'utf8');
+if(!html.includes('w9c1G4Survey')||!html.includes('w9c1FailureCause'))
+ throw Error('G4 independent human evaluation controls missing from build');
 fs.rmSync(out,{recursive:true,force:true});
 fs.cpSync(source,out,{recursive:true});
+const buildRef=process.env.GITHUB_SHA||'LOCAL_UNVERIFIED_HEAD';
+fs.writeFileSync(path.join(out,'W9C1_G4_BUILD_INFO.txt'),
+ 'W9-C1 G4 Windows QA / BUILD SHA: '+buildRef+'\\n'
+ +'Trial: CONTROL 28m vs ULTRA 14m\\n'
+ +'Human fairness and stage promotion: HOLD\\n'
+ +'Local-only, no network report submission.\\n','utf8');
 const server=`import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -87,14 +96,16 @@ for(const [kind,flag] of [['14m','--w9c1-ultra'],['28m','--w9c1-control']]){
   '@echo off\r\nchcp 65001 >nul\r\ncd /d "%~dp0"\r\nwhere node >nul 2>nul\r\nif errorlevel 1 (echo Node.js 22 or newer is required. & pause & exit /b 1)\r\nnode "_LOCAL_ONLY_SERVER.mjs" '+flag+'\r\npause\r\n');
 }
 fs.writeFileSync(path.join(out,'START_W9C1_JA.txt'),
-`W9-C1 ABYSS DIVE / Windows手動QA — PR #46 Draft/HOLD のみ
+`W9-C1 ABYSS DIVE G4 / Windows手動QA — PR #46 Draft/HOLD のみ
 
 1. RUN_W9C1_14m_QA.cmd をダブルクリック。実14m超細道の独立版が開きます。
 2. 28mと比較するときは RUN_W9C1_28m_QA.cmd をダブルクリック。
 3. ステージ開始00から A/D または左右キーで自動前進のボールを操作。
 4. 90mからの狭路予告HUD、表示される距離/現速度換算秒数、道路端の視認性を確認。
-5. 任意の試走評価とコメントを付け「試走レポートをJSON保存」。
-6. ダウンロードした P101_A13_W9C1_*_MANUAL_QA_*.json をチャットに添付。
+5. 右側の「W9-C1 G4」で予告の気付き・左右端・失敗原因を評価（任意）。
+6. 「試走レポートをJSON保存」。14mと28mをそれぞれ独立保存。
+7. 生成された CONTROL / ULTRA のJSONを2つともチャットに添付。
+8. 途中で落ちても隠さず記録。実機のChromeなどで、操作時の印象をメモしてください。
 
 画面の「約x.x秒」は現在速度での推定であり、視覚反応時間の保証ではありません。
 本当の道路はB48 240Hz、ボール半径0.65m、移動機械28基。
