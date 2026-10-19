@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>W9-C1 · 28m / 14m 手動試走比較</title>
+<style>
+:root{font:16px system-ui,-apple-system,sans-serif;color:#eaf8ff;background:#081421}
+*{box-sizing:border-box}body{margin:0;padding:24px 18px;line-height:1.65}
+main{max-width:920px;margin:auto}h1{font-size:clamp(23px,4vw,33px);line-height:1.25}
+.sub{color:#a5cbdc}p{margin:10px 0}a{color:#83dffc}.tag{color:#82e8db;font-size:12px;letter-spacing:.08em}
+.card{border:1px solid #426b81;background:#11283a;border-radius:15px;padding:18px;margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+label{display:block;font-size:15px;font-weight:650}
+input{display:block;width:100%;margin-top:12px;padding:11px;background:#092031;color:#eaffff;border:1px solid #507688;border-radius:8px}
+button{font:inherit;cursor:pointer;border:1px solid #64d8d9;border-radius:9px;padding:11px 16px;font-weight:bold;background:#154e5b;color:#f1ffff}
+button:disabled{opacity:.43;cursor:default}.buttons{display:flex;flex-wrap:wrap;gap:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:10px 9px;text-align:left;border-bottom:1px solid #315063;vertical-align:top}th{color:#acdfef}
+td:nth-child(2),td:nth-child(3){font-variant-numeric:tabular-nums}
+#message{color:#ffdab8}#message[hidden],#result[hidden]{display:none}
+li{padding:3px 0}.notice{border-left:3px solid #6cd6e1;padding-left:13px;color:#c0d8e7}
+footer{font-size:13px;color:#8daebd;margin-top:30px}
+</style></head>
+<body><main><p class="tag">DOPAGAKI / W9-C1 / G5-C2 / LOCAL REVIEW · DRAFT HOLD</p>
+<h1>28mと14mの手動試走を比較</h1>
+<p class="sub">実際のゲームから保存した2つのJSONを並べて、走行時間・FPS・予告・接触後の復帰状況を確認します。数値だけで「どちらが楽しい・公平」とは判定しません。</p>
+<section class="card">
+<div class="grid">
+<label>28m · CONTROLの手動試走JSON<input id="controlFile" type="file" accept=".json,application/json" aria-label="28mの試走JSON"></label>
+<label>14m · ULTRAの手動試走JSON<input id="ultraFile" type="file" accept=".json,application/json" aria-label="14mの試走JSON"></label>
+</div>
+<p class="notice">両方とも開始地点00、同じOVERDRIVE設定を推奨します。開始地点06/07の52m/s再発進は、通常走行で狭路に入る速度の比較には使えません。</p>
+<div class="buttons"><button id="compare" type="button">2件を比較する</button><button id="save" type="button" disabled>比較結果をJSON保存</button></div>
+<p id="message" hidden role="alert"></p>
+</section>
+<section id="result" class="card" hidden aria-live="polite">
+<h2>実測データの比較</h2><p id="quality" class="sub"></p>
+<table aria-label="28mと14mの手動試走実測比較"><thead><tr><th>観測項目</th><th>28m · CONTROL</th><th>14m · ULTRA</th></tr></thead><tbody id="rows"></tbody></table>
+<h3>比較時の注意</h3><ul id="warnings"></ul>
+<p class="notice">この分析は選択されたJSONに記載された情報を表示するだけです。実際に人間が操作したこと、見た目の良さ、公平性、難易度、正式採用は自動で認定できません。</p>
+</section>
+<footer>ローカル環境のブラウザ内で処理します。アップロードや自動送信はありません。既存のB48物理・障害物28基・スコア・Goldは一切変更しません。</footer>
+</main>
+<script type="module">
+import {compareW9C1HumanReports} from './comparison.mjs';
+const $=id=>document.getElementById(id);
+const labels=[
+ ['nominalCoreWidthMeters','実道路の狭路幅 (m)'],
+ ['spawnIndex','選択した開始地点'],
+ ['profile','速度・操舵設定'],
+ ['finalStatus','走行終了状態'],
+ ['physicsSeconds','走行時間 (s)'],
+ ['firstCoreHudSeconds','狭路コアHUD初表示時刻 (s)'],
+ ['observedHudLeadSeconds','HUD接近予告からコアまで (s)'],
+ ['peakSpeedMps','最高速度 (m/s)'],
+ ['movingOrFixedContacts','衝突・接触回数（合計）'],
+ ['reboundRecoveryStarted','非致死衝突からの復帰開始回数'],
+ ['reboundRecoveryEnded','復帰終了イベント回数'],
+ ['fpsP10','描画FPS 下位10%近辺'],
+ ['reportedEdgeReadability','道路端の見やすさ（自己評価 1〜5）'],
+ ['reportedFailureFairness','失敗の納得感（自己評価 1〜5）'],
+ ['failureReason','失敗理由'],
+ ['samplingRows','観測サンプル数']
+];
+let current=null;
+const printable=v=>v===null||v===undefined?'未観測':String(v);
+$('compare').addEventListener('click',async()=>{
+ $('message').hidden=true;$('result').hidden=true;$('save').disabled=true;current=null;
+ const files=[$('controlFile').files[0],$('ultraFile').files[0]];
+ if(files.some(f=>!f)){$('message').textContent='28mと14mのJSONを両方選択してください。';$('message').hidden=false;return;}
+ if(files.some(f=>f.size>2000000)){$('message').textContent='2MBを超えるJSONは読み込めません。';$('message').hidden=false;return;}
+ try{
+  const data=await Promise.all(files.map(async f=>JSON.parse(await f.text())));
+  current=compareW9C1HumanReports(data[0],data[1]);
+  const rows=$('rows');rows.replaceChildren();
+  for(const [key,label] of labels){
+   const tr=document.createElement('tr');
+   for(const value of [label,printable(current.control[key]),printable(current.ultra[key])]){
+    const cell=document.createElement(key===labels[0][0]?'td':'td');cell.textContent=value;tr.append(cell);
+   }
+   rows.append(tr);
+  }
+  $('quality').textContent=current.comparability.pairedObservedCore
+   ?'両方の開始地点・プロフィール・コア到達HUD記録は比較可能。ただし各1走行のため正式な優劣は判定しません。'
+   :'比較条件が十分には一致していません。下記の注意事項を先に確認してください。';
+  $('warnings').replaceChildren(...current.limitations.map(w=>{
+   const li=document.createElement('li');li.textContent=w;return li;
+  }));
+  $('result').hidden=false;$('save').disabled=false;
+ }catch(error){
+  $('message').textContent='比較できません：'+(error instanceof Error?error.message:'不明なJSONエラー');
+  $('message').hidden=false;
+ }
+});
+$('save').addEventListener('click',()=>{
+ if(!current)return;
+ const url=URL.createObjectURL(new Blob([JSON.stringify(current,null,2)+'\n'],{type:'application/json'}));
+ const link=document.createElement('a');link.href=url;link.download='DOPAGAKI_W9C1_28m_vs_14m_G5C2_COMPARISON.json';
+ document.body.append(link);link.click();link.remove();URL.revokeObjectURL(url);
+});
+</script></body></html>
