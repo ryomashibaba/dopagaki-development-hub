@@ -658,7 +658,7 @@ function tick(now){
   const manualSteer=Number(right||keys.has('KeyD')||keys.has('ArrowRight'))-Number(left||keys.has('KeyA')||keys.has('ArrowLeft'));
   const progressed=stepFixedClock(accum,elapsed*(demoMode?Number($('demoSpeed').value):1),DT,()=>{
    previousPose=currentPose;
-   const steer=g4e7bQa?qaSteer(g4e7bQa,runner):demoMode?nativeDemoSteer(demoDirector,runner,movingObstaclePose):manualSteer;
+   const steer=g4e7bQa?qaSteer(g4e7bQa,runner,movingObstaclePose):demoMode?nativeDemoSteer(demoDirector,runner,movingObstaclePose):manualSteer;
     if(doc.stageForge.id==='VB-P101'){
       const physicalPower=doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED' ?p101A13ForwardScale(runner,a13Surge):doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED' ?p101B5ForwardScale(runner,p101B5Surge):1;
       p101Step(runner,steer,$('p101Profile').value||P101_DEFAULT,{

@@ -1,6 +1,5 @@
 /** G4E-7B: explicit loopback-only private P96 scripted WebGL QA. NOT human play. */
 import {makeP96RoutePlan,p96DodgeSteer} from './p96-avoidance-steer.mjs';
-import {movingObstaclePose} from '../reference_only/director/moving/moving-obstacles.mjs';
 import {p101RoadProgress} from './p101-overdrive.mjs';
 export function createGapQa(doc,r,enabled){
  if(!enabled)return null;
@@ -13,8 +12,9 @@ export function createGapQa(doc,r,enabled){
  doc.stageForge.productionPromoted!==false)throw Error('G4E7B original real B48 private start00 required');
  return {g,route:makeP96RoutePlan(doc,r),armed:false,air:false,landed:false,ticks:0,u:0};
 }
-export function qaSteer(q,r){
- return p96DodgeSteer(r,q.route,'early-soft',movingObstaclePose).input/4.8;
+export function qaSteer(q,r,poseAt){
+ if(typeof poseAt!=='function')throw Error('G4E7B requires real B51-C native pose sampler');
+ return p96DodgeSteer(r,q.route,'early-soft',poseAt).input/4.8;
 }
 export function qaStep(q,r){
  if(!q)return;
