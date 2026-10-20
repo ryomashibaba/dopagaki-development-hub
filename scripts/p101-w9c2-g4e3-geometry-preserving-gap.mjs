@@ -13,7 +13,7 @@ export const G4E3_POLICY=Object.freeze({section:3,cellCenterU:.53,cells:2,physic
 const dist=(a,b)=>Math.hypot(...a.map((v,k)=>v-b[k]));
 export function generateG4E3PhysicalGap({cells=G4E3_POLICY.cells,centerU=G4E3_POLICY.cellCenterU}={}){
  if(!Number.isInteger(cells)||cells<1||cells>4||!Number.isFinite(centerU)||
-    centerU<.47||centerU>.59)throw Error('G4E3 bounded real-gap parameter required');
+    centerU<.25||centerU>.85)throw Error('G4E3 bounded real-gap parameter required');
  const doc=generateW9C2G4ENarrow('shoulder');
  const s=doc.surfaces[G4E3_POLICY.section],nu=(s.rows-1)*s.resolution;
  const first=Math.floor(centerU*nu-cells/2),indices=Array.from({length:cells},(_,i)=>first+i);
