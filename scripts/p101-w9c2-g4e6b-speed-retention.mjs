@@ -6,7 +6,7 @@
 import {G4E6B_SITES} from './p101-w9c2-g4e6-early-gap-build.mjs';
 import {g4e6NativeRun} from './p101-w9c2-g4e6-native-matrix.mjs';
 const round=(n,p=3)=>Number(n.toFixed(p));
-function quality(r,baselineSeconds){
+export function g4e6SpeedQuality(r,baselineSeconds){
  const air=r.airAtSeconds,land=r.landingConfirmedSeconds;
  const trace=r.trace??[];
  const near=(t,min=-Infinity,max=Infinity)=>{
@@ -46,8 +46,8 @@ export function g4e6bSpeedMatrix(){
  const results=G4E6B_SITES.map(x=>g4e6NativeRun(x.id));
  return {schema:'dopagaki.w9c2.g4e6b-speed-retention/1',
   gold:{finished:gold.completed,elapsed:gold.elapsedSeconds,peak:gold.peakSpeedMps},
-  successfulG4E6AControl:quality(sixA,gold.elapsedSeconds),
-  verdict:results.map(x=>quality(x,gold.elapsedSeconds)),
+  successfulG4E6AControl:g4e6SpeedQuality(sixA,gold.elapsedSeconds),
+  verdict:results.map(x=>g4e6SpeedQuality(x,gold.elapsedSeconds)),
   rawResults:results,
   humanFairness:'HOLD',publish:'HOLD'};
 }
