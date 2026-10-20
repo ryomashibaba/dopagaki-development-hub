@@ -26,9 +26,14 @@ function nearGuide(guide,pos){
  }
  return result;
 }
-export function g4e6NativeRun(id='GOLD',{maxSeconds=65}={}){
+export function g4e6NativeRun(id='GOLD',{maxSeconds=65,docOverride=null}={}){
  if(maxSeconds<45||maxSeconds>72)throw Error('G4E6 bounded real start00 run only');
- const doc=id==='GOLD'?generateP101A13W7Candidate():generateG4E6EarlyGap(id);
+ // An explicit offline-authored physical variant can reuse the EXACT native
+ // Gold controller/finish instrumentation. This has no effect on existing calls.
+ if(docOverride&&(id==='GOLD'||docOverride.stageForge?.g4e6EarlyGap?.id!==id||
+  docOverride.stageForge.productionPromoted!==false))
+  throw Error('G4E6 offline physical document identity/approval mismatch');
+ const doc=docOverride??(id==='GOLD'?generateP101A13W7Candidate():generateG4E6EarlyGap(id));
  const gap=doc.stageForge.g4e6EarlyGap??null;
  const activeRoad=gap?doc.surfaces[gap.section]:null;
  const center=activeRoad?Array.from({length:129},(_,i)=>sample(activeRoad,i/128,.5)):null;
