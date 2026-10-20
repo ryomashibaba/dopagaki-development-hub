@@ -23,10 +23,18 @@ export const G4E6B_SITES=Object.freeze([
  Object.freeze({id:'B0-65-1',section:0,centerU:.65,cells:1}),
  Object.freeze({id:'B0-35-3',section:0,centerU:.35,cells:3})
 ]);
+/** G4E-6C: near the 6.91m / 87.4% speed retention fullrun PASS site. */
+export const G4E6C_SITES=Object.freeze([
+ Object.freeze({id:'C0-50-1',section:0,centerU:.50,cells:1}),
+ Object.freeze({id:'C0-55-1',section:0,centerU:.55,cells:1}),
+ Object.freeze({id:'C0-60-1',section:0,centerU:.60,cells:1}),
+ Object.freeze({id:'C0-63-1',section:0,centerU:.63,cells:1}),
+ Object.freeze({id:'C0-68-1',section:0,centerU:.68,cells:1})
+]);
 const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const distance=(a,b)=>Math.hypot(...a.map((v,i)=>v-b[i]));
 export function generateG4E6EarlyGap(id){
- const site=[...G4E6_SITES,...G4E6B_SITES].find(x=>x.id===id);
+ const site=[...G4E6_SITES,...G4E6B_SITES,...G4E6C_SITES].find(x=>x.id===id);
  if(!site)throw Error('G4E6 declared early Gold gap ID required');
  const original=generateP101A13W7Candidate(),doc=structuredClone(original);
  const road=doc.surfaces[site.section],nu=(road.rows-1)*road.resolution;
