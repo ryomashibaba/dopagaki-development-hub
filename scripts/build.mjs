@@ -14,6 +14,7 @@ import {generateP101A13W7Candidate} from './p101-a13-w7-gameplay-build.mjs';
 import {generateP101A13W9XCandidate} from './p101-a13-w9b-road-candidate.mjs';
 import {generateP101W9C1AbyssCandidate} from './p101-w9c1-abyss-narrow.mjs';
 import {generateP101W9C2SCrestCandidate} from './p101-w9c2-s-crest-build.mjs';
+import {generateW9C2G4ENarrow} from './p101-w9c2-g4e-narrow-build.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
 import {generateP97RoadplayEvidence} from './p97-roadplay-evidence.mjs';
 import {generateP96DodgeEvidence} from './p96-acceptance-evidence.mjs';
@@ -105,6 +106,8 @@ if(includeStages){
  for(const kind of ['control','ultra'])write('generated/P101_A13_W9C1_'+kind.toUpperCase()+'_TRIAL.json',JSON.stringify(generateP101W9C1AbyssCandidate(kind),null,2)+'\n');
   // W9-C2 independent genuine S-crest experiment; not the playable default.
   for(const kind of ['ribbon','edge'])write('generated/P101_A13_W9C2_'+kind.toUpperCase()+'_TRIAL.json',JSON.stringify(generateP101W9C2SCrestCandidate(kind),null,2)+'\n');
+  // G4E-1 genuine physical narrow road, private PR preview only, OFF by default.
+  for(const kind of ['shoulder','razor'])write('generated/P101_A13_W9C2_G4E_'+kind.toUpperCase()+'_TRIAL.json',JSON.stringify(generateW9C2G4ENarrow(kind),null,2)+'\n');
  write('generated/P99_PHYSICAL_TRIAL.json',JSON.stringify(makeP99PhysicalEvidence(pressureLines),null,2)+'\n');
  write('generated/P87_REFERENCE_GHOST.json',JSON.stringify(generateReferenceGhost(nativeCourse))+'\n');
  for(const file of names)copy('private/stages/'+file,'generated/'+file);
