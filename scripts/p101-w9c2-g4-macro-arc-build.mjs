@@ -19,6 +19,14 @@ export const G4_MACRO_VARIANTS=Object.freeze({
  skyline:Object.freeze({id:'skyline',recordStageId:'VB-P101-A13-W9C2-G4-SKYLINE',
   lateralMeters:110,crestMeters:23,bankMeters:3.5,minimumWidthMeters:75})
 });
+// G4B is a new OFFLINE derivative, not a silent replacement of SWEEP/SKYLINE.
+// The actual Gold road IV already has a giant 180-degree 1800m turn.
+export const G4B_OFFLINE_VARIANTS=Object.freeze({
+ glide:Object.freeze({id:'glide',recordStageId:'VB-P101-A13-W9C2-G4B-GLIDE',
+  lateralMeters:35,crestMeters:2.5,bankMeters:.8,minimumWidthMeters:115}),
+ horizon:Object.freeze({id:'horizon',recordStageId:'VB-P101-A13-W9C2-G4B-HORIZON',
+  lateralMeters:52,crestMeters:4,bankMeters:1.1,minimumWidthMeters:105})
+});
 const dot=(a,b)=>a.reduce((sum,x,i)=>sum+x*b[i],0);
 const sub=(a,b)=>a.map((x,i)=>x-b[i]);
 const add=(a,b)=>a.map((x,i)=>x+b[i]);
@@ -28,7 +36,7 @@ const clamp=x=>Math.max(0,Math.min(1,x));
 const field=t=>Math.sin(Math.PI*t)**2;
 const START=.06,END=.94;
 export function g4Shape(u,kind='sweep'){
- const c=G4_MACRO_VARIANTS[kind];if(!c||!Number.isFinite(u)||u<0||u>1)throw Error('G4 declared variant/u required');
+ const c=G4_MACRO_VARIANTS[kind]??G4B_OFFLINE_VARIANTS[kind];if(!c||!Number.isFinite(u)||u<0||u>1)throw Error('G4 declared variant/u required');
  if(u<=START||u>=END)return {active:false,lateral:0,rise:0,bank:0,widthWeight:0};
  const t=(u-START)/(END-START),envelope=field(t);
  return {active:true,lateral:c.lateralMeters*Math.sin(2*Math.PI*t)*envelope,
@@ -47,7 +55,7 @@ function rotateHorizontal(v,oldForward,newForward){
  return [v[0]*c-v[2]*s,v[1],v[0]*s+v[2]*c];
 }
 export function generateW9C2G4MacroArc(kind='sweep'){
- const c=G4_MACRO_VARIANTS[kind];if(!c)throw Error('G4 exact candidate required');
+ const c=G4_MACRO_VARIANTS[kind]??G4B_OFFLINE_VARIANTS[kind];if(!c)throw Error('G4 exact candidate required');
  const doc=generateP101A13W7Candidate();
  if(doc.surfaces.length!==7||doc.movingObstacles.length!==28||
   doc.stageForge.recordStageId!=='VB-P101-A13-W7F'||doc.stageForge.nominalLengthMeters!==7280)
@@ -105,6 +113,7 @@ export function generateW9C2G4MacroArc(kind='sweep'){
    realB48Surface:true,changedControlRows:changed.length,
    deformationWindow:[START,END],lateralScaleMeters:c.lateralMeters,
    crestMeters:c.crestMeters,minimumWidthTargetMeters:c.minimumWidthMeters,
+   g4bDerivedCandidate:Object.hasOwn(G4B_OFFLINE_VARIANTS,kind),
    reanchoredNativeMachineIds:stationList.map(x=>doc.movingObstacles[x.i].id),
    all28MachineBodiesPresent:true,machinePositionsIntentionallyChanged:true,
    originalMachineTimingAndCollisionModesPreserved:true,
