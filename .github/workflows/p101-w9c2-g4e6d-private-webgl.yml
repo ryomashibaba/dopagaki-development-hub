@@ -5,6 +5,8 @@ on:
     paths:
       - 'scripts/build.mjs'
       - 'web/drive3d.mjs'
+      - 'web/p101-a13-road-art.mjs'
+      - 'tests/p101-w9c2-g4e6d-visual-gap.test.mjs'
       - 'web/p101-b5-manual-qa.mjs'
       - 'tests/browser/p101-w9c2-g4e6d-local-manual.spec.mjs'
       - '.github/workflows/p101-w9c2-g4e6d-private-webgl.yml'
@@ -36,6 +38,7 @@ jobs:
           node --check scripts/build.mjs
           node --check web/drive3d.mjs
           node --check web/p101-b5-manual-qa.mjs
+          node --test tests/p101-w9c2-g4e6d-visual-gap.test.mjs
           npm run build:private
           test -f dist-private/generated/P101_A13_W9C2_G4E6_C0-55-1_LOCAL_TRIAL.json
           test -f dist-private/generated/P101_A13_W9C2_G4E6_B0-65-1_LOCAL_TRIAL.json
