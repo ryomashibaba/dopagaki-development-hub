@@ -49,3 +49,6 @@ export function g4e6fSubcellNativeMatrix(){
   rawResults:results,
   human:'HOLD',release:'HOLD',approvedSlopeDNAMeters:0};
 }
+
+if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href)
+ console.log('G4E6F_NATIVE '+JSON.stringify(g4e6fSubcellNativeMatrix()));
