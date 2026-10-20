@@ -49,6 +49,11 @@ export function a13RacingRoadArt(doc,sample,frame){
   const profile=arc(s,sample),[glow,glow2,accent]=palette[section];
   for(let d=7;d+25<profile.total;d+=34){
    const a=profile.u(d),b=profile.u(d+19),c=profile.u(d+25);
+   // G4E-6D: no GPU chevron, wing plate or paint can bridge a missing REAL
+   // physical road strip. Keep most visual art; cut only the gap neighborhood.
+   const gap=doc.stageForge.g4e6EarlyGap?.section===section?
+    doc.stageForge.g4e6EarlyGap:null;
+   if(gap&&a<=gap.uLanding+.015&&c>=gap.uTakeoff-.015)continue;
    for(const [v0,v1] of [[.02,.11],[.89,.98]])quad(vertices,s,a,c,v0,v1,[.03,.085,.13],sample,frame);
    for(const [v0,v1] of [[.12,.22],[.78,.88]])quad(vertices,s,a,b,v0,v1,[.065,.14,.21],sample,frame);
    quad(vertices,s,b,c,.04,.09,glow,sample,frame);
@@ -67,5 +72,5 @@ export function a13RacingRoadArt(doc,sample,frame){
  }
  if(segments<140||segments>400||vertices.length>180000||vertices.length%18!==0||!vertices.every(Number.isFinite))
   throw Error('W8 road art invalid or over GPU budget');
- return {vertices,segments,sections:7,nonCollision:true};
+ return {vertices,segments,sections:7,nonCollision:true,g4e6RealGapVisualClearance:!!doc.stageForge.g4e6EarlyGap};
 }
