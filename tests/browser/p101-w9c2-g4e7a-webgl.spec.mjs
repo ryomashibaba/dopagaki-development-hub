@@ -89,7 +89,11 @@ test('G4E7A: authentic local WebGL gap imagery and non-autopilot runtime',async(
  },{a:sourceImages['C0-55-1'],b:sourceImages['B0-65-1']});
  await reader.close();
  const report={schema:'dopagaki.w9c2.g4e7a.private-webgl/1',
-  results,matchedStart00:matched,errors,
+  results,approximateStart00PixelComparison:{
+   ...matched,cameraAndSimTimeMatched:false,
+   firstTimes:[results[0].captures[0].simSeconds,results[1].captures[0].simSeconds],
+   interpretation:'UNMATCHED_CAMERA_TIME_SCREEN_DIFFERENCE_NOT_GAP_VISIBILITY'
+  },errors,
   visibilityVerdict:'HOLD_REAL_GAP_NOT_VISUALLY_CERTIFIED',
   neutralRunIsNotHumanDriving:true,nonpublishing:true,progressTo40PercentMeters:0,
   note:'These captures and the actual native gap structure are evidence only. No eye-tracked visibility, actual human reaction time, hand-steered takeoff or independent hardware FPS approval.'};
