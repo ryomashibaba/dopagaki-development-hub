@@ -10,10 +10,17 @@ import {p101Step} from '../web/p101-overdrive.mjs';
 import {createA13SurgeState,p101A13ForwardScale} from '../web/p101-a13-forward.mjs';
 const dist=(a,b)=>Math.hypot(...a.map((v,k)=>v-b[k]));
 const round=(n,p=3)=>Number(n.toFixed(p));
-export function g4e4NativeRun(elevation=null,{maxSeconds=56}={}){
+export function g4e4NativeRun(elevation=null,{maxSeconds=56,receiverOffsetXZ=[0,0],receiverCollidable=true}={}){
  if(maxSeconds<42||maxSeconds>70)throw Error('G4E4 bounded real start00 required');
  const doc=elevation===null?generateG4E3PhysicalGap({cells:1,centerU:.59}):
   generateG4E4Skybridge({elevation});
+ if(elevation!==null){
+  const receiver=doc.surfaces.find(x=>x.id==='G4E4-SKYBRIDGE-RECEIVER');
+  if(receiverOffsetXZ.some(x=>!Number.isFinite(x)||Math.abs(x)>700))
+   throw Error('bounded receiver offset required');
+  receiver.points=receiver.points.map(p=>[p[0]+receiverOffsetXZ[0],p[1],p[2]+receiverOffsetXZ[1]]);
+  receiver.collidable=receiverCollidable;
+ }
  const road=doc.surfaces[3],gap=doc.stageForge.g4e3PhysicalGap;
  const takeoff=sample(road,gap.uTakeoff,.5),receiver=doc.surfaces.find(x=>x.id==='G4E4-SKYBRIDGE-RECEIVER');
  const r=new Runner(doc,compile(doc),0,52),plan=makeP96RoutePlan(doc,r),surge=createA13SurgeState();
@@ -51,7 +58,8 @@ export function g4e4NativeRun(elevation=null,{maxSeconds=56}={}){
   actualHz:1/DT,realStart00:true,initialSpeedMps:52,
   realMovingBodies:doc.movingObstacles.length,originalGuideCount:r.guides?.length,
   originalSevenRoadsIntact:true,realGapMeters:gap.actualGapMeters,
-  realPhysicalReceiver:!!receiver,
+  realPhysicalReceiver:!!receiver&&receiver.collidable,
+  receiverOffsetXZ,receiverCollidable,
   realTakeoff:air,realReceiverLanding:landed,receiverGroundedTicks:groundedBridgeTicks,
   airborneSeconds:landed?round(landingAt-airAt):null,
   status:r.status,finished:r.status==='finished'&&!r.failure,
