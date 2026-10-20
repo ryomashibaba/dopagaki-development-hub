@@ -242,7 +242,7 @@ function render(frameSeconds){
  gl.uniform1f(locations.fogStart,FOG_START_METERS);
  gl.uniform1f(locations.fogSpan,FOG_SPAN_METERS);
  canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
- draw(scenery);if(megaEnabled){draw(megaWorld);draw(g5bSceneryMesh);draw(g4dSkywayMesh);}draw(a13ArchMesh);
+ draw(scenery);if(megaEnabled){draw(megaWorld);draw(g5bSceneryMesh);}draw(g4dSkywayMesh);draw(a13ArchMesh);
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
  draw(roads);draw(a13RoadArtMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
