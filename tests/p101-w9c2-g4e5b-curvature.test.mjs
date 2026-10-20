@@ -5,6 +5,8 @@ test('G4E-5B real road V bounded cubic screen returns truthful geometry and high
  const d=g4e5bCurvatureScreen();
  assert.equal(d.results.length,3);
  assert.equal(d.noPhysicalRoadAdded,true);
+ assert.equal(d.verdict,'REJECT_SINGLE_CUBIC_FAMILY_AT_170MPS');
+ assert.ok(d.results.every(x=>x.feasibleAt170Under25mps2.length===0));
  assert.equal(d.notGlobalImpossibilityProof,true);
  assert.ok(d.results.every(x=>x.evaluatedCurves===1352));
  for(const r of d.results){
