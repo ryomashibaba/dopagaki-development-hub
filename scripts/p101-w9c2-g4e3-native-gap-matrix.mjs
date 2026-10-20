@@ -25,9 +25,9 @@ function nearestU(points,p){
  }
  return best;
 }
-export function g4e3NativeRun(cells=2,{maxSeconds=68}={}){
+export function g4e3NativeRun(cells=2,{maxSeconds=68,centerU=.53}={}){
  if(maxSeconds<20||maxSeconds>75)throw Error('Bounded full start00 test only');
- const doc=cells===0?generateW9C2G4ENarrow('shoulder'):generateG4E3PhysicalGap({cells});
+ const doc=cells===0?generateW9C2G4ENarrow('shoulder'):generateG4E3PhysicalGap({cells,centerU});
  const road=doc.surfaces[3],gap=doc.stageForge.g4e3PhysicalGap;
  const takeoff=gap?sample(road,gap.uTakeoff,.5):null;
  const guide=Array.from({length:129},(_,i)=>sample(road,i/128,.5));
@@ -77,7 +77,7 @@ export function g4e3NativeRun(cells=2,{maxSeconds=68}={}){
   if(r.surface)lastRoad=r.surface;
  }
  return {schema:'dopagaki.w9c2.g4e3-native-physical-matrix/1',
-  cells,actualHz:1/DT,realStart00:true,initialSpeedMps:52,
+  cells,centerU,actualHz:1/DT,realStart00:true,initialSpeedMps:52,
   status:r.status,finished:r.status==='finished'&&!r.failure,
   realMovingBodies:doc.movingObstacles.length,
   fullGuideSegments:r.guides?.length,realGapMeters:gap?.actualGapMeters??0,
@@ -88,6 +88,9 @@ export function g4e3NativeRun(cells=2,{maxSeconds=68}={}){
   peakSpeedMps:round(peakSpeed,1),elapsedSeconds:round(r.time),
   visitedRoads:[...visited],firstNear,firstAir,firstAfterGap,
   highestObservedRoadU:gap?round(highestGapU,5):null,
+  movingContacts:r.events.filter(x=>x.type==='moving-contact').map(x=>({
+   t:round(x.t),id:x.id,mode:x.mode,forwardBefore:round(x.forwardBeforeMps,1),
+   forwardAfter:round(x.forwardAfterMps,1)})),
   staticFatalContacts:r.events.filter(x=>x.type==='static-fatal-contact').map(x=>({t:round(x.t),surface:x.surface,part:x.part,position:x.position.map(v=>round(v,2)),inwardNormalMps:round(x.inwardNormalMps,1)})),
   events,trace,
   failure:r.failure?{reason:r.failure.reason,t:round(r.failure.t),
