@@ -69,11 +69,11 @@ export function g4e3NativeRun(cells=2,{maxSeconds=68,centerU=.53}={}){
      roadU:round(progress.u,5),airSeconds:round(landingAt-airAt)});
    }
   }
-  if(tick%240===0||gap&&armed&&tick%48===0)trace.push({
+  if(tick%240===0||gap&&armed&&tick%12===0)trace.push({
    t:round(r.time),road:r.surface||'AIR',speedMps:round(Math.hypot(...r.v),1),
    distanceToTakeoff:gap?round(dist(r.p,takeoff)):null,
    roadU:progress?round(progress.u,5):null,guideDistance:progress?round(progress.dist):null,
-   grounded:r.grounded,position:r.p.map(v=>round(v,2))});
+   grounded:r.grounded,position:r.p.map(v=>round(v,3)),velocity:r.v.map(v=>round(v,3))});
   if(r.surface)lastRoad=r.surface;
  }
  return {schema:'dopagaki.w9c2.g4e3-native-physical-matrix/1',
