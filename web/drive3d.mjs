@@ -34,6 +34,8 @@ import {a13W9HeroArchitecture} from './p101-a13-w9-architecture.mjs';
 import {w9c1G5BSkyline} from './p101-w9c1-g5b-skyline.mjs';
 import {g4dOutboardSkyways} from './p101-w9c2-g4d-skyways.mjs';
 import {g4e7cGapRoadCues} from './p101-w9c2-g4e7c-gap-cues.mjs';
+import {G4E7D_PROTOCOL,createG4E7DTrial,observeG4E7DStep,observeG4E7DFrame,exportG4E7DTrial,createG4E7DSession,completeG4E7DSession,exportG4E7DSession} from './p101-w9c2-g4e7d-human-qa.mjs';
+import {makeG4E7DPanel} from './p101-w9c2-g4e7d-manual-panel.mjs';
 import {createGapQa,qaSteer,qaStep,qaObservation} from './p101-w9c2-g4e7b-qa.mjs';
 import {a13MachineBodyVertices} from './p101-a13-machine-visual.mjs';
 import {a13RacingRoadArt} from './p101-a13-road-art.mjs';
@@ -68,10 +70,13 @@ if(g4e6LocalOptIn){
 }
 const g4e7bRequested=g4e6LocalOptIn&&new URLSearchParams(window.location.search).get('g4e7b')==='scripted';
 const g4e7cRequested=g4e6LocalOptIn&&new URLSearchParams(window.location.search).get('g4e7c')==='candidate';
+const g4e7dRequested=g4e7cRequested&&!g4e7bRequested&&new URLSearchParams(window.location.search).get('g4e7d')==='manual';
+const g4e7dSession=g4e7dRequested?createG4E7DSession():null;
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,g4dSkywayMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
+let g4e7dTrial=null,g4e7dPanel=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
@@ -196,7 +201,7 @@ function buildVisual(stage){
    a13RoadArtMesh=mesh(art.vertices);
    g4e7cCue=g4e7cGapRoadCues(stage,sample,frame,{enabled:g4e7cRequested});
    g4e7cCueMesh=mesh(g4e7cCue.vertices);
-   g4e7cCueActive=g4e7cCue.active;
+   g4e7cCueActive=g4e7cCue.active&&(!g4e7dRequested||G4E7D_PROTOCOL[g4e7dSession.index]?.cue===true);
    canvas.dataset.g4e7cMode=g4e7cCue.active?'private-opt-in':'off';
    canvas.dataset.g4e7cCueActive=String(g4e7cCueActive);
    canvas.dataset.g4e7cTriangles=String(g4e7cCue.triangles);
@@ -206,7 +211,7 @@ function buildVisual(stage){
     btn.id='g4e7cCueToggle';btn.type='button';
     btn.setAttribute('aria-label','G4E-7C 非衝突ギャップ描画候補の比較切替');
     btn.addEventListener('click',()=>{
-     if(!g4e7cCue?.active)return;
+     if(!g4e7cCue?.active||g4e7dTrial)return;
      g4e7cCueActive=!g4e7cCueActive;
      canvas.dataset.g4e7cCueActive=String(g4e7cCueActive);
      btn.textContent='G4E-7C 実路面ライン '+(g4e7cCueActive?'ON':'OFF')+'（研究限定）';
@@ -215,6 +220,7 @@ function buildVisual(stage){
    }
    if(g4e7cButton){
     g4e7cButton.hidden=!g4e7cCue.active;
+    g4e7cButton.disabled=g4e7dRequested;
     g4e7cButton.textContent='G4E-7C 実路面ライン '+(g4e7cCueActive?'ON':'OFF')+'（研究限定）';
    }
    w9c1CueProfile=makeW9C1CueProfile(stage,sample);
@@ -406,7 +412,7 @@ function publishChapterTiming(){
 function updateNativeChapterTime(){
  const event=observeChapterSplits(chapterTracker,runner.surface,runner.lastSurface,runner.time,runner.status);
  if(!event)return;
- const best=(!demoMode&&!practiceMode&&!g4e7bQa)
+ const best=(!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial)
   ?storeChapterBest(browserRecordStore(),event)
   :{best:null,improved:false,saved:false};
  latestSplit=event;
@@ -416,13 +422,13 @@ function updateNativeChapterTime(){
 }
 function settleRun(){
  if(!runner||runCommitted||!['failed','finished'].includes(runner.status))return;
- if(demoMode||practiceMode||g4e7bQa){
+ if(demoMode||practiceMode||g4e7bQa||g4e7dTrial){
   $('b5ResultExport').hidden=true;
   retryChapterId=null;$('retryPractice').hidden=true;
   runCommitted=true;const result=$('runResult');result.hidden=false;
-  $('resultTitle').textContent=g4e7bQa?'SCRIPTED QA · NOT HUMAN':practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
+  $('resultTitle').textContent=g4e7dTrial?'G4E-7D · HUMAN QA · REVIEW HOLD':g4e7bQa?'SCRIPTED QA · NOT HUMAN':practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
   $('resultScore').textContent=(practiceMode?practiceElapsed(runner.time,practiceStartedAt):runner.time).toFixed(2)+' s · 実物理'+(practiceMode?'操作練習':'観戦デモ');
-  $('resultDetails').textContent=(g4e7bQa?'研究用P96走行':practiceMode?'練習':'観戦デモ')+'は自己ベストへ保存しません。人間評価HOLD。';
+  $('resultDetails').textContent=(g4e7dTrial?'手動比較走行':g4e7bQa?'研究用P96走行':practiceMode?'練習':'観戦デモ')+'は自己ベストへ保存しません。人間評価HOLD。';
   result.dataset.outcome=runner.status;canvas.dataset.runOutcome=runner.status;
   return;
  }
@@ -456,7 +462,40 @@ function settleRun(){
  canvas.dataset.failurePractice=retryChapterId||'none';
  updateRunScore();
 }
+function ensureG4E7DPanel(){
+ if(!g4e7dRequested)return;
+ if(!g4e7dPanel)g4e7dPanel=makeG4E7DPanel($('b5QaPanel').parentElement,{
+  onNext(feedback){
+   if(!g4e7dTrial||!runner)return;
+   const report=exportG4E7DTrial(g4e7dTrial,runner,feedback);
+   completeG4E7DSession(g4e7dSession,report);
+   g4e7dPanel.reset();
+   if(g4e7dSession.index>=G4E7D_PROTOCOL.length){
+    g4e7dTrial=null;paused=true;accum=0;
+    $('pause').textContent='再開 (Space)';
+    canvas.dataset.g4e7dMode='four-trials-recorded-hold';
+    g4e7dPanel.render({index:g4e7dSession.index,count:G4E7D_PROTOCOL.length});
+    return;
+   }
+   const step=G4E7D_PROTOCOL[g4e7dSession.index],stage='VB-P101-A13-W9C2-G4E6-'+step.id;
+   if($('stage').value===stage)restart();
+   else{$('stage').value=stage;load();}
+  },
+  onDownload(){
+   const json=exportG4E7DSession(g4e7dSession);
+   const url=URL.createObjectURL(new Blob([json],{type:'application/json;charset=utf-8'}));
+   const a=document.createElement('a');a.href=url;
+   a.download='DOPAGAKI_G4E7D_HUMAN_'+g4e7dSession.runs.length+'runs.json';
+   document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);
+   g4e7dPanel.notice('JSONを端末に保存しました。自動送信はありません。');
+  }
+ });
+ const step=G4E7D_PROTOCOL[g4e7dSession.index];
+ g4e7dPanel.render({index:g4e7dSession.index,count:G4E7D_PROTOCOL.length,
+  id:step?.id,cue:step?.cue});
+}
 function restart(){
+ if(g4e7dRequested&&g4e7dSession.index>=G4E7D_PROTOCOL.length)return;
  if(!doc||!world)return;
  if(b5ManualAudit){
   if(!b5ManualAudit.final)finalizeB5ManualAudit(b5ManualAudit,{
@@ -476,9 +515,22 @@ function restart(){
   const physicalLaunch=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)?52:44;
   runner=new Runner(doc,world,spawn,physicalLaunch);runner.assist=true;accum=0;paused=false;
   g4e7bQa=createGapQa(doc,runner,g4e7bRequested);
+  g4e7dTrial=g4e7dRequested?createG4E7DTrial(doc,runner,G4E7D_PROTOCOL[g4e7dSession.index]):null;
+  if(g4e7dRequested){
+   g4e7cCueActive=Boolean(g4e7cCue?.active&&G4E7D_PROTOCOL[g4e7dSession.index]?.cue);
+   canvas.dataset.g4e7cCueActive=String(g4e7cCueActive);
+   if(g4e7cButton){
+    g4e7cButton.disabled=true;
+    g4e7cButton.textContent='G4E-7C 実路面ライン '+(g4e7cCueActive?'ON':'OFF')+'（手動比較中は固定）';
+   }
+   $('stage').disabled=true;$('p101Profile').disabled=true;
+   $('cameraCompare').disabled=true;$('renderQuality').disabled=true;
+   ensureG4E7DPanel();
+   canvas.dataset.g4e7dMode='human-keyboard-qa-only';
+  }
   canvas.dataset.g4e7bMode=g4e7bQa?'SCRIPTED_P96_NOT_HUMAN':'off';
   canvas.dataset.b5LaunchMps=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'52':'off';
-  b5ManualAudit=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)&&!demoMode&&!practiceMode&&!g4e7bQa
+  b5ManualAudit=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)&&!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial
    ?createB5ManualAudit({stageId:doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.recordStageId||'VB-P101-A13'):'VB-P101-B5',profile:$('p101Profile').value,startSpeed:physicalLaunch,spawnIndex:spawn}):null;
   $('b5QaPanel').hidden=Boolean(g4e7bQa)||!['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant);
   $('b5QaTitle').textContent=doc.stageForge.slopeDNAStudy?.realB48Surface?'W9-C1 ABYSS '+doc.stageForge.slopeDNAStudy.nominalCoreWidthMeters+'m · 独立手動試走':doc.stageForge.recordStageId==='VB-P101-A13-W9X-B1'?'W9-X-B1 · 独立手動試走レポート':doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.g4e6EarlyGap?'W9-C2 G4E-6 · 真のB48ギャップ · 人間操作HOLD':doc.stageForge.g4ePhysicalStudy?'W9-C2 G4E-1 · '+doc.stageForge.revision+' · 実物理4狭路・人間HOLD':doc.stageForge.w9c2PhysicalStudy?'W9-C2 S-CREST · '+doc.stageForge.revision+' · 実物理研究/HOLD':'A13 W7F · 手動試走レポート'):'B5 · 手動試走レポート';
@@ -697,6 +749,7 @@ function tick(now){
     }else runner.step(steer);
     currentPose=capturePose(runner);
    if(g4e7bQa)qaStep(g4e7bQa,runner);
+   if(g4e7dTrial)observeG4E7DStep(g4e7dTrial,runner,steer);
    if(demoMode)recordDemoMilestone(demoDirector,runner);
    updateNativeChapterTime();
    const near=stepNearMiss(nearMissTracker,doc.movingObstacles,runner,movingObstaclePose,sphereBoxSeparation,RADIUS);
@@ -718,6 +771,8 @@ function tick(now){
  if(runner&&now-lastEdgeRadarAt>100){lastEdgeRadarAt=now;updateEdgeRadar();}
  if(b5ManualAudit&&runner&&!paused&&runner.status==='running'&&document.visibilityState==='visible')
   recordB5ManualFrame(b5ManualAudit,elapsed,{physicsOverloaded:b5PhysicsOverloaded});
+ if(g4e7dTrial&&runner&&!paused&&runner.status==='running'&&document.visibilityState==='visible')
+  observeG4E7DFrame(g4e7dTrial,elapsed,headingError,b5PhysicsOverloaded);
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
   if(b5ManualAudit&&runner&&runner.status==='running'&&!paused&&document.visibilityState==='visible'){
