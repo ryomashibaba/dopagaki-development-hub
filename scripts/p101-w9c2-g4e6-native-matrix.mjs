@@ -39,6 +39,9 @@ export function g4e6NativeRun(id='GOLD',{maxSeconds=65,docOverride=null}={}){
  const center=activeRoad?Array.from({length:129},(_,i)=>sample(activeRoad,i/128,.5)):null;
  const r=new Runner(doc,compile(doc),0,52),plan=makeP96RoutePlan(doc,r),surge=createA13SurgeState();
  const visited=new Set(),ordered=[],events=[],trace=[];
+ const roadFirstContactTimes={},roadFirstContactSpeeds={},roadIProgressMilestones={};
+ const roadIMarkers=[.25,.35,.45,.55,.65,.75,.85,.95];
+ let totalAirborneSeconds=0;
  let maxSpeed=52,armed=false,air=false,landing=false,
   landingCandidateTicks=0,landingTick=null,airAt=null,landingAt=null,
   nearestTakeoff=Infinity,maximumProgress=0,flightNearest=Infinity,
@@ -50,8 +53,22 @@ export function g4e6NativeRun(id='GOLD',{maxSeconds=65,docOverride=null}={}){
   const speed=Math.hypot(...r.v);
   maxSpeed=Math.max(maxSpeed,speed);
   if(r.surface){
-   if(!visited.has(r.surface))ordered.push(r.surface);
+   if(!visited.has(r.surface)){
+    ordered.push(r.surface);
+    roadFirstContactTimes[r.surface]=round(r.time);
+    roadFirstContactSpeeds[r.surface]=round(speed,2);
+   }
    visited.add(r.surface);
+  }
+  if(!r.grounded)totalAirborneSeconds+=DT;
+  if(r.surface===doc.surfaces[0].id&&r.grounded){
+   const {u}=p101RoadProgress(r);
+   for(const marker of roadIMarkers){
+    const label=marker.toFixed(2);
+    if(u>=marker&&!(label in roadIProgressMilestones))
+     roadIProgressMilestones[label]={t:round(r.time),
+      speedMps:round(speed,2),position:r.p.map(x=>round(x,1))};
+   }
   }
   const pos=r.p;
   let near=null;
@@ -123,11 +140,17 @@ export function g4e6NativeRun(id='GOLD',{maxSeconds=65,docOverride=null}={}){
   visitedOriginalRoadsInOrder:allOriginalRoadsVisited&&inOrder,
   visitedOriginalCount:actualSequence.filter(s=>visited.has(s)).length,
   visitedOrder:ordered,
+  roadFirstContactTimes,roadFirstContactSpeeds,roadIProgressMilestones,
+  totalAirborneSeconds:round(totalAirborneSeconds),
   completed,elapsedSeconds:round(r.time),peakSpeedMps:round(maxSpeed,1),
   failure:r.failure?{reason:r.failure.reason,time:round(r.failure.t),
    position:r.failure.position.map(x=>round(x,2)),
    speed:round(r.failure.speed,1),surface:r.failure.surface}:null,
   nativeMovingContacts:r.events.filter(e=>e.type==='moving-contact').length,
+  nativeMovingContactDetails:r.events.filter(e=>e.type==='moving-contact')
+    .map(e=>({time:round(e.t),id:e.id,mode:e.mode,
+     forwardBeforeMps:round(e.forwardBeforeMps??0,1),
+     forwardAfterMps:round(e.forwardAfterMps??0,1)})),
   nativeStaticFatalContacts:r.events.filter(e=>e.type==='static-fatal-contact')
     .map(e=>({time:round(e.t),surface:e.surface,part:e.part,
       inwardNormalMps:round(e.inwardNormalMps,1)})),
