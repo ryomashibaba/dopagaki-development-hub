@@ -3,6 +3,7 @@
  * The existing P96 script is a reference trajectory, NOT human control.
  */
 import {generateG4E2TrueGap} from './p101-w9c2-g4e2-true-gap-build.mjs';
+import {sample} from '../private/reference_only/director/surface.js';
 import {compile} from '../private/reference_only/director/collision.js';
 import {Runner,DT} from '../private/reference_only/director/physics.js';
 import {makeP96RoutePlan,p96DodgeSteer} from '../web/p96-avoidance-steer.mjs';
@@ -15,8 +16,10 @@ export function g4e2NativeGapRun({maxSeconds=68}={}){
  const doc=generateG4E2TrueGap(),r=new Runner(doc,compile(doc),0,52);
  const plan=makeP96RoutePlan(doc,r),surge=createA13SurgeState();
  const first=doc.surfaces[3].id,landing=doc.surfaces.at(-1).id;
+ const takeoff=sample(doc.surfaces[3],1,.5);
+ const dist=p=>Math.hypot(...p.map((x,k)=>x-takeoff[k]));
  let airAtGap=false,landedAfterGap=false,airDuration=0,airStart=null,
-  lastRoad=null,events=[],maxSpeed=52;
+  takeoffArmed=false,closestTakeoffMeters=Infinity,events=[],maxSpeed=52;
  const visited=new Set(),trace=[];
  for(let tick=0;tick<maxSeconds/DT&&r.status!=='failed'&&r.status!=='finished';tick++){
   const target=p96DodgeSteer(r,plan,'early-soft',movingObstaclePose);
@@ -24,10 +27,14 @@ export function g4e2NativeGapRun({maxSeconds=68}={}){
    forwardScale:p101A13ForwardScale(r,surge),collisionRecovery:false});
   if(r.surface)visited.add(r.surface);
   maxSpeed=Math.max(maxSpeed,Math.hypot(...r.v));
-  if(r.surface===first)lastRoad=first;
-  if(!r.surface&&lastRoad===first&&!airAtGap){
+  if(r.surface===first){
+   closestTakeoffMeters=Math.min(closestTakeoffMeters,dist(r.p));
+   if(dist(r.p)<25)takeoffArmed=true;
+  }
+  if(!r.surface&&takeoffArmed&&!airAtGap&&dist(r.p)<45){
    airAtGap=true;airStart=r.time;
-   events.push({type:'candidate-gap-airborne',t:round(r.time)});
+   events.push({type:'candidate-gap-airborne',t:round(r.time),
+    distanceFromTakeoffMeters:round(dist(r.p))});
   }
   if(airAtGap&&!landedAfterGap&&r.surface===landing){
    landedAfterGap=true;airDuration=r.time-airStart;
@@ -44,6 +51,7 @@ export function g4e2NativeGapRun({maxSeconds=68}={}){
   realPhysicalGap:doc.stageForge.g4e2TrueGap.actualCenterlineEdgeDistanceMeters,
   noMidpointFloor:doc.stageForge.g4e2TrueGap.noRideableSupportAtGapMidpoint,
   gapAirborneObserved:airAtGap,landedOnNewPhysicalRoad:landedAfterGap,
+  closestGroundedTakeoffMeters:Number.isFinite(closestTakeoffMeters)?round(closestTakeoffMeters):null,
   gapAirSeconds:landedAfterGap?round(airDuration):null,
   peakSpeedMps:round(maxSpeed,1),elapsed:round(r.time),
   visitedSurfaces:[...visited],failure:r.failure?{reason:r.failure.reason,
