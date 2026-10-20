@@ -8,8 +8,8 @@
 import {generateP101A13W7Candidate} from './p101-a13-w7-gameplay-build.mjs';
 import {sample,tessellate,validate} from '../private/reference_only/director/surface.js';
 import {compile,contacts} from '../private/reference_only/director/collision.js';
-export const G4E6E_CELLS=Object.freeze([95,96,97,99,100,101]);
-export const G4E6E_REFERENCE_CELL=98;
+export const G4E6E_CELLS=Object.freeze([46,47,48,50,51,52]);
+export const G4E6E_REFERENCE_CELL=49;
 const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const distance=(a,b)=>Math.hypot(...a.map((v,k)=>v-b[k]));
 export const g4e6eId=cell=>'E0-C'+String(cell).padStart(3,'0');
@@ -19,9 +19,9 @@ export function generateG4E6EMicroGap(cell){
  const doc=generateP101A13W7Candidate(),gold=structuredClone(doc);
  const section=0,road=doc.surfaces[section];
  const nu=(road.rows-1)*road.resolution;
- if(nu!==180||road.rows!==31||road.cols!==5||
+ if(nu!==90||road.rows!==31||road.cols!==5||
     doc.surfaces.length!==7||doc.movingObstacles.length!==28)
-  throw Error('G4E6E original Gold 31×5 / resolution 6, 7 roads, 28 machines required');
+  throw Error('G4E6E original Gold 31×5 / resolution 3, 7 roads, 28 machines required');
  road.voidLongitudinalCells=[cell];
  const uTakeoff=cell/nu,uLanding=(cell+1)/nu,
   takeoffXYZ=sample(road,uTakeoff,.5),
