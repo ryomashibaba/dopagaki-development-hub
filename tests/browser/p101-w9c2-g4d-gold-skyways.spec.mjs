@@ -24,6 +24,9 @@ test('W9-C2 G4D Gold-only same-camera off/on actual WebGL screenshots',async({co
   await expect(view).toHaveAttribute('data-g4d-mode',mode==='on'?'visual-candidate':'off');
   await expect(view).toHaveAttribute('data-g4d-non-collision','true');
   await expect(view).toHaveAttribute('data-machine-count','28');
+  // Isolate the new skyway layer from legacy P82 skyline occlusion in both modes.
+  await page.locator('#megaWorld').click();
+  await expect(page.locator('#megaWorld')).toContainText('OFF');
   await page.locator('#spawn').selectOption('3');
   await page.locator('#pause').click();
   await page.clock.runFor(40);
@@ -45,7 +48,7 @@ test('W9-C2 G4D Gold-only same-camera off/on actual WebGL screenshots',async({co
   }
   const name='w9c2-g4d-gold-roadIV-'+mode+'.png';
   images[mode]=(await view.screenshot({path:info.outputPath(name)})).toString('base64');
-  results.push({mode,stats,image:name,matchedGoldSpawn:3});
+  results.push({mode,stats,image:name,matchedGoldSpawn:3,legacyMegaWorld:'OFF'});
   if(mode==='on'){
    await page.locator('#stage').selectOption('VB-P101-A13-W9C1-CONTROL');
    for(let i=0;i<150;i++){
@@ -85,7 +88,7 @@ test('W9-C2 G4D Gold-only same-camera off/on actual WebGL screenshots',async({co
  // meaningful failure. We record evidence before asserting visibility.
  await fs.writeFile(info.outputPath('w9c2-g4d-real-webgl-audit.json'),
   JSON.stringify({schema:'dopagaki.w9c2.g4d-webgl-visual-audit/1',
-   results,difference,errors,actualWebGL:true,syntheticPausedClock:true,
+   results,difference,errors,actualWebGL:true,syntheticPausedClock:true,legacyMegaWorld:'OFF',
    fpsMeasured:false,physicsModified:false,playableNewRoad:false,
    productionApproved:false,humanVisualQuality:'HOLD',
    note:'Screenshots compare same camera/spawn. Pixel change is not human quality approval.'},null,2));
