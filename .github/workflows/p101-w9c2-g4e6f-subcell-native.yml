@@ -22,8 +22,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Genuine unsupported physical gaps and immutable original Gold
-        run: node --test tests/p101-w9c2-g4e6f-subcell.test.mjs
+      - name: Validate syntax and genuinely unsupported B48 gap geometry
+        run: |
+          node --check scripts/p101-w9c2-g4e6f-subcell-native.mjs
+          node --check scripts/p101-w9c2-g4e6f-subcell-gap-build.mjs
+          node --test tests/p101-w9c2-g4e6f-subcell.test.mjs
       - name: 240Hz native start00 Gold, C0-55-1, five higher-resolution physical gaps
         run: |
           node scripts/p101-w9c2-g4e6f-subcell-native.mjs > g4e6f-native-raw.txt
