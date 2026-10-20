@@ -75,6 +75,7 @@ if(includeStages){
  copy('web/p101-a13-road-art.mjs','drive3d/p101-a13-road-art.mjs');
  copy('web/p101-w9c1-approach-cue.mjs','drive3d/p101-w9c1-approach-cue.mjs');
  copy('web/p101-w9c1-g5b-skyline.mjs','drive3d/p101-w9c1-g5b-skyline.mjs');
+ copy('web/p101-w9c2-g4d-skyways.mjs','drive3d/p101-w9c2-g4d-skyways.mjs');
  copy('web/p101-w9c1-pair-qa.html','w9c1-pair-qa/index.html');
  copy('web/p101-w9c1-pair-qa.mjs','w9c1-pair-qa/comparison.mjs');
  copy('web/p101-w9c1-pair-session.html','w9c1-pair-session/index.html');
