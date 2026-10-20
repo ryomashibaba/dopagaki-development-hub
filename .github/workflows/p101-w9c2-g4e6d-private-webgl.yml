@@ -1,0 +1,58 @@
+name: W9-C2 G4E-6D local-only real-gap manual WebGL QA (nonpublishing)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/build.mjs'
+      - 'web/drive3d.mjs'
+      - 'web/p101-b5-manual-qa.mjs'
+      - 'tests/browser/p101-w9c2-g4e6d-local-manual.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e6d-private-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e6d-private-webgl-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  chromium-manual-ready:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      DOPAGAKI_G4E6_MANUAL: '1'
+      DOPAGAKI_BUILD_DIR: dist-private
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated Chromium QA
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Static syntax and private-only build gate
+        run: |
+          node --check scripts/build.mjs
+          node --check web/drive3d.mjs
+          node --check web/p101-b5-manual-qa.mjs
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E6_C0-55-1_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E6_B0-65-1_LOCAL_TRIAL.json
+      - name: Chromium actual WebGL candidate stage load and Gold-default gate
+        run: npx playwright test tests/browser/p101-w9c2-g4e6d-local-manual.spec.mjs
+      - name: Public build must NOT contain either G4E6 private trial asset
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E6_C0-55-1_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E6_B0-65-1_LOCAL_TRIAL.json
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: g4e6d-private-webgl-failure-${{ github.run_id }}
+          path: |
+            test-results/**/test-failed-*.png
+            test-results/**/trace.zip
+            test-results/**/error-context.md
+          if-no-files-found: ignore
+          retention-days: 10
