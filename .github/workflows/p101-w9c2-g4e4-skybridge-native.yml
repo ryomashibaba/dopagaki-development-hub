@@ -6,6 +6,8 @@ on:
       - 'scripts/p101-w9c2-g4e4-skybridge-receiver.mjs'
       - 'scripts/p101-w9c2-g4e4-native-landing-matrix.mjs'
       - 'tests/p101-w9c2-g4e4-skybridge.test.mjs'
+      - 'tests/p101-w9c2-g4e4-collision-seam.test.mjs'
+      - 'private/reference_only/director/collision.js'
       - '.github/workflows/p101-w9c2-g4e4-skybridge-native.yml'
   workflow_dispatch:
 permissions:
@@ -23,7 +25,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify real receiver geometry and unsupported physical void
-        run: node --test tests/p101-w9c2-g4e4-skybridge.test.mjs
+        run: node --test tests/p101-w9c2-g4e4-skybridge.test.mjs tests/p101-w9c2-g4e4-collision-seam.test.mjs
       - name: Compare actual 240Hz start00, no receiver vs 119/123/127m
         run: |
           node scripts/p101-w9c2-g4e4-native-landing-matrix.mjs > g4e4-raw.txt
