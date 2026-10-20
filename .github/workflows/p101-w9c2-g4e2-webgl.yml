@@ -18,6 +18,8 @@ jobs:
   private-browser:
     runs-on: ubuntu-24.04
     timeout-minutes: 14
+    env:
+      DOPAGAKI_BUILD_DIR: dist-site
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
