@@ -24,6 +24,9 @@ test('G4E7D single private page safely records 4 honest incomplete runs then dow
  await expect(view).toHaveAttribute('data-machine-count','28');
  await expect(page.locator('#stage')).toBeDisabled();
  await expect(page.locator('#cameraCompare')).toBeDisabled();
+ await expect(page.locator('#demoRun')).toBeDisabled();
+ await expect(page.locator('#visibilityFx')).toBeDisabled();
+ await expect(page.locator('#renderQuality')).toBeDisabled();
  await expect(page.locator('#g4e7cCueToggle')).toBeDisabled();
  const plan=[
   {id:'C0-55-1',cue:false},

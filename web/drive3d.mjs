@@ -525,6 +525,8 @@ function restart(){
    }
    $('stage').disabled=true;$('p101Profile').disabled=true;
    $('cameraCompare').disabled=true;$('renderQuality').disabled=true;
+   $('demoRun').disabled=true;$('practiceRun').disabled=true;
+   $('energyFx').disabled=true;$('visibilityFx').disabled=true;$('megaWorld').disabled=true;
    ensureG4E7DPanel();
    canvas.dataset.g4e7dMode='human-keyboard-qa-only';
   }
