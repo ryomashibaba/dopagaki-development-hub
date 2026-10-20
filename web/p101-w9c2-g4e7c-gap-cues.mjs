@@ -64,14 +64,21 @@ export function g4e7cGapRoadCues(doc,sample,frame,{enabled=false}={}){
  }
  // At >100m/s these first markings are visible well before the last 1s,
  // but no claim is made that human eyes ACTUALLY detect them at that distance.
- const lanes=[[.035,.30],[.35,.65],[.70,.965]];
- for(const [distance,width] of [[245,2.8],[165,2.8],[90,3],[35,3.5],[12,3.6]]){
+ // Avoid wide opaque neon slabs that obscure the driver's view at 80-100m/s.
+ // Four narrow staggered pieces preserve the road texture and open-space gap.
+ const lanes=[[.035,.19],[.235,.42],[.58,.765],[.81,.965]];
+ for(const [distance,width] of [[245,1.5],[165,1.5],[90,1.2],[35,.9],[12,.65]]){
   if(begin-distance-width<3)continue;
   stripe('approach-'+distance,begin-distance-width,begin-distance,
    distance>90?teal:yellow,lanes);
  }
- stripe('takeoff-lip',begin-2.8,begin-.35,yellow,[[.025,.975]]);
- stripe('landing-lip',end+.35,end+3.3,white,[[.025,.975]]);
+ // Genuine raised-edge perspective guides: entirely on the ORIGINAL real
+ // road, longitudinal, with no upper deck, barriers or safety intervention.
+ stripe('side-left',begin-26,begin-.8,teal,[[.015,.06]]);
+ stripe('side-right',begin-26,begin-.8,teal,[[.94,.985]]);
+ stripe('takeoff-lip',begin-.85,begin-.25,yellow,
+  [[.035,.19],[.235,.42],[.58,.765],[.81,.965]]);
+ stripe('landing-lip',end+.35,end+1.15,white,lanes);
  // The 6-7m void itself contains exactly ZERO paint, hologram or fake floor.
  if(!marks.some(x=>x.kind==='takeoff-lip')||!marks.some(x=>x.kind==='landing-lip')||
   vertices.length===0||vertices.length%18!==0||vertices.length>3600||
