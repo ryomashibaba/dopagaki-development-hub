@@ -49,4 +49,3 @@ export function g4e6fSubcellNativeMatrix(){
   rawResults:results,
   human:'HOLD',release:'HOLD',approvedSlopeDNAMeters:0};
 }
-}
