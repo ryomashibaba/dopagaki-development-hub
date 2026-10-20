@@ -32,6 +32,7 @@ import {p101A13ForwardScale,createA13SurgeState} from './p101-a13-forward.mjs';
 import {a13MachineMegastructures} from './p101-a13-architecture.mjs';
 import {a13W9HeroArchitecture} from './p101-a13-w9-architecture.mjs';
 import {w9c1G5BSkyline} from './p101-w9c1-g5b-skyline.mjs';
+import {g4dOutboardSkyways} from './p101-w9c2-g4d-skyways.mjs';
 import {a13MachineBodyVertices} from './p101-a13-machine-visual.mjs';
 import {a13RacingRoadArt} from './p101-a13-road-art.mjs';
 import {makeW9C1CueProfile,readW9C1Cue,w9c1ApproachMarks} from './p101-w9c1-approach-cue.mjs';
@@ -41,7 +42,7 @@ import {createB5ManualAudit,recordB5ManualSample,recordB5ManualFrame,observeW9C1
 const $=id=>document.getElementById(id);
 const assets={'VB-P101-A13':'P101_A13_W7_GAMEPLAY.json','VB-P101-A13-W9X-B1':'P101_A13_W9X_B1_TRIAL.json','VB-P101-A13-W9C1-CONTROL':'P101_A13_W9C1_CONTROL_TRIAL.json','VB-P101-A13-W9C1-ULTRA':'P101_A13_W9C1_ULTRA_TRIAL.json','VB-P101-A13-W9C2-RIBBON':'P101_A13_W9C2_RIBBON_TRIAL.json','VB-P101-A13-W9C2-EDGE':'P101_A13_W9C2_EDGE_TRIAL.json','VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
-let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
+let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,g4dSkywayMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
@@ -53,6 +54,7 @@ let p101B5Surge=createP101B5SurgeState(),a13Surge=createA13SurgeState();
 let b5ManualAudit=null,b5PreviousAudit=null,w9c1CueProfile=null;
 // Explicit candidate opt-in via URL; no normal game, road or global toggle changes.
 const g5bVisualOptIn=new URLSearchParams(window.location.search).get('g5b')==='on'||new URLSearchParams(window.location.hash.slice(1)).get('g5b')==='on';
+const g4dVisualOptIn=new URLSearchParams(window.location.search).get('g4d')==='on'||new URLSearchParams(window.location.hash.slice(1)).get('g4d')==='on';
 const guidedPairTrial=new URLSearchParams(window.location.search).get('guided')==='1';
 const pairTrialIds=new Set(['VB-P101-A13-W9C1-CONTROL','VB-P101-A13-W9C1-ULTRA']);
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
@@ -123,7 +125,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
@@ -146,6 +148,14 @@ function buildVisual(stage){
    canvas.dataset.g5bTriangles=String(g5b.vertices.length/18);
    canvas.dataset.g5bClearance=String(g5b.minimumEdgeClearanceMeters??0);
    canvas.dataset.g5bNonCollision=String(g5b.nonCollision);
+   const g4d=g4dOutboardSkyways(stage,sample,{enabled:g4dVisualOptIn});
+   g4dSkywayMesh=g4d.active?mesh(g4d.vertices):null;
+   canvas.dataset.g4dMode=g4d.active?'visual-candidate':'off';
+   canvas.dataset.g4dSlabs=String(g4d.slabs);
+   canvas.dataset.g4dGaps=String(g4d.voidGaps);
+   canvas.dataset.g4dLandmarks=String(g4d.landmarks);
+   canvas.dataset.g4dTriangles=String(g4d.vertices.length/18);
+   canvas.dataset.g4dNonCollision=String(g4d.nonCollision);
   canvas.dataset.a13W9Facilities=String(hero.facilities);
   canvas.dataset.a13W9Sections=hero.sections.join(',');
   canvas.dataset.a13W9WallPlates=String(hero.wallPlates);
@@ -232,7 +242,7 @@ function render(frameSeconds){
  gl.uniform1f(locations.fogStart,FOG_START_METERS);
  gl.uniform1f(locations.fogSpan,FOG_SPAN_METERS);
  canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
- draw(scenery);if(megaEnabled){draw(megaWorld);draw(g5bSceneryMesh);}draw(a13ArchMesh);
+ draw(scenery);if(megaEnabled){draw(megaWorld);draw(g5bSceneryMesh);draw(g4dSkywayMesh);}draw(a13ArchMesh);
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
  draw(roads);draw(a13RoadArtMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
