@@ -125,11 +125,14 @@ function buildVisual(stage){
  const base={'EP-001':[.3,.85,1],'HS-001':[.64,.53,1],'WV-001':[.33,.67,1],'HG-001':[.25,.98,.64]}[stage.stageForge.id]||[.35,.85,1];
  for(const s of stage.surfaces){
   if(s.visible===false)continue;
-  const nu=Math.min(48,Math.max(7,(s.rows-1)*3)),nv=Math.min(12,Math.max(4,(s.cols-1)*2));
+  // Physical gap preview must never render a deceptive continuous road over
+  // a missing B48 collider. Match longitudinal visual cells to true tessellation.
+  const nu=s.voidLongitudinalCells?.length?(s.rows-1)*s.resolution:
+   Math.min(48,Math.max(7,(s.rows-1)*3)),nv=Math.min(12,Math.max(4,(s.cols-1)*2));
   const points=Array.from({length:nu+1},(_,i)=>Array.from({length:nv+1},(_,j)=>sample(s,i/nu,j/nv)));
   const color=mul(base,s.rideable?(s.material==='road'?.49:.62):.3);
-  for(let i=0;i<nu;i++)for(let j=0;j<nv;j++){const a=points[i][j],b=points[i+1][j],c=points[i+1][j+1],d=points[i][j+1];tri(vertex,a,b,c,color);tri(vertex,a,c,d,color);}
-  if(s.rideable)for(const j of [0,nv])for(let i=0;i<nu;i++){push(wire,points[i][j],[.22,.95,1]);push(wire,points[i+1][j],[.22,.95,1]);}
+  for(let i=0;i<nu;i++)for(let j=0;j<nv;j++){if(s.voidLongitudinalCells?.includes(i))continue;const a=points[i][j],b=points[i+1][j],c=points[i+1][j+1],d=points[i][j+1];tri(vertex,a,b,c,color);tri(vertex,a,c,d,color);}
+  if(s.rideable)for(const j of [0,nv])for(let i=0;i<nu;i++){if(s.voidLongitudinalCells?.includes(i))continue;push(wire,points[i][j],[.22,.95,1]);push(wire,points[i+1][j],[.22,.95,1]);}
  }
  for(const f of stage.fixtures??[]){
   const color=f.kind==='danger'?[1,.19,.27]:f.kind==='reward'?[1,.86,.28]:[.4,.52,.67];
