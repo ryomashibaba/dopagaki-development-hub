@@ -1,7 +1,7 @@
 /** G4 physical-risk matrix: local, synthetic 150/180/205m/s 240Hz trials.
  * Do not interpret scripted passage as 7/7 human fairness or approval.
  */
-import {generateW9C2G4MacroArc,G4_SECTION} from './p101-w9c2-g4-macro-arc-build.mjs';
+import {generateW9C2G4MacroArc,G4_SECTION,G4B_OFFLINE_VARIANTS} from './p101-w9c2-g4-macro-arc-build.mjs';
 import {generateP101A13W7Candidate} from './p101-a13-w7-gameplay-build.mjs';
 import {compile} from '../private/reference_only/director/collision.js';
 import {sample,frame} from '../private/reference_only/director/surface.js';
@@ -13,7 +13,7 @@ import {locateRoadLateral} from '../web/p81-edge-radar.mjs';
 const round=(x,n=3)=>Number(x.toFixed(n));
 const START=.045,EXIT=.955;
 export function g4NativePass(kind,speed,{maxSeconds=16}={}){
- if(!['gold','sweep','skyline'].includes(kind)||![150,180,205].includes(speed)||
+ if(!['gold','sweep','skyline',...Object.keys(G4B_OFFLINE_VARIANTS)].includes(kind)||![100,125,150,180,205].includes(speed)||
   !Number.isFinite(maxSeconds)||maxSeconds<5||maxSeconds>20)throw Error('G4 declared local QA only');
  const doc=kind==='gold'?generateP101A13W7Candidate():generateW9C2G4MacroArc(kind);
  const s=doc.surfaces[G4_SECTION];
@@ -58,6 +58,14 @@ export function g4NativePass(kind,speed,{maxSeconds=16}={}){
   failure:r.failure?{reason:r.failure.reason,time:round(r.failure.t)}:null,
   trace,humanFairness:'NOT_PROVEN',productionApproved:false};
 }
+export function g4bNativeMatrix(){
+ const cases=[];
+ for(const kind of ['gold',...Object.keys(G4B_OFFLINE_VARIANTS)])
+  for(const speed of [100,125,150,180])cases.push(g4NativePass(kind,speed));
+ return {schema:'dopagaki.w9c2.g4b-native-risk-matrix/1',cases,
+  productionApproved:false,humanFairness:'HOLD',gameRegistration:'OFF',
+  caveat:'Synthetic local 100/125/150/180mps. Natural arrival speed measured separately, not inferred from this run'};
+}
 export function g4NativeMatrix(){
  const cases=[];
  for(const kind of ['gold','sweep','skyline'])
@@ -68,4 +76,6 @@ export function g4NativeMatrix(){
   caveat:'Artificial local entrance and scripted input, not naturally reached speed or a human pass'};
 }
 if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href)
- console.log('W9C2_G4_NATIVE_MATRIX '+JSON.stringify(g4NativeMatrix()));
+ console.log(process.argv.includes('--g4b')?
+  'W9C2_G4B_NATIVE_MATRIX '+JSON.stringify(g4bNativeMatrix()):
+  'W9C2_G4_NATIVE_MATRIX '+JSON.stringify(g4NativeMatrix()));
