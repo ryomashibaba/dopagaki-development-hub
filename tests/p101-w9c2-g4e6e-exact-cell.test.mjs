@@ -36,6 +36,6 @@ test('G4E-6E six distinct true floor-free B48 one-cell gaps; frozen Gold geometr
  assert.deepEqual(gold.surfaces.map(s=>s.points),goldPoints);
 });
 test('Unapproved G4E-6E strip fails closed',()=>{
- for(const input of [-1,0,98,102,2.5,null,'97'])assert.throws(
+ for(const input of [-1,0,49,53,2.5,null,'48'])assert.throws(
   ()=>generateG4E6EMicroGap(input));
 });
