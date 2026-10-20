@@ -5,6 +5,8 @@ on:
     paths:
       - 'scripts/p101-w9c2-g4e5b-rejoin-feasibility.mjs'
       - 'tests/p101-w9c2-g4e5b-feasibility.test.mjs'
+      - 'scripts/p101-w9c2-g4e5b-curvature-screen.mjs'
+      - 'tests/p101-w9c2-g4e5b-curvature.test.mjs'
       - '.github/workflows/p101-w9c2-g4e5b-feasibility.yml'
   workflow_dispatch:
 permissions:
@@ -22,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify real geometry metrics
-        run: node --test tests/p101-w9c2-g4e5b-feasibility.test.mjs
+        run: node --test tests/p101-w9c2-g4e5b-feasibility.test.mjs tests/p101-w9c2-g4e5b-curvature.test.mjs
       - name: Survey exact 400/650/900m endpoints versus physical road V
         run: |
           node scripts/p101-w9c2-g4e5b-rejoin-feasibility.mjs > g4e5b-survey.txt
@@ -40,6 +42,21 @@ jobs:
            closest:c.closest[0],plausible:c.plausibleCandidates[0]??null
           }))));
           '
+      - name: Reject unsafe direct return curves by measured high-speed lateral loads
+        run: |
+          node scripts/p101-w9c2-g4e5b-curvature-screen.mjs > g4e5b-curvature.txt
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const s=fs.readFileSync("g4e5b-curvature.txt","utf8");
+          const d=JSON.parse(s.slice(s.indexOf("{")));
+          if(d.results.length!==3||d.results.some(x=>x.evaluatedCurves!==1352)||
+             !d.noPhysicalRoadAdded||!d.notGlobalImpossibilityProof)
+           throw Error("G4E5B invalid curvature study");
+          fs.writeFileSync("g4e5b-curvature.json",JSON.stringify(d,null,2));
+          console.log(JSON.stringify({verdict:d.verdict,
+           best:d.results.map(x=>({runway:x.runwayMeters,best:x.bestSingleCubic,
+            feasibleAt170Under25:x.feasibleAt170Under25mps2.length}))}));
+          '
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -47,5 +64,7 @@ jobs:
           path: |
             g4e5b-survey.txt
             g4e5b-geometry.json
+            g4e5b-curvature.txt
+            g4e5b-curvature.json
           if-no-files-found: ignore
           retention-days: 10
