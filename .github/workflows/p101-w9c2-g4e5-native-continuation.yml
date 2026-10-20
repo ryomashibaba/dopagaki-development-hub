@@ -35,6 +35,14 @@ jobs:
            x.physicsHz!==240||x.movingMachines!==28||x.originalGuideCount!==7||
            !x.realStart00||x.gapMeters<5||x.physicalSurfaceCount!==8+(x.lengthMeters?1:0)))
            throw Error("G4E5 native integrity failure");
+          const [control,a,b,c]=d.results;
+          if(!control.bridgeLanding||control.actualRunwaySeamCrossed||
+             d.results.slice(1).some(x=>!x.bridgeLanding||
+               !x.actualRunwaySeamCrossed||x.runwayGroundedTicks<600)||
+             !(a.runwayGroundedTicks<b.runwayGroundedTicks&&
+               b.runwayGroundedTicks<c.runwayGroundedTicks)||
+             d.results.some(x=>x.finished))
+           throw Error("G4E5 real seam or 400/650/900m physical contact regression");
           fs.writeFileSync("g4e5-verdict.json",JSON.stringify({
            schema:d.schema,verdict:d.verdict,human:"HOLD",release:"HOLD"},null,2));
           console.log(JSON.stringify(d.verdict));
