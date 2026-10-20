@@ -33,6 +33,7 @@ import {a13MachineMegastructures} from './p101-a13-architecture.mjs';
 import {a13W9HeroArchitecture} from './p101-a13-w9-architecture.mjs';
 import {w9c1G5BSkyline} from './p101-w9c1-g5b-skyline.mjs';
 import {g4dOutboardSkyways} from './p101-w9c2-g4d-skyways.mjs';
+import {g4e7cGapRoadCues} from './p101-w9c2-g4e7c-gap-cues.mjs';
 import {createGapQa,qaSteer,qaStep,qaObservation} from './p101-w9c2-g4e7b-qa.mjs';
 import {a13MachineBodyVertices} from './p101-a13-machine-visual.mjs';
 import {a13RacingRoadArt} from './p101-a13-road-art.mjs';
@@ -66,9 +67,11 @@ if(g4e6LocalOptIn){
  }
 }
 const g4e7bRequested=g4e6LocalOptIn&&new URLSearchParams(window.location.search).get('g4e7b')==='scripted';
+const g4e7cRequested=g4e6LocalOptIn&&new URLSearchParams(window.location.search).get('g4e7c')==='candidate';
 const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,g4dSkywayMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
+let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
@@ -153,7 +156,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7cCueMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
@@ -191,6 +194,29 @@ function buildVisual(stage){
   canvas.dataset.a13W9NonCollision=String(hero.nonCollision);
    const art=a13RacingRoadArt(stage,sample,frame);
    a13RoadArtMesh=mesh(art.vertices);
+   g4e7cCue=g4e7cGapRoadCues(stage,sample,frame,{enabled:g4e7cRequested});
+   g4e7cCueMesh=mesh(g4e7cCue.vertices);
+   g4e7cCueActive=g4e7cCue.active;
+   canvas.dataset.g4e7cMode=g4e7cCue.active?'private-opt-in':'off';
+   canvas.dataset.g4e7cCueActive=String(g4e7cCueActive);
+   canvas.dataset.g4e7cTriangles=String(g4e7cCue.triangles);
+   canvas.dataset.g4e7cNonCollision=String(g4e7cCue.nonCollision);
+   if(g4e7cCue.active&&!g4e7cButton){
+    const btn=document.createElement('button');
+    btn.id='g4e7cCueToggle';btn.type='button';
+    btn.setAttribute('aria-label','G4E-7C 非衝突ギャップ描画候補の比較切替');
+    btn.addEventListener('click',()=>{
+     if(!g4e7cCue?.active)return;
+     g4e7cCueActive=!g4e7cCueActive;
+     canvas.dataset.g4e7cCueActive=String(g4e7cCueActive);
+     btn.textContent='G4E-7C 実路面ライン '+(g4e7cCueActive?'ON':'OFF')+'（研究限定）';
+    });
+    $('stage').parentElement.append(btn);g4e7cButton=btn;
+   }
+   if(g4e7cButton){
+    g4e7cButton.hidden=!g4e7cCue.active;
+    g4e7cButton.textContent='G4E-7C 実路面ライン '+(g4e7cCueActive?'ON':'OFF')+'（研究限定）';
+   }
    w9c1CueProfile=makeW9C1CueProfile(stage,sample);
    const w9c1Marks=w9c1ApproachMarks(stage,sample,frame);
    w9c1MarkMesh=mesh(w9c1Marks.vertices);
@@ -284,7 +310,7 @@ function render(frameSeconds){
  canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
  draw(scenery);if(megaEnabled){draw(megaWorld);draw(g5bSceneryMesh);}draw(g4dSkywayMesh);draw(a13ArchMesh);
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
- draw(roads);draw(a13RoadArtMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
+ draw(roads);draw(a13RoadArtMesh);if(g4e7cCueActive)draw(g4e7cCueMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
  draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);
  draw(hazardGateSolidMesh);
