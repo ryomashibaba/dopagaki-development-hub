@@ -88,7 +88,9 @@ test('W9-C2 G4D Gold-only same-camera off/on actual WebGL screenshots',async({co
  // meaningful failure. We record evidence before asserting visibility.
  await fs.writeFile(info.outputPath('w9c2-g4d-real-webgl-audit.json'),
   JSON.stringify({schema:'dopagaki.w9c2.g4d-webgl-visual-audit/1',
-   results,difference,errors,actualWebGL:true,syntheticPausedClock:true,legacyMegaWorld:'OFF',
+   results,difference,errors,actualWebGL:true,
+   visibilityGate:difference.changedPercent>=1?'PASS_VISIBILITY_ONLY':'FAIL_LOW_VISIBILITY',
+   minimumCandidateChangedPercent:1,syntheticPausedClock:true,legacyMegaWorld:'OFF',
    fpsMeasured:false,physicsModified:false,playableNewRoad:false,
    productionApproved:false,humanVisualQuality:'HOLD',
    note:'Screenshots compare same camera/spawn. Pixel change is not human quality approval.'},null,2));
