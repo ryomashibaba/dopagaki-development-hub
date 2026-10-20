@@ -1,0 +1,54 @@
+name: W9-C2 G4E-1 real B48 narrow road native QA (nonpublishing)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e-narrow-build.mjs'
+      - 'scripts/p101-w9c2-g4e-fullrun.mjs'
+      - 'tests/p101-w9c2-g4e-physical.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e1-physical.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e1-native-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  physical:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify actual B48 geometry and Gold preservation
+        run: node --test tests/p101-w9c2-g4e-physical.test.mjs
+      - name: Start00 52mps full 7-road 240Hz native matrix (scripted not human)
+        run: |
+          node scripts/p101-w9c2-g4e-fullrun.mjs > g4e-native-matrix.txt
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const raw=fs.readFileSync("g4e-native-matrix.txt","utf8");
+          const report=JSON.parse(raw.slice(raw.indexOf("{")));
+          if(report.runs.length!==3||report.runs.some(r=>r.actualNativeHz!==240||r.startIndex!==0||r.movingBodies!==28))throw Error("Wrong native conditions");
+          if(!report.runs[0].finished)throw Error("Gold native reference unexpectedly failed");
+          const decisions=report.runs.map(r=>({kind:r.kind,status:r.status,
+            physicalGate:r.finished?"SCRIPTED_FULL_COURSE_PASS":"REJECT_OR_UNVERIFIED",
+            sectionsVisited:r.sectionsVisited,elapsedSeconds:r.elapsedSeconds,
+            failure:r.failure,actualGap:false,naturalJumpCertified:false,humanFairness:"HOLD"}));
+          fs.writeFileSync("g4e-native-report.json",JSON.stringify({
+            schema:"dopagaki.w9c2.g4e1-native-decisions/1",decisions,
+            gameRegistered:false,productionApproved:false,actualGap:false,
+            note:"Even a scripted pass does not certify human gameplay or natural jumping."},null,2));
+          console.log(JSON.stringify(decisions));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w9c2-g4e1-native-evidence-${{ github.run_id }}
+          path: |
+            g4e-native-matrix.txt
+            g4e-native-report.json
+          if-no-files-found: ignore
+          retention-days: 10
