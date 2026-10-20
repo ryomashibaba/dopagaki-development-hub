@@ -37,6 +37,13 @@ jobs:
            x.realMovingBodies!==28||x.originalGuideCount!==7||
            !x.realStart00||!x.originalSevenRoadsIntact||x.realGapMeters<5))
            throw Error("Native evidence integrity failure");
+          const baseline=d.results[0],low=d.results[1],mid=d.results[2],high=d.results[3];
+          if(baseline.realReceiverLanding||!baseline.realTakeoff||
+             !low.realTakeoff||!mid.realTakeoff||
+             !low.realReceiverLanding||!mid.realReceiverLanding||
+             low.receiverGroundedTicks<120||mid.receiverGroundedTicks<120||
+             high.realReceiverLanding||d.results.some(x=>x.finished))
+            throw Error("G4E4 native 119/123m landing regression or unreviewed finish");
           fs.writeFileSync("g4e4-verdict.json",JSON.stringify({
            schema:d.schema,verdict:d.verdict,human:"HOLD",release:"HOLD"},null,2));
           console.log(JSON.stringify(d.verdict));
