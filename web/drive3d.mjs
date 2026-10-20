@@ -270,6 +270,7 @@ function render(frameSeconds){
   canvas.dataset.g4e7bTime=o.t.toFixed(3);
   canvas.dataset.g4e7bU=o.u.toFixed(5);
   canvas.dataset.g4e7bGrounded=String(o.grounded);
+  canvas.dataset.g4e7bArmed=String(o.armed);
   canvas.dataset.g4e7bAirSeen=String(o.airSeen);
   canvas.dataset.g4e7bLandingSeen=String(o.landingSeen);
   canvas.dataset.g4e7bSpeed=o.speed.toFixed(2);

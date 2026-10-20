@@ -34,6 +34,7 @@ test('G4E7B native real-gap screenshots are P96 SCRIPTED QA, never human fairnes
    const metric=await view.evaluate(el=>({
     time:Number(el.dataset.g4e7bTime),u:el.dataset.g4e7bU,
     speed:el.dataset.g4e7bSpeed,grounded:el.dataset.g4e7bGrounded,
+    armed:el.dataset.g4e7bArmed,
     airSeen:el.dataset.g4e7bAirSeen,landingSeen:el.dataset.g4e7bLandingSeen,
     outcome:el.dataset.runOutcome,runMode:el.dataset.runMode,xyz:el.dataset.g4e7bXYZ,
     cameraLag:el.dataset.cameraHeadingLagDegrees,renderScale:el.dataset.renderScale,

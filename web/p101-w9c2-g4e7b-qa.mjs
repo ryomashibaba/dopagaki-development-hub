@@ -19,15 +19,19 @@ export function qaSteer(q,r,poseAt){
 export function qaStep(q,r){
  if(!q)return;
  const {section,u}=p101RoadProgress(r),g=q.g;
- if(section!==g.section||(r.surface||r.lastSurface)!==g.surfaceId)return;
- q.u=u;
- if(!q.armed&&r.grounded&&u>=g.uTakeoff-.035&&u<=g.uTakeoff+.003)q.armed=true;
- if(q.armed&&!q.air&&!r.grounded&&u>=g.uTakeoff-.003&&u<=g.uLanding+.022)q.air=true;
+ const sameOriginalRoad=section===g.section&&(r.surface||r.lastSurface)===g.surfaceId;
+ if(sameOriginalRoad)q.u=u;
+ // Preserve the verified approach state during genuine airborne motion:
+ // runner.surface may be null or stale while between physical colliders.
+ if(!q.armed&&sameOriginalRoad&&r.grounded&&
+    u>=g.uTakeoff-.035&&u<=g.uTakeoff+.003)q.armed=true;
+ const metersFromTakeoff=Math.hypot(...r.p.map((x,i)=>x-g.takeoffXYZ[i]));
+ if(q.armed&&!q.air&&!r.grounded&&metersFromTakeoff<220)q.air=true;
  if(q.air&&r.grounded&&r.surface===g.surfaceId&&u>=g.uLanding+.006){
   q.ticks++;if(q.ticks>=18)q.landed=true;
  }else if(!q.landed)q.ticks=0;
 }
 export function qaObservation(q,r){
- return {t:r.time,u:q.u,airSeen:q.air,landingSeen:q.landed,grounded:r.grounded,
+ return {t:r.time,u:q.u,armed:q.armed,airSeen:q.air,landingSeen:q.landed,grounded:r.grounded,
   speed:Math.hypot(...r.v),position:r.p,physicsStatus:r.status};
 }
