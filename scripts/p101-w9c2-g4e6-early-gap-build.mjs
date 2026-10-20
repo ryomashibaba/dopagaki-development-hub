@@ -57,7 +57,7 @@ export function generateG4E6EarlyGap(id){
   g4e6EarlyGap:{
    id:site.id,section:site.section,surfaceId:road.id,
    physicalCells:[...cells],uTakeoff,uLanding,gapMeters,
-   3dTakeoff:p0,3dLanding:p1,
+   takeoffXYZ:p0,landingXYZ:p1,
    actualOpenB48Collision:true,noMidpointRideableSupport:true,
    noNewRoadOrCatchPlatform:true,continuationOnSameOriginalRoad:true,
    originalSevenRoadsAnd28MachinesUnchanged:true,
