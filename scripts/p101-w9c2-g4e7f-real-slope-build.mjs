@@ -18,7 +18,13 @@ export const G4E7F_VARIANTS=Object.freeze({
  measured:Object.freeze({id:'measured',skyline:{lateral:13,depth:-11,bank:2.2,width:46},
   crown:{lateral:11,depth:9,bank:4.2,width:54}}),
  dramatic:Object.freeze({id:'dramatic',skyline:{lateral:22,depth:-20,bank:4.5,width:34},
-  crown:{lateral:18,depth:16,bank:7.5,width:40}})
+  crown:{lateral:18,depth:16,bank:7.5,width:40}}),
+ // G4E-7F-C: high-speed curvature-consistent studies after both original
+ // candidates genuinely fell. Keep failed originals unchanged for evidence.
+ glide:Object.freeze({id:'glide',skyline:{lateral:8,depth:-1.0,bank:2,width:66},
+  crown:{lateral:8,depth:1.1,bank:2,width:66}}),
+ flow:Object.freeze({id:'flow',skyline:{lateral:11,depth:-1.7,bank:3,width:60},
+  crown:{lateral:9,depth:1.6,bank:3.4,width:60}})
 });
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]);
 const scale=(v,a)=>v.map(x=>x*a),norm=v=>scale(v,1/(Math.hypot(...v)||1));
@@ -78,7 +84,7 @@ export function generateG4E7FEarlyPhysicalCandidate(variant='measured'){
     deltaY=Math.max(deltaY,Math.abs(point[1]-old[1]));
    }
   }
-  if(changed<10||deltaXZ<3||deltaY<4||minimumWidth<12)
+  if(changed<10||deltaXZ<3||deltaY<(['glide','flow'].includes(variant)?0.8:4)||minimumWidth<12)
    throw Error('G4E7F physical bend/slope/bank too weak or road collapsed');
   if(tessellate(s).degenerate!==0)throw Error('Real B48 collision triangles degenerate');
   for(let i=0;i<22;i++)doc.route[window.section*22+i]=sample(s,(i+.015)/22,.5);

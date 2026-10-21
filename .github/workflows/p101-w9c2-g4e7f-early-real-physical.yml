@@ -30,7 +30,7 @@ jobs:
           node --input-type=module -e '
           import fs from "node:fs";
           const d=JSON.parse(fs.readFileSync("g4e7f-real-physics.json","utf8"));
-          if(!d.control.finished||d.control.roadCount!==7||d.candidates.length!==2||
+          if(!d.control.finished||d.control.roadCount!==7||d.candidates.length!==4||
             d.candidates.some(c=>c.physicsWindowMeters!==300||c.officiallyApprovedSlopeDnaMeters!==0)||
             d.fullRuns.some(r=>r.hz!==240||r.originalMovingCount!==28||r.initialSpeedMps!==52||
               r.approvedSlopeDnaMeters!==0)||d.release!=="HOLD")

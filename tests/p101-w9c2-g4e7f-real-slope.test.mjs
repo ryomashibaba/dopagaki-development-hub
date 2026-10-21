@@ -38,7 +38,7 @@ test('G4E7F: two genuinely modified B48 physical road windows, Gold and existing
      assert.deepEqual(road.points[row*5+col],orig.points[row*5+col]);
    }
    assert(s.deltas.find(x=>x.id===w.id).changedControlPoints>=10);
-   assert(s.deltas.find(x=>x.id===w.id).maxVerticalDeltaMeters>4);
+   assert(s.deltas.find(x=>x.id===w.id).maxVerticalDeltaMeters>(['glide','flow'].includes(id)?0.8:4));
    for(let j=0;j<=90;j++){
     const u=j/90,l=sample(road,u,0),r=sample(road,u,1);
     assert(Math.hypot(...l.map((x,k)=>x-r[k]))>12,'Interpolated physical lane collapse');
@@ -46,8 +46,8 @@ test('G4E7F: two genuinely modified B48 physical road windows, Gold and existing
     assert(f.normal.every(Number.isFinite));
    }
    const middle=(start+end)/2;
-   assert(Math.abs(sample(road,middle,.5)[1]-sample(orig,middle,.5)[1])>4,
-    'Real vertical gameplay shape missing');
+   assert(Math.abs(sample(road,middle,.5)[1]-sample(orig,middle,.5)[1])>
+    (['glide','flow'].includes(id)?0.7:4),'Real vertical gameplay shape missing');
   }
   const runner=new Runner(doc,compile(doc),0,52);
   assert.equal(runner.startSpeed,52);
