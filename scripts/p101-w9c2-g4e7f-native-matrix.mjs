@@ -20,7 +20,7 @@ export function g4e7fNativeRun(variant='GOLD',{maxSeconds=70}={}){
    progressMarkers={},samples=[],roadI=doc.surfaces[0].id,roadII=doc.surfaces[1].id;
  const landmarks=[.45,.50,.55,.60,.67],starts={};
  let peak=52,steerTicks=0,airborneTicks=0,overlappingMachines=0;
- for(let tick=0;tick<maxSeconds/DT&&r.status==='running';tick++){
+ for(let tick=0;tick<maxSeconds/DT&&r.status!=='failed'&&r.status!=='finished';tick++){
   const steer=p96DodgeSteer(r,p96,'early-soft',movingObstaclePose).input/4.8;
   p101Step(r,steer,'OVERDRIVE',{
    forwardScale:p101A13ForwardScale(r,surge),collisionRecovery:false
