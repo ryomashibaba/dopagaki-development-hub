@@ -24,7 +24,7 @@ jobs:
           node-version: '22'
       - name: Gold lattice, 28 machines, 300m actual 3D physics and 2 prior protected stages
         run: node --test tests/p101-w9c2-g4e7f-real-slope.test.mjs
-      - name: Three genuine 240Hz real start00 physics runs, scripted only, never human-approved
+      - name: Five genuine 240Hz real start00 runs: Gold, two failed originals, glide and flow
         run: |
           node scripts/p101-w9c2-g4e7f-native-matrix.mjs g4e7f-real-physics.json
           node --input-type=module -e '
@@ -32,6 +32,11 @@ jobs:
           const d=JSON.parse(fs.readFileSync("g4e7f-real-physics.json","utf8"));
           if(!d.control.finished||d.control.roadCount!==7||d.candidates.length!==4||
             d.candidates.some(c=>c.physicsWindowMeters!==300||c.officiallyApprovedSlopeDnaMeters!==0)||
+            d.candidates.some(c=>c.id!=="glide"&&c.finished)||
+            !d.candidates.some(c=>c.id==="glide"&&c.finished&&c.allSevenInOrder&&
+              c.elapsedSeconds<=d.control.time+3&&c.peakSpeedMps>=200)||
+            !d.fullRuns.some(r=>r.variant==="glide"&&r.movingContactCount>=1&&
+              r.airborneSeconds<3&&r.source.includes("SCRIPTED_NOT_HUMAN"))||
             d.fullRuns.some(r=>r.hz!==240||r.originalMovingCount!==28||r.initialSpeedMps!==52||
               r.approvedSlopeDnaMeters!==0)||d.release!=="HOLD")
             throw Error("G4E7F physical evidence/Gold integrity invalid");
