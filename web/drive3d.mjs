@@ -36,6 +36,8 @@ import {g4dOutboardSkyways} from './p101-w9c2-g4d-skyways.mjs';
 import {g4e7cGapRoadCues} from './p101-w9c2-g4e7c-gap-cues.mjs';
 import {G4E7D_PROTOCOL,createG4E7DTrial,observeG4E7DStep,observeG4E7DFrame,exportG4E7DTrial,createG4E7DSession,completeG4E7DSession,exportG4E7DSession} from './p101-w9c2-g4e7d-human-qa.mjs';
 import {makeG4E7DPanel} from './p101-w9c2-g4e7d-manual-panel.mjs';
+import {createG4E7OTrial,observeG4E7OStep,observeG4E7OFrame,exportG4E7OTrial,newG4E7OSession,appendG4E7OTrial,exportG4E7OSession,g4e7oReadRoad} from './p101-w9c2-g4e7o-manual-qa.mjs';
+import {createG4E7OManualPanel} from './p101-w9c2-g4e7o-manual-panel.mjs';
 import {createG4E7HFocusHud} from './p101-w9c2-g4e7h-hud-focus.mjs';
 import {g4e7iSkylineContours,createG4E7IControls} from './p101-w9c2-g4e7i-readability.mjs';
 import {createG4E7JMatrix} from './p101-w9c2-g4e7j-matrix.mjs';
@@ -83,6 +85,7 @@ const g4e7kRequested=g4e7gOptIn&&new URLSearchParams(window.location.search).get
 const g4e7lRequested=g4e7gOptIn&&new URLSearchParams(window.location.search).get('g4e7l')==='monument';
 const g4e7mOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get('g4e7m')==='on';
 const g4e7mHold=g4e7mOptIn&&new URLSearchParams(window.location.search).get('g4e7mFrame')==='hold';
+const g4e7oRequested=g4e7mOptIn&&!g4e7mHold&&new URLSearchParams(window.location.search).get('g4e7o')==='manual';
 const g4e7mPoint=new URLSearchParams(window.location.search).get('g4e7mPoint')==='crown'?'crown':'skyline';
 if(g4e7mOptIn){
  for(const [id,label] of [
@@ -105,8 +108,8 @@ const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,g4dSkywayMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
-let g4e7dTrial=null,g4e7dPanel=null;
-let g4e7gActive=false,g4e7mActive=false,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
+let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null;
+let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
@@ -120,6 +123,7 @@ const g5bVisualOptIn=new URLSearchParams(window.location.search).get('g5b')==='o
 const g4dVisualOptIn=new URLSearchParams(window.location.search).get('g4d')==='on'||new URLSearchParams(window.location.hash.slice(1)).get('g4d')==='on';
 const guidedPairTrial=new URLSearchParams(window.location.search).get('guided')==='1';
 const pairTrialIds=new Set(['VB-P101-A13-W9C1-CONTROL','VB-P101-A13-W9C1-ULTRA']);
+const g4e7oSession=newG4E7OSession();
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),mul=(a,k)=>a.map(x=>x*k),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>mul(a,1/(Math.hypot(...a)||1));
 const push=(v,p,c)=>v.push(p[0],p[1],p[2],c[0],c[1],c[2]);
 function tri(v,a,b,c,col){push(v,a,col);push(v,b,col);push(v,c,col);}
@@ -495,11 +499,12 @@ function updateNativeChapterTime(){
 }
 function settleRun(){
  if(!runner||runCommitted||!['failed','finished'].includes(runner.status))return;
- if(demoMode||practiceMode||g4e7bQa||g4e7dTrial||g4e7gActive||g4e7mActive){
+ if(demoMode||practiceMode||g4e7bQa||g4e7dTrial||g4e7gActive||g4e7mActive||g4e7oActive){
   $('b5ResultExport').hidden=true;
   retryChapterId=null;$('retryPractice').hidden=true;
   runCommitted=true;const result=$('runResult');result.hidden=false;
-  $('resultTitle').textContent=g4e7mActive?'G4E-7M · TRUE B48 HUMAN HOLD':g4e7gActive?'G4E-7G · VISUAL QA · NOT HUMAN':g4e7dTrial?'G4E-7D · HUMAN QA · REVIEW HOLD':g4e7bQa?'SCRIPTED QA · NOT HUMAN':practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
+   if(g4e7oActive&&g4e7oResultDownload)g4e7oResultDownload.hidden=false;
+  $('resultTitle').textContent=g4e7oActive?'G4E-7O · HUMAN QA HOLD':g4e7mActive?'G4E-7M · TRUE B48 HUMAN HOLD':g4e7gActive?'G4E-7G · VISUAL QA · NOT HUMAN':g4e7dTrial?'G4E-7D · HUMAN QA · REVIEW HOLD':g4e7bQa?'SCRIPTED QA · NOT HUMAN':practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
   $('resultScore').textContent=(practiceMode?practiceElapsed(runner.time,practiceStartedAt):runner.time).toFixed(2)+' s · 実物理'+(practiceMode?'操作練習':'観戦デモ');
   $('resultDetails').textContent=(g4e7mActive?'非公開の本物の超細道研究':g4e7gActive?'非公開の景観研究':g4e7dTrial?'手動比較走行':g4e7bQa?'研究用P96走行':practiceMode?'練習':'観戦デモ')+'は自己ベストへ保存しません。人間評価HOLD。';
   result.dataset.outcome=runner.status;canvas.dataset.runOutcome=runner.status;
@@ -567,6 +572,35 @@ function ensureG4E7DPanel(){
  g4e7dPanel.render({index:g4e7dSession.index,count:G4E7D_PROTOCOL.length,
   id:step?.id,cue:step?.cue});
 }
+function exportG4E7OJSON(){
+ if(!g4e7oRequested)return;
+ const report=JSON.parse(exportG4E7OSession(g4e7oSession));
+ if(g4e7oTrial&&runner)report.uncommittedCurrentRun=exportG4E7OTrial(g4e7oTrial,runner);
+ const u=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)+'\n'],{type:'application/json;charset=utf-8'}));
+ const a=document.createElement('a');a.href=u;a.download='DOPAGAKI_G4E7O_'+g4e7oSession.runs.length+'runs.json';
+ document.body.append(a);a.click();a.remove();URL.revokeObjectURL(u);
+ g4e7oPanel?.notice('JSON保存。自動送信なし。');
+}
+function ensureG4E7OPanel(){
+ if(!g4e7oRequested)return;
+ if(!g4e7oPanel)g4e7oPanel=createG4E7OManualPanel($('b5QaPanel').parentElement,{
+  onNext(feedback){
+   if(!g4e7oTrial||!runner||g4e7oSession.index>=2)return;
+   appendG4E7OTrial(g4e7oSession,exportG4E7OTrial(g4e7oTrial,runner,feedback));
+   g4e7oTrial=null;g4e7oPanel.reset();
+   if(g4e7oSession.index===2){paused=true;accum=0;g4e7oPanel.render(2);
+    canvas.dataset.g4e7oMode='two-trials-recorded-hold';return;}
+   $('stage').value='VB-P101-A13-W9C2-G4E7M-PRECIPICE';load();
+  },onDownload:exportG4E7OJSON
+ });
+ if(!g4e7oResultDownload){
+  const b=document.createElement('button');b.id='g4e7oResultDownload';b.type='button';
+  b.textContent='G4E-7O 計測JSONを直接保存';b.hidden=true;
+  b.addEventListener('click',exportG4E7OJSON);$('runResult').append(b);
+  g4e7oResultDownload=b;
+ }
+ g4e7oPanel.root.hidden=false;g4e7oPanel.render(g4e7oSession.index);
+}
 function restart(){
  if(g4e7dRequested&&g4e7dSession.index>=G4E7D_PROTOCOL.length)return;
  if(!doc||!world)return;
@@ -591,8 +625,19 @@ function restart(){
    g4e7mActive=Boolean(doc.stageForge.g4e7mRealRoad&&g4e7mOptIn);
    if(g4e7mActive&&g4e7mHold){paused=true;accum=0;}
    if(g4e7gActive&&g4e7gHold){paused=true;accum=0;}
+   g4e7oActive=Boolean(g4e7oRequested&&g4e7mActive);
+   g4e7oTrial=g4e7oActive?createG4E7OTrial(doc,runner):null;
   g4e7bQa=createGapQa(doc,runner,g4e7bRequested);
   g4e7dTrial=g4e7dRequested?createG4E7DTrial(doc,runner,G4E7D_PROTOCOL[g4e7dSession.index]):null;
+   if(g4e7oActive){
+    $('stage').disabled=true;$('spawn').disabled=true;
+    $('p101Profile').value='OVERDRIVE';$('p101Profile').disabled=true;
+    $('cameraCompare').disabled=true;$('renderQuality').disabled=true;
+    $('demoRun').disabled=true;$('practiceRun').disabled=true;
+    $('energyFx').disabled=true;$('visibilityFx').disabled=true;$('megaWorld').disabled=true;
+    ensureG4E7OPanel();g4e7oResultDownload.hidden=true;
+    canvas.dataset.g4e7oMode='human-keyboard-qa-only';
+   }else if(g4e7oPanel){g4e7oPanel.root.hidden=true;if(g4e7oResultDownload)g4e7oResultDownload.hidden=true;}
   if(g4e7dRequested){
    g4e7cCueActive=Boolean(g4e7cCue?.active&&G4E7D_PROTOCOL[g4e7dSession.index]?.cue);
    canvas.dataset.g4e7cCueActive=String(g4e7cCueActive);
@@ -625,7 +670,7 @@ function restart(){
   canvas.dataset.g4e7gViewpoint=g4e7gActive?g4e7gPoint:'off';
   canvas.dataset.g4e7mMode=g4e7mActive?(g4e7mHold?'STATIC_TRUE_B48_HUMAN_HOLD':'TRUE_B48_HUMAN_HOLD'):'off';
    canvas.dataset.g4e7mVariant=g4e7mActive?doc.stageForge.g4e7mRealRoad.variant:'off';
-   canvas.dataset.runMode=g4e7mActive?'private-real-B48-human-hold':g4e7gActive?'private-visual-qa-not-human':g4e7bQa?'scripted-qa-not-human':demoMode?'spectator-demo':practiceMode?'practice':'manual';
+   canvas.dataset.runMode=g4e7oActive?'private-human-B48-QA-HOLD':g4e7mActive?'private-real-B48-human-hold':g4e7gActive?'private-visual-qa-not-human':g4e7bQa?'scripted-qa-not-human':demoMode?'spectator-demo':practiceMode?'practice':'manual';
  lastEdgeRadarAt=0;$('edgeRadar').hidden=true;canvas.dataset.edgeStatus='unavailable';
  $('w9c1Notice').hidden=true;canvas.dataset.w9c1NoticePhase='none';
  canvas.dataset.w9c1NoticeEta='none';canvas.dataset.w9c1NoticeDistance='none';
@@ -644,6 +689,7 @@ function restart(){
  canvas.dataset.chapterTimeId='none';
  personalBest=readBest(browserRecordStore(),doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.recordStageId||'VB-P101-A13'):p101B5RecordStageId(doc),spawn);
  $('runResult').hidden=true;$('b5ResultExport').hidden=true;canvas.dataset.runOutcome='running';
+   if(g4e7oResultDownload)g4e7oResultDownload.hidden=true;
  $('nearMissCount').textContent='0';$('nearMissBurst').hidden=true;
  updateRunScore();
  canvas.dataset.nearMissCount='0';
@@ -666,7 +712,7 @@ function restart(){
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
- runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;g4e7gActive=false;g4e7mActive=false;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
+ runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;g4e7gActive=false;g4e7mActive=false;g4e7oActive=false;g4e7oTrial=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
  try{
   const response=await fetch('../generated/'+assets[id],{cache:'no-store'});
   if(!response.ok)throw Error('Stage JSON HTTP '+response.status);
@@ -701,7 +747,7 @@ async function load(){
    const m=value.stageForge.g4e7mRealRoad;
    if(m.createdVisualSpawns!==2||m.certifiedSlopeDnaMeters!==0||value.movingObstacles.length!==28)
     throw Error('G4E7M private real B48 asset invariant');
-   $('spawn').value=String(m.originalSpawns+(g4e7mPoint==='crown'?1:0));
+   $('spawn').value=String(g4e7oRequested?0:m.originalSpawns+(g4e7mPoint==='crown'?1:0));
    $('demoRun').disabled=true;$('practiceRun').disabled=true;
   }
   if(g4e7hRequested){
@@ -874,6 +920,7 @@ function tick(now){
     currentPose=capturePose(runner);
    if(g4e7bQa)qaStep(g4e7bQa,runner);
    if(g4e7dTrial)observeG4E7DStep(g4e7dTrial,runner,steer);
+    if(g4e7oTrial)observeG4E7OStep(g4e7oTrial,doc,runner,steer,sample,RADIUS);
    if(demoMode)recordDemoMilestone(demoDirector,runner);
    updateNativeChapterTime();
    const near=stepNearMiss(nearMissTracker,doc.movingObstacles,runner,movingObstaclePose,sphereBoxSeparation,RADIUS);
@@ -897,6 +944,7 @@ function tick(now){
   recordB5ManualFrame(b5ManualAudit,elapsed,{physicsOverloaded:b5PhysicsOverloaded});
  if(g4e7dTrial&&runner&&!paused&&runner.status==='running'&&document.visibilityState==='visible')
   observeG4E7DFrame(g4e7dTrial,elapsed,headingError,b5PhysicsOverloaded);
+  if(g4e7oTrial&&runner&&!paused&&runner.status==='running'&&document.visibilityState==='visible')observeG4E7OFrame(g4e7oTrial,elapsed,headingError,b5PhysicsOverloaded);
  frames++;
  if(now-fpsAt>=500){fps=frames*1000/Math.max(now-fpsAt,1);frames=0;fpsAt=now;hud();
   if(b5ManualAudit&&runner&&runner.status==='running'&&!paused&&document.visibilityState==='visible'){
