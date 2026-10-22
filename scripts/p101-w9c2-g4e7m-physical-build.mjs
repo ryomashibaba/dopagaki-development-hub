@@ -18,7 +18,7 @@ export const G4E7M_B48_WINDOWS=Object.freeze([
  Object.freeze({id:'SKYLINE_NEEDLE',section:0,nominalRoadMeters:600,
   u0:.31,u1:.405,u2:.595,u3:.735}),
  Object.freeze({id:'CROWN_CUT',section:1,nominalRoadMeters:1500,
-  u0:.075,u1:.133,u2:.205,u3:.275})
+  u0:.055,u1:.133,u2:.205,u3:.305})
 ]);
 const sub=(a,b)=>a.map((x,i)=>x-b[i]);
 const mul=(a,s)=>a.map(x=>x*s);
