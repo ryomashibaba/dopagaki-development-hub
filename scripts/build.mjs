@@ -24,6 +24,8 @@ import {generateG4E7SNativeCamera} from './p101-w9c2-g4e7s-native-camera.mjs';
 import {generateG4E7TPhysical} from './p101-w9c2-g4e7t-real-early-gap-build.mjs';
 import {generateG4E7VExit} from './p101-w9c2-g4e7v-exit-build.mjs';
 import {g4e7vRealCameraFrames,G4E7V_VISUAL_IDS} from './p101-w9c2-g4e7v-camera-frames.mjs';
+import {generateG4E7WBlend} from './p101-w9c2-g4e7w-takeoff-blend-build.mjs';
+import {g4e7wNativeCameraFrames,G4E7W_VISUAL_PROFILES} from './p101-w9c2-g4e7w-camera-frames.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
 import {generateP97RoadplayEvidence} from './p97-roadplay-evidence.mjs';
 import {generateP96DodgeEvidence} from './p96-acceptance-evidence.mjs';
@@ -174,6 +176,15 @@ if(includeStages){
       JSON.stringify(generateG4E7VExit(id),null,2)+'\n');
     write('generated/P101_A13_W9C2_G4E7V_240HZ_FRAMES_LOCAL.json',
      JSON.stringify(g4e7vRealCameraFrames(),null,2)+'\n');
+   }
+   // G4E-7W: genuinely causal 15.76m narrow B48 gap, only generated
+   // for explicit localhost PRIVATE WebGL; NEVER in public-safe/site output.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7W_VISUAL==='1'){
+    for(const q of G4E7W_VISUAL_PROFILES)
+     write('generated/P101_A13_W9C2_G4E7W_'+q.name+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7WBlend(q.alpha),null,2)+'\n');
+    write('generated/P101_A13_W9C2_G4E7W_240HZ_FRAMES_LOCAL.json',
+     JSON.stringify(g4e7wNativeCameraFrames(),null,2)+'\n');
    }
    // G4E-6D: physically complete but human-UNAPPROVED gap candidates.
   // Strictly local private build, NEVER emitted by the public build even if
