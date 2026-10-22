@@ -85,7 +85,10 @@ export function g4e7tNativeMatrix(){
   const control=states[0].runner;
   for(const trial of states.slice(1)){
    const name=trial.variant,r=trial.runner,w=cutWindow[name],q=nearest(states[0].path,control.p);
-   if(q.dist<25&&q.u>=w[0]&&q.u<=w[1]){
+   // Both observations MUST still be live running physics. Failed runners
+   // freeze with grounded=false; counting them would fabricate extra air.
+   if(control.status==='running'&&r.status==='running'&&
+      q.dist<25&&q.u>=w[0]&&q.u<=w[1]){
     const delta=diff(control.p,r.p),item=relative[name];
     item.maxPositionDivergence=Math.max(item.maxPositionDivergence,delta);
     if(control.grounded&&!r.grounded)item.extraAirTicks++;
@@ -103,6 +106,7 @@ export function g4e7tNativeMatrix(){
   physicsHz:1/DT,start00:true,startSpeedMps:52,
   steering:'P96_4_8_SCRIPTED_NOT_HUMAN',candidates,
   relativeGapCausality:relative,
+  relativeOnlyWhileBothRunning:true,
   noNativeAssistAdded:true,noPublication:true,
   certifiedSlope2Meters:0,humanFairness:'HOLD'};
 }
