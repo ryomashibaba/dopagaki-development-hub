@@ -1,4 +1,5 @@
 name: W9-C2 G4E-7T real B48 grounded-lip scout (HOLD)
+# Restart the corrected native ready-state 240Hz lip detection.
 on:
   push:
     branches: [p101-velocity-overdrive-native-trial]

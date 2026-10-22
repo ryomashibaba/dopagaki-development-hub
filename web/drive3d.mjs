@@ -979,9 +979,15 @@ function hud(){
    g4e7oPanel.live(m?'実B48幅 '+m.widthMeters.toFixed(2)+'m ・ 路肩余裕 '+m.signedEdgeMarginMeters.toFixed(2)+'m ・ '+Math.hypot(...runner.v).toFixed(1)+'m/s ・ FPS '+Math.round(fps):
     '空中／路面位置不明 ・ '+Math.hypot(...runner.v).toFixed(1)+'m/s');
   }
-  $('speed').textContent=Math.hypot(...runner.v).toFixed(1);
- $('simTime').textContent=runner.time.toFixed(2)+' s';$('contacts').textContent=String(runner.collisions);
- $('ground').textContent=(runner.grounded?'接地':'空中')+(p101ReboundRecoveryState(runner).active?' / 非致死衝突から復帰中':'');$('fps').textContent=String(Math.round(fps));
+  // Only research screenshots reflect the genuine 240Hz start00 frozen state.
+  // Every actual human/manual game remains bound to the live Runner unchanged.
+  const speedFrame=g4e7sOptIn&&g4e7sShot?g4e7sShot:null;
+  $('speed').textContent=(speedFrame?.speedMps??Math.hypot(...runner.v)).toFixed(1);
+ $('simTime').textContent=(speedFrame?.timeSeconds??runner.time).toFixed(2)+' s';$('contacts').textContent=String(runner.collisions);
+ $('ground').textContent=speedFrame
+  ?(speedFrame.grounded?'接地':'空中')+' / 240Hz SCRIPTED FRAME'
+  :(runner.grounded?'接地':'空中')+(p101ReboundRecoveryState(runner).active?' / 非致死衝突から復帰中':'');
+ $('fps').textContent=String(Math.round(fps));
  updateRunScore();
  const machineLabel=$('machineCue');
  if(machineLabel){
