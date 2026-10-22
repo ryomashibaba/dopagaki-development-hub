@@ -18,6 +18,14 @@ const fmt=(v,n=3)=>Number(v.toFixed(n));
 const dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0);
 const sub=(a,b)=>a.map((x,i)=>x-b[i]);
 const clamp=(x,a,b)=>Math.max(a,Math.min(x,b));
+/** Diagnostic ONLY. Never imported by game renderer or native drive controls. */
+export function g4e7nWidthAwareDodge(input,corrective,desiredOffsetMeters,widthMeters,earlyRoad){
+ if(![input,corrective,desiredOffsetMeters,widthMeters].every(Number.isFinite)||
+  widthMeters<=0||desiredOffsetMeters<0)throw Error('G4E7N invalid offline dodge calibration');
+ const scale=earlyRoad?
+  clamp(Math.max(12,widthMeters)*.22/Math.max(1,desiredOffsetMeters),.10,1):1;
+ return {input:clamp(corrective+(input-corrective)*scale,-1,1),scale};
+}
 export const G4E7N_STEERS=Object.freeze(['p96-original','route-only','dodge-3m','width-aware-narrow']);
 export function g4e7nLocalReadout(doc,r){
  const road=doc.surfaces.find(s=>s.id===(r.surface||r.lastSurface));
@@ -60,9 +68,8 @@ export function g4e7nDiagnosticRun(variant='thread',mode='p96-original',{maxSeco
    const isNarrowEarly=doc.surfaces.slice(0,2).some(s=>s.id===local.roadId);
    const localWidth=local.widthMeters??100;
    const maxRequested=p96.desiredOffset?Math.abs(p96.desiredOffset):25;
-   const scale=isNarrowEarly?
-    clamp((Math.max(12,localWidth)*.22)/maxRequested,.10,1):1;
-   steer=clamp(route+(p96.input-route)*scale,-1,1);
+   steer=g4e7nWidthAwareDodge(p96.input,route,maxRequested,
+    localWidth,isNarrowEarly).input;
   }
   steer/=4.8;
   if(p96.station)highestAbsoluteP96Target=Math.max(highestAbsoluteP96Target,Math.abs(p96.desiredOffset));
