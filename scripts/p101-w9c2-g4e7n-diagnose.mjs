@@ -18,7 +18,7 @@ const fmt=(v,n=3)=>Number(v.toFixed(n));
 const dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0);
 const sub=(a,b)=>a.map((x,i)=>x-b[i]);
 const clamp=(x,a,b)=>Math.max(a,Math.min(x,b));
-export const G4E7N_STEERS=Object.freeze(['p96-original','route-only','dodge-3m']);
+export const G4E7N_STEERS=Object.freeze(['p96-original','route-only','dodge-3m','width-aware-narrow']);
 export function g4e7nLocalReadout(doc,r){
  const road=doc.surfaces.find(s=>s.id===(r.surface||r.lastSurface));
  if(!road)return {roadId:null};
@@ -50,6 +50,20 @@ export function g4e7nDiagnosticRun(variant='thread',mode='p96-original',{maxSeco
   let steer=p96.input;
   if(mode==='route-only')steer=route;
   if(mode==='dodge-3m')steer=clamp(route+(p96.input-route)*(.12),-1,1);
+  // G4E-7N diagnostic ONLY: the P96 25m lane target is physically impossible
+  // on a true 12–16m B48 road. Attenuate its avoidance correction in proportion
+  // to the local true collider width, but return to original avoidance on
+  // all wide roads to preserve protection against the later p95-hazard-04.
+  // This is NOT an in-game auto-steering/hidden safe-center algorithm.
+  if(mode==='width-aware-narrow'){
+   const local=g4e7nLocalReadout(doc,r);
+   const isNarrowEarly=doc.surfaces.slice(0,2).some(s=>s.id===local.roadId);
+   const localWidth=local.widthMeters??100;
+   const maxRequested=p96.desiredOffset?Math.abs(p96.desiredOffset):25;
+   const scale=isNarrowEarly?
+    clamp((Math.max(12,localWidth)*.22)/maxRequested,.10,1):1;
+   steer=clamp(route+(p96.input-route)*scale,-1,1);
+  }
   steer/=4.8;
   if(p96.station)highestAbsoluteP96Target=Math.max(highestAbsoluteP96Target,Math.abs(p96.desiredOffset));
   if(Math.abs(steer)>1e-5)steerTicks++;
@@ -85,15 +99,17 @@ export function g4e7nDiagnosticRun(variant='thread',mode='p96-original',{maxSeco
 }
 export function g4e7nDiagnosticMatrix(){
  const order=[['thread','p96-original'],['thread','route-only'],
-  ['thread','dodge-3m'],['precipice','p96-original'],['GLIDE','p96-original']];
+  ['thread','dodge-3m'],['thread','width-aware-narrow'],
+  ['precipice','p96-original'],['GLIDE','p96-original']];
  const cases=order.map(([variant,mode])=>g4e7nDiagnosticRun(variant,mode));
- const original=cases[0],precipice=cases[3],glide=cases[4];
+ const original=cases[0],precipice=cases[4],glide=cases[5];
  if(original.finished||!original.failure||!original.fatal.some(e=>e.type==='static-fatal-contact')||
   !precipice.finished||!glide.finished||precipice.roadsVisited!==7||glide.roadsVisited!==7)
   throw Error('G4E7N baseline native evidence drift, no honest classification');
  return {schema:'dopagaki.w9c2.g4e7n-thin-road-physical-failure/1',
   cases,diagnosticOnly:true,
   controllerDesignCaveat:'P96 aims for ~25m offset on B48 roads now only 12–16m total wide',
+  note:'width-aware-narrow is a DIAGNOSTIC CONTROLLER ONLY; never shipped or integrated into runner',
   frozenGoldUntouched:true,existingPrecipiceUnchanged:true,extraCollisionAreaAdded:0,
   inGameSteeringChanged:false,cameraChanged:false,
   autoCompletionIsNotHumanPlayability:true,

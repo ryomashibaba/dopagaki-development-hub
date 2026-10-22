@@ -16,5 +16,5 @@ test('G4E7N true 13–16m physical B48 readout is finite and measures narrow wid
  assert.equal(doc.stageForge.g4e7mRealRoad.certifiedSlopeDnaMeters,0);
 });
 test('G4E7N offline-only controllers are enumerated and no production writes exist',()=>{
- assert.deepEqual(G4E7N_STEERS,['p96-original','route-only','dodge-3m']);
+ assert.deepEqual(G4E7N_STEERS,['p96-original','route-only','dodge-3m','width-aware-narrow']);
 });

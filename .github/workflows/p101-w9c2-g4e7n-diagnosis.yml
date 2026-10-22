@@ -31,9 +31,9 @@ jobs:
           node --input-type=module -e '
           import fs from "node:fs";
           const r=JSON.parse(fs.readFileSync("g4e7n-diagnostic-native.json"));
-          if(r.cases.length!==5||r.cases[0].finished||
+          if(r.cases.length!==6||r.cases[0].finished||
              !r.cases[0].fatal.some(c=>c.type==="static-fatal-contact")||
-             !r.cases[3].finished||!r.cases[4].finished||
+             !r.cases[4].finished||!r.cases[5].finished||
              r.cases.some(c=>c.officialSlopeMeters!==0)||
              r.inGameSteeringChanged||r.certifiedSlope2Meters!==0)
             throw Error("G4E7N failed to preserve original fail + control evidence");
