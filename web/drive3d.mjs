@@ -38,6 +38,7 @@ import {G4E7D_PROTOCOL,createG4E7DTrial,observeG4E7DStep,observeG4E7DFrame,expor
 import {makeG4E7DPanel} from './p101-w9c2-g4e7d-manual-panel.mjs';
 import {createG4E7HFocusHud} from './p101-w9c2-g4e7h-hud-focus.mjs';
 import {g4e7iSkylineContours,createG4E7IControls} from './p101-w9c2-g4e7i-readability.mjs';
+import {createG4E7JMatrix} from './p101-w9c2-g4e7j-matrix.mjs';
 import {createGapQa,qaSteer,qaStep,qaObservation} from './p101-w9c2-g4e7b-qa.mjs';
 import {a13MachineBodyVertices} from './p101-a13-machine-visual.mjs';
 import {a13RacingRoadArt} from './p101-a13-road-art.mjs';
@@ -75,6 +76,7 @@ const g4e7gPoint=new URLSearchParams(window.location.search).get('g4e7gPoint')==
 const g4e7gHold=g4e7gOptIn&&new URLSearchParams(window.location.search).get('g4e7gFrame')==='hold';
 const g4e7hRequested=g4e7gOptIn&&new URLSearchParams(window.location.search).get('g4e7h')==='candidate';
 const g4e7iRequested=g4e7hRequested&&new URLSearchParams(window.location.search).get('g4e7i')==='candidate';
+const g4e7jRequested=g4e7iRequested&&new URLSearchParams(window.location.search).get('g4e7j')==='matrix';
 if(g4e7gOptIn){
  for(const [id,label] of [
   ['VB-P101-A13-W9C2-G4E7G-GOLD','G4E-7G GOLD — unchanged W7F clone, visual only'],
@@ -91,7 +93,7 @@ let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
 let g4e7dTrial=null,g4e7dPanel=null;
-let g4e7gActive=false,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null;
+let g4e7gActive=false,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
@@ -649,6 +651,13 @@ async function load(){
     g4e7hHud.button.addEventListener('click',()=>g4e7iUi.refreshFocus());
    }
    g4e7iUi.setStage(Boolean(g4e7iContour?.active));
+  }
+  if(g4e7jRequested){
+   if(!g4e7jUi)g4e7jUi=createG4E7JMatrix({
+    canvas,parent:$('stage').parentElement,readability:g4e7iUi,
+    focusButton:g4e7hHud.button
+   });
+   g4e7jUi.setStage(Boolean(g4e7iContour?.active));
   }
   restart();
  }catch(e){
