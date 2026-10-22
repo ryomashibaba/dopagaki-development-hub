@@ -76,7 +76,7 @@ function full(alpha,hasGap){
   certifiedSlope2Meters:0};
 }
 export function g4e7wBlendedFull(){
- const pairs=[.4,.6,.8].map(alpha=>{
+ const pairs=[.65,.7,.75].map(alpha=>{
   const intact=full(alpha,false),cut=full(alpha,true);
   return {alpha,originalPhysicalB48IdenticalExceptHole:true,
    fullRoadCut:cut,fullRoadIntact:intact,
