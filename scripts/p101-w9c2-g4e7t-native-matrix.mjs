@@ -59,7 +59,7 @@ export function g4e7tNativeMatrix(){
   late:{extraAirTicks:0,maxPositionDivergence:0,firstPhysicalDifference:null}};
  for(let tick=1;tick<70/DT;tick++){
   for(const s of states){
-   const r=s.runner;if(r.status!=='running')continue;
+   const r=s.runner;if(!['ready','running'].includes(r.status))continue;
    const steer=p96DodgeSteer(r,s.plan,'early-soft',movingObstaclePose).input/4.8;
    p101Step(r,steer,'OVERDRIVE',{
     forwardScale:p101A13ForwardScale(r,s.surge),collisionRecovery:false});
@@ -95,7 +95,7 @@ export function g4e7tNativeMatrix(){
       gapGrounded:r.grounded};
    }
   }
-  if(states.every(s=>s.runner.status!=='running'))break;
+  if(states.every(s=>!['ready','running'].includes(s.runner.status)))break;
  }
  const candidates=states.map(summarize);
  return {schema:'dopagaki.g4e7t-real-gap-native-matrix/1',
