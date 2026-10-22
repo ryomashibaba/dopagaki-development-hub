@@ -37,6 +37,7 @@ import {g4e7cGapRoadCues} from './p101-w9c2-g4e7c-gap-cues.mjs';
 import {G4E7D_PROTOCOL,createG4E7DTrial,observeG4E7DStep,observeG4E7DFrame,exportG4E7DTrial,createG4E7DSession,completeG4E7DSession,exportG4E7DSession} from './p101-w9c2-g4e7d-human-qa.mjs';
 import {makeG4E7DPanel} from './p101-w9c2-g4e7d-manual-panel.mjs';
 import {createG4E7HFocusHud} from './p101-w9c2-g4e7h-hud-focus.mjs';
+import {g4e7iSkylineContours,createG4E7IControls} from './p101-w9c2-g4e7i-readability.mjs';
 import {createGapQa,qaSteer,qaStep,qaObservation} from './p101-w9c2-g4e7b-qa.mjs';
 import {a13MachineBodyVertices} from './p101-a13-machine-visual.mjs';
 import {a13RacingRoadArt} from './p101-a13-road-art.mjs';
@@ -73,6 +74,7 @@ const g4e7gOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get(
 const g4e7gPoint=new URLSearchParams(window.location.search).get('g4e7gPoint')==='crown'?'crown':'skyline';
 const g4e7gHold=g4e7gOptIn&&new URLSearchParams(window.location.search).get('g4e7gFrame')==='hold';
 const g4e7hRequested=g4e7gOptIn&&new URLSearchParams(window.location.search).get('g4e7h')==='candidate';
+const g4e7iRequested=g4e7hRequested&&new URLSearchParams(window.location.search).get('g4e7i')==='candidate';
 if(g4e7gOptIn){
  for(const [id,label] of [
   ['VB-P101-A13-W9C2-G4E7G-GOLD','G4E-7G GOLD — unchanged W7F clone, visual only'],
@@ -89,7 +91,7 @@ let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
 let g4e7dTrial=null,g4e7dPanel=null;
-let g4e7gActive=false,g4e7hHud=null;
+let g4e7gActive=false,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
@@ -174,7 +176,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7cCueMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7cCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
@@ -212,6 +214,11 @@ function buildVisual(stage){
   canvas.dataset.a13W9NonCollision=String(hero.nonCollision);
    const art=a13RacingRoadArt(stage,sample,frame);
    a13RoadArtMesh=mesh(art.vertices);
+   g4e7iContour=g4e7iSkylineContours(stage,sample,frame,{enabled:g4e7iRequested});
+   g4e7iMesh=g4e7iContour.active?mesh(g4e7iContour.vertices):null;
+   canvas.dataset.g4e7iTriangles=String(g4e7iContour.triangles);
+   canvas.dataset.g4e7iNonCollision=String(g4e7iContour.nonCollision);
+   canvas.dataset.g4e7iGeometryEligible=String(g4e7iContour.active);
    g4e7cCue=g4e7cGapRoadCues(stage,sample,frame,{enabled:g4e7cRequested});
    g4e7cCueMesh=mesh(g4e7cCue.vertices);
    g4e7cCueActive=g4e7cCue.active&&(!g4e7dRequested||G4E7D_PROTOCOL[g4e7dSession.index]?.cue===true);
@@ -329,7 +336,7 @@ function render(frameSeconds){
  canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
  draw(scenery);if(megaEnabled){draw(megaWorld);draw(g5bSceneryMesh);}draw(g4dSkywayMesh);draw(a13ArchMesh);
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
- draw(roads);draw(a13RoadArtMesh);if(g4e7cCueActive)draw(g4e7cCueMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
+ draw(roads);draw(a13RoadArtMesh);if(g4e7iUi?.active&&g4e7iContour?.active)draw(g4e7iMesh);if(g4e7cCueActive)draw(g4e7cCueMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
  draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);
  draw(hazardGateSolidMesh);
@@ -635,6 +642,13 @@ async function load(){
   if(g4e7hRequested){
    if(!g4e7hHud)g4e7hHud=createG4E7HFocusHud({canvas,parent:$('stage').parentElement});
    g4e7hHud.setStage(Boolean(value.stageForge.g4e7gVisualTrial));
+  }
+  if(g4e7iRequested){
+   if(!g4e7iUi){
+    g4e7iUi=createG4E7IControls({canvas,parent:$('stage').parentElement});
+    g4e7hHud.button.addEventListener('click',()=>g4e7iUi.refreshFocus());
+   }
+   g4e7iUi.setStage(Boolean(g4e7iContour?.active));
   }
   restart();
  }catch(e){
