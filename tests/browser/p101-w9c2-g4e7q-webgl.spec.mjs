@@ -41,7 +41,10 @@ test('G4E-7Q genuine dive + missing collider gap private WebGL and zero-time pro
   });
   expect(evidence.colliders).toBe(7);expect(evidence.machines).toBe(28);
   expect(evidence.degenerate).toBe(0);expect(evidence.certified).toBe(0);
+  expect(evidence.roadWidth).toBeGreaterThan(10);
+  expect(evidence.roadWidth).toBeLessThan(50);
   expect(evidence.spawnIndex).toBe(evidence.expected+(point==='landing'?1:0));
+  expect(evidence.spawnU).toBe(point==='landing'?.814:.762);
   expect(evidence.hasPhysicalGap).toBe(variant==='LEAP');
   expect(evidence.runMode).toBe('private-real-B48-dive-human-hold');
   if(variant==='LEAP'){expect(evidence.gap.actualB48MissingStrips).toBe(true);

@@ -100,7 +100,7 @@ export function generateG4E7QPhysical(variant='drop',{visualSpawns=false}={}){
   throw Error('G4E-7Q changed Gold/GLIDE unrelated physical route or moving machines');
  const originalSpawns=doc.spawns.length;
  if(visualSpawns){
-  for(const [u,label] of [[.735,'PRE-CREST'],[.86,'LANDING']])
+  for(const [u,label] of [[.762,'PRE-VOID'],[.814,'POST-VOID']])
    doc.spawns.push({name:'G4E-7Q '+label+' / PRIVATE VISUAL ONLY',surface:road.id,u,v:.5});
  }
  doc.name='G4E-7Q '+variant.toUpperCase()+' B48 ACTUAL DIVE / '+(gap?'OPEN GAP':'INTACT CONTROL')+' / HUMAN HOLD';

@@ -86,8 +86,10 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false,quietNarro
    // Segment suppression is conservative (whole motifs) and does NOT change
    // the B48 lattice, collisions, obstacles, camera or route geometry.
    const w=quietNarrow?G4E7P_NARROW_WINDOWS.find(x=>x.section===section):null;
+   const quietDive=section===0&&doc.stageForge.g4e7qStudy&&
+    b>=.68&&a<=.94;
    const quietThis=(quietSkyline&&section===0&&b>=.28&&a<=.85)||
-    Boolean(w&&b>=w.uStart&&a<=w.uEnd);
+    Boolean(w&&b>=w.uStart&&a<=w.uEnd)||Boolean(quietDive);
    const oldVertexCount=vertices.length;
    for(const [v0,v1] of [[.02,.11],[.89,.98]])quad(vertices,s,a,c,v0,v1,[.03,.085,.13],sample,frame);
    if(!quietThis)for(const [v0,v1] of [[.12,.22],[.78,.88]])
