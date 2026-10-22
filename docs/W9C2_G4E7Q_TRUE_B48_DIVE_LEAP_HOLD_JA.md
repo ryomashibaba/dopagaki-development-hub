@@ -30,3 +30,15 @@ LEAPの真の欠損を内側chevronや光学路面マークが描画上ふさが
 
 ## WebGL一次審査と視覚位置修正（G4E-7Q E）
 初回のWebGL[CI #39784169910](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39784169910) はSUCCESS（構文・Node・4視点WebGL・public隔離）。ただし写真では視覚スポーン .735/.86 がギャップから離れ、中央の大型A13 chevronで起伏が読みづらかった。これはゲームの質的達成ではないため、private視覚スポーンを .762/.814 に変更し、G4E-7Q独立候補に限って第I道路のu=.68-.94で中央装飾を減らす。左右外周装飾・本来の物理的な道路・欠損は保持。これは人間の走行可能性の認定ではない。
+
+
+## 最終G4E-7Q/E監査 — 技術成功・実走行視界は不合格/HOLD（2026-10-22 JST）
+
+- 最新HEADの[G4E-7Q native #39784897313](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39784897313) SUCCESS。これは**失敗した候補を正しく記録できた**ことも含めた技術CI成功であり、DROP/LEAPが7/7を完走した意味ではない。
+- [G4E-7Q WebGL #39784897276](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39784897276) SUCCESS。Node検査、private 2候補、crest/landing×DROP/LEAPの実WebGL4画像、public/public-safe漏出なし。artifact `g4e7q-physical-dive-gap-WebGL-39784897276`、ID `12429130531`。
+- 実B48の横幅実測：変更後の視覚スポーン **u=.762 は39.08m、u=.814は15.98m**。これは場所ごとの実物理サンプル幅で、視覚化や人間操作合格ではない。
+- **目視品質REJECT/HOLD**：u=.814（POST-VOID）の実カメラでは道路の大きな表裏面が画面前方を覆い、次の道路を十分に先読みできない。u=.762（PRE-VOID）でも遠景に既存の直方体/単純フレームが大量に残り、G4E-7Qが目指す面白い大型ステージの品質には遠い。
+- DROPとLEAPの静止画像はこの4視点では近似して見えるため、欠損が真の物理であるというNode証拠と、人間からギャップが識別できるという主張を混同しない。実ギャップの自然離陸・横断・着地は**NOT VERIFIED**。
+- G4E-7Q物理2候補は残すが、カメラからの急降下先読み、自然ジャンプ、真の短い切断ギャップの着地、安全でない障害物配置を直すまで正式採択・公開禁止。道路を広げる・見えない床を増やす・P96自動操舵をゲームに加える・突然速度を戻す等の簡易回避は禁止。
+- 適切な次研究G4E-7Rは**落差と物理線形/切断部の位置関係を改善して高速ドライバー視界から実際の進行面が見える形にすること**。カメラ相対固定の憲章は維持し、単にHUDを重ねない。後半障害物へ衝突する原因とギャップへの到達/空中/再接地を局所的・定量的に調べる。
+- 前述すべてG4E-7F/Gold/W7F/A13/B5に一切正式統合していない。**Slope2 DNA正式0m、人間の楽しさ・公平性不合格/HOLD、PR #46 Draft未マージ、mainおよび本番2サイト不変更**。
