@@ -74,12 +74,13 @@ test('G4E7G real WebGL same normalized road pose Gold vs Glide (NOT world-pose m
    await page.close();
   }
  }
+ const comparePage=await context.newPage();
  const comparisons=[];
  for(const point of ['skyline','crown']){
   const a=shots[point].GOLD,b=shots[point].GLIDE;
   const delta=Math.hypot(...a.proof.p.map((v,i)=>v-b.proof.p[i]));
   expect(delta).toBeGreaterThan(1);
-  const pixels=await context.pages()[0].evaluate(async({a,b})=>{
+  const pixels=await comparePage.evaluate(async({a,b})=>{
    const read=async s=>{
     const blob=await(await fetch('data:image/png;base64,'+s)).blob();
     const image=await createImageBitmap(blob);
@@ -97,6 +98,7 @@ test('G4E7G real WebGL same normalized road pose Gold vs Glide (NOT world-pose m
    xyzDifferenceMeters:delta,realRoadPixelDifference:pixels});
   expect(pixels.pixelsChanged).toBeGreaterThan(50);
  }
+ await comparePage.close();
  const result={schema:'dopagaki.w9c2.g4e7g-webgl-visual-evidence/1',
   records,comparisons,errors,nonpublishing:true,
   sameWorldPoseClaim:false,headlessActualWebGL:true,
