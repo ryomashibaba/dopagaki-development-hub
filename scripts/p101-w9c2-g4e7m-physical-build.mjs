@@ -106,7 +106,7 @@ export function generateG4E7MPhysical(variant='thread',{visualSpawns=false}={}){
  const id=G4E7M_STAGE+variant.toUpperCase();
  const initialSpawns=doc.spawns.length;
  if(visualSpawns)for(const w of G4E7M_B48_WINDOWS){
-  const u=(w.u1+w.u2)/2;
+  const u=w.section===0?.52:.15; // same normalized B48 u as existing Gold/GLIDE private viewpoints
   doc.spawns.push({name:'G4E-7M '+w.id+' TRUE 13–16m ROAD / PRIVATE VIEW ONLY',
    surface:doc.surfaces[w.section].id,u,v:.5});
  }

@@ -17,6 +17,7 @@ import {generateP101W9C2SCrestCandidate} from './p101-w9c2-s-crest-build.mjs';
 import {generateW9C2G4ENarrow} from './p101-w9c2-g4e-narrow-build.mjs';
 import {generateG4E6EarlyGap} from './p101-w9c2-g4e6-early-gap-build.mjs';
 import {generateG4E7GVisualDocument} from './p101-w9c2-g4e7g-visual-stage.mjs';
+import {generateG4E7MPhysical} from './p101-w9c2-g4e7m-physical-build.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
 import {generateP97RoadplayEvidence} from './p97-roadplay-evidence.mjs';
 import {generateP96DodgeEvidence} from './p96-acceptance-evidence.mjs';
@@ -124,6 +125,12 @@ if(includeStages){
     for(const kind of ['gold','glide'])
      write('generated/P101_A13_W9C2_G4E7G_'+kind.toUpperCase()+'_LOCAL_VISUAL.json',
       JSON.stringify(generateG4E7GVisualDocument(kind),null,2)+'\n');
+   }
+   // G4E-7M: TRUE 13-16m B48 candidate roads, NEVER public.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7M_VISUAL==='1'){
+    for(const kind of ['thread','precipice'])
+     write('generated/P101_A13_W9C2_G4E7M_'+kind.toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7MPhysical(kind,{visualSpawns:true}),null,2)+'\n');
    }
    // G4E-6D: physically complete but human-UNAPPROVED gap candidates.
   // Strictly local private build, NEVER emitted by the public build even if
