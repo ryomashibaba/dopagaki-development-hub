@@ -36,6 +36,7 @@ import {g4dOutboardSkyways} from './p101-w9c2-g4d-skyways.mjs';
 import {g4e7cGapRoadCues} from './p101-w9c2-g4e7c-gap-cues.mjs';
 import {G4E7D_PROTOCOL,createG4E7DTrial,observeG4E7DStep,observeG4E7DFrame,exportG4E7DTrial,createG4E7DSession,completeG4E7DSession,exportG4E7DSession} from './p101-w9c2-g4e7d-human-qa.mjs';
 import {makeG4E7DPanel} from './p101-w9c2-g4e7d-manual-panel.mjs';
+import {createG4E7HFocusHud} from './p101-w9c2-g4e7h-hud-focus.mjs';
 import {createGapQa,qaSteer,qaStep,qaObservation} from './p101-w9c2-g4e7b-qa.mjs';
 import {a13MachineBodyVertices} from './p101-a13-machine-visual.mjs';
 import {a13RacingRoadArt} from './p101-a13-road-art.mjs';
@@ -71,6 +72,7 @@ if(g4e6LocalOptIn){
 const g4e7gOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get('g4e7g')==='on';
 const g4e7gPoint=new URLSearchParams(window.location.search).get('g4e7gPoint')==='crown'?'crown':'skyline';
 const g4e7gHold=g4e7gOptIn&&new URLSearchParams(window.location.search).get('g4e7gFrame')==='hold';
+const g4e7hRequested=g4e7gOptIn&&new URLSearchParams(window.location.search).get('g4e7h')==='candidate';
 if(g4e7gOptIn){
  for(const [id,label] of [
   ['VB-P101-A13-W9C2-G4E7G-GOLD','G4E-7G GOLD — unchanged W7F clone, visual only'],
@@ -87,7 +89,7 @@ let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
 let g4e7dTrial=null,g4e7dPanel=null;
-let g4e7gActive=false;
+let g4e7gActive=false,g4e7hHud=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
@@ -629,6 +631,10 @@ async function load(){
    const i=value.stageForge.g4e7gVisualTrial.originalSpawns;
    $('spawn').value=String(i+(g4e7gPoint==='crown'?1:0));
    $('demoRun').disabled=true;$('practiceRun').disabled=true;
+  }
+  if(g4e7hRequested){
+   if(!g4e7hHud)g4e7hHud=createG4E7HFocusHud({canvas,parent:$('stage').parentElement});
+   g4e7hHud.setStage(Boolean(value.stageForge.g4e7gVisualTrial));
   }
   restart();
  }catch(e){

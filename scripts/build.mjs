@@ -83,6 +83,7 @@ if(includeStages){
  copy('web/p101-w9c2-g4e7c-gap-cues.mjs','drive3d/p101-w9c2-g4e7c-gap-cues.mjs');
  copy('web/p101-w9c2-g4e7d-human-qa.mjs','drive3d/p101-w9c2-g4e7d-human-qa.mjs');
  copy('web/p101-w9c2-g4e7d-manual-panel.mjs','drive3d/p101-w9c2-g4e7d-manual-panel.mjs');
+  copy('web/p101-w9c2-g4e7h-hud-focus.mjs','drive3d/p101-w9c2-g4e7h-hud-focus.mjs');
  copy('web/p101-w9c1-pair-qa.html','w9c1-pair-qa/index.html');
  copy('web/p101-w9c1-pair-qa.mjs','w9c1-pair-qa/comparison.mjs');
  copy('web/p101-w9c1-pair-session.html','w9c1-pair-session/index.html');
