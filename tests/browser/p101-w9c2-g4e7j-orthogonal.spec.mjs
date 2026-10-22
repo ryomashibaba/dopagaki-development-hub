@@ -72,7 +72,17 @@ test('G4E-7J orthogonal four-condition real WebGL study at equal physical pose',
    }
    const prefix='g4e7j-'+name+'-'+id;
    const viewPng=await viewport.screenshot({path:info.outputPath(prefix+'-hud.png')});
+   // Playwright locator(canvas).screenshot may include positioned HUD siblings
+   // painted ABOVE the canvas. Temporarily mask DOM siblings only, leaving GL,
+   // canvas CSS dimensions, camera, and collision/physics completely intact.
+   await page.evaluate(()=>{
+    const mask=document.createElement('style');
+    mask.id='g4e7j-pure-gl-visual-mask';
+    mask.textContent='.viewport > :not(canvas){visibility:hidden!important}';
+    document.head.append(mask);
+   });
    const roadPng=await canvas.screenshot({path:info.outputPath(prefix+'-road.png')});
+   await page.evaluate(()=>document.querySelector('#g4e7j-pure-gl-visual-mask')?.remove());
    captures.push({id,typography,contours,metrics,
     hudImage:prefix+'-hud.png',roadImage:prefix+'-road.png',
     hudBytes:viewPng.toString('base64'),roadBytes:roadPng.toString('base64')});
@@ -106,7 +116,10 @@ test('G4E-7J orthogonal four-condition real WebGL study at equal physical pose',
    return {typeOnly:compare(0,1),contourOnly:compare(0,2),both:compare(0,3),
     contoursWithLargeFont:compare(1,3)};
   },captures.map(c=>c.roadBytes));
-  // Without the road paint, changing HTML fonts should not alter GL pixels.
+  // Physical B48, WebGL mesh and canvas flags are independently preserved.
+  // The image bytes can still vary with camera smoothing or GPU draw frames.
+  // This threshold applies only to DOM-masked true WebGL pixels, *never* the
+  // canvas screenshot with overlay siblings; report actual residual separately.
   expect(diff.typeOnly.percent).toBeLessThan(2);
   expect(metrics[1].hud.percent).toBeLessThan(9);
   expect(metrics[3].hud.percent).toBeLessThan(9);

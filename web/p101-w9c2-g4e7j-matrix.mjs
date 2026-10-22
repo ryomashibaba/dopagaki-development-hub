@@ -45,6 +45,7 @@ export function createG4E7JMatrix({canvas,parent,readability,focusButton}){
  };
  const update=()=>{
   holder.hidden=!enabled;
+  holder.style.display=enabled?'grid':'none'; // Inline display:grid otherwise overrides UA [hidden].
   const active=ready();
   for(const button of buttons.values())button.disabled=!active;
   reset();
