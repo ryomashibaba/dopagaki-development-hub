@@ -33,13 +33,19 @@ function quad(out,road,a,b,v0,v1,col,sample,frame){
  triangle(out,road,[[a,v0],[b,v0],[b,v1]],col,sample,frame);
  triangle(out,road,[[a,v0],[b,v1],[a,v1]],col,sample,frame);
 }
-export function a13RacingRoadArt(doc,sample,frame){
+export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false}={}){
+ // G4E-7K is a PRIVATE, explicit, nonphysical visual alternative only.
+ // Never change the W7F Gold or any ordinary A13 art output via defaults.
+ if(quietSkyline&&(doc?.stageForge?.recordStageId!=='VB-P101-A13-W9C2-G4E7G-GLIDE'||
+   doc?.stageForge?.g4e7gVisualTrial?.kind!=='glide'||doc?.stageForge?.g4e7fPhysicalStudy?.variant!=='glide'||
+   doc?.stageForge?.productionPromoted!==false))
+  throw Error('G4E-7K quiet chevrons permitted only on real private G4E7G GLIDE');
  if(doc?.stageForge?.variant!=='A13_GAMEPLAY_ISOLATED')
   return {vertices:[],segments:0,sections:0,nonCollision:true};
  if(doc.surfaces?.length!==7||typeof sample!=='function'||typeof frame!=='function'||
     doc.surfaces.some(s=>!s.collidable||!s.rideable||s.rows!==31||s.cols!==5))
   throw Error('W8 must use seven actual collidable B48 skin surfaces');
- const vertices=[];let segments=0;
+ const vertices=[];let segments=0,quietChevrons=0,quietTriangleSavings=0;
  for(const [section,s] of doc.surfaces.entries()){
   // W9-C2: a 22m wide S-crest cannot carry all W8 giant chevrons:
   // overlapping paint hid the true road edge and upcoming curvature in
@@ -54,23 +60,47 @@ export function a13RacingRoadArt(doc,sample,frame){
    const gap=doc.stageForge.g4e6EarlyGap?.section===section?
     doc.stageForge.g4e6EarlyGap:null;
    if(gap&&a<=gap.uLanding+.015&&c>=gap.uTakeoff-.015)continue;
+   // Quiet only the real first-road S-shaped approach. Preserve all lateral
+   // outer-edge styling, hazard warning shapes and all remaining road panels.
+   // Segment suppression is conservative (whole motifs) and does NOT change
+   // the B48 lattice, collisions, obstacles, camera or route geometry.
+   const quietThis=quietSkyline&&section===0&&b>=.40&&a<=.77;
+   const oldVertexCount=vertices.length;
    for(const [v0,v1] of [[.02,.11],[.89,.98]])quad(vertices,s,a,c,v0,v1,[.03,.085,.13],sample,frame);
-   for(const [v0,v1] of [[.12,.22],[.78,.88]])quad(vertices,s,a,b,v0,v1,[.065,.14,.21],sample,frame);
+   if(!quietThis)for(const [v0,v1] of [[.12,.22],[.78,.88]])
+    quad(vertices,s,a,b,v0,v1,[.065,.14,.21],sample,frame);
    quad(vertices,s,b,c,.04,.09,glow,sample,frame);
    quad(vertices,s,b,c,.91,.96,accent,sample,frame);
-   triangle(vertices,s,[[a,.24],[b,.24],[c,.33]],glow2,sample,frame);
-   triangle(vertices,s,[[a,.76],[b,.76],[c,.67]],accent,sample,frame);
-   const phase=Math.floor(d/34)%3;
-   if(phase===0){
-    quad(vertices,s,a,b,.37,.41,glow2,sample,frame);
-    quad(vertices,s,a,b,.59,.63,glow,sample,frame);
-   }else if(phase===1){
-    triangle(vertices,s,[[a,.36],[c,.36],[b,.46]],glow,sample,frame);
-   }else triangle(vertices,s,[[a,.64],[c,.64],[b,.54]],glow2,sample,frame);
+   if(!quietThis){
+    triangle(vertices,s,[[a,.24],[b,.24],[c,.33]],glow2,sample,frame);
+    triangle(vertices,s,[[a,.76],[b,.76],[c,.67]],accent,sample,frame);
+    const phase=Math.floor(d/34)%3;
+    if(phase===0){
+     quad(vertices,s,a,b,.37,.41,glow2,sample,frame);
+     quad(vertices,s,a,b,.59,.63,glow,sample,frame);
+    }else if(phase===1){
+     triangle(vertices,s,[[a,.36],[c,.36],[b,.46]],glow,sample,frame);
+    }else triangle(vertices,s,[[a,.64],[c,.64],[b,.54]],glow2,sample,frame);
+   }
+   if(quietThis){
+    quietChevrons++;
+    // Source returns only the retained GPU triangles, not fake paint over
+    // the removed center. Compare against exact original counted separately.
+    quietTriangleSavings+=((Math.floor(d/34)%3===0)?10:7);
+   }
+   if(quietThis&&vertices.length<=oldVertexCount)throw Error('G4E7K cannot remove road-edge outline');
    segments++;
   }
  }
  if(segments<140||segments>400||vertices.length>180000||vertices.length%18!==0||!vertices.every(Number.isFinite))
   throw Error('W8 road art invalid or over GPU budget');
- return {vertices,segments,sections:7,nonCollision:true,g4e6RealGapVisualClearance:!!doc.stageForge.g4e6EarlyGap};
+ const value={vertices,segments,sections:7,nonCollision:true,g4e6RealGapVisualClearance:!!doc.stageForge.g4e6EarlyGap};
+ if(quietSkyline){
+  if(quietChevrons<3||quietChevrons>25)throw Error('G4E7K quiet real-road study span drift');
+  value.g4e7k={active:true,section:0,normalizedWindow:[.40,.77],
+   quietChevrons,removedInteriorOnly:true,outerRoadEdgePaintRetained:true,
+   deletedTrianglesEstimate:quietTriangleSavings,nonCollision:true,
+   originalB48GeometryUnchanged:true,officiallyApprovedSlopeDnaMeters:0};
+ }
+ return value;
 }
