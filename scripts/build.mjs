@@ -22,6 +22,8 @@ import {generateG4E7QPhysical} from './p101-w9c2-g4e7q-dive-build.mjs';
 import {generateG4E7RPhysical} from './p101-w9c2-g4e7r-grade-build.mjs';
 import {generateG4E7SNativeCamera} from './p101-w9c2-g4e7s-native-camera.mjs';
 import {generateG4E7TPhysical} from './p101-w9c2-g4e7t-real-early-gap-build.mjs';
+import {generateG4E7VExit} from './p101-w9c2-g4e7v-exit-build.mjs';
+import {g4e7vRealCameraFrames,G4E7V_VISUAL_IDS} from './p101-w9c2-g4e7v-camera-frames.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
 import {generateP97RoadplayEvidence} from './p97-roadplay-evidence.mjs';
 import {generateP96DodgeEvidence} from './p96-acceptance-evidence.mjs';
@@ -163,6 +165,15 @@ if(includeStages){
     for(const variant of ['solid','early','late'])
      write('generated/P101_A13_W9C2_G4E7T_'+variant.toUpperCase()+'_LOCAL_TRIAL.json',
       JSON.stringify(generateG4E7TPhysical(variant,{inspectionSpawns:true}),null,2)+'\n');
+   }
+   // G4E-7V private source: real ONE53/EXIT6/SLOPE6 B48, plus actual
+   // 240Hz scripted start00 camera frames. This NEVER enters public build.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7V_VISUAL==='1'){
+    for(const id of G4E7V_VISUAL_IDS)
+     write('generated/P101_A13_W9C2_G4E7V_'+id.toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7VExit(id),null,2)+'\n');
+    write('generated/P101_A13_W9C2_G4E7V_240HZ_FRAMES_LOCAL.json',
+     JSON.stringify(g4e7vRealCameraFrames(),null,2)+'\n');
    }
    // G4E-6D: physically complete but human-UNAPPROVED gap candidates.
   // Strictly local private build, NEVER emitted by the public build even if
