@@ -35,6 +35,7 @@ export function g4e7vRealCameraFrames(){
     frames.push({id:target.id,source:'NATIVE_START00_240HZ_P96_NOT_HUMAN',
      tick,timeSeconds:fmt(r.time),speedMps:fmt(Math.hypot(...r.v),3),
      grounded:r.grounded,roadId:r.surface||r.lastSurface,pose,
+     velocity:[...r.v],
      yaw:camera.yaw,eye:[...view.eye],front:[...view.front],
      physicalCollisionCount:r.collisions});
     next++;

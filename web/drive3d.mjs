@@ -498,7 +498,7 @@ function render(frameSeconds){
  }
  // P85: energy ball is strictly display-only, tied to the native 240Hz
  // position and simulation clock. There is no physical effect or steering aid.
- const effect=energyBallFrame(pose.time,g4e7sShot?.velocity||runner.v,pose.forward,renderQuality.scale);
+ const effect=energyBallFrame(pose.time,g4e7vShot?.velocity||g4e7sShot?.velocity||runner.v,pose.forward,renderQuality.scale);
  if(energyFx){
   draw(energyMeshes.shell,pose.position,[1,1,1],effect.spin);
   draw(energyMeshes.filaments,pose.position,[1,1,1],effect.spin*.84,gl.LINES);
