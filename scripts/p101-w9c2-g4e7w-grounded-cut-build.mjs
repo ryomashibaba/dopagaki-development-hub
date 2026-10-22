@@ -35,7 +35,7 @@ export function generateG4E7WPhysical(profile='exit6',cell=52){
    !eq(doc.movingObstacles,ancestor.movingObstacles)||
    !eq(doc.surfaces.slice(1),ancestor.surfaces.slice(1))||
    !eq(doc.route,ancestor.route)||!eq(doc.routeSegments,ancestor.routeSegments)||
-   !eq(doc.spawns,ancestor.spawns)||mesh.topIndexCount>=tessellate(ancestor.surfaces[0]).topIndexCount)
+   !eq(doc.spawns,ancestor.spawns)||mesh.topIndexCount!==tessellate(ancestor.surfaces[0]).topIndexCount)
   throw Error('W deviated from exact B48 original except missing collision strip');
  const gap={cells:[cell],uTakeoff:cutAt,uLanding:landAt,
   realCollisionGap:true,noInvisibleBridge:true,

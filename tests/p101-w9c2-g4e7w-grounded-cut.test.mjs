@@ -18,7 +18,7 @@ test('G4E-7W only removes real B48 longitudinal cells on actual narrow road, no 
    assert.deepEqual(d.surfaces.slice(1),original.surfaces.slice(1));
    assert.deepEqual(d.movingObstacles,original.movingObstacles);
    assert.deepEqual(d.spawns,original.spawns);
-   assert(tessellate(d.surfaces[0]).topIndexCount<tessellate(original.surfaces[0]).topIndexCount);
+   assert.equal(tessellate(d.surfaces[0]).topIndexCount,tessellate(original.surfaces[0]).topIndexCount);
    assert(m.gap.lipWidthMeters<=22&&m.gap.lipWidthMeters>=10);
    checked++;
   }
