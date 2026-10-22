@@ -1,0 +1,45 @@
+name: W9-C2 G4E-7W R2 true narrow B48 takeoff gradient 240Hz (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7w-takeoff-blend-build.mjs'
+      - 'scripts/p101-w9c2-g4e7w-takeoff-blend-screen.mjs'
+      - 'tests/p101-w9c2-g4e7w-takeoff-blend.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7w-takeoff-blend.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-takeoff-B48:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 21
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original-road protection and blended true physical narrow road
+        run: |
+          node --check scripts/p101-w9c2-g4e7w-takeoff-blend-build.mjs
+          node --check scripts/p101-w9c2-g4e7w-takeoff-blend-screen.mjs
+          node --test tests/p101-w9c2-g4e7w-takeoff-blend.test.mjs
+      - name: Canonical 240Hz actual grounded-gap versus no-gap physics
+        run: |
+          node scripts/p101-w9c2-g4e7w-takeoff-blend-screen.mjs g4e7w-graded-takeoff-causal.json
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const r=JSON.parse(fs.readFileSync("g4e7w-graded-takeoff-causal.json","utf8"));
+          if(r.hz!==240||r.results.length!==6||!r.start00||
+            r.results.some(x=>x.officialSlope2Meters!==0||
+             x.prior9SecondScreenNotFullRun!==true)||
+            r.release!=="HOLD")throw Error("G4E7W blended causal 240Hz evidence invalid");
+          console.log("W grounded-gap causal gradient experiment recorded. HUMAN HOLD.");
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7w-blended-240hz-ground-gap-${{ github.run_id }}
+          path: g4e7w-graded-takeoff-causal.json
+          if-no-files-found: ignore
+          retention-days: 12
