@@ -7,7 +7,7 @@
  */
 export const G4E7H_ROI=Object.freeze({left:.06,top:.25,right:.94,bottom:.92});
 export const G4E7H_SELECTORS=Object.freeze([
- '.hud','.righttag','#chapterHud','#machineCue','#edgeRadar','.drivekeys'
+ '.hud','.righttag','#chapterHud','#machineCue','#edgeRadar','#left','#right'
 ]);
 const CSS=`
 .viewport[data-g4e7h-mode="focus"] .righttag{display:none!important}

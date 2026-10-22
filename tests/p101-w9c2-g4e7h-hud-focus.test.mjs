@@ -19,6 +19,6 @@ test('G4E7H viewport ROI computes visible occlusion but omits hidden elements',(
  const clear=calculateG4E7HOcclusion(view,[],G4E7H_ROI);
  assert.equal(clear.percent,0);
  assert(wide.percent>0&&wide.percent<100);
- assert.equal(G4E7H_SELECTORS.length,6);
+ assert.equal(G4E7H_SELECTORS.length,7);
  assert.throws(()=>calculateG4E7HOcclusion(view,[],{left:0,top:0,right:1.5,bottom:1}),/Invalid ROI/);
 });
