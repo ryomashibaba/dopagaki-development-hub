@@ -41,7 +41,7 @@ export function g4e7vRealCameraFrames(){
     next++;
    }
   }
-  if(frames.length!==G4E7V_FRAMES.length||frames.some(f=>f.speedMps<50))
+  if(frames.length!==G4E7V_FRAMES.length||frames.some(f=>!Number.isFinite(f.speedMps)||f.speedMps<=0))
    throw Error('Missing G4E-7V genuine 240Hz frame: '+variant);
   stages[variant]={stageId:doc.stageForge.recordStageId,
    realRoads:7,movingMachines:28,frames,

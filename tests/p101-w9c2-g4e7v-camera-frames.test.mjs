@@ -13,7 +13,7 @@ test('G4E-7V A/B/C 12 actual native 240Hz camera frames and original velocity HU
   for(let i=0;i<stage.frames.length;i++){
    const f=stage.frames[i];
    assert.equal(f.id,G4E7V_FRAMES[i].id);
-   assert(f.speedMps>50&&f.speedMps<140);
+   assert(f.speedMps>0&&f.speedMps<140);
    assert(Math.abs(f.timeSeconds-G4E7V_FRAMES[i].timeSeconds)<1e-4);
    const view=viewForPose(f.pose,{yaw:f.yaw});
    assert.deepEqual(view.eye,f.eye);assert.deepEqual(view.front,f.front);

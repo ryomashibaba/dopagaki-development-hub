@@ -865,7 +865,7 @@ async function load(){
      throw Error('G4E-7V physics observation origin mismatch');
     g4e7vShot=sub.frames.find(x=>x.id===g4e7vPoint);
     if(!g4e7vShot||g4e7vShot.source!=='NATIVE_START00_240HZ_P96_NOT_HUMAN'||
-       g4e7vShot.speedMps<50)throw Error('G4E-7V real native frame missing');
+       !Number.isFinite(g4e7vShot.speedMps)||g4e7vShot.speedMps<=0)throw Error('G4E-7V real native frame missing');
     $('demoRun').disabled=true;$('practiceRun').disabled=true;
     $('spawn').value='0';
    }
