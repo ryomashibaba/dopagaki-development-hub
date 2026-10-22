@@ -94,6 +94,8 @@ test('G4E-7L true WebGL: 2 real-road-anchored heroic architecture concepts in 3 
   },pictures.map(p=>p.bareBytes));
   expect(percent.riftVsOriginal.pixels).toBeGreaterThan(100);
   expect(percent.skyseamVsOriginal.pixels).toBeGreaterThan(100);
+  // A distinct design MUST appear from the actual driver perspective.
+  expect(percent.skyseamVsRift.pixels).toBeGreaterThan(100);
   await page.locator('#g4e7l-off').click();
   await expect(canvas).toHaveAttribute('data-g4e7l-mode','off');
   studies.push({point,viewport:{width:w,height:h},dimensions,pureWebGLDifference:percent,

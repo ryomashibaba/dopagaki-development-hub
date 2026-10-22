@@ -26,6 +26,8 @@ test('G4E-7L 2 colossal real-road-anchored sky districts: no new B48, no fake ro
  assert(rift.cliffPanels>=50);
  assert.equal(rift.skySeams,0);assert.equal(seam.skySeams,2);
  assert(seam.triangles>rift.triangles);
+ assert.equal(seam.outboardFlyingButtresses,20);
+ assert.equal(rift.outboardFlyingButtresses,0);
  assert(rift.triangles>2000);
  for(const x of [rift,seam]){
   assert(x.vertices.every(Number.isFinite));

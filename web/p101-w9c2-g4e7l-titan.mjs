@@ -31,7 +31,7 @@ export const G4E7L_DISTRICTS=Object.freeze([
 ]);
 const off=()=>({active:false,mode:'off',vertices:[],triangles:0,
   districts:0,cliffPanels:0,roofShells:0,openVoidBays:0,
-  skySeams:0,landmarkSpines:0,minimumClearanceMeters:null,
+  skySeams:0,landmarkSpines:0,outboardFlyingButtresses:0,minimumClearanceMeters:null,
   maximumAltitudeAboveRoadMeters:0,architecturalFootprintMeters:null,
   nonCollision:true,addedRoads:0,addedSupport:0,addedMachines:0,
   goldUntouched:true,officiallyApprovedSlopeDnaMeters:0,
@@ -103,7 +103,7 @@ export function g4e7lTitanArchitecture(stage,sample,{mode='off'}={}){
   throw Error('G4E7L must reference exactly seven true B48 collision roads');
  const signature=JSON.stringify(stage);
  const vertices=[];
- let cliffPanels=0,roofShells=0,openVoidBays=0,landmarkSpines=0,skySeams=0;
+ let cliffPanels=0,roofShells=0,openVoidBays=0,landmarkSpines=0,skySeams=0,outboardFlyingButtresses=0;
  let highest=0;
  for(const district of G4E7L_DISTRICTS){
   const road=stage.surfaces[district.section];
@@ -189,6 +189,31 @@ export function g4e7lTitanArchitecture(stage,sample,{mode='off'}={}){
    skySeams++;
    highest=Math.max(highest,peak+123);
   }
+  // Original high skyseams were nearly invisible in the genuine driver
+  // camera. Add 20 massed but open flying buttresses beside the real B48.
+  // Bases remain beyond actual collision shoulder and moving hazards.
+  for(const district of G4E7L_DISTRICTS){
+   const road=stage.surfaces[district.section],span=district.end-district.start;
+   for(const side of [-1,1]){
+    for(const [i,fraction] of [.11,.29,.52,.74,.90].entries()){
+     const u=district.start+span*fraction;
+     const f=realFrame(road,u,side,sample);
+     const low=out(f,district.outboardMinimumMeters+12+i*3,18+4*i);
+     const bend=out(f,122+i*9,72+14*(i%3),-12+6*i);
+     const high=out(f,195+11*i,201+21*(i%3),-27+9*i);
+     const trailing=out(f,166+8*i,38+11*(i%2),48+10*i);
+     hollowRib(vertices,low,bend,9.3+(i%3)*1.8,
+      side===-1?palette.frost:palette.facet);
+     hollowRib(vertices,bend,high,5.4+(i%2)*2.1,palette.bedrock);
+     // Filled folded membrane with negative-space separation, no floor.
+     panel(vertices,low,bend,high,trailing,
+      side===-1?palette.facet:palette.bedrock);
+     hollowRib(vertices,lerp(low,bend,.54),lerp(bend,high,.65),1.85,
+      (i+district.section)%2===0?palette.trace:palette.amber);
+     outboardFlyingButtresses++;
+    }
+   }
+  }
  }
  if(vertices.length<50000||vertices.length>240000||vertices.length%18!==0||
    !vertices.every(Number.isFinite))
@@ -198,7 +223,7 @@ export function g4e7lTitanArchitecture(stage,sample,{mode='off'}={}){
  if(JSON.stringify(stage)!==signature)throw Error('G4E7L mutated real B48 or machines');
  return {active:true,mode,vertices,triangles:vertices.length/18,
   districts:G4E7L_DISTRICTS.length,cliffPanels,roofShells,openVoidBays,
-  skySeams,landmarkSpines,minimumClearanceMeters:Math.min(...G4E7L_DISTRICTS.map(x=>x.outboardMinimumMeters)),
+  skySeams,landmarkSpines,outboardFlyingButtresses,minimumClearanceMeters:Math.min(...G4E7L_DISTRICTS.map(x=>x.outboardMinimumMeters)),
   maximumAltitudeAboveRoadMeters:Number(highest.toFixed(1)),
   architecturalFootprintMeters:'TWO_REAL_ROAD_ANCHORED_SKYLINE_AND_CROWN_DISTRICTS',
   nonCollision:true,addedRoads:0,addedSupport:0,addedMachines:0,
