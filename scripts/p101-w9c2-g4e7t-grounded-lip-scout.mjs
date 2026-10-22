@@ -35,7 +35,7 @@ function simulate(doc,maxSeconds=10){
   samples=Array.from({length:129},(_,i)=>sample(road,i/128,.5));
  const points=[],groundedByCell=new Map(),events=[];
  let prevGrounded=r.grounded;
- for(let i=1;i<maxSeconds/DT&&r.status==='running';i++){
+ for(let i=1;i<maxSeconds/DT&&!['failed','finished'].includes(r.status);i++){
   const steer=p96DodgeSteer(r,plan,'early-soft',movingObstaclePose).input/4.8;
   p101Step(r,steer,'OVERDRIVE',{forwardScale:p101A13ForwardScale(r,surge),collisionRecovery:false});
   const loc=roadU(samples,r.p),cell=Math.floor(loc.u*90);
