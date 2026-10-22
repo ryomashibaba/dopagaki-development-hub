@@ -17,3 +17,13 @@
 
 ## 次
 native証拠とWebGLの物理位置・視界を照合し、実際に自然離陸→空中移動→原本路面へ戻るかを検査。満たさない場合は衝突回避を偽造したり安全床を追加せず、実形状・タイミングの原因から独立改良する。
+
+## 2026-10-22 native start00 technical proof
+[専用CI #39783343154](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39783343154) SUCCESS。単体5/5成功、Gold 7/7 53.275s、GLIDE 7/7 51.817sの正規240Hzスクリプト基準を確認。
+DROPとLEAPはそれぞれ **53.279sで第V道路の赤移動障害物に衝突し、完走FAIL**。障害物までに路面I～Vへ訪問、記録した総空中時間は2.2958s。ただしこれは候補に固有の新ギャップを飛んだ証明にはならず、LEAPのギャップ直下離陸／再接地は**NOT VERIFIED**。両者が同じ結果になったため、実ギャップによる動作差がプレイ進路上で発生したかは未確定。
+
+## Private WebGL / same physical views
+`DOPAGAKI_G4E7Q_VISUAL=1 npm run build:private` で非公開2件の実B48 JSONのみ生成。localhostの `?g4e7q=on&g4e7qFrame=hold&g4e7qPoint=crest|landing&stage=VB-P101-A13-W9C2-G4E7Q-LEAP` で静止視覚評価し、`g4e7qFrame`なしなら正規start00から手動走行できる（真の人間完走は未実施）。通常ゲーム・Gold・公開は非表示。
+LEAPの真の欠損を内側chevronや光学路面マークが描画上ふさがないよう、G4E-7Qの真ギャップに限って描画抑制。通常のP100/P101/W8表現は無変更。
+
+最優先次課題：**自然離陸→実空隙横断→元B48へ再接地するかを、明確な区間計測で証明すること**。滑走可能・楽しさ・2秒見通しなどは依然HOLD。正式採択0m。
