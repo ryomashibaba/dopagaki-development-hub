@@ -859,7 +859,12 @@ function updateEdgeRadar(){
 }
 function hud(){
  if(!runner)return;
- $('speed').textContent=Math.hypot(...runner.v).toFixed(1);
+ if(g4e7oTrial&&g4e7oPanel){
+   const m=g4e7oReadRoad(doc,runner,sample,RADIUS);
+   g4e7oPanel.live(m?'実B48幅 '+m.widthMeters.toFixed(2)+'m ・ 路肩余裕 '+m.signedEdgeMarginMeters.toFixed(2)+'m ・ '+Math.hypot(...runner.v).toFixed(1)+'m/s ・ FPS '+Math.round(fps):
+    '空中／路面位置不明 ・ '+Math.hypot(...runner.v).toFixed(1)+'m/s');
+  }
+  $('speed').textContent=Math.hypot(...runner.v).toFixed(1);
  $('simTime').textContent=runner.time.toFixed(2)+' s';$('contacts').textContent=String(runner.collisions);
  $('ground').textContent=(runner.grounded?'接地':'空中')+(p101ReboundRecoveryState(runner).active?' / 非致死衝突から復帰中':'');$('fps').textContent=String(Math.round(fps));
  updateRunScore();
@@ -1148,6 +1153,7 @@ $('stage').addEventListener('change',()=>{demoMode=false;practiceMode=false;seek
 // Explicit local QA launch may select a validated stage; never starts a demo or autopilot.
 const requestedStage=new URLSearchParams(window.location.search).get('stage');
 if(requestedStage&&Object.hasOwn(assets,requestedStage)&&Array.from($('stage').options).some(o=>o.value===requestedStage))$('stage').value=requestedStage;
+if(g4e7oRequested)$('stage').value='VB-P101-A13-W9C2-G4E7M-THREAD';
  $('p101Profile').addEventListener('change',()=>{if(doc?.stageForge?.id==='VB-P101')restart();});
 $('spawn').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;restart();});
 $('restart').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('retryRun').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('pause').addEventListener('click',toggle);
