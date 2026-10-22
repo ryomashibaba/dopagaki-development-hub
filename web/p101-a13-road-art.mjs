@@ -77,8 +77,8 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false,quietNarro
    const a=profile.u(d),b=profile.u(d+19),c=profile.u(d+25);
    // G4E-6D: no GPU chevron, wing plate or paint can bridge a missing REAL
    // physical road strip. Keep most visual art; cut only the gap neighborhood.
-   const gap=section===0&&doc.stageForge.g4e7qStudy?.gap?
-    doc.stageForge.g4e7qStudy.gap:
+   const gap=section===0&&(doc.stageForge.g4e7qStudy?.gap||doc.stageForge.g4e7rStudy?.gap)?
+    (doc.stageForge.g4e7qStudy?.gap||doc.stageForge.g4e7rStudy?.gap):
     doc.stageForge.g4e6EarlyGap?.section===section?doc.stageForge.g4e6EarlyGap:null;
    if(gap&&a<=gap.uLanding+.015&&c>=gap.uTakeoff-.015)continue;
    // Quiet only the real first-road S-shaped approach. Preserve all lateral
@@ -88,8 +88,9 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false,quietNarro
    const w=quietNarrow?G4E7P_NARROW_WINDOWS.find(x=>x.section===section):null;
    const quietDive=section===0&&doc.stageForge.g4e7qStudy&&
     b>=.68&&a<=.94;
+   const quietGrade=section===0&&doc.stageForge.g4e7rStudy&&b>=.64&&a<=.96;
    const quietThis=(quietSkyline&&section===0&&b>=.28&&a<=.85)||
-    Boolean(w&&b>=w.uStart&&a<=w.uEnd)||Boolean(quietDive);
+    Boolean(w&&b>=w.uStart&&a<=w.uEnd)||Boolean(quietDive)||Boolean(quietGrade);
    const oldVertexCount=vertices.length;
    for(const [v0,v1] of [[.02,.11],[.89,.98]])quad(vertices,s,a,c,v0,v1,[.03,.085,.13],sample,frame);
    if(!quietThis)for(const [v0,v1] of [[.12,.22],[.78,.88]])
@@ -120,7 +121,7 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false,quietNarro
  }
  if(segments<140||segments>400||vertices.length>180000||vertices.length%18!==0||!vertices.every(Number.isFinite))
   throw Error('W8 road art invalid or over GPU budget');
- const value={vertices,segments,sections:7,nonCollision:true,g4e6RealGapVisualClearance:!!(doc.stageForge.g4e6EarlyGap||doc.stageForge.g4e7qStudy?.gap)};
+ const value={vertices,segments,sections:7,nonCollision:true,g4e6RealGapVisualClearance:!!(doc.stageForge.g4e6EarlyGap||doc.stageForge.g4e7qStudy?.gap||doc.stageForge.g4e7rStudy?.gap)};
  if(quietSkyline){
   if(quietChevrons<3||quietChevrons>25)throw Error('G4E7K quiet real-road study span drift');
   value.g4e7k={active:true,section:0,normalizedWindow:[.28,.85],

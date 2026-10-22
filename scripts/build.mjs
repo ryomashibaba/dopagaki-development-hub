@@ -19,6 +19,7 @@ import {generateG4E6EarlyGap} from './p101-w9c2-g4e6-early-gap-build.mjs';
 import {generateG4E7GVisualDocument} from './p101-w9c2-g4e7g-visual-stage.mjs';
 import {generateG4E7MPhysical} from './p101-w9c2-g4e7m-physical-build.mjs';
 import {generateG4E7QPhysical} from './p101-w9c2-g4e7q-dive-build.mjs';
+import {generateG4E7RPhysical} from './p101-w9c2-g4e7r-grade-build.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
 import {generateP97RoadplayEvidence} from './p97-roadplay-evidence.mjs';
 import {generateP96DodgeEvidence} from './p96-acceptance-evidence.mjs';
@@ -140,6 +141,12 @@ if(includeStages){
     for(const kind of ['drop','leap'])
      write('generated/P101_A13_W9C2_G4E7Q_'+kind.toUpperCase()+'_LOCAL_TRIAL.json',
       JSON.stringify(generateG4E7QPhysical(kind,{visualSpawns:true}),null,2)+'\n');
+   }
+   // G4E-7R: isolated true B48 graded narrow-road / real gap, PRIVATE only.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7R_VISUAL==='1'){
+    for(const kind of ['sweep','cut'])
+     write('generated/P101_A13_W9C2_G4E7R_'+kind.toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7RPhysical(kind,{inspectionSpawns:true}),null,2)+'\n');
    }
    // G4E-6D: physically complete but human-UNAPPROVED gap candidates.
   // Strictly local private build, NEVER emitted by the public build even if

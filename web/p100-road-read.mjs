@@ -25,7 +25,7 @@ export function p100RoadReadGeometry(stage,sample,frame){
  if(stage.surfaces?.length!==7)throw Error('P100 requires seven real road surfaces');
  const vertices=[];let stripes=0,flowBars=0;
  const clear=(section,u0,u1)=>{
-  const gap=section===0?stage.stageForge?.g4e7qStudy?.gap:null;
+  const gap=section===0?(stage.stageForge?.g4e7qStudy?.gap||stage.stageForge?.g4e7rStudy?.gap):null;
   return !gap||u1<gap.uTakeoff-.003||u0>gap.uLanding+.003;
  };
  for(const [section,s] of stage.surfaces.entries()){
