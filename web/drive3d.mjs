@@ -43,6 +43,7 @@ import {createGapQa,qaSteer,qaStep,qaObservation} from './p101-w9c2-g4e7b-qa.mjs
 import {a13MachineBodyVertices} from './p101-a13-machine-visual.mjs';
 import {a13RacingRoadArt} from './p101-a13-road-art.mjs';
 import {g4e7kAllowed,createG4E7KControls} from './p101-w9c2-g4e7k-quiet-visual.mjs';
+import {g4e7lTitanArchitecture,g4e7lAllowed,createG4E7LStageControls} from './p101-w9c2-g4e7l-titan.mjs';
 import {makeW9C1CueProfile,readW9C1Cue,w9c1ApproachMarks} from './p101-w9c1-approach-cue.mjs';
 import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
 import {createB5ManualAudit,recordB5ManualSample,recordB5ManualFrame,observeW9C1ManualCue,finalizeB5ManualAudit,exportB5ManualAudit} from './p101-b5-manual-qa.mjs';
@@ -79,6 +80,7 @@ const g4e7hRequested=g4e7gOptIn&&new URLSearchParams(window.location.search).get
 const g4e7iRequested=g4e7hRequested&&new URLSearchParams(window.location.search).get('g4e7i')==='candidate';
 const g4e7jRequested=g4e7iRequested&&new URLSearchParams(window.location.search).get('g4e7j')==='matrix';
 const g4e7kRequested=g4e7gOptIn&&new URLSearchParams(window.location.search).get('g4e7k')==='quiet';
+const g4e7lRequested=g4e7gOptIn&&new URLSearchParams(window.location.search).get('g4e7l')==='monument';
 if(g4e7gOptIn){
  for(const [id,label] of [
   ['VB-P101-A13-W9C2-G4E7G-GOLD','G4E-7G GOLD — unchanged W7F clone, visual only'],
@@ -95,7 +97,7 @@ let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
 let g4e7dTrial=null,g4e7dPanel=null;
-let g4e7gActive=false,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null;
+let g4e7gActive=false,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
@@ -180,7 +182,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7cCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7cCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
@@ -230,6 +232,28 @@ function buildVisual(stage){
     g4e7kQuietMesh=null;canvas.dataset.g4e7kQuietChevrons='0';
     canvas.dataset.g4e7kTriangleReduction='0';
     canvas.dataset.g4e7kNonCollision='true';
+   }
+   // G4E-7L: two huge road-anchored but strictly noncolliding 3D districts.
+   // Prepare two visual alternatives only when localhost and exact GLIDE
+   // stage were explicitly opted in; none are serialized as road fixtures.
+   if(g4e7lRequested&&g4e7lAllowed(stage)){
+    const rift=g4e7lTitanArchitecture(stage,sample,{mode:'rift'});
+    const seam=g4e7lTitanArchitecture(stage,sample,{mode:'skyseam'});
+    g4e7lRiftMesh=mesh(rift.vertices);
+    g4e7lSeamMesh=mesh(seam.vertices);
+    canvas.dataset.g4e7lRiftTriangles=String(rift.triangles);
+    canvas.dataset.g4e7lSkyseamTriangles=String(seam.triangles);
+    canvas.dataset.g4e7lSkyseamCount=String(seam.skySeams);
+    canvas.dataset.g4e7lDistricts=String(rift.districts);
+    canvas.dataset.g4e7lVoidBays=String(rift.openVoidBays);
+    canvas.dataset.g4e7lHighestMeters=String(seam.maximumAltitudeAboveRoadMeters);
+    canvas.dataset.g4e7lNonCollision=String(seam.nonCollision);
+   }else{
+    g4e7lRiftMesh=null;g4e7lSeamMesh=null;
+    canvas.dataset.g4e7lRiftTriangles='0';canvas.dataset.g4e7lSkyseamTriangles='0';
+    canvas.dataset.g4e7lSkyseamCount='0';canvas.dataset.g4e7lDistricts='0';
+    canvas.dataset.g4e7lVoidBays='0';canvas.dataset.g4e7lHighestMeters='0';
+    canvas.dataset.g4e7lNonCollision='true';
    }
    g4e7iContour=g4e7iSkylineContours(stage,sample,frame,{enabled:g4e7iRequested});
    g4e7iMesh=g4e7iContour.active?mesh(g4e7iContour.vertices):null;
@@ -353,6 +377,9 @@ function render(frameSeconds){
  canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
  draw(scenery);if(megaEnabled){draw(megaWorld);draw(g5bSceneryMesh);}draw(g4dSkywayMesh);draw(a13ArchMesh);
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
+ // Draw monumental arches and cliffs as scenery, NEVER as collision skins.
+ if(g4e7lUi?.mode==='rift')draw(g4e7lRiftMesh);
+ else if(g4e7lUi?.mode==='skyseam')draw(g4e7lSeamMesh);
  draw(roads);draw(g4e7kUi?.quiet&&g4e7kQuietMesh?g4e7kQuietMesh:a13RoadArtMesh);if(g4e7iUi?.active&&g4e7iContour?.active)draw(g4e7iMesh);if(g4e7cCueActive)draw(g4e7cCueMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
  draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);
@@ -677,6 +704,10 @@ async function load(){
   if(g4e7kRequested){
    if(!g4e7kUi)g4e7kUi=createG4E7KControls({canvas,parent:$('stage').parentElement});
    g4e7kUi.setStage(Boolean(g4e7kQuietMesh&&g4e7kAllowed(value)));
+  }
+  if(g4e7lRequested){
+   if(!g4e7lUi)g4e7lUi=createG4E7LStageControls({canvas,parent:$('stage').parentElement});
+   g4e7lUi.setStage(Boolean(g4e7lRiftMesh&&g4e7lSeamMesh&&g4e7lAllowed(value)));
   }
   restart();
  }catch(e){
