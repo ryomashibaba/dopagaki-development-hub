@@ -33,7 +33,26 @@ function quad(out,road,a,b,v0,v1,col,sample,frame){
  triangle(out,road,[[a,v0],[b,v0],[b,v1]],col,sample,frame);
  triangle(out,road,[[a,v0],[b,v1],[a,v1]],col,sample,frame);
 }
-export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false}={}){
+// G4E-7P: independent GPU-only study on genuine B48 narrow-road surfaces.
+export const G4E7P_NARROW_WINDOWS=Object.freeze([
+ Object.freeze({section:0,uStart:.31,uEnd:.735}),
+ Object.freeze({section:1,uStart:.055,uEnd:.305})
+]);
+export function g4e7pAllowed(doc){
+ const sf=doc?.stageForge,physical=sf?.g4e7mRealRoad,variant=physical?.variant;
+ return (variant==='thread'||variant==='precipice')&&
+  sf.recordStageId==='VB-P101-A13-W9C2-G4E7M-'+variant.toUpperCase()&&
+  sf.variant==='A13_GAMEPLAY_ISOLATED'&&sf.productionPromoted===false&&
+  sf.studyOnly==='PRIVATE_REAL_PHYSICS_NOT_APPROVED'&&
+  physical.source==='G4E7F_GLIDE_GENUINE_B48'&&
+  physical.realCollisionRoads===7&&physical.movingObstacles===28&&
+  physical.certifiedSlopeDnaMeters===0&&physical.windows?.length===2&&
+  doc.surfaces?.length===7&&doc.movingObstacles?.length===28;
+}
+export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false,quietNarrow=false}={}){
+ if(quietSkyline&&quietNarrow)throw Error('G4E-7K and G4E-7P independent studies');
+ if(quietNarrow&&!g4e7pAllowed(doc))
+  throw Error('G4E-7P private B48 narrow road only');
  // G4E-7K is a PRIVATE, explicit, nonphysical visual alternative only.
  // Never change the W7F Gold or any ordinary A13 art output via defaults.
  if(quietSkyline&&(doc?.stageForge?.recordStageId!=='VB-P101-A13-W9C2-G4E7G-GLIDE'||
@@ -46,6 +65,7 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false}={}){
     doc.surfaces.some(s=>!s.collidable||!s.rideable||s.rows!==31||s.cols!==5))
   throw Error('W8 must use seven actual collidable B48 skin surfaces');
  const vertices=[];let segments=0,quietChevrons=0,quietTriangleSavings=0;
+ const narrowBySection=[0,0];
  for(const [section,s] of doc.surfaces.entries()){
   // W9-C2: a 22m wide S-crest cannot carry all W8 giant chevrons:
   // overlapping paint hid the true road edge and upcoming curvature in
@@ -64,7 +84,9 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false}={}){
    // outer-edge styling, hazard warning shapes and all remaining road panels.
    // Segment suppression is conservative (whole motifs) and does NOT change
    // the B48 lattice, collisions, obstacles, camera or route geometry.
-   const quietThis=quietSkyline&&section===0&&b>=.28&&a<=.85;
+   const w=quietNarrow?G4E7P_NARROW_WINDOWS.find(x=>x.section===section):null;
+   const quietThis=(quietSkyline&&section===0&&b>=.28&&a<=.85)||
+    Boolean(w&&b>=w.uStart&&a<=w.uEnd);
    const oldVertexCount=vertices.length;
    for(const [v0,v1] of [[.02,.11],[.89,.98]])quad(vertices,s,a,c,v0,v1,[.03,.085,.13],sample,frame);
    if(!quietThis)for(const [v0,v1] of [[.12,.22],[.78,.88]])
@@ -84,6 +106,7 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false}={}){
    }
    if(quietThis){
     quietChevrons++;
+    if(quietNarrow)narrowBySection[section]++;
     // Source returns only the retained GPU triangles, not fake paint over
     // the removed center. Compare against exact original counted separately.
     quietTriangleSavings+=((Math.floor(d/34)%3===0)?10:7);
@@ -102,5 +125,13 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false}={}){
    deletedTrianglesEstimate:quietTriangleSavings,nonCollision:true,
    originalB48GeometryUnchanged:true,officiallyApprovedSlopeDnaMeters:0};
  }
+ if(quietNarrow){
+  if(narrowBySection.some(n=>n<2))throw Error('G4E-7P narrow window has too few actual motifs');
+  value.g4e7p={active:true,quietBySection:narrowBySection,
+   windows:G4E7P_NARROW_WINDOWS.map(w=>({...w})),
+   removedInteriorOnly:true,outerRoadEdgePaintRetained:true,
+   quietChevrons,deletedTrianglesEstimate:quietTriangleSavings,
+   originalB48GeometryUnchanged:true,nonCollision:true,officiallyApprovedSlopeDnaMeters:0};
+ }
  return value;
-}
+

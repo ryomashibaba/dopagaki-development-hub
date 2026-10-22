@@ -43,7 +43,7 @@ import {g4e7iSkylineContours,createG4E7IControls} from './p101-w9c2-g4e7i-readab
 import {createG4E7JMatrix} from './p101-w9c2-g4e7j-matrix.mjs';
 import {createGapQa,qaSteer,qaStep,qaObservation} from './p101-w9c2-g4e7b-qa.mjs';
 import {a13MachineBodyVertices} from './p101-a13-machine-visual.mjs';
-import {a13RacingRoadArt} from './p101-a13-road-art.mjs';
+import {a13RacingRoadArt,g4e7pAllowed} from './p101-a13-road-art.mjs';
 import {g4e7kAllowed,createG4E7KControls} from './p101-w9c2-g4e7k-quiet-visual.mjs';
 import {g4e7lTitanArchitecture,g4e7lAllowed,createG4E7LStageControls} from './p101-w9c2-g4e7l-titan.mjs';
 import {makeW9C1CueProfile,readW9C1Cue,w9c1ApproachMarks} from './p101-w9c1-approach-cue.mjs';
@@ -86,6 +86,8 @@ const g4e7lRequested=g4e7gOptIn&&new URLSearchParams(window.location.search).get
 const g4e7mOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get('g4e7m')==='on';
 const g4e7mHold=g4e7mOptIn&&new URLSearchParams(window.location.search).get('g4e7mFrame')==='hold';
 const g4e7oRequested=g4e7mOptIn&&!g4e7mHold&&new URLSearchParams(window.location.search).get('g4e7o')==='manual';
+const g4e7pRequested=g4e7mOptIn&&!g4e7oRequested&&
+ new URLSearchParams(window.location.search).get('g4e7p')==='quiet';
 const g4e7mPoint=new URLSearchParams(window.location.search).get('g4e7mPoint')==='crown'?'crown':'skyline';
 if(g4e7mOptIn){
  for(const [id,label] of [
@@ -109,7 +111,7 @@ let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
 let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null;
-let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
+let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
@@ -195,7 +197,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7cCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7cCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
@@ -245,6 +247,22 @@ function buildVisual(stage){
     g4e7kQuietMesh=null;canvas.dataset.g4e7kQuietChevrons='0';
     canvas.dataset.g4e7kTriangleReduction='0';
     canvas.dataset.g4e7kNonCollision='true';
+   }
+   // G4E-7P: two genuinely narrow B48 road segments; subtract oversized
+   // interior chevrons without changing any physics, road edge or camera.
+   if(g4e7pRequested&&g4e7pAllowed(stage)){
+    const candidate=a13RacingRoadArt(stage,sample,frame,{quietNarrow:true});
+    if(candidate.segments!==art.segments||candidate.vertices.length>=art.vertices.length)
+     throw Error('G4E-7P must only remove existing GPU road art');
+    g4e7pQuietMesh=mesh(candidate.vertices);
+    canvas.dataset.g4e7pMode='private-narrow-quiet';
+    canvas.dataset.g4e7pRemoved=String((art.vertices.length-candidate.vertices.length)/18);
+    canvas.dataset.g4e7pSections=candidate.g4e7p.quietBySection.join(',');
+   }else{
+    g4e7pQuietMesh=null;
+    canvas.dataset.g4e7pMode='off';
+    canvas.dataset.g4e7pRemoved='0';
+    canvas.dataset.g4e7pSections='0,0';
    }
    // G4E-7L: two huge road-anchored but strictly noncolliding 3D districts.
    // Prepare two visual alternatives only when localhost and exact GLIDE
@@ -393,7 +411,7 @@ function render(frameSeconds){
  // Draw monumental arches and cliffs as scenery, NEVER as collision skins.
  if(g4e7lUi?.mode==='rift')draw(g4e7lRiftMesh);
  else if(g4e7lUi?.mode==='skyseam')draw(g4e7lSeamMesh);
- draw(roads);draw(g4e7kUi?.quiet&&g4e7kQuietMesh?g4e7kQuietMesh:a13RoadArtMesh);if(g4e7iUi?.active&&g4e7iContour?.active)draw(g4e7iMesh);if(g4e7cCueActive)draw(g4e7cCueMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
+ draw(roads);draw(g4e7pQuietMesh||(g4e7kUi?.quiet&&g4e7kQuietMesh?g4e7kQuietMesh:a13RoadArtMesh));if(g4e7iUi?.active&&g4e7iContour?.active)draw(g4e7iMesh);if(g4e7cCueActive)draw(g4e7cCueMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
  draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);
  draw(hazardGateSolidMesh);
