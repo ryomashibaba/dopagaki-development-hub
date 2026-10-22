@@ -44,7 +44,7 @@ import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
 import {createB5ManualAudit,recordB5ManualSample,recordB5ManualFrame,observeW9C1ManualCue,finalizeB5ManualAudit,exportB5ManualAudit} from './p101-b5-manual-qa.mjs';
 
 const $=id=>document.getElementById(id);
-const assets={'VB-P101-A13':'P101_A13_W7_GAMEPLAY.json','VB-P101-A13-W9X-B1':'P101_A13_W9X_B1_TRIAL.json','VB-P101-A13-W9C1-CONTROL':'P101_A13_W9C1_CONTROL_TRIAL.json','VB-P101-A13-W9C1-ULTRA':'P101_A13_W9C1_ULTRA_TRIAL.json','VB-P101-A13-W9C2-RIBBON':'P101_A13_W9C2_RIBBON_TRIAL.json','VB-P101-A13-W9C2-EDGE':'P101_A13_W9C2_EDGE_TRIAL.json','VB-P101-A13-W9C2-G4E-SHOULDER':'P101_A13_W9C2_G4E_SHOULDER_TRIAL.json','VB-P101-A13-W9C2-G4E-RAZOR':'P101_A13_W9C2_G4E_RAZOR_TRIAL.json','VB-P101-A13-W9C2-G4E6-C0-55-1':'P101_A13_W9C2_G4E6_C0-55-1_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E6-B0-65-1':'P101_A13_W9C2_G4E6_B0-65-1_LOCAL_TRIAL.json','VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
+const assets={'VB-P101-A13':'P101_A13_W7_GAMEPLAY.json','VB-P101-A13-W9X-B1':'P101_A13_W9X_B1_TRIAL.json','VB-P101-A13-W9C1-CONTROL':'P101_A13_W9C1_CONTROL_TRIAL.json','VB-P101-A13-W9C1-ULTRA':'P101_A13_W9C1_ULTRA_TRIAL.json','VB-P101-A13-W9C2-RIBBON':'P101_A13_W9C2_RIBBON_TRIAL.json','VB-P101-A13-W9C2-EDGE':'P101_A13_W9C2_EDGE_TRIAL.json','VB-P101-A13-W9C2-G4E-SHOULDER':'P101_A13_W9C2_G4E_SHOULDER_TRIAL.json','VB-P101-A13-W9C2-G4E-RAZOR':'P101_A13_W9C2_G4E_RAZOR_TRIAL.json','VB-P101-A13-W9C2-G4E6-C0-55-1':'P101_A13_W9C2_G4E6_C0-55-1_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E6-B0-65-1':'P101_A13_W9C2_G4E6_B0-65-1_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7G-GOLD':'P101_A13_W9C2_G4E7G_GOLD_LOCAL_VISUAL.json','VB-P101-A13-W9C2-G4E7G-GLIDE':'P101_A13_W9C2_G4E7G_GLIDE_LOCAL_VISUAL.json','VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 // G4E-1 physical trials are private opt-in; Gold remains the visible default.
 const g4ePreviewOptIn=new URLSearchParams(window.location.search).get('g4e')==='on'||
  new URLSearchParams(window.location.hash.slice(1)).get('g4e')==='on';
@@ -68,6 +68,16 @@ if(g4e6LocalOptIn){
   $('stage').append(option);
  }
 }
+const g4e7gOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get('g4e7g')==='on';
+const g4e7gPoint=new URLSearchParams(window.location.search).get('g4e7gPoint')==='crown'?'crown':'skyline';
+const g4e7gHold=g4e7gOptIn&&new URLSearchParams(window.location.search).get('g4e7gFrame')==='hold';
+if(g4e7gOptIn){
+ for(const [id,label] of [
+  ['VB-P101-A13-W9C2-G4E7G-GOLD','G4E-7G GOLD — unchanged W7F clone, visual only'],
+  ['VB-P101-A13-W9C2-G4E7G-GLIDE','G4E-7G GLIDE — actual 300m B48 road, HUMAN HOLD']]){
+  const o=document.createElement('option');o.value=id;o.textContent=label;$('stage').append(o);
+ }
+}
 const g4e7bRequested=g4e6LocalOptIn&&new URLSearchParams(window.location.search).get('g4e7b')==='scripted';
 const g4e7cRequested=g4e6LocalOptIn&&new URLSearchParams(window.location.search).get('g4e7c')==='candidate';
 const g4e7dRequested=g4e7cRequested&&!g4e7bRequested&&new URLSearchParams(window.location.search).get('g4e7d')==='manual';
@@ -77,6 +87,7 @@ let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
 let g4e7dTrial=null,g4e7dPanel=null;
+let g4e7gActive=false;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
@@ -412,7 +423,7 @@ function publishChapterTiming(){
 function updateNativeChapterTime(){
  const event=observeChapterSplits(chapterTracker,runner.surface,runner.lastSurface,runner.time,runner.status);
  if(!event)return;
- const best=(!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial)
+ const best=(!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial&&!g4e7gActive)
   ?storeChapterBest(browserRecordStore(),event)
   :{best:null,improved:false,saved:false};
  latestSplit=event;
@@ -422,13 +433,13 @@ function updateNativeChapterTime(){
 }
 function settleRun(){
  if(!runner||runCommitted||!['failed','finished'].includes(runner.status))return;
- if(demoMode||practiceMode||g4e7bQa||g4e7dTrial){
+ if(demoMode||practiceMode||g4e7bQa||g4e7dTrial||g4e7gActive){
   $('b5ResultExport').hidden=true;
   retryChapterId=null;$('retryPractice').hidden=true;
   runCommitted=true;const result=$('runResult');result.hidden=false;
-  $('resultTitle').textContent=g4e7dTrial?'G4E-7D · HUMAN QA · REVIEW HOLD':g4e7bQa?'SCRIPTED QA · NOT HUMAN':practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
+  $('resultTitle').textContent=g4e7gActive?'G4E-7G · VISUAL QA · NOT HUMAN':g4e7dTrial?'G4E-7D · HUMAN QA · REVIEW HOLD':g4e7bQa?'SCRIPTED QA · NOT HUMAN':practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
   $('resultScore').textContent=(practiceMode?practiceElapsed(runner.time,practiceStartedAt):runner.time).toFixed(2)+' s · 実物理'+(practiceMode?'操作練習':'観戦デモ');
-  $('resultDetails').textContent=(g4e7dTrial?'手動比較走行':g4e7bQa?'研究用P96走行':practiceMode?'練習':'観戦デモ')+'は自己ベストへ保存しません。人間評価HOLD。';
+  $('resultDetails').textContent=(g4e7gActive?'非公開の景観研究':g4e7dTrial?'手動比較走行':g4e7bQa?'研究用P96走行':practiceMode?'練習':'観戦デモ')+'は自己ベストへ保存しません。人間評価HOLD。';
   result.dataset.outcome=runner.status;canvas.dataset.runOutcome=runner.status;
   return;
  }
@@ -514,6 +525,8 @@ function restart(){
   $('ghostToggle').title=eligible?'開始地点00の手動走行にだけ適用':'実物理ゴーストはECHO PIPE開始00の手動走行のみ';
   const physicalLaunch=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)?52:44;
   runner=new Runner(doc,world,spawn,physicalLaunch);runner.assist=true;accum=0;paused=false;
+   g4e7gActive=Boolean(doc.stageForge.g4e7gVisualTrial&&g4e7gOptIn);
+   if(g4e7gActive&&g4e7gHold){paused=true;accum=0;}
   g4e7bQa=createGapQa(doc,runner,g4e7bRequested);
   g4e7dTrial=g4e7dRequested?createG4E7DTrial(doc,runner,G4E7D_PROTOCOL[g4e7dSession.index]):null;
   if(g4e7dRequested){
@@ -532,7 +545,7 @@ function restart(){
   }
   canvas.dataset.g4e7bMode=g4e7bQa?'SCRIPTED_P96_NOT_HUMAN':'off';
   canvas.dataset.b5LaunchMps=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'52':'off';
-  b5ManualAudit=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)&&!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial
+  b5ManualAudit=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)&&!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial&&!g4e7gActive
    ?createB5ManualAudit({stageId:doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.recordStageId||'VB-P101-A13'):'VB-P101-B5',profile:$('p101Profile').value,startSpeed:physicalLaunch,spawnIndex:spawn}):null;
   $('b5QaPanel').hidden=Boolean(g4e7bQa)||!['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant);
   $('b5QaTitle').textContent=doc.stageForge.slopeDNAStudy?.realB48Surface?'W9-C1 ABYSS '+doc.stageForge.slopeDNAStudy.nominalCoreWidthMeters+'m · 独立手動試走':doc.stageForge.recordStageId==='VB-P101-A13-W9X-B1'?'W9-X-B1 · 独立手動試走レポート':doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.g4e6EarlyGap?'W9-C2 G4E-6 · 真のB48ギャップ · 人間操作HOLD':doc.stageForge.g4ePhysicalStudy?'W9-C2 G4E-1 · '+doc.stageForge.revision+' · 実物理4狭路・人間HOLD':doc.stageForge.w9c2PhysicalStudy?'W9-C2 S-CREST · '+doc.stageForge.revision+' · 実物理研究/HOLD':'A13 W7F · 手動試走レポート'):'B5 · 手動試走レポート';
@@ -543,7 +556,10 @@ function restart(){
   p101B5Surge=createP101B5SurgeState();a13Surge=createA13SurgeState();
   canvas.dataset.b5PhysicalStage=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'true':'false';
  demoDirector=createNativeDemoState();
- canvas.dataset.runMode=g4e7bQa?'scripted-qa-not-human':demoMode?'spectator-demo':practiceMode?'practice':'manual';
+ canvas.dataset.g4e7gMode=g4e7gActive?(g4e7gHold?'STATIC_SAME_U_NOT_SAME_WORLD_POSE':'PRIVATE_NEUTRAL_VISUAL_NOT_HUMAN'):'off';
+  canvas.dataset.g4e7gKind=g4e7gActive?doc.stageForge.g4e7gVisualTrial.kind:'off';
+  canvas.dataset.g4e7gViewpoint=g4e7gActive?g4e7gPoint:'off';
+  canvas.dataset.runMode=g4e7gActive?'private-visual-qa-not-human':g4e7bQa?'scripted-qa-not-human':demoMode?'spectator-demo':practiceMode?'practice':'manual';
  lastEdgeRadarAt=0;$('edgeRadar').hidden=true;canvas.dataset.edgeStatus='unavailable';
  $('w9c1Notice').hidden=true;canvas.dataset.w9c1NoticePhase='none';
  canvas.dataset.w9c1NoticeEta='none';canvas.dataset.w9c1NoticeDistance='none';
@@ -565,11 +581,12 @@ function restart(){
  $('nearMissCount').textContent='0';$('nearMissBurst').hidden=true;
  updateRunScore();
  canvas.dataset.nearMissCount='0';
- $('pause').textContent='一時停止 (Space)';
+ $('pause').textContent=paused?'再開 (Space)':'一時停止 (Space)';
  delete status.dataset.failed;
  status.className='status';status.textContent=doc.stageForge?.slopeDNAStudy?.realB48Surface?'W9-C1 ABYSS DIVE — 本物のB48 '+doc.stageForge.slopeDNAStudy.nominalCoreWidthMeters+'m狭路 / 310–360m評価窓 / 28基の実動体 / 240Hz / 52m/s始動。人間の楽しさ・2秒視認性・公平性は未検証、W7F/B5/W9-X保護、Draft HOLD。':doc.stageForge?.g4e6EarlyGap?'G4E-6 ローカル限定比較 — 本物のB48第I道路を切断した'+doc.stageForge.g4e6EarlyGap.gapMeters.toFixed(2)+'mギャップ、28基の移動障害物と240Hz。正規start00 7/7はスクリプト操作のみ確認済み。手動の視認性・難易度・FPSはHOLD。公開禁止。':doc.stageForge?.g4ePhysicalStudy?'G4E-1 独立試走 — 本物のB48物理道路4か所を狭くした候補。28基の実動体・240Hz・自動完走3/3。自然ジャンプと人間操作は未認定。公開HOLD。':doc.stageForge?.w9c2PhysicalStudy?'W9-C2 S-CREST — 実B48第VI道路のS字・頂上・バンク・狭路。28基そのまま / 240Hz / 人間操作と正規完走HOLD。W7F/C1/B5/mainを保護。':doc.stageForge?.recordStageId==='VB-P101-A13-W9X-B1'?'W9-X-B1 UNDERPASS DUAL-APEX — 7.28km / 28基 / 実B48路面の交互バンク8m / 240Hz / 52m/s始動。自動7/7は補正操舵のみ・手動の公平性や楽しさは未検証。W7F Goldは変更なし・試走記録は独立。DRAFT HOLD。':doc.stageForge?.variant==='A13_GAMEPLAY_ISOLATED'?'P101 A13 W7F — 7.28km・正規240Hz・28基の実移動障害物・52m/s始動。自動試走7/7完走 53.275秒 / 203.6m/s（人間の難易度・視認性は未検証）。B5保護 / DRAFT HOLD。':doc.stageForge?.variant==='B5_HYPER_ARC_ISOLATED'?'P101 B5 HYPER ARC — 7.28km true giant 3D 180° curves, 12 real moving machines, native 240Hz 206.28m/s SCRIPTED finish proven, 52m/s launch. Human steering/visual/phone FPS HOLD. P100 unchanged.':doc.stageForge?.id==='VB-P101'?'P101 VELOCITY OVERDRIVE — 4×/4.8×/6× genuine lateral acceleration and enhanced forward speed; 240Hz CCD. Human fairness and full-run QA HOLD. P100 baseline unchanged.':doc.stageForge?.id==='VB-P100'?'P100 TERRAIN PULSE — authentic 3D S-bends, real crests and moving road camber; P99 baseline unchanged; 7/7 real 240Hz two-profile native finish confirmed, human fairness and final art HOLD.':doc.stageForge?.id==='VB-P99'?'P99 PRESSURE LINES — real 7-skin variable-width roads and 12 native moving hazards; two real native 240Hz profile finishes confirmed; human fairness and full visual quality HOLD.':doc.stageForge?.id==='VB-P95'?'P96 VOID BREAKER — 12 real moving B51-C obstacles, 7/7 native scripted finish; human difficulty/fairness HOLD.':doc.stageForge?.id==='VB-P93'?'P94 VOID BREAKER — genuine 3990m 7/7 native scripted finish verified; human playability and final art NOT APPROVED.':doc.stageForge?.id==='EP-P66'?'P91 EXPERIMENTAL — physical-road fork/machine/gap visual approach beacons; existing native racecard preserved; no physics/P62 changes.':'3D ready · B48 240Hz / B51-C moving collision · 実走行での楽しさは未認定';
  publishChapterTiming();
  if(g4e7bQa)status.textContent='G4E-7B P96 SCRIPTED QA — 実B48撮影専用。人間操作・公平性HOLD。';
+  if(g4e7gActive)status.textContent='G4E-7G 非公開実路面比較：Gold/Glideを同じ道路uで観察。世界座標・視線は同一ではない。人間評価HOLD。';
  if(guidedPairTrial&&window.parent!==window&&doc.stageForge?.recordStageId&&
     pairTrialIds.has(doc.stageForge.recordStageId)&&b5ManualAudit&&!demoMode&&!practiceMode){
   window.parent.postMessage({type:'dopagaki.w9c1.g5c3.ready/1',
@@ -582,7 +599,7 @@ function restart(){
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
- runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
+ runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;g4e7gActive=false;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
  try{
   const response=await fetch('../generated/'+assets[id],{cache:'no-store'});
   if(!response.ok)throw Error('Stage JSON HTTP '+response.status);
@@ -608,6 +625,11 @@ async function load(){
    $('practiceChapter').disabled=doc.stageForge?.id!=='EP-P66';
   $('spawn').replaceChildren();
   value.spawns.forEach((s,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=s.name||'開始地点 '+(i+1);$('spawn').append(option);});
+  if(g4e7gOptIn&&value.stageForge.g4e7gVisualTrial){
+   const i=value.stageForge.g4e7gVisualTrial.originalSpawns;
+   $('spawn').value=String(i+(g4e7gPoint==='crown'?1:0));
+   $('demoRun').disabled=true;$('practiceRun').disabled=true;
+  }
   restart();
  }catch(e){
   if(seq!==loading)return;
