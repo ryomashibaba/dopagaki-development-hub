@@ -8,7 +8,7 @@ import {sample,tessellate,validate} from '../private/reference_only/director/sur
 import {compile,contacts} from '../private/reference_only/director/collision.js';
 export const G4E7U_CHOICES=Object.freeze([
  Object.freeze({id:'control',cell:null}),
- ...[45,50,53,55,57,59,61,63,65].map(cell=>Object.freeze({id:'one'+cell,cell}))
+ ...[45,50,51,52,53,54,55,56,57,59,61,62,63,64,65].map(cell=>Object.freeze({id:'one'+cell,cell}))
 ]);
 const length=(a,b)=>Math.hypot(...a.map((x,i)=>x-b[i]));
 const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);

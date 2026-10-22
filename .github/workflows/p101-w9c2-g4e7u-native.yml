@@ -32,7 +32,7 @@ jobs:
           const a=JSON.parse(fs.readFileSync("g4e7u-real-gap-native.json","utf8"));
           if(a.nativeHz!==240||!a.start00||a.initialSpeed!==52||
            a.movingMachines!==28||a.realRoads!==7||
-           a.candidates.length!==10||a.candidates[0].variant!=="control"||
+           a.candidates.length!==16||a.candidates[0].variant!=="control"||
            a.candidates.some(c=>c.certifiedSlope2Meters!==0)||
            a.acceptance!=="HOLD")throw Error("G4E7U native evidence tampered");
           console.log("G4E7U 240Hz honest FULL or failed native run recorded");
