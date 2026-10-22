@@ -46,6 +46,7 @@ import {a13MachineBodyVertices} from './p101-a13-machine-visual.mjs';
 import {a13RacingRoadArt,g4e7pAllowed} from './p101-a13-road-art.mjs';
 import {g4e7kAllowed,createG4E7KControls} from './p101-w9c2-g4e7k-quiet-visual.mjs';
 import {g4e7lTitanArchitecture,g4e7lAllowed,createG4E7LStageControls} from './p101-w9c2-g4e7l-titan.mjs';
+import {g4e7sShardCity,g4e7sAllowed} from './p101-w9c2-g4e7s-shard-city.mjs';
 import {makeW9C1CueProfile,readW9C1Cue,w9c1ApproachMarks} from './p101-w9c1-approach-cue.mjs';
 import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
 import {createB5ManualAudit,recordB5ManualSample,recordB5ManualFrame,observeW9C1ManualCue,finalizeB5ManualAudit,exportB5ManualAudit} from './p101-b5-manual-qa.mjs';
@@ -95,6 +96,12 @@ const g4e7qPoint=new URLSearchParams(window.location.search).get('g4e7qPoint')==
 const g4e7rOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get('g4e7r')==='on';
 const g4e7rHold=g4e7rOptIn&&new URLSearchParams(window.location.search).get('g4e7rFrame')==='hold';
 const g4e7rPoint=new URLSearchParams(window.location.search).get('g4e7rPoint')==='post'?'post':'approach';
+const g4e7sOptIn=g4e7rOptIn&&g4e7rHold&&
+ new URLSearchParams(window.location.search).get('g4e7s')==='speed';
+const g4e7sPoint=['approach','lip','flight','rejoin'].includes(
+ new URLSearchParams(window.location.search).get('g4e7sPoint'))?
+ new URLSearchParams(window.location.search).get('g4e7sPoint'):'lip';
+const g4e7sScene=new URLSearchParams(window.location.search).get('g4e7sScene')==='shards'?'shards':'baseline';
 if(g4e7rOptIn){
  for(const [id,label] of [
   ['VB-P101-A13-W9C2-G4E7R-SWEEP','G4E-7R SWEEP — graded real B48 (HOLD)'],
@@ -129,7 +136,7 @@ let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
 let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null;
-let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7qActive=false,g4e7rActive=false,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
+let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7qActive=false,g4e7rActive=false,g4e7sShot=null,g4e7sTrace=null,g4e7sShardMesh=null,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
 let nearMissTracker=createNearMissTracker(),runCommitted=false,personalBest=null;
 let demoMode=false,demoDirector=createNativeDemoState();
@@ -215,7 +222,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7cCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7sShardMesh);discard(g4e7cCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
@@ -230,6 +237,14 @@ function buildVisual(stage){
   const arch=a13MachineMegastructures(stage,sample);
   const hero=a13W9HeroArchitecture(stage,sample);
   a13ArchMesh=mesh([...arch.vertices,...hero.vertices]);
+  const shard=g4e7sShardCity(stage,sample,{enabled:g4e7sOptIn&&g4e7sScene==='shards'});
+  g4e7sShardMesh=shard.active?mesh(shard.vertices):null;
+  canvas.dataset.g4e7sScene=shard.active?'shards':'baseline';
+  canvas.dataset.g4e7sSpires=String(shard.spires);
+  canvas.dataset.g4e7sVoidWindows=String(shard.voidWindows);
+  canvas.dataset.g4e7sTriangles=String(shard.triangles);
+  canvas.dataset.g4e7sNonCollision=String(shard.nonCollision);
+  canvas.dataset.g4e7sOutboardMeters=String(shard.outboardMinimumMeters);
    const g5b=w9c1G5BSkyline(stage,sample,{enabled:g5bVisualOptIn});
    g5bSceneryMesh=g5b.active?mesh(g5b.vertices):null;
    canvas.dataset.g5bMode=g5b.active?'candidate':'off';
@@ -398,12 +413,26 @@ function render(frameSeconds){
  if(!runner)return;
  // Render-time interpolation leaves native B48 physics untouched.
  const active=!paused&&runner.status==='running';
- const pose=resolveDisplayPose(previousPose,currentPose,accum,DT,active);
- cameraState=comparisonMode==='stable'
-  ?advanceCamera(cameraState,pose.forward,active?frameSeconds:0)
-  :createCameraState(pose.forward);
+ let pose=resolveDisplayPose(previousPose,currentPose,accum,DT,active);
+ if(g4e7sShot&&g4e7sOptIn){
+  // Research VIEW of an already committed real native 240Hz start00 step.
+  // Never advance a synthetic physical ball or report this as human driving.
+  pose={...g4e7sShot.pose,position:[...g4e7sShot.pose.position],
+   forward:[...g4e7sShot.pose.forward]};
+  cameraState={yaw:g4e7sShot.yaw};
+ }else{
+  cameraState=comparisonMode==='stable'
+   ?advanceCamera(cameraState,pose.forward,active?frameSeconds:0)
+   :createCameraState(pose.forward);
+ }
  headingError=cameraYawErrorRadians(cameraState,pose.forward);
  const view=viewForPose(pose,cameraState);
+ canvas.dataset.g4e7sMode=g4e7sShot&&g4e7sOptIn?'ACTUAL_240HZ_SCRIPTED_STILL_NOT_HUMAN':'off';
+ canvas.dataset.g4e7sPoint=g4e7sShot?.id||'off';
+ canvas.dataset.g4e7sSpeedMps=g4e7sShot?String(g4e7sShot.speedMps):'off';
+ canvas.dataset.g4e7sU=g4e7sShot?String(g4e7sShot.roadU):'off';
+ canvas.dataset.g4e7sGrounded=g4e7sShot?String(g4e7sShot.grounded):'off';
+ canvas.dataset.g4e7sTick=g4e7sShot?String(g4e7sShot.tick):'off';
  gl.uniform3fv(locations.eye,view.eye);gl.uniform3fv(locations.camFront,view.front);gl.uniform3fv(locations.camRight,view.right);gl.uniform3fv(locations.camUp,view.up);
  canvas.dataset.cameraMode=comparisonMode==='stable'?'ball-lock-interpolated':'ball-lock-unfiltered-heading';
  canvas.dataset.cameraHeadingLagDegrees=(headingError*180/Math.PI).toFixed(2);
@@ -424,7 +453,7 @@ function render(frameSeconds){
  gl.uniform1f(locations.fogStart,FOG_START_METERS);
  gl.uniform1f(locations.fogSpan,FOG_SPAN_METERS);
  canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
- draw(scenery);if(megaEnabled){draw(megaWorld);draw(g5bSceneryMesh);}draw(g4dSkywayMesh);draw(a13ArchMesh);
+ draw(scenery);if(megaEnabled){draw(megaWorld);draw(g5bSceneryMesh);}draw(g4dSkywayMesh);draw(a13ArchMesh);draw(g4e7sShardMesh);
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
  // Draw monumental arches and cliffs as scenery, NEVER as collision skins.
  if(g4e7lUi?.mode==='rift')draw(g4e7lRiftMesh);
@@ -445,7 +474,7 @@ function render(frameSeconds){
  }
  // P85: energy ball is strictly display-only, tied to the native 240Hz
  // position and simulation clock. There is no physical effect or steering aid.
- const effect=energyBallFrame(pose.time,runner.v,pose.forward,renderQuality.scale);
+ const effect=energyBallFrame(pose.time,g4e7sShot?.velocity||runner.v,pose.forward,renderQuality.scale);
  if(energyFx){
   draw(energyMeshes.shell,pose.position,[1,1,1],effect.spin);
   draw(energyMeshes.filaments,pose.position,[1,1,1],effect.spin*.84,gl.LINES);
@@ -750,6 +779,9 @@ function restart(){
     if(g4e7rActive)status.textContent='G4E-7R LOCAL / TRUE B48 '+doc.stageForge.g4e7rStudy.variant.toUpperCase()+
      ' — smoother physical dive '+(doc.stageForge.g4e7rStudy.gap?'and REAL GAP':'continuous road control')+
      ' / 28 moving machines / native scripted results do NOT certify human fairness.';
+    if(g4e7sShot&&g4e7sOptIn)status.textContent='G4E-7S SCRIPTED 240Hz REAL START00 FRAME '
+     +g4e7sShot.id.toUpperCase()+' / '+g4e7sShot.speedMps.toFixed(1)
+     +' m/s · '+g4e7sScene+' scenery. This is NOT human driving; Gold/production unchanged, HOLD.';
  if(guidedPairTrial&&window.parent!==window&&doc.stageForge?.recordStageId&&
     pairTrialIds.has(doc.stageForge.recordStageId)&&b5ManualAudit&&!demoMode&&!practiceMode){
   window.parent.postMessage({type:'dopagaki.w9c1.g5c3.ready/1',
@@ -762,7 +794,7 @@ function restart(){
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
- runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;g4e7gActive=false;g4e7mActive=false;g4e7oActive=false;g4e7qActive=false;g4e7rActive=false;g4e7oTrial=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
+ runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;g4e7gActive=false;g4e7mActive=false;g4e7oActive=false;g4e7qActive=false;g4e7rActive=false;g4e7sShot=null;g4e7sTrace=null;g4e7oTrial=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
  try{
   const response=await fetch('../generated/'+assets[id],{cache:'no-store'});
   if(!response.ok)throw Error('Stage JSON HTTP '+response.status);
@@ -778,6 +810,23 @@ async function load(){
     if(!ghostResponse.ok)throw Error('Reference ghost HTTP '+ghostResponse.status);
     replay=validateGhost(await ghostResponse.json());
     validateReferenceSectors(replay);
+   }
+   if(seq!==loading)return;
+   if(g4e7sOptIn){
+    if(!g4e7sAllowed(value)||id!=='VB-P101-A13-W9C2-G4E7R-CUT')
+     throw Error('G4E7S native speed comparison only for genuine private G4E7R-CUT');
+    const shotResponse=await fetch('../generated/P101_A13_W9C2_G4E7S_240HZ_PRIVATE.json',{cache:'no-store'});
+    if(!shotResponse.ok)throw Error('Missing PRIVATE actual 240Hz frame evidence');
+    const recorded=await shotResponse.json();
+    if(recorded.schema!=='dopagaki.g4e7s-native-camera/1'||
+     recorded.stageId!==value.stageForge.recordStageId||
+     recorded.physicsHz!==240||recorded.spawnIndex!==0||
+     recorded.officialSlopeDnaMeters!==0||recorded.frames?.length!==4)
+     throw Error('G4E7S scripted real-physics provenance mismatch');
+    g4e7sTrace=recorded;
+    g4e7sShot=recorded.frames.find(f=>f.id===g4e7sPoint);
+    if(!g4e7sShot||g4e7sShot.physicsHz!==240||g4e7sShot.speedMps<70)
+     throw Error('G4E7S actual high-speed frame unavailable');
    }
    if(seq!==loading)return;
    buildVisual(value);doc=value;world=compiled;ghostData=replay;
