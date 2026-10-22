@@ -47,7 +47,7 @@ export function p101B5OpticalRoadGeometry(doc,sample,frame){
  let dashes=0,edgeTicks=0,distanceMeters=0;
  const vertices=[];
  const clear=(section,u0,u1)=>{
-  const gap=section===0?(doc.stageForge?.g4e7qStudy?.gap||doc.stageForge?.g4e7rStudy?.gap):null;
+  const gap=section===0?(doc.stageForge?.g4e7qStudy?.gap||doc.stageForge?.g4e7rStudy?.gap||doc.stageForge?.g4e7tStudy?.gap):null;
   return !gap||u1<gap.uTakeoff-.003||u0>gap.uLanding+.003;
  };
  for(const [section,road] of doc.surfaces.entries()){

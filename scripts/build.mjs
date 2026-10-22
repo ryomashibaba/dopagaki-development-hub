@@ -21,6 +21,7 @@ import {generateG4E7MPhysical} from './p101-w9c2-g4e7m-physical-build.mjs';
 import {generateG4E7QPhysical} from './p101-w9c2-g4e7q-dive-build.mjs';
 import {generateG4E7RPhysical} from './p101-w9c2-g4e7r-grade-build.mjs';
 import {generateG4E7SNativeCamera} from './p101-w9c2-g4e7s-native-camera.mjs';
+import {generateG4E7TPhysical} from './p101-w9c2-g4e7t-real-early-gap-build.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
 import {generateP97RoadplayEvidence} from './p97-roadplay-evidence.mjs';
 import {generateP96DodgeEvidence} from './p96-acceptance-evidence.mjs';
@@ -156,6 +157,12 @@ if(includeStages){
      throw Error('G4E7S native shots require an explicitly private real R-CUT source');
     write('generated/P101_A13_W9C2_G4E7S_240HZ_PRIVATE.json',
      JSON.stringify(generateG4E7SNativeCamera(),null,2)+'\n');
+   }
+   // G4E-7T: private-only actual early 13m narrow B48 gap candidates.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7T_VISUAL==='1'){
+    for(const variant of ['solid','early','late'])
+     write('generated/P101_A13_W9C2_G4E7T_'+variant.toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7TPhysical(variant,{inspectionSpawns:true}),null,2)+'\n');
    }
    // G4E-6D: physically complete but human-UNAPPROVED gap candidates.
   // Strictly local private build, NEVER emitted by the public build even if
