@@ -134,4 +134,4 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false,quietNarro
    originalB48GeometryUnchanged:true,nonCollision:true,officiallyApprovedSlopeDnaMeters:0};
  }
  return value;
-
+}
