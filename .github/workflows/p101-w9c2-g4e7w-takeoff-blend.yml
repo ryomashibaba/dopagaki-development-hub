@@ -30,7 +30,7 @@ jobs:
           node --input-type=module -e '
           import fs from "node:fs";
           const r=JSON.parse(fs.readFileSync("g4e7w-graded-takeoff-causal.json","utf8"));
-          if(r.hz!==240||r.results.length!==6||!r.start00||
+          if(r.hz!==240||r.results.length!==9||!r.start00||
             r.results.some(x=>x.officialSlope2Meters!==0||
              x.prior9SecondScreenNotFullRun!==true)||
             r.release!=="HOLD")throw Error("G4E7W blended causal 240Hz evidence invalid");

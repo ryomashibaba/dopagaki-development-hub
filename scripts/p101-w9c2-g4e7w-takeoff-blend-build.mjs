@@ -7,7 +7,7 @@ import {generateG4E7WPhysical} from './p101-w9c2-g4e7w-grounded-cut-build.mjs';
 import {generateG4E7VExit} from './p101-w9c2-g4e7v-exit-build.mjs';
 import {sample,tessellate,validate} from '../private/reference_only/director/surface.js';
 import {compile,contacts} from '../private/reference_only/director/collision.js';
-export const W_BLEND_LEVELS=Object.freeze([0,.2,.4,.6,.8,1]);
+export const W_BLEND_LEVELS=Object.freeze([0,.2,.4,.6,.65,.7,.75,.8,1]);
 const len=(a,b)=>Math.hypot(...a.map((x,i)=>x-b[i]));
 const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 export function generateG4E7WBlend(alpha=0){
