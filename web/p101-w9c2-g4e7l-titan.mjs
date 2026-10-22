@@ -122,9 +122,26 @@ export function g4e7lTitanArchitecture(stage,sample,{mode='off'}={}){
     const notch=(i%11===4||i%11===5||i%11===6);
     if(notch)openVoidBays++;
     else{
-     panel(vertices,a.inner,b.inner,b.crest,a.crest,
-      i%3===0?palette.facet:palette.bedrock);cliffPanels++;
-     panel(vertices,a.heel,b.heel,b.outer,a.outer,palette.recess);cliffPanels++;
+     // Build a truly massive FOLDED canyon wall instead of a single paper
+     // plane. Intermediate ridges bend out and back through the depth of the
+     // external shard, creating the iconic vertical sawtooth silhouette.
+     const kink=(node,t,n)=>add(lerp(node.inner,node.crest,t),
+       mul(sub(node.outer,node.heel),n));
+     const a1=kink(a,.24,.085),b1=kink(b,.24,.095);
+     const a2=kink(a,.49,-.055),b2=kink(b,.49,-.062);
+     const a3=kink(a,.73,.067),b3=kink(b,.73,.072);
+     panel(vertices,a.inner,b.inner,b1,a1,palette.bedrock);
+     panel(vertices,a1,b1,b2,a2,palette.facet);
+     panel(vertices,a2,b2,b3,a3,palette.bedrock);
+     panel(vertices,a3,b3,b.crest,a.crest,palette.facet);
+     cliffPanels+=4;
+     // Thick lower overhang folds away into the actual open sky. This is
+     // scenery, never a fake road or additional collision triangle.
+     const backA=add(lerp(a.heel,a.outer,.54),[0,-13,0]);
+     const backB=add(lerp(b.heel,b.outer,.54),[0,-18,0]);
+     panel(vertices,a.heel,b.heel,backB,backA,palette.recess);
+     panel(vertices,backA,backB,b.outer,a.outer,palette.bedrock);
+     cliffPanels+=2;
     }
     // The upturned shell's top remains thin, disconnected at the void bays.
     if(!notch){
