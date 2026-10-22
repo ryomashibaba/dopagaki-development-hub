@@ -23,7 +23,7 @@ test('G4E7M GLIDE vs 2 actual B48 narrow-road candidates: WebGL2 12 photos and e
    await expect(canvas).toHaveAttribute('data-run-mode',original?'private-visual-qa-not-human':'private-real-B48-human-hold');
    await expect(canvas).toHaveAttribute('data-machine-count','28');
    if(!original){
-    await expect(canvas).toHaveAttribute('data-g4e7m-mode','STATIC_REAL_NARROW_B48');
+    await expect(canvas).toHaveAttribute('data-g4e7m-mode','STATIC_TRUE_B48_HUMAN_HOLD');
     await expect(canvas).toHaveAttribute('data-g4e7m-variant',variant.toLowerCase());
    }
    await expect(page.locator('#simTime')).toHaveText('0.00 s');
