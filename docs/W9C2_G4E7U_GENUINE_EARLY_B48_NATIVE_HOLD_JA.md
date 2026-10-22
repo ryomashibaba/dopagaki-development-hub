@@ -1,0 +1,7 @@
+# G4E-7U — 2026-10-23 JST — authentic ONE-CELL early-gap causal / native research (HOLD)
+
+R2 lower landing experiments were ALL invalid: even the no-gap comparator failed to leave road I at 7.317sec. Abandon the lower-road slope deformation and retain G4E-7T SOLID, which finished 7/7 start00 in 53.300sec. The prior R1 two-cell (13.79/13.507m) open cuts cause extra air (34/33 240Hz frames while both trials are running) but hit a nonrideable static triangle during attempted landing at 5.071/5.529 seconds. We cannot call this an acceptable jump.
+
+G4E-7U tests NINE independent **single missing physical B48 longitudinal cells** at first road u=0.5–0.722, plus an identical uncut SOLID baseline. Physical centerline and 13.6m early neck are byte-identical to G4E-7T SOLID; 28 machines, 7 roads and native 240Hz all unchanged. The candidate is causal only if the intact stage is grounded when the cut stage is airborne while BOTH statuses are RUNNING. Landing requires native grounded on the same real first B48 road after the physical cut. Full native scripted completion requires all 7 roads in order. Human-facing interpretation is separately HOLD. None are published or officially recognized.
+
+G4E-7T first private WebGL experiment failed in A13 general manual-audit allowlist before taking screenshots; G4E-7U fix excludes private T stages from normal B5/A13 audit, without broadening the whitelist. WebGL rerun still required.
