@@ -33,6 +33,27 @@ const CSS=`
  }
  .viewport[data-g4e7h-mode="focus"][data-g4e7i-mode="legible"] .chapter{font-size:11px}
 }
+/* At handheld width, legible >12px alert paragraphs cannot fit beside the
+ * moving road without blocking its approach view. Instead reserve a top rail
+ * ABOVE the original canvas. Actual canvas pixels and native camera stay the
+ * same size and FOV; no warning is hidden, shortened or sent off screen. */
+@media(max-width:640px){
+ .viewport[data-g4e7h-mode="focus"][data-g4e7i-mode="legible"]{
+  padding-top:166px
+ }
+ .viewport[data-g4e7h-mode="focus"][data-g4e7i-mode="legible"] .machineCue{
+  top:8px;right:8px;bottom:auto;max-width:48%;font-size:12px;line-height:1.4
+ }
+ .viewport[data-g4e7h-mode="focus"][data-g4e7i-mode="legible"] .edgeRadar{
+  top:8px;left:8px;bottom:auto;width:44%;font-size:12px
+ }
+ .viewport[data-g4e7h-mode="focus"][data-g4e7i-mode="legible"] .hud{
+  top:97px;left:8px
+ }
+ .viewport[data-g4e7h-mode="focus"][data-g4e7i-mode="legible"] .chapter{
+  top:140px;left:57%;max-width:42%;font-size:11px
+ }
+}
 `;
 const zero=()=>({active:false,vertices:[],triangles:0,segments:0,
  marks:[],nonCollision:true,indicatesSafeLane:false,newRideableArea:0,
