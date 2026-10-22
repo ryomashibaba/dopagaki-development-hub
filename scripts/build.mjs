@@ -82,6 +82,7 @@ if(includeStages){
  copy('web/p101-a13-road-art.mjs','drive3d/p101-a13-road-art.mjs');
   copy('web/p101-w9c2-g4e7k-quiet-visual.mjs','drive3d/p101-w9c2-g4e7k-quiet-visual.mjs');
   copy('web/p101-w9c2-g4e7l-titan.mjs','drive3d/p101-w9c2-g4e7l-titan.mjs');
+ copy('web/p101-w9c2-g4e7s-shard-city.mjs','drive3d/p101-w9c2-g4e7s-shard-city.mjs');
  copy('web/p101-w9c1-approach-cue.mjs','drive3d/p101-w9c1-approach-cue.mjs');
  copy('web/p101-w9c1-g5b-skyline.mjs','drive3d/p101-w9c1-g5b-skyline.mjs');
  copy('web/p101-w9c2-g4d-skyways.mjs','drive3d/p101-w9c2-g4d-skyways.mjs');
