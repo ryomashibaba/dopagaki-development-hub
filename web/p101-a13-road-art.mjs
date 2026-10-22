@@ -77,8 +77,9 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false,quietNarro
    const a=profile.u(d),b=profile.u(d+19),c=profile.u(d+25);
    // G4E-6D: no GPU chevron, wing plate or paint can bridge a missing REAL
    // physical road strip. Keep most visual art; cut only the gap neighborhood.
-   const gap=doc.stageForge.g4e6EarlyGap?.section===section?
-    doc.stageForge.g4e6EarlyGap:null;
+   const gap=section===0&&doc.stageForge.g4e7qStudy?.gap?
+    doc.stageForge.g4e7qStudy.gap:
+    doc.stageForge.g4e6EarlyGap?.section===section?doc.stageForge.g4e6EarlyGap:null;
    if(gap&&a<=gap.uLanding+.015&&c>=gap.uTakeoff-.015)continue;
    // Quiet only the real first-road S-shaped approach. Preserve all lateral
    // outer-edge styling, hazard warning shapes and all remaining road panels.
@@ -117,7 +118,7 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false,quietNarro
  }
  if(segments<140||segments>400||vertices.length>180000||vertices.length%18!==0||!vertices.every(Number.isFinite))
   throw Error('W8 road art invalid or over GPU budget');
- const value={vertices,segments,sections:7,nonCollision:true,g4e6RealGapVisualClearance:!!doc.stageForge.g4e6EarlyGap};
+ const value={vertices,segments,sections:7,nonCollision:true,g4e6RealGapVisualClearance:!!(doc.stageForge.g4e6EarlyGap||doc.stageForge.g4e7qStudy?.gap)};
  if(quietSkyline){
   if(quietChevrons<3||quietChevrons>25)throw Error('G4E7K quiet real-road study span drift');
   value.g4e7k={active:true,section:0,normalizedWindow:[.28,.85],

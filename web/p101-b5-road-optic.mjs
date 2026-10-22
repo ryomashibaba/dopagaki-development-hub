@@ -46,6 +46,10 @@ export function p101B5OpticalRoadGeometry(doc,sample,frame){
   throw Error('B5 optical cues require seven real B48 collidable surfaces and sampler');
  let dashes=0,edgeTicks=0,distanceMeters=0;
  const vertices=[];
+ const clear=(section,u0,u1)=>{
+  const gap=section===0?doc.stageForge?.g4e7qStudy?.gap:null;
+  return !gap||u1<gap.uTakeoff-.003||u0>gap.uLanding+.003;
+ };
  for(const [section,road] of doc.surfaces.entries()){
   if(!road.rideable||!road.collidable||road.rows!==31||road.cols!==5)
    throw Error('Optical read cannot lie about real collision-authoritative B48 roadway');
@@ -55,12 +59,12 @@ export function p101B5OpticalRoadGeometry(doc,sample,frame){
   // without marking the middle as a pre-selected safe lane.
   for(let distance=11;distance+7<profile.total-6;distance+=20){
    const u0=profile.toU(distance),u1=profile.toU(distance+7);
-   for(const [a,b] of [[.27,.287],[.713,.73]]){
+   if(clear(section,u0,u1))for(const [a,b] of [[.27,.287],[.713,.73]]){
     quad(vertices,road,u0,u1,a,b,palette.inner,sample,frame);dashes++;
    }
    // Edge reflectors look like paint, not fake raised or solid walls.
    const e0=profile.toU(distance),e1=profile.toU(distance+3);
-   for(const [a,b] of [[.045,.078],[.922,.955]]){
+   if(clear(section,e0,e1))for(const [a,b] of [[.045,.078],[.922,.955]]){
     quad(vertices,road,e0,e1,a,b,palette.edge,sample,frame);edgeTicks++;
    }
   }
@@ -69,6 +73,7 @@ export function p101B5OpticalRoadGeometry(doc,sample,frame){
   for(let i=0;i<60;i++){
    if(i%10===9)continue;
    const u0=i/60,u1=(i+1)/60;
+   if(!clear(section,u0,u1))continue;
    for(const [a,b] of [[.093,.103],[.897,.907]]){
     quad(vertices,road,u0,u1,a,b,palette.accent,sample,frame);
    }
