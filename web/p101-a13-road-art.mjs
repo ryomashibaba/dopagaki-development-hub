@@ -64,7 +64,7 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false}={}){
    // outer-edge styling, hazard warning shapes and all remaining road panels.
    // Segment suppression is conservative (whole motifs) and does NOT change
    // the B48 lattice, collisions, obstacles, camera or route geometry.
-   const quietThis=quietSkyline&&section===0&&b>=.40&&a<=.77;
+   const quietThis=quietSkyline&&section===0&&b>=.28&&a<=.85;
    const oldVertexCount=vertices.length;
    for(const [v0,v1] of [[.02,.11],[.89,.98]])quad(vertices,s,a,c,v0,v1,[.03,.085,.13],sample,frame);
    if(!quietThis)for(const [v0,v1] of [[.12,.22],[.78,.88]])
@@ -97,7 +97,7 @@ export function a13RacingRoadArt(doc,sample,frame,{quietSkyline=false}={}){
  const value={vertices,segments,sections:7,nonCollision:true,g4e6RealGapVisualClearance:!!doc.stageForge.g4e6EarlyGap};
  if(quietSkyline){
   if(quietChevrons<3||quietChevrons>25)throw Error('G4E7K quiet real-road study span drift');
-  value.g4e7k={active:true,section:0,normalizedWindow:[.40,.77],
+  value.g4e7k={active:true,section:0,normalizedWindow:[.28,.85],
    quietChevrons,removedInteriorOnly:true,outerRoadEdgePaintRetained:true,
    deletedTrianglesEstimate:quietTriangleSavings,nonCollision:true,
    originalB48GeometryUnchanged:true,officiallyApprovedSlopeDnaMeters:0};

@@ -2,7 +2,7 @@
  * W9-C2 G4E-7K: experiment to subtract oversized center chevrons
  * only from 0.40-0.77 of first REAL GLIDE road, without adding fake geometry.
  */
-export const G4E7K_WINDOW=Object.freeze({section:0,uStart:.40,uEnd:.77});
+export const G4E7K_WINDOW=Object.freeze({section:0,uStart:.28,uEnd:.85});
 export function g4e7kAllowed(doc){
  return doc?.stageForge?.recordStageId==='VB-P101-A13-W9C2-G4E7G-GLIDE'&&
   doc.stageForge?.g4e7gVisualTrial?.kind==='glide'&&
