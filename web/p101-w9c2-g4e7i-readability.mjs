@@ -110,21 +110,37 @@ export function createG4E7IControls({canvas,parent}){
  const button=document.createElement('button');
  button.id='g4e7iLegibilityToggle';button.type='button';
  button.setAttribute('aria-label','G4E-7I 大きい危険警告と非衝突路肩輪郭線の比較');
- let allowed=false,active=false;
+ let allowed=false,active=false,splitMode=false,splitContours=false;
  const focus=()=>viewport.dataset.g4e7hMode==='focus';
  const publish=()=>{
-  if(!focus())active=false;
+  if(!focus()){active=false;splitContours=false;}
   const ready=allowed&&focus();
-  button.hidden=!allowed;button.disabled=!ready;
+  button.hidden=!allowed||splitMode;button.disabled=!ready||splitMode;
   button.textContent=active?'G4E-7I 読みやすさ＋路肩輪郭：ON（研究限定）':
    'G4E-7I 読みやすさ＋路肩輪郭：OFF（先にG4E-7H FOCUS）';
   button.setAttribute('aria-pressed',String(active));
   const mode=!allowed?'off':active?'legible':'baseline';
   viewport.dataset.g4e7iMode=mode;canvas.dataset.g4e7iMode=mode;
  };
- const setStage=stageAllowed=>{allowed=Boolean(stageAllowed);active=false;publish();};
+ const setStage=stageAllowed=>{
+  allowed=Boolean(stageAllowed);active=false;splitMode=false;splitContours=false;publish();
+ };
+ // G4E-7J purely visual four-way experiment; only the typography factor
+ // changes CSS. Only the contour factor changes GPU draw eligibility.
+ // Preexisting G4E-7I single-button coupling is preserved outside split mode.
+ const setComparisonAxes=({typography,contours})=>{
+  if(!allowed||!focus()||typeof typography!=='boolean'||typeof contours!=='boolean')
+   throw Error('G4E-7J matrix requires real private GLIDE and G4E-7H Focus');
+  splitMode=true;active=typography;splitContours=contours;publish();
+ };
+ const endComparison=()=>{
+  splitMode=false;splitContours=false;active=false;publish();
+ };
  const refreshFocus=()=>publish();
  button.addEventListener('click',()=>{if(!allowed||!focus())return;active=!active;publish();});
  parent.append(button);publish();
- return {button,setStage,refreshFocus,get active(){return allowed&&active&&focus();}};
+ return {button,setStage,refreshFocus,setComparisonAxes,endComparison,
+  get active(){return allowed&&focus()&&(splitMode?splitContours:active);},
+  get typographyActive(){return allowed&&active&&focus();},
+  get splitMode(){return splitMode;}};
 }
