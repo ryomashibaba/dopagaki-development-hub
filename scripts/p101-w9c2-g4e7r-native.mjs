@@ -37,7 +37,7 @@ function run(variant,{local=false,speed=52,maxSeconds=70}={}){
  const line=Array.from({length:257},(_,i)=>sample(road,i/256,.5));
  const visited=new Set(),ordered=[],trace=[];
  let earliestGapAir=null,landingAfterGap=null,atLip=false,enteredVoid=false,
-  peakSpeed=speed,previousU=local?.765??0,lastU=previousU;
+  peakSpeed=speed,previousU=local ? .765 : 0,lastU=previousU;
  for(let tick=0;tick<maxSeconds/DT&&r.status!=='failed'&&r.status!=='finished';tick++){
   const steer=p96DodgeSteer(r,plan,'early-soft',movingObstaclePose).input/4.8;
   p101Step(r,steer,'OVERDRIVE',{forwardScale:p101A13ForwardScale(r,surge),collisionRecovery:false});
