@@ -24,7 +24,7 @@ function beam(out,a,b,radius,col){
  quad(out,x[3],x[2],x[1],x[0],col.map(v=>v*.65));
  quad(out,y[0],y[1],y[2],y[3],col.map(v=>v*.80));
 }
-export function a13MachineMegastructures(doc,sample){
+export function a13MachineMegastructures(doc,sample,{quietGapSection0=false}={}){
  if(doc?.stageForge?.variant!=='A13_GAMEPLAY_ISOLATED')
   return {vertices:[],structures:0,nativeMachineCount:0,collidable:false};
  if(typeof sample!=='function'||doc.surfaces?.length!==7||
@@ -32,10 +32,12 @@ export function a13MachineMegastructures(doc,sample){
   throw Error('A13 architectural anchors need the actual 7 skin / 28 native collision source');
  const vertices=[],silver=[.17,.29,.40],dark=[.07,.16,.25],
    lights=[[1,.26,.32],[1,.80,.27],[.74,.40,1]];
- let structures=0;
+ let structures=0,removed=0;
  for(let i=0;i<A13_HAZARD_SPECS.length;i++){
   const [section,u,kind]=A13_HAZARD_SPECS[i],road=doc.surfaces[section],ob=doc.movingObstacles[12+i];
   if(ob.id!==a13MachineId(i)||!road.collidable)throw Error('A13 machinery is not tied to native collider');
+  // Discard scenery support FRAME, not B51-C native moving hazard.
+  if(quietGapSection0&&section===0&&u>=.28&&u<=.84){removed++;continue;}
   // Keep the structure outside both actual running road edges, not virtual centerline strips.
   const left=sample(road,u,0),right=sample(road,u,1);
   const outward=unit([right[0]-left[0],0,right[2]-left[2]]);
@@ -62,5 +64,5 @@ export function a13MachineMegastructures(doc,sample){
  }
  if(vertices.length>95000||!vertices.every(Number.isFinite))
   throw Error('A13 GPU architecture geometry outside finite performance budget');
- return {vertices,structures,nativeMachineCount:doc.movingObstacles.length,collidable:false};
+ return {vertices,structures,removed,nativeMachineCount:doc.movingObstacles.length,collidable:false};
 }

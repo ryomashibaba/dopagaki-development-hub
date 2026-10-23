@@ -37,7 +37,7 @@ function sectionProfile(road,u,shoulder,height,sample){
  * Every station is sampled from the existing collision road, not a camera path.
  * The roof center aperture is decorative, never a road opening.
  */
-export function a13W9HeroArchitecture(doc,sample){
+export function a13W9HeroArchitecture(doc,sample,{quietFirstSection=false}={}){
  const empty={vertices:[],facilities:0,sections:[],wallPlates:0,roofPlates:0,
   skylights:0,nonCollision:true,minShoulderMeters:0};
  if(doc?.stageForge?.variant!=='A13_GAMEPLAY_ISOLATED')return empty;
@@ -46,6 +46,7 @@ export function a13W9HeroArchitecture(doc,sample){
   throw Error('W9 requires seven authentic B48 rideable skins and 28 real B51-C machines');
  const vertices=[];let wallPlates=0,roofPlates=0;
  for(const zone of W9_HERO_DISTRICTS){
+  if(quietFirstSection&&zone.section===0)continue;
   const road=doc.surfaces[zone.section],profiles=[];
   for(let i=0;i<=zone.slices;i++){
    const u=zone.start+(zone.end-zone.start)*i/zone.slices;
@@ -93,8 +94,8 @@ export function a13W9HeroArchitecture(doc,sample){
  }
  if(vertices.length===0||vertices.length>260000||vertices.length%18!==0||!vertices.every(Number.isFinite))
   throw Error('W9 GPU architecture exceeds geometry budget or is nonfinite');
- return {vertices,facilities:W9_HERO_DISTRICTS.length,
-  sections:W9_HERO_DISTRICTS.map(z=>z.section),wallPlates,roofPlates,
-  skylights:W9_HERO_DISTRICTS.length,nonCollision:true,
+ return {vertices,facilities:W9_HERO_DISTRICTS.length-(quietFirstSection?1:0),
+  sections:W9_HERO_DISTRICTS.filter(z=>!(quietFirstSection&&z.section===0)).map(z=>z.section),wallPlates,roofPlates,
+  skylights:W9_HERO_DISTRICTS.length-(quietFirstSection?1:0),nonCollision:true,
   minShoulderMeters:Math.min(...W9_HERO_DISTRICTS.map(z=>z.shoulder))};
 }

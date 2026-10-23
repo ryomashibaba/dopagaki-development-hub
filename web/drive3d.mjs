@@ -115,6 +115,9 @@ const g4e7wOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get(
  new URLSearchParams(window.location.search).get('g4e7wFrame')==='hold';
 const g4e7xGuideRequested=g4e7wOptIn&&new URLSearchParams(window.location.search).get('g4e7xGuide')==='on';
 const g4e7xVanesRequested=g4e7wOptIn&&new URLSearchParams(window.location.search).get('g4e7xGuide')==='vanes';
+const g4e7yRequested=new URLSearchParams(window.location.search).get('g4e7yScene');
+const g4e7yScene=g4e7wOptIn&&['quiet','open'].includes(g4e7yRequested)?
+ g4e7yRequested:'baseline';
 const g4e7wPoint=['approach','lip','flight','landing','post'].includes(
  new URLSearchParams(window.location.search).get('g4e7wPoint'))?
  new URLSearchParams(window.location.search).get('g4e7wPoint'):'flight';
@@ -268,9 +271,16 @@ function buildVisual(stage){
  canvas.dataset.b5OpticalDashes=String(b5Optics.dashes);
  canvas.dataset.b5OpticalEdgeTicks=String(b5Optics.edgeTicks);
  canvas.dataset.b5OpticalNonCollision=String(b5Optics.nonCollision);
-  const arch=a13MachineMegastructures(stage,sample);
-  const hero=a13W9HeroArchitecture(stage,sample);
+  if(g4e7yScene!=='baseline'&&!stage.stageForge?.g4e7wStudy)
+   throw Error('G4E-7Y scenery is only permitted on private proven real B48 gap');
+  const arch=a13MachineMegastructures(stage,sample,{quietGapSection0:g4e7yScene!=='baseline'});
+  const hero=a13W9HeroArchitecture(stage,sample,{quietFirstSection:g4e7yScene!=='baseline'});
   a13ArchMesh=mesh([...arch.vertices,...hero.vertices]);
+  canvas.dataset.g4e7yScene=g4e7yScene;
+  canvas.dataset.g4e7yRemovedHazardFrames=String(arch.removed??0);
+  canvas.dataset.g4e7yHeroFacilities=String(hero.facilities);
+  canvas.dataset.g4e7yRetainedMachines=String(stage.movingObstacles.length);
+  canvas.dataset.g4e7yActualB48Unmodified=String(g4e7yScene==='baseline'||Boolean(stage.stageForge?.g4e7wStudy));
   const shard=g4e7sShardCity(stage,sample,{enabled:g4e7sOptIn&&g4e7sScene==='shards'});
   g4e7sShardMesh=shard.active?mesh(shard.vertices):null;
   canvas.dataset.g4e7sScene=shard.active?'shards':'baseline';
@@ -510,7 +520,10 @@ function render(frameSeconds){
  gl.uniform1f(locations.fogStart,FOG_START_METERS);
  gl.uniform1f(locations.fogSpan,FOG_SPAN_METERS);
  canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
- draw(scenery);if(megaEnabled){draw(megaWorld);draw(g5bSceneryMesh);}draw(g4dSkywayMesh);draw(a13ArchMesh);draw(g4e7sShardMesh);
+ if(g4e7yScene!=='open')draw(scenery);
+ if(megaEnabled&&g4e7yScene!=='open'){draw(megaWorld);draw(g5bSceneryMesh);}
+ if(g4e7yScene!=='open')draw(g4dSkywayMesh);
+ draw(a13ArchMesh);if(g4e7yScene!=='open')draw(g4e7sShardMesh);
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
  // Draw monumental arches and cliffs as scenery, NEVER as collision skins.
  if(g4e7lUi?.mode==='rift')draw(g4e7lRiftMesh);
