@@ -131,8 +131,8 @@ const g4e7xGuideRequested=g4e7wOptIn&&new URLSearchParams(window.location.search
 const g4e7xVanesRequested=g4e7wOptIn&&new URLSearchParams(window.location.search).get('g4e7xGuide')==='vanes';
 const g4e7zRequested=g4e7wOptIn&&new URLSearchParams(window.location.search).get('g4e7zGuide')==='on';
 const g4e7yRequested=new URLSearchParams(window.location.search).get('g4e7yScene');
-const g4e7yScene=(g4e7wOptIn||g4e7adOptIn)&&['quiet','open','vista','vista2'].includes(g4e7yRequested)?
- g4e7yRequested:(g4e7adOptIn?'vista2':'baseline');
+const g4e7yScene=g4e7wOptIn&&['quiet','open','vista','vista2'].includes(g4e7yRequested)?
+ g4e7yRequested:'baseline';
 const g4e7yEarlyPoint=g4e7wOptIn&&['t265','t315','t365','t415','t450'].includes(
  new URLSearchParams(window.location.search).get('g4e7yEarly'))?
  new URLSearchParams(window.location.search).get('g4e7yEarly'):null;
