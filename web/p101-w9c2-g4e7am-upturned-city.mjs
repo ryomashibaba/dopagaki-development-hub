@@ -1,5 +1,5 @@
 /**
- * G4E-7AM — UPturned City / Shattered Horizon.
+ * G4E-7AM R2 — UPTURNED CITY / SKY BREACH (private art iteration).
  *
  * ART-FIRST, private manual A/D study on the actual AJ 11m B48 road.
  * Two gigantic asymmetric urban tectonic banks, real aperture voids,
@@ -22,13 +22,13 @@ const sheet=(out,a,b,c,d,rgb)=>{
  quad(out,a,b,c,d,rgb);quad(out,d,c,b,a,rgb.map(x=>x*.62));
 };
 const config=Object.freeze([
- Object.freeze({side:-1,start:.08,end:.87,n:30,levels:9,rise:570,
-   baseOut:128,lean:195,drift:-115,crestOut:275}),
- Object.freeze({side:1,start:.13,end:.92,n:32,levels:9,rise:895,
-   baseOut:142,lean:265,drift:155,crestOut:365})
+ Object.freeze({side:-1,start:.06,end:.87,n:30,levels:9,rise:650,
+   baseOut:222,lean:320,drift:-170,crestOut:340}),
+ Object.freeze({side:1,start:.13,end:.94,n:32,levels:9,rise:980,
+   baseOut:255,lean:430,drift:200,crestOut:410})
 ]);
 const empty=()=>({active:false,vertices:[],triangles:0,banks:0,
- negativeSpaceBays:0,terraces:0,citySpines:0,maxRiseMeters:0,
+ negativeSpaceBays:0,macroSkyOpenings:0,terraces:0,citySpines:0,maxRiseMeters:0,
  minimumOutboardMeters:null,physicalChanges:false,extraRoads:0,
  extraMachines:0,certifiedSlope2Meters:0,publish:'HOLD'});
 function roadFrame(road,sample,u,side){
@@ -59,7 +59,7 @@ export function g4e7amUpturnedCity(doc,sample,{enabled=false}={}){
   throw Error('AM only for actual private AJ narrow B48 with original 28 moving hazards');
  if(typeof sample!=='function')throw Error('AM requires native B48 sampler');
  const signature=JSON.stringify(doc),road=doc.surfaces[0],vertices=[];
- let negativeSpaceBays=0,terraces=0,citySpines=0,maxRise=0;
+ let negativeSpaceBays=0,macroSkyOpenings=0,terraces=0,citySpines=0,maxRise=0;
  // Connected MASSING: two different elevations and nonlinear bending,
  // rather than 8 identical portals or repetitive skyscraper boxes.
  for(const cfg of config){
@@ -77,10 +77,17 @@ export function g4e7amUpturnedCity(doc,sample,{enabled=false}={}){
   }
   // Each dark aperture is actual missing triangles, not a black rectangle.
   for(let i=0;i<cfg.n;i++)for(let k=0;k<cfg.levels;k++){
-   const aperture=(i>=5&&i<=10&&k>=3&&k<=6)||
-      (i>=18&&i<=24&&k>=4&&k<=7)||
-      (cfg.side>0&&i>=12&&i<=15&&k>=1&&k<=3);
-   if(aperture){negativeSpaceBays++;continue;}
+   // R1 rendered as an opaque canyon despite huge nominal height.
+   // R2 *removes complete skyline columns* to leave continuous views of sky,
+   // rather than hiding small dark windows inside a 900m flat vertical sheet.
+   // Macro openings are deliberately out of phase between both banks.
+   const breach=cfg.side<0?(i>=7&&i<=13)||(i>=22&&i<=25):
+     (i>=9&&i<=14)||(i>=24&&i<=28);
+   const aperture=(breach&&k>=1)||
+      (i>=2&&i<=5&&k>=3&&k<=6)||
+      (i>=16&&i<=19&&k>=5&&k<=7)||
+      (cfg.side>0&&i>=18&&i<=21&&k>=2&&k<=5);
+   if(aperture){negativeSpaceBays++;if(breach&&k>=1)macroSkyOpenings++;continue;}
    const a=surface[i][k],b=surface[i+1][k],c=surface[i+1][k+1],d=surface[i][k+1],
     A=rear[i][k],B=rear[i+1][k],C=rear[i+1][k+1],D=rear[i][k+1];
    const color=k<2?pal.bedrock:k>6?(cfg.side>0?pal.orchid:pal.facet):
@@ -99,6 +106,8 @@ export function g4e7amUpturnedCity(doc,sample,{enabled=false}={}){
   for(const [index,level] of [2,4,6,8].entries()){
    const start=2+index*6,end=Math.min(cfg.n-2,start+5),lift=14+index*5;
    for(let i=start;i<end;i++){
+    // Detached cantilever terraces may remain visible at macro breach edges;
+    // geometry is isolated >200m beyond the actual road shoulder.
     const a=surface[i][level],b=surface[i+1][level],
       oa=plus(plus(a,scale(frames[i].out,75+index*13)),[0,lift,0]),
       ob=plus(plus(b,scale(frames[i+1].out,75+index*13)),[0,lift+4,0]),
@@ -122,11 +131,11 @@ export function g4e7amUpturnedCity(doc,sample,{enabled=false}={}){
   }
  }
  if(vertices.length%18!==0||vertices.length/18<1000||vertices.length/18>18000||
-   !vertices.every(Number.isFinite)||negativeSpaceBays<105||terraces!==8||
+   !vertices.every(Number.isFinite)||negativeSpaceBays<210||macroSkyOpenings<150||terraces!==8||
    citySpines!==6||maxRise<650||JSON.stringify(doc)!==signature)
   throw Error('AM huge urban continent or original physical stage integrity rejected');
  return {active:true,vertices,triangles:vertices.length/18,
-  banks:2,negativeSpaceBays,terraces,citySpines,
+  banks:2,negativeSpaceBays,macroSkyOpenings,terraces,citySpines,
   maxRiseMeters:Number(maxRise.toFixed(2)),minimumOutboardMeters:Math.min(...config.map(x=>x.baseOut)),
   physicalChanges:false,extraRoads:0,extraMachines:0,certifiedSlope2Meters:0,publish:'HOLD'};
 }
