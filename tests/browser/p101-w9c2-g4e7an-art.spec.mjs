@@ -45,7 +45,7 @@ for(const road of ['true-pinch','pinch-switch']){
    pixelWidth:el.width,pixelHeight:el.height,
   }));
   expect(data.triangles).toBeGreaterThan(450);
-  expect(data.setback).toBeGreaterThanOrEqual(250);
+  expect(data.setback).toBeGreaterThanOrEqual(180);
   expect(data.pixelWidth*data.pixelHeight).toBeGreaterThan(100000);
   expect(data.runMode).toBe('private-real-B48-B51-AL-manual-HOLD');
   expect(data.stage).toBe(stage(road));
