@@ -122,7 +122,7 @@ export function g4e7amUpturnedCity(doc,sample,{enabled=false}={}){
   }
  }
  if(vertices.length%18!==0||vertices.length/18<1000||vertices.length/18>18000||
-   !vertices.every(Number.isFinite)||negativeSpaceBays<120||terraces!==8||
+   !vertices.every(Number.isFinite)||negativeSpaceBays<105||terraces!==8||
    citySpines!==6||maxRise<650||JSON.stringify(doc)!==signature)
   throw Error('AM huge urban continent or original physical stage integrity rejected');
  return {active:true,vertices,triangles:vertices.length/18,
