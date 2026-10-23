@@ -49,6 +49,7 @@ import {g4e7kAllowed,createG4E7KControls} from './p101-w9c2-g4e7k-quiet-visual.m
 import {g4e7lTitanArchitecture,g4e7lAllowed,createG4E7LStageControls} from './p101-w9c2-g4e7l-titan.mjs';
 import {g4e7sShardCity,g4e7sAllowed} from './p101-w9c2-g4e7s-shard-city.mjs';
 import {g4e7adCity} from './p101-w9c2-g4e7ad-city.mjs';
+import {g4e7aeSplitHorizon} from './p101-w9c2-g4e7ae-split-horizon.mjs';
 import {makeW9C1CueProfile,readW9C1Cue,w9c1ApproachMarks} from './p101-w9c1-approach-cue.mjs';
 import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
 import {createB5ManualAudit,recordB5ManualSample,recordB5ManualFrame,observeW9C1ManualCue,finalizeB5ManualAudit,exportB5ManualAudit} from './p101-b5-manual-qa.mjs';
@@ -118,6 +119,9 @@ const g4e7wOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get(
 const g4e7adOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get('g4e7ad')==='on'&&
  new URLSearchParams(window.location.search).get('g4e7adFrame')==='hold';
 const g4e7adScene=g4e7adOptIn&&new URLSearchParams(window.location.search).get('g4e7adScene')==='city'?'city':'clear';
+const g4e7aePreview=g4e7adOptIn&&new URLSearchParams(window.location.search).get('g4e7ae')==='on';
+const g4e7aeScene=g4e7aePreview&&new URLSearchParams(window.location.search).get('g4e7aeScene')==='rift'?'rift':'legacy';
+const g4e7aeReplacement=g4e7aePreview&&g4e7aeScene==='rift';
 const g4e7adPoint=['t315','t365','t415','t450','t515','t600'].includes(
  new URLSearchParams(window.location.search).get('g4e7adPoint'))?
  new URLSearchParams(window.location.search).get('g4e7adPoint'):'t365';
@@ -189,7 +193,7 @@ const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,g4dSkywayMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
-let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7adShot=null,g4e7adActive=false;
+let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7adShot=null,g4e7adActive=false;
 let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null;
 let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7qActive=false,g4e7rActive=false,g4e7tActive=false,g4e7vActive=false,g4e7vShot=null,g4e7wActive=false,g4e7wShot=null,g4e7sShot=null,g4e7sTrace=null,g4e7sShardMesh=null,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
@@ -277,7 +281,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7sShardMesh);discard(g4e7adCityMesh);discard(g4e7cCueMesh);discard(g4e7xCueMesh);discard(g4e7zCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7sShardMesh);discard(g4e7adCityMesh);discard(g4e7aeMesh);discard(g4e7cCueMesh);discard(g4e7xCueMesh);discard(g4e7zCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
@@ -307,6 +311,18 @@ function buildVisual(stage){
   canvas.dataset.g4e7adTriangles=String(adCity.triangles);
   canvas.dataset.g4e7adClearanceMeters=String(adCity.minClearanceMeters);
   canvas.dataset.g4e7adNonCollision=String(adCity.nonCollision);
+  // G4E-7AE must REPLACE legacy scenery at the exact same R2 physics/camera,
+  // not add decorative towers over the old rectangular gateways.
+  const ae=g4e7aeSplitHorizon(stage,sample,{enabled:g4e7aeReplacement});
+  g4e7aeMesh=ae.enabled?mesh(ae.vertices):null;
+  canvas.dataset.g4e7aeScene=g4e7aePreview?g4e7aeScene:'off';
+  canvas.dataset.g4e7aeReplacesLegacy=String(g4e7aeReplacement);
+  canvas.dataset.g4e7aeBanks=String(ae.bankCount);
+  canvas.dataset.g4e7aeFolds=String(ae.folds);
+  canvas.dataset.g4e7aeVoids=String(ae.voids);
+  canvas.dataset.g4e7aeTriangles=String(ae.triangles);
+  canvas.dataset.g4e7aeClearance=String(ae.minOutboardMeters);
+  canvas.dataset.g4e7aeNonCollision=String(ae.nonCollision);
   const shard=g4e7sShardCity(stage,sample,{enabled:g4e7sOptIn&&g4e7sScene==='shards'});
   g4e7sShardMesh=shard.active?mesh(shard.vertices):null;
   canvas.dataset.g4e7sScene=shard.active?'shards':'baseline';
@@ -569,10 +585,18 @@ function render(frameSeconds){
  gl.uniform1f(locations.fogStart,FOG_START_METERS);
  gl.uniform1f(locations.fogSpan,FOG_SPAN_METERS);
  canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
- if(g4e7yScene!=='open')draw(scenery);
- if(megaEnabled&&g4e7yScene!=='open'){draw(megaWorld);draw(g5bSceneryMesh);}
- if(g4e7yScene!=='open')draw(g4dSkywayMesh);
- draw(a13ArchMesh);if(g4e7yScene!=='open')draw(g4e7sShardMesh);draw(g4e7adCityMesh);
+ if(g4e7aeReplacement){
+  // True REPLACEMENT of the repetitive gate skyline on private G4E-7AE:
+  // do not render epic blocks, mega portals, side skyways or legacy arches.
+  // Keep exact road, natural gap, fixture triangles and 28 moving hazards.
+  draw(g4e7aeMesh);
+ }else{
+  if(g4e7yScene!=='open')draw(scenery);
+  if(megaEnabled&&g4e7yScene!=='open'){draw(megaWorld);draw(g5bSceneryMesh);}
+  if(g4e7yScene!=='open')draw(g4dSkywayMesh);
+  draw(a13ArchMesh);if(g4e7yScene!=='open')draw(g4e7sShardMesh);
+  draw(g4e7adCityMesh);
+ }
  canvas.dataset.megaWorld=megaWorld?(megaEnabled?'enabled':'disabled'):'not-applicable';
  // Draw monumental arches and cliffs as scenery, NEVER as collision skins.
  if(g4e7lUi?.mode==='rift')draw(g4e7lRiftMesh);

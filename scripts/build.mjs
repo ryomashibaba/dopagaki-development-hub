@@ -53,6 +53,7 @@ if(includeStages){
  copy('web/drive3d.html','drive3d/index.html');
  copy('web/drive3d.mjs','drive3d/drive3d.mjs');
  copy('web/p101-w9c2-g4e7ad-city.mjs','drive3d/p101-w9c2-g4e7ad-city.mjs');
+ copy('web/p101-w9c2-g4e7ae-split-horizon.mjs','drive3d/p101-w9c2-g4e7ae-split-horizon.mjs');
  copy('web/drive3d-camera.mjs','drive3d/drive3d-camera.mjs');
  copy('web/drive3d-loop.mjs','drive3d/drive3d-loop.mjs');
  copy('web/p66-visual.mjs','drive3d/p66-visual.mjs');
