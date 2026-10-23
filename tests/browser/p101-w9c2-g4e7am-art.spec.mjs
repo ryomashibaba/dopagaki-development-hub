@@ -18,8 +18,16 @@ for(const road of ['true-pinch','pinch-switch']){
   await page.goto(url(road,true));
   await expect(page.locator('#appStatus')).toContainText('G4E-7AL LOCAL MANUAL',{timeout:80000});
   const view=page.locator('#view');
-  // AL intentionally enforces first trial to be true-pinch; for pinch-switch
-  // verify its geometry with the direct Node generator, not a forged human run.
+  // AL enforces the first trial to be true-pinch. Advance via genuine
+  // keyboard physics for the second candidate, never through direct UI injection.
+  if(road==='pinch-switch'){
+   await page.keyboard.down('KeyD');
+   await page.waitForTimeout(380);
+   await page.keyboard.up('KeyD');
+   await page.locator('#g4e7alNext').click();
+   await expect(page.locator('#stage')).toHaveValue(stage('pinch-switch'));
+   await expect(page.locator('#appStatus')).toContainText('G4E-7AL LOCAL MANUAL',{timeout:80000});
+  }
   await expect(view).toHaveAttribute('data-g4e7am-scene','continent');
   await expect(view).toHaveAttribute('data-g4e7am-banks','2');
   await expect(view).toHaveAttribute('data-g4e7am-terraces','8');
@@ -38,7 +46,7 @@ for(const road of ['true-pinch','pinch-switch']){
   expect(stats.tris).toBeGreaterThan(1000);
   expect(stats.rise).toBeGreaterThan(650);
   expect(stats.outboard).toBeGreaterThanOrEqual(120);
-  expect(stats.stage).toBe(stage('true-pinch'));
+  expect(stats.stage).toBe(stage(road));
   expect(stats.physics).toBe('private-real-B48-B51-AL-manual-HOLD');
   await page.waitForTimeout(450);
   await page.screenshot({path:info.outputPath('g4e7am-upturned-city-'+road+'-automated-not-human.png')});
