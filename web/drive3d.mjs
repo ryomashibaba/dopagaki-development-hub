@@ -118,6 +118,9 @@ const g4e7xVanesRequested=g4e7wOptIn&&new URLSearchParams(window.location.search
 const g4e7yRequested=new URLSearchParams(window.location.search).get('g4e7yScene');
 const g4e7yScene=g4e7wOptIn&&['quiet','open'].includes(g4e7yRequested)?
  g4e7yRequested:'baseline';
+const g4e7yEarlyPoint=g4e7wOptIn&&['t265','t315','t365','t415','t450'].includes(
+ new URLSearchParams(window.location.search).get('g4e7yEarly'))?
+ new URLSearchParams(window.location.search).get('g4e7yEarly'):null;
 const g4e7wPoint=['approach','lip','flight','landing','post'].includes(
  new URLSearchParams(window.location.search).get('g4e7wPoint'))?
  new URLSearchParams(window.location.search).get('g4e7wPoint'):'flight';
@@ -500,6 +503,8 @@ function render(frameSeconds){
  canvas.dataset.g4e7wTime=g4e7wShot?String(g4e7wShot.timeSeconds):'off';
  canvas.dataset.g4e7wSpeedMps=g4e7wShot?String(g4e7wShot.speedMps):'off';
  canvas.dataset.g4e7wGrounded=g4e7wShot?String(g4e7wShot.grounded):'off';
+ canvas.dataset.g4e7yEarly=g4e7yEarlyPoint||'off';
+ canvas.dataset.g4e7yEyeToTakeoffMeters=g4e7wShot?String(g4e7wShot.eyeToActualTakeoffMeters):'off';
  gl.uniform3fv(locations.eye,view.eye);gl.uniform3fv(locations.camFront,view.front);gl.uniform3fv(locations.camRight,view.right);gl.uniform3fv(locations.camUp,view.up);
  canvas.dataset.cameraMode=comparisonMode==='stable'?'ball-lock-interpolated':'ball-lock-unfiltered-heading';
  canvas.dataset.cameraHeadingLagDegrees=(headingError*180/Math.PI).toFixed(2);
@@ -906,7 +911,9 @@ async function load(){
       value.movingObstacles.length!==28||value.surfaces.length!==7||
       value.stageForge.g4e7wStudy.officialSlope2Meters!==0)
      throw Error('G4E-7W private B48 gap provenance mismatch');
-    const proofResponse=await fetch('../generated/P101_A13_W9C2_G4E7W_240HZ_FRAMES_LOCAL.json',{cache:'no-store'});
+    const proofFile=g4e7yEarlyPoint?'P101_A13_W9C2_G4E7Y_EARLY_240HZ_FRAMES_LOCAL.json':
+     'P101_A13_W9C2_G4E7W_240HZ_FRAMES_LOCAL.json';
+    const proofResponse=await fetch('../generated/'+proofFile,{cache:'no-store'});
     if(!proofResponse.ok)throw Error('G4E-7W missing real 240Hz camera source');
     const proof=await proofResponse.json(),entry=proof.stages?.[k];
     if(proof.schema!=='dopagaki.g4e7w-real-native-B48-WebGL/1'||
@@ -914,7 +921,7 @@ async function load(){
      entry.stageId!==value.stageForge.recordStageId||entry.actualRoads!==7||
      entry.movingMachines!==28)
      throw Error('G4E-7W actual physics source and scene disagree');
-    g4e7wShot=entry.frames.find(f=>f.id===g4e7wPoint);
+    g4e7wShot=entry.frames.find(f=>f.id===(g4e7yEarlyPoint||g4e7wPoint));
     if(!g4e7wShot||g4e7wShot.source!=='TRUE_START00_240HZ_P96_NOT_HUMAN'||
       !Number.isFinite(g4e7wShot.speedMps))throw Error('G4E-7W requested native frame absent');
     $('demoRun').disabled=true;$('practiceRun').disabled=true;
