@@ -7,6 +7,9 @@ test('AL real 7AJ stage is not listed or playable without the manual localhost g
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await expect(page.locator('#stage option[value^="VB-P101-A13-W9C2-G4E7AK"]')).toHaveCount(0);
  await expect(page.locator('#g4e7alPanel')).toHaveCount(0);
+ await page.goto(url('PINCH-SWITCH'));
+ await expect(page.locator('#stage')).toHaveValue(stage('TRUE-PINCH'));
+ await expect(page.locator('#g4e7alStep')).toContainText('1/2 TRUE-PINCH');
 });
 test('AL 2 real manual physics courses, A/D samples, export/continue, no human PASS',async({page},info)=>{
  test.setTimeout(180000);
@@ -41,6 +44,15 @@ test('AL 2 real manual physics courses, A/D samples, export/continue, no human P
  expect(snapshot.uncommittedCurrentRun.originalStart00).toBe(true);
  expect(snapshot.uncommittedCurrentRun.physicalCourse.realMovingB51).toBe(28);
  expect(snapshot.uncommittedCurrentRun.certifiedSlope2Meters).toBe(0);
+ await page.keyboard.press('KeyR');
+ await expect(page.locator('#g4e7alStep')).toContainText('1/2 TRUE-PINCH');
+ const retryDownload=page.waitForEvent('download');
+ await page.locator('#g4e7alDownload').click();
+ const retrySnapshot=JSON.parse(await fs.readFile(await(await retryDownload).path(),'utf8'));
+ expect(retrySnapshot.restartedAttempts).toHaveLength(1);
+ expect(retrySnapshot.restartedAttempts[0].metrics.activeDirectionalSteps).toBeGreaterThan(0);
+ expect(retrySnapshot.restartedAttempts[0].restartedBeforeNextRun).toBe(true);
+ expect(retrySnapshot.automaticallySubmitted).toBe(false);
  await page.locator('#g4e7alNoticed').selectOption('no');
  await page.locator('#g4e7alNote').fill('Automated Chromium UI; NOT a human QA assessment.');
  await page.locator('#g4e7alNext').click();
@@ -58,6 +70,7 @@ test('AL 2 real manual physics courses, A/D samples, export/continue, no human P
  const dl=page.waitForEvent('download');await page.locator('#g4e7alDownload').click();
  const report=JSON.parse(await fs.readFile(await(await dl).path(),'utf8'));
  expect(report.completedBoth).toBe(true);
+ expect(report.restartedAttempts).toHaveLength(1);
  expect(report.runs.map(x=>x.road)).toEqual(['true-pinch','pinch-switch']);
  expect(report.runs.every(x=>x.originalStart00&&x.startSpeedMps===52)).toBe(true);
  expect(report.runs.every(x=>x.physicalCourse.gapCell52&&x.physicalCourse.realB48Surfaces===7)).toBe(true);
@@ -67,6 +80,9 @@ test('AL 2 real manual physics courses, A/D samples, export/continue, no human P
  expect(report.runs[0].voluntaryReport.hazardRecognizedBeforeApproach).toBe('no');
  expect(report.runs[1].voluntaryReport.enjoymentOneToFive).toBe(3);
  expect(errors).toEqual([]);
+ await page.keyboard.press('KeyR');
+ await expect(view).toHaveAttribute('data-g4e7al-mode','two-trials-recorded-hold');
+ await expect(page.locator('#g4e7alNext')).toBeDisabled();
  await fs.writeFile(info.outputPath('g4e7al-QA-control-flow-not-human.json'),
   JSON.stringify({realHumanTest:false,automatedChromiumOnly:true,report,errors},null,2));
 });
