@@ -60,7 +60,7 @@ const $=id=>document.getElementById(id);
 const assets={'VB-P101-A13':'P101_A13_W7_GAMEPLAY.json','VB-P101-A13-W9X-B1':'P101_A13_W9X_B1_TRIAL.json','VB-P101-A13-W9C1-CONTROL':'P101_A13_W9C1_CONTROL_TRIAL.json','VB-P101-A13-W9C1-ULTRA':'P101_A13_W9C1_ULTRA_TRIAL.json','VB-P101-A13-W9C2-RIBBON':'P101_A13_W9C2_RIBBON_TRIAL.json','VB-P101-A13-W9C2-EDGE':'P101_A13_W9C2_EDGE_TRIAL.json','VB-P101-A13-W9C2-G4E-SHOULDER':'P101_A13_W9C2_G4E_SHOULDER_TRIAL.json','VB-P101-A13-W9C2-G4E-RAZOR':'P101_A13_W9C2_G4E_RAZOR_TRIAL.json','VB-P101-A13-W9C2-G4E6-C0-55-1':'P101_A13_W9C2_G4E6_C0-55-1_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E6-B0-65-1':'P101_A13_W9C2_G4E6_B0-65-1_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7G-GOLD':'P101_A13_W9C2_G4E7G_GOLD_LOCAL_VISUAL.json','VB-P101-A13-W9C2-G4E7G-GLIDE':'P101_A13_W9C2_G4E7G_GLIDE_LOCAL_VISUAL.json','VB-P101-A13-W9C2-G4E7M-THREAD':'P101_A13_W9C2_G4E7M_THREAD_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7M-PRECIPICE':'P101_A13_W9C2_G4E7M_PRECIPICE_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7Q-DROP':'P101_A13_W9C2_G4E7Q_DROP_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7Q-LEAP':'P101_A13_W9C2_G4E7Q_LEAP_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7R-SWEEP':'P101_A13_W9C2_G4E7R_SWEEP_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7R-CUT':'P101_A13_W9C2_G4E7R_CUT_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7T-SOLID':'P101_A13_W9C2_G4E7T_SOLID_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7T-EARLY':'P101_A13_W9C2_G4E7T_EARLY_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7T-LATE':'P101_A13_W9C2_G4E7T_LATE_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7V-ORIGINAL':'P101_A13_W9C2_G4E7V_ORIGINAL_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7V-EXIT6':'P101_A13_W9C2_G4E7V_EXIT6_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7V-SLOPE6':'P101_A13_W9C2_G4E7V_SLOPE6_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7W-BLEND-0-65':'P101_A13_W9C2_G4E7W_A065_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7W-BLEND-0-7':'P101_A13_W9C2_G4E7W_A070_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7AD-APPROACH-ARC':'P101_A13_W9C2_G4E7AD_APPROACH_ARC_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7AD-LANDING-CRESCENT':'P101_A13_W9C2_G4E7AD_LANDING_CRESCENT_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7AI-R2-CONTROL':'P101_A13_W9C2_G4E7AI_R2_CONTROL_LOCAL_TRIAL.json',
  'VB-P101-A13-W9C2-G4E7AI-TRUE-PINCH':'P101_A13_W9C2_G4E7AI_TRUE_PINCH_LOCAL_TRIAL.json',
  'VB-P101-A13-W9C2-G4E7AI-PINCH-SWITCH':'P101_A13_W9C2_G4E7AI_PINCH_SWITCH_LOCAL_TRIAL.json',
- 'VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
+ 'VB-P101-A13-W9C2-G4E7AK-TRUE-PINCH':'P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7AK-PINCH-SWITCH':'P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json','VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 // G4E-1 physical trials are private opt-in; Gold remains the visible default.
 const g4ePreviewOptIn=new URLSearchParams(window.location.search).get('g4e')==='on'||
  new URLSearchParams(window.location.hash.slice(1)).get('g4e')==='on';
@@ -125,6 +125,12 @@ const g4e7aiOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get
  new URLSearchParams(window.location.search).get('g4e7aiFrame')==='hold'&&
  new URLSearchParams(window.location.search).get('g4e7ad')!=='on';
 const g4e7aiBackdrop=g4e7aiOptIn&&new URLSearchParams(window.location.search).get('g4e7aiBackdrop')==='quiet'?'quiet':'legacy';
+const g4e7akOptIn=g4e6LocalHost&&!g4e7aiOptIn&&new URLSearchParams(window.location.search).get('g4e7ak')==='on'&&
+ new URLSearchParams(window.location.search).get('g4e7akFrame')==='hold';
+const g4e7akBackdrop=g4e7akOptIn&&new URLSearchParams(window.location.search).get('g4e7akBackdrop')==='quiet'?'quiet':'legacy';
+const g4e7akPoint=['t220','t250','t280','t320','t520','t690'].includes(
+ new URLSearchParams(window.location.search).get('g4e7akPoint'))?
+ new URLSearchParams(window.location.search).get('g4e7akPoint'):'t280';
 const g4e7adOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get('g4e7ad')==='on'&&
  new URLSearchParams(window.location.search).get('g4e7adFrame')==='hold';
 const g4e7adScene=g4e7adOptIn&&new URLSearchParams(window.location.search).get('g4e7adScene')==='city'?'city':'clear';
@@ -147,6 +153,12 @@ if(g4e7aiOptIn)for(const id of ['R2-CONTROL','TRUE-PINCH','PINCH-SWITCH']){
 const g4e7aiPoint=['t315','t365','t415','t450','t515','t600'].includes(
  new URLSearchParams(window.location.search).get('g4e7aiPoint'))?
  new URLSearchParams(window.location.search).get('g4e7aiPoint'):'t365';
+if(g4e7akOptIn)for(const id of ['TRUE-PINCH','PINCH-SWITCH']){
+ const option=document.createElement('option');
+ option.value='VB-P101-A13-W9C2-G4E7AK-'+id;
+ option.textContent='G4E-7AK '+id+' / REANCHORED 28 B51-C / NOT HUMAN';
+ $('stage').append(option);
+}
 if(g4e7adOptIn)for(const [variant,label] of [['APPROACH-ARC','APPROACH ARC'],['LANDING-CRESCENT','LANDING CRESCENT']]){
  const option=document.createElement('option');
  option.value='VB-P101-A13-W9C2-G4E7AD-'+variant;
@@ -215,7 +227,7 @@ const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,g4dSkywayMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
-let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7afMesh=null,g4e7agMesh=null,g4e7adShot=null,g4e7adActive=false,g4e7aiShot=null,g4e7aiActive=false;
+let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7afMesh=null,g4e7agMesh=null,g4e7adShot=null,g4e7adActive=false,g4e7aiShot=null,g4e7aiActive=false,g4e7akShot=null,g4e7akActive=false;
 let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null;
 let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7qActive=false,g4e7rActive=false,g4e7tActive=false,g4e7vActive=false,g4e7vShot=null,g4e7wActive=false,g4e7wShot=null,g4e7sShot=null,g4e7sTrace=null,g4e7sShardMesh=null,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
@@ -569,9 +581,9 @@ function render(frameSeconds){
  // Render-time interpolation leaves native B48 physics untouched.
  const active=!paused&&runner.status==='running';
  let pose=resolveDisplayPose(previousPose,currentPose,accum,DT,active);
- if((g4e7aiShot&&g4e7aiOptIn)||(g4e7adShot&&g4e7adOptIn)||(g4e7sShot&&g4e7sOptIn)||(g4e7vShot&&g4e7vOptIn)||(g4e7wShot&&g4e7wOptIn)){
+ if((g4e7akShot&&g4e7akOptIn)||(g4e7aiShot&&g4e7aiOptIn)||(g4e7adShot&&g4e7adOptIn)||(g4e7sShot&&g4e7sOptIn)||(g4e7vShot&&g4e7vOptIn)||(g4e7wShot&&g4e7wOptIn)){
   // Actual 240Hz start00 native frame; rendering does not move the physics ball.
-  const shot=(g4e7aiShot&&g4e7aiOptIn?g4e7aiShot:null)||(g4e7adShot&&g4e7adOptIn?g4e7adShot:null)||(g4e7wShot&&g4e7wOptIn?g4e7wShot:null)||(g4e7vShot&&g4e7vOptIn?g4e7vShot:null)||g4e7sShot;
+  const shot=(g4e7akShot&&g4e7akOptIn?g4e7akShot:null)||(g4e7aiShot&&g4e7aiOptIn?g4e7aiShot:null)||(g4e7adShot&&g4e7adOptIn?g4e7adShot:null)||(g4e7wShot&&g4e7wOptIn?g4e7wShot:null)||(g4e7vShot&&g4e7vOptIn?g4e7vShot:null)||g4e7sShot;
   pose={...shot.pose,position:[...shot.pose.position],
    forward:[...shot.pose.forward]};
   cameraState={yaw:shot.yaw};
@@ -593,7 +605,11 @@ function render(frameSeconds){
  canvas.dataset.g4e7vTime=g4e7vShot?String(g4e7vShot.timeSeconds):'off';
  canvas.dataset.g4e7vSpeedMps=g4e7vShot?String(g4e7vShot.speedMps):'off';
  canvas.dataset.g4e7vGrounded=g4e7vShot?String(g4e7vShot.grounded):'off';
- canvas.dataset.g4e7aiMode=g4e7aiShot&&g4e7aiOptIn?'ACTUAL_240HZ_AH_NARROW_B48_HOLD':'off';
+ canvas.dataset.g4e7akMode=g4e7akShot&&g4e7akOptIn?'ACTUAL_240HZ_AJ_REANCHOR_B51_HOLD':'off';
+  canvas.dataset.g4e7akPoint=g4e7akShot?.id??'off';
+  canvas.dataset.g4e7akTime=g4e7akShot?String(g4e7akShot.timeSeconds):'off';
+  canvas.dataset.g4e7akBackdrop=g4e7akOptIn?g4e7akBackdrop:'off';
+  canvas.dataset.g4e7aiMode=g4e7aiShot&&g4e7aiOptIn?'ACTUAL_240HZ_AH_NARROW_B48_HOLD':'off';
  canvas.dataset.g4e7aiPoint=g4e7aiShot?.id??'off';
  canvas.dataset.g4e7aiTime=g4e7aiShot?String(g4e7aiShot.timeSeconds):'off';
  canvas.dataset.g4e7aiSpeed=g4e7aiShot?String(g4e7aiShot.speedMps):'off';
@@ -632,7 +648,7 @@ function render(frameSeconds){
  gl.uniform1f(locations.fogStart,FOG_START_METERS);
  gl.uniform1f(locations.fogSpan,FOG_SPAN_METERS);
  canvas.dataset.visibilityFx=visibilityFx?'enabled':'disabled';
- if(g4e7aiOptIn&&g4e7aiBackdrop==='quiet'){
+ if((g4e7aiOptIn&&g4e7aiBackdrop==='quiet')||(g4e7akOptIn&&g4e7akBackdrop==='quiet')){
   // Physics-first road readability study: background architecture only is hidden.
   // Real roads, their B48 sides, real void, fixtures, hazards and ball remain.
  }else if(g4e7agReplacement){
@@ -673,7 +689,7 @@ function render(frameSeconds){
  }
  // P85: energy ball is strictly display-only, tied to the native 240Hz
  // position and simulation clock. There is no physical effect or steering aid.
- const effect=energyBallFrame(pose.time,g4e7aiShot?.velocity||g4e7adShot?.velocity||g4e7wShot?.velocity||g4e7vShot?.velocity||g4e7sShot?.velocity||runner.v,pose.forward,renderQuality.scale);
+ const effect=energyBallFrame(pose.time,g4e7akShot?.velocity||g4e7aiShot?.velocity||g4e7adShot?.velocity||g4e7wShot?.velocity||g4e7vShot?.velocity||g4e7sShot?.velocity||runner.v,pose.forward,renderQuality.scale);
  if(energyFx){
   draw(energyMeshes.shell,pose.position,[1,1,1],effect.spin);
   draw(energyMeshes.filaments,pose.position,[1,1,1],effect.spin*.84,gl.LINES);
@@ -753,7 +769,7 @@ function publishChapterTiming(){
 function updateNativeChapterTime(){
  const event=observeChapterSplits(chapterTracker,runner.surface,runner.lastSurface,runner.time,runner.status);
  if(!event)return;
- const best=(!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial&&!g4e7gActive&&!g4e7mActive&&!g4e7qActive&&!g4e7rActive&&!g4e7tActive&&!g4e7vActive&&!g4e7wActive&&!g4e7adActive&&!g4e7aiActive)
+ const best=(!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial&&!g4e7gActive&&!g4e7mActive&&!g4e7qActive&&!g4e7rActive&&!g4e7tActive&&!g4e7vActive&&!g4e7wActive&&!g4e7adActive&&!g4e7aiActive&&!g4e7akActive)
   ?storeChapterBest(browserRecordStore(),event)
   :{best:null,improved:false,saved:false};
  latestSplit=event;
@@ -763,12 +779,12 @@ function updateNativeChapterTime(){
 }
 function settleRun(){
  if(!runner||runCommitted||!['failed','finished'].includes(runner.status))return;
- if(demoMode||practiceMode||g4e7bQa||g4e7dTrial||g4e7gActive||g4e7mActive||g4e7oActive||g4e7qActive||g4e7rActive||g4e7tActive||g4e7vActive||g4e7wActive||g4e7adActive||g4e7aiActive){
+ if(demoMode||practiceMode||g4e7bQa||g4e7dTrial||g4e7gActive||g4e7mActive||g4e7oActive||g4e7qActive||g4e7rActive||g4e7tActive||g4e7vActive||g4e7wActive||g4e7adActive||g4e7aiActive||g4e7akActive){
   $('b5ResultExport').hidden=true;
   retryChapterId=null;$('retryPractice').hidden=true;
   runCommitted=true;const result=$('runResult');result.hidden=false;
    if(g4e7oActive&&g4e7oResultDownload)g4e7oResultDownload.hidden=false;
-  $('resultTitle').textContent=g4e7oActive?'G4E-7O · HUMAN QA HOLD':g4e7aiActive?'G4E-7AI · REAL 11m B48 / NOT HUMAN':g4e7adActive?'G4E-7AD · R2 VISUAL RESEARCH / NOT HUMAN':g4e7wActive?'G4E-7W · REAL 15m GAP / P96 NONHUMAN QA HOLD':g4e7vActive?'G4E-7V · ACTUAL SCRIPTED NATIVE 240Hz HOLD':g4e7tActive?'G4E-7T · EARLY TRUE GAP · HUMAN HOLD':g4e7rActive?'G4E-7R · REAL B48 REJOIN · HUMAN HOLD':g4e7qActive?'G4E-7Q · TRUE B48 DIVE/LEAP · HUMAN HOLD':g4e7mActive?'G4E-7M · TRUE B48 HUMAN HOLD':g4e7gActive?'G4E-7G · VISUAL QA · NOT HUMAN':g4e7dTrial?'G4E-7D · HUMAN QA · REVIEW HOLD':g4e7bQa?'SCRIPTED QA · NOT HUMAN':practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
+  $('resultTitle').textContent=g4e7oActive?'G4E-7O · HUMAN QA HOLD':g4e7akActive?'G4E-7AK · REAL 11m + MOVING 28 B51 / NOT HUMAN':g4e7aiActive?'G4E-7AI · REAL 11m B48 / NOT HUMAN':g4e7adActive?'G4E-7AD · R2 VISUAL RESEARCH / NOT HUMAN':g4e7wActive?'G4E-7W · REAL 15m GAP / P96 NONHUMAN QA HOLD':g4e7vActive?'G4E-7V · ACTUAL SCRIPTED NATIVE 240Hz HOLD':g4e7tActive?'G4E-7T · EARLY TRUE GAP · HUMAN HOLD':g4e7rActive?'G4E-7R · REAL B48 REJOIN · HUMAN HOLD':g4e7qActive?'G4E-7Q · TRUE B48 DIVE/LEAP · HUMAN HOLD':g4e7mActive?'G4E-7M · TRUE B48 HUMAN HOLD':g4e7gActive?'G4E-7G · VISUAL QA · NOT HUMAN':g4e7dTrial?'G4E-7D · HUMAN QA · REVIEW HOLD':g4e7bQa?'SCRIPTED QA · NOT HUMAN':practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
   $('resultScore').textContent=(practiceMode?practiceElapsed(runner.time,practiceStartedAt):runner.time).toFixed(2)+' s · 実物理'+(practiceMode?'操作練習':'観戦デモ');
   $('resultDetails').textContent=(g4e7wActive?'非公開のG4E-7W実細道・本物の跳躍・高速視界研究':g4e7vActive?'非公開のG4E-7V実物理着地面・高速視界研究':g4e7tActive?'非公開のG4E-7T早期実細道・2セルギャップ研究':g4e7rActive?'非公開のG4E-7R実細道・ギャップ研究':g4e7qActive?'非公開の真の急降下・ギャップ研究':g4e7mActive?'非公開の本物の超細道研究':g4e7gActive?'非公開の景観研究':g4e7dTrial?'手動比較走行':g4e7bQa?'研究用P96走行':practiceMode?'練習':'観戦デモ')+'は自己ベストへ保存しません。人間評価HOLD。';
   result.dataset.outcome=runner.status;canvas.dataset.runOutcome=runner.status;
@@ -894,6 +910,8 @@ function restart(){
     g4e7wActive=Boolean(doc.stageForge.g4e7wStudy&&g4e7wOptIn);
     g4e7adActive=Boolean(doc.stageForge.g4e7acR2Study&&g4e7adOptIn);
     g4e7aiActive=Boolean(doc.stageForge.g4e7ahStudy&&g4e7aiOptIn);
+     g4e7akActive=Boolean(doc.stageForge.g4e7ajStudy?.id==='reanchor'&&g4e7akOptIn);
+     if(g4e7akActive){paused=true;accum=0;}
     if(g4e7aiActive){paused=true;accum=0;}
     if(g4e7adActive){paused=true;accum=0;}
     if(g4e7wActive){paused=true;accum=0;}
@@ -934,7 +952,7 @@ function restart(){
   canvas.dataset.b5LaunchMps=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'52':'off';
   b5ManualAudit=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)&&!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial&&!g4e7gActive&&!g4e7mActive&&!g4e7qActive&&!g4e7rActive&&!g4e7tActive&&!g4e7vActive&&!g4e7wActive&&!g4e7adActive&&!g4e7aiActive
    ?createB5ManualAudit({stageId:doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.recordStageId||'VB-P101-A13'):'VB-P101-B5',profile:$('p101Profile').value,startSpeed:physicalLaunch,spawnIndex:spawn}):null;
-  $('b5QaPanel').hidden=Boolean(g4e7bQa)||g4e7adActive||g4e7aiActive||!['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant);
+  $('b5QaPanel').hidden=Boolean(g4e7bQa)||g4e7adActive||g4e7aiActive||g4e7akActive||!['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant);
   $('b5QaTitle').textContent=doc.stageForge.slopeDNAStudy?.realB48Surface?'W9-C1 ABYSS '+doc.stageForge.slopeDNAStudy.nominalCoreWidthMeters+'m · 独立手動試走':doc.stageForge.recordStageId==='VB-P101-A13-W9X-B1'?'W9-X-B1 · 独立手動試走レポート':doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.g4e6EarlyGap?'W9-C2 G4E-6 · 真のB48ギャップ · 人間操作HOLD':doc.stageForge.g4ePhysicalStudy?'W9-C2 G4E-1 · '+doc.stageForge.revision+' · 実物理4狭路・人間HOLD':doc.stageForge.w9c2PhysicalStudy?'W9-C2 S-CREST · '+doc.stageForge.revision+' · 実物理研究/HOLD':'A13 W7F · 手動試走レポート'):'B5 · 手動試走レポート';
   $('w9TrialWarning').hidden=doc.stageForge.recordStageId!=='VB-P101-A13-W9X-B1';
   $('w9c1TrialWarning').hidden=!doc.stageForge.slopeDNAStudy?.realB48Surface;
@@ -993,7 +1011,8 @@ function restart(){
     if(g4e7tActive)status.textContent='G4E-7T LOCAL '+doc.stageForge.g4e7tStudy.variant.toUpperCase()+
      ' / TRUE EARLY 13m B48 '+(doc.stageForge.g4e7tStudy.gap?'TWO-CELL REAL GAP':'SOLID CONTROL')+
      ' / 28 ORIGINAL MACHINES / SCRIPT/HUMAN FAIRNESS HOLD.';
-    if(g4e7aiActive)status.textContent='G4E-7AI LOCAL REAL NARROW B48 / '+g4e7aiPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / RESEARCH HOLD.';
+    if(g4e7akActive)status.textContent='G4E-7AK LOCAL REAL 11m B48 + REANCHORED 2/28 B51 / '+g4e7akPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / HOLD.';
+     if(g4e7aiActive)status.textContent='G4E-7AI LOCAL REAL NARROW B48 / '+g4e7aiPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / RESEARCH HOLD.';
     if(g4e7adActive)status.textContent='G4E-7AD LOCAL TRUE R2 B48 / '+g4e7adPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / REAL GPU VISUAL RESEARCH HOLD.';
     if(g4e7wActive)status.textContent='G4E-7W LOCAL TRUE B48 15.76m GAP / '+g4e7wPoint.toUpperCase()
      +' / 240Hz P96 NONHUMAN / HUMAN VISUAL HOLD.';
@@ -1015,7 +1034,7 @@ function restart(){
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
- runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;g4e7gActive=false;g4e7mActive=false;g4e7oActive=false;g4e7qActive=false;g4e7rActive=false;g4e7tActive=false;g4e7vActive=false;g4e7vShot=null;g4e7wActive=false;g4e7wShot=null;g4e7adActive=false;g4e7adShot=null;g4e7aiActive=false;g4e7aiShot=null;g4e7sShot=null;g4e7sTrace=null;g4e7oTrial=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
+ runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;g4e7gActive=false;g4e7mActive=false;g4e7oActive=false;g4e7qActive=false;g4e7rActive=false;g4e7tActive=false;g4e7vActive=false;g4e7vShot=null;g4e7wActive=false;g4e7wShot=null;g4e7adActive=false;g4e7adShot=null;g4e7aiActive=false;g4e7aiShot=null;g4e7akActive=false;g4e7akShot=null;g4e7sShot=null;g4e7sTrace=null;g4e7oTrial=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
  try{
   const response=await fetch('../generated/'+assets[id],{cache:'no-store'});
   if(!response.ok)throw Error('Stage JSON HTTP '+response.status);
@@ -1057,6 +1076,33 @@ async function load(){
     g4e7aiShot=entry.frames.find(f=>f.id===g4e7aiPoint);
     if(!g4e7aiShot||g4e7aiShot.source!=='ACTUAL_240HZ_START00_P96_NOT_HUMAN'||
        g4e7aiShot.speedMps<=52)throw Error('AI requested native frame missing');
+    $('demoRun').disabled=true;$('practiceRun').disabled=true;$('spawn').value='0';
+   }
+   if(g4e7akOptIn){
+    const aj=value.stageForge?.g4e7ajStudy,ah=value.stageForge?.g4e7ahStudy;
+    if(aj?.id!=='reanchor'||!['true-pinch','pinch-switch'].includes(aj.road)||
+       id!=='VB-P101-A13-W9C2-G4E7AK-'+aj.road.toUpperCase()||
+       !ah?.realMissingLongitudinalCell52||ah.certifiedSlope2Meters!==0||
+       aj.originalMovingObjects!==28||aj.unchangedMovingObjects!==26||
+       aj.publish!=='HOLD'||aj.certifiedSlope2Meters!==0||
+       value.stageForge.productionPromoted!==false||
+       value.surfaces.length!==7||value.movingObstacles.length!==28||
+       value.surfaces[0].voidLongitudinalCells?.join(',')!=='52')
+      throw Error('AK true physical reanchor provenance mismatch');
+    const reply=await fetch('../generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json',{cache:'no-store'});
+    if(!reply.ok)throw Error('AK actual 240Hz reanchor camera evidence missing');
+    const proof=await reply.json(),entry=proof.stages?.[aj.road];
+    if(proof.schema!=='dopagaki.g4e7ak-reanchor-real-native-240hz-frames/1'||
+       proof.physicsHz!==240||proof.certifiedSlope2Meters!==0||
+       proof.publication!=='HOLD'||entry?.stageId!==value.stageForge.recordStageId||
+       entry.realRoads!==7||entry.realB51C!==28||entry.changedB51C!==2||
+       entry.widthMeters!==ah.widthMinMeters)
+      throw Error('AK real 240Hz frames and native stage mismatch');
+    g4e7akShot=entry.frames.find(f=>f.id===g4e7akPoint);
+    if(!g4e7akShot||
+       g4e7akShot.source!=='ACTUAL_240HZ_START00_REANCHORED_28_B51_P96_NOT_HUMAN'||
+       g4e7akShot.speedMps<=52||g4e7akShot.originalMovingPose.length!==2)
+      throw Error('AK real native frame missing');
     $('demoRun').disabled=true;$('practiceRun').disabled=true;$('spawn').value='0';
    }
    if(g4e7adOptIn){
@@ -1304,7 +1350,7 @@ function hud(){
   }
   // Only research screenshots reflect the genuine 240Hz start00 frozen state.
   // Every actual human/manual game remains bound to the live Runner unchanged.
-  const speedFrame=(g4e7aiOptIn&&g4e7aiShot?g4e7aiShot:null)||(g4e7adOptIn&&g4e7adShot?g4e7adShot:null)||(g4e7wOptIn&&g4e7wShot?g4e7wShot:null)||(g4e7vOptIn&&g4e7vShot?g4e7vShot:null)||(g4e7sOptIn&&g4e7sShot?g4e7sShot:null);
+  const speedFrame=(g4e7akOptIn&&g4e7akShot?g4e7akShot:null)||(g4e7aiOptIn&&g4e7aiShot?g4e7aiShot:null)||(g4e7adOptIn&&g4e7adShot?g4e7adShot:null)||(g4e7wOptIn&&g4e7wShot?g4e7wShot:null)||(g4e7vOptIn&&g4e7vShot?g4e7vShot:null)||(g4e7sOptIn&&g4e7sShot?g4e7sShot:null);
   $('speed').textContent=(speedFrame?.speedMps??Math.hypot(...runner.v)).toFixed(1);
  $('simTime').textContent=(speedFrame?.timeSeconds??runner.time).toFixed(2)+' s';$('contacts').textContent=String(runner.collisions);
  $('ground').textContent=speedFrame
