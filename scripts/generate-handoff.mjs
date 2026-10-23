@@ -16,8 +16,9 @@ function safeLine(s) {
   return String(s).replace(/[\r\n]/g, ' ').replace(/§/g, "'").trim();
 }
 const head = git(['rev-parse', 'HEAD']);
-const branch = git(['symbolic-ref', '--quiet', '--short', 'HEAD']) ||
-  process.env.GITHUB_REF_NAME || '(detached)';
+let branch;
+try { branch = git(['symbolic-ref', '--quiet', '--short', 'HEAD']); }
+catch { branch = process.env.GITHUB_REF_NAME || '(detached)'; }
 const subject = safeLine(git(['log', '-1', '--format=%s']));
 const commitTime = git(['log', '-1', '--format=%cI']);
 const gitDocs = git(['log', '--name-only', '--pretty=format:', '-n', '80',

@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: '22'
       - name: Validate read-only handoff generator
-        run: node --test tests/handoff-snapshot.test.mjs
+        run: node --test tests/handoff/handoff-snapshot.test.mjs
       - name: Generate fresh git-derived handoff (no repo write)
         run: node scripts/generate-handoff.mjs > handoff-snapshot.md
       - name: Ensure original tracked files remain unchanged
