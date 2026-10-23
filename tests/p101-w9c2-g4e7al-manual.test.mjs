@@ -65,3 +65,22 @@ test('AL restart history caps itself at 12 and refuses ordering drift',()=>{
  assert.throws(()=>archiveG4E7ALRetry(s,{...report,road:'pinch-switch'}),/provenance/);
  assert.equal(out.automaticallySubmitted,false);
 });
+
+test('AL auxiliary moving-clearance sampler never runs at each 240Hz physics step',()=>{
+ const doc=generateG4E7AJ('true-pinch','reanchor'),r=new Runner(doc,compile(doc),0,52);
+ const t=createG4E7ALTrial(doc,r);let poses=0,obb=0;
+ const countedPose=(...args)=>{poses++;return movingObstaclePose(...args);};
+ const countedSep=(...args)=>{obb++;return sphereBoxSeparation(...args);};
+ for(let step=0;step<25;step++){
+  r.step(0);
+  observeG4E7ALStep(t,doc,r,0,sample,RADIUS,countedPose,countedSep);
+ }
+ const out=exportG4E7ALTrial(t,r);
+ assert.equal(out.metrics.physicsSteps,25);
+ assert.equal(out.metrics.movingSeparationSamplingHz,20);
+ assert.equal(out.metrics.movingSeparationNotContinuousCCD,true);
+ assert.equal(out.metrics.movingSeparationSamples,3); // step 1, 12, 24
+ assert.equal(poses,6);assert.equal(obb,6); // only two tracked movers
+ assert.equal(out.sampledPhysicalSteps[0].separationSampleSeconds!==null,true);
+ assert.equal(out.physicalCourse.realMovingB51,28);
+});
