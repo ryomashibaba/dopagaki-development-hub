@@ -31,7 +31,7 @@ test('AL 2 real manual physics courses, A/D samples, export/continue, no human P
  await expect(page.locator('#g4e7alStep')).toContainText('1/2 TRUE-PINCH');
  await expect(page.locator('#g4e7alResultDownload')).toBeHidden();
  await page.locator('#g4e7alNext').click();
- await expect(page.locator('#g4e7alNotice')).toContainText('まだ走行していません');
+ await expect(page.locator('#g4e7alNotice')).toContainText('まだ左右の手動入力がありません');
  await expect(page.locator('#stage')).toHaveValue(stage('TRUE-PINCH'));
  await page.keyboard.down('KeyD');
  await page.waitForTimeout(520);
