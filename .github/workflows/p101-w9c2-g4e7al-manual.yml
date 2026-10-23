@@ -1,0 +1,74 @@
+name: W9-C2 G4E-7AL genuine 11m B48 28 B51-C localhost manual QA and JSON (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/p101-w9c2-g4e7al-manual-qa.mjs'
+      - 'web/p101-w9c2-g4e7al-manual-panel.mjs'
+      - 'web/drive3d.mjs'
+      - 'scripts/build.mjs'
+      - 'scripts/launch-g4e7al-manual.mjs'
+      - 'RUN_G4E7AL_MANUAL.cmd'
+      - 'tests/p101-w9c2-g4e7al-manual.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7al-manual.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7al-manual.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e7al-manual-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  real-manual-input-no-human-certification:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 24
+    env:
+      CI: 'true'
+      DOPAGAKI_G4E7AK_VISUAL: '1'
+      DOPAGAKI_BUILD_DIR: dist-private
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: No syntax regression or AJ original mutation; preserve existing 7O QA
+        run: |
+          node --check web/drive3d.mjs
+          node --check scripts/build.mjs
+          node --check scripts/launch-g4e7al-manual.mjs
+          node --check web/p101-w9c2-g4e7al-manual-qa.mjs
+          node --check web/p101-w9c2-g4e7al-manual-panel.mjs
+          node --test tests/p101-w9c2-g4e7al-manual.test.mjs tests/p101-w9c2-g4e7o-manual.test.mjs tests/research/p101-w9c2-g4e7ak-native-key.test.mjs
+      - name: Install Chromium for actual WebGL keyboard/browser and local download tests
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Build physically real private 7AJ candidates; do not change Gold
+        run: |
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json
+      - name: Chromium real A/D, manual UI pair, failed-run direct JSON; NOT HUMAN QA
+        run: npx playwright test tests/browser/p101-w9c2-g4e7al-manual.spec.mjs
+      - name: Both public modes must exclude unpublished AJ moving-hazard candidates
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7al-localhost-real-manual-UI-not-human-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7al-*.png
+            test-results/**/g4e7al-*.json
+            test-results/**/test-failed-*.png
+            test-results/**/error-context.md
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 14
