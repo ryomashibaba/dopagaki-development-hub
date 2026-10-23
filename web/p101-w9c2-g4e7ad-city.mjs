@@ -20,7 +20,7 @@ export function g4e7adCity(doc,sample,{enabled=false}={}){
  if(!enabled)return empty();
  const study=doc?.stageForge?.g4e7acR2Study;
  if(!['approach-arc','landing-crescent'].includes(study?.id)||
-    study.source!=='AA_LANDING_SOFT_ALPHA070'||!study.originalLipLandingExact||
+    study.source!=='AA_LANDING_SOFT_ALPHA070_UNCHANGED_CUT'||!study.originalLipLandingExact||
     study.certifiedSlope2Meters!==0||doc.stageForge.productionPromoted!==false||
     doc.surfaces.length!==7||doc.movingObstacles.length!==28||
     doc.surfaces[0].voidLongitudinalCells?.join(',')!=='52'||

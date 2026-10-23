@@ -954,7 +954,7 @@ async function load(){
     const q=value.stageForge?.g4e7acR2Study;
     if(!q||id!=='VB-P101-A13-W9C2-G4E7AD-'+q.id.toUpperCase()||
        !['approach-arc','landing-crescent'].includes(q.id)||
-       q.source!=='AA_LANDING_SOFT_ALPHA070'||!q.originalLipLandingExact||
+       q.source!=='AA_LANDING_SOFT_ALPHA070_UNCHANGED_CUT'||!q.originalLipLandingExact||
        q.certifiedSlope2Meters!==0||q.publish!=='HOLD'||
        value.stageForge.productionPromoted!==false||
        value.surfaces.length!==7||value.movingObstacles.length!==28||
