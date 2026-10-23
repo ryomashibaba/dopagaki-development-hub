@@ -25,6 +25,7 @@ export function createG4E7ALTrial(doc,runner){
   samples:[],lastSample:-Infinity,lastSupported:null,
   eventsSeen:0,contacts:[],peakMps:52,minRoadWidthM:Infinity,minEdgeM:Infinity,
   minSeparation:Object.fromEntries(ids.map(id=>[id,Infinity])),
+  separationSamples:0,lastSeparation:[],lastSeparationAt:null,
   frame:{raf:[],rafFrames:0,physicsOverloadFrames:0,maxCameraHeadingLagDeg:0},
   stopped:null};
 }
@@ -44,9 +45,18 @@ export function observeG4E7ALStep(t,doc,runner,steer,surfaceSample,radius,moving
  if(runner.grounded&&runner.surface)t.lastSupported={
   timeSeconds:round(runner.time,5),roadId:runner.surface,
   position:runner.p.map(n=>round(n)),speedMps:round(Math.hypot(...runner.v))};
- const poses=ids.map(id=>movingObstaclePose(doc.movingObstacles.find(o=>o.id===id),runner.time));
- const separation=poses.map(p=>({id:p.id,meters:round(sphereBoxSeparation(runner.p,radius,p).separation)}));
- for(const p of separation)if(num(p.meters))t.minSeparation[p.id]=Math.min(t.minSeparation[p.id],p.meters);
+ // Auxiliary clearance sampling at <=20Hz, not a collider or native contact test.
+ // Actual moving-contact CCD and physics still execute at 240Hz in Runner.
+ // Avoid revalidating B51-C descriptors 480x/second while benchmarking FPS.
+ if(t.steps===1||t.steps%12===0||['failed','finished'].includes(runner.status)){
+  const poses=ids.map(id=>movingObstaclePose(doc.movingObstacles.find(o=>o.id===id),runner.time));
+  t.lastSeparation=poses.map(p=>({id:p.id,
+   meters:round(sphereBoxSeparation(runner.p,radius,p).separation)}));
+  t.lastSeparationAt=runner.time;t.separationSamples++;
+  for(const p of t.lastSeparation)if(num(p.meters))
+   t.minSeparation[p.id]=Math.min(t.minSeparation[p.id],p.meters);
+ }
+ const separation=t.lastSeparation;
  for(const e of runner.events.slice(t.eventsSeen))if(e.type==='moving-contact'||
    e.type==='static-fatal-contact'||e.type==='failure')t.contacts.push({
   type:e.type,id:e.id??null,mode:e.mode??null,timeSeconds:round(e.t??runner.time,5)});
@@ -55,7 +65,8 @@ export function observeG4E7ALStep(t,doc,runner,steer,surfaceSample,radius,moving
   t.lastSample=runner.time;
   t.samples.push({seconds:round(runner.time,4),steer,position:runner.p.map(n=>round(n)),
    speedMps:round(Math.hypot(...runner.v)),grounded:runner.grounded,
-   roadId:runner.surface||runner.lastSurface,road,separation,status:runner.status});
+   roadId:runner.surface||runner.lastSurface,road,separation,
+   separationSampleSeconds:round(t.lastSeparationAt,4),status:runner.status});
  }
  if(['failed','finished'].includes(runner.status)&&!t.stopped)t.stopped={
   seconds:round(runner.time,5),reason:runner.failure?.reason??null,
@@ -89,6 +100,8 @@ export function exportG4E7ALTrial(t,runner,{noticed='unsure',fairness='unsure',e
    minPhysicalRoadWidthMeters:round(t.minRoadWidthM),
    minSignedRoadEdgeMarginMeters:round(t.minEdgeM),
    minimumBallBoxSeparationMeters:Object.fromEntries(Object.entries(t.minSeparation).map(([id,v])=>[id,round(v)])),
+   movingSeparationSamples:t.separationSamples,movingSeparationSamplingHz:20,
+   movingSeparationNotContinuousCCD:true,
    movingContacts:t.contacts.filter(e=>e.type==='moving-contact').length},
   sampledPhysicalSteps:t.samples,steerTransitions:t.inputTransitions,contacts:t.contacts,
   render:{rafFrames:t.frame.rafFrames,
