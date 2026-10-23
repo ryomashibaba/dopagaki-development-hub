@@ -198,7 +198,7 @@ export function g4e7anSkyArchipelago(doc,sample,{enabled=false}={}){
  const d=harpoons(vertices,frame(road,sample,.795,1));
  const stats={
   active:true,vertices,triangles:vertices.length/18,monuments:4,
-  hollowCrowns:1,crownHoles:a,splitCitadelProngs:b,
+  hollowCrowns:1,crownHoles:1,crownShellSegments:a,splitCitadelProngs:b,
   floatingDecks:c,harpoonBranches:d,
   maximumRiseMeters:815,minimumOutboardMeters:270,
   nonCollision:true,addedCollision:0,addedRoads:0,addedMachines:0,
