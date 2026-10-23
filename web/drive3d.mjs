@@ -952,7 +952,7 @@ async function load(){
    if(seq!==loading)return;
    if(g4e7adOptIn){
     const q=value.stageForge?.g4e7acR2Study;
-    if(!q||id!==value.stageForge.recordStageId||
+    if(!q||id!=='VB-P101-A13-W9C2-G4E7AD-'+q.id.toUpperCase()||
        !['approach-arc','landing-crescent'].includes(q.id)||
        q.source!=='AA_LANDING_SOFT_ALPHA070'||!q.originalLipLandingExact||
        q.certifiedSlope2Meters!==0||q.publish!=='HOLD'||
