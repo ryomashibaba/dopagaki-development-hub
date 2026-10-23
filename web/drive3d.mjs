@@ -397,6 +397,7 @@ function buildVisual(stage){
   canvas.dataset.g4e7amScene=am.active?'continent':'off';
   canvas.dataset.g4e7amBanks=String(am.banks);
   canvas.dataset.g4e7amVoids=String(am.negativeSpaceBays);
+  canvas.dataset.g4e7amMacroSkyOpenings=String(am.macroSkyOpenings);
   canvas.dataset.g4e7amTerraces=String(am.terraces);
   canvas.dataset.g4e7amSpines=String(am.citySpines);
   canvas.dataset.g4e7amTriangles=String(am.triangles);
