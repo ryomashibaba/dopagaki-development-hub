@@ -75,14 +75,14 @@ function realRoadOutboardWings(out,road,sample){
  return {wings,minOutboardMeters:minGap,maxHeightMeters:highest,
   collision:false,noOverheadCrossbeam:true};
 }
-export function voidBreakerGeometry(stage,sample,{firstChapterVista=false}={}){
+export function voidBreakerGeometry(stage,sample,{firstChapterVista=false,vistaChapters=1}={}){
  if(!['VB-P93','VB-P95','VB-P99','VB-P100','VB-P101'].includes(stage?.stageForge?.id))return {vertices:[],beams:0,sections:[]};
  if(typeof sample!=='function')throw Error('P93 requires exact B48 read-only sampler');
  const roads=stage.surfaces.filter(s=>s.rideable&&s.collidable);
  if(roads.length!==7||!roads.every(s=>s.id.startsWith('p93-')))throw Error('P93 visual requires 7 authentic physical road skins');
  const vertices=[],sections=[];
  const p100=['VB-P100','VB-P101'].includes(stage.stageForge.id);
- if(firstChapterVista&&(!p100||![.65,.7].includes(stage.stageForge?.g4e7wStudy?.physicalTakeoffTransition)||
+ if(firstChapterVista&&(![1,2].includes(vistaChapters)||!p100||![.65,.7].includes(stage.stageForge?.g4e7wStudy?.physicalTakeoffTransition)||
   stage.stageForge?.g4e7wStudy?.gap?.cells?.join(',')!=='52'||
   stage.movingObstacles.length!==28||stage.surfaces.length!==7||
   stage.stageForge?.g4e7wStudy?.officialSlope2Meters!==0))
@@ -92,7 +92,7 @@ export function voidBreakerGeometry(stage,sample,{firstChapterVista=false}={}){
  const portalCount=p100?4:6,exteriorStandOff=p100?56:26;
  for(let n=0;n<roads.length;n++){
   const s=roads[n],palette=CHAPTERS[n],before=vertices.length;
-  if(firstChapterVista&&n===0){
+  if(firstChapterVista&&n<vistaChapters){
    const meta=realRoadOutboardWings(vertices,s,sample);
    sections.push({name:s.id,triangles:(vertices.length-before)/18,
     exteriorClearanceMeters:meta.minOutboardMeters,
@@ -141,6 +141,6 @@ export function voidBreakerGeometry(stage,sample,{firstChapterVista=false}={}){
  }
  if(vertices.length>500000||vertices.some(v=>!Number.isFinite(v)))throw Error('P93 visual GPU budget or coordinate validation failed');
  return {vertices,beams:Math.round(vertices.length/216),sections,
-  visualReadability:firstChapterVista?'G4E7Y_FIRST_CHAPTER_ASYMMETRIC_OUTBOARD_WINGS_NONCOLLISION':
+  visualReadability:firstChapterVista?'G4E7Y_FIRST_'+vistaChapters+'_CHAPTERS_ASYMMETRIC_OUTBOARD_WINGS_NONCOLLISION':
    p100?'P100_FOUR_WIDE_SETBACK_PORTALS_PER_CHAPTER':'P98_SIX_EXTERIOR_GATES_PER_CHAPTER_WITH_OFFROAD_COLUMNS'};
 }

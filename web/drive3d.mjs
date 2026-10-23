@@ -116,7 +116,7 @@ const g4e7wOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get(
 const g4e7xGuideRequested=g4e7wOptIn&&new URLSearchParams(window.location.search).get('g4e7xGuide')==='on';
 const g4e7xVanesRequested=g4e7wOptIn&&new URLSearchParams(window.location.search).get('g4e7xGuide')==='vanes';
 const g4e7yRequested=new URLSearchParams(window.location.search).get('g4e7yScene');
-const g4e7yScene=g4e7wOptIn&&['quiet','open','vista'].includes(g4e7yRequested)?
+const g4e7yScene=g4e7wOptIn&&['quiet','open','vista','vista2'].includes(g4e7yRequested)?
  g4e7yRequested:'baseline';
 const g4e7yEarlyPoint=g4e7wOptIn&&['t265','t315','t365','t415','t450'].includes(
  new URLSearchParams(window.location.search).get('g4e7yEarly'))?
@@ -437,11 +437,13 @@ function buildVisual(stage){
  canvas.dataset.roadBeaconCount=String(reflectors.beacons);
  canvas.dataset.shoulderBeacons=String(reflectors.beacons);
  const epic=epicGeometry(stage);scenery=epic.length?mesh(epic):null;
- const mega=megastructureGeometry(stage,sample,{firstChapterVista:g4e7yScene==='vista'});
+ const mega=megastructureGeometry(stage,sample,{firstChapterVista:g4e7yScene==='vista'||g4e7yScene==='vista2',vistaChapters:g4e7yScene==='vista2'?2:1});
  megaWorld=mega.vertices.length?mesh(mega.vertices):null;
  canvas.dataset.g4e7yVista=String(g4e7yScene==='vista');
  canvas.dataset.g4e7yChapter0Portals=String(mega.sections[0]?.portalCount??0);
  canvas.dataset.g4e7yChapter0Wings=String(mega.sections[0]?.nonblockingWings??0);
+ canvas.dataset.g4e7yChapter1Portals=String(mega.sections[1]?.portalCount??0);
+ canvas.dataset.g4e7yChapter1Wings=String(mega.sections[1]?.nonblockingWings??0);
  canvas.dataset.archPortalCount=String((mega.sections||[]).reduce((n,x)=>n+(x.portalCount||0),0));
  canvas.dataset.megaTriangleCount=String(mega.vertices.length/18);
  canvas.dataset.megaSectionCount=String(mega.sections.length);
