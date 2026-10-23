@@ -30,15 +30,15 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
-## 2026-10-23 JST 最終確認済み基準（**現在値とは限らない**）
+## 2026-10-24 JST 最終確認済み基準（**現在値とは限らない**）
 
 | 項目 | 最後に確認した値 |
 | --- | --- |
 | Draft PR | #46：OPEN / Draft / 未マージ |
 | ブランチ | `p101-velocity-overdrive-native-trial` |
 | HEAD | GitHubの現行ブランチHEADを実際に取得（固定値を参照しない） |
-| 完了工程 | G4E-7AK第1ゲート：正規240Hz 2道路×5固定A/D操作波形10条件、実B51-C fatal/bounce 接触を検証。第2ゲート：7AJ reanchorの2案＋28基を元240Hzボール相対カメラでChromium WebGL計10画面、privateのみ生成・public/public-safe研究JSON非混入 CI SUCCESS。7AJ全7道路2/2非人間自動完走も保持。ただし7AKの人間の初見視認/操作・美術・正式認定はHOLD。 |
-| 次の計画 | G4E-7AK第3ゲート：実WebGL10画面の人間による目視と、同じ正規240Hzカメラで本物のB48三角形／B51-C動体OBBによる遮蔽、接近予告秒数、道路から落ちる固定入力の原因を調査し、実3D形状/視界を意味ある改善候補へ。P96成功＝人間公平性ではない。offset-phase強制衝突候補は不採用/HOLD。 |
+| 完了工程 | G4E-7AK第1ゲート：240Hz 2道路×5固定A/D 10条件、実B51-C fatal/bounce計測。第2ゲート：reanchor版の実Chromium WebGL10画像と非公開JSON隔離PASS。**第3ゲート：元カメラ×本物のB48 4,724三角形×B51-C動体OBBを0.2s刻み45×2点検、CI PASS。早い右入力で最初のB48支持を2.76/2.77秒に失い約3.7/3.8秒飛行後落下と特定。** 7AJの全7道路2/2非人間完走基準は維持。人間・美術・正式認定はHOLD。 |
+| 次の計画 | **G4E-7AL**：reanchor版真11m B48と28基B51-Cを、静止P96フレームだけでなく**人間の左右操舵で実試走できる非公開localhostの独立QA**に接続し、ゲームオーバーからローカルJSON保存と初見危険理解/操作/路外落下の実証を進める。今までの7O計測UIを再利用。人間の失敗データで必要性を確認できた後、既存候補を不変更で大きな実3D改善へ。P96機械視認数値だけで採択しない。 |
 | Slope2 DNA正式認定 | 0m |
 | 美術・人間品質・公開 | HOLD |
 | 凍結比較基準 | G4E-7AA `landing-soft α=.70` |
@@ -46,8 +46,11 @@
 
 **G4E-7AK第1/2ゲート CI**：[固定A/D実240Hz #39968223375](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39968223375) SUCCESS（artifact 12507972133）。[reanchor実Chromium WebGL10画面 #39969621809](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39969621809) SUCCESS（artifact 12509130409、public/public-safe研究用JSON非混入PASS）。人間の視認・操作/美術/正式採択/公開はHOLD。
 
+**G4E-7AK第3ゲート CI**：[実B48/B51-C遮蔽・接地喪失 #39976900377](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39976900377) SUCCESS。画面サイズ換算は近似であり人間の反応猶予は未認定。記録は最新監査を参照。
+
 7AAは、本物の欠損B48セルによる走行因果性と全7道路240Hz自動完走（56.2292秒）を記録。ただし美術・人間プレイは未認定。7ABでは0.15〜0.60mの進入微調整候補が全て7道路完走に失敗し、視界改善も実証できなかった。**7AC R2で実ジャンプ維持の大型カーブが全編240Hz完走。その後7AHで細道＋S字まで実B48化し、7AIで同じ元の走行カメラを使うWebGLと視線遮蔽の検査が成功。ただし人間の遊びやすさと見た目は未認定。**
 
+- [G4E-7AK 第3ゲート 実B48三角形×B51-C動体遮蔽・早い右入力の無支持落下／人間HOLD](docs/W9C2_G4E7AK_G3_PHYSICAL_VISIBILITY_FALL_HOLD_JA.md)
 - [G4E-7AK 第1/2ゲート 実240Hz固定A/D 10条件＋実Chromium WebGL10枚・人間/HOLD](docs/W9C2_G4E7AK_B51_FIXED_KEYS_NATIVE_GATE1_HOLD_JA.md)
 - [G4E-7AJ 真のB51-C2/28基再配置・実240Hz全7道路完走・人間HOLD](docs/W9C2_G4E7AJ_REAL_B51_LANE_REANCHOR_HOLD_JA.md)
 - [G4E-7AI 実11m細道WebGL15枚・正規240Hz視線遮蔽・公開隔離PASS](docs/W9C2_G4E7AI_TRUE_NARROW_B48_WEBGL_HOLD_JA.md)
