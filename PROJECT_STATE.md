@@ -36,15 +36,17 @@
 | --- | --- |
 | Draft PR | #46：OPEN / Draft / 未マージ |
 | ブランチ | `p101-velocity-overdrive-native-trial` |
-| HEAD | `343bbd17fdf9c8c00a20526a38f556a0de445651` |
-| 完了工程 | G4E-7AB |
-| 次の計画 | G4E-7AC（**現時点で未実装**） |
+| HEAD | GitHubの現行ブランチHEADを実際に取得（固定値を参照しない） |
+| 完了工程 | G4E-7AC R2の実B48大型カーブ2案は正規240Hz 7/7自動完走。G4E-7ADの物理視界遮蔽測定は成功 |
+| 次の計画 | G4E-7ADの実WebGL画像を確定し、危険箇所を早く見通せるコースと巨大建築を両立させる |
 | Slope2 DNA正式認定 | 0m |
 | 美術・人間品質・公開 | HOLD |
 | 凍結比較基準 | G4E-7AA `landing-soft α=.70` |
 
-7AAは、本物の欠損B48セルによる走行因果性と全7道路240Hz自動完走（56.2292秒）を記録。ただし美術・人間プレイは未認定。7ABでは0.15〜0.60mの進入微調整候補が全て7道路完走に失敗し、視界改善も実証できなかった。**7ACでは進入路・真の切断・着地・次の大カーブ・巨大建築を数十〜百m単位で統合再設計する。**
+7AAは、本物の欠損B48セルによる走行因果性と全7道路240Hz自動完走（56.2292秒）を記録。ただし美術・人間プレイは未認定。7ABでは0.15〜0.60mの進入微調整候補が全て7道路完走に失敗し、視界改善も実証できなかった。**7AC R2で物理ジャンプを維持する大型の進入カーブ・着地後カーブが全編240Hz自動完走。7ADはこの2候補の高速カメラと巨大都市を非公開で照合中。**
 
+- [G4E-7AD実視界研究とHOLD](docs/W9C2_G4E7AD_TRUE_NATIVE_WEBGL_ART_HOLD_JA.md)
+- [G4E-7AC真の物理実験](docs/W9C2_G4E7AC_MACRO_PHYSICAL_PILOT_HOLD_JA.md)
 - [G4E-7AB最終REJECT原本](docs/W9C2_G4E7AB_SUBMETER_TRUE_B48_FULLRUN_REJECT_JA.md)
 - [G4E-7AA比較基準](docs/W9C2_G4E7AA_TRUE_B48_CONTOUR_NATIVE_HOLD_JA.md)
 - [G4E-7W真のギャップ基礎](docs/W9C2_G4E7W_GROUNDED_REAL_15M_GAP_HOLD_JA.md)
