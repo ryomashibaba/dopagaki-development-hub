@@ -60,6 +60,7 @@ if(includeStages){
  copy('web/p101-w9c2-g4e7ae-split-horizon.mjs','drive3d/p101-w9c2-g4e7ae-split-horizon.mjs');
  copy('web/p101-w9c2-g4e7af-fracture-city.mjs','drive3d/p101-w9c2-g4e7af-fracture-city.mjs');
  copy('web/p101-w9c2-g4e7ag-open-citadel.mjs','drive3d/p101-w9c2-g4e7ag-open-citadel.mjs');
+ copy('web/p101-w9c2-g4e7am-upturned-city.mjs','drive3d/p101-w9c2-g4e7am-upturned-city.mjs');
  copy('web/drive3d-camera.mjs','drive3d/drive3d-camera.mjs');
  copy('web/drive3d-loop.mjs','drive3d/drive3d-loop.mjs');
  copy('web/p66-visual.mjs','drive3d/p66-visual.mjs');
