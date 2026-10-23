@@ -56,6 +56,11 @@ test('AL 2 real manual physics courses, A/D samples, export/continue, no human P
  expect(retrySnapshot.restartedAttempts[0].metrics.activeDirectionalSteps).toBeGreaterThan(0);
  expect(retrySnapshot.restartedAttempts[0].restartedBeforeNextRun).toBe(true);
  expect(retrySnapshot.automaticallySubmitted).toBe(false);
+ // R started a genuine new run. Its own A/D input is required before committing
+ // the main comparison record; the archived attempt alone must not count.
+ await page.keyboard.down('KeyA');
+ await page.waitForTimeout(260);
+ await page.keyboard.up('KeyA');
  await page.locator('#g4e7alNoticed').selectOption('no');
  await page.locator('#g4e7alNote').fill('Automated Chromium UI; NOT a human QA assessment.');
  await page.locator('#g4e7alNext').click();
