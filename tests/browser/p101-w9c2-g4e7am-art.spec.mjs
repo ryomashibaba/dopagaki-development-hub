@@ -9,7 +9,7 @@ test('AM art is OFF unless explicit localhost manual + experimental opt-in',asyn
  await expect(view).toHaveAttribute('data-g4e7am-scene','off');
  await expect(view).toHaveAttribute('data-g4e7am-banks','0');
  await expect(view).toHaveAttribute('data-machine-count','28');
- await page.screenshot({path:info.outputPath('g4e7am-original-11m-background-not-human.png')});
+ await view.screenshot({path:info.outputPath('g4e7am-original-11m-background-not-human.png')});
 });
 for(const road of ['true-pinch','pinch-switch']){
  test('AM genuine B48 '+road+' giant skyline visual candidate and 28-mover physics untouched',async({page},info)=>{
@@ -31,6 +31,7 @@ for(const road of ['true-pinch','pinch-switch']){
   await expect(view).toHaveAttribute('data-g4e7am-scene','continent');
   await expect(view).toHaveAttribute('data-g4e7am-banks','2');
   await expect(view).toHaveAttribute('data-g4e7am-terraces','8');
+  await expect(view).toHaveAttribute('data-g4e7am-voids',/[2-9][0-9][0-9]/);
   await expect(view).toHaveAttribute('data-g4e7am-spines','6');
   await expect(view).toHaveAttribute('data-g4e7am-non-collision','true');
   await expect(view).toHaveAttribute('data-machine-count','28');
@@ -42,14 +43,23 @@ for(const road of ['true-pinch','pinch-switch']){
    stage:document.querySelector('#stage').value,
    physics:el.dataset.runMode
   }));
-  expect(stats.voids).toBeGreaterThan(105);
+  expect(stats.voids).toBeGreaterThanOrEqual(210);
   expect(stats.tris).toBeGreaterThan(1000);
   expect(stats.rise).toBeGreaterThan(650);
-  expect(stats.outboard).toBeGreaterThanOrEqual(120);
+  expect(stats.outboard).toBeGreaterThanOrEqual(220);
   expect(stats.stage).toBe(stage(road));
   expect(stats.physics).toBe('private-real-B48-B51-AL-manual-HOLD');
   await page.waitForTimeout(450);
-  await page.screenshot({path:info.outputPath('g4e7am-upturned-city-'+road+'-automated-not-human.png')});
+  // Capture the real WebGL viewport, not the page's scroll position after
+  // pressing the panel's Next control (which produced a misleading black image).
+  await view.screenshot({path:info.outputPath('g4e7am-upturned-city-'+road+'-automated-not-human.png')});
+  const visible=await view.evaluate(c=>{
+   const rect=c.getBoundingClientRect();
+   return {width:c.width,height:c.height,displayWidth:rect.width,displayHeight:rect.height};
+  });
+  expect(visible.width*visible.height).toBeGreaterThan(100000);
+  expect(visible.displayWidth).toBeGreaterThan(300);
+  expect(visible.displayHeight).toBeGreaterThan(180);
   expect(errors).toEqual([]);
  });
 }
