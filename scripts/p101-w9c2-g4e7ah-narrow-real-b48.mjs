@@ -72,7 +72,6 @@ export function generateG4E7AH(id='r2-control'){
  ];
  const minimumPhysicalWidth=Math.min(...widths),
   narrowCoreLength=bandLength(road,.16,.49)+bandLength(road,.70,.90),
-  narrow10to16Length=[.16,.49,.70,.90].length;// no formal pass distance
  if(!eq(a,sample(old,gap.uTakeoff,.5))||
     !eq(b,sample(old,gap.uLanding,.5))||
     !eq(road.points.slice(15*5,22*5),old.points.slice(15*5,22*5))||
@@ -101,7 +100,7 @@ export function generateG4E7AH(id='r2-control'){
   widthMinMeters:Number(minimumPhysicalWidth.toFixed(3)),
   physicalWidthReductionMeters:Number(maxActualWidthReduction.toFixed(3)),
   centerShiftMeters:Number(maxCenterShift.toFixed(3)),
-  changedRows,entryBandU:[.16,.49],landingBandU:[.70,.90],
+  changedRows,gap,entryBandU:[.16,.49],landingBandU:[.70,.90],
   candidateBandArcMeters:Number(narrowCoreLength.toFixed(2)),
   formalSlope2LengthMeters:0,
   originalLipLandingExact:true,realMissingLongitudinalCell52:true,
