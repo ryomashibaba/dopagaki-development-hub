@@ -37,7 +37,7 @@ export function generateG4E7WBlend(alpha=0){
  const stage=doc.stageForge;
  doc.stageForge={...stage,
   revision:'W9C2-G4E7W-TAKEOFF-BLEND-'+String(alpha).replace('.','_'),
-  recordStageId:'VB-P101-A13-W9C2-G4E7W-BLEND-'+String(alpha).replace('.','_'),
+  recordStageId:'VB-P101-A13-W9C2-G4E7W-BLEND-'+String(alpha).replace('.','-'),
   productionPromoted:false,
   g4e7uStudy:{...stage.g4e7uStudy,gap:realGap},
   g4e7wStudy:{...stage.g4e7wStudy,gap:realGap,

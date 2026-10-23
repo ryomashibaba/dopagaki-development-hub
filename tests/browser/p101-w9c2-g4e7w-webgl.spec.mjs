@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 import fs from 'node:fs/promises';
 test('G4E-7W real 15m jump candidates are invisible in ordinary stage selection',async({page})=>{
- await page.goto('/drive3d/?g4e7w=on&stage=VB-P101-A13-W9C2-G4E7W-BLEND-0_65');
+ await page.goto('/drive3d/?g4e7w=on&stage=VB-P101-A13-W9C2-G4E7W-BLEND-0-65');
  await expect(page.locator('#stage')).toHaveValue('EP-P66');
  await expect(page.locator('#stage option[value^="VB-P101-A13-W9C2-G4E7W-"]')).toHaveCount(0);
  await expect(page.locator('#view')).toHaveAttribute('data-g4e7w-mode','off');
@@ -10,7 +10,7 @@ test('G4E-7W 2 physical 15m gaps x 5 true 240Hz camera timepoints',async({page},
  test.setTimeout(480000);
  const samples=[],errors=[];
  page.on('pageerror',e=>errors.push(e.message));
- const plans=[['A065','0_65'],['A070','0_7']];
+ const plans=[['A065','0-65'],['A070','0-7']];
  for(const point of ['approach','lip','flight','landing','post'])
   for(const [name,key] of plans){
    const stageId='VB-P101-A13-W9C2-G4E7W-BLEND-'+key;
@@ -27,7 +27,7 @@ test('G4E-7W 2 physical 15m gaps x 5 true 240Hz camera timepoints',async({page},
    const proof=await page.evaluate(async()=>{
     const canvas=document.querySelector('#view'),data=canvas.dataset,
      id=document.querySelector('#stage').value,
-     k=id.endsWith('0_65')?'A065':'A070',
+     k=id.endsWith('0-65')?'A065':'A070',
      realDoc=await(await fetch('../generated/P101_A13_W9C2_G4E7W_'+k+'_LOCAL_TRIAL.json')).json(),
      raw=await(await fetch('../generated/P101_A13_W9C2_G4E7W_240HZ_FRAMES_LOCAL.json')).json(),
      shot=raw.stages[k].frames.find(f=>f.id===data.g4e7wPoint);
