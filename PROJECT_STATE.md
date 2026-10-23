@@ -37,8 +37,8 @@
 | Draft PR | #46：OPEN / Draft / 未マージ |
 | ブランチ | `p101-velocity-overdrive-native-trial` |
 | HEAD | GitHubの現行ブランチHEADを実際に取得（固定値を参照しない） |
-| 完了工程 | G4E-7AC R2の実B48大型カーブ2案は正規240Hz 7/7自動完走。G4E-7ADの物理視界遮蔽測定は成功 |
-| 次の計画 | G4E-7ADの実WebGL画像を確定し、危険箇所を早く見通せるコースと巨大建築を両立させる |
+| 完了工程 | G4E-7AC R2：実B48大型曲線2案が正規240Hz全7道路自動完走。G4E-7AD：240Hz視線測定およびChromium WebGL 12画像と公開隔離CI成功。美術不合格/HOLD |
+| 次の計画 | G4E-7AE：approach-arcの見やすい実B48を基準に、実WebGLで画面を支配する旧門・箱型構造を再設計し都市シルエットの圧倒的な品質とプレイの先読みを両立。人間QA前の研究段階 |
 | Slope2 DNA正式認定 | 0m |
 | 美術・人間品質・公開 | HOLD |
 | 凍結比較基準 | G4E-7AA `landing-soft α=.70` |
