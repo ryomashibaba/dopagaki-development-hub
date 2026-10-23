@@ -7,7 +7,7 @@ export function createG4E7ALPanel(parent,{onNext,onDownload}){
  heading.textContent='G4E-7AL｜本物の11m級B48・B51-C 2候補';
  const step=document.createElement('p');step.id='g4e7alStep';
  const guidance=document.createElement('p');
- guidance.textContent='A/Dまたは左右矢印で実240Hz走行。自動操舵・チェックポイント移動なし。Rで現在の1走をやり直す場合、未保存の入力ログは失われます。ゲームオーバーからもJSONを直接保存できます。';
+ guidance.textContent='A/Dまたは左右矢印で実240Hz走行。自動操舵・チェックポイント移動なし。Rで再走した試走も最大12回分をブラウザメモリに一時保持し、次のJSON保存に含めます（古い試走は件数付きで整理）。ゲームオーバーからもJSONを直接保存できます。';
  const live=document.createElement('p');live.id='g4e7alLive';live.textContent='実物理入力待ち';
  root.append(heading,step,guidance,live);
  const addSelect=(id,title,choices)=>{
