@@ -76,7 +76,7 @@ export function ak3ExactOBBProbes(pose){
 }
 export function ak3Visibility(view,target,allPoses,triangles){
  let inFrame=0,roadOccluded=0,otherHazardOccluded=0,clear=0;
- const corners=[],objects=ak3ExactOBBProbes(target);
+ const corners=[],clearCorners=[],objects=ak3ExactOBBProbes(target);
  for(const world of objects){
   const d=minus(world,view.eye),distance=mag(d);
   const depth=dot(d,view.front);
@@ -93,10 +93,16 @@ export function ak3Visibility(view,target,allPoses,triangles){
   const other=allPoses.some(p=>p.id!==target.id&&
     nearestOBBHit(view.eye,ray,p)<distance-.12);
   if(other){otherHazardOccluded++;continue;}
-  clear++;
+  clear++;clearCorners.push({x,y});
  }
  const valid=corners.filter(c=>c.frame);
  const xs=valid.map(c=>c.x),ys=valid.map(c=>c.y);
+ const freeX=clearCorners.map(c=>c.x),freeY=clearCorners.map(c=>c.y);
+ const apparent1080=clearCorners.length>1?{
+  widthPx:fix(960*(Math.max(...freeX)-Math.min(...freeX)),1),
+  heightPx:fix(540*(Math.max(...freeY)-Math.min(...freeY)),1)}:null;
+ // Approximate 1920x1080 projective screen footprint; not actual WebGL pixels.
+ const sizeSupported=clear>=3&&apparent1080?.widthPx>=16&&apparent1080?.heightPx>=12;
  const d=minus(target.center,view.eye),centerDepth=dot(d,view.front);
  const projection=centerDepth>.01?{
   xNdc:fix(1.35*dot(d,view.right)/((16/9)*centerDepth)),
@@ -104,6 +110,8 @@ export function ak3Visibility(view,target,allPoses,triangles){
  return {pointCount:objects.length,pointsInApproxFrame:inFrame,
   pointsRoadOccluded:roadOccluded,pointsOtherB51Occluded:otherHazardOccluded,
   pointsApproxClear:clear,geometryCue:clear>=3,
+  largeEnoughApproxCue1080p:Boolean(sizeSupported),
+  sampledUnblockedScreenFootprint1080p:apparent1080,
   centerDistanceM:fix(mag(d)),centerDepthM:fix(centerDepth),
   centerProjection:projection,
   sampledProjectedBoxNdc:valid.length?{width:fix(Math.max(...xs)-Math.min(...xs)),
@@ -164,9 +172,13 @@ function visibilityRun(roadId){
   // an observational geometric proxy, NEVER certified human response time.
   const first=a.findIndex((v,i)=>i+2<a.length&&a.slice(i,i+3).every(
    p=>p.record.geometryCue));
+  const sized=a.findIndex((v,i)=>i+2<a.length&&a.slice(i,i+3).every(
+   p=>p.record.largeEnoughApproxCue1080p));
   const near=minima[o.id];
   const firstSeconds=first<0?null:a[first].time;
-  return {id:o.id,nearestNativeBallBoxSeparationM:fix(near.separationM),
+  const sizeSeconds=sized<0?null:a[sized].time;
+  return {id:o.id,firstThreeConsecutiveSizeSupportedCueSeconds:sizeSeconds,
+   sizeSupportedProxyLeadSeconds:sizeSeconds===null?null:fix(near.seconds-sizeSeconds),nearestNativeBallBoxSeparationM:fix(near.separationM),
    nearestNativeTimeSeconds:fix(near.seconds,5),
    firstThreeConsecutiveGeometricCueSeconds:firstSeconds,
    proxyLeadToClosestApproachSeconds:firstSeconds===null?null:fix(near.seconds-firstSeconds),
@@ -188,8 +200,11 @@ function earlyRightFailure(roadId){
   plan=makeP96RoutePlan(doc,r),surge=createA13SurgeState(),
   key={from:2.05,to:2.8,delta:.38},timeline=[];
  const road=doc.surfaces[0],eventCounts={movingContact:0,staticFatal:0,air:0};
+ let lastSupported=null;
  for(let tick=1;tick<=Math.round(9/DT)&&['ready','running'].includes(r.status);tick++){
   const start=r.events.length;advance(r,plan,surge,key);
+  if(r.grounded&&r.surface)lastSupported={seconds:fix(r.time,5),surface:r.surface,
+   position:r.p.map(x=>fix(x,3)),speedMps:fix(mag(r.v),3)};
   for(const e of r.events.slice(start)){
    if(e.type==='moving-contact')eventCounts.movingContact++;
    if(e.type==='static-fatal-contact')eventCounts.staticFatal++;
@@ -206,7 +221,8 @@ function earlyRightFailure(roadId){
   throw Error('AK3 early-right native failure no longer matches Gate 1');
  return {road:roadId,profile:'P96_FIXED_RIGHT_2_05_TO_2_80_NONHUMAN',
   status:r.status,seconds:fix(r.time,5),
-  authoritativeRunnerFailure:r.failure,
+  authoritativeRunnerFailure:r.failure,lastNativeGroundedSupport:lastSupported,
+  secondsWithoutSupportAtFall:lastSupported?fix(r.time-lastSupported.seconds,5):null,
   physicsEventCounts:eventCounts,timeline,
   caveat:'REAL_RUNNER_FAILURE_WITH_APPROX_NEAREST_ROAD_NOT_HUMAN_FAIRNESS'};
 }
