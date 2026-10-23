@@ -93,6 +93,9 @@ if(includeStages){
  copy('web/p101-w9c2-g4d-skyways.mjs','drive3d/p101-w9c2-g4d-skyways.mjs');
  copy('web/p101-w9c2-g4e7b-qa.mjs','drive3d/p101-w9c2-g4e7b-qa.mjs');
  copy('web/p101-w9c2-g4e7c-gap-cues.mjs','drive3d/p101-w9c2-g4e7c-gap-cues.mjs');
+  // All stage-capable builds import this harmless drawing module; ONLY PRIVATE
+  // emits the actual A065/A070 research B48 stage JSON and 240Hz proof.
+  copy('web/p101-w9c2-g4e7x-gap-reading.mjs','drive3d/p101-w9c2-g4e7x-gap-reading.mjs');
  copy('web/p101-w9c2-g4e7d-human-qa.mjs','drive3d/p101-w9c2-g4e7d-human-qa.mjs');
  copy('web/p101-w9c2-g4e7d-manual-panel.mjs','drive3d/p101-w9c2-g4e7d-manual-panel.mjs');
   copy('web/p101-w9c2-g4e7o-manual-qa.mjs','drive3d/p101-w9c2-g4e7o-manual-qa.mjs');
