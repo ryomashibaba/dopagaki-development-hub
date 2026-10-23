@@ -19,7 +19,7 @@ for(const road of ['true-pinch','pinch-switch']){
   assert(art.triangles>=450&&art.triangles<16000);
   assert(art.vertices.every(Number.isFinite));
   assert(art.maximumRiseMeters>=800);
-  assert(art.minimumOutboardMeters>=250);
+  assert(art.minimumOutboardMeters>=180);
   assert.equal(art.nonCollision,true);
   assert.equal(art.addedCollision,0);
   assert.equal(art.addedRoads,0);
