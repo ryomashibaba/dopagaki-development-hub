@@ -910,8 +910,8 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
   if(!g4e7alPanel)g4e7alPanel=createG4E7ALPanel($('b5QaPanel').parentElement,{
    onNext(feedback){
     if(!g4e7alTrial||!runner||g4e7alSession.index>=2)return;
-    if(g4e7alTrial.steps===0){
-     g4e7alPanel.notice('まだ走行していません。A/Dで走行してから記録してください。');
+    if(g4e7alTrial.inputSteps===0){
+     g4e7alPanel.notice('まだ左右の手動入力がありません。A/Dまたは矢印で操作してから記録してください。');
      return;
     }
     appendG4E7ALTrial(g4e7alSession,exportG4E7ALTrial(g4e7alTrial,runner,feedback));
