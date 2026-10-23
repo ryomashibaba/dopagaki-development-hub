@@ -1,0 +1,32 @@
+name: W9-C2 G4E-7AE real 240Hz B48 and canyon city visibility rays (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7ae-real-sightlines.mjs'
+      - 'tests/research/p101-w9c2-g4e7ae-rays.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ae-ray.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  true-rays:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Real physics + actual camera and both city/road ray reports
+        run: |
+          node --check scripts/p101-w9c2-g4e7ae-real-sightlines.mjs
+          node scripts/p101-w9c2-g4e7ae-real-sightlines.mjs g4e7ae-real-ray.json
+          node --test tests/research/p101-w9c2-g4e7ae-rays.test.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ae-true-240Hz-B48-city-rays-${{ github.run_id }}
+          path: g4e7ae-real-ray.json
+          if-no-files-found: ignore
+          retention-days: 14
