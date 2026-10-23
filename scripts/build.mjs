@@ -110,6 +110,8 @@ if(includeStages){
  copy('web/p101-w9c2-g4e7d-manual-panel.mjs','drive3d/p101-w9c2-g4e7d-manual-panel.mjs');
   copy('web/p101-w9c2-g4e7o-manual-qa.mjs','drive3d/p101-w9c2-g4e7o-manual-qa.mjs');
   copy('web/p101-w9c2-g4e7o-manual-panel.mjs','drive3d/p101-w9c2-g4e7o-manual-panel.mjs');
+  copy('web/p101-w9c2-g4e7al-manual-qa.mjs','drive3d/p101-w9c2-g4e7al-manual-qa.mjs');
+  copy('web/p101-w9c2-g4e7al-manual-panel.mjs','drive3d/p101-w9c2-g4e7al-manual-panel.mjs');
   copy('web/p101-w9c2-g4e7h-hud-focus.mjs','drive3d/p101-w9c2-g4e7h-hud-focus.mjs');
   copy('web/p101-w9c2-g4e7i-readability.mjs','drive3d/p101-w9c2-g4e7i-readability.mjs');
   copy('web/p101-w9c2-g4e7j-matrix.mjs','drive3d/p101-w9c2-g4e7j-matrix.mjs');
