@@ -1496,7 +1496,7 @@ function tick(now){
    if(g4e7bQa)qaStep(g4e7bQa,runner);
    if(g4e7dTrial)observeG4E7DStep(g4e7dTrial,runner,steer);
     if(g4e7oTrial)observeG4E7OStep(g4e7oTrial,doc,runner,steer,sample,RADIUS);
-    if(g4e7alTrial)observeG4E7ALStep(g4e7alTrial,doc,runner,steer,sample,RADIUS);
+    if(g4e7alTrial)observeG4E7ALStep(g4e7alTrial,doc,runner,steer,sample,RADIUS,movingObstaclePose,sphereBoxSeparation);
    if(demoMode)recordDemoMilestone(demoDirector,runner);
    updateNativeChapterTime();
    const near=stepNearMiss(nearMissTracker,doc.movingObstacles,runner,movingObstaclePose,sphereBoxSeparation,RADIUS);
