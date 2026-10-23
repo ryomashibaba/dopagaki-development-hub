@@ -18,6 +18,8 @@ test('AK3 geometry visibility distinguishes unblocked, real B48 mesh and B51 box
  assert.equal(clear.pointsRoadOccluded,0);
  assert.equal(clear.pointsOtherB51Occluded,0);
  assert.equal(clear.geometryCue,true);
+ assert.equal(clear.largeEnoughApproxCue1080p,true);
+ assert(clear.sampledUnblockedScreenFootprint1080p.widthPx>=16);
  const road=[
   [[-10,-10,15],[10,-10,15],[-10,10,15]],
   [[10,10,15],[-10,10,15],[10,-10,15]]
