@@ -37,14 +37,18 @@
 | Draft PR | #46：OPEN / Draft / 未マージ |
 | ブランチ | `p101-velocity-overdrive-native-trial` |
 | HEAD | GitHubの現行ブランチHEADを実際に取得（固定値を参照しない） |
-| 完了工程 | 7AH真B48約11m細道2案7/7＋7AI実WebGL15画像。7AJ：第I道路の既存A13 B51-C 2/28基が実細道から約35〜71m離れる原因を特定。2基だけ真路面へ再配置した実240Hz局所9s生存＋全7道路2/2自動完走。動作タイミングを変えた別候補は2.8s死亡でHOLD |
-| 次の計画 | G4E-7AK：7AJ reanchorの真のB51-C2基が高速11m道路で見えるかWebGLで確認し、初見の左右操作で避けられる空間・タイミング・複数入力試走の公平性を計測。offset-phaseの強制衝突候補は採用不可/HOLD |
+| 完了工程 | G4E-7AK第1ゲート：7AJ真B48・28 B51-Cを変更せず、正規240Hz 2道路×5操作波形＝10条件の9秒実測CI成功。早い左は2/2で01の実致命接触、遅い右のpinch-switchは02とbounce接触し9秒生存。いずれも非人間P96＋固定A/D入力で、全編完走・WebGL・人間公平性は未認定。過去の7AJ全7道路2/2非人間完走基準は保持。 |
+| 次の計画 | G4E-7AK第2ゲート：7AJ reanchorの真のB51-C2基を元の240Hzボール相対カメラの実Chromium WebGLで表示。quiet/legacy・遮蔽・高速予告時間を比較し、人間の左右操作・初見回避の公平性は別判定。7AK第1ゲートの数式投影はWebGLではない。offset-phase強制衝突候補は採用不可/HOLD。 |
 | Slope2 DNA正式認定 | 0m |
 | 美術・人間品質・公開 | HOLD |
 | 凍結比較基準 | G4E-7AA `landing-soft α=.70` |
 
+
+**G4E-7AK第1ゲート CI**：[Actions #39968223375](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39968223375) SUCCESS。2件の保護テスト＋真の240Hz 10条件を記録し、artifact ID 12507972133 を保存。スクリプト／テスト／専用CIと監査だけを開発ブランチに追加した。実Chromium WebGLは次ゲートであり、技術/視覚/人間/美術/公開の認定を混同しない。
+
 7AAは、本物の欠損B48セルによる走行因果性と全7道路240Hz自動完走（56.2292秒）を記録。ただし美術・人間プレイは未認定。7ABでは0.15〜0.60mの進入微調整候補が全て7道路完走に失敗し、視界改善も実証できなかった。**7AC R2で実ジャンプ維持の大型カーブが全編240Hz完走。その後7AHで細道＋S字まで実B48化し、7AIで同じ元の走行カメラを使うWebGLと視線遮蔽の検査が成功。ただし人間の遊びやすさと見た目は未認定。**
 
+- [G4E-7AK 第1ゲート 真240Hz固定A/D 10条件・人間/WebGL/HOLD](docs/W9C2_G4E7AK_B51_FIXED_KEYS_NATIVE_GATE1_HOLD_JA.md)
 - [G4E-7AJ 真のB51-C2/28基再配置・実240Hz全7道路完走・人間HOLD](docs/W9C2_G4E7AJ_REAL_B51_LANE_REANCHOR_HOLD_JA.md)
 - [G4E-7AI 実11m細道WebGL15枚・正規240Hz視線遮蔽・公開隔離PASS](docs/W9C2_G4E7AI_TRUE_NARROW_B48_WEBGL_HOLD_JA.md)
 - [G4E-7AH 真のB48細道2案・実240Hz全編7/7・非人間HOLD](docs/W9C2_G4E7AH_TRUE_B48_NARROW_PLAYABILITY_HOLD_JA.md)
