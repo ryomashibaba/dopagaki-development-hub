@@ -34,7 +34,7 @@ import {a13W9HeroArchitecture} from './p101-a13-w9-architecture.mjs';
 import {w9c1G5BSkyline} from './p101-w9c1-g5b-skyline.mjs';
 import {g4dOutboardSkyways} from './p101-w9c2-g4d-skyways.mjs';
 import {g4e7cGapRoadCues} from './p101-w9c2-g4e7c-gap-cues.mjs';
-import {g4e7xGapReading,g4e7xOutboardVanes} from './p101-w9c2-g4e7x-gap-reading.mjs';
+import {g4e7xGapReading,g4e7xOutboardVanes,g4e7zLowProfileSignals} from './p101-w9c2-g4e7x-gap-reading.mjs';
 import {G4E7D_PROTOCOL,createG4E7DTrial,observeG4E7DStep,observeG4E7DFrame,exportG4E7DTrial,createG4E7DSession,completeG4E7DSession,exportG4E7DSession} from './p101-w9c2-g4e7d-human-qa.mjs';
 import {makeG4E7DPanel} from './p101-w9c2-g4e7d-manual-panel.mjs';
 import {createG4E7OTrial,observeG4E7OStep,observeG4E7OFrame,exportG4E7OTrial,newG4E7OSession,appendG4E7OTrial,exportG4E7OSession,g4e7oReadRoad} from './p101-w9c2-g4e7o-manual-qa.mjs';
@@ -115,6 +115,7 @@ const g4e7wOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get(
  new URLSearchParams(window.location.search).get('g4e7wFrame')==='hold';
 const g4e7xGuideRequested=g4e7wOptIn&&new URLSearchParams(window.location.search).get('g4e7xGuide')==='on';
 const g4e7xVanesRequested=g4e7wOptIn&&new URLSearchParams(window.location.search).get('g4e7xGuide')==='vanes';
+const g4e7zRequested=g4e7wOptIn&&new URLSearchParams(window.location.search).get('g4e7zGuide')==='on';
 const g4e7yRequested=new URLSearchParams(window.location.search).get('g4e7yScene');
 const g4e7yScene=g4e7wOptIn&&['quiet','open','vista','vista2'].includes(g4e7yRequested)?
  g4e7yRequested:'baseline';
@@ -174,7 +175,7 @@ const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,g4dSkywayMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
-let g4e7xCueMesh=null;
+let g4e7xCueMesh=null,g4e7zCueMesh=null;
 let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null;
 let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7qActive=false,g4e7rActive=false,g4e7tActive=false,g4e7vActive=false,g4e7vShot=null,g4e7wActive=false,g4e7wShot=null,g4e7sShot=null,g4e7sTrace=null,g4e7sShardMesh=null,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
@@ -262,7 +263,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7sShardMesh);discard(g4e7cCueMesh);discard(g4e7xCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7sShardMesh);discard(g4e7cCueMesh);discard(g4e7xCueMesh);discard(g4e7zCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
@@ -384,6 +385,16 @@ function buildVisual(stage){
    canvas.dataset.g4e7xMinimumOutboardMeters=String(vanes.minimumOutboardMeters??0);
    canvas.dataset.g4e7xNoFakeBridge=String(vanes.enabled?vanes.noDeckAboveGap:legible.noFakeBridge);
    canvas.dataset.g4e7xEarliestMeters=String(legible.earliestLookaheadMeters??0);
+   if(g4e7zRequested&&g4e7yScene!=='vista2')
+    throw Error('G4E-7Z requires private two-chapter vista');
+   const signals=g4e7zLowProfileSignals(stage,sample,frame,{enabled:g4e7zRequested});
+   g4e7zCueMesh=signals.enabled?mesh(signals.vertices):null;
+   canvas.dataset.g4e7zMode=signals.enabled?'TRUE_B48_OUTBOARD_NO_FAKE_FLOOR':'off';
+   canvas.dataset.g4e7zStations=String(signals.stations.length);
+   canvas.dataset.g4e7zTriangles=String(signals.triangles);
+   canvas.dataset.g4e7zEdgeClearance=String(signals.edgeClearanceMeters??0);
+   canvas.dataset.g4e7zTrueVoid=String(signals.noFakeFloor);
+   canvas.dataset.g4e7zPhysicsUnchanged=String(signals.physicalB48Unchanged??true);
    g4e7cCue=g4e7cGapRoadCues(stage,sample,frame,{enabled:g4e7cRequested});
    g4e7cCueMesh=mesh(g4e7cCue.vertices);
    g4e7cCueActive=g4e7cCue.active&&(!g4e7dRequested||G4E7D_PROTOCOL[g4e7dSession.index]?.cue===true);
@@ -539,7 +550,7 @@ function render(frameSeconds){
  // Draw monumental arches and cliffs as scenery, NEVER as collision skins.
  if(g4e7lUi?.mode==='rift')draw(g4e7lRiftMesh);
  else if(g4e7lUi?.mode==='skyseam')draw(g4e7lSeamMesh);
- draw(roads);draw(g4e7pQuietMesh||(g4e7kUi?.quiet&&g4e7kQuietMesh?g4e7kQuietMesh:a13RoadArtMesh));if(g4e7iUi?.active&&g4e7iContour?.active)draw(g4e7iMesh);if(g4e7cCueActive)draw(g4e7cCueMesh);draw(g4e7xCueMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
+ draw(roads);draw(g4e7pQuietMesh||(g4e7kUi?.quiet&&g4e7kQuietMesh?g4e7kQuietMesh:a13RoadArtMesh));if(g4e7iUi?.active&&g4e7iContour?.active)draw(g4e7iMesh);if(g4e7cCueActive)draw(g4e7cCueMesh);draw(g4e7xCueMesh);draw(g4e7zCueMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);
  draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);
  draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);
  draw(hazardGateSolidMesh);

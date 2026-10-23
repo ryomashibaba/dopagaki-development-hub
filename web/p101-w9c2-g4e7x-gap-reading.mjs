@@ -149,3 +149,57 @@ export function g4e7xOutboardVanes(doc,sample,frame,{enabled=false}={}){
   underRoadSupportAdded:false,guideMode:'TAPERED_NONCOLLISION_OUTBOARD_FINS',
   originalPhysicsUnchanged:true,officialSlope2Meters:0,visualAdoption:'HOLD'};
 }
+
+/**
+ * G4E-7Z: lightweight, shoulder-exterior, 2-sided real-gap signals.
+ * Not the earlier 22m-tall broad outboard fins. No physics or phantom span.
+ */
+export function g4e7zLowProfileSignals(doc,sample,frame,{enabled=false}={}){
+ const empty={enabled:false,vertices:[],triangles:0,stations:[],
+  outboardOnly:true,nonCollision:true,noFakeFloor:true,officialSlope2Meters:0};
+ if(!enabled)return empty;
+ const ok=g4e7xGapReading(doc,sample,frame,{enabled:true});
+ if(!ok.enabled||!ok.noFakeBridge)throw Error('G4E-7Z requires true B48 void');
+ const road=doc.surfaces[0],gap=doc.stageForge.g4e7wStudy.gap,
+  dist=arc(road,sample),lip=dist.metersAt(gap.uTakeoff),
+  land=dist.metersAt(gap.uLanding),vertices=[],stations=[];
+ const layout=[
+  ['preview165',lip-165,12.5,[.24,.88,1]],
+  ['preview100',lip-100,14,[.26,.77,1]],
+  ['preview55',lip-55,13,[.28,.97,.93]],
+  ['warning25',lip-25,12,[1,.77,.20]],
+  ['takeoff4',lip-4,14,[1,.43,.17]],
+  ['landing4',land+4,14,[.7,1,.95]],
+  ['landing21',land+21,11,[.31,.91,1]]
+ ];
+ const add=(a,b)=>a.map((v,i)=>v+b[i]),
+  mul=(a,k)=>a.map(v=>v*k),norm=a=>mul(a,1/(Math.hypot(...a)||1)),
+  push=(p,q,r,c)=>{for(const v of [p,q,r])vertices.push(...v,...c)};
+ for(const [role,meter,h,col] of layout){
+  if(meter<1||meter>dist.total-1)throw Error('G4E-7Z out of physical road');
+  const u=dist.uAt(meter),
+   zone=u<gap.uTakeoff-.0001?'before':u>gap.uLanding+.0001?'after':null;
+  if(!zone)throw Error('G4E-7Z fake span is forbidden');
+  for(const side of [-1,1]){
+   const edge=sample(road,u,side<0?0:1),middle=sample(road,u,.5),
+    outside=norm([edge[0]-middle[0],0,edge[2]-middle[2]]),
+    forward=frame(road,u,.5).forward,
+    root=add(edge,mul(outside,5.4)),
+    at=(f,o,y)=>add(add(root,mul(forward,f)),add(mul(outside,o),[0,y,0])),
+    a=at(-.72,0,.18),b=at(.72,0,.18),
+    peak=at(-.25,1.05,h),tip=at(.42,1.10,h*.82),
+    shade=col.map(x=>x*.52);
+   push(a,b,peak,col);push(b,tip,peak,shade);
+   push(b,a,tip,shade);push(a,peak,tip,col);
+   stations.push({role,zone,side,roadU:Number(u.toFixed(6)),
+    edgeClearanceMeters:5.4,heightMeters:h});
+  }
+ }
+ if(stations.length!==14||vertices.length!==14*4*18||
+  !vertices.every(Number.isFinite))throw Error('G4E-7Z geometry guard failed');
+ return {enabled:true,vertices,triangles:vertices.length/18,stations,
+  firstPreviewMeters:165,edgeClearanceMeters:5.4,
+  outboardOnly:true,nonCollision:true,noFakeFloor:true,
+  physicalB48Unchanged:true,originalMachines:28,
+  officialSlope2Meters:0,humanFairness:'HOLD'};
+}
