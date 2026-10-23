@@ -3,7 +3,6 @@
  * QA browser scripts are NOT evidence of human playability.
  */
 import {g4e7oReadRoad,observeG4E7OFrame} from './p101-w9c2-g4e7o-manual-qa.mjs';
-import {movingObstaclePose,sphereBoxSeparation} from '../reference_only/director/moving/moving-obstacles.mjs';
 const ids=['a13-machine-01','a13-machine-02'];
 export const G4E7AL_ROADS=Object.freeze(['true-pinch','pinch-switch']);
 const num=x=>Number.isFinite(x);
@@ -29,8 +28,8 @@ export function createG4E7ALTrial(doc,runner){
   frame:{raf:[],rafFrames:0,physicsOverloadFrames:0,maxCameraHeadingLagDeg:0},
   stopped:null};
 }
-export function observeG4E7ALStep(t,doc,runner,steer,surfaceSample,radius){
- if(!t||![-1,0,1].includes(steer))throw Error('G4E7AL requires unassisted physical A/D direction');
+export function observeG4E7ALStep(t,doc,runner,steer,surfaceSample,radius,movingObstaclePose,sphereBoxSeparation){
+ if(!t||![-1,0,1].includes(steer)||typeof movingObstaclePose!=='function'||typeof sphereBoxSeparation!=='function')throw Error('G4E7AL requires unassisted physical A/D direction');
  t.steps++;if(steer)t.inputSteps++;
  if(steer!==t.previousInput){
   t.previousInput=steer;
