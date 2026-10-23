@@ -673,7 +673,7 @@ function publishChapterTiming(){
 function updateNativeChapterTime(){
  const event=observeChapterSplits(chapterTracker,runner.surface,runner.lastSurface,runner.time,runner.status);
  if(!event)return;
- const best=(!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial&&!g4e7gActive&&!g4e7mActive&&!g4e7qActive&&!g4e7rActive&&!g4e7tActive&&!g4e7vActive&&!g4e7wActive)
+ const best=(!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial&&!g4e7gActive&&!g4e7mActive&&!g4e7qActive&&!g4e7rActive&&!g4e7tActive&&!g4e7vActive&&!g4e7wActive&&!g4e7adActive)
   ?storeChapterBest(browserRecordStore(),event)
   :{best:null,improved:false,saved:false};
  latestSplit=event;
@@ -683,12 +683,12 @@ function updateNativeChapterTime(){
 }
 function settleRun(){
  if(!runner||runCommitted||!['failed','finished'].includes(runner.status))return;
- if(demoMode||practiceMode||g4e7bQa||g4e7dTrial||g4e7gActive||g4e7mActive||g4e7oActive||g4e7qActive||g4e7rActive||g4e7tActive||g4e7vActive||g4e7wActive){
+ if(demoMode||practiceMode||g4e7bQa||g4e7dTrial||g4e7gActive||g4e7mActive||g4e7oActive||g4e7qActive||g4e7rActive||g4e7tActive||g4e7vActive||g4e7wActive||g4e7adActive){
   $('b5ResultExport').hidden=true;
   retryChapterId=null;$('retryPractice').hidden=true;
   runCommitted=true;const result=$('runResult');result.hidden=false;
    if(g4e7oActive&&g4e7oResultDownload)g4e7oResultDownload.hidden=false;
-  $('resultTitle').textContent=g4e7oActive?'G4E-7O · HUMAN QA HOLD':g4e7wActive?'G4E-7W · REAL 15m GAP / P96 NONHUMAN QA HOLD':g4e7vActive?'G4E-7V · ACTUAL SCRIPTED NATIVE 240Hz HOLD':g4e7tActive?'G4E-7T · EARLY TRUE GAP · HUMAN HOLD':g4e7rActive?'G4E-7R · REAL B48 REJOIN · HUMAN HOLD':g4e7qActive?'G4E-7Q · TRUE B48 DIVE/LEAP · HUMAN HOLD':g4e7mActive?'G4E-7M · TRUE B48 HUMAN HOLD':g4e7gActive?'G4E-7G · VISUAL QA · NOT HUMAN':g4e7dTrial?'G4E-7D · HUMAN QA · REVIEW HOLD':g4e7bQa?'SCRIPTED QA · NOT HUMAN':practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
+  $('resultTitle').textContent=g4e7oActive?'G4E-7O · HUMAN QA HOLD':g4e7adActive?'G4E-7AD · R2 VISUAL RESEARCH / NOT HUMAN':g4e7wActive?'G4E-7W · REAL 15m GAP / P96 NONHUMAN QA HOLD':g4e7vActive?'G4E-7V · ACTUAL SCRIPTED NATIVE 240Hz HOLD':g4e7tActive?'G4E-7T · EARLY TRUE GAP · HUMAN HOLD':g4e7rActive?'G4E-7R · REAL B48 REJOIN · HUMAN HOLD':g4e7qActive?'G4E-7Q · TRUE B48 DIVE/LEAP · HUMAN HOLD':g4e7mActive?'G4E-7M · TRUE B48 HUMAN HOLD':g4e7gActive?'G4E-7G · VISUAL QA · NOT HUMAN':g4e7dTrial?'G4E-7D · HUMAN QA · REVIEW HOLD':g4e7bQa?'SCRIPTED QA · NOT HUMAN':practiceMode?(runner.status==='finished'?'PRACTICE CLEAR':'PRACTICE ENDED'):(runner.status==='finished'?'DEMO COMPLETE':'DEMO FAILED');
   $('resultScore').textContent=(practiceMode?practiceElapsed(runner.time,practiceStartedAt):runner.time).toFixed(2)+' s · 実物理'+(practiceMode?'操作練習':'観戦デモ');
   $('resultDetails').textContent=(g4e7wActive?'非公開のG4E-7W実細道・本物の跳躍・高速視界研究':g4e7vActive?'非公開のG4E-7V実物理着地面・高速視界研究':g4e7tActive?'非公開のG4E-7T早期実細道・2セルギャップ研究':g4e7rActive?'非公開のG4E-7R実細道・ギャップ研究':g4e7qActive?'非公開の真の急降下・ギャップ研究':g4e7mActive?'非公開の本物の超細道研究':g4e7gActive?'非公開の景観研究':g4e7dTrial?'手動比較走行':g4e7bQa?'研究用P96走行':practiceMode?'練習':'観戦デモ')+'は自己ベストへ保存しません。人間評価HOLD。';
   result.dataset.outcome=runner.status;canvas.dataset.runOutcome=runner.status;
@@ -850,9 +850,9 @@ function restart(){
   }
   canvas.dataset.g4e7bMode=g4e7bQa?'SCRIPTED_P96_NOT_HUMAN':'off';
   canvas.dataset.b5LaunchMps=doc.stageForge.variant==='B5_HYPER_ARC_ISOLATED'?'52':'off';
-  b5ManualAudit=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)&&!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial&&!g4e7gActive&&!g4e7mActive&&!g4e7qActive&&!g4e7rActive&&!g4e7tActive&&!g4e7vActive&&!g4e7wActive
+  b5ManualAudit=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)&&!demoMode&&!practiceMode&&!g4e7bQa&&!g4e7dTrial&&!g4e7gActive&&!g4e7mActive&&!g4e7qActive&&!g4e7rActive&&!g4e7tActive&&!g4e7vActive&&!g4e7wActive&&!g4e7adActive
    ?createB5ManualAudit({stageId:doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.recordStageId||'VB-P101-A13'):'VB-P101-B5',profile:$('p101Profile').value,startSpeed:physicalLaunch,spawnIndex:spawn}):null;
-  $('b5QaPanel').hidden=Boolean(g4e7bQa)||!['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant);
+  $('b5QaPanel').hidden=Boolean(g4e7bQa)||g4e7adActive||!['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant);
   $('b5QaTitle').textContent=doc.stageForge.slopeDNAStudy?.realB48Surface?'W9-C1 ABYSS '+doc.stageForge.slopeDNAStudy.nominalCoreWidthMeters+'m · 独立手動試走':doc.stageForge.recordStageId==='VB-P101-A13-W9X-B1'?'W9-X-B1 · 独立手動試走レポート':doc.stageForge.variant==='A13_GAMEPLAY_ISOLATED'?(doc.stageForge.g4e6EarlyGap?'W9-C2 G4E-6 · 真のB48ギャップ · 人間操作HOLD':doc.stageForge.g4ePhysicalStudy?'W9-C2 G4E-1 · '+doc.stageForge.revision+' · 実物理4狭路・人間HOLD':doc.stageForge.w9c2PhysicalStudy?'W9-C2 S-CREST · '+doc.stageForge.revision+' · 実物理研究/HOLD':'A13 W7F · 手動試走レポート'):'B5 · 手動試走レポート';
   $('w9TrialWarning').hidden=doc.stageForge.recordStageId!=='VB-P101-A13-W9X-B1';
   $('w9c1TrialWarning').hidden=!doc.stageForge.slopeDNAStudy?.realB48Surface;
