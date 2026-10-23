@@ -28,6 +28,8 @@ import {generateG4E7WBlend} from './p101-w9c2-g4e7w-takeoff-blend-build.mjs';
 import {generateG4E7ACR2} from './p101-w9c2-g4e7ac-r2-physical.mjs';
 import {generateG4E7AH} from './p101-w9c2-g4e7ah-narrow-real-b48.mjs';
 import {g4e7aiNativeFrames,AI_VARIANTS} from './p101-w9c2-g4e7ai-native-frames.mjs';
+import {g4e7akNativeFrames} from './p101-w9c2-g4e7ak-native-frames.mjs';
+import {generateG4E7AJ,AJ_ROADS} from './p101-w9c2-g4e7aj-reanchor-moving.mjs';
 import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
 import {g4e7wNativeCameraFrames,G4E7W_VISUAL_PROFILES,G4E7Y_EARLY_SHOTS} from './p101-w9c2-g4e7w-camera-frames.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
@@ -207,6 +209,15 @@ if(includeStages){
       JSON.stringify(generateG4E7AH(id),null,2)+'\n');
     write('generated/P101_A13_W9C2_G4E7AI_240HZ_FRAMES_LOCAL.json',
      JSON.stringify(g4e7aiNativeFrames(),null,2)+'\n');
+   }
+   // G4E-7AK: real reanchored B51-C on 11m REAL B48, private localhost only.
+   // Public and public-safe builds must never include reanchor research JSON.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7AK_VISUAL==='1'){
+    for(const id of AJ_ROADS)
+     write('generated/P101_A13_W9C2_G4E7AK_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AJ(id,'reanchor'),null,2)+'\n');
+    write('generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json',
+     JSON.stringify(g4e7akNativeFrames(),null,2)+'\n');
    }
    // G4E-7AD: two proven 7/7 R2 roads and true native camera poses.
    // Authored ONLY for explicit PRIVATE localhost WebGL review, never public.
