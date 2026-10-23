@@ -78,7 +78,7 @@ export function g4e7xGapReading(doc,sample,frame,{enabled=false}={}){
    stripe('landing-'+meters,end+meters,end+meters+thickness,v0,v1,pale);
  }
  if(!marks.some(x=>x.label==='lookahead-195')||
-  !marks.some(x=>x.label==='landing-.7')||!out.length||out.length%18!==0||
+  !marks.some(x=>x.label==='landing-0.7')||!out.length||out.length%18!==0||
   out.length>7000||!out.every(Number.isFinite))
   throw Error('G4E-7X gap reading damaged or GPU budget exceeded');
  return {enabled:true,triangles:out.length/18,vertices:out,marks,
