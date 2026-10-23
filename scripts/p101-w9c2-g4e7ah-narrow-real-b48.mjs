@@ -71,7 +71,7 @@ export function generateG4E7AH(id='r2-control'){
   ...Array.from({length:81},(_,k)=>atWidth(road,.70+.20*k/80))
  ];
  const minimumPhysicalWidth=Math.min(...widths),
-  narrowCoreLength=bandLength(road,.16,.49)+bandLength(road,.70,.90),
+  narrowCoreLength=bandLength(road,.16,.49)+bandLength(road,.70,.90);
  if(!eq(a,sample(old,gap.uTakeoff,.5))||
     !eq(b,sample(old,gap.uLanding,.5))||
     !eq(road.points.slice(15*5,22*5),old.points.slice(15*5,22*5))||
