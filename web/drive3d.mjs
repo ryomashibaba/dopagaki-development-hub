@@ -910,6 +910,10 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
   if(!g4e7alPanel)g4e7alPanel=createG4E7ALPanel($('b5QaPanel').parentElement,{
    onNext(feedback){
     if(!g4e7alTrial||!runner||g4e7alSession.index>=2)return;
+    if(g4e7alTrial.steps===0){
+     g4e7alPanel.notice('まだ走行していません。A/Dで走行してから記録してください。');
+     return;
+    }
     appendG4E7ALTrial(g4e7alSession,exportG4E7ALTrial(g4e7alTrial,runner,feedback));
     g4e7alTrial=null;g4e7alPanel.reset();
     if(g4e7alSession.index===2){
@@ -1593,7 +1597,9 @@ $('cameraCompare').addEventListener('click',()=>{
  // Switching between visualizations is deliberately instantaneous and does not modify Runner.
  if(currentPose)cameraState=createCameraState(currentPose.forward);
 });
-function toggle(){paused=!paused;$('pause').textContent=paused?'再開 (Space)':'一時停止 (Space)';
+function toggle(){
+ if(g4e7alRequested&&g4e7alSession.index>=G4E7AL_ROADS.length)return;
+ paused=!paused;$('pause').textContent=paused?'再開 (Space)':'一時停止 (Space)';
  // Stop HUD drift: the native 240Hz clock is frozen immediately on pause,
  // so publish that exact committed time instead of waiting for the 500ms HUD refresh.
  if(runner)hud();}
