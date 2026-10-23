@@ -1,0 +1,60 @@
+name: W9-C2 G4E-7Y R3 actual 240Hz asymmetric exterior vista GPU (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/p93-void-breaker-visual.mjs'
+      - 'web/p82-megastructure.mjs'
+      - 'tests/p101-w9c2-g4e7y-vista.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7y-vista-webgl.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7y-vista-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  true-native-road-exterior:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      DOPAGAKI_BUILD_DIR: dist-private
+      DOPAGAKI_G4E7W_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Guard TRUE B48 native 240Hz and asymmetric noncollision geometry
+        run: |
+          node --check web/p93-void-breaker-visual.mjs
+          node --check web/p82-megastructure.mjs
+          node --check web/drive3d.mjs
+          node --test tests/p101-w9c2-g4e7y-vista.test.mjs tests/p101-w9c2-g4e7y-early-native.test.mjs
+      - name: Chromium headless shell
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install chromium --only-shell
+      - name: Build research only localhost private
+        run: |
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E7Y_EARLY_240HZ_FRAMES_LOCAL.json
+      - name: Actual 20-frame early native WebGL GPU baseline versus first-road exterior
+        run: npx playwright test tests/browser/p101-w9c2-g4e7y-vista-webgl.spec.mjs
+      - name: No experimental B48 stage leaks to publicly built files
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7Y_EARLY_240HZ_FRAMES_LOCAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7W_A065_LOCAL_TRIAL.json
+          test ! -e dist/generated/P101_A13_W9C2_G4E7Y_EARLY_240HZ_FRAMES_LOCAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7y-vista-20-real-240hz-GPU-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7y-vista-*.png
+            test-results/**/g4e7y-vista-*.json
+            test-results/**/test-failed-*.png
+            test-results/**/error-context.md
+          if-no-files-found: ignore
+          retention-days: 12
