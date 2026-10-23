@@ -38,13 +38,14 @@
 | ブランチ | `p101-velocity-overdrive-native-trial` |
 | HEAD | GitHubの現行ブランチHEADを実際に取得（固定値を参照しない） |
 | 完了工程 | G4E-7AC R2：実B48大型曲線2案が正規240Hz全7道路自動完走。G4E-7AD：240Hz視線測定およびChromium WebGL 12画像と公開隔離CI成功。美術不合格/HOLD |
-| 次の計画 | G4E-7AE：approach-arcの見やすい実B48を基準に、実WebGLで画面を支配する旧門・箱型構造を再設計し都市シルエットの圧倒的な品質とプレイの先読みを両立。人間QA前の研究段階 |
+| 次の計画 | G4E-7AE実装を元の240HzカメラWebGL画像・視線レイで審査し、美術・人間視認性を独立HOLDのまま評価。旧ゲートを置換した研究候補SPLIT HORIZONを正式採択しないまま検証中 |
 | Slope2 DNA正式認定 | 0m |
 | 美術・人間品質・公開 | HOLD |
 | 凍結比較基準 | G4E-7AA `landing-soft α=.70` |
 
 7AAは、本物の欠損B48セルによる走行因果性と全7道路240Hz自動完走（56.2292秒）を記録。ただし美術・人間プレイは未認定。7ABでは0.15〜0.60mの進入微調整候補が全て7道路完走に失敗し、視界改善も実証できなかった。**7AC R2で物理ジャンプを維持する大型の進入カーブ・着地後カーブが全編240Hz自動完走。7ADはこの2候補の高速カメラと巨大都市を非公開で照合中。**
 
+- [G4E-7AE SPLIT HORIZON 旧景観置換・実物理視界研究](docs/W9C2_G4E7AE_SPLIT_HORIZON_WEBGL_HOLD_JA.md)
 - [G4E-7AD実視界研究とHOLD](docs/W9C2_G4E7AD_TRUE_NATIVE_WEBGL_ART_HOLD_JA.md)
 - [G4E-7AC真の物理実験](docs/W9C2_G4E7AC_MACRO_PHYSICAL_PILOT_HOLD_JA.md)
 - [G4E-7AB最終REJECT原本](docs/W9C2_G4E7AB_SUBMETER_TRUE_B48_FULLRUN_REJECT_JA.md)
