@@ -11,10 +11,11 @@ for(const road of ['true-pinch','pinch-switch']){
   assert.equal(art.banks,2);
   assert.equal(art.terraces,8);
   assert.equal(art.citySpines,6);
-  assert(art.negativeSpaceBays>=105);
+  assert(art.negativeSpaceBays>=210);
+  assert(art.macroSkyOpenings>=150);
   assert(art.triangles>=1000&&art.triangles<18000);
   assert(art.maxRiseMeters>650);
-  assert(art.minimumOutboardMeters>=120);
+  assert(art.minimumOutboardMeters>=220);
   assert.equal(art.physicalChanges,false);
   assert.equal(art.extraRoads,0);
   assert.equal(art.extraMachines,0);
