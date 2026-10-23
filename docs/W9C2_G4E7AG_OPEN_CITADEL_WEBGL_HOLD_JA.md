@@ -23,3 +23,22 @@
 - [AG native WebGL CI #39956862190](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39956862190) に8枚画像、元カメラ同一性・画面全体/中央/上部の画素差・公開隔離。
 - [AG real B48/中空建築レイテスト #39957016831](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39957016831) に正規240Hz走行の道路三角面と新建築三角面への視線測定を記録。
 - 2026-10-23現在、上記AGのCIは未完了・未判定。正式美術認定・人間QA・公開HOLD、Slope2 DNA正式認定0m。7AFの美術品質が不十分だったことを解決したかは画像審査前に決めない。
+
+## 2026-10-23 JST — 実WebGL / 実B48遮蔽の確定審査
+
+[AG native WebGL CI #39956862190](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39956862190) **SUCCESS**。実240Hz同一カメラ・原本B48第Iギャップ・7道路・28動体のままChromium WebGL画像8枚の生成・画素差メトリクス・公開site/public-safeから私有コースJSONの隔離PASS。
+
+[AG real B48 / GPU景観レイCI #39957016831](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39957016831) **SUCCESS**。3.15/3.65/4.15/4.50/5.15秒の正規P96・実240Hzカメラから、道路の踏切・着地左右中央へ6本のレイを測り、**実B48遮蔽0/6、新建築遮蔽0/6**。6.00秒は通過後で6点とも視野外（通過前の視認性の根拠に使わない）。
+
+実画像は [Actions artifact #12502084564](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39956862190/artifacts/12502084564)（14日保持）を参照。画像RGB最大差15超でAF→AGの画面変化を測定：
+
+| カメラ時刻 | 全画面変化 | 上部65%変化 | 中央40%変化 |
+|---|---:|---:|---:|
+| 3.15秒 | 36.10% | 52.37% | 17.71% |
+| 3.65秒 | 34.68% | 49.46% | 7.79% |
+| 4.15秒 | 30.80% | 44.29% | 6.94% |
+| 4.50秒 | 31.11% | 45.50% | 4.04% |
+
+画像審査：**7AFより中央の空が開放され、発光コントラストが改善した**。しかし建築が巨大な細長いU字/棒状フレームに見える構図で、建築内部の都市・公共空間・変化する質量・強い主役構造を実走行中に感じにくい。向こうの進路・危険・実ギャップの直感的読みやすさも未認定。**技術PASS、美術REJECT/HOLD、人間QA未実施、公開HOLD**。
+
+次のG4E-7AHでは「同じアーチ/柱/壁を変形して良く見せるだけ」の反復を優先しない。7.28kmコースの本質的な面白さと7AC R2の生きた物理：本当の10〜16m細道、意味のあるコーナリング、障害物回避、自然な飛び降り・再接地を改善し、スクリーンショットの見栄えと人間プレイは別審査とする。**正式Slope2距離は0mのまま、PR #46 Draft・未マージ、本番/Gold/原作保護**。
