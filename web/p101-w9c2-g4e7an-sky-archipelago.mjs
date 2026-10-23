@@ -200,7 +200,7 @@ export function g4e7anSkyArchipelago(doc,sample,{enabled=false}={}){
   active:true,vertices,triangles:vertices.length/18,monuments:4,
   hollowCrowns:1,crownHoles:1,crownShellSegments:a,splitCitadelProngs:b,
   floatingDecks:c,harpoonBranches:d,
-  maximumRiseMeters:815,minimumOutboardMeters:270,
+  maximumRiseMeters:815,minimumOutboardMeters:190,
   nonCollision:true,addedCollision:0,addedRoads:0,addedMachines:0,
   certifiedSlope2Meters:0,publish:'HOLD'
  };
