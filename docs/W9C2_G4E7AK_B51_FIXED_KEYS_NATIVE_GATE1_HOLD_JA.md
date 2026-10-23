@@ -36,3 +36,31 @@ Artifact: `g4e7ak-real-240hz-fixed-AD-39968223375`（artifact ID 12507972133）�
 - Slope2 DNA正式認定 **0m**。Draft PR #46 OPEN/Draft/未マージ。main/Gold/旧候補/原作再現/両本番は変更禁止。マージ・Ready化・公開禁止。
 
 新チャットでは `PROJECT_STATE.md` の固定URLを入口に、GitHub現HEAD・PR #46・本監査・現行CIを取得してから続行。
+
+## 第2ゲート — reanchor の実Chromium WebGL実証（非人間・公開隔離）
+
+**2026-10-23 JST**。実装：
+
+- `scripts/p101-w9c2-g4e7ak-native-frames.mjs` は、実際の7AJ reanchor 2道路を正規240Hz/初速52m/sで走らせ、既存P96専用操舵・元のボール相対カメラから2.20/2.50/2.80/3.20/5.20/6.90秒に実ボール位置/速度・カメラ姿勢・二つの動体OBB姿勢を採集する。各道路6フレーム。これは**動画の人間の操作記録ではない**。
+- `scripts/build.mjs` の `DOPAGAKI_G4E7AK_VISUAL=1` と `private` のAND条件でのみ2道路の真の7AJコースJSONと240Hzフレームを出す。
+- `web/drive3d.mjs` はloopbackで `g4e7ak=on&g4e7akFrame=hold` を指定した場合に限り2候補をstageに表示し、元のボール相対カメラ/球/実28動体を同一時刻でレンダリングする。quietは**景観の描画のみ**切る。実物理B48・ギャップcell52・実B51-Cの描画/衝突定義は維持。手動セッション結果・PBへの誤記録をしない。
+- `tests/browser/p101-w9c2-g4e7ak-webgl.spec.mjs` は2物理道路×4実240Hz時刻のquiet画面8枚＋2道路の2.8秒時刻のlegacy比較2枚の**合計10枚**を本物のChromium/WebGLで生成し、quiet/legacy同一カメラ・速度・2動体姿勢の一致を検査する。opt-inなしでは候補が非表示。
+- 専用CIでpublic・public-safeのいずれにもreanchor stage JSONやnativeフレーム証拠が存在しないことを検査。
+
+[第2ゲート実Chromium CI #39969621809](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39969621809) **SUCCESS**。実フレーム生成・private build・Chromium WebGLの2テストとも合格（`2 passed (16.9s)`）・両公開ビルドでの研究用データ非混入・画像/証拠artifact保存の全工程PASS。
+Artifact: `g4e7ak-reanchor-true-240hz-WebGL-39969621809` / ID **12509130409**。
+
+### この結果が証明していないもの
+
+- 本当の人間の初見視認性、反応可能時間、A/Dの公平性、障害物の遠景における読みやすさ。
+- 画像が存在するだけでは美術合格でも、路面遮蔽が無い証明でもない。実WebGL画像の**人間による審査**と、B48実三角形・移動OBBを使う同一時刻の定量遮蔽を別ゲートにする。
+- 既存7AJ再配置2案の元の自動7道路完走結果は保持するが、7AKキー入力10条件は9秒までの実測であり、全7道路や人間QAでの完走ではない。
+- 旧7Fワークフローのpush時即時失敗（ジョブが始まらないケースを観測）は本工程のPASSと混同しない。原因未解明。
+
+**7AK第2ゲートの技術的WebGL・公開ビルド資産隔離PASS。ただし人間視認・初見回避・美術品質・正式Slope2 DNA認定・採択・公開はHOLD。**
+
+### 次の意味ある工程
+
+G4E-7AK第3ゲートあるいは後続工程で、採集した元カメラから2動体の3D占有角・B48遮蔽・背景とのコントラスト・到達までの秒数と、入力で真B48から落下するケースを分類する。できれば回避の事前予告を**実3D走路・障害物形状や大質量景観の見通し**で改善し、平坦路やHUD・単なる目印追加だけに偏らない。必要な変更は新候補で隔離。実機初見手動操作・JSON取得は別途人間による検証が必要。
+
+新しいチャットでは固定入口 `PROJECT_STATE.md` を再度読み、現HEAD／Draft PR #46／両AK監査／CIを照合する。正式0m・全HOLD・main/Gold/両本番・原作再現不変更。Work事前承認。
