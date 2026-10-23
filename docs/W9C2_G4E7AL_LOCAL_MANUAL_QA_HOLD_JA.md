@@ -10,7 +10,7 @@ G4E-7AKの正規240Hz P96による成功と、実人間の高速細道プレイ�
 
 - 新規 `web/p101-w9c2-g4e7al-manual-qa.mjs`：実7AJ `reanchor` 物理出典を厳密チェック。7道路、元のB51-C 28基（再配置2基、26基元配置）、第I道路の欠損B48 cell52、初速52m/s・spawn00を必須とする。
 - 正規240Hzステップを観察するだけで、手動左右入力変化時刻、0.1秒間隔の実位置・速度・接地・実路肩距離と球対B51-Cの最近接距離、致命/非致命接触・失敗理由、最後の接地時刻・接地喪失後の落下までの秒数を保存。表示FPSとカメラ遅延も観察。危険予告・楽しさ・左右で回避できたかの自己申告を独立に採る。ユーザー／端末識別子、通信、強制合格はない。
-- 新規 `web/p101-w9c2-g4e7al-manual-panel.mjs`：TRUE-PINCH → PINCH-SWITCH の任意評価付き手動2走比較。ゲームオーバー画面からその場でJSONをローカル保存。セッションをブラウザメモリで保持し、ステージ間で移行。Rで途中リスタートすると現在の未保存観測は失われることを説明。
+- 新規 `web/p101-w9c2-g4e7al-manual-panel.mjs`：TRUE-PINCH → PINCH-SWITCH の任意評価付き手動2走比較。ゲームオーバー画面からその場でJSONをローカル保存。セッションをブラウザメモリで保持し、ステージ間で移行。Rのリトライは直前の実240Hz走行を**最大12回分**ブラウザメモリへ退避し、次回手動ダウンロードに同梱。12回を超えた旧データは明示件数で報告。端末外送信・localStorage書込はない。
 - `web/drive3d.mjs`：loopback + `g4e7al=manual` の明示指定のみステージ選択を許可。G4E-7AKの固定フレームでは**なく**、実Runnerを人間のA/Dで動かす。P96なし、OVERDRIVE・元の240Hz Runner・元のカメラ・原物理形状を維持。比較試験のためG5-C1衝突後スロットル復帰を7ALに限り無効（7AK自動物理と同じ設定）。通常の本番プレイには影響しない。自己ベスト／スプリット最良記録は書き込まない。
 - `scripts/build.mjs` は読み取り専用QAモジュールのみ同梱。真の7AJ reanchorステージJSON生成は従来どおり **`private` + `DOPAGAKI_G4E7AK_VISUAL=1`** が必須。public/public-safeには研究用ステージを出さない。
 - `scripts/launch-g4e7al-manual.mjs` と `RUN_G4E7AL_MANUAL.cmd`：ローカルのprivateビルドと127.0.0.1固定サーバー、ブラウザURLを1操作で起動。Git push/デプロイ/外部送信はしない。
@@ -27,3 +27,13 @@ G4E-7AKの正規240Hz P96による成功と、実人間の高速細道プレイ�
 **HOLD：人間初見QA、美術品質、物理難易度の正式採用、Slope2 DNA公式認定0m、本番・main・Gold・原作再現・公開。**
 
 次の意味ある工程では手動試走で得た真のJSONを参考に、落下前の判断可能距離・目線と安全なライン取りを実3D形状改善で検討する。ただし、人間試走がまだ存在しない状態で不合格箇所を作り出して改造しない。
+
+## G4E-7AL 追加の手動QA安全性修正（2026-10-24 JST）
+
+- URLに2番目の `PINCH-SWITCH` を指定しても、**必ず第1走 TRUE-PINCH** から開始。記録順序と表示の不一致を防止。
+- `R`、再開ボタンで再試走した場合、直前のRunnerで少なくとも1 physics step記録した走行のログを `restartedAttempts[]` に最大12件退避し、ユーザーが自分でJSON保存したときだけ出力する。最大数を超えた履歴は `olderAttemptsDropped` で明示。人間の評価を自動で補うことはしない。
+- 2試走が確定した後の再スタートはガードで拒否し、確定済みレポートの意図せぬ上書きを防ぐ。ページの再読み込みは**保存とは異なる**ので、閉じる前にJSONを保存する必要がある。
+- 専用Node試験にリトライ履歴最大12件・出典とHOLD、Chromium試験に逆順URLの強制修正・実R再走からのJSON保持・2走完了後の再開防止を追加。
+- 保護：実B48や動体28基、物理法則・スコア・Gold・main・両本番を一切変更せず、privateの明示フラグのみ。人間初見QAは**未取得/HOLD**。
+
+新しい専用CI：[G4E-7AL latest Actions](https://github.com/ryomashibaba/dopagaki-development-hub/actions/workflows/p101-w9c2-g4e7al-manual.yml)。初回 #40024578982 および新しいrunはGitHubホストrunnerのキュー待ちを確認。**CI SUCCESSとは断定せず、後続担当はGitHub上の現HEADに対応するrunの実結果を必ず確認する。**
