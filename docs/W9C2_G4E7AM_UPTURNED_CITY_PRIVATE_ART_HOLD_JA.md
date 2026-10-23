@@ -29,6 +29,16 @@ UPTURNED CITY候補：`http://127.0.0.1:4373/drive3d/?g4e7al=manual&g4e7am=conti
 
 G4E-7AL単独の技術ゲートは [Actions #40026772361](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40026772361) で **SUCCESS**。Node、実Chromiumの2候補操作／失敗→JSON保存、公開/public-safe隔離が全PASS。
 
-**AM候補自身の新設検証は [Actions #40028777111](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40028777111) の結論待ち。** WebGLスクリーンショット、GPUの重さ・カメラ画角での大きさ、実際に道路と障害物が認識できるかは結果なしにPASSを宣言しない。成功時にも**美術品質/人間QA/正式DNA認定0m/公開HOLD**。
+**AM R1の新設技術検証は [Actions #40028777111](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40028777111) ですべてSUCCESS。** 実WebGL画像artifact #12534985530 を読み取り、旧背景・AM TRUE-PINCH・PINCH-SWITCHを比較。NodeとChromiumや研究JSONの隔離はPASS。しかし実画像は巨大な左右の連続壁に見え、シルエットの複雑さ／空の開放感／都市の多層性に不足。**美術としてHOLD/再設計対象**。さらにPINCH-SWITCHは画面スクロール位置の影響で撮影画角からWebGLキャンバスが外れ、黒い画像になっていた。実コースが黒く描画されたと断定せずスクリーンショットの収集不備として分類。
 
 次工程：Actionsで実画像を取得した後、多視点で実見た目・道路の先読みを評価。良くなければAMを採用せず別の3D形態候補を設計する。人間の実試走ログが来るまでは既存7AJ実衝突配置を改変しない。
+
+## G4E-7AM R2 — SKY BREACH 実形状修正（2026-10-24 JST）
+
+- R1の「左右大きな面＝一本の巨大な壁」問題を初回CIの**実画像**で確認。単純な0.1m位置変更ではなく建築自体を再設計。
+- 外殻の最小道路外側離隔を左128→**222m**、右142→**255m**へ。高さ係数を570→650m、895→980mに引き上げ、高空ほど外側へせり出す非線形断面を強化（構造の高度は頂部位置の近似でありMinecraft施工高さではない）。
+- 左右を互い違いのリズムで縦断する**完全な空スロット**を形成。5×5pxの黒い穴テクスチャではなく、該当区画の表裏の**実GPU三角形をそもそも生成しない**。本研究スクリプトの区画計算では全空洞246メッシュ区画、うち上層まで連続するマクロ空スロット176区画。独自の巨大都市テラスや外殻の棘も保持。
+- 技術試験で `negativeSpaceBays >= 210`、`macroSkyOpenings >= 150`、最小外側離隔222m、AJ元JSON完全一致、衝突0・追加B51 0・正式DNA 0mを検証する。
+- Playwright画像を `page.screenshot()` から**実WebGLキャンバス `#view.screenshot()`** に変更。特に第2コース遷移時、Nextボタンでページが下へスクロールしてもキャンバス自体を撮影する。変更後PNGの**視覚評価は別判定**。
+- 修正版専用 [Actions #40037992309](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40037992309) の最新結果／PNG artifactを次担当が直接取得し確認する。記入時点ではQueuedで、合格とは報告しない。旧AM R1の実画像artifactは参照物として保持。
+- **決して合格扱いしないゲート**：遠景巨大都市の美術完成度／初見走行の公平性／VRAM・GPUの実機負荷／正式A13 40％認定／本番・Gold・原作の更新。ここではすべてHOLD。
