@@ -32,6 +32,7 @@ for(const road of ['true-pinch','pinch-switch']){
   await expect(view).toHaveAttribute('data-g4e7am-banks','2');
   await expect(view).toHaveAttribute('data-g4e7am-terraces','8');
   await expect(view).toHaveAttribute('data-g4e7am-voids',/[2-9][0-9][0-9]/);
+  await expect(view).toHaveAttribute('data-g4e7am-macro-sky-openings',/1[5-9][0-9]|[2-9][0-9]{2}/);
   await expect(view).toHaveAttribute('data-g4e7am-spines','6');
   await expect(view).toHaveAttribute('data-g4e7am-non-collision','true');
   await expect(view).toHaveAttribute('data-machine-count','28');
