@@ -40,7 +40,7 @@ import {makeG4E7DPanel} from './p101-w9c2-g4e7d-manual-panel.mjs';
 import {createG4E7OTrial,observeG4E7OStep,observeG4E7OFrame,exportG4E7OTrial,newG4E7OSession,appendG4E7OTrial,exportG4E7OSession,g4e7oReadRoad} from './p101-w9c2-g4e7o-manual-qa.mjs';
 import {createG4E7OManualPanel} from './p101-w9c2-g4e7o-manual-panel.mjs';
 import {createG4E7ALTrial,observeG4E7ALStep,observeG4E7ALFrame,exportG4E7ALTrial,
- newG4E7ALSession,appendG4E7ALTrial,exportG4E7ALSession,G4E7AL_ROADS} from './p101-w9c2-g4e7al-manual-qa.mjs';
+ newG4E7ALSession,appendG4E7ALTrial,archiveG4E7ALRetry,exportG4E7ALSession,G4E7AL_ROADS} from './p101-w9c2-g4e7al-manual-qa.mjs';
 import {createG4E7ALPanel} from './p101-w9c2-g4e7al-manual-panel.mjs';
 import {createG4E7HFocusHud} from './p101-w9c2-g4e7h-hud-focus.mjs';
 import {g4e7iSkylineContours,createG4E7IControls} from './p101-w9c2-g4e7i-readability.mjs';
@@ -931,7 +931,11 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
  }
  function restart(){
  if(g4e7dRequested&&g4e7dSession.index>=G4E7D_PROTOCOL.length)return;
+ if(g4e7alRequested&&g4e7alSession.index>=G4E7AL_ROADS.length)return;
  if(!doc||!world)return;
+ if(g4e7alActive&&g4e7alTrial?.steps>0&&runner){
+  archiveG4E7ALRetry(g4e7alSession,exportG4E7ALTrial(g4e7alTrial,runner));
+ }
  if(b5ManualAudit){
   if(!b5ManualAudit.final)finalizeB5ManualAudit(b5ManualAudit,{
    status:'interrupted',time:runner?.time??0,surface:runner?.surface||runner?.lastSurface||null,
@@ -1726,6 +1730,7 @@ $('stage').addEventListener('change',()=>{demoMode=false;practiceMode=false;seek
 const requestedStage=new URLSearchParams(window.location.search).get('stage');
 if(requestedStage&&Object.hasOwn(assets,requestedStage)&&Array.from($('stage').options).some(o=>o.value===requestedStage))$('stage').value=requestedStage;
 if(g4e7oRequested)$('stage').value='VB-P101-A13-W9C2-G4E7M-THREAD';
+if(g4e7alRequested)$('stage').value='VB-P101-A13-W9C2-G4E7AK-TRUE-PINCH';
  $('p101Profile').addEventListener('change',()=>{if(doc?.stageForge?.id==='VB-P101')restart();});
 $('spawn').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;restart();});
 $('restart').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('retryRun').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('pause').addEventListener('click',toggle);
