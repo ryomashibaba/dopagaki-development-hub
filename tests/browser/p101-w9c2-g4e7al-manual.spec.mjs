@@ -30,6 +30,9 @@ test('AL 2 real manual physics courses, A/D samples, export/continue, no human P
  await expect(page.locator('#demoRun')).toBeDisabled();
  await expect(page.locator('#g4e7alStep')).toContainText('1/2 TRUE-PINCH');
  await expect(page.locator('#g4e7alResultDownload')).toBeHidden();
+ await page.locator('#g4e7alNext').click();
+ await expect(page.locator('#g4e7alNotice')).toContainText('まだ走行していません');
+ await expect(page.locator('#stage')).toHaveValue(stage('TRUE-PINCH'));
  await page.keyboard.down('KeyD');
  await page.waitForTimeout(520);
  await page.keyboard.up('KeyD');
@@ -81,6 +84,7 @@ test('AL 2 real manual physics courses, A/D samples, export/continue, no human P
  expect(report.runs[1].voluntaryReport.enjoymentOneToFive).toBe(3);
  expect(errors).toEqual([]);
  await page.keyboard.press('KeyR');
+ await page.keyboard.press('Space');
  await expect(view).toHaveAttribute('data-g4e7al-mode','two-trials-recorded-hold');
  await expect(page.locator('#g4e7alNext')).toBeDisabled();
  await fs.writeFile(info.outputPath('g4e7al-QA-control-flow-not-human.json'),
