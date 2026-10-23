@@ -16,3 +16,10 @@
 - localhost/private限定 `g4e7ad=on&g4e7adFrame=hold&g4e7ae=on&g4e7ag=on&g4e7agScene=open`。AF景観との新旧切替で旧メッシュは重ねない。
 - 3.15/3.65/4.15/4.50秒×AF/AGの実WebGL画像8枚をCIで記録。同カメラ・同物理と、全画面/中央/上部RGB画像差分を監査。真B48と都市レイの遮蔽は別のゲートで検査。
 - ショットが生成できても、人間の先読み・景観の魅力・実操舵・公開は認定しない。正式Slope2 DNA 0m、全てHOLD。
+
+## 実装と検証経路
+
+- 独立研究スクリプト `web/p101-w9c2-g4e7ag-open-citadel.mjs` と物理原本不変のテスト。AF/AE/旧門を重ねずに研究用シーンで置き換える。
+- [AG native WebGL CI #39956862190](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39956862190) に8枚画像、元カメラ同一性・画面全体/中央/上部の画素差・公開隔離。
+- [AG real B48/中空建築レイテスト #39957016831](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39957016831) に正規240Hz走行の道路三角面と新建築三角面への視線測定を記録。
+- 2026-10-23現在、上記AGのCIは未完了・未判定。正式美術認定・人間QA・公開HOLD、Slope2 DNA正式認定0m。7AFの美術品質が不十分だったことを解決したかは画像審査前に決めない。
