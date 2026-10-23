@@ -48,7 +48,8 @@ export function g4e7ajBaselineThreat(){
     nominalU:i===0?.28:.73,originalPosition:o.position,staticRoadOffsetM:round(
      len(minus(o.position,sample(road,i===0?.28:.73,.5)))),
     minimumRunnerOBBSeparationM:Infinity,nearTime:null,blockTimeSamples:0,trace:[]})),
-   ball=[],originalMachineContacts=0;
+   ball=[];
+  let originalMachineContacts=0;
   for(let tick=1;tick<=9/DT&&['ready','running'].includes(runner.status);tick++){
    const prior=runner.events.length,
     steer=p96DodgeSteer(runner,plan,'early-soft',movingObstaclePose).input/4.8;
