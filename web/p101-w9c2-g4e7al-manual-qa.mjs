@@ -102,7 +102,21 @@ export function exportG4E7ALTrial(t,runner,{noticed='unsure',fairness='unsure',e
   automatedUpload:false,normalGameLeaderboardWrites:false,
   certifiedSlope2Meters:0,humanFairness:'HOLD',artQuality:'HOLD',publish:'HOLD'};
 }
-export function newG4E7ALSession(){return {schema:'dopagaki.w9c2.g4e7al-paired-manual/1',index:0,runs:[]};}
+export function newG4E7ALSession(){return {schema:'dopagaki.w9c2.g4e7al-paired-manual/1',
+ index:0,runs:[],restartedAttempts:[],olderAttemptsDropped:0};}
+/** Preserve unsaved in-memory retries without writing storage or contacting a server.
+ * A bounded queue avoids unbounded state; after 12 the oldest is explicitly counted.
+ */
+export function archiveG4E7ALRetry(session,report){
+ if(!session||!Array.isArray(session.restartedAttempts)||
+   !report||report.road!==G4E7AL_ROADS[session.index]||
+   report.certifiedSlope2Meters!==0||report.humanFairness!=='HOLD'||
+   report.normalGameLeaderboardWrites!==false)
+  throw Error('G4E7AL retry provenance/HOLD mismatch');
+ if(session.restartedAttempts.length===12){session.restartedAttempts.shift();session.olderAttemptsDropped++;}
+ session.restartedAttempts.push({...report,restartedBeforeNextRun:true});
+ return session.restartedAttempts.length;
+}
 export function appendG4E7ALTrial(session,report){
  if(!session||session.index>=G4E7AL_ROADS.length||
   report?.road!==G4E7AL_ROADS[session.index]||report?.certifiedSlope2Meters!==0||
@@ -113,6 +127,7 @@ export function appendG4E7ALTrial(session,report){
 export function exportG4E7ALSession(session){
  if(!session||!Array.isArray(session.runs))throw Error('G4E7AL missing in-memory session');
  return {schema:session.schema,index:session.index,runs:session.runs,
+  restartedAttempts:session.restartedAttempts,olderAttemptsDropped:session.olderAttemptsDropped,
   completedBoth:session.index===2,automaticallySubmitted:false,
   normalGameLeaderboardWrites:false,realHumanTrial:'UNVERIFIED_UNTIL_ACTUAL_USER_PLAY',
   humanFairness:'HOLD',artQuality:'HOLD',certifiedSlope2Meters:0,publish:'HOLD'};
