@@ -56,6 +56,7 @@ import {g4e7aeSplitHorizon} from './p101-w9c2-g4e7ae-split-horizon.mjs';
 import {g4e7afFractureCity} from './p101-w9c2-g4e7af-fracture-city.mjs';
 import {g4e7agOpenCitadel} from './p101-w9c2-g4e7ag-open-citadel.mjs';
 import {g4e7amUpturnedCity} from './p101-w9c2-g4e7am-upturned-city.mjs';
+import {g4e7anSkyArchipelago} from './p101-w9c2-g4e7an-sky-archipelago.mjs';
 import {makeW9C1CueProfile,readW9C1Cue,w9c1ApproachMarks} from './p101-w9c1-approach-cue.mjs';
 import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
 import {createB5ManualAudit,recordB5ManualSample,recordB5ManualFrame,observeW9C1ManualCue,finalizeB5ManualAudit,exportB5ManualAudit} from './p101-b5-manual-qa.mjs';
@@ -138,6 +139,8 @@ const g4e7alRequested=g4e6LocalHost&&!g4e7akOptIn&&!g4e7aiOptIn&&!g4e7mOptIn&&
 const g4e7alSession=g4e7alRequested?newG4E7ALSession():null;
 // AM: private art-only A/B; the default AL stage and real 240Hz collision stay unchanged.
 const g4e7amRequested=g4e7alRequested&&new URLSearchParams(window.location.search).get('g4e7am')==='continent';
+// AN is an independent opt-in. Never stack with rejected AM or other scenery.
+const g4e7anRequested=g4e7alRequested&&!g4e7amRequested&&new URLSearchParams(window.location.search).get('g4e7an')==='archipelago';
 const g4e7akBackdrop=g4e7akOptIn&&new URLSearchParams(window.location.search).get('g4e7akBackdrop')==='quiet'?'quiet':'legacy';
 const g4e7akPoint=['t220','t250','t280','t320','t520','t690'].includes(
  new URLSearchParams(window.location.search).get('g4e7akPoint'))?
@@ -244,7 +247,7 @@ const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,g4dSkywayMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
-let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7afMesh=null,g4e7agMesh=null,g4e7amMesh=null,g4e7adShot=null,g4e7adActive=false,g4e7aiShot=null,g4e7aiActive=false,g4e7akShot=null,g4e7akActive=false;
+let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7afMesh=null,g4e7agMesh=null,g4e7amMesh=null,g4e7anMesh=null,g4e7adShot=null,g4e7adActive=false,g4e7aiShot=null,g4e7aiActive=false,g4e7akShot=null,g4e7akActive=false;
 let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null,g4e7alTrial=null,g4e7alPanel=null,g4e7alResultDownload=null,g4e7alActive=false;
 let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7qActive=false,g4e7rActive=false,g4e7tActive=false,g4e7vActive=false,g4e7vShot=null,g4e7wActive=false,g4e7wShot=null,g4e7sShot=null,g4e7sTrace=null,g4e7sShardMesh=null,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
@@ -332,7 +335,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7sShardMesh);discard(g4e7adCityMesh);discard(g4e7aeMesh);discard(g4e7afMesh);discard(g4e7agMesh);discard(g4e7amMesh);discard(g4e7cCueMesh);discard(g4e7xCueMesh);discard(g4e7zCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7sShardMesh);discard(g4e7adCityMesh);discard(g4e7aeMesh);discard(g4e7afMesh);discard(g4e7agMesh);discard(g4e7amMesh);discard(g4e7anMesh);discard(g4e7cCueMesh);discard(g4e7xCueMesh);discard(g4e7zCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
@@ -404,6 +407,17 @@ function buildVisual(stage){
   canvas.dataset.g4e7amRiseMeters=String(am.maxRiseMeters);
   canvas.dataset.g4e7amOutboard=String(am.minimumOutboardMeters);
   canvas.dataset.g4e7amNonCollision=String(!am.physicalChanges&&am.extraRoads===0&&am.extraMachines===0);
+  const an=g4e7anSkyArchipelago(stage,sample,{enabled:g4e7anRequested});
+  g4e7anMesh=an.active?mesh(an.vertices):null;
+  canvas.dataset.g4e7anScene=an.active?'archipelago':'off';
+  canvas.dataset.g4e7anMonuments=String(an.monuments);
+  canvas.dataset.g4e7anCrown=String(an.hollowCrowns);
+  canvas.dataset.g4e7anProngs=String(an.splitCitadelProngs);
+  canvas.dataset.g4e7anDecks=String(an.floatingDecks);
+  canvas.dataset.g4e7anBranches=String(an.harpoonBranches);
+  canvas.dataset.g4e7anTriangles=String(an.triangles);
+  canvas.dataset.g4e7anSetback=String(an.minimumOutboardMeters);
+  canvas.dataset.g4e7anNonCollision=String(an.nonCollision&&an.addedCollision===0&&an.addedRoads===0&&an.addedMachines===0);
   const shard=g4e7sShardCity(stage,sample,{enabled:g4e7sOptIn&&g4e7sScene==='shards'});
   g4e7sShardMesh=shard.active?mesh(shard.vertices):null;
   canvas.dataset.g4e7sScene=shard.active?'shards':'baseline';
@@ -680,6 +694,9 @@ function render(frameSeconds){
  if((g4e7aiOptIn&&g4e7aiBackdrop==='quiet')||(g4e7akOptIn&&g4e7akBackdrop==='quiet')){
   // Physics-first road readability study: background architecture only is hidden.
   // Real roads, their B48 sides, real void, fixtures, hazards and ball remain.
+ }else if(g4e7anRequested){
+  // Entirely separate depth-staggered skyline in place of both rejected walls.
+  draw(g4e7anMesh);
  }else if(g4e7amRequested){
   // REPLACE repetitive default walls/gates with private asymmetric GPU continent.
   draw(g4e7amMesh);
