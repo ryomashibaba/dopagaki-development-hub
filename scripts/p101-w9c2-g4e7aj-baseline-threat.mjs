@@ -46,7 +46,7 @@ export function g4e7ajBaselineThreat(){
   const runner=new Runner(doc,compile(doc),0,52),plan=makeP96RoutePlan(doc,runner),
    surge=createA13SurgeState(),stations=obs.map((o,i)=>({id:o.id,type:o.type,
     nominalU:i===0?.28:.73,originalPosition:o.position,staticRoadOffsetM:round(
-     len(minus(o.position,sample(road,i===0?.28:.73,.5))),
+     len(minus(o.position,sample(road,i===0?.28:.73,.5)))),
     minimumRunnerOBBSeparationM:Infinity,nearTime:null,blockTimeSamples:0,trace:[]})),
    ball=[],originalMachineContacts=0;
   for(let tick=1;tick<=9/DT&&['ready','running'].includes(runner.status);tick++){
