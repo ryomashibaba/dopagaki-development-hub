@@ -2,7 +2,6 @@
  * 8 staggered city masses with real voids, inclined crests, stepped interiors,
  * bright exposed shear lines. Art mesh only: never a collision or hidden road.
  */
-import {sample} from '../private/reference_only/director/surface.js';
 const plus=(a,b)=>a.map((x,i)=>x+b[i]);
 const minus=(a,b)=>a.map((x,i)=>x-b[i]);
 const times=(a,s)=>a.map(x=>x*s);
@@ -15,7 +14,7 @@ const segments=[
  [[.065,.245,1.1],[.30,.52,1.35],[.575,.75,1.12],[.82,.955,1.5]],
  [[.08,.27,1.28],[.335,.56,1.08],[.61,.805,1.52],[.845,.965,1.32]]
 ];
-export function g4e7afFractureCity(doc,{enabled=false}={}){
+export function g4e7afFractureCity(doc,sample,{enabled=false}={}){
  const empty={enabled:false,vertices:[],triangles:0,districts:0,
   atriumHoles:0,litShearFolds:0,physicalChanges:false,
   addedCollision:0,addedRoads:0,certifiedSlope2Meters:0,publish:'HOLD'};
