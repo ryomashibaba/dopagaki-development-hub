@@ -1,5 +1,5 @@
 /**
- * G4E-7AB E — complete original start00 240Hz game physics on the 15.76m
+ * G4E-7AC R2 — complete original start00 240Hz game physics on the 15.76m
  * true grounded gap. Paired no-cut road uses IDENTICAL physical control
  * skin at each alpha. Never certify from nonhuman P96 full-course success.
  */
@@ -87,13 +87,13 @@ export function g4e7acR2FullMatrix(){
     cut.timeSeconds<60,
    automaticSuccessNeverSufficient:true};
  });
- return {schema:'dopagaki.g4e7ac-r2-submeter-contour-full-240hz/1',hz:1/DT,start00:true,
+ return {schema:'dopagaki.g4e7ac-r2-macro-preserved-lip-full-240hz/1',hz:1/DT,start00:true,
   startSpeedMps:52,source:'AA_LANDING_SOFT_ALPHA_070',realRoads:7,originalMovingB51C:28,
   nonhumanSteer:'P96_EARLY_SOFT_DIV4_8',
   pairs,formalSlope2Meters:0,publication:'HOLD',humanFairness:'HOLD'};
 }
 if(process.argv[1]&&fileURLToPath(import.meta.url)===process.argv[1]){
- const x=g4e7ac-r2FullMatrix();
+ const x=g4e7acR2FullMatrix();
  if(process.argv[2])fs.writeFileSync(process.argv[2],JSON.stringify(x,null,2)+'\n');
  console.log('G4E7AC_R2_BLENDED_FULL '+JSON.stringify(x.pairs.map(({variant,fullRoadCut,fullRoadIntact,candidateForHumanReview})=>({
   variant,control:{status:fullRoadIntact.status,sec:fullRoadIntact.timeSeconds},
