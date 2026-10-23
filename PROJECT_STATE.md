@@ -37,8 +37,8 @@
 | Draft PR | #46：OPEN / Draft / 未マージ |
 | ブランチ | `p101-velocity-overdrive-native-trial` |
 | HEAD | GitHubの現行ブランチHEADを実際に取得（固定値を参照しない） |
-| 確認済み工程 | G4E-7AK第1〜3ゲートの正規240Hz接触・実WebGL・真B48三角形×B51-C実OBB遮蔽・早い右入力の落下原因はCI PASS。7AJ全7道路2/2非人間自動完走を維持。**G4E-7AL：非公開手動A/D 2候補比較、実Runner240Hz記録・ゲームオーバーJSON保存・Windowsワンクリック起動を実装。順序強制、Rリトライ履歴最大12件、2走完了後の再開禁止、未走行の次候補移行禁止を反映。補助B51距離計測のみ毎ステップ240Hzから20Hzへ削減し、正規CCD/実接触イベントは240Hzを維持。初回Chromium CI #40026339519は2/3 PASS・1 FAIL（物理が自動進行するだけでは人間の左右操作は証明されないため、未入力Next拒否判定を実入力ステップ0へ変更）。再試験 #40026772361 は実行待ちで、総合合否未確定。** 人間実試走・美術・正式認定HOLD。 |
-| 次の計画 | **G4E-7AL CI失敗修正→再実行待ち**：[#40026339519](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40026339519) はNode構文/テストとprivate build PASS、Chromium 2/3 PASS・1 FAIL（物理時計自動進行と手動入力の区別漏れ）。修正HEADで起動した [#40026772361](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40026772361) の最新ステータスとログを必ず確認。**public/public-safe隔離はまだスキップのため未確認。**CIの失敗は修正し再実行、成功しても「実Chromiumでの自動A/D」＝「人間の手動QA合格」としない。実機の2道路比較JSON・感想が得られた後、判明した視認／操舵不公平を改善する別の本物の3D道路・動体候補を検討。Workは事前承認、公開/mergeは不可。 |
+| 確認済み工程 | G4E-7AK第1〜3ゲートの正規240Hz接触・実WebGL・真B48三角形×B51-C実OBB遮蔽・早い右入力の落下原因はCI PASS。7AJ全7道路2/2非人間自動完走を維持。**G4E-7AL：非公開手動A/D 2候補比較、実Runner240Hz記録・ゲームオーバーJSON保存・Windowsワンクリック起動を実装。順序強制、Rリトライ履歴最大12件、2走完了後の再開禁止、未走行の次候補移行禁止を反映。補助B51距離計測のみ毎ステップ240Hzから20Hzへ削減し、正規CCD/実接触イベントは240Hzを維持。初回Chromium CI #40026339519の手動入力区別漏れを修正し、G4E-7AL再試験 #40026772361 が SUCCESS（Node・private・Chromium・public/public-safe隔離すべてPASS）。さらにG4E-7AM巨大都市外殻／2連続する非対称都市大陸のGPU専用景観候補を実装。実WebGLおよび非公開3画像のActions #40028777111 は検証待ちで、美術認定なし。** 人間実試走・美術・正式認定HOLD。 |
+| 次の計画 | **G4E-7AL技術ゲートPASS→G4E-7AM実景観研究中**：[#40026772361](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40026772361) 全ステップSUCCESS。非公開GPU候補G4E-7AM《UPTURNED CITY》の実WebGL 旧背景対比・2コース描画・公開隔離 [#40028777111](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40028777111) の最新結果／画像artifactを確認。美術・人間QA・正式採用・公開はHOLD。CIの失敗は修正し再実行、成功しても「実Chromiumでの自動A/D」＝「人間の手動QA合格」としない。実機の2道路比較JSON・感想が得られた後、判明した視認／操舵不公平を改善する別の本物の3D道路・動体候補を検討。Workは事前承認、公開/mergeは不可。 |
 | Slope2 DNA正式認定 | 0m |
 | 美術・人間品質・公開 | HOLD |
 | 凍結比較基準 | G4E-7AA `landing-soft α=.70` |
@@ -46,13 +46,14 @@
 
 **G4E-7AK第1/2ゲート CI**：[固定A/D実240Hz #39968223375](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39968223375) SUCCESS（artifact 12507972133）。[reanchor実Chromium WebGL10画面 #39969621809](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39969621809) SUCCESS（artifact 12509130409、public/public-safe研究用JSON非混入PASS）。人間の視認・操作/美術/正式採択/公開はHOLD。
 
-**G4E-7AL 初回CI FAIL→入力ゲート修正済み・再試験待ち**：[修正版 #40026772361](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40026772361) は作業時点ではQUEUED。GitHub上の最新結果を再取得するまでPASSと報告しない。人間QAは実ユーザー試走証拠なしでHOLD。
+**G4E-7AL 最終技術PASS**：[修正版 #40026772361](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40026772361) のNode/native・実Chromium操作/ゲームオーバー直接JSON保存・public/public-safe隔離は全SUCCESS。**新G4E-7AM景観候補CIは別枠**：[#40028777111](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40028777111) の確定を待つ。人間QAは実ユーザー試走証拠なしでHOLD。
 
 **G4E-7AK第3ゲート CI**：[実B48/B51-C遮蔽・接地喪失 #39976900377](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39976900377) SUCCESS。画面サイズ換算は近似であり人間の反応猶予は未認定。記録は最新監査を参照。
 
 7AAは、本物の欠損B48セルによる走行因果性と全7道路240Hz自動完走（56.2292秒）を記録。ただし美術・人間プレイは未認定。7ABでは0.15〜0.60mの進入微調整候補が全て7道路完走に失敗し、視界改善も実証できなかった。**7AC R2で実ジャンプ維持の大型カーブが全編240Hz完走。その後7AHで細道＋S字まで実B48化し、7AIで同じ元の走行カメラを使うWebGLと視線遮蔽の検査が成功。ただし人間の遊びやすさと見た目は未認定。**
 
-- [G4E-7AL 真11m細道×実B51-C手動QA・リトライ履歴＋ローカルJSON・CI判定待ち](docs/W9C2_G4E7AL_LOCAL_MANUAL_QA_HOLD_JA.md)
+- [G4E-7AM UPTURNED CITY巨大都市外殻・非公開実WebGL美術審査待ち](docs/W9C2_G4E7AM_UPTURNED_CITY_PRIVATE_ART_HOLD_JA.md)
+- [G4E-7AL 真11m細道×実B51-C手動QA・リトライ履歴＋ローカルJSON・技術CI PASS](docs/W9C2_G4E7AL_LOCAL_MANUAL_QA_HOLD_JA.md)
 - [G4E-7AK 第3ゲート 実B48三角形×B51-C動体遮蔽・早い右入力の無支持落下／人間HOLD](docs/W9C2_G4E7AK_G3_PHYSICAL_VISIBILITY_FALL_HOLD_JA.md)
 - [G4E-7AK 第1/2ゲート 実240Hz固定A/D 10条件＋実Chromium WebGL10枚・人間/HOLD](docs/W9C2_G4E7AK_B51_FIXED_KEYS_NATIVE_GATE1_HOLD_JA.md)
 - [G4E-7AJ 真のB51-C2/28基再配置・実240Hz全7道路完走・人間HOLD](docs/W9C2_G4E7AJ_REAL_B51_LANE_REANCHOR_HOLD_JA.md)
