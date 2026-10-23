@@ -246,5 +246,7 @@ if(process.argv[1]&&fileURLToPath(import.meta.url)===process.argv[1]){
   samples:x.samples.length}))));
  console.log('AK3_RIGHT_FAIL_CAUSES '+JSON.stringify(r.earlyRightFailures.map(f=>({
   road:f.road,seconds:f.seconds,reason:f.authoritativeRunnerFailure?.reason,
+  lastNativeSupport:f.lastNativeGroundedSupport,
+  secondsWithoutSupportAtFall:f.secondsWithoutSupportAtFall,
   counts:f.physicsEventCounts,last:f.timeline.at(-1)}))));
 }
