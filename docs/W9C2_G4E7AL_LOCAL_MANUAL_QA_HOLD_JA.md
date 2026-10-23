@@ -37,3 +37,12 @@ G4E-7AKの正規240Hz P96による成功と、実人間の高速細道プレイ�
 - 保護：実B48や動体28基、物理法則・スコア・Gold・main・両本番を一切変更せず、privateの明示フラグのみ。人間初見QAは**未取得/HOLD**。
 
 新しい専用CI：[G4E-7AL latest Actions](https://github.com/ryomashibaba/dopagaki-development-hub/actions/workflows/p101-w9c2-g4e7al-manual.yml)。初回 #40024578982 および新しいrunはGitHubホストrunnerのキュー待ちを確認。**CI SUCCESSとは断定せず、後続担当はGitHub上の現HEADに対応するrunの実結果を必ず確認する。**
+
+## G4E-7AL 補助計測によるFPS汚染の予防（2026-10-24 JST）
+
+- 従来の手動QA観測は移動障害物01/02の `movingObstaclePose` と `sphereBoxSeparation` を物理240Hzの毎ステップで再計算し、数値計測自体がブラウザFPSを下げる可能性があった。
+- **物理の `Runner.step`・CCD・本物の28基B51-Cとの接触・速度・道路形状・カメラは一切変更しない。** 観測だけを1/12 physics step（原則20Hz）、初回、死亡／完走時に限定。移動接触イベントは引き続き正規240Hzの `runner.events` を全件読み取る。
+- JSONには `movingSeparationSamplingHz:20`、`movingSeparationNotContinuousCCD:true`、実サンプル回数と `separationSampleSeconds` を明記。**補助距離の最小値を「連続衝突検査の真の最小値」と称さない。** 真の球／OBB衝突は正規物理エンジンが引き続き判定する。
+- Node試験に25実物理ステップ中、2基の距離観測が3回（合計6オブジェクト姿勢＋分離判定）となることを検証するケースを追加。Chromiumには走行前のNext拒否・完了後のSpace拒否のシナリオを追加。
+- 専用CI最新runは [#40026339519](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40026339519)。2026-10-24 JST確認時点では **QUEUED**。最終合否は未確認。既存の7F workflowのゼロジョブ失敗とは独立に扱い、ALをPASSと誤認しない。
+- 保護：実人間の初見視認性、真の公平性、見た目、正式採用と公開は引き続きHOLD。G4E-7AJ/7AKの旧基準と凍結原本も保持。
