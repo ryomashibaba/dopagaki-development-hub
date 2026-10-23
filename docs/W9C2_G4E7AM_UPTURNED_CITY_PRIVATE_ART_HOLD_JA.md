@@ -42,3 +42,12 @@ G4E-7AL単独の技術ゲートは [Actions #40026772361](https://github.com/ryo
 - Playwright画像を `page.screenshot()` から**実WebGLキャンバス `#view.screenshot()`** に変更。特に第2コース遷移時、Nextボタンでページが下へスクロールしてもキャンバス自体を撮影する。変更後PNGの**視覚評価は別判定**。
 - 修正版専用 [Actions #40037992309](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40037992309) の最新結果／PNG artifactを次担当が直接取得し確認する。記入時点ではQueuedで、合格とは報告しない。旧AM R1の実画像artifactは参照物として保持。
 - **決して合格扱いしないゲート**：遠景巨大都市の美術完成度／初見走行の公平性／VRAM・GPUの実機負荷／正式A13 40％認定／本番・Gold・原作の更新。ここではすべてHOLD。
+
+## R2 最終技術結果・実画像監査（2026-10-24 JST）
+
+- [Actions #40037992309](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40037992309) **SUCCESS**。Node構文/物理正本/7O/7AL/7AM、private実ステージビルド、Chromium実A/D＋2候補UI、ゲームオーバーからJSON保存、public/public-safe未承認ステージ除外、画像artifact保存まで全ステップ成功。
+- [R2 Chrome画像artifact #12537044928](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40037992309/artifacts/12537044928) には `g4e7am-original-11m-background-not-human.png`、`g4e7am-upturned-city-true-pinch-automated-not-human.png`、`g4e7am-upturned-city-pinch-switch-automated-not-human.png` とAL比較証跡を保存。**全3画像とも928×540のWebGLキャンバス本体**。前回の画面スクロールによる黒い第2走画像は再発しなかった。
+- R2メッシュの幾何指標：左右の巨大外殻、空区画246（マクロ176）、道路端から222m以上、追加衝突0、7道路・B51-C 28基元データ維持。これは技術的な事実であり、見栄えの証明ではない。
+- **実画像の美術評価：未達・この美術方向は継続採用しない（REJECT/HOLD）。** R1と比べて中央〜左の空は開いたが、TRUE-PINCHとPINCH-SWITCHの双方で右手前の巨大なほぼ平坦な壁が目立つ。左は反対に建築要素がほぼ見えない大きな空白になり、望んだ超未来巨大都市の構造・奥行き・豊かな非対称性を実カメラで認識できない。長大な道路平行ファサードの穴・位置・高さを微調整する方向は費用対効果が低い。
+- **次の建築研究の転換方針**：長く平行な「壁2枚」を主構成にしない。道路側から遠景まで奥行きに段階を持つ、異なる巨大質量の組み合わせを設計。必要なら湾曲した半浮遊殻、ねじれた橋・空中都市層、奥に貫通する都市級空洞を統合し、正面走行カメラと斜視で同じ主役建築のシルエットを判別できる構造にする。画像生成した概念図だけでなく次も実コード→実WebGLスクリーンショットで審査する。物理B48/B51は変更禁止。
+- このREJECT/HOLDは**R2景観だけ**の判定。G4E-7AL手動QAの技術PASS、実コースの7/7機械走行実績、Gold本体は維持。人間QA/美術完成/正式2.912km認定/公開はいずれもHOLD。
