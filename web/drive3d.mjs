@@ -34,7 +34,7 @@ import {a13W9HeroArchitecture} from './p101-a13-w9-architecture.mjs';
 import {w9c1G5BSkyline} from './p101-w9c1-g5b-skyline.mjs';
 import {g4dOutboardSkyways} from './p101-w9c2-g4d-skyways.mjs';
 import {g4e7cGapRoadCues} from './p101-w9c2-g4e7c-gap-cues.mjs';
-import {g4e7xGapReading} from './p101-w9c2-g4e7x-gap-reading.mjs';
+import {g4e7xGapReading,g4e7xOutboardVanes} from './p101-w9c2-g4e7x-gap-reading.mjs';
 import {G4E7D_PROTOCOL,createG4E7DTrial,observeG4E7DStep,observeG4E7DFrame,exportG4E7DTrial,createG4E7DSession,completeG4E7DSession,exportG4E7DSession} from './p101-w9c2-g4e7d-human-qa.mjs';
 import {makeG4E7DPanel} from './p101-w9c2-g4e7d-manual-panel.mjs';
 import {createG4E7OTrial,observeG4E7OStep,observeG4E7OFrame,exportG4E7OTrial,newG4E7OSession,appendG4E7OTrial,exportG4E7OSession,g4e7oReadRoad} from './p101-w9c2-g4e7o-manual-qa.mjs';
@@ -114,6 +114,7 @@ const g4e7vPoint=['approach','impact','outbound','lookahead'].includes(
 const g4e7wOptIn=g4e6LocalHost&&new URLSearchParams(window.location.search).get('g4e7w')==='on'&&
  new URLSearchParams(window.location.search).get('g4e7wFrame')==='hold';
 const g4e7xGuideRequested=g4e7wOptIn&&new URLSearchParams(window.location.search).get('g4e7xGuide')==='on';
+const g4e7xVanesRequested=g4e7wOptIn&&new URLSearchParams(window.location.search).get('g4e7xGuide')==='vanes';
 const g4e7wPoint=['approach','lip','flight','landing','post'].includes(
  new URLSearchParams(window.location.search).get('g4e7wPoint'))?
  new URLSearchParams(window.location.search).get('g4e7wPoint'):'flight';
@@ -358,12 +359,17 @@ function buildVisual(stage){
    canvas.dataset.g4e7iNonCollision=String(g4e7iContour.nonCollision);
    canvas.dataset.g4e7iGeometryEligible=String(g4e7iContour.active);
    const legible=g4e7xGapReading(stage,sample,frame,{enabled:g4e7xGuideRequested});
-   g4e7xCueMesh=legible.enabled?mesh(legible.vertices):null;
-   canvas.dataset.g4e7xGuide=legible.enabled?'REAL_GAP_PAINT_NONCOLLISION':'off';
-   canvas.dataset.g4e7xGuideTriangles=String(legible.triangles);
+   const vanes=g4e7xOutboardVanes(stage,sample,frame,{enabled:g4e7xVanesRequested});
+   const signal=vanes.enabled?vanes:legible;
+   g4e7xCueMesh=signal.enabled?mesh(signal.vertices):null;
+   canvas.dataset.g4e7xGuide=vanes.enabled?'REAL_OUTBOARD_FINS_NONCOLLISION':
+     legible.enabled?'REAL_GAP_PAINT_NONCOLLISION':'off';
+   canvas.dataset.g4e7xGuideTriangles=String(signal.triangles);
    canvas.dataset.g4e7xUpstreamMarkers=String(legible.upstreamMarks??0);
    canvas.dataset.g4e7xDownstreamMarkers=String(legible.downstreamMarks??0);
-   canvas.dataset.g4e7xNoFakeBridge=String(legible.noFakeBridge);
+   canvas.dataset.g4e7xOutboardVanes=String(vanes.stations.length);
+   canvas.dataset.g4e7xMinimumOutboardMeters=String(vanes.minimumOutboardMeters??0);
+   canvas.dataset.g4e7xNoFakeBridge=String(vanes.enabled?vanes.noDeckAboveGap:legible.noFakeBridge);
    canvas.dataset.g4e7xEarliestMeters=String(legible.earliestLookaheadMeters??0);
    g4e7cCue=g4e7cGapRoadCues(stage,sample,frame,{enabled:g4e7cRequested});
    g4e7cCueMesh=mesh(g4e7cCue.vertices);

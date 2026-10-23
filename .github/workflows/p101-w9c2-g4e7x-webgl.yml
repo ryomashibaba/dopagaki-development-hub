@@ -7,6 +7,7 @@ on:
       - 'web/p101-w9c2-g4e7x-gap-reading.mjs'
       - 'tests/p101-w9c2-g4e7x-gap-reading.test.mjs'
       - 'tests/browser/p101-w9c2-g4e7x-webgl.spec.mjs'
+      - 'tests/browser/p101-w9c2-g4e7x-vanes.spec.mjs'
       - '.github/workflows/p101-w9c2-g4e7x-webgl.yml'
   workflow_dispatch:
 permissions:
@@ -39,7 +40,7 @@ jobs:
           test -f dist-private/generated/P101_A13_W9C2_G4E7W_A065_LOCAL_TRIAL.json
           test -f dist-private/generated/P101_A13_W9C2_G4E7W_A070_LOCAL_TRIAL.json
       - name: 20 real GPU screenshots baseline vs physical-grounded guides
-        run: npx playwright test tests/browser/p101-w9c2-g4e7x-webgl.spec.mjs
+        run: npx playwright test tests/browser/p101-w9c2-g4e7x-webgl.spec.mjs tests/browser/p101-w9c2-g4e7x-vanes.spec.mjs
       - name: Public and site must not publish unapproved genuine B48 evidence
         run: |
           npm run build:site

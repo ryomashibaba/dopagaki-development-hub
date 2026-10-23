@@ -90,3 +90,62 @@ export function g4e7xGapReading(doc,sample,frame,{enabled=false}={}){
   earliestLookaheadMeters:195,
   cameraOrSteeringChange:false,officialSlope2Meters:0,visualAdoption:'HOLD'};
 }
+
+/**
+ * G4E-7X V2: ten free-standing sculptural fins OUTSIDE genuine B48 shoulders.
+ * Unlike planar stripes, their 12-24m vertical silhouette can be seen from
+ * far away without placing a false span or overhead arch across the cut.
+ * Not approved until actual WebGL camera review proves readability.
+ */
+export function g4e7xOutboardVanes(doc,sample,frame,{enabled=false}={}){
+ if(!enabled)return {enabled:false,vertices:[],triangles:0,stations:[],
+  outboardOnly:true,noDeckAboveGap:true,nonCollision:true,officialSlope2Meters:0};
+ const valid=g4e7xGapReading(doc,sample,frame,{enabled:true});
+ if(!valid.enabled||valid.actualLipWidthMeters>=16)throw Error('G4E-7X outboard only for true W gap');
+ const road=doc.surfaces[0],gap=doc.stageForge.g4e7wStudy.gap,
+  centerArc=arc(road,sample),lipAt=centerArc.metersAt(gap.uTakeoff),
+  endAt=centerArc.metersAt(gap.uLanding),triangles=[],stations=[];
+ const plus=(a,b)=>a.map((x,i)=>x+b[i]),mul=(a,k)=>a.map(x=>x*k),
+  diff=(a,b)=>a.map((x,i)=>x-b[i]),norm=a=>mul(a,1/(Math.hypot(...a)||1));
+ const addTri=(a,b,c,color)=>{for(const p of [a,b,c])triangles.push(...p,...color);};
+ const items=[
+  {m:lipAt-175,role:'long-lookahead',h:21,color:[.20,.95,1]},
+  {m:lipAt-90,role:'mid-approach',h:24,color:[.19,.85,1]},
+  {m:lipAt-28,role:'warning',h:23,color:[1,.77,.20]},
+  {m:lipAt-2.5,role:'true-takeoff',h:22,color:[1,.40,.15]},
+  {m:endAt+2.5,role:'true-landing',h:17,color:[.82,.98,1]}
+ ];
+ for(const item of items){
+  if(item.m<4||item.m>centerArc.total-4)throw Error('Outboard vane would leave authored road');
+  const u=centerArc.uAt(item.m),isBefore=u<gap.uTakeoff-1e-5,
+   isAfter=u>gap.uLanding+1e-5;
+  if(!isBefore&&!isAfter)throw Error('Outboard vane anchored inside true gap');
+  const left=sample(road,u,0),right=sample(road,u,1),
+   across=norm(diff(right,left)),forward=frame(road,u,.5).forward;
+  for(const side of [-1,1]){
+   const edge=side===-1?left:right,outward=mul(across,side);
+   const clearance=3.2,anchor=plus(edge,mul(outward,clearance)),
+    off=(along,lateral,y=0)=>plus(plus(plus(anchor,mul(forward,along)),mul(outward,lateral)),[0,y,0]),
+    baseA=off(-2.8,-.2,.25),baseB=off(2.8,1.3,.3),baseC=off(0,2.4,.35),
+    peak=off(2.0,4.1,item.h),back=off(-.8,4.4,item.h*.67),
+    shade=item.color.map(v=>v*.51),light=item.color.map(v=>Math.min(1,v*1.12));
+   addTri(baseA,baseB,peak,item.color);
+   addTri(baseA,peak,back,shade);
+   addTri(baseB,baseC,peak,light);
+   addTri(baseC,back,peak,item.color);
+   addTri(baseA,back,baseC,shade);
+   addTri(baseB,back,baseC,shade);
+   stations.push({role:item.role,side,u:Number(u.toFixed(6)),
+    heightMeters:item.h,minimumOutboardMeters:clearance,
+    cutSide:isBefore?'before':'after'});
+  }
+ }
+ if(stations.length!==10||triangles.length/18!==60||
+  !triangles.every(Number.isFinite)||stations.some(s=>s.minimumOutboardMeters<3))
+  throw Error('G4E-7X actual outboard B48 vanes invalid');
+ return {enabled:true,vertices:triangles,triangles:triangles.length/18,stations,
+  outboardOnly:true,noDeckAboveGap:true,
+  minimumOutboardMeters:3.2,nonCollision:true,
+  underRoadSupportAdded:false,guideMode:'TAPERED_NONCOLLISION_OUTBOARD_FINS',
+  originalPhysicsUnchanged:true,officialSlope2Meters:0,visualAdoption:'HOLD'};
+}

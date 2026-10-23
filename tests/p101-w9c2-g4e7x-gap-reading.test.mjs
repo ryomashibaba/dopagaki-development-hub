@@ -22,3 +22,19 @@ test('G4E-7X private record ID is valid and full-speed lookahead stripes cannot 
  const bad=generateG4E7WBlend(.8);
  assert.throws(()=>g4e7xGapReading(bad,sample,frame,{enabled:true}),/exact private/);
 });
+
+test('G4E-7X V2 sculptures stay completely beyond side shoulders and never span the gap',async()=>{
+ const {g4e7xOutboardVanes}=await import('../web/p101-w9c2-g4e7x-gap-reading.mjs');
+ for(const alpha of [.65,.7]){
+  const d=generateG4E7WBlend(alpha),before=JSON.stringify(d);
+  const v=g4e7xOutboardVanes(d,sample,frame,{enabled:true});
+  assert.equal(v.triangles,60);assert.equal(v.stations.length,10);
+  assert.equal(v.minimumOutboardMeters,3.2);
+  assert(v.stations.every(s=>s.cutSide==='before'||s.cutSide==='after'));
+  assert.equal(v.outboardOnly,true);
+  assert.equal(v.noDeckAboveGap,true);
+  assert.equal(v.nonCollision,true);
+  assert.equal(v.officialSlope2Meters,0);
+  assert.equal(JSON.stringify(d),before);
+ }
+});
