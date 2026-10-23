@@ -37,8 +37,8 @@
 | Draft PR | #46：OPEN / Draft / 未マージ |
 | ブランチ | `p101-velocity-overdrive-native-trial` |
 | HEAD | GitHubの現行ブランチHEADを実際に取得（固定値を参照しない） |
-| 確認済み工程 | G4E-7AK第1〜3ゲートの正規240Hz接触・実WebGL・真B48三角形×B51-C実OBB遮蔽・早い右入力の落下原因はCI PASS。7AJ全7道路2/2非人間自動完走を維持。**G4E-7AL：非公開手動A/D 2候補比較、実Runner240Hz記録・ゲームオーバーJSON保存・Windowsワンクリック起動を開発ブランチへ実装。専用Chromium CIの最終判定は未確定（実行待ち）。** 人間実試走・美術・正式認定HOLD。 |
-| 次の計画 | **G4E-7AL検証待ち**：新設専用Actions [#40024578982](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40024578982) の最新ステータスとログを実際に確認。CIの失敗は修正し再実行、成功しても「実Chromiumでの自動A/D」＝「人間の手動QA合格」としない。実機の2道路比較JSON・感想が得られた後、判明した視認／操舵不公平を改善する別の本物の3D道路・動体候補を検討。Workは事前承認、公開/mergeは不可。 |
+| 確認済み工程 | G4E-7AK第1〜3ゲートの正規240Hz接触・実WebGL・真B48三角形×B51-C実OBB遮蔽・早い右入力の落下原因はCI PASS。7AJ全7道路2/2非人間自動完走を維持。**G4E-7AL：非公開手動A/D 2候補比較、実Runner240Hz記録・ゲームオーバーJSON保存・Windowsワンクリック起動を実装。順序強制、Rリトライ履歴最大12件のメモリ保持、2走完了後の再開禁止も反映。専用Chromium CIの最終判定は未確定（実行待ち）。** 人間実試走・美術・正式認定HOLD。 |
+| 次の計画 | **G4E-7AL検証待ち**：初回 #40024578982 はGitHub hosted runnerでQueuedのまま推移。最新の試験修正HEADの専用Actions [#40025374229](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40025374229) の最新ステータスとログを実際に確認。CIの失敗は修正し再実行、成功しても「実Chromiumでの自動A/D」＝「人間の手動QA合格」としない。実機の2道路比較JSON・感想が得られた後、判明した視認／操舵不公平を改善する別の本物の3D道路・動体候補を検討。Workは事前承認、公開/mergeは不可。 |
 | Slope2 DNA正式認定 | 0m |
 | 美術・人間品質・公開 | HOLD |
 | 凍結比較基準 | G4E-7AA `landing-soft α=.70` |
@@ -46,13 +46,13 @@
 
 **G4E-7AK第1/2ゲート CI**：[固定A/D実240Hz #39968223375](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39968223375) SUCCESS（artifact 12507972133）。[reanchor実Chromium WebGL10画面 #39969621809](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39969621809) SUCCESS（artifact 12509130409、public/public-safe研究用JSON非混入PASS）。人間の視認・操作/美術/正式採択/公開はHOLD。
 
-**G4E-7ALコード実装済み・CI実行待ち**：[非公開手動A/D 2候補＋ローカルJSON #40024578982](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40024578982) は作業時点ではQUEUED。GitHub上の最新結果を再取得するまでPASSと報告しない。人間QAは実ユーザー試走証拠なしでHOLD。
+**G4E-7ALコード実装済み・CI実行待ち**：[非公開手動A/D 2候補＋ローカルJSON・リトライ履歴・順序厳格化 #40025374229](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40025374229) は作業時点ではQUEUED。GitHub上の最新結果を再取得するまでPASSと報告しない。人間QAは実ユーザー試走証拠なしでHOLD。
 
 **G4E-7AK第3ゲート CI**：[実B48/B51-C遮蔽・接地喪失 #39976900377](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/39976900377) SUCCESS。画面サイズ換算は近似であり人間の反応猶予は未認定。記録は最新監査を参照。
 
 7AAは、本物の欠損B48セルによる走行因果性と全7道路240Hz自動完走（56.2292秒）を記録。ただし美術・人間プレイは未認定。7ABでは0.15〜0.60mの進入微調整候補が全て7道路完走に失敗し、視界改善も実証できなかった。**7AC R2で実ジャンプ維持の大型カーブが全編240Hz完走。その後7AHで細道＋S字まで実B48化し、7AIで同じ元の走行カメラを使うWebGLと視線遮蔽の検査が成功。ただし人間の遊びやすさと見た目は未認定。**
 
-- [G4E-7AL 真11m細道×実B51-C手動QAとローカルJSON・CI判定待ち](docs/W9C2_G4E7AL_LOCAL_MANUAL_QA_HOLD_JA.md)
+- [G4E-7AL 真11m細道×実B51-C手動QA・リトライ履歴＋ローカルJSON・CI判定待ち](docs/W9C2_G4E7AL_LOCAL_MANUAL_QA_HOLD_JA.md)
 - [G4E-7AK 第3ゲート 実B48三角形×B51-C動体遮蔽・早い右入力の無支持落下／人間HOLD](docs/W9C2_G4E7AK_G3_PHYSICAL_VISIBILITY_FALL_HOLD_JA.md)
 - [G4E-7AK 第1/2ゲート 実240Hz固定A/D 10条件＋実Chromium WebGL10枚・人間/HOLD](docs/W9C2_G4E7AK_B51_FIXED_KEYS_NATIVE_GATE1_HOLD_JA.md)
 - [G4E-7AJ 真のB51-C2/28基再配置・実240Hz全7道路完走・人間HOLD](docs/W9C2_G4E7AJ_REAL_B51_LANE_REANCHOR_HOLD_JA.md)
