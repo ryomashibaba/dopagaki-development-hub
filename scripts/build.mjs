@@ -25,6 +25,8 @@ import {generateG4E7TPhysical} from './p101-w9c2-g4e7t-real-early-gap-build.mjs'
 import {generateG4E7VExit} from './p101-w9c2-g4e7v-exit-build.mjs';
 import {g4e7vRealCameraFrames,G4E7V_VISUAL_IDS} from './p101-w9c2-g4e7v-camera-frames.mjs';
 import {generateG4E7WBlend} from './p101-w9c2-g4e7w-takeoff-blend-build.mjs';
+import {generateG4E7ACR2} from './p101-w9c2-g4e7ac-r2-physical.mjs';
+import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
 import {g4e7wNativeCameraFrames,G4E7W_VISUAL_PROFILES,G4E7Y_EARLY_SHOTS} from './p101-w9c2-g4e7w-camera-frames.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
 import {generateP97RoadplayEvidence} from './p97-roadplay-evidence.mjs';
@@ -50,6 +52,7 @@ if(includeStages){
  copy('web/inspector.html','web/index.html');
  copy('web/drive3d.html','drive3d/index.html');
  copy('web/drive3d.mjs','drive3d/drive3d.mjs');
+ copy('web/p101-w9c2-g4e7ad-city.mjs','drive3d/p101-w9c2-g4e7ad-city.mjs');
  copy('web/drive3d-camera.mjs','drive3d/drive3d-camera.mjs');
  copy('web/drive3d-loop.mjs','drive3d/drive3d-loop.mjs');
  copy('web/p66-visual.mjs','drive3d/p66-visual.mjs');
@@ -190,6 +193,15 @@ if(includeStages){
      JSON.stringify(g4e7wNativeCameraFrames(),null,2)+'\n');
     write('generated/P101_A13_W9C2_G4E7Y_EARLY_240HZ_FRAMES_LOCAL.json',
      JSON.stringify(g4e7wNativeCameraFrames(G4E7Y_EARLY_SHOTS),null,2)+'\n');
+   }
+   // G4E-7AD: two proven 7/7 R2 roads and true native camera poses.
+   // Authored ONLY for explicit PRIVATE localhost WebGL review, never public.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7AD_VISUAL==='1'){
+    for(const id of AD_VARIANTS)
+     write('generated/P101_A13_W9C2_G4E7AD_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7ACR2(id),null,2)+'\n');
+    write('generated/P101_A13_W9C2_G4E7AD_240HZ_FRAMES_LOCAL.json',
+     JSON.stringify(g4e7adNativeFrames(),null,2)+'\n');
    }
    // G4E-6D: physically complete but human-UNAPPROVED gap candidates.
   // Strictly local private build, NEVER emitted by the public build even if
