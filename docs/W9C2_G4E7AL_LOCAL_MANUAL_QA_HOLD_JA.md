@@ -46,3 +46,13 @@ G4E-7AKの正規240Hz P96による成功と、実人間の高速細道プレイ�
 - Node試験に25実物理ステップ中、2基の距離観測が3回（合計6オブジェクト姿勢＋分離判定）となることを検証するケースを追加。Chromiumには走行前のNext拒否・完了後のSpace拒否のシナリオを追加。
 - 専用CI最新runは [#40026339519](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40026339519)。2026-10-24 JST確認時点では **QUEUED**。最終合否は未確認。既存の7F workflowのゼロジョブ失敗とは独立に扱い、ALをPASSと誤認しない。
 - 保護：実人間の初見視認性、真の公平性、見た目、正式採用と公開は引き続きHOLD。G4E-7AJ/7AKの旧基準と凍結原本も保持。
+
+## G4E-7AL 実CIフィードバックと修正（2026-10-24 JST）
+
+- [Actions #40026339519](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40026339519) は最終 **FAIL**（曖昧なキュー待ちではない）。Node構文・物理正本/7O関連テスト **PASS**、Chromiumセットアップ **PASS**、private実道路＋28基ステージ生成 **PASS**。
+- Chromium（自動キー操作、**人間QAではない**）3テスト中、私有ステージの非表示ゲートと実右操舵による落下→ゲームオーバーJSON直接保存の **2/3はPASS**。2道路のUI比較テストは最初の「未走行をNext拒否」テストで **FAIL**。公開隔離テストは先行不合格により未実行。
+- 原因: 物理時計は描画開始時に自動進行する。手動キー未入力でも `physicsSteps > 0` になるため、`steps===0` の判定では実際には未操作の試走を拒否できなかった。
+- 対応：確定の条件を **`activeDirectionalSteps > 0` 相当の `g4e7alTrial.inputSteps > 0`** に変更。従って実物理が既に進んでいても、A/D/左右入力が少なくとも1物理ステップで観測されない限りNextできない。自動P96や隠れた物理補正は足さない。
+- Rでリトライ後は旧入力ログを `restartedAttempts` に保持したうえで、**新しい走行にも改めて左右入力が必要**。Chromiumテストでリトライ後にAを実操作するよう修正。
+- 最新の再試験は [Actions #40026772361](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40026772361)。この監査記入時点では **QUEUED / 未判定**。必ず最終conclusion・失敗ログ・private/public隔離を再確認する。
+- 人間実機プレイ・美術評価・ゲーム難易度/楽しさ・Slope2 DNA 0m・採択・公開は従来どおり **HOLD**。既存本番と確定原本は一切変更していない。
