@@ -26,6 +26,8 @@ import {generateG4E7VExit} from './p101-w9c2-g4e7v-exit-build.mjs';
 import {g4e7vRealCameraFrames,G4E7V_VISUAL_IDS} from './p101-w9c2-g4e7v-camera-frames.mjs';
 import {generateG4E7WBlend} from './p101-w9c2-g4e7w-takeoff-blend-build.mjs';
 import {generateG4E7ACR2} from './p101-w9c2-g4e7ac-r2-physical.mjs';
+import {generateG4E7AH} from './p101-w9c2-g4e7ah-narrow-real-b48.mjs';
+import {g4e7aiNativeFrames,AI_VARIANTS} from './p101-w9c2-g4e7ai-native-frames.mjs';
 import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
 import {g4e7wNativeCameraFrames,G4E7W_VISUAL_PROFILES,G4E7Y_EARLY_SHOTS} from './p101-w9c2-g4e7w-camera-frames.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
@@ -196,6 +198,15 @@ if(includeStages){
      JSON.stringify(g4e7wNativeCameraFrames(),null,2)+'\n');
     write('generated/P101_A13_W9C2_G4E7Y_EARLY_240HZ_FRAMES_LOCAL.json',
      JSON.stringify(g4e7wNativeCameraFrames(G4E7Y_EARLY_SHOTS),null,2)+'\n');
+   }
+   // G4E-7AI: physical 14.8m original vs actual ~11m B48 narrow options.
+   // Strict private-only research without altering production game assets.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7AI_VISUAL==='1'){
+    for(const id of AI_VARIANTS)
+     write('generated/P101_A13_W9C2_G4E7AI_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AH(id),null,2)+'\n');
+    write('generated/P101_A13_W9C2_G4E7AI_240HZ_FRAMES_LOCAL.json',
+     JSON.stringify(g4e7aiNativeFrames(),null,2)+'\n');
    }
    // G4E-7AD: two proven 7/7 R2 roads and true native camera poses.
    // Authored ONLY for explicit PRIVATE localhost WebGL review, never public.
