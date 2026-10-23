@@ -37,14 +37,15 @@
 | Draft PR | #46：OPEN / Draft / 未マージ |
 | ブランチ | `p101-velocity-overdrive-native-trial` |
 | HEAD | GitHubの現行ブランチHEADを実際に取得（固定値を参照しない） |
-| 完了工程 | 7AC R2：実B48大型カーブ2案240Hzで7/7自動完走。7AD/AE/AF：実WebGL美術REJECT。7AG OPEN CITADEL：実WebGL8画像・240Hz実視界/公開隔離PASS、発光フレーム主体で美術REJECT/HOLD |
-| 次の計画 | G4E-7AH：物理コースの実際の面白さを優先。細い空中道・実ギャップ・回避に意味のある障害物・高速時の自然ジャンプを既存7/7基準の保護下で再設計。美術研究は停止せず、採用未定として区別 |
+| 完了工程 | 7AC R2：実物理2案7/7。7AD–AG：WebGL・美術研究は正式不合格/HOLD。7AH：11.27m細道と11.46m細道＋S字の2案が、実240Hz自然ジャンプ＋7/7非人間完走を達成 |
+| 次の計画 | G4E-7AI：成立した7AHの実B48約11m細道を高速WebGL実プレイヤー視界へ接続し、左右操舵の危険認識と28動体への意味ある回避余地を測る。人間QA前の研究専用 |
 | Slope2 DNA正式認定 | 0m |
 | 美術・人間品質・公開 | HOLD |
 | 凍結比較基準 | G4E-7AA `landing-soft α=.70` |
 
 7AAは、本物の欠損B48セルによる走行因果性と全7道路240Hz自動完走（56.2292秒）を記録。ただし美術・人間プレイは未認定。7ABでは0.15〜0.60mの進入微調整候補が全て7道路完走に失敗し、視界改善も実証できなかった。**7AC R2で物理ジャンプを維持する大型の進入カーブ・着地後カーブが全編240Hz自動完走。7ADはこの2候補の高速カメラと巨大都市を非公開で照合中。**
 
+- [G4E-7AH 真のB48細道2案・実240Hz全編7/7・非人間HOLD](docs/W9C2_G4E7AH_TRUE_B48_NARROW_PLAYABILITY_HOLD_JA.md)
 - [G4E-7AG OPEN CITADEL 実WebGL/実遮蔽PASS・美術REJECT/HOLD](docs/W9C2_G4E7AG_OPEN_CITADEL_WEBGL_HOLD_JA.md)
 - [G4E-7AF FRACTURE CITADEL 8画像検証・美術REJECT](docs/W9C2_G4E7AF_FRACTURE_CITADEL_WEBGL_HOLD_JA.md)
 - [G4E-7AE SPLIT HORIZON 旧景観置換・実物理視界研究](docs/W9C2_G4E7AE_SPLIT_HORIZON_WEBGL_HOLD_JA.md)
