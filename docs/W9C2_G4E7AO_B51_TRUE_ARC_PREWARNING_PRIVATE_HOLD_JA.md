@@ -15,7 +15,7 @@
 - `tests/p101-w9c2-g4e7ao-b51-approach.test.mjs`：両真の7AJ reanchor道路で元JSON完全不変、26/28配置保護、実路面中心線長を独立した720分割で再積分して予告距離を±2m以内で照合、元のB48路肩との一致、画角外／スタート前の偽地点なし、0m正式認定HOLD、非対応原本・生産昇格・偽穴拒否。
 - `tests/browser/p101-w9c2-g4e7ao-b51-approach.spec.mjs`：デフォルトとAO候補の**実WebGLキャンバス**を、TRUE-PINCHと実A/Dで次へ進むPINCH-SWITCHで比較撮影。実動体28基、私設240Hz MANUAL Runner、コライダー追加なし、旧操作継続と表示属性を検査。撮影は人間QAではない。
 - `.github/workflows/p101-w9c2-g4e7al-manual.yml`：既存7AL/AM/AN回帰にAOテストを追加、private/public-safe両ビルドの研究用ステージ非混入を確認し、実ChromiumスクリーンショットをActions artifactで保存。
-- [最初の専用CI #40068323822](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40068323822) を参照。**CIがSUCCESS、実画面画像を目視するまでは技術/美術PASSとも呼ばない。**
+- [専用CI #40068323822](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40068323822) は**全ステップSUCCESS**。形状とB48の実弧長独立再積分・7AL/AM/AN/7O回帰・実Chromium+人間ではないA/D・private build・public/public-safe未採用ステージ隔離・artifact保存までPASS。**技術成功＝美術・人間QA成功ではない**。
 - アート系G4E-7AN R3は既存 [#40050904186](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40050904186) の全PASS・美術HOLDを維持。今回のAOは、巨大建築の評価とは独立した**走行の危険認識**実験。
 
 ## 完成と誤認させないこと
@@ -23,3 +23,12 @@
 - **実人間の初見視認、公平な判断時間、障害物が邪魔／適切か、興奮する回避かは未検証**。光フィンの存在は面白い道路や迫力のある動体の証明にはならない。高速度206m/sなら150m予告も1秒未満で、これだけで危険の先読み問題を解決したとは主張できない。
 - 次工程は実Chromium画像と目視審査、可能なら人間のゲームオーバー後JSONと短い感想から、不公平なライン取りや高速時の見逃し箇所を特定する。本当に面白くない、または妨害するならAOは棄却する。
 - **人間QA・美術品質・正式Slope2 DNA認定0m・正式採用・Gold/main/両本番・PR Ready/merge/公開：すべてHOLD。**
+
+## CI確定・実ブラウザ表示審査（2026-10-24 JST）
+
+- [専用Actions #40068323822](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40068323822) **全ステップSUCCESS**。PNG証拠は [GitHub Actions artifact #12550317586](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40068323822/artifacts/12550317586) に保存。
+- artifact中の実WebGLキャンバス928×540の **旧7AL TRUE-PINCH／AO TRUE-PINCH／AO PINCH-SWITCH** を直接確認。旧版では表示されていないV字型光マーカーが、AO両候補では路肩の左右（障害物01/02の物理位置から決定した側）に現れる。描画が有効になることと既存の実B48走行面・動体・HUDを覆わずに追加されることを確認。
+- 既存のHUDにはすでに「先の動体番号・推定位置・距離／秒数」の通知がある。本変更は**最初の警告機能ではない**。道路空間内に、物理的な予告位置を置くことで位置とタイミングを把握しやすくすることが狙い。
+- 実画面でのV字マーカーは**比較的小さい**。特にOVERDRIVE/HYPER高速200m/s級では150mの予告でも1秒未満となり、初見人間の反応猶予や「面白い回避」は確認できていない。画像表示は明らかに成功したが、美術完成、先読み公平性、遊びやすさについては**HOLD**。
+- 技術採否は `TECHNICAL_PASS / VISUAL_PRESENT / HUMAN_HOLD / ART_HOLD / PROMOTION_HOLD`。AI自動プレイで実人間の初見走行を偽装しない。GameOver後JSON保存と2道路手動セッションの原本は変更していない。
+- 次の実用面での焦点：ユーザーが実際に試走するとき、危険が見えるまでの秒数と回避可能性を判別し、この静的警告が「見えるだけ」なのか、ライン取りに役立つのか評価する。役立たなければAOを正式採用せず、物理道路と障害物の本格的な設計見直しに進む。
