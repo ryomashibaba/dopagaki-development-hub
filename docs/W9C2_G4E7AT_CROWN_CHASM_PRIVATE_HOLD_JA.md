@@ -16,3 +16,15 @@
 - 次AUは、AIによる長距離の連続実走行（真240Hz）・実第2道路への到達と路肩マージン・視野に入る予告時間を測定し、人間へのローカル手動試走を簡単にして改善する。問題があれば実コース制作に戻り、HUDだけを足して合格させない。
 
 **合否：AT_NATIVE_SHORT_PASS / 539.30m_PHYSICAL_CORE_CREATED / NO_HUMAN_PLAY_QUALITY / NO_FORMAL_DNA / PRIVATE_ONLY / PR46_DRAFT_HOLD**。
+
+## 2026-10-24 JST — 完了した統合CI（当該コードHEAD）
+
+対象HEAD：`60445744d9055278da6c284c97dca2c813db2071`（G4E-7AT手動試走統合コード）。専用ゲート [#40077679372](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40077679372) **SUCCESS**（別HEADで実形状検証）、統合 [#40077944798](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40077944798) **全ステップSUCCESS**。
+- G4E-7AQ/AR/AS/ATの真240Hz Node検証は全部成功、ASの旧候補は無変更。
+- PRIVATE buildでATのTRUE-PINCH/PINCH-SWITCH両JSON生成成功。実Chromiumの19件すべて成功（ATの両道路追加テストを含む）。
+- `build:site` と `build:public-safe` の両方でATの非公開生成JSONが混入していないことを確認。
+- [CI artifact #12554380582](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40077944798/artifacts/12554380582) に実WebGL画像を保存。画像は開始00の画面であり、新区間到達画像や実人間プレイではない。
+- 最初の道路がまだ広く見える点、都市景観が直方体に見える点は**未解決**。539.30mは本当に狭く変形したB48物理弧長だが、人間の楽しさや走破可否、正式Slope2 DNA認定を一切意味しない。
+- 新しい `RUN_G4E7AT_MANUAL.cmd` はWindowsローカルでprivate build＋localhostブラウザ起動を1操作化する。ポート4373が未使用でNode.jsがある環境で使う。既存AL/AS起動を変えない。記録JSONは端末に保存し自動アップロードしない。
+
+判定：**PRIVATE_PHYSICS_PASS / CHROMIUM_19_PASS / PUBLIC_ISOLATED / HUMAN_HOLD / ART_HOLD / FORMAL_DNA_0m / NO_MERGE**。
