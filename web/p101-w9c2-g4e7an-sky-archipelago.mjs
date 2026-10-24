@@ -7,8 +7,8 @@
  */
 const C=Object.freeze({
  abyss:[.024,.052,.103],midnight:[.038,.103,.161],
- deep:[.069,.188,.252],steel:[.13,.31,.38],
- pearl:[.38,.70,.76],cold:[.21,.77,.88],
+ deep:[.11,.27,.36],steel:[.23,.44,.52],
+ pearl:[.52,.83,.88],cold:[.30,.87,.98],
  ember:[.95,.47,.21],violet:[.35,.28,.57],
  under:[.040,.078,.128]
 });
@@ -59,17 +59,20 @@ function beam(v,a,b,width,depth,color){
 function crown(v,f){
  // Genuine sky aperture framed by a THICK, torn, pitched toroidal shell.
  // The center remains empty (not a painted dark rectangle).
- const center=local(f,0,390,340),n=40,outer=[],inner=[],rearOuter=[],rearInner=[];
+ const center=local(f,0,212,245),n=40,outer=[],inner=[],rearOuter=[],rearInner=[];
  for(let i=0;i<=n;i++){
   const theta=2*Math.PI*i/n;
   const c=Math.cos(theta),s=Math.sin(theta);
   const deform=1+.10*Math.sin(theta*3+.7);
   const skew=mul(f.out,32*s+.12*180*s*s);
-  const p=add(add(center,mul(f.forward,215*c*deform)),add([0,262*s,0],skew));
-  const q=add(add(center,mul(f.forward,158*c*deform)),add([0,199*s,0],mul(skew,.63)));
+  // AN R2: the original hollow ring was EDGE-ON to the chase camera.
+  // Its open plane now faces down-road: lateral span is the REAL outboard
+  // direction, and thickness has actual 50m longitudinal depth.
+  const p=add(add(center,mul(f.out,168*c*deform)),add([0,210*s,0],skew));
+  const q=add(add(center,mul(f.out,112*c*deform)),add([0,141*s,0],mul(skew,.63)));
   outer.push(p);inner.push(q);
-  rearOuter.push(add(p,mul(f.out,56+9*Math.sin(theta*5))));
-  rearInner.push(add(q,mul(f.out,48)));
+  rearOuter.push(add(p,mul(f.forward,54+9*Math.sin(theta*5))));
+  rearInner.push(add(q,mul(f.forward,48)));
  }
  let segments=0;
  for(let i=0;i<n;i++){
@@ -99,7 +102,7 @@ function citadel(v,f){
    const t=k/count,
     y=22+p.rise*t,
     longitudinal=p.start+p.swerve*t*t+27*Math.sin(t*4+p.phase),
-    out=285+110*t+70*Math.sin(t*Math.PI*.8+p.phase*.4),
+    out=93+pidx*65+145*t+32*Math.sin(t*Math.PI*.8+p.phase*.4),
     width=(47+p.flare*Math.sin(t*Math.PI))*Math.pow(1-t,.37)+11;
    const center=local(f,longitudinal,out,y);
    bands.push(Array.from({length:5},(_,i)=>{
@@ -120,8 +123,8 @@ function citadel(v,f){
   for(let k of [2,7,10])beam(v,bands[k][0],bands[k][2],4,5,k===7?C.ember:C.cold);
  }
  const anchors=[
-  local(f,-72,270,130),local(f,125,305,160),
-  local(f,-80,370,470),local(f,180,410,635)];
+  local(f,-72,92,130),local(f,125,154,160),
+  local(f,-80,185,470),local(f,180,255,635)];
  beam(v,anchors[0],anchors[2],11,15,C.steel);
  beam(v,anchors[1],anchors[3],12,15,C.midnight);
  beam(v,anchors[2],anchors[3],7,10,C.cold);
@@ -135,7 +138,7 @@ function districts(v,f){
   for(let i=0;i<=slices;i++){
    const t=-1+2*i/slices,
     bent=Math.sin(Math.PI*(t+1)*.5),
-    lateral=315+layer*83+52*(1-t*t),
+    lateral=112+layer*62+38*(1-t*t),
     y=height+34*bent+16*t*(layer-1),
     a=local(f,half*t,lateral,y),
     b=local(f,half*t+20*Math.sin(t*2),lateral+110+18*bent,y-20);
@@ -151,18 +154,18 @@ function districts(v,f){
      4,5,C.pearl);
    }
   }
-  if(layer<2)beam(v,outer[2],local(f,-45,460+layer*92,100),9,12,C.midnight);
+  if(layer<2)beam(v,outer[2],local(f,-45,200+layer*95,100),9,12,C.midnight);
  }
  return 3;
 }
 function harpoons(v,f){
  // Three jagged branching skyline arms with a large gap beneath.
- const base=local(f,0,330,12),
-  junction=local(f,-65,420,345),
+ const base=local(f,0,115,12),
+  junction=local(f,-65,220,345),
   tips=[
-   local(f,-200,620,605),
-   local(f,170,515,795),
-   local(f,325,730,525)
+   local(f,-200,355,605),
+   local(f,170,300,795),
+   local(f,325,445,525)
   ];
  beam(v,base,junction,38,46,C.steel);
  for(const [i,tip] of tips.entries()){
@@ -192,15 +195,18 @@ export function g4e7anSkyArchipelago(doc,sample,{enabled=false}={}){
  const frozen=JSON.stringify(doc),road=doc.surfaces[0],vertices=[];
  // The four locations alternate side AND longitudinal position. No continuous
  // front faces, no repeated portals, no meshes entering the real 11m lane.
- const a=crown(vertices,frame(road,sample,.155,-1));
- const b=citadel(vertices,frame(road,sample,.295,1));
- const c=districts(vertices,frame(road,sample,.535,-1));
- const d=harpoons(vertices,frame(road,sample,.795,1));
+ // R2: u=.155 first road made the crown immediately behind the initial
+ // 0.3s camera. All four silhouettes now live AHEAD of the initial chase
+ // camera and within useful angular range; none are continuous corridor walls.
+ const a=crown(vertices,frame(road,sample,.40,-1));
+ const b=citadel(vertices,frame(road,sample,.49,1));
+ const c=districts(vertices,frame(road,sample,.69,-1));
+ const d=harpoons(vertices,frame(road,sample,.83,1));
  const stats={
   active:true,vertices,triangles:vertices.length/18,monuments:4,
   hollowCrowns:1,crownHoles:1,crownShellSegments:a,splitCitadelProngs:b,
   floatingDecks:c,harpoonBranches:d,
-  maximumRiseMeters:815,minimumOutboardMeters:190,
+  maximumRiseMeters:815,minimumOutboardMeters:90,
   nonCollision:true,addedCollision:0,addedRoads:0,addedMachines:0,
   certifiedSlope2Meters:0,publish:'HOLD'
  };
