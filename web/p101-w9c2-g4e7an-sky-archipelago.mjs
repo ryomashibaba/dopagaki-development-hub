@@ -59,7 +59,7 @@ function beam(v,a,b,width,depth,color){
 function crown(v,f){
  // Genuine sky aperture framed by a THICK, torn, pitched toroidal shell.
  // The center remains empty (not a painted dark rectangle).
- const center=local(f,0,212,245),n=40,outer=[],inner=[],rearOuter=[],rearInner=[];
+ const center=local(f,0,155,137),n=40,outer=[],inner=[],rearOuter=[],rearInner=[];
  for(let i=0;i<=n;i++){
   const theta=2*Math.PI*i/n;
   const c=Math.cos(theta),s=Math.sin(theta);
@@ -68,8 +68,8 @@ function crown(v,f){
   // AN R2: the original hollow ring was EDGE-ON to the chase camera.
   // Its open plane now faces down-road: lateral span is the REAL outboard
   // direction, and thickness has actual 50m longitudinal depth.
-  const p=add(add(center,mul(f.out,168*c*deform)),add([0,210*s,0],skew));
-  const q=add(add(center,mul(f.out,112*c*deform)),add([0,141*s,0],mul(skew,.63)));
+  const p=add(add(center,mul(f.out,130*c*deform)),add([0,123*s,0],skew));
+  const q=add(add(center,mul(f.out,84*c*deform)),add([0,76*s,0],mul(skew,.63)));
   outer.push(p);inner.push(q);
   rearOuter.push(add(p,mul(f.forward,54+9*Math.sin(theta*5))));
   rearInner.push(add(q,mul(f.forward,48)));
@@ -112,12 +112,18 @@ function citadel(v,f){
       mul(f.out,39*(1-t*.55)*Math.sin(theta)));
    }));
   }
+  // R3: the closed five-sided 815m skin was the verified giant DARK WALL.
+  // Replace it with a genuine open lattice: irregular structural diagonals,
+  // sparse inhabited plates, and 70%+ physical negative space in the sky.
   for(let k=0;k<count;k++){
-   if(k===5)continue; // One actual transverse open level, not a dark texture.
+   if(k===5)continue; // Actual transverse open level.
    for(let i=0;i<5;i++){
     const a=bands[k][i],b=bands[k][(i+1)%5],
       c=bands[k+1][(i+1)%5],d=bands[k+1][i];
-    double(v,a,b,c,d,(k+i+pidx)%5===0?C.pearl:k>8?C.violet:C.deep);
+    beam(v,a,d,4.5,7,(i+k)%4===0?C.cold:C.steel);
+    if((i+k+pidx)%3===0)beam(v,a,c,5.5,7,C.pearl);
+    if(k%4===0&&i%2===0)
+     double(v,a,b,c,d,k%8===0?C.deep:C.violet);
    }
   }
   for(let k of [2,7,10])beam(v,bands[k][0],bands[k][2],4,5,k===7?C.ember:C.cold);
@@ -133,12 +139,12 @@ function citadel(v,f){
 function districts(v,f){
  // Three outboard, overlapping-but-disconnected crescent terraces.
  // A large visible city at intermediate altitudes, NOT additional road skin.
- for(const [layer,height] of [175,255,375].entries()){
+ for(const [layer,height] of [82,155,248].entries()){
   const slices=18,inner=[],outer=[],underside=[],half=165+layer*48;
   for(let i=0;i<=slices;i++){
    const t=-1+2*i/slices,
     bent=Math.sin(Math.PI*(t+1)*.5),
-    lateral=112+layer*62+38*(1-t*t),
+    lateral=85+layer*46+24*(1-t*t),
     y=height+34*bent+16*t*(layer-1),
     a=local(f,half*t,lateral,y),
     b=local(f,half*t+20*Math.sin(t*2),lateral+110+18*bent,y-20);
@@ -154,18 +160,18 @@ function districts(v,f){
      4,5,C.pearl);
    }
   }
-  if(layer<2)beam(v,outer[2],local(f,-45,200+layer*95,100),9,12,C.midnight);
+  if(layer<2)beam(v,outer[2],local(f,-45,160+layer*66,85),9,12,C.midnight);
  }
  return 3;
 }
 function harpoons(v,f){
  // Three jagged branching skyline arms with a large gap beneath.
- const base=local(f,0,115,12),
-  junction=local(f,-65,220,345),
+ const base=local(f,0,100,28),
+  junction=local(f,-65,160,155),
   tips=[
-   local(f,-200,355,605),
-   local(f,170,300,795),
-   local(f,325,445,525)
+   local(f,-200,245,355),
+   local(f,170,240,490),
+   local(f,325,360,340)
   ];
  beam(v,base,junction,38,46,C.steel);
  for(const [i,tip] of tips.entries()){
@@ -203,8 +209,8 @@ export function g4e7anSkyArchipelago(doc,sample,{enabled=false,focus='all'}={}){
  // camera and within useful angular range; none are continuous corridor walls.
  const a=crown(pieces.crown,frame(road,sample,.40,-1));
  const b=citadel(pieces.citadel,frame(road,sample,.49,1));
- const c=districts(pieces.shelves,frame(road,sample,.69,-1));
- const d=harpoons(pieces.harpoon,frame(road,sample,.83,1));
+ const c=districts(pieces.shelves,frame(road,sample,.57,-1));
+ const d=harpoons(pieces.harpoon,frame(road,sample,.70,1));
  // Research isolation ONLY: unlike visually stacking scenes, selected
  // geometry is absent from the GPU upload. Default still renders all four.
  const all=AN_FOCUS.slice(1).flatMap(k=>pieces[k]);
@@ -214,7 +220,7 @@ export function g4e7anSkyArchipelago(doc,sample,{enabled=false,focus='all'}={}){
   monuments:focus==='all'?4:1,
   hollowCrowns:1,crownHoles:1,crownShellSegments:a,splitCitadelProngs:b,
   floatingDecks:c,harpoonBranches:d,
-  maximumRiseMeters:815,minimumOutboardMeters:50,
+  maximumRiseMeters:815,minimumOutboardMeters:20,
   nonCollision:true,addedCollision:0,addedRoads:0,addedMachines:0,
   certifiedSlope2Meters:0,publish:'HOLD'
  };
