@@ -10,7 +10,14 @@ const round=(v,n=3)=>num(v)?Number(v.toFixed(n)):null;
 export function createG4E7ALTrial(doc,runner){
  const aj=doc?.stageForge?.g4e7ajStudy,ah=doc?.stageForge?.g4e7ahStudy,ap=doc?.stageForge?.g4e7apStudy,
   asStudy=doc?.stageForge?.g4e7asStudy,atStudy=doc?.stageForge?.g4e7atStudy,
-  avStudy=doc?.stageForge?.g4e7avStudy,axStudy=doc?.stageForge?.g4e7axStudy;
+  avStudy=doc?.stageForge?.g4e7avStudy,axStudy=doc?.stageForge?.g4e7axStudy,
+  ayStudy=doc?.stageForge?.g4e7ayStudy;
+ if(ayStudy&&(ayStudy.id!=='crown-tangent-bridge'||ayStudy.design!=='bankedSweep'||
+   ayStudy.road!==aj?.road||!ayStudy.sevenRealRoads||!ayStudy.twentyEightRealB51||
+   !ayStudy.realGap52||ayStudy.reanchoredRealMoving?.length!==2||
+   ayStudy.formalSlope2Meters!==0||ayStudy.publish!=='HOLD'))
+  throw Error('G4E7AL rejects invalid AY banked CROWN physical provenance');
+ if(ayStudy&&!axStudy)throw Error('G4E7AL AY requires original AX long-lead B48');
  if(axStudy&&(axStudy.id!=='long-crown-real-b48'||axStudy.variant!=='longLead'||
   axStudy.road!==aj?.road||!axStudy.actual7Roads||!axStudy.actual28Moving||
   axStudy.relocatedPhysicalB51?.length!==2||!axStudy.gapCell52Unchanged||
@@ -48,7 +55,7 @@ export function createG4E7ALTrial(doc,runner){
     ids.some(id=>!doc.movingObstacles.some(o=>o.id===id)))
   throw Error('G4E7AL requires original start00 genuine reanchored 7AJ B48/B51');
  return {road:aj.road,stageId:doc.stageForge.recordStageId,
-  physicalCandidate:axStudy?'G4E7AX_LONG_CROWN_300M_PHYSICAL':avStudy?'G4E7AV_'+avStudy.grade.toUpperCase()+'_ROAD2_REACH':atStudy?'G4E7AT_CROWN_CHASM_TWO_ROADS':asStudy?'G4E7AS_BANKED_SERPENT':ap?'G4E7AP_TEMPORAL_SLALOM':'G4E7AJ_REANCHOR',
+  physicalCandidate:ayStudy?'G4E7AY_BANKED_TANGENT_REAL_CROWN':axStudy?'G4E7AX_LONG_CROWN_300M_PHYSICAL':avStudy?'G4E7AV_'+avStudy.grade.toUpperCase()+'_ROAD2_REACH':atStudy?'G4E7AT_CROWN_CHASM_TWO_ROADS':asStudy?'G4E7AS_BANKED_SERPENT':ap?'G4E7AP_TEMPORAL_SLALOM':'G4E7AJ_REANCHOR',
   steps:0,inputSteps:0,inputTransitions:[],previousInput:0,
   samples:[],lastSample:-Infinity,lastSupported:null,
   eventsSeen:0,contacts:[],peakMps:52,minRoadWidthM:Infinity,minEdgeM:Infinity,

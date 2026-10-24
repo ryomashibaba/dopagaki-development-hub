@@ -35,6 +35,7 @@ import {generateG4E7AS} from './p101-w9c2-g4e7as-banked-serpent.mjs';
 import {generateG4E7AT} from './p101-w9c2-g4e7at-crown-chasm.mjs';
 import {generateG4E7AV} from './p101-w9c2-g4e7av-crest-shaping.mjs';
 import {generateG4E7AX} from './p101-w9c2-g4e7ax-long-crown.mjs';
+import {generateG4E7AY} from './p101-w9c2-g4e7ay-tangent-bridge.mjs';
 import {generateG4E7AUInspection} from './p101-w9c2-g4e7au-private-inspection.mjs';
 import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
 import {g4e7wNativeCameraFrames,G4E7W_VISUAL_PROFILES,G4E7Y_EARLY_SHOTS} from './p101-w9c2-g4e7w-camera-frames.mjs';
@@ -251,6 +252,10 @@ if(includeStages){
     for(const road of AJ_ROADS)
      write('generated/P101_A13_W9C2_G4E7AX_'+road.replace('-','_').toUpperCase()+'_LONGLEAD_LOCAL_TRIAL.json',
       JSON.stringify(generateG4E7AX(road,'longLead'),null,2)+'\n');
+    // AY: true 14m CROWN middle bridge; native physical 28 B51 / PRIVATE ONLY.
+    for(const road of AJ_ROADS)
+     write('generated/P101_A13_W9C2_G4E7AY_'+road.replace('-','_').toUpperCase()+'_BANKEDSWEEP_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AY(road,'bankedSweep'),null,2)+'\n');
     write('generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json',
      JSON.stringify(g4e7akNativeFrames(),null,2)+'\n');
    }
