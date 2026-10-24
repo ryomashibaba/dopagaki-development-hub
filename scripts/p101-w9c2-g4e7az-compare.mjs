@@ -29,6 +29,7 @@ function run(stage,name,road){
   line=Array.from({length:129},(_,i)=>sample(stage.surfaces[1],i/128,.5)),
   visited=new Map();
  let peak=52,lastGround=null,maximumU=0,firstRoad2=null,contacts=0,staticFatal=0,eventsAt=0;
+ const supportTrace=[];let lastWasSupported=false,firstSupportLoss=null;
  for(let k=0;k<Math.round(29/DT)&&['running','ready'].includes(r.status);k++){
   const steer=p96DodgeSteer(r,plan,'early-soft',movingObstaclePose).input/4.8;
   p101Step(r,steer,'OVERDRIVE',{forwardScale:p101A13ForwardScale(r,surge),collisionRecovery:false});
@@ -40,17 +41,32 @@ function run(stage,name,road){
    if(e.type==='static-fatal-contact')staticFatal++;
   }
   eventsAt=r.events.length;
-  if(k%12===0&&firstRoad2){
+  const supported=r.grounded&&r.surface===second;
+  if(firstRoad2&&(k%12===0||(lastWasSupported&&!supported))){
    const a=closest(line,r.p);
+   if(a.d<60&&a.u>=.27&&a.u<=.52&&supportTrace.length<100){
+    const left=sample(stage.surfaces[1],a.u,0),right=sample(stage.surfaces[1],a.u,1),
+     edge=left.map((x,j)=>right[j]-x),relative=left.map((x,j)=>r.p[j]-x),
+     lane=relative.reduce((z,x,j)=>z+x*edge[j],0)/
+       (edge.reduce((z,x)=>z+x*x,0)||1),
+     surface=sample(stage.surfaces[1],a.u,Math.max(0,Math.min(1,lane))),
+     measured={t:rnd(r.time,4),u:rnd(a.u,5),laneFraction:rnd(lane,4),
+      heightAboveSurface:rnd(r.p[1]-surface[1],3),speedMps:rnd(Math.hypot(...r.v),2),
+      steerInput:rnd(steer,4),supported,
+      lateralBallMarginMeters:rnd(Math.min(lane,1-lane)*Math.hypot(...edge)-.65,3)};
+    supportTrace.push(measured);
+    if(!supported&&lastWasSupported&&!firstSupportLoss)firstSupportLoss=measured;
+   }
    if(r.grounded&&r.surface===second&&a.d<40){
     maximumU=Math.max(maximumU,a.u);
     lastGround={u:rnd(a.u,5),seconds:rnd(r.time,4),speed:rnd(Math.hypot(...r.v),2)};
    }
   }
+  lastWasSupported=supported;
  }
  return {road,design:name,seconds:rnd(r.time,5),status:r.status,
   physicalRoadsVisited:[...visited.entries()].map(([x,t])=>({road:ids.indexOf(x)+1,t})),
-  firstRoad2,lastGround,maxGroundedRoad2U:rnd(maximumU,5),maxSpeed:rnd(peak,2),
+  firstRoad2,lastGround,firstSupportLoss,supportTrace,maxGroundedRoad2U:rnd(maximumU,5),maxSpeed:rnd(peak,2),
   movingContacts:contacts,staticFatalContacts:staticFatal,failure:r.failure?.reason??null};
 }
 const records=AJ_ROADS.map(road=>({road,runs:[
