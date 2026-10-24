@@ -7,6 +7,7 @@ on:
       - 'web/p101-w9c2-g4e7al-manual-panel.mjs'
       - 'web/p101-w9c2-g4e7am-upturned-city.mjs'
       - 'web/p101-w9c2-g4e7an-sky-archipelago.mjs'
+      - 'web/p101-w9c2-g4e7ao-b51-approach.mjs'
       - 'web/drive3d.mjs'
       - 'scripts/build.mjs'
       - 'scripts/launch-g4e7al-manual.mjs'
@@ -14,9 +15,11 @@ on:
       - 'tests/p101-w9c2-g4e7al-manual.test.mjs'
       - 'tests/p101-w9c2-g4e7am-art.test.mjs'
       - 'tests/p101-w9c2-g4e7an-art.test.mjs'
+      - 'tests/p101-w9c2-g4e7ao-b51-approach.test.mjs'
       - 'tests/browser/p101-w9c2-g4e7al-manual.spec.mjs'
       - 'tests/browser/p101-w9c2-g4e7am-art.spec.mjs'
       - 'tests/browser/p101-w9c2-g4e7an-art.spec.mjs'
+      - 'tests/browser/p101-w9c2-g4e7ao-b51-approach.spec.mjs'
       - '.github/workflows/p101-w9c2-g4e7al-manual.yml'
   workflow_dispatch:
 permissions:
@@ -46,7 +49,8 @@ jobs:
           node --check web/p101-w9c2-g4e7al-manual-panel.mjs
           node --check web/p101-w9c2-g4e7am-upturned-city.mjs
           node --check web/p101-w9c2-g4e7an-sky-archipelago.mjs
-          node --test tests/p101-w9c2-g4e7al-manual.test.mjs tests/p101-w9c2-g4e7am-art.test.mjs tests/p101-w9c2-g4e7an-art.test.mjs tests/p101-w9c2-g4e7o-manual.test.mjs tests/research/p101-w9c2-g4e7ak-native-key.test.mjs
+          node --check web/p101-w9c2-g4e7ao-b51-approach.mjs
+          node --test tests/p101-w9c2-g4e7al-manual.test.mjs tests/p101-w9c2-g4e7am-art.test.mjs tests/p101-w9c2-g4e7an-art.test.mjs tests/p101-w9c2-g4e7ao-b51-approach.test.mjs tests/p101-w9c2-g4e7o-manual.test.mjs tests/research/p101-w9c2-g4e7ak-native-key.test.mjs
       - name: Install Chromium for actual WebGL keyboard/browser and local download tests
         run: |
           npm install --no-audit --no-fund
@@ -57,7 +61,7 @@ jobs:
           test -f dist-private/generated/P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json
           test -f dist-private/generated/P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json
       - name: Chromium real A/D, manual UI pair, failed-run direct JSON; NOT HUMAN QA
-        run: npx playwright test tests/browser/p101-w9c2-g4e7al-manual.spec.mjs tests/browser/p101-w9c2-g4e7am-art.spec.mjs tests/browser/p101-w9c2-g4e7an-art.spec.mjs
+        run: npx playwright test tests/browser/p101-w9c2-g4e7al-manual.spec.mjs tests/browser/p101-w9c2-g4e7am-art.spec.mjs tests/browser/p101-w9c2-g4e7an-art.spec.mjs tests/browser/p101-w9c2-g4e7ao-b51-approach.spec.mjs
       - name: Both public modes must exclude unpublished AJ moving-hazard candidates
         run: |
           npm run build:site
@@ -76,6 +80,7 @@ jobs:
             test-results/**/g4e7al-*.png
             test-results/**/g4e7am-*.png
             test-results/**/g4e7an-*.png
+            test-results/**/g4e7ao-*.png
             test-results/**/g4e7al-*.json
             test-results/**/test-failed-*.png
             test-results/**/error-context.md
