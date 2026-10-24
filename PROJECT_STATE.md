@@ -30,6 +30,10 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## 最新G4E-7AV — 実B48進入蛇行の緩和で第2道路に到達（2026-10-24 JST）
+
+**開始00の落下原因を特定**。正規240Hzの第1道路離陸トレース [#40080678294](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40080678294) により真ギャップcell52より遥か手前、第1道路u≈.288／2.60秒で意図しない離脱。第1・第2道路の結合座標は正確に同じ。垂直上り勾配だけを和らげた3候補は全て未改善。そこで**第1道路の実B48中心線の過大な左右蛇行を緩めた**AVの2案（lineSoft/lineLevel）をAT原本を保持したPRIVATE候補として制作。 [AV正規240Hz比較 #40081219349](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40081219349) 全SUCCESS：原本ATはTRUE-PINCH 7.025s／PINCH-SWITCH 7.058sで落下、両AV候補は**2道路とも12秒走行継続し、lineSoft第2道路到達7.933s/7.858s、lineLevel 7.754s/7.821s**。本物の残り6道路・実動体28基（変更路面に実物01を追従）・実ギャップcell52は維持。これは非人間P96固定操舵であり、**全7/7・人間の公平性/面白さ・アートの合格ではない**。AVはlocal PRIVATE手動に `?g4e7al=manual&g4e7av=lines`（より穏当なlineSoft既定）／比較用 `&g4e7avGrade=level`。 [AV監査](docs/W9C2_G4E7AV_REAL_FIRST_ROAD_LINE_PRIVATE_HOLD_JA.md) を参照。正式Slope2距離0m、HUMAN/ART/PUBLISH/MERGE: HOLD。
+
 ## 最新G4E-7AU — 開始00から第2道路への連続到達性と実道路2チェックポイントの分離QA（2026-10-24 JST）
 
 AU実240Hz長距離CI [#40078962476](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40078962476) SUCCESS。証拠 [artifact #12554531826](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40078962476/artifacts/12554531826)。

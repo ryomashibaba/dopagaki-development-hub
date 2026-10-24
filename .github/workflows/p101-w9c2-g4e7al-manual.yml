@@ -23,6 +23,9 @@ on:
       - 'scripts/p101-w9c2-g4e7au-private-inspection.mjs'
       - 'tests/p101-w9c2-g4e7au-private-inspection.test.mjs'
       - 'tests/browser/p101-w9c2-g4e7au-inspection.spec.mjs'
+      - 'scripts/p101-w9c2-g4e7av-crest-shaping.mjs'
+      - 'tests/p101-w9c2-g4e7av-crest-shaping.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7av-real-line.spec.mjs'
       - 'web/drive3d.mjs'
       - 'scripts/build.mjs'
       - 'scripts/launch-g4e7al-manual.mjs'
@@ -92,6 +95,10 @@ jobs:
         run: |
           node --check scripts/p101-w9c2-g4e7au-private-inspection.mjs
           node --test tests/p101-w9c2-g4e7au-private-inspection.test.mjs
+      - name: G4E-7AV genuine first B48 line correction and protected gap
+        run: |
+          node --check scripts/p101-w9c2-g4e7av-crest-shaping.mjs
+          node --test tests/p101-w9c2-g4e7av-crest-shaping.test.mjs
       - name: Install Chromium for actual WebGL keyboard/browser and local download tests
         run: |
           npm install --no-audit --no-fund
@@ -109,11 +116,17 @@ jobs:
           test -f dist-private/generated/P101_A13_W9C2_G4E7AT_PINCH_SWITCH_LOCAL_TRIAL.json
           test -f dist-private/generated/P101_A13_W9C2_G4E7AU_TRUE_PINCH_INSPECT_LOCAL.json
           test -f dist-private/generated/P101_A13_W9C2_G4E7AU_PINCH_SWITCH_INSPECT_LOCAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AV_TRUE_PINCH_LINESOFT_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AV_PINCH_SWITCH_LINESOFT_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AV_TRUE_PINCH_LINELEVEL_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AV_PINCH_SWITCH_LINELEVEL_LOCAL_TRIAL.json
       - name: Chromium real A/D, manual UI pair, failed-run direct JSON; NOT HUMAN QA
-        run: npx playwright test tests/browser/p101-w9c2-g4e7al-manual.spec.mjs tests/browser/p101-w9c2-g4e7am-art.spec.mjs tests/browser/p101-w9c2-g4e7an-art.spec.mjs tests/browser/p101-w9c2-g4e7ao-b51-approach.spec.mjs tests/browser/p101-w9c2-g4e7ap-temporal-slalom.spec.mjs tests/browser/p101-w9c2-g4e7as-banked-serpent.spec.mjs tests/browser/p101-w9c2-g4e7at-crown-chasm.spec.mjs tests/browser/p101-w9c2-g4e7au-inspection.spec.mjs
+        run: npx playwright test tests/browser/p101-w9c2-g4e7al-manual.spec.mjs tests/browser/p101-w9c2-g4e7am-art.spec.mjs tests/browser/p101-w9c2-g4e7an-art.spec.mjs tests/browser/p101-w9c2-g4e7ao-b51-approach.spec.mjs tests/browser/p101-w9c2-g4e7ap-temporal-slalom.spec.mjs tests/browser/p101-w9c2-g4e7as-banked-serpent.spec.mjs tests/browser/p101-w9c2-g4e7at-crown-chasm.spec.mjs tests/browser/p101-w9c2-g4e7au-inspection.spec.mjs tests/browser/p101-w9c2-g4e7av-real-line.spec.mjs
       - name: Both public modes must exclude unpublished AJ moving-hazard candidates
         run: |
           npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AV_TRUE_PINCH_LINESOFT_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AV_PINCH_SWITCH_LINELEVEL_LOCAL_TRIAL.json
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AU_TRUE_PINCH_INSPECT_LOCAL.json
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AU_PINCH_SWITCH_INSPECT_LOCAL.json
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AT_TRUE_PINCH_LOCAL_TRIAL.json
@@ -125,6 +138,8 @@ jobs:
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json
           npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AV_TRUE_PINCH_LINESOFT_LOCAL_TRIAL.json
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AV_PINCH_SWITCH_LINELEVEL_LOCAL_TRIAL.json
           test ! -e dist/generated/P101_A13_W9C2_G4E7AU_TRUE_PINCH_INSPECT_LOCAL.json
           test ! -e dist/generated/P101_A13_W9C2_G4E7AU_PINCH_SWITCH_INSPECT_LOCAL.json
           test ! -e dist/generated/P101_A13_W9C2_G4E7AT_TRUE_PINCH_LOCAL_TRIAL.json
@@ -148,6 +163,7 @@ jobs:
             test-results/**/g4e7as-*.png
             test-results/**/g4e7at-*.png
             test-results/**/g4e7au-*.png
+            test-results/**/g4e7av-*.png
             test-results/g4e7aq-native-compare.json
             test-results/g4e7ar-impact-edge-native.json
             test-results/**/g4e7al-*.json

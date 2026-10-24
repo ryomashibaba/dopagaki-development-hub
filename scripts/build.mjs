@@ -33,6 +33,7 @@ import {generateG4E7AJ,AJ_ROADS} from './p101-w9c2-g4e7aj-reanchor-moving.mjs';
 import {generateG4E7AP} from './p101-w9c2-g4e7ap-temporal-slalom.mjs';
 import {generateG4E7AS} from './p101-w9c2-g4e7as-banked-serpent.mjs';
 import {generateG4E7AT} from './p101-w9c2-g4e7at-crown-chasm.mjs';
+import {generateG4E7AV} from './p101-w9c2-g4e7av-crest-shaping.mjs';
 import {generateG4E7AUInspection} from './p101-w9c2-g4e7au-private-inspection.mjs';
 import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
 import {g4e7wNativeCameraFrames,G4E7W_VISUAL_PROFILES,G4E7Y_EARLY_SHOTS} from './p101-w9c2-g4e7w-camera-frames.mjs';
@@ -241,6 +242,10 @@ if(includeStages){
     for(const id of AJ_ROADS)
      write('generated/P101_A13_W9C2_G4E7AU_'+id.replace('-','_').toUpperCase()+'_INSPECT_LOCAL.json',
       JSON.stringify(generateG4E7AUInspection(id),null,2)+'\n');
+    // AV: real first-road racing-line fixes (2 controlled profiles), PRIVATE-only.
+    for(const id of AJ_ROADS)for(const grade of ['lineSoft','lineLevel'])
+     write('generated/P101_A13_W9C2_G4E7AV_'+id.replace('-','_').toUpperCase()+'_'+grade.toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AV(id,grade),null,2)+'\n');
     write('generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json',
      JSON.stringify(g4e7akNativeFrames(),null,2)+'\n');
    }
