@@ -66,6 +66,8 @@ const $=id=>document.getElementById(id);
 const assets={'VB-P101-A13':'P101_A13_W7_GAMEPLAY.json','VB-P101-A13-W9X-B1':'P101_A13_W9X_B1_TRIAL.json','VB-P101-A13-W9C1-CONTROL':'P101_A13_W9C1_CONTROL_TRIAL.json','VB-P101-A13-W9C1-ULTRA':'P101_A13_W9C1_ULTRA_TRIAL.json','VB-P101-A13-W9C2-RIBBON':'P101_A13_W9C2_RIBBON_TRIAL.json','VB-P101-A13-W9C2-EDGE':'P101_A13_W9C2_EDGE_TRIAL.json','VB-P101-A13-W9C2-G4E-SHOULDER':'P101_A13_W9C2_G4E_SHOULDER_TRIAL.json','VB-P101-A13-W9C2-G4E-RAZOR':'P101_A13_W9C2_G4E_RAZOR_TRIAL.json','VB-P101-A13-W9C2-G4E6-C0-55-1':'P101_A13_W9C2_G4E6_C0-55-1_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E6-B0-65-1':'P101_A13_W9C2_G4E6_B0-65-1_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7G-GOLD':'P101_A13_W9C2_G4E7G_GOLD_LOCAL_VISUAL.json','VB-P101-A13-W9C2-G4E7G-GLIDE':'P101_A13_W9C2_G4E7G_GLIDE_LOCAL_VISUAL.json','VB-P101-A13-W9C2-G4E7M-THREAD':'P101_A13_W9C2_G4E7M_THREAD_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7M-PRECIPICE':'P101_A13_W9C2_G4E7M_PRECIPICE_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7Q-DROP':'P101_A13_W9C2_G4E7Q_DROP_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7Q-LEAP':'P101_A13_W9C2_G4E7Q_LEAP_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7R-SWEEP':'P101_A13_W9C2_G4E7R_SWEEP_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7R-CUT':'P101_A13_W9C2_G4E7R_CUT_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7T-SOLID':'P101_A13_W9C2_G4E7T_SOLID_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7T-EARLY':'P101_A13_W9C2_G4E7T_EARLY_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7T-LATE':'P101_A13_W9C2_G4E7T_LATE_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7V-ORIGINAL':'P101_A13_W9C2_G4E7V_ORIGINAL_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7V-EXIT6':'P101_A13_W9C2_G4E7V_EXIT6_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7V-SLOPE6':'P101_A13_W9C2_G4E7V_SLOPE6_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7W-BLEND-0-65':'P101_A13_W9C2_G4E7W_A065_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7W-BLEND-0-7':'P101_A13_W9C2_G4E7W_A070_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7AD-APPROACH-ARC':'P101_A13_W9C2_G4E7AD_APPROACH_ARC_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7AD-LANDING-CRESCENT':'P101_A13_W9C2_G4E7AD_LANDING_CRESCENT_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7AI-R2-CONTROL':'P101_A13_W9C2_G4E7AI_R2_CONTROL_LOCAL_TRIAL.json',
  'VB-P101-A13-W9C2-G4E7AI-TRUE-PINCH':'P101_A13_W9C2_G4E7AI_TRUE_PINCH_LOCAL_TRIAL.json',
  'VB-P101-A13-W9C2-G4E7AI-PINCH-SWITCH':'P101_A13_W9C2_G4E7AI_PINCH_SWITCH_LOCAL_TRIAL.json',
+ 'VB-P101-A13-W9C2-G4E7AP-TRUE-PINCH':'P101_A13_W9C2_G4E7AP_TRUE_PINCH_LOCAL_TRIAL.json',
+ 'VB-P101-A13-W9C2-G4E7AP-PINCH-SWITCH':'P101_A13_W9C2_G4E7AP_PINCH_SWITCH_LOCAL_TRIAL.json',
  'VB-P101-A13-W9C2-G4E7AK-TRUE-PINCH':'P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7AK-PINCH-SWITCH':'P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json','VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 // G4E-1 physical trials are private opt-in; Gold remains the visible default.
 const g4ePreviewOptIn=new URLSearchParams(window.location.search).get('g4e')==='on'||
@@ -144,7 +146,9 @@ const g4e7amRequested=g4e7alRequested&&new URLSearchParams(window.location.searc
 const g4e7anRequested=g4e7alRequested&&!g4e7amRequested&&new URLSearchParams(window.location.search).get('g4e7an')==='archipelago';
 const g4e7anFocus=g4e7anRequested&&AN_FOCUS.includes(new URLSearchParams(window.location.search).get('g4e7anFocus'))?
  new URLSearchParams(window.location.search).get('g4e7anFocus'):'all';
-const g4e7aoRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&
+const g4e7apRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&
+ new URLSearchParams(window.location.search).get('g4e7ap')==='duel';
+const g4e7aoRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&!g4e7apRequested&&
  new URLSearchParams(window.location.search).get('g4e7ao')==='on';
 const g4e7akBackdrop=g4e7akOptIn&&new URLSearchParams(window.location.search).get('g4e7akBackdrop')==='quiet'?'quiet':'legacy';
 const g4e7akPoint=['t220','t250','t280','t320','t520','t690'].includes(
@@ -174,8 +178,8 @@ const g4e7aiPoint=['t315','t365','t415','t450','t515','t600'].includes(
  new URLSearchParams(window.location.search).get('g4e7aiPoint'):'t365';
 if(g4e7alRequested)for(const road of G4E7AL_ROADS){
  const option=document.createElement('option');
- option.value='VB-P101-A13-W9C2-G4E7AK-'+road.toUpperCase();
- option.textContent='G4E-7AL MANUAL '+road.toUpperCase()+' / TRUE B48 + B51 / HOLD';
+ option.value='VB-P101-A13-W9C2-'+(g4e7apRequested?'G4E7AP':'G4E7AK')+'-'+road.toUpperCase();
+ option.textContent=(g4e7apRequested?'G4E-7AP PHYSICAL DUEL ':'G4E-7AL MANUAL ')+road.toUpperCase()+' / TRUE B48 + B51 / HOLD';
  $('stage').append(option);
 }
 if(g4e7akOptIn)for(const id of ['TRUE-PINCH','PINCH-SWITCH']){
@@ -426,6 +430,7 @@ function buildVisual(stage){
   canvas.dataset.g4e7anNonCollision=String(an.nonCollision&&an.addedCollision===0&&an.addedRoads===0&&an.addedMachines===0);
   const ao=g4e7aoActualB51Warning(stage,sample,{enabled:g4e7aoRequested});
   g4e7aoMesh=ao.active?mesh(ao.vertices):null;
+  canvas.dataset.g4e7apMode=g4e7apRequested&&stage.stageForge?.g4e7apStudy?.id==='temporal-slalom'?'true-b51-temporal-slalom':'off';
   canvas.dataset.g4e7aoMode=ao.active?'real-b51-approach':'off';
   canvas.dataset.g4e7aoHazards=String(ao.hazards);
   canvas.dataset.g4e7aoStations=String(ao.stations.length);
@@ -973,7 +978,7 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
      if(g4e7alResultDownload)g4e7alResultDownload.hidden=false;
      return;
     }
-    $('stage').value='VB-P101-A13-W9C2-G4E7AK-PINCH-SWITCH';load();
+    $('stage').value='VB-P101-A13-W9C2-'+(g4e7apRequested?'G4E7AP':'G4E7AK')+'-PINCH-SWITCH';load();
    },onDownload:exportG4E7ALJSON
   });
   if(!g4e7alResultDownload){
@@ -1130,7 +1135,7 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
     if(g4e7tActive)status.textContent='G4E-7T LOCAL '+doc.stageForge.g4e7tStudy.variant.toUpperCase()+
      ' / TRUE EARLY 13m B48 '+(doc.stageForge.g4e7tStudy.gap?'TWO-CELL REAL GAP':'SOLID CONTROL')+
      ' / 28 ORIGINAL MACHINES / SCRIPT/HUMAN FAIRNESS HOLD.';
-    if(g4e7alActive)status.textContent='G4E-7AL LOCAL MANUAL / 11m REAL B48 + 28 REAL B51-C / NO P96 / HUMAN FAIRNESS HOLD.';
+    if(g4e7alActive)status.textContent=g4e7apRequested?'G4E-7AL LOCAL MANUAL / AP TRUE TEMPORAL SLALOM + 28 REAL B51-C / NO P96 / HUMAN FAIRNESS HOLD.':'G4E-7AL LOCAL MANUAL / 11m REAL B48 + 28 REAL B51-C / NO P96 / HUMAN FAIRNESS HOLD.';
      if(g4e7akActive)status.textContent='G4E-7AK LOCAL REAL 11m B48 + REANCHORED 2/28 B51 / '+g4e7akPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / HOLD.';
      if(g4e7aiActive)status.textContent='G4E-7AI LOCAL REAL NARROW B48 / '+g4e7aiPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / RESEARCH HOLD.';
     if(g4e7adActive)status.textContent='G4E-7AD LOCAL TRUE R2 B48 / '+g4e7adPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / REAL GPU VISUAL RESEARCH HOLD.';
@@ -1199,10 +1204,17 @@ async function load(){
     $('demoRun').disabled=true;$('practiceRun').disabled=true;$('spawn').value='0';
    }
    if(g4e7alRequested){
-    const aj=value.stageForge?.g4e7ajStudy,ah=value.stageForge?.g4e7ahStudy;
+    const aj=value.stageForge?.g4e7ajStudy,ah=value.stageForge?.g4e7ahStudy,
+     ap=value.stageForge?.g4e7apStudy;
     if(aj?.id!=='reanchor'||!G4E7AL_ROADS.includes(aj.road)||
-       id!=='VB-P101-A13-W9C2-G4E7AK-'+aj.road.toUpperCase()||
-       value.stageForge.recordStageId!=='VB-P101-A13-W9C2-G4E7AJ-'+aj.road.toUpperCase()+'-REANCHOR'||
+       id!=='VB-P101-A13-W9C2-'+(g4e7apRequested?'G4E7AP':'G4E7AK')+'-'+aj.road.toUpperCase()||
+       value.stageForge.recordStageId!==(g4e7apRequested
+        ?'VB-P101-A13-W9C2-G4E7AP-'+aj.road.toUpperCase()+'-DUEL'
+        :'VB-P101-A13-W9C2-G4E7AJ-'+aj.road.toUpperCase()+'-REANCHOR')||
+       (g4e7apRequested?(ap?.id!=='temporal-slalom'||ap.road!==aj.road||
+        ap.changedMovingIds?.join(',')!=='a13-machine-01,a13-machine-02'||
+        ap.unchangedMovingObjects!==26||ap.realMovingObjects!==28||
+        ap.certifiedSlope2Meters!==0||ap.publish!=='HOLD'):Boolean(ap))||
        aj.originalMovingObjects!==28||aj.unchangedMovingObjects!==26||
        !ah?.realMissingLongitudinalCell52||ah.certifiedSlope2Meters!==0||
        aj.publish!=='HOLD'||aj.certifiedSlope2Meters!==0||
@@ -1787,7 +1799,7 @@ $('stage').addEventListener('change',()=>{demoMode=false;practiceMode=false;seek
 const requestedStage=new URLSearchParams(window.location.search).get('stage');
 if(requestedStage&&Object.hasOwn(assets,requestedStage)&&Array.from($('stage').options).some(o=>o.value===requestedStage))$('stage').value=requestedStage;
 if(g4e7oRequested)$('stage').value='VB-P101-A13-W9C2-G4E7M-THREAD';
-if(g4e7alRequested)$('stage').value='VB-P101-A13-W9C2-G4E7AK-TRUE-PINCH';
+if(g4e7alRequested)$('stage').value='VB-P101-A13-W9C2-'+(g4e7apRequested?'G4E7AP':'G4E7AK')+'-TRUE-PINCH';
  $('p101Profile').addEventListener('change',()=>{if(doc?.stageForge?.id==='VB-P101')restart();});
 $('spawn').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;restart();});
 $('restart').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('retryRun').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('pause').addEventListener('click',toggle);

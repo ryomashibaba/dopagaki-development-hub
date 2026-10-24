@@ -8,7 +8,10 @@ export const G4E7AL_ROADS=Object.freeze(['true-pinch','pinch-switch']);
 const num=x=>Number.isFinite(x);
 const round=(v,n=3)=>num(v)?Number(v.toFixed(n)):null;
 export function createG4E7ALTrial(doc,runner){
- const aj=doc?.stageForge?.g4e7ajStudy,ah=doc?.stageForge?.g4e7ahStudy;
+ const aj=doc?.stageForge?.g4e7ajStudy,ah=doc?.stageForge?.g4e7ahStudy,ap=doc?.stageForge?.g4e7apStudy;
+ if(ap&&(ap.id!=='temporal-slalom'||ap.road!==aj?.road||
+   ap.changedMovingIds?.join(',')!==ids.join(',')||ap.publish!=='HOLD'||
+   ap.certifiedSlope2Meters!==0))throw Error('G4E7AL rejects unapproved AP provenance');
  if(!aj||aj.id!=='reanchor'||!G4E7AL_ROADS.includes(aj.road)||
     aj.originalMovingObjects!==28||aj.unchangedMovingObjects!==26||
     aj.reanchoredOriginalIds?.join(',')!==ids.join(',')||
@@ -21,6 +24,7 @@ export function createG4E7ALTrial(doc,runner){
     ids.some(id=>!doc.movingObstacles.some(o=>o.id===id)))
   throw Error('G4E7AL requires original start00 genuine reanchored 7AJ B48/B51');
  return {road:aj.road,stageId:doc.stageForge.recordStageId,
+  physicalCandidate:ap?'G4E7AP_TEMPORAL_SLALOM':'G4E7AJ_REANCHOR',
   steps:0,inputSteps:0,inputTransitions:[],previousInput:0,
   samples:[],lastSample:-Infinity,lastSupported:null,
   eventsSeen:0,contacts:[],peakMps:52,minRoadWidthM:Infinity,minEdgeM:Infinity,
@@ -86,7 +90,8 @@ export function exportG4E7ALTrial(t,runner,{noticed='unsure',fairness='unsure',e
  const ordered=[...t.frame.raf].sort((a,b)=>a-b),
   middle=q(ordered,.5),slow=q(ordered,.9);
  return {schema:'dopagaki.w9c2.g4e7al-reanchor-manual/1',
-  road:t.road,stageId:t.stageId,source:'LOCAL_MANUAL_INPUT_NO_P96',
+  road:t.road,stageId:t.stageId,physicalCandidate:t.physicalCandidate,
+  source:'LOCAL_MANUAL_INPUT_NO_P96',
   comparisonPhysicsHz:240,originalStart00:runner.spawnIndex===0,
   startSpeedMps:runner.startSpeed,
   physicalCourse:{realB48Surfaces:7,realMovingB51:28,reanchoredOriginalB51:2,
