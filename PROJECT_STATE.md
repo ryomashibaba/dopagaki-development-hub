@@ -32,6 +32,9 @@
 
 ## 直近差分：G4E-7AQ 同じA/D時系列を再利用した真240HzのAJ/AP障害物比較（2026-10-24 JST）
 
+**AQ専用CI [#40073189396](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40073189396) SUCCESS**（対象HEAD `1c8df3895929cab2f79733fb1a3b05600d125ce7`）。Node・真240Hz・実Chromium15/15・公開隔離までPASS。実結果：AP#01はB48中央のOBB遮蔽が0/121→36/121、#02は9/121→4/121。基準P96固定操舵は両案7.2秒継続だが、早左はAJ B51移動接触→AP静的衝突専用面失敗、早右はAJ/APとも同時刻に落下。**面白さ・公平性改善の証拠なし**。対象#02のpush接触は確認できず反発回復も未認定。実測JSON： [Actions artifact #12551693120](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40073189396/artifacts/12551693120)。次は接触後の運動や道路端の可達性を本物のRunnerで診断する。正式Slope2認定0m、人間/美術/採用=HOLD。
+
+
 G4E-7APの専用CI [#40071849065](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40071849065) はNode/実Chromium15/15/非公開ステージ隔離すべてSUCCESS（人間QAはHOLD）。次のAQでは、実11m B48上の7AJ対7APを同じP96操舵履歴+早期左右A/D追加入力で非人間の240Hz比較。左右5点の動体OBB遮蔽、接触イベント、失敗・終了・速度を記録。**固定操舵による動作比較は人間の到達可能性や公平性の証明ではない。** JSON証拠はGitHub Actionsのg4e7aq-native-compare.jsonへ。結果は新HEADのCIを照合し、未確認の数字は報告しない。 [G4E-7AQ監査](docs/W9C2_G4E7AQ_240HZ_PHYSICAL_AB_PRIVATE_HOLD_JA.md)。既存物理・Gold・本番・PR#46 Draft維持。正式Slope2=0m、Human/Art/Promotion=HOLD。
 
 ## 直近差分：G4E-7AP 本物の障害物ライン選択・反発対策独立研究（2026-10-24 JST）
@@ -40,7 +43,7 @@ G4E-7AJ基準を一切上書きせず、実B51-C #01/#02の2基だけを再設�
 
 ## 直近差分：G4E-7AO実障害物の早期認識研究（2026-10-24 JST）
 
-**最新の新工程はG4E-7AO（AO）です。下の長いG4E-7AN美術履歴は過去の基準で、AOの次工程を上書きしません。** 開発ブランチ・Draft PR #46・主物理の保護条件は冒頭の憲章どおり。
+**この節は当時のG4E-7AO記録です。最新の開発工程は上記G4E-7AQを参照してください。旧G4E-7AN美術履歴を現行工程として扱わないこと。** 開発ブランチ・Draft PR #46・主物理の保護条件は冒頭の憲章どおり。
 
 - 7AJ `reanchor` の真11m B48先頭道路で、実B51-C動体01（u=.32）／02（u=.80）の**実道路中心線の弧長を逆算**し、手前150m／95m／45mの警告地点に、**路肩の13.5m外側**の非衝突V字型3Dマーカーを生成。`?g4e7al=manual&g4e7ao=on` のloopback明示時だけ表示。標準7AL・景観AM/AN・本番は不変。架空の安全レーン／強制誘導／早期衝突／幽霊床は作らない。
 - **専用CI [#40068323822](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40068323822) 全ステップSUCCESS**：実弧長の独立720分割再測定、元ステージbyte同一、240Hz実Chromium A/D／手動QAの回帰、public/public-safeの研究ステージ非混入を確認。実Chrome3画面は[artifact #12550317586](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40068323822/artifacts/12550317586)を取得して目視済み。旧画面にはないV字警告がAO両コースでは路肩外に映る。
