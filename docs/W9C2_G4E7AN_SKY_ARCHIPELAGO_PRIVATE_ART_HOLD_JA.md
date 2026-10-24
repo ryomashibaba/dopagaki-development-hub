@@ -27,3 +27,14 @@
 - AM R2技術PASS・美術REJECTの原監査は `docs/W9C2_G4E7AM_UPTURNED_CITY_PRIVATE_ART_HOLD_JA.md` と [実画像artifact #12537044928](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40037992309/artifacts/12537044928)。
 - **ANの最新実CI**: [Actions #40039374208](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40039374208)。この記録の時点では未確定。GreenになるまではANのWebGL・スクリーンショット・公開隔離をPASSと呼ばない。Greenでも「美術成功」ではない。画像をGitHubから直接取得し、前景・遠景・路面・障害物の見やすさと差を評価する。
 - **恒久HOLD**：実際の人間の操作性、240Hzレースの公平性、美術の採用、A13 Slope2 DNA 0m以上への認定、PR Ready/merge、本番変更。
+
+
+## R1実WebGL審査 → R2正面視認性修正（2026-10-24 JST）
+
+- [R1 Actions #40039374208](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40039374208) は**全技術ステップSUCCESS**。Chromiumの `true-pinch`、`pinch-switch`、旧景観3枚と既存AL/AM回帰PASS。GitHub [artifact #12539380888](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40039374208/artifacts/12539380888) を直接取り出して画面を評価した。
+- **R1美術はREJECT/HOLD**：真の走行カメラでは中央の暗い空と一部の巨大な斜材しか見えない。中空冠は走行方向に対して**エッジオン（面が横向き）**、さらに冠中心が路肩から390m・高さ340m、二股都市等も非常に大きな側方距離にあり、スタート直後の時点でカメラ視野に収まらなかった。構造の生成成功は表示成功ではない。
+- R2は独立4建築の構成を保持しつつ**造形の正面視認性**を根本改善する。冠の環状平面を道路の前方向から見える横幅方向へ変更。冠中心を側方212m・高さ245m付近へ移し、路面側の最近接外殻は保守的に50m以上路肩から離す。厚みは前後54m程度とし、単なる平板2D輪郭にしない。
+- 建築群の道路軸上位置を `u=.40/.49/.69/.83` に移動。運転開始直後に後ろへ行く冠（旧 `u=.155`）を避ける。ねじれ都市塔・3層空中都市・高空分岐の低層から構造が見えるよう、各造形の側方オフセットを実質的に下げた。道路コライダーに接触させず、ゲーム上のジャンプボタン・強制視点・マグネット補助は一切追加しない。
+- 新しいCIスクリーンショットは旧景観1枚＋AN両コースの**開始直後／約1秒後の実追従カメラ**で計5枚。すべて実240Hz Runner＋WebGL。人間操作ではない。
+- [修正版R2 CI #40049868810](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40049868810) の最新結果を取得し、**画像を目視するまでは技術PASSも美術改善も宣言しない**。ビルド・Node・実WebGL・公開除外がPASSでも美術不合格はあり得る。
+- **NEXT**：R2画面を旧景観・AM R2・AN R1と実際に比較して、道路と障害物の前方視界、近景／遠景に見える独自造形、景観の連続性を判定。次の独立造形試作を無限に増やすのではなく、十分な実画面品質を確認すること。
