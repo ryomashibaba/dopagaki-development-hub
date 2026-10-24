@@ -1,5 +1,5 @@
 /** G4E-7BA PRIVATE — sculpt genuine B48 left-catchment from AY bankedSweep,
- * not BA. Actual u=.267-.600 corridor remains narrow and physical.
+ * not AZ. Actual u=.267-.600 corridor remains narrow and physical.
  * No hidden support, steering forces, speed changes or gameplay controls.
  */
 import {generateG4E7AY} from './p101-w9c2-g4e7ay-tangent-bridge.mjs';
@@ -35,7 +35,8 @@ function edge(s,u){
 function width(u,w0,w1){
  // Conserve real 14–16m CROWN and CHASM narrow corridors, but let players
  // anticipate the later dive in a 25–30m wide *physical* mid-transition.
- const knots=[[10/30,w0],[.42,14.3],[.50,25],[.555,22],[.60,14.5],[19/30,w1]];
+ const knots=[[7/30,w0],[.30,30],[.34,14.1],[.46,14.1],
+  [.50,22],[.54,21],[.60,14.4],[19/30,w1]];
  for(let j=1;j<knots.length;j++){
   const [u1,b]=knots[j];
   if(u<=u1)return mix(knots[j-1][1],b,sm((u-knots[j-1][0])/(u1-knots[j-1][0])));
@@ -84,7 +85,7 @@ export function generateG4E7BA(road='true-pinch',variant='outerContour'){
     center0[1]+params.elevationMeters*blend,
     center0[2]+side[2]*lateral],
    originalWidth=distance(baseline.points[row*5],baseline.points[row*5+4]),
-   target=originalWidth;
+   target=width(u,w0,w1);
   for(let col=0;col<5;col++){
    const prior=baseline.points[row*5+col],f=(col-2)/4,
     p=[center[0]+side[0]*target*f,
