@@ -85,13 +85,11 @@ export function g4e7aoActualB51Warning(doc,sample,{enabled=false}={}){
   const obstacle=doc.movingObstacles.find(o=>o.id===h.id);
   if(!obstacle||obstacle.enabled===false)throw Error('AO missing native B51 mover');
   const p=obstacle.position,at=sample(road,h.u,.5),
-   before=sample(road,Math.max(0,h.u-.004),.5),
-   after=sample(road,Math.min(1,h.u+.004),.5);
-  const tangent=unit([after[0]-before[0],0,after[2]-before[2]]),
-   toward=minus([p[0],0,p[2]],[at[0],0,at[2]]),
-   cross=tangent[0]*toward[2]-tangent[2]*toward[0],
-   side=cross>=0?1:-1;
-  if(Math.abs(cross)<2)throw Error('AO mover not actually outboard of B48 centerline');
+   edgeZero=sample(road,h.u,0),edgeOne=sample(road,h.u,1),
+   flatDistance=(a,b)=>Math.hypot(a[0]-b[0],a[2]-b[2]),
+   side=flatDistance(p,edgeZero)<flatDistance(p,edgeOne)?-1:1;
+  if(flatDistance(p,at)<6||flatDistance(edgeZero,edgeOne)<9)
+   throw Error('AO mover or real B48 edge not physically separated');
   for(const [i,lead] of STATIONS.entries()){
    const lookback=arcLookback(road,sample,h.u,lead);
    if(!lookback)continue;
