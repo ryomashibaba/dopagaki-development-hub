@@ -88,7 +88,7 @@ export function generateG4E7AZ(road='true-pinch',variant='longGlide'){
   for(let col=0;col<5;col++){
    const prior=baseline.points[row*5+col],f=(col-2)/4,
     p=[center[0]+side[0]*target*f,
-     center[1]+(prior[1]-originalCenter[1])*target/originalWidth+
+     center[1]+(prior[1]-originalCenter[1])*.2*target/originalWidth+
        params.bankMeters*(col-2)/2*Math.sin(pi*t)**2,
      center[2]+side[2]*target*f];
    s.points[row*5+col]=p;maxDelta=Math.max(maxDelta,distance(p,prior));
