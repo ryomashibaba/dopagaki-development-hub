@@ -51,6 +51,10 @@ for(const road of ['true-pinch','pinch-switch']){
   expect(data.stage).toBe(stage(road));
   await page.waitForTimeout(450);
   await canvas.screenshot({path:info.outputPath('g4e7an-sky-archipelago-'+road+'-real-webgl-not-human.png')});
+  // Second actual camera frame after ~1.5s of real 240Hz movement catches
+  // near/mid-distance massing. Still scripted Chromium, NEVER human QA.
+  await page.waitForTimeout(1050);
+  await canvas.screenshot({path:info.outputPath('g4e7an-sky-archipelago-'+road+'-moving-camera-not-human.png')});
   expect(errors).toEqual([]);
  });
 }
