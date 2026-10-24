@@ -26,7 +26,7 @@ export const AY_DESIGNS=Object.freeze({
 export const AY_WIDTH_KNOTS=Object.freeze([
  Object.freeze([.16666666666666666,'unchanged-entry']),
  Object.freeze([.22,41]),Object.freeze([.29,31]),Object.freeze([.34,15.3]),
- Object.freeze([.45,15.3]),Object.freeze([.50,'unchanged-exit'])
+ Object.freeze([.43,15.3]),Object.freeze([.50,'unchanged-exit'])
 ]);
 function hermite(a,b,ma,mb,t){
  const t2=t*t,t3=t2*t;
@@ -127,7 +127,7 @@ export function generateG4E7AY(road='true-pinch',design='tangentDeck'){
   moved.push({id:station.id,u,deltaMeters:+length(position,prev.position).toFixed(3)});
  }
  const cores=[
-  {id:'CROWN_LATE_NARROW',u0:.34,u1:.45},
+  {id:'CROWN_LATE_NARROW',u0:.34,u1:.43},
   {id:'CHASM_UNCHANGED',u0:.63,u1:.82}
  ].map(spec=>{
   let min=Infinity,max=0;
