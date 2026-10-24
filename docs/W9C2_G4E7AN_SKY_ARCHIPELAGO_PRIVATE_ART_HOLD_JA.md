@@ -38,3 +38,11 @@
 - 新しいCIスクリーンショットは旧景観1枚＋AN両コースの**開始直後／約1秒後の実追従カメラ**で計5枚。すべて実240Hz Runner＋WebGL。人間操作ではない。
 - [修正版R2 CI #40049868810](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40049868810) の最新結果を取得し、**画像を目視するまでは技術PASSも美術改善も宣言しない**。ビルド・Node・実WebGL・公開除外がPASSでも美術不合格はあり得る。
 - **NEXT**：R2画面を旧景観・AM R2・AN R1と実際に比較して、道路と障害物の前方視界、近景／遠景に見える独自造形、景観の連続性を判定。次の独立造形試作を無限に増やすのではなく、十分な実画面品質を確認すること。
+
+## R2実画像技術成功・巨大壁再発 → 建築個別診断（2026-10-24 JST）
+
+- [R2 Actions #40049868810](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40049868810) の**Node／実Chromium／private／public/public-safe隔離は全SUCCESS**。画像artifact [#12542808485](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40049868810/artifacts/12542808485) の旧背景1枚・AN R2実WebGL4枚（2コース×開始／走行後）を直接取得して画面審査済み。
+- **R2美術は依然REJECT/HOLD**。R1より前景3Dは入るが、右側を占める巨大で暗い面が実画面では壁に見える。中空冠を回す・建築の外側離隔を減らすだけでは、巨大都市の豊かな多層感や道路前方の先読みが成立しなかった。
+- 次の手段は造形を無差別追加したり、カメラを勝手に引き直すことではない。R2本来の各メッシュを **`crown`／`citadel`／`shelves`／`harpoon` 単独で実レンダラに上げる**診断フラグ `&g4e7anFocus=<name>` を追加。これは `g4e7al=manual&g4e7an=archipelago` のlocalhost研究条件でのみ機能し、未指定 `all` は従来の4建築のまま。
+- 各単独シーンを実走行カメラで撮影し、**どの建築に原因があるか**を画面比較する。Nodeでは各独立GPU三角形数の総和が通常4体と厳密一致すること、原AJの道路・物理・B51-C 28基・正式0mと公開HOLDが変わらないことを検証。
+- [個別切り分けCI #40050280820](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40050280820) で4枚の単独スクリーンショットを新たに保存する。結果未確認の間は美術判定を変えない。
