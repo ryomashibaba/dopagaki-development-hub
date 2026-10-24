@@ -30,6 +30,12 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BC — 実B48 CROWNのバンク／縦断形状改善・PRIVATE比較（2026-10-25 JST、結果待ち）
+
+BBの[240HzベクトルCI #40143385126](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40143385126)はSUCCESS。AY継続接地喪失u≈.358/路肩+0.93m/路面法線方向+0.81m/s、BAはu≈.324/路肩+7.30m/法線方向+1.17m/s。単純な左右コース移動ではなく、AYから第2実B48路面u=.267〜.600を実横断バンクと縦断形状で再制作。BC rollDeck（バンク緩和）、skylineSaddle（バンク緩和＋2.6m実路面盛上げ）の2案をPRIVATE制作し、正規240Hz同一固定P96でAYと比較する。狭い実CROWN、CHASM、実ギャップ52、7道路・28機、通常物理と本番は保護。[BC詳細](docs/W9C2_G4E7BC_CROWN_BANK_PRIVATE_HOLD_JA.md)。
+
+**BC正式採用なし／実接地進行距離の結果は専用CIを待つ。正式Slope2=0m、人間/美術/公開/PR Ready/merge=HOLD。**
+
 ## G4E-7BB — 接地喪失の3Dベクトル解析（2026-10-25 JST、CI結果待ち）
 
 BAの左右オフセットは実接地距離を縮めたため、推測に基づく連続なコース移動は停止する。AY bankedSweepとBA outerContourを同じ起点00・正規240Hz・固定P96入力で比較し、第2実B48道路u=.20〜.55の**3D速度・接線・法線・縦勾配・曲率・レーン余裕・接地断続**を読み取り専用で収集するBBを実装。単発非接地と継続非接地を区別し、曲率のv²κはあくまで幾何学的目安とする。[BB監査](docs/W9C2_G4E7BB_VECTOR_AUDIT_PRIVATE_HOLD_JA.md)。
