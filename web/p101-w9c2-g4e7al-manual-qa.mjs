@@ -8,7 +8,12 @@ export const G4E7AL_ROADS=Object.freeze(['true-pinch','pinch-switch']);
 const num=x=>Number.isFinite(x);
 const round=(v,n=3)=>num(v)?Number(v.toFixed(n)):null;
 export function createG4E7ALTrial(doc,runner){
- const aj=doc?.stageForge?.g4e7ajStudy,ah=doc?.stageForge?.g4e7ahStudy,ap=doc?.stageForge?.g4e7apStudy;
+ const aj=doc?.stageForge?.g4e7ajStudy,ah=doc?.stageForge?.g4e7ahStudy,ap=doc?.stageForge?.g4e7apStudy,asStudy=doc?.stageForge?.g4e7asStudy;
+ if(asStudy&&(asStudy.id!=='banked-serpent'||asStudy.road!==aj?.road||
+   !asStudy.actualPhysicalGapCell52||asStudy.originalUnchangedB51FromAP!==27||
+   asStudy.formalSlope2Meters!==0||asStudy.publish!=='HOLD'))
+  throw Error('G4E7AL rejects unapproved AS geometry provenance');
+ if(asStudy&&!ap)throw Error('G4E7AL AS requires AP source');
  if(ap&&(ap.id!=='temporal-slalom'||ap.road!==aj?.road||
    ap.changedMovingIds?.join(',')!==ids.join(',')||ap.publish!=='HOLD'||
    ap.certifiedSlope2Meters!==0))throw Error('G4E7AL rejects unapproved AP provenance');
@@ -24,7 +29,7 @@ export function createG4E7ALTrial(doc,runner){
     ids.some(id=>!doc.movingObstacles.some(o=>o.id===id)))
   throw Error('G4E7AL requires original start00 genuine reanchored 7AJ B48/B51');
  return {road:aj.road,stageId:doc.stageForge.recordStageId,
-  physicalCandidate:ap?'G4E7AP_TEMPORAL_SLALOM':'G4E7AJ_REANCHOR',
+  physicalCandidate:asStudy?'G4E7AS_BANKED_SERPENT':ap?'G4E7AP_TEMPORAL_SLALOM':'G4E7AJ_REANCHOR',
   steps:0,inputSteps:0,inputTransitions:[],previousInput:0,
   samples:[],lastSample:-Infinity,lastSupported:null,
   eventsSeen:0,contacts:[],peakMps:52,minRoadWidthM:Infinity,minEdgeM:Infinity,

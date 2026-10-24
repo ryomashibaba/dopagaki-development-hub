@@ -30,6 +30,10 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## 最新のG4E-7AS — 真のB48道路を改造したBANKED SERPENT制作・localhost限定QA（2026-10-24 JST）
+
+先行AQ/ARの診断だけでは遊びの改善が進まないため、次は**具体的な3Dコース候補の実制作**へ転換。G4E-7APを保持した独立ASは、真11m B48第1道路の2区間を大きく左右へ曲げ、上り/下り起伏＋横傾斜を付けた2つの本物の物理道路。ローター02を変更後の実道路に追従、残り27障害物/6道路/実ギャップcell52/離陸着地を維持。従来のlocalhost 2道路手動A/D・ゲームオーバー直接JSON保存へ `?g4e7al=manual&g4e7as=bank` で明示参加。PRIVATE JSON・Node240Hz・Chromium画面・公開隔離CIは最新の当該HEADの結果を照合すること。**7/7完走も人間の回避/美術品質も未認定。正式Slope2=0m、公開/PR Ready・merge=HOLD**。 [G4E-7AS監査](docs/W9C2_G4E7AS_BANKED_SERPENT_PRIVATE_BUILD_HOLD_JA.md)。次ATはASの実プレイ試験から危険箇所・大区間設計の不足を評価し、一連の面白いコースとして規模を拡張。小幅修正やHUDで代替しない。
+
 ## 最新のG4E-7AR — 実ローター02接触反応と実細道左右操舵の分離検証（2026-10-24 JST）
  
 **G4E-7AR 専用CI [#40074009266](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40074009266) 全SUCCESS**：Node/正規240Hz人工接触＆start00非人間操舵、Chromium15/15、private/public-safe隔離PASS。 [証拠artifact #12551629966](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40074009266/artifacts/12551629966)。AP02同じ幾何への制御接触ではpush逆方向速度反転0/各道路1件、bounce(.8)反転1/各道路1件。ただしAJ幾何はpushでも1/各道路2件の逆方向速度変化が生じるため形状依存。APの弱い早左固定入力は両道路で6.7s RUNNINGまで到達したが最小路肩投影マージン−0.87m/−1.04m。早右落下、遅右静的衝突はAJ/AP同一で未改善。**人間回避や正式美術を認定しない**。次は動体の時相と道路内で実際に到達できる左右軌跡の連続性の調査を重視。正式Slope2=0m／正式公開・採用HOLD。

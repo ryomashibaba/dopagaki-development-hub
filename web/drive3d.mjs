@@ -68,6 +68,8 @@ const assets={'VB-P101-A13':'P101_A13_W7_GAMEPLAY.json','VB-P101-A13-W9X-B1':'P1
  'VB-P101-A13-W9C2-G4E7AI-PINCH-SWITCH':'P101_A13_W9C2_G4E7AI_PINCH_SWITCH_LOCAL_TRIAL.json',
  'VB-P101-A13-W9C2-G4E7AP-TRUE-PINCH':'P101_A13_W9C2_G4E7AP_TRUE_PINCH_LOCAL_TRIAL.json',
  'VB-P101-A13-W9C2-G4E7AP-PINCH-SWITCH':'P101_A13_W9C2_G4E7AP_PINCH_SWITCH_LOCAL_TRIAL.json',
+ 'VB-P101-A13-W9C2-G4E7AS-TRUE-PINCH':'P101_A13_W9C2_G4E7AS_TRUE_PINCH_LOCAL_TRIAL.json',
+ 'VB-P101-A13-W9C2-G4E7AS-PINCH-SWITCH':'P101_A13_W9C2_G4E7AS_PINCH_SWITCH_LOCAL_TRIAL.json',
  'VB-P101-A13-W9C2-G4E7AK-TRUE-PINCH':'P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7AK-PINCH-SWITCH':'P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json','VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 // G4E-1 physical trials are private opt-in; Gold remains the visible default.
 const g4ePreviewOptIn=new URLSearchParams(window.location.search).get('g4e')==='on'||
@@ -146,10 +148,13 @@ const g4e7amRequested=g4e7alRequested&&new URLSearchParams(window.location.searc
 const g4e7anRequested=g4e7alRequested&&!g4e7amRequested&&new URLSearchParams(window.location.search).get('g4e7an')==='archipelago';
 const g4e7anFocus=g4e7anRequested&&AN_FOCUS.includes(new URLSearchParams(window.location.search).get('g4e7anFocus'))?
  new URLSearchParams(window.location.search).get('g4e7anFocus'):'all';
-const g4e7apRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&
+const g4e7asRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&
+ new URLSearchParams(window.location.search).get('g4e7as')==='bank';
+const g4e7apRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&!g4e7asRequested&&
  new URLSearchParams(window.location.search).get('g4e7ap')==='duel';
-const g4e7aoRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&!g4e7apRequested&&
+const g4e7aoRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&!g4e7apRequested&&!g4e7asRequested&&
  new URLSearchParams(window.location.search).get('g4e7ao')==='on';
+const g4e7alStageCode=g4e7asRequested?'G4E7AS':g4e7apRequested?'G4E7AP':'G4E7AK';
 const g4e7akBackdrop=g4e7akOptIn&&new URLSearchParams(window.location.search).get('g4e7akBackdrop')==='quiet'?'quiet':'legacy';
 const g4e7akPoint=['t220','t250','t280','t320','t520','t690'].includes(
  new URLSearchParams(window.location.search).get('g4e7akPoint'))?
@@ -178,8 +183,8 @@ const g4e7aiPoint=['t315','t365','t415','t450','t515','t600'].includes(
  new URLSearchParams(window.location.search).get('g4e7aiPoint'):'t365';
 if(g4e7alRequested)for(const road of G4E7AL_ROADS){
  const option=document.createElement('option');
- option.value='VB-P101-A13-W9C2-'+(g4e7apRequested?'G4E7AP':'G4E7AK')+'-'+road.toUpperCase();
- option.textContent=(g4e7apRequested?'G4E-7AP PHYSICAL DUEL ':'G4E-7AL MANUAL ')+road.toUpperCase()+' / TRUE B48 + B51 / HOLD';
+ option.value='VB-P101-A13-W9C2-'+g4e7alStageCode+'-'+road.toUpperCase();
+ option.textContent=(g4e7asRequested?'G4E-7AS BANKED SERPENT ':g4e7apRequested?'G4E-7AP PHYSICAL DUEL ':'G4E-7AL MANUAL ')+road.toUpperCase()+' / TRUE B48 + B51 / HOLD';
  $('stage').append(option);
 }
 if(g4e7akOptIn)for(const id of ['TRUE-PINCH','PINCH-SWITCH']){
@@ -431,6 +436,7 @@ function buildVisual(stage){
   const ao=g4e7aoActualB51Warning(stage,sample,{enabled:g4e7aoRequested});
   g4e7aoMesh=ao.active?mesh(ao.vertices):null;
   canvas.dataset.g4e7apMode=g4e7apRequested&&stage.stageForge?.g4e7apStudy?.id==='temporal-slalom'?'true-b51-temporal-slalom':'off';
+  canvas.dataset.g4e7asMode=g4e7asRequested&&stage.stageForge?.g4e7asStudy?.id==='banked-serpent'?'real-b48-banked-serpent':'off';
   canvas.dataset.g4e7aoMode=ao.active?'real-b51-approach':'off';
   canvas.dataset.g4e7aoHazards=String(ao.hazards);
   canvas.dataset.g4e7aoStations=String(ao.stations.length);
@@ -978,7 +984,7 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
      if(g4e7alResultDownload)g4e7alResultDownload.hidden=false;
      return;
     }
-    $('stage').value='VB-P101-A13-W9C2-'+(g4e7apRequested?'G4E7AP':'G4E7AK')+'-PINCH-SWITCH';load();
+    $('stage').value='VB-P101-A13-W9C2-'+g4e7alStageCode+'-PINCH-SWITCH';load();
    },onDownload:exportG4E7ALJSON
   });
   if(!g4e7alResultDownload){
@@ -1135,7 +1141,7 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
     if(g4e7tActive)status.textContent='G4E-7T LOCAL '+doc.stageForge.g4e7tStudy.variant.toUpperCase()+
      ' / TRUE EARLY 13m B48 '+(doc.stageForge.g4e7tStudy.gap?'TWO-CELL REAL GAP':'SOLID CONTROL')+
      ' / 28 ORIGINAL MACHINES / SCRIPT/HUMAN FAIRNESS HOLD.';
-    if(g4e7alActive)status.textContent=g4e7apRequested?'G4E-7AL LOCAL MANUAL / AP TRUE TEMPORAL SLALOM + 28 REAL B51-C / NO P96 / HUMAN FAIRNESS HOLD.':'G4E-7AL LOCAL MANUAL / 11m REAL B48 + 28 REAL B51-C / NO P96 / HUMAN FAIRNESS HOLD.';
+    if(g4e7alActive)status.textContent=g4e7asRequested?'G4E-7AS LOCAL MANUAL / BANKED SERPENT REAL B48 + 28 B51-C / HUMAN FAIRNESS HOLD.':g4e7apRequested?'G4E-7AL LOCAL MANUAL / AP TRUE TEMPORAL SLALOM + 28 REAL B51-C / NO P96 / HUMAN FAIRNESS HOLD.':'G4E-7AL LOCAL MANUAL / 11m REAL B48 + 28 REAL B51-C / NO P96 / HUMAN FAIRNESS HOLD.';
      if(g4e7akActive)status.textContent='G4E-7AK LOCAL REAL 11m B48 + REANCHORED 2/28 B51 / '+g4e7akPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / HOLD.';
      if(g4e7aiActive)status.textContent='G4E-7AI LOCAL REAL NARROW B48 / '+g4e7aiPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / RESEARCH HOLD.';
     if(g4e7adActive)status.textContent='G4E-7AD LOCAL TRUE R2 B48 / '+g4e7adPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / REAL GPU VISUAL RESEARCH HOLD.';
@@ -1205,13 +1211,18 @@ async function load(){
    }
    if(g4e7alRequested){
     const aj=value.stageForge?.g4e7ajStudy,ah=value.stageForge?.g4e7ahStudy,
-     ap=value.stageForge?.g4e7apStudy;
+     ap=value.stageForge?.g4e7apStudy,asStudy=value.stageForge?.g4e7asStudy;
     if(aj?.id!=='reanchor'||!G4E7AL_ROADS.includes(aj.road)||
-       id!=='VB-P101-A13-W9C2-'+(g4e7apRequested?'G4E7AP':'G4E7AK')+'-'+aj.road.toUpperCase()||
-       value.stageForge.recordStageId!==(g4e7apRequested
-        ?'VB-P101-A13-W9C2-G4E7AP-'+aj.road.toUpperCase()+'-DUEL'
+       id!=='VB-P101-A13-W9C2-'+g4e7alStageCode+'-'+aj.road.toUpperCase()||
+       value.stageForge.recordStageId!==(g4e7asRequested
+        ?'VB-P101-A13-W9C2-G4E7AS-'+aj.road.toUpperCase()+'-BANKED-SERPENT'
+        :g4e7apRequested?'VB-P101-A13-W9C2-G4E7AP-'+aj.road.toUpperCase()+'-DUEL'
         :'VB-P101-A13-W9C2-G4E7AJ-'+aj.road.toUpperCase()+'-REANCHOR')||
-       (g4e7apRequested?(ap?.id!=='temporal-slalom'||ap.road!==aj.road||
+       (g4e7asRequested?(asStudy?.id!=='banked-serpent'||asStudy.road!==aj.road||
+         asStudy.original7Roads!==7||asStudy.actualB51!==28||
+         asStudy.originalUnchangedB51FromAP!==27||!asStudy.actualPhysicalGapCell52||
+         asStudy.formalSlope2Meters!==0||asStudy.publish!=='HOLD'):Boolean(asStudy))||
+       ((g4e7apRequested||g4e7asRequested)?(ap?.id!=='temporal-slalom'||ap.road!==aj.road||
         ap.changedMovingIds?.join(',')!=='a13-machine-01,a13-machine-02'||
         ap.unchangedMovingObjects!==26||ap.realMovingObjects!==28||
         ap.certifiedSlope2Meters!==0||ap.publish!=='HOLD'):Boolean(ap))||
@@ -1799,7 +1810,7 @@ $('stage').addEventListener('change',()=>{demoMode=false;practiceMode=false;seek
 const requestedStage=new URLSearchParams(window.location.search).get('stage');
 if(requestedStage&&Object.hasOwn(assets,requestedStage)&&Array.from($('stage').options).some(o=>o.value===requestedStage))$('stage').value=requestedStage;
 if(g4e7oRequested)$('stage').value='VB-P101-A13-W9C2-G4E7M-THREAD';
-if(g4e7alRequested)$('stage').value='VB-P101-A13-W9C2-'+(g4e7apRequested?'G4E7AP':'G4E7AK')+'-TRUE-PINCH';
+if(g4e7alRequested)$('stage').value='VB-P101-A13-W9C2-'+g4e7alStageCode+'-TRUE-PINCH';
  $('p101Profile').addEventListener('change',()=>{if(doc?.stageForge?.id==='VB-P101')restart();});
 $('spawn').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;restart();});
 $('restart').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('retryRun').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('pause').addEventListener('click',toggle);
