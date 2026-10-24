@@ -8,7 +8,7 @@ for(const road of ['true-pinch','pinch-switch'])test('BC real 14m late CROWN and
  const src=generateG4E7AY(road,'bankedSweep'),frozen=JSON.stringify(src);
  for(const version of Object.keys(BC_VERSIONS)){
   const doc=generateG4E7BC(road,version),m=doc.stageForge.g4e7bcStudy;
-  assert(same(doc,generateG4E7BA(road,version)));
+  assert(same(doc,generateG4E7BC(road,version)));
   assert.equal(m.id,'bank-grade-contour');
   assert(m.bankReduction>=.66);
   assert.deepEqual(m.contourSpanU,[7/30,19/30]);
@@ -35,6 +35,6 @@ for(const road of ['true-pinch','pinch-switch'])test('BC real 14m late CROWN and
  assert.equal(JSON.stringify(src),frozen);
 });
 test('BC rejects unknown design',()=>{
- assert.throws(()=>generateG4E7BA('unknown','rollDeck'),/unsupported/);
- assert.throws(()=>generateG4E7BA('true-pinch','unknown'),/unsupported/);
+ assert.throws(()=>generateG4E7BC('unknown','rollDeck'),/unsupported/);
+ assert.throws(()=>generateG4E7BC('true-pinch','unknown'),/unsupported/);
 });
