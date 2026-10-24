@@ -57,7 +57,7 @@ function fin(out,f,stationIndex){
   const spread=mul(outer,width*.5);
   doubleQuad(out,plus(a,spread),plus(b,spread),minus(b,spread),minus(a,spread),color);
  };
- const layers=3-stationIndex;
+ const layers=1+stationIndex;
  for(let i=0;i<layers;i++){
   const y=i*2.65;
   ribbon(point(2,1+y),point(-.8,3.0+y),.88,c);
