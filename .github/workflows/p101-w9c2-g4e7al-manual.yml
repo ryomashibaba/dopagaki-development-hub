@@ -8,6 +8,8 @@ on:
       - 'web/p101-w9c2-g4e7am-upturned-city.mjs'
       - 'web/p101-w9c2-g4e7an-sky-archipelago.mjs'
       - 'web/p101-w9c2-g4e7ao-b51-approach.mjs'
+      - 'scripts/p101-w9c2-g4e7ap-temporal-slalom.mjs'
+      - 'tests/p101-w9c2-g4e7ap-temporal-slalom.test.mjs'
       - 'web/drive3d.mjs'
       - 'scripts/build.mjs'
       - 'scripts/launch-g4e7al-manual.mjs'
@@ -50,7 +52,8 @@ jobs:
           node --check web/p101-w9c2-g4e7am-upturned-city.mjs
           node --check web/p101-w9c2-g4e7an-sky-archipelago.mjs
           node --check web/p101-w9c2-g4e7ao-b51-approach.mjs
-          node --test tests/p101-w9c2-g4e7al-manual.test.mjs tests/p101-w9c2-g4e7am-art.test.mjs tests/p101-w9c2-g4e7an-art.test.mjs tests/p101-w9c2-g4e7ao-b51-approach.test.mjs tests/p101-w9c2-g4e7o-manual.test.mjs tests/research/p101-w9c2-g4e7ak-native-key.test.mjs
+          node --check scripts/p101-w9c2-g4e7ap-temporal-slalom.mjs
+          node --test tests/p101-w9c2-g4e7ap-temporal-slalom.test.mjs tests/p101-w9c2-g4e7al-manual.test.mjs tests/p101-w9c2-g4e7am-art.test.mjs tests/p101-w9c2-g4e7an-art.test.mjs tests/p101-w9c2-g4e7ao-b51-approach.test.mjs tests/p101-w9c2-g4e7o-manual.test.mjs tests/research/p101-w9c2-g4e7ak-native-key.test.mjs
       - name: Install Chromium for actual WebGL keyboard/browser and local download tests
         run: |
           npm install --no-audit --no-fund
@@ -60,15 +63,19 @@ jobs:
           npm run build:private
           test -f dist-private/generated/P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json
           test -f dist-private/generated/P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AP_TRUE_PINCH_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AP_PINCH_SWITCH_LOCAL_TRIAL.json
       - name: Chromium real A/D, manual UI pair, failed-run direct JSON; NOT HUMAN QA
         run: npx playwright test tests/browser/p101-w9c2-g4e7al-manual.spec.mjs tests/browser/p101-w9c2-g4e7am-art.spec.mjs tests/browser/p101-w9c2-g4e7an-art.spec.mjs tests/browser/p101-w9c2-g4e7ao-b51-approach.spec.mjs
       - name: Both public modes must exclude unpublished AJ moving-hazard candidates
         run: |
           npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AP_TRUE_PINCH_LOCAL_TRIAL.json
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json
           npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AP_TRUE_PINCH_LOCAL_TRIAL.json
           test ! -e dist/generated/P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json
           test ! -e dist/generated/P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json
           test ! -e dist/generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json
