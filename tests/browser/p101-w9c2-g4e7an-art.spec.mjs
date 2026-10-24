@@ -58,3 +58,20 @@ for(const road of ['true-pinch','pinch-switch']){
   expect(errors).toEqual([]);
  });
 }
+
+test('AN diagnose four independent monument silhouettes in actual fixed chase viewport',async({page},info)=>{
+ test.setTimeout(180000);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ for(const focus of ['crown','citadel','shelves','harpoon']){
+  await page.goto(url('archipelago','true-pinch')+'&g4e7anFocus='+focus);
+  await expect(page.locator('#appStatus')).toContainText('G4E-7AL LOCAL MANUAL',{timeout:85000});
+  const canvas=page.locator('#view');
+  await expect(canvas).toHaveAttribute('data-g4e7an-focus',focus);
+  await expect(canvas).toHaveAttribute('data-g4e7an-monuments','1');
+  await expect(canvas).toHaveAttribute('data-machine-count','28');
+  await expect(canvas).toHaveAttribute('data-g4e7an-non-collision','true');
+  await page.waitForTimeout(450);
+  await canvas.screenshot({path:info.outputPath('g4e7an-focus-'+focus+'-native-camera-not-human.png')});
+ }
+ expect(errors).toEqual([]);
+});
