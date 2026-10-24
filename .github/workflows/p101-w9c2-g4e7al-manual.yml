@@ -17,6 +17,9 @@ on:
       - 'scripts/p101-w9c2-g4e7as-banked-serpent.mjs'
       - 'tests/p101-w9c2-g4e7as-banked-serpent.test.mjs'
       - 'tests/browser/p101-w9c2-g4e7as-banked-serpent.spec.mjs'
+      - 'scripts/p101-w9c2-g4e7at-crown-chasm.mjs'
+      - 'tests/p101-w9c2-g4e7at-crown-chasm.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7at-crown-chasm.spec.mjs'
       - 'web/drive3d.mjs'
       - 'scripts/build.mjs'
       - 'scripts/launch-g4e7al-manual.mjs'
@@ -78,6 +81,10 @@ jobs:
         run: |
           node --check scripts/p101-w9c2-g4e7as-banked-serpent.mjs
           node --test tests/p101-w9c2-g4e7as-banked-serpent.test.mjs
+      - name: G4E-7AT real second-road two-span crown/chasm B48 and four B51 movers (NOT human)
+        run: |
+          node --check scripts/p101-w9c2-g4e7at-crown-chasm.mjs
+          node --test tests/p101-w9c2-g4e7at-crown-chasm.test.mjs
       - name: Install Chromium for actual WebGL keyboard/browser and local download tests
         run: |
           npm install --no-audit --no-fund
@@ -91,11 +98,15 @@ jobs:
           test -f dist-private/generated/P101_A13_W9C2_G4E7AP_PINCH_SWITCH_LOCAL_TRIAL.json
           test -f dist-private/generated/P101_A13_W9C2_G4E7AS_TRUE_PINCH_LOCAL_TRIAL.json
           test -f dist-private/generated/P101_A13_W9C2_G4E7AS_PINCH_SWITCH_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AT_TRUE_PINCH_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AT_PINCH_SWITCH_LOCAL_TRIAL.json
       - name: Chromium real A/D, manual UI pair, failed-run direct JSON; NOT HUMAN QA
-        run: npx playwright test tests/browser/p101-w9c2-g4e7al-manual.spec.mjs tests/browser/p101-w9c2-g4e7am-art.spec.mjs tests/browser/p101-w9c2-g4e7an-art.spec.mjs tests/browser/p101-w9c2-g4e7ao-b51-approach.spec.mjs tests/browser/p101-w9c2-g4e7ap-temporal-slalom.spec.mjs tests/browser/p101-w9c2-g4e7as-banked-serpent.spec.mjs
+        run: npx playwright test tests/browser/p101-w9c2-g4e7al-manual.spec.mjs tests/browser/p101-w9c2-g4e7am-art.spec.mjs tests/browser/p101-w9c2-g4e7an-art.spec.mjs tests/browser/p101-w9c2-g4e7ao-b51-approach.spec.mjs tests/browser/p101-w9c2-g4e7ap-temporal-slalom.spec.mjs tests/browser/p101-w9c2-g4e7as-banked-serpent.spec.mjs tests/browser/p101-w9c2-g4e7at-crown-chasm.spec.mjs
       - name: Both public modes must exclude unpublished AJ moving-hazard candidates
         run: |
           npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AT_TRUE_PINCH_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AT_PINCH_SWITCH_LOCAL_TRIAL.json
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AS_TRUE_PINCH_LOCAL_TRIAL.json
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AS_PINCH_SWITCH_LOCAL_TRIAL.json
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AP_TRUE_PINCH_LOCAL_TRIAL.json
@@ -103,6 +114,8 @@ jobs:
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json
           test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json
           npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AT_TRUE_PINCH_LOCAL_TRIAL.json
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AT_PINCH_SWITCH_LOCAL_TRIAL.json
           test ! -e dist/generated/P101_A13_W9C2_G4E7AS_TRUE_PINCH_LOCAL_TRIAL.json
           test ! -e dist/generated/P101_A13_W9C2_G4E7AS_PINCH_SWITCH_LOCAL_TRIAL.json
           test ! -e dist/generated/P101_A13_W9C2_G4E7AP_TRUE_PINCH_LOCAL_TRIAL.json
@@ -120,6 +133,7 @@ jobs:
             test-results/**/g4e7ao-*.png
             test-results/**/g4e7ap-*.png
             test-results/**/g4e7as-*.png
+            test-results/**/g4e7at-*.png
             test-results/g4e7aq-native-compare.json
             test-results/g4e7ar-impact-edge-native.json
             test-results/**/g4e7al-*.json

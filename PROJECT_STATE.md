@@ -30,6 +30,10 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## 最新G4E-7AT — CROWN THREAD＋CHASM SWEEP：真2道路の連続3Dコース制作（2026-10-24 JST）
+
+前工程ASの実WebGL写真では、スタート直後の道路が幅54〜55mで広く見え、直方体型景観の弱さも再認識した。診断を繰り返さずコース制作を加速するため、ASの真B48第1道路を保持し、**第2道路にさらに2つの独立した実3D狭路**（最大27m級S蛇行／高低差23m／横傾斜・衝突有効）を制作した。第2道路のP95/A13実障害物4基を路面位置と向きに追従し、他24機、全7道路、真ギャップcell52、原本ASを保護。専用CI [#40077679372](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40077679372) SUCCESS：CROWN_THREADの実細道長244.97m・幅12.10〜16.17m、CHASM_SWEEPの実細道長294.33m・幅13.80〜15.98m、**約539.30mは新規制作された実B48物理狭路長で、正式Slope2 DNA距離ではない**。240Hzの2.4秒×6条件PASSは7/7完走ではない。ブラウザ手動QAは `?g4e7al=manual&g4e7at=crown-chasm` でPRIVATE localhostのみ。Human/Art/Fairness/Publish/PR Ready/merge: HOLD。正式Slope2認定0m。 [AT技術監査](docs/W9C2_G4E7AT_CROWN_CHASM_PRIVATE_HOLD_JA.md) に詳細。
+
 ## 最新のG4E-7AS — 真のB48道路を改造したBANKED SERPENT制作・localhost限定QA（2026-10-24 JST）
 
 先行AQ/ARの診断だけでは遊びの改善が進まないため、次は**具体的な3Dコース候補の実制作**へ転換。G4E-7APを保持した独立ASは、真11m B48第1道路の2区間を大きく左右へ曲げ、上り/下り起伏＋横傾斜を付けた2つの本物の物理道路。スライダー01とローター02を変更後の実道路へ追従、残り26障害物/6道路/実ギャップcell52/離陸着地を維持。初回CI #40075983957で前方u=.08–.13の道路が実幅106–111mと判明したため上り蛇行を真11m細道u=.24–.435へ移設。次CIで合否を再確認。従来のlocalhost 2道路手動A/D・ゲームオーバー直接JSON保存へ `?g4e7al=manual&g4e7as=bank` で明示参加。PRIVATE JSON・Node240Hz・Chromium画面・公開隔離CIは最新の当該HEADの結果を照合すること。**7/7完走も人間の回避/美術品質も未認定。正式Slope2=0m、公開/PR Ready・merge=HOLD**。 [G4E-7AS監査](docs/W9C2_G4E7AS_BANKED_SERPENT_PRIVATE_BUILD_HOLD_JA.md)。次ATはASの実プレイ試験から危険箇所・大区間設計の不足を評価し、一連の面白いコースとして規模を拡張。小幅修正やHUDで代替しない。

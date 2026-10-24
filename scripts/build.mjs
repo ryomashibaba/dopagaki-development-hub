@@ -32,6 +32,7 @@ import {g4e7akNativeFrames} from './p101-w9c2-g4e7ak-native-frames.mjs';
 import {generateG4E7AJ,AJ_ROADS} from './p101-w9c2-g4e7aj-reanchor-moving.mjs';
 import {generateG4E7AP} from './p101-w9c2-g4e7ap-temporal-slalom.mjs';
 import {generateG4E7AS} from './p101-w9c2-g4e7as-banked-serpent.mjs';
+import {generateG4E7AT} from './p101-w9c2-g4e7at-crown-chasm.mjs';
 import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
 import {g4e7wNativeCameraFrames,G4E7W_VISUAL_PROFILES,G4E7Y_EARLY_SHOTS} from './p101-w9c2-g4e7w-camera-frames.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
@@ -231,6 +232,10 @@ if(includeStages){
     for(const id of AJ_ROADS)
      write('generated/P101_A13_W9C2_G4E7AS_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
       JSON.stringify(generateG4E7AS(id),null,2)+'\n');
+    // G4E-7AT: two-road genuine B48 physical race candidate; NEVER public.
+    for(const id of AJ_ROADS)
+     write('generated/P101_A13_W9C2_G4E7AT_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AT(id),null,2)+'\n');
     write('generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json',
      JSON.stringify(g4e7akNativeFrames(),null,2)+'\n');
    }
