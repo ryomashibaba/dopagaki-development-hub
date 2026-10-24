@@ -17,9 +17,9 @@ const len=(a,b)=>Math.hypot(...a.map((v,i)=>v-b[i]));
 const sin=Math.sin,PI=Math.PI;
 export const AT_WINDOWS=Object.freeze([
  Object.freeze({id:'CROWN_THREAD',u0:.09,u1:.15,u2:.31,u3:.39,
-  targetWidth:14.2,side:23,vertical:16,bank:2.8}),
+  targetWidth:11.4,side:23,vertical:16,bank:2.8}),
  Object.freeze({id:'CHASM_SWEEP',u0:.54,u1:.63,u2:.82,u3:.92,
-  targetWidth:15.0,side:-27,vertical:-23,bank:-3.2})
+  targetWidth:14.6,side:-27,vertical:-23,bank:-3.2})
 ]);
 const smooth=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};
 const envelope=(u,w)=>u<=w.u0||u>=w.u3?0:
@@ -109,7 +109,7 @@ export function generateG4E7AT(road='true-pinch'){
  const invariant={
   actualRoad:changed.length>=16&&maxSide>=8&&maxY>=10&&maxBank>=2.5,
   physicalMeshes:tessellate(s).degenerate===0,
-  actualThinCorridors:widths.every(x=>x.min>=12.5&&x.max<=17.5&&x.narrowCoreArcMeters>110),
+  actualThinCorridors:widths.every(x=>x.min>=11&&x.max<=16.5&&x.narrowCoreArcMeters>110),
   worldRoadCount:doc.surfaces.length===7,
   authentic28B51:doc.movingObstacles.length===28,
   frozenGapAndFirstRoad:eq(doc.surfaces[0],baseline.surfaces[0]),

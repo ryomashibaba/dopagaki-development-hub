@@ -25,8 +25,8 @@ for(const road of ['true-pinch','pinch-switch']){
   assert.deepEqual(doc.surfaces[0].voidLongitudinalCells,[52]);
   assert.deepEqual(info.moduleSpans.map(w=>w.id),AT_WINDOWS.map(w=>w.id));
   for(const w of info.moduleSpans){
-   assert(w.actualCoreWidthMinMeters>=12.5);
-   assert(w.actualCoreWidthMaxMeters<=17.5);
+   assert(w.actualCoreWidthMinMeters>=11);
+   assert(w.actualCoreWidthMaxMeters<=16.5);
    assert(w.narrowCoreArcMeters>=110,'must build meaningful multi-hundred meter core');
   }
   assert(info.actualMovingObstaclesRelocated.length>=3,'movers must follow actual new road');
