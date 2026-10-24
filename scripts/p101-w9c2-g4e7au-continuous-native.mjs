@@ -94,7 +94,8 @@ function checkpoint(doc,u,speed,steer){
    forward,normal,surface:road.id,speed});
  // This explicit isolated native trial is not a game spawn, and no assist is enabled.
  run.assist=false;
- const guide=guideLine(road),surge=createA13SurgeState(),eventsCursor=0;
+ const guide=guideLine(road),surge=createA13SurgeState();
+ let eventsCursor=0;
  let maxProgress=u,minMargin=Infinity,closestToShoulder=Infinity,moving=0,fatalStatic=0,
   data=[],firstBadMargin=null;
  const seconds=3.4;
