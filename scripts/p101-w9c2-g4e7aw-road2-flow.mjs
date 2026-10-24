@@ -16,7 +16,9 @@ export const AW_PROFILES=Object.freeze({
  flowSoft:Object.freeze({id:'flowSoft',sideScale:.55,verticalScale:.55}),
  flowOpen:Object.freeze({id:'flowOpen',sideScale:.25,verticalScale:.20}),
  entryEase:Object.freeze({id:'entryEase',sideScale:.55,verticalScale:.55,crownSideScale:0,crownVerticalScale:0}),
- flowClear:Object.freeze({id:'flowClear',sideScale:0,verticalScale:0})
+ flowClear:Object.freeze({id:'flowClear',sideScale:0,verticalScale:0}),
+ laneAlign12:Object.freeze({id:'laneAlign12',sideScale:.55,verticalScale:.55,laneShiftMeters:12}),
+ laneAlign18:Object.freeze({id:'laneAlign18',sideScale:.55,verticalScale:.55,laneShiftMeters:18})
 });
 const side=(s,u)=>{
  const a=sample(s,clamp(u-.002,0,1),.5),b=sample(s,clamp(u+.002,0,1),.5),
@@ -54,6 +56,25 @@ export function generateG4E7AW(road='true-pinch',profile='flowSoft'){
  }
  // An authoring guide follows the actual new collision geometry; it does
  // not add road support, snap steering or change the engine physics.
+ // A physically shifted CROWN entry (not steering compensation or invisible
+ // safety support). Entire collision road moves sideways while retaining
+ // its exact 12–16m local cross section and 0/1 section endpoints.
+ const ease=v=>{v=clamp(v,0,1);return v*v*(3-2*v);};
+ const laneEnvelope=u=>u<=.07||u>=.43?0:u<.14?ease((u-.07)/.07):
+  u<=.25?1:ease((.43-u)/.18);
+ let maxLaneOffset=0;
+ if(cfg.laneShiftMeters)for(let k=0;k<old.rows;k++){
+  const u=k/(old.rows-1),shift=cfg.laneShiftMeters*laneEnvelope(u);
+  if(shift<1e-9)continue;
+  const first=s.points[k*old.cols],last=s.points[k*old.cols+old.cols-1],
+   side=[last[0]-first[0],0,last[2]-first[2]],
+   mag=Math.hypot(...side);
+  if(mag<1)throw Error('AW aligned road side direction invalid');
+  const delta=[shift*side[0]/mag,0,shift*side[2]/mag];
+  for(let c=0;c<old.cols;c++)
+   s.points[k*old.cols+c]=s.points[k*old.cols+c].map((v,i)=>v+delta[i]);
+  maxLaneOffset=Math.max(maxLaneOffset,Math.hypot(...delta));
+ }
  for(let k=0;k<22;k++)doc.route[22+k]=sample(s,(k+.015)/22,.5);
  const relocated=base.stageForge.g4e7atStudy.actualMovingObstaclesRelocated;
  if(relocated.length!==4)throw Error('AW expected 4 original physical machines');
@@ -117,6 +138,7 @@ export function generateG4E7AW(road='true-pinch',profile='flowSoft'){
   productionPromoted:false,
   g4e7awStudy:{id:'physical-road2-flow',road,profile,source:'G4E7AV_LINESOFT',
    inputShapeScales:cfg,modifiedPhysicalRows:rows,
+   actualCrownLaneShiftMeters:+maxLaneOffset.toFixed(3),
    maximumPhysicalCenterlineCorrectionMeters:+max3d.toFixed(3),
    maximumPlanarCorrectionMeters:+maxPlanar.toFixed(3),
    maximumVerticalCorrectionMeters:+maxVertical.toFixed(3),

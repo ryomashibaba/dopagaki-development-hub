@@ -21,6 +21,7 @@ for(const road of ['true-pinch','pinch-switch'])test('AW '+road+' independently 
   assert(eq(aw.route.slice(44),av.route.slice(44)));
   assert(eq(aw.spawns,av.spawns));
   assert.equal(m.relocatedNativeMovingB51.length,4);
+  if(grade.startsWith('laneAlign'))assert(m.actualCrownLaneShiftMeters>=10);
   assert.equal(m.preservedOtherB51Count,24);
   for(const span of m.actualB48CoreWidths){
    assert(span.minMeters>11);assert(span.maxMeters<17.5);

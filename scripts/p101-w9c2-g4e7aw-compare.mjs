@@ -72,8 +72,8 @@ export function awComparison(){
  const results=AJ_ROADS.map(road=>({road,
   candidates:[
    ['AV_lineSoft',generateG4E7AV(road,'lineSoft')],
-   ['AW_entryEase',generateG4E7AW(road,'entryEase')],
-   ['AW_flowClear',generateG4E7AW(road,'flowClear')]
+   ['AW_laneAlign12',generateG4E7AW(road,'laneAlign12')],
+   ['AW_laneAlign18',generateG4E7AW(road,'laneAlign18')]
   ].map(([name,doc])=>run(doc,road,name))}));
  return {schema:'dopagaki.g4e7aw-real-road2-start00-240hz/1',results,
   physicsHz:1/DT,actualB48Roads:7,actualMovingObstacles:28,
