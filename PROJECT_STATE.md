@@ -30,6 +30,11 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## 最新G4E-7AU — 開始00から第2道路への連続到達性と実道路2チェックポイントの分離QA（2026-10-24 JST）
+
+AU実240Hz長距離CI [#40078962476](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40078962476) SUCCESS。証拠 [artifact #12554531826](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40078962476/artifacts/12554531826)。
+**開始00から非人間P96固定操舵では、ASもATも第1道路で7.025s（TRUE-PINCH）／7.05833s（PINCH-SWITCH）に落下。第2道路へ未到達（訪問1/7）。** 第2道路の孤立ネイティブ開始 u=.18/.70×105/165m/sは、105m/sで3.4s継続したが負の路肩マージン。165m/sでは障害物衝突／落下。**孤立開始の継続＝開始00からの到達でも人間の公平な走行でもない。** このブロッカーを見逃さず、AT原本不変更の独立AU PRIVATE「第2道路直接試走」候補を追加する。2つの追加QA開始点と実28障害物/全7道路/真ギャップは同じ物理。localhostのみ `?g4e7au=inspect&g4e7auPoint=crown|chasm&g4e7auSpeed=105|165`（チェックポイントはレース進行の救済機能ではない）。次の工程は第1道路で空中離脱する原因をレース本体の実B48形状と操作可能性で修正する。**正式Slope2=0m／Human/Art/Promotion/Publish/PR Ready/merge=HOLD**。 [AU監査](docs/W9C2_G4E7AU_CONTINUOUS_ROAD2_PRIVATE_HOLD_JA.md)。
+
 ## 最新G4E-7AT — CROWN THREAD＋CHASM SWEEP：真2道路の連続3Dコース制作（2026-10-24 JST）
 
 **AT専用CI #40077679372 SUCCESS／ブラウザ統合CI [#40077944798](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40077944798) 全SUCCESS（Chromium19/19、PRIVATE build、公開/公開安全モード隔離PASS）**。 [画面artifact #12554380582](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40077944798/artifacts/12554380582)。`RUN_G4E7AT_MANUAL.cmd` を追加してWindows privateローカル起動を1操作化（人間QAの合格を意味しない）。多数の旧CIが共通ファイル変更で同時に起動する効率問題は未解決で、今後は対象別CI＋節目のフル回帰とする。人間/美術/認定/公開はHOLD。\n\n前工程ASの実WebGL写真では、スタート直後の道路が幅54〜55mで広く見え、直方体型景観の弱さも再認識した。診断を繰り返さずコース制作を加速するため、ASの真B48第1道路を保持し、**第2道路にさらに2つの独立した実3D狭路**（最大27m級S蛇行／高低差23m／横傾斜・衝突有効）を制作した。第2道路のP95/A13実障害物4基を路面位置と向きに追従し、他24機、全7道路、真ギャップcell52、原本ASを保護。専用CI [#40077679372](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40077679372) SUCCESS：CROWN_THREADの実細道長244.97m・幅12.10〜16.17m、CHASM_SWEEPの実細道長294.33m・幅13.80〜15.98m、**約539.30mは新規制作された実B48物理狭路長で、正式Slope2 DNA距離ではない**。240Hzの2.4秒×6条件PASSは7/7完走ではない。ブラウザ手動QAは `?g4e7al=manual&g4e7at=crown-chasm` でPRIVATE localhostのみ。Human/Art/Fairness/Publish/PR Ready/merge: HOLD。正式Slope2認定0m。 [AT技術監査](docs/W9C2_G4E7AT_CROWN_CHASM_PRIVATE_HOLD_JA.md) に詳細。

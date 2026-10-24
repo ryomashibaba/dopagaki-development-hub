@@ -72,6 +72,8 @@ const assets={'VB-P101-A13':'P101_A13_W7_GAMEPLAY.json','VB-P101-A13-W9X-B1':'P1
  'VB-P101-A13-W9C2-G4E7AS-PINCH-SWITCH':'P101_A13_W9C2_G4E7AS_PINCH_SWITCH_LOCAL_TRIAL.json',
  'VB-P101-A13-W9C2-G4E7AT-TRUE-PINCH':'P101_A13_W9C2_G4E7AT_TRUE_PINCH_LOCAL_TRIAL.json',
  'VB-P101-A13-W9C2-G4E7AT-PINCH-SWITCH':'P101_A13_W9C2_G4E7AT_PINCH_SWITCH_LOCAL_TRIAL.json',
+ 'VB-P101-A13-W9C2-G4E7AU-TRUE-PINCH':'P101_A13_W9C2_G4E7AU_TRUE_PINCH_INSPECT_LOCAL.json',
+ 'VB-P101-A13-W9C2-G4E7AU-PINCH-SWITCH':'P101_A13_W9C2_G4E7AU_PINCH_SWITCH_INSPECT_LOCAL.json',
  'VB-P101-A13-W9C2-G4E7AK-TRUE-PINCH':'P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json','VB-P101-A13-W9C2-G4E7AK-PINCH-SWITCH':'P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json','VB-P101-B5':'P101_B5_HYPER_ARC.json','VB-P101':'P101_VELOCITY_OVERDRIVE.json','VB-P100':'P100_TERRAIN_PULSE.json','VB-P99':'P99_PRESSURE_LINES.json','VB-P95':'P95_VOID_HAZARD_CANDIDATE.json','VB-P93':'P93_VOID_BREAKER.json','EP-P66':'P66_ECHO_RUSH.json','EP-001':'EP-001_P62_KINETIC_ARCHITECTURE.json','HG-001':'HG-001_P62_KINETIC_ARCHITECTURE.json','HS-001':'HS-001_P62_KINETIC_ARCHITECTURE.json','WV-001':'WV-001_P62_KINETIC_ARCHITECTURE.json'};
 // G4E-1 physical trials are private opt-in; Gold remains the visible default.
 const g4ePreviewOptIn=new URLSearchParams(window.location.search).get('g4e')==='on'||
@@ -144,6 +146,12 @@ const g4e7alRequested=g4e6LocalHost&&!g4e7akOptIn&&!g4e7aiOptIn&&!g4e7mOptIn&&
  new URLSearchParams(window.location.search).get('g4e7al')==='manual'&&
  new URLSearchParams(window.location.search).get('g4e7akFrame')!=='hold';
 const g4e7alSession=g4e7alRequested?newG4E7ALSession():null;
+// AU: isolated inspection mode only. Different from AL start00 manual runs.
+const g4e7auRequested=g4e6LocalHost&&!g4e7alRequested&&
+ new URLSearchParams(window.location.search).get('g4e7au')==='inspect';
+const g4e7auPoint=['crown','chasm','start'].includes(new URLSearchParams(window.location.search).get('g4e7auPoint'))?
+ new URLSearchParams(window.location.search).get('g4e7auPoint'):'crown';
+const g4e7auSpeed=g4e7auRequested&&new URLSearchParams(window.location.search).get('g4e7auSpeed')==='165'?165:105;
 // AM: private art-only A/B; the default AL stage and real 240Hz collision stay unchanged.
 const g4e7amRequested=g4e7alRequested&&new URLSearchParams(window.location.search).get('g4e7am')==='continent';
 // AN is an independent opt-in. Never stack with rejected AM or other scenery.
@@ -185,6 +193,12 @@ if(g4e7aiOptIn)for(const id of ['R2-CONTROL','TRUE-PINCH','PINCH-SWITCH']){
 const g4e7aiPoint=['t315','t365','t415','t450','t515','t600'].includes(
  new URLSearchParams(window.location.search).get('g4e7aiPoint'))?
  new URLSearchParams(window.location.search).get('g4e7aiPoint'):'t365';
+if(g4e7auRequested)for(const road of G4E7AL_ROADS){
+ const option=document.createElement('option');
+ option.value='VB-P101-A13-W9C2-G4E7AU-'+road.toUpperCase();
+ option.textContent='G4E-7AU '+road.toUpperCase()+' / REAL SECOND B48 INSPECTION NOT START00 / HOLD';
+ $('stage').append(option);
+}
 if(g4e7alRequested)for(const road of G4E7AL_ROADS){
  const option=document.createElement('option');
  option.value='VB-P101-A13-W9C2-'+g4e7alStageCode+'-'+road.toUpperCase();
@@ -442,6 +456,7 @@ function buildVisual(stage){
   canvas.dataset.g4e7apMode=g4e7apRequested&&stage.stageForge?.g4e7apStudy?.id==='temporal-slalom'?'true-b51-temporal-slalom':'off';
   canvas.dataset.g4e7asMode=g4e7asRequested&&stage.stageForge?.g4e7asStudy?.id==='banked-serpent'?'real-b48-banked-serpent':'off';
   canvas.dataset.g4e7atMode=g4e7atRequested&&stage.stageForge?.g4e7atStudy?.id==='crown-chasm'?'real-two-road-crown-chasm':'off';
+  canvas.dataset.g4e7auMode=g4e7auRequested&&stage.stageForge?.g4e7auStudy?.id==='road2-inspect'?'second-b48-native-manual-inspection-not-start00':'off';
   canvas.dataset.g4e7aoMode=ao.active?'real-b51-approach':'off';
   canvas.dataset.g4e7aoHazards=String(ao.hazards);
   canvas.dataset.g4e7aoStations=String(ao.stations.length);
@@ -1023,7 +1038,10 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
   $('ghostToggle').setAttribute('aria-pressed',String(eligible&&ghostEnabled));
   $('ghostToggle').title=eligible?'開始地点00の手動走行にだけ適用':'実物理ゴーストはECHO PIPE開始00の手動走行のみ';
   const physicalLaunch=['B5_HYPER_ARC_ISOLATED','A13_GAMEPLAY_ISOLATED'].includes(doc.stageForge.variant)?52:44;
-  runner=new Runner(doc,world,spawn,physicalLaunch);runner.assist=true;accum=0;paused=false;
+  const physicalQaLaunch=g4e7auRequested&&spawn>=doc.stageForge?.g4e7auStudy?.originalSpawns?
+   g4e7auSpeed:physicalLaunch;
+  runner=new Runner(doc,world,spawn,physicalQaLaunch);runner.assist=true;accum=0;paused=false;
+  canvas.dataset.g4e7auLaunchMps=g4e7auRequested?String(physicalQaLaunch):'off';
    g4e7gActive=Boolean(doc.stageForge.g4e7gVisualTrial&&g4e7gOptIn);
    g4e7mActive=Boolean(doc.stageForge.g4e7mRealRoad&&g4e7mOptIn);
     g4e7qActive=Boolean(doc.stageForge.g4e7qStudy&&g4e7qOptIn);
@@ -1146,6 +1164,7 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
     if(g4e7tActive)status.textContent='G4E-7T LOCAL '+doc.stageForge.g4e7tStudy.variant.toUpperCase()+
      ' / TRUE EARLY 13m B48 '+(doc.stageForge.g4e7tStudy.gap?'TWO-CELL REAL GAP':'SOLID CONTROL')+
      ' / 28 ORIGINAL MACHINES / SCRIPT/HUMAN FAIRNESS HOLD.';
+    if(g4e7auRequested)status.textContent='G4E-7AU LOCAL SECOND ROAD PHYSICAL CHECKPOINT ONLY / NOT NORMAL START00 / 28 REAL B51 / HUMAN QA HOLD';
     if(g4e7alActive)status.textContent=g4e7atRequested?'G4E-7AT LOCAL MANUAL / CROWN THREAD + CHASM SWEEP 2 TRUE B48 ROADS + 28 B51-C / HUMAN FAIRNESS HOLD.':g4e7asRequested?'G4E-7AS LOCAL MANUAL / BANKED SERPENT REAL B48 + 28 B51-C / HUMAN FAIRNESS HOLD.':g4e7apRequested?'G4E-7AL LOCAL MANUAL / AP TRUE TEMPORAL SLALOM + 28 REAL B51-C / NO P96 / HUMAN FAIRNESS HOLD.':'G4E-7AL LOCAL MANUAL / 11m REAL B48 + 28 REAL B51-C / NO P96 / HUMAN FAIRNESS HOLD.';
      if(g4e7akActive)status.textContent='G4E-7AK LOCAL REAL 11m B48 + REANCHORED 2/28 B51 / '+g4e7akPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / HOLD.';
      if(g4e7aiActive)status.textContent='G4E-7AI LOCAL REAL NARROW B48 / '+g4e7aiPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / RESEARCH HOLD.';
@@ -1213,6 +1232,19 @@ async function load(){
     if(!g4e7aiShot||g4e7aiShot.source!=='ACTUAL_240HZ_START00_P96_NOT_HUMAN'||
        g4e7aiShot.speedMps<=52)throw Error('AI requested native frame missing');
     $('demoRun').disabled=true;$('practiceRun').disabled=true;$('spawn').value='0';
+   }
+   if(g4e7auRequested){
+    const au=value.stageForge?.g4e7auStudy,at=value.stageForge?.g4e7atStudy;
+    if(au?.id!=='road2-inspect'||!G4E7AL_ROADS.includes(au.road)||
+      id!=='VB-P101-A13-W9C2-G4E7AU-'+au.road.toUpperCase()||
+      value.stageForge.recordStageId!=='VB-P101-A13-W9C2-G4E7AU-'+au.road.toUpperCase()+'-INSPECT'||
+      au.originalSpawns+2!==value.spawns.length||au.actualRoads!==7||au.actualMovingObstacles!==28||
+      !au.firstGapCell52Unchanged||au.formalSlope2Meters!==0||au.publish!=='HOLD'||
+      !au.notARescueCheckpoint||at?.id!=='crown-chasm'||
+      value.stageForge.productionPromoted!==false||value.surfaces.length!==7||
+      value.movingObstacles.length!==28||value.surfaces[0].voidLongitudinalCells?.join(',')!=='52')
+      throw Error('AU invalid physical second-road checkpoint provenance');
+    $('demoRun').disabled=true;$('practiceRun').disabled=true;
    }
    if(g4e7alRequested){
     const aj=value.stageForge?.g4e7ajStudy,ah=value.stageForge?.g4e7ahStudy,
@@ -1366,6 +1398,11 @@ async function load(){
    $('practiceChapter').disabled=doc.stageForge?.id!=='EP-P66';
   $('spawn').replaceChildren();
   value.spawns.forEach((s,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=s.name||'開始地点 '+(i+1);$('spawn').append(option);});
+  if(g4e7auRequested&&value.stageForge.g4e7auStudy?.id==='road2-inspect'){
+   const au=value.stageForge.g4e7auStudy;
+   $('spawn').value=String(g4e7auPoint==='start'?0:au.originalSpawns+(g4e7auPoint==='chasm'?1:0));
+   $('demoRun').disabled=true;$('practiceRun').disabled=true;
+  }
   if(g4e7gOptIn&&value.stageForge.g4e7gVisualTrial){
    const i=value.stageForge.g4e7gVisualTrial.originalSpawns;
    $('spawn').value=String(i+(g4e7gPoint==='crown'?1:0));
@@ -1821,6 +1858,7 @@ $('stage').addEventListener('change',()=>{demoMode=false;practiceMode=false;seek
 const requestedStage=new URLSearchParams(window.location.search).get('stage');
 if(requestedStage&&Object.hasOwn(assets,requestedStage)&&Array.from($('stage').options).some(o=>o.value===requestedStage))$('stage').value=requestedStage;
 if(g4e7oRequested)$('stage').value='VB-P101-A13-W9C2-G4E7M-THREAD';
+if(g4e7auRequested)$('stage').value='VB-P101-A13-W9C2-G4E7AU-'+(g4e7auPoint==='chasm'?'PINCH-SWITCH':'TRUE-PINCH');
 if(g4e7alRequested)$('stage').value='VB-P101-A13-W9C2-'+g4e7alStageCode+'-TRUE-PINCH';
  $('p101Profile').addEventListener('change',()=>{if(doc?.stageForge?.id==='VB-P101')restart();});
 $('spawn').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;restart();});
