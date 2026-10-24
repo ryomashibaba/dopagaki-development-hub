@@ -686,7 +686,7 @@ function render(frameSeconds){
   cameraState={yaw:shot.yaw};
  }else{
   cameraState=comparisonMode==='stable'
-   ?advanceCamera(cameraState,pose.forward,active?frameSeconds:0)
+   ?advanceCamera(cameraState??createCameraState(pose.forward),pose.forward,active?frameSeconds:0)
    :createCameraState(pose.forward);
  }
  headingError=cameraYawErrorRadians(cameraState,pose.forward);
@@ -1013,7 +1013,7 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
      if(g4e7alResultDownload)g4e7alResultDownload.hidden=false;
      return;
     }
-    $('stage').value='VB-P101-A13-W9C2-'+g4e7alStageCode+'-PINCH-SWITCH';load();
+    $('stage').value='VB-P101-A13-W9C2-'+g4e7alStageCode+'-PINCH-SWITCH'+(g4e7avRequested?'-'+g4e7avGrade.toUpperCase():'');load();
    },onDownload:exportG4E7ALJSON
   });
   if(!g4e7alResultDownload){
@@ -1874,7 +1874,7 @@ const requestedStage=new URLSearchParams(window.location.search).get('stage');
 if(requestedStage&&Object.hasOwn(assets,requestedStage)&&Array.from($('stage').options).some(o=>o.value===requestedStage))$('stage').value=requestedStage;
 if(g4e7oRequested)$('stage').value='VB-P101-A13-W9C2-G4E7M-THREAD';
 if(g4e7auRequested)$('stage').value='VB-P101-A13-W9C2-G4E7AU-'+(g4e7auPoint==='chasm'?'PINCH-SWITCH':'TRUE-PINCH');
-if(g4e7alRequested)$('stage').value='VB-P101-A13-W9C2-'+g4e7alStageCode+'-TRUE-PINCH';
+if(g4e7alRequested)$('stage').value='VB-P101-A13-W9C2-'+g4e7alStageCode+'-TRUE-PINCH'+(g4e7avRequested?'-'+g4e7avGrade.toUpperCase():'');
  $('p101Profile').addEventListener('change',()=>{if(doc?.stageForge?.id==='VB-P101')restart();});
 $('spawn').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;restart();});
 $('restart').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('retryRun').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('pause').addEventListener('click',toggle);
