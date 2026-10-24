@@ -55,3 +55,12 @@
 - 研究専用GPU表示モード `&g4e7anFocus=citadel` などを保持し、旧候補と個別造形の両方を同じカメラ・道路で比較可能にする。
 - [R3 CI #40050904186](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40050904186) の**Node/Chromium/研究JSON隔離の最終結果**と、全景5画像＋単独建築4画像を確認するまでは、視認性向上・美術採用を報告しない。
 - R2とR3の美術採用は、人間実試走も同時に判定する必要あり。自動キーボードはユーザーの公平性の証明ではない。保護PRのReady/merge・本番公開は常時禁止。
+
+## R3確定検証・実WebGL審査（2026-10-24 JST）
+
+- [R3 Actions #40050904186](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40050904186) は**全ステップSUCCESS**：AN本体と既存AL/AM/7Oを含むNode・Chromium・private build・public/public-safeで未承認研究JSON非混入。
+- [R3スクリーンショット artifact #12543641160](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40050904186/artifacts/12543641160) を直接取得し、従来景観、AN R3の2コース×開始直後／移動後、独立4建築の実WebGL計9枚を検査した。
+- **検証された改善**：右の `citadel` はR2の巨大な暗い一枚壁から、明るい斜材と隙間のある大規模格子へ変化。路面と動体の前方を覆う一枚壁の圧迫感は明確に軽減。中景／遠景の独立した複数形態が同画面へ部分的に入り始めた。
+- **残る美術HOLD**：中空冠と都市棚は初期視点で左上・画面端の断片になり、中心や都市内部の奥行きが読み取れない。 `harpoon` は遠景の強い主役にはまだ弱い。塔も目立つが、明るい大型格子のみで都市の圧倒的な精密さや生活可能な巨大建築には到達していない。走行後の一部スクリーンショットは障害物やカメラ俯角のため画面変化が大きく、単純な1フレーム比較だけで公平性を判定できない。
+- **明確な判定**：G4E-7AN R3 `TECHNICAL_PASS / VISUAL_IMPROVED_BUT_NOT_ACCEPTED / HUMAN_HOLD / PUBLIC_HOLD`。Goldへ採用せず正式Slope2 0mのまま。前工程にあった実走路の狭さ・面白さ、障害物の質、下り先読み、カメラ復帰遅延といったゲーム本体の問題を美術だけでごまかさない。
+- **次研究の方向**：同じ壁の小数点調整や建築数をただ増やすのは避ける。ゲーム品質面では、現行の真11m路面と動体2/28配置でA/D実機の視認・ライン取り・面白さの証拠を得ることを優先。美術継続時は厚み／住める都市空間と1つの分かりやすい主役を両立し、道路前方が常に見える実カメラで監査する。
