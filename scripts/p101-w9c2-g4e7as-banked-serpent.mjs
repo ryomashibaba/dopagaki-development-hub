@@ -61,21 +61,33 @@ export function generateG4E7AS(road='true-pinch'){
  });
  const mesh=tessellate(skin),mid=sample(skin,(originalGap.uTakeoff+originalGap.uLanding)/2,.5),
   widths=[.08,.105,.13,.765,.795,.82,.85].map(u=>dist(sample(skin,u,0),sample(skin,u,1)));
- if(mesh.degenerate!==0||!eq(sample(skin,originalGap.uTakeoff,.5),lip0)||
-    !eq(sample(skin,originalGap.uLanding,.5),landing0)||
-    !eq(skin.voidLongitudinalCells,[52])||
-    !eq(doc.surfaces.slice(1),ap.surfaces.slice(1))||
-    !eq(doc.route.slice(22),ap.route.slice(22))||
-    !eq(doc.routeSegments,ap.routeSegments)||!eq(doc.spawns,ap.spawns)||
-    !eq(doc.movingObstacles.filter(o=>o.id!=='a13-machine-02'),
-        ap.movingObstacles.filter(o=>o.id!=='a13-machine-02'))||
-    measure[AS_SPANS[0].id].maxSide<7||measure[AS_SPANS[1].id].maxSide<7||
-    measure[AS_SPANS[0].id].maxHeight<6||measure[AS_SPANS[1].id].maxHeight<6||
-    measure[AS_SPANS[0].id].maxBank<2||measure[AS_SPANS[1].id].maxBank<2||
-    widths.some(w=>w<10||w>17)||dist(newAnchor,oldAnchor)<4||
-    doc.surfaces.length!==7||doc.movingObstacles.length!==28||
-    JSON.stringify(ap)!==frozen)
-  throw Error('AS protected real road, gap or B51 provenance mismatch');
+ const invariants={
+  degenerate:mesh.degenerate===0,
+  lipExact:eq(sample(skin,originalGap.uTakeoff,.5),lip0),
+  landingExact:eq(sample(skin,originalGap.uLanding,.5),landing0),
+  genuineVoidCell52:eq(skin.voidLongitudinalCells,[52]),
+  downstreamSurfaces:eq(doc.surfaces.slice(1),ap.surfaces.slice(1)),
+  downstreamRoute:eq(doc.route.slice(22),ap.route.slice(22)),
+  routeSegments:eq(doc.routeSegments,ap.routeSegments),
+  spawn:eq(doc.spawns,ap.spawns),
+  other27Hazards:eq(doc.movingObstacles.filter(o=>o.id!=='a13-machine-02'),
+   ap.movingObstacles.filter(o=>o.id!=='a13-machine-02')),
+  enteringTurn:measure[AS_SPANS[0].id].maxSide>=7,
+  exitingTurn:measure[AS_SPANS[1].id].maxSide>=7,
+  enteringCrest:measure[AS_SPANS[0].id].maxHeight>=6,
+  exitingDive:measure[AS_SPANS[1].id].maxHeight>=6,
+  enteringBank:measure[AS_SPANS[0].id].maxBank>=2,
+  exitingBank:measure[AS_SPANS[1].id].maxBank>=2,
+  physicalWidth:widths.every(w=>w>=10&&w<=17),
+  physicalRotorMoved:dist(newAnchor,oldAnchor)>=4,
+  originalSevenRoads:doc.surfaces.length===7,
+  original28Machines:doc.movingObstacles.length===28,
+  apNotMutated:JSON.stringify(ap)===frozen
+ };
+ const failed=Object.entries(invariants).filter(([,ok])=>!ok).map(([id])=>id);
+ if(failed.length)throw Error('AS protected road / gap / B51 mismatch: '+failed.join(', ')+
+  ' | bounds '+JSON.stringify({widths,lipU:originalGap.uTakeoff,
+   landingU:originalGap.uLanding,delta,measure}));
  if(contacts(compile(doc),[mid[0],mid[1]+.65,mid[2]],.65)
    .some(x=>x.triangle.rideable))throw Error('AS phantom road under original B48 void');
  doc.name='G4E-7AS BANKED SERPENT / '+road+' / actual S crest + descending bank / HOLD';
