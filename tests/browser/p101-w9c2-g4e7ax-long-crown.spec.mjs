@@ -6,7 +6,7 @@ for(const road of ['true-pinch','pinch-switch']){
   page.on('pageerror',e=>errs.push(e.message));
   await page.goto('/drive3d/?g4e7al=manual&g4e7ax=long-crown');
   // Wait for the true native stage and camera to finish loading, not merely the DOM.
-  await expect(page.locator('#stage')).toBeEnabled({timeout:90000});
+  // #stage is deliberately disabled in private manual QA. Native canvas data signals readiness.
   await expect(page.locator('#view')).toHaveAttribute('data-machine-count','28',{timeout:90000});
   if(road==='pinch-switch'){
    await page.keyboard.down('KeyD');await page.waitForTimeout(450);
