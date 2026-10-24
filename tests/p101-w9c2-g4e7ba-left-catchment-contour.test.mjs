@@ -21,7 +21,7 @@ for(const road of ['true-pinch','pinch-switch'])test('BA real 14m late CROWN and
   assert(same(doc.surfaces[0],src.surfaces[0]));
   assert(same(doc.surfaces.slice(2),src.surfaces.slice(2)));
   assert(same(doc.surfaces[1].points.slice(19*5),src.surfaces[1].points.slice(19*5)));
-  assert(same(doc.surfaces[1].points.slice(0,11*5),src.surfaces[1].points.slice(0,8*5)));
+  assert(same(doc.surfaces[1].points.slice(0,8*5),src.surfaces[1].points.slice(0,8*5)));
   assert(same(doc.spawns,src.spawns));
   assert.equal(m.movedB51.length,2);
   assert.equal(m.unchangedB51,26);
