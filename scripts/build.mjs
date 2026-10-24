@@ -7,6 +7,38 @@ import {generateVoidAcceptanceEvidence} from './p94-void-native-acceptance.mjs';
 import {generateVoidHazardCandidate} from './p95-void-hazard-build.mjs';
 import {generateP99VariableWidthCandidate} from './p99-variable-width-build.mjs';
 import {generateP100TerrainPulseCandidate} from './p100-terrain-pulse-build.mjs';
+import {generateP101OverdriveCandidate} from './p101-overdrive-build.mjs';
+import {generateP101B5Speedway} from './p101-b5-speedway-build.mjs';
+import {generateP101A13RoadCandidate} from './p101-a13-road-build.mjs';
+import {generateP101A13W7Candidate} from './p101-a13-w7-gameplay-build.mjs';
+import {generateP101A13W9XCandidate} from './p101-a13-w9b-road-candidate.mjs';
+import {generateP101W9C1AbyssCandidate} from './p101-w9c1-abyss-narrow.mjs';
+import {generateP101W9C2SCrestCandidate} from './p101-w9c2-s-crest-build.mjs';
+import {generateW9C2G4ENarrow} from './p101-w9c2-g4e-narrow-build.mjs';
+import {generateG4E6EarlyGap} from './p101-w9c2-g4e6-early-gap-build.mjs';
+import {generateG4E7GVisualDocument} from './p101-w9c2-g4e7g-visual-stage.mjs';
+import {generateG4E7MPhysical} from './p101-w9c2-g4e7m-physical-build.mjs';
+import {generateG4E7QPhysical} from './p101-w9c2-g4e7q-dive-build.mjs';
+import {generateG4E7RPhysical} from './p101-w9c2-g4e7r-grade-build.mjs';
+import {generateG4E7SNativeCamera} from './p101-w9c2-g4e7s-native-camera.mjs';
+import {generateG4E7TPhysical} from './p101-w9c2-g4e7t-real-early-gap-build.mjs';
+import {generateG4E7VExit} from './p101-w9c2-g4e7v-exit-build.mjs';
+import {g4e7vRealCameraFrames,G4E7V_VISUAL_IDS} from './p101-w9c2-g4e7v-camera-frames.mjs';
+import {generateG4E7WBlend} from './p101-w9c2-g4e7w-takeoff-blend-build.mjs';
+import {generateG4E7ACR2} from './p101-w9c2-g4e7ac-r2-physical.mjs';
+import {generateG4E7AH} from './p101-w9c2-g4e7ah-narrow-real-b48.mjs';
+import {g4e7aiNativeFrames,AI_VARIANTS} from './p101-w9c2-g4e7ai-native-frames.mjs';
+import {g4e7akNativeFrames} from './p101-w9c2-g4e7ak-native-frames.mjs';
+import {generateG4E7AJ,AJ_ROADS} from './p101-w9c2-g4e7aj-reanchor-moving.mjs';
+import {generateG4E7AP} from './p101-w9c2-g4e7ap-temporal-slalom.mjs';
+import {generateG4E7AS} from './p101-w9c2-g4e7as-banked-serpent.mjs';
+import {generateG4E7AT} from './p101-w9c2-g4e7at-crown-chasm.mjs';
+import {generateG4E7AV} from './p101-w9c2-g4e7av-crest-shaping.mjs';
+import {generateG4E7AX} from './p101-w9c2-g4e7ax-long-crown.mjs';
+import {generateG4E7AY} from './p101-w9c2-g4e7ay-tangent-bridge.mjs';
+import {generateG4E7AUInspection} from './p101-w9c2-g4e7au-private-inspection.mjs';
+import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
+import {g4e7wNativeCameraFrames,G4E7W_VISUAL_PROFILES,G4E7Y_EARLY_SHOTS} from './p101-w9c2-g4e7w-camera-frames.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
 import {generateP97RoadplayEvidence} from './p97-roadplay-evidence.mjs';
 import {generateP96DodgeEvidence} from './p96-acceptance-evidence.mjs';
@@ -31,6 +63,13 @@ if(includeStages){
  copy('web/inspector.html','web/index.html');
  copy('web/drive3d.html','drive3d/index.html');
  copy('web/drive3d.mjs','drive3d/drive3d.mjs');
+ copy('web/p101-w9c2-g4e7ad-city.mjs','drive3d/p101-w9c2-g4e7ad-city.mjs');
+ copy('web/p101-w9c2-g4e7ae-split-horizon.mjs','drive3d/p101-w9c2-g4e7ae-split-horizon.mjs');
+ copy('web/p101-w9c2-g4e7af-fracture-city.mjs','drive3d/p101-w9c2-g4e7af-fracture-city.mjs');
+ copy('web/p101-w9c2-g4e7ag-open-citadel.mjs','drive3d/p101-w9c2-g4e7ag-open-citadel.mjs');
+ copy('web/p101-w9c2-g4e7am-upturned-city.mjs','drive3d/p101-w9c2-g4e7am-upturned-city.mjs');
+ copy('web/p101-w9c2-g4e7an-sky-archipelago.mjs','drive3d/p101-w9c2-g4e7an-sky-archipelago.mjs');
+ copy('web/p101-w9c2-g4e7ao-b51-approach.mjs','drive3d/p101-w9c2-g4e7ao-b51-approach.mjs');
  copy('web/drive3d-camera.mjs','drive3d/drive3d-camera.mjs');
  copy('web/drive3d-loop.mjs','drive3d/drive3d-loop.mjs');
  copy('web/p66-visual.mjs','drive3d/p66-visual.mjs');
@@ -58,6 +97,40 @@ if(includeStages){
  copy('web/p96-avoidance-steer.mjs','drive3d/p96-avoidance-steer.mjs');
  copy('web/p97-roadplay-gates.mjs','drive3d/p97-roadplay-gates.mjs');
  copy('web/p100-road-read.mjs','drive3d/p100-road-read.mjs');
+ copy('web/p101-overdrive.mjs','drive3d/p101-overdrive.mjs');
+ copy('web/p101-b5-forward.mjs','drive3d/p101-b5-forward.mjs');
+ copy('web/p101-a13-forward.mjs','drive3d/p101-a13-forward.mjs');
+ copy('web/p101-a13-hazard-layout.mjs','drive3d/p101-a13-hazard-layout.mjs');
+ copy('web/p101-a13-architecture.mjs','drive3d/p101-a13-architecture.mjs');
+ copy('web/p101-a13-w9-architecture.mjs','drive3d/p101-a13-w9-architecture.mjs');
+ copy('web/p101-a13-machine-visual.mjs','drive3d/p101-a13-machine-visual.mjs');
+ copy('web/p101-a13-road-art.mjs','drive3d/p101-a13-road-art.mjs');
+  copy('web/p101-w9c2-g4e7k-quiet-visual.mjs','drive3d/p101-w9c2-g4e7k-quiet-visual.mjs');
+  copy('web/p101-w9c2-g4e7l-titan.mjs','drive3d/p101-w9c2-g4e7l-titan.mjs');
+ copy('web/p101-w9c2-g4e7s-shard-city.mjs','drive3d/p101-w9c2-g4e7s-shard-city.mjs');
+ copy('web/p101-w9c1-approach-cue.mjs','drive3d/p101-w9c1-approach-cue.mjs');
+ copy('web/p101-w9c1-g5b-skyline.mjs','drive3d/p101-w9c1-g5b-skyline.mjs');
+ copy('web/p101-w9c2-g4d-skyways.mjs','drive3d/p101-w9c2-g4d-skyways.mjs');
+ copy('web/p101-w9c2-g4e7b-qa.mjs','drive3d/p101-w9c2-g4e7b-qa.mjs');
+ copy('web/p101-w9c2-g4e7c-gap-cues.mjs','drive3d/p101-w9c2-g4e7c-gap-cues.mjs');
+  // All stage-capable builds import this harmless drawing module; ONLY PRIVATE
+  // emits the actual A065/A070 research B48 stage JSON and 240Hz proof.
+  copy('web/p101-w9c2-g4e7x-gap-reading.mjs','drive3d/p101-w9c2-g4e7x-gap-reading.mjs');
+ copy('web/p101-w9c2-g4e7d-human-qa.mjs','drive3d/p101-w9c2-g4e7d-human-qa.mjs');
+ copy('web/p101-w9c2-g4e7d-manual-panel.mjs','drive3d/p101-w9c2-g4e7d-manual-panel.mjs');
+  copy('web/p101-w9c2-g4e7o-manual-qa.mjs','drive3d/p101-w9c2-g4e7o-manual-qa.mjs');
+  copy('web/p101-w9c2-g4e7o-manual-panel.mjs','drive3d/p101-w9c2-g4e7o-manual-panel.mjs');
+  copy('web/p101-w9c2-g4e7al-manual-qa.mjs','drive3d/p101-w9c2-g4e7al-manual-qa.mjs');
+  copy('web/p101-w9c2-g4e7al-manual-panel.mjs','drive3d/p101-w9c2-g4e7al-manual-panel.mjs');
+  copy('web/p101-w9c2-g4e7h-hud-focus.mjs','drive3d/p101-w9c2-g4e7h-hud-focus.mjs');
+  copy('web/p101-w9c2-g4e7i-readability.mjs','drive3d/p101-w9c2-g4e7i-readability.mjs');
+  copy('web/p101-w9c2-g4e7j-matrix.mjs','drive3d/p101-w9c2-g4e7j-matrix.mjs');
+ copy('web/p101-w9c1-pair-qa.html','w9c1-pair-qa/index.html');
+ copy('web/p101-w9c1-pair-qa.mjs','w9c1-pair-qa/comparison.mjs');
+ copy('web/p101-w9c1-pair-session.html','w9c1-pair-session/index.html');
+ copy('web/p101-w9c1-pair-session.mjs','w9c1-pair-session/session.mjs');
+ copy('web/p101-b5-road-optic.mjs','drive3d/p101-b5-road-optic.mjs');
+ copy('web/p101-b5-manual-qa.mjs','drive3d/p101-b5-manual-qa.mjs');
  const nativeCourse=generateEchoRush();
  write('generated/P66_ECHO_RUSH.json',JSON.stringify(nativeCourse,null,2)+'\n');
  const voidStage=generateVoidBreaker();
@@ -71,6 +144,138 @@ if(includeStages){
  write('generated/P99_PRESSURE_LINES.json',JSON.stringify(pressureLines,null,2)+'\n');
  const terrainPulse=generateP100TerrainPulseCandidate();
  write('generated/P100_TERRAIN_PULSE.json',JSON.stringify(terrainPulse,null,2)+'\n');
+ write('generated/P101_VELOCITY_OVERDRIVE.json',JSON.stringify(generateP101OverdriveCandidate(),null,2)+'\n');
+ write('generated/P101_B5_HYPER_ARC.json',JSON.stringify(generateP101B5Speedway({lowerReversalLength:1800}),null,2)+'\n');
+ write('generated/P101_A13_GAMEPLAY_W1.json',JSON.stringify(generateP101A13RoadCandidate(),null,2)+'\n');
+ write('generated/P101_A13_W7_GAMEPLAY.json',JSON.stringify(generateP101A13W7Candidate(),null,2)+'\n');
+ // Separate W9-X physical trial asset: intentionally not selectable or promoted.
+ write('generated/P101_A13_W9X_B1_TRIAL.json',JSON.stringify(generateP101A13W9XCandidate(),null,2)+'\n');
+ // W9-C1 isolated collision skins; Draft/HOLD, never published by PR.
+ for(const kind of ['control','ultra'])write('generated/P101_A13_W9C1_'+kind.toUpperCase()+'_TRIAL.json',JSON.stringify(generateP101W9C1AbyssCandidate(kind),null,2)+'\n');
+  // W9-C2 independent genuine S-crest experiment; not the playable default.
+  for(const kind of ['ribbon','edge'])write('generated/P101_A13_W9C2_'+kind.toUpperCase()+'_TRIAL.json',JSON.stringify(generateP101W9C2SCrestCandidate(kind),null,2)+'\n');
+  // G4E-1 genuine physical narrow road, private PR preview only, OFF by default.
+  for(const kind of ['shoulder','razor'])write('generated/P101_A13_W9C2_G4E_'+kind.toUpperCase()+'_TRIAL.json',JSON.stringify(generateW9C2G4ENarrow(kind),null,2)+'\n');
+  // G4E-7G: visual comparators NEVER shipped to public even with this environment flag.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7G_VISUAL==='1'){
+    for(const kind of ['gold','glide'])
+     write('generated/P101_A13_W9C2_G4E7G_'+kind.toUpperCase()+'_LOCAL_VISUAL.json',
+      JSON.stringify(generateG4E7GVisualDocument(kind),null,2)+'\n');
+   }
+   // G4E-7M: TRUE 13-16m B48 candidate roads, NEVER public.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7M_VISUAL==='1'){
+    for(const kind of ['thread','precipice'])
+     write('generated/P101_A13_W9C2_G4E7M_'+kind.toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7MPhysical(kind,{visualSpawns:true}),null,2)+'\n');
+   }
+   // G4E-7Q: isolated true B48 sculpted dive / absent collider cells, LOCAL ONLY.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7Q_VISUAL==='1'){
+    for(const kind of ['drop','leap'])
+     write('generated/P101_A13_W9C2_G4E7Q_'+kind.toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7QPhysical(kind,{visualSpawns:true}),null,2)+'\n');
+   }
+   // G4E-7R: isolated true B48 graded narrow-road / real gap, PRIVATE only.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7R_VISUAL==='1'){
+    for(const kind of ['sweep','cut'])
+     write('generated/P101_A13_W9C2_G4E7R_'+kind.toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7RPhysical(kind,{inspectionSpawns:true}),null,2)+'\n');
+   }
+   // G4E-7S: native 240Hz camera snapshots, private and explicit only.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7S_VISUAL==='1'){
+    if(process.env.DOPAGAKI_G4E7R_VISUAL!=='1')
+     throw Error('G4E7S native shots require an explicitly private real R-CUT source');
+    write('generated/P101_A13_W9C2_G4E7S_240HZ_PRIVATE.json',
+     JSON.stringify(generateG4E7SNativeCamera(),null,2)+'\n');
+   }
+   // G4E-7T: private-only actual early 13m narrow B48 gap candidates.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7T_VISUAL==='1'){
+    for(const variant of ['solid','early','late'])
+     write('generated/P101_A13_W9C2_G4E7T_'+variant.toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7TPhysical(variant,{inspectionSpawns:true}),null,2)+'\n');
+   }
+   // G4E-7V private source: real ONE53/EXIT6/SLOPE6 B48, plus actual
+   // 240Hz scripted start00 camera frames. This NEVER enters public build.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7V_VISUAL==='1'){
+    for(const id of G4E7V_VISUAL_IDS)
+     write('generated/P101_A13_W9C2_G4E7V_'+id.toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7VExit(id),null,2)+'\n');
+    write('generated/P101_A13_W9C2_G4E7V_240HZ_FRAMES_LOCAL.json',
+     JSON.stringify(g4e7vRealCameraFrames(),null,2)+'\n');
+   }
+   // G4E-7W: genuinely causal 15.76m narrow B48 gap, only generated
+   // for explicit localhost PRIVATE WebGL; NEVER in public-safe/site output.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7W_VISUAL==='1'){
+    for(const q of G4E7W_VISUAL_PROFILES)
+     write('generated/P101_A13_W9C2_G4E7W_'+q.name+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7WBlend(q.alpha),null,2)+'\n');
+    write('generated/P101_A13_W9C2_G4E7W_240HZ_FRAMES_LOCAL.json',
+     JSON.stringify(g4e7wNativeCameraFrames(),null,2)+'\n');
+    write('generated/P101_A13_W9C2_G4E7Y_EARLY_240HZ_FRAMES_LOCAL.json',
+     JSON.stringify(g4e7wNativeCameraFrames(G4E7Y_EARLY_SHOTS),null,2)+'\n');
+   }
+   // G4E-7AI: physical 14.8m original vs actual ~11m B48 narrow options.
+   // Strict private-only research without altering production game assets.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7AI_VISUAL==='1'){
+    for(const id of AI_VARIANTS)
+     write('generated/P101_A13_W9C2_G4E7AI_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AH(id),null,2)+'\n');
+    write('generated/P101_A13_W9C2_G4E7AI_240HZ_FRAMES_LOCAL.json',
+     JSON.stringify(g4e7aiNativeFrames(),null,2)+'\n');
+   }
+   // G4E-7AK: real reanchored B51-C on 11m REAL B48, private localhost only.
+   // Public and public-safe builds must never include reanchor research JSON.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7AK_VISUAL==='1'){
+    for(const id of AJ_ROADS)
+     write('generated/P101_A13_W9C2_G4E7AK_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AJ(id,'reanchor'),null,2)+'\n');
+    // AP is a distinct real B51-C physical candidate, PRIVATE only (no Gold).
+    for(const id of AJ_ROADS)
+     write('generated/P101_A13_W9C2_G4E7AP_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AP(id),null,2)+'\n');
+    // BANKED SERPENT is a different actual collision road, not an art overlay; PRIVATE only.
+    for(const id of AJ_ROADS)
+     write('generated/P101_A13_W9C2_G4E7AS_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AS(id),null,2)+'\n');
+    // G4E-7AT: two-road genuine B48 physical race candidate; NEVER public.
+    for(const id of AJ_ROADS)
+     write('generated/P101_A13_W9C2_G4E7AT_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AT(id),null,2)+'\n');
+    // AU local-only second-road hand inspection: two spawns, all real 28 colliders.
+    for(const id of AJ_ROADS)
+     write('generated/P101_A13_W9C2_G4E7AU_'+id.replace('-','_').toUpperCase()+'_INSPECT_LOCAL.json',
+      JSON.stringify(generateG4E7AUInspection(id),null,2)+'\n');
+    // AV: real first-road racing-line fixes (2 controlled profiles), PRIVATE-only.
+    for(const id of AJ_ROADS)for(const grade of ['lineSoft','lineLevel'])
+     write('generated/P101_A13_W9C2_G4E7AV_'+id.replace('-','_').toUpperCase()+'_'+grade.toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AV(id,grade),null,2)+'\n');
+    // AX: genuinely authored long CROWN physical road2, LOCAL ONLY, held.
+    for(const road of AJ_ROADS)
+     write('generated/P101_A13_W9C2_G4E7AX_'+road.replace('-','_').toUpperCase()+'_LONGLEAD_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AX(road,'longLead'),null,2)+'\n');
+    // AY: true 14m CROWN middle bridge; native physical 28 B51 / PRIVATE ONLY.
+    for(const road of AJ_ROADS)
+     write('generated/P101_A13_W9C2_G4E7AY_'+road.replace('-','_').toUpperCase()+'_BANKEDSWEEP_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AY(road,'bankedSweep'),null,2)+'\n');
+    write('generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json',
+     JSON.stringify(g4e7akNativeFrames(),null,2)+'\n');
+   }
+   // G4E-7AD: two proven 7/7 R2 roads and true native camera poses.
+   // Authored ONLY for explicit PRIVATE localhost WebGL review, never public.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7AD_VISUAL==='1'){
+    for(const id of AD_VARIANTS)
+     write('generated/P101_A13_W9C2_G4E7AD_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7ACR2(id),null,2)+'\n');
+    write('generated/P101_A13_W9C2_G4E7AD_240HZ_FRAMES_LOCAL.json',
+     JSON.stringify(g4e7adNativeFrames(),null,2)+'\n');
+   }
+   // G4E-6D: physically complete but human-UNAPPROVED gap candidates.
+  // Strictly local private build, NEVER emitted by the public build even if
+  // someone accidentally sets the environment variable in a release workflow.
+  if(mode==='private'&&process.env.DOPAGAKI_G4E6_MANUAL==='1'){
+   for(const site of ['C0-55-1','B0-65-1'])
+    write('generated/P101_A13_W9C2_G4E6_'+site+'_LOCAL_TRIAL.json',
+     JSON.stringify(generateG4E6EarlyGap(site),null,2)+'\n');
+  }
  write('generated/P99_PHYSICAL_TRIAL.json',JSON.stringify(makeP99PhysicalEvidence(pressureLines),null,2)+'\n');
  write('generated/P87_REFERENCE_GHOST.json',JSON.stringify(generateReferenceGhost(nativeCourse))+'\n');
  for(const file of names)copy('private/stages/'+file,'generated/'+file);

@@ -1,0 +1,56 @@
+name: W9-C2 G4E-7AF fracture city real native-camera WebGL (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/p101-w9c2-g4e7af-fracture-city.mjs'
+      - 'tests/research/p101-w9c2-g4e7af-fracture.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7af-webgl.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7af-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-webgl:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      DOPAGAKI_BUILD_DIR: dist-private
+      DOPAGAKI_G4E7AD_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Genuine B48 immutable art gate and source checks
+        run: |
+          node --check web/p101-w9c2-g4e7af-fracture-city.mjs
+          node --check web/drive3d.mjs
+          node --test tests/research/p101-w9c2-g4e7af-fracture.test.mjs
+      - name: Install Chromium and private physics-linked camera samples
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install chromium --only-shell
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AD_APPROACH_ARC_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AD_240HZ_FRAMES_LOCAL.json
+      - name: Eight identical-camera actual WebGL screenshots, AF versus AE
+        run: npx playwright test tests/browser/p101-w9c2-g4e7af-webgl.spec.mjs
+      - name: Verify research stages excluded from public and public-safe
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AD_APPROACH_ARC_LOCAL_TRIAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AD_240HZ_FRAMES_LOCAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7af-8-native-WebGL-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7af-*.png
+            test-results/**/g4e7af-*.json
+            test-results/**/test-failed*.png
+            test-results/**/error-context.md
+          if-no-files-found: ignore
+          retention-days: 14

@@ -1,0 +1,57 @@
+name: W9-C2 G4E-7AG open skyline authentic 240Hz WebGL (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'tests/browser/p101-w9c2-g4e7ag-webgl.spec.mjs'
+      - 'web/p101-w9c2-g4e7ag-open-citadel.mjs'
+      - 'tests/research/p101-w9c2-g4e7ag-open-citadel.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ag-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  genuine-native-webgl:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 26
+    env:
+      CI: 'true'
+      DOPAGAKI_BUILD_DIR: dist-private
+      DOPAGAKI_G4E7AD_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Real B48 immutable GPU-only geometry
+        run: |
+          node --check web/drive3d.mjs
+          node --check web/p101-w9c2-g4e7ag-open-citadel.mjs
+          node --test tests/research/p101-w9c2-g4e7ag-open-citadel.test.mjs
+      - name: Private 240Hz camera + actual R2 B48 + Chromium
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install chromium --only-shell
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AD_APPROACH_ARC_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AD_240HZ_FRAMES_LOCAL.json
+      - name: Eight real WebGL AF versus AG screenshots and same-pose pixel deltas
+        run: npx playwright test tests/browser/p101-w9c2-g4e7ag-webgl.spec.mjs
+      - name: Public output still excludes all new R2 private geometry
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AD_APPROACH_ARC_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AD_240HZ_FRAMES_LOCAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AD_240HZ_FRAMES_LOCAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ag-open-city-8-WebGL-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7ag-*.png
+            test-results/**/g4e7ag-*.json
+            test-results/**/test-failed*.png
+            test-results/**/error-context.md
+          if-no-files-found: ignore
+          retention-days: 14

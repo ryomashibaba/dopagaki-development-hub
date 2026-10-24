@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {generateG4E7QPhysical} from '../scripts/p101-w9c2-g4e7q-dive-build.mjs';
+import {sample,frame} from '../private/reference_only/director/surface.js';
+import {a13RacingRoadArt} from '../web/p101-a13-road-art.mjs';
+import {p100RoadReadGeometry} from '../web/p100-road-read.mjs';
+import {p101B5OpticalRoadGeometry} from '../web/p101-b5-road-optic.mjs';
+test('G4E-7Q honest missing B48 gap must never be painted as a fake continuous deck',()=>{
+ const drop=generateG4E7QPhysical('drop'),leap=generateG4E7QPhysical('leap');
+ const a=a13RacingRoadArt(drop,sample,frame),b=a13RacingRoadArt(leap,sample,frame);
+ const p0=p100RoadReadGeometry(drop,sample,frame),p1=p100RoadReadGeometry(leap,sample,frame);
+ const o0=p101B5OpticalRoadGeometry(drop,sample,frame),o1=p101B5OpticalRoadGeometry(leap,sample,frame);
+ assert.equal(b.g4e6RealGapVisualClearance,true);
+ assert.equal(a.g4e6RealGapVisualClearance,false);
+ assert(b.vertices.length<=a.vertices.length);
+ assert(p1.stripes<p0.stripes);
+ assert(p1.vertices.length<p0.vertices.length);
+ assert(o1.vertices.length<o0.vertices.length);
+ assert.equal(leap.stageForge.g4e7qStudy.officiallyApprovedSlopeDnaMeters,0);
+ assert.deepEqual(drop.surfaces[0].points,leap.surfaces[0].points);
+});

@@ -155,8 +155,8 @@ function layeredSkyline(v){
   }
  }
 }
-export function megastructureGeometry(stage,sample){
- if(['VB-P93','VB-P95','VB-P99','VB-P100'].includes(stage?.stageForge?.id))return voidBreakerGeometry(stage,sample);
+export function megastructureGeometry(stage,sample,options={}){
+ if(['VB-P93','VB-P95','VB-P99','VB-P100','VB-P101'].includes(stage?.stageForge?.id))return voidBreakerGeometry(stage,sample,options);
  if(stage?.stageForge?.id!=='EP-P66')return {vertices:[],beams:0,sections:[]};
  if(!stage.visualBlueprint||stage.visualBlueprint.schema!=='dopagaki.stageforge.visual/1')
   throw Error('P82 requires the original P66 visual blueprint');

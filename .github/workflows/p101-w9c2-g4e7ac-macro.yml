@@ -1,0 +1,50 @@
+name: W9-C2 G4E-7AC macro real-B48 pilot (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7ac-macro-physical.mjs'
+      - 'scripts/p101-w9c2-g4e7ac-native-screen.mjs'
+      - 'tests/research/p101-w9c2-g4e7ac-physical.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ac-macro.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-native-pilot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: True B48 shapes and frozen reference
+        run: |
+          node --check scripts/p101-w9c2-g4e7ac-macro-physical.mjs
+          node --check scripts/p101-w9c2-g4e7ac-native-screen.mjs
+          node --test tests/research/p101-w9c2-g4e7ac-physical.test.mjs
+      - name: Actual start00 240Hz paired genuine-gap research (9sec only)
+        run: |
+          node scripts/p101-w9c2-g4e7ac-native-screen.mjs ac-screen.json
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const d=JSON.parse(fs.readFileSync("ac-screen.json","utf8"));
+          if(d.physicsHz!==240||!d.start00||d.results.length!==3||
+             d.originalMovingMachines!==28||d.originalRoads!==7||
+             d.officialSlope2Meters!==0||d.publication!=="HOLD"||
+             d.results.some(x=>x.officialSlope2Meters!==0||
+                               x.fullSevenRoadsProven!==false))
+            throw Error("AC unauthorized promotion or incorrect native evidence");
+          console.log("AC_SCREEN_AUDIT "+JSON.stringify(d.results.map(x=>({
+           variant:x.variant,extraAir:x.solidGroundGapAirTicks,
+           maxPositionDelta:x.actualCausalPositionDeltaMeters,
+           landing:x.genuineSameRoadRejoin,lightweightCandidate:x.recommendLongRun}))));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ac-macro-B48-paired-${{ github.run_id }}
+          path: ac-screen.json
+          if-no-files-found: ignore
+          retention-days: 14

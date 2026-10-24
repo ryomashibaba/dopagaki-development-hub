@@ -1,0 +1,52 @@
+name: W9-C2 G4E-7AH authentic narrow-road 7-of-7 full 240Hz pairs (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7ah-full-native.mjs'
+      - 'tests/research/p101-w9c2-g4e7ah-full.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ah-full.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-full-native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Source, physical corridor and 28-hazard invariants
+        run: |
+          node --check scripts/p101-w9c2-g4e7ah-full-native.mjs
+          node --test tests/research/p101-w9c2-g4e7ah-full.test.mjs
+      - name: True 240Hz 7-of-7 road trial, B48 gap versus same narrow road intact
+        run: |
+          node scripts/p101-w9c2-g4e7ah-full-native.mjs g4e7ah-full.json
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const r=JSON.parse(fs.readFileSync("g4e7ah-full.json","utf8"));
+            if(r.hz!==240||!r.start00||r.startSpeedMps!==52||
+              r.realRoads!==7||r.originalMovingB51C!==28||
+              r.pairs.length!==2||r.formalSlope2Meters!==0||
+              r.publication!=="HOLD"||r.humanFairness!=="HOLD"||
+              r.pairs.some(x=>x.fullRoadCut.certifiedSlope2Meters!==0||
+               x.fullRoadIntact.certifiedSlope2Meters!==0))
+                throw Error("G4E-7AH real 7-road or independent HOLD invariant");
+            console.log("G4E7AH_FULL_PASS_GATE "+JSON.stringify(r.pairs.map(x=>({
+              id:x.variant,realWidth:x.fullRoadCut.minimumRealRoadWidthMeters,
+              status:x.fullRoadCut.status,finished:x.fullRoadCut.finished,
+              roads:x.fullRoadCut.visitedRoads,time:x.fullRoadCut.timeSeconds,
+              rejoin:x.fullRoadCut.firstB48Rejoin,events:x.fullRoadCut.events,
+              failure:x.fullRoadCut.failure,eligible:x.candidateForHumanReview
+            }))));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ah-real-narrow-sevenroad-${{ github.run_id }}
+          path: g4e7ah-full.json
+          if-no-files-found: ignore
+          retention-days: 14

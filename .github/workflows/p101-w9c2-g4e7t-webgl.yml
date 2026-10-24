@@ -1,0 +1,68 @@
+name: W9-C2 G4E-7T actual early 13m B48 WebGL (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/build.mjs'
+      - 'web/drive3d.mjs'
+      - 'web/p101-a13-road-art.mjs'
+      - 'web/p100-road-read.mjs'
+      - 'web/p101-b5-road-optic.mjs'
+      - 'scripts/p101-w9c2-g4e7t-real-early-gap-build.mjs'
+      - 'tests/p101-w9c2-g4e7t-visual.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7t-webgl.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7t-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7t-webgl-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  real-B48-private-views:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 19
+    env:
+      DOPAGAKI_G4E7T_VISUAL: '1'
+      DOPAGAKI_BUILD_DIR: dist-private
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Guard real B48 cut and honest real-road optic absence
+        run: |
+          node --check scripts/build.mjs
+          node --check web/drive3d.mjs
+          node --test tests/p101-w9c2-g4e7t-real-early-gap.test.mjs tests/p101-w9c2-g4e7t-visual.test.mjs
+      - name: Playwright Chromium
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Produce only three LOCAL genuine B48 research stages
+        run: |
+          npm run build:private
+          for p in SOLID EARLY LATE; do
+            test -f dist-private/generated/P101_A13_W9C2_G4E7T_${p}_LOCAL_TRIAL.json
+          done
+      - name: Six authentic B48 WebGL still photos
+        run: npx playwright test tests/browser/p101-w9c2-g4e7t-webgl.spec.mjs
+      - name: No unapproved B48 early gaps published
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7T_EARLY_LOCAL_TRIAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7T_EARLY_LOCAL_TRIAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7t-real-early-B48-WebGL-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7t-*.png
+            test-results/**/g4e7t-*.json
+            test-results/**/test-failed-*.png
+            test-results/**/error-context.md
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 10

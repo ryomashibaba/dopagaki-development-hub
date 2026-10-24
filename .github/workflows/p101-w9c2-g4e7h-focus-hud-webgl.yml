@@ -1,0 +1,66 @@
+name: W9-C2 G4E-7H private focus HUD occlusion real WebGL A/B
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/p101-w9c2-g4e7h-hud-focus.mjs'
+      - 'tests/p101-w9c2-g4e7h-hud-focus.test.mjs'
+      - 'web/drive3d.mjs'
+      - 'scripts/build.mjs'
+      - 'tests/browser/p101-w9c2-g4e7h-focus-hud.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7h-focus-hud-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e7h-focus-webgl-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  focus-hud-real-webgl:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      DOPAGAKI_G4E7G_VISUAL: '1'
+      DOPAGAKI_BUILD_DIR: dist-private
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Pure HUD rectangle mathematics and original B48 study gate
+        run: |
+          node --check web/p101-w9c2-g4e7h-hud-focus.mjs
+          node --check web/drive3d.mjs
+          node --test tests/p101-w9c2-g4e7h-hud-focus.test.mjs tests/p101-w9c2-g4e7g-visual-stage.test.mjs
+      - name: Install supported pinned Playwright Chromium
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Generate explicitly private real Gold and Glide geometry
+        run: |
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E7G_GOLD_LOCAL_VISUAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7G_GLIDE_LOCAL_VISUAL.json
+      - name: Actual in-place WebGL 8 screenshots, HUD ROI and identical ball pose
+        run: npx playwright test tests/browser/p101-w9c2-g4e7h-focus-hud.spec.mjs
+      - name: Public builds never carry G4E7G private road candidates
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7G_GOLD_LOCAL_VISUAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7G_GLIDE_LOCAL_VISUAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7G_GOLD_LOCAL_VISUAL.json
+          test ! -e dist/generated/P101_A13_W9C2_G4E7G_GLIDE_LOCAL_VISUAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7h-focus-hud-real-webgl-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7h-*.png
+            test-results/**/g4e7h-*.json
+            test-results/**/test-failed-*.png
+            test-results/**/error-context.md
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 10

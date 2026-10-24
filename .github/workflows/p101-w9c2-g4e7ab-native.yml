@@ -1,0 +1,43 @@
+name: W9-C2 G4E-7AB real B48 0.15–0.60m lead-in causal 240Hz (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7ab-physical.mjs'
+      - 'scripts/p101-w9c2-g4e7ab-native-screen.mjs'
+      - 'tests/p101-w9c2-g4e7ab-physical.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ab-native.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  contour-caused-real-gap:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Road width/void original B51-C and source immutable
+        run: |
+          node --check scripts/p101-w9c2-g4e7ab-native-screen.mjs
+          node --test tests/p101-w9c2-g4e7ab-physical.test.mjs
+      - name: Local 9s at actual 240Hz paired true cut vs EXACT same road intact
+        run: |
+          node scripts/p101-w9c2-g4e7ab-native-screen.mjs g4e7ab-true-B48-native-screen.json
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const x=JSON.parse(fs.readFileSync("g4e7ab-true-B48-native-screen.json","utf8"));
+          if(x.physicsHz!==240||x.results.length!==5||x.officialSlope2Meters!==0||
+           x.publication!=="HOLD"||x.results.some(q=>q.fullSevenRoadsProven!==false))
+           throw Error("AB causal screen must never certify nonhuman whole run or human visibility");
+          console.log("5 native paired B48 submeter contour profiles recorded, none auto-promoted");
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ab-five-240hz-true-B48-profiles-${{ github.run_id }}
+          path: g4e7ab-true-B48-native-screen.json
+          if-no-files-found: ignore
+          retention-days: 12

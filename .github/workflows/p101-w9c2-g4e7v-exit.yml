@@ -1,0 +1,45 @@
+name: W9-C2 G4E-7V physical exit-normal variants true 240Hz (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7v-exit-build.mjs'
+      - 'scripts/p101-w9c2-g4e7v-exit-native.mjs'
+      - 'tests/p101-w9c2-g4e7v-exit.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7v-exit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  physical-real-exit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 21
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify ONE53 original protected and new true B48 physical exit gradients
+        run: |
+          node --check scripts/p101-w9c2-g4e7v-exit-build.mjs
+          node --check scripts/p101-w9c2-g4e7v-exit-native.mjs
+          node --test tests/p101-w9c2-g4e7v-exit.test.mjs
+      - name: Evaluate all nine genuine 240Hz full-course and contact-loss results
+        run: |
+          node scripts/p101-w9c2-g4e7v-exit-native.mjs g4e7v-physical-exit.json
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const d=JSON.parse(fs.readFileSync("g4e7v-physical-exit.json","utf8"));
+          if(d.hz!==240||!d.start00||d.candidates.length!==9||
+             d.originalMoveCount!==28||d.originalRoadCount!==7||
+             d.candidates.some(c=>c.certifiedSlope2Meters!==0)||
+             d.release!=="HOLD")throw Error("G4E7V native validation failed");
+          console.log("G4E7V measured real B48 exits without certifying human play.");
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7v-native-real-B48-exit-${{ github.run_id }}
+          path: g4e7v-physical-exit.json
+          if-no-files-found: ignore
+          retention-days: 10

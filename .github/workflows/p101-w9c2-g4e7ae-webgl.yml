@@ -1,0 +1,59 @@
+name: W9-C2 G4E-7AE Split Horizon replaces legacy gates in real WebGL (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/p101-w9c2-g4e7ae-split-horizon.mjs'
+      - 'tests/p101-w9c2-g4e7ae-split.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7ae-webgl.spec.mjs'
+      - 'scripts/build.mjs'
+      - 'web/drive3d.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ae-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-native-webgl:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 26
+    env:
+      CI: 'true'
+      DOPAGAKI_BUILD_DIR: dist-private
+      DOPAGAKI_G4E7AD_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Strict physics/GPU wall isolation and parser
+        run: |
+          node --check web/drive3d.mjs
+          node --check web/p101-w9c2-g4e7ae-split-horizon.mjs
+          node --test tests/p101-w9c2-g4e7ae-split.test.mjs
+      - name: Build and prepare genuine Chromium WebGL
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install chromium --only-shell
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AD_APPROACH_ARC_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AD_240HZ_FRAMES_LOCAL.json
+      - name: 10 real WebGL screenshots, identical cameras, skyline physically REPLACED
+        run: npx playwright test tests/browser/p101-w9c2-g4e7ae-webgl.spec.mjs
+      - name: Public isolation 2 production-compatible builds
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AD_APPROACH_ARC_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AD_240HZ_FRAMES_LOCAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AD_APPROACH_ARC_LOCAL_TRIAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ae-native-WebGL-10-comparison-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7ae-*.png
+            test-results/**/g4e7ae-*.json
+            test-results/**/test-failed*.png
+            test-results/**/error-context.md
+          if-no-files-found: ignore
+          retention-days: 14

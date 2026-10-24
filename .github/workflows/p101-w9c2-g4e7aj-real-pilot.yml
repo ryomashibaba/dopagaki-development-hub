@@ -1,0 +1,50 @@
+name: W9-C2 G4E-7AJ genuine 2-of-28 B51 moved hazard 240Hz survival matrix (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7aj-reanchor-moving.mjs'
+      - 'scripts/p101-w9c2-g4e7aj-nine-second.mjs'
+      - 'tests/research/p101-w9c2-g4e7aj-reanchor.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7aj-real-pilot.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-native-reanchor:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Genuine narrow B48 protected, only two original B51-C relocated
+        run: |
+          node --check scripts/p101-w9c2-g4e7aj-reanchor-moving.mjs
+          node --check scripts/p101-w9c2-g4e7aj-nine-second.mjs
+          node --test tests/research/p101-w9c2-g4e7aj-reanchor.test.mjs
+      - name: Actual 240Hz start00 6 comparisons record death or moving collision honestly
+        run: |
+          node scripts/p101-w9c2-g4e7aj-nine-second.mjs g4e7aj-6-native-9seconds.json
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const x=JSON.parse(fs.readFileSync("g4e7aj-6-native-9seconds.json","utf8"));
+            if(x.realPhysicsHz!==240||x.initialSpeedMps!==52||
+              x.originalRoads!==7||x.originalMovingObjects!==28||
+              x.results.length!==6||x.officialSlope2Meters!==0||
+              x.publication!=="HOLD"||x.fullSevenRoadsProvenForNewLayouts!==false||
+              x.results.some(v=>v.realMovingObjects!==28||v.realRoads!==7||
+                v.firstRoadGap.join(",")!=="52"))
+              throw Error("AJ native hazards source provenance invalid");
+            console.log("G4E7AJ_RECORD_ALL_OUTCOMES "+JSON.stringify(x.results.map(v=>({
+              id:v.road+"/"+v.layout,runner:v.status,seconds:v.timeSeconds,
+              moving:v.movingContactEvents.moving,cause:v.failure?.reason??null}))));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7aj-two-real-B51-9second-${{ github.run_id }}
+          path: g4e7aj-6-native-9seconds.json
+          if-no-files-found: ignore
+          retention-days: 14
