@@ -30,6 +30,20 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## 最新G4E-7AX — LONG CROWN：高速度を前提とした第2道路入口の実B48リデザイン（2026-10-24 JST）
+
+AWの細かい改変6案は全滅したため、第2道路CROWNを**30×4の物理セル群の制御点レベルで再構築**。AV lineSoftの第1道路・実ギャップcell52・7道路・28動体・他5道路・後半CHASMの全制御点を維持。既存の第2道路前半に、長い幅の収束（u≈.05〜.29）・緩曲率の中心線・S字と高さを持つ本物の衝突路面を置き、細道コアu≈.29〜.39・後半CHASMコアu≈.63〜.82を維持。該当路面の実B51-C2基を位置・軸・回転ごと追従。他26基を保護。**細い実道路と高速度、実ギャップを犠牲にせず、不可視サポート・ジャンプボタン・速度リセットは一切追加しない**。
+
+[AX正規240Hz物理CI #40085562570](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40085562570) **SUCCESS**。非人間P96固定操舵・起点00でlineSoft対AXを比較：
+- AV lineSoft：TRUE-PINCH 14.4958秒、第2道路最後の接地u=.1345／PINCH-SWITCH 14.4083秒・u=.1347
+- **AX longLead：TRUE-PINCH 14.6667秒・u=.2057／PINCH-SWITCH 14.4000秒・u=.2006**。両方の第2道路実接地を先へ進めるが**2/7道路で落下し、全走破できず**。高速度の新しい入口として方向は有望だが人間の品質不明。
+- AX wideArc：TRUE-PINCH 11.2708秒、PINCH-SWITCH 11.2542秒で静的衝突 → **採用禁止／HOLD**。
+- [AX実JSON artifact #12557271039](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40085562570/artifacts/12557271039) を記録した。
+
+longLeadだけを**PRIVATE/localhost手動A/D試走**へ接続（`?g4e7al=manual&g4e7ax=long-crown`）。`RUN_G4E7AX_MANUAL.cmd`から非公開buildと本物のWebGLで2道路を手動確認できる設計。JSONはゲームオーバー後にローカル保存可能で外部送信なし。既存AV/AU/AS、Gold、2本番URLは未変更。統合Chromium/公開隔離CI [#40085980811](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40085980811) は結果未確認のため**人間QA・WebGL最終合格はHOLD**。正式Slope2認定は厳格に0m。
+
+次工程は**実ブラウザ画像と非人間連続トレース双方で、CROWNのu=.20以降の路肩逸脱を見直す**。小さな座標掃引を繰り返すのではなく、走りやすいコース全体の構成・見える前方の予告・巨大都市の造形へ戻す。人間が試した合格なしに正式採用・Ready化・merge・publishしない。[AX工程監査](docs/W9C2_G4E7AX_LONG_CROWN_PRIVATE_HOLD_JA.md)。
+
 ## G4E-7AW — 第2道路CROWN進入の実物理・詳細比較（2026-10-24 JST）
 
 実B48第2道路の高低差・S字を減らした4案、および細道幅を拡大せず実路面を12m/18m移動した2案を独立実装。7本の実道路、28機のB51-C、真のギャップcell52、AV第1道路を保護し、実路面へ動体4基を追従させた。
