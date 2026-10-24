@@ -48,8 +48,17 @@ function run(doc,road,profile){
      t:round(r.time,3),u:round(near.u,5),speed:round(Math.hypot(...r.v),2)};
     if(r.surface!==road2&&!firstAirOnRoad2&&near.u>.04&&near.u<.99)
      firstAirOnRoad2={t:round(r.time,3),u:round(near.u,5),dist:round(near.d,3)};
-    if(trace.length<70)trace.push({t:round(r.time,3),u:round(near.u,4),
-     distanceToRoad2:round(near.d,2),grounded:r.surface===road2});
+    if(trace.length<70){
+     const section=doc.surfaces[1],a=sample(section,near.u,0),b=sample(section,near.u,1),
+      across=b.map((v,k)=>v-a[k]),pv=r.p.map((v,k)=>v-a[k]),
+      fraction=dot(pv,across)/(dot(across,across)||1),
+      halfWidth=Math.hypot(...across),margin=Math.min(fraction,1-fraction)*halfWidth-.65;
+     trace.push({t:round(r.time,3),u:round(near.u,4),
+      distanceToRoad2:round(near.d,2),grounded:r.surface===road2,
+      ballMarginMeters:round(margin,3),lateralFraction:round(fraction,4),
+      altitudeDeltaMeters:round(r.p[1]-sample(section,near.u,Math.max(0,Math.min(1,fraction)))[1],3),
+      speedMps:round(Math.hypot(...r.v),1)});
+    }
    }
   }
  }
@@ -63,8 +72,8 @@ export function awComparison(){
  const results=AJ_ROADS.map(road=>({road,
   candidates:[
    ['AV_lineSoft',generateG4E7AV(road,'lineSoft')],
-   ['AW_flowSoft',generateG4E7AW(road,'flowSoft')],
-   ['AW_flowOpen',generateG4E7AW(road,'flowOpen')]
+   ['AW_entryEase',generateG4E7AW(road,'entryEase')],
+   ['AW_flowClear',generateG4E7AW(road,'flowClear')]
   ].map(([name,doc])=>run(doc,road,name))}));
  return {schema:'dopagaki.g4e7aw-real-road2-start00-240hz/1',results,
   physicsHz:1/DT,actualB48Roads:7,actualMovingObstacles:28,

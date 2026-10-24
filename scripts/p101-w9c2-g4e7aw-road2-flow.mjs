@@ -14,7 +14,9 @@ const l=(a,b)=>Math.hypot(...a.map((v,i)=>v-b[i]));
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 export const AW_PROFILES=Object.freeze({
  flowSoft:Object.freeze({id:'flowSoft',sideScale:.55,verticalScale:.55}),
- flowOpen:Object.freeze({id:'flowOpen',sideScale:.25,verticalScale:.20})
+ flowOpen:Object.freeze({id:'flowOpen',sideScale:.25,verticalScale:.20}),
+ entryEase:Object.freeze({id:'entryEase',sideScale:.55,verticalScale:.55,crownSideScale:0,crownVerticalScale:0}),
+ flowClear:Object.freeze({id:'flowClear',sideScale:0,verticalScale:0})
 });
 const side=(s,u)=>{
  const a=sample(s,clamp(u-.002,0,1),.5),b=sample(s,clamp(u+.002,0,1),.5),
@@ -37,10 +39,12 @@ export function generateG4E7AW(road='true-pinch',profile='flowSoft'){
    throw Error('AW requires actual intact 2nd B48 AT CROWN/CHASM');
  let max3d=0,maxPlanar=0,maxVertical=0;
  for(let k=0;k<old.rows;k++){
-  const c=k*old.cols+2,a=old.points[c],b=original.points[c],
-   delta=[(b[0]-a[0])*(1-cfg.sideScale),
-    (b[1]-a[1])*(1-cfg.verticalScale),
-    (b[2]-a[2])*(1-cfg.sideScale)];
+  const c=k*old.cols+2,a=old.points[c],b=original.points[c],u=k/(old.rows-1),
+   sideScale=u<.46?(cfg.crownSideScale??cfg.sideScale):cfg.sideScale,
+   verticalScale=u<.46?(cfg.crownVerticalScale??cfg.verticalScale):cfg.verticalScale,
+   delta=[(b[0]-a[0])*(1-sideScale),
+    (b[1]-a[1])*(1-verticalScale),
+    (b[2]-a[2])*(1-sideScale)];
   if(Math.hypot(...delta)<1e-8)continue;
   rows.push(k);
   max3d=Math.max(max3d,Math.hypot(...delta));
