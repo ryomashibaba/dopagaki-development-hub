@@ -18,6 +18,16 @@ for(const road of ['true-pinch','pinch-switch']){
   assert.equal(art.harpoonBranches,3);
   assert(art.triangles>=450&&art.triangles<16000);
   assert(art.vertices.every(Number.isFinite));
+  // Per-structure diagnostics must not accidentally add all 4 meshes.
+  let sum=0;
+  for(const focus of ['crown','citadel','shelves','harpoon']){
+   const isolated=g4e7anSkyArchipelago(doc,sample,{enabled:true,focus});
+   assert.equal(isolated.focus,focus);
+   assert.equal(isolated.monuments,1);
+   assert(isolated.triangles>0&&isolated.triangles<art.triangles);
+   sum+=isolated.triangles;
+  }
+  assert.equal(sum,art.triangles);
   assert(art.maximumRiseMeters>=800);
   assert(art.minimumOutboardMeters>=50);
   assert.equal(art.nonCollision,true);
@@ -43,4 +53,9 @@ test('AN prevents normal-source, simulated-provenance or production promoted sta
  const tampered=generateG4E7AJ('true-pinch','reanchor');
  tampered.stageForge.g4e7ajStudy.reanchoredOriginalIds=['not-original'];
  assert.throws(()=>g4e7anSkyArchipelago(tampered,sample,{enabled:true}),/requires genuine private/);
+});
+
+test('AN rejects unknown component mode in private renderer',()=>{
+ const doc=generateG4E7AJ('true-pinch','reanchor');
+ assert.throws(()=>g4e7anSkyArchipelago(doc,sample,{enabled:true,focus:'anything'}),/focus invalid/);
 });
