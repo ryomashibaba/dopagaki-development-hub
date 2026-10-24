@@ -180,8 +180,10 @@ function harpoons(v,f){
  }
  return tips.length;
 }
-export function g4e7anSkyArchipelago(doc,sample,{enabled=false}={}){
+export const AN_FOCUS=Object.freeze(['all','crown','citadel','shelves','harpoon']);
+export function g4e7anSkyArchipelago(doc,sample,{enabled=false,focus='all'}={}){
  if(!enabled)return empty();
+ if(!AN_FOCUS.includes(focus))throw Error('AN private component focus invalid');
  const aj=doc?.stageForge?.g4e7ajStudy,ah=doc?.stageForge?.g4e7ahStudy;
  if(aj?.id!=='reanchor'||!['true-pinch','pinch-switch'].includes(aj.road)||
   aj.originalMovingObjects!==28||aj.unchangedMovingObjects!==26||
@@ -192,26 +194,33 @@ export function g4e7anSkyArchipelago(doc,sample,{enabled=false}={}){
   doc.surfaces[0].voidLongitudinalCells?.join(',')!=='52')
   throw Error('AN requires genuine private 7AJ B48/B51 candidate');
  if(typeof sample!=='function')throw Error('AN needs actual 31x5 B48 sampling');
- const frozen=JSON.stringify(doc),road=doc.surfaces[0],vertices=[];
+ const frozen=JSON.stringify(doc),road=doc.surfaces[0],
+  pieces={crown:[],citadel:[],shelves:[],harpoon:[]};
  // The four locations alternate side AND longitudinal position. No continuous
  // front faces, no repeated portals, no meshes entering the real 11m lane.
  // R2: u=.155 first road made the crown immediately behind the initial
  // 0.3s camera. All four silhouettes now live AHEAD of the initial chase
  // camera and within useful angular range; none are continuous corridor walls.
- const a=crown(vertices,frame(road,sample,.40,-1));
- const b=citadel(vertices,frame(road,sample,.49,1));
- const c=districts(vertices,frame(road,sample,.69,-1));
- const d=harpoons(vertices,frame(road,sample,.83,1));
+ const a=crown(pieces.crown,frame(road,sample,.40,-1));
+ const b=citadel(pieces.citadel,frame(road,sample,.49,1));
+ const c=districts(pieces.shelves,frame(road,sample,.69,-1));
+ const d=harpoons(pieces.harpoon,frame(road,sample,.83,1));
+ // Research isolation ONLY: unlike visually stacking scenes, selected
+ // geometry is absent from the GPU upload. Default still renders all four.
+ const all=AN_FOCUS.slice(1).flatMap(k=>pieces[k]);
+ const vertices=focus==='all'?all:pieces[focus];
  const stats={
-  active:true,vertices,triangles:vertices.length/18,monuments:4,
+  active:true,vertices,focus,triangles:vertices.length/18,
+  monuments:focus==='all'?4:1,
   hollowCrowns:1,crownHoles:1,crownShellSegments:a,splitCitadelProngs:b,
   floatingDecks:c,harpoonBranches:d,
   maximumRiseMeters:815,minimumOutboardMeters:50,
   nonCollision:true,addedCollision:0,addedRoads:0,addedMachines:0,
   certifiedSlope2Meters:0,publish:'HOLD'
  };
- if(a<25||b!==2||c!==3||d!==3||vertices.length%18!==0||
-  stats.triangles<450||stats.triangles>16000||!vertices.every(Number.isFinite)||
+ if(a<25||b!==2||c!==3||d!==3||all.length%18!==0||
+  all.length/18<450||all.length/18>16000||
+  !all.every(Number.isFinite)||vertices.length<18||vertices.length%18!==0||
   JSON.stringify(doc)!==frozen)
   throw Error('AN sculptural multi-depth skyline/bounds or B48 source mutation');
  return stats;
