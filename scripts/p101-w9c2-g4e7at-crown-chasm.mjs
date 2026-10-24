@@ -77,7 +77,7 @@ export function generateG4E7AT(road='true-pinch'){
  const protectedIds=new Set(),moved=[];
  const specs=[
   ...P95_HAZARD_SPECS.map(([section,u],i)=>({section,u,id:'p95-hazard-'+String(i+1).padStart(2,'0')})),
-  ...A13_HAZARD_SPECS.map(([section,u],i)=>({section,u,id:a13MachineId(i)})
+  ...A13_HAZARD_SPECS.map(([section,u],i)=>({section,u,id:a13MachineId(i)}))
  ];
  for(const station of specs){
   if(station.section!==idx||!AT_WINDOWS.some(w=>envelope(station.u,w)>1e-6))continue;
