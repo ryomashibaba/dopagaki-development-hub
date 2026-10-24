@@ -37,7 +37,7 @@ function edge(s,u){
 function width(u,w0,w1){
  // Conserve real 14–16m CROWN and CHASM narrow corridors, but let players
  // anticipate the later dive in a 25–30m wide *physical* mid-transition.
- const knots=[[10/30,w0],[.42,15],[.50,27],[.555,26],[.60,16],[19/30,w1]];
+ const knots=[[10/30,w0],[.42,14.3],[.50,25],[.555,22],[.60,14.5],[19/30,w1]];
  for(let j=1;j<knots.length;j++){
   const [u1,b]=knots[j];
   if(u<=u1)return mix(knots[j-1][1],b,sm((u-knots[j-1][0])/(u1-knots[j-1][0])));
