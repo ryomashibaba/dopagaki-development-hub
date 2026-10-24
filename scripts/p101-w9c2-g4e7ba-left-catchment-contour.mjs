@@ -6,8 +6,8 @@ import {generateG4E7AY} from './p101-w9c2-g4e7ay-tangent-bridge.mjs';
 import {AJ_ROADS} from './p101-w9c2-g4e7aj-reanchor-moving.mjs';
 import {sample,tessellate,validate} from '../private/reference_only/director/surface.js';
 import {validateMovingObstacle} from '../private/reference_only/director/moving/moving-obstacles.mjs';
-import {P95_HBAARD_SPECS} from '../web/p95-hazard-layout.mjs';
-import {A13_HBAARD_SPECS,a13MachineId} from '../web/p101-a13-hazard-layout.mjs';
+import {P95_HAZARD_SPECS} from '../web/p95-hazard-layout.mjs';
+import {A13_HAZARD_SPECS,a13MachineId} from '../web/p101-a13-hazard-layout.mjs';
 
 const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const mix=(a,b,t)=>a+(b-a)*t;
@@ -97,8 +97,8 @@ export function generateG4E7BA(road='true-pinch',variant='outerContour'){
  }
  for(let k=0;k<22;k++)doc.route[22+k]=sample(s,(k+.015)/22,.5);
  const stations=[
- ...P95_HBAARD_SPECS.map(([section,u],i)=>({section,u,id:'p95-hazard-'+String(i+1).padStart(2,'0')})),
- ...A13_HBAARD_SPECS.map(([section,u],i)=>({section,u,id:a13MachineId(i)}))
+ ...P95_HAZARD_SPECS.map(([section,u],i)=>({section,u,id:'p95-hazard-'+String(i+1).padStart(2,'0')})),
+ ...A13_HAZARD_SPECS.map(([section,u],i)=>({section,u,id:a13MachineId(i)}))
  ].filter(x=>x.section===1&&x.u>a/30&&x.u<b/30);
  const moved=[];
  for(const {id,u} of stations){
