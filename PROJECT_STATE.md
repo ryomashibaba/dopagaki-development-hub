@@ -30,6 +30,20 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## 最新G4E-7AY — 長半径の実B48「CROWN TANGENT BRIDGE」制作・試走確認（2026-10-24 JST）
+
+AXで第2道路u≈.20までしか接地できなかったため、単純な数mの横移動ではなく、**第2道路CROWN中盤u≈.167〜.50の31×5実路面を長半径の接線連続橋へ再構築**。途中で本当に幅が狭くなるB48コアu≈.34〜.43（約14〜16m）と後半CHASM u≈.63〜.82を保持。AV第一道路・実ギャップcell52・第2道路CROWN入口とCHASM・残り5道路・全28 B51-C・操作／推進物理を保護。変形区間の実動体2基は新路面へ再アンカー、残26基を原データとして保持。不可視安全帯、磁力誘導、自動操舵、ブースト／ジャンプボタン、速度リセットは追加していない。
+
+[AY真240HzネイティブCI #40101623682](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40101623682) **SUCCESS**。開始00・同一固定P96操舵で両道路を試験（非人間）：
+- TRUE-PINCH：AX longLead **14.6667秒・第2道路最終接地u=.2057** → AY tangentDeck 16.5042秒・u=.3314 → **AY bankedSweep 16.5917秒・u=.3540**。
+- PINCH-SWITCH：AX longLead **14.4000秒・u=.1991** → AY tangentDeck 16.3667秒・u=.3454 → **AY bankedSweep 16.6542秒・u=.3744**。
+- bankedSweepは両道路で最も改善したが、**両方2/7道路で落下している**。実接地位置の改善は明確だが、全コース完走・人間の公平さ・見た目の合格を意味しない。
+- [AY native JSON artifact #12563585098](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40101623682/artifacts/12563585098)。
+
+最良の`bankedSweep`のみPRIVATE手動試走へ接続：`?g4e7al=manual&g4e7ay=banked-bridge`、Windows用`RUN_G4E7AY_MANUAL.cmd`。 [AY統合CI #40102058843](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40102058843) **全SUCCESS：実Chromium 28/28 PASS、PRIVATE生成、通常/public-safe両方AY生成物排除PASS**。[WebGL QA画像/artifact #12563447884](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40102058843/artifacts/12563447884)。実Windows端末での起動・人間長距離試走は未検証。
+
+**判断：AY bankedSweepはPRIVATEの次期比較基準候補（正式昇格ではない）。** AV/AX旧候補・main・Gold・2本番は不変。人間QA、美術品質、正式Slope2認定=0m、公開、PR Ready、mergeは全HOLD。次工程AZでは、u≈.35〜.5からCHASMへつながる第2道路を区間設計として見直すと同時に、**高速度での道路視認性と箱状の都市景観を実ブラウザで評価**する。狭路の微小位置変更やテスト件数増加だけを目的にしない。[AY監査](docs/W9C2_G4E7AY_TANGENT_BRIDGE_PRIVATE_HOLD_JA.md)を参照。
+
 ## 最新G4E-7AX — LONG CROWN：高速度を前提とした第2道路入口の実B48リデザイン（2026-10-24 JST）
 
 AWの細かい改変6案は全滅したため、第2道路CROWNを**30×4の物理セル群の制御点レベルで再構築**。AV lineSoftの第1道路・実ギャップcell52・7道路・28動体・他5道路・後半CHASMの全制御点を維持。既存の第2道路前半に、長い幅の収束（u≈.05〜.29）・緩曲率の中心線・S字と高さを持つ本物の衝突路面を置き、細道コアu≈.29〜.39・後半CHASMコアu≈.63〜.82を維持。該当路面の実B51-C2基を位置・軸・回転ごと追従。他26基を保護。**細い実道路と高速度、実ギャップを犠牲にせず、不可視サポート・ジャンプボタン・速度リセットは一切追加しない**。
