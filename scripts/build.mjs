@@ -30,6 +30,7 @@ import {generateG4E7AH} from './p101-w9c2-g4e7ah-narrow-real-b48.mjs';
 import {g4e7aiNativeFrames,AI_VARIANTS} from './p101-w9c2-g4e7ai-native-frames.mjs';
 import {g4e7akNativeFrames} from './p101-w9c2-g4e7ak-native-frames.mjs';
 import {generateG4E7AJ,AJ_ROADS} from './p101-w9c2-g4e7aj-reanchor-moving.mjs';
+import {generateG4E7AP} from './p101-w9c2-g4e7ap-temporal-slalom.mjs';
 import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
 import {g4e7wNativeCameraFrames,G4E7W_VISUAL_PROFILES,G4E7Y_EARLY_SHOTS} from './p101-w9c2-g4e7w-camera-frames.mjs';
 import {makeP99PhysicalEvidence} from './p99-real-roadplay-probe.mjs';
@@ -221,6 +222,10 @@ if(includeStages){
     for(const id of AJ_ROADS)
      write('generated/P101_A13_W9C2_G4E7AK_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
       JSON.stringify(generateG4E7AJ(id,'reanchor'),null,2)+'\n');
+    // AP is a distinct real B51-C physical candidate, PRIVATE only (no Gold).
+    for(const id of AJ_ROADS)
+     write('generated/P101_A13_W9C2_G4E7AP_'+id.replace('-','_').toUpperCase()+'_LOCAL_TRIAL.json',
+      JSON.stringify(generateG4E7AP(id),null,2)+'\n');
     write('generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json',
      JSON.stringify(g4e7akNativeFrames(),null,2)+'\n');
    }
