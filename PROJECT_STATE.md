@@ -30,6 +30,10 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## 最新のG4E-7AR — 実ローター02接触反応と実細道左右操舵の分離検証（2026-10-24 JST）
+
+本物のB51-C回転体02に人工初期位置から接触する240Hz Runner実験、実B51-OBB CCDに対する同一幾何のpush/bounce比較、真11m B48での固定A/D操舵・路肩距離を同時検証。従来のAQで早右落下がAJ/APとも同じだったため、障害物の衝突反応と道路端到達を独立測定する。**人工接触位置やP96固定操舵は人間のスタート00走行・成功の根拠ではない。** CI結果は該当HEADで確認。元7AJ/AP/Gold/main/本番を保存、正式Slope2=0m、Human/Art/Promotion/HOLD。 [G4E-7AR監査](docs/W9C2_G4E7AR_NATIVE_ROTOR_IMPACT_EDGE_PRIVATE_HOLD_JA.md)。
+
 ## 直近差分：G4E-7AQ 同じA/D時系列を再利用した真240HzのAJ/AP障害物比較（2026-10-24 JST）
 
 **AQ専用CI [#40073189396](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40073189396) SUCCESS**（対象HEAD `1c8df3895929cab2f79733fb1a3b05600d125ce7`）。Node・真240Hz・実Chromium15/15・公開隔離までPASS。実結果：AP#01はB48中央のOBB遮蔽が0/121→36/121、#02は9/121→4/121。基準P96固定操舵は両案7.2秒継続だが、早左はAJ B51移動接触→AP静的衝突専用面失敗、早右はAJ/APとも同時刻に落下。**面白さ・公平性改善の証拠なし**。対象#02のpush接触は確認できず反発回復も未認定。実測JSON： [Actions artifact #12551693120](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40073189396/artifacts/12551693120)。次は接触後の運動や道路端の可達性を本物のRunnerで診断する。正式Slope2認定0m、人間/美術/採用=HOLD。

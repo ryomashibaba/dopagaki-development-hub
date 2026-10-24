@@ -12,6 +12,8 @@ on:
       - 'tests/p101-w9c2-g4e7ap-temporal-slalom.test.mjs'
       - 'scripts/p101-w9c2-g4e7aq-native-pair.mjs'
       - 'tests/p101-w9c2-g4e7aq-native-pair.test.mjs'
+      - 'scripts/p101-w9c2-g4e7ar-rebound-reachability.mjs'
+      - 'tests/p101-w9c2-g4e7ar-rebound-reachability.test.mjs'
       - 'web/drive3d.mjs'
       - 'scripts/build.mjs'
       - 'scripts/launch-g4e7al-manual.mjs'
@@ -41,6 +43,7 @@ jobs:
       DOPAGAKI_G4E7AK_VISUAL: '1'
       DOPAGAKI_BUILD_DIR: dist-private
       DOPAGAKI_G4E7AQ_EVIDENCE: test-results/g4e7aq-native-compare.json
+      DOPAGAKI_G4E7AR_EVIDENCE: test-results/g4e7ar-impact-edge-native.json
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -63,6 +66,11 @@ jobs:
           node --check scripts/p101-w9c2-g4e7aq-native-pair.mjs
           node --test tests/p101-w9c2-g4e7aq-native-pair.test.mjs
           test -s test-results/g4e7aq-native-compare.json
+      - name: G4E-7AR real moving rotor physical contact and B48 A/D margin (NOT human)
+        run: |
+          node --check scripts/p101-w9c2-g4e7ar-rebound-reachability.mjs
+          node --test tests/p101-w9c2-g4e7ar-rebound-reachability.test.mjs
+          test -s test-results/g4e7ar-impact-edge-native.json
       - name: Install Chromium for actual WebGL keyboard/browser and local download tests
         run: |
           npm install --no-audit --no-fund
@@ -99,6 +107,7 @@ jobs:
             test-results/**/g4e7ao-*.png
             test-results/**/g4e7ap-*.png
             test-results/g4e7aq-native-compare.json
+            test-results/g4e7ar-impact-edge-native.json
             test-results/**/g4e7al-*.json
             test-results/**/test-failed-*.png
             test-results/**/error-context.md
