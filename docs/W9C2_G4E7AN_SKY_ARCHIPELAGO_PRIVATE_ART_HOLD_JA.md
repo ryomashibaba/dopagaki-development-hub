@@ -46,3 +46,12 @@
 - 次の手段は造形を無差別追加したり、カメラを勝手に引き直すことではない。R2本来の各メッシュを **`crown`／`citadel`／`shelves`／`harpoon` 単独で実レンダラに上げる**診断フラグ `&g4e7anFocus=<name>` を追加。これは `g4e7al=manual&g4e7an=archipelago` のlocalhost研究条件でのみ機能し、未指定 `all` は従来の4建築のまま。
 - 各単独シーンを実走行カメラで撮影し、**どの建築に原因があるか**を画面比較する。Nodeでは各独立GPU三角形数の総和が通常4体と厳密一致すること、原AJの道路・物理・B51-C 28基・正式0mと公開HOLDが変わらないことを検証。
 - [個別切り分けCI #40050280820](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40050280820) で4枚の単独スクリーンショットを新たに保存する。結果未確認の間は美術判定を変えない。
+
+## R3 — 独立4建築の単独実WebGL診断に基づく修正（2026-10-24 JST）
+
+- [4形態単独CI #40050280820](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40050280820) は**Node/Chromium/public-safe全SUCCESS**。画像artifact [#12543187621](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40050280820/artifacts/12543187621) の `focus=crown/citadel/shelves/harpoon` 4枚を実際に比較。
+- **原因特定**：`citadel` の5辺を上から下まで大量の暗い四角面で結んだシェルが、右側の大壁の主因。 `crown` はほぼ画面内に現れない。 `shelves` は画面左上に小さく、`harpoon` は一筋の長い斜材にしか見えない。つまり「四体生成した」だけでは街景は成立しない。
+- R3の変更：双尖都市塔の多数の閉鎖外壁面を撤去し、**立体的な開放斜材・細い縦材・離れた小さな都市板**に分解。冠の中心・半径・高さを大きく下げ、見えるようにする。3層空中都市の近景高さを約82/155/248mのレイヤーに変更。高空の分岐群も中心高度を下げ前方に寄せる。正規B48上に偽の支持床やゴースト地形は増やさない。
+- 研究専用GPU表示モード `&g4e7anFocus=citadel` などを保持し、旧候補と個別造形の両方を同じカメラ・道路で比較可能にする。
+- [R3 CI #40050904186](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40050904186) の**Node/Chromium/研究JSON隔離の最終結果**と、全景5画像＋単独建築4画像を確認するまでは、視認性向上・美術採用を報告しない。
+- R2とR3の美術採用は、人間実試走も同時に判定する必要あり。自動キーボードはユーザーの公平性の証明ではない。保護PRのReady/merge・本番公開は常時禁止。
