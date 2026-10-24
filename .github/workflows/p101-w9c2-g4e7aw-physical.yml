@@ -26,7 +26,7 @@ jobs:
         run: |
           node --check scripts/p101-w9c2-g4e7aw-road2-flow.mjs
           node --test tests/p101-w9c2-g4e7aw-road2-flow.test.mjs
-      - name: Start00 continuous real Runner 240Hz comparison: AV versus AW
+      - name: 'Start00 continuous real Runner 240Hz comparison: AV versus AW'
         run: |
           node scripts/p101-w9c2-g4e7aw-compare.mjs g4e7aw-real-road2-240hz.json
           test -s g4e7aw-real-road2-240hz.json
