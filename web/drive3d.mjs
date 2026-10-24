@@ -1220,7 +1220,7 @@ async function load(){
         :'VB-P101-A13-W9C2-G4E7AJ-'+aj.road.toUpperCase()+'-REANCHOR')||
        (g4e7asRequested?(asStudy?.id!=='banked-serpent'||asStudy.road!==aj.road||
          asStudy.original7Roads!==7||asStudy.actualB51!==28||
-         asStudy.originalUnchangedB51FromAP!==27||!asStudy.actualPhysicalGapCell52||
+         asStudy.originalUnchangedB51FromAP!==26||!asStudy.actualPhysicalGapCell52||
          asStudy.formalSlope2Meters!==0||asStudy.publish!=='HOLD'):Boolean(asStudy))||
        ((g4e7apRequested||g4e7asRequested)?(ap?.id!=='temporal-slalom'||ap.road!==aj.road||
         ap.changedMovingIds?.join(',')!=='a13-machine-01,a13-machine-02'||

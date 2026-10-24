@@ -13,7 +13,7 @@ const dist=(a,b)=>Math.hypot(...a.map((v,i)=>v-b[i]));
 const wave=(u,start,end)=>u>start&&u<end?Math.sin(Math.PI*(u-start)/(end-start))**2:0;
 const unit=x=>x.map(v=>v/(Math.hypot(...x)||1));
 export const AS_SPANS=Object.freeze([
- Object.freeze({id:'ascending-air-serpent',from:.035,to:.185,lateral:9.5,elevation:8.5,bank:-2.7}),
+ Object.freeze({id:'ascending-air-serpent',from:.24,to:.435,lateral:9.5,elevation:8.5,bank:-2.7}),
  Object.freeze({id:'descending-skew-cut',from:.745,to:.895,lateral:-10.5,elevation:-10,bank:3.5})
 ]);
 function side(points,r){
@@ -50,17 +50,23 @@ export function generateG4E7AS(road='true-pinch'){
   }
  }
  for(let i=0;i<22;i++)doc.route[i]=sample(skin,(i+.015)/22,.5);
- const rotorIndex=doc.movingObstacles.findIndex(o=>o.id==='a13-machine-02');
- if(rotorIndex<0||doc.movingObstacles[rotorIndex].type!=='rotator')throw Error('AS B51 rotor 02 missing');
- const oldAnchor=sample(old,.80,.5),newAnchor=sample(skin,.80,.5),
-  delta=newAnchor.map((v,i)=>v-oldAnchor[i]);
- doc.movingObstacles[rotorIndex]=validateMovingObstacle({
-  ...doc.movingObstacles[rotorIndex],
-  name:'AS active flank rotor / banked descending skew cut',
-  position:doc.movingObstacles[rotorIndex].position.map((v,i)=>v+delta[i])
- });
+ // The REAL crossing slider and flank rotor must follow their own altered
+ // B48 centerline. No fake B51 poses: translate actual physical pivot/box.
+ const anchors=[['a13-machine-01',.32,'AS real crossing slider / ascending bank'],
+  ['a13-machine-02',.80,'AS active flank rotor / descending skew cut']];
+ const deltas={};
+ for(const [id,u,name] of anchors){
+  const index=doc.movingObstacles.findIndex(o=>o.id===id);
+  if(index<0)throw Error('AS original B51 missing: '+id);
+  const originalAnchor=sample(old,u,.5),newAnchor=sample(skin,u,.5),
+   delta=newAnchor.map((v,i)=>v-originalAnchor[i]);
+  if(dist(originalAnchor,newAnchor)<2)throw Error('AS real B51 change not anchored');
+  deltas[id]=delta;
+  doc.movingObstacles[index]=validateMovingObstacle({...doc.movingObstacles[index],
+   name,position:doc.movingObstacles[index].position.map((v,i)=>v+delta[i])});
+ }
  const mesh=tessellate(skin),mid=sample(skin,(originalGap.uTakeoff+originalGap.uLanding)/2,.5),
-  widths=[.08,.105,.13,.765,.795,.82,.85].map(u=>dist(sample(skin,u,0),sample(skin,u,1)));
+  widths=[.305,.325,.345,.785,.8,.815].map(u=>dist(sample(skin,u,0),sample(skin,u,1)));
  const invariants={
   degenerate:mesh.degenerate===0,
   lipExact:eq(sample(skin,originalGap.uTakeoff,.5),lip0),
@@ -70,8 +76,8 @@ export function generateG4E7AS(road='true-pinch'){
   downstreamRoute:eq(doc.route.slice(22),ap.route.slice(22)),
   routeSegments:eq(doc.routeSegments,ap.routeSegments),
   spawn:eq(doc.spawns,ap.spawns),
-  other27Hazards:eq(doc.movingObstacles.filter(o=>o.id!=='a13-machine-02'),
-   ap.movingObstacles.filter(o=>o.id!=='a13-machine-02')),
+  other26Hazards:eq(doc.movingObstacles.filter(o=>!['a13-machine-01','a13-machine-02'].includes(o.id)),
+   ap.movingObstacles.filter(o=>!['a13-machine-01','a13-machine-02'].includes(o.id))),
   enteringTurn:measure[AS_SPANS[0].id].maxSide>=7,
   exitingTurn:measure[AS_SPANS[1].id].maxSide>=7,
   enteringCrest:measure[AS_SPANS[0].id].maxHeight>=6,
@@ -79,7 +85,7 @@ export function generateG4E7AS(road='true-pinch'){
   enteringBank:measure[AS_SPANS[0].id].maxBank>=2,
   exitingBank:measure[AS_SPANS[1].id].maxBank>=2,
   physicalWidth:widths.every(w=>w>=10&&w<=17),
-  physicalRotorMoved:dist(newAnchor,oldAnchor)>=4,
+  realB51Reanchored:['a13-machine-01','a13-machine-02'].every(id=>Math.hypot(...deltas[id])>=2),
   originalSevenRoads:doc.surfaces.length===7,
   original28Machines:doc.movingObstacles.length===28,
   apNotMutated:JSON.stringify(ap)===frozen
@@ -87,7 +93,7 @@ export function generateG4E7AS(road='true-pinch'){
  const failed=Object.entries(invariants).filter(([,ok])=>!ok).map(([id])=>id);
  if(failed.length)throw Error('AS protected road / gap / B51 mismatch: '+failed.join(', ')+
   ' | bounds '+JSON.stringify({widths,lipU:originalGap.uTakeoff,
-   landingU:originalGap.uLanding,delta,measure}));
+   landingU:originalGap.uLanding,deltas,measure}));
  if(contacts(compile(doc),[mid[0],mid[1]+.65,mid[2]],.65)
    .some(x=>x.triangle.rideable))throw Error('AS phantom road under original B48 void');
  doc.name='G4E-7AS BANKED SERPENT / '+road+' / actual S crest + descending bank / HOLD';
@@ -98,8 +104,9 @@ export function generateG4E7AS(road='true-pinch'){
    id:'banked-serpent',road,source:'AP_REAL_B48_B51_FROZEN_GAP',
    physicallySculptedSpans:AS_SPANS.map(s=>({...s,...measure[s.id]})),
    trueB48ChangedRows:changed,original7Roads:7,actualB51:28,
-   originalUnchangedB51FromAP:27,movedB51:'a13-machine-02',
-   rotorAnchorDeltaMeters:delta.map(x=>+x.toFixed(3)),
+   originalUnchangedB51FromAP:26,movedB51:['a13-machine-01','a13-machine-02'],
+   realAnchorDeltasMeters:Object.fromEntries(Object.entries(deltas).map(([id,v])=>
+    [id,v.map(x=>+x.toFixed(3))])),
    widthsMeters:widths.map(x=>+x.toFixed(3)),
    actualPhysicalGapCell52:true,lipLandingUnchanged:true,
    native240Hz:'UNTESTED',fairReachability:'UNTESTED',

@@ -19,7 +19,7 @@ for(const road of ['true-pinch','pinch-switch']){
   assert.equal(m.id,'banked-serpent');
   assert.equal(doc.stageForge.productionPromoted,false);
   assert.equal(m.original7Roads,7);assert.equal(m.actualB51,28);
-  assert.equal(m.originalUnchangedB51FromAP,27);
+  assert.equal(m.originalUnchangedB51FromAP,26);
   assert.equal(m.formalSlope2Meters,0);assert.equal(m.publish,'HOLD');
   assert.equal(m.humanFairness,'HOLD');
   assert.deepEqual(doc.surfaces[0].voidLongitudinalCells,[52]);
@@ -27,8 +27,9 @@ for(const road of ['true-pinch','pinch-switch']){
   assert(eq(original.surfaces.slice(1),doc.surfaces.slice(1)));
   assert(eq(original.route.slice(22),doc.route.slice(22)));
   assert(eq(original.spawns,doc.spawns));assert(eq(original.routeSegments,doc.routeSegments));
-  assert(eq(original.movingObstacles.filter(o=>o.id!=='a13-machine-02'),
-            doc.movingObstacles.filter(o=>o.id!=='a13-machine-02')));
+  assert(eq(original.movingObstacles.filter(o=>!m.movedB51.includes(o.id)),
+            doc.movingObstacles.filter(o=>!m.movedB51.includes(o.id))));
+  assert.deepEqual(m.movedB51,['a13-machine-01','a13-machine-02']);
   assert.equal(m.physicallySculptedSpans.length,2);
   for(const span of m.physicallySculptedSpans){
    assert(span.maxSide>=7);assert(span.maxHeight>=6);assert(span.maxBank>=2);
@@ -37,7 +38,7 @@ for(const road of ['true-pinch','pinch-switch']){
   const gap=original.stageForge.g4e7acR2Study.gap;
   for(const u of [gap.uTakeoff,gap.uLanding])
    assert(eq(sample(original.surfaces[0],u,.5),sample(doc.surfaces[0],u,.5)));
-  for(const u of [.1,.8]){
+  for(const u of [.325,.8]){
    const a=sample(doc.surfaces[0],u,0),b=sample(doc.surfaces[0],u,1);
    assert(distance(a,b)>=10&&distance(a,b)<=17);
    assert(Math.abs(a[1]-b[1])>1,'actual B48 banking missing');

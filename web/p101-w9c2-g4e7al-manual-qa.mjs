@@ -10,7 +10,7 @@ const round=(v,n=3)=>num(v)?Number(v.toFixed(n)):null;
 export function createG4E7ALTrial(doc,runner){
  const aj=doc?.stageForge?.g4e7ajStudy,ah=doc?.stageForge?.g4e7ahStudy,ap=doc?.stageForge?.g4e7apStudy,asStudy=doc?.stageForge?.g4e7asStudy;
  if(asStudy&&(asStudy.id!=='banked-serpent'||asStudy.road!==aj?.road||
-   !asStudy.actualPhysicalGapCell52||asStudy.originalUnchangedB51FromAP!==27||
+   !asStudy.actualPhysicalGapCell52||asStudy.originalUnchangedB51FromAP!==26||
    asStudy.formalSlope2Meters!==0||asStudy.publish!=='HOLD'))
   throw Error('G4E7AL rejects unapproved AS geometry provenance');
  if(asStudy&&!ap)throw Error('G4E7AL AS requires AP source');
