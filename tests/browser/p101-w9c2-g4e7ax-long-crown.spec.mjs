@@ -5,6 +5,9 @@ for(const road of ['true-pinch','pinch-switch']){
   test.setTimeout(120000);const errs=[];
   page.on('pageerror',e=>errs.push(e.message));
   await page.goto('/drive3d/?g4e7al=manual&g4e7ax=long-crown');
+  // Wait for the true native stage and camera to finish loading, not merely the DOM.
+  await expect(page.locator('#stage')).toBeEnabled({timeout:90000});
+  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','28',{timeout:90000});
   if(road==='pinch-switch'){
    await page.keyboard.down('KeyD');await page.waitForTimeout(450);
    await page.keyboard.up('KeyD');

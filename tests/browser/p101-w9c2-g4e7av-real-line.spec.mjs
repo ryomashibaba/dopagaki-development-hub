@@ -4,6 +4,9 @@ for(const [road,grade] of [['true-pinch','linesoft'],['pinch-switch','linesoft']
   test.setTimeout(120000);const errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto('/drive3d/?g4e7al=manual&g4e7av=lines'+(grade==='linelevel'?'&g4e7avGrade=level':''));
+  // Await actual async private stage loading before issuing A/D or switching roads.
+  await expect(page.locator('#stage')).toBeEnabled({timeout:90000});
+  await expect(page.locator('#view')).toHaveAttribute('data-machine-count','28',{timeout:90000});
   // Real live physics can fail during QA; validate loaded stage and native mode, not transient status copy.
   if(road==='pinch-switch'){
    await page.keyboard.down('KeyD');await page.waitForTimeout(450);
