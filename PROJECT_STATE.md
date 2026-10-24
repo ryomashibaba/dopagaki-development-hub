@@ -30,11 +30,19 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
-## G4E-7BA — 実CROWN左キャッチメント（2026-10-25 JST／比較結果保留）
+## G4E-7BA — 第2道路左キャッチメント実制作・正規240Hz REJECT（2026-10-25 JST）
 
-AZ真240Hzでは第2道路u≈.353〜.355、約100m/sで左路肩を逸脱（実動体接触0）。AY bankedSweepから実B48路面11行（u=.267〜.600）を継続曲線として再制作し、BA outerContour（左9m）／cliffBowl（左13m）をPRIVATE候補化。実14〜16m CROWN細道、CHASM、ギャップ52、7道路、28実動体、240Hzや操作ルールを維持。起点00のAY/AZ/BA実計測で判断する。
+AY bankedSweepから、第2道路u=.267〜.600の実B48 11行を左に連続的に再制作した（outerContour最大9m / cliffBowl最大13m）。実CROWN/CHASM細道・本物のギャップ52、全7本B48、実28基B51-C（2機再アンカー）、正規240Hz・原操作を維持。既存物理/生産ルート/main/本番を変更せずPRIVATE候補として実装。
 
-**BAは未採用。CI結果未確認、正式Slope2=0m、人間/美術/公開/PR Ready/merge=HOLD。** [BA監査](docs/W9C2_G4E7BA_LEFT_CATCHMENT_PRIVATE_HOLD_JA.md)。
+**[BA真正240Hz実走CI #40142666494](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40142666494) SUCCESS：構造テストと起点00固定P96比較完走（非人間）。しかし改善はなし。** 第2道路の最大実接地u：
+- TRUE-PINCH：AY **.35576**、AZ longGlide .35338、BA outerContour **.32110**、BA cliffBowl **.31084**。
+- PINCH-SWITCH：AY **.37595**、AZ longGlide .35523、BA outerContour **.32342**、BA cliffBowl **.31270**。
+- 生存秒：AY 16.59167/16.65417、BA outerContour 16.02083/15.87500、BA cliffBowl 15.79583/15.60417（TRUE/PINCH順）。
+- 全候補2/7実道路で落下、動体接触0・致命的静的接触0。BAは第2道路u≈.29〜.32から既に接地が不安定で、左方向9〜13mの路面移動は逆効果。
+
+**判定：BA outerContour / cliffBowl = 走行性能REJECT、PRIVATE保管のみ。AY bankedSweepが最良の未採用比較基準。** 技術CI=PASS、人間QA=未実施、美術QA=未実施、正式Slope2=0m、公開/PR Ready/merge=HOLD。
+
+次工程は任意の左右オフセット試行を繰り返さない。100m/s直前の**ボール速度ベクトル・道路接線・路面法線・実接地/浮遊イベント**を同一座標系の240Hzトレースで確認し、カーブ・勾配・自然離陸と操舵の寄与を切り分けてから、見通しのあるCROWN→CHASM実コース区間をまとまって制作する。実WebGLの中盤視点・遠景都市の箱感も別途審査する。[BA監査](docs/W9C2_G4E7BA_LEFT_CATCHMENT_PRIVATE_HOLD_JA.md)。
 
 ## 最新G4E-7AY — 長半径の実B48「CROWN TANGENT BRIDGE」制作・試走確認（2026-10-24 JST）
 
