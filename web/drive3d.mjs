@@ -56,7 +56,7 @@ import {g4e7aeSplitHorizon} from './p101-w9c2-g4e7ae-split-horizon.mjs';
 import {g4e7afFractureCity} from './p101-w9c2-g4e7af-fracture-city.mjs';
 import {g4e7agOpenCitadel} from './p101-w9c2-g4e7ag-open-citadel.mjs';
 import {g4e7amUpturnedCity} from './p101-w9c2-g4e7am-upturned-city.mjs';
-import {g4e7anSkyArchipelago} from './p101-w9c2-g4e7an-sky-archipelago.mjs';
+import {g4e7anSkyArchipelago,AN_FOCUS} from './p101-w9c2-g4e7an-sky-archipelago.mjs';
 import {makeW9C1CueProfile,readW9C1Cue,w9c1ApproachMarks} from './p101-w9c1-approach-cue.mjs';
 import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
 import {createB5ManualAudit,recordB5ManualSample,recordB5ManualFrame,observeW9C1ManualCue,finalizeB5ManualAudit,exportB5ManualAudit} from './p101-b5-manual-qa.mjs';
@@ -141,6 +141,8 @@ const g4e7alSession=g4e7alRequested?newG4E7ALSession():null;
 const g4e7amRequested=g4e7alRequested&&new URLSearchParams(window.location.search).get('g4e7am')==='continent';
 // AN is an independent opt-in. Never stack with rejected AM or other scenery.
 const g4e7anRequested=g4e7alRequested&&!g4e7amRequested&&new URLSearchParams(window.location.search).get('g4e7an')==='archipelago';
+const g4e7anFocus=g4e7anRequested&&AN_FOCUS.includes(new URLSearchParams(window.location.search).get('g4e7anFocus'))?
+ new URLSearchParams(window.location.search).get('g4e7anFocus'):'all';
 const g4e7akBackdrop=g4e7akOptIn&&new URLSearchParams(window.location.search).get('g4e7akBackdrop')==='quiet'?'quiet':'legacy';
 const g4e7akPoint=['t220','t250','t280','t320','t520','t690'].includes(
  new URLSearchParams(window.location.search).get('g4e7akPoint'))?
@@ -407,9 +409,10 @@ function buildVisual(stage){
   canvas.dataset.g4e7amRiseMeters=String(am.maxRiseMeters);
   canvas.dataset.g4e7amOutboard=String(am.minimumOutboardMeters);
   canvas.dataset.g4e7amNonCollision=String(!am.physicalChanges&&am.extraRoads===0&&am.extraMachines===0);
-  const an=g4e7anSkyArchipelago(stage,sample,{enabled:g4e7anRequested});
+  const an=g4e7anSkyArchipelago(stage,sample,{enabled:g4e7anRequested,focus:g4e7anFocus});
   g4e7anMesh=an.active?mesh(an.vertices):null;
   canvas.dataset.g4e7anScene=an.active?'archipelago':'off';
+  canvas.dataset.g4e7anFocus=an.active?an.focus:'off';
   canvas.dataset.g4e7anMonuments=String(an.monuments);
   canvas.dataset.g4e7anCrown=String(an.hollowCrowns);
   canvas.dataset.g4e7anProngs=String(an.splitCitadelProngs);
