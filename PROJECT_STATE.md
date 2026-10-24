@@ -30,6 +30,19 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7AW — 第2道路CROWN進入の実物理・詳細比較（2026-10-24 JST）
+
+実B48第2道路の高低差・S字を減らした4案、および細道幅を拡大せず実路面を12m/18m移動した2案を独立実装。7本の実道路、28機のB51-C、真のギャップcell52、AV第1道路を保護し、実路面へ動体4基を追従させた。
+
+**物理テスト3回ともSUCCESS、ただし改善なし**：
+- [#40082792851](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40082792851)：flowSoft 14.292/14.196秒、flowOpen 14.117/14.021秒で落下。
+- [#40083160854](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40083160854)：entryEase/flowClearは約11.3〜11.4秒に静的衝突。
+- [#40083613700](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40083613700)：laneAlign12 14.275/14.175秒、laneAlign18 14.271/14.171秒で落下。
+
+AV lineSoft比較基準14.496/14.408秒より延長できなかったため、**AWはすべて不採用/HOLD**。第2道路CROWN u≈.12〜.13の接地喪失後、u≈.14で右路肩を越える。後の14秒台落下は結果であり、真の出発点ではない。次AXは細道入口の長い予告・自然な曲率・高速で通過可能なレーンを再設計し、細かい数値掃引を繰り返さない。
+
+別件：AV/AU実Chromium [#40081979873](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40081979873) FAIL。AVステージIDにLINE SOFT/LEVEL末尾が欠落、カメラ初期state nullからyaw参照エラー。修正コミット10ccf5fで対応したが[再検証CI #40084099231](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40084099231)結果未確認。正式Slope2=0m／Human/Art/Publish/PR-Ready/Merge=HOLD。
+
 ## 最新G4E-7AV — 実B48進入蛇行の緩和で第2道路に到達（2026-10-24 JST）
 
 **AV長距離実測を追記**： [#40081842160](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40081842160) **SUCCESS**。[JSON artifact #12555371977](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40081842160/artifacts/12555371977)。AV lineSoft/lineLevel×TRUE-PINCH/PINCH-SWITCHの開始00固定P96非人間240Hz・最大38秒試験で全4ケースが第2道路に到達する一方、**第2道路走行中14.296〜14.538秒で再び落下。訪問2/7、動体接触0**。少なくとも第1道路の先行7秒落下は解消したが、全7道路走破・完全解決ではない。次G4E-7AWでは第2道路内の実曲率／高低差・レーン選択を改良し、実走行で検証する。最新ブラウザ統合検査は該当HEADのCIで合否を照合し、未完了ならHOLDのまま。**正式Slope2=0m、人間/美術/公開=HOLD**。
