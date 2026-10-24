@@ -30,11 +30,19 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
-## G4E-7BC — 実B48 CROWNのバンク／縦断形状改善・PRIVATE比較（2026-10-25 JST、結果待ち）
+## G4E-7BC — CROWN実3Dバンク再制作：AYより大幅に実接地が進行（2026-10-25 JST）
 
-BBの[240HzベクトルCI #40143385126](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40143385126)はSUCCESS。AY継続接地喪失u≈.358/路肩+0.93m/路面法線方向+0.81m/s、BAはu≈.324/路肩+7.30m/法線方向+1.17m/s。単純な左右コース移動ではなく、AYから第2実B48路面u=.267〜.600を実横断バンクと縦断形状で再制作。BC rollDeck（バンク緩和）、skylineSaddle（バンク緩和＋2.6m実路面盛上げ）の2案をPRIVATE制作し、正規240Hz同一固定P96でAYと比較する。狭い実CROWN、CHASM、実ギャップ52、7道路・28機、通常物理と本番は保護。[BC詳細](docs/W9C2_G4E7BC_CROWN_BANK_PRIVATE_HOLD_JA.md)。
+前工程BB [実240Hzベクトル診断 #40143385126](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40143385126) がAY継続離地u≈.358（路肩余裕+0.93m、路面法線方向+0.81m/s）、BA早期離地u≈.324（路肩+7.30m、法線方向+1.17m/s）を確認。左右への道路移動ではなく、第2実B48道路u=.267〜.600の大きな横断バンクをなだらかに再制作。AYからのBC rollDeck（66%バンク緩和・追加縦断隆起なし）およびskylineSaddle（78%緩和＋実2.6m隆起）。本当の細道・ギャップ52・後半CHASM・他6道路・実28動体を保護。エンジン・操舵・非公開外サイト・Gold不変更。
 
-**BC正式採用なし／実接地進行距離の結果は専用CIを待つ。正式Slope2=0m、人間/美術/公開/PR Ready/merge=HOLD。**
+**[BC真正240Hz物理CI #40143790098](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40143790098) SUCCESS：構造テスト・両条件AY対照の起点00固定P96非人間実物理比較PASS。** 第2道路の最大実接地位置：
+- TRUE-PINCH：AY bankedSweep **u=.357514** → BC rollDeck **u=.604337**、BC skylineSaddle **u=.604365**。
+- PINCH-SWITCH：AY bankedSweep **u=.378923** → BC rollDeck **u=.604734**、BC skylineSaddle **u=.604825**。
+- 生存時間 TRUE/PINCH：AY 16.59167/16.65417秒 → BC rollDeck **19.58333/19.41250秒**、BC skylineSaddle **19.57500/19.40000秒**。
+- 全条件の訪問実道路2/7、動体衝突0・致命的静的衝突0。まだ第2道路u≈.60以降で落下し、全7道路完走は未達。
+
+**判断：BCは接地距離改善の有望な未採用PRIVATE候補。** 2案の実走差はごく小さく、物理的改変が比較的単純なrollDeckを次工程の研究基準に優先（品質の正式採用ではない）。AYは変更なしの歴史的対照として維持。法線速度・バンク・路面接触の寄与分離は完了しておらず、人間が安全に曲がれるとの判断もしていない。次BDではrollDeckのu≈.53〜.72の接地・路肩・自然飛行・曲率をベクトル診断してから、CHASMへの本物の道路断面接続を改善する。遠景都市の箱問題・実WebGL視認性も未評価。
+
+正式Slope2認定0m、人間QA=HOLD、美術/WebGL QA=HOLD、公開・PR Ready・merge=HOLD。[BC監査](docs/W9C2_G4E7BC_CROWN_BANK_PRIVATE_HOLD_JA.md)を参照。
 
 ## G4E-7BB — 接地喪失の3Dベクトル解析（2026-10-25 JST、CI結果待ち）
 
