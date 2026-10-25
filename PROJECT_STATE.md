@@ -1,5 +1,14 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CE — 無登録で取得可能な実作者未来都市モデルを確認（2026-10-25 JST）
+
+**確認済み：新規Epic/Sketchfab登録をせず作者正規配布元から無料のGLB入りZIPに進める導線を発見。ただしZIP実バイナリはこの環境の外部DNS不通により取得できていない。SOURCE-LISTING PASS（無登録候補発見）／ORIGINAL GLB 0／SHA UNKNOWN／NATIVE SIX-CAMERA NOT RUN／TRUE WEBGL NOT RUN／ART/HUMAN/PUBLISH/READY/MERGE HOLD。** 詳細とソース・失敗リスク・次の1回の原本QAは [G4E-7CE無登録建築原本・美術事前審査](docs/G4E7CE_NO_ACCOUNT_FUTURE_CITY_ARTIST_SOURCE_SCREEN_JA.md)。
+
+- **有力な実物検証候補**：作者Dreamloft3D [Tron Gothic City](https://dreamloft3d.itch.io/tron-gothic-city)。作者は、かつてSketchfabで公開したモデルを自分のitch.ioに移したと説明。無料購入画面に **「No thanks, just take me to the downloads」** が存在。CC BY 4.0表示、ZIP6.6MB、GLB/BLEND/FBX/OBJとPBRテクスチャの掲載情報、作者制作の公開画像は確認したが**真正バイナリの実取得・権利完全検査・ゲーム画面美術PASSではない**。Tron由来の意匠が第三者IPを侵害しないことは不明、低い高速カメラでは暗い大壁面が目立つ可能性が高く、**まだ採用禁止**。tomato3元Sketchfab候補は参照として残し、登録を要求しない。
+- **低適合を除外**：NVIDIA ORCA Amazon Lumberyard BistroはCC BY 4.0・実街路の高品質参照だが現代街かつ外装約283万三角形で重量が大きい。GrandWhis Neon Frontは無登録・104MB/153万三角形だがAI補助制作・平坦建築で主役級には不適。JadeRealms H-14は単なる単体回廊。数と出典の良さだけでART承認せず、BX/BY/BZ/CAの箱や薄板の大量生成に戻らない。
+- **G4E-7CFの前提**：無登録6.6MB公式ZIPを適法取得できた場合のみ、原本/作者/license/テクスチャ/第三者IP/SHA256→真正BG 240Hz6視点への複数仮配置→**本物のPRIVATE WebGL画像**→人間の美術審査。元ゲームのB48×7/B51-C×28/gap52/240Hz、速度/操舵/自然ジャンプ/カメラ、A13のSlope2方針、main/Gold/原作Slope/本番2サイト、PR #46 OPEN Draftを保護。正式Slope2認定0m。新規ゲーム実装・巨大Blender/CI・マージ・公開なし。Work未使用。
+
+
 ## G4E-7CD — 正規建築原本の取得経路再確認・高品質代替スクリーニング（2026-10-25 JST）
 
 **結果：SOURCE ACCESS RECHECK 完了、真正の新規都市GLB 0件・テクスチャ/著作権完全確認0件・ゲームWebGL新規映像0件・ART NOT TESTED。主役建築の美術改善は未実証。** 第一候補tomato3《Futuristic Buildings》（Sketchfab公開欄CC Attribution、約121.4k tris）は維持。作者主張に基づく有望候補だが**正規Sketchfabログインを要するため今回未取得**。代替Pasha《Cyberpunk city》（公開CC Attribution、約295k tris、作者主張ゲーム用・高品質テクスチャ）は参考のみで認証障壁も同じ。AI制作モジュール群をCC0だからと主役建築に流用せず、BX/BY/BZ/CAの劣化手法を再開しない。出典・権利・一度の正規取得と検証手順は [G4E-7CDアセット取得ゲート](docs/G4E7CD_AUTHORIZED_HERO_CITY_ACQUISITION_JA.md) に固定。
