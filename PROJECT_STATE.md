@@ -1,5 +1,15 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CC — 有料ゲームに使える完成建築原本の選定・権利ゲート（2026-10-25 JST）
+
+**判断：主役級に近い「実在の作者がBlenderで制作した街路＋建物群」1候補を正式な次の調達先として選定。ただしSketchfabの認証なしで合法的に3Dファイルを取得できないため、モデルを入手・表示・技術PASS・美術PASSしたとは言わない。SOURCE RESEARCH 完了／ART NOT TESTED／ゲーム実WebGL未実施／HUMAN・PUBLIC・READY・MERGE HOLD。**
+
+- **優先する本物の原本**：[Sketchfab tomato3《Futuristic Buildings》](https://sketchfab.com/3d-models/futuristic-buildings-adf97f38cda44e67a44994fff1cb4d58)。作者記述ではBlender制作・GLB形式・約121.4k三角形で、**屋上テラス、店舗、看板、交通信号、地下道路入口等を含む「建築・都市のまとまり」**が特徴。窓や構造部品だけでなく、人が建築/道路/生活を使う関係を最初から描いているため、BX→CAより方向性は適切。ただしこれは**作者の公開ページ上の説明**であってGLB実物・人間制作/第三者テクスチャ権利・ビジュアルの独立実証ではない。見た目の最終採択は未実施。
+- **補助候補**：[Akshita_eb Dhaka《Cyberpunk Shop》](https://sketchfab.com/3d-models/cyberpunk-shop-4cfc925db2ec4634b6e31e550dabe17f) は制作者の説明でSubstance Painter PBR・ダクト・配管・看板を備える約32.3k三角形の**近景店舗**。 [nenkea《Sci-Fi Building 1》](https://sketchfab.com/3d-models/sci-fi-building-1-da4d7f4c35be49baa287af0782c2171b) はレースゲーム用に作ったと記述するガラス建築・エレベーター、約35.8k三角形。**建築の中心候補ではなく補助として控える**。いずれもCC Attributionの公開表示だが、正式版数・モデル中の第三者素材等は元アーカイブで再照合が必要。
+- **重要なダウンロード制約**：[Sketchfab公式Download API](https://sketchfab.com/developers/download-api/downloading-models)によれば認証されたアカウントが必要。一般公開画像、表示用キャッシュ、開発者ツール等から抽出する回避は禁止。現在このチャットには正規のログイン権限と真のGLBファイルがないので、**GitHubに存在しないファイルを保存済みと主張しない**。実物未取得の段階で偽のレンダリングやモデル表示は作成しない。
+- **候補出典・権利・使用適性を[機械可読レジストリ](docs/G4E7CC_VERIFIED_ARCHITECTURE_SOURCES.json)に記録**。全候補にオリジナルページ・作家名・CC Attributionの表示・説明/リスク・原本SHA未取得を明示。[source gate](scripts/p101-w9c2-g4e7cc-vetted-artist-source.mjs) + [安全テスト](tests/p101-w9c2-g4e7cc-vetted-artist-source.test.mjs)を既存の**BP軽量CI**に統合し、未取得素材・NC素材・古いCAのGLBを新しい原本と偽装して美術承認しない。今後真正ファイルを正当に入手した場合のみSHA256照合と[CB真正240HzカメラGLB事前検証](scripts/p101-w9c2-g4e7cb-native-asset-preflight.mjs)を実施する。実WebGLとアート審査はさらに別ゲート。
+- **停止/効率**：Quaternius/Kenneyの低ポリ量産、BYの部品を箱に貼る、BZ茶住宅の大量複製、CAの薄い梁/曲面の微修正を再開しない。3D実物が手元になければ長いBlender/Chromium CIは回さない。調達先の品質、ライセンス、実建築・道路・人間スケールを優先。正式Slope2=0m。元240Hz/B48実道路7/B51-C動体28/gap52/原カメラ/操舵/速度・main・Gold・本番2サイト不変更。PR #46はOPEN Draft未マージ。Work未使用。
+
 ## G4E-7CB — 初めて「見えているだけ」を落とす実240HzカメラGLB事前審査 / TECH PASS（2026-10-25 JST）
 
 **最新結論：新美術の合格・新道路の完成ではない。低コストのGLB受入/フレーム占有診断 TECH PASS。CA-R2の未来都市美術ART REJECTは維持、WebGL実描画・人間試走は未実施/HOLD、正式Slope2 0m、公開/READY/マージ禁止。**
