@@ -21,7 +21,7 @@ const C=Object.freeze({
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),
  scale=(v,n)=>v.map(x=>x*n),dot=(a,b)=>a.reduce((v,x,i)=>v+x*b[i],0),
  norm=a=>scale(a,1/(Math.hypot(...a)||1)),
- cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2]],
+ cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],
  lerp=(a,b,t)=>add(scale(a,1-t),scale(b,t));
 const tri=(arr,a,b,c,color)=>{for(const p of [a,b,c])arr.push(...p,...color);};
 const face=(v,a,b,c,d,color)=>{tri(v,a,b,c,color);tri(v,a,c,d,color);};
@@ -29,6 +29,8 @@ const double=(v,a,b,c,d,color,back=C.back)=>{face(v,a,b,c,d,color);face(v,d,c,b,
 function girder(v,a,b,width,color){
  const axis=norm(sub(b,a)),reference=Math.abs(dot(axis,[0,1,0]))>.9?[0,0,1]:[0,1,0],
   side=norm(cross(axis,reference)),normal=norm(cross(axis,side));
+ if(side.length!==3||normal.length!==3||!side.every(Number.isFinite)||!normal.every(Number.isFinite))
+  throw Error('BJ vector basis must contain THREE finite coordinates');
  const w=scale(side,width*.5),h=scale(normal,width*.35);
  const ring=p=>[add(add(p,w),h),add(sub(p,w),h),sub(sub(p,w),h),add(sub(p,h),w)];
  const ringA=ring(a),ringB=ring(b),q=[...ringA,...ringB];
