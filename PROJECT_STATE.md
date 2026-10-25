@@ -30,6 +30,14 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BR / BS — Blenderによる本物の3D都市制作・4視点美術審査（2026-10-25 JST）
+
+[BR実制作CI #40168751293](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40168751293) **SUCCESS**、[BSの出典・SHA-256画像検証CI #40169047717](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40169047717) **SUCCESS**。Blender4.0.2で独立した都市地区《THE FRACTURED TIDE CITADEL》を実際に生成、**ネイティブ.blend（約2.57MB）／GLB2（約1.82MB）／独立4方向1440×900の真のCycles画像／SHA-256／出典・素材検査**を[GitHub PRIVATE開発用フォルダ](artifacts/private/g4e7br-fractured-tide-citadel)へ恒久保存。**26,594三角形・219メッシュ・17GLBマテリアル・テクスチャ画像0点**。スクリプトをBlender内で実行した造形であり、手彫りの精密Blenderアートや実ゲーム内WebGL描画と偽らない。
+
+実Blender4画像を目視評価。曲面断崖・二つの段状都市島・立体高架橋・光る居住面など従来より確かに立体構造へ前進したが、**巨大都市というよりミニチュアの疎らな模型**に見える。広い無地の床、無個性で反復した塔、都市の連続居住層と複雑な大質量不足、素材・ディテールの物足りなさが明白。**技術PASS／中央級巨大SF都市の美術候補としてREJECT、Human/Art/Publish/Ready/Merge HOLD**。実ゲームの正規起点00・240Hz・高速P96カメラ表示はまだ未実施、ゲーム画面改善を達成したとは言えない。[BR美術監査・次の質的転換](docs/W9C2_G4E7BR_ACTUAL_BLENDER_ART_FOUR_VIEW_REJECT_JA.md)。
+
+次は同じコード生成の微調整で立方体を増やさず、**1km級に見える連続した都市大質量／深い開口／実居住街区／複雑な素材・テクスチャ**を一体で美術設計し、本物のBlender4視点審査後にのみゲーム統合へ。現存BK描画器はBlenderの複数ノード・インデックス・テクスチャに対応しないため、将来PRIVATE対応パスの別検証が必要。既存B48実道路7／B51-C実動体28／ギャップ52／240Hz不変更。main、Gold、2本の本番、原作Slope、PR #46 Draft維持。正式Slope2認定0m。
+
 ## G4E-7BQ — BOの監査用GLB・実WebGL画像を開発GitHubへ永続保存（2026-10-25 JST）
 
 [専用保存CI #40167708533](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40167708533) **SUCCESS**、[PRIVATE開発ブランチの永続監査資料](artifacts/private/g4e7bo-native-20261025)に、元[BO CI #40166540111](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40166540111)の正規240Hz 3視点×BN/BOの**実PNG6枚とGLB2本、全8ファイルのSHA-256監査情報**を登録。B48 7本／B51動体28基／セル52、TRUE 122.9・SWITCH 112.2/125.8m/s、SCRIPTED NOT HUMAN。**Technical PASS／Art REJECT／Publish FORBIDDEN、PR #46はDraft**であり、公開デプロイではない。これで元GitHub Actionsの14日アーティファクト期限に依存しない。
