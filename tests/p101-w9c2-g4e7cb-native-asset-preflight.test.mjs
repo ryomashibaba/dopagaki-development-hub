@@ -58,6 +58,11 @@ test('CB actual rejected CA-R2 GLB + existing 240Hz BG original poses: determini
  assert.equal(v.views.filter(x=>x.speedMps>85).length,6);
  assert.ok(v.views.every(x=>x.visibleFraction>=0&&x.visibleFraction<=1));
  assert.equal(v.model.worldAABB.span.length,3);
+ assert.ok(v.views.every(x=>x.screenWidthFraction>0&&x.screenHeightFraction>0));
+ assert.ok(v.views.every(x=>x.screenWidthFraction<.12),
+   'Rejected CA R2 must remain visibly tiny at fixed far-field native placement');
+ assert.ok(v.flags.includes('TINY_IN_REAL_CAMERA_4_OF_6_FRAMES_UNDER_12_PERCENT_WIDTH'));
+ assert.ok(v.flags.includes('VERTEX_FRACTION_FALSE_CONFIDENCE_HIGH_VISIBILITY_BUT_TINY_SIZE'));
  assert.deepEqual(v,nativeAssetPreflight(bytes,native));
  const fraud=structuredClone(native);fraud.physicsHz=30;
  assert.throws(()=>nativeAssetPreflight(bytes,fraud),/240Hz source/);
