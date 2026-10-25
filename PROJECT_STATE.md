@@ -30,6 +30,12 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BN — BREAKWATER CITADEL：主役都市の造形そのものを改修（2026-10-25 JST）
+
+BMの[CI #40164933668](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40164933668) は**SUCCESS**。実バイナリGLB（TRUE/SWITCH各約488kB、6,704三角形）、Chromium同一正規240Hz高速カメラでBK2/BL/BMの9枚比較、PRIVATE/public/public-safe隔離を確認。カメラ合わせによって画面内へ建築が復帰したが、外観は巨大な白い筒状構造に過ぎず、居住都市・奥行き・美術的独創性の目標から大幅未達。**BM技術PASS／美術REJECT**。[BM WebGL成果物](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40164933668/artifacts/12588690357)。
+
+BNで旧筒状外殻を主役から外し、**1地区の建築形態を作り直す**：4枚の不規則な厚い都市基盤、真の抜けを持つ非対称2翼の大屋根、238m・302m・214mの異なる高層住宅塔＋小型2塔、実居住層のガラス面・採光部と立体的都市間接続。BMで確認した実P96カメラの固定ワールド座標補正を再利用し、別GLB候補としてPRIVATE隔離する。**まだ美術合格ではない。** モデリングはコード生成でBlender手作業とは称さない。[BN監査と実画像ゲート](docs/W9C2_G4E7BN_BREAKWATER_CITADEL_HOLD_JA.md)。B48道路7/実B51動体28/欠落セル52/240Hz/原本・公開隔離不変。正式Slope2 0m、Human/Art/Publish/Ready/Merge=HOLD。
+
 ## G4E-7BM — 実240Hzカメラ投影から建築配置を最適化（2026-10-25 JST）
 
 BL最終[CI #40163689908](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40163689908) **SUCCESS**：2本の本物のGLB、独立正常ロード、実WebGL撮影、公開隔離PASS。ただし実保存画像ではTRUE 122.9m/s／SWITCH 112.2・125.8m/sの**すべてで新都市建築がほぼ見えない**。BK2は近い巨大な壁が見える。よって**BL技術PASS／美術REJECT**。単にGLB三角形数を増やす失敗を繰り返さない。

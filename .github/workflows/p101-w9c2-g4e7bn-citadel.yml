@@ -1,0 +1,70 @@
+name: G4E-7BN inhabited BREAKWATER CITADEL real native camera
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7bn-breakwater-citadel-author.mjs'
+      - 'scripts/p101-w9c2-g4e7bm-camera-registered-author.mjs'
+      - 'scripts/build.mjs'
+      - 'web/drive3d.mjs'
+      - 'tests/p101-w9c2-g4e7bn-citadel.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7bn-citadel.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7bn-citadel.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7bn-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-urban-art-GLB:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CI: 'true'
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+      DOPAGAKI_G4E7BM_VISUAL: '1'
+      DOPAGAKI_G4E7BN_VISUAL: '1'
+      DOPAGAKI_BUILD_DIR: 'dist-private'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Authentic native B48 BN art model and geometry validation
+        run: |
+          node --check scripts/p101-w9c2-g4e7bn-breakwater-citadel-author.mjs
+          node --check scripts/build.mjs
+          node --check web/drive3d.mjs
+          node --test tests/p101-w9c2-g4e7bn-citadel.test.mjs
+      - name: Install Chromium real WebGL
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Generate two binary BC-canonical BN GLBs
+        run: |
+          node scripts/build.mjs private
+          test -s dist-private/generated/P101_A13_W9C2_G4E7BN_TRUE_PINCH_CITADEL_LOCAL.glb
+          test -s dist-private/generated/P101_A13_W9C2_G4E7BN_PINCH_SWITCH_CITADEL_LOCAL.glb
+      - name: Compare actual fixed high-speed BM vs BN WebGL images
+        run: npx playwright test tests/browser/p101-w9c2-g4e7bn-citadel.spec.mjs
+      - name: Public and public-safe must exclude BN binary and all private trials
+        run: |
+          node scripts/build.mjs public
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7BN_TRUE_PINCH_CITADEL_LOCAL.glb
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7BN_PINCH_SWITCH_CITADEL_LOCAL.glb
+          node scripts/build.mjs public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7BN_TRUE_PINCH_CITADEL_LOCAL.glb
+          test ! -e dist/generated/P101_A13_W9C2_G4E7BN_PINCH_SWITCH_CITADEL_LOCAL.glb
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7bn-inhabited-city-real-BM-vs-BN-WebGL-HOLD
+          path: |
+            dist-private/generated/P101_A13_W9C2_G4E7BN_*_CITADEL_LOCAL.glb
+            test-results/**/g4e7bn-*.png
+            test-results/**/test-failed*.png
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 14

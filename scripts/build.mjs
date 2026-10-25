@@ -40,6 +40,7 @@ import {generateG4E7BC} from './p101-w9c2-g4e7bc-bank-contour.mjs';
 import {generateBKModel} from './p101-w9c2-g4e7bk-glb-author.mjs';
 import {generateBLModel} from './p101-w9c2-g4e7bl-open-crown-author.mjs';
 import {generateBMModel} from './p101-w9c2-g4e7bm-camera-registered-author.mjs';
+import {generateBNModel} from './p101-w9c2-g4e7bn-breakwater-citadel-author.mjs';
 import {g4e7bgNativeFrames} from './p101-w9c2-g4e7bg-native-visual-frames.mjs';
 import {generateG4E7AUInspection} from './p101-w9c2-g4e7au-private-inspection.mjs';
 import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
@@ -309,6 +310,19 @@ if(includeStages){
      if(art.meta.triangles<1200||art.meta.materialCount!==6)
       throw Error('BM GLB lacks actual modeled geometry');
      write('generated/P101_A13_W9C2_G4E7BM_'+road.replace('-','_').toUpperCase()+'_REGISTERED_LOCAL.glb',art.glb);
+    }
+   }
+   // BN: art-directed inhabited city in genuine BM-calibrated world coordinates.
+   // Exactly one candidate, two genuine BC roads; PRIVATE binary only.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7BN_VISUAL==='1'){
+    if(process.env.DOPAGAKI_G4E7BE_VISUAL!=='1')
+     throw Error('BN requires physical PRIVATE BC rollDeck');
+    const frames=g4e7bgNativeFrames();
+    for(const road of AJ_ROADS){
+     const art=generateBNModel(generateG4E7BC(road,'rollDeck'),frames);
+     if(art.meta.triangles<1500||art.meta.materialCount!==6)
+      throw Error('BN must contain substantial lit multi-zone urban forms');
+     write('generated/P101_A13_W9C2_G4E7BN_'+road.replace('-','_').toUpperCase()+'_CITADEL_LOCAL.glb',art.glb);
     }
    }
    // BG PRIVATE-only actual start00 240Hz scripted P96 observation frames.
