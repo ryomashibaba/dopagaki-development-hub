@@ -30,6 +30,14 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BL — OPEN CROWN ARCOLOGY / 単一主都市地区のPRIVATE実制作（2026-10-25 JST）
+
+**現在は実制作コミット済み／CI実行待ち／美術HOLD。** BK V2の実GLB2＋6素材＋法線＋ライティング基盤を流用し、コードで造形する単一の中空都市地区へ転換した。曲面の二重外殻、真に穴の開いた天空中庭2つ、厚い居住テラス5つ、270m級の都市主塔、立体連結部材を造形。道路際の不透明壁を繰り返す代わりに、B48第2道路から離れた開いた都市断面を目指す。
+
+PRIVATEビルドだけに生成するGLB2は TRUE/SWITCH両条件。フラグ `DOPAGAKI_G4E7BL_VISUAL=1` および `DOPAGAKI_G4E7BE_VISUAL=1`。PRIVATE走行プレビューの個別選択 `g4e7bl=open-crown`。BK2と同じP96非人間240Hzカメラの3条件（TRUE 122.936m/s、SWITCH 112.189/125.796m/s）で実Chromium画像A/Bを別途専用CIに実装。[CI #40163689908](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40163689908) は開始時点でQUEUED。確認前に結果をPASSと呼ばない。[BL監査と美術審査手順](docs/W9C2_G4E7BL_OPEN_CROWN_PRIVATE_HOLD_JA.md)。
+
+**正直な制作方式**：実バイナリGLBだが造形はコード制作であり、Blenderモデル・テクスチャ・一般glTFモデルの完全互換ではない。見た目の改善は実WebGL画像を確認するまで未認定。**正式Slope2=0m、Human/Art/Publish/Ready/Merge=HOLD。** main/Gold/本番/原作は変更せず、既存ブランチとDraft PR #46のみ。
+
 ## G4E-7BK — PRIVATE実バイナリGLB・法線付き素材描画の検証完了（2026-10-25 JST）
 
 **基盤技術成立**。従来の頂点色付き板・梁だけの景観から、独立GLB2（TRUE/SWITCH各約208KB、2,832三角形、6種類のglTF Metallic/Roughness/Emissive素材＋3D法線）と実WebGL2の独立照明・反射・発光・霧経路へ移行した。作者は**コード生成されたGLB**であってBlenderで精密に造形したと偽らない。既存B48道路・B51動体・本番シェーダーは不変更。第1案[CI #40159691780](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40159691780) **SUCCESS**、Chrome4/4。実画像はまだ黒い大壁が近過ぎて道路横の視認が悪かったため、上記技術合格でも美術は不合格。
