@@ -42,3 +42,9 @@ Produce or acquire a truly authored, original/appropriately licensed high-qualit
 
 ### Efficiency
 BP intentionally does not edit `scripts/build.mjs` or `web/drive3d.mjs`: both monolithic files trigger many costly old CI workflows per change. Its own isolated CI tests only one fast Node script, not every game build. Keep one major art subject per pass. Save review-critical GLB/images to a durable GitHub asset archive after selection (GitHub Actions binary artifacts are only retained 14 days). Original Slope site, main, Gold, user playing controls, camera, acceleration, 240Hz physics untouched.
+
+## BQ durable original archive — completed
+
+[Archive workflow #40167708533](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40167708533) succeeded and made a separate, read-only-as-evidence GitHub commit on the same PRIVATE development branch: [8 exact original files and AUDIT.json](../artifacts/private/g4e7bo-native-20261025). The files are **six native Chromium screenshots** and **two actual original GLB models**, with SHA-256/size manifest and ART REJECT metadata. No synthetic images, no image generation, no promotion, no PR Ready/Merge.
+
+BP lightweight test [#40167594463](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40167594463) **SUCCESS (4/4)**. The source tool is independent of the legacy game renderer and has not produced an actual Blender-authored aesthetic asset. Do not confuse binary admission with professional 3D artistic quality.

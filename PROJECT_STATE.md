@@ -30,6 +30,12 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BQ — BOの監査用GLB・実WebGL画像を開発GitHubへ永続保存（2026-10-25 JST）
+
+[専用保存CI #40167708533](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40167708533) **SUCCESS**、[PRIVATE開発ブランチの永続監査資料](artifacts/private/g4e7bo-native-20261025)に、元[BO CI #40166540111](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40166540111)の正規240Hz 3視点×BN/BOの**実PNG6枚とGLB2本、全8ファイルのSHA-256監査情報**を登録。B48 7本／B51動体28基／セル52、TRUE 122.9・SWITCH 112.2/125.8m/s、SCRIPTED NOT HUMAN。**Technical PASS／Art REJECT／Publish FORBIDDEN、PR #46はDraft**であり、公開デプロイではない。これで元GitHub Actionsの14日アーティファクト期限に依存しない。
+
+[BP軽量CI #40167594463](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40167594463) は4/4 PASS。今後はBlender等の真の芸術制作物を入庫→独立美術審査→適合レンダラー検討→元240Hzカメラで可視確認する。**今工程で高品質新GLBを制作・実走行描画したと誤認しないこと**。本番・原作サイト・main・Goldは不変更。正式Slope2 0m、Human/Art/Publish/Ready/Merge HOLD。
+
 ## G4E-7BP — 技術PASS／美術REJECTとART-FIRST転換（2026-10-25 JST）
 
 [BO CI #40166540111](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40166540111) は全PASS。正規240Hz起点00 P96非人間3視点、GLB2×2、実Chromium画像・PRIVATE/公開隔離成功。ただしBN→BOで都市は画面左端に小さく残り美術的向上はほぼないため**BO ART REJECT**。モデル移動は約X+4.6m／Y-27.7m／Z+23.7m、画面差分RGB平均2.49〜4.34/255。画面内頂点率・小改善スコアでは巨大都市の美術品質を証明できない。[証拠GLB/実画像](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40166540111/artifacts/12588778053)は14日で期限切れとなるため永続ではない。
