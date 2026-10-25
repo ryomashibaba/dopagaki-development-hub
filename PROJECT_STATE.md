@@ -38,7 +38,9 @@
 
 **次BLの最優先課題**：GLB技術とコード生成された単調な都市造形を混同しない。GLBを本物の手の込んだアセット制作（例：Blenderの階層ノード・インデックス付きメッシュ・テクスチャ/法線/ラフネス）へ接続し、素材・地形・都市階層・構図を一体として作る。ただし現在のBKパーサーは単一ワールド座標・unindexed・6マテリアルのみの**実験的サブセット**であり、一般Blender GLB全てに対応したと主張しない。あくまで同一実カメラのスクリーンショットを採否基準にし、量産を避ける。[BK技術・美術監査](docs/W9C2_G4E7BK_REAL_GLB_MATERIAL_PRIVATE_HOLD_JA.md)。正式Slope2認定0m、Human/Art/Publish/PR Ready/Merge=HOLD、main/Gold/原作/本番不変。
 
-**モデル本体も検証可能**：[最終BK成果物CI #40160600019](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40160600019) SUCCESS。Actionsの[成果物 #12586536198](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40160600019/artifacts/12586536198) にTRUE/SWITCH両条件の**実GLBバイナリ各約208KB**と対応WebGL画像を同時保存。現地ではなくGitHub Actionsアーティファクト（14日保存）、再生成するコードはGitHubで永続。技術成立／造形美術HOLDであることは不変。\n\n## G4E-7BJ — 巨大SF都市の画面内描画確認／美術案REJECT（2026-10-25 JST）
+**モデル本体も検証可能**：[最終BK成果物CI #40160600019](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40160600019) SUCCESS。Actionsの[成果物 #12586536198](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40160600019/artifacts/12586536198) にTRUE/SWITCH両条件の**実GLBバイナリ各約208KB**と対応WebGL画像を同時保存。現地ではなくGitHub Actionsアーティファクト（14日保存）、再生成するコードはGitHubで永続。技術成立／造形美術HOLDであることは不変。
+
+## G4E-7BJ — 巨大SF都市の画面内描画確認／美術案REJECT（2026-10-25 JST）
 
 BIまでの都市が上方向・左右に切れてゲームの実カメラに映らない問題へ、BJでは**道路側方・下方に都市の実質量を配置**。PR #46の現行PRIVATE BC rollDeckを不変更、正規起点00/240Hz・2種実道路・28基の動体とgap52を維持。非衝突GPUの4街区/32開放空間/176都市セル/48断崖底面/6304三角形で、画面内に本当に入るかを実物理カメラ投影テスト化。最終[CI #40158555150](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40158555150) SUCCESS：Native4/4・Chromium4/4再試行0、PRIVATE115・public113・public-safe5、公開にBC/BG実験JSON混入なし。TRUE 18.5秒122.936m/sで実表示面中心728三角形、SWITCH 18.5秒125.796m/sで中心614面。現物[WebGL画像成果物 #12585319182](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40158555150/artifacts/12585319182)。
 
