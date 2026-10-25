@@ -30,6 +30,12 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BH — OPEN HORIZON 実空間に抜ける4都市構造をPRIVATE制作（2026-10-25 JST）
+
+**背景**：BG同一正規240Hz高速カメラは BF を大きな暗色壁として美術REJECT。BHは単なる色替えではなく、実路肩から165m以上外側の4都市主構造・大空洞8方向・高低差ある外側連結テラス16・明色の非反復3Dリブでスカイラインを大きく再設計。実7 B48、28動体B51、実欠落セル52、操作・カメラ、旧候補・Gold・本番は**完全保護**。BC rollDeck／正規240Hz／P96非人間カメラ t=17.0/18.5sec で元都市・不採用BF・BHを同位置比較する。通常BEから手動A/Dも引き続き動作。PRIVATEのみ URL パラメータ `g4e7bh=open-horizon` が追加。
+
+専用CI [#40154982364](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40154982364) は**起動済みで結果確認待ち**。実WebGL撮影による視認性・都市としてのスケール/深さ確認前には**BHの美術PASSを主張しない**。正式Slope2=0m、人間QA・美術承認・Publish/PR Ready/Merge=HOLD。[BH監査](docs/W9C2_G4E7BH_OPEN_HORIZON_PRIVATE_HOLD_JA.md)。反復の効率は独立景観モジュールで上げる。
+
 ## G4E-7BG — BCの実高速240Hzカメラ・景観A/B検証完了（2026-10-25 JST）
 
 **[専用実CI #40154087436](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40154087436) SUCCESS。** Native240Hz BC/起点00固定P96の観測テストPASS、Chromium Playwright **3/3初回PASS・再試行0**。PRIVATE 112ファイル、public 110ファイル、public-safe 5ファイルを検証。後二者にBG高速度フレームJSONまたはBC未採用路面JSONの混入なし。スクリーンショットは[Actions成果物 #12584250768](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40154087436/artifacts/12584250768)（閲覧可能期間14日）。BE手動A/Dと混同しない**SCRIPTED READ-ONLYフレーム**で、人間プレイの証拠ではない。
