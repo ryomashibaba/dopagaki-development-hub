@@ -1,5 +1,19 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7BV — 建築ファースト地区の実制作・実視点美術REJECT（2026-10-25 JST）
+
+**最新確定証拠**：[BV Blender真正実制作CI #40172833140](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40172833140) SUCCESS。ネイティブBlenderソース、1.57MBのGLB、5方向の実Cycles（斜視・正面・側面・俯瞰・APPROACH）、独自GLB内テクスチャ1、SHA-256を[既存Draftブランチの証拠](artifacts/private/g4e7bv-architectural-quarter)へ保存した。821メッシュ・14,458三角形・11マテリアルは技術指標に過ぎない。[Draft PR #46の実画像付き独立美術審査](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46#issuecomment-6394934226)。
+
+**制作方式**：[BVの編集可能Blender生成ソース](scripts/p101-w9c2-g4e7bv-architectural-quarter.py)はBUの巨大な空殻から抜け、約700mの地区に駅、段丘状アーコロジー、曲面文化施設、異なる住宅・学校街区、橋・テラスを個別に設計した。従来のBlender CIを再利用し新ワークフローは増やさず、5枚の画像を同一CIで搬出。追加APPROACHは**スタジオの擬似道路視点であり240Hz実ゲームカメラではない**。
+
+**美術結論＝ART REJECT（BUILD/GLB技術PASSと区別）：** 真正5枚を直接目視。斜視・俯瞰は大きな空の地面の上に数個の箱型建築が並ぶジオラマに見える。広範囲の居住密度と都市街路・公共空間の連続性が欠け、複数の施設は疎らで外壁も平板。低いアプローチでは無地の壁と長い水平橋が視界を占領し、危険の予告に使える実道路風景になっていない。前のBR/BT/BUと同様に正式都市アセットへ採用しない。
+
+**今後の最重要手法転換：** 「Blender bpyで小箱・円弧部材を一度に生成→シーン全体を大きくする」方法を**終了**する。次は**まず一つの建築的に説得力ある主役建築を本格制作・目視審査**（意図的な造形・繊細な多層ファサード・内部公共空間・4–8m生活スケール・実オリジナルPBR）。それから周辺の異種建築と街路・交通で本当に連続した都市街区を形成する。外部アセット使用時は商用可否等を根拠で確認し、未確認の権利物は使わない。単なるモデルのポリゴン数・CI本数増加は禁止。**美術PASSまでPRIVATE実ゲームへの統合なし**。アートの正式採否はユーザーの実画像評価を尊重。参考写真と実カメラの視認性を重視し、従来のものと異なる制作ソフト・方式の利用も認めるが、Work使用の新たな事前承認は維持する。
+
+**保護とゲート：** BVの技術PASSはゲーム・人間・美術・公開PASSを意味しない。B48道路7、B51-C動体28、240Hz、Gold、gap52、main、原作Slope・両本番URLすべて維持。Draft PR #46 OPEN/Draft/未マージ。正式Slope2 0m、ART/HUMAN/PRIVATE-REAL-GAME/PUBLISH/READY/MERGE HOLD。過去のBVレンダリングはプロジェクト失敗学習の証拠として保存する。
+
+
+
 
 ## G4E-7BT/BU 真正4視点美術審査と手法転換（2026-10-25 JST）
 
