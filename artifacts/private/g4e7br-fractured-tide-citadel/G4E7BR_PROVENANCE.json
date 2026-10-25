@@ -1,0 +1,30 @@
+{
+  "schema": "dopagaki.g4e7br-offline-blender-art-study/1",
+  "name": "THE FRACTURED TIDE CITADEL",
+  "authorship": "ALGORITHMIC_BPY_MODELLING_NOT_HAND_SCULPTED",
+  "blenderVersion": "4.0.2",
+  "meshObjects": 219,
+  "materials": 10,
+  "studioExcludedFromGLB": true,
+  "glbYUp": true,
+  "metersPerUnit": 1,
+  "majorHeroSpireHeightMeters": 510,
+  "majorCityDistrictApproximateFootprintMeters": [
+    1060,
+    950
+  ],
+  "fourActualBlenderCameraRenders": [
+    "OBLIQUE",
+    "FRONT",
+    "AERIAL",
+    "SIDE"
+  ],
+  "cityRoadIntegration": "NOT_DONE",
+  "native240HzGameCameraProof": "NOT_DONE",
+  "officialSlope2CertifiedMeters": 0,
+  "humanArtApproval": "HOLD",
+  "publish": "FORBIDDEN",
+  "merge": "HOLD",
+  "sourceAssetFile": "G4E7BR_FRACTURED_TIDE_CITADEL_SOURCE.blend",
+  "gameAssetFile": "G4E7BR_FRACTURED_TIDE_CITADEL_ART_ONLY.glb"
+}

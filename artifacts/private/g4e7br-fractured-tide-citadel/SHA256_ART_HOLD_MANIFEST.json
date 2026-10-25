@@ -1,0 +1,64 @@
+{
+  "schema": "dopagaki.g4e7br-blender-art-archive/1",
+  "source": "ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY",
+  "originalScript": "scripts/p101-w9c2-g4e7br-blender-art.py",
+  "studioViews": [
+    "OBLIQUE",
+    "FRONT",
+    "AERIAL",
+    "SIDE"
+  ],
+  "blenderSceneAuthoring": "SCRIPTED_BPY_NOT_HAND_SCULPTED",
+  "actualGameCameraProof": "NOT_YET_RUN",
+  "humanArtApproval": "HOLD",
+  "publication": "FORBIDDEN",
+  "originalPhysicsUnchanged": true,
+  "officialSlope2CertifiedMeters": 0,
+  "files": [
+    {
+      "file": "G4E7BR_AERIAL_REAL_BLENDER_RENDER.png",
+      "bytes": 2249473,
+      "sha256": "77eb3cb606106e03ee7169378642e466acca410e12bd939e8d1bb2aff1b77c2c"
+    },
+    {
+      "file": "G4E7BR_BP_ADMISSION.json",
+      "bytes": 1594,
+      "sha256": "50c7f94a45ba1e087b49e81d097f844a05f80ec924af6a7d591c33e3b270427e"
+    },
+    {
+      "file": "G4E7BR_BP_CLAIM.json",
+      "bytes": 389,
+      "sha256": "5cf3a7b39e4efba51c782597229bf69c39dc71364b69acb2a8d6714df0baaebf"
+    },
+    {
+      "file": "G4E7BR_FRACTURED_TIDE_CITADEL_ART_ONLY.glb",
+      "bytes": 1821588,
+      "sha256": "840ca79038f37b914b54b0e81aab263bc02534a411fd27729194ca7049bb3d4b"
+    },
+    {
+      "file": "G4E7BR_FRACTURED_TIDE_CITADEL_SOURCE.blend",
+      "bytes": 2574624,
+      "sha256": "5fce7dd9c55d9f6e8ce866f7d282646a17ffe97b39433cab05c4d2898f8087a9"
+    },
+    {
+      "file": "G4E7BR_FRONT_REAL_BLENDER_RENDER.png",
+      "bytes": 2128628,
+      "sha256": "b2ee52acbe4fd5e77d7444980c01af922a26e1b7b4c81b4a23cc9e43a8d26d61"
+    },
+    {
+      "file": "G4E7BR_OBLIQUE_REAL_BLENDER_RENDER.png",
+      "bytes": 1979565,
+      "sha256": "31baedc074c47f38581d1b86b02bc08cfebb47ba5284d2f734e0ba1a6f8686eb"
+    },
+    {
+      "file": "G4E7BR_PROVENANCE.json",
+      "bytes": 840,
+      "sha256": "72fe63f7670bf10e9f64fb5da98c83e6293940cbbae24c57753d77b9321ea600"
+    },
+    {
+      "file": "G4E7BR_SIDE_REAL_BLENDER_RENDER.png",
+      "bytes": 2051204,
+      "sha256": "c74ef63638df2259d8c1517a014022fe1e9f1051654832d911edd8a095c4168b"
+    }
+  ]
+}
