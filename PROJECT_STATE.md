@@ -30,11 +30,13 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
-## G4E-7BG — BC実240Hz高速視点／実WebGL景観A/B監査（2026-10-25 JST）
+## G4E-7BG — BCの実高速240Hzカメラ・景観A/B検証完了（2026-10-25 JST）
 
-BF修正CI [#40153126707](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40153126707) SUCCESS。だが保存された本物のWebGL画像では約52m/sの初期視点で巨大構造が**暗い壁の連続**として映る。BFの美術を現時点でREJECT/HOLD（技術CIと別）。前工程は高速100m/s超の走行視界を撮れていなかった。
+**[専用実CI #40154087436](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40154087436) SUCCESS。** Native240Hz BC/起点00固定P96の観測テストPASS、Chromium Playwright **3/3初回PASS・再試行0**。PRIVATE 112ファイル、public 110ファイル、public-safe 5ファイルを検証。後二者にBG高速度フレームJSONまたはBC未採用路面JSONの混入なし。スクリーンショットは[Actions成果物 #12584250768](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40154087436/artifacts/12584250768)（閲覧可能期間14日）。BE手動A/Dと混同しない**SCRIPTED READ-ONLYフレーム**で、人間プレイの証拠ではない。
 
-BGではBC rollDeckの正規起点00、240Hz、P96固定自動入力から真の15.0/17.0/18.5秒のカメラ/ボール速度/B51動体時刻を抽出し、ブラウザに読み取り専用で表示する。通常A/D人間試走とは混同しない。BF OFF/ONの同一速度・カメラで景観を比較。**真B48 7道路・動体28基・gap52・物理/操作/公開全不変更**。人間の公平感・高速での楽しさ・遠景の奥行きは撮影画像で別途審査。専用PRIVATE研究入口・監査：[BG文書](docs/W9C2_G4E7BG_REAL_SPEED_VISUAL_AUDIT_HOLD_JA.md)。正式Slope2=0m、Human/Art/Publish/PR Ready/Merge=HOLD。
+**実画像比較・美術判断：BF仮説REJECT。** 起点00から18.5秒のTRUE-PINCH 122.9m/s、PINCH-SWITCH 125.8m/s、SWITCH 17.0秒112.2m/sの高速実カメラで撮影。元景観は反復巨大ポール/門であり、BFへ交換すると暗色の巨大壁状メッシュが景観の大部分を占め、都市の階層感・空の抜け・100m/s超の道路先読みが改善しない。初期52m/sだけの検証と異なり中盤の本物のカメラで欠点を可視化できた。**技術CIが成功しても視覚的完成とは判断しない。**
+
+次BHでは路面/操作を変更せず、同じ正規BG高速カメラで大きく空が抜ける本物の空隙、明暗と立体レイヤー、前方走行路の遮蔽軽減をねらった新景観を作る。数mの道路左右微調整や暗い箱の増築は禁止ではないが、この課題の主手段にはしない。GitHubの既存仕様/BE・BG操作導線/原作再現・Gold・本番不変更。人間の楽しさ・公平性は依然未評価、**正式Slope2=0m、Human QA/Art認定/公開/PR Ready/Merge=HOLD**。[BG監査](docs/W9C2_G4E7BG_REAL_SPEED_VISUAL_AUDIT_HOLD_JA.md)。
 
 ## G4E-7BF — SKY FRACTURE：BC実道路沿い巨大SF景観の独立PRIVATE制作（2026-10-25 JST）
 
