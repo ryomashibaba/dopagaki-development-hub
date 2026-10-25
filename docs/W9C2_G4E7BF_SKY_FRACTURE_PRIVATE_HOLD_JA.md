@@ -1,0 +1,11 @@
+# G4E-7BF — SKY FRACTURE / BC real B48 private visual production
+
+Date 2026-10-25 JST. The project needs an actually engaging ultra-future city. Unlike decades of 0.1m physics parameter attempts, this experiment produces **three unequal skyline megastructures** on true native BC rollDeck (road 1 and 2) without any collision or camera modification.
+
+Architecture: (1) LOWER CITADEL at road1 u=.69, outboard>=165m, approx 540m rise; (2) TORN CROWN at real road2 u=.37, outboard>=152m, 730m rise; (3) CHASM VANE at actual road2 u=.72, outboard>=180m, 910m rise. These are longitudinal warped, physically thick, asymmetric shells with genuine missing full-height sections allowing sky to show through, isolated cantilever-city terraces, structural ribs and sparse colored accents. No artificial traversable supports, mandatory portals, identical cuboids or repetitive central road cover. Geometry is GPU-only and private opt-in; no scene or gameplay claim until actual screenshot review.
+
+A/B visual routes: existing BC `http://127.0.0.1:4373/drive3d/?g4e7al=manual&g4e7be=roll-deck`; new art `http://127.0.0.1:4373/drive3d/?g4e7al=manual&g4e7be=roll-deck&g4e7bf=sky-fracture`. Windows one-click existing `RUN_G4E7BE_MANUAL.cmd` starts first baseline. Manually adding BF parameter never changes controls/level.
+
+Prototype technical scope: exact genuine B48 native seven road colliders / 28 B51 movers, first real cell52 void unchanged; BC hold; 240Hz physics/OVERDRIVE/A-D/camera unchanged. Public-safe and public do not publish BC stage data. Chrome real WebGL baseline vs macro skyline frames and private JSON evidence are required. **Automated visuals are not a human or art PASS**. Preserve approved Slope2=0m and all human/art/publish/PR Ready/merge HOLD.
+
+Efficiency audit: reuse BE private runner and JSON rather than rewrite; one broad meaningful visual direction, one dedicated CI, compare actual camera screenshots with skyline off/on and both real road modes. Avoid new physics offset grid and status-only chores. Identify shared driver/build edits trigger disproportionate existing workflows; minimize further touches to those hot files. Next visual decision must use screenshot evidence and human camera impressions, not geometric triangle counts alone.

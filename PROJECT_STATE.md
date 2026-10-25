@@ -30,6 +30,12 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BF — SKY FRACTURE：BC実道路沿い巨大SF景観の独立PRIVATE制作（2026-10-25 JST）
+
+BE修正版 [#40148567626](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40148567626) はChrome2/2再試行0、公開隔離PASS。**全体方針監査**：物理の微小改造・診断を繰り返して人間の楽しさ/遠景都市美術を後回しにしていた点は効率・目的ともに改善余地あり。そこでBFは道路を追加改造せず、BC rollDeckの正規7実B48・28実B51・gap52・手動A/D・240Hz・ボール相対カメラをそのまま使用し、実路面から外側140m超の独立した3つの**非直方体・実開口・非対称数百m級〜約900m巨大都市構造**を実GPUに構築する。PRIVATE opt-in `?g4e7al=manual&g4e7be=roll-deck&g4e7bf=sky-fracture`、通常BEは比較対照として維持。実Chromiumで有無比較・両道路・画面画像・性能を検査、結果が出るまで美術合否保留。技術CIは実験が成立する証拠であって人間の楽しさではない。
+
+**恒久効率方針**：小〜中規模意味ある機能差分、既存BEランナー再利用、GitHub PROJECT_STATE自動継承、共通driver/build修正をまとめてCI乱発を抑制、1工程ごとにネイティブ/実WebGL/公開隔離を別々に確認。実験結果が悪ければ設計を棄却し、0.1mの微小調整反復に戻らない。正式Slope2=0m、Human/Art/Publish/PR Ready/Merge=HOLD。[BF監査](docs/W9C2_G4E7BF_SKY_FRACTURE_PRIVATE_HOLD_JA.md)。
+
 ## G4E-7BE — BC rollDeckを実Chromium PRIVATE手動WebGLへ接続（2026-10-25 JST）
 
 BC rollDeck（直近の最良だが未採用実道路、第2道路最後の実接地u=.60434/.60473）の2道路を独立localhostだけにビルド。起動入口：`RUN_G4E7BE_MANUAL.cmd` → `http://127.0.0.1:4373/drive3d/?g4e7al=manual&g4e7be=roll-deck`。正規00出発52m/s、240Hz実B48道路7本・B51-C動体28基・実gap cell52、A/D／左右矢印の真手動、P96固定自動操舵を不使用。OVERDRIVE、標準ボール相対カメラ、ゲームオーバー直JSON保存・2道路比較・試走再記録を既存G4E7ALのPRIVATE UIと共有。新規BC ID/provenance不整合時は実ロード拒否。Gold・AY・BD・原作再現・2本番不変更。
