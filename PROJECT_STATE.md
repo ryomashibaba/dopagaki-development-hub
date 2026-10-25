@@ -1,5 +1,17 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7BW / 主役建築を単体で制作・5視点×2バージョン真画像審査（2026-10-25 JST）
+
+**最新成果**：[BW / HALO-CUT CONCOURSEの真のBlender画像付きDraft PR美術評価](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46#issuecomment-6395122703)にR1/R2の斜視・正面・側面・俯瞰・低いAPPROACH計10画像を直接掲載。真正.blend、実GLB、出典、独自埋込画像、SHA-256を[初回BW原本](artifacts/private/g4e7bw-halocut-concourse)・[前方視野改善版R2](artifacts/private/g4e7bw-halocut-concourse-r2)へ完全分離保存。[BW真正Blender CI #40173719487](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40173719487)・[R2真正Blender CI #40174244111](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40174244111) はいずれも **SUCCESS**。新ワークフローを増やさず既存のBlender美術制作CIを改修利用。
+
+- **BV以前からの設計方法転換**：街や外殻を多数一括生成せず、主役となる**一棟の複合公共交通建築**を建築翼・中空アトリウム・構造屋根・実居住層と連絡橋・内部照明・細いファサード部材で一体化。[唯一のBW制作ソース](scripts/p101-w9c2-g4e7bw-halocut-concourse.py)はBlender bpyによる**作者指定の幾何学構成のスクリプト再現**であり、手作業彫刻や実ゲーム描画とは称さない。図的な一体感・居住階層はBVより改善。
+- **初回BWの明白な欠陥**：手前からの低い\`APPROACH\`で5本の水平横断橋が前方空間を著しく遮る。単なる構図最適化で美術判定を誤魔化さず、R2では**実形状の橋を5本→2本へ**変更し、スタジオカメラの仰角と画角も見直した。改善画像の視界は前より開けたが**橋除去のみの純粋効果は測定していない**（カメラ設定も異なる）。
+- **画像比較による厳格な結論**：R2は中央前方の重なりが減り、単一建築単位の構造的つながりは進歩。ただし屋根・大梁の外観の硬さ、未完成に見える浮遊細部、ガラス帯の繰り返し、暗い公共空間、前方に続く都市背景の欠落が残る。**BWを高級インディー水準の都市アートとしてART PASSにしない。技術PASS、ART HOLD、実B48カメラ・人間QA未試験。** R2を実道路に統合したという主張は禁止。検査はBW R2 GLB 1,241 mesh / 19,504三角形 / 13 material / PBR画像1で、建築品質の代理指標ではない。
+- **次工程の品質焦点**：別の都市プロシージャルモデル量産を停止。BWを暫定**主役建築単体の研究素材**として保管し、外装・出入口・公共内部空間を本物の建築的意図で深く磨く。周辺の高密度な居住都市と都市交通が実カメラの進行方向に繋がる設計を必要とする。ライセンス未確認の他者3Dモデルは採用しない。**ART/ロード視界の実証を経ず500–800mのPhase C PRIVATE統合には進まない**。次の手段は細かい手作業のモデリングや制作環境の変更などを含むが、ユーザーが事前承認していないWorkを無断利用しない。
+- **保護**：BR/BT/BU/BVのREJECT原本・BW R1原本を全て残した。main/Gold/本番2サイト/原作Slope実装・B48実路面7/B51-C実動体28/gap52/240Hz/元操舵とカメラ不変更。Draft PR #46はOPEN/DRAFT/未マージ。公式Slope2認定0m。ART/HUMAN/実ゲーム映像/PUBLISH/READY/MERGEはHOLD。
+
+
+
 ## G4E-7BV — 建築ファースト地区の実制作・実視点美術REJECT（2026-10-25 JST）
 
 **最新確定証拠**：[BV Blender真正実制作CI #40172833140](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40172833140) SUCCESS。ネイティブBlenderソース、1.57MBのGLB、5方向の実Cycles（斜視・正面・側面・俯瞰・APPROACH）、独自GLB内テクスチャ1、SHA-256を[既存Draftブランチの証拠](artifacts/private/g4e7bv-architectural-quarter)へ保存した。821メッシュ・14,458三角形・11マテリアルは技術指標に過ぎない。[Draft PR #46の実画像付き独立美術審査](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46#issuecomment-6394934226)。
