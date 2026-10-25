@@ -175,6 +175,7 @@ const g4e7beRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&
 const g4e7bfRequested=g4e7beRequested&&new URLSearchParams(window.location.search).get('g4e7bf')==='sky-fracture';
 const g4e7bgRequested=g4e7beRequested&&new URLSearchParams(window.location.search).get('g4e7bg')==='inspect'&&
  new URLSearchParams(window.location.search).get('g4e7bgFrame')==='hold';
+const g4e7bgRoad=g4e7bgRequested&&new URLSearchParams(window.location.search).get('g4e7bgRoad')==='pinch-switch'?'pinch-switch':'true-pinch';
 const g4e7bgPoint=['t1500','t1700','t1850'].includes(new URLSearchParams(window.location.search).get('g4e7bgPoint'))?
  new URLSearchParams(window.location.search).get('g4e7bgPoint'):'t1850';
 const g4e7ayRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&
@@ -1069,7 +1070,7 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
   g4e7alPanel.root.hidden=false;g4e7alPanel.render(g4e7alSession.index);
  }
  function restart(){
- if(g4e7bgRequested&&doc)return; // Do not turn BG high-speed frames into a synthetic run.
+ if(g4e7bgRequested&&runner)return; // Preserve first native initialisation; prevent later synthetic restarts.
  if(g4e7dRequested&&g4e7dSession.index>=G4E7D_PROTOCOL.length)return;
  if(g4e7alRequested&&g4e7alSession.index>=G4E7AL_ROADS.length)return;
  if(!doc||!world)return;
@@ -1976,7 +1977,7 @@ const requestedStage=new URLSearchParams(window.location.search).get('stage');
 if(requestedStage&&Object.hasOwn(assets,requestedStage)&&Array.from($('stage').options).some(o=>o.value===requestedStage))$('stage').value=requestedStage;
 if(g4e7oRequested)$('stage').value='VB-P101-A13-W9C2-G4E7M-THREAD';
 if(g4e7auRequested)$('stage').value='VB-P101-A13-W9C2-G4E7AU-'+(g4e7auPoint==='chasm'?'PINCH-SWITCH':'TRUE-PINCH');
-if(g4e7alRequested)$('stage').value='VB-P101-A13-W9C2-'+g4e7alStageCode+'-TRUE-PINCH'+g4e7alSuffix;
+if(g4e7alRequested)$('stage').value='VB-P101-A13-W9C2-'+g4e7alStageCode+'-'+(g4e7bgRequested&&g4e7bgRoad==='pinch-switch'?'PINCH-SWITCH':'TRUE-PINCH')+g4e7alSuffix;
  $('p101Profile').addEventListener('change',()=>{if(doc?.stageForge?.id==='VB-P101')restart();});
 $('spawn').addEventListener('change',()=>{demoMode=false;practiceMode=false;seekingChapter=null;restart();});
 $('restart').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('retryRun').addEventListener('click',()=>practiceMode?exitPractice():demoMode?exitDemo():restart());$('pause').addEventListener('click',toggle);
