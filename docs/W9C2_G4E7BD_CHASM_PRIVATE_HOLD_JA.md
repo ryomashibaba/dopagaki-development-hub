@@ -16,3 +16,23 @@ Do not claim that this deterministic P96 line is achievable or interesting for a
 
 ## Full corridor real-machine accounting
 The actual amended interval extends to u=26/30=.8667 and includes THREE native moving B51-C stations: p95-hazard-02 u=.57, a13-machine-04 u=.69, p95-hazard-03 u=.84. All three must be position/yaw/motion reanchored to the new B48; other 25 frozen. Do not weaken collision coverage or narrow-corridor asserts to pass CI. The first CI failed because its assertion incorrectly assumed two movers despite the full corridor; the observed three real machines are the correct count.
+
+## Completed 240Hz comparison — technical SUCCESS / playability REJECT
+
+Native 240Hz real start00 fixed P96 controls in both real roads: https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40147558159
+Structure and authentic simulations PASS; both actual BD road designs fall earlier than BC.
+
+| Design | TRUE max supported road2 u | SWITCH max supported road2 u | TRUE / SWITCH survival s |
+|---|---:|---:|---|
+| AY bankedSweep historical control | .35751 | .37892 | 16.59167 / 16.65417 |
+| BC rollDeck best PRIVATE baseline | .60434 | .60473 | 19.58333 / 19.41250 |
+| BD longArc | .59439 | .41916 | 19.52083 / 17.35417 |
+| BD descentSweep | .59267 | .45012 | 19.45833 / 15.05833 |
+
+All remain 2/7 real roads, native moving contacts=0; one fatal static contact on BD descentSweep SWITCH. Both BD options are **REJECTED** for actual grounded progress in both road modes; never interpret CI PASS as playable.
+
+The changed real second-road guide can influence P96 early steering before the edited geometry. Especially SWITCH degradation by u=.42–.45 does not establish that local u>.50 pavement collision alone is responsible. Future work must isolate guide/input vs native collider contact.
+
+Within changed physical interval u=.50–.867 there are three real B51 objects: p95-hazard-02 (.57), a13-machine-04 (.69), p95-hazard-03 (.84). All three are reanchored. The other 25 are untouched, all 28 retained. Initial CI failure was an incorrect test count; corrected CI confirms actual protected geometry and genuine physics.
+
+BC rollDeck stays best **unpromoted** research benchmark. Next BE should favor real PRIVATE WebGL view/human driving and quantitative P96 guide divergence, not repeat blind XY offset shifts. No Slope2 formal approval (0m), human/art/public/PR Ready/merge all HOLD.

@@ -30,13 +30,23 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
-## G4E-7BD 第2実B48 CROWN→CHASM長半径リボン改修（2026-10-25 JST／物理合否保留）
+## G4E-7BD — CHASM実路面診断・大区間再制作／2案REJECT（2026-10-25 JST）
 
-起点00の正規240Hz接地解析 [#40147227909](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40147227909) SUCCESS。BC rollDeckはu≈.558で自然浮遊→u≈.582で自然再接地。その後、u≈.605で路肩余裕-0.94〜-0.97mの逸脱により継続落下。実幅はu≈.53の85.9m→.60の34m→.64の13.9mに急収束し、約112m/sで急曲率へ入る。**単なる浮遊ではなく狭幅収束と曲率が問題の候補**。
+**診断CI #40147227909 SUCCESS**：BC rollDeckは第2道路u≈.558で自然離地、0.34〜0.36秒後のu≈.582〜.584で自然に再接地。u≈.6046/.6050で路肩余裕-0.970m/-0.936m、約112m/sで最終離地。道路幅はu=.53の約86m→.60の約34m→.64の約14mに急収束。曲率も強い。路面/操舵の複合要因が疑われるが、因果寄与は未確定。
+実B48第2道路u=.50〜.867を中心線・幅・バンク・縦断を含む10行の長半径リボンへまとまって再制作したlongArcとdescentSweepをPRIVATE検証。全7 B48、全28 B51-C（3基実路面へ再アンカー、他25凍結）、本物のギャップ52、残り5道路、正規物理240Hz、操作、本番隔離を維持。
 
-BCを基準に、第2道路u=.50〜.867の実B48コース10行を長半径Hermite中心線・本物の14〜16m CHASM・バンク・縦断でまとまった単位で再制作するBD longArcとdescentSweepをPRIVATE試験候補として実装。全7実B48、28実B51-C（改変区間の実3基再アンカー）、実ギャップ52、路面以外・操作・本番完全保護。AY／BC固定P96同一条件で真240Hz実接地比較を実行し、**実測改善まで正式採用しない**。
+**[実走比較CI #40147558159](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40147558159) SUCCESS（構造・ネイティブ試走完了）／走行結果は両BD案REJECT**。
 
-正式Slope2距離0m、人間QA／美術WebGL QA／公開・PR Ready・mergeはHOLD。[BD監査](docs/W9C2_G4E7BD_CHASM_PRIVATE_HOLD_JA.md)。
+| 同一P96固定操舵・第2道路最大実接地u | TRUE-PINCH | PINCH-SWITCH |
+|---|---:|---:|
+| AY bankedSweep 歴史的対照 | .35751 | .37892 |
+| **BC rollDeck 最良未採用比較基準** | **.60434** | **.60473** |
+| BD longArc | .59439 | .41916 |
+| BD descentSweep | .59267 | .45012 |
+
+全ケース訪問2/7道路で落下。動体衝突0、BD descentSweepのPINCH-SWITCHは致命的静的衝突1件。特に切替条件でu=.42〜.45へ悪化したため、未来の実道路形状やルートガイド変更が手前の固定P96操舵へ影響する可能性がある。人間操作での再現性は未確認。**BDの大きな中心線変更は不採用。BCを保持し、次BEはP96操舵／ルートガイド差と実道路作用を切り分けつつPRIVATE実WebGLの視認性・手動QAを優先する。**
+
+正式Slope2認定0m、Human QA HOLD、Art/WebGL QA HOLD、Publish/PR Ready/Merge HOLD。[BD監査](docs/W9C2_G4E7BD_CHASM_PRIVATE_HOLD_JA.md)。
 
 ## G4E-7BC — CROWN実3Dバンク再制作：AYより大幅に実接地が進行（2026-10-25 JST）
 
