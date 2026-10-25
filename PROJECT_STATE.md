@@ -1,5 +1,10 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CF — GitHub公式GLB実物を元240Hzカメラで事前検査（2026-10-25 JST）
+
+**無登録・直接GitHub正規配布の完成都市GLB「Spectra Cities SourceCityToolkit / Market_Day.glb」を新たな実体テスト候補とする。** 元リポジトリcommit・Git blob・正確な原本バイト数を固定した一度限りの軽量CIを追加、実物を一時取得後に既存CB/BGの真正240Hz 6カメラで5つの仮配置を診断する。コードと実装範囲は [G4E-7CF監査](docs/G4E7CF_SPECTRA_CAMERA_SOURCE_AUDIT_JA.md)。CI結果を読むまで実取得/画面検証PASSは宣言しない。**本家READMEに明示されたtextures.com第三者画像ライセンスの例外を最重要HOLD**にし、GLB原本をPRや公開ゲームに含めない。過去BX/BY/BZ/CAの美術REJECTを覆さず、真のWebGL美術・人間試走・採択・publish・READY・MERGE全HOLD。物理240Hz/B48×7/B51-C×28/gap52/速度/操舵/自然ジャンプ/元カメラ/A13/本番2サイト/main/Gold/原作サイト不変更。正式Slope2=0m、PR#46 Draft、Work未使用。
+
+
 ## G4E-7CE — 無登録で取得可能な実作者未来都市モデルを確認（2026-10-25 JST）
 
 **確認済み：新規Epic/Sketchfab登録をせず作者正規配布元から無料のGLB入りZIPに進める導線を発見。ただしZIP実バイナリはこの環境の外部DNS不通により取得できていない。SOURCE-LISTING PASS（無登録候補発見）／ORIGINAL GLB 0／SHA UNKNOWN／NATIVE SIX-CAMERA NOT RUN／TRUE WEBGL NOT RUN／ART/HUMAN/PUBLISH/READY/MERGE HOLD。** 詳細とソース・失敗リスク・次の1回の原本QAは [G4E-7CE無登録建築原本・美術事前審査](docs/G4E7CE_NO_ACCOUNT_FUTURE_CITY_ARTIST_SOURCE_SCREEN_JA.md)。
