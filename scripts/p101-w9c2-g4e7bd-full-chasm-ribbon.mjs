@@ -124,8 +124,8 @@ export function generateG4E7BD(road='true-pinch',design='longArc'){
   noMissingOriginalGap:same(doc.surfaces[0].voidLongitudinalCells,[52]),
   allRealRoads:doc.surfaces.length===7,
   allRealB51:doc.movingObstacles.length===28,
-  nativeTwoMoverReanchor:moved.length===2,
-  other26B51Frozen:same(doc.movingObstacles.filter(x=>!movedIDs.has(x.id)),
+  nativeThreeMoverReanchor:moved.length===3,
+  other25B51Frozen:same(doc.movingObstacles.filter(x=>!movedIDs.has(x.id)),
    source.movingObstacles.filter(x=>!movedIDs.has(x.id))),
   startsUnchanged:same(doc.spawns,source.spawns),
   otherGuideFrozen:same(doc.route.slice(0,22),source.route.slice(0,22))&&
@@ -144,7 +144,7 @@ export function generateG4E7BD(road='true-pinch',design='longArc'){
    id:'full-3d-crown-chasm-join',road,design,source:'BC_ROLLDECK',
    realRoadSectionU:[a/30,b/30],realChangedRows:changed,
    narrowCore:core,entranceCore:transition,peak3DShiftMeters:+peak3DShift.toFixed(3),
-   realB51Relocation:moved,otherB51Frozen:26,
+   realB51Relocation:moved,otherB51Frozen:25,
    originalVoidCell52:true,real7B48:true,real28B51:true,
    formalSlope2Meters:0,humanQA:'HOLD',artQA:'HOLD',publish:'HOLD'}};
  return validate(doc);

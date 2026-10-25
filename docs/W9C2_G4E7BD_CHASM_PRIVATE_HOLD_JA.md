@@ -13,3 +13,6 @@ Native CI SUCCESS. Actual BC rollDeck TRUE/SWITCH:
 - Existing road width collapses from ~85.9m at u=.53 to ~33.97m at u=.60, ~20.19m at u=.62 and 13.93m at u=.64, with curvature ~24.3° per 100m near u=.64 and downhill pitch near -10.5° at u=.62. The speed is ~112m/s. A long-radius, genuine physical narrowing/3D ribbon rather than a widened safety floor is the next justified prototype.
 
 Do not claim that this deterministic P96 line is achievable or interesting for a human. Approved Slope2=0m. Human/Art/Publish remain HOLD.
+
+## Full corridor real-machine accounting
+The actual amended interval extends to u=26/30=.8667 and includes THREE native moving B51-C stations: p95-hazard-02 u=.57, a13-machine-04 u=.69, p95-hazard-03 u=.84. All three must be position/yaw/motion reanchored to the new B48; other 25 frozen. Do not weaken collision coverage or narrow-corridor asserts to pass CI. The first CI failed because its assertion incorrectly assumed two movers despite the full corridor; the observed three real machines are the correct count.

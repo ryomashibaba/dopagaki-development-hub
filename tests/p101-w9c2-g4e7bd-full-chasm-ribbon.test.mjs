@@ -19,7 +19,7 @@ for(const road of ['true-pinch','pinch-switch']){
    assert(eq(doc.surfaces[1].points.slice(0,16*5),base.surfaces[1].points.slice(0,16*5)));
    assert(eq(doc.surfaces[1].points.slice(26*5),base.surfaces[1].points.slice(26*5)));
    assert.equal(m.realChangedRows.length,10);
-   assert.equal(m.realB51Relocation.length,2);
+   assert.equal(m.realB51Relocation.length,3);
    assert.equal(tessellate(doc.surfaces[1]).degenerate,0);
    for(const u of [.69,.72,.75,.79]){
     const w=Math.hypot(...sample(doc.surfaces[1],u,0).map((v,i)=>v-sample(doc.surfaces[1],u,1)[i]));

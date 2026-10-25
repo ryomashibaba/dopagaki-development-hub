@@ -34,7 +34,7 @@
 
 起点00の正規240Hz接地解析 [#40147227909](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40147227909) SUCCESS。BC rollDeckはu≈.558で自然浮遊→u≈.582で自然再接地。その後、u≈.605で路肩余裕-0.94〜-0.97mの逸脱により継続落下。実幅はu≈.53の85.9m→.60の34m→.64の13.9mに急収束し、約112m/sで急曲率へ入る。**単なる浮遊ではなく狭幅収束と曲率が問題の候補**。
 
-BCを基準に、第2道路u=.50〜.867の実B48コース10行を長半径Hermite中心線・本物の14〜16m CHASM・バンク・縦断でまとまった単位で再制作するBD longArcとdescentSweepをPRIVATE試験候補として実装。全7実B48、28実B51-C（路面上2基再アンカー）、実ギャップ52、路面以外・操作・本番完全保護。AY／BC固定P96同一条件で真240Hz実接地比較を実行し、**実測改善まで正式採用しない**。
+BCを基準に、第2道路u=.50〜.867の実B48コース10行を長半径Hermite中心線・本物の14〜16m CHASM・バンク・縦断でまとまった単位で再制作するBD longArcとdescentSweepをPRIVATE試験候補として実装。全7実B48、28実B51-C（改変区間の実3基再アンカー）、実ギャップ52、路面以外・操作・本番完全保護。AY／BC固定P96同一条件で真240Hz実接地比較を実行し、**実測改善まで正式採用しない**。
 
 正式Slope2距離0m、人間QA／美術WebGL QA／公開・PR Ready・mergeはHOLD。[BD監査](docs/W9C2_G4E7BD_CHASM_PRIVATE_HOLD_JA.md)。
 
