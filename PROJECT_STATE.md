@@ -30,14 +30,16 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
-## G4E-7BI — 遠景高層だけでなく走行カメラに入る複層未来都市へ（2026-10-25 JST）
+## G4E-7BI — 実B48遠景多層都市・最終実WebGL審査（2026-10-25 JST）
 
-BH実CI [#40154982364](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40154982364) は正常終了（Chromium 4/4初回PASS、実7 B48／28 B51／公開隔離PASS）。実高速画像はBHがBFの暗い壁を除去し道路の先読みを改善する一方、都市主構造の大半が上端で切れて都市内層がほぼ映らず、**美術未達/HOLD**。旧BHは比較記録として維持。
+**[修正版BI CI #40156775824](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40156775824) SUCCESS。** Native generator両道路・本物の起点00/240Hz/7実B48/28実B51、Chrome Chromiumの**4/4テスト再試行なしPASS**、PRIVATE 114ファイル／public 112ファイル／public-safe 5ファイルでBG/BC非公開JSON隔離PASS。[元の実画像・BHとBI同じカメラの比較 #12585330822](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40156775824/artifacts/12585330822)。
 
-BIは旧BH改変ではなく、BC road2に沿う4つの外側155〜220mの複層都市を独立制作。最高部を約122〜470mに抑え、空中で間隔を空けた中間都市区画・16レイヤー、真の空き区間48、非対称の発光船殻・連結リブを、原本の路面に沿うワールド座標へ配置する。**実B48コライダー7・動くB51-C28・実gap52・操作/カメラ/加速の変更はなし。** BGで確認済み正規起点00／240Hz・P96非人間 17.0／18.5秒の走行カメラを再利用し、BHとのA/B実WebGLで見通しとスケールを比較する。PRIVATE opt-in `g4e7bi=parallax`、認定0m、Human/Art/Publish/Ready/MergeはHOLD。
+**失敗と修正**：最初のBI実装では3D梁メッシュの外積の第3成分が欠落し、4街区の各2268座標が不正になった。最初は道路区間外配置を疑って場所を調整したが、同数のエラーが続いたため各街区の診断で原因を特定。数学的外積3成分を修復し native CI PASS。旧BF/BH、道路・障害物・カメラの変更なし。
 
+**写真に基づく美術判断：HOLD／現案は未採用**。TRUE 18.5秒・122.9m/sの実P96カメラでBHとBIは同一速度・位置。SWITCH 17秒・112.2m/sと18.5秒・125.8m/sも撮影。BIの中間都市テラスと発光リブが前方に現れ、旧BFの真っ黒な壁は戻らず、高速路面視認性が失われた様子はない。ただし主都市外骨格は画面上部の外に切れ、縦方向の都市密度・構造連結・数百m級規模感を走行視点では表現できない。**単なるメッシュ数・ユニットテスト・スクリーンショット生成を美術PASSと扱わない**。人間A/D公平性も未認定。
 
-**BH証拠確定（新BIの比較基準）**：実Chromeの4/4テストは初回で成功、[BHの画像成果物 #12584038565](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40154982364/artifacts/12584038565) を直接画像審査。暗い壁は解消したが都市主構造が画面の上/端で切れ、高速道路の視認は改善しても美術未達。BIの専用 [CI #40155989975](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40155989975) は実装済み・結果待ち。BIの形状量だけで合格させない。[BI詳細](docs/W9C2_G4E7BI_PARALLAX_HOLD_JA.md)。
+次 BJ では見せる建築を上空へさらに追加するのではなく、正規ボール相対カメラ視野内の**地平線近くから道路の下方/側方**まで、実スケールの空中都市の中間高さ・裏面・巨大人工断崖・入居可能な街区・立体連絡構造を豊かに設計し、同じBG高速カメラでビジュアル主役が画面内に明確に入るかを先に審査。路面・カメラ角度を無断で変更せず、全候補をPRIVATEの独立景観に保持する。正式認定Slope2距離0m、Human/Art/Publish/Ready/Merge=HOLD。詳細[BI監査](docs/W9C2_G4E7BI_PARALLAX_HOLD_JA.md)。
+
 ## G4E-7BH — OPEN HORIZON 実空間に抜ける4都市構造をPRIVATE制作（2026-10-25 JST）
 
 **背景**：BG同一正規240Hz高速カメラは BF を大きな暗色壁として美術REJECT。BHは単なる色替えではなく、実路肩から165m以上外側の4都市主構造・大空洞8方向・高低差ある外側連結テラス16・明色の非反復3Dリブでスカイラインを大きく再設計。実7 B48、28動体B51、実欠落セル52、操作・カメラ、旧候補・Gold・本番は**完全保護**。BC rollDeck／正規240Hz／P96非人間カメラ t=17.0/18.5sec で元都市・不採用BF・BHを同位置比較する。通常BEから手動A/Dも引き続き動作。PRIVATEのみ URL パラメータ `g4e7bh=open-horizon` が追加。
