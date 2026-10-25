@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"/three/build/three.module.js","three/addons/":"/three/examples/jsm/"}}</script>
+<style>body{margin:0;background:#10192a}canvas{display:block}#label{position:absolute;top:10px;left:12px;color:#e7edf4;font:13px monospace;background:#162131d9;padding:9px}#hold{position:absolute;bottom:10px;right:12px;background:#162131d9;color:#ffbcab;padding:8px;font:12px monospace}</style></head>
+<body><canvas id="c" width="928" height="540"></canvas><div id="label">G4E-7CG source geometry only</div><div id="hold">NOT THE GAME · SOURCE TEXTURES OFF · ART HOLD</div>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const W=928,H=540,scene=new THREE.Scene();
+scene.background=new THREE.Color(0x10192a);
+const renderer=new THREE.WebGLRenderer({canvas:document.querySelector('#c'),antialias:true,preserveDrawingBuffer:true});
+renderer.setSize(W,H,false);renderer.outputColorSpace=THREE.SRGBColorSpace;
+const camera=new THREE.PerspectiveCamera(2*Math.atan(1/1.35)*180/Math.PI,W/H,3,20000);
+camera.up.set(0,1,0);
+scene.add(new THREE.HemisphereLight(0xd7eaff,0x38506b,2.3));
+const sun=new THREE.DirectionalLight(0xffffff,2);sun.position.set(150,500,180);scene.add(sun);
+let model;
+try{
+ const gltf=await new GLTFLoader().loadAsync('/original.glb');model=gltf.scene;let n=0;
+ model.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshStandardMaterial({color:[0xc8d7eb,0x9cb6d1,0x8fabbf,0xa9c7db][n++%4],side:THREE.DoubleSide,roughness:.9,metalness:0});o.frustumCulled=false;}});
+ scene.add(model);window.__loadedMeshes=n;window.__ready=true;
+}catch(e){window.__loadError=String(e.stack||e);}
+function read(){const gl=renderer.getContext(),pix=new Uint8Array(W*H*4);gl.readPixels(0,0,W,H,gl.RGBA,gl.UNSIGNED_BYTE,pix);return pix;}
+window.__sample=(s)=>{
+ if(!model)throw Error('MODEL_NOT_LOADED');
+ camera.position.set(...s.eye);camera.lookAt(...s.eye.map((v,i)=>v+s.front[i]));model.position.set(...s.offset);
+ model.visible=false;renderer.render(scene,camera);const before=read();
+ model.visible=true;renderer.render(scene,camera);const after=read();
+ let changed=0;
+ for(let i=0;i<before.length;i+=4){if(Math.abs(before[i]-after[i])+Math.abs(before[i+1]-after[i+1])+Math.abs(before[i+2]-after[i+2])>45)changed++;}
+ document.querySelector('#label').textContent='G4E-7CG  |  '+s.name+'  |  BG 240Hz camera';
+ return {name:s.name,changedPixels:changed,pixelFraction:Number((changed/(W*H)).toFixed(5)),webgl:renderer.capabilities.isWebGL2?'WebGL2':'WebGL1'};
+};
+</script></body></html>

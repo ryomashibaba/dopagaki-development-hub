@@ -1,5 +1,10 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CG — 第三者テクスチャを省いた原本GLB形状の独立Chromium WebGL検査（2026-10-25 JST）
+
+元Spectra CitiesのCC0形状とTextures.comの条件付きテクスチャを厳格に区別。上流原本GLBはCI一時領域に限定して利用し、**描画前に全元マテリアルを無地に置換**。元ゲームのBG真正240Hz 6カメラ姿勢とCB配置計算で200m/320mの独立Chromium WebGL計12枚と実画素差分を記録する。[詳細・限界](docs/G4E7CG_ISOLATED_GEOMETRY_WEBGL_QA_JA.md)。**本ゲーム自体の画面ではないためART/WEBGL_GAME/HUMAN/RIGHTS/READY/PUBLISH/MERGEはHOLD**、素材再配布なし。CI判定後に実測追記。240Hz/B48×7/B51-C×28/gap52/自然ジャンプ・操舵・速度/カメラ/A13/main/Gold/原作・本番2サイト不変更。正式Slope2=0m、PR#46 Draft未マージ、Work未使用。
+
+
 
 ## G4E-7CF — **正規無登録GLB取得・実物技術検査PASS、画面美術は未合格**（2026-10-25 JST）
 
