@@ -72,6 +72,7 @@ if(includeStages){
  copy('web/p101-w9c2-g4e7am-upturned-city.mjs','drive3d/p101-w9c2-g4e7am-upturned-city.mjs');
  copy('web/p101-w9c2-g4e7an-sky-archipelago.mjs','drive3d/p101-w9c2-g4e7an-sky-archipelago.mjs');
  copy('web/p101-w9c2-g4e7bf-sky-fracture.mjs','drive3d/p101-w9c2-g4e7bf-sky-fracture.mjs');
+ copy('web/p101-w9c2-g4e7bh-open-horizon.mjs','drive3d/p101-w9c2-g4e7bh-open-horizon.mjs');
  copy('web/p101-w9c2-g4e7ao-b51-approach.mjs','drive3d/p101-w9c2-g4e7ao-b51-approach.mjs');
  copy('web/drive3d-camera.mjs','drive3d/drive3d-camera.mjs');
  copy('web/drive3d-loop.mjs','drive3d/drive3d-loop.mjs');

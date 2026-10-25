@@ -58,6 +58,7 @@ import {g4e7agOpenCitadel} from './p101-w9c2-g4e7ag-open-citadel.mjs';
 import {g4e7amUpturnedCity} from './p101-w9c2-g4e7am-upturned-city.mjs';
 import {g4e7anSkyArchipelago,AN_FOCUS} from './p101-w9c2-g4e7an-sky-archipelago.mjs';
 import {g4e7bfSkyFracture} from './p101-w9c2-g4e7bf-sky-fracture.mjs';
+import {g4e7bhOpenHorizon} from './p101-w9c2-g4e7bh-open-horizon.mjs';
 import {g4e7aoActualB51Warning} from './p101-w9c2-g4e7ao-b51-approach.mjs';
 import {makeW9C1CueProfile,readW9C1Cue,w9c1ApproachMarks} from './p101-w9c1-approach-cue.mjs';
 import {p101B5OpticalRoadGeometry} from './p101-b5-road-optic.mjs';
@@ -173,6 +174,8 @@ const g4e7beRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&
  new URLSearchParams(window.location.search).get('g4e7be')==='roll-deck';
 // BF is a pure GPU-only visual replacement on the exact BC private manual stage.
 const g4e7bfRequested=g4e7beRequested&&new URLSearchParams(window.location.search).get('g4e7bf')==='sky-fracture';
+const g4e7bhRequested=g4e7beRequested&&!g4e7bfRequested&&
+ new URLSearchParams(window.location.search).get('g4e7bh')==='open-horizon';
 const g4e7bgRequested=g4e7beRequested&&new URLSearchParams(window.location.search).get('g4e7bg')==='inspect'&&
  new URLSearchParams(window.location.search).get('g4e7bgFrame')==='hold';
 const g4e7bgRoad=g4e7bgRequested&&new URLSearchParams(window.location.search).get('g4e7bgRoad')==='pinch-switch'?'pinch-switch':'true-pinch';
@@ -308,7 +311,7 @@ let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
 let g4e7bgShot=null;
-let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7afMesh=null,g4e7agMesh=null,g4e7amMesh=null,g4e7anMesh=null,g4e7bfMesh=null,g4e7aoMesh=null,g4e7adShot=null,g4e7adActive=false,g4e7aiShot=null,g4e7aiActive=false,g4e7akShot=null,g4e7akActive=false;
+let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7afMesh=null,g4e7agMesh=null,g4e7amMesh=null,g4e7anMesh=null,g4e7bfMesh=null,g4e7bhMesh=null,g4e7aoMesh=null,g4e7adShot=null,g4e7adActive=false,g4e7aiShot=null,g4e7aiActive=false,g4e7akShot=null,g4e7akActive=false;
 let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null,g4e7alTrial=null,g4e7alPanel=null,g4e7alResultDownload=null,g4e7alActive=false;
 let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7qActive=false,g4e7rActive=false,g4e7tActive=false,g4e7vActive=false,g4e7vShot=null,g4e7wActive=false,g4e7wShot=null,g4e7sShot=null,g4e7sTrace=null,g4e7sShardMesh=null,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
@@ -396,7 +399,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7sShardMesh);discard(g4e7adCityMesh);discard(g4e7aeMesh);discard(g4e7afMesh);discard(g4e7agMesh);discard(g4e7amMesh);discard(g4e7anMesh);discard(g4e7bfMesh);discard(g4e7aoMesh);discard(g4e7cCueMesh);discard(g4e7xCueMesh);discard(g4e7zCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7sShardMesh);discard(g4e7adCityMesh);discard(g4e7aeMesh);discard(g4e7afMesh);discard(g4e7agMesh);discard(g4e7amMesh);discard(g4e7anMesh);discard(g4e7bfMesh);discard(g4e7bhMesh);discard(g4e7aoMesh);discard(g4e7cCueMesh);discard(g4e7xCueMesh);discard(g4e7zCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
@@ -468,6 +471,17 @@ function buildVisual(stage){
   canvas.dataset.g4e7amRiseMeters=String(am.maxRiseMeters);
   canvas.dataset.g4e7amOutboard=String(am.minimumOutboardMeters);
   canvas.dataset.g4e7amNonCollision=String(!am.physicalChanges&&am.extraRoads===0&&am.extraMachines===0);
+  const bh=g4e7bhOpenHorizon(stage,sample,{enabled:g4e7bhRequested});
+  g4e7bhMesh=bh.active?mesh(bh.vertices):null;
+  canvas.dataset.g4e7bhScene=bh.active?'open-horizon':'off';
+  canvas.dataset.g4e7bhMonuments=String(bh.monuments);
+  canvas.dataset.g4e7bhSkyOpenings=String(bh.openPortalSpans);
+  canvas.dataset.g4e7bhQuarters=String(bh.separateFloatingQuarters);
+  canvas.dataset.g4e7bhLightRibs=String(bh.lightRibs);
+  canvas.dataset.g4e7bhTriangles=String(bh.triangles);
+  canvas.dataset.g4e7bhHighest=String(bh.maximumRiseM);
+  canvas.dataset.g4e7bhClearance=String(bh.nominalShoulderClearanceM);
+  canvas.dataset.g4e7bhPhysicsUntouched=String(bh.physicsUnchanged&&bh.newPhysicalRoads===0&&bh.newHazards===0&&bh.forcedLaneCover===0);
   const bf=g4e7bfSkyFracture(stage,sample,{enabled:g4e7bfRequested});
   g4e7bfMesh=bf.active?mesh(bf.vertices):null;
   canvas.dataset.g4e7bfScene=bf.active?'sky-fracture':'off';
@@ -789,6 +803,9 @@ function render(frameSeconds){
  if((g4e7aiOptIn&&g4e7aiBackdrop==='quiet')||(g4e7akOptIn&&g4e7akBackdrop==='quiet')){
   // Physics-first road readability study: background architecture only is hidden.
   // Real roads, their B48 sides, real void, fixtures, hazards and ball remain.
+ }else if(g4e7bhRequested){
+  // BH: sparse luminous open-horizon city; reject old opaque wall.
+  draw(g4e7bhMesh);
  }else if(g4e7bfRequested){
   // BF: ONE major skyline art replacement, non-collider, on real BC road.
   draw(g4e7bfMesh);
