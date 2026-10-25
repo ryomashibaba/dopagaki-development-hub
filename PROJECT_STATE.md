@@ -30,6 +30,14 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BP — 技術PASS／美術REJECTとART-FIRST転換（2026-10-25 JST）
+
+[BO CI #40166540111](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40166540111) は全PASS。正規240Hz起点00 P96非人間3視点、GLB2×2、実Chromium画像・PRIVATE/公開隔離成功。ただしBN→BOで都市は画面左端に小さく残り美術的向上はほぼないため**BO ART REJECT**。モデル移動は約X+4.6m／Y-27.7m／Z+23.7m、画面差分RGB平均2.49〜4.34/255。画面内頂点率・小改善スコアでは巨大都市の美術品質を証明できない。[証拠GLB/実画像](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40166540111/artifacts/12588778053)は14日で期限切れとなるため永続ではない。
+
+同様の単調なプロシージャル形状の微修正を繰り返す方針を中止。**ART-FIRST / 質の高い外部制作3Dアセットと美術審査**へ移るため、BPで[実GLB2／PBR素材／埋込みテクスチャ／複数メッシュの入庫検査](scripts/p101-w9c2-g4e7bp-artist-asset-intake.mjs)、元制作物・権利宣言・Y-upメートル単位・強制HOLD・Node独立テスト・専用軽量CIを追加。詳細：[BO最終美術監査とBP運用方針](docs/W9C2_G4E7BP_ART_FIRST_ASSET_INTAKE_HOLD_JA.md)。これは**高品質GLB実制作やゲーム画面での検証完了を意味しない**。旧BK専用WebGL2描画は任意のリッチGLB対応ではないため、将来独立したPRIVATEレンダラー適合が必要。
+
+`scripts/build.mjs` と `web/drive3d.mjs` は今回不変更（大量CI起動回避）。元物理B48 7本／動体B51 28基／gap52／240Hz、main/Gold/本番/原作サイト不変更。正式Slope2認定0m、Human/ART/PUBLISH/Ready/Merge HOLD。
+
 ## G4E-7BO — BN固有の都市全体を実カメラ内に再配置（2026-10-25 JST）
 
 [BN専用CI #40165794276](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40165794276) は**SUCCESS**：正規240Hz実3視点、2本のGLB(各約246kB)、公開隔離PASS。BNはBMの単調な筒より塔・居住層・屋根形状が見えるが、**都市の大部分が画面左端に切れている**ため巨都市の美術目標は未達・ART HOLD。原因はBMの筒モデルに最適化した座標を、形状が異なるBNにそのまま転用したこと。
