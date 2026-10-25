@@ -1,22 +1,24 @@
-name: G4E quality-first genuine Blender single architectural hero study (HOLD)
+name: G4E real CC0 authored buildings city-depth art HOLD
 on:
   push:
     branches: [p101-velocity-overdrive-native-trial]
     paths:
-      - 'scripts/p101-w9c2-g4e7bw-r3-interior.py'
+      - 'scripts/p101-w9c2-g4e7bx-forward-cc0-depth.py'
       - '.github/workflows/p101-w9c2-g4e7br-blender-art.yml'
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: g4e7bw-r3-inhabited-foyer
+  group: g4e7bx-licensed-art-corridor
   cancel-in-progress: false
 jobs:
-  author-native-blender-city:
+  true-city-art-study:
     runs-on: ubuntu-24.04
-    timeout-minutes: 48
+    timeout-minutes: 55
     env:
-      ART: artifacts/private/g4e7bw-halocut-concourse-r3
+      ART: artifacts/private/g4e7bx-licensed-urban-depth
+      PACK: kenney_city-kit-commercial_2.1.zip
+      SRC: artifacts/private/g4e7bw-halocut-concourse-r3/G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,36 +27,60 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install native Blender 4 and check script syntax
+      - name: Install Blender and download original Kenney authored CC0 source
         run: |
-          set -eu
+          set -euo pipefail
           sudo apt-get update -qq
-          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender python3-numpy
-          blender --version | head -n 2
-          python3 -m py_compile scripts/p101-w9c2-g4e7bw-r3-interior.py
-      - name: Author real source blend, embedded PBR GLB and five native Cycles renders
+          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender python3-numpy unzip
+          python3 -m py_compile scripts/p101-w9c2-g4e7bx-forward-cc0-depth.py
+          test -s "$SRC"
+          mkdir -p "$ART" "$RUNNER_TEMP/kenney-cc0-v2"
+          curl -fL --retry 3 --connect-timeout 20 --max-time 150 \
+             'https://opengameart.org/sites/default/files/kenney_city-kit-commercial_2.1.zip' \
+             -o "$ART/$PACK"
+          test -s "$ART/$PACK"
+          sha256sum "$ART/$PACK" | tee "$ART/KENNEY_CC0_SOURCE_SHA256.txt"
+          python3 - <<'PY'
+          import os,zipfile,pathlib
+          zpath=pathlib.Path(os.environ['ART'])/os.environ['PACK']
+          target=pathlib.Path(os.environ['RUNNER_TEMP'])/'kenney-cc0-v2'
+          with zipfile.ZipFile(zpath) as z:
+              members=z.infolist()
+              if len(members)>2000: raise RuntimeError('bad archive')
+              for info in members:
+                  dest=(target/info.filename).resolve()
+                  if not dest.is_relative_to(target.resolve()) or info.file_size>200_000_000:
+                      raise RuntimeError('unsafe zip member')
+              z.extractall(target)
+          glbs=list(target.rglob('*.glb'))
+          print('KENNEY_CC0_SOURCE_ACTUAL_GLB_COUNT',len(glbs))
+          print('SAMPLE_SOURCE_NAMES',*[p.name for p in glbs[:12]],sep='\n')
+          if len(glbs)<7: raise RuntimeError('real CC0 building meshes missing')
+          PY
+      - name: Integrate genuinely modelled CC0 architecture into existing R3 art scene
         run: |
-          set -eu
-          mkdir -p "$ART"
-          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bw-r3-interior.py -- --out "$ART"
-          test -s "$ART/G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend"
-          test -s "$ART/G4E7BW_HALOCUT_CONCOURSE_ART_ONLY.glb"
-          test -s "$ART/G4E7BW_ORIGINAL_FACADE_ATLAS.png"
-          for v in OBLIQUE FRONT AERIAL SIDE APPROACH FOYER; do
-            printf -v p 'G4E7BW_%s_REAL_BLENDER_RENDER.png' "$v"
-            test -s "$ART/$p"
+          set -euo pipefail
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bx-forward-cc0-depth.py -- \
+             --source "$SRC" --archive "$ART/$PACK" --out "$ART"
+          for f in G4E7BX_FORWARD_CITY_EDITABLE.blend G4E7BX_CC0_URBAN_DEPTH_ONLY.glb G4E7BX_CC0_PROVENANCE.json; do
+             test -s "$ART/$f"
           done
-      - name: Independent GLB binary and provenance intake - never art PASS
+          for v in OBLIQUE FRONT SIDE AERIAL APPROACH FORWARD_300 FORWARD_700; do
+             test -s "$ART/G4E7BX_"$v"_TRUE_CYCLES.png"
+          done
+      - name: Independent binary/provenance gate never visual acceptance
         run: |
-          set -eu
+          set -euo pipefail
           node --test tests/p101-w9c2-g4e7bp-artist-intake.test.mjs
-          cat > "$ART/G4E7BW_BP_CLAIM.json" <<'JSON'
+          cat > "$ART/G4E7BX_BP_CLAIM.json" <<'JSON'
           {
-            "assetId":"g4e7bw-halocut-concourse-r3-001",
-            "author":"DOPAGAKI original scripted Blender 3D architectural research",
-            "sourceTool":"Blender bpy and original generated texture",
-            "sourceFile":"G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend",
-            "rights":"original-work",
+            "assetId":"g4e7bx-cc0-authored-forward-urban-depth",
+            "author":"Kenney original CC0 model art and DOPAGAKI source Blender architectural assembly",
+            "sourceTool":"Native Blender with imported real Kenney CC0 human-made glTF building models",
+            "sourceFile":"G4E7BX_FORWARD_CITY_EDITABLE.blend",
+            "rights":"appropriately-licensed-third-party",
+            "licenseName":"Creative Commons CC0 1.0 Universal",
+            "licenseEvidence":"https://kenney.nl/assets/city-kit-commercial and https://opengameart.org/content/city-kit-commercial",
             "unitsMetersPerUnit":1,
             "coordinateSystem":"glTF-Y-UP",
             "reviewStatus":"HOLD",
@@ -62,57 +88,48 @@ jobs:
           }
           JSON
           node scripts/p101-w9c2-g4e7bp-artist-asset-intake.mjs \
-            "$ART/G4E7BW_HALOCUT_CONCOURSE_ART_ONLY.glb" \
-            "$ART/G4E7BW_BP_CLAIM.json" \
-            "$ART/G4E7BW_BP_ADMISSION.json"
+            "$ART/G4E7BX_CC0_URBAN_DEPTH_ONLY.glb" \
+            "$ART/G4E7BX_BP_CLAIM.json" "$ART/G4E7BX_BP_ADMISSION.json"
           node --input-type=module <<'JS'
           import fs from 'node:fs';
           import path from 'node:path';
           import crypto from 'node:crypto';
           const d=process.env.ART;
-          const audit=JSON.parse(fs.readFileSync(path.join(d,'G4E7BW_BP_ADMISSION.json')));
-          if(audit.admission!=='METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS'||
-             audit.humanVisualReview!=='HOLD'||audit.publicRelease!=='FORBIDDEN'||
-             audit.realCameraWebGLProof!=='NOT_YET_RUN'||audit.glb.triangles<10000||
-             audit.glb.materials<6||audit.glb.embeddedTextures<1)
-             throw Error('BT genuine art asset validation failed: '+JSON.stringify(audit));
-          const files=fs.readdirSync(d).filter(x=>!x.startsWith('SHA256'));
-          const hashes=files.map(file=>{
-             const b=fs.readFileSync(path.join(d,file));
-             return {file,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex')};
-          });
-          fs.writeFileSync(path.join(d,'SHA256_ART_HOLD_MANIFEST.json'),JSON.stringify({
-             schema:'dopagaki.bu-native-blender-art-archive/1',
-             originalScript:'scripts/p101-w9c2-g4e7bw-r3-interior.py',
-             source:'ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY',
-             authorship:'SCRIPTED_BPY_NOT_HAND_SCULPTED',
-             humanArtApproval:'HOLD',gameCameraProof:'NOT_YET_RUN',
-             certifiedSlope2Meters:0,publication:'FORBIDDEN',files:hashes
-          },null,2));
-          console.log('BW_GLTF_BINARY_INTAKE_PASS_ART_HOLD',audit.glb);
+          const qa=JSON.parse(fs.readFileSync(path.join(d,'G4E7BX_BP_ADMISSION.json')));
+          const p=JSON.parse(fs.readFileSync(path.join(d,'G4E7BX_CC0_PROVENANCE.json')));
+          if(qa.admission!=='METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS'
+             ||qa.publicRelease!=='FORBIDDEN'||qa.humanVisualReview!=='HOLD'
+             ||qa.realCameraWebGLProof!=='NOT_YET_RUN'||qa.glb.meshes<12
+             ||p.placements.length<25||p.modelSources.length<8)
+             throw Error('actual CC0 model intake not met: '+JSON.stringify(qa));
+          const names=fs.readdirSync(d).filter(x=>!x.startsWith('SHA256_ART_HOLD_MANIFEST'));
+          const files=names.map(file=>{const b=fs.readFileSync(path.join(d,file));return {
+              file,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex')}});
+          fs.writeFileSync(path.join(d,'SHA256_ART_HOLD_MANIFEST.json'),
+            JSON.stringify({schema:'dopagaki.bx-cc0-original-city-proof/1',
+              humanArtApproval:'HOLD',realGameCamera:'NOT_YET_RUN',
+              certifiedSlope2Meters:0,publication:'FORBIDDEN',files},null,2));
+          console.log('BX_BINARY_LICENSE_STUDY_NOT_ART_PASS',qa.glb);
           JS
-      - name: Preserve the actual 3D and four camera assets only in Draft branch
+      - name: Archive editable source, verified CC0 origin and native seven views privately
         run: |
-          set -eu
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f "$ART"
-          if git diff --cached --quiet; then
-            echo "Original archive already stored"
-            exit 0
-          fi
-          git commit -m "art(g4e7bw-r3): archive inhabited porticos and six views ART HOLD"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "art(g4e7bx): preserve true CC0 pack, blend, glb and seven native art HOLD views"
           git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial
-      - name: Export five genuine Blender camera views including forward sightline for actual art review
+      - name: Export all seven unaltered Blender Cycles images for actual art review
         uses: actions/upload-artifact@v4
         with:
-          name: g4e7bw-r3-interior-six-cycles-ART-HOLD
+          name: g4e7bx-seven-true-cc0-blender-views-ART-HOLD
           path: |
-            artifacts/private/g4e7bw-halocut-concourse-r3/G4E7BW_*_REAL_BLENDER_RENDER.png
-            artifacts/private/g4e7bw-halocut-concourse-r3/SHA256_ART_HOLD_MANIFEST.json
+            artifacts/private/g4e7bx-licensed-urban-depth/G4E7BX_*_TRUE_CYCLES.png
+            artifacts/private/g4e7bx-licensed-urban-depth/SHA256_ART_HOLD_MANIFEST.json
           if-no-files-found: error
           retention-days: 7
-      - name: Verify untouched public builds
+      - name: Preserve original productions and protected gameplay
         run: |
-          test ! -e dist-site/generated/G4E7BW_HALOCUT_CONCOURSE_ART_ONLY.glb
-          test ! -e dist/generated/G4E7BW_HALOCUT_CONCOURSE_ART_ONLY.glb
+          test ! -e dist/generated/G4E7BX_CC0_URBAN_DEPTH_ONLY.glb
+          test ! -e dist-site/generated/G4E7BX_CC0_URBAN_DEPTH_ONLY.glb
