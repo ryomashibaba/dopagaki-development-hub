@@ -30,6 +30,14 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BM — 実240Hzカメラ投影から建築配置を最適化（2026-10-25 JST）
+
+BL最終[CI #40163689908](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40163689908) **SUCCESS**：2本の本物のGLB、独立正常ロード、実WebGL撮影、公開隔離PASS。ただし実保存画像ではTRUE 122.9m/s／SWITCH 112.2・125.8m/sの**すべてで新都市建築がほぼ見えない**。BK2は近い巨大な壁が見える。よって**BL技術PASS／美術REJECT**。単にGLB三角形数を増やす失敗を繰り返さない。
+
+BMでは既存BLの同じ実3Dモデルを保持し、`g4e7bgNativeFrames()` の真正のP96起点00・240Hz非人間3カメラから eye/front/right/up を復元し、見通し角・建築投影率・遠近・道路中央下部の遮蔽・実B48車道との水平距離を加味した位置最適化を実装。これは**カメラ/物理変更ではなく、PRIVATE表示専用GLB頂点の固定ワールド座標変換のみ**。TRUE/SWITCH両道路GLB生成、元BK・不採用BL・BM三者を同一高速カメラで撮影する専用テストを追加。[BM専用CI #40164933668](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40164933668) はキュー入り。現物画像を見る前に美術PASSとはしない。
+
+[BM独立監査](docs/W9C2_G4E7BM_CAMERA_PROJECTION_PRIVATE_HOLD_JA.md)。PRIVATEオプトイン `g4e7bm=registered`、生成フラグ `DOPAGAKI_G4E7BM_VISUAL=1`。Blender制作とは称さない。新B48/B51・偽道路・カメラ補正・速度変更無し。**正式Slope2=0m、Human/Art/Publish/PR Ready/Merge=HOLD**。main・Gold・本番2サイト不変更。
+
 ## G4E-7BL — OPEN CROWN ARCOLOGY / 単一主都市地区のPRIVATE実制作（2026-10-25 JST）
 
 **現在は実制作コミット済み／CI実行待ち／美術HOLD。** BK V2の実GLB2＋6素材＋法線＋ライティング基盤を流用し、コードで造形する単一の中空都市地区へ転換した。曲面の二重外殻、真に穴の開いた天空中庭2つ、厚い居住テラス5つ、270m級の都市主塔、立体連結部材を造形。道路際の不透明壁を繰り返す代わりに、B48第2道路から離れた開いた都市断面を目指す。
