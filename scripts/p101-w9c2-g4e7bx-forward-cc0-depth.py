@@ -11,6 +11,7 @@ def arg(k):
     return argv[argv.index(k)+1]
 source=Path(arg('--source'))
 archive=Path(arg('--archive'))
+assetdir=Path(arg('--assetdir'))
 output=Path(arg('--out'))
 output.mkdir(parents=True,exist_ok=True)
 if not source.is_file() or not archive.is_file():
@@ -36,7 +37,7 @@ world.node_tree.nodes['Background'].inputs['Color'].default_value=(.11,.18,.24,1
 world.node_tree.nodes['Background'].inputs['Strength'].default_value=.9
 lib=bpy.data.collections.new('CC0 HUMAN-MODELLED KENNEY CITY / EDITABLE STUDY')
 scene.collection.children.link(lib)
-models=sorted([p for p in archive.parent.rglob('*.glb')
+models=sorted([p for p in assetdir.rglob('*.glb')
     if 'skyscraper' in p.stem.lower() or 'building' in p.stem.lower()])
 if len(models)<7:
     raise RuntimeError('Downloaded human-made city kit has fewer than 7 building/skyscraper GLBs: '+repr([p.name for p in models]))

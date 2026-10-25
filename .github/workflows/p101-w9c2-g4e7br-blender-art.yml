@@ -61,7 +61,7 @@ jobs:
         run: |
           set -euo pipefail
           blender --background --threads 4 --python scripts/p101-w9c2-g4e7bx-forward-cc0-depth.py -- \
-             --source "$SRC" --archive "$ART/$PACK" --out "$ART"
+             --source "$SRC" --archive "$ART/$PACK" --assetdir "$RUNNER_TEMP/kenney-cc0-v2" --out "$ART"
           for f in G4E7BX_FORWARD_CITY_EDITABLE.blend G4E7BX_CC0_URBAN_DEPTH_ONLY.glb G4E7BX_CC0_PROVENANCE.json; do
              test -s "$ART/$f"
           done
