@@ -1,5 +1,11 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CH — 著作者制作の近景街路GLBを元240Hzカメラで実WebGL比較（2026-10-26 JST）
+
+前工程の遠景モデルが画素不足で主役級REJECTとなったため、今度は街路の奥行きと建築外装の連続性を先に見る。無登録で取得できる[Neon Zenith](https://github.com/billpwchan/neon-zenith)内の作者制作Temple Street単一区画GLB（上流commit 27ad04ef04aa9e1e1366fccc63e15a379b999f01、8,040,396 bytes、git blob 92e2ed214034c9cd7bed5248991924d3af9a6d24）を実物検査対象とする。
+ただしモデルの再配布はせず、元テクスチャを除去した真のChromium WebGL12画角による単独シルエット調査のみ。ライセンスはコードMIT/著作者3D CC BY4.0を区別する。出典・方法：[G4E7CH調査](docs/G4E7CH_NEON_DISTRICT_STREET_QA_JA.md)。CI結果が出るまではTECH PASSを主張しない。実ゲームWebGL/HUMAN/ART/READY/MERGE/PUBLISH HOLD。元物理・カメラ・A13/main/Gold・本番は不変更、正式Slope2 0m、PR#46 Draft。Work未使用。
+
+
 ## G4E-7CG — 12真正WebGL画素を目視審査：主役都市としてのシルエット不合格（2026-10-25 JST）
 
 **[専用CI #40198872340](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40198872340) SUCCESS。** 前工程の正規配布原本Market_Day.glb（同じSHA256）を一時取得し、全元テクスチャと元マテリアルを描画前に独立無地材質へ置き換えて、**本物のChromium WebGL2ラスタ**で12視点のスクリーンショットと画素差分を作成。G4E-7BGの本物の240Hz物理起点から得た2種×3時点=6カメラ姿勢、設置距離200mと320m。**これは本ゲームの道路・HUD・障害物・元PBRを含まない独立WebGLであり「実ゲームで画質向上」とは言わない。** [7日間の12枚画像とJSON artifact](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40198872340/artifacts/12601685349)。
