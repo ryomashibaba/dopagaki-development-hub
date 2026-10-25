@@ -19,7 +19,8 @@ bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=Fals
 scene=bpy.context.scene
 scene.render.engine='CYCLES'
 scene.cycles.samples=20
-scene.cycles.use_denoising=True
+scene.cycles.use_denoising=False
+scene.view_layers[0].cycles.use_denoising=False
 scene.render.threads_mode='FIXED';scene.render.threads=4
 scene.render.resolution_x=1440;scene.render.resolution_y=900
 scene.render.resolution_percentage=100
