@@ -1,0 +1,54 @@
+{
+  "schema": "dopagaki.g4e7bp-artist-glb-intake/1",
+  "assetId": "g4e7bt-inhabited-tidal-fold-001",
+  "sha256": "236e5212bf8eb2987279424df269842fed5ebdffd7b3303d10f9730f93b494d7",
+  "provenanceClaim": {
+    "author": "DOPAGAKI original scripted Blender 3D architectural research",
+    "sourceTool": "Blender bpy and original generated texture",
+    "sourceFile": "G4E7BT_INHABITED_TIDAL_FOLD_SOURCE.blend",
+    "rights": "original-work",
+    "licenseName": null,
+    "licenseEvidence": null,
+    "verification": "SELF_DECLARED_NOT_INDEPENDENTLY_VERIFIED"
+  },
+  "glb": {
+    "bytes": 1462488,
+    "meshes": 469,
+    "nodes": 469,
+    "triangles": 17136,
+    "primitives": 491,
+    "vertexPositions": 34024,
+    "materials": 11,
+    "embeddedTextures": 1,
+    "textureRefs": 1,
+    "meshLocalAABB": {
+      "min": [
+        -588.94,
+        -102.566,
+        -421.484
+      ],
+      "max": [
+        588.94,
+        662.608,
+        421.033
+      ],
+      "span": [
+        1177.88,
+        765.175,
+        842.517
+      ]
+    },
+    "possibleNodeTransforms": true,
+    "facesWithMaterial": 491
+  },
+  "warnings": [
+    "NODE_TRANSFORMS: local mesh bounds are NOT world-space bounds; separate transform-baking/placement proof required"
+  ],
+  "realCameraWebGLProof": "NOT_YET_RUN",
+  "humanVisualReview": "HOLD",
+  "physicalRoadQA": "UNCHANGED_UNTESTED_BY_INTAKE",
+  "publicRelease": "FORBIDDEN",
+  "mergeApproval": "HOLD",
+  "officialSlope2CertifiedMeters": 0,
+  "admission": "METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS"
+}
