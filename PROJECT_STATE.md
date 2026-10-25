@@ -1,5 +1,19 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+
+## G4E-7BT/BU 真正4視点美術審査と手法転換（2026-10-25 JST）
+
+**重要・前回の「BT美術HOLD」を上書きする後続審査結果：BR / BT / BU 全て美術REJECT。** [PR #46の独立BT対BU真正レンダリング4視点比較](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46#issuecomment-6394820834)。相対的な前進を芸術合格にすり替えない。
+
+- **BT真正画像をGitHub CI経由で取り出して人間目視評価：** BRより建築量塊・窓・街区の連続性は改善したが、円形の玩具的都市と反復直方体の小塔に見える。現状では実ゲーム統合に値しない。**BT=ART REJECT**。
+- **BU《RIFTBOUND MEGACITY》真正Blender実制作**：円形の器を捨て、2本の非対称で一体的な都市断崖、縦方向約1.9kmの深い開放峡谷、連続居住層と横断公共交通を、旧BTスクリプトとは別の[BU独立ソース](scripts/p101-w9c2-g4e7bu-riftbound-city.py)でモデル化。[Blender実制作CI #40172049902](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40172049902) **SUCCESS**、実.blend/GLB/4方向1440×900 Cycles PNG/埋込独自PNG画像/整合性SHA-256を[GitHub独立PRIVATE証拠](artifacts/private/g4e7bu-riftbound-megacity)へ保存。独立GLBバイナリ検査は668メッシュ・38,110三角形・11マテリアル・埋込み画像1。これらは美術合否に無関係な技術指標。
+- **BUの真正画像目視判定=ART REJECT。** 円形ミニチュアの改善と規模シルエット強化はあるが、巨大な白い無地外殻、黒い平板の窪み、生活街区の視認性不足、単調な窓列、側面/斜視での直方体感という根本問題を残した。**「大きな外殻をプロシージャル生成→小箱街区を貼る」方式そのものが都市美術のボトルネック**であると認定。
+- **方法論の変更（最上位QUALITY-FIRSTに準拠）：** 同じ欠点が複数候補で連続したため、BR→BT→BUのようなプログラム形状の同型微調整/反復を停止。次回は**建築・街区・公共空間・多層交通・居住痕跡を、意図あるアートディレクションによる3D建築として先に組み立てる**。作り込んだ差別化のある都市モジュール、真の建築的接続、地形と外装を貫く実住区、室内奥行と照明、建築スケールの階層を制作し、そこから巨大質量を統合する。Blenderのカーブ/メッシュ編集/ブーリアン/適度なGeometry Nodesは手段であり、無数の簡易柱、リング、舗装箱、窓だけで美術合格を捏造しない。外部3D資産の場合は本物の権利資料を要求し、使用可能性が未証明なら使わない。スクリプト制作を手彫りと称しない。
+- **効率改善**：追加CIを新設せず、既存BSレビュー経路でBT対BR、BT対BUの真正画像をSHA照合した。次BU用に既存Blender制作CIへ4視点レビュー・アーティファクト出力を統合したため、毎回BSの別起動は不要。必要な節目検証のみ。
+- **次の品質ゲート**：まず少数の高品質な都市建築モジュール＋人間の縮尺が読み取れる都市層の本物のBlender画像を組み合わせて審査。以前のように「大外殻を完成→小塔を埋める」のは禁止。**4視点でプレイヤー目線の美術が成立してから**PRIVATE専用glTF/PBRレンダリング検証と正規B48道路500～800m区間へ。まだ実ゲーム内の視界/楽しいレース/人間手動QAは未実施。
+- **保護**：main・Gold・両本番・原作Slope再現・正規240Hz B48×7/B51-C×28/gap52/元物理・カメラは不変更。Draft PR #46 OPEN/DRAFT/未マージ。正式Slope2認定0m。Human / Art / Publish / PR Ready / Mergeは全HOLD。
+
+
 ## 最新BT美術制作・CI改善（2026-10-25 JST、Quality-first実行結果）
 
 **最新確定HEAD（この記載時点）：** `2f1ce519668fb4e08c5922d3f1c5f3e0cf7adf88`。このSHAは固定最新とせず、次回GitHub HEADを再取得すること。[既存Draft PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46) はOPEN/DRAFT/未マージのまま。
