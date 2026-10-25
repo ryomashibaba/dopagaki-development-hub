@@ -95,8 +95,7 @@ def cube(name,xyz,size,material,bevel=0):
     if bevel:
         mod=ob.modifiers.new('Crisp architectonic edges','BEVEL')
         mod.width=bevel;mod.segments=2
-        norm=ob.modifiers.new('Weighted cut-plane normals','WEIGHTED_NORMAL')
-        norm.keep_sharp=True
+        # Flat structural faces stay crisp with bevelled silhouette; no legacy auto-smooth warning.
     return ob
 
 def quadribbon(name,rows,materials,edges=True):

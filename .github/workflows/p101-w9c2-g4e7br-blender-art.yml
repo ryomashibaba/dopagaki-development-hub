@@ -30,8 +30,9 @@ jobs:
         run: |
           set -eu
           sudo apt-get update -qq
-          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender
+          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender python3-numpy
           blender --version | head -n 2
+          blender --background --python-expr 'import numpy; print("GLTF_NUMPY_OK", numpy.__version__)'
           python3 -m py_compile scripts/p101-w9c2-g4e7br-blender-art.py
       - name: Author real native Blender 3D city scene, export GLB and four camera renders
         run: |
