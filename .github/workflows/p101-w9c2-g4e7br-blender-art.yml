@@ -9,14 +9,14 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: g4e7bw-single-authored-architectural-hero
+  group: g4e7bw-r2-sightline-focused-architectural-hero
   cancel-in-progress: false
 jobs:
   author-native-blender-city:
     runs-on: ubuntu-24.04
     timeout-minutes: 48
     env:
-      ART: artifacts/private/g4e7bw-halocut-concourse
+      ART: artifacts/private/g4e7bw-halocut-concourse-r2
     steps:
       - uses: actions/checkout@v4
         with:
@@ -50,7 +50,7 @@ jobs:
           node --test tests/p101-w9c2-g4e7bp-artist-intake.test.mjs
           cat > "$ART/G4E7BW_BP_CLAIM.json" <<'JSON'
           {
-            "assetId":"g4e7bw-halocut-concourse-001",
+            "assetId":"g4e7bw-halocut-concourse-r2-001",
             "author":"DOPAGAKI original scripted Blender 3D architectural research",
             "sourceTool":"Blender bpy and original generated texture",
             "sourceFile":"G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend",
@@ -101,15 +101,15 @@ jobs:
             echo "Original archive already stored"
             exit 0
           fi
-          git commit -m "art(g4e7bw): preserve true source, glb, texture and four view HOLD proof"
+          git commit -m "art(g4e7bw-r2): archive corrected sightline source, glb, five views, ART HOLD"
           git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial
       - name: Export five genuine Blender camera views including forward sightline for actual art review
         uses: actions/upload-artifact@v4
         with:
-          name: g4e7bw-original-cycles-five-views-ART-HOLD
+          name: g4e7bw-r2-visibility-five-cycles-ART-HOLD
           path: |
-            artifacts/private/g4e7bw-halocut-concourse/G4E7BW_*_REAL_BLENDER_RENDER.png
-            artifacts/private/g4e7bw-halocut-concourse/SHA256_ART_HOLD_MANIFEST.json
+            artifacts/private/g4e7bw-halocut-concourse-r2/G4E7BW_*_REAL_BLENDER_RENDER.png
+            artifacts/private/g4e7bw-halocut-concourse-r2/SHA256_ART_HOLD_MANIFEST.json
           if-no-files-found: error
           retention-days: 7
       - name: Verify untouched public builds

@@ -274,8 +274,12 @@ for i in range(4):
       ids.append(C_GOLD if j%2==0 else C_PALE)
     mesh(name+' faceted slotted civic roof shell / '+str(i),vertices,faces,ids)
 # At least five structural bridges physically land into BOTH occupied wings.
+# R2 sightline correction: only two architecturally connected occupied
+# bridges remain, at true roof-floor elevations. Original five crossbars
+# blocked most of the forward view from near the route; do not hide the
+# obstruction by changing the camera alone.
 for i,(yy,zz,spanwidth) in enumerate([
-  (-151,55,17),(-72,94,14),(13,145,16),(72,186,14),(105,222,11)]):
+  (-52,153,16),(88,184,14)]):
     track=[]
     for j in range(21):
       t=j/20
@@ -376,7 +380,7 @@ views=[
  ('FRONT',(0,-585,235),(0,-13,145),45),
  ('SIDE',(560,-30,310),(0,-10,130),43),
  ('AERIAL',(390,440,590),(0,-22,135),46),
- ('APPROACH',(0,-330,8),(0,35,110),42)]
+ ('APPROACH',(0,-330,8),(0,35,36),46)]
 camera('Hero review camera',*views[0][1:])
 blend=os.path.join(out,'G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend')
 bpy.ops.wm.save_as_mainfile(filepath=blend)
