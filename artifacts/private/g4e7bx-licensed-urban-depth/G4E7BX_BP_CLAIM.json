@@ -1,0 +1,13 @@
+{
+  "assetId":"g4e7bx-cc0-authored-forward-urban-depth",
+  "author":"Kenney original CC0 model art and DOPAGAKI source Blender architectural assembly",
+  "sourceTool":"Native Blender with imported real Kenney CC0 human-made glTF building models",
+  "sourceFile":"G4E7BX_FORWARD_CITY_EDITABLE.blend",
+  "rights":"appropriately-licensed-third-party",
+  "licenseName":"Creative Commons CC0 1.0 Universal",
+  "licenseEvidence":"https://kenney.nl/assets/city-kit-commercial and https://opengameart.org/content/city-kit-commercial",
+  "unitsMetersPerUnit":1,
+  "coordinateSystem":"glTF-Y-UP",
+  "reviewStatus":"HOLD",
+  "publicationStatus":"HOLD"
+}
