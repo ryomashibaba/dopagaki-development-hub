@@ -151,7 +151,7 @@ jobs:
     timeout-minutes: 80
     env:
       ART: artifacts/private/g4e7by-urban-pbr-corridor
-      ASSETS: ${{ runner.temp }}/polyhaven-cc0-gltf
+      ASSETS: /tmp/polyhaven-cc0-gltf
     steps:
       - uses: actions/checkout@v4
         with:
