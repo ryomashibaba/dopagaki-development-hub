@@ -1,5 +1,16 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7BX — 人間制作CC0建築の取り込み・実7視点審査（2026-10-25 JST）
+
+**確定証拠**：[Blender制作CI #40177368056](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40177368056) SUCCESS。最初のCI失敗はアセット解凍パスの不一致で、コミット9a89d9e6b2baa72ccac059193359710131ed9aa7で修復。Kenney公式[City Kit (Commercial) v2.1](https://kenney.nl/assets/city-kit-commercial)をCC0 1.0ライセンス原本として採用、[Kenney本人のOpenGameArt掲載](https://opengameart.org/content/city-kit-commercial)と一致。真正GLB 41点を取得、ZIP原本SHA-256 f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b。うち13種類を34地点に配置し、既存BW-R3ネイティブ.blendから独立BXモデルを制作。**新しい物理道路は作っていない**。
+
+**[PR #46のBX実7視点画像付き審査](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46#issuecomment-6395590457)**：従来R3と同じ低いAPPROACH視点・前方300m・700mなど、真正Blender Cycles 7画像を直接目視。旧空白だった前方両側に3D建築が増え、真正な立体メッシュの取り込みが実証された。ただしKenney低ポリ建築の反復で**箱状の模型都市感が顕著であり、道路中心の奥は依然空白**。巨大未来都市の高品質美術としては **ART REJECT**。人間制作CC0資産であっても、映像品質の保証にはならない。**大量複製・ポリゴン増加で合格を偽装しないこと**。
+
+保存先：[原本ZIP・ライセンス根拠・GLB・真正7画像・編集可能Blender・SHA256](artifacts/private/g4e7bx-licensed-urban-depth)／[独立BX Blender制作ソース](scripts/p101-w9c2-g4e7bx-forward-cc0-depth.py)。GLB二進検査は1,505 meshes/41,360三角形/29 materials/埋込画像2、技術PASS。元のBW-R3とそれ以前のBR～BW制作物はすべて無変更。
+
+**次の方法転換**：低ポリ建物を大量に置く方法を反復しない。自分自身の高品質な美術目標を、走行路の近・中・遠景と都市公共空間・支持構造・交通接続・緻密な素材で一体設計し、本物の編集可能3Dとカメラ画像で審査。必要なら異なる制作ツール・アセット調達・アートディレクションを調査するが、未確認ライセンスの外部作品を採用しない。**美術未合格で正規B48 500～800m統合を無断進行しない**。main、Gold、両本番、原作Slope、240Hz B48×7/B51-C×28/gap52/既存物理とゲームカメラを不変更。PR #46 OPEN/DRAFT/未マージ。Slope2公式認定0m、人間QA/ART/PUBLISH/READY/MERGE全HOLD。
+
+
 ## G4E-7BW-R3 — 主役建築の入口・内部と北側の連続性実制作（2026-10-25 JST）
 
 **毎回GitHub現行HEADを再取得すること。** [BW-R3 Blender制作CI #40175375668](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40175375668) **SUCCESS**。実際のBlender編集可能モデル、GLB、Blender Cycles 6視点（従来のOBLIQUE/FRONT/SIDE/AERIAL/APPROACH＋新FOYER）、SHA256を[PRIVATE原本保管](artifacts/private/g4e7bw-halocut-concourse-r3)へ保存した。[新しい独立R3制作ソース](scripts/p101-w9c2-g4e7bw-r3-interior.py)はR2の原本を不変更。旧制作CIを再利用し新ワークフローは増やさない。GLB 1,493メッシュ/23,592三角形/17マテリアル/埋込画像1は技術情報で美術PASSではない。
