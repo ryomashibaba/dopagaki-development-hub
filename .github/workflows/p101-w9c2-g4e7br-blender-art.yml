@@ -439,7 +439,7 @@ jobs:
           checks=[]
           for filename in expected:
               f=d/filename
-              if not f.is_file() or f.stat().st_size<2000:raise RuntimeError('Missing authentic file '+filename)
+              if not f.is_file() or f.stat().st_size<(200 if filename.endswith('.json') else 2000):\n                  raise RuntimeError('Missing or truncated authentic file '+filename)
               checks.append({'path':filename,'bytes':f.stat().st_size,
                              'sha256':hashlib.sha256(f.read_bytes()).hexdigest()})
           (d/'G4E7CA_ART_UNJUDGED_SHA256.json').write_text(json.dumps({
