@@ -1,5 +1,18 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7BY — 高精細CC0ファサード＋都市交通を試した真正Blender7視点 / 美術REJECT（2026-10-25 JST）
+
+**結論：TRUE BLENDER/CC0 ORIGINAL FILE TECH PASS／ART REJECT（BXより後退）／AUTHENTIC GAME CAMERA NOT RUN／HUMAN HOLD／PUBLICATION FORBIDDEN。** 本節は画像を本当に目視した後の結果。工程増加そのものを進歩と扱わない。
+
+- [真正制作CI #40180712675](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40180712675) **SUCCESS**。初回はジョブ-level `runner.temp` 不正でワークフロー失敗、2回目はBlender4マテリアル入力名、3回目はrunnerにOpenImageDenoiser非搭載で失敗。修正後、Poly Haven公式APIから **CC0 1.0** の `modular_urban_apartments_facade`（1K glTF、依存13）と `modular_factory_facade`（同16）を真正取得し、編集可能.blend／GLB／独立真正Cycles 7視点／SHA256マニフェストをPRIVATE開発ブランチへ保存。アセット原本自体は外部配布元に帰属し、ソースファイル・取得API・SHAと著作権表記は保存。Poly Haven API利用のため *Powered by Poly Haven* 表示を計画に含める。
+- [BY実制作ソース](scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py)、[BY真正7画像と編集可能3D](artifacts/private/g4e7by-urban-pbr-corridor)。ブランチの旧BW-R3・BXファイルは無変更。旧BXと**同じスタジオ画角**のAPPROACH／FORWARD_300／FORWARD_700／OBLIQUE／FRONT／AERIAL等を保存。ただしゲーム240Hz起点00の実走カメラで撮影したものではない。
+- **具体的な失敗**：BYの実APPROACH/FRONTでは、シンプルな白い角柱・直方体の集合と細い発光軌道が画面を占め、建築内部・高密度街路・迫力ある背後景観に至らない。300m／700m先の視点でも疎な白箱と空白が支配。Poly Havenの高品質なオリジナルファサードは少数かつ場面に対して非常に小さく、都市全体の造形を改善しなかった。**BXのほうが実際の街並みとしてはまだ読める**。高級インディーゲーム級の美術としてBYを明確にREJECT、3Dの手法・素材取得TECH PASSと取り違えない。
+- **根本原因**：第三者の高品質ファサードを4配置しただけで、主質量を旧来のスクリプト生成ボックスに依存した。連続ガイドレールは交通ネットワークの証明ではなく、都市生活・アクセス・公共空間を実際の建築として作れていない。**この方法の同一スケール反復、ボックス追加、CI目的の連続コミットは禁止**。
+
+**次の制作ゲート・再転換（方針確定）**：最初に実際のソース3Dのモジュール寸法・階・屋内外・PBRを単体で独立確認し、10〜30mの**ひとつの納得できる外壁＋入口＋支持構造＋生活層**を本物の建築として構築する。巨大箱の外側に表面素材だけ貼る作り方はやめる。次にその高品質モジュールを配置する**近景100〜150mの実走行方向の代表断面**を1つ丁寧に制作・審査する。視覚的に建築品質が成立しない間は1km全体・建物数量への拡張をしない。ゲームのB48 500〜800m/Phase CへのPRIVATE統合も美術ゲートが成立するまで禁止。真正Cycles**だけでなく**最終採択前に正規240Hz/WebGL実カメラと人間テストが不可欠。素材出典・CC0ライセンス・原本SHAの追跡は必須。
+
+**恒久保護**：B48実道路7／B51-C実動体28／gap52／正規240Hz／元操作・自然ジャンプ・カメラ・速度、main、Gold、原作Slope再現、本番2サイト不変更。PR #46はOPEN/DRAFT/未マージを維持。**正式Slope2=0m／ART REJECT／HUMAN HOLD／PUBLISH・READY・MERGE FORBIDDEN**。Work未承認のまま使用していない。次回も必ずGitHub現行HEADから開始。
+
 ## G4E-7BX — 人間制作CC0建築の取り込み・実7視点審査（2026-10-25 JST）
 
 **確定証拠**：[Blender制作CI #40177368056](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40177368056) SUCCESS。最初のCI失敗はアセット解凍パスの不一致で、コミット9a89d9e6b2baa72ccac059193359710131ed9aa7で修復。Kenney公式[City Kit (Commercial) v2.1](https://kenney.nl/assets/city-kit-commercial)をCC0 1.0ライセンス原本として採用、[Kenney本人のOpenGameArt掲載](https://opengameart.org/content/city-kit-commercial)と一致。真正GLB 41点を取得、ZIP原本SHA-256 f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b。うち13種類を34地点に配置し、既存BW-R3ネイティブ.blendから独立BXモデルを制作。**新しい物理道路は作っていない**。
