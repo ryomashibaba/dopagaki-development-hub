@@ -31,6 +31,7 @@ jobs:
         run: |
           node --check web/p101-w9c2-g4e7ci-integrated-streetscape.mjs
           node --check web/drive3d.mjs
+          node --check scripts/p101-w9c2-g4e7ci-real-game-capture.mjs
           node --test tests/p101-w9c2-g4e7ci-integrated-streetscape.test.mjs
       - name: PRIVATE original game only
         run: |

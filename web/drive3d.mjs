@@ -780,6 +780,9 @@ function render(frameSeconds){
  }
  headingError=cameraYawErrorRadians(cameraState,pose.forward);
  const view=viewForPose(pose,cameraState);
+ // CJ: read-only evidence of the actual game camera used for rendering.
+ canvas.dataset.g4e7cjEye=g4e7bgRequested?view.eye.map(x=>x.toFixed(7)).join(','):'off';
+ canvas.dataset.g4e7cjForward=g4e7bgRequested?view.front.map(x=>x.toFixed(7)).join(','):'off';
  canvas.dataset.g4e7bgMode=g4e7bgShot&&g4e7bgRequested?'SCRIPTED_NATIVE_240HZ_STILL_NOT_HUMAN':'off';
  canvas.dataset.g4e7bgPoint=g4e7bgShot?.id||'off';
  canvas.dataset.g4e7bgTime=g4e7bgShot?String(g4e7bgShot.timeSeconds):'off';

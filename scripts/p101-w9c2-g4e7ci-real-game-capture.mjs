@@ -41,7 +41,7 @@ async function compareTrueCanvasPixels(page,base,change){
    centralWindowFraction:Number((central/(w*h)).toFixed(6)),
    changedBoundingBox:maxX<0?null:[minX,minY,maxX,maxY],
    source:'TWO_DIFFERENT_SCREENSHOTS_FROM_SAME_ACTUAL_GAME_WEBGL_CANVAS',
-   baselineGeometryUnchanged:false,visualApproval:'NOT_TESTED'};
+   roadGeometryNotInferredFromPixelDiff:true,visualApproval:'NOT_TESTED'};
  },inputs);
 }
 let browser;
@@ -65,11 +65,15 @@ try{
    return {point:c.dataset.g4e7bgPoint,road:c.dataset.g4e7bgNativeRoad,
     mode:c.dataset.g4e7bgMode,scene:c.dataset.g4e7ciScene,
     cameraTime:c.dataset.g4e7bgTime,cameraSpeed:c.dataset.g4e7bgSpeed,
+    eye:c.dataset.g4e7cjEye,forward:c.dataset.g4e7cjForward,
     triangles:c.dataset.g4e7ciTriangles,
     physicsUntouched:c.dataset.g4e7ciPhysicsUntouched,
     width:c.width,height:c.height,status:s?.textContent??''};
   });
   if(errors.length||info.point!==frame||info.mode!=='SCRIPTED_NATIVE_240HZ_STILL_NOT_HUMAN'||
+    !info.eye||info.eye==='off'||!info.forward||info.forward==='off'||
+    !Number.isFinite(Number(info.cameraTime))||Number(info.cameraTime)<14||
+    !Number.isFinite(Number(info.cameraSpeed))||Number(info.cameraSpeed)<52||
     (mode==='baseline'&&info.scene!=='off')||
     (mode==='integrated'&&(info.scene!=='INTEGRATED_PRIVATE_HOLD'||info.physicsUntouched!=='true')))
    throw Error('SAME_GAME_CAMERA_REQUIRED '+JSON.stringify({road,frame,mode,info,errors}));
@@ -79,7 +83,7 @@ try{
   if(mode==='baseline'){
    baselineImage=image;baselineInfo=info;
   }else{
-   for(const key of ['cameraTime','cameraSpeed','road','point','mode','width','height']){
+   for(const key of ['cameraTime','cameraSpeed','road','point','mode','width','height','eye','forward']){
     if(baselineInfo[key]!==info[key])
      throw Error('NATIVE_CAMERA_PAIR_NOT_IDENTICAL '+JSON.stringify({road,frame,key,baseline:baselineInfo[key],integrated:info[key]}));
    }
