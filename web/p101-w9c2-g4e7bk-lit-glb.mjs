@@ -97,12 +97,12 @@ void main(){
  vec3 sun=normalize(vec3(-0.43,0.85,0.28));
  vec3 bounce=normalize(vec3(0.62,0.32,-0.73));
  float daylight=max(dot(n,sun),0.0);
- float skylight=max(n.y,0.0)*0.42;
- float secondary=max(dot(n,bounce),0.0)*0.22;
+ float skylight=max(n.y,0.0)*0.53;
+ float secondary=max(dot(n,bounce),0.0)*0.31;
  float reverse=max(dot(n,-sun),0.0)*0.13;
  vec3 halfV=normalize(sun-normalize(worldRelative));
  float shine=pow(max(dot(n,halfV),0.0),mix(8.0,95.0,1.0-roughness));
- vec3 diffuse=base*(0.25+0.72*daylight+skylight+secondary+reverse);
+ vec3 diffuse=base*(0.42+0.66*daylight+skylight+secondary+reverse);
  vec3 specular=mix(vec3(0.06),base,metal)*shine*(0.5+1.15*metal);
  vec3 color=diffuse+specular+emissive*1.28;
  float haze=clamp((length(worldRelative)-520.0)/1900.0,0.0,0.72)*fogStrength;

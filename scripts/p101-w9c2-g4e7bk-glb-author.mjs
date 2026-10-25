@@ -8,11 +8,11 @@
 import {sample} from '../private/reference_only/director/surface.js';
 export const BK_MATERIALS=Object.freeze([
  {name:'IVORY CERAMIC ARMOR',color:[.66,.83,.87,1],metallic:.3,roughness:.34,emissive:[0,0,0]},
- {name:'BLUE TITANIUM FACET',color:[.11,.29,.40,1],metallic:.85,roughness:.22,emissive:[0,0,0]},
- {name:'DEEP URBAN GLASS',color:[.09,.32,.38,1],metallic:.48,roughness:.17,emissive:[.018,.07,.085]},
+ {name:'BLUE TITANIUM FACET',color:[.25,.43,.51,1],metallic:.72,roughness:.31,emissive:[0,0,0]},
+ {name:'DEEP URBAN GLASS',color:[.17,.43,.51,1],metallic:.39,roughness:.23,emissive:[.035,.11,.14]},
  {name:'WARM CITY WINDOWS',color:[.45,.30,.11,1],metallic:.12,roughness:.46,emissive:[.95,.49,.12]},
  {name:'CYAN ENERGY VEINS',color:[.15,.76,.84,1],metallic:.22,roughness:.25,emissive:[.04,.88,1]},
- {name:'HULL UNDERSIDE',color:[.095,.18,.26,1],metallic:.57,roughness:.51,emissive:[0,0,0]}
+ {name:'HULL UNDERSIDE',color:[.16,.28,.35,1],metallic:.44,roughness:.56,emissive:[0,0,0]}
 ]);
 const plus=(a,b)=>a.map((x,i)=>x+b[i]),minus=(a,b)=>a.map((x,i)=>x-b[i]),
  mul=(a,t)=>a.map(x=>x*t),dot=(a,b)=>a.reduce((v,x,i)=>v+x*b[i],0),
@@ -118,14 +118,16 @@ export function generateBKModel(doc){
  // thin boxes. Interconnected thick ceramic faulted roofs above fractured
  // warm inner glass neighborhoods, tapering downward into the blue abyss.
  for(const [bank,side] of [1,-1].entries()){
-  const fraction=bank===0?.99:.61;
+  const fraction=bank===0?.79:.60;
   const n=Math.floor(segments*fraction);
-  const u0=bank===0?.55:.59,u1=bank===0?.855:.805;
+  // A real 60-120m-long forward approach opens before the architecture.
+  // Long uninterrupted close walls failed the actual TRUE 122m/s camera test.
+  const u0=bank===0?.625:.620,u1=bank===0?.845:.800;
   for(let i=0;i<=n;i++){
    const u=u0+(u1-u0)*i/n,drift=Math.sin(Math.PI*i/n),ripple=Math.sin(i*.43+bank);
    // Road road-side skin remains empty: no road bridge or false road lane.
-   const inner=bank===0?85:102,outer=bank===0?235:178;
-   const roof=bank===0?28:16;
+   const inner=bank===0?133:143,outer=bank===0?275:236;
+   const roof=bank===0?18:9;
    const x=inner+9*ripple,z=outer+38*drift;
    const f=frameAt(s,u,side);
    const p=(o,h)=>place(f,0,o,h);
@@ -138,7 +140,10 @@ export function generateBKModel(doc){
   const ss=stations.filter(x=>x.bank===bank);
   for(let i=0;i<ss.length-1;i++){
    const a=ss[i],b1=ss[i+1];
-   const hole=(i%19>=8&&i%19<=11)||(i%19===15&&bank===1);
+   const phase=i%17;
+   // Carve 35%+ of the bulk mass away at full depth, not fake windows:
+   // a sequence of two genuinely open sky/urban canyon courts.
+   const hole=(phase>=4&&phase<=9)||(bank===1&&phase===13);
    if(hole)continue; // giant true architectural excavations; genuine sky.
    // Explicit THICK sculpted folded roof mass (not billboard plane).
    solid(t,0,[a.innerTop,b1.innerTop,b1.crestTop,a.crestTop],
@@ -159,9 +164,9 @@ export function generateBKModel(doc){
   // occupancy elevations below road level. Each deck has thickness and
   // illuminated INNER habitable facade cells carved from the main hull.
   for(let tier=0;tier<3;tier++)for(let i=3;i<ss.length-4;i+=4){
-   if(i%19>=8&&i%19<=11)continue;
+   if(i%17>=4&&i%17<=9)continue;
    const a=ss[i],b1=ss[Math.min(ss.length-1,i+3)],h=-20-tier*38,
-    inside=bank===0?112:121,outside=bank===0?198:159,
+    inside=bank===0?157:164,outside=bank===0?245:212,
     p=(point,o,y)=>place(point.mainFrame,0,o,y);
    solid(t,tier===2?1:0,[
     p(a,inside,h),p(b1,inside+7,h+5),p(b1,outside,h-9),p(a,outside,h-8)
@@ -184,7 +189,7 @@ export function generateBKModel(doc){
   for(const side of [-1,1]){
    const curve=[],count=16;
    for(let i=0;i<=count;i++){
-    const q=i/count,off=100+110*Math.sin(Math.PI*q)+26*q,
+    const q=i/count,off=142+110*Math.sin(Math.PI*q)+26*q,
      height=-126+160*q-45*Math.sin(Math.PI*q);
     curve.push(at(u+(.018*(q-.5)),side,off,height));
    }
