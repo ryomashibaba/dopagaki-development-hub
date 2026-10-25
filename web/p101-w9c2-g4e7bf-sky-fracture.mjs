@@ -30,8 +30,8 @@ function spar(v,a,b,width,depth,color){
  const corners=p=>[add(add(p,w),h),add(sub(p,w),h),sub(sub(p,w),h),sub(add(p,w),h)];
  const x=corners(a),y=corners(b);
  for(const [i,j,k,l] of [[0,1,2,3],[0,4,5,1],[1,5,6,2],[2,6,7,3],[3,7,4,0],[4,7,6,5]])
-  face(v,i<4?x[i]:y[i-4],i<4?x[j]:y[j-4],
-   i<4?x[k]:y[k-4],i<4?x[l]:y[l-4],color);
+  face(v,i<4?x[i]:y[i-4],j<4?x[j]:y[j-4],
+   k<4?x[k]:y[k-4],l<4?x[l]:y[l-4],color);
  // Keep forms structural and sparse; tests check all vertices finite and static.
 }
 function frame(road,sample,u,side){
