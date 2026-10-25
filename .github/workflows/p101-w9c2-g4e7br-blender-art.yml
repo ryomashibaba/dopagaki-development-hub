@@ -1,11 +1,21 @@
-name: G4E real CC0 authored buildings city-depth art HOLD
+name: G4E original Blender art studies / CC0 HOLD
 on:
   push:
     branches: [p101-velocity-overdrive-native-trial]
     paths:
       - 'scripts/p101-w9c2-g4e7bx-forward-cc0-depth.py'
+      - 'scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py'
       - '.github/workflows/p101-w9c2-g4e7br-blender-art.yml'
   workflow_dispatch:
+    inputs:
+      study:
+        description: 'Existing BX or independent BY art-only proof'
+        type: choice
+        required: true
+        default: by
+        options:
+          - by
+          - bx
 permissions:
   contents: write
 concurrency:
@@ -13,6 +23,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   true-city-art-study:
+    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.study == 'bx') || (github.event_name == 'push' && !contains(toJSON(github.event.head_commit), 'g4e7by')) }}
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -133,3 +144,128 @@ jobs:
         run: |
           test ! -e dist/generated/G4E7BX_CC0_URBAN_DEPTH_ONLY.glb
           test ! -e dist-site/generated/G4E7BX_CC0_URBAN_DEPTH_ONLY.glb
+
+  polyhaven-urban-pbr-corridor:
+    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.study == 'by') || (github.event_name == 'push' && contains(toJSON(github.event.head_commit), 'g4e7by')) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 80
+    env:
+      ART: artifacts/private/g4e7by-urban-pbr-corridor
+      ASSETS: ${{ runner.temp }}/polyhaven-cc0-gltf
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: p101-velocity-overdrive-native-trial
+          persist-credentials: true
+      - name: Verify Python source and install native Blender
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender python3-numpy
+          python3 -m py_compile scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py
+          mkdir -p "$ASSETS" "$ART"
+      - name: Download genuine Poly Haven CC0 original glTF and dependencies (1K only)
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,urllib.request,time,os,pathlib,hashlib
+          target=pathlib.Path(os.environ['ASSETS'])
+          assets=['modular_urban_apartments_facade','modular_factory_facade']
+          def get(url,maxbytes=80_000_000):
+              if not url.startswith('https://'):raise RuntimeError('HTTPS source required')
+              err=None
+              for attempt in range(3):
+                  try:
+                      with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Dopagaki-Art-CC0-Research/1.0'}),timeout=65) as res:
+                          b=res.read(maxbytes+1)
+                      if not b or len(b)>maxbytes:raise RuntimeError('Asset over limit or empty')
+                      return b
+                  except Exception as e:
+                      err=e;time.sleep(2*(attempt+1))
+              raise RuntimeError('Official Poly Haven fetch failed: '+url+' / '+str(err))
+          info=[]
+          for asset in assets:
+              base=target/asset;base.mkdir(parents=True,exist_ok=True)
+              meta=json.loads(get('https://api.polyhaven.com/files/'+asset,6_000_000))
+              options=meta.get('gltf',{}).get('1k',{})
+              main=options.get('gltf')
+              if not isinstance(main,dict) or not main.get('url'):
+                  raise RuntimeError('Authentic official Poly Haven 1k glTF unavailable for '+asset)
+              mainfile=base/'source.gltf'
+              b=get(main['url']);mainfile.write_bytes(b)
+              deps=main.get('include',{})
+              if not isinstance(deps,dict) or not deps:
+                  raise RuntimeError('Missing official linked dependencies '+asset)
+              for name,source in deps.items():
+                  if not isinstance(source,dict) or not source.get('url'):
+                      raise RuntimeError('Invalid official dependency '+name)
+                  p=base/name
+                  if not p.resolve().is_relative_to(base.resolve()):raise RuntimeError('Unsafe asset path')
+                  p.parent.mkdir(parents=True,exist_ok=True)
+                  p.write_bytes(get(source['url']))
+              gltf=json.loads(b)
+              refs=[x['uri'] for x in gltf.get('buffers',[]) if x.get('uri')]+[
+                   x['uri'] for x in gltf.get('images',[]) if x.get('uri')]
+              for uri in refs:
+                  if uri.startswith('data:'):continue
+                  if not (base/uri).is_file():raise RuntimeError('Missing glTF dependency '+uri)
+              info.append({'asset':asset,'license':'CC0 1.0',
+                 'url':'https://polyhaven.com/a/'+asset,'api':'https://api.polyhaven.com/files/'+asset,
+                 'gltfSha256':hashlib.sha256(b).hexdigest(),'dependentFiles':len(deps)})
+          pathlib.Path(os.environ['ART'],'G4E7BY_EXTERNAL_CC0_FILES.json').write_text(json.dumps(info,indent=2))
+          print('POLY_HAVEN_CC0_ORIGINALS_READY',json.dumps(info))
+          PY
+      - name: Build distinct connected road-facing city architecture and true Cycles images
+        run: |
+          set -euo pipefail
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py -- --assets "$ASSETS" --out "$ART"
+          test -s "$ART/G4E7BY_ARCHITECTURE_TRANSIT_EDITABLE.blend"
+          test -s "$ART/G4E7BY_CITY_ART_ONLY.glb"
+          test -s "$ART/G4E7BY_PROVENANCE.json"
+          for angle in OBLIQUE FRONT SIDE AERIAL APPROACH FORWARD_300 FORWARD_700; do
+            test -s "$ART/G4E7BY_${angle}_TRUE_CYCLES.png"
+          done
+      - name: Confirm source evidence, never certify art or human experience automatically
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os,json,hashlib,pathlib
+          d=pathlib.Path(os.environ['ART'])
+          provenance=json.loads((d/'G4E7BY_PROVENANCE.json').read_text())
+          if provenance['actualNativeGameCamera']!='NOT_TESTED' or provenance['humanGameplay']!='HOLD' or provenance['publication']!='FORBIDDEN':
+              raise RuntimeError('Release gate regression')
+          required=['G4E7BY_ARCHITECTURE_TRANSIT_EDITABLE.blend','G4E7BY_CITY_ART_ONLY.glb']+[
+              'G4E7BY_'+v+'_TRUE_CYCLES.png' for v in provenance['views']]
+          checks=[]
+          for name in required:
+              p=d/name
+              if not p.is_file() or p.stat().st_size<1000:raise RuntimeError('Missing true file '+name)
+              checks.append({'file':name,'bytes':p.stat().st_size,
+                  'sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
+          (d/'SHA256_ART_UNJUDGED_MANIFEST.json').write_text(json.dumps({
+              'humanArt':'UNJUDGED','realGameCamera':'NOT_TESTED',
+              'publication':'FORBIDDEN','slope2CertifiedMeters':0,'files':checks},indent=2))
+          print('G4E7BY_BINARY_PROOF_EXISTS_NOT_VISUAL_PASS')
+          PY
+      - name: Preserve real 3D source, PBR provenance and seven original views on Draft branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f "$ART"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "art(g4e7by): archive original CC0 PBR architecture and real 7-view HOLD proof"
+          git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial
+      - name: Seven native Blender proof images for art review
+        uses: actions/upload-artifact@v4
+        with:
+          name: g4e7by-original-pbr-urban-corridor-ART-UNJUDGED
+          path: |
+            artifacts/private/g4e7by-urban-pbr-corridor/G4E7BY_*_TRUE_CYCLES.png
+            artifacts/private/g4e7by-urban-pbr-corridor/SHA256_ART_UNJUDGED_MANIFEST.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: Public and immutable real gameplay untouched
+        run: |
+          test ! -e dist/generated/G4E7BY_CITY_ART_ONLY.glb
+          test ! -e dist-site/generated/G4E7BY_CITY_ART_ONLY.glb
