@@ -39,6 +39,7 @@ import {generateG4E7AY} from './p101-w9c2-g4e7ay-tangent-bridge.mjs';
 import {generateG4E7BC} from './p101-w9c2-g4e7bc-bank-contour.mjs';
 import {generateBKModel} from './p101-w9c2-g4e7bk-glb-author.mjs';
 import {generateBLModel} from './p101-w9c2-g4e7bl-open-crown-author.mjs';
+import {generateBMModel} from './p101-w9c2-g4e7bm-camera-registered-author.mjs';
 import {g4e7bgNativeFrames} from './p101-w9c2-g4e7bg-native-visual-frames.mjs';
 import {generateG4E7AUInspection} from './p101-w9c2-g4e7au-private-inspection.mjs';
 import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
@@ -295,6 +296,19 @@ if(includeStages){
      const art=generateBLModel(generateG4E7BC(road,'rollDeck'));
      if(art.meta.triangles<1200||art.meta.materialCount!==6)throw Error('BL missing modeled geometry');
      write('generated/P101_A13_W9C2_G4E7BL_'+road.replace('-','_').toUpperCase()+'_CROWN_LOCAL.glb',art.glb);
+    }
+   }
+   // BM: project the single BL district into the real 240Hz camera frusta.
+   // PRIVATE-only binary; preserve every B48/B51 object and ordinary builds.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7BM_VISUAL==='1'){
+    if(process.env.DOPAGAKI_G4E7BE_VISUAL!=='1')
+     throw Error('BM requires genuine PRIVATE BC course');
+    const native=g4e7bgNativeFrames();
+    for(const road of AJ_ROADS){
+     const art=generateBMModel(generateG4E7BC(road,'rollDeck'),native);
+     if(art.meta.triangles<1200||art.meta.materialCount!==6)
+      throw Error('BM GLB lacks actual modeled geometry');
+     write('generated/P101_A13_W9C2_G4E7BM_'+road.replace('-','_').toUpperCase()+'_REGISTERED_LOCAL.glb',art.glb);
     }
    }
    // BG PRIVATE-only actual start00 240Hz scripted P96 observation frames.
