@@ -1,23 +1,22 @@
-name: G4E-7BR actual Blender authoring and independent 4-view ART HOLD
+name: G4E quality-first genuine Blender city-mass art study (HOLD)
 on:
   push:
     branches: [p101-velocity-overdrive-native-trial]
     paths:
-      - 'scripts/p101-w9c2-g4e7br-blender-art.py'
+      - 'scripts/p101-w9c2-g4e7bt-blender-mass.py'
       - '.github/workflows/p101-w9c2-g4e7br-blender-art.yml'
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: g4e7br-blender-asset-once-${{ github.ref }}
+  group: g4e7bt-blender-hero-city-art
   cancel-in-progress: false
 jobs:
-  actual-blender-art-independent-from-game:
+  author-native-blender-city:
     runs-on: ubuntu-24.04
     timeout-minutes: 48
     env:
-      ART: artifacts/private/g4e7br-fractured-tide-citadel
-      GH_TOKEN: ${{ github.token }}
+      ART: artifacts/private/g4e7bt-inhabited-tidal-fold
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,93 +25,85 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install real Blender (no fake software renderer or AI image)
+      - name: Install native Blender 4 and check script syntax
         run: |
           set -eu
           sudo apt-get update -qq
           DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender python3-numpy
           blender --version | head -n 2
-          blender --background --python-expr 'import numpy; print("GLTF_NUMPY_OK", numpy.__version__)'
-          python3 -m py_compile scripts/p101-w9c2-g4e7br-blender-art.py
-      - name: Author real native Blender 3D city scene, export GLB and four camera renders
+          python3 -m py_compile scripts/p101-w9c2-g4e7bt-blender-mass.py
+      - name: Author real source blend, embedded PBR GLB and four native Cycles renders
         run: |
           set -eu
           mkdir -p "$ART"
-          blender --background --threads 4 \
-            --python scripts/p101-w9c2-g4e7br-blender-art.py \
-            -- --out "$ART"
-          test -s "$ART/G4E7BR_FRACTURED_TIDE_CITADEL_SOURCE.blend"
-          test -s "$ART/G4E7BR_FRACTURED_TIDE_CITADEL_ART_ONLY.glb"
-          for view in OBLIQUE FRONT AERIAL SIDE; do
-            test -s "$ART/G4E7BR_${view}_REAL_BLENDER_RENDER.png"
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bt-blender-mass.py -- --out "$ART"
+          test -s "$ART/G4E7BT_INHABITED_TIDAL_FOLD_SOURCE.blend"
+          test -s "$ART/G4E7BT_INHABITED_TIDAL_FOLD_ART_ONLY.glb"
+          test -s "$ART/G4E7BT_ORIGINAL_FACADE_ATLAS.png"
+          for v in OBLIQUE FRONT AERIAL SIDE; do
+            printf -v p 'G4E7BT_%s_REAL_BLENDER_RENDER.png' "$v"
+            test -s "$ART/$p"
           done
-      - name: Verify nonproduction original glTF binary intake and asset provenance
+      - name: Independent GLB binary and provenance intake - never art PASS
         run: |
           set -eu
           node --test tests/p101-w9c2-g4e7bp-artist-intake.test.mjs
-          cat > "$ART/G4E7BR_BP_CLAIM.json" <<'JSON'
+          cat > "$ART/G4E7BT_BP_CLAIM.json" <<'JSON'
           {
-            "assetId": "g4e7br-fractured-tide-citadel-001",
-            "author": "DOPAGAKI original code-assisted Blender art study",
-            "sourceTool": "Blender bpy scripted modelling and cycles",
-            "sourceFile": "G4E7BR_FRACTURED_TIDE_CITADEL_SOURCE.blend",
-            "rights": "original-work",
-            "unitsMetersPerUnit": 1,
-            "coordinateSystem": "glTF-Y-UP",
-            "reviewStatus": "HOLD",
-            "publicationStatus": "HOLD"
+            "assetId":"g4e7bt-inhabited-tidal-fold-001",
+            "author":"DOPAGAKI original scripted Blender 3D architectural research",
+            "sourceTool":"Blender bpy and original generated texture",
+            "sourceFile":"G4E7BT_INHABITED_TIDAL_FOLD_SOURCE.blend",
+            "rights":"original-work",
+            "unitsMetersPerUnit":1,
+            "coordinateSystem":"glTF-Y-UP",
+            "reviewStatus":"HOLD",
+            "publicationStatus":"HOLD"
           }
           JSON
           node scripts/p101-w9c2-g4e7bp-artist-asset-intake.mjs \
-            "$ART/G4E7BR_FRACTURED_TIDE_CITADEL_ART_ONLY.glb" \
-            "$ART/G4E7BR_BP_CLAIM.json" \
-            "$ART/G4E7BR_BP_ADMISSION.json"
+            "$ART/G4E7BT_INHABITED_TIDAL_FOLD_ART_ONLY.glb" \
+            "$ART/G4E7BT_BP_CLAIM.json" \
+            "$ART/G4E7BT_BP_ADMISSION.json"
           node --input-type=module <<'JS'
           import fs from 'node:fs';
           import path from 'node:path';
           import crypto from 'node:crypto';
-          const root=process.env.ART;
-          const report=JSON.parse(fs.readFileSync(path.join(root,'G4E7BR_BP_ADMISSION.json'),'utf8'));
-          if(report.admission!=='METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS'||
-             report.humanVisualReview!=='HOLD'||
-             report.publicRelease!=='FORBIDDEN'||
-             report.realCameraWebGLProof!=='NOT_YET_RUN'||
-             report.glb.meshes<5||report.glb.triangles<5000||
-             report.glb.materials<5)
-             throw Error('BR authentic native GLB / HOLD admission failed: '+JSON.stringify(report));
-          const files=fs.readdirSync(root).filter(x=>!x.startsWith('SHA256'));
-          const hashes=files.map(f=>{
-           const b=fs.readFileSync(path.join(root,f));
-           return {file:f,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex')};
+          const d=process.env.ART;
+          const audit=JSON.parse(fs.readFileSync(path.join(d,'G4E7BT_BP_ADMISSION.json')));
+          if(audit.admission!=='METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS'||
+             audit.humanVisualReview!=='HOLD'||audit.publicRelease!=='FORBIDDEN'||
+             audit.realCameraWebGLProof!=='NOT_YET_RUN'||audit.glb.triangles<10000||
+             audit.glb.materials<6||audit.glb.embeddedTextures<1)
+             throw Error('BT genuine art asset validation failed: '+JSON.stringify(audit));
+          const files=fs.readdirSync(d).filter(x=>!x.startsWith('SHA256'));
+          const hashes=files.map(file=>{
+             const b=fs.readFileSync(path.join(d,file));
+             return {file,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex')};
           });
-          if(hashes.length<9)throw Error('Missing authentic Blender assets');
-          fs.writeFileSync(path.join(root,'SHA256_ART_HOLD_MANIFEST.json'),JSON.stringify({
-           schema:'dopagaki.g4e7br-blender-art-archive/1',
-           source:'ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY',
-           originalScript:'scripts/p101-w9c2-g4e7br-blender-art.py',
-           studioViews:['OBLIQUE','FRONT','AERIAL','SIDE'],
-           blenderSceneAuthoring:'SCRIPTED_BPY_NOT_HAND_SCULPTED',
-           actualGameCameraProof:'NOT_YET_RUN',
-           humanArtApproval:'HOLD',publication:'FORBIDDEN',
-           originalPhysicsUnchanged:true,officialSlope2CertifiedMeters:0,
-           files:hashes
-          },null,2)+'\n');
-          console.log('BR accepted ART INTAKE (not art PASS): triangles='+report.glb.triangles+
-            ' meshes='+report.glb.meshes+' materials='+report.glb.materials);
+          fs.writeFileSync(path.join(d,'SHA256_ART_HOLD_MANIFEST.json'),JSON.stringify({
+             schema:'dopagaki.bt-native-blender-art-archive/1',
+             originalScript:'scripts/p101-w9c2-g4e7bt-blender-mass.py',
+             source:'ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY',
+             authorship:'SCRIPTED_BPY_NOT_HAND_SCULPTED',
+             humanArtApproval:'HOLD',gameCameraProof:'NOT_YET_RUN',
+             certifiedSlope2Meters:0,publication:'FORBIDDEN',files:hashes
+          },null,2));
+          console.log('BT_GLTF_BINARY_INTAKE_PASS_ART_HOLD',audit.glb);
           JS
-      - name: Preserve native .blend, GLB and independent Blender images in draft branch only
+      - name: Preserve the actual 3D and four camera assets only in Draft branch
         run: |
           set -eu
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f "$ART"
           if git diff --cached --quiet; then
-            echo "Identical assets already archived"
+            echo "Original archive already stored"
             exit 0
           fi
-          git commit -m "art(g4e7br): save actual Blender source, GLB, 4 native views and HOLD provenance"
+          git commit -m "art(g4e7bt): preserve true source, glb, texture and four view HOLD proof"
           git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial
-      - name: Native artist study is a nonproduction HOLD
+      - name: Verify untouched public builds
         run: |
-          test ! -e dist-site/generated/G4E7BR_FRACTURED_TIDE_CITADEL_ART_ONLY.glb
-          test ! -e dist/generated/G4E7BR_FRACTURED_TIDE_CITADEL_ART_ONLY.glb
+          test ! -e dist-site/generated/G4E7BT_INHABITED_TIDAL_FOLD_ART_ONLY.glb
+          test ! -e dist/generated/G4E7BT_INHABITED_TIDAL_FOLD_ART_ONLY.glb
