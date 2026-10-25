@@ -1,5 +1,5 @@
 {
-  "schema": "g4e7ca-rift-exchange-native-studio/1",
+  "schema": "g4e7ca-rift-exchange-native-studio-r2/1",
   "author": "OpenAI SCRIPTED Blender architectural design, NOT hand-sculpted",
   "licenseSources": [
     "https://polyhaven.com/a/concrete_tile_facade",
@@ -12,7 +12,7 @@
     "supportedBridges": 3,
     "publicEntrances": 1,
     "transitAlignments": 1,
-    "realFacetedPanels": 56,
+    "realFacetedPanels": 88,
     "physicalSupports": 59
   },
   "textureHashes": {
