@@ -1,5 +1,15 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7BW-R3 — 主役建築の入口・内部と北側の連続性実制作（2026-10-25 JST）
+
+**毎回GitHub現行HEADを再取得すること。** [BW-R3 Blender制作CI #40175375668](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40175375668) **SUCCESS**。実際のBlender編集可能モデル、GLB、Blender Cycles 6視点（従来のOBLIQUE/FRONT/SIDE/AERIAL/APPROACH＋新FOYER）、SHA256を[PRIVATE原本保管](artifacts/private/g4e7bw-halocut-concourse-r3)へ保存した。[新しい独立R3制作ソース](scripts/p101-w9c2-g4e7bw-r3-interior.py)はR2の原本を不変更。旧制作CIを再利用し新ワークフローは増やさない。GLB 1,493メッシュ/23,592三角形/17マテリアル/埋込画像1は技術情報で美術PASSではない。
+
+**[PR #46に本物のBlender画像 R2対R3同条件5視点とFOYERを掲載](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46#issuecomment-6395286936)。** R3では両建築翼に立体入口、中二階、手すり、室内照明、傾斜移動構造、北へつながる居住層と支持のある交通構造を実造形。従来の5方向のカメラ位置・画角は不変更なので適正比較可能。R3は近場の建築の階層・入口・FOYERでは改善が見られたが、**低いAPPROACH視点の奥は依然ほぼ空白であり、巨大都市疾走の景観は不成立**。硬く角張った白い屋根、反復窓・単調な素材も課題。技術PASS／美術HOLD（正式不採用）／実ゲームカメラ・人間試走未検証／公開禁止。
+
+**次工程は同型Blender bpy簡易造形の追加反復を止め、近景・中景・遠景をつなぐ真の都市美術と高精細建築制作方法へ転換。** 目視審査で成立してからPRIVATE 240Hz B48本物の500～800m代表区間統合を検討。B48×7、B51-C×28、gap52、240Hz、main、Gold、本番2サイト、原作Slope再現不変更。PR #46 OPEN/DRAFT/未マージ。公式Slope2認定0m。ART/HUMAN/PUBLISH/READY/MERGE全HOLD。
+
+
+
 ## G4E-7BW / 主役建築を単体で制作・5視点×2バージョン真画像審査（2026-10-25 JST）
 
 **最新成果**：[BW / HALO-CUT CONCOURSEの真のBlender画像付きDraft PR美術評価](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46#issuecomment-6395122703)にR1/R2の斜視・正面・側面・俯瞰・低いAPPROACH計10画像を直接掲載。真正.blend、実GLB、出典、独自埋込画像、SHA-256を[初回BW原本](artifacts/private/g4e7bw-halocut-concourse)・[前方視野改善版R2](artifacts/private/g4e7bw-halocut-concourse-r2)へ完全分離保存。[BW真正Blender CI #40173719487](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40173719487)・[R2真正Blender CI #40174244111](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40174244111) はいずれも **SUCCESS**。新ワークフローを増やさず既存のBlender美術制作CIを改修利用。
