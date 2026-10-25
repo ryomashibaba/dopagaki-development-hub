@@ -1,5 +1,9 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CI — B48真正ゲーム画面に初めて近・中・遠の連続都市をPRIVATE実装（2026-10-26 JST）
+
+**実装済み/審査待ち**。独立3Dの原本探し→本物のゲームWebGLへ移行。新しい`web/p101-w9c2-g4e7ci-integrated-streetscape.mjs`では実BC road2に近景開口店舗/公共庇、中景の段丘状住居・空いた翼間、遠景の非対称稜線を連続配置。B48×7・B51-C×28・gap52・240Hz/操舵/自然ジャンプ/元カメラを凍結し、PRIVATEのみ `g4e7ci=streetscape`。元BG 240Hzの6点×BASELINE/新案を**本物のゲームCanvas WebGL**で同条件比較するCIを実装。**CI実行前にART合格は出さない**。写真/外部3D著作権の導入なし。デフォルトOFF、main/Gold/原作再現/本番2サイト不変更。PR #46 OPEN/Draft/未マージ、正式Slope2 0m、ART/HUMAN/READY/PUBLISH/MERGE HOLD、Work未使用。 [手法・QA](docs/G4E7CI_INTEGRATED_GAME_VSLICE_QA_JA.md)。
+
 
 ## G4E-7CH — 原本街路GLB真正12WebGL画像によるSILHOUETTE審査（2026-10-26 JST）
 
