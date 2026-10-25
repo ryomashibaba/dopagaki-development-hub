@@ -60,6 +60,7 @@ import {g4e7anSkyArchipelago,AN_FOCUS} from './p101-w9c2-g4e7an-sky-archipelago.
 import {g4e7bfSkyFracture} from './p101-w9c2-g4e7bf-sky-fracture.mjs';
 import {g4e7bhOpenHorizon} from './p101-w9c2-g4e7bh-open-horizon.mjs';
 import {g4e7biParallaxQuarters} from './p101-w9c2-g4e7bi-parallax-quarters.mjs';
+import {g4e7ciIntegratedStreetscape} from './p101-w9c2-g4e7ci-integrated-streetscape.mjs';
 import {g4e7bjAbyssalStrata} from './p101-w9c2-g4e7bj-abyssal-strata.mjs';
 import {createBKLitScene,renderBKLitScene,releaseBKLitScene} from './p101-w9c2-g4e7bk-lit-glb.mjs';
 import {g4e7aoActualB51Warning} from './p101-w9c2-g4e7ao-b51-approach.mjs';
@@ -191,6 +192,7 @@ const g4e7blRequested=g4e7beRequested&&!g4e7bfRequested&&!g4e7bhRequested&&!g4e7
  const g4e7boRequested=g4e7beRequested&&!g4e7bfRequested&&!g4e7bhRequested&&!g4e7biRequested&&!g4e7bjRequested&&!g4e7bkRequested&&!g4e7blRequested&&!g4e7bmRequested&&!g4e7bnRequested&&new URLSearchParams(window.location.search).get('g4e7bo')==='framed';
  const g4e7bgRequested=g4e7beRequested&&new URLSearchParams(window.location.search).get('g4e7bg')==='inspect'&&
  new URLSearchParams(window.location.search).get('g4e7bgFrame')==='hold';
+const g4e7ciRequested=g4e7bgRequested&&new URLSearchParams(window.location.search).get('g4e7ci')==='streetscape';
 const g4e7bgRoad=g4e7bgRequested&&new URLSearchParams(window.location.search).get('g4e7bgRoad')==='pinch-switch'?'pinch-switch':'true-pinch';
 const g4e7bgPoint=['t1500','t1700','t1850'].includes(new URLSearchParams(window.location.search).get('g4e7bgPoint'))?
  new URLSearchParams(window.location.search).get('g4e7bgPoint'):'t1850';
@@ -323,7 +325,7 @@ const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,g4dSkywayMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
-let g4e7bgShot=null;
+let g4e7bgShot=null,g4e7ciMesh=null;
 let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7afMesh=null,g4e7agMesh=null,g4e7amMesh=null,g4e7anMesh=null,g4e7bfMesh=null,g4e7bhMesh=null,g4e7biMesh=null,g4e7bjMesh=null,g4e7bkScene=null,g4e7blScene=null,g4e7bmScene=null,g4e7bnScene=null,g4e7boScene=null,g4e7aoMesh=null,g4e7adShot=null,g4e7adActive=false,g4e7aiShot=null,g4e7aiActive=false,g4e7akShot=null,g4e7akActive=false;
 let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null,g4e7alTrial=null,g4e7alPanel=null,g4e7alResultDownload=null,g4e7alActive=false;
 let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7qActive=false,g4e7rActive=false,g4e7tActive=false,g4e7vActive=false,g4e7vShot=null,g4e7wActive=false,g4e7wShot=null,g4e7sShot=null,g4e7sTrace=null,g4e7sShardMesh=null,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
@@ -412,7 +414,7 @@ function buildVisual(stage){
   for(const t of fixtureTriangles(f))tri(vertex,t[0],t[1],t[2],color);
  }
  for(let i=0;i<stage.route.length-1;i+=2){push(wire,add(stage.route[i],[0,.3,0]),[.11,.72,.64]);push(wire,add(stage.route[i+1],[0,.3,0]),[.11,.72,.64]);}
- discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7sShardMesh);discard(g4e7adCityMesh);discard(g4e7aeMesh);discard(g4e7afMesh);discard(g4e7agMesh);discard(g4e7amMesh);discard(g4e7anMesh);discard(g4e7bfMesh);discard(g4e7bhMesh);discard(g4e7biMesh);discard(g4e7bjMesh);discard(g4e7aoMesh);discard(g4e7cCueMesh);discard(g4e7xCueMesh);discard(g4e7zCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
+ discard(roads);discard(lines);discard(p100RoadRead);discard(p101B5RoadOptic);discard(a13ArchMesh);discard(a13RoadArtMesh);discard(g4e7kQuietMesh);discard(g4e7pQuietMesh);discard(g4e7lRiftMesh);discard(g4e7lSeamMesh);discard(g4e7sShardMesh);discard(g4e7adCityMesh);discard(g4e7aeMesh);discard(g4e7afMesh);discard(g4e7agMesh);discard(g4e7amMesh);discard(g4e7anMesh);discard(g4e7bfMesh);discard(g4e7bhMesh);discard(g4e7biMesh);discard(g4e7bjMesh);discard(g4e7ciMesh);discard(g4e7aoMesh);discard(g4e7cCueMesh);discard(g4e7xCueMesh);discard(g4e7zCueMesh);discard(g4e7iMesh);discard(w9c1MarkMesh);discard(g5bSceneryMesh);discard(g4dSkywayMesh);discard(flowRoads);discard(shoulderLights);discard(approachBeacons);discard(hazardGateMesh);discard(hazardGateSolidMesh);discard(scenery);discard(megaWorld);
  for(const entry of guideMeshes)discard(entry.mesh);
  guideMeshes=makeMachineMeshes(stage.movingObstacles).map(x=>({id:x.id,mesh:mesh(x.guide)}));
  roads=mesh(vertex);lines=mesh(wire);
@@ -484,6 +486,11 @@ function buildVisual(stage){
   canvas.dataset.g4e7amRiseMeters=String(am.maxRiseMeters);
   canvas.dataset.g4e7amOutboard=String(am.minimumOutboardMeters);
   canvas.dataset.g4e7amNonCollision=String(!am.physicalChanges&&am.extraRoads===0&&am.extraMachines===0);
+  const ci=g4e7ciIntegratedStreetscape(stage,sample,{enabled:g4e7ciRequested});
+  g4e7ciMesh=ci.active?mesh(ci.vertices):null;
+  canvas.dataset.g4e7ciScene=ci.active?'INTEGRATED_PRIVATE_HOLD':'off';
+  canvas.dataset.g4e7ciTriangles=String(ci.triangles);
+  canvas.dataset.g4e7ciPhysicsUntouched=String(!ci.physicalChanged&&ci.newColliders===0&&ci.newRoads===0&&ci.newMovingHazards===0);
   const bj=g4e7bjAbyssalStrata(stage,sample,{enabled:g4e7bjRequested});
   g4e7bjMesh=bj.active?mesh(bj.vertices):null;
   canvas.dataset.g4e7bjScene=bj.active?'abyssal-strata':'off';
@@ -847,6 +854,8 @@ function render(frameSeconds){
   // BK: real GLB2 mesh with normals, six materials and isolated lighting.
   // This replaces ALL rejected scaffold scenery, not layered over it.
   renderBKLitScene(gl,g4e7bkScene,view,w/h,{fogStrength:visibilityFx?1:0});
+ }else if(g4e7ciRequested){
+  draw(g4e7ciMesh);
  }else if(g4e7bjRequested){
   // BJ: populated three-dimensional city cliffs along BELOW the road horizon;
   // old BF/BH/BI offscreen monuments are NOT stacked with it.
