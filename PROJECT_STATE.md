@@ -1,5 +1,17 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CA — 未来SF複合建築《RIFT EXCHANGE》実3D R1/R2・6視点比較（2026-10-25 JST）
+
+**最終判断：真正Blender/GLB/CC0素材 TECH PASS、単体の建築美術R2は部分改善により研究ART HOLD、ゲーム用巨大未来SF都市としては明確にART REJECT。B48実カメラ・人間試走ともNOT TESTED/HOLD。正式Slope2認定0m。公開、PR Ready、merge 全禁止。**
+
+- **開始点**：BZ-R2で原本147部品の3mグリッド組み立ては可能となったが、見た目は茶系集合住宅で巨大未来都市に遠い。単なる別の低ポリ街区や箱の大量複製は止め、50〜60m程度の都市公共交通を兼ねる非対称1建築《RIFT EXCHANGE》を新規に**独立Blender美術研究**。左右の実床・支持柱、内部公共吹抜け/昇降路、3連絡橋、1高架交通、ガラス面、厚い上昇屋根をモデル化。ただし施工・物理道路は一切作っていない。編集可能ソース：[CAオリジナルBlender Python](scripts/p101-w9c2-g4e7ca-rift-exchange-architecture.py)。
+- **権利を検証したPBR**：Poly Haven公式CC0の[Concrete Tile Facade](https://polyhaven.com/a/concrete_tile_facade)と[Blue Metal Plate](https://polyhaven.com/a/blue_metal_plate)を公式APIから1K Diffuse/Roughness 4枚取得しSHA256と原本配布URLを記録。[真正編集可能BLEND・GLB・6 Cycles画角・PBR根拠・SHA256](artifacts/private/g4e7ca-rift-exchange)。配布元API利用表記は「Powered by Poly Haven」。幾何形状はOpenAIによるBlenderスクリプト造形であり、手モデリング/人間制作品とは主張しない。
+- **R1制作**：まず屋根と大幅に開いた床だけで構成され、真正画像では窓ガラスが床外周から浮いている、室内が暗い、広いデッキが未完成に見えるなどが判明。**R1 ART REJECT**。初回 CI #40184941581 は6真正Cycles・GLB生成まで完了したが、短い有効JSONを「2000バイト未満＝欠落」と誤判断して失敗。改行修復も含め正規[CI #40185335466](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40185335466) SUCCESS。R1原版の画像/モデルはコミット `792d35103632af16c2cb39f3f9e33f55f0ba9bf4` で保存。**失敗したCIをPASSと偽装しない**。
+- **R2修正**：中心の直方体を増やすのではなく、左右の実床に取り付く曲面沿いの連続側面ガラス、前方ガラス、階間の荷重/雨仕舞い帯、構造と接続する立体日除けを作り直した。上昇屋根の帯も厚く幅を持たせ、前版と同じ6視点で真正画像化。[R2真正CI #40186265646](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40186265646) **SUCCESS**。R2保管コミット `b045b0b8cb04746eff1d9100bc816a7a2bc0f7af`、保存済みJSONでは10階床プレート・3連絡橋・高架交通1・ガラス外面88・支持部材59。**数は技術確認用に限定し、美術/使用可否の代理にしない**。
+- **[R1/R2 固定画角の真正Blender画像比較（PR #46）](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46#issuecomment-6396782288)**：R2のOBLIQUE/AERIALでは、空中に孤立していたガラス板の多くが連続した建築外面になり、一棟としてのまとまりは確かに前進。しかしSTREET_APPROACH / STREET_LEFT / ENTRANCEでは道路両側が暗い大面に見え、走る先の都市密度・人間活動・外装意匠の豊かさ・長距離の街路/交通接続がまだ著しく不足。巨大な上昇弧も高度な未来建築というよりシンプルな装飾弧の印象が残り、背面は未完成な階層。スタジオで見える改善は実際のプレイヤー視界のPASSではない。**R2でも商品級の巨大SF都市はART REJECT**。研究建築単位の連続性のみART HOLD。
+- **効率上の反省・停止条件**：外見を同じ薄い板/輪/梁/窓で部分修正するR3反復を**原則停止**。Blenderに大量のCube/Curveを追加する工程数では品質が上がらない。より高品質な**人が設計した建築の本体メッシュ、意図的に仕上げた現代建築の外装と生活空間、または本格的な直接編集型の美術制作手法**を調査/検証し、**最初から低いゲーム進行方向のカメラ構図**と対応させる。外部アセットの権利確認、編集可能な真正3D、複数方向の同一条件比較は引き続き必須。近景で建築/都市が美術的に成立しない間は100〜150m街路の大量生成、500〜800m B48 Phase C PRIVATE統合、正式コース昇格をしない。実ゲームの正規240Hz/WebGL視認性と人間のプレイ体験は後で別々に審査。
+- **永久保護**：このCAはPRIVATE Studio ART-ONLY、元のBW/BX/BY/BZ資産とB48実道路7・B51-C実動体28・gap52・正規240Hz・操作/速度/カメラ/自然跳躍を一切不変更。main、Gold、原作Slope再現、両本番サイトも不変更。Draft PR #46はOPEN/Draft/未マージ。正式Slope2認定0m、ART/人間QA/PUBLISH/READY/MERGEすべてHOLD/REJECT。Workは利用していない。**別チャットへの長文引き継ぎ再作成不要。次回も現行GitHub HEADを再取得すること。**
+
 ## G4E-7BZ — 3m原本モジュール組立・21m建築マイクロスライス R1/R2 真正5視点審査（2026-10-25 JST）
 
 **確定判定：REAL CC0/Blender/GLB技術PASS／21m単体の建築的連続性はR2で改善・研究ART HOLD／有料インディー級の巨大未来SF都市としてART REJECT／B48真正240Hzゲームカメラ未実施／人間実試走HOLD／正式Slope2認定0m／公開・READY・MERGE禁止。**
