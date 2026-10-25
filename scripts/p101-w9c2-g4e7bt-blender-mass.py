@@ -255,6 +255,14 @@ views=[
 camera('Hero review camera',*views[0][1:])
 blend=os.path.join(out,'G4E7BT_INHABITED_TIDAL_FOLD_SOURCE.blend')
 bpy.ops.wm.save_as_mainfile(filepath=blend)
+# Render first: Blender 4.0.2/Linux crashes in Cycles BVH if its original
+# generated/packed texture data are passed through the GLB exporter first.
+# This is a testable crash-isolation change, not yet proven root causality.
+for name,position,target,lens in views:
+    camera('Review '+name,position,target,lens)
+    scene.render.filepath=os.path.join(out,'G4E7BT_'+name+'_REAL_BLENDER_RENDER.png')
+    bpy.ops.render.render(write_still=True)
+# Binary export is independent of the studio cameras/render result.
 bpy.ops.object.select_all(action='DESELECT')
 for ob in scene.objects:
     if ob.type=='MESH' and not ob.get('exclude_glb',False):ob.select_set(True)
@@ -263,10 +271,6 @@ glb=os.path.join(out,'G4E7BT_INHABITED_TIDAL_FOLD_ART_ONLY.glb')
 bpy.ops.export_scene.gltf(filepath=glb,export_format='GLB',
                           use_selection=True,export_yup=True)
 bpy.ops.object.select_all(action='DESELECT')
-for name,position,target,lens in views:
-    camera('Review '+name,position,target,lens)
-    scene.render.filepath=os.path.join(out,'G4E7BT_'+name+'_REAL_BLENDER_RENDER.png')
-    bpy.ops.render.render(write_still=True)
 report={
  'schema':'dopagaki-g4e7bt-original-blender-art-study-v1',
  'authorship':'SCRIPTED_BPY_MODELLING_NOT_HAND_SCULPTED',
