@@ -1,4 +1,4 @@
-name: G4E-7BS deliver original Blender visuals for independent art review
+name: G4E-7BS compare original Blender BR and BT genuine four-view images (HOLD)
 on:
   push:
     branches: [p101-velocity-overdrive-native-trial]
@@ -8,38 +8,47 @@ on:
 permissions:
   contents: read
 jobs:
-  export-preserved-original-art-assets:
+  independent-art-review-transport:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Verify originals were produced by native Blender renderer and SHA manifest
+      - name: Verify both original native Blender sources and SHA-256 images
         run: |
           set -eu
-          d=artifacts/private/g4e7br-fractured-tide-citadel
-          test -s "$d/G4E7BR_FRACTURED_TIDE_CITADEL_SOURCE.blend"
-          test -s "$d/G4E7BR_FRACTURED_TIDE_CITADEL_ART_ONLY.glb"
-          test -s "$d/SHA256_ART_HOLD_MANIFEST.json"
-          for p in OBLIQUE FRONT AERIAL SIDE; do test -s "$d/G4E7BR_${p}_REAL_BLENDER_RENDER.png"; done
-          node --input-type=module <<'JS'
-          import fs from 'node:fs';import crypto from 'node:crypto';import path from 'node:path';
-          const d='artifacts/private/g4e7br-fractured-tide-citadel';
-          const m=JSON.parse(fs.readFileSync(path.join(d,'SHA256_ART_HOLD_MANIFEST.json')));
-          if(m.source!=='ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY'||m.humanArtApproval!=='HOLD'||m.publication!=='FORBIDDEN')
-            throw Error('Unverified Blender proof state');
-          for(const f of m.files){
-            const b=fs.readFileSync(path.join(d,f.file)),hex=crypto.createHash('sha256').update(b).digest('hex');
-            if(hex!==f.sha256||b.length!==f.bytes)throw Error('Modified GLB/render: '+f.file);
+          for x in g4e7br-fractured-tide-citadel g4e7bt-inhabited-tidal-fold; do
+            d="artifacts/private/$x"
+            test -s "$d/SHA256_ART_HOLD_MANIFEST.json"
+            node --input-type=module - "$d" <<'JS'
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          import path from 'node:path';
+          const d=process.argv[2];
+          const manifest=JSON.parse(fs.readFileSync(path.join(d,'SHA256_ART_HOLD_MANIFEST.json')));
+          if(manifest.source!=='ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY' ||
+             manifest.humanArtApproval!=='HOLD' || manifest.publication!=='FORBIDDEN')
+             throw Error('An archive is not original native Blender ART HOLD: '+d);
+          for (const f of manifest.files){
+            const b=fs.readFileSync(path.join(d,f.file));
+            const digest=crypto.createHash('sha256').update(b).digest('hex');
+            if (f.bytes!==b.length || f.sha256!==digest)
+              throw Error('Corrupt original art archive '+path.join(d,f.file));
           }
-          console.log('REAL_BLENDER_ASSETS_VERIFIED_SHA256',m.files.length);
+          const p=d.includes('g4e7br')?'G4E7BR':'G4E7BT';
+          for(const camera of ['OBLIQUE','FRONT','SIDE','AERIAL']){
+            if(!fs.statSync(path.join(d,p+'_'+camera+'_REAL_BLENDER_RENDER.png')).size)
+              throw Error('Missing real native Cycles render '+camera);
+          }
+          console.log('INDEPENDENT_4_VIEW_REVIEW_ORIGINALS_VALIDATED_NOT_ART_PASS',d,manifest.files.length);
           JS
+          done
       - uses: actions/upload-artifact@v4
         with:
-          name: g4e7br-FOUR-REAL-BLENDER-ART-VIEWS-HOLD
+          name: g4e7br-vs-bt-eight-original-blender-views-ART-HOLD
           path: |
             artifacts/private/g4e7br-fractured-tide-citadel/G4E7BR_*_REAL_BLENDER_RENDER.png
-            artifacts/private/g4e7br-fractured-tide-citadel/G4E7BR_FRACTURED_TIDE_CITADEL_ART_ONLY.glb
-            artifacts/private/g4e7br-fractured-tide-citadel/G4E7BR_BP_ADMISSION.json
+            artifacts/private/g4e7bt-inhabited-tidal-fold/G4E7BT_*_REAL_BLENDER_RENDER.png
             artifacts/private/g4e7br-fractured-tide-citadel/SHA256_ART_HOLD_MANIFEST.json
+            artifacts/private/g4e7bt-inhabited-tidal-fold/SHA256_ART_HOLD_MANIFEST.json
           if-no-files-found: error
           retention-days: 14
