@@ -36,7 +36,7 @@ BC rollDeck（直近の最良だが未採用実道路、第2道路最後の実�
 
 **[初回BE本物のChromium検査CI #40148317936](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40148317936) はジョブSUCCESS。** Unit 2/2 PASS、PRIVATE BC 2生成PASS、Chrome/SwiftShader WebGLで明示ゲート・BC A/D・両道路切替・JSONダウンロードを実ブラウザで実行、public/public-safe両ビルド（BE環境変数が有効でも）BC候補JSON混入ゼロ確認PASS。自動写真2条件＋計測ログは同Actions artifact #12582505058に保存。ただし2番目のChromeテストは**初回1失敗、再試行でPASSのFLAKY**であったため無条件のクリーン合格とはしない。
 
-原因の候補は、2道路目への`load()`が非同期中なのにテストが前道路のmodeフラグだけを読んで入力したこと。修正コミットではcanvasに実ロード済みBC実道路IDを追加し、2道路目の実ロードIDとmanual準備完了が両方成立するまで操作を待つ。[修正再検証CI #40148567626](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40148567626) は確認時点キュー待ち。**修正CIが成功し、かつ再試行がゼロであることを追加の合格条件**とする。
+原因の候補は、2道路目への`load()`が非同期中なのにテストが前道路のmodeフラグだけを読んで入力したこと。修正コミットではcanvasに実ロード済みBC実道路IDを追加し、2道路目の実ロードIDとmanual準備完了が両方成立するまで操作を待つ。[修正再検証CI #40148567626](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40148567626) **SUCCESS／Chrome 2/2テストを再試行ゼロでPASS**。実ロード済みBC道路IDを照合してから2条件目を操作し、ロード前入力の競合を除去。正規PRIVATE実路面生成・公開／public-safe隔離も再度PASS。手動人間プレイと美術品質はHOLD。
 
 BEは本番公開も正式コース採用もしていない。テストによるWebGL起動確認と、人間が遊んで見やすい・楽しい・公平かの評価を厳格に区別する。実機手動、人間QA、都市造形の美術審査は未実施、**正式Slope2=0m、Human=HOLD、Art=HOLD、Publish/PR Ready/Merge=HOLD**。次工程は実機A/D＋画面/JSONを得るか、手元のprivate Chromiumフレームを検証して視認性・曲率・遠景の箱問題を具体的に直す。BE詳細：[監査](docs/W9C2_G4E7BE_BC_PRIVATE_MANUAL_HOLD_JA.md)。
 
