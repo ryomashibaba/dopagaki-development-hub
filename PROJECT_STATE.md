@@ -1,10 +1,14 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
-## G4E-7CH — 著作者制作の近景街路GLBを元240Hzカメラで実WebGL比較（2026-10-26 JST）
 
-前工程の遠景モデルが画素不足で主役級REJECTとなったため、今度は街路の奥行きと建築外装の連続性を先に見る。無登録で取得できる[Neon Zenith](https://github.com/billpwchan/neon-zenith)内の作者制作Temple Street単一区画GLB（上流commit 27ad04ef04aa9e1e1366fccc63e15a379b999f01、8,040,396 bytes、git blob 92e2ed214034c9cd7bed5248991924d3af9a6d24）を実物検査対象とする。
-ただしモデルの再配布はせず、元テクスチャを除去した真のChromium WebGL12画角による単独シルエット調査のみ。ライセンスはコードMIT/著作者3D CC BY4.0を区別する。出典・方法：[G4E7CH調査](docs/G4E7CH_NEON_DISTRICT_STREET_QA_JA.md)。CI結果が出るまではTECH PASSを主張しない。実ゲームWebGL/HUMAN/ART/READY/MERGE/PUBLISH HOLD。元物理・カメラ・A13/main/Gold・本番は不変更、正式Slope2 0m、PR#46 Draft。Work未使用。
+## G4E-7CH — 原本街路GLB真正12WebGL画像によるSILHOUETTE審査（2026-10-26 JST）
 
+**技術：PASS / 対象単独街路の主役級ゲームシルエット：HOLD（この2配置では不合格）/ 本番ゲーム画質：未検証。** [専用CI #40234897063](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40234897063) SUCCESS。真正上流8,040,396byte／Git blob SHA 92e2ed214034c9cd7bed5248991924d3af9a6d24を照合したうえで、MeshoptDecoderを使いglTFから**192描画メッシュ**を読込。元BGの真240Hz起点から得た6つの脚本カメラ×100m/240mの2提案配置の12枚の真正Chromium WebGL2画像と画素JSONを保存。[7日保持の画像とJSON](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40234897063/artifacts/12614657186)。原本SHA256 f59104c101642527b0e15db64820c4584f41e465b1fa019ee8a52b520de1c660。原モデル・元テクスチャはDOPAGAKI GitHubに保存せず、独立無地材質のみ。
+
+- 実WebGL **ピクセル差分**：100m 6視点0.01082〜0.35086（中央値**2.8035%**）、240m 0.00628〜0.03905（中央値**1.064%**）。100mのtrue-pinch18.5sで17.774%、pinch-switch18.5sで35.086%。元G4E-7CGの200m中央値1.4305%から画角上の改善例が存在。ただし**距離・モデル・画角をそろえた公平な美術品質比較ではない**。また15sでは両配置とも約1%以下で、視界での存在感は強く変動。
+- 12枚を目視：**二列の角張った高層/住宅ブロック、真正都市として連続した近中遠景・道路接続・看板/店舗・生活感はこの元材質なしの画角では成立していない。** 100mで大きく映る最終18.5sは屋根/壁の広面積が支配的で、旧G4E-7CG同様、画素面積を美術合格と誤認できない。**このモデル1件をその2仮配置で主役級の未来都市へ昇格させる案はSILHOUETTE HOLD/REJECT**。ただし素材から外された実PBRやNeon Zenith全都市レンダリングの美術品質まで否定しない。
+- **品質・効率の方針転換**：単体GLBの探し直しで工程を費やし続けない。成功事例の本質は**元作者造形の近景街路＋適切な中景ファサード＋遠景の変化に富んだ都市質量＋照明・霧・道路方向の統合**。この方法を現在のDOPAGAKI本来のB48道路／カメラへART-FIRSTで合わせて評価する。プロシージャルでも「単純箱を大量複製して街に見せかける」方式だけ禁止、技法そのものを禁止しない。G4E-7CIでは最初から真正ゲーム画面の一つの短い垂直スライスの美術目標・権利経路・独立QAを具体化。適切な素材権利を解決する前のゲーム統合・公開は禁止。
+- **保護**：B48×7/B51-C×28/gap52/240Hz、速度/操舵/自然ジャンプ/元カメラ、A13 40%・細道10〜16m、main/Gold/原作Slope再現/本番2サイト不変更。正式Slope2 0m、ART/HUMAN/PUBLISH/READY/MERGE HOLD。PR #46 OPEN/Draft未マージ、Work未使用。[検証詳細](docs/G4E7CH_NEON_DISTRICT_STREET_QA_JA.md)。
 
 ## G4E-7CG — 12真正WebGL画素を目視審査：主役都市としてのシルエット不合格（2026-10-25 JST）
 

@@ -11,3 +11,9 @@
 - 不採用なら箱の大量増殖や薄板・柱の再制作に戻らない。モデル単体の画素占有は都市景観美術の十分条件ではない。
 
 維持：元240Hz B48道路7/B51-C動体28/gap52、速度/操舵/自然ジャンプ/カメラ、A13、main/Gold/原作Slope再現、本番2サイト不変更。正式Slope2 0m。Draft PR #46未マージ、ART/HUMAN/READY/PUBLISH/MERGE HOLD。Work不使用。
+## 実行済み真正WebGL2の12画像判定（2026-10-26 JST）
+
+- [CI #40234897063](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40234897063) は原本バイナリ取得とGit blob検査・Meshopt glTF読込・12枚の本物のChromium WebGL2をSUCCESS。192描画メッシュ。SHA256 f59104c101642527b0e15db64820c4584f41e465b1fa019ee8a52b520de1c660。
+- [画素レポートと12枚の元PNG](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40234897063/artifacts/12614657186)は7日保存。100m実ピクセル変化率6視点1.082～35.086%（中央値2.8035%）、240mは0.628～3.905%（中央値1.064%）。それはモデルによって色が変わった画素の割合であり、画質・シルエット魅力度・運転中の障害物視認性の十分条件ではない。
+- 目視：15sでは両距離とも遠くの細長い街区、18.5sでは100m配置の大きな角柱/屋上が画面前景を占める。精細な独立の都市大景観、中央道路への繋がりや人間の生活感を表現できていない。**このモデル単独・この2配置は主役級都市のSILHOUETTE REJECT/HOLD。** 著作者モデルの元PBR・照明・都市全体構成の評価はこの試験の対象外。
+- G4E-7CIは素材1本探しを繰り返さず、元ゲーム道路に直結する近景・中景・遠景を設計統合する方式へ研究重点を移す。既存QAで落とした単純箱/薄板/梁の大量配置を再開しない。権利・元モデル再配布・Game WebGL/ART/HUMAN/READY/PUBLISH/MERGEはHOLD。
