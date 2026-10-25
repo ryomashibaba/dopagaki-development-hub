@@ -198,7 +198,7 @@ def tower(name,cx,cy,z0,height,rx,ry,sides,lean_x,lean_y,twist):
                           z0+height*t))
     for k in range(levels):
         for j in range(sides):
-            n=sides*k+j,nn=sides*k+(j+1)%sides
+            n=sides*k+j;nn=sides*k+(j+1)%sides
             faces.append((n,nn,nn+sides,n+sides))
             mids.append(3 if k%6==0 else (4 if j%4 else 0))
     faces.append(tuple(sides*levels+j for j in range(sides)));mids.append(1)
