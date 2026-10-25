@@ -1,5 +1,18 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7BZ — 3m原本モジュール組立・21m建築マイクロスライス R1/R2 真正5視点審査（2026-10-25 JST）
+
+**確定判定：REAL CC0/Blender/GLB技術PASS／21m単体の建築的連続性はR2で改善・研究ART HOLD／有料インディー級の巨大未来SF都市としてART REJECT／B48真正240Hzゲームカメラ未実施／人間実試走HOLD／正式Slope2認定0m／公開・READY・MERGE禁止。**
+
+- **根本原因の発見**：BYで取り込んだ[Poly Haven公式の住宅ファサード素材](https://polyhaven.com/a/modular_urban_apartments_facade)は完成した建物ではなく、実際には部品を横並びにした**147メッシュのモジュールカタログ**。これをそのまま拡大配置して都市に見せかける方法は成立しない。BW/BX/BYをさらに量産せず、最初に原本部品を実際の壁・窓・扉へ組み立てる方式に転換。
+- **本物の原本調査**：[元部品の真正Blender 2画像・寸法/マテリアル台帳・原本PBR](artifacts/private/g4e7bz-facade-lab)を作成。[元部品の検査CI #40181970715](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40181970715) SUCCESS。住宅キット147メッシュ、元の幅51.53m×奥行6.665m×高さ17mという数値はキット展開の外接寸法であり、一棟の建築寸法とは違う。3m幅の壁・独立窓・扉・柱・軒飾り等をオリジナルCC0の真正ジオメトリ/PBRのまま利用。[元部品検査ソース](scripts/p101-w9c2-g4e7bz-real-facade-study.py)。
+- **実制作**：[組立Blenderソース](scripts/p101-w9c2-g4e7bz-assemble-inhabited-facade.py)で21m×4層の《TIDAL PORTICO》住宅/公共入口試験を独立制作。真正な3mモジュールを実際に248枚程度ではなく**247個**組み立て、窓60カ所、出入口3カ所、内部床8スラブ、階段/歩行者接続4をモデル化。これはコンポーネント数の技術記録であって、室内歩行可能性や映像品質を証明しない。元BYの都市・物理本体は全く編集せず、一建築単位のスタジオ検査。
+- **初版R1**：[制作CI #40182523342](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40182523342) SUCCESS、編集可能.blend・GLB・真正Cycles 5視点を保存。しかし真正画像では階間に広い黒い水平空洞、入口が閉じたまま、屋根や周辺が無表情で、建築美術HOLD。**R1を完成品と扱わない**。旧コミット `23afb00a9bf05677f6bfbf901fb55999ed8f6786` で証拠復元可能。
+- **R2 修正**：元3m高さパネルの上下にできる約1mの水平欠落を専用の厚みある構造・外装帯で接続、中央実3m開口に少し開いたガラス戸＋支持庇＋奥のロビー照明を設け、模型的なスタジオ人型マーカーを削除し実人間アイレベルの全体構図も改善。初回 [CI #40183144814](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40183144814) はR2の真正5レンダリング・GLBまで完走後、`UNJUDGED_R2` と `UNJUDGED` の**メタデータ表記不一致**のみで失敗。表記を整合させた最終[CI #40183179370](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40183179370) **SUCCESS**。最終[編集可能Blender・本物のGLB・真正5視点＋SHA256](artifacts/private/g4e7bz-facade-lab)を保存。BlenderソースにはPBR画像をpackしている。初版とR2の真正画像は[PR #46の安定SHA付き画像比較コメント](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46#issuecomment-6396382250)から閲覧。
+- **R2の本当の美術結論**：視点をそろえて目視し、階間の黒い隙間が構造帯になり建築の上下連続性が改善、中央入口も近景で見えるようになった。一方で繰り返す窓、普通の茶系集合住宅の意匠、薄いバルコニー、屋上の平板、弱い内部生活感、交通の孤立、周囲の未来都市・近中遠景が依然不在。**「建築部品の扱い」の技術検証としては価値があるが、近未来/巨大都市/ゲーム美術としてART REJECT。単体実建築の美術研究としてはHOLD。** 500〜800m統合や100〜150m街区への量産・正式道路上の表示を進めない。
+- **次の制作・撤退ゲート**：この茶色い住宅ファサードを多数コピーして巨大都市を作るのは禁止。原本組立の技術は再利用しつつ、**適正ライセンスのモダン／未来SFに見える建築PBR/メッシュ部材**を別途実際に確認して、建築一単位の入口・人間の生活/交通・荷重支持・精密な外装を本当に目視で成立させる。形が成立するまで1kmの大量装飾へ戻らない。美術ゲート後にのみ代表する走行方向の100〜150m連続街区、次いでB48実道路の500〜800m PRIVATE統合を考える。正規240Hz/WebGL元カメラ・人間による高速プレイの視認性と面白さは依然未証明。Workは使わずChat＋GitHub、既存の工程表とQA分類を保持。
+- **既存ゲームの保護・引き継ぎ**：B48実道路7・B51-C実動体28・gap52・240Hz・速度/操舵/自然跳躍/カメラ・main・Gold・本番2サイト・原作Slope再現は一切変更していない。PR #46 OPEN/DRAFT未マージ。正式Slope2=0m。Human/PUBLISH/READY/MERGE=HOLD。新チャットもこの固定URLと実HEADを最初に照合。日次引き継ぎ全文の作り直しは不要。
+
 ## G4E-7BY — 高精細CC0ファサード＋都市交通を試した真正Blender7視点 / 美術REJECT（2026-10-25 JST）
 
 **結論：TRUE BLENDER/CC0 ORIGINAL FILE TECH PASS／ART REJECT（BXより後退）／AUTHENTIC GAME CAMERA NOT RUN／HUMAN HOLD／PUBLICATION FORBIDDEN。** 本節は画像を本当に目視した後の結果。工程増加そのものを進歩と扱わない。
