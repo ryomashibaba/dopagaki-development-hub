@@ -176,24 +176,28 @@ for index,path in enumerate(sources):
     for placement,(px,py,pz) in enumerate(
           ([(-105,125,14),(106,445,16)] if index==0
           else [(108,235,7),(-151,733,11)])):
-        anchor=bpy.data.objects.new('Source-original imported PBR facade anchor',None)
+        anchor=bpy.data.objects.new('Poly Haven physically sized facade placement',None)
         scene.collection.objects.link(anchor)
         anchor.location=Vector((px,py,pz))-origin
-        for original in roots:
-            copy=original.copy()
-            # Blender collection instance avoids destructive re-authoring.
-            # Root transforms preserved when linked to a parent empty.
-            if original.type=='MESH':copy.data=original.data
-            scene.collection.objects.link(copy)
-            copy.parent=anchor
-            copy.matrix_parent_inverse=anchor.matrix_world.inverted()
+        copies={}
+        # Copy complete original node hierarchy, materials and local transform.
+        for original in new:
+            dupe=original.copy()
+            if original.type=='MESH':dupe.data=original.data
+            scene.collection.objects.link(dupe)
+            copies[original]=dupe
+        for original,dupe in copies.items():
+            dupe.parent=copies.get(original.parent,anchor)
+            dupe.matrix_parent_inverse=original.matrix_parent_inverse.copy()
+            dupe.matrix_basis=original.matrix_basis.copy()
         imported_register.append(dict(asset=path.parent.name,placement=[px,py,pz],
-                                      bounds=[round(v,3) for v in size]))
-# These complete glTF kits are kept as a library; library originals hidden
-# only in the render, never modified. Rendered instances are native geometry.
-for index,path in enumerate(sources):
-    col=bpy.data.collections.get('Poly Haven CC0 1K '+path.parent.name)
-    if col: col.hide_render=True
+                                      bounds=[round(v,3) for v in size],
+                                      meshes=len(meshes)))
+    # Original importer collection is a model library, not a second city
+    # at origin. Unlink source nodes only after every shared mesh instance.
+    for original in new:
+        bpy.data.objects.remove(original,do_unlink=True)
+    bpy.data.collections.remove(col)
 # Scene-safe architectural sun and global skylight, no fake glossy neon fog.
 sun=bpy.data.lights.new('Urban dusk sun','SUN');sun.energy=1.7
 so=bpy.data.objects.new('Urban dusk sun',sun);scene.collection.objects.link(so)
