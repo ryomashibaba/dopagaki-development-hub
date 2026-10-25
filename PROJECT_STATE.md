@@ -30,6 +30,14 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BK — 本物のGLB2／6素材／法線ライト付き都市アセット基盤へ転換（2026-10-25 JST）
+
+BF〜BJは「生成した建築が見えない」または「見えても色付きの足場/板群にしか見えない」を繰り返した。BJ [CI #40158555150](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40158555150) は技術PASSだが実画像でART REJECT。従来の頂点色単純板・棒を量産する方針を停止。
+
+**BK実装済み**：正規BC rollDeckの2種実道路を基準に、厚みのある層状外殻・巨大空洞・段丘居住層を持つ《HOLLOW CONTINENT》の**実バイナリglTF2 (GLB)**をPRIVATEビルド時だけ生成。6種類の独立素材（金属/セラミック/ガラス/発光窓/エネルギー/下面）、本物の各面3D法線、従来とは別の照明シェーダー（直射/環境/鏡面/発光/霧）で描く。素材付きGLBを生成できることは品質の必要条件の一部にすぎないため**美術合格未判定**。最初のアセットはコード造形であり、Blenderで手彫りしたものと偽らない。後工程で造形品質優先の本格アセット化を進める入口。
+
+PRIVATE `?g4e7al=manual&g4e7be=roll-deck&g4e7bk=lit-glb` のみで旧BF/BH/BI/BJを置き換え、実BG固定240Hz視点/BJ画像との比較を行う。実B48 7/動体B51 28/gap52/旧カメラ/操作/Gold/本番全不変更。専用[CI #40159691780](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40159691780)起動済み・結果確認待ち。実際のGLB形式、公開隔離、実Chromeの写真/操作検証を通してから採否を決める。**正式Slope2=0m、Human QA/Art/Publish/Ready/Merge=HOLD**。[BK設計監査](docs/W9C2_G4E7BK_REAL_GLB_MATERIAL_PRIVATE_HOLD_JA.md)。
+
 ## G4E-7BJ — 巨大SF都市の画面内描画確認／美術案REJECT（2026-10-25 JST）
 
 BIまでの都市が上方向・左右に切れてゲームの実カメラに映らない問題へ、BJでは**道路側方・下方に都市の実質量を配置**。PR #46の現行PRIVATE BC rollDeckを不変更、正規起点00/240Hz・2種実道路・28基の動体とgap52を維持。非衝突GPUの4街区/32開放空間/176都市セル/48断崖底面/6304三角形で、画面内に本当に入るかを実物理カメラ投影テスト化。最終[CI #40158555150](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40158555150) SUCCESS：Native4/4・Chromium4/4再試行0、PRIVATE115・public113・public-safe5、公開にBC/BG実験JSON混入なし。TRUE 18.5秒122.936m/sで実表示面中心728三角形、SWITCH 18.5秒125.796m/sで中心614面。現物[WebGL画像成果物 #12585319182](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40158555150/artifacts/12585319182)。
