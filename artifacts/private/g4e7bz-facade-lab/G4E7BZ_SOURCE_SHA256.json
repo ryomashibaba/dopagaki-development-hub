@@ -1,0 +1,35 @@
+{
+  "technical": "SOURCE_ONLY",
+  "architecturalArt": "UNJUDGED",
+  "human": "HOLD",
+  "gameCamera": "NOT_TESTED",
+  "publish": "FORBIDDEN",
+  "officialSlope2Meters": 0,
+  "files": [
+    {
+      "file": "G4E7BZ_SOURCE_OBLIQUE_TRUE_CYCLES.png",
+      "bytes": 1576737,
+      "sha256": "bd278572e0a0b6405a63f1a63e16fedd538a4b84d989c7e260b3fd5478a3f1a4"
+    },
+    {
+      "file": "G4E7BZ_SOURCE_FRONT_TRUE_CYCLES.png",
+      "bytes": 1432965,
+      "sha256": "9135e6fc404414e888230582d44d2fde0979bdaefb01571d5f60eeb364386e53"
+    },
+    {
+      "file": "G4E7BZ_SOURCE_COMPONENT_INVENTORY.json",
+      "bytes": 184303,
+      "sha256": "247c8dd4f9686c173fd9c460daf7a769435d35deb4403d3ed003e6ccba92956f"
+    },
+    {
+      "file": "G4E7BZ_EXTERNAL_CC0_FILES.json",
+      "bytes": 659,
+      "sha256": "6456046004174b858ccdff183566ebcdddcde3dcc702a156e91961921daf125c"
+    },
+    {
+      "file": "G4E7BZ_SOURCE_INSPECTION_EDITABLE.blend",
+      "bytes": 71317479,
+      "sha256": "632e26b5485cf0707a9df7bfbb5b158b73f167fafd3a880ba442013ca48f7515"
+    }
+  ]
+}
