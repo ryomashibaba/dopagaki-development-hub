@@ -38,6 +38,7 @@ import {generateG4E7AX} from './p101-w9c2-g4e7ax-long-crown.mjs';
 import {generateG4E7AY} from './p101-w9c2-g4e7ay-tangent-bridge.mjs';
 import {generateG4E7BC} from './p101-w9c2-g4e7bc-bank-contour.mjs';
 import {generateBKModel} from './p101-w9c2-g4e7bk-glb-author.mjs';
+import {generateBLModel} from './p101-w9c2-g4e7bl-open-crown-author.mjs';
 import {g4e7bgNativeFrames} from './p101-w9c2-g4e7bg-native-visual-frames.mjs';
 import {generateG4E7AUInspection} from './p101-w9c2-g4e7au-private-inspection.mjs';
 import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
@@ -285,6 +286,15 @@ if(includeStages){
      if(art.meta.triangles<600||art.meta.materialCount!==6)
       throw Error('BK GLB must contain substantial genuine multi-material geometry');
      write('generated/P101_A13_W9C2_G4E7BK_'+road.replace('-','_').toUpperCase()+'_LIT_LOCAL.glb',art.glb);
+    }
+   }
+   // BL real sculpted model, emitted only for the private BC stage.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7BL_VISUAL==='1'){
+    if(process.env.DOPAGAKI_G4E7BE_VISUAL!=='1')throw Error('BL needs PRIVATE BC stage');
+    for(const road of AJ_ROADS){
+     const art=generateBLModel(generateG4E7BC(road,'rollDeck'));
+     if(art.meta.triangles<1200||art.meta.materialCount!==6)throw Error('BL missing modeled geometry');
+     write('generated/P101_A13_W9C2_G4E7BL_'+road.replace('-','_').toUpperCase()+'_CROWN_LOCAL.glb',art.glb);
     }
    }
    // BG PRIVATE-only actual start00 240Hz scripted P96 observation frames.

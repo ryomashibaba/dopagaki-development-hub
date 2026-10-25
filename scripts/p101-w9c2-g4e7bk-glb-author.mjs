@@ -60,7 +60,7 @@ function beam(t,m,a,b,width=2){
  const u=ring(a),v=ring(b);
  for(let i=0;i<4;i++)face(t,m,u[i],u[(i+1)%4],v[(i+1)%4],v[i]);
 }
-function glbFromTriangles(sets,meta){
+export function glbFromTriangles(sets,meta){
  const chunks=[],views=[],accessors=[],primitives=[];let bytes=0,triangles=0;
  const append=(data)=>{
   const aligned=Buffer.alloc(Math.ceil(data.length/4)*4);
