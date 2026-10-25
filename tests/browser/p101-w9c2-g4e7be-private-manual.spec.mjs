@@ -36,6 +36,11 @@ test('BE authentic WebGL Chromium manual BC true/switch A-D control and local JS
  await page.locator('#g4e7alNext').click();
  await expect(stage).toHaveValue('VB-P101-A13-W9C2-G4E7BC-PINCH-SWITCH-ROLLDECK',{timeout:90000});
  await expect(view).toHaveAttribute('data-g4e7be-mode','real-BC-rollDeck-B48-private-manual');
+ // The mode flag can persist from the previous run while async fetch/compile is pending.
+ // Check identity of the ACTUALLY LOADED second physical B48 road, not just SELECT value.
+ await expect(view).toHaveAttribute('data-g4e7be-loaded-road','pinch-switch',{timeout:90000});
+ await expect(view).toHaveAttribute('data-g4e7al-mode','human-keyboard-qa-only');
+ await expect(page.locator('#appStatus')).toContainText('G4E-7BE BC ROLLDECK');
  await page.keyboard.down('ArrowLeft');await page.waitForTimeout(430);await page.keyboard.up('ArrowLeft');
  await view.screenshot({path:info.outputPath('g4e7be-switch-b48-WebGL-not-human.png')});
  await page.locator('#g4e7alNext').click();

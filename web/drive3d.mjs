@@ -480,6 +480,7 @@ function buildVisual(stage){
   canvas.dataset.g4e7axMode=g4e7axRequested&&stage.stageForge?.g4e7axStudy?.id==='long-crown-real-b48'?'real-long-crown-road2-physical':'off';
   canvas.dataset.g4e7ayMode=g4e7ayRequested&&!g4e7beRequested&&stage.stageForge?.g4e7ayStudy?.id==='crown-tangent-bridge'?'real-banked-14m-crown-bridge':'off';
   canvas.dataset.g4e7beMode=g4e7beRequested&&stage.stageForge?.g4e7bcStudy?.id==='bank-grade-contour'?'real-BC-rollDeck-B48-private-manual':'off';
+  canvas.dataset.g4e7beLoadedRoad=g4e7beRequested?stage.stageForge?.g4e7bcStudy?.road||'invalid':'off';
   canvas.dataset.g4e7avGrade=g4e7avRequested?g4e7avGrade:'off';
   canvas.dataset.g4e7auMode=g4e7auRequested&&stage.stageForge?.g4e7auStudy?.id==='road2-inspect'?'second-b48-native-manual-inspection-not-start00':'off';
   canvas.dataset.g4e7aoMode=ao.active?'real-b51-approach':'off';
