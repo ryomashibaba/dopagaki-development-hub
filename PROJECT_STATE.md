@@ -1,5 +1,17 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CB — 初めて「見えているだけ」を落とす実240HzカメラGLB事前審査 / TECH PASS（2026-10-25 JST）
+
+**最新結論：新美術の合格・新道路の完成ではない。低コストのGLB受入/フレーム占有診断 TECH PASS。CA-R2の未来都市美術ART REJECTは維持、WebGL実描画・人間試走は未実施/HOLD、正式Slope2 0m、公開/READY/マージ禁止。**
+
+- **過去の失敗からの工程転換**：BX=低ポリ模型市街、BY=高級CC0部品を箱に4個貼るだけ、BZ=普通の茶系集合住宅、CA=内部/ガラスと曲面に改善はあるが、低い高速カメラでは依然暗い面・都市の広がり不足。これ以上低価値な新箱/薄板/小修正＋長時間Blender CIを量産することを中止。新建築前に**実際の車載/ボール追尾カメラで見えるかをチェック**する。
+- **既存の実際の物理カメラを再利用**：[G4E-7BG開始地点00からの正規240Hz/P96スクリプト軌道](scripts/p101-w9c2-g4e7bg-native-visual-frames.mjs)はB48実道路7/B51-C動体28/元gap52でtrue-pinch / pinch-switch の各15s/17s/18.5s＝**6視点**を固定。本物のゲームカメラの位置・方向・速度103〜126m/sを流用するが、**Playwrightの実描画画像ではない**、また人間操舵・遊びやすさを保証しない。
+- **実装**：[G4E-7CB GLB native preflight](scripts/p101-w9c2-g4e7cb-native-asset-preflight.mjs)、[負例固定テスト](tests/p101-w9c2-g4e7cb-native-asset-preflight.test.mjs)。GLB 2.0実シーンノードのTRS/親子変換を含む世界座標AABB各8角を取り、既存BGの真正240Hzカメラに投影。画面内頂点率だけではなく**横幅・縦幅・外接面積・道路中央付近の角点・130m以内**を別々に診断。いずれも美術、実画素、閉塞率、当たり判定の承認根拠とはしない。外部ダウンロード、Blender、Playwright、実ゲーム修正不要の軽量Node試験。
+- **実測/失敗の再現**：既存のART REJECT済[CA-R2 GLB](artifacts/private/g4e7ca-rift-exchange/G4E7CA_RIFT_EXCHANGE_ART_ONLY.glb)を意図的な負例とし、18.5秒true-pinchカメラ前方660m・視界左側の仮位置で6視点に投影。実モデル893メッシュインスタンス/7144 AABB角点、実GLB外接幅71.3268m・高さ59.6339m・奥行81.4m（Z-upではなく**glTF Y-up**）。**6/6視点で全AABB角点が画面内**でも、フレーム横幅占有わずか **3.79〜4.93%**、画面面積の外接矩形も **0.18〜0.33%**。つまり「100%画面内」に騙される従来判定は全く不十分。4つの診断フラグ、TINY 12%未満、2.5%未満の占有、頂点率偽陽性、路面領域への潜在干渉を出す。**あくまで一つの仮配置であり、CAの最適配置や実描画の実証ではない。**
+- **QA証拠**：[再利用のBP intake GitHub CI #40189100352](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40189100352) **SUCCESS**。既存の軽量ワークフロー[artist GLB intake](.github/workflows/p101-w9c2-g4e7bp-artist-intake.yml)にCBを接続して新ワークフローなし。実行アーティファクト `g4e7cb-real240hz-camera-preflight-NOT-art-acceptance` に数値JSON保存。親ノード変換、回転、改ざん240Hz、実CA GLBと再現性を自動テスト。パフォーマンス指標/画面内率が高くてもART PASS禁止。
+- **次の実制作ゲート**：新しい巨大都市モデルを機械的に何十回も生成しない。実際に建築的完成度が高く、出典と利用可能範囲が確認できる**本格的な人間制作3Dの一単位**（あるいは直接DCCで十分に完成させたもの）を選び、まずCBで実ゲーム視点の大きさ・位置・道路中央干渉の疑いを調べる。小さすぎれば高価なCycles撮影前に不採択。幾何の目安に通れば**元240Hzカメラでの真正WebGLスクリーンショットと人間による美術審査**、そこからのみ近・中・遠景を持つ100〜150m単一区間へ進む。作品全体の見た目だけでなく近景での細密さ、交通/公共生活、実路面への接続を確認。Poly Havenは素材/部品、QuaterniusのStylizedは補助候補であり、高品質な主要建築と取り違えない。Blender Studio Charge等の映画向けデータはライセンスとリアルタイム利用可否の個別確認なしにゲームへ取り込まない。
+- **保護と効率**：元240Hz B48×7/B51-C×28/gap52/操作/速度/カメラ、main・Gold・原作Slope・本番2サイト不変更。CBはPrivate・READ-ONLYでエンジンに統合しない。既存スクリプト・CIの再利用で重複管理を避ける。Draft PR #46 OPEN/未マージ。正式Slope2=0m／ART HOLD・HUMAN HOLD・PUBLISH/READY/MERGE FORBIDDEN。Chat＋GitHubのみ、Work未使用。次回も最新HEADを再確認。
+
 ## G4E-7CA — 未来SF複合建築《RIFT EXCHANGE》実3D R1/R2・6視点比較（2026-10-25 JST）
 
 **最終判断：真正Blender/GLB/CC0素材 TECH PASS、単体の建築美術R2は部分改善により研究ART HOLD、ゲーム用巨大未来SF都市としては明確にART REJECT。B48実カメラ・人間試走ともNOT TESTED/HOLD。正式Slope2認定0m。公開、PR Ready、merge 全禁止。**
