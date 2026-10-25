@@ -1,5 +1,9 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CJ — 実ゲーム画像の同一カメラ保証＋6画面ペアの実画素計測（2026-10-26 JST）
+
+G4E-7CIのTRUE GAME WebGL CI #40236394164がqueuedで未実行、画像は未取得。このまま美術採用へ進まない。GH Actionsは確認時点で34件queued・4件in_progress、混雑による証拠取得遅れを別途記録。12枚のBASELINE/新案を撮影するとき、**撮影時刻・BG240Hz由来の速度・道路・カメラフレームID・Canvas寸法が同一**であることを自動照合し、**元ゲームCanvas PNGの6ペアそれぞれで実画素差分・道路中央領域の変化率**を追加計測する。小さすぎる/道路中心を覆う視覚変化は警告。検査のTECH成功や変更画素率を美術PASSと混同しない。元物理240Hz/B48×7/B51-C×28/gap52/速度・操舵・自然ジャンプ・カメラ、A13、main/Gold/原作・本番2サイトを変更せず、PR#46 OPEN Draft/未マージ、公式Slope2=0m、ART/HUMAN/PUBLISH/READY/MERGE HOLD。参照：[G4E7CIとCJのレビュー手順](docs/G4E7CI_INTEGRATED_GAME_VSLICE_QA_JA.md)。Work未使用。
+
 ## G4E-7CI — B48真正ゲーム画面に初めて近・中・遠の連続都市をPRIVATE実装（2026-10-26 JST）
 
 **実装済み/審査待ち**。独立3Dの原本探し→本物のゲームWebGLへ移行。新しい`web/p101-w9c2-g4e7ci-integrated-streetscape.mjs`では実BC road2に近景開口店舗/公共庇、中景の段丘状住居・空いた翼間、遠景の非対称稜線を連続配置。B48×7・B51-C×28・gap52・240Hz/操舵/自然ジャンプ/元カメラを凍結し、PRIVATEのみ `g4e7ci=streetscape`。元BG 240Hzの6点×BASELINE/新案を**本物のゲームCanvas WebGL**で同条件比較するCIを実装。**CI実行前にART合格は出さない**。写真/外部3D著作権の導入なし。デフォルトOFF、main/Gold/原作再現/本番2サイト不変更。PR #46 OPEN/Draft/未マージ、正式Slope2 0m、ART/HUMAN/READY/PUBLISH/MERGE HOLD、Work未使用。 [手法・QA](docs/G4E7CI_INTEGRATED_GAME_VSLICE_QA_JA.md)。
