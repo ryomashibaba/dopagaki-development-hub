@@ -1,9 +1,13 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
-## G4E-7CF — GitHub公式GLB実物を元240Hzカメラで事前検査（2026-10-25 JST）
 
-**無登録・直接GitHub正規配布の完成都市GLB「Spectra Cities SourceCityToolkit / Market_Day.glb」を新たな実体テスト候補とする。** 元リポジトリcommit・Git blob・正確な原本バイト数を固定した一度限りの軽量CIを追加、実物を一時取得後に既存CB/BGの真正240Hz 6カメラで5つの仮配置を診断する。コードと実装範囲は [G4E-7CF監査](docs/G4E7CF_SPECTRA_CAMERA_SOURCE_AUDIT_JA.md)。CI結果を読むまで実取得/画面検証PASSは宣言しない。**本家READMEに明示されたtextures.com第三者画像ライセンスの例外を最重要HOLD**にし、GLB原本をPRや公開ゲームに含めない。過去BX/BY/BZ/CAの美術REJECTを覆さず、真のWebGL美術・人間試走・採択・publish・READY・MERGE全HOLD。物理240Hz/B48×7/B51-C×28/gap52/速度/操舵/自然ジャンプ/元カメラ/A13/本番2サイト/main/Gold/原作サイト不変更。正式Slope2=0m、PR#46 Draft、Work未使用。
+## G4E-7CF — **正規無登録GLB取得・実物技術検査PASS、画面美術は未合格**（2026-10-25 JST）
 
+**CI [#40197574426](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40197574426) SUCCESS。** GitHub公式Spectra Cities/SourceCityToolkit_glb のMarket_Day.glbを、コミット固定URLで一時ダウンロードし、17,786,532バイトと上流Git blob SHA ee3334d9f13f63e38a1f813eee8eb9e7c720b4e1 が完全一致した。GLB原本SHA256 **6137dfaf678785a2f4e4226d0cddc3032086f68a99e2c2793491058d64291c57**。実GLB 13 mesh。元G4E-7BGの正規240Hz/B48道路7・B51-C動体28/gap52の6カメラを使用した既存CB投影検査に5仮配置すべてが完走した。**今度こそ実ファイルに基づく技術測定。** ただしGLB原本自体は本リポジトリ/CI公開成果物に保存していない。監査数値JSONは[短期Artifact](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40197574426/artifacts/12600598103)（7日保持）。
+
+- 距離200m（左 -0.65）で6カメラ中最大フレーム横幅35.08%、320m（左 -0.55）18.50%、450m（左 -0.55）12.34%、660m（左 -0.55）8.26%、320m（右 +0.70）18.50%。**最大値であり平均値やレンダリングされた実画素ではない**。200mでもAABB外接画面面積が小さすぎる警告、近配置で道路中央の視界干渉警告があり、特に遠方では過去の小シルエット問題が残る。つまり「配布原本の実在・GLB読込・投影 TECH PASS」であり「巨大未来都市として美術合格」とは全く言えない。
+- 上流はCC0を主張するが、**textures.com由来の画像には著作権/再配布例外**がある。実3Dに含まれる第三者テクスチャの権利は独立確認できていないため、主役素材のゲーム統合・再配布は**権利HOLD**。最終IP・PBR・視認性・WebGL真正ゲーム描画・人間試走はいずれも未審査。**ART NOT TESTED / WEBGL NOT TESTED / HUMAN HOLD / PUBLISH READY MERGE HOLD、正式Slope2認定0m。**
+- これは「アカウントを増やしたくない」というユーザーの条件を満たす、実際の無登録オリジナルGLB調達ルートの実証。ただし完成ゲームの画質は**未改善**。低品質の箱・遠景素材を大量に増やさず、次のG4E-7CGでは実際のスクリーンショットと、ライセンス問題のない主役級モデルに絞り込む。既存240Hz/B48×7/B51-C×28/gap52/高操舵/自然ジャンプ/カメラ・A13/main/Gold/原作Slope・本番2サイト不変更。PR #46 Draft未マージ。Work未使用。[詳細監査と数値](docs/G4E7CF_SPECTRA_CAMERA_SOURCE_AUDIT_JA.md)へ。
 
 ## G4E-7CE — 無登録で取得可能な実作者未来都市モデルを確認（2026-10-25 JST）
 
