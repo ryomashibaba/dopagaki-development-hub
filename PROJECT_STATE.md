@@ -30,9 +30,13 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
-## G4E-7BD — CHASM実接地喪失の原因検証（2026-10-25 JST、診断結果保留）
+## G4E-7BD 第2実B48 CROWN→CHASM長半径リボン改修（2026-10-25 JST／物理合否保留）
 
-BC rollDeckの正規240Hz最大実接地u≈.604を起点に、実道路2 u=.47〜.86の接地・速度ベクトル・横断位置・法線・路面縦勾配・曲率をAY対照と同一P96操舵で完全読取診断する。最終落下までの連続離地を確認後、CHASM入口〜連続峡谷を本物のB48路面で作り直す。**現在はPRIVATE解析工程で改修効果未認定、正式Slope2=0m、Human/Art/Publish/Ready/Merge=HOLD。**
+起点00の正規240Hz接地解析 [#40147227909](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40147227909) SUCCESS。BC rollDeckはu≈.558で自然浮遊→u≈.582で自然再接地。その後、u≈.605で路肩余裕-0.94〜-0.97mの逸脱により継続落下。実幅はu≈.53の85.9m→.60の34m→.64の13.9mに急収束し、約112m/sで急曲率へ入る。**単なる浮遊ではなく狭幅収束と曲率が問題の候補**。
+
+BCを基準に、第2道路u=.50〜.867の実B48コース10行を長半径Hermite中心線・本物の14〜16m CHASM・バンク・縦断でまとまった単位で再制作するBD longArcとdescentSweepをPRIVATE試験候補として実装。全7実B48、28実B51-C（路面上2基再アンカー）、実ギャップ52、路面以外・操作・本番完全保護。AY／BC固定P96同一条件で真240Hz実接地比較を実行し、**実測改善まで正式採用しない**。
+
+正式Slope2距離0m、人間QA／美術WebGL QA／公開・PR Ready・mergeはHOLD。[BD監査](docs/W9C2_G4E7BD_CHASM_PRIVATE_HOLD_JA.md)。
 
 ## G4E-7BC — CROWN実3Dバンク再制作：AYより大幅に実接地が進行（2026-10-25 JST）
 
