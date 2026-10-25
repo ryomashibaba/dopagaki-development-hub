@@ -37,6 +37,7 @@ import {generateG4E7AV} from './p101-w9c2-g4e7av-crest-shaping.mjs';
 import {generateG4E7AX} from './p101-w9c2-g4e7ax-long-crown.mjs';
 import {generateG4E7AY} from './p101-w9c2-g4e7ay-tangent-bridge.mjs';
 import {generateG4E7BC} from './p101-w9c2-g4e7bc-bank-contour.mjs';
+import {generateBKModel} from './p101-w9c2-g4e7bk-glb-author.mjs';
 import {g4e7bgNativeFrames} from './p101-w9c2-g4e7bg-native-visual-frames.mjs';
 import {generateG4E7AUInspection} from './p101-w9c2-g4e7au-private-inspection.mjs';
 import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
@@ -75,6 +76,7 @@ if(includeStages){
  copy('web/p101-w9c2-g4e7bh-open-horizon.mjs','drive3d/p101-w9c2-g4e7bh-open-horizon.mjs');
  copy('web/p101-w9c2-g4e7bi-parallax-quarters.mjs','drive3d/p101-w9c2-g4e7bi-parallax-quarters.mjs');
  copy('web/p101-w9c2-g4e7bj-abyssal-strata.mjs','drive3d/p101-w9c2-g4e7bj-abyssal-strata.mjs');
+ copy('web/p101-w9c2-g4e7bk-lit-glb.mjs','drive3d/p101-w9c2-g4e7bk-lit-glb.mjs');
  copy('web/p101-w9c2-g4e7ao-b51-approach.mjs','drive3d/p101-w9c2-g4e7ao-b51-approach.mjs');
  copy('web/drive3d-camera.mjs','drive3d/drive3d-camera.mjs');
  copy('web/drive3d-loop.mjs','drive3d/drive3d-loop.mjs');
@@ -272,6 +274,18 @@ if(includeStages){
     for(const road of AJ_ROADS)
      write('generated/P101_A13_W9C2_G4E7BC_'+road.replace('-','_').toUpperCase()+'_ROLLDECK_LOCAL_TRIAL.json',
       JSON.stringify(generateG4E7BC(road,'rollDeck'),null,2)+'\n');
+   }
+   // BK: a REAL binary GLB2 authored from genuine BC B48, materials/normals.
+   // Not an OBJ screenshot, ghost road, or published stage. No art PASS implied.
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7BK_VISUAL==='1'){
+    if(process.env.DOPAGAKI_G4E7BE_VISUAL!=='1')
+     throw Error('BK requires explicit PRIVATE BC manual stage');
+    for(const road of AJ_ROADS){
+     const art=generateBKModel(generateG4E7BC(road,'rollDeck'));
+     if(art.meta.triangles<600||art.meta.materialCount!==6)
+      throw Error('BK GLB must contain substantial genuine multi-material geometry');
+     write('generated/P101_A13_W9C2_G4E7BK_'+road.replace('-','_').toUpperCase()+'_LIT_LOCAL.glb',art.glb);
+    }
    }
    // BG PRIVATE-only actual start00 240Hz scripted P96 observation frames.
    // This is NEVER an A/D manual trial and NEVER used as a stage/physics source.
