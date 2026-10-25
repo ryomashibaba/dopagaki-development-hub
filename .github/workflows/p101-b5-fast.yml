@@ -2,6 +2,20 @@ name: P101 B5 isolated real-physics fast lane
 on:
   push:
     branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - '.github/workflows/p101-b5-fast.yml'
+      - 'package.json'
+      - 'scripts/build.mjs'
+      - 'scripts/pack-p101-b5-review.mjs'
+      - 'scripts/p101-b4*.mjs'
+      - 'scripts/p101-b5*.mjs'
+      - 'scripts/p101-a13*.mjs'
+      - 'scripts/p101-overdrive*.mjs'
+      - 'tests/p101-b5*.test.mjs'
+      - 'tests/p101-a13*.test.mjs'
+      - 'tests/p101-overdrive.test.mjs'
+      - 'web/**'
+      - 'private/**'
   workflow_dispatch:
 permissions:
   contents: read
