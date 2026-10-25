@@ -127,7 +127,7 @@ export function g4e7biParallaxQuarters(doc,sample,{enabled=false}={}){
     vertices.length%18!==0||quarters!==28||layers!==16||openBays!==48||
     struts<50||maxRise<470||
     JSON.stringify(doc)!==frozen)
-  throw Error('BI noncollision or layered geometry budget invariant');
+  throw Error('BI noncollision or layered geometry budget invariant: '+JSON.stringify({triangles,rawLength:vertices.length,nonFinite:vertices.filter(x=>!Number.isFinite(x)).length,quarters,layers,openBays,struts,maxRise,mutated:JSON.stringify(doc)!==frozen}));
  return {active:true,vertices,triangles,sites:BI_SITES.length,quarters,
   layeredCarriers:layers,openAirBays:openBays,brightSilhouetteStruts:struts,
   maxRiseM:Math.round(maxRise),minimumOutboardM:Math.min(...BI_SITES.map(x=>x.setback)),
