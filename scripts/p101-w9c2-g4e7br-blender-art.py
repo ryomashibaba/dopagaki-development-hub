@@ -19,8 +19,10 @@ scene=bpy.context.scene
 scene.unit_settings.system='METRIC'
 scene.unit_settings.scale_length=1
 scene.render.engine='CYCLES'
-scene.cycles.samples=14
-scene.cycles.use_denoising=True
+scene.cycles.samples=28
+scene.cycles.use_denoising=False
+scene.view_layers[0].cycles.use_denoising=False
+# Ubuntu Blender Cycles build has no OpenImageDenoiser: use more native samples instead.
 scene.render.threads_mode='FIXED'
 scene.render.threads=4
 scene.render.resolution_x=1440
