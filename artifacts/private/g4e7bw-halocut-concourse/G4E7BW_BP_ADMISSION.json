@@ -1,0 +1,54 @@
+{
+  "schema": "dopagaki.g4e7bp-artist-glb-intake/1",
+  "assetId": "g4e7bw-halocut-concourse-001",
+  "sha256": "aa3a0c4dcc77f7120bc6c78d853d981ae1f68ad61e2f84b79fccd22dde0ab799",
+  "provenanceClaim": {
+    "author": "DOPAGAKI original scripted Blender 3D architectural research",
+    "sourceTool": "Blender bpy and original generated texture",
+    "sourceFile": "G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend",
+    "rights": "original-work",
+    "licenseName": null,
+    "licenseEvidence": null,
+    "verification": "SELF_DECLARED_NOT_INDEPENDENTLY_VERIFIED"
+  },
+  "glb": {
+    "bytes": 2332016,
+    "meshes": 1265,
+    "nodes": 1265,
+    "triangles": 20236,
+    "primitives": 1393,
+    "vertexPositions": 40942,
+    "materials": 13,
+    "embeddedTextures": 1,
+    "textureRefs": 1,
+    "meshLocalAABB": {
+      "min": [
+        -257,
+        -91.567,
+        -154
+      ],
+      "max": [
+        265,
+        302.5,
+        217
+      ],
+      "span": [
+        522,
+        394.067,
+        371
+      ]
+    },
+    "possibleNodeTransforms": true,
+    "facesWithMaterial": 1393
+  },
+  "warnings": [
+    "NODE_TRANSFORMS: local mesh bounds are NOT world-space bounds; separate transform-baking/placement proof required"
+  ],
+  "realCameraWebGLProof": "NOT_YET_RUN",
+  "humanVisualReview": "HOLD",
+  "physicalRoadQA": "UNCHANGED_UNTESTED_BY_INTAKE",
+  "publicRelease": "FORBIDDEN",
+  "mergeApproval": "HOLD",
+  "officialSlope2CertifiedMeters": 0,
+  "admission": "METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS"
+}
