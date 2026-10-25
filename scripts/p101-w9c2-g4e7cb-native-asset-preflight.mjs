@@ -123,14 +123,18 @@ export function cameraGeometry(points,frame,translation=[0,0,0]){
   if(x>-.25&&x<.57&&y>-.82&&y<.12)inRoad++;
   if(z<130)near++;
  }
- let bounds=null;
+ let bounds=null,screenBoxFraction=0,screenWidthFraction=0,screenHeightFraction=0;
  if(inview){
   bounds=[Math.min(...visibleX),Math.min(...visibleY),Math.max(...visibleX),Math.max(...visibleY)].map(clean);
+  screenWidthFraction=clean((bounds[2]-bounds[0])/2);
+  screenHeightFraction=clean((bounds[3]-bounds[1])/2);
+  screenBoxFraction=clean(screenWidthFraction*screenHeightFraction);
  }
  return {frame:frame.id,timeSeconds:frame.timeSeconds,speedMps:frame.speedMps,
   visibleCorners:inview,totalCorners:points.length,
   visibleFraction:clean(inview/points.length),
-  onScreenBounds:bounds,
+  onScreenBounds:bounds,screenWidthFraction,screenHeightFraction,
+  screenBoxFraction,
   roadWindowCornerFraction:inview?clean(inRoad/inview):0,
   dangerouslyNearCameraCornerFraction:inview?clean(near/inview):0,
   invisibleOrNearCorners:behind};
@@ -158,6 +162,15 @@ export function nativeAssetPreflight(bytes,native,{anchorDepth=660,xField=-.55,y
  }
  const shown=frames.filter(f=>f.visibleFraction>.04).length;
  const flags=[];
+ // A model can have ALL corners in frustum but occupy only 3–5% of the
+ // frame. This was the CA-R2 failure; never confuse full vertex visibility
+ // with impact or a beautiful silhouette.
+ if(frames.filter(f=>f.screenWidthFraction<.12).length>=4)
+  flags.push('TINY_IN_REAL_CAMERA_4_OF_6_FRAMES_UNDER_12_PERCENT_WIDTH');
+ if(frames.filter(f=>f.screenBoxFraction<.025).length>=4)
+  flags.push('TINY_ON_SCREEN_BOUNDS_UNDER_2_5_PERCENT_AREA');
+ if(frames.some(f=>f.visibleFraction>.9&&f.screenWidthFraction<.12))
+  flags.push('VERTEX_FRACTION_FALSE_CONFIDENCE_HIGH_VISIBILITY_BUT_TINY_SIZE');
  if(shown<2)flags.push('NEAR_INVISIBLE_IN_GENUINE_HIGH_SPEED_CAMERA');
  if(frames.some(f=>f.roadWindowCornerFraction>.55))
   flags.push('POSSIBLE_ROAD_CENTER_OBSTRUCTION_NEEDS_TRUE_WEBGL');
