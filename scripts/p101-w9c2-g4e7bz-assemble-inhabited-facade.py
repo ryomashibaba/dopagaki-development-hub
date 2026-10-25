@@ -100,7 +100,11 @@ for n,x in enumerate(xs):
         p='wall_door_centered_large_01' if n==3 else 'wall_door_centered_small_01'
         door='door_centered_large_01' if n==3 else 'door_centered_small_01'
         part('Ground inhabited wall real opening',p,(x,0,1.5))
-        part('Ground entrance actual door',(door),(x,.035,1.405))
+        # For the CIVIC CENTRAL PORTAL leave the genuine 3m aperture
+        # readable and fit hand-built open glass leaves instead of a closed
+        # imported double door that would falsely suggest an accessible lobby.
+        if n!=3:
+            part('Ground entrance actual door',(door),(x,.035,1.405))
         counts['doors']+=1
         if n==3:counts['publicEntrances']+=1
     else:
@@ -125,6 +129,31 @@ for n,x in enumerate(xs):
         if level==3:
             part('CC0 parapet crown', 'crown_standard_standard_01',
                  (x,-.115,16.05))
+# The original source walls are exactly 3m high on a 4m floor pitch.
+# R1 exposed black 0.8m gaps between floors; these are NOT open atria.
+# Construct true load-bearing spandrel zones and cover with articulated
+# light stone / copper edge. No opaque tower shell is added.
+for elevation in (3.5,7.5,11.5,15.5):
+    for xx in xs:
+        slab('R2 physically enclosing interstorey structural spandrel',
+             (xx,.08,elevation),(2.96,.34,.93),1,.06)
+        slab('R2 spandrel narrow weathered copper coping',
+             (xx,-.19,elevation+.40),(2.98,.16,.11),2,.027)
+# Recessed civic portal central doors, partially open to the living foyer.
+# The original door frame aperture remains unblocked, with visible interior.
+for xx,ang in [(-.51,.27),(.51,-.27)]:
+    panel=slab('R2 original open central glass lobby door',
+               (xx,-.26,1.39),(.90,.065,2.48),4,.027)
+    panel.rotation_euler[2]=ang
+    rod('R2 actual lobby door push bar',(xx-.28,-.36,1.05),
+        (xx+.28,-.36,1.05),.03,7)
+for xx in (-1.07,1.07):
+    rod('R2 entrance casing carries canopy',(xx,-.15,.15),
+        (xx,-.15,2.83),.085,2)
+slab('R2 civic entry weatherproof canopy directly attached',
+     (0,-1.23,3.07),(3.5,2.4,.17),2,.055)
+slab('R2 entrance interior visible foyer public information light',
+     (0,2.25,2.65),(2.4,.19,.17),5,.04)
 # Reveals at every vertical seam: depth visible even near road.
 for x in [-10.5,-7.5,-4.5,-1.5,1.5,4.5,7.5,10.5]:
     for k in range(4):
@@ -252,16 +281,8 @@ studio=bpy.data.collections.new('STUDIO ONLY true human scale references')
 bpy.context.scene.collection.children.link(studio)
 slab('STUDIO ONLY ground never physical road',(0,-4,-.55),
      (46,37,.40),10,.035,studio,True)
-for i,(x,y) in enumerate([(-4.2,-5.5),(1.9,-6.6),(15,-4.6)]):
-    ob=slab('STUDIO ONLY 1.72m generic scale mannequin torso',
-        (x,y,1.12),(.34,.2,.65),7,.09,studio,True)
-    bpy.ops.mesh.primitive_uv_sphere_add(segments=12,ring_count=8,
-        radius=.16,location=(x,y,1.57))
-    head=bpy.context.object
-    for co in list(head.users_collection):co.objects.unlink(head)
-    studio.objects.link(head)
-    head.data.materials.append(mats[7])
-    head['exclude_glb']=True
+# R2 removes simplistic lollipop scale markers from art renders; true
+# 3m modular facade dimensions provide architectural scale directly.
 # Lighting and presentation intentionally understate neon.
 world=bpy.data.worlds[0] if bpy.data.worlds else bpy.data.worlds.new('Evening architectural sky')
 bpy.context.scene.world=world;world.use_nodes=True
@@ -278,7 +299,7 @@ def area(n,power,size,loc,color,target):
 area('Soft studio blue urban bounce',1600,18,(-15,-16,22),(.65,.82,1),(0,0,7))
 area('Warm interiors not floodlit neon',950,9,(6,2,12),(1,.67,.35),(0,2,6))
 scene=bpy.context.scene
-scene.render.engine='CYCLES';scene.cycles.samples=28
+scene.render.engine='CYCLES';scene.cycles.samples=24
 scene.cycles.use_denoising=False;scene.view_layers[0].cycles.use_denoising=False
 scene.render.resolution_x=1440;scene.render.resolution_y=900
 scene.render.resolution_percentage=100
@@ -291,10 +312,10 @@ def camera(name,xyz,target,lens):
     ob.rotation_euler=(Vector(target)-ob.location).to_track_quat('-Z','Y').to_euler()
     d.lens=lens;d.clip_end=2500;scene.camera=ob
 views=[
- ('STREET_EYE',(0,-29,1.72),(0,0,8.7),40),
+ ('STREET_EYE',(0,-38,1.72),(0,0,8.0),39),
  ('FRONT',(-4,-37,12),(0,0,8),48),
  ('OBLIQUE',(-30,-31,17),(0,2,9),45),
- ('ENTRANCE',(0,-11,1.75),(0,2.5,3.3),38),
+ ('ENTRANCE',(0,-10,1.75),(0,2.0,1.95),38),
  ('AERIAL',(23,-23,33),(0,4,8.0),44)]
 # Pack originals before source save: previous BY source depended on runner /tmp.
 bpy.ops.file.pack_all()
@@ -316,7 +337,7 @@ bpy.ops.export_scene.gltf(filepath=str(glb),export_format='GLB',
     use_selection=True,export_yup=True)
 assert counts['doors']>=3 and counts['windows']>=30 and counts['supportedFloors']>=8
 info={'schema':'g4e7bz-modular-cc0-inhabited-architecture/1',
- 'scene':'TIDAL PORTICO / 21m STANDALONE ARCHITECTURAL MICROSLICE',
+ 'scene':'TIDAL PORTICO R2 / 21m STANDALONE ARCHITECTURAL MICROSLICE',
  'source':'Poly Haven modular_urban_apartments_facade by James Ray Cock, CC0',
  'originalSourceSha256':hashlib.sha256(source.read_bytes()).hexdigest(),
  'construction':'ASSEMBLED_FROM_AUTHENTIC_3M_PBR_MODULES_AND_ORIGINAL_SUPPORT_GEOMETRY',
@@ -324,7 +345,7 @@ info={'schema':'g4e7bz-modular-cc0-inhabited-architecture/1',
  'dimensionsClaim':'21m frontage/4 floors; studio, not B48 road',
  'counts':counts,'gltfYup':True,'sourceTexturesPackedInNativeBlend':True,
  'nativeBlenderViews':[v[0] for v in views],
- 'art':'UNJUDGED','gameCamera':'NOT_TESTED','humanGameplay':'HOLD',
+ 'art':'UNJUDGED_R2','gameCamera':'NOT_TESTED','humanGameplay':'HOLD',
  'publication':'FORBIDDEN','officialSlope2Meters':0,
  'originalRoadPhysics':'UNCHANGED'}
 (out/'G4E7BZ_BUILT_PROVENANCE.json').write_text(json.dumps(info,indent=2,ensure_ascii=False))
