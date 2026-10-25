@@ -1,0 +1,60 @@
+{
+  "studioOnly": true,
+  "art": "UNJUDGED",
+  "human": "HOLD",
+  "publication": "FORBIDDEN",
+  "playableRoad": false,
+  "certifiedSlope2Meters": 0,
+  "files": [
+    {
+      "path": "G4E7CA_RIFT_EXCHANGE_EDITABLE.blend",
+      "bytes": 7347128,
+      "sha256": "67b94194bea68c2af2a7655c333eab49943d642091993bcd8b59622e16f26f6c"
+    },
+    {
+      "path": "G4E7CA_RIFT_EXCHANGE_ART_ONLY.glb",
+      "bytes": 3791804,
+      "sha256": "744795c9f4d52e4ed1edb93efe8e06ffc59c623fa0636bd2a21f2497e95b83e5"
+    },
+    {
+      "path": "G4E7CA_PROVENANCE.json",
+      "bytes": 1152,
+      "sha256": "ca196a88045ed5185544345b12d1f2b32ecb218d635a953b85ef41a0dfa38256"
+    },
+    {
+      "path": "G4E7CA_CC0_SURFACES.json",
+      "bytes": 1342,
+      "sha256": "d2591b181abef05fcbed89751aa8e61f1df7f2b337270c298cf2080db3668178"
+    },
+    {
+      "path": "G4E7CA_STREET_APPROACH_TRUE_CYCLES.png",
+      "bytes": 2473490,
+      "sha256": "41c77fbcf1331b7497cb4e624bf855e298caf794e79fa24d78739cc0c6127bde"
+    },
+    {
+      "path": "G4E7CA_STREET_LEFT_TRUE_CYCLES.png",
+      "bytes": 2622230,
+      "sha256": "e81d7666e48f46a5b8e9dda6ece874aeb7da51c26c148a744ea01f83abeb0e06"
+    },
+    {
+      "path": "G4E7CA_ENTRANCE_TRUE_CYCLES.png",
+      "bytes": 2578197,
+      "sha256": "a5c06c28af02b77f0521dd22a953378e0b23397675933797acbc4a3649a0b204"
+    },
+    {
+      "path": "G4E7CA_OBLIQUE_TRUE_CYCLES.png",
+      "bytes": 2220253,
+      "sha256": "a28238fb11e5e2c309887808b6267751c73a262b64383b9810006a12040348f5"
+    },
+    {
+      "path": "G4E7CA_AERIAL_TRUE_CYCLES.png",
+      "bytes": 2428243,
+      "sha256": "82350acefd3aca69e2c536c8f06c0044ef1ca3e1da489c6996bf45ebcd494090"
+    },
+    {
+      "path": "G4E7CA_SIDE_TRUE_CYCLES.png",
+      "bytes": 2552512,
+      "sha256": "4535af30f0a2f96e51f652c9fcdc238dd4d6057dba715e2e882c7e0b97a32f0f"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "origin": "Poly Haven API, CC0 1.0, credit: Powered by Poly Haven",
+  "textures": [
+    {
+      "texture": "concrete_tile_facade",
+      "channel": "diffuse",
+      "origin": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/concrete_tile_facade/concrete_tile_facade_diff_1k.jpg",
+      "sha256": "5ee9dbcaf3351b3d8193a5bd9e024adb484a078a60acf90eb240f7aaae1b53cd",
+      "bytes": 625160
+    },
+    {
+      "texture": "concrete_tile_facade",
+      "channel": "roughness",
+      "origin": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/concrete_tile_facade/concrete_tile_facade_rough_1k.jpg",
+      "sha256": "4b59a6267c5301b61ad9c4498a9a09eaced6d448f1e503164f8b9cbf2408a62e",
+      "bytes": 336419
+    },
+    {
+      "texture": "blue_metal_plate",
+      "channel": "diffuse",
+      "origin": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/blue_metal_plate/blue_metal_plate_diff_1k.jpg",
+      "sha256": "a0162bffce47d4a35613a12af22571b28c18412dc5805cbb69eac343554ef750",
+      "bytes": 395923
+    },
+    {
+      "texture": "blue_metal_plate",
+      "channel": "roughness",
+      "origin": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/blue_metal_plate/blue_metal_plate_rough_1k.jpg",
+      "sha256": "37168cf57144db28dd0743dab47fbebc09147fac919d5e2b5610b069c0b13a46",
+      "bytes": 402450
+    }
+  ]
+}
