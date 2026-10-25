@@ -1,0 +1,30 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {g4e7biParallaxQuarters,BI_SITES} from '../web/p101-w9c2-g4e7bi-parallax-quarters.mjs';
+import {generateG4E7BC} from '../scripts/p101-w9c2-g4e7bc-bank-contour.mjs';
+import {generateG4E7AY} from '../scripts/p101-w9c2-g4e7ay-tangent-bridge.mjs';
+import {sample} from '../private/reference_only/director/surface.js';
+for(const road of ['true-pinch','pinch-switch'])test('BI genuine noncolliding visual-only BC '+road,()=>{
+ const doc=generateG4E7BC(road,'rollDeck'),frozen=JSON.stringify(doc);
+ assert.equal(g4e7biParallaxQuarters(doc,sample).active,false);
+ const x=g4e7biParallaxQuarters(doc,sample,{enabled:true});
+ assert.equal(x.sites,4);assert.equal(x.quarters,28);
+ assert.equal(x.layeredCarriers,16);assert.equal(x.openAirBays,48);
+ assert(x.triangles>900&&x.vertices.every(Number.isFinite));
+ assert(x.maxRiseM>=470&&x.minimumOutboardM>=155);
+ assert.equal(x.physicalRoadsAdded,0);assert.equal(x.physicalHazardsAdded,0);
+ assert.equal(x.geometryDocumentUnchanged,true);
+ assert.equal(x.art,'HOLD');assert.equal(x.certifiedSlope2Meters,0);
+ assert.equal(doc.surfaces.length,7);assert.equal(doc.movingObstacles.length,28);
+ assert.deepEqual(doc.surfaces[0].voidLongitudinalCells,[52]);
+ assert.equal(JSON.stringify(doc),frozen);
+});
+test('BI refuses AY, other rollDeck study or promotion',()=>{
+ const ay=generateG4E7AY('true-pinch','bankedSweep');
+ assert.throws(()=>g4e7biParallaxQuarters(ay,sample,{enabled:true}),/only permits/);
+ const other=generateG4E7BC('true-pinch','skylineSaddle');
+ assert.throws(()=>g4e7biParallaxQuarters(other,sample,{enabled:true}),/only permits/);
+ const bad=generateG4E7BC('pinch-switch','rollDeck');bad.stageForge.productionPromoted=true;
+ assert.throws(()=>g4e7biParallaxQuarters(bad,sample,{enabled:true}),/only permits/);
+ assert(BI_SITES.every(x=>x.section===1&&x.setback>=155&&x.top>=120));
+});
