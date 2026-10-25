@@ -66,6 +66,7 @@ jobs:
         with:
           name: g4e7bk-real-binary-lit-glb-WebGL-human-HOLD
           path: |
+            dist-private/generated/P101_A13_W9C2_G4E7BK_*_LIT_LOCAL.glb
             test-results/**/g4e7bk-*.png
             test-results/**/g4e7bk-*.json
             test-results/**/test-failed*.png
