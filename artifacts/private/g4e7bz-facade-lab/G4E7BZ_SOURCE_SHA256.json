@@ -9,12 +9,32 @@
     {
       "file": "G4E7BZ_SOURCE_OBLIQUE_TRUE_CYCLES.png",
       "bytes": 1576737,
-      "sha256": "bd278572e0a0b6405a63f1a63e16fedd538a4b84d989c7e260b3fd5478a3f1a4"
+      "sha256": "ae0016a7e8de312ee81b7513caeddd289282cbca89d279a79fed89b1eb3951b8"
     },
     {
       "file": "G4E7BZ_SOURCE_FRONT_TRUE_CYCLES.png",
       "bytes": 1432965,
-      "sha256": "9135e6fc404414e888230582d44d2fde0979bdaefb01571d5f60eeb364386e53"
+      "sha256": "9579fb501cb75b99749448dabc66ecdeb076688479ed7b39245addd1b39cfbe3"
+    },
+    {
+      "file": "G4E7BZ_BUILT_ARCHITECTURE_ART_ONLY.glb",
+      "bytes": 11624100,
+      "sha256": "8b1f51f0d96ee751e2a82143dccc07c9cb5c5995f86292069a36fa5af2c93907"
+    },
+    {
+      "file": "G4E7BZ_SOURCE_INSPECTION_EDITABLE.blend1",
+      "bytes": 71317479,
+      "sha256": "632e26b5485cf0707a9df7bfbb5b158b73f167fafd3a880ba442013ca48f7515"
+    },
+    {
+      "file": "G4E7BZ_BUILD_FRONT_TRUE_CYCLES.png",
+      "bytes": 2407009,
+      "sha256": "b45954e01a0d15a7d6df2df4e128efd88cd2ee6ed17f6f2af9820eae2e7e5a18"
+    },
+    {
+      "file": "G4E7BZ_SOURCE_SHA256.json",
+      "bytes": 1052,
+      "sha256": "bd63089c497a88c78db54f935ecf67f78869ef7bd4466a4f9aa61a3799897107"
     },
     {
       "file": "G4E7BZ_SOURCE_COMPONENT_INVENTORY.json",
@@ -27,9 +47,39 @@
       "sha256": "6456046004174b858ccdff183566ebcdddcde3dcc702a156e91961921daf125c"
     },
     {
+      "file": "G4E7BZ_BUILT_PROVENANCE.json",
+      "bytes": 2189,
+      "sha256": "596a0d493f81826f7e3f406641045758ee65ff40a8f1c583af431848a0064fd2"
+    },
+    {
       "file": "G4E7BZ_SOURCE_INSPECTION_EDITABLE.blend",
       "bytes": 71317479,
-      "sha256": "632e26b5485cf0707a9df7bfbb5b158b73f167fafd3a880ba442013ca48f7515"
+      "sha256": "e87fe7c3a751848f341ca3c12c197ff97f24788b05f31122e04bbd2820ec7fc4"
+    },
+    {
+      "file": "G4E7BZ_BUILD_OBLIQUE_TRUE_CYCLES.png",
+      "bytes": 2171285,
+      "sha256": "ac0d43e8acf4e881c19b8c8abf7b450668bbb26e142f17697b7600089f0d0579"
+    },
+    {
+      "file": "G4E7BZ_BUILD_AERIAL_TRUE_CYCLES.png",
+      "bytes": 2273952,
+      "sha256": "cdd6c15ce06e680c0cf66c3aaa47107cad49cbcd8c871beec5b539c89df7292c"
+    },
+    {
+      "file": "G4E7BZ_ACTUAL_ASSEMBLED_FACADE_EDITABLE.blend",
+      "bytes": 41216497,
+      "sha256": "896238f9345603aeffdeaa96c4a7bf23638d5df8906d8fb92ca65010a206903c"
+    },
+    {
+      "file": "G4E7BZ_BUILD_STREET_EYE_TRUE_CYCLES.png",
+      "bytes": 2328545,
+      "sha256": "e6a20c3989e60b5bef2d2e788fa9dabf6ee248f590315ee350cd604f4d081027"
+    },
+    {
+      "file": "G4E7BZ_BUILD_ENTRANCE_TRUE_CYCLES.png",
+      "bytes": 2380038,
+      "sha256": "cb3bc40b0a3acca3432c437321456e78d92e694350d7ae263983d72892d22387"
     }
   ]
 }
