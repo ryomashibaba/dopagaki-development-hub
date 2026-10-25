@@ -37,7 +37,7 @@ def material(name,color,metal=0,rough=.5,emission=None):
     bs.inputs['Metallic'].default_value=metal
     bs.inputs['Roughness'].default_value=rough
     if emission:
-        bs.inputs['Emission'].default_value=(*emission,1)
+        bs.inputs['Emission Color'].default_value=(*emission,1)
         bs.inputs['Emission Strength'].default_value=1.2
     return m
 M=[
