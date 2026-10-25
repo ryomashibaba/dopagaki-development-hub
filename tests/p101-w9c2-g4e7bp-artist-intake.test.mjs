@@ -50,7 +50,7 @@ test('BP rejects remote files, unsupported compression and corrupt glTF headers'
  assert.throws(()=>auditArtistGLB(fixture({images:[{uri:'https://example.com/x.png'}]}),claim),/embedded/);
  assert.throws(()=>auditArtistGLB(fixture({buffers:[{uri:'https://example.com/mesh.bin',byteLength:108}]}),claim),/embedded/);
  assert.throws(()=>auditArtistGLB(fixture({extensionsRequired:['KHR_draco_mesh_compression']}),claim),/compressed/);
- const bad=fixture();bad.writeUInt32LE(0,0);assert.throws(()=>auditArtistGLB(bad,claim),/GLB/);
+ const bad=fixture();bad.writeUInt32LE(0,0);assert.throws(()=>auditArtistGLB(bad,claim),/binary glTF2/);
 });
 test('BP preserves explicit HOLD and meter / Y-up contracts',()=>{
  assert.throws(()=>auditArtistGLB(fixture(),{...claim,reviewStatus:'PASS'}),/approvals/);
