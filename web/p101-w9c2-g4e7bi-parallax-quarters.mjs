@@ -62,7 +62,9 @@ export function g4e7biParallaxQuarters(doc,sample,{enabled=false}={}){
  if(typeof sample!=='function')throw Error('BI requires native physical road sampler');
  const frozen=JSON.stringify(doc),vertices=[];
  let quarters=0,layers=0,openBays=0,struts=0,maxRise=0;
+ const perSiteDiagnostics=[];
  for(const [n,site] of BI_SITES.entries()){
+  const startVertexLength=vertices.length;
   const f=realOutboard(doc.surfaces[site.section],sample,site.u,site.side),
    P=(lng,depth,h)=>place(f,lng,site.setback+depth,h);
   // Tangled double free-edge skyline, but below the offscreen >600m BF/BH crown.
@@ -122,13 +124,14 @@ export function g4e7biParallaxQuarters(doc,sample,{enabled=false}={}){
    beam(vertices,c,plus(c,h),4,COLORS.gold);
    struts++;quarters++;
   }
+  perSiteDiagnostics.push({name:site.name,u:site.u,edge:f.edge,forward:f.ahead,outboard:f.outward,nonFinite:vertices.slice(startVertexLength).filter(x=>!Number.isFinite(x)).length});
  }
  const triangles=vertices.length/18;
  if(triangles<900||triangles>18000||vertices.some(x=>!Number.isFinite(x))||
     vertices.length%18!==0||quarters!==28||layers!==16||openBays!==48||
     struts<50||maxRise<470||
     JSON.stringify(doc)!==frozen)
-  throw Error('BI noncollision or layered geometry budget invariant: '+JSON.stringify({triangles,rawLength:vertices.length,nonFinite:vertices.filter(x=>!Number.isFinite(x)).length,quarters,layers,openBays,struts,maxRise,mutated:JSON.stringify(doc)!==frozen}));
+  throw Error('BI noncollision or layered geometry budget invariant: '+JSON.stringify({triangles,rawLength:vertices.length,nonFinite:vertices.filter(x=>!Number.isFinite(x)).length,quarters,layers,openBays,struts,maxRise,mutated:JSON.stringify(doc)!==frozen,perSiteDiagnostics}));
  return {active:true,vertices,triangles,sites:BI_SITES.length,quarters,
   layeredCarriers:layers,openAirBays:openBays,brightSilhouetteStruts:struts,
   maxRiseM:Math.round(maxRise),minimumOutboardM:Math.min(...BI_SITES.map(x=>x.setback)),
