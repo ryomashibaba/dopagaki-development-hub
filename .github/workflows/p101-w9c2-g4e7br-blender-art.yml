@@ -3,20 +3,20 @@ on:
   push:
     branches: [p101-velocity-overdrive-native-trial]
     paths:
-      - 'scripts/p101-w9c2-g4e7bw-halocut-concourse.py'
+      - 'scripts/p101-w9c2-g4e7bw-r3-interior.py'
       - '.github/workflows/p101-w9c2-g4e7br-blender-art.yml'
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: g4e7bw-r2-sightline-focused-architectural-hero
+  group: g4e7bw-r3-inhabited-foyer
   cancel-in-progress: false
 jobs:
   author-native-blender-city:
     runs-on: ubuntu-24.04
     timeout-minutes: 48
     env:
-      ART: artifacts/private/g4e7bw-halocut-concourse-r2
+      ART: artifacts/private/g4e7bw-halocut-concourse-r3
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,16 +31,16 @@ jobs:
           sudo apt-get update -qq
           DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender python3-numpy
           blender --version | head -n 2
-          python3 -m py_compile scripts/p101-w9c2-g4e7bw-halocut-concourse.py
+          python3 -m py_compile scripts/p101-w9c2-g4e7bw-r3-interior.py
       - name: Author real source blend, embedded PBR GLB and five native Cycles renders
         run: |
           set -eu
           mkdir -p "$ART"
-          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bw-halocut-concourse.py -- --out "$ART"
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bw-r3-interior.py -- --out "$ART"
           test -s "$ART/G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend"
           test -s "$ART/G4E7BW_HALOCUT_CONCOURSE_ART_ONLY.glb"
           test -s "$ART/G4E7BW_ORIGINAL_FACADE_ATLAS.png"
-          for v in OBLIQUE FRONT AERIAL SIDE APPROACH; do
+          for v in OBLIQUE FRONT AERIAL SIDE APPROACH FOYER; do
             printf -v p 'G4E7BW_%s_REAL_BLENDER_RENDER.png' "$v"
             test -s "$ART/$p"
           done
@@ -50,7 +50,7 @@ jobs:
           node --test tests/p101-w9c2-g4e7bp-artist-intake.test.mjs
           cat > "$ART/G4E7BW_BP_CLAIM.json" <<'JSON'
           {
-            "assetId":"g4e7bw-halocut-concourse-r2-001",
+            "assetId":"g4e7bw-halocut-concourse-r3-001",
             "author":"DOPAGAKI original scripted Blender 3D architectural research",
             "sourceTool":"Blender bpy and original generated texture",
             "sourceFile":"G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend",
@@ -83,7 +83,7 @@ jobs:
           });
           fs.writeFileSync(path.join(d,'SHA256_ART_HOLD_MANIFEST.json'),JSON.stringify({
              schema:'dopagaki.bu-native-blender-art-archive/1',
-             originalScript:'scripts/p101-w9c2-g4e7bw-halocut-concourse.py',
+             originalScript:'scripts/p101-w9c2-g4e7bw-r3-interior.py',
              source:'ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY',
              authorship:'SCRIPTED_BPY_NOT_HAND_SCULPTED',
              humanArtApproval:'HOLD',gameCameraProof:'NOT_YET_RUN',
@@ -101,15 +101,15 @@ jobs:
             echo "Original archive already stored"
             exit 0
           fi
-          git commit -m "art(g4e7bw-r2): archive corrected sightline source, glb, five views, ART HOLD"
+          git commit -m "art(g4e7bw-r3): archive inhabited porticos and six views ART HOLD"
           git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial
       - name: Export five genuine Blender camera views including forward sightline for actual art review
         uses: actions/upload-artifact@v4
         with:
-          name: g4e7bw-r2-visibility-five-cycles-ART-HOLD
+          name: g4e7bw-r3-interior-six-cycles-ART-HOLD
           path: |
-            artifacts/private/g4e7bw-halocut-concourse-r2/G4E7BW_*_REAL_BLENDER_RENDER.png
-            artifacts/private/g4e7bw-halocut-concourse-r2/SHA256_ART_HOLD_MANIFEST.json
+            artifacts/private/g4e7bw-halocut-concourse-r3/G4E7BW_*_REAL_BLENDER_RENDER.png
+            artifacts/private/g4e7bw-halocut-concourse-r3/SHA256_ART_HOLD_MANIFEST.json
           if-no-files-found: error
           retention-days: 7
       - name: Verify untouched public builds
