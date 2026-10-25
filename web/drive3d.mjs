@@ -173,6 +173,10 @@ const g4e7beRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&
  new URLSearchParams(window.location.search).get('g4e7be')==='roll-deck';
 // BF is a pure GPU-only visual replacement on the exact BC private manual stage.
 const g4e7bfRequested=g4e7beRequested&&new URLSearchParams(window.location.search).get('g4e7bf')==='sky-fracture';
+const g4e7bgRequested=g4e7beRequested&&new URLSearchParams(window.location.search).get('g4e7bg')==='inspect'&&
+ new URLSearchParams(window.location.search).get('g4e7bgFrame')==='hold';
+const g4e7bgPoint=['t1500','t1700','t1850'].includes(new URLSearchParams(window.location.search).get('g4e7bgPoint'))?
+ new URLSearchParams(window.location.search).get('g4e7bgPoint'):'t1850';
 const g4e7ayRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&
  (g4e7beRequested||new URLSearchParams(window.location.search).get('g4e7ay')==='banked-bridge');
 const g4e7axRequested=g4e7alRequested&&!g4e7amRequested&&!g4e7anRequested&&!g4e7ayRequested&&
@@ -302,6 +306,7 @@ const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,g4dSkywayMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
+let g4e7bgShot=null;
 let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7afMesh=null,g4e7agMesh=null,g4e7amMesh=null,g4e7anMesh=null,g4e7bfMesh=null,g4e7aoMesh=null,g4e7adShot=null,g4e7adActive=false,g4e7aiShot=null,g4e7aiActive=false,g4e7akShot=null,g4e7akActive=false;
 let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null,g4e7alTrial=null,g4e7alPanel=null,g4e7alResultDownload=null,g4e7alActive=false;
 let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7qActive=false,g4e7rActive=false,g4e7tActive=false,g4e7vActive=false,g4e7vShot=null,g4e7wActive=false,g4e7wShot=null,g4e7sShot=null,g4e7sTrace=null,g4e7sShardMesh=null,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
@@ -708,9 +713,9 @@ function render(frameSeconds){
  // Render-time interpolation leaves native B48 physics untouched.
  const active=!paused&&runner.status==='running';
  let pose=resolveDisplayPose(previousPose,currentPose,accum,DT,active);
- if((g4e7akShot&&g4e7akOptIn)||(g4e7aiShot&&g4e7aiOptIn)||(g4e7adShot&&g4e7adOptIn)||(g4e7sShot&&g4e7sOptIn)||(g4e7vShot&&g4e7vOptIn)||(g4e7wShot&&g4e7wOptIn)){
+ if((g4e7bgShot&&g4e7bgRequested)||(g4e7akShot&&g4e7akOptIn)||(g4e7aiShot&&g4e7aiOptIn)||(g4e7adShot&&g4e7adOptIn)||(g4e7sShot&&g4e7sOptIn)||(g4e7vShot&&g4e7vOptIn)||(g4e7wShot&&g4e7wOptIn)){
   // Actual 240Hz start00 native frame; rendering does not move the physics ball.
-  const shot=(g4e7akShot&&g4e7akOptIn?g4e7akShot:null)||(g4e7aiShot&&g4e7aiOptIn?g4e7aiShot:null)||(g4e7adShot&&g4e7adOptIn?g4e7adShot:null)||(g4e7wShot&&g4e7wOptIn?g4e7wShot:null)||(g4e7vShot&&g4e7vOptIn?g4e7vShot:null)||g4e7sShot;
+  const shot=(g4e7bgShot&&g4e7bgRequested?g4e7bgShot:null)||(g4e7akShot&&g4e7akOptIn?g4e7akShot:null)||(g4e7aiShot&&g4e7aiOptIn?g4e7aiShot:null)||(g4e7adShot&&g4e7adOptIn?g4e7adShot:null)||(g4e7wShot&&g4e7wOptIn?g4e7wShot:null)||(g4e7vShot&&g4e7vOptIn?g4e7vShot:null)||g4e7sShot;
   pose={...shot.pose,position:[...shot.pose.position],
    forward:[...shot.pose.forward]};
   cameraState={yaw:shot.yaw};
@@ -721,6 +726,11 @@ function render(frameSeconds){
  }
  headingError=cameraYawErrorRadians(cameraState,pose.forward);
  const view=viewForPose(pose,cameraState);
+ canvas.dataset.g4e7bgMode=g4e7bgShot&&g4e7bgRequested?'SCRIPTED_NATIVE_240HZ_STILL_NOT_HUMAN':'off';
+ canvas.dataset.g4e7bgPoint=g4e7bgShot?.id||'off';
+ canvas.dataset.g4e7bgTime=g4e7bgShot?String(g4e7bgShot.timeSeconds):'off';
+ canvas.dataset.g4e7bgSpeed=g4e7bgShot?String(g4e7bgShot.speedMps):'off';
+ canvas.dataset.g4e7bgNativeRoad=g4e7bgShot?.physicalRoad||'off';
  canvas.dataset.g4e7sMode=g4e7sShot&&g4e7sOptIn?'ACTUAL_240HZ_SCRIPTED_STILL_NOT_HUMAN':'off';
  canvas.dataset.g4e7sPoint=g4e7sShot?.id||'off';
  canvas.dataset.g4e7sSpeedMps=g4e7sShot?String(g4e7sShot.speedMps):'off';
@@ -827,7 +837,7 @@ function render(frameSeconds){
  }
  // P85: energy ball is strictly display-only, tied to the native 240Hz
  // position and simulation clock. There is no physical effect or steering aid.
- const effect=energyBallFrame(pose.time,g4e7akShot?.velocity||g4e7aiShot?.velocity||g4e7adShot?.velocity||g4e7wShot?.velocity||g4e7vShot?.velocity||g4e7sShot?.velocity||runner.v,pose.forward,renderQuality.scale);
+ const effect=energyBallFrame(pose.time,g4e7bgShot?.velocity||g4e7akShot?.velocity||g4e7aiShot?.velocity||g4e7adShot?.velocity||g4e7wShot?.velocity||g4e7vShot?.velocity||g4e7sShot?.velocity||runner.v,pose.forward,renderQuality.scale);
  if(energyFx){
   draw(energyMeshes.shell,pose.position,[1,1,1],effect.spin);
   draw(energyMeshes.filaments,pose.position,[1,1,1],effect.spin*.84,gl.LINES);
@@ -1059,6 +1069,7 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
   g4e7alPanel.root.hidden=false;g4e7alPanel.render(g4e7alSession.index);
  }
  function restart(){
+ if(g4e7bgRequested&&doc)return; // Do not turn BG high-speed frames into a synthetic run.
  if(g4e7dRequested&&g4e7dSession.index>=G4E7D_PROTOCOL.length)return;
  if(g4e7alRequested&&g4e7alSession.index>=G4E7AL_ROADS.length)return;
  if(!doc||!world)return;
@@ -1119,6 +1130,14 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
     $('energyFx').disabled=true;$('visibilityFx').disabled=true;$('megaWorld').disabled=true;
     ensureG4E7ALPanel();g4e7alResultDownload.hidden=true;
     canvas.dataset.g4e7alMode='human-keyboard-qa-only';
+    if(g4e7bgRequested){
+     // Frame inspect is NEVER a manual trial. Freeze the real runner and
+     // disable all controls/reporting that could mislabel synthetic QA.
+     paused=true;accum=0;g4e7alTrial=null;
+     g4e7alPanel.root.hidden=true;
+     $('pause').disabled=true;$('restart').disabled=true;$('retryRun').disabled=true;
+     canvas.dataset.g4e7alMode='BG-read-only-native-P96-NOT-human';
+    }
    }
    if(g4e7oActive){
     $('stage').disabled=true;$('spawn').disabled=true;
@@ -1209,6 +1228,9 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
      ' / 28 ORIGINAL MACHINES / SCRIPT/HUMAN FAIRNESS HOLD.';
     if(g4e7auRequested)status.textContent='G4E-7AU LOCAL SECOND ROAD PHYSICAL CHECKPOINT ONLY / NOT NORMAL START00 / 28 REAL B51 / HUMAN QA HOLD';
     if(g4e7alActive)status.textContent=g4e7beRequested?'G4E-7BE BC ROLLDECK PRIVATE ACTUAL B48 14m CROWN AND CHASM / 28 B51 / 240HZ MANUAL NO P96 / HUMAN HOLD.':g4e7ayRequested?'G4E-7AY PRIVATE BANKED 14m CROWN / TRUE 240HZ B48 + 28 B51 / HUMAN FAIRNESS HOLD.':g4e7axRequested?'G4E-7AX PRIVATE LONG CROWN / TRUE 240HZ B48 ROAD2 + 28 B51 / HUMAN QA HOLD.':g4e7avRequested?'G4E-7AV REAL B48 RACING LINE / '+g4e7avGrade.toUpperCase()+' / 240HZ + 28 B51 / HUMAN FAIRNESS HOLD.':g4e7atRequested?'G4E-7AT LOCAL MANUAL / CROWN THREAD + CHASM SWEEP 2 TRUE B48 ROADS + 28 B51-C / HUMAN FAIRNESS HOLD.':g4e7asRequested?'G4E-7AS LOCAL MANUAL / BANKED SERPENT REAL B48 + 28 B51-C / HUMAN FAIRNESS HOLD.':g4e7apRequested?'G4E-7AL LOCAL MANUAL / AP TRUE TEMPORAL SLALOM + 28 REAL B51-C / NO P96 / HUMAN FAIRNESS HOLD.':'G4E-7AL LOCAL MANUAL / 11m REAL B48 + 28 REAL B51-C / NO P96 / HUMAN FAIRNESS HOLD.';
+     if(g4e7bgShot&&g4e7bgRequested)
+      status.textContent='G4E-7BG READ-ONLY authentic start00 P96 scripted 240Hz '+g4e7bgPoint.toUpperCase()+
+       ' / '+g4e7bgShot.speedMps.toFixed(1)+' m/s / NOT HUMAN / PRIVATE ART HOLD';
      if(g4e7akActive)status.textContent='G4E-7AK LOCAL REAL 11m B48 + REANCHORED 2/28 B51 / '+g4e7akPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / HOLD.';
      if(g4e7aiActive)status.textContent='G4E-7AI LOCAL REAL NARROW B48 / '+g4e7aiPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / RESEARCH HOLD.';
     if(g4e7adActive)status.textContent='G4E-7AD LOCAL TRUE R2 B48 / '+g4e7adPoint.toUpperCase()+' / 240Hz P96 NONHUMAN / REAL GPU VISUAL RESEARCH HOLD.';
@@ -1232,7 +1254,7 @@ function exportG4E7ALJSON(feedback=g4e7alPanel?.feedback()){
 }
 async function load(){
  const seq=++loading,id=$('stage').value;
- runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;g4e7gActive=false;g4e7mActive=false;g4e7oActive=false;g4e7qActive=false;g4e7rActive=false;g4e7tActive=false;g4e7vActive=false;g4e7vShot=null;g4e7wActive=false;g4e7wShot=null;g4e7adActive=false;g4e7adShot=null;g4e7aiActive=false;g4e7aiShot=null;g4e7alActive=false;g4e7alTrial=null;g4e7akActive=false;g4e7akShot=null;g4e7sShot=null;g4e7sTrace=null;g4e7oTrial=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
+ runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;g4e7gActive=false;g4e7mActive=false;g4e7oActive=false;g4e7qActive=false;g4e7rActive=false;g4e7tActive=false;g4e7vActive=false;g4e7vShot=null;g4e7wActive=false;g4e7wShot=null;g4e7adActive=false;g4e7adShot=null;g4e7aiActive=false;g4e7aiShot=null;g4e7alActive=false;g4e7alTrial=null;g4e7bgShot=null;g4e7akActive=false;g4e7akShot=null;g4e7sShot=null;g4e7sTrace=null;g4e7oTrial=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
  try{
   const response=await fetch('../generated/'+assets[id],{cache:'no-store'});
   if(!response.ok)throw Error('Stage JSON HTTP '+response.status);
@@ -1347,6 +1369,30 @@ async function load(){
        value.surfaces[0].voidLongitudinalCells?.join(',')!=='52')
       throw Error('G4E7AL requires real reanchored 7AJ physical course');
     $('demoRun').disabled=true;$('practiceRun').disabled=true;$('spawn').value='0';
+   }
+   if(g4e7bgRequested){
+    const bc=value.stageForge?.g4e7bcStudy;
+    if(bc?.id!=='bank-grade-contour'||bc?.variant!=='rollDeck'||
+      bc.formalSlope2Meters!==0||bc.publish!=='HOLD'||
+      value.stageForge.productionPromoted!==false||
+      value.surfaces.length!==7||value.movingObstacles.length!==28||
+      value.surfaces[0].voidLongitudinalCells?.join(',')!=='52')
+      throw Error('BG refuses non-BC or unprotected actual B48 frame source');
+    const reply=await fetch('../generated/P101_A13_W9C2_G4E7BG_240HZ_FRAMES_LOCAL.json',{cache:'no-store'});
+    if(!reply.ok)throw Error('BG real 240Hz frame evidence absent (explicit private build required)');
+    const proof=await reply.json(),entry=proof.stages?.[bc.road];
+    if(proof.schema!=='dopagaki.g4e7bg-real-BC-rollDeck-visual-native-240hz/1'||
+      proof.physicsHz!==240||proof.initialSpeedMps!==52||
+      proof.certifiedSlope2Meters!==0||proof.publication!=='HOLD'||
+      proof.steering!=='P96_EARLY_SOFT_DIV4_8_SCRIPTED_NOT_HUMAN'||
+      entry?.stageId!==value.stageForge.recordStageId||
+      entry.actualB48!==7||entry.actualMovingB51!==28||
+      !entry.originalGapCell52||!entry.originalStart00)
+      throw Error('BG frame cannot be associated with this exact real BC stage');
+    g4e7bgShot=entry.frames.find(f=>f.id===g4e7bgPoint);
+    if(!g4e7bgShot||g4e7bgShot.source!=='ACTUAL_240HZ_START00_P96_FIXED_SCRIPT_NOT_HUMAN'||
+       g4e7bgShot.speedMps<=52||g4e7bgShot.pose?.time===undefined)
+      throw Error('BG requested high-speed physical frame missing');
    }
    if(g4e7akOptIn){
     const aj=value.stageForge?.g4e7ajStudy,ah=value.stageForge?.g4e7ahStudy;
@@ -1630,7 +1676,7 @@ function hud(){
   }
   // Only research screenshots reflect the genuine 240Hz start00 frozen state.
   // Every actual human/manual game remains bound to the live Runner unchanged.
-  const speedFrame=(g4e7akOptIn&&g4e7akShot?g4e7akShot:null)||(g4e7aiOptIn&&g4e7aiShot?g4e7aiShot:null)||(g4e7adOptIn&&g4e7adShot?g4e7adShot:null)||(g4e7wOptIn&&g4e7wShot?g4e7wShot:null)||(g4e7vOptIn&&g4e7vShot?g4e7vShot:null)||(g4e7sOptIn&&g4e7sShot?g4e7sShot:null);
+  const speedFrame=(g4e7bgRequested&&g4e7bgShot?g4e7bgShot:null)||(g4e7akOptIn&&g4e7akShot?g4e7akShot:null)||(g4e7aiOptIn&&g4e7aiShot?g4e7aiShot:null)||(g4e7adOptIn&&g4e7adShot?g4e7adShot:null)||(g4e7wOptIn&&g4e7wShot?g4e7wShot:null)||(g4e7vOptIn&&g4e7vShot?g4e7vShot:null)||(g4e7sOptIn&&g4e7sShot?g4e7sShot:null);
   $('speed').textContent=(speedFrame?.speedMps??Math.hypot(...runner.v)).toFixed(1);
  $('simTime').textContent=(speedFrame?.timeSeconds??runner.time).toFixed(2)+' s';$('contacts').textContent=String(runner.collisions);
  $('ground').textContent=speedFrame
@@ -1790,6 +1836,7 @@ $('cameraCompare').addEventListener('click',()=>{
  if(currentPose)cameraState=createCameraState(currentPose.forward);
 });
 function toggle(){
+ if(g4e7bgRequested)return; // Scripted frozen-camera inspection must remain read-only.
  if(g4e7alRequested&&g4e7alSession.index>=G4E7AL_ROADS.length)return;
  paused=!paused;$('pause').textContent=paused?'再開 (Space)':'一時停止 (Space)';
  // Stop HUD drift: the native 240Hz clock is frozen immediately on pause,

@@ -30,6 +30,12 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BG — BC実240Hz高速視点／実WebGL景観A/B監査（2026-10-25 JST）
+
+BF修正CI [#40153126707](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40153126707) SUCCESS。だが保存された本物のWebGL画像では約52m/sの初期視点で巨大構造が**暗い壁の連続**として映る。BFの美術を現時点でREJECT/HOLD（技術CIと別）。前工程は高速100m/s超の走行視界を撮れていなかった。
+
+BGではBC rollDeckの正規起点00、240Hz、P96固定自動入力から真の15.0/17.0/18.5秒のカメラ/ボール速度/B51動体時刻を抽出し、ブラウザに読み取り専用で表示する。通常A/D人間試走とは混同しない。BF OFF/ONの同一速度・カメラで景観を比較。**真B48 7道路・動体28基・gap52・物理/操作/公開全不変更**。人間の公平感・高速での楽しさ・遠景の奥行きは撮影画像で別途審査。専用PRIVATE研究入口・監査：[BG文書](docs/W9C2_G4E7BG_REAL_SPEED_VISUAL_AUDIT_HOLD_JA.md)。正式Slope2=0m、Human/Art/Publish/PR Ready/Merge=HOLD。
+
 ## G4E-7BF — SKY FRACTURE：BC実道路沿い巨大SF景観の独立PRIVATE制作（2026-10-25 JST）
 
 BE修正版 [#40148567626](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40148567626) はChrome2/2再試行0、公開隔離PASS。**全体方針監査**：物理の微小改造・診断を繰り返して人間の楽しさ/遠景都市美術を後回しにしていた点は効率・目的ともに改善余地あり。そこでBFは道路を追加改造せず、BC rollDeckの正規7実B48・28実B51・gap52・手動A/D・240Hz・ボール相対カメラをそのまま使用し、実路面から外側140m超の独立した3つの**非直方体・実開口・非対称数百m級〜約900m巨大都市構造**を実GPUに構築する。PRIVATE opt-in `?g4e7al=manual&g4e7be=roll-deck&g4e7bf=sky-fracture`、通常BEは比較対照として維持。実Chromiumで有無比較・両道路・画面画像・性能を検査、結果が出るまで美術合否保留。技術CIは実験が成立する証拠であって人間の楽しさではない。
