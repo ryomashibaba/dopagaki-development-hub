@@ -30,13 +30,13 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
-## G4E-7BK — 本物のGLB2／6素材／法線ライト付き都市アセット基盤へ転換（2026-10-25 JST）
+## G4E-7BK — PRIVATE実バイナリGLB・法線付き素材描画の検証完了（2026-10-25 JST）
 
-BF〜BJは「生成した建築が見えない」または「見えても色付きの足場/板群にしか見えない」を繰り返した。BJ [CI #40158555150](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40158555150) は技術PASSだが実画像でART REJECT。従来の頂点色単純板・棒を量産する方針を停止。
+**基盤技術成立**。従来の頂点色付き板・梁だけの景観から、独立GLB2（TRUE/SWITCH各約208KB、2,832三角形、6種類のglTF Metallic/Roughness/Emissive素材＋3D法線）と実WebGL2の独立照明・反射・発光・霧経路へ移行した。作者は**コード生成されたGLB**であってBlenderで精密に造形したと偽らない。既存B48道路・B51動体・本番シェーダーは不変更。第1案[CI #40159691780](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40159691780) **SUCCESS**、Chrome4/4。実画像はまだ黒い大壁が近過ぎて道路横の視認が悪かったため、上記技術合格でも美術は不合格。
 
-**BK実装済み**：正規BC rollDeckの2種実道路を基準に、厚みのある層状外殻・巨大空洞・段丘居住層を持つ《HOLLOW CONTINENT》の**実バイナリglTF2 (GLB)**をPRIVATEビルド時だけ生成。6種類の独立素材（金属/セラミック/ガラス/発光窓/エネルギー/下面）、本物の各面3D法線、従来とは別の照明シェーダー（直射/環境/鏡面/発光/霧）で描く。素材付きGLBを生成できることは品質の必要条件の一部にすぎないため**美術合格未判定**。最初のアセットはコード造形であり、Blenderで手彫りしたものと偽らない。後工程で造形品質優先の本格アセット化を進める入口。
+**V2で大きな開口・外側距離・明るい素材調整**：連続外殻の約35%以上を実空隙にし、近過ぎる始点と路肩距離を修正。改修版[CI #40160159906](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40160159906) **SUCCESS**（Native GLB2検証両道路、Chromium4/4再試行なし、PRIVATE118／public114／public-safe5、BK私有GLB/BC路面/BGフレーム非公開隔離確認）。[実Chromium比較画像 #12586186814](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40160159906/artifacts/12586186814) を旧第1案画像と同じTRUE122.936m/s、SWITCH112.189/125.796m/sの240Hz非人間走行カメラで比較。見通しと建築の量塊・素材表現は初版より改善したが、屋根や窓の反復と画面右側の大質量が残り、独創的で密度ある巨大SF都市には依然届かない。**美術ART HOLD／人間QA HOLD／公開HOLD**。
 
-PRIVATE `?g4e7al=manual&g4e7be=roll-deck&g4e7bk=lit-glb` のみで旧BF/BH/BI/BJを置き換え、実BG固定240Hz視点/BJ画像との比較を行う。実B48 7/動体B51 28/gap52/旧カメラ/操作/Gold/本番全不変更。専用[CI #40159691780](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40159691780)起動済み・結果確認待ち。実際のGLB形式、公開隔離、実Chromeの写真/操作検証を通してから採否を決める。**正式Slope2=0m、Human QA/Art/Publish/Ready/Merge=HOLD**。[BK設計監査](docs/W9C2_G4E7BK_REAL_GLB_MATERIAL_PRIVATE_HOLD_JA.md)。
+**次BLの最優先課題**：GLB技術とコード生成された単調な都市造形を混同しない。GLBを本物の手の込んだアセット制作（例：Blenderの階層ノード・インデックス付きメッシュ・テクスチャ/法線/ラフネス）へ接続し、素材・地形・都市階層・構図を一体として作る。ただし現在のBKパーサーは単一ワールド座標・unindexed・6マテリアルのみの**実験的サブセット**であり、一般Blender GLB全てに対応したと主張しない。あくまで同一実カメラのスクリーンショットを採否基準にし、量産を避ける。[BK技術・美術監査](docs/W9C2_G4E7BK_REAL_GLB_MATERIAL_PRIVATE_HOLD_JA.md)。正式Slope2認定0m、Human/Art/Publish/PR Ready/Merge=HOLD、main/Gold/原作/本番不変。
 
 ## G4E-7BJ — 巨大SF都市の画面内描画確認／美術案REJECT（2026-10-25 JST）
 
