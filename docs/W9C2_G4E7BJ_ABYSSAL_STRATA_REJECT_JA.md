@@ -1,0 +1,26 @@
+# G4E-7BJ — ABYSSAL STRATA: genuine in-frame WebGL and formal ART REJECT
+
+Date: 2026-10-25 JST. PRIVATE independent BC RollDeck trial, never production/GOLD/Gold PR.
+
+## Why
+The preceding BF/BH/BI skyline variants repeatedly fail to look like a futuristic city at real 110–126m/s chase-camera viewpoints. BF visually resembled an opaque black wall; BH/BI were sparse offscreen luminous rods. Formal 0m of Slope2 approved, human QA HOLD.
+
+## Actual BJ work done
+- Independent non-colliding GPU scene `web/p101-w9c2-g4e7bj-abyssal-strata.mjs`: 4 fractured outboard inhabited lower-level strata, physically sampled along real BC second road from u≈.565 to .877, shoulder-setback 61m minimum, approx -195m hanging depth to +106m local rise, 32 sky atrium openings, 176 facade/garden cells, 392 colored light ribs, 48 suspended cliff undersides, 6304 triangles. Distinct from BF/BH/BI. **No physically drivable added platforms, no B48 or B51 edits, no camera/physics/steering changes**.
+- Private opt in: `?g4e7al=manual&g4e7be=roll-deck&g4e7bj=strata`; authentic native 240Hz P96 non-human readonly camera `&g4e7bg=inspect&g4e7bgFrame=hold&g4e7bgPoint=t1850`. Old separate BI comparator retained.
+- Independent native camera *screen-space coverage gate*: project each true GPU triangle into original WebGL frame from authentic generated 240Hz eye/front, require coverage inside screen central area plus lower scene. Original camera algorithm and actual underlying B48 unchanged. It is a positioning/visibility guard, **NOT an art-quality metric**.
+- First CI [#40158391904](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40158391904) FAILED in an independent visual generator: same incomplete cross product third-component regression that hit BI; 42,336 non-finite GPU values. Explicit 3D vector-basis arity and finite guard added with commit `2c1028b7`.
+- Final CI [#40158555150](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40158555150): **SUCCESS**. Native scene/BC tests 4/4 pass; Chromium 4/4 first attempt, **no retries**, PRIVATE 115 files, public 113, public-safe 5; excluded BC test-stage JSON + BG native frames from both public builds. Original 7 B48, 28 moving B51 and cell52 remain intact.
+- True actual native camera projection evidence from logs (camera-real, still scripted, not human):
+  - TRUE 17.0sec 110.602m/s: 2,184 on-screen triangle centroids, 1,945 central area, lower area 1,315.
+  - TRUE 18.5sec 122.936m/s: 1,235 on-screen, 728 central, lower 684.
+  - SWITCH 17.0sec 112.189m/s: 2,099 on-screen, 1,815 central, lower 1,270.
+  - SWITCH 18.5sec 125.796m/s: 1,080 on-screen, 614 central, lower 591.
+- **Original actual WebGL capture**: [Actions artifact #12585319182](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40158555150/artifacts/12585319182), TRUE same-B48 physical shot at 122.9m/s comparing BI and BJ, plus SWITCH 17/18.5sec. All screenshots are real Chromium geometry, not images synthesized by a generative model.
+
+## Direct image-based ART verdict: REJECT
+BJ successfully fixes the *on-screen* geometric absence. In true and switch native chase view, large city geometry occupies screen right and upper half; the road ahead remains substantially visible. But BJ reads as **intersecting white columns and flat cyan, orange, blue ribbon/slab bands** — scaffold fragments, NOT a believable ultra-futuristic inhabited urban geology. Very limited coherent buildings, silhouettes, scale cues, materials, shadowing or spatial hierarchy. Some bright ribbons cross/overcrowd the right-hand view and HUD. A hard lesson: high projected-triangle occupancy can even worsen user-perceived quality.
+
+**STOP iterating the same simple vertex-color `tri/quad/girder` visual genre** under new names. The current WebGL vertex-color, unlit shading model is a structural art bottleneck. Next BK should prototype an independently scoped material-capable 3D visual asset workflow (prefer authored asset modelling such as Blender/GLB where actually feasible; model may be built by tool/work only when permitted) featuring one coherent designed district with real architectural massing, layered inhabitants/negative-space, surface materials, key/fill/light accents, effective atmospheric depth and architectural readability **inside the existing fixed chase camera**. Preserve real road as visually distinct, no extra ghost physics road. Plan concept at the exact 122.936 and 125.796 m/s native camera before trying elaborate geometry. A high-quality narrow architectural slice beats four more repetitive procedural ribbon districts. The renderer should be trial-isolated, leaving original production shader and live sites unaffected.
+
+**Strict delivery gates:** compare photos side by side at actual BG frames; manually reject absent/crowded or flat-scaffold art. Separate projected screen occupancy, Chromium launch and genuinely convincing visual appearance; CI PASS alone never means ART PASS. Humans must still test actual A/D fun/legibility/fairness: Human=HOLD, formal Slope2 0m, production=HOLD, PR46 Draft/Open/unmerged, both production URLs untouched. Continue via GitHub PROJECT_STATE.md and small-to-medium commits, not repeated handoff prompts or 39 unrelated CI runs for minor changes.

@@ -30,6 +30,14 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BJ — 巨大SF都市の画面内描画確認／美術案REJECT（2026-10-25 JST）
+
+BIまでの都市が上方向・左右に切れてゲームの実カメラに映らない問題へ、BJでは**道路側方・下方に都市の実質量を配置**。PR #46の現行PRIVATE BC rollDeckを不変更、正規起点00/240Hz・2種実道路・28基の動体とgap52を維持。非衝突GPUの4街区/32開放空間/176都市セル/48断崖底面/6304三角形で、画面内に本当に入るかを実物理カメラ投影テスト化。最終[CI #40158555150](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40158555150) SUCCESS：Native4/4・Chromium4/4再試行0、PRIVATE115・public113・public-safe5、公開にBC/BG実験JSON混入なし。TRUE 18.5秒122.936m/sで実表示面中心728三角形、SWITCH 18.5秒125.796m/sで中心614面。現物[WebGL画像成果物 #12585319182](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40158555150/artifacts/12585319182)。
+
+**重要・美術はREJECT。** 物理的に画面に入ることは改善したが、現物は白色の柱と平板な水色/橙色/青色リボンが交差した仮設足場に見え、超未来居住都市の実質感・統一的建築形態・材質・ライティング・奥行き/ランドマークは目標から極端に遠い。技術的にPASSでも美術PASSはない。外積3成分目を欠く不具合が再発（初回CI失敗）したため明示的な3成分finite guardを追加して修正。
+
+**全体方針変更：BF→BJで繰り返してきた独立小型頂点色メッシュの量産では目標品質を実現できない。** 次BKは既存走行カメラの本物の画像を構図基準にし、設計された建築の連続大質量・実開口・街区構造・素材・光・遠近を統合したアセット制作/表示方式を検証する。可能であればBlender/GLB等の本物のモデルと専用のマテリアル/ライト付きPRIVATEレンダーパスを比較し、既存の単一頂点色シェーダーから必要な範囲で脱却。**いきなり大量の単色板、細い梁、棒、リングを増設しない。** まず小さな範囲の本物の建築品質を作り込み、景観を一気に良くする方針。Gold・本番・原作再現・物理・カメラ・操作は不変更。認定Slope2=0m、人間QA/美術認定/公開/Ready/MergeすべてHOLD。[BJ監査](docs/W9C2_G4E7BJ_ABYSSAL_STRATA_REJECT_JA.md)。
+
 ## G4E-7BI — 実B48遠景多層都市・最終実WebGL審査（2026-10-25 JST）
 
 **[修正版BI CI #40156775824](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40156775824) SUCCESS。** Native generator両道路・本物の起点00/240Hz/7実B48/28実B51、Chrome Chromiumの**4/4テスト再試行なしPASS**、PRIVATE 114ファイル／public 112ファイル／public-safe 5ファイルでBG/BC非公開JSON隔離PASS。[元の実画像・BHとBI同じカメラの比較 #12585330822](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40156775824/artifacts/12585330822)。
