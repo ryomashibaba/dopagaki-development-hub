@@ -1,0 +1,70 @@
+name: G4E-7BO true BN-city own geometry native framing
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7bo-framed-citadel-author.mjs'
+      - 'scripts/p101-w9c2-g4e7bn-breakwater-citadel-author.mjs'
+      - 'scripts/build.mjs'
+      - 'web/drive3d.mjs'
+      - 'tests/p101-w9c2-g4e7bo-framed-citadel.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7bo-framed-citadel.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7bo-framed-citadel.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7bo-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-BN-geometry-projection:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CI: 'true'
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+      DOPAGAKI_G4E7BN_VISUAL: '1'
+      DOPAGAKI_G4E7BO_VISUAL: '1'
+      DOPAGAKI_BUILD_DIR: 'dist-private'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protected real B48, 240Hz and BO GLB geometry projection
+        run: |
+          node --check scripts/p101-w9c2-g4e7bo-framed-citadel-author.mjs
+          node --check scripts/build.mjs
+          node --check web/drive3d.mjs
+          node --test tests/p101-w9c2-g4e7bo-framed-citadel.test.mjs
+      - name: Install Chromium actual WebGL2
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Real PRIVATE BC and 2 native-framed inhabited 3D scenes
+        run: |
+          node scripts/build.mjs private
+          test -s dist-private/generated/P101_A13_W9C2_G4E7BO_TRUE_PINCH_FRAMED_LOCAL.glb
+          test -s dist-private/generated/P101_A13_W9C2_G4E7BO_PINCH_SWITCH_FRAMED_LOCAL.glb
+      - name: Compare native BN vs BO same 240Hz fast camera images
+        run: npx playwright test tests/browser/p101-w9c2-g4e7bo-framed-citadel.spec.mjs
+      - name: No BO private GLB in public or public-safe
+        run: |
+          node scripts/build.mjs public
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7BO_TRUE_PINCH_FRAMED_LOCAL.glb
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7BO_PINCH_SWITCH_FRAMED_LOCAL.glb
+          node scripts/build.mjs public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7BO_TRUE_PINCH_FRAMED_LOCAL.glb
+          test ! -e dist/generated/P101_A13_W9C2_G4E7BO_PINCH_SWITCH_FRAMED_LOCAL.glb
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7bo-TRUE-BN-urban-camera-framed-A-B-ART-HOLD
+          path: |
+            dist-private/generated/P101_A13_W9C2_G4E7BO_*_FRAMED_LOCAL.glb
+            test-results/**/g4e7bo-*.png
+            test-results/**/test-failed*.png
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 14

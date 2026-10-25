@@ -41,6 +41,7 @@ import {generateBKModel} from './p101-w9c2-g4e7bk-glb-author.mjs';
 import {generateBLModel} from './p101-w9c2-g4e7bl-open-crown-author.mjs';
 import {generateBMModel} from './p101-w9c2-g4e7bm-camera-registered-author.mjs';
 import {generateBNModel} from './p101-w9c2-g4e7bn-breakwater-citadel-author.mjs';
+import {generateBOModel} from './p101-w9c2-g4e7bo-framed-citadel-author.mjs';
 import {g4e7bgNativeFrames} from './p101-w9c2-g4e7bg-native-visual-frames.mjs';
 import {generateG4E7AUInspection} from './p101-w9c2-g4e7au-private-inspection.mjs';
 import {g4e7adNativeFrames,AD_VARIANTS} from './p101-w9c2-g4e7ad-native-frames.mjs';
@@ -323,6 +324,19 @@ if(includeStages){
      if(art.meta.triangles<1500||art.meta.materialCount!==6)
       throw Error('BN must contain substantial lit multi-zone urban forms');
      write('generated/P101_A13_W9C2_G4E7BN_'+road.replace('-','_').toUpperCase()+'_CITADEL_LOCAL.glb',art.glb);
+    }
+   }
+   // BO PRIVATE: the exact same BN urban mesh, genuinely re-framed from native
+   // camera projection of BN's own vertices (not BM hollow-tube bounding box).
+   if(mode==='private'&&process.env.DOPAGAKI_G4E7BO_VISUAL==='1'){
+    if(process.env.DOPAGAKI_G4E7BE_VISUAL!=='1')
+     throw Error('BO requires canonical PRIVATE real BC B48');
+    const native=g4e7bgNativeFrames();
+    for(const road of AJ_ROADS){
+     const art=generateBOModel(generateG4E7BC(road,'rollDeck'),native);
+     if(art.meta.triangles<1500||art.meta.materialCount!==6)
+      throw Error('BO binary lacks complete true authored multi-material city');
+     write('generated/P101_A13_W9C2_G4E7BO_'+road.replace('-','_').toUpperCase()+'_FRAMED_LOCAL.glb',art.glb);
     }
    }
    // BG PRIVATE-only actual start00 240Hz scripted P96 observation frames.

@@ -30,6 +30,12 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BO — BN固有の都市全体を実カメラ内に再配置（2026-10-25 JST）
+
+[BN専用CI #40165794276](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40165794276) は**SUCCESS**：正規240Hz実3視点、2本のGLB(各約246kB)、公開隔離PASS。BNはBMの単調な筒より塔・居住層・屋根形状が見えるが、**都市の大部分が画面左端に切れている**ため巨都市の美術目標は未達・ART HOLD。原因はBMの筒モデルに最適化した座標を、形状が異なるBNにそのまま転用したこと。
+
+BOは**新しい建物を乱造せずBNと完全に同じ三角形を使用**し、BN元GLBの頂点とBG真正240Hz P96視線からモデル全体をフレーム内に再配置する。TRUE/SWITCH各道路の実カメラ3視点をスコア化、道路中央下部・近すぎる構造・B48近接を減点、元BNと同一条件のWebGL画像比較で判断する。Dedicated PRIVATE `g4e7bo=framed`、本番・main・Gold・原作サイト不変更。**数値PASS≠美術PASS**。施工や公開許可を意味しない。[BO監査](docs/W9C2_G4E7BO_BN_TRUE_CAMERA_FRAMING_HOLD_JA.md)。Human/Art/Publish/Ready/Merge HOLD、正式Slope2認定0m。
+
 ## G4E-7BN — BREAKWATER CITADEL：主役都市の造形そのものを改修（2026-10-25 JST）
 
 BMの[CI #40164933668](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40164933668) は**SUCCESS**。実バイナリGLB（TRUE/SWITCH各約488kB、6,704三角形）、Chromium同一正規240Hz高速カメラでBK2/BL/BMの9枚比較、PRIVATE/public/public-safe隔離を確認。カメラ合わせによって画面内へ建築が復帰したが、外観は巨大な白い筒状構造に過ぎず、居住都市・奥行き・美術的独創性の目標から大幅未達。**BM技術PASS／美術REJECT**。[BM WebGL成果物](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40164933668/artifacts/12588690357)。
