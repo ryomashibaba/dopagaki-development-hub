@@ -1,13 +1,13 @@
 {
   "schema": "g4e7bz-modular-cc0-inhabited-architecture/1",
-  "scene": "TIDAL PORTICO / 21m STANDALONE ARCHITECTURAL MICROSLICE",
+  "scene": "TIDAL PORTICO R2 / 21m STANDALONE ARCHITECTURAL MICROSLICE",
   "source": "Poly Haven modular_urban_apartments_facade by James Ray Cock, CC0",
   "originalSourceSha256": "1a5a17dffd27fb9e1236dea7e51c4e0393a9d88ed0885a0621e67a37f80b27eb",
   "construction": "ASSEMBLED_FROM_AUTHENTIC_3M_PBR_MODULES_AND_ORIGINAL_SUPPORT_GEOMETRY",
   "authorship": "ORIGINAL_HUMAN_AUTHORED_CC0_MODULES_PLUS_SCRIPTED_BLENDER_ASSEMBLY",
   "dimensionsClaim": "21m frontage/4 floors; studio, not B48 road",
   "counts": {
-    "facadeOriginalParts": 248,
+    "facadeOriginalParts": 247,
     "doors": 3,
     "windows": 60,
     "supportedFloors": 8,
@@ -40,7 +40,6 @@
       "wall_window_centered_large_03": 16,
       "window_centered_large_03": 16,
       "wall_door_centered_large_01": 1,
-      "door_centered_large_01": 1,
       "wall_pier_standard_01": 32
     }
   },
