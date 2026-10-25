@@ -3,20 +3,20 @@ on:
   push:
     branches: [p101-velocity-overdrive-native-trial]
     paths:
-      - 'scripts/p101-w9c2-g4e7bu-riftbound-city.py'
+      - 'scripts/p101-w9c2-g4e7bv-architectural-quarter.py'
       - '.github/workflows/p101-w9c2-g4e7br-blender-art.yml'
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: g4e7bu-blender-hero-city-art
+  group: g4e7bv-original-architecture-first
   cancel-in-progress: false
 jobs:
   author-native-blender-city:
     runs-on: ubuntu-24.04
     timeout-minutes: 48
     env:
-      ART: artifacts/private/g4e7bu-riftbound-megacity
+      ART: artifacts/private/g4e7bv-architectural-quarter
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,29 +31,29 @@ jobs:
           sudo apt-get update -qq
           DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender python3-numpy
           blender --version | head -n 2
-          python3 -m py_compile scripts/p101-w9c2-g4e7bu-riftbound-city.py
+          python3 -m py_compile scripts/p101-w9c2-g4e7bv-architectural-quarter.py
       - name: Author real source blend, embedded PBR GLB and four native Cycles renders
         run: |
           set -eu
           mkdir -p "$ART"
-          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bu-riftbound-city.py -- --out "$ART"
-          test -s "$ART/G4E7BU_RIFTBOUND_MEGACITY_SOURCE.blend"
-          test -s "$ART/G4E7BU_RIFTBOUND_MEGACITY_ART_ONLY.glb"
-          test -s "$ART/G4E7BU_ORIGINAL_FACADE_ATLAS.png"
-          for v in OBLIQUE FRONT AERIAL SIDE; do
-            printf -v p 'G4E7BU_%s_REAL_BLENDER_RENDER.png' "$v"
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bv-architectural-quarter.py -- --out "$ART"
+          test -s "$ART/G4E7BV_ARCHITECTURAL_QUARTER_SOURCE.blend"
+          test -s "$ART/G4E7BV_ARCHITECTURAL_QUARTER_ART_ONLY.glb"
+          test -s "$ART/G4E7BV_ORIGINAL_FACADE_ATLAS.png"
+          for v in OBLIQUE FRONT AERIAL SIDE APPROACH; do
+            printf -v p 'G4E7BV_%s_REAL_BLENDER_RENDER.png' "$v"
             test -s "$ART/$p"
           done
       - name: Independent GLB binary and provenance intake - never art PASS
         run: |
           set -eu
           node --test tests/p101-w9c2-g4e7bp-artist-intake.test.mjs
-          cat > "$ART/G4E7BU_BP_CLAIM.json" <<'JSON'
+          cat > "$ART/G4E7BV_BP_CLAIM.json" <<'JSON'
           {
-            "assetId":"g4e7bu-riftbound-megacity-001",
+            "assetId":"g4e7bv-architectural-quarter-001",
             "author":"DOPAGAKI original scripted Blender 3D architectural research",
             "sourceTool":"Blender bpy and original generated texture",
-            "sourceFile":"G4E7BU_RIFTBOUND_MEGACITY_SOURCE.blend",
+            "sourceFile":"G4E7BV_ARCHITECTURAL_QUARTER_SOURCE.blend",
             "rights":"original-work",
             "unitsMetersPerUnit":1,
             "coordinateSystem":"glTF-Y-UP",
@@ -62,15 +62,15 @@ jobs:
           }
           JSON
           node scripts/p101-w9c2-g4e7bp-artist-asset-intake.mjs \
-            "$ART/G4E7BU_RIFTBOUND_MEGACITY_ART_ONLY.glb" \
-            "$ART/G4E7BU_BP_CLAIM.json" \
-            "$ART/G4E7BU_BP_ADMISSION.json"
+            "$ART/G4E7BV_ARCHITECTURAL_QUARTER_ART_ONLY.glb" \
+            "$ART/G4E7BV_BP_CLAIM.json" \
+            "$ART/G4E7BV_BP_ADMISSION.json"
           node --input-type=module <<'JS'
           import fs from 'node:fs';
           import path from 'node:path';
           import crypto from 'node:crypto';
           const d=process.env.ART;
-          const audit=JSON.parse(fs.readFileSync(path.join(d,'G4E7BU_BP_ADMISSION.json')));
+          const audit=JSON.parse(fs.readFileSync(path.join(d,'G4E7BV_BP_ADMISSION.json')));
           if(audit.admission!=='METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS'||
              audit.humanVisualReview!=='HOLD'||audit.publicRelease!=='FORBIDDEN'||
              audit.realCameraWebGLProof!=='NOT_YET_RUN'||audit.glb.triangles<10000||
@@ -83,7 +83,7 @@ jobs:
           });
           fs.writeFileSync(path.join(d,'SHA256_ART_HOLD_MANIFEST.json'),JSON.stringify({
              schema:'dopagaki.bu-native-blender-art-archive/1',
-             originalScript:'scripts/p101-w9c2-g4e7bu-riftbound-city.py',
+             originalScript:'scripts/p101-w9c2-g4e7bv-architectural-quarter.py',
              source:'ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY',
              authorship:'SCRIPTED_BPY_NOT_HAND_SCULPTED',
              humanArtApproval:'HOLD',gameCameraProof:'NOT_YET_RUN',
@@ -101,18 +101,18 @@ jobs:
             echo "Original archive already stored"
             exit 0
           fi
-          git commit -m "art(g4e7bu): preserve true source, glb, texture and four view HOLD proof"
+          git commit -m "art(g4e7bv): preserve true source, glb, texture and four view HOLD proof"
           git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial
-      - name: Export native four-angle camera images for actual art review
+      - name: Export five genuine Blender camera views including forward sightline for actual art review
         uses: actions/upload-artifact@v4
         with:
-          name: g4e7bu-original-cycles-four-views-ART-HOLD
+          name: g4e7bv-original-cycles-five-views-ART-HOLD
           path: |
-            artifacts/private/g4e7bu-riftbound-megacity/G4E7BU_*_REAL_BLENDER_RENDER.png
-            artifacts/private/g4e7bu-riftbound-megacity/SHA256_ART_HOLD_MANIFEST.json
+            artifacts/private/g4e7bv-architectural-quarter/G4E7BV_*_REAL_BLENDER_RENDER.png
+            artifacts/private/g4e7bv-architectural-quarter/SHA256_ART_HOLD_MANIFEST.json
           if-no-files-found: error
           retention-days: 7
       - name: Verify untouched public builds
         run: |
-          test ! -e dist-site/generated/G4E7BU_RIFTBOUND_MEGACITY_ART_ONLY.glb
-          test ! -e dist/generated/G4E7BU_RIFTBOUND_MEGACITY_ART_ONLY.glb
+          test ! -e dist-site/generated/G4E7BV_ARCHITECTURAL_QUARTER_ART_ONLY.glb
+          test ! -e dist/generated/G4E7BV_ARCHITECTURAL_QUARTER_ART_ONLY.glb
