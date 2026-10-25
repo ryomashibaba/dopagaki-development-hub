@@ -1,22 +1,22 @@
-name: G4E quality-first genuine Blender city-mass art study (HOLD)
+name: G4E quality-first genuine Blender single architectural hero study (HOLD)
 on:
   push:
     branches: [p101-velocity-overdrive-native-trial]
     paths:
-      - 'scripts/p101-w9c2-g4e7bv-architectural-quarter.py'
+      - 'scripts/p101-w9c2-g4e7bw-halocut-concourse.py'
       - '.github/workflows/p101-w9c2-g4e7br-blender-art.yml'
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: g4e7bv-original-architecture-first
+  group: g4e7bw-single-authored-architectural-hero
   cancel-in-progress: false
 jobs:
   author-native-blender-city:
     runs-on: ubuntu-24.04
     timeout-minutes: 48
     env:
-      ART: artifacts/private/g4e7bv-architectural-quarter
+      ART: artifacts/private/g4e7bw-halocut-concourse
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,29 +31,29 @@ jobs:
           sudo apt-get update -qq
           DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender python3-numpy
           blender --version | head -n 2
-          python3 -m py_compile scripts/p101-w9c2-g4e7bv-architectural-quarter.py
-      - name: Author real source blend, embedded PBR GLB and four native Cycles renders
+          python3 -m py_compile scripts/p101-w9c2-g4e7bw-halocut-concourse.py
+      - name: Author real source blend, embedded PBR GLB and five native Cycles renders
         run: |
           set -eu
           mkdir -p "$ART"
-          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bv-architectural-quarter.py -- --out "$ART"
-          test -s "$ART/G4E7BV_ARCHITECTURAL_QUARTER_SOURCE.blend"
-          test -s "$ART/G4E7BV_ARCHITECTURAL_QUARTER_ART_ONLY.glb"
-          test -s "$ART/G4E7BV_ORIGINAL_FACADE_ATLAS.png"
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bw-halocut-concourse.py -- --out "$ART"
+          test -s "$ART/G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend"
+          test -s "$ART/G4E7BW_HALOCUT_CONCOURSE_ART_ONLY.glb"
+          test -s "$ART/G4E7BW_ORIGINAL_FACADE_ATLAS.png"
           for v in OBLIQUE FRONT AERIAL SIDE APPROACH; do
-            printf -v p 'G4E7BV_%s_REAL_BLENDER_RENDER.png' "$v"
+            printf -v p 'G4E7BW_%s_REAL_BLENDER_RENDER.png' "$v"
             test -s "$ART/$p"
           done
       - name: Independent GLB binary and provenance intake - never art PASS
         run: |
           set -eu
           node --test tests/p101-w9c2-g4e7bp-artist-intake.test.mjs
-          cat > "$ART/G4E7BV_BP_CLAIM.json" <<'JSON'
+          cat > "$ART/G4E7BW_BP_CLAIM.json" <<'JSON'
           {
-            "assetId":"g4e7bv-architectural-quarter-001",
+            "assetId":"g4e7bw-halocut-concourse-001",
             "author":"DOPAGAKI original scripted Blender 3D architectural research",
             "sourceTool":"Blender bpy and original generated texture",
-            "sourceFile":"G4E7BV_ARCHITECTURAL_QUARTER_SOURCE.blend",
+            "sourceFile":"G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend",
             "rights":"original-work",
             "unitsMetersPerUnit":1,
             "coordinateSystem":"glTF-Y-UP",
@@ -62,15 +62,15 @@ jobs:
           }
           JSON
           node scripts/p101-w9c2-g4e7bp-artist-asset-intake.mjs \
-            "$ART/G4E7BV_ARCHITECTURAL_QUARTER_ART_ONLY.glb" \
-            "$ART/G4E7BV_BP_CLAIM.json" \
-            "$ART/G4E7BV_BP_ADMISSION.json"
+            "$ART/G4E7BW_HALOCUT_CONCOURSE_ART_ONLY.glb" \
+            "$ART/G4E7BW_BP_CLAIM.json" \
+            "$ART/G4E7BW_BP_ADMISSION.json"
           node --input-type=module <<'JS'
           import fs from 'node:fs';
           import path from 'node:path';
           import crypto from 'node:crypto';
           const d=process.env.ART;
-          const audit=JSON.parse(fs.readFileSync(path.join(d,'G4E7BV_BP_ADMISSION.json')));
+          const audit=JSON.parse(fs.readFileSync(path.join(d,'G4E7BW_BP_ADMISSION.json')));
           if(audit.admission!=='METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS'||
              audit.humanVisualReview!=='HOLD'||audit.publicRelease!=='FORBIDDEN'||
              audit.realCameraWebGLProof!=='NOT_YET_RUN'||audit.glb.triangles<10000||
@@ -83,13 +83,13 @@ jobs:
           });
           fs.writeFileSync(path.join(d,'SHA256_ART_HOLD_MANIFEST.json'),JSON.stringify({
              schema:'dopagaki.bu-native-blender-art-archive/1',
-             originalScript:'scripts/p101-w9c2-g4e7bv-architectural-quarter.py',
+             originalScript:'scripts/p101-w9c2-g4e7bw-halocut-concourse.py',
              source:'ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY',
              authorship:'SCRIPTED_BPY_NOT_HAND_SCULPTED',
              humanArtApproval:'HOLD',gameCameraProof:'NOT_YET_RUN',
              certifiedSlope2Meters:0,publication:'FORBIDDEN',files:hashes
           },null,2));
-          console.log('BU_GLTF_BINARY_INTAKE_PASS_ART_HOLD',audit.glb);
+          console.log('BW_GLTF_BINARY_INTAKE_PASS_ART_HOLD',audit.glb);
           JS
       - name: Preserve the actual 3D and four camera assets only in Draft branch
         run: |
@@ -101,18 +101,18 @@ jobs:
             echo "Original archive already stored"
             exit 0
           fi
-          git commit -m "art(g4e7bv): preserve true source, glb, texture and four view HOLD proof"
+          git commit -m "art(g4e7bw): preserve true source, glb, texture and four view HOLD proof"
           git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial
       - name: Export five genuine Blender camera views including forward sightline for actual art review
         uses: actions/upload-artifact@v4
         with:
-          name: g4e7bv-original-cycles-five-views-ART-HOLD
+          name: g4e7bw-original-cycles-five-views-ART-HOLD
           path: |
-            artifacts/private/g4e7bv-architectural-quarter/G4E7BV_*_REAL_BLENDER_RENDER.png
-            artifacts/private/g4e7bv-architectural-quarter/SHA256_ART_HOLD_MANIFEST.json
+            artifacts/private/g4e7bw-halocut-concourse/G4E7BW_*_REAL_BLENDER_RENDER.png
+            artifacts/private/g4e7bw-halocut-concourse/SHA256_ART_HOLD_MANIFEST.json
           if-no-files-found: error
           retention-days: 7
       - name: Verify untouched public builds
         run: |
-          test ! -e dist-site/generated/G4E7BV_ARCHITECTURAL_QUARTER_ART_ONLY.glb
-          test ! -e dist/generated/G4E7BV_ARCHITECTURAL_QUARTER_ART_ONLY.glb
+          test ! -e dist-site/generated/G4E7BW_HALOCUT_CONCOURSE_ART_ONLY.glb
+          test ! -e dist/generated/G4E7BW_HALOCUT_CONCOURSE_ART_ONLY.glb
