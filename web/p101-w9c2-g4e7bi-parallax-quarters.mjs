@@ -7,7 +7,7 @@ export const BI_SITES=Object.freeze([
  Object.freeze({name:'LOWER-DELTA',section:1,u:.62,side:-1,setback:155,span:105,top:122,branch:-25}),
  Object.freeze({name:'LUMINOUS-SPLIT',section:1,u:.69,side:1,setback:165,span:145,top:250,branch:35}),
  Object.freeze({name:'SKYWARD-DISTRICT',section:1,u:.76,side:-1,setback:185,span:190,top:365,branch:-65}),
- // BC physical road2 ends around u=.867. Never sample outside native B48.
+ // Keep all districts inside the valid real BC second-road surface domain.
  Object.freeze({name:'DISTANT-FREE-EDGE',section:1,u:.83,side:1,setback:220,span:205,top:470,branch:60})
 ]);
 const COLORS=Object.freeze({
@@ -19,7 +19,7 @@ const plus=(a,b)=>a.map((x,i)=>x+b[i]),minus=(a,b)=>a.map((x,i)=>x-b[i]),
  scale=(a,k)=>a.map(x=>x*k),len=v=>Math.hypot(...v),norm=v=>scale(v,1/(len(v)||1)),
  lerp=(a,b,k)=>plus(scale(a,1-k),scale(b,k)),
  dot=(a,b)=>a.reduce((z,v,i)=>z+v*b[i],0),
- cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2]];
+ cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
 const triangle=(v,a,b,c,color)=>{for(const p of [a,b,c])v.push(...p,...color);};
 const quad=(v,a,b,c,d,color)=>{triangle(v,a,b,c,color);triangle(v,a,c,d,color);};
 const double=(v,a,b,c,d,color,back=COLORS.underside)=>{quad(v,a,b,c,d,color);quad(v,d,c,b,a,back);};
