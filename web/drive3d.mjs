@@ -186,6 +186,7 @@ const g4e7bjRequested=g4e7beRequested&&!g4e7bfRequested&&!g4e7bhRequested&&!g4e7
 const g4e7bkRequested=g4e7beRequested&&!g4e7bfRequested&&!g4e7bhRequested&&!g4e7biRequested&&!g4e7bjRequested&&
  new URLSearchParams(window.location.search).get('g4e7bk')==='lit-glb';
 const g4e7blRequested=g4e7beRequested&&!g4e7bfRequested&&!g4e7bhRequested&&!g4e7biRequested&&!g4e7bjRequested&&!g4e7bkRequested&&new URLSearchParams(window.location.search).get('g4e7bl')==='open-crown';
+ const g4e7bmRequested=g4e7beRequested&&!g4e7bfRequested&&!g4e7bhRequested&&!g4e7biRequested&&!g4e7bjRequested&&!g4e7bkRequested&&!g4e7blRequested&&new URLSearchParams(window.location.search).get('g4e7bm')==='registered';
  const g4e7bgRequested=g4e7beRequested&&new URLSearchParams(window.location.search).get('g4e7bg')==='inspect'&&
  new URLSearchParams(window.location.search).get('g4e7bgFrame')==='hold';
 const g4e7bgRoad=g4e7bgRequested&&new URLSearchParams(window.location.search).get('g4e7bgRoad')==='pinch-switch'?'pinch-switch':'true-pinch';
@@ -321,7 +322,7 @@ let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
 let g4e7bgShot=null;
-let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7afMesh=null,g4e7agMesh=null,g4e7amMesh=null,g4e7anMesh=null,g4e7bfMesh=null,g4e7bhMesh=null,g4e7biMesh=null,g4e7bjMesh=null,g4e7bkScene=null,g4e7blScene=null,g4e7aoMesh=null,g4e7adShot=null,g4e7adActive=false,g4e7aiShot=null,g4e7aiActive=false,g4e7akShot=null,g4e7akActive=false;
+let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7afMesh=null,g4e7agMesh=null,g4e7amMesh=null,g4e7anMesh=null,g4e7bfMesh=null,g4e7bhMesh=null,g4e7biMesh=null,g4e7bjMesh=null,g4e7bkScene=null,g4e7blScene=null,g4e7bmScene=null,g4e7aoMesh=null,g4e7adShot=null,g4e7adActive=false,g4e7aiShot=null,g4e7aiActive=false,g4e7akShot=null,g4e7akActive=false;
 let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null,g4e7alTrial=null,g4e7alPanel=null,g4e7alResultDownload=null,g4e7alActive=false;
 let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7qActive=false,g4e7rActive=false,g4e7tActive=false,g4e7vActive=false,g4e7vShot=null,g4e7wActive=false,g4e7wShot=null,g4e7sShot=null,g4e7sTrace=null,g4e7sShardMesh=null,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
 let previousPose=null,currentPose=null,cameraState=null,comparisonMode='stable',frameSkips=0,headingError=0;
@@ -832,6 +833,8 @@ function render(frameSeconds){
  if((g4e7aiOptIn&&g4e7aiBackdrop==='quiet')||(g4e7akOptIn&&g4e7akBackdrop==='quiet')){
   // Physics-first road readability study: background architecture only is hidden.
   // Real roads, their B48 sides, real void, fixtures, hazards and ball remain.
+ }else if(g4e7bmRequested){
+  renderBKLitScene(gl,g4e7bmScene,view,w/h,{fogStrength:visibilityFx?1:0});
  }else if(g4e7blRequested){
   renderBKLitScene(gl,g4e7blScene,view,w/h,{fogStrength:visibilityFx?1:0});
  }else if(g4e7bkRequested){
@@ -1316,6 +1319,8 @@ async function load(){
  const seq=++loading,id=$('stage').value;
  if(g4e7bkScene){releaseBKLitScene(gl,g4e7bkScene);g4e7bkScene=null;}
   if(g4e7blScene){releaseBKLitScene(gl,g4e7blScene);g4e7blScene=null;}
+  if(g4e7bmScene){releaseBKLitScene(gl,g4e7bmScene);g4e7bmScene=null;}
+  canvas.dataset.g4e7bmLit='off';canvas.dataset.g4e7bmTriangles='0';
   canvas.dataset.g4e7blLit='off';canvas.dataset.g4e7blTriangles='0';
  canvas.dataset.g4e7bkLit='off';
  canvas.dataset.g4e7bkMaterials='0';
@@ -1458,6 +1463,35 @@ async function load(){
     canvas.dataset.g4e7bkOriginalRoads='7';
     canvas.dataset.g4e7bkOriginalMovers='28';
     canvas.dataset.g4e7bkArtApproval='HOLD';
+   }
+   if(g4e7bmRequested){
+    const bc=value.stageForge?.g4e7bcStudy;
+    if(bc?.id!=='bank-grade-contour'||bc.variant!=='rollDeck'||
+      !['true-pinch','pinch-switch'].includes(bc.road)||
+      bc.publish!=='HOLD'||bc.formalSlope2Meters!==0||
+      value.stageForge.productionPromoted!==false||
+      value.surfaces?.length!==7||value.movingObstacles?.length!==28||
+      value.surfaces[0].voidLongitudinalCells?.join(',')!=='52')
+     throw Error('BM refuses noncanonical B48 stage');
+    const url='../generated/P101_A13_W9C2_G4E7BM_'+bc.road.replace('-','_').toUpperCase()+'_REGISTERED_LOCAL.glb';
+    const reply=await fetch(url,{cache:'no-store'});
+    if(!reply.ok)throw Error('BM camera registered GLB absent: PRIVATE only');
+    const bytes=await reply.arrayBuffer();if(seq!==loading)return;
+    const candidate=createBKLitScene(gl,bytes,{expectedRoad:bc.road});
+    if(candidate.meta.visualCandidate!=='G4E-7BM-CAMERA-REGISTERED-CROWN'||
+       candidate.meta.cameraTarget!=='GENUINE_BG_240HZ_P96_NOT_HUMAN'||
+       candidate.meta.authoring!=='SCRIPTED_REAL_3D_NOT_BLENDER'){
+     releaseBKLitScene(gl,candidate);throw Error('BM asset provenance failed');
+    }
+    g4e7bmScene=candidate;
+    canvas.dataset.g4e7bmLit='real-native-frustum-registered-PRIVATE-ART-HOLD';
+    canvas.dataset.g4e7bmTriangles=String(candidate.triangles);
+    canvas.dataset.g4e7bmProjectionScore=String(candidate.meta.projectionScore);
+    canvas.dataset.g4e7bmFrameFractions=JSON.stringify(candidate.meta.projectionEvidence.map(p=>p.fraction));
+    canvas.dataset.g4e7bmRoadClearance=String(candidate.meta.nearestRoadHorizontalMeters);
+    canvas.dataset.g4e7bmRealRoads='7';
+    canvas.dataset.g4e7bmRealMovers='28';
+    canvas.dataset.g4e7bmArtApproval='HOLD';
    }
    if(g4e7blRequested){
     const bc=value.stageForge?.g4e7bcStudy;
