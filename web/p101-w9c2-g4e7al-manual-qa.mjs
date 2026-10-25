@@ -11,7 +11,13 @@ export function createG4E7ALTrial(doc,runner){
  const aj=doc?.stageForge?.g4e7ajStudy,ah=doc?.stageForge?.g4e7ahStudy,ap=doc?.stageForge?.g4e7apStudy,
   asStudy=doc?.stageForge?.g4e7asStudy,atStudy=doc?.stageForge?.g4e7atStudy,
   avStudy=doc?.stageForge?.g4e7avStudy,axStudy=doc?.stageForge?.g4e7axStudy,
-  ayStudy=doc?.stageForge?.g4e7ayStudy;
+  ayStudy=doc?.stageForge?.g4e7ayStudy,bcStudy=doc?.stageForge?.g4e7bcStudy;
+ if(bcStudy&&(bcStudy.id!=='bank-grade-contour'||bcStudy.variant!=='rollDeck'||
+   bcStudy.road!==aj?.road||!bcStudy.real7B48||!bcStudy.real28B51||
+   !bcStudy.hasRealVoid52||bcStudy.movedB51?.length!==2||bcStudy.unchangedB51!==26||
+   bcStudy.formalSlope2Meters!==0||bcStudy.publish!=='HOLD'))
+  throw Error('G4E7AL rejects invalid BC rollDeck genuine B48 provenance');
+ if(bcStudy&&!ayStudy)throw Error('BC must inherit AY genuine CROWN B48');
  if(ayStudy&&(ayStudy.id!=='crown-tangent-bridge'||ayStudy.design!=='bankedSweep'||
    ayStudy.road!==aj?.road||!ayStudy.sevenRealRoads||!ayStudy.twentyEightRealB51||
    !ayStudy.realGap52||ayStudy.reanchoredRealMoving?.length!==2||
@@ -55,7 +61,7 @@ export function createG4E7ALTrial(doc,runner){
     ids.some(id=>!doc.movingObstacles.some(o=>o.id===id)))
   throw Error('G4E7AL requires original start00 genuine reanchored 7AJ B48/B51');
  return {road:aj.road,stageId:doc.stageForge.recordStageId,
-  physicalCandidate:ayStudy?'G4E7AY_BANKED_TANGENT_REAL_CROWN':axStudy?'G4E7AX_LONG_CROWN_300M_PHYSICAL':avStudy?'G4E7AV_'+avStudy.grade.toUpperCase()+'_ROAD2_REACH':atStudy?'G4E7AT_CROWN_CHASM_TWO_ROADS':asStudy?'G4E7AS_BANKED_SERPENT':ap?'G4E7AP_TEMPORAL_SLALOM':'G4E7AJ_REANCHOR',
+  physicalCandidate:bcStudy?'G4E7BC_ROLLDECK_PRIVATE_REAL_CROWN_CHASM':ayStudy?'G4E7AY_BANKED_TANGENT_REAL_CROWN':axStudy?'G4E7AX_LONG_CROWN_300M_PHYSICAL':avStudy?'G4E7AV_'+avStudy.grade.toUpperCase()+'_ROAD2_REACH':atStudy?'G4E7AT_CROWN_CHASM_TWO_ROADS':asStudy?'G4E7AS_BANKED_SERPENT':ap?'G4E7AP_TEMPORAL_SLALOM':'G4E7AJ_REANCHOR',
   steps:0,inputSteps:0,inputTransitions:[],previousInput:0,
   samples:[],lastSample:-Infinity,lastSupported:null,
   eventsSeen:0,contacts:[],peakMps:52,minRoadWidthM:Infinity,minEdgeM:Infinity,
@@ -125,7 +131,8 @@ export function exportG4E7ALTrial(t,runner,{noticed='unsure',fairness='unsure',e
   source:'LOCAL_MANUAL_INPUT_NO_P96',
   comparisonPhysicsHz:240,originalStart00:runner.spawnIndex===0,
   startSpeedMps:runner.startSpeed,
-  physicalCourse:{realB48Surfaces:7,realMovingB51:28,reanchoredOriginalB51:2,
+  physicalCourse:{researchBCRealContour:t.physicalCandidate==='G4E7BC_ROLLDECK_PRIVATE_REAL_CROWN_CHASM',
+   realB48Surfaces:7,realMovingB51:28,reanchoredOriginalB51:2,
    unchangedOriginalB51:26,gapCell52:true},
   status:['failed','finished'].includes(runner.status)?runner.status:'INTERRUPTED_NOT_A_CLEAR',
   seconds:round(runner.time,5),

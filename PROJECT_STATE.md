@@ -30,6 +30,12 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
+## G4E-7BE — BC rollDeck 2実道路・PRIVATE手動WebGL接続（2026-10-25 JST／実ブラウザCI待ち）
+
+BD 2案は接地距離がBCより悪化したためREJECTのまま維持。BC rollDeckだけを**明示ローカル起動**で既存G4E7ALのA/D、正規240Hz実B48/B51-C、起点00、手動計測、ゲームオーバーJSON直接保存へ接続する。新入口は `RUN_G4E7BE_MANUAL.cmd` → `http://127.0.0.1:4373/drive3d/?g4e7al=manual&g4e7be=roll-deck`。BCを新規PUBLIC/既存公開サイトには追加しない。実物理道路7本、動体28基、gap52、旧Gold・AY・BD不変更。独立したBC provenance/recordStageIdが一致しなければ画面を拒否する。
+
+BE専用WebGL UI・JSON・公開隔離CIを実行し、画面描画と手動入力導線の構造を検証する。**ブラウザ自動テストは人間によるプレイではない**。結果が出るまで手動遊びやすさ/美術へのPASSは付けない。正式Slope2=0m、Human/Art/Publish/PR Ready/Merge=HOLD。[BE監査](docs/W9C2_G4E7BE_BC_PRIVATE_MANUAL_HOLD_JA.md)。
+
 ## G4E-7BD — CHASM実路面診断・大区間再制作／2案REJECT（2026-10-25 JST）
 
 **診断CI #40147227909 SUCCESS**：BC rollDeckは第2道路u≈.558で自然離地、0.34〜0.36秒後のu≈.582〜.584で自然に再接地。u≈.6046/.6050で路肩余裕-0.970m/-0.936m、約112m/sで最終離地。道路幅はu=.53の約86m→.60の約34m→.64の約14mに急収束。曲率も強い。路面/操舵の複合要因が疑われるが、因果寄与は未確定。

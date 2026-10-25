@@ -1,10 +1,10 @@
 /** Isolated localhost G4E-7AL manual trial panel. No network or storage. */
-export function createG4E7ALPanel(parent,{onNext,onDownload}){
+export function createG4E7ALPanel(parent,{onNext,onDownload,candidateLabel=null}){
  const root=document.createElement('section');root.id='g4e7alPanel';
  root.style.cssText='border:1px solid #6ae4c5;border-radius:10px;margin:12px 0;padding:14px;color:#e7ffff;background:#082536';
  root.setAttribute('aria-label','G4E-7AL 独立人間試走とローカル記録');
  const heading=document.createElement('h3');
- heading.textContent='G4E-7AL｜本物の11m級B48・B51-C 2候補';
+ heading.textContent=candidateLabel||'G4E-7AL｜本物の11m級B48・B51-C 2候補';
  const step=document.createElement('p');step.id='g4e7alStep';
  const guidance=document.createElement('p');
  guidance.textContent='A/Dまたは左右矢印で実240Hz走行。自動操舵・チェックポイント移動なし。Rで再走した試走も最大12回分をブラウザメモリに一時保持し、次のJSON保存に含めます（古い試走は件数付きで整理）。ゲームオーバーからもJSONを直接保存できます。';
