@@ -1,5 +1,17 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## 最新BT美術制作・CI改善（2026-10-25 JST、Quality-first実行結果）
+
+**最新確定HEAD（この記載時点）：** `2f1ce519668fb4e08c5922d3f1c5f3e0cf7adf88`。このSHAは固定最新とせず、次回GitHub HEADを再取得すること。[既存Draft PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46) はOPEN/DRAFT/未マージのまま。
+
+- **Phase A 限定CI改善実施：** コミット `14970618a78a1de93b71968cd84ab16f8e01f5f6` で毎回ジョブ0のまま失敗していたG4E-7F YAMLの未引用コロンを修復。[真正ワークフロー成功 #40170147094](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40170147094) を確認。B5重物理検証・handoff snapshotのpush条件を関連ファイルに限定、手動起動は残した。BT美術コードのコミットでは両ワークフローの不要起動が発生しなかった。従来の公開ゲートP64 PR QAは保護のため残した。CI起動削減とゲーム品質向上は別物。
+- **Phase B 初回実制作：** 過去の[BR美術REJECT](docs/W9C2_G4E7BR_ACTUAL_BLENDER_ART_FOUR_VIEW_REJECT_JA.md)から、単なる塔/箱増殖をやめ、約1.15km級の**連続した中空都市大質量＋内外に密集した居住街区＋4層の居住断面＋立体交通と公共空間＋非対称の巨大立ち上がり**を、一つの[オリジナルBlender bpyソース](scripts/p101-w9c2-g4e7bt-blender-mass.py)に組み込んだ。手彫りではなくスクリプト制作と明示。
+- **[BT真正Blender制作CI #40170836465](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40170836465) SUCCESS。** [PRIVATE開発証拠ディレクトリ](artifacts/private/g4e7bt-inhabited-tidal-fold)に真正.blend、GLB2、4方向独立Cycles 1440×900画像、オリジナルPBR画像アトラス、独立GLB intake、SHA-256を永久保存。469 mesh／17,136三角形／11 material／GLB内画像1点。初回はOpenImageDenoiser欠如で失敗、2回目はCyclesのsegfault、生成・GLB書出とレンダリングの順序を分離して3回目成功。旧BR制作物は原本保護。
+- **実画像によるBTとBRの4方向比較は[PR #46のレビュー用コメント](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46#issuecomment-6394644464)。** 現時点で**技術PASS／美術HOLD（合格判定なし）／ゲーム内実WebGL HOLD／人間手動HOLD**。三角形数・素材点数・CI成功だけでは芸術向上を証明しない。もし連続量塊でも模型感を払拭できないなら、脚本的な小塔追加ではなく建築資料・モデリング方式・アートディレクションそのものを転換。
+- **Phase C／Dは未開始：** ユーザーによるBT美術審査を経ずゲーム本体へ統合しない。次に合格した候補を正規起点00からの約500〜800m本物のB48狭路・CHASM・危険先読みと一体化し、100〜130m/s実WebGLの視野・路肩・自然ジャンプ・接地・再挑戦価値を確認する。現行旧BK GLBローダーは一般PBR/複数ノード・テクスチャ未対応であり、この技術負債を隠さない。
+- **保護：** B48実道路7、B51-C動体28、gap52、240Hz、元操舵・カメラ／main／Gold／本番2サイト／原作Slope再現は未変更。公式Slope2認定0m、Human/Art/Publish/PR Ready/Mergeは全HOLD。
+
+
 > **このファイルが引き継ぎの入口です。毎日、長文プロンプトを作り直す必要はありません。**
 > 最新状態は *この文章の記載日* ではなく、GitHubの現行HEAD・コミット・最新監査・CIを照合して確定してください。
 
