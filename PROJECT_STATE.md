@@ -1,5 +1,13 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CD — 正規建築原本の取得経路再確認・高品質代替スクリーニング（2026-10-25 JST）
+
+**結果：SOURCE ACCESS RECHECK 完了、真正の新規都市GLB 0件・テクスチャ/著作権完全確認0件・ゲームWebGL新規映像0件・ART NOT TESTED。主役建築の美術改善は未実証。** 第一候補tomato3《Futuristic Buildings》（Sketchfab公開欄CC Attribution、約121.4k tris）は維持。作者主張に基づく有望候補だが**正規Sketchfabログインを要するため今回未取得**。代替Pasha《Cyberpunk city》（公開CC Attribution、約295k tris、作者主張ゲーム用・高品質テクスチャ）は参考のみで認証障壁も同じ。AI制作モジュール群をCC0だからと主役建築に流用せず、BX/BY/BZ/CAの劣化手法を再開しない。出典・権利・一度の正規取得と検証手順は [G4E-7CDアセット取得ゲート](docs/G4E7CD_AUTHORIZED_HERO_CITY_ACQUISITION_JA.md) に固定。
+
+- **次の唯一の依存条件**：Sketchfab等から**作者/正規ライセンス/テクスチャを伴う正当なオリジナルZIP/GLB 1件**を手に入れた場合のみ、元原本と変換GLBを別SHAで記録し、既存CC権利ゲート→CBの6真正240Hzカメラ複数仮配置→真正PRIVATE WebGL比較→美術/人間審査の順。閲覧ページ/ポリゴン数/ダミー検査だけでART PASSは絶対に出さない。実原本未取得のため新規Blender/長時間Chromiumジョブを走らせない。
+- **継続固定**：240Hz、B48実道路7、B51-C動体28、gap52、A13 Slope2方向性、元速度・操舵・カメラ・自然跳躍は未変更。main・Gold・原作再現・本番2サイト未変更。正式Slope2=0m。PR #46 OPEN/Draft未マージ。ART/HUMAN/PUBLISH/READY/MERGEすべてHOLD。Work未使用。G4E-7CEは実原本取得時のみ実体QAへ進める。
+
+
 ## G4E-7CC — 有料ゲームに使える完成建築原本の選定・権利ゲート（2026-10-25 JST）
 
 **判断：主役級に近い「実在の作者がBlenderで制作した街路＋建物群」1候補を正式な次の調達先として選定。ただしSketchfabの認証なしで合法的に3Dファイルを取得できないため、モデルを入手・表示・技術PASS・美術PASSしたとは言わない。SOURCE RESEARCH 完了／ART NOT TESTED／ゲーム実WebGL未実施／HUMAN・PUBLIC・READY・MERGE HOLD。**
