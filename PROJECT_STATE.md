@@ -30,11 +30,15 @@
 - **人間QA**：自動CI、物理7/7、実WebGL、実機手動の証拠を別扱い。ゲームオーバー画面からローカルJSON保存。無断アップロードしない。
 - **運用**：Chat＋GitHub優先。Workは明確に有利な場合のみ事前承認。ユーザーのZIP解凍・CMD・認証反復を最小化。小〜中規模の意味ある差分と適切なテスト。
 
-## G4E-7BE — BC rollDeck 2実道路・PRIVATE手動WebGL接続（2026-10-25 JST／実ブラウザCI待ち）
+## G4E-7BE — BC rollDeckを実Chromium PRIVATE手動WebGLへ接続（2026-10-25 JST）
 
-BD 2案は接地距離がBCより悪化したためREJECTのまま維持。BC rollDeckだけを**明示ローカル起動**で既存G4E7ALのA/D、正規240Hz実B48/B51-C、起点00、手動計測、ゲームオーバーJSON直接保存へ接続する。新入口は `RUN_G4E7BE_MANUAL.cmd` → `http://127.0.0.1:4373/drive3d/?g4e7al=manual&g4e7be=roll-deck`。BCを新規PUBLIC/既存公開サイトには追加しない。実物理道路7本、動体28基、gap52、旧Gold・AY・BD不変更。独立したBC provenance/recordStageIdが一致しなければ画面を拒否する。
+BC rollDeck（直近の最良だが未採用実道路、第2道路最後の実接地u=.60434/.60473）の2道路を独立localhostだけにビルド。起動入口：`RUN_G4E7BE_MANUAL.cmd` → `http://127.0.0.1:4373/drive3d/?g4e7al=manual&g4e7be=roll-deck`。正規00出発52m/s、240Hz実B48道路7本・B51-C動体28基・実gap cell52、A/D／左右矢印の真手動、P96固定自動操舵を不使用。OVERDRIVE、標準ボール相対カメラ、ゲームオーバー直JSON保存・2道路比較・試走再記録を既存G4E7ALのPRIVATE UIと共有。新規BC ID/provenance不整合時は実ロード拒否。Gold・AY・BD・原作再現・2本番不変更。
 
-BE専用WebGL UI・JSON・公開隔離CIを実行し、画面描画と手動入力導線の構造を検証する。**ブラウザ自動テストは人間によるプレイではない**。結果が出るまで手動遊びやすさ/美術へのPASSは付けない。正式Slope2=0m、Human/Art/Publish/PR Ready/Merge=HOLD。[BE監査](docs/W9C2_G4E7BE_BC_PRIVATE_MANUAL_HOLD_JA.md)。
+**[初回BE本物のChromium検査CI #40148317936](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40148317936) はジョブSUCCESS。** Unit 2/2 PASS、PRIVATE BC 2生成PASS、Chrome/SwiftShader WebGLで明示ゲート・BC A/D・両道路切替・JSONダウンロードを実ブラウザで実行、public/public-safe両ビルド（BE環境変数が有効でも）BC候補JSON混入ゼロ確認PASS。自動写真2条件＋計測ログは同Actions artifact #12582505058に保存。ただし2番目のChromeテストは**初回1失敗、再試行でPASSのFLAKY**であったため無条件のクリーン合格とはしない。
+
+原因の候補は、2道路目への`load()`が非同期中なのにテストが前道路のmodeフラグだけを読んで入力したこと。修正コミットではcanvasに実ロード済みBC実道路IDを追加し、2道路目の実ロードIDとmanual準備完了が両方成立するまで操作を待つ。[修正再検証CI #40148567626](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40148567626) は確認時点キュー待ち。**修正CIが成功し、かつ再試行がゼロであることを追加の合格条件**とする。
+
+BEは本番公開も正式コース採用もしていない。テストによるWebGL起動確認と、人間が遊んで見やすい・楽しい・公平かの評価を厳格に区別する。実機手動、人間QA、都市造形の美術審査は未実施、**正式Slope2=0m、Human=HOLD、Art=HOLD、Publish/PR Ready/Merge=HOLD**。次工程は実機A/D＋画面/JSONを得るか、手元のprivate Chromiumフレームを検証して視認性・曲率・遠景の箱問題を具体的に直す。BE詳細：[監査](docs/W9C2_G4E7BE_BC_PRIVATE_MANUAL_HOLD_JA.md)。
 
 ## G4E-7BD — CHASM実路面診断・大区間再制作／2案REJECT（2026-10-25 JST）
 
