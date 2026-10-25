@@ -345,7 +345,7 @@ info={'schema':'g4e7bz-modular-cc0-inhabited-architecture/1',
  'dimensionsClaim':'21m frontage/4 floors; studio, not B48 road',
  'counts':counts,'gltfYup':True,'sourceTexturesPackedInNativeBlend':True,
  'nativeBlenderViews':[v[0] for v in views],
- 'art':'UNJUDGED_R2','gameCamera':'NOT_TESTED','humanGameplay':'HOLD',
+ 'art':'UNJUDGED','gameCamera':'NOT_TESTED','humanGameplay':'HOLD',
  'publication':'FORBIDDEN','officialSlope2Meters':0,
  'originalRoadPhysics':'UNCHANGED'}
 (out/'G4E7BZ_BUILT_PROVENANCE.json').write_text(json.dumps(info,indent=2,ensure_ascii=False))
