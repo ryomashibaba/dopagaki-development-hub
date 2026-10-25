@@ -6,6 +6,7 @@ on:
       - 'scripts/p101-w9c2-g4e7bx-forward-cc0-depth.py'
       - 'scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py'
       - 'scripts/p101-w9c2-g4e7bz-real-facade-study.py'
+      - 'scripts/p101-w9c2-g4e7bz-assemble-inhabited-facade.py'
       - '.github/workflows/p101-w9c2-g4e7br-blender-art.yml'
   workflow_dispatch:
     inputs:
@@ -165,7 +166,7 @@ jobs:
           set -euo pipefail
           sudo apt-get update -qq
           DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender python3-numpy
-          python3 -m py_compile scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py scripts/p101-w9c2-g4e7bz-real-facade-study.py
+          python3 -m py_compile scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py scripts/p101-w9c2-g4e7bz-real-facade-study.py scripts/p101-w9c2-g4e7bz-assemble-inhabited-facade.py
           mkdir -p "$ASSETS" "$ART"
       - name: Download genuine Poly Haven CC0 original glTF and dependencies (1K only)
         run: |
@@ -288,6 +289,17 @@ jobs:
           for angle in FRONT OBLIQUE; do
             test -s "$ART/G4E7BZ_SOURCE_${angle}_TRUE_CYCLES.png"
           done
+      - name: Assemble authentic CC0 parts into a 21m 4-level occupied architectural unit
+        if: env.STUDY == 'bz'
+        run: |
+          set -euo pipefail
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bz-assemble-inhabited-facade.py -- --assets "$ASSETS" --out "$ART"
+          test -s "$ART/G4E7BZ_ACTUAL_ASSEMBLED_FACADE_EDITABLE.blend"
+          test -s "$ART/G4E7BZ_BUILT_ARCHITECTURE_ART_ONLY.glb"
+          test -s "$ART/G4E7BZ_BUILT_PROVENANCE.json"
+          for angle in STREET_EYE FRONT OBLIQUE ENTRANCE AERIAL; do
+            test -s "$ART/G4E7BZ_BUILD_${angle}_TRUE_CYCLES.png"
+          done
       - name: SHA256 source inventory and genuine render validation, never art acceptance
         if: env.STUDY == 'bz'
         run: |
@@ -298,6 +310,11 @@ jobs:
           inv=json.loads((d/'G4E7BZ_SOURCE_COMPONENT_INVENTORY.json').read_text())
           if inv['release']!='FORBIDDEN' or not inv['notGameplay'] or len(inv['assets'])!=2:
               raise RuntimeError('BZ evidence or release integrity failed')
+          result=json.loads((d/'G4E7BZ_BUILT_PROVENANCE.json').read_text())
+          if result['art']!='UNJUDGED' or result['gameCamera']!='NOT_TESTED' or result['publication']!='FORBIDDEN':
+              raise RuntimeError('Built model illicit art acceptance or gameplay claim')
+          if result['counts']['facadeOriginalParts']<100 or result['counts']['windows']<30 or result['counts']['publicEntrances']<1:
+              raise RuntimeError('Genuine architectural assembly and openings not demonstrated')
           files=[p for p in d.iterdir() if p.is_file()]
           if not all(a['sourcePartCount']>50 for a in inv['assets']):raise RuntimeError('Not actual facade modular source')
           checks=[{'file':p.name,'bytes':p.stat().st_size,
@@ -325,6 +342,7 @@ jobs:
           name: g4e7bz-pbr-original-unassembled-modules-ART-UNJUDGED
           path: |
             artifacts/private/g4e7bz-facade-lab/G4E7BZ_SOURCE_*_TRUE_CYCLES.png
+            artifacts/private/g4e7bz-facade-lab/G4E7BZ_BUILD_*_TRUE_CYCLES.png
             artifacts/private/g4e7bz-facade-lab/G4E7BZ_SOURCE_COMPONENT_INVENTORY.json
             artifacts/private/g4e7bz-facade-lab/G4E7BZ_SOURCE_SHA256.json
           if-no-files-found: error
@@ -332,5 +350,5 @@ jobs:
       - name: Source-only check all gameplay, public and Gold untouched
         if: env.STUDY == 'bz'
         run: |
-          test ! -e dist/generated/G4E7BZ_CITY_ART.glb
-          test ! -e dist-site/generated/G4E7BZ_CITY_ART.glb
+          test ! -e dist/generated/G4E7BZ_BUILT_ARCHITECTURE_ART_ONLY.glb
+          test ! -e dist-site/generated/G4E7BZ_BUILT_ARCHITECTURE_ART_ONLY.glb
