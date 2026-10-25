@@ -5,9 +5,10 @@
  */
 export const BI_SITES=Object.freeze([
  Object.freeze({name:'LOWER-DELTA',section:1,u:.62,side:-1,setback:155,span:105,top:122,branch:-25}),
- Object.freeze({name:'LUMINOUS-SPLIT',section:1,u:.76,side:1,setback:165,span:145,top:250,branch:35}),
- Object.freeze({name:'SKYWARD-DISTRICT',section:1,u:.89,side:-1,setback:185,span:190,top:365,branch:-65}),
- Object.freeze({name:'DISTANT-FREE-EDGE',section:1,u:.96,side:1,setback:220,span:205,top:470,branch:60})
+ Object.freeze({name:'LUMINOUS-SPLIT',section:1,u:.69,side:1,setback:165,span:145,top:250,branch:35}),
+ Object.freeze({name:'SKYWARD-DISTRICT',section:1,u:.76,side:-1,setback:185,span:190,top:365,branch:-65}),
+ // BC physical road2 ends around u=.867. Never sample outside native B48.
+ Object.freeze({name:'DISTANT-FREE-EDGE',section:1,u:.83,side:1,setback:220,span:205,top:470,branch:60})
 ]);
 const COLORS=Object.freeze({
  crown:[.91,.97,1],beam:[.47,.84,.95],glass:[.31,.69,.83],

@@ -26,5 +26,5 @@ test('BI refuses AY, other rollDeck study or promotion',()=>{
  assert.throws(()=>g4e7biParallaxQuarters(other,sample,{enabled:true}),/only permits/);
  const bad=generateG4E7BC('pinch-switch','rollDeck');bad.stageForge.productionPromoted=true;
  assert.throws(()=>g4e7biParallaxQuarters(bad,sample,{enabled:true}),/only permits/);
- assert(BI_SITES.every(x=>x.section===1&&x.setback>=155&&x.top>=120));
+ assert(BI_SITES.every(x=>x.section===1&&x.u>=.5&&x.u<.86&&x.setback>=155&&x.top>=120));
 });
