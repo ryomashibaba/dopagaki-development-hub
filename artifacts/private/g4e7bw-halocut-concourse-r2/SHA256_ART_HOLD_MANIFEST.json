@@ -1,0 +1,67 @@
+{
+  "schema": "dopagaki.bu-native-blender-art-archive/1",
+  "originalScript": "scripts/p101-w9c2-g4e7bw-halocut-concourse.py",
+  "source": "ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY",
+  "authorship": "SCRIPTED_BPY_NOT_HAND_SCULPTED",
+  "humanArtApproval": "HOLD",
+  "gameCameraProof": "NOT_YET_RUN",
+  "certifiedSlope2Meters": 0,
+  "publication": "FORBIDDEN",
+  "files": [
+    {
+      "file": "G4E7BW_AERIAL_REAL_BLENDER_RENDER.png",
+      "bytes": 2392876,
+      "sha256": "443ac83698f1b723db2c64bacf4edf9b0fd35565847c14d043f7a384f40e3750"
+    },
+    {
+      "file": "G4E7BW_APPROACH_REAL_BLENDER_RENDER.png",
+      "bytes": 1917011,
+      "sha256": "1d44cf8ee093438ebf5abb132a3cd8ef0b7c8744e31fbdaaa0384484c9450229"
+    },
+    {
+      "file": "G4E7BW_BP_ADMISSION.json",
+      "bytes": 1505,
+      "sha256": "0c54b3d1113964d80de6be94afe802d14ad3ca4f372d8a7dd2455b710005fae8"
+    },
+    {
+      "file": "G4E7BW_BP_CLAIM.json",
+      "bytes": 385,
+      "sha256": "88af57ff604562e8014c6a2db9f8c8437c57511b537d46c3b641888ccbd6b099"
+    },
+    {
+      "file": "G4E7BW_FRONT_REAL_BLENDER_RENDER.png",
+      "bytes": 2427970,
+      "sha256": "92ab5d0aecd1882d036b9b1af1d4e92cab344e2d42c7d7088a3e22927ef53b9e"
+    },
+    {
+      "file": "G4E7BW_HALOCUT_CONCOURSE_ART_ONLY.glb",
+      "bytes": 2273032,
+      "sha256": "48aecaa038f9af901f65cd97f1607d3ad203db96182e0d7d97a4aa98b1cbf198"
+    },
+    {
+      "file": "G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend",
+      "bytes": 8502572,
+      "sha256": "6607a18a113291aa43f9164281d803bba3f86c68146700e2cc1de7e82982ad27"
+    },
+    {
+      "file": "G4E7BW_OBLIQUE_REAL_BLENDER_RENDER.png",
+      "bytes": 2258043,
+      "sha256": "e4fc0a726fead99b96a82b4138d8b3266f39a8eb2d0e33a9c7b926db73788348"
+    },
+    {
+      "file": "G4E7BW_ORIGINAL_FACADE_ATLAS.png",
+      "bytes": 9349,
+      "sha256": "8d7f0a767525060bc850fb780008074d9fe8815a0858764234ad7a1381cd6601"
+    },
+    {
+      "file": "G4E7BW_PROVENANCE.json",
+      "bytes": 501,
+      "sha256": "88881dab7da281761e22942936d548ae76f024d7ca177cee182d84e79dd7f4d2"
+    },
+    {
+      "file": "G4E7BW_SIDE_REAL_BLENDER_RENDER.png",
+      "bytes": 2435118,
+      "sha256": "5ca0b38d0862e7eef901f96d65b60146b11260dc53541d6e4194e658a7012c0a"
+    }
+  ]
+}
