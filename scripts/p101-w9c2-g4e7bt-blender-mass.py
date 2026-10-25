@@ -14,6 +14,9 @@ scene=bpy.context.scene
 scene.unit_settings.system='METRIC'
 scene.render.engine='CYCLES'
 scene.cycles.samples=22
+# Ubuntu Blender is built without OpenImageDenoiser; BR established this gate.
+scene.cycles.use_denoising=False
+scene.view_layers[0].cycles.use_denoising=False
 scene.render.threads_mode='FIXED'
 scene.render.threads=4
 scene.render.resolution_x=1440
