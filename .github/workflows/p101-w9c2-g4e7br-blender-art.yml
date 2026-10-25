@@ -7,6 +7,7 @@ on:
       - 'scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py'
       - 'scripts/p101-w9c2-g4e7bz-real-facade-study.py'
       - 'scripts/p101-w9c2-g4e7bz-assemble-inhabited-facade.py'
+      - 'scripts/p101-w9c2-g4e7ca-rift-exchange-architecture.py'
       - '.github/workflows/p101-w9c2-g4e7br-blender-art.yml'
   workflow_dispatch:
     inputs:
@@ -19,6 +20,7 @@ on:
           - by
           - bx
           - bz
+          - ca
 permissions:
   contents: write
 concurrency:
@@ -149,12 +151,12 @@ jobs:
           test ! -e dist-site/generated/G4E7BX_CC0_URBAN_DEPTH_ONLY.glb
 
   polyhaven-urban-pbr-corridor:
-    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.study != 'bx') || (github.event_name == 'push' && (contains(github.event.head_commit.message, 'g4e7by') || contains(github.event.head_commit.message, 'g4e7bz'))) }}
+    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.study != 'bx') || (github.event_name == 'push' && (contains(github.event.head_commit.message, 'g4e7by') || contains(github.event.head_commit.message, 'g4e7bz') || contains(github.event.head_commit.message, 'g4e7ca'))) }}
     runs-on: ubuntu-24.04
     timeout-minutes: 80
     env:
-      STUDY: ${{ (github.event_name == 'workflow_dispatch' && inputs.study == 'bz') || (github.event_name == 'push' && contains(github.event.head_commit.message, 'g4e7bz')) && 'bz' || 'by' }}
-      ART: ${{ (github.event_name == 'workflow_dispatch' && inputs.study == 'bz') || (github.event_name == 'push' && contains(github.event.head_commit.message, 'g4e7bz')) && 'artifacts/private/g4e7bz-facade-lab' || 'artifacts/private/g4e7by-urban-pbr-corridor' }}
+      STUDY: ${{ (github.event_name == 'workflow_dispatch' && inputs.study == 'ca') || (github.event_name == 'push' && contains(github.event.head_commit.message, 'g4e7ca')) && 'ca' || ((github.event_name == 'workflow_dispatch' && inputs.study == 'bz') || (github.event_name == 'push' && contains(github.event.head_commit.message, 'g4e7bz'))) && 'bz' || 'by' }}
+      ART: ${{ (github.event_name == 'workflow_dispatch' && inputs.study == 'ca') || (github.event_name == 'push' && contains(github.event.head_commit.message, 'g4e7ca')) && 'artifacts/private/g4e7ca-rift-exchange' || ((github.event_name == 'workflow_dispatch' && inputs.study == 'bz') || (github.event_name == 'push' && contains(github.event.head_commit.message, 'g4e7bz'))) && 'artifacts/private/g4e7bz-facade-lab' || 'artifacts/private/g4e7by-urban-pbr-corridor' }}
       ASSETS: /tmp/polyhaven-cc0-gltf
     steps:
       - uses: actions/checkout@v4
@@ -166,9 +168,10 @@ jobs:
           set -euo pipefail
           sudo apt-get update -qq
           DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender python3-numpy
-          python3 -m py_compile scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py scripts/p101-w9c2-g4e7bz-real-facade-study.py scripts/p101-w9c2-g4e7bz-assemble-inhabited-facade.py
+          python3 -m py_compile scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py scripts/p101-w9c2-g4e7bz-real-facade-study.py scripts/p101-w9c2-g4e7bz-assemble-inhabited-facade.py scripts/p101-w9c2-g4e7ca-rift-exchange-architecture.py
           mkdir -p "$ASSETS" "$ART"
       - name: Download genuine Poly Haven CC0 original glTF and dependencies (1K only)
+        if: env.STUDY != 'ca'
         run: |
           set -euo pipefail
           python3 - <<'PY'
@@ -352,3 +355,120 @@ jobs:
         run: |
           test ! -e dist/generated/G4E7BZ_BUILT_ARCHITECTURE_ART_ONLY.glb
           test ! -e dist-site/generated/G4E7BZ_BUILT_ARCHITECTURE_ART_ONLY.glb
+
+      - name: Download authentic Poly Haven PBR surfaces for architecture
+        if: env.STUDY == 'ca'
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os,json,pathlib,urllib.request,hashlib,time
+          base=pathlib.Path(os.environ['ASSETS'])
+          manifest=[]
+          for slug in ['concrete_tile_facade','blue_metal_plate']:
+              dest=base/slug;dest.mkdir(parents=True,exist_ok=True)
+              def read(url,limit=24000000):
+                  if not url.startswith('https://'):raise RuntimeError('Untrusted asset URL')
+                  last=None
+                  for attempt in range(3):
+                      try:
+                          with urllib.request.urlopen(urllib.request.Request(url,
+                              headers={'User-Agent':'DOPAGAKI-CC0-Architectural-Research/1.0'}),timeout=60) as response:
+                              payload=response.read(limit+1)
+                          if not payload or len(payload)>limit:raise RuntimeError('Empty/large official file')
+                          return payload
+                      except Exception as e:
+                          last=e;time.sleep(2*(attempt+1))
+                  raise RuntimeError('Official Poly Haven asset load failed '+url+' : '+str(last))
+              tree=json.loads(read('https://api.polyhaven.com/files/'+slug,1200000))
+              entries={}
+              for channel,formats in tree.items():
+                  if not isinstance(formats,dict):continue
+                  low=channel.lower()
+                  if low in ('diffuse','diff','basecolor','base_color','albedo'):tag='diffuse'
+                  elif low in ('rough','roughness'):tag='roughness'
+                  else:continue
+                  variants=formats.get('1k',{})
+                  if not isinstance(variants,dict):continue
+                  for ext in ('jpg','png'):
+                      if ext in variants and isinstance(variants[ext],dict) and variants[ext].get('url'):
+                          entries[tag]=(ext,variants[ext]['url']);break
+              if 'diffuse' not in entries:raise RuntimeError('PBR texture diffuse not found for '+slug+': '+str(list(tree)))
+              for channel,(ext,url) in entries.items():
+                  payload=read(url)
+                  destination=dest/(channel+'.jpg')
+                  destination.write_bytes(payload)
+                  manifest.append({'texture':slug,'channel':channel,'origin':url,
+                      'sha256':hashlib.sha256(payload).hexdigest(),'bytes':len(payload)})
+          pathlib.Path(os.environ['ART'],'G4E7CA_CC0_SURFACES.json').write_text(json.dumps({
+              'origin':'Poly Haven API, CC0 1.0, credit: Powered by Poly Haven',
+              'textures':manifest},indent=2))
+          print('REAL_POLY_HAVEN_TEXTURES_AVAILABLE',json.dumps(manifest))
+          PY
+      - name: Build independent modern-future inhabited transit architecture and six native views
+        if: env.STUDY == 'ca'
+        run: |
+          set -euo pipefail
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7ca-rift-exchange-architecture.py -- --textures "$ASSETS" --out "$ART"
+          test -s "$ART/G4E7CA_RIFT_EXCHANGE_EDITABLE.blend"
+          test -s "$ART/G4E7CA_RIFT_EXCHANGE_ART_ONLY.glb"
+          test -s "$ART/G4E7CA_PROVENANCE.json"
+          for view in STREET_APPROACH STREET_LEFT ENTRANCE OBLIQUE AERIAL SIDE; do
+              test -s "$ART/G4E7CA_${view}_TRUE_CYCLES.png"
+          done
+      - name: Strict original PBR/geometry provenance and publication HOLD
+        if: env.STUDY == 'ca'
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,os,pathlib,hashlib
+          d=pathlib.Path(os.environ['ART'])
+          meta=json.loads((d/'G4E7CA_PROVENANCE.json').read_text())
+          maps=json.loads((d/'G4E7CA_CC0_SURFACES.json').read_text())
+          assert meta['realB48Camera']=='NOT_RUN' and meta['artReview']=='UNJUDGED'
+          assert meta['publication']=='FORBIDDEN' and meta['humanPlay']=='HOLD'
+          assert meta['officialCertifiedSlope2Meters']==0 and len(meta['licenseSources'])==2
+          assert meta['geometry']['occupiedFloors']==10
+          assert meta['geometry']['supportedBridges']==3
+          assert meta['geometry']['publicEntrances']==1
+          assert meta['geometry']['transitAlignments']==1
+          assert len({x['texture'] for x in maps['textures'] if x['channel']=='diffuse'})==2
+          expected=['G4E7CA_RIFT_EXCHANGE_EDITABLE.blend','G4E7CA_RIFT_EXCHANGE_ART_ONLY.glb',
+                    'G4E7CA_PROVENANCE.json','G4E7CA_CC0_SURFACES.json']+[
+                    'G4E7CA_'+v+'_TRUE_CYCLES.png' for v in
+                    'STREET_APPROACH STREET_LEFT ENTRANCE OBLIQUE AERIAL SIDE'.split()]
+          checks=[]
+          for filename in expected:
+              f=d/filename
+              if not f.is_file() or f.stat().st_size<2000:raise RuntimeError('Missing authentic file '+filename)
+              checks.append({'path':filename,'bytes':f.stat().st_size,
+                             'sha256':hashlib.sha256(f.read_bytes()).hexdigest()})
+          (d/'G4E7CA_ART_UNJUDGED_SHA256.json').write_text(json.dumps({
+              'studioOnly':True,'art':'UNJUDGED','human':'HOLD','publication':'FORBIDDEN',
+              'playableRoad':False,'certifiedSlope2Meters':0,'files':checks},indent=2))
+          print('G4E7CA_BINARY_TECH_CONTRACT_PASS_DOES_NOT_MEAN_ART_PASS')
+          PY
+      - name: Preserve genuine Blender architecture, PBR metadata and six views on Draft only
+        if: env.STUDY == 'ca'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f "$ART"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "art(g4e7ca): archive editable modern architecture and authentic six-view studio art HOLD"
+          git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial
+      - name: Expose genuine Cycles six views separately from human evaluation
+        if: env.STUDY == 'ca'
+        uses: actions/upload-artifact@v4
+        with:
+          name: g4e7ca-genuine-six-views-futuristic-art-UNJUDGED
+          path: |
+            artifacts/private/g4e7ca-rift-exchange/G4E7CA_*_TRUE_CYCLES.png
+            artifacts/private/g4e7ca-rift-exchange/G4E7CA_ART_UNJUDGED_SHA256.json
+          retention-days: 7
+          if-no-files-found: error
+      - name: Protect the original game, both public destinations and certification
+        if: env.STUDY == 'ca'
+        run: |
+          test ! -e dist/generated/G4E7CA_RIFT_EXCHANGE_ART_ONLY.glb
+          test ! -e dist-site/generated/G4E7CA_RIFT_EXCHANGE_ART_ONLY.glb
