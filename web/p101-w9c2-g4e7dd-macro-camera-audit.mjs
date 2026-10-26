@@ -129,7 +129,10 @@ export function g4e7ddAuditMacroView(art,shot,{width=48,height=30}={}){
  bands.sort((a,b)=>b.spanFraction-a.spanFraction);
  const tops=[...summaries.values()].sort((a,b)=>b.pixels-a.pixels).slice(0,8)
   .map(x=>({...x,shareOfScreen:rd(x.pixels/length)}));
- const heroCount=[...summaries.values()].filter(x=>x.kind==='anchored-civic-crescent').length;
+ // A hero site stays a hero when its authored morphology changes.
+ // Kind-name matching mislabelled DA and DB as invisible.
+ const heroCount=[...summaries.values()].filter(x=>
+   Number.isInteger(sources[x.id].slot)).length;
  return {schema:'G4E7DD_CPU_AUTHORED_SCREEN_COMPOSITION_NOT_GPU_OR_ART',
    shot:shot.id,native240Hz:true,grid:[width,height],totalTriangles:next,
    candidateTriangles,unknownNearTriangles:unknownNear,
@@ -138,7 +141,8 @@ export function g4e7ddAuditMacroView(art,shot,{width=48,height=30}={}){
    occupiedCells:occupied,occupancy:rd(occupied/length),depthCells:{near,mid,far},
    center:{occupied:central,total:centerTotal},
    upperSky:{occupied:sky,total:skyTotal},
-   heroSourcesVisible:heroCount,topSources:tops,
+   heroSourcesVisible:heroCount,
+   heroDefinition:'IMMUTABLE_SITE_SLOT_NOT_KIND_NAME',topSources:tops,
    sourceScreenBoxes:[...summaries.values()].map(s=>({
      kind:s.kind,sourceId:s.id,screenPixels:s.pixels,
      screenFraction:rd(s.pixels/length),

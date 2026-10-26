@@ -54,7 +54,18 @@ for(const road of ['true-pinch','pinch-switch'])for(const shot of ['t1500','t170
   const large=now.sourceScreenBoxes.filter(s=>s.widthFraction>=.4&&s.screenFraction>=.02);
   delta.push({version,road,shot,knownArt:now.knownArt,
     deltaFromCX:stats,warnings:now.warningSignals,
-    baselineWarnings:old.warningSignals,wideAreaSources:large.slice(0,8)});
+    baselineWarnings:old.warningSignals,wideAreaSources:large.slice(0,8),
+    // Exploratory within these known labels, not thresholds for ART acceptance.
+    exploratory:{
+     expandedSky30Cells:stats.upperSkyOccupied>=30,
+     // A broad barely-filled shell often reads as skeleton rather than city.
+     mostlyUnfilledWiderSilhouette:
+       Math.abs(stats.sceneryOccupancy)<=.01&&
+       Math.max(...now.sourceScreenBoxes.map(s=>s.widthFraction),0)-
+       Math.max(...old.sourceScreenBoxes.map(s=>s.widthFraction),0)>=.08,
+     veryWideLocalizedMass:now.sourceScreenBoxes.some(s=>
+       s.widthFraction>=.65&&s.screenFraction>=.025)
+    }});
  }
 }
 const hits={};
@@ -64,6 +75,12 @@ for(const version of ['DA','DB','DC']){
   oldWideSource:cases.filter(x=>x.warnings.wideSource||x.warnings.wideTriangle).length,
   newWideFamilyOrComposite:cases.filter(x=>x.warnings.wideKind||x.warnings.wideComposite).length,
   clippedWideMass:cases.filter(x=>x.warnings.clippedWideMass).length,
+  exploratoryAny:cases.filter(x=>Object.values(x.exploratory).some(Boolean)).length,
+  exploratorySignals:{
+   excessSky:cases.filter(x=>x.exploratory.expandedSky30Cells).length,
+   widerSparseOutline:cases.filter(x=>x.exploratory.mostlyUnfilledWiderSilhouette).length,
+   veryWideMass:cases.filter(x=>x.exploratory.veryWideLocalizedMass).length
+  },
   anyScreenCandidate:cases.filter(x=>Object.entries(x.warnings).some(
     ([key,on])=>on&&['wideTriangle','wideSource','wideKind','wideComposite','clippedWideMass'].includes(key))).length};
 }
@@ -75,6 +92,12 @@ const single=(points)=>({active:true,vertices:points.flatMap(p=>[...p,.3,.4,.5])
 const behind=g4e7ddAuditMacroView(single([[-3,-2,-4],[2,-1,-8],[0,4,-6]]),shot);
 const cross=g4e7ddAuditMacroView(single([[-3,-2,-4],[2,-1,10],[0,4,10]]),shot);
 const touching=g4e7ddAuditMacroView(single([[-3,-2,.3],[2,-1,.5],[0,4,1]]),shot);
+// Named hero morphology may change (DA/DB), slot remains a site id.
+const syntheticHero={active:true,vertices:[-10,0,60,.3,.4,.5,10,0,60,.3,.4,.5,0,20,60,.3,.4,.5],
+ sources:[{kind:'renamed-megastructure',slot:2,firstTriangle:0,triangleCount:1}]};
+const slotAudit=g4e7ddAuditMacroView(syntheticHero,shot);
+assert.equal(slotAudit.heroSourcesVisible,1);
+assert.equal(slotAudit.heroDefinition,'IMMUTABLE_SITE_SLOT_NOT_KIND_NAME');
 assert.equal(behind.nearPlaneClassification.fullyBehind,1);
 assert.equal(behind.nearPlaneClassification.nearCrossing,0);
 assert.equal(cross.nearPlaneClassification.nearCrossing,1);
