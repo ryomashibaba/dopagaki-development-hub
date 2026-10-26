@@ -99,11 +99,34 @@ try{
    report.cqPixelTraces??={};report.cqPixelTraces[road]=trace;
    console.log('G4E7CQ_GL_PROJECTION_PIXEL_SOURCES',road,JSON.stringify(trace.probes));
   }
-  report.frames.push({road,frame,mode,file:name,...info});
+  // info.mode is the physical screenshot camera mode, NOT the capture variant.
+  // Preserve both fields; spreading info previously overwrote mode.
+  report.frames.push({road,frame,mode,file:name,...info,captureMode:mode});
   if(mode==='baseline'){
    baselineImage=image;baselineInfo=info;
   }else if(mode==='integrated'){
    integratedImage=image;integratedInfo=info;
+   if(road==='true-pinch'&&frame==='t1700'){
+    // From CQ's genuine framebuffer: 10,720 exact C.glass pixels in this ROI.
+    // Require the three known giant panels to be gone without using fake renders.
+    const teal=await page.evaluate(async (bytes)=>{
+     const img=new Image();img.src='data:image/png;base64,'+bytes;
+     await img.decode();
+     const c=document.createElement('canvas');c.width=img.width;c.height=img.height;
+     const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0);
+     const data=ctx.getImageData(0,0,c.width,c.height).data;
+     let count=0;
+     for(let y=205;y<Math.min(340,c.height);y++)for(let x=190;x<Math.min(440,c.width);x++){
+      const i=(y*c.width+x)*4;
+      if(data[i]===41&&data[i+1]===135&&data[i+2]===163)count++;
+     }
+     return {count,roi:[190,205,439,339],color:[41,135,163]};
+    },image.toString('base64'));
+    report.truePinchGlassRoi=teal;
+    console.log('G4E7CS_PROVEN_GLASS_WALL_REMOVAL',JSON.stringify(teal));
+    if(teal.count>1500)
+     throw Error('CS known flat C.glass wall remains visible '+JSON.stringify(teal));
+   }
    for(const key of ['cameraTime','cameraSpeed','road','point','mode','width','height','eye','forward']){
     if(baselineInfo[key]!==info[key])
      throw Error('NATIVE_CAMERA_PAIR_NOT_IDENTICAL '+JSON.stringify({road,frame,key,baseline:baselineInfo[key],integrated:info[key]}));
@@ -138,12 +161,12 @@ try{
  }
  }
  report.actualGameWebGL='TRUE_GAME_CANVAS_WEBGL2_SAME_ORIGINAL_B48_AND_B51';
- report.screenshots=report.frames.filter(x=>x.mode!=='source-id').length;
- report.provenanceDiagnosticScreenshots=report.frames.filter(x=>x.mode==='source-id').length;
+ report.screenshots=report.frames.filter(x=>x.captureMode!=='source-id').length;
+ report.provenanceDiagnosticScreenshots=report.frames.filter(x=>x.captureMode==='source-id').length;
  if(report.screenshots!==12||report.provenanceDiagnosticScreenshots!==2||
     report.sourceIdChecks?.length!==2||report.pairs.length!==6||
     !report.pairs.some(x=>x.changedFraction>.001)||
-    report.frames.filter(x=>x.mode==='integrated').some(x=>Number(x.triangles)<1000))
+    report.frames.filter(x=>x.captureMode==='integrated').some(x=>Number(x.triangles)<1000))
   throw Error('INCOMPLETE_PRIVATE_NATIVE_GAME_ART');
  fs.writeFileSync(path.join(out,'G4E7CI_REAL_GAME_SCREENSHOT_AUDIT_HOLD.json'),JSON.stringify(report,null,2)+'\n');
  console.log('G4E7CJ_REAL_GAME_PIXEL_AUDIT_ART_STILL_HOLD',JSON.stringify({screenshots:report.screenshots,pairs:report.pairs.length,warnings:report.warnings,

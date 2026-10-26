@@ -233,7 +233,16 @@ function authorPromenade(v,f,n,side){
  // Open-sided inhabited sidewalk and transit shelters only, NOT empty scenery.
  both(v,p(-30,25,5),p(30,25,5),p(30,53,5),p(-30,53,5),C.steel);
  for(const x of [-23,0,23]){
-  both(v,p(x-6,32,7),p(x+6,32,7),p(x+6,32,16),p(x-6,32,16),C.glass);
+  // G4E-7CS: actual 17s GPU source-ID proved these exact THREE flat
+  // glass quads were the enormous opaque teal foreground rectangles.
+  // Only station 2 / left bank has this proven fault. Make three genuinely
+  // open transit bays with short grounded 3D abutments; other bays unchanged.
+  if(n===2&&side===-1){
+   for(const abutment of [x-5,x+5])
+    girder(v,p(abutment,32,5),p(abutment,32,16),1.8,C.steel);
+  }else{
+   both(v,p(x-6,32,7),p(x+6,32,7),p(x+6,32,16),p(x-6,32,16),C.glass);
+  }
   both(v,p(x-7,29,16),p(x+7,29,16),p(x+7,53,19),p(x-7,53,19),n%2?C.pearl:C.gold);
  }
 }

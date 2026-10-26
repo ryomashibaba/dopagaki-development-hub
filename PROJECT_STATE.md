@@ -1,3 +1,11 @@
+# G4E-7CS — GPU特定済み青緑壁の3面を局所修正（2026-10-26 JST、専用CI検証待ち）
+
+G4E-7CR初回run [#40297532117](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40297532117) は最終 FAILURE。ただしテストとPRIVATEビルドはPASS、14枚の真正WebGL画像は [Artifact #12639535527](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40297532117/artifacts/12639535527) に保存済み。固定17秒で第3ステーション左岸の三角形だけマゼンタ表示すると、true-pinchで問題の**3枚の青緑壁が一致して着色**した。ROI変更率61.2119%（28三角形）、pinch-switch居住街区79.8874%（2380三角形）。これはGPU実描画での出所確証だが美術評価ではない。
+
+初回CI FAILUREは**撮影データの mode キーが元のカメラ状態によって上書きされる既存の落とし穴**で、14画像を12基準+2診断として数えられなかったことによる。キャプチャ時の captureMode を別途保持して修正。実画像撮影そのものは成功。
+
+CSでは、正規17秒のtrue-pinchに出ていた authorPromenade の station=2/u=.62/side=-1 の**3枚だけ**を開放し、道路沿いに高さ11mの短い接地3D支持材6本で屋根を支える。ほかのステーション、pinch-switch居住街区、B48×7、B51-C×28、void52、正規240Hzカメラ/物理、本番は不変更。旧CQ実PNGのROIにはC.glassのRGB(41,135,163)が10,720画素あったため、修正後は真正同画角で1,500画素以下を最低回帰条件とする。低下が数値で認められてもARTは画像の実目視評価までHOLD、HUMAN/READY/PUBLISH/MERGEもHOLD、Slope2正式認定0m。
+
 # G4E-7CR — 第3ステーション左岸GPU識別色 A/B（2026-10-26 JST、検証待ち）
 
 CQ [CI #40294635351](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40294635351) は **completed / SUCCESS**、4/4 tests PASS、真正WebGL基準12画像・6組を確認。旧CQ欄の QUEUED は時点情報であり現在の状態ではない。[Artifact #12639060181](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40294635351/artifacts/12639060181) は2026-11-02 08:57 UTCまで保持。実画像ではtrue-pinch 17s左岸に大きな青緑の矩形3枚、pinch-switchには別の居住街区が確認できた。幾何学候補は両方 station=2 / u=.62 / side=-1 に集中したが GPU最終帰属は **未確定**。

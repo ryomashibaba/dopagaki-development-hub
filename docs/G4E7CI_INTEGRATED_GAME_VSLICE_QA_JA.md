@@ -1,3 +1,7 @@
+## G4E-7CS — 青緑の3面をGPU証明後に局所開放（2026-10-26 JST）
+
+CR初回CI #40297532117は captureMode集計不備でFAILだが、テストとPRIVATEビルドはPASS、14画像Artifact #12639535527の真正WebGLマゼンタ照合でtrue-pinchの3枚の矩形壁が station2 左側 roadbank-promenade の28三角形に属すると確証。pinch-switchは別の居住街区2380三角形なので不変更。CSはauthorPromenadeの当該3面を実開口にし地面から支持する柱6本へ最小置換。他道路・物理に変更なし。captureMode集計を修正し、真正240Hz 12コア+2診断画像とROI C.glass RGB(41,135,163) <=1500 pixels をCIに追加。現物画像未評価まではART/HUMAN/READY/PUBLISH/MERGE HOLD。
+
 ## G4E-7CQ SUCCESS / G4E-7CR GPU source-ID A/B（2026-10-26 JST）
 
 CQ run 40294635351: SUCCESS、4 tests PASS、PRIVATE真正WebGL12枚/6ペア、Artifact 12639060181（2026-11-02 08:57 UTC expiry）。CQの station2 左岸のCPU projectionは候補でありGPUピックではない。現物17秒スクリーンではtrue-pinchに3枚の大きな平面cyan、pinch-switchには窓のある別の建築。CRはPRIVATEのみの station2/u=.62/side=-1 の頂点RGBマゼンタ識別（頂点位置・道路・遮蔽・240Hz元カメラ不変）を検証する。元の12枚に加え同一17秒2枚を出力してROI色差を測定する。識別画像を審査するまで原因確定/建築修正/ART PASSを宣言しない。

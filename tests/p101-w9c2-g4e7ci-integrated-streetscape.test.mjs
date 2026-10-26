@@ -94,3 +94,30 @@ test('CR private GPU source-ID recolor changes only station2 left bank vertex RG
   assert.equal(art.art,'HOLD');
  }
 });
+
+
+test('CS fixed only proven three station2-left blue-green shelter panels',()=>{
+ for(const road of ['true-pinch','pinch-switch']){
+  const doc=generateG4E7BC(road,'rollDeck');
+  const frozen=JSON.stringify(doc);
+  const art=g4e7ciIntegratedStreetscape(doc,sample,{enabled:true,
+   shots:g4e7bgNativeFrames().stages[road].frames});
+  const source=art.sources.find(s=>s.station===2&&s.u===.62&&s.side===-1&&s.kind.startsWith('roadbank-'));
+  assert.ok(source);
+  if(road==='true-pinch'){
+   assert.equal(source.kind,'roadbank-promenade');
+   assert.equal(source.triangleCount,88,'3 panels replaced by 6 grounded 3D supports');
+   const section=art.vertices.slice(source.firstTriangle*18,(source.firstTriangle+source.triangleCount)*18);
+   let tealVertices=0;
+   for(let k=3;k<section.length;k+=6)
+    if(section[k]===.16&&section[k+1]===.53&&section[k+2]===.64)tealVertices++;
+   assert.equal(tealVertices,0,'flat cyan planes must not silently return');
+  }else{
+   assert.equal(source.kind,'roadbank-inhabited');
+   assert.equal(source.triangleCount,2380,'pinch-switch inhabited cell left untouched');
+  }
+  assert.equal(JSON.stringify(doc),frozen);
+  assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);
+  assert.equal(art.newMovingHazards,0);assert.equal(art.art,'HOLD');
+ }
+});
