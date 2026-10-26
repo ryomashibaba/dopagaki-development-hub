@@ -22,6 +22,14 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
   assert.ok(art.sources.some(x=>x.kind==='roadbank-inhabited'));
   assert.ok(art.sources.some(x=>x.kind==='anchored-civic-crescent'));
   assert.ok(art.sources.some(x=>x.kind==='civic-concourse'));
+  assert.ok(art.sources.some(x=>x.kind==='civic-echelons'),'CY must anchor integrated skyline to transit network');
+  assert.ok(art.cySpines>=1&&art.cySpines<=3);
+  assert.equal(art.cySpineQA.length,art.cySpines);
+  assert.equal(art.cyMinOutboardMeters,77);
+  assert.ok(art.cySpineQA.every(x=>x.visibleFrames>=1&&x.visibleFrames<=2&&x.score>=2));
+  for(let i=0;i<art.cySpineQA.length;i++)for(let j=i+1;j<art.cySpineQA.length;j++)
+   assert.ok(Math.abs(art.cySpineQA[i].u-art.cySpineQA[j].u)>.15);
+  console.log('G4E7CY_STRUCTURAL_SKYLINE_QA',road,JSON.stringify(art.cySpineQA));
   assert.equal(art.carvedFacades,true);assert.equal(art.openRearFacades,true);
   assert.equal(art.districtLinks,10);assert.ok(art.farRoofBays>=0&&art.farRoofBays<=10);
   console.log('G4E7CP_CONNECTED_SILHOUETTE_READ_ONLY',road,art.districtLinks,art.farRoofBays);
@@ -194,5 +202,23 @@ test('CX near-camera preservation is real 240Hz view aware, not a hard-coded sta
   assert.equal(JSON.stringify(stage),snap);
   assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);
   assert.equal(art.newMovingHazards,0);assert.equal(art.art,'HOLD');
+ }
+});
+
+test('CY civic echelon architecture has real outboard foundations and open sky without physics changes',()=>{
+ for(const road of ['true-pinch','pinch-switch']){
+  const original=generateG4E7BC(road,'rollDeck'),before=JSON.stringify(original);
+  const shot=g4e7bgNativeFrames().stages[road].frames;
+  const art=g4e7ciIntegratedStreetscape(original,sample,{enabled:true,shots:shot});
+  assert.ok(art.cySpines>=1&&art.cySpines<=3);
+  const nodes=art.sources.filter(x=>x.kind==='civic-echelons');
+  assert.equal(nodes.length,art.cySpines);
+  for(const x of nodes){
+   assert.ok(x.triangleCount>=70&&x.triangleCount<200,'actual 3D, small bounded split-V architecture');
+   assert.ok(x.u>=.44&&x.u<=.92&&[-1,1].includes(x.side));
+  }
+  assert.equal(JSON.stringify(original),before);
+  assert.deepEqual([art.newRoads,art.newColliders,art.newMovingHazards],[0,0,0]);
+  assert.equal(art.art,'HOLD');assert.equal(art.officialSlope2Meters,0);
  }
 });

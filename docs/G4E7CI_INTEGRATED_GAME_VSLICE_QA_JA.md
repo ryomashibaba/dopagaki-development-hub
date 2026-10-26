@@ -1,3 +1,7 @@
+## G4E-7CY 構造型インターチェンジを都市統一景観の一案として実験（2026-10-26 JST）
+
+CXの近景巨大建築視界遮蔽はPRIVATE GPUのsource-ID画素占有率53.14%→6.49%で実証済み、CI [#40313417994](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40313417994)成功。CYはこの改善を壊さず、街区を埋め戻すのではなく、道路外側の公共コンコースから既存の遠景クレセントへ繋がる**支柱6節・接地基礎2面・公共ギャラリー＋真の負空間**の未来的公共交通建築を、正規15/17sカメラのスコアで見える少数の箇所に配置。既存のB48×7/B51-C×28/void52は景観の後ろの真正物理のまま。道路内の巨大リング、衝突面、カメラ変更は禁止。実WebGL旧新の同画角でskylineの効果が弱い・道路を塞ぐ・建築がただの棒に見える場合はART REJECTとして調整。ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2 0m。
+
 ## CX正規実WebGL結果・再発防止CI完了（2026-10-26 JST）
 
 [実画像CI #40313417994](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40313417994) SUCCESS、9 tests PASS、PRIVATEビルドPASS、17 PNG/6 camera pairs/warnings0。[Evidence artifact #12645429225](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40313417994/artifacts/12645429225)。pinch-switch/t1700の巨大近景銀行区画の source-ID ROI x0..501,y25..436、正確RGB(255,0,255) は旧CW109,914/206,824(53.14%)→新CX13,423/206,824(6.49%)。CI新基準18%を通過。true-pinch 15s/17sは完全同一ピクセル。pinch-switch 15s約2.0%、17s約19.8%が画素単位で変化し、巨大左近景の回避で前方の道路の可視領域が拡大。ただし全都市美術はART HOLD、CG相対カメラの非人間固定スクリプト走行に限定。物理本体は未変更、公式Slope2 0m、HUMAN/READY/PUBLISH/MERGE HOLD。

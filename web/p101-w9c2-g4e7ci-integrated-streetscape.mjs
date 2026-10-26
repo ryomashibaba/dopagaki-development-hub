@@ -415,6 +415,82 @@ function civicRoofline(v,bankFrames,side,shots){
 }
 
 
+
+/**
+ * G4E-7CY: One civic SPINE language across the existing bank concourse and
+ * skyline crescents. These are occupied, structural public interchange
+ * structures, NOT obstacles, center-road gates or independent neon posts.
+ * Every rib has a real bank-side foundation and a link to existing concourse.
+ * Open central voids are actual missing triangles; no giant colored facade.
+ */
+function civicEchelon(v,f,side,variant){
+ const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
+ const bend=variant%2===0?1:-1;
+ // 9m open-air public approach connects to the existing concourse at d=78.
+ both(v,p(-4,77,10),p(4,77,10),p(9,104,8),p(-7,104,8),C.steel);
+ // The two feet are grounded in separate small occupied plazas. No fake
+ // road surface: the nearest point is 77m outboard of the B48 rolling strip.
+ for(const [x0,x1] of [[-28,-14],[14,29]])
+  both(v,p(x0,101,5),p(x1,101,5),p(x1,115,5),p(x0,115,5),C.steel);
+ // Tall asymmetrical V-folds around a TRUE OPEN AIR triangular central void.
+ // The forward-leaning upper section echoes the monumental civic crescents.
+ const outer=[p(-21,109,5),p(-26,117,40),p(-15,131,72),p(5+bend*2,142,91)];
+ const inner=[p(22,110,5),p(18,123,36),p(10,138,62),p(13,148,75)];
+ for(let i=0;i<3;i++){
+  girder(v,outer[i],outer[i+1],[5.0,4.3,3.2][i],i===2?C.gold:C.pearl);
+  girder(v,inner[i],inner[i+1],[4.8,3.9,2.8][i],i===2?C.lit:C.steel);
+ }
+ // Structural public gallery suspended BETWEEN two anchored ribs, short and
+ // outboard: the >40m sky opening below remains traversable air.
+ both(v,p(-10,127,41),p(12,127,41),p(13,135,42),p(-10,135,42),C.steel);
+ both(v,p(-9,127,42),p(9,127,42),p(9,127,44),p(-9,127,44),C.gold);
+ // Three-layer folded skylight above the gallery: angular, perforated
+ // volume rather than another endless opaque roof band across the highway.
+ both(v,p(-9,131,48),p(5,131,50),p(12,146,58),p(-2,146,56),C.pearl);
+ both(v,p(7,135,52),p(12,146,58),p(17,142,64),p(12,134,58),C.gold);
+}
+/**
+ * CY camera selection: do not build a forest of invisible spines or a
+ * foreground wall. Score the exact BG 15/17s cameras, choose ≤3 dispersed
+ * visible nodes of the same urban transit language, outboard of the road.
+ */
+function chooseCivicEchelons(road,sample,shots){
+ const candidates=[];
+ for(const side of [-1,1])for(const u of [.44,.52,.61,.72,.82,.92]){
+  const f=roadFrame(road,sample,u,side);
+  const p=(along,d,h)=>add(add(add(f.edge,scale(f.along,along)),scale(f.outward,d)),[0,h,0]);
+  const probes=[p(-23,107,8),p(23,107,8),p(-15,131,72),p(9,144,91),p(0,78,11)];
+  let visibleFrames=0,score=0,clutter=false;
+  for(const shot of shots){
+   const projected=probes.map(x=>screenPoint(shot,x));
+   const readable=projected.filter(q=>q&&q.z>=70&&q.z<2500&&
+    Math.abs(q.x)<.90&&q.y>-.65&&q.y<.75);
+   const all=projected.filter(q=>q&&q.z>=70&&q.z<2500);
+   if(all.length>=3){
+    const dx=Math.max(...all.map(q=>q.x))-Math.min(...all.map(q=>q.x));
+    const dy=Math.max(...all.map(q=>q.y))-Math.min(...all.map(q=>q.y));
+    if(dx*dy>.21||dx>1.16)clutter=true;
+   }
+   if(readable.length>=2){
+    visibleFrames++;
+    score+=readable.length+2*readable.some(q=>q.y>.12);
+   }
+  }
+  if(!clutter&&visibleFrames>0)
+   candidates.push({u,side,f,visibleFrames,score});
+ }
+ // Prefer nodes visible in BOTH cameras and spaced apart along the course.
+ candidates.sort((a,b)=>b.visibleFrames-a.visibleFrames||b.score-a.score||a.u-b.u||a.side-b.side);
+ const chosen=[];
+ for(const c of candidates){
+  if(chosen.every(x=>Math.abs(x.u-c.u)>.15)){
+   chosen.push(c);
+   if(chosen.length===3)break;
+  }
+ }
+ return chosen;
+}
+
 function placeLandmarks(doc,sample,shots){
  if(!Array.isArray(shots)||shots.length<2||
   shots[0]?.id!=='t1500'||shots[1]?.id!=='t1700'||
@@ -504,6 +580,12 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
   if(v.length/18>roofStart)sources.push({kind:'distant-folded-roofline',side,
    firstTriangle:roofStart,triangleCount:v.length/18-roofStart});
  }
+ // CY visual unity spine: all sites are along the REAL road bank and project
+ // legibly in at least one of the unmodified native 240Hz cameras.
+ const cySites=chooseCivicEchelons(doc.surfaces[1],sample,shots.slice(0,2));
+ for(const [variant,site] of cySites.entries())
+  mark('civic-echelons',{u:site.u,side:site.side,variant},
+   ()=>civicEchelon(v,site.f,site.side,variant));
  const sites=placeLandmarks(doc,sample,shots);
  for(const site of sites)mark('anchored-civic-crescent',
   {road:site.road,u:site.u,side:site.side,slot:site.slot},
@@ -520,6 +602,8 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
   minimumSetbackM:18,landmarks:2,macroSilhouette:'LOW_OPEN_CONCOURSE_WITH_SPACED_ANCHORED_DISTRICTS',
   cameraEvidence:'BG240HZ_BOTH_15_AND_17_NOT_HUMAN',
   landmarksQA:sites.map(({road,u,side,slot,score,framesVisible})=>({road,u,side,slot,score,framesVisible})),
+  cySpines:cySites.length,cySpineQA:cySites.map(({u,side,score,visibleFrames})=>({u,side,score,visibleFrames})),
+  cyMinOutboardMeters:77,cyMaxSpines:3,
   newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,
   art:'HOLD',human:'HOLD',publish:'HOLD',officialSlope2Meters:0};
 }

@@ -1,3 +1,11 @@
+# G4E-7CY — 進路の視認性を守った都市の主役骨格研究（2026-10-26 JST、CI検証前）
+
+**統合した設計仮説**：CXによる112m/s付近での道路先読み改善を保持しながら、「2つの巨大クレセント＋細い公共廊＋分断された箱街区」を、街区と未来都市の巨大建築が連続する姿に接続する。飾り棒の乱立、大板の街路遮蔽、車線をまたぐ疑似ゲートは過去の失敗として繰り返さない。
+
+**CY実装**：既存のB48実道路の沿道フレーム上で、正規BG240Hzの15s/17s二つの固定撮影カメラに見える街区点のみから、u間隔0.15超を維持して最大3か所の構造的都市インターチェンジ『civic-echelons』を自動選出。新しい形状は既存歩行者通路のd=78地点に接続する公共アプローチ（道路から77m以上外側）、2つの実接地基礎、6節の非対称V折れ立体支持材、背後の短い2段ギャラリー。大きな負空間は実際に三角形が存在しない開口で、道路を覆わず、景観だけで衝突なし。単に箱やネオン線を増やすのではなく既存の遠景シビックアーチに共通の構造言語を与える。生成元タグと`cySpineQA`（実カメラで視認できるフレーム数、u、side）を保存。
+
+**検証**：既存専用G4E-7CI現物WebGL 17PNG/同一BG240Hz6対を再利用して、true-pinchとpinch-switchの15s/17sで街路視認性、スケール感、近中遠景の連結と空の抜け、CX防壁の再発0を確認。先にunit、private build/real Chromium CIを通す。ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2 0m、B48実道路7/B51-C障害物28/gap52/240Hz/自然ジャンプ/相対カメラ/速度/入力不変、main/Gold/本番/原作保護、PR#46はDraft維持。
+
 # G4E-7CX 最終確定 — 近景の走行視界保護ルール＋実GPU再発防止CI SUCCESS（2026-10-26 JST）
 
 **正本コミット [3919b25](https://github.com/ryomashibaba/dopagaki-development-hub/commit/3919b25feaf7a9b54f98d0313b9a5afb4b0cbb6a)** に対する [専用CI #40313417994](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40313417994) は **completed/SUCCESS**。9/9単体テストPASS、PRIVATEビルドPASS、正規240Hz元ゲームWebGL17 PNG、6組の完全同一カメラ比較、warnings0。[Artifact #12645429225](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40313417994/artifacts/12645429225)。
