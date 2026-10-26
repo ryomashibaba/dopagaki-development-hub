@@ -1,3 +1,19 @@
+# G4E-7DF 完了：17秒の主役形状と15→17秒変化の実測、真正WebGL保持（2026-10-26 JST）
+
+**技術結果**：実装 [2abc765](https://github.com/ryomashibaba/dopagaki-development-hub/commit/2abc765083c8aa24ab13d69c98b561495c3fde11)／[専用CI #40340505043](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40340505043) **SUCCESS**／[独立P101物理CI #40340505090](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40340505090) **SUCCESS**。既存ゲーム側テスト10件PASS、新DF合成テスト3件PASS、CX・凍結DA/DB/DCの2道路×15/17秒＝16画角を正規BG240Hz CPU投影で再生。PRIVATEビルド、真正WebGL画像17枚（通常12、source-ID2、CT3）、同一正規カメラ6対、warnings0。[証拠Artifact #12658309698](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40340505043/artifacts/12658309698)に \`G4E7DF_HERO_MORPHOLOGY_HOLD.json\` と16枚のCPUシルエットSVG、真正WebGL17 PNGを保存。前DE成功時Artifact #12657063279 と普通のbaseline/integrated真正WebGL12 PNGのSHA-256比較を行い **12/12バイト完全同一**。CXジェネレータ blob \`af076d67492a677d2235e4730aef8cdf4808e106\`、元走路/動体/240Hz/カメラ/コントロール/本番には変更なし。
+
+**新診断の範囲**：DDのCPUデプス格子48×30で、明示的オプション使用時にのみprivate描画source所有格子を返す。DFはauthored \`slot\` のある主役建築を抽出し、見えるセル数、形状外接箱充填率、連結成分、横断行の分断数、閉じた空洞セル、外接・画面端位置を記録。15秒から17秒まで同じslotを追い、画面内への出入りと指標変化を記録する。合成の密実板・穴のある輪郭・細い分断材を区別するが、良し悪しの正解ラベルを予測するモデルではない。格子を描いたSVGは **CPUによる所有推定** で、真正WebGL画素でも美術的なレンダリングでもない。
+
+**17秒の実測（主役slot 2）**：true-pinch／pinch-switch順に、CXは27/31セル、外接箱充填率0.429/0.492、囲まれた空洞4/4セル。DAは45/52セル、充填率0.625/0.650、囲まれた空洞0/0セル。旧「巨大壁」の不採用形状が17秒では薄い帯警告に引っ掛からなくても、画面上の不透明な塊に寄っていることが定量的に確認できる。DBは24/25セル、充填率0.381/0.446、連結成分6/3（CXは3/2）で、薄い支持材と分離構造が画面上の断片化として残る傾向を示す。DCは26/30セルとCXの27/31セルに近く、slot 2の外形にも差が少ない。DC特有の非主役 \`inhabited-canyon-section\` はslot 2の形状指標だけでは対象外であり、**非主役の都市断面を診断できたと誤認してはいけない**。この制約は次の統合都市構図の評価に重要。
+
+**本質的な校正上の教訓**：既知のDA/DB/DCは企画全体に対するART REJECTであり、全12カメラ画角それぞれを人が独立に「失敗」と判定したラベルではない。17秒に候補の失敗部分が視界外へ離れたり、低格子で小さくなったりすれば、警告が無くても診断の誤判定とは直ちにいえない。従来の17秒6画角0検出を恣意的な閾値で100%にすることは禁止。DFの数値で「検出率向上」「都市美術改善」「人間が楽しく遊べる」のいずれも認定しない。
+
+**未解決**：DFはslot付き主役のみに特化し、DCのような公共施設・居住断面の非主役source全体について2Dの空隙・構造を評価できない。48×30 CPU所有格子はGPU最終色、物理的な奥行感、透過、遮蔽、人間の視認時間の代用ではない。新たな良質都市の独立肯定例も無い。DA/DB/DCはDF内で真正GPU再描画しておらず、過去のART REJECTはその当時の実WebGL評価に依拠する。DFの新たな主役形状分類はCPU仮説であり、WebGLで形態識別できたとの断言を禁ずる。
+
+**次工程の方針**：これ以上過去12画角の検出率合わせを行わず、実ゲーム高速カメラで主役＋公共路＋居住地区のマクロ構図が成立する少数の統合都市案に戻る。次の制作前に①15/17秒だけでなく高速通過による連続視点、②主役以外の都市機能の読める奥行、③実際の道路と街区の接続感、④局所化した壁・棚・棒状失敗の回避を明示する。真正WebGLを制作後に比較し、美術が未達なら実験案のみ撤回。CXは安全な比較基準であってART採用ではない。**ART/HUMAN/READY/PUBLISH/MERGE HOLD、公式Slope2認定0m、Draft PR #46未マージ**を維持。
+
+---
+
 # G4E-7DE 最終確定：過去のART REJECT再現16件と監査の実際の弱点（2026-10-26 JST）
 
 **正本と完成CI**：歴史的DA/DB/DC景観固定とCPU構図監査拡張 [fd0039a](https://github.com/ryomashibaba/dopagaki-development-hub/commit/fd0039a7e9af97a45c268f03306e1191239bc97e)、主役分類のバグ修正と暫定3指標 [47bb409](https://github.com/ryomashibaba/dopagaki-development-hub/commit/47bb409fddce0435ccbdc83a2875079bd708cc77)、専用CIの監視パス補完 [4f2aa22](https://github.com/ryomashibaba/dopagaki-development-hub/commit/4f2aa2276968cecf7c08ff9ced3373fe1794c88e)。[最終専用CI #40336577889](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40336577889) **SUCCESS**：従来BC/B48/B51/CI単体テストPASS、DA・DB・DC歴史的比較PASS、PRIVATEビルドPASS、真正元240Hz/WebGL17PNG＋同カメラ6対、warnings0。[証拠Artifact #12657063279](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40336577889/artifacts/12657063279) 内に G4E7DE_REJECT_CALIBRATION_HOLD.json、DD構図診断JSON、WebGL画像を保存。DE最初の実装コミット物理fast lane [#40334593020](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40334593020) SUCCESS。GPU近景ROIはCX既知の13,423/206,824＝6.49%（上限18%）、既知青緑壁0画素を維持。DEの最初の成功CIから最後のCIまで、元の通常WebGL12PNG（baseline/integrated各6）はバイトハッシュ完全一致。既存景観ジェネレータ、元物理、カメラ、走路操作を変更していない。
