@@ -52,14 +52,21 @@ try{
  browser=await chromium.launch({headless:true,args:['--use-gl=angle','--use-angle=swiftshader','--enable-webgl','--disable-dev-shm-usage']});
  for(const road of ['true-pinch','pinch-switch'])for(const frame of ['t1500','t1700','t1850']){
   let baselineImage=null,baselineInfo=null,integratedImage=null,integratedInfo=null;
-  // Preserve all 12 core screenshots; add two magenta source-ID frames at 17s.
-  for(const mode of (frame==='t1700'?['baseline','integrated','source-id']:['baseline','integrated'])){
+  // Preserve 12 reference frames and two CR source-ID frames. CT adds only
+  // three true-pinch/17s diagnostic frames, never changes baseline or camera.
+  const variants=frame!=='t1700'?['baseline','integrated']:
+   road==='true-pinch'?['baseline','integrated','source-id','ct-floor','ct-transit','ct-concourse']:
+   ['baseline','integrated','source-id'];
+  for(const mode of variants){
   const page=await browser.newPage({viewport:{width:1360,height:860},deviceScaleFactor:1});
   const errors=[];page.on('pageerror',e=>errors.push(String(e)));
   const params=new URLSearchParams({g4e7al:'manual',g4e7be:'roll-deck',g4e7bg:'inspect',g4e7bgFrame:'hold',g4e7bgRoad:road,g4e7bgPoint:frame});
   if(mode!=='baseline')params.set('g4e7ci','streetscape');
   if(mode==='integrated'&&frame==='t1700')params.set('g4e7cq','trace');
   if(mode==='source-id')params.set('g4e7cr','station2-left-id');
+  const ctMode={'ct-floor':'promenade-floor','ct-transit':'promenade-transit',
+   'ct-concourse':'civic-concourse-left'}[mode];
+  if(ctMode)params.set('g4e7ct',ctMode);
   await page.goto(home+'?'+params,{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>{
    const c=document.getElementById('view');
@@ -77,6 +84,8 @@ try{
     cqTrace:c.dataset.g4e7cqTrace||null,
     g4e7crTriangles:c.dataset.g4e7crTriangles||'0',
     g4e7crKind:c.dataset.g4e7crKind||'off',
+    g4e7ctTriangles:c.dataset.g4e7ctTriangles||'0',
+    g4e7ctKind:c.dataset.g4e7ctKind||'off',
     physicsUntouched:c.dataset.g4e7ciPhysicsUntouched,
     width:c.width,height:c.height,status:s?.textContent??''};
   });
@@ -138,6 +147,21 @@ try{
    if(pixel.centralWindowFraction>.13)
     report.warnings.push('POSSIBLE_ROAD_CENTER_SCREEN_CLUTTER '+road+' '+frame);
    console.log('G4E7CJ_VERIFIED_PIXEL_PAIR',JSON.stringify({road,frame,changedFraction:pixel.changedFraction,centralWindowFraction:pixel.centralWindowFraction}));
+  }else if(ctMode){
+   if(!integratedImage||Number(info.g4e7ctTriangles)<=0||info.g4e7ctKind!==ctMode)
+    throw Error('CT missing authored source part '+JSON.stringify({road,frame,mode,info}));
+   for(const key of ['cameraTime','cameraSpeed','road','point','mode','width','height','eye','forward']){
+    if(integratedInfo[key]!==info[key])
+     throw Error('CT_SOURCE_ID_CAMERA_MISMATCH '+JSON.stringify({road,frame,key}));
+   }
+   const pixel=await compareTrueCanvasPixels(page,integratedImage,image);
+   report.ctSourceChecks??=[];
+   report.ctSourceChecks.push({road,frame,kind:ctMode,
+    sourceTriangles:Number(info.g4e7ctTriangles),
+    comparedTo:'same-game-integrated-original',...pixel,
+    sourceIdOnly:true,art:'HOLD'});
+   console.log('G4E7CT_GPU_PART_COLOR_AB',JSON.stringify({road,frame,
+    kind:ctMode,sourceTriangles:info.g4e7ctTriangles,roi:pixel.provenanceRoi}));
   }else{
    if(!integratedImage||Number(info.g4e7crTriangles)<=0)
     throw Error('CR missing genuine PRIVATE station2 left source '+JSON.stringify({road,frame,info}));
@@ -161,14 +185,18 @@ try{
  }
  }
  report.actualGameWebGL='TRUE_GAME_CANVAS_WEBGL2_SAME_ORIGINAL_B48_AND_B51';
- report.screenshots=report.frames.filter(x=>x.captureMode!=='source-id').length;
+ report.screenshots=report.frames.filter(x=>['baseline','integrated'].includes(x.captureMode)).length;
  report.provenanceDiagnosticScreenshots=report.frames.filter(x=>x.captureMode==='source-id').length;
+ report.ctDiagnosticScreenshots=report.frames.filter(x=>x.captureMode.startsWith('ct-')).length;
  if(report.screenshots!==12||report.provenanceDiagnosticScreenshots!==2||
+    report.ctDiagnosticScreenshots!==3||report.ctSourceChecks?.length!==3||
     report.sourceIdChecks?.length!==2||report.pairs.length!==6||
     !report.pairs.some(x=>x.changedFraction>.001)||
     report.frames.filter(x=>x.captureMode==='integrated').some(x=>Number(x.triangles)<1000))
   throw Error('INCOMPLETE_PRIVATE_NATIVE_GAME_ART');
  fs.writeFileSync(path.join(out,'G4E7CI_REAL_GAME_SCREENSHOT_AUDIT_HOLD.json'),JSON.stringify(report,null,2)+'\n');
  console.log('G4E7CJ_REAL_GAME_PIXEL_AUDIT_ART_STILL_HOLD',JSON.stringify({screenshots:report.screenshots,pairs:report.pairs.length,warnings:report.warnings,
-  triangles:report.frames.find(x=>x.mode==='integrated')?.triangles,art:report.art}));
+  triangles:report.frames.find(x=>x.captureMode==='integrated')?.triangles,
+  ctSources:report.ctSourceChecks?.map(x=>({kind:x.kind,roi:x.provenanceRoi})),
+  art:report.art}));
 }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}

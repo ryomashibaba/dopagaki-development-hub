@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generateG4E7BC} from '../scripts/p101-w9c2-g4e7bc-bank-contour.mjs';
 import {sample} from '../private/reference_only/director/surface.js';
-import {g4e7ciIntegratedStreetscape,g4e7cqTracePixels,g4e7crHighlightStation2Left} from '../web/p101-w9c2-g4e7ci-integrated-streetscape.mjs';
+import {g4e7ciIntegratedStreetscape,g4e7cqTracePixels,g4e7crHighlightStation2Left,g4e7ctColorSourcePart} from '../web/p101-w9c2-g4e7ci-integrated-streetscape.mjs';
 import {g4e7bgNativeFrames} from '../scripts/p101-w9c2-g4e7bg-native-visual-frames.mjs';
 test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
  for(const road of ['true-pinch','pinch-switch']){
@@ -120,4 +120,32 @@ test('CS fixed only proven three station2-left blue-green shelter panels',()=>{
   assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);
   assert.equal(art.newMovingHazards,0);assert.equal(art.art,'HOLD');
  }
+});
+
+
+test('CT source-part colors isolate floor, shelters and left concourse without geometry change',()=>{
+ const doc=generateG4E7BC('true-pinch','rollDeck'),frozen=JSON.stringify(doc);
+ const art=g4e7ciIntegratedStreetscape(doc,sample,{enabled:true,
+  shots:g4e7bgNativeFrames().stages['true-pinch'].frames});
+ const promenade=art.sources.find(s=>s.kind==='roadbank-promenade'&&s.station===2&&s.u===.62&&s.side===-1);
+ assert.equal(promenade?.triangleCount,88);
+ assert.deepEqual(promenade.parts.map(x=>[x.kind,x.triangleCount]),
+  [['promenade-floor',4],['promenade-transit',84]]);
+ const before=art.vertices.slice(),spans=[];
+ for(const kind of ['promenade-floor','promenade-transit','civic-concourse-left']){
+  const result=g4e7ctColorSourcePart(art,kind);
+  assert.equal(result.kind,kind);assert.equal(result.vertices.length,before.length);
+  spans.push([result.firstTriangle,result.firstTriangle+result.triangles]);
+  for(let i=0;i<before.length;i++){
+   const touched=i>=result.firstTriangle*18&&i<(result.firstTriangle+result.triangles)*18&&i%6>=3;
+   assert.equal(result.vertices[i],touched?(i%6===4?0:1):before[i]);
+  }
+ }
+ for(let a=0;a<spans.length;a++)for(let b=a+1;b<spans.length;b++)
+  assert.ok(spans[a][1]<=spans[b][0]||spans[b][1]<=spans[a][0],
+   'GPU diagnostic sources must not overlap');
+ assert.throws(()=>g4e7ctColorSourcePart(art,'not-a-source'),/allowed PRIVATE/);
+ assert.deepEqual(art.vertices,before);assert.equal(JSON.stringify(doc),frozen);
+ assert.equal(art.newColliders,0);assert.equal(art.newRoads,0);
+ assert.equal(art.newMovingHazards,0);assert.equal(art.art,'HOLD');
 });

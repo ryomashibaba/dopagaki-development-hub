@@ -1,3 +1,7 @@
+## G4E-7CT：残存する暗い17s左岸デッキのGPUサブソース検査（2026-10-26 JST、未審査）
+
+G4E-7CS SUCCESSの修正済み真正WebGL 17sでも暗い広域デッキ/支持材が残り、CITY HERO級として不合格。元のCI景観形状は変更せず、実道路station2/u=.62/左岸のpromenade-floor（4三角形）、promenade-transit（84三角形）、左岸civic-concourse（既存タグ範囲）だけを独立したPRIVATEマゼンタ表示で撮る。元の正規BG240Hzカメラ、同一比較ROI、既存12+2画像と6ペアを不変のまま、t1700 true-pinchにCT識別3枚を追加。各画像のピクセル差分は診断情報に限定。実視界内の部材特定なく恒久変更をしない。ART/HUMAN/READY/PUBLISH/MERGEはHOLD、正式Slope2 0m、原本・本番保護。
+
 ## G4E-7CS 最終実画面QA（2026-10-26 JST、専用CI SUCCESS・ART HOLD）
 
 [Run #40298652277](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40298652277) **SUCCESS**、6/6テスト、PRIVATEビルドPASS、真正WebGL12コアPNG+2ソース識別PNG、同一正規BG240Hzカメラ6対、warnings 0。[Artifact #12640073134](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40298652277/artifacts/12640073134)（2026-11-02 09:36:50 UTC expiry）。元の17s左岸ROI x190..439/y205..339 にあった C.glass RGB(41,135,163)と完全一致の10,720画素は修正後 **0画素**。CR→CSの真正PNG変化画素はtrue-pinch 15s 483、17s 13,797、18.5s 0（各1008×645）。pinch-switchは全3画角0。画素の少なさ自体はART品質判定ではない。17sでは暗い左岸デッキと繰り返し支柱が残り、都市の連続感/奥行/規模感が不足するため、**原因特定済み青緑板の除去は成功、総合ART HOLD / CITY HERO REJECT**。HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2 0m、18.5s off-roadは人間走行評価に使わない。次工程は既存のタグ+正規実画像を使い、残存暗色面の帰属を特定してから最小形状変更。

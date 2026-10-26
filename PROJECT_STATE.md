@@ -1,3 +1,11 @@
+# G4E-7CT — 左岸残存暗色デッキの生成元を3分割してPRIVATE GPU検証（2026-10-26 JST、検証待ち）
+
+直前のG4E-7CSは専用CI [#40298652277](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40298652277) completed/SUCCESS、6/6単体テスト、PRIVATE真正WebGL12+2画像。true-pinchの正規17s左岸ROIでC.glass RGB(41,135,163)は10,720→0となり、問題の3枚の青緑パネル撤去を確証。ただし暗い広いデッキ面と反復支持材が残り、街区の見通し・規模感は未達。ART HOLD/REJECT継続。
+
+**CTは新しい景観形状を追加・削除しない診断専用**。既存 provenance 内の station2/u=.62/side=-1 roadbank-promenade を floor(4 triangles) と transit(canopies+grounded supports, 84 triangles) に分け、既存 civic-concourse の左岸側を第3候補とする。元のメッシュ、物理、色、カメラ、道路構造は通常描画では完全に同じ。true-pinch/t1700に3枚のPRIVATE色識別画像を既存WebGL CIへ追加し、同一カメラ/同一時刻の統合元画像とのROI差分と三角形数を監査する。撮影後は実画面で暗い面・支柱との対応を目視し、帰属が明白な面のみ次の小規模景観修正候補とする。単なるRGB差分はART合格証明ではない。既存12基準+2 CR source-ID、6比較ペアを維持。専用CIは既存G4E-7CIワークフローを再利用し増殖なし。
+
+**安全**：B48×7/B51-C×28/cell52/正規240Hz、速度・操舵・相対カメラ・自然ジャンプ変更なし。ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m、Draft PR #46はマージ禁止。main/Gold/本番/原作再現保護。次工程での恒久造形採否は真正WebGL画像と局所性評価で決める。
+
 # G4E-7CS 実WebGL完成検証／ART HOLD（2026-10-26 JST、最新確定）
 
 **正本は Draft PR #46、景観修正 [c39d04d](https://github.com/ryomashibaba/dopagaki-development-hub/commit/c39d04d1c26f0fe907ea4472a412015113286a73)。** [専用CI #40298652277](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40298652277) は **completed / SUCCESS**、6 tests PASS・0 FAIL、PRIVATEビルドPASS、元ゲームWebGL画像 **12枚+識別色2枚、6組の正規BG240Hz固定カメラ**。警告0。[Artifact #12640073134](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40298652277/artifacts/12640073134) は2026-11-02 09:36:50 UTCまで。前工程でQUEUE/PENDINGと書かれた内容は当時の履歴。最新のCS実測を優先。

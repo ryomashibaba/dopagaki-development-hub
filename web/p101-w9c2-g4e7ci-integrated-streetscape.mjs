@@ -229,9 +229,11 @@ function cameraCellIntrusion(f,shots){
  });
 }
 function authorPromenade(v,f,n,side){
+ const first=v.length/18;
  const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
  // Open-sided inhabited sidewalk and transit shelters only, NOT empty scenery.
  both(v,p(-30,25,5),p(30,25,5),p(30,53,5),p(-30,53,5),C.steel);
+ const afterFloor=v.length/18;
  for(const x of [-23,0,23]){
   // G4E-7CS: actual 17s GPU source-ID proved these exact THREE flat
   // glass quads were the enormous opaque teal foreground rectangles.
@@ -245,6 +247,12 @@ function authorPromenade(v,f,n,side){
   }
   both(v,p(x-7,29,16),p(x+7,29,16),p(x+7,53,19),p(x-7,53,19),n%2?C.pearl:C.gold);
  }
+ // CT: read-only triangle sub-ranges for source-ID shots; no authored triangles
+ // or materials change. The existing roadbank source still owns their union.
+ return {parts:[
+  {kind:'promenade-floor',firstTriangle:first,triangleCount:afterFloor-first},
+  {kind:'promenade-transit',firstTriangle:afterFloor,triangleCount:v.length/18-afterFloor}
+ ]};
 }
 
 // G4E-7CP: one continuous, PUBLIC-looking pedestrian concourse in the
@@ -381,10 +389,19 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
  const freeze=JSON.stringify(doc),v=[],sources=[],stations=[.40,.51,.62,.73,.84,.93];
  const mark=(kind,meta,fn)=>{
   const first=v.length/18;
-  fn();
+  const detail=fn();
   const count=v.length/18-first;
   if(!Number.isInteger(count)||count<=0)throw Error('CQ empty or invalid provenance');
-  sources.push({kind,...meta,firstTriangle:first,triangleCount:count});
+  if(detail?.parts){
+   const parts=detail.parts;
+   if(parts.length!==2||parts[0].firstTriangle!==first||
+      parts[0].triangleCount<=0||parts[1].triangleCount<=0||
+      parts[1].firstTriangle!==first+parts[0].triangleCount||
+      parts[1].firstTriangle+parts[1].triangleCount!==first+count)
+    throw Error('CT incomplete promenade part attribution');
+  }
+  sources.push({kind,...meta,firstTriangle:first,triangleCount:count,
+   ...(detail?.parts?{parts:detail.parts}:{})});
  };
  if(!Array.isArray(shots)||shots.length<2)throw Error('CO requires both unchanged native cameras');
  // Roadside cells use a fixed, read-only TWO camera coverage plan; extremely
@@ -502,4 +519,33 @@ export function g4e7crHighlightStation2Left(art){
   }
  return {vertices,kind:source.kind,triangles:source.triangleCount,
   firstTriangle:source.firstTriangle,station:source.station,side:source.side};
+}
+
+
+// G4E-7CT: PRIVATE only. The original mesh remains byte-for-byte identical.
+// Break down the dark 17s silhouette by recoloring one proven authored range
+// at a time; true-pinch station 2 left and the existing left concourse.
+export function g4e7ctColorSourcePart(art,part){
+ const allowed=['promenade-floor','promenade-transit','civic-concourse-left'];
+ if(!allowed.includes(part)||!art?.active||!Array.isArray(art.vertices)||
+    !Array.isArray(art.sources))throw Error('CT requires allowed PRIVATE source and original CI mesh');
+ const source=part==='civic-concourse-left'
+  ?art.sources.find(s=>s.kind==='civic-concourse'&&s.side===-1)
+  :art.sources.find(s=>s.kind==='roadbank-promenade'&&s.station===2&&s.u===.62&&s.side===-1);
+ if(!source)throw Error('CT requested source does not exist in this genuine variant');
+ const ranges=part==='civic-concourse-left'
+  ?[{kind:part,firstTriangle:source.firstTriangle,triangleCount:source.triangleCount}]
+  :source.parts?.filter(s=>s.kind===part);
+ if(ranges?.length!==1||ranges[0].triangleCount<1||
+    ranges[0].firstTriangle<source.firstTriangle||
+    ranges[0].firstTriangle+ranges[0].triangleCount>source.firstTriangle+source.triangleCount)
+  throw Error('CT incomplete source-part provenance');
+ const {firstTriangle,triangleCount}=ranges[0],vertices=art.vertices.slice();
+ for(let ti=firstTriangle;ti<firstTriangle+triangleCount;ti++)
+  for(let vi=0;vi<3;vi++){
+   const k=ti*18+vi*6+3;
+   vertices[k]=1;vertices[k+1]=0;vertices[k+2]=1;
+  }
+ return {vertices,kind:part,firstTriangle,triangles:triangleCount,
+  fromSource:source.kind,art:'HOLD'};
 }
