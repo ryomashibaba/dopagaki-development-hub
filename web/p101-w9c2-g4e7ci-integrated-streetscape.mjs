@@ -100,9 +100,16 @@ function sculptedWing(v,p,x0,x1,d0,d1,h0,h1,shift,skin,roof){
      b===3?C.pearl:material);
   }
  }
- // Recessed back wall and continuous real terrace floors retain architectural
- // load and legible volume while the main facade genuinely breathes.
- both(v,point(0,1,h0),point(1,1,h0),top(1,1),top(0,1),C.steel);
+ // G4E-7CP: the CO screenshot showed the rear of the occupied wings as
+ // uninterrupted teal rectangles. The REAR must have actual through-openings
+ // as well, not just the front elevation. Keep broad piers and top lintels.
+ const rear=(u,z)=>point(u,1,h0+(h1-h0)*z);
+ for(let a=0;a<6;a++)for(let b=0;b<4;b++){
+  if((a===1||a===2||a===4)&&(b===1||b===2))continue;
+  const u0=a/6,u1=(a+1)/6,z0=b/4,z1=(b+1)/4;
+  both(v,rear(u0,z0),rear(u1,z0),rear(u1,z1),rear(u0,z1),
+    b===0?C.steel:b===3?C.pearl:(a%2===0?C.glass:C.steel));
+ }
  both(v,bottom(0,0),bottom(1,0),bottom(1,1),bottom(0,1),C.deep);
  both(v,top(0,0),top(1,0),top(1,1),top(0,1),roof);
  for(const [u0,u1] of [[0,.16],[.84,1]])
@@ -224,6 +231,83 @@ function authorPromenade(v,f,n,side){
   both(v,p(x-7,29,16),p(x+7,29,16),p(x+7,53,19),p(x-7,53,19),n%2?C.pearl:C.gold);
  }
 }
+
+// G4E-7CP: one continuous, PUBLIC-looking pedestrian concourse in the
+// extruded VISUAL scenery (NOT a new surface/collider). Keep it well outboard
+// of the B48 rolling strip. Each station's real road frame bends the concourse
+// to the original course rather than generating a straight floating skybridge.
+function joinDistricts(v,bankFrames,side){
+ const at=(f,d,h)=>add(add(f.edge,scale(f.outward,d)),[0,h,0]);
+ let links=0;
+ const softened=(a,b,k)=>add(scale(a,1-k),scale(b,k));
+ for(let i=0;i<bankFrames.length-1;i++){
+  const left=bankFrames[i],right=bankFrames[i+1];
+  for(let k=0;k<5;k++){
+   const f0=k/5,f1=(k+1)/5;
+   const center0=softened(at(left,63,22),at(right,63,25),f0);
+   const center1=softened(at(left,63,22),at(right,63,25),f1);
+   const out0=unit(softened(left.outward,right.outward,f0)),
+    out1=unit(softened(left.outward,right.outward,f1));
+   const w0=scale(out0,8),w1=scale(out1,8);
+   const a=sub(center0,w0),b=add(center0,w0),
+    c=add(center1,w1),d=sub(center1,w1);
+   // The concourse is a broad continuous inhabited plane, not a thin beam.
+   both(v,a,b,c,d,C.steel);
+   // Interrupted luminous parapet is BELOW rider eye height at close range.
+   if(k===0||k===4){
+    both(v,add(b,[0,1,0]),add(c,[0,1,0]),
+      add(c,[0,3,0]),add(b,[0,3,0]),side<0?C.gold:C.lit);
+   }
+  }
+  links++;
+ }
+ // Broad inhabited abutments support the visual concourse at three nodes.
+ for(let i=0;i<bankFrames.length;i+=2){
+  const f=bankFrames[i],p=(d,h)=>at(f,d,h);
+  both(v,p(54,4),p(72,4),p(71,22),p(58,22),C.pearl);
+  both(v,p(72,4),p(84,4),p(78,23),p(71,22),C.steel);
+  both(v,p(54,4),p(72,4),p(84,4),p(63,4),C.deep);
+ }
+ return links;
+}
+
+// Distant *roofline* rather than another skyline of literal tower boxes:
+// a sawtooth procession of perforated folded civic canopies, beyond the
+// actual bank's inhabited terraces, with lower terraces and thick supports.
+// The silhouette changes height and pitch while retaining a continuous line.
+function civicRoofline(v,bankFrames,side){
+ const at=(f,d,h)=>add(add(f.edge,scale(f.outward,d)),[0,h,0]);
+ const peaks=side<0?[83,120,98,147,105,127]:[102,80,133,91,146,112];
+ const offset=side<0?188:215;
+ let bays=0;
+ for(let i=0;i<bankFrames.length-1;i++){
+  const a=bankFrames[i],b=bankFrames[i+1];
+  const topA=peaks[i],topB=peaks[i+1];
+  // Roof plane draws a folded, rising skyline; no opaque vertical curtain.
+  const a0=at(a,offset,topA-14),a1=at(a,offset+36,topA),
+    b0=at(b,offset,topB-14),b1=at(b,offset+36,topB);
+  both(v,a0,b0,b1,a1,i%2===0?C.pearl:C.steel);
+  const lipA=at(a,offset+37,topA+2),lipB=at(b,offset+37,topB+2);
+  both(v,a1,b1,lipB,lipA,side<0?C.gold:C.lit);
+  // Shadowed gallery 32-40m below the nonrectangular roof: an actual deck
+  // gives architectural meaning and a small-scale reference.
+  if(i%2===0){
+   both(v,at(a,offset+2,topA-42),at(b,offset+2,topB-42),
+     at(b,offset+27,topB-37),at(a,offset+27,topA-37),C.glass);
+  }
+  bays++;
+ }
+ // Grounded folded anchors, sparse and thick, not decorative sky-spikes.
+ for(const i of [0,2,4]){
+  const f=bankFrames[i],h=peaks[i];
+  both(v,at(f,offset+7,5),at(f,offset+20,5),
+    at(f,offset+35,h-13),at(f,offset+25,h-29),C.steel);
+  both(v,at(f,offset+20,5),at(f,offset+36,5),
+    at(f,offset+40,h-13),at(f,offset+35,h-13),C.deep);
+ }
+ return bays;
+}
+
 function placeLandmarks(doc,sample,shots){
  if(!Array.isArray(shots)||shots.length<2||
   shots[0]?.id!=='t1500'||shots[1]?.id!=='t1700'||
@@ -274,14 +358,22 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
    authorPromenade(v,f,n,side);
   }else{fullDistrictCells++;authorCell(v,f,n,side);}
  }
+ // Both banks follow the same real roadway, but their distant folded
+ // rooflines are deliberately asymmetric. This is scenery only.
+ let districtLinks=0,farRoofBays=0;
+ for(const side of [-1,1]){
+  const frames=stations.map(u=>roadFrame(doc.surfaces[1],sample,u,side));
+  districtLinks+=joinDistricts(v,frames,side);
+  farRoofBays+=civicRoofline(v,frames,side);
+ }
  const sites=placeLandmarks(doc,sample,shots);
  for(const site of sites)civicCrescent(v,site.frame,site.slot,site.side);
  const triangles=v.length/18;
  if(triangles<1000||triangles>50000||v.some(x=>!Number.isFinite(x))||JSON.stringify(doc)!==freeze)
   throw Error('CI geometry invalid or physics source mutated');
  return {active:true,vertices:v,triangles,stations:stations.length*2,layers:3,
-  carvedFacades:true,clippedCellReliefs,fullDistrictCells,
-  minimumSetbackM:18,landmarks:2,macroSilhouette:'OPEN_AIR_FRAMED_CIVIC_DISTRICTS_WITH_CARVED_TERRACES',
+  carvedFacades:true,openRearFacades:true,districtLinks,farRoofBays,clippedCellReliefs,fullDistrictCells,
+  minimumSetbackM:18,landmarks:2,macroSilhouette:'CONNECTED_CIVIC_CONCOURSE_AND_FOLDED_ROOFLINE',
   cameraEvidence:'BG240HZ_BOTH_15_AND_17_NOT_HUMAN',
   landmarksQA:sites.map(({road,u,side,slot,score,framesVisible})=>({road,u,side,slot,score,framesVisible})),
   newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,
