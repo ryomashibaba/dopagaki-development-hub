@@ -1,3 +1,13 @@
+# G4E-7CW — 実WebGL17枚・日本語HUD修復・支持材/屋根局所改善（2026-10-26 JST、最新確定）
+
+専用CI [#40309248652](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40309248652) は **completed/SUCCESS**、実装HEAD [9d173db](https://github.com/ryomashibaba/dopagaki-development-hub/commit/9d173db4ce6f7ecf6fd69104132aee6c47911946)。**8/8 tests PASS、PRIVATE build PASS、正規BG240Hzの元ゲームWebGL17枚（12基準+CR2+CT3）/同一カメラ6対/warnings0**。[Artifact #12644191731](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40309248652/artifacts/12644191731)は2026-11-02 10:46:17 UTCまで。非人間固定スクリプト撮影、人間試走ではない。
+
+**目視評価**：前CUはheadless-only Chromiumに日本語フォントがなくHUDが□表示だった。CWはfonts-ipafont-gothicだけ選択的追加し、真正15s/17s PNGで日本語が正常に描画されることを確認。巨大に映った白色斜柱2本を幅3.5m→1.6mの鋼色支持材にし、屋根2枚を20/19m→14/13mに短縮。左岸の視界と支持材の巨柱感は局所改善したが、近景都市の平板さ、暗い屋根の存在感、遠景の箱状物量感、ステージ面白さ・障害物の弱さなどの根幹課題は未達。
+
+**正規17sのGPU識別色ROI（33,750画素）**：transit屋根/柱はCT 10,483→CU 4,825→CW 3,084画素、CWのfloor床4,152画素、左岸civic-concourse 536画素。既知青緑ベタ板RGB(41,135,163)はCWでも0画素。これらは画面上の占有範囲の測定であり、美術スコアではない。**総合ART HOLD / CITY HERO REJECT、HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m**。
+
+**次G4E-7CX**：同じstation2の微細な寸法修正を無限に続けない。正規15/17sを含む6画角で近・中・遠景の建築のつながり、道路視認性、直方体状遠景、障害物とステージの面白さを再審査し、質の突破に直結する1仮説を優先実装する。変更は真正WebGLの新旧実画像で検証。B48道路7、B51-C動体28、gap52、240Hz物理/操舵/カメラ/自然ジャンプ、main/Gold/公開2サイト/原作とDraft PR #46未マージ保護。不要なワークフロー増殖とCI fanout回避。
+
 # G4E-7CW — 真正CU美術審査から支持材/屋根比率と日本語描画を局所修正（2026-10-26 JST、CV CI成功→CW実画面待ち）
 
 [CV専用CI #40307776332](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40307776332) は **SUCCESS**、8/8テスト、PRIVATEビルドPASS、正規BG240Hzの元ゲームWebGL **17画像（12基準+CR2+CT3）・6対、警告0**。[Artifact #12643920062](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40307776332/artifacts/12643920062)（2026-11-02 10:34:52 UTCまで）。18分タイムアウト原因だった `playwright install --with-deps` をheadless-onlyへ変更したことで撮影に成功。true-pinch17s ROIの既知青緑RGBは再発せず0。描画元識別はfloor 4,115画素/33,750（旧CT6,608）、transit 4,825（旧CT10,483）、left-concourse 487（旧CT351）。減少したのは識別対象の表示領域であり、美術合格ではない。

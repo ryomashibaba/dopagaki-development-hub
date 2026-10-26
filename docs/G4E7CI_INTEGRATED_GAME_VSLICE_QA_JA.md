@@ -1,3 +1,9 @@
+## G4E-7CW CI成功・実画面美術判定（2026-10-26 JST）
+
+[Run #40309248652](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40309248652) SUCCESS：8/8テスト、PRIVATEビルド、元BG240Hz WebGL17PNG/6対、警告0。[Artifact #12644191731](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40309248652/artifacts/12644191731)（2026-11-02 10:46:17 UTC失効）。headless Chromiumへ日本語フォントを選択導入し、CUで□化したHUD/案内の日本語がCW実画像で正常表示。左岸station2の巨柱2本を幅3.5mの白→1.6mの鋼色へ、屋根幅20/19m→14/13mに縮小した結果、17s画角の大きな白い柱と屋根の水平占有を軽減。
+
+17s ROIのGPU識別範囲：屋根/柱 CT10,483→CU4,825→CW3,084（ROI総画素33,750）、床CW4,152、左岸concourse CW536、既知RGB(41,135,163)青緑板の再発0。真の画角で部分改善を確認したが、都市の統一感/形状、遠景、道路と障害物の楽しさは不十分。ART HOLD/CITY HERO REJECT、HUMAN/READY/PUBLISH/MERGE HOLD、Slope2正式0m。次CXは局所micro-tuningから抜け、近中遠景の質と走行視認性を評価する。
+
 ## G4E-7CV結果 SUCCESS → CW局所美術/日本語フォント回帰修正（2026-10-26 JST）
 
 [CV #40307776332](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40307776332) SUCCESS、8 tests PASS、PRIVATE build PASS、真正17PNG/6対、warnings0。[Artifact #12643920062](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40307776332/artifacts/12643920062)。CU案は6柱から2斜柱への置換で17sの左岸視界が開けたが、2本の幅3.5m白柱が大きく単調に映り、二つの屋根が一連の暗色水平面に見える。美術ART HOLD。加えてheadless-only Chromiumは日本語フォント不足でHUDが□表示になる。**CW**ではこの駅の屋根幅を20/19→14/13mに、斜支柱3.5m白→1.6m鋼色へ局所修正。CIのOS依存一括installは行わず、日本語文字表示に必要な fonts-ipafont-gothic のみ導入し利用可能な日本語font familyを検査。CIと真の日本語HUD画像確認を終えるまで合格扱い禁止。ART/HUMAN/READY/PUBLISH/MERGE HOLD、物理と全本番環境不変。
