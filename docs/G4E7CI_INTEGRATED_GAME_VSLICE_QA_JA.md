@@ -1,3 +1,19 @@
+# G4E-7DG 結果確定：CITY CANYON候補は真正WebGLでART REJECT（2026-10-27 JST）
+
+**実制作**：[独立DG候補 3b14196](https://github.com/ryomashibaba/dopagaki-development-hub/commit/3b14196c3f2e558f79c10a9539f7cda2e9414c49) と [比較ゲーム接続 13a8633](https://github.com/ryomashibaba/dopagaki-development-hub/commit/13a8633f107bbe76fd3bf5a56fd44983e4f420e5) をPRIVATE研究用に保存。旧CX generator Git blob `af076d67492a677d2235e4730aef8cdf4808e106` は変更せず。凍結BG240HzカメラとB48×7/B51-C×28/gap52を利用し、既存2主役を一時的に三つの奥行き層の居住塊・抜けのある街路・公共進入路を持つ6体積×2地区に置き換える明示的ローカル比較モード `g4e7dg=canyon-city` を作成。ゲーム標準描画はCXのまま、新規道路・衝突床・動体・速度リセットなし。正式Slope2=0m。
+
+**技術検証**：[PRIVATE真正WebGL CI #40402442774](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40402442774) **SUCCESS**、既存CI単体10/10・DG候補単体1/1・DF合成3/3 PASS、DE過去不採用再生PASS、PRIVATE build PASS。元ゲームbaseline/integrated計12PNG・CR source-ID2・CT source部分3PNGに加え、真正DG WebGL6PNG（2道路×15/17/18.5s）＝合計23PNG。[Artifact #12689434708](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40402442774/artifacts/12689434708) に画像と `G4E7CI_REAL_GAME_SCREENSHOT_AUDIT_HOLD.json` を格納。[独立物理fast CI #40402442748](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40402442748) SUCCESS。前DF artifact #12658309698 と普通のbaseline/integrated真正WebGL12PNG SHA-256を照合し **12/12バイト完全一致**。既知CX近景のprivate source-ID ROIは13423/206824=6.4901%（18%未満）、既知青緑壁ゼロを維持。ただしこれは**DG候補の全景観遮蔽保証ではなく、標準CX画面の既知回帰**である。
+
+**実画面のCX→DG変更率**：true-pinchの15/17/18.5秒=9.9880%／3.5211%／5.7592%、pinch-switch=11.8280%／3.8604%／5.0957%。数値は同一カメラWebGL画素差であり、品質点数ではない。道路中央窓の変更量も小さいが人間の道路先読みや視認の合格判定には使えない。
+
+**美術判定はART REJECT**：15秒で左の巨大街区が画角外へ切れ、主役クレセントの形状が箱型の直立ビル群に置き換わった。17秒では箱ビルの間の公共空間・居住奥行き・連続する街路が高速視点から読めず、従来の失敗類型「別個の箱を足しただけ」の再発になった。18.5秒でも巨大街区は上方で途切れた形として迫り、魅力的な都市のまとまりは成立しない。形状の差が大きいこと（15秒画角の約10～12%）は美術改善の証拠ではない。**新候補を正式採用せず、CX標準を維持**。DGコードはPRIVATEの未採用実験記録に限定し、公開・マージは行わない。
+
+**工程効率上の失敗**：`scripts/build.mjs` に新しい静的コピーを追加したため、他工程と共有する多数のActions（同一コミットで47 workflow runs）が不要に起動してCI待ちを発生させた。次工程は専用評価基盤の隔離と既存ワークフローのwatch pathの影響調査を重視し、共有ビルドファイルを無闇に変更しない。新候補制作前には、まず2道路×連続視点の主役輪郭と構造的な空洞が一つの都市として読める設計図・比較構図の基準を作る。建築数やBOXのレイアウト微調整を進歩とみなさない。
+
+**保護ゲート**：CXは安全比較基準でありART正式合格でない。ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m、Draft PR #46 OPEN/Draft/未マージ、main/Gold/本番/原作未変更。
+
+---
+
 # G4E-7DF 完了：17秒の主役形状と15→17秒変化の実測、真正WebGL保持（2026-10-26 JST）
 
 **技術結果**：実装 [2abc765](https://github.com/ryomashibaba/dopagaki-development-hub/commit/2abc765083c8aa24ab13d69c98b561495c3fde11)／[専用CI #40340505043](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40340505043) **SUCCESS**／[独立P101物理CI #40340505090](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40340505090) **SUCCESS**。既存ゲーム側テスト10件PASS、新DF合成テスト3件PASS、CX・凍結DA/DB/DCの2道路×15/17秒＝16画角を正規BG240Hz CPU投影で再生。PRIVATEビルド、真正WebGL画像17枚（通常12、source-ID2、CT3）、同一正規カメラ6対、warnings0。[証拠Artifact #12658309698](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40340505043/artifacts/12658309698)に \`G4E7DF_HERO_MORPHOLOGY_HOLD.json\` と16枚のCPUシルエットSVG、真正WebGL17 PNGを保存。前DE成功時Artifact #12657063279 と普通のbaseline/integrated真正WebGL12 PNGのSHA-256比較を行い **12/12バイト完全同一**。CXジェネレータ blob \`af076d67492a677d2235e4730aef8cdf4808e106\`、元走路/動体/240Hz/カメラ/コントロール/本番には変更なし。
