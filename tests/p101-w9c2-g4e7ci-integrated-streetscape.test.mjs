@@ -14,13 +14,20 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
   assert.deepEqual(doc.surfaces[0].voidLongitudinalCells,[52]);
   assert.ok(art.triangles>=1000&&art.triangles<50000);
   assert.equal(art.stations,12);assert.equal(art.layers,3);
-  assert.equal(art.landmarks,2);assert.equal(art.macroSilhouette,'LOW_OPEN_CONCOURSE_WITH_SPACED_ANCHORED_DISTRICTS');
+  assert.equal(art.landmarks,2);
+  assert.equal(art.macroSilhouette,'INHABITED_OPEN_STRATA_CLOUDPORT_AND_CIVIC_ROADBANK');
+  assert.equal(art.dbSkyportQA.length,2);
+  assert.ok(art.dbSkyportQA.every(x=>x.morphology==='INHABITED_OPEN_STRATA_CLOUDPORT'&&
+   x.triangles>=250&&x.triangles<=1400&&x.inhabitedLevels===4&&x.supportingCores===6&&
+   x.viewQA.length===2&&x.viewQA.every(q=>q.probesInFront>=0&&
+    q.probesInFrame>=0&&q.probesInFrame<=6&&Number.isFinite(q.visibleFraction))));
+  console.log('G4E7DB_REAL_CAMERA_SKYPORT_READ_ONLY_QA',road,JSON.stringify(art.dbSkyportQA));
   assert.equal(art.cameraEvidence,'BG240HZ_BOTH_15_AND_17_NOT_HUMAN');
   assert.equal(art.landmarksQA.length,2);
   assert.equal(art.sources.reduce((n,s)=>n+s.triangleCount,0),art.triangles);
   assert.equal(art.sources[0].firstTriangle,0);
   assert.ok(art.sources.some(x=>x.kind==='roadbank-inhabited'));
-  assert.ok(art.sources.some(x=>x.kind==='anchored-civic-crescent'));
+  assert.equal(art.sources.filter(x=>x.kind==='inhabited-open-strata-cloudport').length,2);
   assert.ok(art.sources.some(x=>x.kind==='civic-concourse'));
   assert.equal(art.carvedFacades,true);assert.equal(art.openRearFacades,true);
   assert.equal(art.districtLinks,10);assert.ok(art.farRoofBays>=0&&art.farRoofBays<=10);

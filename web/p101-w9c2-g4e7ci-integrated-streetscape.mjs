@@ -28,45 +28,98 @@ function roadFrame(s,sample,u,side){
  * large structural rims, voids, galleries, foundations, and public plaza
  * deliberately replace repetitive tower box silhouettes, not physics.
  */
-function civicCrescent(v,f,n,side){
+// G4E-7DB: an inhabitable VOID is the architectural core, not a ring,
+// ornamental frame, or a vertical facade. A tiered cloudport emerges from
+// two deeply articulated station banks with staggered inhabited decks, real
+// missing-triangle atria, a low transit exchange and founded circulation cores.
+// On the actual camera, the former DA solid escarpment was truncated above
+// the screen. DB limits the occupied roofline and exposes three public levels.
+// Render-only, PRIVATE. The original BC physics/camera/road remain unchanged.
+function civicSkyport(v,f,n,side,shots){
+ const start=v.length/18;
  const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
- const origin=n===2?-55:-48,span=n===2?118:104;
- const profile=t=>({
-  x:origin+t*span,
-  d:90+20*Math.sin(Math.PI*t)+7*Math.sin(t*3+side),
-  top:14+(n===2?116:97)*Math.pow(Math.max(0,Math.sin(Math.PI*t)),.74)
- });
- for(let i=0;i<28;i++){
-  const a=profile(i/28),b=profile((i+1)/28);
-  // Two actual gaps cut through the thick rim, giving a readable open air void.
-  if((i>=7&&i<=8)||(i>=19&&i<=20))continue;
-  const a0=Math.max(5,a.top-29),b0=Math.max(5,b.top-29);
-  both(v,p(a.x,a.d,a0),p(b.x,b.d,b0),p(b.x,b.d,b.top),p(a.x,a.d,a.top),C.pearl);
-  both(v,p(a.x,a.d+26,a0),p(b.x,b.d+26,b0),p(b.x,b.d+26,b.top),p(a.x,a.d+26,a.top),C.steel);
-  both(v,p(a.x,a.d,a.top),p(b.x,b.d,b.top),p(b.x,b.d+26,b.top),p(a.x,a.d+26,a.top),C.gold);
-  if(i%6!==2&&i%6!==3&&Math.min(a.top,b.top)>92){
-   const y0=.36*a.top,y1=.36*b.top;
-   both(v,p(a.x,a.d-11,y0),p(b.x,b.d-11,y1),
-    p(b.x,b.d-11,y1+14),p(a.x,a.d-11,y0+14),i%3===0?C.glass:C.deep);
-   both(v,p(a.x,a.d-11,y0+14),p(b.x,b.d-11,y1+14),
-    p(b.x,b.d+42,y1+14),p(a.x,a.d+42,y0+14),C.steel);
+ const slight=n===2?1:.92;
+ const tiers=[{z:17,depth:31,spread:59,offset:0,forward:90},
+              {z:43,depth:33,spread:48,offset:8,forward:103},
+              {z:70,depth:30,spread:37,offset:16,forward:116},
+              {z:88,depth:24,spread:25,offset:21,forward:126}];
+ const qa=[];
+ // Opposed building banks FRAME the central open-air public canyon;
+ // the volume is not made by one continuous wall, nor by disconnected sticks.
+ for(const bank of [-1,1]){
+  const bankBase=bank<0?-35:36;
+  for(let layer=0;layer<tiers.length;layer++){
+   const t=tiers[layer],z=t.z*slight;
+   const center=bankBase+(bank<0?-1:1)*t.offset;
+   const half=t.spread*.5;
+   const x0=center-half,x1=center+half;
+   const front=t.forward+(bank===1?7:0);
+   const back=front+t.depth;
+   const lift=layer===0?8:7; // occupied mass, not a paper-thin sheet
+   const twist=(bank<0?-1:1)*(layer%2===0?5:-4);
+   const f0=p(x0,front,z),f1=p(x1,front,z+2),
+    b0=p(x0+twist,back,z+5),b1=p(x1+twist,back,z+7);
+   // A large roof terrace, separated from the next by genuine daylight.
+   both(v,f0,f1,b1,b0,layer===3?C.gold:(layer%2?C.pearl:C.steel));
+   both(v,p(x0,front,z-lift),p(x1,front,z-lift+2),
+    p(x1+twist,back,z-lift+7),p(x0+twist,back,z-lift+5),C.deep);
+   // A stepped thick parapet frames the front but leaves the broad centre
+   // entirely open. Deep front recesses are EMPTY triangles, not decals.
+   for(const interval of [[0,.19],[.81,1]]){
+    const [a,b]=interval,xx=q=>x0+(x1-x0)*q;
+    both(v,p(xx(a),front,z-lift),p(xx(b),front,z-lift),
+      p(xx(b),front,z+1),p(xx(a),front,z+1),
+      layer%2===0?C.pearl:C.steel);
+   }
+   // Sides are structural volumes; the interior facades do NOT bridge
+   // the canyon. The atrium remains open across all upper storeys.
+   for(const edge of [0,1]){
+    const x=edge===0?x0:x1;
+    both(v,p(x,front,z-lift),p(x+twist,back,z-lift+5),
+      p(x+twist,back,z+5),p(x,front,z),
+      layer===0?C.steel:C.pearl);
+   }
+   // Inner residential gallery uses an open central balcony, with just
+   // two readable door/core volumes, not a copied window-box raster.
+   const inX=bank<0?x1:x0;
+   const u=bank<0?-1:1;
+   both(v,p(inX,front+8,z-3),p(inX+u*3,front+8,z-3),
+     p(inX+u*3,front+8,z+1),p(inX,front+8,z+1),C.gold);
+   // Thick circulation and bearing cores, offset outward and rooted below.
+   // Cores traverse all terraces rather than independently supporting floors.
+   if(layer===0){
+    const outer=bank<0?x0+7:x1-7;
+    for(const d of [front+5,back-6]){
+     girder(v,p(outer,d,0),p(outer+bank*7,d+5,tiers[3].z*slight-2),6,C.pearl);
+    }
+    const inner=bank<0?x1-5:x0+5;
+    girder(v,p(inner,front+14,0),p(inner,back-5,tiers[2].z*slight-2),7,C.steel);
+   }
   }
-  if(i%3===0&&Math.min(a.top,b.top)>70)
-   both(v,p(a.x,a.d-1,a.top-8),p(b.x,b.d-1,b.top-8),
-    p(b.x,b.d-1,b.top-3),p(a.x,a.d-1,a.top-3),C.edge);
  }
- for(const t of [.08,.28,.50,.73,.93]){
-  const a=profile(t);
-  girder(v,p(a.x+5,a.d+55,0),p(a.x,a.d+15,a.top-9),7,C.pearl);
-  both(v,p(a.x-13,a.d+55,8),p(a.x+13,a.d+55,8),
-    p(a.x+13,a.d+82,8),p(a.x-13,a.d+82,8),C.steel);
+ // Low common transit court genuinely belongs to both load-bearing banks,
+ // while the *main vertical void* remains open from the plaza to the sky.
+ // It is away from the physical road and cannot become a driveable collider.
+ both(v,p(-27,96,11),p(28,103,11),p(24,135,14),p(-23,130,14),C.pearl);
+ both(v,p(-23,93,6),p(24,100,6),p(21,104,11),p(-24,99,11),C.steel);
+ for(const x of [-19,20]){
+  girder(v,p(x,125,0),p(x,125,14),7,C.steel);
  }
- const square=profile(.52);
- both(v,p(square.x-26,square.d-30,48),p(square.x+26,square.d-30,48),
-  p(square.x+26,square.d+62,48),p(square.x-26,square.d+62,48),C.pearl);
- for(const dx of [-18,0,18])
-  both(v,p(square.x+dx-4,square.d-29,49),p(square.x+dx+4,square.d-29,49),
-   p(square.x+dx+4,square.d-29,54),p(square.x+dx-4,square.d-29,54),C.gold);
+ // TWO-camera world projection is read-only and the same for all render frames.
+ // Do not rely only on a location score assuming the OLD 142m ring.
+ const samples=[p(-69,90,5),p(70,99,5),p(-68,118,81*slight),
+  p(71,133,81*slight),p(-21,96,39*slight),p(22,109,39*slight)];
+ for(const shot of shots.slice(0,2)){
+  const points=samples.map(x=>screenPoint(shot,x)).filter(Boolean);
+  const visible=points.filter(q=>Math.abs(q.x)<=.94&&Math.abs(q.y)<=.90);
+  const skyClipped=points.filter(q=>q.y>.9).length;
+  qa.push({frame:shot.id,probesInFront:points.length,probesInFrame:visible.length,
+   upperClipProbes:skyClipped,visibleFraction:Number((visible.length/samples.length).toFixed(3))});
+ }
+ const triangles=v.length/18-start;
+ if(triangles<250||triangles>1400)throw Error('DB macro atrium triangles out of range');
+ return {morphology:'INHABITED_OPEN_STRATA_CLOUDPORT',inhabitedLevels:4,
+  supportingCores:6,realDaylightGaps:3,triangles,viewQA:qa};
 }
 
 // G4E-7CN: inhabited road-bank blocks, not a forest of floating micro-girders.
@@ -505,9 +558,14 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
    firstTriangle:roofStart,triangleCount:v.length/18-roofStart});
  }
  const sites=placeLandmarks(doc,sample,shots);
- for(const site of sites)mark('anchored-civic-crescent',
+ const dbSkyportQA=[];
+ for(const site of sites)mark('inhabited-open-strata-cloudport',
   {road:site.road,u:site.u,side:site.side,slot:site.slot},
-  ()=>civicCrescent(v,site.frame,site.slot,site.side));
+  ()=>{
+   const result=civicSkyport(v,site.frame,site.slot,site.side,shots);
+   dbSkyportQA.push({road:site.road,u:site.u,side:site.side,
+    ...result});
+  });
  const triangles=v.length/18;
  if(triangles<1000||triangles>50000||v.some(x=>!Number.isFinite(x))||JSON.stringify(doc)!==freeze)
   throw Error('CI geometry invalid or physics source mutated');
@@ -517,7 +575,8 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
  return {active:true,vertices:v,sources,triangles,stations:stations.length*2,layers:3,
   carvedFacades:true,openRearFacades:true,districtLinks,farRoofBays,clippedCellReliefs,fullDistrictCells,
   cxNearVisionVetoes,cxNearVisionQA,
-  minimumSetbackM:18,landmarks:2,macroSilhouette:'LOW_OPEN_CONCOURSE_WITH_SPACED_ANCHORED_DISTRICTS',
+  minimumSetbackM:18,landmarks:2,macroSilhouette:'INHABITED_OPEN_STRATA_CLOUDPORT_AND_CIVIC_ROADBANK',
+  dbSkyportQA,
   cameraEvidence:'BG240HZ_BOTH_15_AND_17_NOT_HUMAN',
   landmarksQA:sites.map(({road,u,side,slot,score,framesVisible})=>({road,u,side,slot,score,framesVisible})),
   newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,
