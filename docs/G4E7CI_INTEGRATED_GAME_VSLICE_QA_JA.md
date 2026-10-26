@@ -1,3 +1,7 @@
+## G4E-7CV結果 SUCCESS → CW局所美術/日本語フォント回帰修正（2026-10-26 JST）
+
+[CV #40307776332](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40307776332) SUCCESS、8 tests PASS、PRIVATE build PASS、真正17PNG/6対、warnings0。[Artifact #12643920062](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40307776332/artifacts/12643920062)。CU案は6柱から2斜柱への置換で17sの左岸視界が開けたが、2本の幅3.5m白柱が大きく単調に映り、二つの屋根が一連の暗色水平面に見える。美術ART HOLD。加えてheadless-only Chromiumは日本語フォント不足でHUDが□表示になる。**CW**ではこの駅の屋根幅を20/19→14/13mに、斜支柱3.5m白→1.6m鋼色へ局所修正。CIのOS依存一括installは行わず、日本語文字表示に必要な fonts-ipafont-gothic のみ導入し利用可能な日本語font familyを検査。CIと真の日本語HUD画像確認を終えるまで合格扱い禁止。ART/HUMAN/READY/PUBLISH/MERGE HOLD、物理と全本番環境不変。
+
 ## G4E-7CV — CUの画像撮影に到達しなかったCIの再試験（2026-10-26 JST）
 
 [CU CI #40304256841](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40304256841) は18分タイムアウトでCANCELLED。7?の表現を避けるために明記すると、CU用の単体テスト工程はSUCCESS、PRIVATEビルド工程中のPlaywrightブラウザ用 `--with-deps` aptパッケージ取得が長引き、ゲームのWebGL撮影工程に到達していない。CU案の美術成功/失敗はいずれも未判定。CVではGitHub ubuntu-24.04 runnerのブラウザ導入を `npx playwright install --only-shell chromium` に限定してaptフェーズを回避。CG/CT既存の17実PNG・6組カメラ比較を維持し、実PNGを見てCU採否を判断。元物理/速度/カメラ/道路/障害物、main/Gold/本番を不変更。ART/HUMAN/READY/PUBLISH/MERGE HOLD、認定Slope2 0m。

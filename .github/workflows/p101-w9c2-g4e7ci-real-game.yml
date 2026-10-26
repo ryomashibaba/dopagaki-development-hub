@@ -44,6 +44,17 @@ jobs:
           # GitHub cancelled CU before any screenshots could be produced.
           # The native 240Hz WebGL comparison uses headless Chromium only.
           npx playwright install --only-shell chromium
+          # The old all-dependencies installer also provided CJK fonts.
+          # Headless-only CV images therefore had missing Japanese HUD glyphs.
+          # Install ONE small Japanese font family instead of all Playwright OS
+          # dependencies; fail before captures if the glyph provider is absent.
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends fonts-ipafont-gothic
+          fc-cache -f
+          if ! fc-list :lang=ja family | grep -q .; then
+            echo 'CW missing Japanese HUD font: do not certify images'
+            exit 1
+          fi
       - name: Real game 12 core WebGL + 2 CR source-ID + 3 CT diagnostic screenshots
         run: node scripts/p101-w9c2-g4e7ci-real-game-capture.mjs
       - uses: actions/upload-artifact@v4

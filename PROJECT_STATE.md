@@ -1,3 +1,11 @@
+# G4E-7CW — 真正CU美術審査から支持材/屋根比率と日本語描画を局所修正（2026-10-26 JST、CV CI成功→CW実画面待ち）
+
+[CV専用CI #40307776332](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40307776332) は **SUCCESS**、8/8テスト、PRIVATEビルドPASS、正規BG240Hzの元ゲームWebGL **17画像（12基準+CR2+CT3）・6対、警告0**。[Artifact #12643920062](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40307776332/artifacts/12643920062)（2026-11-02 10:34:52 UTCまで）。18分タイムアウト原因だった `playwright install --with-deps` をheadless-onlyへ変更したことで撮影に成功。true-pinch17s ROIの既知青緑RGBは再発せず0。描画元識別はfloor 4,115画素/33,750（旧CT6,608）、transit 4,825（旧CT10,483）、left-concourse 487（旧CT351）。減少したのは識別対象の表示領域であり、美術合格ではない。
+
+**本物の15s/17s画像を視覚審査**：6反復柱は消え左岸空間が開いたが、CUの白く太い2本の斜支柱は新たな単調な巨柱に見え、2枚の屋根も遠近投影では広い水平板に見える。さらに `--only-shell` CIではPlaywrightの全OS依存導入で提供されていた日本語フォントが無いため、HUDや警告の日本語が豆腐（□）に化けている。ART HOLD、現在のCUを美術PASSにしない。物理・カメラの不合格ではない。
+
+**CW局所修正**：station2/u=.62/side=-1 の2屋根を横方向14m/13m程度へ短縮し、両者の投影ギャップを拡大。2本の斜め支持材を幅3.5m・C.pearl→幅1.6m・C.steelとし、支える構造を保ちながら白い塊を抑える。別道路、同駅以外、civic-concourse、物理・操舵・カメラ不変更。CIでは前工程と同じheadless-only Chromiumに、**fonts-ipafont-gothicだけを選択的追加**して日本語HUDの文字化けを予防。以前の巨大apt `--with-deps` には戻さない。真正15s/17sの新旧画像と日本語表示確認までは品質未判定。ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m、Draft PR #46未マージ、main/Gold/本番/原作保護。
+
 # G4E-7CV — CU検証の18分タイムアウト対策（2026-10-26 JST、CI結果待ち）
 
 CU [専用CI #40304256841](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40304256841) は **CANCELLED**（開始2026-10-26 10:02 UTC、取消10:20 UTC）。7? ではなくG4E-7CUの単体テスト工程は成功、しかしPRIVATEビルド工程の末尾で `npx playwright install --with-deps chromium` によるUbuntu全体のフォント/GUI依存パッケージをaptで取得中に18分上限でキャンセル。ゲーム描画・美術のFAILではない。CUの実WebGLスクリーンショットは一切生成されず、Artifactなし。美術改善は未検証。

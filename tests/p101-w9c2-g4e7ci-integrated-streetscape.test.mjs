@@ -151,7 +151,7 @@ test('CT source-part colors isolate floor, shelters and left concourse without g
 });
 
 
-test('CU target has two staggered grounded plaza pads with supports, not repeated vertical screen-wide sticks',()=>{
+test('CW proportional two-canopy plaza preserves geometry protection and source ranges',()=>{
  const doc=generateG4E7BC('true-pinch','rollDeck'),frozen=JSON.stringify(doc);
  const art=g4e7ciIntegratedStreetscape(doc,sample,{enabled:true,
   shots:g4e7bgNativeFrames().stages['true-pinch'].frames});
@@ -159,7 +159,7 @@ test('CU target has two staggered grounded plaza pads with supports, not repeate
  assert.deepEqual(source.parts.map(x=>x.triangleCount),[12,40]);
  const piece=art.vertices.slice(source.firstTriangle*18,(source.firstTriangle+source.triangleCount)*18);
  assert.ok(piece.every(Number.isFinite));
- // Only two thick inclined supporting box members remain (2 * 12 triangles).
+ // Exactly two slimmer oblique box supports remain (2 * 12 triangles).
  assert.equal(source.parts[1].triangleCount,40);
  assert.equal(JSON.stringify(doc),frozen);
  assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);

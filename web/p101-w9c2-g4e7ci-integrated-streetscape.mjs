@@ -245,10 +245,13 @@ function authorPromenade(v,f,n,side){
   // Two offset folded canopies with deep eaves, each carried by one
   // thick oblique load-bearing member, not a row of silhouette-cutting bars.
   for(const [x0,x1,d0,d1,h,skin] of [
-   [-27,-7,42,58,16,C.pearl],[8,27,49,65,17,C.gold]]){
+   [-26,-12,42,58,16,C.pearl],[13,26,49,65,17,C.gold]]){
+   // CW: shorter, clearly separated shelter roofs avoid one dark horizon slab.
    both(v,p(x0,d0,h),p(x1,d0,h+1),p(x1,d1,h+2),p(x0,d1,h+1),skin);
    both(v,p(x0,d0,h-3),p(x1,d0,h-2),p(x1,d0,h+1),p(x0,d0,h),C.steel);
-   girder(v,p(x0+4,d1-7,5),p(x0+7,d1-6,h-1),3.5,C.pearl);
+   // Original CU 3.5m pale members read as two white monoliths. Keep
+   // credible oblique 3D support, but remove unnecessary visual dominance.
+   girder(v,p(x0+4,d1-7,5),p(x0+7,d1-6,h-1),1.6,C.steel);
   }
   return {parts:[
    {kind:'promenade-floor',firstTriangle:first,triangleCount:afterFloor-first},
