@@ -1,4 +1,8 @@
 import test from 'node:test';
+import fs from 'node:fs';
+import path from 'node:path';
+import {g4e7ddAuditMacroView} from '../web/p101-w9c2-g4e7dd-macro-camera-audit.mjs';
+const ddReports=[];
 import assert from 'node:assert/strict';
 import {generateG4E7BC} from '../scripts/p101-w9c2-g4e7bc-bank-contour.mjs';
 import {sample} from '../private/reference_only/director/surface.js';
@@ -9,6 +13,16 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
   const doc=generateG4E7BC(road,'rollDeck'),frozen=JSON.stringify(doc);
   const shots=g4e7bgNativeFrames().stages[road].frames;
   const art=g4e7ciIntegratedStreetscape(doc,sample,{enabled:true,shots});
+  for(const shot of shots.slice(0,2)){
+   const before=JSON.stringify(art.vertices),cameraBefore=JSON.stringify(shot);
+   const audit=g4e7ddAuditMacroView(art,shot);
+   assert.equal(audit.totalTriangles,art.triangles);
+   assert.equal(audit.native240Hz,true);
+   assert.equal(audit.art,'HOLD');
+   assert.equal(JSON.stringify(art.vertices),before);
+   assert.equal(JSON.stringify(shot),cameraBefore);
+   ddReports.push({road,...audit});
+  }
   assert.equal(JSON.stringify(doc),frozen);
   assert.equal(doc.surfaces.length,7);assert.equal(doc.movingObstacles.length,28);
   assert.deepEqual(doc.surfaces[0].voidLongitudinalCells,[52]);
@@ -41,6 +55,28 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
   assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);assert.equal(art.newMovingHazards,0);
   assert.equal(art.art,'HOLD');assert.equal(art.officialSlope2Meters,0);
  }
+  assert.equal(ddReports.length,4);
+  const dest='test-results/g4e7ci-real-game';
+  fs.mkdirSync(dest,{recursive:true});
+  fs.writeFileSync(path.join(dest,'G4E7DD_CAMERA_COMPOSITION_HOLD.json'),
+   JSON.stringify({schema:'DD_CPU_PROJECTION_NOT_GPU_AND_NOT_ART',
+    reference:'UNCHANGED_CX',reports:ddReports,art:'HOLD',human:'HOLD'},null,2));
+});
+test('DD warns of synthetic wide distant wall without modifying geometry',()=>{
+ const corners=[[-210,15,300],[210,15,300],[210,90,300],[-210,90,300]];
+ const v=[];
+ for(const face of [[0,1,2],[0,2,3]])for(const k of face)v.push(...corners[k],.3,.5,.7);
+ const art={active:true,vertices:v,sources:[
+  {kind:'synthetic-wall',firstTriangle:0,triangleCount:2}]};
+ const shot={id:'t1700',eye:[0,0,0],front:[0,0,1],
+  source:'ACTUAL_240HZ_START00_P96_FIXED_SCRIPT_NOT_HUMAN'};
+ const snap=JSON.stringify(art);
+ const qa=g4e7ddAuditMacroView(art,shot);
+ assert.ok(qa.occupiedCells>0&&qa.depthCells.far>0);
+ assert.ok(qa.horizontalBands.some(x=>x.mode==='source'&&x.spanFraction>=.5));
+ assert.equal(qa.art,'HOLD');
+ assert.equal(JSON.stringify(art),snap);
+ assert.throws(()=>g4e7ddAuditMacroView(art,{...shot,id:'human'}),/genuine unchanged/);
 });
 test('CI opt-in only, wrong physics denied',()=>{
  const doc=generateG4E7BC('true-pinch','rollDeck');

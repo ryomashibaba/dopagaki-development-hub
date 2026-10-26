@@ -1,3 +1,9 @@
+# G4E-7DD — read-only camera composition diagnostic implemented (2026-10-26 JST; CI pending)
+
+Quality problem: failed DA/DB/DC city silhouettes passed the existing CX 125m near-screen veto while creating distant giant slabs, narrow shelves and clipped skyline buildings. DD does NOT generate a new city mesh. A new private diagnostic module performs depth-aware CPU triangle projection of ORIGINAL BG240Hz cameras at 15s and 17s for both roads, on the existing authored CX scenery. It records near/mid/far screen cells, central-driving-view occupancy, upper-sky occupancy, visible major hero source IDs, clipped-at-edge and unknown-near triangles, and longest continuous horizontal runs for both individual triangles and whole source buildings. A synthetic large far wall unit test checks detection. Every result is labeled NOT GPU / NOT ART; thresholds are warnings until calibrated against rejected images. The output G4E7DD_CAMERA_COMPOSITION_HOLD.json is bundled with the existing genuine 17-PNG / six-pair CI artifact, without modifying the camera or renderer. No artificial grade or visual pass is declared.
+
+Protected: untouched existing CX generator/road/camera and WebGL renderer, B48=7, B51-C=28, gap52, 240Hz, natural jump/steering/speed/score, main/Gold/production/original, PR#46 remains draft and unmerged. ART/HUMAN/READY/PUBLISH/MERGE HOLD, certified Slope2 0m.
+
 # G4E-7DC 完了 — 都市一体型断面は真正WebGLでART REJECT、CXへ安全復元（2026-10-26 JST）
 
 **実験の証拠**：実制作 [2be6997](https://github.com/ryomashibaba/dopagaki-development-hub/commit/2be6997035a6dad8f884184bfa8129d058aabc3e) は主役クレセントを交換せず、既存公共通路に接続する3段・両岸計4候補の居住都市峡谷断面を設計。旧CPの孤立した遠景折屋根は置換し、厚い段床・左右荷重壁・透過でなく真正未作成三角形の開放ファサード・駅ランプを同一断面で生成。各候補は元15/17s正規カメラ2枚で125m/150点のCX近景視界監査（19点以上なら描画前棄却）を使用。
