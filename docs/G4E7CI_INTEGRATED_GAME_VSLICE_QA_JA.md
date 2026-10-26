@@ -1,3 +1,9 @@
+## G4E-7CX：近景全域視線保護を現物で確認、PRIVATEピクセル回帰ガード追加（2026-10-26 JST）
+
+元ゲーム固定240Hz `pinch-switch-t1700` の旧CWに大きな近景左側 `roadbank-inhabited` があり、私有source-IDの約11万画素が大きいソリッド面。CXは12セルの実建築三角形を正規15/17sカメラで近距離のscreen gridへ投影し、**pinch-switch第3駅左側のみ**救済。専用CI #40312047578 SUCCESS、9/9 tests PASS、17真正PNG/6対 warnings0。[Artifact #12645830351](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40312047578/artifacts/12645830351)。旧CW→CXの実画像変更率はpinch-switch 15s約2.0%、17s約19.8%、true-pinch両時点0%。実画像を目視し、巨大左近景占有が減り道路の先読み改善を確認。
+
+private source-IDによる正確なマゼンタRGB画素カウント（画面x0..501/y25..436のROI 206,824ピクセル）は旧109,914→新13,423、前工程の巨大壁再発を検知可能。既存キャプチャCIで同一GPU源が18%を占めたら失敗させる回帰テストを追加（正常な画像でも美術合格を意味しない）。ソース診断のみ、本番レンダラは変更なし。総合ART/HUMAN/READY/PUBLISH/MERGE HOLD、公式Slope2 0m。
+
 ## G4E-7CX — 近景街区の視界占有による開放型切替（2026-10-26 JST、CI待ち）
 
 真正pinch-switch/t1700の実WebGLに左岸の巨大な近景建築。G4E-7CR private source-ID とCPU候補トレースから `station2/u=.62/side=-1 roadbank-inhabited` が主な描画元と確認済み。全体計画の高速道路視認性を優先し、旧 `cameraCellIntrusion` の遠方中心・箱の4角AABBだけに頼らず、実際の occupied 建築三角形を正規15/17sカメラで15×10のゲーム走行視界格子へ投影。近景(125m)を19グリッド以上占有する街区のみ低層の開放型へ一般ルールで変更。形状と材質は既存 `authorPromenade` を再利用し、道路・障害物・操作・カメラを変えない。新 `cxNearVisionQA` は全12セルの測定を残す。CIテスト/実写真後、誤って広範な街並みが消えていれば原因確認して調整。数値は近景遮蔽候補であり、GPU実描画や人間ゲーム体験の証明ではない。ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m。

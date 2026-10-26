@@ -176,6 +176,31 @@ try{
     ...pixel,sourceIdOnly:true,art:'HOLD'});
    if(pixel.provenanceRoi.changedFraction<.005)
     throw Error('CR source ID does not alter expected wall region '+JSON.stringify({road,pixel}));
+   if(road==='pinch-switch'&&frame==='t1700'){
+    // CX real GPU source-ID had 109,914 opaque magenta pixels in the
+    // near-road left half BEFORE the camera-screen clearance rule and
+    // 13,423 AFTER it. This protects high-speed sightlines from relapse.
+    // Diagnostic-only vertex recolor; actual road and camera untouched.
+    const clearance=await page.evaluate(async bytes=>{
+     const img=new Image();img.src='data:image/png;base64,'+bytes;await img.decode();
+     const c=document.createElement('canvas');c.width=img.width;c.height=img.height;
+     const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0);
+     const p=ctx.getImageData(0,0,c.width,c.height).data;
+     const x0=0,y0=25,x1=Math.min(502,c.width),y1=Math.min(437,c.height);
+     let sourcePixels=0;
+     for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++){
+      const k=(y*c.width+x)*4;
+      if(p[k]===255&&p[k+1]===0&&p[k+2]===255)sourcePixels++;
+     }
+     const total=(x1-x0)*(y1-y0);
+     return {sourcePixels,total,leftNearScreenFraction:Number((sourcePixels/total).toFixed(6)),
+      roi:[x0,y0,x1-1,y1-1],source:'PRIVATE_ACTUAL_GPU_SOURCE_ID_MAGENTA_NOT_ART'};
+    },image.toString('base64'));
+    report.cxOpenVisibility=clearance;
+    console.log('G4E7CX_TRUE_GPU_NEAR_ROAD_VISIBILITY',JSON.stringify(clearance));
+    if(clearance.leftNearScreenFraction>=.18)
+     throw Error('CX near-bank giant inhabited building obscures highway sightline '+JSON.stringify(clearance));
+   }
    console.log('G4E7CR_GPU_SOURCE_COLOR_AB',JSON.stringify({road,frame,kind:info.g4e7crKind,
     sourceTriangles:info.g4e7crTriangles,roi:pixel.provenanceRoi}));
   }
@@ -190,7 +215,7 @@ try{
  report.ctDiagnosticScreenshots=report.frames.filter(x=>x.captureMode.startsWith('ct-')).length;
  if(report.screenshots!==12||report.provenanceDiagnosticScreenshots!==2||
     report.ctDiagnosticScreenshots!==3||report.ctSourceChecks?.length!==3||
-    report.sourceIdChecks?.length!==2||report.pairs.length!==6||
+    report.sourceIdChecks?.length!==2||!report.cxOpenVisibility||report.pairs.length!==6||
     !report.pairs.some(x=>x.changedFraction>.001)||
     report.frames.filter(x=>x.captureMode==='integrated').some(x=>Number(x.triangles)<1000))
   throw Error('INCOMPLETE_PRIVATE_NATIVE_GAME_ART');
