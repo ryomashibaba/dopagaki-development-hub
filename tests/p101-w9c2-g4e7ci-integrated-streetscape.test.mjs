@@ -72,7 +72,7 @@ test('DD warns of synthetic wide distant wall without modifying geometry',()=>{
   source:'ACTUAL_240HZ_START00_P96_FIXED_SCRIPT_NOT_HUMAN'};
  const snap=JSON.stringify(art);
  const qa=g4e7ddAuditMacroView(art,shot);
- assert.ok(qa.occupiedCells>0&&qa.depthCells.far>0);
+ assert.ok(qa.occupiedCells>0&&qa.depthCells.mid>0, '300m synthetic wall is mid-range (125..400m), not far-range');
  assert.ok(qa.horizontalBands.some(x=>x.mode==='source'&&x.spanFraction>=.5));
  assert.equal(qa.art,'HOLD');
  assert.equal(JSON.stringify(art),snap);
