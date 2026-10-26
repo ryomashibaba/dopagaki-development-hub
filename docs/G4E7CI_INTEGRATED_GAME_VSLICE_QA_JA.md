@@ -99,3 +99,14 @@ G4E-7CJでは旧景観と統合案を同一**実ゲームWebGL Canvas**で比較
 CO/CN比較はArtifact同解像度の元ゲームPNGをRGB絶対差和48超で比較した画素比。**いずれも美術スコアではない。** 実画像を直接確認：CNより前景の巨大無地壁が目立たなくなり、クレセントなど主役建築や開口のある街区を読みやすい視点ができた。とはいえ17秒の道路左側には壁状の長い構造が残り、左街区と先の都市の連続性は弱い。空へ伸びる都市全体の稜線・遠景の層・数kmの規模感は不成立。18.5秒はそもそもBGのphysicalRoad offなので走行時と同一の美術比較をしない。**ART HOLD / CITY HERO REJECT**。人間操舵での視認性・公平性・完成品質は未認定。
 
 次のCPは**見えている都市の建築関係と都市稜線の再構成**を優先。すでに改善した無地壁を再導入せず、過剰な箱/格子量産もしない。新しい素材巡回や無目的なテスト環境の増殖を避け、同じPRIVATE正規WebGL 12フレームで質を審査。元240Hz速度/操舵/カメラ/自然跳躍、B48道路7/B51-C動体28/gap52、A13規定、main/Gold/原作再現/本番サイト保護。正式Slope2=0m、PR#46 OPEN/Draft/未マージ。ART/HUMAN/READY/PUBLISH/MERGE全HOLD。Work未使用。
+
+## G4E-7CP — 連続都市廊・非箱型屋根研究と現物WebGL反証（2026-10-26 JST）
+
+**最終コード [826d355](https://github.com/ryomashibaba/dopagaki-development-hub/commit/826d3553e9147e049028f97e3d40c30a95e71127)、専用CI [#40293077968](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40293077968) SUCCESS、物理不変・形状の自動テスト3件PASS、PRIVATEビルドPASS。** 2道路×15秒/17秒/18.5秒×BASELINE/CP=12枚の**元ゲームWebGL2実画像**、6組の同一BG実240Hzカメラ比較あり。[最終PNG/JSON Artifacts #12637236643](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40293077968/artifacts/12637236643)。画像は非人間の固定スクリプト走行であり、ART PASSやHUMAN PASSを意味しない。18.5秒はBG physicalRoad=off、通常走行の画面とは区別。
+
+**構築と真のQA反省**：初版 [afe978f](https://github.com/ryomashibaba/dopagaki-development-hub/commit/afe978f876a23c3ebf1e6bd4f973b57da6d204c7) で両岸の公共デッキを10区間接続し、稜線屋根10区間と建築背面の実開口を作成。初版CI [#40291431137](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40291431137) SUCCESSだったが、真の17秒画面に長い黒い屋根帯が被さり、前工程から視認性が悪化。2版 [bd05522](https://github.com/ryomashibaba/dopagaki-development-hub/commit/bd05522ee47738a1a46ac21c75668ab8441c4a7b) では連続屋根を短い部分屋根に分割、公共デッキを地表近くへ移し、CI [#40292302238](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40292302238) SUCCESS。3版 [826d355](https://github.com/ryomashibaba/dopagaki-development-hub/commit/826d3553e9147e049028f97e3d40c30a95e71127) では上下幅を広く占める屋根のカメラ投影を棄却、旧店舗の3枚の不透明な青緑のベタ面と推定した要素を撤去、実投影上6/10遠景屋根のみ採用。元の背景/物理は未変更。
+
+**現物画像を目視した結果：ART HOLD / 主役景観REJECT（引き続き）**。上空の遮蔽帯は初版より減り、中央の物理道路は維持された。しかし真の17秒 true-pinch画像（およそ画面 x=190〜430, y=222〜323）に**3枚の大きな青緑色の平面がほぼ同じまま残存**する。CP3で削除した店舗パネルを出所と推定したのは誤り、原因は未特定。さらに数km級都市の奥行き・道路沿いの広域連続性と用途の読み取りも未達。**これ以上同一の見た目推測で部材を削るのは禁止**。次CQは **真正WebGL17秒の問題ピクセル位置を、出力メッシュ（発生関数/街区/三角形/色/3D位置）へ逆引きする診断**を最小限追加し、物理・カメラとスクリーンショットを不変のまま確定した箇所だけ修正する。画角比較は2道路×15/17秒を中心に、18.5秒 off-roadは分離評価。
+
+**最終CIのBASELINE比較 RGB差和>48 の画素率**（美術点数ではない）：true-pinch 15s **13.1537%**／17s **19.8540%**／18.5s **20.7207%**、pinch-switch 15s **15.3012%**／17s **32.2714%**／18.5s **13.2880%**。CIは12枚/6ペア、warningsゼロ。描画メッシュの街区10連結、視覚専用遠景屋根6をログで確認。ART/HUMAN/READY/PUBLISH/MERGEは全HOLD、公式Slope2 **0m**。B48道路7、B51-C動体28、gap52、240Hz、カメラ、操舵、自然跳躍、A13方針変更なし。main/Gold/原作再現/本番サイト保護、PR #46 OPEN Draft未マージ。Work未使用。
+
