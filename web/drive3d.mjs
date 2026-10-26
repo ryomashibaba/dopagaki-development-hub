@@ -325,7 +325,7 @@ const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,g4dSkywayMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
-let g4e7bgShot=null,g4e7ciMesh=null;
+let g4e7bgShot=null,g4e7bgShots=null,g4e7ciMesh=null;
 let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7afMesh=null,g4e7agMesh=null,g4e7amMesh=null,g4e7anMesh=null,g4e7bfMesh=null,g4e7bhMesh=null,g4e7biMesh=null,g4e7bjMesh=null,g4e7bkScene=null,g4e7blScene=null,g4e7bmScene=null,g4e7bnScene=null,g4e7boScene=null,g4e7aoMesh=null,g4e7adShot=null,g4e7adActive=false,g4e7aiShot=null,g4e7aiActive=false,g4e7akShot=null,g4e7akActive=false;
 let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null,g4e7alTrial=null,g4e7alPanel=null,g4e7alResultDownload=null,g4e7alActive=false;
 let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7qActive=false,g4e7rActive=false,g4e7tActive=false,g4e7vActive=false,g4e7vShot=null,g4e7wActive=false,g4e7wShot=null,g4e7sShot=null,g4e7sTrace=null,g4e7sShardMesh=null,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
@@ -486,10 +486,11 @@ function buildVisual(stage){
   canvas.dataset.g4e7amRiseMeters=String(am.maxRiseMeters);
   canvas.dataset.g4e7amOutboard=String(am.minimumOutboardMeters);
   canvas.dataset.g4e7amNonCollision=String(!am.physicalChanges&&am.extraRoads===0&&am.extraMachines===0);
-  const ci=g4e7ciIntegratedStreetscape(stage,sample,{enabled:g4e7ciRequested});
+  const ci=g4e7ciIntegratedStreetscape(stage,sample,{enabled:g4e7ciRequested,shots:g4e7bgShots});
   g4e7ciMesh=ci.active?mesh(ci.vertices):null;
   canvas.dataset.g4e7ciScene=ci.active?'INTEGRATED_PRIVATE_HOLD':'off';
   canvas.dataset.g4e7ciTriangles=String(ci.triangles);
+   canvas.dataset.g4e7cmLandmarksQA=ci.active?JSON.stringify(ci.landmarksQA):'off';
   canvas.dataset.g4e7ciPhysicsUntouched=String(!ci.physicalChanged&&ci.newColliders===0&&ci.newRoads===0&&ci.newMovingHazards===0);
   const bj=g4e7bjAbyssalStrata(stage,sample,{enabled:g4e7bjRequested});
   g4e7bjMesh=bj.active?mesh(bj.vertices):null;
@@ -1347,7 +1348,7 @@ async function load(){
  canvas.dataset.g4e7bkLit='off';
  canvas.dataset.g4e7bkMaterials='0';
  canvas.dataset.g4e7bkTriangles='0';
- runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;g4e7gActive=false;g4e7mActive=false;g4e7oActive=false;g4e7qActive=false;g4e7rActive=false;g4e7tActive=false;g4e7vActive=false;g4e7vShot=null;g4e7wActive=false;g4e7wShot=null;g4e7adActive=false;g4e7adShot=null;g4e7aiActive=false;g4e7aiShot=null;g4e7alActive=false;g4e7alTrial=null;g4e7bgShot=null;g4e7akActive=false;g4e7akShot=null;g4e7sShot=null;g4e7sTrace=null;g4e7oTrial=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
+ runner=null;previousPose=null;currentPose=null;cameraState=null;doc=null;world=null;ghostData=null;g4e7gActive=false;g4e7mActive=false;g4e7oActive=false;g4e7qActive=false;g4e7rActive=false;g4e7tActive=false;g4e7vActive=false;g4e7vShot=null;g4e7wActive=false;g4e7wShot=null;g4e7adActive=false;g4e7adShot=null;g4e7aiActive=false;g4e7aiShot=null;g4e7alActive=false;g4e7alTrial=null;g4e7bgShot=null;g4e7bgShots=null;g4e7akActive=false;g4e7akShot=null;g4e7sShot=null;g4e7sTrace=null;g4e7oTrial=null;status.className='status';status.textContent='JSON取得・衝突BVH構築中...';
  try{
   const response=await fetch('../generated/'+assets[id],{cache:'no-store'});
   if(!response.ok)throw Error('Stage JSON HTTP '+response.status);
@@ -1624,6 +1625,7 @@ async function load(){
       entry.actualB48!==7||entry.actualMovingB51!==28||
       !entry.originalGapCell52||!entry.originalStart00)
       throw Error('BG frame cannot be associated with this exact real BC stage');
+    g4e7bgShots=entry.frames;
     g4e7bgShot=entry.frames.find(f=>f.id===g4e7bgPoint);
     if(!g4e7bgShot||g4e7bgShot.source!=='ACTUAL_240HZ_START00_P96_FIXED_SCRIPT_NOT_HUMAN'||
        g4e7bgShot.speedMps<=52||g4e7bgShot.pose?.time===undefined)

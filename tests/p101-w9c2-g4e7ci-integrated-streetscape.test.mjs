@@ -7,13 +7,19 @@ import {g4e7bgNativeFrames} from '../scripts/p101-w9c2-g4e7bg-native-visual-fram
 test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
  for(const road of ['true-pinch','pinch-switch']){
   const doc=generateG4E7BC(road,'rollDeck'),frozen=JSON.stringify(doc);
-  const art=g4e7ciIntegratedStreetscape(doc,sample,{enabled:true});
+  const shots=g4e7bgNativeFrames().stages[road].frames;
+  const art=g4e7ciIntegratedStreetscape(doc,sample,{enabled:true,shots});
   assert.equal(JSON.stringify(doc),frozen);
   assert.equal(doc.surfaces.length,7);assert.equal(doc.movingObstacles.length,28);
   assert.deepEqual(doc.surfaces[0].voidLongitudinalCells,[52]);
   assert.ok(art.triangles>=2500&&art.triangles<50000);
   assert.equal(art.stations,16);assert.equal(art.layers,3);
-  assert.equal(art.landmarks,4);assert.equal(art.macroSilhouette,'FOUR_HOLLOW_CIVIC_CRESCENTS');
+  assert.equal(art.landmarks,4);assert.equal(art.macroSilhouette,'CAMERA_REGISTERED_FOUR_HOLLOW_CIVIC_DISTRICTS');
+  assert.equal(art.cameraEvidence,'BG240HZ_BOTH_15_AND_17_NOT_HUMAN');
+  assert.equal(art.landmarksQA.length,4);
+  assert.ok(art.landmarksQA.every(x=>x.road===0||x.road===1));
+  assert.ok(art.landmarksQA.every(x=>x.score>=0&&Number.isFinite(x.score)&&x.framesVisible>=0&&x.framesVisible<=2));
+  console.log('G4E7CM_READ_ONLY_CAMERA_SITE_EVIDENCE',road,JSON.stringify(art.landmarksQA));
   assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);assert.equal(art.newMovingHazards,0);
   assert.equal(art.art,'HOLD');assert.equal(art.officialSlope2Meters,0);
  }
@@ -21,6 +27,7 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
 test('CI opt-in only, wrong physics denied',()=>{
  const doc=generateG4E7BC('true-pinch','rollDeck');
  assert.equal(g4e7ciIntegratedStreetscape(doc,sample,{enabled:false}).vertices.length,0);
+ assert.throws(()=>g4e7ciIntegratedStreetscape(doc,sample,{enabled:true}),/CM requires both original 240Hz/);
  doc.movingObstacles.pop();
  assert.throws(()=>g4e7ciIntegratedStreetscape(doc,sample,{enabled:true}),/exact protected/);
 });

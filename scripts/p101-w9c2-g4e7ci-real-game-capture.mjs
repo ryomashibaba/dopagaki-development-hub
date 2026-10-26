@@ -67,6 +67,7 @@ try{
     cameraTime:c.dataset.g4e7bgTime,cameraSpeed:c.dataset.g4e7bgSpeed,
     eye:c.dataset.g4e7cjEye,forward:c.dataset.g4e7cjForward,
     triangles:c.dataset.g4e7ciTriangles,
+    landmarksQA:c.dataset.g4e7cmLandmarksQA,
     physicsUntouched:c.dataset.g4e7ciPhysicsUntouched,
     width:c.width,height:c.height,status:s?.textContent??''};
   });
@@ -75,7 +76,8 @@ try{
     !Number.isFinite(Number(info.cameraTime))||Number(info.cameraTime)<14||
     !Number.isFinite(Number(info.cameraSpeed))||Number(info.cameraSpeed)<52||
     (mode==='baseline'&&info.scene!=='off')||
-    (mode==='integrated'&&(info.scene!=='INTEGRATED_PRIVATE_HOLD'||info.physicsUntouched!=='true')))
+    (mode==='integrated'&&(info.scene!=='INTEGRATED_PRIVATE_HOLD'||info.physicsUntouched!=='true'||
+      !info.landmarksQA||info.landmarksQA==='off'||JSON.parse(info.landmarksQA).length!==4)))
    throw Error('SAME_GAME_CAMERA_REQUIRED '+JSON.stringify({road,frame,mode,info,errors}));
   const name=road+'-'+frame+'-'+mode+'.png';
   const image=await page.locator('#view').screenshot({path:path.join(out,name)});
@@ -95,6 +97,7 @@ try{
     report.warnings.push('POSSIBLE_ROAD_CENTER_SCREEN_CLUTTER '+road+' '+frame);
    console.log('G4E7CJ_VERIFIED_PIXEL_PAIR',JSON.stringify({road,frame,changedFraction:pixel.changedFraction,centralWindowFraction:pixel.centralWindowFraction}));
   }
+  if(mode==='integrated')console.log('G4E7CM_CAMERA_SITES_REAL_FRAME',road,frame,info.landmarksQA);
   console.log('G4E7CI_REAL_GAME_FRAME',name,info.triangles);
   await page.close();
  }
