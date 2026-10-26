@@ -61,6 +61,7 @@ import {g4e7bfSkyFracture} from './p101-w9c2-g4e7bf-sky-fracture.mjs';
 import {g4e7bhOpenHorizon} from './p101-w9c2-g4e7bh-open-horizon.mjs';
 import {g4e7biParallaxQuarters} from './p101-w9c2-g4e7bi-parallax-quarters.mjs';
 import {g4e7ciIntegratedStreetscape,g4e7cqTracePixels,g4e7crHighlightStation2Left,g4e7ctColorSourcePart} from './p101-w9c2-g4e7ci-integrated-streetscape.mjs';
+import {g4e7dgCanyonCandidate} from './p101-w9c2-g4e7dg-canyon-city.mjs';
 import {g4e7bjAbyssalStrata} from './p101-w9c2-g4e7bj-abyssal-strata.mjs';
 import {createBKLitScene,renderBKLitScene,releaseBKLitScene} from './p101-w9c2-g4e7bk-lit-glb.mjs';
 import {g4e7aoActualB51Warning} from './p101-w9c2-g4e7ao-b51-approach.mjs';
@@ -194,6 +195,11 @@ const g4e7blRequested=g4e7beRequested&&!g4e7bfRequested&&!g4e7bhRequested&&!g4e7
  new URLSearchParams(window.location.search).get('g4e7bgFrame')==='hold';
 const g4e7ciRequested=g4e7bgRequested&&new URLSearchParams(window.location.search).get('g4e7ci')==='streetscape';
 const g4e7cqRequested=g4e7ciRequested&&new URLSearchParams(window.location.search).get('g4e7cq')==='trace';
+// DG pilot is only reachable on a deliberate loopback/native private-frame URL.
+// It never replaces CX by default or becomes a playable/collidable road.
+const g4e7dgRequested=g4e7ciRequested&&
+ ['127.0.0.1','localhost'].includes(window.location.hostname)&&
+ new URLSearchParams(window.location.search).get('g4e7dg')==='canyon-city';
 // PRIVATE fixed-camera diagnosis only: recolor source vertices without changing shape.
 const g4e7crRequested=g4e7bgRequested&&g4e7ciRequested&&
  new URLSearchParams(window.location.search).get('g4e7cr')==='station2-left-id';
@@ -495,18 +501,24 @@ function buildVisual(stage){
   canvas.dataset.g4e7amNonCollision=String(!am.physicalChanges&&am.extraRoads===0&&am.extraMachines===0);
   const ci=g4e7ciIntegratedStreetscape(stage,sample,{enabled:g4e7ciRequested,shots:g4e7bgShots});
   if(g4e7crRequested&&g4e7ctRequested)throw Error('PRIVATE CR and CT source diagnostics are exclusive');
+  if(g4e7dgRequested&&(g4e7crRequested||g4e7ctRequested||g4e7cqRequested))
+    throw Error('DG city comparison cannot be combined with CX color provenance');
+  const dg=g4e7dgRequested&&ci.active?
+    g4e7dgCanyonCandidate(stage,sample,{enabled:true,shots:g4e7bgShots}):null;
+  const visibleCity=dg||ci;
   const cr=g4e7crRequested&&ci.active?g4e7crHighlightStation2Left(ci):null;
   const ct=g4e7ctRequested&&ci.active?g4e7ctColorSourcePart(ci,g4e7ctSource):null;
-  g4e7ciMesh=ci.active?mesh(ct?.vertices||cr?.vertices||ci.vertices):null;
+  g4e7ciMesh=ci.active?mesh(ct?.vertices||cr?.vertices||visibleCity.vertices):null;
+  canvas.dataset.g4e7dgScene=dg?.dg?.design||'off';
   canvas.dataset.g4e7crTriangles=String(cr?.triangles||0);
   canvas.dataset.g4e7crKind=cr?.kind||'off';
   canvas.dataset.g4e7ctTriangles=String(ct?.triangles||0);
   canvas.dataset.g4e7ctKind=ct?.kind||'off';
   g4e7cqArt=g4e7cqRequested&&ci.active?{vertices:ci.vertices,sources:ci.sources}:null;
   canvas.dataset.g4e7ciScene=ci.active?'INTEGRATED_PRIVATE_HOLD':'off';
-  canvas.dataset.g4e7ciTriangles=String(ci.triangles);
+  canvas.dataset.g4e7ciTriangles=String(visibleCity.triangles);
    canvas.dataset.g4e7cmLandmarksQA=ci.active?JSON.stringify(ci.landmarksQA):'off';
-  canvas.dataset.g4e7ciPhysicsUntouched=String(!ci.physicalChanged&&ci.newColliders===0&&ci.newRoads===0&&ci.newMovingHazards===0);
+  canvas.dataset.g4e7ciPhysicsUntouched=String(!visibleCity.physicalChanged&&visibleCity.newColliders===0&&visibleCity.newRoads===0&&visibleCity.newMovingHazards===0);
   const bj=g4e7bjAbyssalStrata(stage,sample,{enabled:g4e7bjRequested});
   g4e7bjMesh=bj.active?mesh(bj.vertices):null;
   canvas.dataset.g4e7bjScene=bj.active?'abyssal-strata':'off';

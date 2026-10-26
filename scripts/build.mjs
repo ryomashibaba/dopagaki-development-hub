@@ -80,6 +80,8 @@ if(includeStages){
  copy('web/p101-w9c2-g4e7bh-open-horizon.mjs','drive3d/p101-w9c2-g4e7bh-open-horizon.mjs');
  copy('web/p101-w9c2-g4e7bi-parallax-quarters.mjs','drive3d/p101-w9c2-g4e7bi-parallax-quarters.mjs');
  copy('web/p101-w9c2-g4e7ci-integrated-streetscape.mjs','drive3d/p101-w9c2-g4e7ci-integrated-streetscape.mjs');
+ // DG is inert except for a loopback-only explicit PRIVATE camera inspection.
+ copy('web/p101-w9c2-g4e7dg-canyon-city.mjs','drive3d/p101-w9c2-g4e7dg-canyon-city.mjs');
  copy('web/p101-w9c2-g4e7bj-abyssal-strata.mjs','drive3d/p101-w9c2-g4e7bj-abyssal-strata.mjs');
  copy('web/p101-w9c2-g4e7bk-lit-glb.mjs','drive3d/p101-w9c2-g4e7bk-lit-glb.mjs');
  copy('web/p101-w9c2-g4e7ao-b51-approach.mjs','drive3d/p101-w9c2-g4e7ao-b51-approach.mjs');

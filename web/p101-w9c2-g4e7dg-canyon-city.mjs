@@ -145,8 +145,8 @@ export function g4e7dgCanyonCandidate(doc,sample,{enabled=false,shots=null}={}){
   if(['anchored-civic-crescent','distant-folded-roofline'].includes(source.kind))continue;
   record(source.kind,Object.fromEntries(Object.entries(source).filter(([key])=>
     !['firstTriangle','triangleCount','parts','kind'].includes(key))),()=>{
-   vertices.push(...cx.vertices.slice(source.firstTriangle*18,
-    (source.firstTriangle+source.triangleCount)*18));
+   for(let i=source.firstTriangle*18;i<(source.firstTriangle+source.triangleCount)*18;i++)
+    vertices.push(cx.vertices[i]);
   });
  }
  for(const site of cx.landmarksQA){

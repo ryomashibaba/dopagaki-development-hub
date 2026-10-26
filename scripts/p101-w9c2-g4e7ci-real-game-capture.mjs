@@ -57,6 +57,7 @@ try{
   const variants=frame!=='t1700'?['baseline','integrated']:
    road==='true-pinch'?['baseline','integrated','source-id','ct-floor','ct-transit','ct-concourse']:
    ['baseline','integrated','source-id'];
+  variants.push('dg'); // separate genuine WebGL candidate; core 17 remain unchanged
   for(const mode of variants){
   const page=await browser.newPage({viewport:{width:1360,height:860},deviceScaleFactor:1});
   const errors=[];page.on('pageerror',e=>errors.push(String(e)));
@@ -64,6 +65,7 @@ try{
   if(mode!=='baseline')params.set('g4e7ci','streetscape');
   if(mode==='integrated'&&frame==='t1700')params.set('g4e7cq','trace');
   if(mode==='source-id')params.set('g4e7cr','station2-left-id');
+  if(mode==='dg')params.set('g4e7dg','canyon-city');
   const ctMode={'ct-floor':'promenade-floor','ct-transit':'promenade-transit',
    'ct-concourse':'civic-concourse-left'}[mode];
   if(ctMode)params.set('g4e7ct',ctMode);
@@ -76,7 +78,7 @@ try{
   const info=await page.evaluate(()=>{
    const c=document.getElementById('view'),s=document.getElementById('appStatus');
    return {point:c.dataset.g4e7bgPoint,road:c.dataset.g4e7bgNativeRoad,
-    mode:c.dataset.g4e7bgMode,scene:c.dataset.g4e7ciScene,
+    mode:c.dataset.g4e7bgMode,scene:c.dataset.g4e7ciScene,dgScene:c.dataset.g4e7dgScene||'off',
     cameraTime:c.dataset.g4e7bgTime,cameraSpeed:c.dataset.g4e7bgSpeed,
     eye:c.dataset.g4e7cjEye,forward:c.dataset.g4e7cjForward,
     triangles:c.dataset.g4e7ciTriangles,
@@ -147,6 +149,20 @@ try{
    if(pixel.centralWindowFraction>.13)
     report.warnings.push('POSSIBLE_ROAD_CENTER_SCREEN_CLUTTER '+road+' '+frame);
    console.log('G4E7CJ_VERIFIED_PIXEL_PAIR',JSON.stringify({road,frame,changedFraction:pixel.changedFraction,centralWindowFraction:pixel.centralWindowFraction}));
+  }else if(mode==='dg'){
+   if(!integratedImage||info.dgScene!=='CANYON_CITY_INHABITED_VOLUME_V1')
+     throw Error('DG actual game render missing pilot mesh '+JSON.stringify({road,frame,info}));
+   for(const key of ['cameraTime','cameraSpeed','road','point','mode','width','height','eye','forward']){
+    if(integratedInfo[key]!==info[key])
+     throw Error('DG_NATIVE_CAMERA_MISMATCH '+JSON.stringify({road,frame,key}));
+   }
+   const pixel=await compareTrueCanvasPixels(page,integratedImage,image);
+   report.dgComparisons??=[];
+   report.dgComparisons.push({road,frame,from:'CX',to:'DG_PRIVATE_CANDIDATE',
+     ...pixel,art:'HOLD',human:'HOLD',source:'ACTUAL_GAME_WEBGL_NOT_CPU'});
+   console.log('G4E7DG_ACTUAL_GAME_COMPARISON',JSON.stringify({road,frame,
+     changedFraction:pixel.changedFraction,changedPixels:pixel.pixelDifferenceCount,
+     centralWindowFraction:pixel.centralWindowFraction}));
   }else if(ctMode){
    if(!integratedImage||Number(info.g4e7ctTriangles)<=0||info.g4e7ctKind!==ctMode)
     throw Error('CT missing authored source part '+JSON.stringify({road,frame,mode,info}));
@@ -215,7 +231,8 @@ try{
  report.ctDiagnosticScreenshots=report.frames.filter(x=>x.captureMode.startsWith('ct-')).length;
  if(report.screenshots!==12||report.provenanceDiagnosticScreenshots!==2||
     report.ctDiagnosticScreenshots!==3||report.ctSourceChecks?.length!==3||
-    report.sourceIdChecks?.length!==2||!report.cxOpenVisibility||report.pairs.length!==6||
+    report.sourceIdChecks?.length!==2||report.dgComparisons?.length!==6||
+    !report.cxOpenVisibility||report.pairs.length!==6||
     !report.pairs.some(x=>x.changedFraction>.001)||
     report.frames.filter(x=>x.captureMode==='integrated').some(x=>Number(x.triangles)<1000))
   throw Error('INCOMPLETE_PRIVATE_NATIVE_GAME_ART');

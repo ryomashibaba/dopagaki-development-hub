@@ -4,6 +4,8 @@ on:
     branches: [p101-velocity-overdrive-native-trial]
     paths:
       - 'web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'
+      - 'web/p101-w9c2-g4e7dg-canyon-city.mjs'
+      - 'tests/p101-w9c2-g4e7dg-canyon-city.test.mjs'
       - 'web/p101-w9c2-g4e7dd-macro-camera-audit.mjs'
       - 'scripts/p101-w9c2-g4e7de-calibrate-camera.mjs'
       - 'scripts/p101-w9c2-g4e7df-morphology.mjs'
@@ -36,9 +38,11 @@ jobs:
       - name: Genuine BC/B48 unchanged physics and 3 layers geometry tests
         run: |
           node --check web/p101-w9c2-g4e7ci-integrated-streetscape.mjs
+          node --check web/p101-w9c2-g4e7dg-canyon-city.mjs
           node --check web/drive3d.mjs
           node --check scripts/p101-w9c2-g4e7ci-real-game-capture.mjs
           node --test tests/p101-w9c2-g4e7ci-integrated-streetscape.test.mjs
+          node --test tests/p101-w9c2-g4e7dg-canyon-city.test.mjs
       - name: DE historical rejected scenery calibration against native BG240Hz
         run: |
           node --check web/p101-w9c2-g4e7dd-macro-camera-audit.mjs
