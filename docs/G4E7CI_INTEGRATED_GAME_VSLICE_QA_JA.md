@@ -1,3 +1,7 @@
+## G4E-7CY 実制作／実画面審査：ART REJECT、CXへロールバック（2026-10-26 JST）
+
+[CI #40316383653](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40316383653)成功、10/10テスト・WebGL17 PNG・6対・警告0。[GitHub Artifact #12646714580](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40316383653/artifacts/12646714580)（2026-11-02 11:44 UTCまで）。CY案を実画像でCXと照合：true-pinchの15s=843px/17s=2,816px、pinch-switchの15s=901px/17s=3,040pxのみ変化（1画面650,160px）。左岸2か所のみ採用され、既存の巨大クレセントの横に黄・青の細い飾りが増えただけで、建築的な一体性/未来的規模感に有意な前進がない。走行視界は大きく悪化していないが、近中遠景の都市として質不足。**ART REJECT／CX景観のコード/テストを同一バイトで復元**。将来G4E-7CZは棒や別体ゲートではなく、用途・接地・立体的なスケール・公共動線を備えた統合3D都市施設を主役とする。単なるscreen diff比率を品質点数と誤認しない。
+
 ## G4E-7CY 構造型インターチェンジを都市統一景観の一案として実験（2026-10-26 JST）
 
 CXの近景巨大建築視界遮蔽はPRIVATE GPUのsource-ID画素占有率53.14%→6.49%で実証済み、CI [#40313417994](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40313417994)成功。CYはこの改善を壊さず、街区を埋め戻すのではなく、道路外側の公共コンコースから既存の遠景クレセントへ繋がる**支柱6節・接地基礎2面・公共ギャラリー＋真の負空間**の未来的公共交通建築を、正規15/17sカメラのスコアで見える少数の箇所に配置。既存のB48×7/B51-C×28/void52は景観の後ろの真正物理のまま。道路内の巨大リング、衝突面、カメラ変更は禁止。実WebGL旧新の同画角でskylineの効果が弱い・道路を塞ぐ・建築がただの棒に見える場合はART REJECTとして調整。ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2 0m。
