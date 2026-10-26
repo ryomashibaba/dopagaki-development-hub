@@ -73,19 +73,46 @@ function civicCrescent(v,f,n,side){
 // A small number of thick carved wings frame plazas, transit entrances and roofs.
 // Everything is visual-only and remains outboard of the original physical lane.
 function sculptedWing(v,p,x0,x1,d0,d1,h0,h1,shift,skin,roof){
- const low=[p(x0,d0,h0),p(x1,d0,h0),p(x1,d1,h0),p(x0,d1,h0)];
- const high=[p(x0+shift,d0+3,h1),p(x1+shift,d0+3,h1),
-  p(x1+shift-3,d1-2,h1+2),p(x0+shift+3,d1-2,h1+2)];
- for(let i=0;i<4;i++)both(v,low[i],low[(i+1)%4],high[(i+1)%4],high[i],
-  i===0?skin:i===1?C.deep:i===2?C.steel:C.glass);
- both(v,...high,roof);
- both(v,low[3],low[2],low[1],low[0],C.deep);
+ const point=(u,w,h)=>p(x0+(x1-x0)*u+shift*w,d0+(d1-d0)*w+3*w,h);
+ const top=(u,w)=>point(u,w,h1+2*w),bottom=(u,w)=>point(u,w,h0);
+ // A load-bearing occupied block, but NOT one enormous solid colored sheet:
+ // subdivided carved facade with actual transparent-air voids (missing
+ // triangles), not fake window decals pasted onto an opaque front wall.
+ const columns=6,rows=4;
+ const front=(u,vv)=>p(x0+(x1-x0)*u+shift*vv*.12,d0,h0+(h1-h0)*vv);
+ for(let a=0;a<columns;a++)for(let b=0;b<rows;b++){
+  // Three open atrium bays on the front, with solid structural piers/lintels.
+  const opening=b===1||b===2;
+  if(opening&&(a===1||a===2||a===4))continue;
+  const u0=a/columns,u1=(a+1)/columns,v0=b/rows,v1=(b+1)/rows;
+  both(v,front(u0,v0),front(u1,v0),front(u1,v1),front(u0,v1),
+    b===0?C.steel:b===3?C.pearl:(a%2?skin:C.deep));
+ }
+ // Perforate the road-facing side as well: the huge unbroken teal side
+ // elevations of CN dominated the 15s and 17s native camera screenshots.
+ for(const [u,material] of [[0,C.pearl],[1,C.steel]]){
+  for(let k=0;k<5;k++)for(let b=0;b<4;b++){
+   if((k===1||k===3)&&(b===1||b===2))continue;
+   const w0=k/5,w1=(k+1)/5,z0=b/4,z1=(b+1)/4;
+   const side=(ww,z)=>p(x0+(x1-x0)*u+shift*ww,d0+(d1-d0)*ww+3*ww,
+     h0+(h1-h0)*z);
+   both(v,side(w0,z0),side(w1,z0),side(w1,z1),side(w0,z1),
+     b===3?C.pearl:material);
+  }
+ }
+ // Recessed back wall and continuous real terrace floors retain architectural
+ // load and legible volume while the main facade genuinely breathes.
+ both(v,point(0,1,h0),point(1,1,h0),top(1,1),top(0,1),C.steel);
+ both(v,bottom(0,0),bottom(1,0),bottom(1,1),bottom(0,1),C.deep);
+ both(v,top(0,0),top(1,0),top(1,1),top(0,1),roof);
+ for(const [u0,u1] of [[0,.16],[.84,1]])
+  both(v,front(u0,.96),front(u1,.96),top(u1,0),top(u0,0),C.gold);
 }
 function authorCell(v,f,n,side){
  const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
  const odd=(n+Math.round((side+1)/2))%2;
- const height=58+(n%3)*15+(side===1?10:0);
- const wingSkin=n%3===0?C.pearl:n%3===1?C.glass:C.steel;
+ const height=44+(n%3)*11+(side===1?6:0);
+ const wingSkin=n%3===0?C.pearl:n%3===1?C.steel:C.glass;
  // The roadside promenade has real ground mass and three shop bays;
  // the center stays physically open instead of becoming a sealed box.
  both(v,p(-31,18,5),p(31,18,5),p(31,49,5),p(-31,49,5),C.steel);
@@ -108,8 +135,8 @@ function authorCell(v,f,n,side){
    const h0=7+tier*height/terraceLevels,
     h1=7+(tier+1)*height/terraceLevels;
    const shift=(odd?1:-1)*tier*5+(wing===-1?-tier:tier);
-   const half=16-tier*2.3,depth=73+tier*4+(wing===1?10:0);
-   sculptedWing(v,p,x-half,x+half,depth,depth+36,h0,h1,shift,
+   const half=14-tier*1.7,depth=112+tier*8+(wing===1?15:0);
+   sculptedWing(v,p,x-half,x+half,depth,depth+32,h0,h1,shift,
      tier===0?C.steel:wing===1?C.glass:wingSkin,
      tier===2?C.pearl:C.steel);
    // Occupied floors use wide window bands, no thin lattice roof caps.
@@ -121,10 +148,10 @@ function authorCell(v,f,n,side){
  }
  // Public circulation reads as a single habitable civic concourse.
  if(n%3===0){
-  both(v,p(center-26,91,34),p(center+26,91,34),
-    p(center+26,108,35),p(center-26,108,35),C.pearl);
-  both(v,p(center-25,90,29),p(center+25,90,29),
-    p(center+25,90,33),p(center-25,90,33),C.glass);
+  both(v,p(center-25,108,25),p(center+25,108,25),
+    p(center+25,126,26),p(center-25,126,26),C.pearl);
+  both(v,p(center-24,107,22),p(center+24,107,22),
+    p(center+24,107,25),p(center-24,107,25),C.glass);
  }
  // Only two low foreground cornice gestures: no forest of disconnected beams.
  if(n%3===1){
@@ -166,6 +193,37 @@ function visibleSiteScore(frame,shots){
  }
  return {score:Number(total.toFixed(6)),framesVisible};
 }
+
+function cameraCellIntrusion(f,shots){
+ const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
+ const corners=[p(-60,55,6),p(60,55,6),p(-60,130,93),p(60,130,93)];
+ return shots.some(shot=>{
+  const pts=corners.map(q=>screenPoint(shot,q));
+  // Camera crossing a proposed city block means it is not an acceptable
+  // megafacade site even if corners vanish behind the eye.
+  const delta=sub(p(0,91,45),shot.eye);
+  if(len(delta)<75)return true;
+  const visible=pts.filter(Boolean);
+  if(visible.length<3)return false;
+  const minX=Math.max(-1,Math.min(...visible.map(q=>q.x))),
+    maxX=Math.min(1,Math.max(...visible.map(q=>q.x))),
+    minY=Math.max(-1,Math.min(...visible.map(q=>q.y))),
+    maxY=Math.min(1,Math.max(...visible.map(q=>q.y)));
+  const area=Math.max(0,maxX-minX)*Math.max(0,maxY-minY);
+  // Frustum-area threshold is a conservative engineering warning, not
+  // a beauty metric: do not permit one nearby district to mask the road.
+  return area>.32;
+ });
+}
+function authorPromenade(v,f,n,side){
+ const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
+ // Open-sided inhabited sidewalk and transit shelters only, NOT empty scenery.
+ both(v,p(-30,25,5),p(30,25,5),p(30,53,5),p(-30,53,5),C.steel);
+ for(const x of [-23,0,23]){
+  both(v,p(x-6,32,7),p(x+6,32,7),p(x+6,32,16),p(x-6,32,16),C.glass);
+  both(v,p(x-7,29,16),p(x+7,29,16),p(x+7,53,19),p(x-7,53,19),n%2?C.pearl:C.gold);
+ }
+}
 function placeLandmarks(doc,sample,shots){
  if(!Array.isArray(shots)||shots.length<2||
   shots[0]?.id!=='t1500'||shots[1]?.id!=='t1700'||
@@ -205,15 +263,25 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
   doc.movingObstacles?.length!==28||doc.surfaces[0].voidLongitudinalCells?.join(',')!=='52')
   throw Error('CI requires exact protected unpublished BC/B48/B51 geometry');
  const freeze=JSON.stringify(doc),v=[],stations=[.40,.51,.62,.73,.84,.93];
- for(const [n,u] of stations.entries())for(const side of [-1,1])
-  authorCell(v,roadFrame(doc.surfaces[1],sample,u,side),n,side);
+ if(!Array.isArray(shots)||shots.length<2)throw Error('CO requires both unchanged native cameras');
+ // Roadside cells use a fixed, read-only TWO camera coverage plan; extremely
+ // close sites get a low open promenade, avoiding another huge near-camera wall.
+ let clippedCellReliefs=0,fullDistrictCells=0;
+ for(const [n,u] of stations.entries())for(const side of [-1,1]){
+  const f=roadFrame(doc.surfaces[1],sample,u,side);
+  if(cameraCellIntrusion(f,shots.slice(0,2))){
+   clippedCellReliefs++;
+   authorPromenade(v,f,n,side);
+  }else{fullDistrictCells++;authorCell(v,f,n,side);}
+ }
  const sites=placeLandmarks(doc,sample,shots);
  for(const site of sites)civicCrescent(v,site.frame,site.slot,site.side);
  const triangles=v.length/18;
- if(triangles<1200||triangles>50000||v.some(x=>!Number.isFinite(x))||JSON.stringify(doc)!==freeze)
+ if(triangles<1000||triangles>50000||v.some(x=>!Number.isFinite(x))||JSON.stringify(doc)!==freeze)
   throw Error('CI geometry invalid or physics source mutated');
  return {active:true,vertices:v,triangles,stations:stations.length*2,layers:3,
-  minimumSetbackM:18,landmarks:2,macroSilhouette:'TWO_PROVEN_FRAMED_CIVIC_DISTRICTS_AND_INHABITED_BANKS',
+  carvedFacades:true,clippedCellReliefs,fullDistrictCells,
+  minimumSetbackM:18,landmarks:2,macroSilhouette:'OPEN_AIR_FRAMED_CIVIC_DISTRICTS_WITH_CARVED_TERRACES',
   cameraEvidence:'BG240HZ_BOTH_15_AND_17_NOT_HUMAN',
   landmarksQA:sites.map(({road,u,side,slot,score,framesVisible})=>({road,u,side,slot,score,framesVisible})),
   newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,

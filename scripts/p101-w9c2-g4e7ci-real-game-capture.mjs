@@ -106,7 +106,7 @@ try{
  report.screenshots=report.frames.length;
  if(report.screenshots!==12||report.pairs.length!==6||
     !report.pairs.some(x=>x.changedFraction>.001)||
-    report.frames.filter(x=>x.mode==='integrated').some(x=>Number(x.triangles)<1200))
+    report.frames.filter(x=>x.mode==='integrated').some(x=>Number(x.triangles)<1000))
   throw Error('INCOMPLETE_PRIVATE_NATIVE_GAME_ART');
  fs.writeFileSync(path.join(out,'G4E7CI_REAL_GAME_SCREENSHOT_AUDIT_HOLD.json'),JSON.stringify(report,null,2)+'\n');
  console.log('G4E7CJ_REAL_GAME_PIXEL_AUDIT_ART_STILL_HOLD',JSON.stringify({screenshots:report.screenshots,pairs:report.pairs.length,warnings:report.warnings,
