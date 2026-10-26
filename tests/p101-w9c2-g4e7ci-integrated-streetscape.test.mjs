@@ -14,14 +14,17 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
   assert.deepEqual(doc.surfaces[0].voidLongitudinalCells,[52]);
   assert.ok(art.triangles>=1000&&art.triangles<50000);
   assert.equal(art.stations,12);assert.equal(art.layers,3);
-  assert.equal(art.landmarks,2);assert.equal(art.macroSilhouette,'LOW_OPEN_CONCOURSE_WITH_SPACED_ANCHORED_DISTRICTS');
+  assert.equal(art.landmarks,2);assert.equal(art.macroSilhouette,'BIFURCATED_INHABITED_RIFT_CITY_WITH_OPEN_ROADBANK');
   assert.equal(art.cameraEvidence,'BG240HZ_BOTH_15_AND_17_NOT_HUMAN');
   assert.equal(art.landmarksQA.length,2);
   assert.equal(art.sources.reduce((n,s)=>n+s.triangleCount,0),art.triangles);
   assert.equal(art.sources[0].firstTriangle,0);
   assert.ok(art.sources.some(x=>x.kind==='roadbank-inhabited'));
-  assert.ok(art.sources.some(x=>x.kind==='anchored-civic-crescent'));
+  assert.equal(art.sources.filter(x=>x.kind==='split-rift-urban-massif').length,2);
   assert.ok(art.sources.some(x=>x.kind==='civic-concourse'));
+  // DA restructures the two macro heroes without adding physics surfaces.
+  assert.ok(art.sources.filter(x=>x.kind==='split-rift-urban-massif')
+   .every(x=>x.triangleCount>=500&&x.triangleCount<=3000));
   assert.equal(art.carvedFacades,true);assert.equal(art.openRearFacades,true);
   assert.equal(art.districtLinks,10);assert.ok(art.farRoofBays>=0&&art.farRoofBays<=10);
   console.log('G4E7CP_CONNECTED_SILHOUETTE_READ_ONLY',road,art.districtLinks,art.farRoofBays);

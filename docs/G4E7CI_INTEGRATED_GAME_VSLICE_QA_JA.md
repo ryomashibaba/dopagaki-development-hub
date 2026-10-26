@@ -1,3 +1,11 @@
+# G4E-7DA — 主役都市の二分居住断崖マクロ形態・実WebGL審査待ち（2026-10-26 JST）
+
+**品質仮説**：CYの細い周辺骨格、CZの既存リング内の箱状積層はいずれも、都市の主役輪郭を変更できずART REJECT。DAでは既存の主役リング2基を直接再設計し、二つの分厚い居住断崖が幅37mの本物の空中裂け目を挟む大形態とした。実メッシュの上下3層公共テラス、前後の貫通開口、接地した6斜支持を同一建築体内に彫り込む。細い棒/独立リングの追加はしない。旧source名をsplit-rift-urban-massifに変更し従来のsource rangeと真のBG240Hz同カメラ検査を保つ。
+
+**保護**：都市景観ジェネレータと専用単体テストのみを変更。道路B48×7/動体B51-C×28/gap52/原物理240Hz/カメラ/速度/自然ジャンプ/操作/Gold/main/原作再現/本番サイトは変更禁止。既存CXの個別街区開放ルールおよびGPU近景ROI上限18%と青緑壁0画素を維持。元15s/17s両道路の通常描画、および18.5s off-roadの扱いを区別する。ART/HUMAN/READY/PUBLISH/MERGE HOLD、Slope2正式0m、PR#46 Draft未マージ。
+
+**検証状態**：この記述は実装時点の設計仮説。新たなGitHub Actionsの結果および真正WebGL PNGを評価する前に技術PASS/美術改善を宣言しない。外形が改善せず単なる板壁や小部品に見えればART REJECTとし、CXへコードを安全復元する。
+
 ## G4E-7CZ：大型アーチ内多層化は CI PASS / 美術ART REJECT、CXへ安全復元（2026-10-26 JST）
 
 [実WebGL CI #40319395601](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40319395601) SUCCESS、10/10 tests PASS、17真正PNG、6 pairs、warnings0、[Artifact #12648312766](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40319395601/artifacts/12648312766)（2026-11-02 12:08:58 UTC失効）。2つの元クレセント内部にそれぞれ6層テラスと18の開口、4接地脚、4ランプ、既存広場連絡2面を追加。真正15s/17s × 2道路の旧CX→CZ RGB差分は2.03%/0.49%、2.37%/0.52%。15sで建築下層に四角い不透明な付属箱が増えてしまい、17sでは都市外形の統合が読めない。道の先読みは損なわず青緑巨大板0・CX前景源6.49%は維持したが、美術的な形態統合に失敗。ART REJECT。景観モジュール/テストを既存CXの同一Git blobへ安全に戻した。以降は細部の足し算ではなく、都市全体の母体のマクロシルエット/4画角統合からやり直す。元物理、main/Gold/本番、Draft PR#46を保護。
