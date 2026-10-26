@@ -1,3 +1,17 @@
+# G4E-7CZ 実3D検証・ART REJECT／CXへ安全復元（2026-10-26 JST、最新）
+
+**実装したもの**：[CZ実験30da6e2](https://github.com/ryomashibaba/dopagaki-development-hub/commit/30da6e2948c0cdf6c6651c95a059c88a57943a96) は既存巨大クレセント2基それぞれの内部へ、両岸6層の多層床、18の実開放ファサード区画、4接地脚、4内部スロープ、既存高さ48m公共広場への2連絡面を描画専用に追加。外周巨大リングと中央上部空洞は保持し、独立した紐状CY案からは生成原理を変更した。
+
+**本物の結果**：[専用CI #40319395601](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40319395601) **completed/SUCCESS**、10/10テスト、PRIVATEビルドPASS、元ゲーム正規240Hz WebGL17枚・同一カメラ6比較対・warnings0。[Artifact #12648312766](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40319395601/artifacts/12648312766) 2026-11-02 12:08:58 UTCまで保持。元B48道路7・B51-C動体28・gap52・240Hzと操作/速度/カメラ/自然ジャンプ不変更。CXのGPU前景遮蔽13,423/206,824（6.49%）、再発禁止閾値18%を維持。青緑色RGB(41,135,163)の壁も0画素。これは自動正規カメラの成功で人間のプレイ試験ではない。
+
+**4画角の真正WebGL画像による美術審査**：旧CX→CZの全画面RGB変更画素は1008×645=650,160画素に対し true-pinch 15s 13,205（2.031%）、17s 3,161（0.486%）、pinch-switch 15s 15,408（2.370%）、17s 3,400（0.523%）。15秒画角では巨大アーチの下層に四角い積層付属物・空中ガレージのような面が増え、17秒画角では遠景巨大建築に吸収され変化がほとんど判別不能。画面中央の重要な走行帯の変化は限定的で危険視認性が悪化していないが、巨大都市の全域接続・主役アーチの造形統一・機能的建築としての説得力は未達。**美術判定 ART REJECT／総合 ART HOLD / CITY HERO REJECT**。CAD的な「層数・窓の数・支持材数」だけでは美術品位は担保できない。
+
+**安全な対応**：CZの元コードと追加単体テストを破棄せずCZコミット履歴へ保持したうえで、活動中ブランチの都市景観ジェネレータとテストを**検証済みCXのGit blob SHAと完全一致**させ復元。CIは [skip ci] のリバートコミットとし、直前の成功済みCX固有のコードを再テストせず維持する（[CZの最新CI](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40319395601) 自体は成功済）。新しい物理/公共サイト公開は絶対禁止。
+
+**次G4E-7DA：方針転換**。同じ既存巨大リングに小さな層/棒/箱を足す連続マイクロ改善を停止。初めに4つの元240Hz視点に同一レベルで現れる「都市の主役、居住群、駅/交通、空洞、道路ガイド」を**全体の形態階層**として再設計する。大型構造は市街地全域の母体として作り、個々の街区がその構造に彫り込まれているように見えること、実用途が外形に現れること、道路側の巨大壁が再発しないことを同時要件とする。実装は全域の静的デザインシルエットをまず比較し、近・中・遠景の4画角で方向性がよければ初めて内部階層を増やす。既存CXのプライベート視界保護、B48×7/B51-C×28/gap52/240Hz、main/Gold/本番/原作とDraft PR#46は保護。
+
+**公開ゲート** ART/HUMAN/READY/PUBLISH/MERGE HOLD・正式Slope2認定0m。人間のプレイ成功未確認。
+
 # G4E-7CZ — 既存巨大クレセント内部の都市化研究（2026-10-26 JST、実3D実装・CI未評価）
 
 **正本**：前工程CY [実験41b6340](https://github.com/ryomashibaba/dopagaki-development-hub/commit/41b6340ab9f8222b5879116e0e685214b2b750c2) は10/10テストと実WebGL CIを通ったが、4画角の描画差分0.13〜0.47%に留まり細い独立棒にしか見えないためART REJECT。以前の実証済みCXへ景観/テストを戻した [dd61e35](https://github.com/ryomashibaba/dopagaki-development-hub/commit/dd61e35c0ee2c51eecbf8593fb272b6494a32b85) をCZ基点とする。

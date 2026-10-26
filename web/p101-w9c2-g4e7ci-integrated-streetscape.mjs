@@ -28,82 +28,6 @@ function roadFrame(s,sample,u,side){
  * large structural rims, voids, galleries, foundations, and public plaza
  * deliberately replace repetitive tower box silhouettes, not physics.
  */
-
-/**
- * G4E-7CZ: make the EXISTING monumental crescents into genuinely layered
- * public/residential architecture instead of adding disconnected rods nearby.
- * All surfaces are VISUAL ONLY and inside the existing far-bank crescent site.
- * Every occupied bank has a ground-founded mass, usable-looking floor bands,
- * facade openings THROUGH absent triangles, two circulation ramps, and a
- * short connection to the already-authored central civic plaza at y=48.
- * The >70m central upper air void and original sky silhouette stay open.
- */
-function inhabitedCrescentCanyon(v,p,square){
- const D=square.d;
- let floors=0,openFacadeBays=0,groundedLegs=0,internalRamps=0;
- for(const side of [-1,1]){
-  for(let tier=0;tier<3;tier++){
-   const x0=side<0?-48+2*tier:15+3*tier,
-    x1=side<0?-15-2*tier:49-2*tier,
-    front=D-13+tier*5,rear=D+49-tier*4,
-    foot=7+17*tier,roof=foot+14;
-   // Habitable multi-storey TERRACE FLOOR, not a full-height facade sheet.
-   both(v,p(x0,front,foot),p(x1,front,foot),
-    p(x1,rear,foot),p(x0,rear,foot),C.steel);
-   // Two occupied roof edges, separated by a full-length OPEN AIR atrium.
-   // Even the podium has visible apertures rather than solid ceiling plates.
-   const dFront=front+(rear-front)*.20,dBack=rear-(rear-front)*.19;
-   both(v,p(x0,front,roof),p(x1,front,roof),
-    p(x1,dFront,roof+1.5),p(x0,dFront,roof+1.5),tier===2?C.gold:C.pearl);
-   both(v,p(x0,dBack,roof+2),p(x1,dBack,roof+2),
-    p(x1,rear,roof),p(x0,rear,roof),tier===2?C.pearl:C.steel);
-   // A real carved street-side elevation, with three large portal voids.
-   // Rear elevation has the SAME cutouts, so the back is not a solid box.
-   for(let bay=0;bay<6;bay++){
-    if(bay===1||bay===2||bay===4){openFacadeBays++;continue;}
-    const xa=x0+(x1-x0)*bay/6,xb=x0+(x1-x0)*(bay+1)/6;
-    both(v,p(xa,front,foot),p(xb,front,foot),
-     p(xb,front,roof-2),p(xa,front,roof-2),
-     tier===2?C.pearl:(bay%2?C.glass:C.steel));
-    both(v,p(xa,rear,foot),p(xb,rear,foot),
-     p(xb,rear,roof-2),p(xa,rear,roof-2),C.steel);
-   }
-   // Two perforated side elevations / corner shear walls. The center of
-   // each side is genuine air and the plate has a nonrectangular setback.
-   for(const x of [x0,x1]){
-    for(const [a,b] of [[0,.23],[.77,1]]){
-     const d0=front+(rear-front)*a,d1=front+(rear-front)*b;
-     both(v,p(x,d0,foot),p(x,d1,foot),
-      p(x,d1,roof),p(x,d0,roof),tier===2?C.pearl:C.steel);
-    }
-   }
-   floors++;
-   // Two genuine open public inclined circulation decks between levels,
-   // contained in the wing: no unconnected decorative cantilevers.
-   if(tier<2){
-    const xNear=side<0?x0+4:x1-11;
-    both(v,p(xNear,D+4,foot+1),p(xNear+7,D+4,foot+1),
-     p(xNear+7,D+34,foot+18),p(xNear,D+34,foot+18),C.pearl);
-    internalRamps++;
-   }
-  }
-  // Two grounded, wide inhabited load paths for EACH three-level wing.
-  for(const x of [side<0?-42:25,side<0?-23:43]){
-   girder(v,p(x,D+33,0),p(x,D+24,47),5.6,C.steel);
-   groundedLegs++;
-  }
-  // The new top-level gallery attaches to the pre-existing central plaza
-  // at height 48, not to another floating slab.
-  const xa=side<0?-33:27,xb=side<0?-25:35;
-  both(v,p(xa,D+17,42),p(xb,D+17,42),
-   p(xb,D+34,48),p(xa,D+34,48),C.pearl);
- }
- // The original 48m-high plaza already crosses the central opening; adding
- // NO third sky-crossing slab preserves the crescent's large upper void.
- return {floors,openFacadeBays,groundedLegs,internalRamps,
-  existingPlazaConnections:2,centralSkyVoidOpen:true};
-}
-
 function civicCrescent(v,f,n,side){
  const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
  const origin=n===2?-55:-48,span=n===2?118:104;
@@ -143,9 +67,6 @@ function civicCrescent(v,f,n,side){
  for(const dx of [-18,0,18])
   both(v,p(square.x+dx-4,square.d-29,49),p(square.x+dx+4,square.d-29,49),
    p(square.x+dx+4,square.d-29,54),p(square.x+dx-4,square.d-29,54),C.gold);
- // CZ does not add another monument: it turns this SAME giant crescent's
- // interior into a legible inhabited canyon and pedestrian interchange.
- return inhabitedCrescentCanyon(v,p,square);
 }
 
 // G4E-7CN: inhabited road-bank blocks, not a forest of floating micro-girders.
@@ -583,13 +504,10 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
   if(v.length/18>roofStart)sources.push({kind:'distant-folded-roofline',side,
    firstTriangle:roofStart,triangleCount:v.length/18-roofStart});
  }
- const sites=placeLandmarks(doc,sample,shots),czCrescentQA=[];
+ const sites=placeLandmarks(doc,sample,shots);
  for(const site of sites)mark('anchored-civic-crescent',
   {road:site.road,u:site.u,side:site.side,slot:site.slot},
-  ()=>{
-   const detail=civicCrescent(v,site.frame,site.slot,site.side);
-   czCrescentQA.push({road:site.road,u:site.u,side:site.side,...detail});
-  });
+  ()=>civicCrescent(v,site.frame,site.slot,site.side));
  const triangles=v.length/18;
  if(triangles<1000||triangles>50000||v.some(x=>!Number.isFinite(x))||JSON.stringify(doc)!==freeze)
   throw Error('CI geometry invalid or physics source mutated');
@@ -602,7 +520,6 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
   minimumSetbackM:18,landmarks:2,macroSilhouette:'LOW_OPEN_CONCOURSE_WITH_SPACED_ANCHORED_DISTRICTS',
   cameraEvidence:'BG240HZ_BOTH_15_AND_17_NOT_HUMAN',
   landmarksQA:sites.map(({road,u,side,slot,score,framesVisible})=>({road,u,side,slot,score,framesVisible})),
-  czCrescentQA,czInhabitedSites:czCrescentQA.length,czScene:'INHABITED_CRESCENT_CANYON_VISUAL_ONLY',
   newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,
   art:'HOLD',human:'HOLD',publish:'HOLD',officialSlope2Meters:0};
 }

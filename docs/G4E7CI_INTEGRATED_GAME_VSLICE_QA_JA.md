@@ -1,3 +1,7 @@
+## G4E-7CZ：大型アーチ内多層化は CI PASS / 美術ART REJECT、CXへ安全復元（2026-10-26 JST）
+
+[実WebGL CI #40319395601](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40319395601) SUCCESS、10/10 tests PASS、17真正PNG、6 pairs、warnings0、[Artifact #12648312766](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40319395601/artifacts/12648312766)（2026-11-02 12:08:58 UTC失効）。2つの元クレセント内部にそれぞれ6層テラスと18の開口、4接地脚、4ランプ、既存広場連絡2面を追加。真正15s/17s × 2道路の旧CX→CZ RGB差分は2.03%/0.49%、2.37%/0.52%。15sで建築下層に四角い不透明な付属箱が増えてしまい、17sでは都市外形の統合が読めない。道の先読みは損なわず青緑巨大板0・CX前景源6.49%は維持したが、美術的な形態統合に失敗。ART REJECT。景観モジュール/テストを既存CXの同一Git blobへ安全に戻した。以降は細部の足し算ではなく、都市全体の母体のマクロシルエット/4画角統合からやり直す。元物理、main/Gold/本番、Draft PR#46を保護。
+
 ## G4E-7CZ — 既存巨大建築を用途のある立体公共街区へ転換（2026-10-26 JST、実画面待ち）
 
 前CYは2棟外側の小骨格追加で失敗した。CZではアーチ2基自体に左右各3段のフロア、開放ポータル、接地支持材、各段をつなぐランプ、既存48m公共広場への連絡面を構築。既存アーチの空洞上部を実空間として残す。建築はprivate visual-only、物理床・障害物・カメラは追加しない。出所は従来の `anchored-civic-crescent` とし、新しい独立柱は作らない。`czCrescentQA` と専用CI/新旧WebGL比較で、居住のスケールと道路視認性を同時に審査。正規B48×7/B51-C×28/gap52、240Hz、自然ジャンプ、main/Gold/本番、PR#46のDraft保持。ART/HUMAN/READY/PUBLISH/MERGE HOLD・Slope2認定0m。

@@ -21,12 +21,6 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
   assert.equal(art.sources[0].firstTriangle,0);
   assert.ok(art.sources.some(x=>x.kind==='roadbank-inhabited'));
   assert.ok(art.sources.some(x=>x.kind==='anchored-civic-crescent'));
-  assert.equal(art.czInhabitedSites,2);
-  assert.equal(art.czCrescentQA.length,2);
-  assert.ok(art.czCrescentQA.every(x=>x.floors===6&&x.openFacadeBays===18&&
-   x.groundedLegs===4&&x.internalRamps===4&&x.existingPlazaConnections===2&&
-   x.centralSkyVoidOpen===true));
-  console.log('G4E7CZ_INHABITED_CRESCENT_QA',road,JSON.stringify(art.czCrescentQA));
   assert.ok(art.sources.some(x=>x.kind==='civic-concourse'));
   assert.equal(art.carvedFacades,true);assert.equal(art.openRearFacades,true);
   assert.equal(art.districtLinks,10);assert.ok(art.farRoofBays>=0&&art.farRoofBays<=10);
@@ -200,27 +194,5 @@ test('CX near-camera preservation is real 240Hz view aware, not a hard-coded sta
   assert.equal(JSON.stringify(stage),snap);
   assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);
   assert.equal(art.newMovingHazards,0);assert.equal(art.art,'HOLD');
- }
-});
-
-test('CZ monumental crescent inhabitation uses the existing grounded landmarks without extra roads',()=>{
- for(const road of ['true-pinch','pinch-switch']){
-  const original=generateG4E7BC(road,'rollDeck'),frozen=JSON.stringify(original),
-   shots=g4e7bgNativeFrames().stages[road].frames;
-  const art=g4e7ciIntegratedStreetscape(original,sample,{enabled:true,shots});
-  assert.equal(art.czInhabitedSites,art.landmarks);
-  assert.equal(art.czScene,'INHABITED_CRESCENT_CANYON_VISUAL_ONLY');
-  assert.equal(art.czCrescentQA.reduce((n,x)=>n+x.floors,0),12);
-  assert.equal(art.czCrescentQA.reduce((n,x)=>n+x.openFacadeBays,0),36);
-  assert.equal(art.czCrescentQA.reduce((n,x)=>n+x.groundedLegs,0),8);
-  assert.equal(art.czCrescentQA.reduce((n,x)=>n+x.internalRamps,0),8);
-  assert.ok(art.czCrescentQA.every(x=>x.centralSkyVoidOpen));
-  assert.equal(art.sources.filter(x=>x.kind==='anchored-civic-crescent').length,2);
-  assert.equal(art.sources.filter(x=>x.kind==='civic-echelons').length,0,
-   'rejected CY independent decorative rods must not return');
-  assert.equal(JSON.stringify(original),frozen);
-  assert.deepEqual([art.newRoads,art.newColliders,art.newMovingHazards],[0,0,0]);
-  assert.equal(art.officialSlope2Meters,0);
-  assert.equal(art.art,'HOLD');
  }
 });
