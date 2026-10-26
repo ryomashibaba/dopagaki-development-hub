@@ -14,15 +14,7 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
   assert.deepEqual(doc.surfaces[0].voidLongitudinalCells,[52]);
   assert.ok(art.triangles>=1000&&art.triangles<50000);
   assert.equal(art.stations,12);assert.equal(art.layers,3);
-  assert.equal(art.landmarks,2);
-  assert.equal(art.macroSilhouette,'INHABITED_CANYON_SECTION_AND_TRANSIT_CITY');
-  assert.equal(art.dcUrbanQA.length,2);
-  assert.ok(art.dcUrbanQA.every(x=>x.proposed===2&&x.sections.length===2&&
-   x.sections.every(s=>s.triangles>30&&s.coverage.length===2&&
-    s.coverage.every(q=>Number.isInteger(q.hits)&&q.hits>=0&&q.hits<=150))));
-  assert.equal(art.dcUrbanQA.reduce((n,x)=>n+x.proposed,0),4);
-  assert.equal(art.dcUrbanQA.reduce((n,x)=>n+x.retained+x.nearCameraRejected,0),4);
-  console.log('G4E7DC_INTEGRATED_URBAN_SECTION_QA',road,JSON.stringify(art.dcUrbanQA));
+  assert.equal(art.landmarks,2);assert.equal(art.macroSilhouette,'LOW_OPEN_CONCOURSE_WITH_SPACED_ANCHORED_DISTRICTS');
   assert.equal(art.cameraEvidence,'BG240HZ_BOTH_15_AND_17_NOT_HUMAN');
   assert.equal(art.landmarksQA.length,2);
   assert.equal(art.sources.reduce((n,s)=>n+s.triangleCount,0),art.triangles);

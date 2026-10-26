@@ -367,78 +367,53 @@ function joinDistricts(v,bankFrames,side){
 // CP2 correction: NO giant cross-frame slabs. Each small roof is anchored
 // into a distant folded civic district and leaves a genuine air interval
 // before the next one. Both real 15s/17s shots veto screen-wide intrusions.
-// G4E-7DC: replace isolated skyline roof decorations with a single
-// architectural section connected to EXISTING d=78m public concourse.
-// ROAD / obstacle physics and the camera are not changed. Private only.
-// Terraces are inhabitable THICK volumes with actual open air on the front,
-// spanning transit -> district -> skyline without detached thin sticks.
 function civicRoofline(v,bankFrames,side,shots){
  const at=(f,d,h)=>add(add(f.edge,scale(f.outward,d)),[0,h,0]);
- const mix=(a,b,t)=>add(scale(a,1-t),scale(b,t));
- const qa={side,proposed:0,retained:0,nearCameraRejected:0,
-  connectedLevels:0,realAirOpenings:0,sections:[]};
- const stations=[1,3];
- for(const i of stations){
+ const mix=(a,b,k)=>add(scale(a,1-k),scale(b,k));
+ const peaks=side<0?[71,96,77,109,82,101]:[88,75,102,79,112,86];
+ const offset=side<0?245:270;
+ let bays=0;
+ for(let i=0;i<bankFrames.length-1;i++){
   const a=bankFrames[i],b=bankFrames[i+1];
-  const p=(t,d,h)=>mix(at(a,d,h),at(b,d,h),t);
-  const candidate=[],tiers=[
-    {d0:78,d1:133,h0:11,h1:27,t0:.09,t1:.91,thick:8},
-    {d0:128,d1:181,h0:30,h1:49,t0:.17,t1:.83,thick:10},
-    {d0:173,d1:230,h0:52,h1:76,t0:.25,t1:.75,thick:12}
-  ];
-  for(let layer=0;layer<tiers.length;layer++){
-   const z=tiers[layer];
-   const A=p(z.t0,z.d0,z.h0),B=p(z.t1,z.d0,z.h0+3),
-    C0=p(z.t1-.03,z.d1,z.h1+4),D=p(z.t0+.04,z.d1,z.h1);
-   // Zigzag roof is structurally deep, not DB's disconnected thin shelf.
-   both(candidate,A,B,C0,D,layer===1?C.pearl:C.steel);
-   both(candidate,p(z.t0,z.d0,z.h0-z.thick),
-    p(z.t1,z.d0,z.h0+3-z.thick),
-    p(z.t1-.03,z.d1,z.h1+4-z.thick),
-    p(z.t0+.04,z.d1,z.h1-z.thick),C.deep);
-   for(const t of [z.t0,z.t1]){
-    const taper=t===z.t0?.06:-.06;
-    // Broad, tapering occupied end walls connect the whole section.
-    both(candidate,p(t,z.d0,3),p(t+taper,z.d1,4),
-     p(t+taper,z.d1,z.h1),p(t,z.d0,z.h0),layer%2?C.pearl:C.steel);
-   }
-   // Two solid facade piers flank real missing triangles in the middle.
-   for(const q of [0,4]){
-    const t0=z.t0+(z.t1-z.t0)*q/5,t1=z.t0+(z.t1-z.t0)*(q+1)/5;
-    both(candidate,p(t0,z.d0,z.h0-z.thick),
-     p(t1,z.d0,z.h0+3-z.thick),
-     p(t1,z.d0,z.h0+3),p(t0,z.d0,z.h0),
-     layer===2?C.pearl:C.steel);
-   }
-   // Housing/transit gallery is inside the main volume, not a free bar.
-   both(candidate,p(z.t0+.07,z.d0+8,z.h0+.5),
-    p(z.t1-.07,z.d0+8,z.h0+3.5),
-    p(z.t1-.07,z.d0+14,z.h0+6),
-    p(z.t0+.07,z.d0+14,z.h0+3),layer===2?C.gold:C.lit);
-  }
-  // Genuine sloping public concourse linking all three elevations.
-  for(const [d0,d1,h0,h1] of [[85,131,12,26],[132,176,27,48]]){
-    both(candidate,p(.39,d0,h0),p(.56,d0,h0+1),
-     p(.56,d1,h1+1),p(.39,d1,h1),C.steel);
-    both(candidate,p(.39,d0,h0-5),p(.39,d1,h1-5),
-     p(.39,d1,h1),p(.39,d0,h0),C.pearl);
-  }
-  // Use the EXACT CX near-screen authored-triangle veto for BOTH
-  // unmodified native cameras, preserving the proven 18% GPU regression.
-  const coverage=cameraNearCellCoverage(candidate,shots.slice(0,2));
-  const rejected=coverage.some(x=>x.nearFacadeGridHits>=19);
-  qa.proposed++;
-  qa.sections.push({span:i,triangles:candidate.length/18,
-    coverage:coverage.map(x=>({frame:x.frame,hits:x.nearFacadeGridHits})),
-    accepted:!rejected});
-  if(rejected){qa.nearCameraRejected++;continue;}
-  v.push(...candidate);
-  qa.retained++;
-  qa.connectedLevels+=3;
-  qa.realAirOpenings+=9;
+  const point=(frac,d,h)=>mix(at(a,d,h[0]),at(b,d,h[1]),frac);
+  const h=[peaks[i],peaks[i+1]];
+  // Occupied roof segments extend only 24% of the inter-district span.
+  // The open 76% interrupts the formerly endless dark horizontal bands.
+  const p0=point(.28,offset,h.map(q=>q-12)),
+   p1=point(.52,offset,h.map(q=>q-12)),
+   p2=point(.52,offset+28,h),
+   p3=point(.28,offset+28,h);
+  if(shots.some(shot=>{
+   const p=[p0,p1,p2,p3].map(x=>screenPoint(shot,x)).filter(Boolean);
+   if(p.length<3)return false;
+   const visible=p.filter(x=>x.x>=-1&&x.x<=1&&x.y>=-1&&x.y<=1);
+   if(visible.length<2)return false;
+   const dx=Math.max(...visible.map(q=>q.x))-Math.min(...visible.map(q=>q.x));
+   const dy=Math.max(...visible.map(q=>q.y))-Math.min(...visible.map(q=>q.y));
+   // The previous (successful) render proved these distant 'roofs'
+   // could appear as thin black bars across the upper sky. If any sampled
+   // edge intrudes on the upper game view, reject the complete bay rather
+   // than using screenshot-specific positions or moving the camera.
+   return dx>.67||dx*dy>.13||
+     visible.some(q=>q.y>.31&&Math.abs(q.x)<.93);
+  }))continue;
+  both(v,p0,p1,p2,p3,i%2===0?C.pearl:C.steel);
+  // A built foundation makes the roof a district, not a flying strip.
+  const f=point(.40,offset+24,h.map(q=>q-22)),
+    root=point(.40,offset+20,[6,6]),
+    root2=point(.42,offset+35,[6,6]),
+    cap=point(.42,offset+36,h.map(q=>q-18));
+  both(v,root,root2,cap,f,C.steel);
+  // The slim facade band records a habitable storey at skyline distance.
+  both(v,point(.28,offset+15,h.map(q=>q-22)),
+    point(.52,offset+15,h.map(q=>q-22)),
+    point(.52,offset+15,h.map(q=>q-18)),
+    point(.28,offset+15,h.map(q=>q-18)),C.lit);
+  bays++;
  }
- return qa;
+ return bays;
 }
+
 
 function placeLandmarks(doc,sample,shots){
  if(!Array.isArray(shots)||shots.length<2||
@@ -520,16 +495,13 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
  // Both banks follow the same real roadway, but their distant folded
  // rooflines are deliberately asymmetric. This is scenery only.
  let districtLinks=0,farRoofBays=0;
- const dcUrbanQA=[];
  for(const side of [-1,1]){
   const frames=stations.map(u=>roadFrame(doc.surfaces[1],sample,u,side));
   mark('civic-concourse',{side},()=>{districtLinks+=joinDistricts(v,frames,side);});
   // CP's camera-veto can legitimately remove some roof spans. Avoid empty spans.
   const roofStart=v.length/18;
-  const urban=civicRoofline(v,frames,side,shots.slice(0,2));
-  farRoofBays+=urban.retained;
-  dcUrbanQA.push(urban);
-  if(v.length/18>roofStart)sources.push({kind:'inhabited-canyon-section',side,
+  farRoofBays+=civicRoofline(v,frames,side,shots.slice(0,2));
+  if(v.length/18>roofStart)sources.push({kind:'distant-folded-roofline',side,
    firstTriangle:roofStart,triangleCount:v.length/18-roofStart});
  }
  const sites=placeLandmarks(doc,sample,shots);
@@ -543,9 +515,9 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
     sources.some((x,i)=>x.firstTriangle!==(i?sources[i-1].firstTriangle+sources[i-1].triangleCount:0)))
   throw Error('CQ provenance does not cover all actual triangles');
  return {active:true,vertices:v,sources,triangles,stations:stations.length*2,layers:3,
-  carvedFacades:true,openRearFacades:true,districtLinks,farRoofBays,dcUrbanQA,clippedCellReliefs,fullDistrictCells,
+  carvedFacades:true,openRearFacades:true,districtLinks,farRoofBays,clippedCellReliefs,fullDistrictCells,
   cxNearVisionVetoes,cxNearVisionQA,
-  minimumSetbackM:18,landmarks:2,macroSilhouette:'INHABITED_CANYON_SECTION_AND_TRANSIT_CITY',
+  minimumSetbackM:18,landmarks:2,macroSilhouette:'LOW_OPEN_CONCOURSE_WITH_SPACED_ANCHORED_DISTRICTS',
   cameraEvidence:'BG240HZ_BOTH_15_AND_17_NOT_HUMAN',
   landmarksQA:sites.map(({road,u,side,slot,score,framesVisible})=>({road,u,side,slot,score,framesVisible})),
   newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,
