@@ -106,7 +106,7 @@ test('CS fixed only proven three station2-left blue-green shelter panels',()=>{
   assert.ok(source);
   if(road==='true-pinch'){
    assert.equal(source.kind,'roadbank-promenade');
-   assert.equal(source.triangleCount,88,'3 panels replaced by 6 grounded 3D supports');
+   assert.equal(source.triangleCount,52,'CT-proven slab and 6 columns replaced by two offset supported canopies');
    const section=art.vertices.slice(source.firstTriangle*18,(source.firstTriangle+source.triangleCount)*18);
    let tealVertices=0;
    for(let k=3;k<section.length;k+=6)
@@ -128,9 +128,9 @@ test('CT source-part colors isolate floor, shelters and left concourse without g
  const art=g4e7ciIntegratedStreetscape(doc,sample,{enabled:true,
   shots:g4e7bgNativeFrames().stages['true-pinch'].frames});
  const promenade=art.sources.find(s=>s.kind==='roadbank-promenade'&&s.station===2&&s.u===.62&&s.side===-1);
- assert.equal(promenade?.triangleCount,88);
+ assert.equal(promenade?.triangleCount,52);
  assert.deepEqual(promenade.parts.map(x=>[x.kind,x.triangleCount]),
-  [['promenade-floor',4],['promenade-transit',84]]);
+  [['promenade-floor',12],['promenade-transit',40]]);
  const before=art.vertices.slice(),spans=[];
  for(const kind of ['promenade-floor','promenade-transit','civic-concourse-left']){
   const result=g4e7ctColorSourcePart(art,kind);
@@ -148,4 +148,21 @@ test('CT source-part colors isolate floor, shelters and left concourse without g
  assert.deepEqual(art.vertices,before);assert.equal(JSON.stringify(doc),frozen);
  assert.equal(art.newColliders,0);assert.equal(art.newRoads,0);
  assert.equal(art.newMovingHazards,0);assert.equal(art.art,'HOLD');
+});
+
+
+test('CU target has two staggered grounded plaza pads with supports, not repeated vertical screen-wide sticks',()=>{
+ const doc=generateG4E7BC('true-pinch','rollDeck'),frozen=JSON.stringify(doc);
+ const art=g4e7ciIntegratedStreetscape(doc,sample,{enabled:true,
+  shots:g4e7bgNativeFrames().stages['true-pinch'].frames});
+ const source=art.sources.find(s=>s.kind==='roadbank-promenade'&&s.station===2&&s.side===-1);
+ assert.deepEqual(source.parts.map(x=>x.triangleCount),[12,40]);
+ const piece=art.vertices.slice(source.firstTriangle*18,(source.firstTriangle+source.triangleCount)*18);
+ assert.ok(piece.every(Number.isFinite));
+ // Only two thick inclined supporting box members remain (2 * 12 triangles).
+ assert.equal(source.parts[1].triangleCount,40);
+ assert.equal(JSON.stringify(doc),frozen);
+ assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);
+ assert.equal(art.newMovingHazards,0);assert.equal(art.officialSlope2Meters,0);
+ assert.equal(art.art,'HOLD');
 });

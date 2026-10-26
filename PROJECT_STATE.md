@@ -1,3 +1,11 @@
+# G4E-7CU — CT GPU実証に基づく第3ステーション左岸だけの公共広場改良（2026-10-26 JST、検証待ち）
+
+直前CT [専用CI #40302982954](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40302982954) は completed/SUCCESS、7 tests PASS・FAIL0、PRIVATEビルドPASS、正規BG240Hz元ゲームWebGL**12コア+CR2+CT3=17枚**、warning0。[Artifact #12641322389](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40302982954/artifacts/12641322389)（2026-11-02 09:57:51 UTCまで）。真の17秒GPU独立識別色比較：roadbank station2/u=.62/side=-1 の promenade-floor=6,608画素/ROI33,750(19.5793%)、promenade-transit=10,483画素(31.0607%)、civic-concourse-left=351画素(1.04%)。数値は色IDが反映された面積であり美術点数ではない。真正画像目視で**巨大平床はpromenade-floor、長い屋根と6本の反復支柱はpromenade-transit**と一致。左岸全体のcivic-concourseは主原因ではなく不変更が適切。
+
+G4E-7CU はこの確証を根拠に**この1街区だけ**の60×28m大平板を、段差をもつ2つの小公共広場＋細い連絡部へ変更。6本の垂直反復支持材・薄い長大屋根を、2つの非対称な折れ屋根＋各1基の厚い斜め支持構造へ置換。ほかのpromenade、pinch-switch居住街区、civic-concourse、折れ屋根遠景、主役建築は不変更。スクリーンショット診断17枚と元CIを再使用し、真の17秒と15秒画角で別の大きい遮蔽物が出ないことを見て採否決定する。自動テストとCI成功だけでART合格としない。
+
+**全ゲート** ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2 0m。B48実道路7・B51-C動体28・gap52・正規物理240Hz・速度/操舵/カメラ/自然ジャンプ不変更。main/Gold/本番・原作再現不変更、Draft PR #46未マージ。新CI追加禁止、既存専用CI再利用。次はCI結果と真正PNG目視が最優先。
+
 # G4E-7CT — 左岸残存暗色デッキの生成元を3分割してPRIVATE GPU検証（2026-10-26 JST、検証待ち）
 
 直前のG4E-7CSは専用CI [#40298652277](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40298652277) completed/SUCCESS、6/6単体テスト、PRIVATE真正WebGL12+2画像。true-pinchの正規17s左岸ROIでC.glass RGB(41,135,163)は10,720→0となり、問題の3枚の青緑パネル撤去を確証。ただし暗い広いデッキ面と反復支持材が残り、街区の見通し・規模感は未達。ART HOLD/REJECT継続。

@@ -1,3 +1,7 @@
+## G4E-7CT 結果確定 → CU局所造形改良（2026-10-26 JST）
+
+[CT #40302982954](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40302982954) SUCCESS/7 tests PASS/PRIVATEビルドPASS。正規240Hz真正WebGL 17枚、6対、警告0。[Artifact #12641322389](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40302982954/artifacts/12641322389)。17s true-pinch左岸ROI33,750画素のうちPRIVATE識別色差分は床6,608(19.58%)、交通屋根・支柱10,483(31.06%)、左岸公共デッキ351(1.04%)。拡大画像目視で巨大三角平床/縦6本と長い薄屋根の元が確証。CUではこの床と屋根支柱だけを小さな段床2面＋連結通路・折れ屋根2面＋太い斜め支持構造へ置換、公共デッキ/他街区/原物理は変更しない。CI再実行・新旧真正15/17秒画像確認前にART改善や合格を宣言しない。正式Slope2 0m、ART/HUMAN/READY/PUBLISH/MERGE HOLD。
+
 ## G4E-7CT：残存する暗い17s左岸デッキのGPUサブソース検査（2026-10-26 JST、未審査）
 
 G4E-7CS SUCCESSの修正済み真正WebGL 17sでも暗い広域デッキ/支持材が残り、CITY HERO級として不合格。元のCI景観形状は変更せず、実道路station2/u=.62/左岸のpromenade-floor（4三角形）、promenade-transit（84三角形）、左岸civic-concourse（既存タグ範囲）だけを独立したPRIVATEマゼンタ表示で撮る。元の正規BG240Hzカメラ、同一比較ROI、既存12+2画像と6ペアを不変のまま、t1700 true-pinchにCT識別3枚を追加。各画像のピクセル差分は診断情報に限定。実視界内の部材特定なく恒久変更をしない。ART/HUMAN/READY/PUBLISH/MERGEはHOLD、正式Slope2 0m、原本・本番保護。

@@ -231,20 +231,35 @@ function cameraCellIntrusion(f,shots){
 function authorPromenade(v,f,n,side){
  const first=v.length/18;
  const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
- // Open-sided inhabited sidewalk and transit shelters only, NOT empty scenery.
+ // G4E-7CU: real CT GPU proof found this one true-pinch/17s left-bank
+ // station was dominated by a 60x28m flat slab and 6 identical vertical
+ // piers. Replace ONLY this instance with two offset, modest public pads and
+ // two cantilevered occupied transit canopies. Keep genuine open air, setbacks
+ // and the existing bridge network; no citywide asset/physics changes.
+ if(n===2&&side===-1){
+  // Stepped plaza platforms, connected by a narrower pedestrian neck.
+  for(const [x0,x1,d0,d1,h] of [[-28,-4,35,53,5],[7,28,43,61,6]])
+   both(v,p(x0,d0,h),p(x1,d0,h),p(x1,d1,h),p(x0,d1,h),C.steel);
+  both(v,p(-4,45,5),p(7,45,6),p(7,50,6),p(-4,50,5),C.pearl);
+  const afterFloor=v.length/18;
+  // Two offset folded canopies with deep eaves, each carried by one
+  // thick oblique load-bearing member, not a row of silhouette-cutting bars.
+  for(const [x0,x1,d0,d1,h,skin] of [
+   [-27,-7,42,58,16,C.pearl],[8,27,49,65,17,C.gold]]){
+   both(v,p(x0,d0,h),p(x1,d0,h+1),p(x1,d1,h+2),p(x0,d1,h+1),skin);
+   both(v,p(x0,d0,h-3),p(x1,d0,h-2),p(x1,d0,h+1),p(x0,d0,h),C.steel);
+   girder(v,p(x0+4,d1-7,5),p(x0+7,d1-6,h-1),3.5,C.pearl);
+  }
+  return {parts:[
+   {kind:'promenade-floor',firstTriangle:first,triangleCount:afterFloor-first},
+   {kind:'promenade-transit',firstTriangle:afterFloor,triangleCount:v.length/18-afterFloor}
+  ]};
+ }
+ // Other stations and the pinch-switch city remain byte-for-byte unchanged.
  both(v,p(-30,25,5),p(30,25,5),p(30,53,5),p(-30,53,5),C.steel);
  const afterFloor=v.length/18;
  for(const x of [-23,0,23]){
-  // G4E-7CS: actual 17s GPU source-ID proved these exact THREE flat
-  // glass quads were the enormous opaque teal foreground rectangles.
-  // Only station 2 / left bank has this proven fault. Make three genuinely
-  // open transit bays with short grounded 3D abutments; other bays unchanged.
-  if(n===2&&side===-1){
-   for(const abutment of [x-5,x+5])
-    girder(v,p(abutment,32,5),p(abutment,32,16),1.8,C.steel);
-  }else{
-   both(v,p(x-6,32,7),p(x+6,32,7),p(x+6,32,16),p(x-6,32,16),C.glass);
-  }
+  both(v,p(x-6,32,7),p(x+6,32,7),p(x+6,32,16),p(x-6,32,16),C.glass);
   both(v,p(x-7,29,16),p(x+7,29,16),p(x+7,53,19),p(x-7,53,19),n%2?C.pearl:C.gold);
  }
  // CT: read-only triangle sub-ranges for source-ID shots; no authored triangles
