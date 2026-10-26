@@ -1,3 +1,11 @@
+# G4E-7CV — CU検証の18分タイムアウト対策（2026-10-26 JST、CI結果待ち）
+
+CU [専用CI #40304256841](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40304256841) は **CANCELLED**（開始2026-10-26 10:02 UTC、取消10:20 UTC）。7? ではなくG4E-7CUの単体テスト工程は成功、しかしPRIVATEビルド工程の末尾で `npx playwright install --with-deps chromium` によるUbuntu全体のフォント/GUI依存パッケージをaptで取得中に18分上限でキャンセル。ゲーム描画・美術のFAILではない。CUの実WebGLスクリーンショットは一切生成されず、Artifactなし。美術改善は未検証。
+
+CVは **CI準備だけ**修正。Ubuntu-24.04 GitHub標準runner上でPlaywright 1.56のヘッドレス撮影に必要なChromiumシェルを `npx playwright install --only-shell chromium` で取得。aptによる全OSパッケージの導入を省き、依存不足で起動が失敗した場合はその実ログから不足ライブラリだけ追加する（未確認のまま成功を宣言しない）。実ゲーム・景観・240Hzカメラ・B48×7/B51-C×28/gap52・プレイヤー入力は不変更。テストと12基準+2CR+3CT=17PNG、6対同一カメラ比較は変えない。ワークフローの画像名を実態に合わせて更新。
+
+**状態**：CUの大床/6支柱→2広場+2斜支持案は候補のまま。CV CIで実17s/15s真正WebGLを確認してからART採否を決める。ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m、Draft PR #46未マージ、main/Gold/原作/本番保護。不要な追加WF・多重pushはしない。
+
 # G4E-7CU — CT GPU実証に基づく第3ステーション左岸だけの公共広場改良（2026-10-26 JST、検証待ち）
 
 直前CT [専用CI #40302982954](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40302982954) は completed/SUCCESS、7 tests PASS・FAIL0、PRIVATEビルドPASS、正規BG240Hz元ゲームWebGL**12コア+CR2+CT3=17枚**、warning0。[Artifact #12641322389](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40302982954/artifacts/12641322389)（2026-11-02 09:57:51 UTCまで）。真の17秒GPU独立識別色比較：roadbank station2/u=.62/side=-1 の promenade-floor=6,608画素/ROI33,750(19.5793%)、promenade-transit=10,483画素(31.0607%)、civic-concourse-left=351画素(1.04%)。数値は色IDが反映された面積であり美術点数ではない。真正画像目視で**巨大平床はpromenade-floor、長い屋根と6本の反復支柱はpromenade-transit**と一致。左岸全体のcivic-concourseは主原因ではなく不変更が適切。

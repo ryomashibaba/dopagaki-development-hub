@@ -1,3 +1,7 @@
+## G4E-7CV — CUの画像撮影に到達しなかったCIの再試験（2026-10-26 JST）
+
+[CU CI #40304256841](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40304256841) は18分タイムアウトでCANCELLED。7?の表現を避けるために明記すると、CU用の単体テスト工程はSUCCESS、PRIVATEビルド工程中のPlaywrightブラウザ用 `--with-deps` aptパッケージ取得が長引き、ゲームのWebGL撮影工程に到達していない。CU案の美術成功/失敗はいずれも未判定。CVではGitHub ubuntu-24.04 runnerのブラウザ導入を `npx playwright install --only-shell chromium` に限定してaptフェーズを回避。CG/CT既存の17実PNG・6組カメラ比較を維持し、実PNGを見てCU採否を判断。元物理/速度/カメラ/道路/障害物、main/Gold/本番を不変更。ART/HUMAN/READY/PUBLISH/MERGE HOLD、認定Slope2 0m。
+
 ## G4E-7CT 結果確定 → CU局所造形改良（2026-10-26 JST）
 
 [CT #40302982954](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40302982954) SUCCESS/7 tests PASS/PRIVATEビルドPASS。正規240Hz真正WebGL 17枚、6対、警告0。[Artifact #12641322389](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40302982954/artifacts/12641322389)。17s true-pinch左岸ROI33,750画素のうちPRIVATE識別色差分は床6,608(19.58%)、交通屋根・支柱10,483(31.06%)、左岸公共デッキ351(1.04%)。拡大画像目視で巨大三角平床/縦6本と長い薄屋根の元が確証。CUではこの床と屋根支柱だけを小さな段床2面＋連結通路・折れ屋根2面＋太い斜め支持構造へ置換、公共デッキ/他街区/原物理は変更しない。CI再実行・新旧真正15/17秒画像確認前にART改善や合格を宣言しない。正式Slope2 0m、ART/HUMAN/READY/PUBLISH/MERGE HOLD。
