@@ -1,3 +1,19 @@
+# G4E-7DH 完了：PRIVATE統合HARBOR CRESCENT真正WebGL・構図ART REJECT／効率改善（2026-10-27 JST）
+
+**実装**：コミット [a2c5e4b](https://github.com/ryomashibaba/dopagaki-development-hub/commit/a2c5e4bc140a357f5074aa5e9c68abbc51f389df)。前DGの箱型ビルでCXの象徴的クレセントを失ったことを受け、CX元ランドマーク・公道バンク公共歩行空間・全オリジナル物理/カメラを保持。主役と同じ道路端/曲線profileから、左右非対称の湾曲した居住ギャラリー、実際の穴のある前後外壁、斜めの接続アバットメントを生成する小さなDH候補を実制作。新たなshaderや偽レンダではなく、**Playwright PRIVATE-only 既存DG試験モジュールURLを一画面だけ差し替え**、同じ実ゲームWebGL2 renderer/real 240Hz native cameraで撮影。DHモジュールはbuildにコピーせず、通常のCX・凍結DG・drive3d・scripts/buildの各ファイルは一切変更しない。PUBLISH禁止、正式Slope2=0m。
+
+**テスト・エビデンス**：[専用PRIVATE CI #40406130250](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40406130250) SUCCESS、旧CIテスト10/10、DG 1/1、DH独立1/1、DF合成3/3 PASS、DEの凍結DA/DB/DC再現PASS、PRIVATEビルドPASS、真正WebGL **29 PNG**（既存baseline/integrated12+CR2+CT3+凍結DG6+新DH6）を保存。[Artifact #12690169687](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40406130250/artifacts/12690169687) に `G4E7CI_REAL_GAME_SCREENSHOT_AUDIT_HOLD.json` と元PNGを格納。前DG artifact #12689434708 と標準CX/baseline 12PNGのSHA-256を比較し **12/12バイト完全一致**。既知CX private GPU source-ID 17秒左近景 ROI 13,423/206,824=6.4901%（<18%）と壁0の既存回帰も保持。ただし DHの新付加建築の視界保護までGPUで認定した意味ではない。[独立物理CI #40406130272](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40406130272) SUCCESS（A13/B5 2 jobs）。
+
+**DH/CX 真正WebGL画素差**：true-pinch 15s 2.9540%、17s 1.3100%、18.5s 2.4476%；pinch-switch 15s 3.4248%、17s 1.4601%、18.5s 1.3081%。2道路×3秒の画角、正規BG240Hzカメラと物理状態は完全に一致。指標は候補が画面に映った程度を示すだけで美術点数ではない。DHの15/17秒比較画像ではCXの特徴的巨大クレセント輪郭を残せたが、内部に追加された淡い青/白の構造が**大きな斜めの楔状不透明塊**となり、道路と街区の接続や奥行きが読み取れない。18.5秒も効果は乏しい。横長棚と箱ビルを避けても『建物の一部をふさいだだけ』という新しい失敗類型。**DH候補を美術ART REJECT、正式採用0件**とし、CX通常表示を維持。構図は装飾的追加では突破しない。
+
+**効率改善は明確にPASS**：DG前工程は shared build / drive3d を変更して47 workflow runs発火。本DHは専用 `web/p101-w9c2-g4e7dh-harbor-crescent.mjs`、独立テスト、private capture、専用CIのみを変更し、同コミットでActions起動 **3件**（専用CI、B5 physics、P64 QA-gated preview）に限定。通常のshared build / game rendererを触らず真正WebGLまで到達した。PRIVATE一時差替えは評価専用で、公開ビルドのDGモードからDHへ自動切り替えるものではない。
+
+**次工程の方針**：すでにDA/DB/DC/DG/DHをART REJECTしたため、**単純な形の差し替えをやめ、走行中に見える3D都市の主題・規模・居住導線を設計から再考すること**。キャプチャ上では都市より道路のカーブとHUDが支配的で、主役が近接フレームで消え/画角上部に切れがち。カメラをズルして変更するのではなく、どの高速視点でも主役が都市街区に接続した形を認識できる設計証拠が必要。巨大な楔/壁、孤立クレセント、箱ビル群、棒・薄板のいずれも禁止。既存2道路×15s/17s/18.5s画像＋可能なら連続走行の時間軸を主体に評価し、ART肯定例がない状態で数値閾値を正式採用条件にしない。
+
+**固定ゲート**：ART/HUMAN/READY/PUBLISH/MERGE HOLD、公式Slope2 0m、CX generator blob `af076d67492a677d2235e4730aef8cdf4808e106`を維持、PR #46 Draft未マージ、main/Gold/本番/原作非変更。
+
+---
+
 # G4E-7DG 結果確定：CITY CANYON候補は真正WebGLでART REJECT（2026-10-27 JST）
 
 **実制作**：[独立DG候補 3b14196](https://github.com/ryomashibaba/dopagaki-development-hub/commit/3b14196c3f2e558f79c10a9539f7cda2e9414c49) と [比較ゲーム接続 13a8633](https://github.com/ryomashibaba/dopagaki-development-hub/commit/13a8633f107bbe76fd3bf5a56fd44983e4f420e5) をPRIVATE研究用に保存。旧CX generator Git blob `af076d67492a677d2235e4730aef8cdf4808e106` は変更せず。凍結BG240HzカメラとB48×7/B51-C×28/gap52を利用し、既存2主役を一時的に三つの奥行き層の居住塊・抜けのある街路・公共進入路を持つ6体積×2地区に置き換える明示的ローカル比較モード `g4e7dg=canyon-city` を作成。ゲーム標準描画はCXのまま、新規道路・衝突床・動体・速度リセットなし。正式Slope2=0m。
