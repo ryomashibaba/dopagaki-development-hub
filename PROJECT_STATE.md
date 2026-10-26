@@ -1,3 +1,13 @@
+# G4E-7CX 最終確定 — 近景の走行視界保護ルール＋実GPU再発防止CI SUCCESS（2026-10-26 JST）
+
+**正本コミット [3919b25](https://github.com/ryomashibaba/dopagaki-development-hub/commit/3919b25feaf7a9b54f98d0313b9a5afb4b0cbb6a)** に対する [専用CI #40313417994](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40313417994) は **completed/SUCCESS**。9/9単体テストPASS、PRIVATEビルドPASS、正規240Hz元ゲームWebGL17 PNG、6組の完全同一カメラ比較、warnings0。[Artifact #12645429225](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40313417994/artifacts/12645429225)。
+
+**事実の確定**：実際のpinch-switch 17s近景左岸 `roadbank-inhabited station2/u=.62/side=-1` は旧CPU4角中心の閾値では見落とされた巨大画面遮蔽。CXは各街区の実三角形を正規15s/17sカメラで投影する15×10・近距離125mの占有判定を追加し、150サンプル中42を占めた該当街区**だけ**を開放型に切替。true-pinch15s/17sのゲーム実PNGは1画素も変化せず。pinch-switch 15s約2.0%、17s約19.8%の画素に局所変化。直接画像を見た結果、左側巨大建築の圧迫が減り、前方の道路とカーブを読める空間が増加。
+
+旧CWのPRIVATE GPU source-ID左近景ROI 206,824画素のマゼンタ建築ピクセルは109,914（53.14%）→CXで13,423（6.49%）。**新たに既存実WebGL CIへこの比率18%上限を設け、CI #40313417994で実画像を検証・PASS**。特定色だけのGPU識別診断であり、美術品質点数/人間プレイの証明ではない。B48道路7/B51-C動体28/gap52/物理240Hz/自然ジャンプ/速度/カメラ/入力は改変していない。
+
+**批判的な総合評価**：視界保護の技術的・視覚的前進は有効。ただし新しい開放型街区自体は単調で、遠景の箱型反復と道路障害物の弱さ、ステージの美術一貫性とゲームの面白さは未解消。**ART HOLD/CITY HERO REJECT、HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m**。次のG4E-7CYは遠景/中景/近景の主役級美術と走路予兆をひとつの全体構想として検討し、単に箱の数を増やさず正規カメラで再検証する。main/Gold/本番二サイト/原作保護、PR#46 Draft/未マージ。
+
 # G4E-7CX — 真正WebGLによる高速視界改善確定＋再発防止（2026-10-26 JST、次専用CI待ち）
 
 **基準コード [20c8ead](https://github.com/ryomashibaba/dopagaki-development-hub/commit/20c8ead35f92fbc623ddd432eb865d9e65c6b161)** に対する [CI #40312047578](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40312047578) **SUCCESS**：9/9 tests、PRIVATEビルドPASS、正規BG240Hz WebGL17枚/同一カメラ6対・warnings0。[Artifact #12645830351](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40312047578/artifacts/12645830351)（期限はGitHubの現在のArtifact情報で確認）。

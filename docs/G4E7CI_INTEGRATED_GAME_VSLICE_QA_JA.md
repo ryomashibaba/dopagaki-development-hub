@@ -1,3 +1,7 @@
+## CX正規実WebGL結果・再発防止CI完了（2026-10-26 JST）
+
+[実画像CI #40313417994](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40313417994) SUCCESS、9 tests PASS、PRIVATEビルドPASS、17 PNG/6 camera pairs/warnings0。[Evidence artifact #12645429225](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40313417994/artifacts/12645429225)。pinch-switch/t1700の巨大近景銀行区画の source-ID ROI x0..501,y25..436、正確RGB(255,0,255) は旧CW109,914/206,824(53.14%)→新CX13,423/206,824(6.49%)。CI新基準18%を通過。true-pinch 15s/17sは完全同一ピクセル。pinch-switch 15s約2.0%、17s約19.8%が画素単位で変化し、巨大左近景の回避で前方の道路の可視領域が拡大。ただし全都市美術はART HOLD、CG相対カメラの非人間固定スクリプト走行に限定。物理本体は未変更、公式Slope2 0m、HUMAN/READY/PUBLISH/MERGE HOLD。
+
 ## G4E-7CX：近景全域視線保護を現物で確認、PRIVATEピクセル回帰ガード追加（2026-10-26 JST）
 
 元ゲーム固定240Hz `pinch-switch-t1700` の旧CWに大きな近景左側 `roadbank-inhabited` があり、私有source-IDの約11万画素が大きいソリッド面。CXは12セルの実建築三角形を正規15/17sカメラで近距離のscreen gridへ投影し、**pinch-switch第3駅左側のみ**救済。専用CI #40312047578 SUCCESS、9/9 tests PASS、17真正PNG/6対 warnings0。[Artifact #12645830351](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40312047578/artifacts/12645830351)。旧CW→CXの実画像変更率はpinch-switch 15s約2.0%、17s約19.8%、true-pinch両時点0%。実画像を目視し、巨大左近景占有が減り道路の先読み改善を確認。
