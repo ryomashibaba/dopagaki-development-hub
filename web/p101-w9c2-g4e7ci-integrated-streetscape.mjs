@@ -30,11 +30,11 @@ function roadFrame(s,sample,u,side){
  */
 function civicCrescent(v,f,n,side){
  const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
- const origin=n===2?-91:-61,span=n===2?185:160;
+ const origin=n===2?-55:-48,span=n===2?118:104;
  const profile=t=>({
   x:origin+t*span,
-  d:155+36*Math.sin(Math.PI*t)+10*Math.sin(t*3+side),
-  top:16+(n===2?252:315)*Math.pow(Math.max(0,Math.sin(Math.PI*t)),.74)
+  d:90+20*Math.sin(Math.PI*t)+7*Math.sin(t*3+side),
+  top:14+(n===2?116:97)*Math.pow(Math.max(0,Math.sin(Math.PI*t)),.74)
  });
  for(let i=0;i<28;i++){
   const a=profile(i/28),b=profile((i+1)/28);
@@ -73,7 +73,7 @@ function authorCell(v,f,n,side){
  const p=(along,depth,h)=>add(add(add(f.edge,scale(f.along,along)),scale(f.outward,depth)),[0,h,0]);
  const tone=n%3===0?C.pearl:n%3===1?C.steel:C.glass;
  // Near public transit arcade: open shops, real gaps, three decks, illuminated signage.
- for(let z=0;z<(n%4===0?1:n%4===1?2:3);z++){
+ for(let z=0;z<(n%4===0?1:2);z++){
   const h=7+z*13,d=18+z*3;
   both(v,p(-27,d,h),p(29,d,h),p(29,d+24,h),p(-27,d+24,h),z===2?C.pearl:C.steel);
   for(const x of [-26,-1,27])girder(v,p(x,d+2,h-13),p(x,d+2,h+4),2,C.pearl);
@@ -91,7 +91,7 @@ function authorCell(v,f,n,side){
  }
  // Inhabited mid-bank: two different terraced towers with a genuinely open civic atrium.
  const center=12*Math.sin(n*1.67+side),rise=80+22*((n+side+8)%4);
- if(n%3!==1)for(const wing of [-1,1]){
+ if(n%3===0)for(const wing of [-1,1]){
   const origin=center+wing*32,d=83+n%3*9;
   for(let tier=0;tier<4;tier++){
    const low=tier*rise/4,high=(tier+1)*rise/4,shift=tier*tier*1.7,half=15-tier*1.45,
@@ -106,10 +106,10 @@ function authorCell(v,f,n,side){
    }
   }
  }
- girder(v,p(center-20,119,rise*.47),p(center+20,119,rise*.51),4,C.pearl);
+ if(n%3===0)girder(v,p(center-20,119,rise*.47),p(center+20,119,rise*.51),4,C.pearl);
  // Far skyline: two sweeping incomplete spines with a large open air gap.
- if(n%4===0){
-  const peak=182+30*n,axis=center+side*16;
+ if(n===0||n===7){
+  const peak=110+12*n,axis=center+side*16;
   for(const sign of [-1,1]){
    let last=null;
    for(let k=0;k<=16;k++){
@@ -125,9 +125,65 @@ function authorCell(v,f,n,side){
     p(axis+w*.43,224+level*14,height+12),p(axis-w*.70,224+level*14,height+18),level%2?C.violet:C.pearl);
   }
  }
- if(n===2||n===6)civicCrescent(v,f,n,side);
+ // The four primary districts are instead sited against the two verified 240Hz views.
 }
-export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false}={}){
+
+// G4E-7CM: choose fixed landmark sites once from BOTH genuine scripted cameras.
+// Neither a camera nor a screenshot is altered; these are read-only projections
+// using the exact perspective coefficient from drive3d.mjs (1.35).
+function screenPoint(f,point){
+ const front=unit(f.front),right=unit(cross(front,[0,1,0])),
+  up=unit(cross(right,front)),w=sub(point,f.eye),z=dot(w,front);
+ if(z<=1)return null;
+ return {x:1.35*dot(w,right)/(z*(1360/860)),y:1.35*dot(w,up)/z,z};
+}
+function visibleSiteScore(frame,shots){
+ const p=(u,d,h)=>add(add(add(frame.edge,scale(frame.along,u)),scale(frame.outward,d)),[0,h,0]);
+ // Evaluate approximate full civic profile, not merely its center/AABB.
+ const corners=[p(-58,90,10),p(58,90,10),p(-58,90,142),p(58,90,142),
+  p(0,112,128),p(0,90,42)];
+ let total=0,framesVisible=0;
+ for(const shot of shots){
+  if(!shot?.eye||!shot?.front)throw Error('CM requires real BG camera geometry');
+  const pts=corners.map(q=>screenPoint(shot,q));
+  const alive=pts.filter(q=>q&&q.x>-0.83&&q.x<0.83&&q.y>-.73&&q.y<.73);
+  // Reject giant shapes that show one clipped sliver, and those too tiny.
+  const center=pts[5],peak=pts[4];
+  if(!center||!peak)continue;
+  const span=pts.filter(Boolean);
+  if(!span.length)continue;
+  const wide=Math.max(...span.map(q=>q.x))-Math.min(...span.map(q=>q.x));
+  const tall=Math.max(...span.map(q=>q.y))-Math.min(...span.map(q=>q.y));
+  const proportion=alive.length/corners.length;
+  const readable=proportion>=.5&&wide>.055&&tall>.06;
+  if(readable)framesVisible++;
+  total+=(readable?1:.1)*proportion*Math.min(1,wide/.44)*Math.min(1,tall/.45);
+ }
+ return {score:Number(total.toFixed(6)),framesVisible};
+}
+function placeLandmarks(doc,sample,shots){
+ if(!Array.isArray(shots)||shots.length<2||
+  shots.slice(0,2).some(x=>!['t1500','t1700'].includes(x.id)||
+    x.source!=='ACTUAL_240HZ_START00_P96_FIXED_SCRIPT_NOT_HUMAN'))
+  throw Error('CM requires both original 240Hz 15/17s frames; never substitute a camera');
+ const chosen=[];
+ // Existing physical surfaces 0/1 only. No imagined third road or added collider.
+ for(const side of [-1,1])for(const slot of [2,6]){
+  const options=[];
+  for(let road=0;road<2;road++)for(let k=2;k<=17;k++){
+   const u=k/20,frame=roadFrame(doc.surfaces[road],sample,u,side),
+    proof=visibleSiteScore(frame,shots.slice(0,2));
+   const separated=chosen.every(s=>s.road!==road||Math.abs(s.u-u)>.18||s.side!==side);
+   if(separated)options.push({road,u,side,slot,frame,...proof});
+  }
+  options.sort((a,b)=>b.score-a.score||b.framesVisible-a.framesVisible||a.road-b.road||a.u-b.u);
+  if(!options.length)throw Error('CM has no protected existing physical anchor');
+  chosen.push(options[0]);
+ }
+ return chosen;
+}
+
+export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null}={}){
  const blank={active:false,vertices:[],triangles:0,stations:0,layers:0,newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,art:'HOLD',human:'HOLD',publish:'HOLD',officialSlope2Meters:0};
  if(!enabled)return blank;
  const bc=doc?.stageForge?.g4e7bcStudy,aj=doc?.stageForge?.g4e7ajStudy;
@@ -140,10 +196,15 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false}={}){
  const freeze=JSON.stringify(doc),v=[],stations=[.36,.44,.52,.60,.68,.76,.84,.92];
  for(const [n,u] of stations.entries())for(const side of [-1,1])
   authorCell(v,roadFrame(doc.surfaces[1],sample,u,side),n,side);
+ const sites=placeLandmarks(doc,sample,shots);
+ for(const site of sites)civicCrescent(v,site.frame,site.slot,site.side);
  const triangles=v.length/18;
  if(triangles<2500||triangles>50000||v.some(x=>!Number.isFinite(x))||JSON.stringify(doc)!==freeze)
   throw Error('CI geometry invalid or physics source mutated');
  return {active:true,vertices:v,triangles,stations:stations.length*2,layers:3,
-  minimumSetbackM:18,landmarks:4,macroSilhouette:'FOUR_HOLLOW_CIVIC_CRESCENTS',newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,
+  minimumSetbackM:18,landmarks:4,macroSilhouette:'CAMERA_REGISTERED_FOUR_HOLLOW_CIVIC_DISTRICTS',
+  cameraEvidence:'BG240HZ_BOTH_15_AND_17_NOT_HUMAN',
+  landmarksQA:sites.map(({road,u,side,slot,score,framesVisible})=>({road,u,side,slot,score,framesVisible})),
+  newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,
   art:'HOLD',human:'HOLD',publish:'HOLD',officialSlope2Meters:0};
 }
