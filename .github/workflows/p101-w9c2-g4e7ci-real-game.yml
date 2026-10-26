@@ -5,6 +5,8 @@ on:
     paths:
       - 'web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'
       - 'web/p101-w9c2-g4e7dg-canyon-city.mjs'
+      - 'web/p101-w9c2-g4e7dh-harbor-crescent.mjs'
+      - 'tests/p101-w9c2-g4e7dh-harbor-crescent.test.mjs'
       - 'tests/p101-w9c2-g4e7dg-canyon-city.test.mjs'
       - 'web/p101-w9c2-g4e7dd-macro-camera-audit.mjs'
       - 'scripts/p101-w9c2-g4e7de-calibrate-camera.mjs'
@@ -39,10 +41,12 @@ jobs:
         run: |
           node --check web/p101-w9c2-g4e7ci-integrated-streetscape.mjs
           node --check web/p101-w9c2-g4e7dg-canyon-city.mjs
+          node --check web/p101-w9c2-g4e7dh-harbor-crescent.mjs
           node --check web/drive3d.mjs
           node --check scripts/p101-w9c2-g4e7ci-real-game-capture.mjs
           node --test tests/p101-w9c2-g4e7ci-integrated-streetscape.test.mjs
           node --test tests/p101-w9c2-g4e7dg-canyon-city.test.mjs
+          node --test tests/p101-w9c2-g4e7dh-harbor-crescent.test.mjs
       - name: DE historical rejected scenery calibration against native BG240Hz
         run: |
           node --check web/p101-w9c2-g4e7dd-macro-camera-audit.mjs
@@ -71,7 +75,7 @@ jobs:
             echo 'CW missing Japanese HUD font: do not certify images'
             exit 1
           fi
-      - name: Real game 12 core WebGL + 2 CR source-ID + 3 CT diagnostic screenshots
+      - name: Real game 12 core WebGL + original CR/CT + DG reject + DH PRIVATE comparison
         run: node scripts/p101-w9c2-g4e7ci-real-game-capture.mjs
       - uses: actions/upload-artifact@v4
         if: always()

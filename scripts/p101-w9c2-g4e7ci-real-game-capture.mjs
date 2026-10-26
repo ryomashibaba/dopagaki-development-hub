@@ -57,15 +57,24 @@ try{
   const variants=frame!=='t1700'?['baseline','integrated']:
    road==='true-pinch'?['baseline','integrated','source-id','ct-floor','ct-transit','ct-concourse']:
    ['baseline','integrated','source-id'];
-  variants.push('dg'); // separate genuine WebGL candidate; core 17 remain unchanged
+  variants.push('dg','dh'); // frozen reject DG + isolated DH, core 17 unchanged
   for(const mode of variants){
   const page=await browser.newPage({viewport:{width:1360,height:860},deviceScaleFactor:1});
   const errors=[];page.on('pageerror',e=>errors.push(String(e)));
+  if(mode==='dh'){
+   // Explicit PRIVATE-only source-route override of an existing experimental
+   // module URL. No shared build/drive3d source change, no fake renderer.
+   // The original WebGL engine + authentic BG240Hz camera still render it.
+   await page.route('**/p101-w9c2-g4e7dg-canyon-city.mjs',async route=>{
+    await route.fulfill({status:200,contentType:'text/javascript; charset=utf-8',
+     body:fs.readFileSync(path.resolve('web/p101-w9c2-g4e7dh-harbor-crescent.mjs'),'utf8')});
+   });
+  }
   const params=new URLSearchParams({g4e7al:'manual',g4e7be:'roll-deck',g4e7bg:'inspect',g4e7bgFrame:'hold',g4e7bgRoad:road,g4e7bgPoint:frame});
   if(mode!=='baseline')params.set('g4e7ci','streetscape');
   if(mode==='integrated'&&frame==='t1700')params.set('g4e7cq','trace');
   if(mode==='source-id')params.set('g4e7cr','station2-left-id');
-  if(mode==='dg')params.set('g4e7dg','canyon-city');
+  if(['dg','dh'].includes(mode))params.set('g4e7dg','canyon-city');
   const ctMode={'ct-floor':'promenade-floor','ct-transit':'promenade-transit',
    'ct-concourse':'civic-concourse-left'}[mode];
   if(ctMode)params.set('g4e7ct',ctMode);
@@ -149,6 +158,21 @@ try{
    if(pixel.centralWindowFraction>.13)
     report.warnings.push('POSSIBLE_ROAD_CENTER_SCREEN_CLUTTER '+road+' '+frame);
    console.log('G4E7CJ_VERIFIED_PIXEL_PAIR',JSON.stringify({road,frame,changedFraction:pixel.changedFraction,centralWindowFraction:pixel.centralWindowFraction}));
+  }else if(mode==='dh'){
+   if(!integratedImage||info.dgScene!=='HARBOR_CRESCENT_INHABITED_V1')
+    throw Error('DH injected private game render missing '+JSON.stringify({road,frame,info}));
+   for(const key of ['cameraTime','cameraSpeed','road','point','mode','width','height','eye','forward']){
+    if(integratedInfo[key]!==info[key])
+     throw Error('DH_NATIVE_CAMERA_MISMATCH '+JSON.stringify({road,frame,key}));
+   }
+   const pixel=await compareTrueCanvasPixels(page,integratedImage,image);
+   report.dhComparisons??=[];
+   report.dhComparisons.push({road,frame,from:'UNMODIFIED_CX',to:'DH_HARBOR_CRESCENT_PRIVATE',
+    ...pixel,art:'HOLD',human:'HOLD',
+    provenance:'PRIVATE_ROUTE_MODULE_SUBSTITUTION_ACTUAL_GAME_WEBGL_NOT_PRODUCTION'});
+   console.log('G4E7DH_ACTUAL_GAME_WEBGL_A_B',JSON.stringify({road,frame,
+    changedFraction:pixel.changedFraction,changedPixels:pixel.pixelDifferenceCount,
+    centralWindowFraction:pixel.centralWindowFraction}));
   }else if(mode==='dg'){
    if(!integratedImage||info.dgScene!=='CANYON_CITY_INHABITED_VOLUME_V1')
      throw Error('DG actual game render missing pilot mesh '+JSON.stringify({road,frame,info}));
@@ -232,6 +256,7 @@ try{
  if(report.screenshots!==12||report.provenanceDiagnosticScreenshots!==2||
     report.ctDiagnosticScreenshots!==3||report.ctSourceChecks?.length!==3||
     report.sourceIdChecks?.length!==2||report.dgComparisons?.length!==6||
+    report.dhComparisons?.length!==6||
     !report.cxOpenVisibility||report.pairs.length!==6||
     !report.pairs.some(x=>x.changedFraction>.001)||
     report.frames.filter(x=>x.captureMode==='integrated').some(x=>Number(x.triangles)<1000))
