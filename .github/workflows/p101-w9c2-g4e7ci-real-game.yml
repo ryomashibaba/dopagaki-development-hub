@@ -40,12 +40,12 @@ jobs:
           npm install --no-save --no-package-lock --no-audit --no-fund
           npm run build:private
           npx playwright install --with-deps chromium
-      - name: Real game original WebGL baseline vs integrated 6 scripted 240Hz frames
+      - name: Real game 12 core WebGL screenshots and 2 station2-left source-ID diagnostics
         run: node scripts/p101-w9c2-g4e7ci-real-game-capture.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: g4e7ci-real-private-B48-WebGL-12-paired-images-ART-HOLD
+          name: g4e7cr-real-private-B48-WebGL-12-paired-plus-2-sourceID-ART-HOLD
           path: test-results/g4e7ci-real-game
           if-no-files-found: ignore
           retention-days: 7

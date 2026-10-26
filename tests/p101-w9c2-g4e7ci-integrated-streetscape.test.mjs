@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generateG4E7BC} from '../scripts/p101-w9c2-g4e7bc-bank-contour.mjs';
 import {sample} from '../private/reference_only/director/surface.js';
-import {g4e7ciIntegratedStreetscape,g4e7cqTracePixels} from '../web/p101-w9c2-g4e7ci-integrated-streetscape.mjs';
+import {g4e7ciIntegratedStreetscape,g4e7cqTracePixels,g4e7crHighlightStation2Left} from '../web/p101-w9c2-g4e7ci-integrated-streetscape.mjs';
 import {g4e7bgNativeFrames} from '../scripts/p101-w9c2-g4e7bg-native-visual-frames.mjs';
 test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
  for(const road of ['true-pinch','pinch-switch']){
@@ -67,4 +67,30 @@ test('CQ perspective ray triangle attribution uses true projection, no mutations
  assert.equal(a.probes[1].candidate,null);
  assert.deepEqual(v,[
  -1,-1,10,.2,.5,.6,1,-1,10,.2,.5,.6,0,1,10,.2,.5,.6]);
+});
+
+test('CR private GPU source-ID recolor changes only station2 left bank vertex RGB',()=>{
+ for(const road of ['true-pinch','pinch-switch']){
+  const doc=generateG4E7BC(road,'rollDeck');
+  const art=g4e7ciIntegratedStreetscape(doc,sample,{enabled:true,
+   shots:g4e7bgNativeFrames().stages[road].frames});
+  const src=art.sources.find(s=>s.station===2&&s.u===.62&&s.side===-1&&s.kind.startsWith('roadbank-'));
+  assert.ok(src);
+  const before=art.vertices.slice();
+  const cr=g4e7crHighlightStation2Left(art);
+  assert.equal(cr.triangles,src.triangleCount);
+  assert.equal(cr.kind,src.kind);
+  assert.equal(cr.vertices.length,before.length);
+  const first=src.firstTriangle*18,last=(src.firstTriangle+src.triangleCount)*18;
+  for(let i=0;i<before.length;i++){
+   const colorChannel=(i%6)>=3;
+   if(i>=first&&i<last&&colorChannel)
+    assert.equal(cr.vertices[i],i%6===4?0:1);
+   else assert.equal(cr.vertices[i],before[i]);
+  }
+  assert.deepEqual(art.vertices,before);
+  assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);
+  assert.equal(art.newMovingHazards,0);
+  assert.equal(art.art,'HOLD');
+ }
 });

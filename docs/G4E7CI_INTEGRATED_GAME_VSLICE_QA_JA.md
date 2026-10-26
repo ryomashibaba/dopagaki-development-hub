@@ -1,3 +1,7 @@
+## G4E-7CQ SUCCESS / G4E-7CR GPU source-ID A/B（2026-10-26 JST）
+
+CQ run 40294635351: SUCCESS、4 tests PASS、PRIVATE真正WebGL12枚/6ペア、Artifact 12639060181（2026-11-02 08:57 UTC expiry）。CQの station2 左岸のCPU projectionは候補でありGPUピックではない。現物17秒スクリーンではtrue-pinchに3枚の大きな平面cyan、pinch-switchには窓のある別の建築。CRはPRIVATEのみの station2/u=.62/side=-1 の頂点RGBマゼンタ識別（頂点位置・道路・遮蔽・240Hz元カメラ不変）を検証する。元の12枚に加え同一17秒2枚を出力してROI色差を測定する。識別画像を審査するまで原因確定/建築修正/ART PASSを宣言しない。
+
 # G4E-7CI — 近景/中景/遠景をゲーム自体の実WebGLへ統合する小区間の美術試験
 
 2026-10-26 JST。過去BX/BY/BZ/CA/CG/CHの失敗を受け、単体GLBと独立three.jsではなく、**本物のゲームB48道路と元240Hzカメラを含むPRIVATE実WebGL**で評価する。

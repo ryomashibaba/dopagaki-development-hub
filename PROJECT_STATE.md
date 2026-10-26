@@ -1,3 +1,9 @@
+# G4E-7CR — 第3ステーション左岸GPU識別色 A/B（2026-10-26 JST、検証待ち）
+
+CQ [CI #40294635351](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40294635351) は **completed / SUCCESS**、4/4 tests PASS、真正WebGL基準12画像・6組を確認。旧CQ欄の QUEUED は時点情報であり現在の状態ではない。[Artifact #12639060181](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40294635351/artifacts/12639060181) は2026-11-02 08:57 UTCまで保持。実画像ではtrue-pinch 17s左岸に大きな青緑の矩形3枚、pinch-switchには別の居住街区が確認できた。幾何学候補は両方 station=2 / u=.62 / side=-1 に集中したが GPU最終帰属は **未確定**。
+
+G4E-7CRはこの候補範囲の**頂点色だけを蛍光マゼンタにするPRIVATE固定240Hzカメラ診断**を追加。景観構造や物理を変更せず、既存12枚に17秒時点の識別色画像2枚を追加し、同フレーム同カメラで元のゲーム画像とのROI画素差をJSONに記録する。CIの実画像で壁の位置・形状とマゼンタ領域が一致するまで、恒久的な建築修正・ART合格は宣言しない。G4E-7CR専用チェックが実際に成功したか確認すること。ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m、PR #46 Draft保留。main、Gold、本番、原作再現、B48×7/B51-C×28/gap52/240Hzは変更禁止。
+
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
 ## G4E-7CQ — 実スクリーン画素→三角形出所の解析を追加（2026-10-26 JST、検証は QUEUED）

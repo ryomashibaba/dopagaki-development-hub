@@ -475,3 +475,22 @@ export function g4e7cqTracePixels(vertices,sources,view,width,height,pixels){
  return {schema:'G4E7CQ_ACTUAL_GL_PROJECTION_CPU_GEOMETRIC_CANDIDATES_NOT_PICK_BUFFER',
   width,height,triangles:projected.length,probes};
 }
+
+
+// G4E-7CR: PRIVATE-only GPU-color provenance A/B; geometry and physics stay identical.
+// Neon magenta belongs solely to roadbank station=2, u=.62, side=-1.
+export function g4e7crHighlightStation2Left(art){
+ if(!art?.active||!Array.isArray(art.vertices)||!Array.isArray(art.sources))
+  throw Error('CR requires genuine authored CI mesh and immutable source tags');
+ const hits=art.sources.filter(s=>s.station===2&&s.u===.62&&s.side===-1&&
+  (s.kind==='roadbank-promenade'||s.kind==='roadbank-inhabited'));
+ if(hits.length!==1)throw Error('CR station2 left provenance must resolve exactly once');
+ const source=hits[0],vertices=art.vertices.slice();
+ for(let ti=source.firstTriangle;ti<source.firstTriangle+source.triangleCount;ti++)
+  for(let vi=0;vi<3;vi++){
+   const k=ti*18+vi*6+3;
+   vertices[k]=1;vertices[k+1]=0;vertices[k+2]=1;
+  }
+ return {vertices,kind:source.kind,triangles:source.triangleCount,
+  firstTriangle:source.firstTriangle,station:source.station,side:source.side};
+}
