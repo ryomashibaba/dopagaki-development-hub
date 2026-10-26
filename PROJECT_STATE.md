@@ -1,3 +1,11 @@
+# G4E-7CX — 高速走行時の近景建築視界遮蔽を一般規則で防ぐ（2026-10-26 JST、専用CI未検証）
+
+**全体方針**：前CWで視覚上の青緑ベタ板や日本語HUDは改善した一方、ゲームの本質は112m/s前後の実走時に次の道路を読めること。真正pinch-switch/t1700では左岸巨大街区が画面左半分近くを遮る。GPU source-ID (CR以降、station2/u=.62/side=-1 の roadbank-inhabited) はこの巨大な近距離面と一致、CPUトレースでも15/15候補の大半を占めた。これは物理障害物ではなく描画専用巨大街区だが、道路進路予測を妨げる。
+
+**仮説**：カメラから離れた街区中心距離・コーナーだけで遮蔽を測る旧 `cameraCellIntrusion` は、細長い占有棟の一部がカメラ近傍に飛び込む時に過小評価する。CXでは各街区の既存の occupied 実メッシュを一時生成し、正規BG240Hzの15s・17sショットに投影。画面中央走行視界用15×10の格子で、125m以内に見える実三角形の覆域19サンプル以上なら従来と同じ低層 `authorPromenade` に切替。各セルの候補スコアと救済判定をJSON互換の `cxNearVisionQA` に記録。新しい図形・衝突物・道路はなし。形状を大きく弱める判断は機械的な画面覆域と既知GPU帰属に基づき、場当たり的な station2 例外ではない。
+
+**検証条件**：`pinch-switch` t1700で問題の巨大建築が消え、正規15sでも道路先読みが悪化しないことを同一BG240Hz真正WebGLで目視。`true-pinch`の3枚のC.glass青緑壁の再発0画素、pinch-switchの通常居住都市が無意味に全消失しないこと、元B48道路7・B51-C障害物28・gap52・カメラと入力・速度・自然ジャンプは完全不変。専用CI既存ワークフローを再利用、12基準＋2CR+3CT＝17画像/6対を維持。人体操作・正式ARTの合格には使わない。ART/HUMAN/READY/PUBLISH/MERGE HOLD・Slope2認定0m・Draft PR #46未マージ・main/Gold/原作/本番保護。
+
 # G4E-7CW — 実WebGL17枚・日本語HUD修復・支持材/屋根局所改善（2026-10-26 JST、最新確定）
 
 専用CI [#40309248652](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40309248652) は **completed/SUCCESS**、実装HEAD [9d173db](https://github.com/ryomashibaba/dopagaki-development-hub/commit/9d173db4ce6f7ecf6fd69104132aee6c47911946)。**8/8 tests PASS、PRIVATE build PASS、正規BG240Hzの元ゲームWebGL17枚（12基準+CR2+CT3）/同一カメラ6対/warnings0**。[Artifact #12644191731](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40309248652/artifacts/12644191731)は2026-11-02 10:46:17 UTCまで。非人間固定スクリプト撮影、人間試走ではない。

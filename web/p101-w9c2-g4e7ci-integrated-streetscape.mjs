@@ -228,6 +228,55 @@ function cameraCellIntrusion(f,shots){
   return area>.32;
  });
 }
+
+/**
+ * G4E-7CX: budget the visible NEAR-road architecture, not its bounding box.
+ * Project the ACTUAL proposed inhabited-triangle mesh against the TWO
+ * unmodified native camera shots. A 3D cell with a remote center can have a
+ * huge near-camera wing: previous corner-only cameraCellIntrusion missed the
+ * pinch-switch / station-2-left occupied facade (GPU source-ID confirmed).
+ *
+ * Probe the central gameplay viewport, not HUD or sky, with a sparse regular
+ * raster of exact projected triangle interiors. This is a conservative
+ * candidate gate, NOT proof of final GPU fragments, hazard avoidance, or ART.
+ */
+function cameraNearCellCoverage(vertices,shots){
+ if(!Array.isArray(vertices)||vertices.length%18)throw Error('CX expected authored RGB triangles');
+ const probes=[];
+ for(let iy=0;iy<10;iy++)for(let ix=0;ix<15;ix++)
+  probes.push({x:-.82+ix*(1.64/14),y:-.36+iy*(.96/9)});
+ const summary=[];
+ for(const shot of shots){
+  if(!shot?.eye||!shot?.front)throw Error('CX requires exact original camera');
+  const front=unit(shot.front),right=unit(cross(front,[0,1,0])),
+   up=unit(cross(right,front)),visible=new Set();
+  for(let i=0;i<vertices.length;i+=18){
+   const a=[];
+   for(let j=0;j<3;j++){
+    const k=i+j*6,w=sub(vertices.slice(k,k+3),shot.eye),z=dot(w,front);
+    if(z<=1.4){a.length=0;break;}
+    a.push({x:1.35*dot(w,right)/(z*(1360/860)),y:1.35*dot(w,up)/z,z});
+   }
+   if(a.length!==3||Math.min(...a.map(p=>p.z))>125)continue;
+   const minX=Math.min(...a.map(p=>p.x)),maxX=Math.max(...a.map(p=>p.x)),
+    minY=Math.min(...a.map(p=>p.y)),maxY=Math.max(...a.map(p=>p.y));
+   if(maxX<-.82||minX>.82||maxY<-.36||minY>.60)continue;
+   const area=(a[1].y-a[2].y)*(a[0].x-a[2].x)+(a[2].x-a[1].x)*(a[0].y-a[2].y);
+   if(Math.abs(area)<1e-10)continue;
+   for(let pi=0;pi<probes.length;pi++){
+    if(visible.has(pi))continue;
+    const p=probes[pi];if(p.x<minX||p.x>maxX||p.y<minY||p.y>maxY)continue;
+    const aa=((a[1].y-a[2].y)*(p.x-a[2].x)+(a[2].x-a[1].x)*(p.y-a[2].y))/area,
+     bb=((a[2].y-a[0].y)*(p.x-a[2].x)+(a[0].x-a[2].x)*(p.y-a[2].y))/area;
+    if(aa>=-1e-8&&bb>=-1e-8&&aa+bb<=1+1e-8)visible.add(pi);
+   }
+  }
+  summary.push({frame:shot.id,nearFacadeGridHits:visible.size,gridSamples:probes.length,
+   occupiedFraction:Number((visible.size/probes.length).toFixed(6))});
+ }
+ return summary;
+}
+
 function authorPromenade(v,f,n,side){
  const first=v.length/18;
  const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
@@ -424,10 +473,21 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
  if(!Array.isArray(shots)||shots.length<2)throw Error('CO requires both unchanged native cameras');
  // Roadside cells use a fixed, read-only TWO camera coverage plan; extremely
  // close sites get a low open promenade, avoiding another huge near-camera wall.
- let clippedCellReliefs=0,fullDistrictCells=0;
+ let clippedCellReliefs=0,fullDistrictCells=0,cxNearVisionVetoes=0;
+ const cxNearVisionQA=[];
  for(const [n,u] of stations.entries())for(const side of [-1,1]){
   const f=roadFrame(doc.surfaces[1],sample,u,side);
-  const relieved=cameraCellIntrusion(f,shots.slice(0,2));
+  // Preview the complete inhabited cell without adding it to the final mesh.
+  // Only the camera-occluding candidates are converted to open public banks.
+  const fullCandidate=[];
+  authorCell(fullCandidate,f,n,side);
+  const coverage=cameraNearCellCoverage(fullCandidate,shots.slice(0,2));
+  const nearVisionVeto=coverage.some(x=>x.nearFacadeGridHits>=19);
+  const originalVeto=cameraCellIntrusion(f,shots.slice(0,2));
+  const relieved=originalVeto||nearVisionVeto;
+  if(nearVisionVeto&&!originalVeto)cxNearVisionVetoes++;
+  cxNearVisionQA.push({station:n,u,side,originalVeto,nearVisionVeto,
+   rendered:relieved?'roadbank-promenade':'roadbank-inhabited',coverage});
   if(relieved)clippedCellReliefs++;else fullDistrictCells++;
   mark(relieved?'roadbank-promenade':'roadbank-inhabited',{station:n,u,side},
    ()=>relieved?authorPromenade(v,f,n,side):authorCell(v,f,n,side));
@@ -456,6 +516,7 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
   throw Error('CQ provenance does not cover all actual triangles');
  return {active:true,vertices:v,sources,triangles,stations:stations.length*2,layers:3,
   carvedFacades:true,openRearFacades:true,districtLinks,farRoofBays,clippedCellReliefs,fullDistrictCells,
+  cxNearVisionVetoes,cxNearVisionQA,
   minimumSetbackM:18,landmarks:2,macroSilhouette:'LOW_OPEN_CONCOURSE_WITH_SPACED_ANCHORED_DISTRICTS',
   cameraEvidence:'BG240HZ_BOTH_15_AND_17_NOT_HUMAN',
   landmarksQA:sites.map(({road,u,side,slot,score,framesVisible})=>({road,u,side,slot,score,framesVisible})),

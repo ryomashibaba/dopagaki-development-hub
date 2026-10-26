@@ -1,3 +1,7 @@
+## G4E-7CX — 近景街区の視界占有による開放型切替（2026-10-26 JST、CI待ち）
+
+真正pinch-switch/t1700の実WebGLに左岸の巨大な近景建築。G4E-7CR private source-ID とCPU候補トレースから `station2/u=.62/side=-1 roadbank-inhabited` が主な描画元と確認済み。全体計画の高速道路視認性を優先し、旧 `cameraCellIntrusion` の遠方中心・箱の4角AABBだけに頼らず、実際の occupied 建築三角形を正規15/17sカメラで15×10のゲーム走行視界格子へ投影。近景(125m)を19グリッド以上占有する街区のみ低層の開放型へ一般ルールで変更。形状と材質は既存 `authorPromenade` を再利用し、道路・障害物・操作・カメラを変えない。新 `cxNearVisionQA` は全12セルの測定を残す。CIテスト/実写真後、誤って広範な街並みが消えていれば原因確認して調整。数値は近景遮蔽候補であり、GPU実描画や人間ゲーム体験の証明ではない。ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m。
+
 ## G4E-7CW CI成功・実画面美術判定（2026-10-26 JST）
 
 [Run #40309248652](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40309248652) SUCCESS：8/8テスト、PRIVATEビルド、元BG240Hz WebGL17PNG/6対、警告0。[Artifact #12644191731](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40309248652/artifacts/12644191731)（2026-11-02 10:46:17 UTC失効）。headless Chromiumへ日本語フォントを選択導入し、CUで□化したHUD/案内の日本語がCW実画像で正常表示。左岸station2の巨柱2本を幅3.5mの白→1.6mの鋼色へ、屋根幅20/19m→14/13mに縮小した結果、17s画角の大きな白い柱と屋根の水平占有を軽減。

@@ -26,6 +26,13 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
   assert.equal(art.districtLinks,10);assert.ok(art.farRoofBays>=0&&art.farRoofBays<=10);
   console.log('G4E7CP_CONNECTED_SILHOUETTE_READ_ONLY',road,art.districtLinks,art.farRoofBays);
   assert.equal(art.clippedCellReliefs+art.fullDistrictCells,art.stations);
+  assert.equal(art.cxNearVisionQA.length,art.stations);
+  assert.equal(art.cxNearVisionQA.filter(x=>x.nearVisionVeto&&!x.originalVeto).length,
+   art.cxNearVisionVetoes);
+  assert.ok(art.cxNearVisionQA.every(x=>x.coverage.length===2&&
+   x.coverage.every(y=>y.gridSamples===150&&Number.isFinite(y.occupiedFraction))));
+  console.log('G4E7CX_NEAR_CAMERA_VISUAL_CELL_BUDGET',road,JSON.stringify(
+   art.cxNearVisionQA.filter(x=>x.nearVisionVeto||x.originalVeto)));
   assert.ok(art.fullDistrictCells>=1,'at least one occupied distant district should survive camera protection');
   console.log('G4E7CO_RETAINED_VS_RELIEVED',road,art.fullDistrictCells,art.clippedCellReliefs);
   assert.ok(art.landmarksQA.every(x=>x.road===0||x.road===1));
@@ -113,8 +120,8 @@ test('CS fixed only proven three station2-left blue-green shelter panels',()=>{
     if(section[k]===.16&&section[k+1]===.53&&section[k+2]===.64)tealVertices++;
    assert.equal(tealVertices,0,'flat cyan planes must not silently return');
   }else{
-   assert.equal(source.kind,'roadbank-inhabited');
-   assert.equal(source.triangleCount,2380,'pinch-switch inhabited cell left untouched');
+   assert.ok(['roadbank-inhabited','roadbank-promenade'].includes(source.kind));
+   assert.ok(source.triangleCount>0,'CX source remains authored and traceable');
   }
   assert.equal(JSON.stringify(doc),frozen);
   assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);
@@ -165,4 +172,27 @@ test('CW proportional two-canopy plaza preserves geometry protection and source 
  assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);
  assert.equal(art.newMovingHazards,0);assert.equal(art.officialSlope2Meters,0);
  assert.equal(art.art,'HOLD');
+});
+
+test('CX near-camera preservation is real 240Hz view aware, not a hard-coded station allowlist',()=>{
+ for(const road of ['true-pinch','pinch-switch']){
+  const stage=generateG4E7BC(road,'rollDeck'),snap=JSON.stringify(stage);
+  const shots=g4e7bgNativeFrames().stages[road].frames;
+  const art=g4e7ciIntegratedStreetscape(stage,sample,{enabled:true,shots});
+  assert.equal(art.cxNearVisionQA.length,12);
+  assert.equal(art.cxNearVisionQA.filter(x=>x.rendered==='roadbank-promenade').length,
+   art.clippedCellReliefs);
+  const target=art.cxNearVisionQA.find(x=>x.station===2&&x.side===-1);
+  assert.ok(target&&target.coverage[1].gridSamples===150);
+  // GPU provenance already proved the entire screen-wide nearby facade is
+  // on this bank in pinch-switch/17s; it must never survive a new render.
+  if(road==='pinch-switch'){
+   assert.ok(target.nearVisionVeto||target.originalVeto,
+    'pinch-switch camera-screen city block must be replaced by open promenade');
+   assert.equal(target.rendered,'roadbank-promenade');
+  }
+  assert.equal(JSON.stringify(stage),snap);
+  assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);
+  assert.equal(art.newMovingHazards,0);assert.equal(art.art,'HOLD');
+ }
 });
