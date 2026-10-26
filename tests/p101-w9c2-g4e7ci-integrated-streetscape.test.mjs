@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generateG4E7BC} from '../scripts/p101-w9c2-g4e7bc-bank-contour.mjs';
 import {sample} from '../private/reference_only/director/surface.js';
-import {g4e7ciIntegratedStreetscape} from '../web/p101-w9c2-g4e7ci-integrated-streetscape.mjs';
+import {g4e7ciIntegratedStreetscape,g4e7cqTracePixels} from '../web/p101-w9c2-g4e7ci-integrated-streetscape.mjs';
 import {g4e7bgNativeFrames} from '../scripts/p101-w9c2-g4e7bg-native-visual-frames.mjs';
 test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
  for(const road of ['true-pinch','pinch-switch']){
@@ -17,6 +17,11 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
   assert.equal(art.landmarks,2);assert.equal(art.macroSilhouette,'LOW_OPEN_CONCOURSE_WITH_SPACED_ANCHORED_DISTRICTS');
   assert.equal(art.cameraEvidence,'BG240HZ_BOTH_15_AND_17_NOT_HUMAN');
   assert.equal(art.landmarksQA.length,2);
+  assert.equal(art.sources.reduce((n,s)=>n+s.triangleCount,0),art.triangles);
+  assert.equal(art.sources[0].firstTriangle,0);
+  assert.ok(art.sources.some(x=>x.kind==='roadbank-inhabited'));
+  assert.ok(art.sources.some(x=>x.kind==='anchored-civic-crescent'));
+  assert.ok(art.sources.some(x=>x.kind==='civic-concourse'));
   assert.equal(art.carvedFacades,true);assert.equal(art.openRearFacades,true);
   assert.equal(art.districtLinks,10);assert.ok(art.farRoofBays>=0&&art.farRoofBays<=10);
   console.log('G4E7CP_CONNECTED_SILHOUETTE_READ_ONLY',road,art.districtLinks,art.farRoofBays);
@@ -44,4 +49,22 @@ test('CI native BG 240 Hz frames never misrepresented as human',()=>{
   assert.equal(r.frames.length,3);assert.equal(r.actualB48,7);assert.equal(r.actualMovingB51,28);
   assert.ok(r.frames.every(x=>x.speedMps>90&&x.source.includes('NOT_HUMAN')));
  }
+});
+
+test('CQ perspective ray triangle attribution uses true projection, no mutations',()=>{
+ const v=[
+ -1,-1,10,.2,.5,.6,
+ 1,-1,10,.2,.5,.6,
+ 0,1,10,.2,.5,.6
+ ];
+ const source=[{kind:'unit-test-plane',station:1,firstTriangle:0,triangleCount:1}];
+ const view={eye:[0,0,0],front:[0,0,1],right:[1,0,0],up:[0,1,0]};
+ const a=g4e7cqTracePixels(v,source,view,1360,860,[[680,430],[100,100]]);
+ assert.equal(a.schema,'G4E7CQ_ACTUAL_GL_PROJECTION_CPU_GEOMETRIC_CANDIDATES_NOT_PICK_BUFFER');
+ assert.equal(a.probes[0].candidate.kind,'unit-test-plane');
+ assert.equal(a.probes[0].candidate.source.station,1);
+ assert.equal(a.probes[0].candidate.triangle,0);
+ assert.equal(a.probes[1].candidate,null);
+ assert.deepEqual(v,[
+ -1,-1,10,.2,.5,.6,1,-1,10,.2,.5,.6,0,1,10,.2,.5,.6]);
 });

@@ -60,7 +60,7 @@ import {g4e7anSkyArchipelago,AN_FOCUS} from './p101-w9c2-g4e7an-sky-archipelago.
 import {g4e7bfSkyFracture} from './p101-w9c2-g4e7bf-sky-fracture.mjs';
 import {g4e7bhOpenHorizon} from './p101-w9c2-g4e7bh-open-horizon.mjs';
 import {g4e7biParallaxQuarters} from './p101-w9c2-g4e7bi-parallax-quarters.mjs';
-import {g4e7ciIntegratedStreetscape} from './p101-w9c2-g4e7ci-integrated-streetscape.mjs';
+import {g4e7ciIntegratedStreetscape,g4e7cqTracePixels} from './p101-w9c2-g4e7ci-integrated-streetscape.mjs';
 import {g4e7bjAbyssalStrata} from './p101-w9c2-g4e7bj-abyssal-strata.mjs';
 import {createBKLitScene,renderBKLitScene,releaseBKLitScene} from './p101-w9c2-g4e7bk-lit-glb.mjs';
 import {g4e7aoActualB51Warning} from './p101-w9c2-g4e7ao-b51-approach.mjs';
@@ -193,6 +193,7 @@ const g4e7blRequested=g4e7beRequested&&!g4e7bfRequested&&!g4e7bhRequested&&!g4e7
  const g4e7bgRequested=g4e7beRequested&&new URLSearchParams(window.location.search).get('g4e7bg')==='inspect'&&
  new URLSearchParams(window.location.search).get('g4e7bgFrame')==='hold';
 const g4e7ciRequested=g4e7bgRequested&&new URLSearchParams(window.location.search).get('g4e7ci')==='streetscape';
+const g4e7cqRequested=g4e7ciRequested&&new URLSearchParams(window.location.search).get('g4e7cq')==='trace';
 const g4e7bgRoad=g4e7bgRequested&&new URLSearchParams(window.location.search).get('g4e7bgRoad')==='pinch-switch'?'pinch-switch':'true-pinch';
 const g4e7bgPoint=['t1500','t1700','t1850'].includes(new URLSearchParams(window.location.search).get('g4e7bgPoint'))?
  new URLSearchParams(window.location.search).get('g4e7bgPoint'):'t1850';
@@ -325,7 +326,7 @@ const canvas=$('view'),status=$('appStatus'),keys=new Set();
 let gl,program,locations={},roads,lines,p100RoadRead,p101B5RoadOptic,a13ArchMesh,a13RoadArtMesh,w9c1MarkMesh,g5bSceneryMesh,g4dSkywayMesh,flowRoads,shoulderLights,approachBeacons,hazardGateMesh,hazardGateSolidMesh,hazardRoadPlan,ball,ghostMesh,energyMeshes={},energyFx=true,scenery,megaWorld,megaEnabled=true,machineMeshes={},a13MachineMeshes={},guideMeshes=[];
 let doc,world,runner,loading=0,paused=false,accum=0,last=0,fps=0,frames=0,fpsAt=0,left=false,right=false;
 let g4e7cCueMesh=null,g4e7cCueActive=false,g4e7cCue=null,g4e7cButton=null;
-let g4e7bgShot=null,g4e7bgShots=null,g4e7ciMesh=null;
+let g4e7bgShot=null,g4e7bgShots=null,g4e7ciMesh=null,g4e7cqArt=null;
 let g4e7xCueMesh=null,g4e7zCueMesh=null,g4e7adCityMesh=null,g4e7aeMesh=null,g4e7afMesh=null,g4e7agMesh=null,g4e7amMesh=null,g4e7anMesh=null,g4e7bfMesh=null,g4e7bhMesh=null,g4e7biMesh=null,g4e7bjMesh=null,g4e7bkScene=null,g4e7blScene=null,g4e7bmScene=null,g4e7bnScene=null,g4e7boScene=null,g4e7aoMesh=null,g4e7adShot=null,g4e7adActive=false,g4e7aiShot=null,g4e7aiActive=false,g4e7akShot=null,g4e7akActive=false;
 let g4e7dTrial=null,g4e7dPanel=null,g4e7oTrial=null,g4e7oPanel=null,g4e7oResultDownload=null,g4e7alTrial=null,g4e7alPanel=null,g4e7alResultDownload=null,g4e7alActive=false;
 let g4e7gActive=false,g4e7mActive=false,g4e7oActive=false,g4e7qActive=false,g4e7rActive=false,g4e7tActive=false,g4e7vActive=false,g4e7vShot=null,g4e7wActive=false,g4e7wShot=null,g4e7sShot=null,g4e7sTrace=null,g4e7sShardMesh=null,g4e7hHud=null,g4e7iUi=null,g4e7iMesh=null,g4e7iContour=null,g4e7jUi=null,g4e7kUi=null,g4e7kQuietMesh=null,g4e7pQuietMesh=null,g4e7lUi=null,g4e7lRiftMesh=null,g4e7lSeamMesh=null;
@@ -488,6 +489,7 @@ function buildVisual(stage){
   canvas.dataset.g4e7amNonCollision=String(!am.physicalChanges&&am.extraRoads===0&&am.extraMachines===0);
   const ci=g4e7ciIntegratedStreetscape(stage,sample,{enabled:g4e7ciRequested,shots:g4e7bgShots});
   g4e7ciMesh=ci.active?mesh(ci.vertices):null;
+  g4e7cqArt=g4e7cqRequested&&ci.active?{vertices:ci.vertices,sources:ci.sources}:null;
   canvas.dataset.g4e7ciScene=ci.active?'INTEGRATED_PRIVATE_HOLD':'off';
   canvas.dataset.g4e7ciTriangles=String(ci.triangles);
    canvas.dataset.g4e7cmLandmarksQA=ci.active?JSON.stringify(ci.landmarksQA):'off';
@@ -784,6 +786,14 @@ function render(frameSeconds){
  // CJ: read-only evidence of the actual game camera used for rendering.
  canvas.dataset.g4e7cjEye=g4e7bgRequested?view.eye.map(x=>x.toFixed(7)).join(','):'off';
  canvas.dataset.g4e7cjForward=g4e7bgRequested?view.front.map(x=>x.toFixed(7)).join(','):'off';
+ if(g4e7cqArt&&g4e7bgShot?.id==='t1700'&&
+    !canvas.dataset.g4e7cqTrace){
+  const probeXY=[[220,250],[260,250],[300,250],[340,250],[380,250],
+   [220,280],[260,280],[300,280],[340,280],[380,280],
+   [220,315],[260,315],[300,315],[340,315],[380,315]];
+  canvas.dataset.g4e7cqTrace=JSON.stringify(g4e7cqTracePixels(
+   g4e7cqArt.vertices,g4e7cqArt.sources,view,w,h,probeXY));
+ }
  canvas.dataset.g4e7bgMode=g4e7bgShot&&g4e7bgRequested?'SCRIPTED_NATIVE_240HZ_STILL_NOT_HUMAN':'off';
  canvas.dataset.g4e7bgPoint=g4e7bgShot?.id||'off';
  canvas.dataset.g4e7bgTime=g4e7bgShot?String(g4e7bgShot.timeSeconds):'off';

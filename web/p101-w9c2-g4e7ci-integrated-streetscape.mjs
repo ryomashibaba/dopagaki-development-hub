@@ -369,36 +369,109 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
   doc.stageForge.productionPromoted!==false||doc.surfaces?.length!==7||
   doc.movingObstacles?.length!==28||doc.surfaces[0].voidLongitudinalCells?.join(',')!=='52')
   throw Error('CI requires exact protected unpublished BC/B48/B51 geometry');
- const freeze=JSON.stringify(doc),v=[],stations=[.40,.51,.62,.73,.84,.93];
+ const freeze=JSON.stringify(doc),v=[],sources=[],stations=[.40,.51,.62,.73,.84,.93];
+ const mark=(kind,meta,fn)=>{
+  const first=v.length/18;
+  fn();
+  const count=v.length/18-first;
+  if(!Number.isInteger(count)||count<=0)throw Error('CQ empty or invalid provenance');
+  sources.push({kind,...meta,firstTriangle:first,triangleCount:count});
+ };
  if(!Array.isArray(shots)||shots.length<2)throw Error('CO requires both unchanged native cameras');
  // Roadside cells use a fixed, read-only TWO camera coverage plan; extremely
  // close sites get a low open promenade, avoiding another huge near-camera wall.
  let clippedCellReliefs=0,fullDistrictCells=0;
  for(const [n,u] of stations.entries())for(const side of [-1,1]){
   const f=roadFrame(doc.surfaces[1],sample,u,side);
-  if(cameraCellIntrusion(f,shots.slice(0,2))){
-   clippedCellReliefs++;
-   authorPromenade(v,f,n,side);
-  }else{fullDistrictCells++;authorCell(v,f,n,side);}
+  const relieved=cameraCellIntrusion(f,shots.slice(0,2));
+  if(relieved)clippedCellReliefs++;else fullDistrictCells++;
+  mark(relieved?'roadbank-promenade':'roadbank-inhabited',{station:n,u,side},
+   ()=>relieved?authorPromenade(v,f,n,side):authorCell(v,f,n,side));
  }
  // Both banks follow the same real roadway, but their distant folded
  // rooflines are deliberately asymmetric. This is scenery only.
  let districtLinks=0,farRoofBays=0;
  for(const side of [-1,1]){
   const frames=stations.map(u=>roadFrame(doc.surfaces[1],sample,u,side));
-  districtLinks+=joinDistricts(v,frames,side);
+  mark('civic-concourse',{side},()=>{districtLinks+=joinDistricts(v,frames,side);});
+  // CP's camera-veto can legitimately remove some roof spans. Avoid empty spans.
+  const roofStart=v.length/18;
   farRoofBays+=civicRoofline(v,frames,side,shots.slice(0,2));
+  if(v.length/18>roofStart)sources.push({kind:'distant-folded-roofline',side,
+   firstTriangle:roofStart,triangleCount:v.length/18-roofStart});
  }
  const sites=placeLandmarks(doc,sample,shots);
- for(const site of sites)civicCrescent(v,site.frame,site.slot,site.side);
+ for(const site of sites)mark('anchored-civic-crescent',
+  {road:site.road,u:site.u,side:site.side,slot:site.slot},
+  ()=>civicCrescent(v,site.frame,site.slot,site.side));
  const triangles=v.length/18;
  if(triangles<1000||triangles>50000||v.some(x=>!Number.isFinite(x))||JSON.stringify(doc)!==freeze)
   throw Error('CI geometry invalid or physics source mutated');
- return {active:true,vertices:v,triangles,stations:stations.length*2,layers:3,
+ if(sources.reduce((sum,x)=>sum+x.triangleCount,0)!==triangles||
+    sources.some((x,i)=>x.firstTriangle!==(i?sources[i-1].firstTriangle+sources[i-1].triangleCount:0)))
+  throw Error('CQ provenance does not cover all actual triangles');
+ return {active:true,vertices:v,sources,triangles,stations:stations.length*2,layers:3,
   carvedFacades:true,openRearFacades:true,districtLinks,farRoofBays,clippedCellReliefs,fullDistrictCells,
   minimumSetbackM:18,landmarks:2,macroSilhouette:'LOW_OPEN_CONCOURSE_WITH_SPACED_ANCHORED_DISTRICTS',
   cameraEvidence:'BG240HZ_BOTH_15_AND_17_NOT_HUMAN',
   landmarksQA:sites.map(({road,u,side,slot,score,framesVisible})=>({road,u,side,slot,score,framesVisible})),
   newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,
   art:'HOLD',human:'HOLD',publish:'HOLD',officialSlope2Meters:0};
+}
+
+/**
+ * G4E-7CQ read-only pixel to authored-triangle candidate tracer. Uses the
+ * *actual original* WebGL vertex projection (drive3d's 1.35/aspect, eye/right/
+ * up/front) and near/far homogeneous clipping. Triangles are neither
+ * re-rendered nor modified. This records candidate ownership among CI
+ * triangles only: objects rendered later (road, ball etc.) may occlude them.
+ * Confirm original screen RGB alongside the candidate; do not claim ART PASS.
+ */
+export function g4e7cqTracePixels(vertices,sources,view,width,height,pixels){
+ if(!Number.isFinite(width)||!Number.isFinite(height)||width<=0||height<=0)
+  throw Error('CQ requires actual game framebuffer size');
+ const right=view.right,up=view.up,front=view.front,eye=view.eye;
+ if([eye,right,up,front].some(x=>!Array.isArray(x)||x.length!==3||x.some(v=>!Number.isFinite(v))))
+  throw Error('CQ requires actual viewForPose camera');
+ const projected=[];
+ for(let ti=0;ti<vertices.length/18;ti++){
+  const p=[];
+  for(let j=0;j<3;j++){
+   const k=ti*18+j*6,xyz=vertices.slice(k,k+3),w=sub(xyz,eye),z=dot(w,front);
+   if(z<1.4){p.length=0;break;}
+   p.push({x:1.35*dot(w,right)/((width/height)*z),
+    y:1.35*dot(w,up)/z,z,xyz,color:vertices.slice(k+3,k+6)});
+  }
+  projected.push(p.length===3?p:null);
+ }
+ const probes=[];
+ for(const [x,y] of pixels){
+  const X=2*(x+.5)/width-1,Y=1-2*(y+.5)/height;
+  let best=null,all=0;
+  for(let ti=0;ti<projected.length;ti++){
+   const p=projected[ti];if(!p)continue;
+   const area=(p[1].y-p[2].y)*(p[0].x-p[2].x)+(p[2].x-p[1].x)*(p[0].y-p[2].y);
+   if(Math.abs(area)<1e-12)continue;
+   const a=((p[1].y-p[2].y)*(X-p[2].x)+(p[2].x-p[1].x)*(Y-p[2].y))/area,
+    b=((p[2].y-p[0].y)*(X-p[2].x)+(p[0].x-p[2].x)*(Y-p[2].y))/area,
+    c=1-a-b;
+   if(Math.min(a,b,c)<-1e-8)continue;
+   const invZ=a/p[0].z+b/p[1].z+c/p[2].z;
+   if(invZ<=0)continue;
+   const depth=1/invZ;all++;
+   // gl.LEQUAL with both() reverse-facing triangles: later coplanar
+   // dark backface may win exactly equal depth at shader precision.
+   if(best&&(depth>best.depth+0.0001||
+      (Math.abs(depth-best.depth)<0.0001&&ti<best.triangle)))continue;
+   const source=sources.find(z=>ti>=z.firstTriangle&&ti<z.firstTriangle+z.triangleCount);
+   if(!source)throw Error('CQ triangle attribution hole '+ti);
+   best={triangle:ti,kind:source.kind,source:((({firstTriangle,triangleCount,...info})=>info)(source)),
+    depth:Number(depth.toFixed(3)),
+    position:p[0].xyz.map((_,i)=>Number(((p[0].xyz[i]+p[1].xyz[i]+p[2].xyz[i])/3).toFixed(2))),
+    color:p[0].color.map(v=>Number(v.toFixed(3)))};
+  }
+  probes.push({x,y,candidateCount:all,candidate:best});
+ }
+ return {schema:'G4E7CQ_ACTUAL_GL_PROJECTION_CPU_GEOMETRIC_CANDIDATES_NOT_PICK_BUFFER',
+  width,height,triangles:projected.length,probes};
 }

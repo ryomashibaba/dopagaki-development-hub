@@ -53,7 +53,7 @@ try{
   const page=await browser.newPage({viewport:{width:1360,height:860},deviceScaleFactor:1});
   const errors=[];page.on('pageerror',e=>errors.push(String(e)));
   const params=new URLSearchParams({g4e7al:'manual',g4e7be:'roll-deck',g4e7bg:'inspect',g4e7bgFrame:'hold',g4e7bgRoad:road,g4e7bgPoint:frame});
-  if(mode==='integrated')params.set('g4e7ci','streetscape');
+  if(mode==='integrated'){params.set('g4e7ci','streetscape');if(frame==='t1700')params.set('g4e7cq','trace');}
   await page.goto(home+'?'+params,{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>{
    const c=document.getElementById('view');
@@ -68,6 +68,7 @@ try{
     eye:c.dataset.g4e7cjEye,forward:c.dataset.g4e7cjForward,
     triangles:c.dataset.g4e7ciTriangles,
     landmarksQA:c.dataset.g4e7cmLandmarksQA,
+    cqTrace:c.dataset.g4e7cqTrace||null,
     physicsUntouched:c.dataset.g4e7ciPhysicsUntouched,
     width:c.width,height:c.height,status:s?.textContent??''};
   });
@@ -81,6 +82,15 @@ try{
    throw Error('SAME_GAME_CAMERA_REQUIRED '+JSON.stringify({road,frame,mode,info,errors}));
   const name=road+'-'+frame+'-'+mode+'.png';
   const image=await page.locator('#view').screenshot({path:path.join(out,name)});
+  if(mode==='integrated'&&frame==='t1700'){
+   if(!info.cqTrace)throw Error('CQ missing actual in-game camera triangle trace');
+   const trace=JSON.parse(info.cqTrace);
+   if(trace.width!==Number(info.width)||trace.height!==Number(info.height)||
+      trace.probes.length!==15||trace.probes.every(x=>!x.candidate))
+    throw Error('CQ incomplete candidate provenance '+JSON.stringify(trace));
+   report.cqPixelTraces??={};report.cqPixelTraces[road]=trace;
+   console.log('G4E7CQ_GL_PROJECTION_PIXEL_SOURCES',road,JSON.stringify(trace.probes));
+  }
   report.frames.push({road,frame,mode,file:name,...info});
   if(mode==='baseline'){
    baselineImage=image;baselineInfo=info;
