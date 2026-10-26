@@ -1,5 +1,11 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CM — 実240Hz 15/17秒カメラ逆算・固定景観候補（2026-10-26 JST、検証待ち）
+
+**実装は存在するが、専用CIと美術審査は未完了。** ブランチ上のコードコミット [1f432c9](https://github.com/ryomashibaba/dopagaki-development-hub/commit/1f432c9bc66714f6cc3869b90f4ff35f72a25922) で、G4E-7CI/CL既存16街区・主役4建築の配置を見直した。主役の高さと奥行を減らし、近景の単調な階数反復と中景箱塔の密度を軽減。主役4基は「15秒撮影用と17秒撮影用に別々の世界を作る」のではなく、**同じ既存物理B48道路0/1上で両方の実BG240Hzカメラの画角を評価してから固定配置**する。render関数・物理・カメラ・A13・入力・障害物は変更していない。テストは正規BG両時刻と位置スコアの記録を追加。3テストと真正WebGL旧新6対12枚の [CI #40285116236](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40285116236) は記録時 **QUEUED（未PASS）**。
+
+**残るリスク：** 位置スコアは投影の工学的近似であり、美術的な巨大都市/用途/奥行きは証明しない。初期の近景セルは主に道路2沿いのままで、主役の選定候補には既存道路1/2も含む。街区連続性と物理道路との自然な関係、投影した主役の上端、15/17秒の視界と18.5秒 off-roadを、実画素の目視で必ず検証。CIで最低1基も見えない・部分欠け・単調な近景が残る場合は **ART HOLD/REJECT継続、配置を修正する**。原作再現/main/Gold/本番未変更、Draft PR #46未マージ、正式Slope2認定0m、ART/HUMAN/PUBLISH/READY/MERGE HOLD。Work未使用。
+
 ## G4E-7CL — 完成した二度目の真正実ゲームWebGL、美術HOLD/REJECT確定（2026-10-26 JST）
 
 **CL第2案の専用CI [#40282742498](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40282742498) SUCCESS**。原本BC B48道路7/B51-C動体28/gap52、正規240Hz BGスクリプトカメラの同一視点でBASELINE対第2案の12枚の**真正ゲームWebGL画像**取得、3テストPASS。[実PNG/JSON Artifact #12632568264](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40282742498/artifacts/12632568264)。初案との写真ピクセル変化は約2.9～9.1%に留まり、近景・中景の箱状都市感は抜本解決しない。新しい曲面の主役クレセントも画面上方に大部分が切れ、18.5秒のBG physicalRoad=offの空虚さも続く。**人間の実走行の美術PASSではない。CL第2案もART HOLD/主役級不採用**。物理・カメラ変更なし。次CMは建物の再大量配置ではなく、実240Hzのカメラ**画角内に収まる主役建築の位置と都市の連続景観**を最初に再設計する。3本目の道路やoff-road視点の誤判定を防ぎ、明確な都市品質を比較。main/Gold/原作/B48/B51/本番2サイト保護、PR#46 OPEN/Draft/未マージ、正式Slope2 0m、ART/HUMAN/READY/PUBLISH/MERGE HOLD。詳細[CI/CL 実画面検証文書](docs/G4E7CI_INTEGRATED_GAME_VSLICE_QA_JA.md)。Work未使用。
