@@ -9,7 +9,7 @@ const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]]
 const unit=a=>{const n=Math.hypot(...a);if(n<1e-9)throw Error('DD degenerate camera');return a.map(x=>x/n);};
 const rd=x=>Number(x.toFixed(5));
 
-export function g4e7ddAuditMacroView(art,shot,{width=48,height=30}={}){
+export function g4e7ddAuditMacroView(art,shot,{width=48,height=30,includePrivateOwnership=false}={}){
  if(!art?.active||!Array.isArray(art.vertices)||!Array.isArray(art.sources)||
     art.vertices.length%18||!Number.isInteger(width)||!Number.isInteger(height)||
     width<20||height<16||width>128||height>80)
@@ -151,6 +151,11 @@ export function g4e7ddAuditMacroView(art,shot,{width=48,height=30}={}){
      leftEdge:s.minX===0,rightEdge:s.maxX===width-1,topEdge:s.minY===0,bottomEdge:s.maxY===height-1
    })).sort((a,b)=>b.screenPixels-a.screenPixels),
    horizontalBands:bands.slice(0,12),
+   // DF opt-in read-only screen ownership for morphology research. No GPU claim.
+   ...(includePrivateOwnership?{privateOwnership:{
+     grid:[width,height],sourceIndexByCell:Array.from(owners),
+     sourceMetadata:sources.map(s=>({kind:s.kind,slot:s.slot??null}))
+   }}:{}),
    warningSignals:{wideTriangle:bands.some(x=>x.mode==='triangle'&&x.spanFraction>=.45),
      wideSource:bands.some(x=>x.mode==='source'&&x.spanFraction>=.50),
      wideKind:bands.some(x=>x.mode==='kind'&&x.spanFraction>=.50),
