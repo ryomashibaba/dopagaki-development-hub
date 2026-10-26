@@ -1,3 +1,13 @@
+# G4E-7DI 完了：SKY FJORD PRIVATE真正WebGL / ART REJECT（2026-10-27 JST）
+
+実装 [c24f9ea7](https://github.com/ryomashibaba/dopagaki-development-hub/commit/c24f9ea7ae8f59094de44fb6c068a532c002a717)、[専用CI #40412675585](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40412675585) SUCCESS、[独立物理CI #40412675329](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40412675329) SUCCESS、[真正WebGL Artifact #12694960144](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40412675585/artifacts/12694960144)を保存。35PNG=baseline/CX12+CR2+CT3+凍結DG6+凍結DH6+新DI6。前DH証拠との比較では旧baseline/CX12/12 PNGと旧DG/DH12/12 PNGがSHA-256バイト一致。CX generator blob `af076d67492a677d2235e4730aef8cdf4808e106`、元道路7面/動体28/gap52/240Hz/カメラ/入力/main/Gold/本番を変更せず、PRIVATE専用の4ファイルだけ実装。Actions起動3件。
+
+**都市構図仮説**：DG箱街区、DH内部充填の失敗を踏まえ、クレセント2基を完全に保ち、主役の向こうに扇状に開く左右の居住翼と中央の大峡谷空洞を作った。ただし2実道路×15/17/18.5s正規WebGLでは、15秒の追加物が棚・梁状の斜めの張り出しに見え、17秒は遠景へ0.90～0.99%の差分に圧縮、18.5秒は上部クリップ。峡谷の奥行き、居住の活動、巨大都市と主役の統合が高速走行画面で読み取れず **DI ART REJECT**。CX→DI変更画素率：true-pinch 2.9050/0.9035/3.2538%、pinch-switch 2.3545/0.9924/2.9507%（画素差は美術評価点・ゲーム公平性の証拠ではない）。
+
+**次は絵コンテから**：距離を深めるだけでは視覚の奥行きにならない。15→17秒にプレイヤーが何を見るかを三幕の連続視点で設計し、統一都市として本当に見える大胆な構図だけをPRIVATE実WebGL試作。パーツ追加と自動診断だけを繰り返さない。証拠・反省の詳細は [DI専用QA](docs/G4E7DI_SKY_FJORD_TRUE_GAME_ART_REJECT_JA.md) に記録。正式都市美術採用0件、ART/HUMAN/READY/PUBLISH/MERGE HOLD、公式Slope2認定0m、PR #46 OPEN/Draft/未マージ。DIは研究保存のみ。
+
+---
+
 # G4E-7DH 完了：PRIVATE統合HARBOR CRESCENT真正WebGL・構図ART REJECT／効率改善（2026-10-27 JST）
 
 **実装**：コミット [a2c5e4b](https://github.com/ryomashibaba/dopagaki-development-hub/commit/a2c5e4bc140a357f5074aa5e9c68abbc51f389df)。前DGの箱型ビルでCXの象徴的クレセントを失ったことを受け、CX元ランドマーク・公道バンク公共歩行空間・全オリジナル物理/カメラを保持。主役と同じ道路端/曲線profileから、左右非対称の湾曲した居住ギャラリー、実際の穴のある前後外壁、斜めの接続アバットメントを生成する小さなDH候補を実制作。新たなshaderや偽レンダではなく、**Playwright PRIVATE-only 既存DG試験モジュールURLを一画面だけ差し替え**、同じ実ゲームWebGL2 renderer/real 240Hz native cameraで撮影。DHモジュールはbuildにコピーせず、通常のCX・凍結DG・drive3d・scripts/buildの各ファイルは一切変更しない。PUBLISH禁止、正式Slope2=0m。
