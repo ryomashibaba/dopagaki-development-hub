@@ -132,7 +132,10 @@ function authorCell(v,f,n,side){
  both(v,p(-20,42,8),p(20,42,8),p(20,42,9),p(-20,42,9),C.steel);
  both(v,p(-20,42,19),p(20,42,19),p(20,42,21),p(-20,42,21),C.pearl);
  for(const [i,x] of [-16,0,16].entries()){
-  both(v,p(x-7,41.5,9),p(x+7,41.5,9),p(x+7,41.5,18),p(x-7,41.5,18),i===1?C.deep:C.glass);
+  // CP3: three cyan solid shop panels appeared as huge 17s backdrops.
+  // Frame the retail openings, but leave the interior physically empty.
+  both(v,p(x-7,41.5,9),p(x-6,41.5,9),p(x-6,41.5,18),p(x-7,41.5,18),C.pearl);
+  both(v,p(x+6,41.5,9),p(x+7,41.5,9),p(x+7,41.5,18),p(x+6,41.5,18),C.steel);
   both(v,p(x-7,41,19),p(x+7,41,19),p(x+7,41,21),p(x-7,41,21),i===1?C.gold:C.edge);
  }
  // A two-wing terraced housing/civic complex with a wide real air atrium.
@@ -303,7 +306,12 @@ function civicRoofline(v,bankFrames,side,shots){
    if(visible.length<2)return false;
    const dx=Math.max(...visible.map(q=>q.x))-Math.min(...visible.map(q=>q.x));
    const dy=Math.max(...visible.map(q=>q.y))-Math.min(...visible.map(q=>q.y));
-   return dx>.67||dx*dy>.13;
+   // The previous (successful) render proved these distant 'roofs'
+   // could appear as thin black bars across the upper sky. If any sampled
+   // edge intrudes on the upper game view, reject the complete bay rather
+   // than using screenshot-specific positions or moving the camera.
+   return dx>.67||dx*dy>.13||
+     visible.some(q=>q.y>.31&&Math.abs(q.x)<.93);
   }))continue;
   both(v,p0,p1,p2,p3,i%2===0?C.pearl:C.steel);
   // A built foundation makes the roof a district, not a flying strip.
