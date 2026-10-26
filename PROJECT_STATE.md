@@ -1,5 +1,10 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CL — 完成した二度目の真正実ゲームWebGL、美術HOLD/REJECT確定（2026-10-26 JST）
+
+**CL第2案の専用CI [#40282742498](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40282742498) SUCCESS**。原本BC B48道路7/B51-C動体28/gap52、正規240Hz BGスクリプトカメラの同一視点でBASELINE対第2案の12枚の**真正ゲームWebGL画像**取得、3テストPASS。[実PNG/JSON Artifact #12632568264](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40282742498/artifacts/12632568264)。初案との写真ピクセル変化は約2.9～9.1%に留まり、近景・中景の箱状都市感は抜本解決しない。新しい曲面の主役クレセントも画面上方に大部分が切れ、18.5秒のBG physicalRoad=offの空虚さも続く。**人間の実走行の美術PASSではない。CL第2案もART HOLD/主役級不採用**。物理・カメラ変更なし。次CMは建物の再大量配置ではなく、実240Hzのカメラ**画角内に収まる主役建築の位置と都市の連続景観**を最初に再設計する。3本目の道路やoff-road視点の誤判定を防ぎ、明確な都市品質を比較。main/Gold/原作/B48/B51/本番2サイト保護、PR#46 OPEN/Draft/未マージ、正式Slope2 0m、ART/HUMAN/READY/PUBLISH/MERGE HOLD。詳細[CI/CL 実画面検証文書](docs/G4E7CI_INTEGRATED_GAME_VSLICE_QA_JA.md)。Work未使用。
+
+
 ## G4E-7CL — 実ゲーム12画像で初案美術REJECT→主役級公共建築の第2案（2026-10-26 JST）
 
 [専用CI #40237934943](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40237934943) はSUCCESS。実ゲームCanvasにて既存B48道路7/B51-C動体28/gap52/240Hz固有カメラ6姿勢の旧新12枚・6ペアPNG差分を真正取得。画素変化率9〜30%でも新都市の美術品質は不十分。15/17秒では箱塔と細柱の反復、18.5秒ではBG物理road=offで道路/街区が画面上部へ移り暗い空間が大きい。初案は**ART HOLD/REJECT**。こちらは実プレイでなくスクリプトカメラである。
