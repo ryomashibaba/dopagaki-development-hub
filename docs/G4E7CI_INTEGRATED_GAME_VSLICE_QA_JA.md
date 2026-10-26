@@ -31,3 +31,15 @@ G4E-7CJでは旧景観と統合案を同一**実ゲームWebGL Canvas**で比較
 修正は専用CIワークフロー内の1コマンドのみ。`npm install --no-save --no-package-lock --no-audit --no-fund` に置換しCIの一時領域だけで依存を導入、ゲーム・テスト・カメラの数式は変更しない。**実WebGL画像・美術品質については修正後CIの完走まで未確認**。CIが緑になっても実画像を見ずART PASSにしない。
 
 従来の大きなActions待機列は新pushで旧CIがcancelledになる要因。原因特定前の余分な細かいpushは避け、ワークフローの次の完全な画像結果を最優先にする。正式Slope2 0m・PR#46 Draft未マージ・ART/HUMAN/PUBLISH/READY/MERGE HOLD、原物理240Hz/B48×7/B51-C×28/gap52・main/Gold/原作/本番サイト不変更。
+## G4E-7CL — 真のPRIVATEゲームCanvas初回美術REJECTと第2案
+
+[専用CI #40237934943](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40237934943) はSUCCESS。既存B48×7/B51-C×28/gap52/240Hz物理とカメラを変えずに、実ゲームCanvasで旧新各6枚・計12 PNGを取得。3物理不変/景観テスト成功、PNG6対のpixel-diff成功。画像の原本は[7日保存Artifact #12616105523](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40237934943/artifacts/12616105523)。
+
+| 原道 | 15秒 変化画素率 | 17秒 | 18.5秒 |
+|---|---:|---:|---:|
+| true-pinch | 24.326% | 29.777% | 17.607% |
+| pinch-switch | 22.119% | 27.995% | 9.294% |
+
+画像の目視審査：初案はART HOLD/REJECT。15〜17秒は直方体の塔と薄い柱・四角い商店枠の繰り返しが多く、未来メガシティではない。18.5秒は実BGのphysicalRoadがoff（実スクリプト視点では道路から離れている）であり、道路は画面上部、街区も上方へ抜け、下方に暗い空間が広がる。この飛行/離脱場面を通常路面走行での美術品質と混同しない。中心進路の変化率が小さくても実プレイの障害物視認を証明しない。
+
+第2案は素材を増やさず、近景アーケードの階数の単調反復を崩し、中景の反復した塔を1/3ほど間引き、遠景の細いフレームを減らす。同じ正規road2に、外側へ離した左右各2基、合計4基の厚い湾曲した公共建築クレセントを生成。各建築には貫通する開口、上空へ切り開いたボイド、広い回廊、公共広場、接地支持を含む。これが実画面で主役として読めるかは未確認であり、今後もART/HUMAN/PUBLISH/READY/MERGE HOLD。物理/速度/操舵/ジャンプ/カメラは不変。

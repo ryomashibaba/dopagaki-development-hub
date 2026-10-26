@@ -1,5 +1,11 @@
 # DOPAGAKI SLOPE — 新チャット継続入口（固定URL）
 
+## G4E-7CL — 実ゲーム12画像で初案美術REJECT→主役級公共建築の第2案（2026-10-26 JST）
+
+[専用CI #40237934943](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40237934943) はSUCCESS。実ゲームCanvasにて既存B48道路7/B51-C動体28/gap52/240Hz固有カメラ6姿勢の旧新12枚・6ペアPNG差分を真正取得。画素変化率9〜30%でも新都市の美術品質は不十分。15/17秒では箱塔と細柱の反復、18.5秒ではBG物理road=offで道路/街区が画面上部へ移り暗い空間が大きい。初案は**ART HOLD/REJECT**。こちらは実プレイでなくスクリプトカメラである。
+
+今回の第2案では路肩の近景階数を変化、同質の中景塔を間引く、遠景のフレーム反復を低減し、厚い湾曲外殻と開口・広場・支持を持つ大規模な公共建築クレセント4基をPRIVATEだけで制作。[G4E-7CI/CLレポート](docs/G4E7CI_INTEGRATED_GAME_VSLICE_QA_JA.md)。実画面の美術審査は次のCIまで未実施。既存240Hz/カメラ/操舵/自然跳躍/速度、main/Gold/原作サイト/本番2サイト維持、PR #46 Draft未マージ、公式Slope2=0m、ART/HUMAN/READY/PUBLISH/MERGE HOLD、Work未使用。
+
 ## G4E-7CK — PRIVATE実WebGLのCI起動障害を実測から修正（2026-10-26 JST）
 
 実計測 [G4E-7CI/CJ CI #40237327203](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40237327203) で物理/生成景観テスト3件PASS。一方、`package-lock.json`なしのリポジトリに`npm ci`を使用したEUSAGEでPRIVATEビルドを開始できず画像はゼロ。G4E-7CKで専用CIの依存導入を`npm install --no-save --no-package-lock --no-audit --no-fund`に置き換える**最小修理**を適用。修正後CIによる実ゲームCanvasの画像12枚・6画素ペアが出るまでART/HUMAN/READY/PUBLISH/MERGE全HOLD。既存240Hz/B48×7/B51-C×28/gap52/元カメラ・操舵・自然ジャンプ、A13、main/Gold/原作サイト/本番2サイト未変更。PR #46 OPEN/Draft/未マージ、正式Slope2 0m。Work未使用。詳細：[G4E-7CK CI root cause](docs/G4E7CI_INTEGRATED_GAME_VSLICE_QA_JA.md)。

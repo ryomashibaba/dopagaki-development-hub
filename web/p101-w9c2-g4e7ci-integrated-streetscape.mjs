@@ -22,11 +22,58 @@ function roadFrame(s,sample,u,side){
  if(dot(flat,outward)<3||!outward.every(Number.isFinite))throw Error('CI bad real roadside axis');
  return {edge:e,along,outward};
 }
+
+/**
+ * G4E-7CL: 4 monumental, hollow, nonrectangular civic crescents. Their
+ * large structural rims, voids, galleries, foundations, and public plaza
+ * deliberately replace repetitive tower box silhouettes, not physics.
+ */
+function civicCrescent(v,f,n,side){
+ const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
+ const origin=n===2?-91:-61,span=n===2?185:160;
+ const profile=t=>({
+  x:origin+t*span,
+  d:155+36*Math.sin(Math.PI*t)+10*Math.sin(t*3+side),
+  top:16+(n===2?252:315)*Math.pow(Math.max(0,Math.sin(Math.PI*t)),.74)
+ });
+ for(let i=0;i<28;i++){
+  const a=profile(i/28),b=profile((i+1)/28);
+  // Two actual gaps cut through the thick rim, giving a readable open air void.
+  if((i>=7&&i<=8)||(i>=19&&i<=20))continue;
+  const a0=Math.max(5,a.top-29),b0=Math.max(5,b.top-29);
+  both(v,p(a.x,a.d,a0),p(b.x,b.d,b0),p(b.x,b.d,b.top),p(a.x,a.d,a.top),C.pearl);
+  both(v,p(a.x,a.d+26,a0),p(b.x,b.d+26,b0),p(b.x,b.d+26,b.top),p(a.x,a.d+26,a.top),C.steel);
+  both(v,p(a.x,a.d,a.top),p(b.x,b.d,b.top),p(b.x,b.d+26,b.top),p(a.x,a.d+26,a.top),C.gold);
+  if(i%6!==2&&i%6!==3&&Math.min(a.top,b.top)>92){
+   const y0=.36*a.top,y1=.36*b.top;
+   both(v,p(a.x,a.d-11,y0),p(b.x,b.d-11,y1),
+    p(b.x,b.d-11,y1+14),p(a.x,a.d-11,y0+14),i%3===0?C.glass:C.deep);
+   both(v,p(a.x,a.d-11,y0+14),p(b.x,b.d-11,y1+14),
+    p(b.x,b.d+42,y1+14),p(a.x,a.d+42,y0+14),C.steel);
+  }
+  if(i%3===0&&Math.min(a.top,b.top)>70)
+   both(v,p(a.x,a.d-1,a.top-8),p(b.x,b.d-1,b.top-8),
+    p(b.x,b.d-1,b.top-3),p(a.x,a.d-1,a.top-3),C.edge);
+ }
+ for(const t of [.08,.28,.50,.73,.93]){
+  const a=profile(t);
+  girder(v,p(a.x+5,a.d+55,0),p(a.x,a.d+15,a.top-9),7,C.pearl);
+  both(v,p(a.x-13,a.d+55,8),p(a.x+13,a.d+55,8),
+    p(a.x+13,a.d+82,8),p(a.x-13,a.d+82,8),C.steel);
+ }
+ const square=profile(.52);
+ both(v,p(square.x-26,square.d-30,48),p(square.x+26,square.d-30,48),
+  p(square.x+26,square.d+62,48),p(square.x-26,square.d+62,48),C.pearl);
+ for(const dx of [-18,0,18])
+  both(v,p(square.x+dx-4,square.d-29,49),p(square.x+dx+4,square.d-29,49),
+   p(square.x+dx+4,square.d-29,54),p(square.x+dx-4,square.d-29,54),C.gold);
+}
+
 function authorCell(v,f,n,side){
  const p=(along,depth,h)=>add(add(add(f.edge,scale(f.along,along)),scale(f.outward,depth)),[0,h,0]);
  const tone=n%3===0?C.pearl:n%3===1?C.steel:C.glass;
  // Near public transit arcade: open shops, real gaps, three decks, illuminated signage.
- for(let z=0;z<3;z++){
+ for(let z=0;z<(n%4===0?1:n%4===1?2:3);z++){
   const h=7+z*13,d=18+z*3;
   both(v,p(-27,d,h),p(29,d,h),p(29,d+24,h),p(-27,d+24,h),z===2?C.pearl:C.steel);
   for(const x of [-26,-1,27])girder(v,p(x,d+2,h-13),p(x,d+2,h+4),2,C.pearl);
@@ -44,7 +91,7 @@ function authorCell(v,f,n,side){
  }
  // Inhabited mid-bank: two different terraced towers with a genuinely open civic atrium.
  const center=12*Math.sin(n*1.67+side),rise=80+22*((n+side+8)%4);
- for(const wing of [-1,1]){
+ if(n%3!==1)for(const wing of [-1,1]){
   const origin=center+wing*32,d=83+n%3*9;
   for(let tier=0;tier<4;tier++){
    const low=tier*rise/4,high=(tier+1)*rise/4,shift=tier*tier*1.7,half=15-tier*1.45,
@@ -61,7 +108,7 @@ function authorCell(v,f,n,side){
  }
  girder(v,p(center-20,119,rise*.47),p(center+20,119,rise*.51),4,C.pearl);
  // Far skyline: two sweeping incomplete spines with a large open air gap.
- if(n%2===0){
+ if(n%4===0){
   const peak=182+30*n,axis=center+side*16;
   for(const sign of [-1,1]){
    let last=null;
@@ -78,6 +125,7 @@ function authorCell(v,f,n,side){
     p(axis+w*.43,224+level*14,height+12),p(axis-w*.70,224+level*14,height+18),level%2?C.violet:C.pearl);
   }
  }
+ if(n===2||n===6)civicCrescent(v,f,n,side);
 }
 export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false}={}){
  const blank={active:false,vertices:[],triangles:0,stations:0,layers:0,newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,art:'HOLD',human:'HOLD',publish:'HOLD',officialSlope2Meters:0};
@@ -96,6 +144,6 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false}={}){
  if(triangles<2500||triangles>50000||v.some(x=>!Number.isFinite(x))||JSON.stringify(doc)!==freeze)
   throw Error('CI geometry invalid or physics source mutated');
  return {active:true,vertices:v,triangles,stations:stations.length*2,layers:3,
-  minimumSetbackM:18,newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,
+  minimumSetbackM:18,landmarks:4,macroSilhouette:'FOUR_HOLLOW_CIVIC_CRESCENTS',newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,
   art:'HOLD',human:'HOLD',publish:'HOLD',officialSlope2Meters:0};
 }

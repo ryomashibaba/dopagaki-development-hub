@@ -13,6 +13,7 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
   assert.deepEqual(doc.surfaces[0].voidLongitudinalCells,[52]);
   assert.ok(art.triangles>=2500&&art.triangles<50000);
   assert.equal(art.stations,16);assert.equal(art.layers,3);
+  assert.equal(art.landmarks,4);assert.equal(art.macroSilhouette,'FOUR_HOLLOW_CIVIC_CRESCENTS');
   assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);assert.equal(art.newMovingHazards,0);
   assert.equal(art.art,'HOLD');assert.equal(art.officialSlope2Meters,0);
  }
