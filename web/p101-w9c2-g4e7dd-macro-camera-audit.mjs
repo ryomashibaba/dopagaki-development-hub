@@ -34,6 +34,7 @@ export function g4e7ddAuditMacroView(art,shot,{width=48,height=30}={}){
  }
  if(next!==art.vertices.length/18)throw Error('DD invalid mesh ownership');
  let unknownNear=0,clippedAtScreen=0,candidateTriangles=0;
+ let fullyBehind=0,nearCrossing=0,nearTouching=0;
  const project=p=>{
   const delta=sub(p,shot.eye),z=dot(delta,front);
   if(z<=1.4)return null;
@@ -42,6 +43,16 @@ export function g4e7ddAuditMacroView(art,shot,{width=48,height=30}={}){
  };
  const v=art.vertices;
  for(let ti=0;ti<next;ti++){
+  const depths=[];
+  for(let vi=0;vi<3;vi++){
+   const k=ti*18+vi*6;
+   depths.push(dot(sub(v.slice(k,k+3),shot.eye),front));
+  }
+  if(depths.every(z=>z<=0)){fullyBehind++;unknownNear++;continue;}
+  if(depths.some(z=>z<=1.4)){
+   if(depths.some(z=>z>1.4))nearCrossing++;else nearTouching++;
+   unknownNear++;continue;
+  }
   const p=[];
   for(let i=0;i<3;i++){
    const k=ti*18+i*6,a=project(v.slice(k,k+3));
@@ -92,17 +103,22 @@ export function g4e7ddAuditMacroView(art,shot,{width=48,height=30}={}){
    summaries.set(sid,k);
   }
   // Separate a single giant planar triangle from several connected facades.
-  for(const mode of ['triangle','source']){
+  for(const mode of ['triangle','source','kind','any']){
    let x=0;
    while(x<width){
     const i=y*width+x;
-    const k=mode==='triangle'?triangles[i]:owners[i];
+    const k=mode==='triangle'?triangles[i]:mode==='source'?owners[i]:
+      mode==='kind'?(owners[i]<0?-1:sources[owners[i]].kind):
+      owners[i]<0?-1:0;
     if(k<0){x++;continue;}
     let stop=x+1;
-    while(stop<width&&(mode==='triangle'?triangles[y*width+stop]:owners[y*width+stop])===k)stop++;
+    while(stop<width&&(mode==='triangle'?triangles[y*width+stop]:
+     mode==='source'?owners[y*width+stop]:
+     mode==='kind'?(owners[y*width+stop]<0?-1:sources[owners[y*width+stop]].kind):
+     owners[y*width+stop]<0?-1:0)===k)stop++;
     if((stop-x)/width>=.30){
      const sourceId=owners[i];
-     bands.push({mode,source:sources[sourceId].kind,row:y,
+     bands.push({mode,source:mode==='kind'?k:sources[sourceId].kind,row:y,
        spanFraction:rd((stop-x)/width),fromX:x,toX:stop-1,
        depthM:rd(depth[i])});
     }
@@ -116,14 +132,29 @@ export function g4e7ddAuditMacroView(art,shot,{width=48,height=30}={}){
  const heroCount=[...summaries.values()].filter(x=>x.kind==='anchored-civic-crescent').length;
  return {schema:'G4E7DD_CPU_AUTHORED_SCREEN_COMPOSITION_NOT_GPU_OR_ART',
    shot:shot.id,native240Hz:true,grid:[width,height],totalTriangles:next,
-   candidateTriangles,unknownNearTriangles:unknownNear,edgeCrossingTriangles:clippedAtScreen,
+   candidateTriangles,unknownNearTriangles:unknownNear,
+   nearPlaneClassification:{fullyBehind,nearCrossing,nearTouching},
+   edgeCrossingTriangles:clippedAtScreen,
    occupiedCells:occupied,occupancy:rd(occupied/length),depthCells:{near,mid,far},
    center:{occupied:central,total:centerTotal},
    upperSky:{occupied:sky,total:skyTotal},
    heroSourcesVisible:heroCount,topSources:tops,
+   sourceScreenBoxes:[...summaries.values()].map(s=>({
+     kind:s.kind,sourceId:s.id,screenPixels:s.pixels,
+     screenFraction:rd(s.pixels/length),
+     widthFraction:rd((s.maxX-s.minX+1)/width),
+     heightFraction:rd((s.maxY-s.minY+1)/height),
+     leftEdge:s.minX===0,rightEdge:s.maxX===width-1,topEdge:s.minY===0,bottomEdge:s.maxY===height-1
+   })).sort((a,b)=>b.screenPixels-a.screenPixels),
    horizontalBands:bands.slice(0,12),
    warningSignals:{wideTriangle:bands.some(x=>x.mode==='triangle'&&x.spanFraction>=.45),
      wideSource:bands.some(x=>x.mode==='source'&&x.spanFraction>=.50),
-     heroNotVisible:heroCount===0,nearClipUnmeasured:unknownNear>0},
+     wideKind:bands.some(x=>x.mode==='kind'&&x.spanFraction>=.50),
+     wideComposite:bands.some(x=>x.mode==='any'&&x.spanFraction>=.65),
+     clippedWideMass:[...summaries.values()].some(s=>
+       (s.minX===0||s.maxX===width-1||s.minY===0)&&
+       (s.maxX-s.minX+1)/width>=.4),
+     heroNotVisible:heroCount===0,nearClipUnmeasured:nearCrossing>0,
+     fullyBehindDiscarded:fullyBehind>0},
    art:'HOLD',human:'HOLD',officialSlope2Meters:0};
 }

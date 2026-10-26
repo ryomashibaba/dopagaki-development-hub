@@ -33,6 +33,10 @@ jobs:
           node --check web/drive3d.mjs
           node --check scripts/p101-w9c2-g4e7ci-real-game-capture.mjs
           node --test tests/p101-w9c2-g4e7ci-integrated-streetscape.test.mjs
+      - name: DE historical rejected scenery calibration against native BG240Hz
+        run: |
+          node --check web/p101-w9c2-g4e7dd-macro-camera-audit.mjs
+          node scripts/p101-w9c2-g4e7de-calibrate-camera.mjs
       - name: PRIVATE original game only
         run: |
           # No package-lock.json is checked into this repo: npm ci would always EUSAGE.
