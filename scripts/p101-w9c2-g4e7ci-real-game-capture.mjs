@@ -77,7 +77,7 @@ try{
     !Number.isFinite(Number(info.cameraSpeed))||Number(info.cameraSpeed)<52||
     (mode==='baseline'&&info.scene!=='off')||
     (mode==='integrated'&&(info.scene!=='INTEGRATED_PRIVATE_HOLD'||info.physicsUntouched!=='true'||
-      !info.landmarksQA||info.landmarksQA==='off'||JSON.parse(info.landmarksQA).length!==4)))
+      !info.landmarksQA||info.landmarksQA==='off'||JSON.parse(info.landmarksQA).length!==2)))
    throw Error('SAME_GAME_CAMERA_REQUIRED '+JSON.stringify({road,frame,mode,info,errors}));
   const name=road+'-'+frame+'-'+mode+'.png';
   const image=await page.locator('#view').screenshot({path:path.join(out,name)});
@@ -106,7 +106,7 @@ try{
  report.screenshots=report.frames.length;
  if(report.screenshots!==12||report.pairs.length!==6||
     !report.pairs.some(x=>x.changedFraction>.001)||
-    report.frames.filter(x=>x.mode==='integrated').some(x=>Number(x.triangles)<2500))
+    report.frames.filter(x=>x.mode==='integrated').some(x=>Number(x.triangles)<1200))
   throw Error('INCOMPLETE_PRIVATE_NATIVE_GAME_ART');
  fs.writeFileSync(path.join(out,'G4E7CI_REAL_GAME_SCREENSHOT_AUDIT_HOLD.json'),JSON.stringify(report,null,2)+'\n');
  console.log('G4E7CJ_REAL_GAME_PIXEL_AUDIT_ART_STILL_HOLD',JSON.stringify({screenshots:report.screenshots,pairs:report.pairs.length,warnings:report.warnings,

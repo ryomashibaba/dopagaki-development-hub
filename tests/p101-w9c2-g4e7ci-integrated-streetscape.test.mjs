@@ -12,13 +12,13 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
   assert.equal(JSON.stringify(doc),frozen);
   assert.equal(doc.surfaces.length,7);assert.equal(doc.movingObstacles.length,28);
   assert.deepEqual(doc.surfaces[0].voidLongitudinalCells,[52]);
-  assert.ok(art.triangles>=2500&&art.triangles<50000);
-  assert.equal(art.stations,16);assert.equal(art.layers,3);
-  assert.equal(art.landmarks,4);assert.equal(art.macroSilhouette,'CAMERA_REGISTERED_FOUR_HOLLOW_CIVIC_DISTRICTS');
+  assert.ok(art.triangles>=1200&&art.triangles<50000);
+  assert.equal(art.stations,12);assert.equal(art.layers,3);
+  assert.equal(art.landmarks,2);assert.equal(art.macroSilhouette,'TWO_PROVEN_FRAMED_CIVIC_DISTRICTS_AND_INHABITED_BANKS');
   assert.equal(art.cameraEvidence,'BG240HZ_BOTH_15_AND_17_NOT_HUMAN');
-  assert.equal(art.landmarksQA.length,4);
+  assert.equal(art.landmarksQA.length,2);
   assert.ok(art.landmarksQA.every(x=>x.road===0||x.road===1));
-  assert.ok(art.landmarksQA.every(x=>x.score>=0&&Number.isFinite(x.score)&&x.framesVisible>=0&&x.framesVisible<=2));
+  assert.ok(art.landmarksQA.every(x=>x.score>=0&&Number.isFinite(x.score)&&x.framesVisible>=1&&x.framesVisible<=2&&x.score>=.12));
   console.log('G4E7CM_READ_ONLY_CAMERA_SITE_EVIDENCE',road,JSON.stringify(art.landmarksQA));
   assert.equal(art.newRoads,0);assert.equal(art.newColliders,0);assert.equal(art.newMovingHazards,0);
   assert.equal(art.art,'HOLD');assert.equal(art.officialSlope2Meters,0);

@@ -69,63 +69,68 @@ function civicCrescent(v,f,n,side){
    p(square.x+dx+4,square.d-29,54),p(square.x+dx-4,square.d-29,54),C.gold);
 }
 
+// G4E-7CN: inhabited road-bank blocks, not a forest of floating micro-girders.
+// A small number of thick carved wings frame plazas, transit entrances and roofs.
+// Everything is visual-only and remains outboard of the original physical lane.
+function sculptedWing(v,p,x0,x1,d0,d1,h0,h1,shift,skin,roof){
+ const low=[p(x0,d0,h0),p(x1,d0,h0),p(x1,d1,h0),p(x0,d1,h0)];
+ const high=[p(x0+shift,d0+3,h1),p(x1+shift,d0+3,h1),
+  p(x1+shift-3,d1-2,h1+2),p(x0+shift+3,d1-2,h1+2)];
+ for(let i=0;i<4;i++)both(v,low[i],low[(i+1)%4],high[(i+1)%4],high[i],
+  i===0?skin:i===1?C.deep:i===2?C.steel:C.glass);
+ both(v,...high,roof);
+ both(v,low[3],low[2],low[1],low[0],C.deep);
+}
 function authorCell(v,f,n,side){
- const p=(along,depth,h)=>add(add(add(f.edge,scale(f.along,along)),scale(f.outward,depth)),[0,h,0]);
- const tone=n%3===0?C.pearl:n%3===1?C.steel:C.glass;
- // Near public transit arcade: open shops, real gaps, three decks, illuminated signage.
- for(let z=0;z<(n%4===0?1:2);z++){
-  const h=7+z*13,d=18+z*3;
-  both(v,p(-27,d,h),p(29,d,h),p(29,d+24,h),p(-27,d+24,h),z===2?C.pearl:C.steel);
-  for(const x of [-26,-1,27])girder(v,p(x,d+2,h-13),p(x,d+2,h+4),2,C.pearl);
-  for(let k=0;k<5;k++){
-   if(k===1||k===4)continue;
-   const x=-23+k*10;
-   both(v,p(x,d+.3,h+1),p(x+7,d+.3,h+1),p(x+7,d+.3,h+9),p(x,d+.3,h+9),C.glass);
-   both(v,p(x,d-.2,h+2),p(x+7,d-.2,h+2),p(x+7,d-.2,h+3.5),p(x,d-.2,h+3.5),k%2?C.edge:C.gold);
+ const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
+ const odd=(n+Math.round((side+1)/2))%2;
+ const height=58+(n%3)*15+(side===1?10:0);
+ const wingSkin=n%3===0?C.pearl:n%3===1?C.glass:C.steel;
+ // The roadside promenade has real ground mass and three shop bays;
+ // the center stays physically open instead of becoming a sealed box.
+ both(v,p(-31,18,5),p(31,18,5),p(31,49,5),p(-31,49,5),C.steel);
+ for(const a of [-29,21]){
+  sculptedWing(v,p,a,a+8,21,41,5,23,odd?2:-2,C.pearl,C.gold);
+ }
+ both(v,p(-27,22,23),p(30,22,23),p(29,44,28),p(-25,44,28),C.steel);
+ both(v,p(-20,42,8),p(20,42,8),p(20,42,20),p(-20,42,20),C.glass);
+ for(const [i,x] of [-16,0,16].entries()){
+  both(v,p(x-7,41.5,9),p(x+7,41.5,9),p(x+7,41.5,18),p(x-7,41.5,18),i===1?C.deep:C.glass);
+  both(v,p(x-7,41,19),p(x+7,41,19),p(x+7,41,21),p(x-7,41,21),i===1?C.gold:C.edge);
+ }
+ // A two-wing terraced housing/civic complex with a wide real air atrium.
+ // Lateral offsets, staggered levels and roof planes create volume instead
+ // of rectangular wireframes or freestanding neon sticks.
+ const center=odd?12:-10,terraceLevels=3;
+ for(const wing of [-1,1]){
+  const x=center+wing*37;
+  for(let tier=0;tier<terraceLevels;tier++){
+   const h0=7+tier*height/terraceLevels,
+    h1=7+(tier+1)*height/terraceLevels;
+   const shift=(odd?1:-1)*tier*5+(wing===-1?-tier:tier);
+   const half=16-tier*2.3,depth=73+tier*4+(wing===1?10:0);
+   sculptedWing(v,p,x-half,x+half,depth,depth+36,h0,h1,shift,
+     tier===0?C.steel:wing===1?C.glass:wingSkin,
+     tier===2?C.pearl:C.steel);
+   // Occupied floors use wide window bands, no thin lattice roof caps.
+   const bx=x+shift;
+   both(v,p(bx-half+3,depth-.7,h0+7),p(bx+half-3,depth-.7,h0+7),
+    p(bx+half-3,depth-.7,h0+11),p(bx-half+3,depth-.7,h0+11),
+    tier%2===0?C.lit:C.gold);
   }
  }
- girder(v,p(-33,19,47),p(35,19,52),4,C.pearl);
- for(const x of [-18,7,26]){
-  girder(v,p(x,20,44),p(x+5,48,35),2,C.edge);
-  both(v,p(x-4,18,16),p(x+5,18,16),p(x+5,18,22),p(x-4,18,22),x===7?C.gold:C.edge);
+ // Public circulation reads as a single habitable civic concourse.
+ if(n%3===0){
+  both(v,p(center-26,91,34),p(center+26,91,34),
+    p(center+26,108,35),p(center-26,108,35),C.pearl);
+  both(v,p(center-25,90,29),p(center+25,90,29),
+    p(center+25,90,33),p(center-25,90,33),C.glass);
  }
- // Inhabited mid-bank: two different terraced towers with a genuinely open civic atrium.
- const center=12*Math.sin(n*1.67+side),rise=80+22*((n+side+8)%4);
- if(n%3===0)for(const wing of [-1,1]){
-  const origin=center+wing*32,d=83+n%3*9;
-  for(let tier=0;tier<4;tier++){
-   const low=tier*rise/4,high=(tier+1)*rise/4,shift=tier*tier*1.7,half=15-tier*1.45,
-    a=p(origin-half+shift,d,low),b=p(origin+half+shift,d,low),
-    c=p(origin+half+shift+2,d,high),dd=p(origin-half+shift+2,d,high);
-   both(v,a,b,c,dd,tier%2?C.steel:tone);
-   both(v,b,p(origin+half+shift,d+30,low),p(origin+half+shift+2,d+30,high),c,C.deep);
-   if(tier!==1)both(v,dd,c,p(origin+half+shift+2,d+30,high),p(origin-half+shift+2,d+30,high),C.pearl);
-   for(const fraction of [.28,.72]){
-    const y=low+(high-low)*fraction;
-    both(v,p(origin-half+3+shift,d-.5,y),p(origin+half-3+shift,d-.5,y),p(origin+half-3+shift,d-.5,y+1.5),p(origin-half+3+shift,d-.5,y+1.5),fraction<.5?C.lit:C.gold);
-   }
-  }
+ // Only two low foreground cornice gestures: no forest of disconnected beams.
+ if(n%3===1){
+  both(v,p(-26,54,43),p(10,54,43),p(5,70,51),p(-23,70,51),C.pearl);
+  both(v,p(12,54,46),p(32,54,46),p(27,68,54),p(15,68,54),C.gold);
  }
- if(n%3===0)girder(v,p(center-20,119,rise*.47),p(center+20,119,rise*.51),4,C.pearl);
- // Far skyline: two sweeping incomplete spines with a large open air gap.
- if(n===0||n===7){
-  const peak=110+12*n,axis=center+side*16;
-  for(const sign of [-1,1]){
-   let last=null;
-   for(let k=0;k<=16;k++){
-    const t=k/16,q=p(axis+sign*(44+42*t+16*Math.sin(Math.PI*t)),
-     185+70*t+15*Math.sin(t*3),34+peak*t*t);
-    if(last&&k!==5&&k!==11)girder(v,last,q,4,k%4===0?C.gold:C.edge);
-    last=q;
-   }
-  }
-  for(let level=0;level<5;level++){
-   const height=peak*(.36+level*.118),w=66-level*8;
-   both(v,p(axis-w,195+level*14,height),p(axis+w*.7,195+level*14,height),
-    p(axis+w*.43,224+level*14,height+12),p(axis-w*.70,224+level*14,height+18),level%2?C.violet:C.pearl);
-  }
- }
- // The four primary districts are instead sited against the two verified 240Hz views.
 }
 
 // G4E-7CM: choose fixed landmark sites once from BOTH genuine scripted cameras.
@@ -163,23 +168,29 @@ function visibleSiteScore(frame,shots){
 }
 function placeLandmarks(doc,sample,shots){
  if(!Array.isArray(shots)||shots.length<2||
-  shots.slice(0,2).some(x=>!['t1500','t1700'].includes(x.id)||
-    x.source!=='ACTUAL_240HZ_START00_P96_FIXED_SCRIPT_NOT_HUMAN'))
+  shots[0]?.id!=='t1500'||shots[1]?.id!=='t1700'||
+  shots.slice(0,2).some(x=>x.source!=='ACTUAL_240HZ_START00_P96_FIXED_SCRIPT_NOT_HUMAN'))
   throw Error('CM requires both original 240Hz 15/17s frames; never substitute a camera');
- const chosen=[];
- // Existing physical surfaces 0/1 only. No imagined third road or added collider.
- for(const side of [-1,1])for(const slot of [2,6]){
-  const options=[];
-  for(let road=0;road<2;road++)for(let k=2;k<=17;k++){
-   const u=k/20,frame=roadFrame(doc.surfaces[road],sample,u,side),
-    proof=visibleSiteScore(frame,shots.slice(0,2));
-   const separated=chosen.every(s=>s.road!==road||Math.abs(s.u-u)>.18||s.side!==side);
-   if(separated)options.push({road,u,side,slot,frame,...proof});
-  }
-  options.sort((a,b)=>b.score-a.score||b.framesVisible-a.framesVisible||a.road-b.road||a.u-b.u);
-  if(!options.length)throw Error('CM has no protected existing physical anchor');
-  chosen.push(options[0]);
+ // A landmark that cannot be recognized in either image is worse than no
+ // landmark. Rank both physical bank sides together; do not insist on one
+ // impossible monument per side. Roadside inhabitation stays bilateral.
+ const options=[];
+ for(const side of [-1,1])for(let road=0;road<2;road++)for(let k=2;k<=17;k++){
+  const u=k/20,frame=roadFrame(doc.surfaces[road],sample,u,side),
+   proof=visibleSiteScore(frame,shots.slice(0,2));
+  if(proof.framesVisible>=1&&proof.score>=.12)
+   options.push({road,u,side,frame,...proof});
  }
+ options.sort((a,b)=>b.framesVisible-a.framesVisible||b.score-a.score||a.road-b.road||a.u-b.u);
+ const chosen=[];
+ for(const option of options){
+  if(chosen.every(s=>s.road!==option.road||s.side!==option.side||Math.abs(s.u-option.u)>.17)){
+   chosen.push({...option,slot:chosen.length===0?2:6});
+   if(chosen.length===2)break;
+  }
+ }
+ if(chosen.length!==2||chosen.some(x=>x.framesVisible<1||x.score<.12))
+  throw Error('CN genuine camera has fewer than two readable physical-bank sites');
  return chosen;
 }
 
@@ -193,16 +204,16 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
   doc.stageForge.productionPromoted!==false||doc.surfaces?.length!==7||
   doc.movingObstacles?.length!==28||doc.surfaces[0].voidLongitudinalCells?.join(',')!=='52')
   throw Error('CI requires exact protected unpublished BC/B48/B51 geometry');
- const freeze=JSON.stringify(doc),v=[],stations=[.36,.44,.52,.60,.68,.76,.84,.92];
+ const freeze=JSON.stringify(doc),v=[],stations=[.40,.51,.62,.73,.84,.93];
  for(const [n,u] of stations.entries())for(const side of [-1,1])
   authorCell(v,roadFrame(doc.surfaces[1],sample,u,side),n,side);
  const sites=placeLandmarks(doc,sample,shots);
  for(const site of sites)civicCrescent(v,site.frame,site.slot,site.side);
  const triangles=v.length/18;
- if(triangles<2500||triangles>50000||v.some(x=>!Number.isFinite(x))||JSON.stringify(doc)!==freeze)
+ if(triangles<1200||triangles>50000||v.some(x=>!Number.isFinite(x))||JSON.stringify(doc)!==freeze)
   throw Error('CI geometry invalid or physics source mutated');
  return {active:true,vertices:v,triangles,stations:stations.length*2,layers:3,
-  minimumSetbackM:18,landmarks:4,macroSilhouette:'CAMERA_REGISTERED_FOUR_HOLLOW_CIVIC_DISTRICTS',
+  minimumSetbackM:18,landmarks:2,macroSilhouette:'TWO_PROVEN_FRAMED_CIVIC_DISTRICTS_AND_INHABITED_BANKS',
   cameraEvidence:'BG240HZ_BOTH_15_AND_17_NOT_HUMAN',
   landmarksQA:sites.map(({road,u,side,slot,score,framesVisible})=>({road,u,side,slot,score,framesVisible})),
   newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,
