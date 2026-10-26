@@ -1,3 +1,11 @@
+# G4E-7DJ 完了：正規240Hzの20実WebGL画角で15.5〜16.5秒の都市構図断絶を特定（2026-10-27 JST）
+
+実装 [830ed1e8](https://github.com/ryomashibaba/dopagaki-development-hub/commit/830ed1e8ab76e18efa7b6a1845bef7cb83b6489e)＋専用ガード修正 [607030c](https://github.com/ryomashibaba/dopagaki-development-hub/commit/607030cc2ed5012218128ff13aa04955a0ca6d04)。[専用CI #40417051913](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40417051913) SUCCESS、[真正WebGL Artifact #12694559525](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40417051913/artifacts/12694559525)＝2道路×14〜18.5秒0.5秒刻み20PNG。元BGの15/17/18.5秒240HzカメラスナップショットはdeepEqual、前DIの正式CX 6PNGとのSHA-256は6/6完全一致（カメラ・CX画面改変なし）。新しい美術案を乱造せず、通常ゲーム外PRIVATE Playwrightの追加フレーム許可だけで実カメラ時系列を制作。**15.5秒に左巨大主役が裁断され16.0秒でほぼ消える一方、前方都市が小さいため、15.5〜16.5秒に都市の壮大さが途切れる根本問題が判明**。16.5〜17秒も街区・公共施設・主役が一体の都市として読めない。17.5秒以降の異常な走路構図および18.5秒off-roadは正式走行公平性として認定しない。
+
+次DKは**その中間区間に現れる、都市の大きな輪郭・内部公共空洞・居住階層の同時構図**を一案だけPRIVATE実3D制作。単純な巨壁・棚・棒・箱・埋め込み・遠景追加の反復禁止。DJは美術案を新たに作っていないのでART正式採用0件、過去DI ART REJECT維持。[DJ詳細QA](docs/G4E7DJ_TRUE_NATIVE_SEQUENCE_QA_JA.md)に証拠・失敗・次工程の構図制約を記録。CX blob `af076d67492a677d2235e4730aef8cdf4808e106`、B48×7/B51-C×28/gap52/240Hz/カメラ/入力/main/Gold/本番変更なし、PR #46 Draft未マージ、ART/HUMAN/READY/PUBLISH/MERGE HOLD、Slope2正式0m。
+
+---
+
 # G4E-7DI 完了：SKY FJORD PRIVATE真正WebGL / ART REJECT（2026-10-27 JST）
 
 実装 [c24f9ea7](https://github.com/ryomashibaba/dopagaki-development-hub/commit/c24f9ea7ae8f59094de44fb6c068a532c002a717)、[専用CI #40412675585](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40412675585) SUCCESS、[独立物理CI #40412675329](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40412675329) SUCCESS、[真正WebGL Artifact #12694960144](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40412675585/artifacts/12694960144)を保存。35PNG=baseline/CX12+CR2+CT3+凍結DG6+凍結DH6+新DI6。前DH証拠との比較では旧baseline/CX12/12 PNGと旧DG/DH12/12 PNGがSHA-256バイト一致。CX generator blob `af076d67492a677d2235e4730aef8cdf4808e106`、元道路7面/動体28/gap52/240Hz/カメラ/入力/main/Gold/本番を変更せず、PRIVATE専用の4ファイルだけ実装。Actions起動3件。
