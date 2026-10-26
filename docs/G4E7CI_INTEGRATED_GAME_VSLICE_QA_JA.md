@@ -1,3 +1,7 @@
+## G4E-7CS 最終実画面QA（2026-10-26 JST、専用CI SUCCESS・ART HOLD）
+
+[Run #40298652277](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40298652277) **SUCCESS**、6/6テスト、PRIVATEビルドPASS、真正WebGL12コアPNG+2ソース識別PNG、同一正規BG240Hzカメラ6対、warnings 0。[Artifact #12640073134](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40298652277/artifacts/12640073134)（2026-11-02 09:36:50 UTC expiry）。元の17s左岸ROI x190..439/y205..339 にあった C.glass RGB(41,135,163)と完全一致の10,720画素は修正後 **0画素**。CR→CSの真正PNG変化画素はtrue-pinch 15s 483、17s 13,797、18.5s 0（各1008×645）。pinch-switchは全3画角0。画素の少なさ自体はART品質判定ではない。17sでは暗い左岸デッキと繰り返し支柱が残り、都市の連続感/奥行/規模感が不足するため、**原因特定済み青緑板の除去は成功、総合ART HOLD / CITY HERO REJECT**。HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2 0m、18.5s off-roadは人間走行評価に使わない。次工程は既存のタグ+正規実画像を使い、残存暗色面の帰属を特定してから最小形状変更。
+
 ## G4E-7CS — 青緑の3面をGPU証明後に局所開放（2026-10-26 JST）
 
 CR初回CI #40297532117は captureMode集計不備でFAILだが、テストとPRIVATEビルドはPASS、14画像Artifact #12639535527の真正WebGLマゼンタ照合でtrue-pinchの3枚の矩形壁が station2 左側 roadbank-promenade の28三角形に属すると確証。pinch-switchは別の居住街区2380三角形なので不変更。CSはauthorPromenadeの当該3面を実開口にし地面から支持する柱6本へ最小置換。他道路・物理に変更なし。captureMode集計を修正し、真正240Hz 12コア+2診断画像とROI C.glass RGB(41,135,163) <=1500 pixels をCIに追加。現物画像未評価まではART/HUMAN/READY/PUBLISH/MERGE HOLD。

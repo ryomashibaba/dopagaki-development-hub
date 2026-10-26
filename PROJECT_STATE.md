@@ -1,3 +1,13 @@
+# G4E-7CS 実WebGL完成検証／ART HOLD（2026-10-26 JST、最新確定）
+
+**正本は Draft PR #46、景観修正 [c39d04d](https://github.com/ryomashibaba/dopagaki-development-hub/commit/c39d04d1c26f0fe907ea4472a412015113286a73)。** [専用CI #40298652277](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40298652277) は **completed / SUCCESS**、6 tests PASS・0 FAIL、PRIVATEビルドPASS、元ゲームWebGL画像 **12枚+識別色2枚、6組の正規BG240Hz固定カメラ**。警告0。[Artifact #12640073134](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40298652277/artifacts/12640073134) は2026-11-02 09:36:50 UTCまで。前工程でQUEUE/PENDINGと書かれた内容は当時の履歴。最新のCS実測を優先。
+
+**GPU実描画で特定済みの3枚の青緑板を局所修正した結果**：true-pinch 17s画面左ROI x190..439, y205..339 の C.glass の正確RGB(41,135,163)は **10,720→0画素**。原因は station=2/u=.62/side=-1 の roadbank-promenade の不透明ガラス面3枚。ほかの建築や色を大量追加していない。
+
+**CR→CSの実PNG RGB差分**（画像解像度1008×645、1チャネルでも違えば変更画素）：true-pinch 15s **483画素(0.074%)**、17s **13,797画素(2.122%)**、18.5s **0画素**。pinch-switch は15s/17s/18.5s全て **0画素**で同一。この数値は美術点数でなく変更局所性のみ。真正17s画像を直接目視すると板は消えたが、左側には大きな暗いデッキと繰り返し支持材が残り、近・中・遠景の街区連結感と都市規模感はまだ不十分。**ART HOLD / CITY HERO REJECT、HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m**。18.5sはphysicalRoad=offなので通常走行審査対象外。
+
+**次G4E-7CT**：残る暗い左岸デッキ・支持材について真正15/17s画角と既存の三角形生成元タグを対応づけ、元凶を特定した面のみ変更。推測で別のデッキ・屋根を削らない。無目的な素材追加・CI増殖・繰り返しpushを避ける。B48実道路7、B51-C動体28、gap52、240Hz、速度、操舵、カメラ、自然ジャンプ、main/Gold/本番と原作再現を保護し、Draft PR #46未マージ維持。
+
 # G4E-7CS — GPU特定済み青緑壁の3面を局所修正（2026-10-26 JST、専用CI検証待ち）
 
 G4E-7CR初回run [#40297532117](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40297532117) は最終 FAILURE。ただしテストとPRIVATEビルドはPASS、14枚の真正WebGL画像は [Artifact #12639535527](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40297532117/artifacts/12639535527) に保存済み。固定17秒で第3ステーション左岸の三角形だけマゼンタ表示すると、true-pinchで問題の**3枚の青緑壁が一致して着色**した。ROI変更率61.2119%（28三角形）、pinch-switch居住街区79.8874%（2380三角形）。これはGPU実描画での出所確証だが美術評価ではない。
