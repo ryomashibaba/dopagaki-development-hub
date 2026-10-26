@@ -31,7 +31,7 @@ test('CI genuine 7 B48 / 28 B51 / gap52 road and physics preserved',()=>{
 test('CI opt-in only, wrong physics denied',()=>{
  const doc=generateG4E7BC('true-pinch','rollDeck');
  assert.equal(g4e7ciIntegratedStreetscape(doc,sample,{enabled:false}).vertices.length,0);
- assert.throws(()=>g4e7ciIntegratedStreetscape(doc,sample,{enabled:true}),/CM requires both original 240Hz/);
+ assert.throws(()=>g4e7ciIntegratedStreetscape(doc,sample,{enabled:true}),/CO requires both unchanged native cameras/);
  doc.movingObstacles.pop();
  assert.throws(()=>g4e7ciIntegratedStreetscape(doc,sample,{enabled:true}),/exact protected/);
 });
