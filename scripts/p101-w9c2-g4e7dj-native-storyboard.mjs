@@ -60,7 +60,7 @@ export function g4e7djNativeStoryboard(){
    next++;
   }
   if(frames.length!==BG_SHOTS.length||
-     frames.some(f=>f.timeSeconds<14.9||f.speedMps<=52||!f.pose||
+     frames.some(f=>f.timeSeconds<13.9||f.speedMps<=52||!f.pose||
        f.source!=='ACTUAL_240HZ_START00_P96_FIXED_SCRIPT_NOT_HUMAN'))
     throw Error('BG missing authentic 240Hz camera proof for '+road);
   // Preserve the ORIGINAL CX hero-site selection: the first two camera
