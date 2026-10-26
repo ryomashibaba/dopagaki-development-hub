@@ -1,3 +1,7 @@
+## G4E-7CZ — 既存巨大建築を用途のある立体公共街区へ転換（2026-10-26 JST、実画面待ち）
+
+前CYは2棟外側の小骨格追加で失敗した。CZではアーチ2基自体に左右各3段のフロア、開放ポータル、接地支持材、各段をつなぐランプ、既存48m公共広場への連絡面を構築。既存アーチの空洞上部を実空間として残す。建築はprivate visual-only、物理床・障害物・カメラは追加しない。出所は従来の `anchored-civic-crescent` とし、新しい独立柱は作らない。`czCrescentQA` と専用CI/新旧WebGL比較で、居住のスケールと道路視認性を同時に審査。正規B48×7/B51-C×28/gap52、240Hz、自然ジャンプ、main/Gold/本番、PR#46のDraft保持。ART/HUMAN/READY/PUBLISH/MERGE HOLD・Slope2認定0m。
+
 ## G4E-7CY 実制作／実画面審査：ART REJECT、CXへロールバック（2026-10-26 JST）
 
 [CI #40316383653](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40316383653)成功、10/10テスト・WebGL17 PNG・6対・警告0。[GitHub Artifact #12646714580](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40316383653/artifacts/12646714580)（2026-11-02 11:44 UTCまで）。CY案を実画像でCXと照合：true-pinchの15s=843px/17s=2,816px、pinch-switchの15s=901px/17s=3,040pxのみ変化（1画面650,160px）。左岸2か所のみ採用され、既存の巨大クレセントの横に黄・青の細い飾りが増えただけで、建築的な一体性/未来的規模感に有意な前進がない。走行視界は大きく悪化していないが、近中遠景の都市として質不足。**ART REJECT／CX景観のコード/テストを同一バイトで復元**。将来G4E-7CZは棒や別体ゲートではなく、用途・接地・立体的なスケール・公共動線を備えた統合3D都市施設を主役とする。単なるscreen diff比率を品質点数と誤認しない。

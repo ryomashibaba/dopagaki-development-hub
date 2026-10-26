@@ -1,3 +1,11 @@
+# G4E-7CZ — 既存巨大クレセント内部の都市化研究（2026-10-26 JST、実3D実装・CI未評価）
+
+**正本**：前工程CY [実験41b6340](https://github.com/ryomashibaba/dopagaki-development-hub/commit/41b6340ab9f8222b5879116e0e685214b2b750c2) は10/10テストと実WebGL CIを通ったが、4画角の描画差分0.13〜0.47%に留まり細い独立棒にしか見えないためART REJECT。以前の実証済みCXへ景観/テストを戻した [dd61e35](https://github.com/ryomashibaba/dopagaki-development-hub/commit/dd61e35c0ee2c51eecbf8593fb272b6494a32b85) をCZ基点とする。
+
+**設計仮説**：既存の壮大なクレセント2基は真の15秒/17秒の正規カメラに大きく現れるため、周辺へ細い装飾を増やすのでなく、その内側の立体公共都市施設を設計すればスケール・用途・交通の統一感を増やせる。巨大アーチ外周と空は変更しない。リング内側に左右各3層の開放公共/居住テラス（計6層/施設）、各層の実空気抜きポータル18区画/施設、接地した支持材4本/施設、内側ランプ4本/施設、既存48m公共広場への連絡面2か所/施設を追加。中央上層空洞は実際に三角形を置かず保持。あくまで景観・見た目上の用途表現で、Minecraft施工や物理的に走行できる床の認定ではない。
+
+**禁止と評価**：巨大な青緑ベタ板、道路内ゲート、画面を覆う黒い屋根、非接地薄板、紐状追加建築は不可。既存の真正B48×7/B51-C×28/gap52/240Hz速度・操作・カメラ・自然ジャンプ・本番/Gold/mainを変更しない。CX近景GPU源占有率6.49%と上限18%の回帰CI、青緑RGB(41,135,163) 0の回帰CIも引き継ぐ。実際の2道路15s/17s正規カメラで変化が見えるか、空の抜け・進路予兆・巨大構造との美術的統一が改善するかを確認してから採否。ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m、PR #46はDraft未マージ。
+
 # G4E-7CY 完成審査：真正WebGL実測でART REJECT／景観をCX確定版へ差し戻し（2026-10-26 JST、最新）
 
 **診断結果**：CYの「離れた都市クレセントと公共コンコースを繋ぐ建築骨格」はGitHub [実験コミット41b6340](https://github.com/ryomashibaba/dopagaki-development-hub/commit/41b6340ab9f8222b5879116e0e685214b2b750c2)に実制作。専用CI [#40316383653](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40316383653)は **SUCCESS**（10/10テスト・PRIVATEビルド・正規BG240Hzの元ゲーム真正WebGL17 PNG／6組の一致するカメラ／warnings0）。[Artifact #12646714580](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40316383653/artifacts/12646714580) 2026-11-02 11:44:06 UTC失効。体験の検証は非人間の固定スクリプトカメラによる。
