@@ -28,81 +28,45 @@ function roadFrame(s,sample,u,side){
  * large structural rims, voids, galleries, foundations, and public plaza
  * deliberately replace repetitive tower box silhouettes, not physics.
  */
-// G4E-7DA: Replace the entire former ring-profile hero, not its details.
-// The parent architectural idea is a bifurcated, inhabited escarpment:
-// two structural city masses face a real central sky canyon. Transit strata,
-// daylight apertures, terrace roofs and rooted buttresses belong to the SAME
-// built volumes. No extra road, collider, hidden jump surface, or camera edit.
-// Keep the original hero site/envelope and PRIVATE capture path for A/B proof.
 function civicCrescent(v,f,n,side){
  const p=(u,d,h)=>add(add(add(f.edge,scale(f.along,u)),scale(f.outward,d)),[0,h,0]);
- const start=v.length/18,segments=12;
- const wings=[{a:-60,b:-19,height:n===2?130:114,depth:39,skin:C.pearl},
-              {a:18,b:62,height:n===2?115:103,depth:43,skin:C.steel}];
- for(const [wi,wing] of wings.entries()){
-  const profile=t=>{
-   const toward=wi===0?t:1-t;
-   const ridge=17+(wing.height-17)*Math.pow(Math.max(0,toward),.69);
-   return {x:wing.a+(wing.b-wing.a)*t,
-    d:94+7*Math.sin(Math.PI*t)+5*t+(wi===1?6:0),
-    h:ridge+3*Math.sin(Math.PI*2*t+wi),
-    rear:wing.depth+5*Math.sin(Math.PI*t)};
-  };
-  const at=(q,rear,height)=>p(q.x,q.d+(rear?q.rear:0),height);
-  for(let i=0;i<segments;i++){
-   const a=profile(i/segments),b=profile((i+1)/segments);
-   // The silhouette is a geological-scale terraced RIDGE, not a hoop or
-   // repeated stack of narrow boxes. The top is an inhabited roof deck.
-   both(v,at(a,false,a.h),at(b,false,b.h),
-    at(b,true,b.h),at(a,true,a.h),wi===0?C.pearl:C.gold);
-   both(v,at(a,false,5),at(b,false,5),
-    at(b,true,5),at(a,true,5),C.deep);
-   // Terraced occupied floors visually join fore- and back-facades.
-   for(const fraction of [.28,.54,.78]){
-    const h0=5+(a.h-5)*fraction,h1=5+(b.h-5)*fraction;
-    if(Math.min(h0,h1)<12)continue;
-    both(v,at(a,false,h0),at(b,false,h1),
-     at(b,true,h1),at(a,true,h0),fraction===.54?C.steel:C.pearl);
-   }
-   for(let tier=0;tier<4;tier++){
-    const z0=tier/4,z1=(tier+1)/4;
-    // Large occupied pockets carved through BOTH longitudinal elevations.
-    // Their omissions are actual absent triangles, not colored window decals.
-    const air=(i>=2&&i<=9)&&(tier===1||tier===2)&&
-     (i%4===1||i%4===2);
-    if(air)continue;
-    for(const rear of [false,true]){
-     const h0=5+(a.h-5)*z0,h1=5+(b.h-5)*z0,
-      h2=5+(a.h-5)*z1,h3=5+(b.h-5)*z1;
-     const color=tier===0?C.steel:tier===3?wing.skin:
-      (rear?C.deep:(i+wi)%3===0?C.lit:C.glass);
-     both(v,at(a,rear,h0),at(b,rear,h1),
-      at(b,rear,h3),at(a,rear,h2),color);
-    }
-   }
-   // Only structural transects are closed, preventing a grid of
-   // impenetrable compartment walls behind the carved windows.
-   if(i===0||i===segments-1||i===5){
-    const q=i===0?a:b;
-    both(v,at(q,false,5),at(q,true,5),
-     at(q,true,q.h),at(q,false,q.h),wi===0?C.steel:C.pearl);
-   }
+ const origin=n===2?-55:-48,span=n===2?118:104;
+ const profile=t=>({
+  x:origin+t*span,
+  d:90+20*Math.sin(Math.PI*t)+7*Math.sin(t*3+side),
+  top:14+(n===2?116:97)*Math.pow(Math.max(0,Math.sin(Math.PI*t)),.74)
+ });
+ for(let i=0;i<28;i++){
+  const a=profile(i/28),b=profile((i+1)/28);
+  // Two actual gaps cut through the thick rim, giving a readable open air void.
+  if((i>=7&&i<=8)||(i>=19&&i<=20))continue;
+  const a0=Math.max(5,a.top-29),b0=Math.max(5,b.top-29);
+  both(v,p(a.x,a.d,a0),p(b.x,b.d,b0),p(b.x,b.d,b.top),p(a.x,a.d,a.top),C.pearl);
+  both(v,p(a.x,a.d+26,a0),p(b.x,b.d+26,b0),p(b.x,b.d+26,b.top),p(a.x,a.d+26,a.top),C.steel);
+  both(v,p(a.x,a.d,a.top),p(b.x,b.d,b.top),p(b.x,b.d+26,b.top),p(a.x,a.d+26,a.top),C.gold);
+  if(i%6!==2&&i%6!==3&&Math.min(a.top,b.top)>92){
+   const y0=.36*a.top,y1=.36*b.top;
+   both(v,p(a.x,a.d-11,y0),p(b.x,b.d-11,y1),
+    p(b.x,b.d-11,y1+14),p(a.x,a.d-11,y0+14),i%3===0?C.glass:C.deep);
+   both(v,p(a.x,a.d-11,y0+14),p(b.x,b.d-11,y1+14),
+    p(b.x,b.d+42,y1+14),p(a.x,a.d+42,y0+14),C.steel);
   }
-  // Deep integral buttress wedges attach EACH city wing to its lower mass.
-  // These are neither freestanding hairline ribs nor ornamental pillars.
-  for(const t of [.14,.43,.73]){
-   const q=profile(t),foot=at(q,true,4),
-    shoulder=at(q,true,q.h*.77);
-   girder(v,add(foot,scale(f.outward,15)),shoulder,8,C.steel);
-  }
+  if(i%3===0&&Math.min(a.top,b.top)>70)
+   both(v,p(a.x,a.d-1,a.top-8),p(b.x,b.d-1,b.top-8),
+    p(b.x,b.d-1,b.top-3),p(a.x,a.d-1,a.top-3),C.edge);
  }
- // The center -19..18m is entirely open sky at every height; a rider can
- // visually read the city THROUGH this monumental negative space.
- const triangles=v.length/18-start;
- if(triangles<500||triangles>3000)throw Error('DA insufficient macro city mass geometry');
- return {morphology:'BIFURCATED_INHABITED_RIFT_CITY',
-  wings:2,centralOpenAirWidthM:37,occupiedTerraceStrata:3,
-  rootedButtresses:6,triangles};
+ for(const t of [.08,.28,.50,.73,.93]){
+  const a=profile(t);
+  girder(v,p(a.x+5,a.d+55,0),p(a.x,a.d+15,a.top-9),7,C.pearl);
+  both(v,p(a.x-13,a.d+55,8),p(a.x+13,a.d+55,8),
+    p(a.x+13,a.d+82,8),p(a.x-13,a.d+82,8),C.steel);
+ }
+ const square=profile(.52);
+ both(v,p(square.x-26,square.d-30,48),p(square.x+26,square.d-30,48),
+  p(square.x+26,square.d+62,48),p(square.x-26,square.d+62,48),C.pearl);
+ for(const dx of [-18,0,18])
+  both(v,p(square.x+dx-4,square.d-29,49),p(square.x+dx+4,square.d-29,49),
+   p(square.x+dx+4,square.d-29,54),p(square.x+dx-4,square.d-29,54),C.gold);
 }
 
 // G4E-7CN: inhabited road-bank blocks, not a forest of floating micro-girders.
@@ -541,7 +505,7 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
    firstTriangle:roofStart,triangleCount:v.length/18-roofStart});
  }
  const sites=placeLandmarks(doc,sample,shots);
- for(const site of sites)mark('split-rift-urban-massif',
+ for(const site of sites)mark('anchored-civic-crescent',
   {road:site.road,u:site.u,side:site.side,slot:site.slot},
   ()=>civicCrescent(v,site.frame,site.slot,site.side));
  const triangles=v.length/18;
@@ -553,7 +517,7 @@ export function g4e7ciIntegratedStreetscape(doc,sample,{enabled=false,shots=null
  return {active:true,vertices:v,sources,triangles,stations:stations.length*2,layers:3,
   carvedFacades:true,openRearFacades:true,districtLinks,farRoofBays,clippedCellReliefs,fullDistrictCells,
   cxNearVisionVetoes,cxNearVisionQA,
-  minimumSetbackM:18,landmarks:2,macroSilhouette:'BIFURCATED_INHABITED_RIFT_CITY_WITH_OPEN_ROADBANK',
+  minimumSetbackM:18,landmarks:2,macroSilhouette:'LOW_OPEN_CONCOURSE_WITH_SPACED_ANCHORED_DISTRICTS',
   cameraEvidence:'BG240HZ_BOTH_15_AND_17_NOT_HUMAN',
   landmarksQA:sites.map(({road,u,side,slot,score,framesVisible})=>({road,u,side,slot,score,framesVisible})),
   newRoads:0,newColliders:0,newMovingHazards:0,physicalChanged:false,
