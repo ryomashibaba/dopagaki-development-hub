@@ -110,3 +110,12 @@ CO/CN比較はArtifact同解像度の元ゲームPNGをRGB絶対差和48超で�
 
 **最終CIのBASELINE比較 RGB差和>48 の画素率**（美術点数ではない）：true-pinch 15s **13.1537%**／17s **19.8540%**／18.5s **20.7207%**、pinch-switch 15s **15.3012%**／17s **32.2714%**／18.5s **13.2880%**。CIは12枚/6ペア、warningsゼロ。描画メッシュの街区10連結、視覚専用遠景屋根6をログで確認。ART/HUMAN/READY/PUBLISH/MERGEは全HOLD、公式Slope2 **0m**。B48道路7、B51-C動体28、gap52、240Hz、カメラ、操舵、自然跳躍、A13方針変更なし。main/Gold/原作再現/本番サイト保護、PR #46 OPEN Draft未マージ。Work未使用。
 
+
+## G4E-7CQ — 実スクリーン画素→三角形出所の解析を追加（2026-10-26 JST、検証は QUEUED）
+
+**コード [90acb053](https://github.com/ryomashibaba/dopagaki-development-hub/commit/90acb053580bd0a03ffafeeafdf4409f7a608083) で診断実装済みだが CI の結果/美術結果は未判定**。[専用CI #40294635351](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40294635351) queued、GitHub Actionsの同ブランチで多数のCIが同時発火し待ち行列を確認。PASSまたは実画像原因特定を宣言してはいけない。
+
+**変更点**：真正PRIVATE BG 240Hzフレーム15s/17sのうち t1700 を用い、元WebGL2の頂点変換式・正規カメラを変えず、問題の画面 x220～380／y250～315 内15箇所について静的な景観三角形の射影・奥行とタグ（道路bank、公共通路、折屋根、アンカー建築）、元の三角形ID、色、3D座標を画面datasetと既存スクリーンショットJSONへ記録する読み取り専用CPU geometry candidate tracerを追加。元景観は三角形構成を含めて**一切変更していない**。ゲーム物理もカメラも無変更。CPU解析は街区メッシュ内の幾何候補でありGPUピッキングの証明ではない。他のオブジェクトによる遮蔽/fragment shading/antialias を検証するまでは原因と断定しない。単体テストに合成三角形の真ん中ヒットとオフスクリーンミス、生成元数え上げを追加。計測は既存のCIを使い追加専用ワークフローを作らない。
+
+**次に必要な作業**：#40294635351 を確認し、失敗なら最小修正。成功なら実際の t1700 スクリーン画素と provenance 候補の色/3D位置/建築生成元を比較し、残存青緑壁の描画元を特定できた場合のみ該当する生成関数・三角形面を最小修正する。正式なART評価はWebGL旧新の画像を実際に確認してから。複数pushによるCI fanout問題を意識し、修正・テストを小さくまとめる。前工程 G4E-7CP のART HOLD/主役級REJECT、正式Slope2=0m、HUMAN/READY/PUBLISH/MERGE HOLD を継続。元B48×7、B51-C×28、gap52、240Hz、操舵、カメラ、main/Gold/本番と原作再現は保護。PR #46 Draft未マージ。
+
