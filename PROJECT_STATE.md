@@ -1,3 +1,15 @@
+# G4E-7DO 継続中：実240Hzカメラ→編集可能Blenderマスター初回生成、レンダーCIは未完了（2026-10-27 JST）
+
+**完成認定はしない。** PRIVATE限定で、Blenderによる都市美術の本設計へ移るため、元CX景観の正確な三角形と２道路×15〜17秒の正規ゲーム240Hzカメラを完全一致のまま書き出す制作基盤を開発。[実装コミット 4453c2da](https://github.com/ryomashibaba/dopagaki-development-hub/commit/4453c2da7c10457eb04b700f5e14a969209f4e96)、[CLI修正 0a89f1f8](https://github.com/ryomashibaba/dopagaki-development-hub/commit/0a89f1f81daedae5e5ac1f4797ac3c2c96042238)、[重複240Hz演算の削減 9f86b90f](https://github.com/ryomashibaba/dopagaki-development-hub/commit/9f86b90feac5b2587ab96723897ce69365c4bfd5)、[Blenderカメラ行列更新 7573dde5](https://github.com/ryomashibaba/dopagaki-development-hub/commit/7573dde590d032920615edc40e7698dc859fa2ad)、[ヘッドレスCycles CPU修正 db945742](https://github.com/ryomashibaba/dopagaki-development-hub/commit/db945742125992605ab6a4e4dbb3ff3c395a2516)。
+
+**検証済**：Node側元CX blob `af076d67492a677d2235e4730aef8cdf4808e106`完全一致、240Hzカメラ/ジオメトリ書き出し、B48道路7/動体28/gap52保護単体テスト成功。GitHub [CI #40442610016](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40442610016) ではBlender 4.0.2起動→カメラ投影チェックを通過し、**true-pinch用実Blender編集可能 .blend（約3.26MB）** を書き出し、[部分証拠 Artifact #12707061511](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40442610016/artifacts/12707061511) に保存。Eeveeレンダー時の `libEGL.so.1` 不在で**CI FAILURE**、Blender 10PNGは未実現、pinch-switch .blendも未保存。画像・美術認定は不可。
+
+**最新版 [Cycles CPU CI #40442938522](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40442938522)**：ヘッドレス環境でEGL不要のCyclesレンダーへ切替。**この文書更新時点では結果未確定**。CIがSUCCESSになるまでは２道路×5真正Blender画像や双方の.blend完成を主張しない。※ Blender参照レンダーは本物のゲームWebGL framebufferではない。カメラの投影は照合可能でもゲームのシェーダ/FPS/フェアネスを保証しない。
+
+**なぜこの方式か**：BW/BX既存大規模Blender/GLBは世界配置/node transform/ゲーム実視野未立証、BK限定GLBパーサーは汎用GLBを読めない。旧ART REJECTモデルを無検証で公開レンダへ持ち込まず、まず正規実道路・元CX・元カメラが重なる編集可能な制作マスターを作る。**DOは新都市候補0件／ART採用0件、元物理・コントロール・カメラ・main/Gold/public build非変更**。PR #46 OPEN/Draft未マージ、ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m。
+
+---
+
 # G4E-7DN 完了 — NEGATIVE-SPACE真正WebGL30枚、構図仮説不成立 / ART REJECT（2026-10-27 JST）
 
 [DN PRIVATE実装 4461a318](https://github.com/ryomashibaba/dopagaki-development-hub/commit/4461a31889a3e0e8e0c900f59c9531c18e1781fa)、[証拠保存修正 53691337](https://github.com/ryomashibaba/dopagaki-development-hub/commit/536913370da7c85e6c0362978872db862ffffd86)、[最終真正WebGL CI #40436641309](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40436641309) **SUCCESS**、[本物の30枚・監査JSON Artifact #12703663917](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40436641309/artifacts/12703663917)（7日retention）、[独立物理 #40436070565](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40436070565) **2 jobs SUCCESS**。初回CI #40436070653はWebGL技術PASSだがArtifactアップロードのパスが誤っており証拠0（結果採用不可）、次コミットで修正し再撮影した。

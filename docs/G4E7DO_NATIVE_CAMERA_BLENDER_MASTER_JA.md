@@ -1,3 +1,9 @@
+## DO検証経過と暫定ゲート（2026-10-27）
+
+[最新版CPU CI #40442938522](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40442938522) はこの記録作成時点で未確定。前回[CI #40441647755](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40441647755) は元CX/camera Node検証PASS、Eeveeでの正規BlenderレンダーはEGL不足のためFAILED。true-pinch `.blend` 自体は[Artifact #12707061511](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40442610016/artifacts/12707061511)で実体確認済み。Blender 4.0.2のカメラ検証段階で最初は行列未更新の誤差があり、`bpy.context.view_layer.update()`を追加し元視点との投影チェックを通過。次はGPU非依存Cycles CPUへ切り替え済み。**美術・完成・2道路.blend・10画像のPASSを先取りしない。**
+
+---
+
 # G4E-7DO — ORIGINAL GAME CAMERA → REAL EDITABLE BLENDER MASTER
 
 2026-10-27 JST. QUALITY-FIRST / INTEGRATED VERTICAL SLICE. ART/HUMAN/PUBLISH/READY/MERGE HOLD.
