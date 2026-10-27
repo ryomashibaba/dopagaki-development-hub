@@ -114,14 +114,27 @@ scene.render.image_settings.file_format='PNG'
 blend=os.path.join(out,'G4E7DR_'+src['road']+'_B48_B51_240HZ_EDITABLE_ART_HOLD.blend')
 bpy.ops.wm.save_as_mainfile(filepath=blend)
 renderProof=[]
+max_float32_quantization_m=0.0
+# Blender stores object transforms and mesh vertices in IEEE754 float32 even
+# when the ORIGINAL protected game physics was exported losslessly as float64.
+# Demand byte-equivalent representable float32 poses, not false f64 equality.
+def f32(x):return struct.unpack('<f',struct.pack('<f',x))[0]
 for frame,shot in enumerate(src['shots'],1):
  scene.frame_set(frame)
  scene.camera=cameras.objects.get(shot['id']+' REAL ORIGINAL 240HZ')
  bpy.context.view_layer.update()
  for p in shot['moving']:
   o=movers[p['id']]
-  assert max(abs(o.location[j]-p['center'][j]) for j in range(3))<1e-6
-  assert abs(o.rotation_euler[1]-p['yawRadians'])<1e-6
+  expected=[f32(v) for v in p['center']]
+  delta=max(abs(o.location[j]-expected[j]) for j in range(3))
+  raw_error=max(abs(expected[j]-p['center'][j]) for j in range(3))
+  max_float32_quantization_m=max(max_float32_quantization_m,raw_error)
+  if delta>=1e-6 or abs(o.rotation_euler[1]-f32(p['yawRadians']))>=1e-6:
+   raise RuntimeError('DR blender native physical pose failed float32 parity '+repr({
+    'frame':frame,'id':p['id'],'actual':list(o.location),
+    'expected_f32':expected,'error_after_quantization':delta,
+    'yaw_actual':o.rotation_euler[1],'yaw_expected_f32':f32(p['yawRadians'])}))
+  assert raw_error<.0005,('DR float32 precision exceeds 0.5mm',raw_error)
  scene.render.filepath=os.path.join(out,'G4E7DR_'+src['road']+'_'+shot['id']+'_GENUINE_BLENDER_NOT_WEBGL.png')
  bpy.ops.render.render(write_still=True)
  renderProof.append({'id':shot['id'],'tick':shot['tick'],
@@ -131,6 +144,7 @@ audit={'schema':'G4E7DR_B48_B51_ORIGINAL_PHYSICS_BLENDER_AUDIT',
  'sourceOriginalDocSha256':src['originalDocSha256'],
  'originalPhysicsBinarySha256':src['binarySha256'],
  'originalPhysicalSurfaces':7,'originalMovingObstacles':28,
+ 'maxBlenderFloat32PositionQuantizationMeters':max_float32_quantization_m,
  'actualGap52':True,'originalCXSourceObjects':len(cx),
  'unchangedOriginal240HzCameras':len(cameras.objects),
  'roadMeshes':sourceMeshes,'frameProof':renderProof,
