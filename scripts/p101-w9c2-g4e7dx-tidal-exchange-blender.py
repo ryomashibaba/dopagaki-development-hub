@@ -227,10 +227,10 @@ for i,id in enumerate(('t1550','t1600','t1650'),start=2):
   hit,loc,norm,face,ob,matrix=sc.ray_cast(dg,sourceEye,ray.normalized(),distance=max(0.1,dist-.35))
   label='CLEAR'
   if hit:
-   if ob.original in col.objects:label='NEW_DX_ART'
-   elif ob.original in ro:label='EXISTING_B48'
-   elif ob.original in cx:label='EXISTING_CX'
-   elif ob.original in obbs:label='EXISTING_B51'
+   if ob.name in col.objects:label='NEW_DX_ART'
+   elif ob in ro:label='EXISTING_B48'
+   elif ob in cx:label='EXISTING_CX'
+   elif ob in obbs:label='EXISTING_B51'
    else:label='OTHER_SOURCE'
   sightChecks.append({'target':tag,'rayLengthMeters':dist,'firstOcclusionType':label,
    'firstObject':ob.name if hit else None,'pointOnlyNotFullInteriorProof':True})
