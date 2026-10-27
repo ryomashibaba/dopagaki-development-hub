@@ -39,8 +39,8 @@ jobs:
       - name: Real editable Blender scenes, exact original camera projection and previews
         run: |
           mkdir -p test-results/g4e7do-master-camera/true-pinch test-results/g4e7do-master-camera/pinch-switch
-          blender -b --factory-startup -t 2 --python scripts/p101-w9c2-g4e7do-master-blender.py -- --source test-results/g4e7do-master-camera/true-pinch.json --out test-results/g4e7do-master-camera/true-pinch
-          blender -b --factory-startup -t 2 --python scripts/p101-w9c2-g4e7do-master-blender.py -- --source test-results/g4e7do-master-camera/pinch-switch.json --out test-results/g4e7do-master-camera/pinch-switch
+          blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7do-master-blender.py -- --source test-results/g4e7do-master-camera/true-pinch.json --out test-results/g4e7do-master-camera/true-pinch
+          blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7do-master-blender.py -- --source test-results/g4e7do-master-camera/pinch-switch.json --out test-results/g4e7do-master-camera/pinch-switch
           python3 - <<'PY'
           import glob,json,os
           p='test-results/g4e7do-master-camera'

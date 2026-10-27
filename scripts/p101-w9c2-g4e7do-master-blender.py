@@ -96,13 +96,23 @@ for sample in data['cameras']:
  obj.rotation_quaternion=Matrix(((right[0],up[0],-front[0]),
                                  (right[1],up[1],-front[1]),
                                  (right[2],up[2],-front[2]))).to_quaternion()
+ # Blender's newly linked camera has a deferred object transform.
+ # world_to_camera_view reads matrix_world; force depsgraph evaluation first.
+ bpy.context.view_layer.update()
  check=eye+front*100+right*16+up*7
  ndc=world_to_camera_view(scene,obj,check)
  expected_x=sample['samplePixel'][0]/1008
  expected_y=1-sample['samplePixel'][1]/645
  error=max(abs(ndc.x-expected_x),abs(ndc.y-expected_y))
  max_projection_error=max(max_projection_error,error)
- if error>1e-4:raise RuntimeError('REAL NATIVE CAMERA PROJECTIVE DRIFT '+sample['id']+' '+str(error))
+ if error>1e-4:
+  print('DO_CAMERA_PROJECTION_FAIL_DIAGNOSTICS',json.dumps({
+   'id':sample['id'],'actual':[ndc.x,ndc.y,ndc.z],
+   'expected':[expected_x,expected_y],'difference':error,
+   'right':list(right),'front':list(front),'up':list(up),
+   'lens_mm':cam.lens,'sensor_fit':cam.sensor_fit,
+   'matrix_world':[[float(v) for v in row] for row in obj.matrix_world]}))
+  raise RuntimeError('REAL NATIVE CAMERA PROJECTIVE DRIFT '+sample['id']+' '+str(error))
  obj['shot_id']=sample['id'];obj['true_240hz_time']=sample['timeSeconds']
  obj['speed_mps']=sample['speedMps'];obj['origin']='UNMODIFIED_240HZ_NONHUMAN_FIXED_P96'
  obj['projection_alignment_error_ndc']=error
