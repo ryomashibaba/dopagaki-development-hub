@@ -1,3 +1,15 @@
+# G4E-7DQ 最終実制作検証 — 既存BW R3細密3Dの実240Hzカメラ配置、ART REJECT（2026-10-27 JST）
+
+[実装コミット abb81f8](https://github.com/ryomashibaba/dopagaki-development-hub/commit/abb81f8d5d9e8e2995f1d39164143c4effec7ae3) を [専用CI #40454837621](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40454837621) で実行し**SUCCESS**。真正Blenderの２道路×CX/DQ×15.0/15.5/16.0/16.5/17.0秒=**20PNG**、編集可能.blend４個（DO参照２・DQ候補２）、基準カメラ・DQ監査を含む [Artifact #12712420146](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40454837621/artifacts/12712420146) を実際にダウンロード、ZIPを展開して画像・監査JSONの存在を確認。BW R3元Blenderオブジェクト**1,493**を実座標へ読み込み、元CX**18**ソース／**22,920**三角形を保全、２道路とも元ゲーム240Hzカメラ５台。座標は元Blender Z-UP→ゲームY-UPを正確に変換。基準DOカメラ投影誤差最大約2.70435e-7。新しい道路・動体・コライダーは0、元物理不変更。
+
+**実画像目視：DQ ART REJECT／正式採用０件**。DPの大きな板状屋根は消え、既存右クレセントに窓・階層・照明のような細部が現れる。しかし詳細BW R3が主に既存右側主役の視界位置に重なるため、15.5〜16.5秒の真正構図でプレイヤー前方の都市空白や機能的な公共動線は埋まらない。細部1,493個追加と都市の連続性改善は別問題である。真正ゲームWebGLの比較は**未実施**（低評価の候補を移植せず早期REJECT）。
+
+**根本改善方針／次DR**：細密度／新形状を追加する前に正規道路・障害物と都市を同じ実3D舞台で評価する。現DO/DP/DQのBlender参照マスターは本物のB48走路を示す「７×３の非物理ガイド曲線」を置くのみで、**実ゲームと同じ道路三角形・動体28・道路材質・車体周辺のゲーム光学・描画状態を再現していない**。都市体験を判定するならまず重要な実走路・障害物がアート審査画面に含まれる必要がある。DRは変わらない元B48曲面の参照レンダーメッシュと指定時刻の実動体姿勢を読み取り、Blenderへ可視化するPRIVATE QA基盤へ焦点を絞る。ロード・コライダーを新規生成しない。Game WebGLとBlenderではレンダラが異なるため、最後は元ゲーム真正WebGL＋人間操作試験が必須。これが整う前の孤立した巨大物や規則的箱の再生成はしない。
+
+[前DP CI #40447458670](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40447458670) は技術SUCCESSでもART REJECT済み。DO編集可能Blenderマスターは技術的に完成。main/Gold/本番/public・元B48×7/B51×28/gap52/240Hz/操作/カメラ/自然ジャンプに変更なし。元CX Git blob `af076d67492a677d2235e4730aef8cdf4808e106` 固定。PR#46 OPEN/Draft/unmerged、ART/HUMAN/READY/PUBLISH/MERGE HOLD、公式Slope2認定0m。
+
+---
+
 # G4E-7DQ 開始 — DP実画像を正式ART REJECT、既存本格Blender資産の元カメラ再配置を限定検証（2026-10-27 JST）
 
 **DP最終審査**： [CI #40447458670](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40447458670) **SUCCESS**、[真正Blender画像20枚＋.blend4個 Artifact #12710006367](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40447458670/artifacts/12710006367)取得・目視。元DOとDPを２道路×5時点で比較すると、**DPの新造形は長い薄い屋根・空中の板・波状リボンにしか見えない**。特に16.5〜17秒に画面上部を占有、住民利用の内部・移動交通路が読めず、旧クレセントと遠景の機能的接続が改善しない。**DP ART REJECT／正式採用0**。検証はBlender参照画像であって真正ゲームWebGLではない。Blenderで門前払いできたため、低品質なDPをゲーム本体へ移植しない。
