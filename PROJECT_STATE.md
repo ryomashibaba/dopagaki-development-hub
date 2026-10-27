@@ -1,3 +1,13 @@
+# G4E-7DP 進行中 — 正規カメラ実証マスターの完成とSKYRIFT QUARTER PRIVATE一案制作（2026-10-27 JST）
+
+[DO正式な技術CI #40446863995](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40446863995) は **SUCCESS**。 [Artifact #12708956774](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40446863995/artifacts/12708956774) をダウンロードし、**実編集可能.blend２個＋Blender正規視点PNG10枚＋カメラ検証JSON２個**をZIP内で確認。２道路ともCX元三角形22,920枚、ソース18個、元CX頂点SHA一致。Blender投影誤差は最大約2.70435e-7（正規化座標）。これは**Blenderの実参照レンダー**であり、元ゲーム真正WebGL/PBR/物理プレイを再現した証拠ではない。DOでついにBlender制作マスター基盤だけは技術的に成立。**都市美術採択0件**。
+
+DP [PRIVATE実装 f2683bdd](https://github.com/ryomashibaba/dopagaki-development-hub/commit/f2683bddcb31669ad0e0d0a8a1f0202c51b75ab1) は《SKYRIFT QUARTER》の**単一共通世界**Blender造形試作。道路1の路肩から離れたstationインデックス30.5–42.7、曲面の居住断層２本・開放的な交通渓谷・接続する公共デッキ・少数の暖色/寒色居住帯を元CXそのままの編集可能な3D都市に重ねる。過去の箱・棒・孤立アーチ案の反復を避ける意図だが、**画面上で魅力的に見えることは未実証**。実世界配置の視野テスト（2道路×5時刻×5選定参照点）・Node保護テスト・Python形式チェックは [専用CI #40447458670](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40447458670) の第一段階で **PASS**。CIはこの文書記録時点でBlender導入中で、完成したDP Blenderの画像20枚・候補.blend２個・目視評価は**未確認**。CIが終わる前にART PASS/REJECTどちらも捏造しない。参照道路はDOの非物理ガイドであり、最終物理道路／動体をレンダーしていない。今後の承認には本物のゲームWebGLとプレイヤー公平性の実証が別途必要。
+
+全変更は研究ブランチPRIVATEのみ、元B48道路７/B51動体28/gap52/240Hz/カメラ/操作/自然ジャンプ/HUD/Gold/main/本番を変更せず。元CX blob `af076d67492a677d2235e4730aef8cdf4808e106` に保護チェック。PR #46 OPEN/Draft/未マージ、ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2 0m。次の作業はDP CIの成否・成果物を実物確認し、10正規カメラの純Blender候補実画像を目視で採否判定すること。
+
+---
+
 # G4E-7DO 継続中：実240Hzカメラ→編集可能Blenderマスター初回生成、レンダーCIは未完了（2026-10-27 JST）
 
 **完成認定はしない。** PRIVATE限定で、Blenderによる都市美術の本設計へ移るため、元CX景観の正確な三角形と２道路×15〜17秒の正規ゲーム240Hzカメラを完全一致のまま書き出す制作基盤を開発。[実装コミット 4453c2da](https://github.com/ryomashibaba/dopagaki-development-hub/commit/4453c2da7c10457eb04b700f5e14a969209f4e96)、[CLI修正 0a89f1f8](https://github.com/ryomashibaba/dopagaki-development-hub/commit/0a89f1f81daedae5e5ac1f4797ac3c2c96042238)、[重複240Hz演算の削減 9f86b90f](https://github.com/ryomashibaba/dopagaki-development-hub/commit/9f86b90feac5b2587ab96723897ce69365c4bfd5)、[Blenderカメラ行列更新 7573dde5](https://github.com/ryomashibaba/dopagaki-development-hub/commit/7573dde590d032920615edc40e7698dc859fa2ad)、[ヘッドレスCycles CPU修正 db945742](https://github.com/ryomashibaba/dopagaki-development-hub/commit/db945742125992605ab6a4e4dbb3ff3c395a2516)。
