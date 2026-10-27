@@ -114,17 +114,17 @@ unit('DX Deep uncovered courtyard suspended over real original outskirts',
 c['occupiedPublicFloors']+=1
 # 3) Left civic wing: broad tiered **inhabited** native volumes, curved-notched
 # irregular exterior, no vertical box/tower repeating.
-left_base=[(-21,0),(-47,0),(-54,23),(-50,57),(-36,68),(-22,50),(-21,24)]
-native_volume('DX LEFT inhabited TRANSPORT LIBRARY masonry foundation',left_base,-17,9,basalt)
+left_base=[(-39,0),(-75,1),(-84,26),(-80,55),(-61,64),(-43,51),(-41,23)]
+native_volume('DX LEFT inhabited TRANSPORT LIBRARY masonry foundation',left_base,-17,8,basalt)
 c['structuralMasses']+=1;c['independentLivingWings']+=1
-left_upper=[(-24,4),(-48,14),(-57,39),(-46,70),(-32,62),(-24,43)]
-native_volume('DX LEFT asymmetric civic cantilever stepped inhabited TOP',left_upper,9,28,sinter)
+left_upper=[(-55,18),(-79,25),(-81,46),(-69,62),(-54,59),(-52,38)]
+native_volume('DX LEFT asymmetric civic cantilever stepped inhabited TOP',left_upper,8,21,sinter)
 c['structuralMasses']+=1
 # Actually occupied open floors, not just windows painted onto walls.
 unit('DX LEFT exposed Library floor with transparent civic-air front',
-     -32,24,10.2,18,28,3.0,copper);c['occupiedPublicFloors']+=1
+     -52,24,9.3,18,28,3.0,copper);c['occupiedPublicFloors']+=1
 unit('DX LEFT upper outdoor reading theatre under vast OPEN sky',
-     -36,49,29.3,25,35,4.2,jade);c['occupiedPublicFloors']+=1
+     -63,49,22.5,25,35,4.2,jade);c['occupiedPublicFloors']+=1
 # An actual opening in between two structures: nothing closes the centre.
 c['physicallyOpenDoorways']+=1
 # 4) Right civic wing: lower terraced interchange + deep real station bay.
@@ -145,10 +145,10 @@ c['physicallyOpenDoorways']+=1
 # measures 18m but civic gap stays >40m throughout: player sees through.
 for sign in (-1,1):
  unit('DX 3D OPEN station entry PIER near 18m portal %s'%sign,
-      9*sign,0,9.5,3.4,4.8,19,sinter)
+      12*sign,0,9.5,3.4,4.8,19,sinter)
  c['structuralMasses']+=1
 unit('DX Open portal cross-structure real load-bearing raised lintel',
-     0,0,20.7,23,5.4,3.4,sinter);c['structuralMasses']+=1
+     0,0,20.7,30,5.4,3.4,sinter);c['structuralMasses']+=1
 unit('DX Human civic wayfinding slab behind entry NOT a blocking facade',
      0,10,0.7,14,1.2,2,light)
 # 6) Legible large actual occupied concourse, bounded by independent masses
