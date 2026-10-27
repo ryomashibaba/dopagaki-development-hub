@@ -1,3 +1,13 @@
+# G4E-7DQ 開始 — DP実画像を正式ART REJECT、既存本格Blender資産の元カメラ再配置を限定検証（2026-10-27 JST）
+
+**DP最終審査**： [CI #40447458670](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40447458670) **SUCCESS**、[真正Blender画像20枚＋.blend4個 Artifact #12710006367](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40447458670/artifacts/12710006367)取得・目視。元DOとDPを２道路×5時点で比較すると、**DPの新造形は長い薄い屋根・空中の板・波状リボンにしか見えない**。特に16.5〜17秒に画面上部を占有、住民利用の内部・移動交通路が読めず、旧クレセントと遠景の機能的接続が改善しない。**DP ART REJECT／正式採用0**。検証はBlender参照画像であって真正ゲームWebGLではない。Blenderで門前払いできたため、低品質なDPをゲーム本体へ移植しない。
+
+**DQ**：技術基盤DOで正規240Hzカメラを一致させたうえで、以前実Blender制作済みBW R3の**本当の階層・入口・内部交通を持つ細密3D元資産**がどう見えるかを世界座標で検証する。BW R3自体も正式美術採用0の研究資産。DQは新しい棒・箱・板を乱造せず、既存1案の再配置可否を先に判定。2道路×15〜17秒=10真正Blender比較画角を生成するPRIVATEスクリプトとCI。BWはBlender Z-up、ゲームY-upとして座標系を明確に変換する。正規カメラに映る位置でも、美術成功を主張しない。BW形状が孤立した神殿になり都市にならなければ即ART REJECT。GLB移植、ゲーム描画変更、物理変更なし。元CX blob `af076d67492a677d2235e4730aef8cdf4808e106` 固定。
+
+PR #46 OPEN/Draft/未マージ、B48×7/B51×28/gap52/240Hz/元カメラ/操作/main/Gold/public変更禁止。ART/HUMAN/READY/PUBLISH/MERGE HOLD、Slope2公式認定0m。
+
+---
+
 # G4E-7DP 進行中 — 正規カメラ実証マスターの完成とSKYRIFT QUARTER PRIVATE一案制作（2026-10-27 JST）
 
 [DO正式な技術CI #40446863995](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40446863995) は **SUCCESS**。 [Artifact #12708956774](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40446863995/artifacts/12708956774) をダウンロードし、**実編集可能.blend２個＋Blender正規視点PNG10枚＋カメラ検証JSON２個**をZIP内で確認。２道路ともCX元三角形22,920枚、ソース18個、元CX頂点SHA一致。Blender投影誤差は最大約2.70435e-7（正規化座標）。これは**Blenderの実参照レンダー**であり、元ゲーム真正WebGL/PBR/物理プレイを再現した証拠ではない。DOでついにBlender制作マスター基盤だけは技術的に成立。**都市美術採択0件**。
