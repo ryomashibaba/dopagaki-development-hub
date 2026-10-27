@@ -1,3 +1,15 @@
+# G4E-7DS 完了 — 正規実道路・全28動体の本物Blender都市画像30枚比較 / MERIDIAN FIVE ART REJECT（2026-10-27 JST）
+
+[DS PRIVATE本造形コミット 63174d65](https://github.com/ryomashibaba/dopagaki-development-hub/commit/63174d65a128cde6d4088442c56a3743a02e894a) を実際にGitHub Actionsで [専用CI #40471912619](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40471912619) **SUCCESS**まで実施。[実本物Blender成果物 Artifact #12719920620](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40471912619/artifacts/12719920620)をダウンロード・ZIP展開・画像表示・監査JSON照合した。**48ファイル、真正Blender PNG30枚（元DO10＋実B48/B51 DR10＋新DS10）、編集可能.blend6個（各道路DO/DR/DS）、プラン・元B48 f64道路バイナリ・監査データ**。DS 2道路各709新都市オブジェクト、居住床80、実3D開口35、道路7物理面・全28動体・元CX18ソース・元カメラ5枚保持、正式ゲームコライダー追加0。元CX blob `af076d67492a677d2235e4730aef8cdf4808e106` 不変。5街区の中心は両道路で同じ世界位置、元B48全7道路のガイドから「街区半径+30m」以上離れ、すべての正規15/15.5/16/16.5/17秒視野内に基準点あり。ただしガイド離隔は全三角形との衝突不在保証ではなく、基準点が見えることと建築が見えることは異なる。
+
+**本物Blender比較の美術判定：ART REJECT（正式採用０件）**。15.5〜16.5秒前方の街区密度はDRより増すが、同型の細い縦棟・高層キオスク群が反復し、下部に細い支柱が垂れる「浮いた施設」に見える。新居住階80や内部開口35は本当の3Dとして存在するが、実走行カメラからは公共生活・移動導線として読めず、単に形の密度が増えただけである。過去の箱ビル列・孤立オブジェクト失敗の再発。右側元CXクレセントとの都市設計的つながりも不十分。**数値やCI成功を美術成功と混同しない**。DSはアート移植しない。元ゲーム真正WebGL/HUMANプレイ未実施。元レンダラ、動体のビジュアルモデル、HUD、霧などはBlenderレビュー画像と非同一。画像差分は美術品質や公平性の証明ではない。
+
+**次工程DTを設計し直す**。次は自動生成で数百の窓・棒・反復するフロアを作らない。必要な工程は、実道路＋正規カメラのまま**15.5 / 16.0 / 16.5秒の３画角だけに焦点を絞った**一次形状・大きな街路空間・非対称の住居群・巨大空隙・駅機能・人間スケールの構図研究。まずごく少数の一体造形メッシュ／空間を使って「連続する未来都市として魅力的か」を目視で通す。形が未成立なら細部装飾・オブジェクト709個生成・ゲーム統合へ進まない。高層キオスク、棒、板、巨大一発モニュメント、同形反復を明示禁止。現Blender制作基盤は技術PASSなので使い続けるが、ARTは何度でも厳格REJECTする。
+
+PR #46 OPEN/Draft/未マージ、main/Gold/public/本番・元B48×7/B51×28/gap52/240Hz/操作/カメラ/自然ジャンプ/HUDに無変更。ART/HUMAN/READY/PUBLISH/MERGE HOLD、公式Slope2認定0m。
+
+---
+
 # G4E-7DR 完了 — 元ゲーム実B48×7/B51×28/240Hz可視審査Blender基盤 PASS・ART採択0（2026-10-27 JST）
 
 [PRIVATE実装 db6b301f](https://github.com/ryomashibaba/dopagaki-development-hub/commit/db6b301f4daf2b549b100f3aa1d9c25bdc0227ff)、[Blender float32表現と元f64座標の丸め誤差監査修正 fe1f5575](https://github.com/ryomashibaba/dopagaki-development-hub/commit/fe1f5575bd00849e1a06aef6a7d2cd5141cdf7ac)、[最終専用CI #40469650772](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40469650772) **SUCCESS**、[全証拠Artifact #12717668295](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40469650772/artifacts/12717668295)。ZIPを実ダウンロード・展開して**32ファイル＝20PNG / 4.blend / 実道路f64バイナリ2個 / 物理監査2個 / オリジナルメタJSON2個 / DOカメラ監査2個**を確認。両道路の監査JSONで元B48物理サーフェス7・元B51動体28・元CX18ソース・全5元カメラ・真のギャップ52・物理変更なしを確認した。各道路の元B48の上面/裏面/側壁/切断面を合わせた合計**33,092三角形**を実Blenderにロード。元stageソースから生成したfloat64位置＋uint32索引のバイナリを SHA-256 証明。先頭roadのcell52は実走路TOP三角形0枚、51・53は存在。動体28全ての中心／回転／半寸法は元ゲーム`movingObstaclePose`で、同じ非人間P96 start00 240Hz shot.tick×DTの15/15.5/16/16.5/17秒で証明。Blenderの位置/キーフレームは内部float32の表現限界があり、**元f64→Blender f32最大丸め差 true-pinch=0.0000533643m、pinch-switch=0.0000595087m**。元64bitバイナリは無損失で保存し、Blender各時刻の位置はそのf32に一致することを自動検査。物理を捏造するための許容幅緩和は禁止。
