@@ -9,7 +9,7 @@ const W=1008,H=645, F=H*24.3/36; // frozen DO native camera lens, vertical senso
 const add=(a,b)=>a.map((v,i)=>v+b[i]);
 const mul=(a,k)=>a.map(v=>v*k);
 const dot=(a,b)=>a.reduce((t,v,i)=>t+v*b[i],0);
-const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2]];
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
 const unit=a=>{const n=Math.hypot(...a);if(n<1e-8)throw Error('Degenerate direction');return a.map(v=>v/n)};
 export const PROFILES=Object.freeze([
  {id:'LEFT_MIDPASS',anchor:'t1650',side:-1,offset:90,width:110,base:8,height:92,frames:['t1500','t1550','t1600','t1650']},
