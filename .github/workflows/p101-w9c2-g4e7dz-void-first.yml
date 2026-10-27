@@ -1,0 +1,79 @@
+name: G4E-7DZ original world void-first AB Blender PRIVATE ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-w9c2-g4e7dz-void-first-blender.py
+      - .github/workflows/p101-w9c2-g4e7dz-void-first.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-voidfirst-ab-private
+  cancel-in-progress: true
+jobs:
+  render-private-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guard source, compile Blender script and download frozen source scenes
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-void-first-blender.py
+          mkdir -p test-results/g4e7dz/source
+          gh run download 40587470014 \
+            --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DY_R1_ORIGINAL_B48_SKY_CIVIC_CITY_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz/source
+          python3 - <<'PY'
+          import json,os
+          d='test-results/g4e7dz/source'
+          a=json.load(open(d+'/G4E7DY_R1_NATIVE_APPROACH_SPATIAL_DATA.json'))
+          assert a['originalB48']==7 and a['originalB51']==28 and a['newColliders']==0
+          for r in ('true-pinch','pinch-switch'):
+           assert os.path.exists(d+'/dr-'+r+'/G4E7DR_'+r+'_B48_B51_240HZ_EDITABLE_ART_HOLD.blend')
+          PY
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Create genuine original-camera 3D renders from two distinct morphologies
+        run: |
+          for variant in excavated-estuary open-cell-confluence; do
+            for road in true-pinch pinch-switch; do
+              mkdir -p "test-results/g4e7dz/candidate-$variant-$road"
+              blender -b --factory-startup -t 2 --python-exit-code 5 --python scripts/p101-w9c2-g4e7dz-void-first-blender.py -- \
+                --source "test-results/g4e7dz/source/dr-$road/G4E7DR_$road"_B48_B51_240HZ_EDITABLE_ART_HOLD.blend \
+                --site-report test-results/g4e7dz/source/G4E7DY_R1_NATIVE_APPROACH_SPATIAL_DATA.json \
+                --road "$road" --variant "$variant" --out "test-results/g4e7dz/candidate-$variant-$road"
+            done
+          done
+      - name: No acceptance or game-completion claims
+        run: |
+          python3 - <<'PY'
+          import glob,json
+          root='test-results/g4e7dz/candidate-*'
+          assert len(glob.glob(root+'/*.png'))==16
+          assert len(glob.glob(root+'/*.blend'))==4
+          files=glob.glob(root+'/*AUDIT.json')
+          assert len(files)==4
+          for f in files:
+           x=json.load(open(f))
+           assert (x['originalCX'],x['originalB48'],x['originalB51'],x['originalNativeCamera'])==(18,7,28,5)
+           assert x['newPhysicalGameColliders']==x['adoptedArtCount']==x['officialSlope2Meters']==0
+           assert x['originalGameWebGL']=='NOT_RENDERED' and x['humanPlay']=='NOT_RUN'
+           assert x['art']=='HOLD' and x['publish']=='HOLD' and x['merge']=='HOLD'
+           assert len(x['renderedGenuineBlenderFrames'])==4
+          print('DZ_REAL_BLENDER_NOT_GAME_NOT_HUMAN_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_PRIVATE_REAL_BLENDER_AB_NO_ART_ADOPTION
+          path: test-results/g4e7dz/candidate-*
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6
