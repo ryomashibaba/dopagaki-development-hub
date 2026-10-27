@@ -1,3 +1,11 @@
+# G4E-7DK 完了：CIVIC ESTUARYを真正240Hz 12対WebGLでART REJECT（2026-10-27 JST）
+
+実装 [c3d5f0c8](https://github.com/ryomashibaba/dopagaki-development-hub/commit/c3d5f0c8a0c99d65738e579c4f6013e4cab59955)、[真正WebGL CI #40428018396](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40428018396) SUCCESS、[独立物理 #40428017965](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40428017965) SUCCESS、[証拠Artifact #12701191210](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40428018396/artifacts/12701191210)。DJで確認した15.5〜16.5秒の都市の断絶を、湾岸都市のひとつの母体で埋める狙いのPRIVATE実3D。2道路×14.5/15/15.5/16/16.5/17秒×CX/DK=24真正WebGL画面、カメラ・速度・日時が厳格一致。原CX12PNGはDJ真正WebGL12/12 SHA-256完全一致、元CX generator Git blob `af076d67492a677d2235e4730aef8cdf4808e106`不変。15.5→16.5秒では新規画面差が3.79→6.97%（true-pinch）、4.26→7.26%（pinch-switch）まで増加。ただし実画像は湾岸の住区・公共空洞ではなく、**巨大な縦の柱や薄い板**に見え、従来のDB棒／DA壁／クリップ失敗を再発。**DK個別ART REJECT、正式美術採用0件**。画素変化は美術成功・プレイ公平性の証明ではない。
+
+次工程では大型建築を増やすことで中間画面を埋める方式を中止。正規視点で広大な内部／住区／交通が読み取れる構図を先に証明し、可視の都市体験と美術品位が成り立つ仮説だけを一案ずつPRIVATEで実制作。詳細は [DK専用QA](docs/G4E7DK_CIVIC_ESTUARY_TRUE_WEBGL_ART_REJECT_JA.md)。B48×7/B51-C×28/gap52/240Hz/カメラ/操作/スコア/main/Gold/本番不変更、PR #46 Draft未マージ、ART/HUMAN/READY/PUBLISH/MERGE HOLD、Slope2認定0m。
+
+---
+
 # G4E-7DJ 完了：正規240Hzの20実WebGL画角で15.5〜16.5秒の都市構図断絶を特定（2026-10-27 JST）
 
 実装 [830ed1e8](https://github.com/ryomashibaba/dopagaki-development-hub/commit/830ed1e8ab76e18efa7b6a1845bef7cb83b6489e)＋専用ガード修正 [607030c](https://github.com/ryomashibaba/dopagaki-development-hub/commit/607030cc2ed5012218128ff13aa04955a0ca6d04)。[専用CI #40417051913](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40417051913) SUCCESS、[真正WebGL Artifact #12694559525](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40417051913/artifacts/12694559525)＝2道路×14〜18.5秒0.5秒刻み20PNG。元BGの15/17/18.5秒240HzカメラスナップショットはdeepEqual、前DIの正式CX 6PNGとのSHA-256は6/6完全一致（カメラ・CX画面改変なし）。新しい美術案を乱造せず、通常ゲーム外PRIVATE Playwrightの追加フレーム許可だけで実カメラ時系列を制作。**15.5秒に左巨大主役が裁断され16.0秒でほぼ消える一方、前方都市が小さいため、15.5〜16.5秒に都市の壮大さが途切れる根本問題が判明**。16.5〜17秒も街区・公共施設・主役が一体の都市として読めない。17.5秒以降の異常な走路構図および18.5秒off-roadは正式走行公平性として認定しない。
