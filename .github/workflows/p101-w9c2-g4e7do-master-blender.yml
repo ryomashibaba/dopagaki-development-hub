@@ -34,7 +34,7 @@ jobs:
       - name: Install actual Blender reference authoring environment
         run: |
           sudo apt-get update -qq
-          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender libegl1 libgl1 libx11-6
           blender -b --factory-startup --python-expr "import bpy; print('DO_NATIVE_BLENDER_VERSION',bpy.app.version_string)"
       - name: Real editable Blender scenes, exact original camera projection and previews
         run: |

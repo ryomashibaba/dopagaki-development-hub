@@ -23,8 +23,13 @@ scene.render.resolution_x=1008;scene.render.resolution_y=645
 scene.render.resolution_percentage=100
 scene.render.film_transparent=False
 scene.unit_settings.system='METRIC'
-engine='BLENDER_EEVEE_NEXT' if 'BLENDER_EEVEE_NEXT' in {i.identifier for i in bpy.types.RenderSettings.bl_rna.properties['engine'].enum_items} else 'BLENDER_EEVEE'
-scene.render.engine=engine
+# Headless GitHub Ubuntu has no reliable EGL display; use pure CPU.
+# Two samples are ONLY for camera-composition preview, not aesthetic approval.
+scene.render.engine='CYCLES'
+scene.cycles.device='CPU'
+scene.cycles.samples=2
+scene.render.threads_mode='FIXED'
+scene.render.threads=2
 scene.render.image_settings.file_format='PNG'
 scene.world.color=(.12,.18,.26)
 def group(name):
