@@ -11,3 +11,10 @@ The best pre-screen candidates are checked with DU's original exact **22,920 CX 
 The selected 3 most useful sites and all failures are stored as native JSON with camera pixels, source road XYZ, source surface ID, per-shot original geometry/OBB occlusion evidence. The search creates **zero new game colliders, zero buildings**, keeps official Slope2 recognition at 0m, PR #46 Draft, ART/HUMAN/READY/PUBLISH/MERGE HOLD.
 
 Next progression is visualization ONLY of actually shortlisted candidates and correctly scaled openings before designing costly Blender geometry. Current DW script is a pre-production search, not real WebGL nor a human traversal test.
+
+
+## 最終・正規Blender目視評価（2026-10-27 JST）
+
+[候補探索CI #40498009759](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40498009759)、[実画角レンダCI #40498941217](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40498941217)ともSUCCESS。DW追加の4 QA輪郭オブジェクト（駅ではない）を表示した2道路×3時点の6枚と、DR元物理道路を比較。低いH2入口は6画角で見え、走行に従い大きくなるが、単純な細線マーカーで都市機能や生活は一切読めない。**TECH PASS、ART HOLD**。
+
+形式的な18px最小幅に届くH24では、H2よりわずか0.0626px改善するだけなのに高低差が2m→24mになり、不合理。H2本線通視チェックは静的CX/B48および指定3時刻のB51動体全28に合格しても、連絡路の**立体的な断面全体**や車線路肩のフェアネスは未証明。最終路面がプレイヤーに通れると称しないこと。公式認定0m、ART/HUMAN/MERGE/PUBLISH HOLD。
