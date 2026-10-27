@@ -30,10 +30,10 @@ function frameFromOriginalShot(shot){
   fovYDeg:2*Math.atan(1/1.35)*180/Math.PI,projectionVerticalFocal:1.35,
   aspect,renderSize:[1008,645],samplePixel:[(ndc[0]+1)*504,(1-ndc[1])*322.5]};
 }
-export function buildDoReference(road){
+export function buildDoReference(road,native=g4e7djNativeStoryboard()){
  if(!['true-pinch','pinch-switch'].includes(road))throw Error('DO unsupported BC road');
  const doc=generateG4E7BC(road,'rollDeck'),original=JSON.stringify(doc);
- const native=g4e7djNativeStoryboard(),shots=native.stages[road].frames;
+ const shots=native.stages[road].frames;
  const cx=g4e7ciIntegratedStreetscape(doc,sample,{enabled:true,shots});
  assert.ok(cx.active&&cx.sources?.length>10&&cx.landmarks===2&&cx.triangles>1000);
  const cameras=DO_TIMES.map(id=>{
@@ -81,8 +81,9 @@ export function buildDoReference(road){
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  fs.mkdirSync(OUT,{recursive:true});
  const summary=[];
+ const native=g4e7djNativeStoryboard();
  for(const road of ['true-pinch','pinch-switch']){
-  const data=buildDoReference(road),file=path.resolve(OUT,road+'.json');
+  const data=buildDoReference(road,native),file=path.resolve(OUT,road+'.json');
   fs.writeFileSync(file,JSON.stringify(data)+'\n');
   summary.push({road,frameCount:data.cameras.length,triangles:data.cxTriangleCount,
    sources:data.cxSources,cxVertexSha256:data.cxVertexSha256,file});

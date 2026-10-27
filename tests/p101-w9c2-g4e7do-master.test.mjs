@@ -1,9 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {buildDoReference,DO_TIMES} from '../scripts/p101-w9c2-g4e7do-master-export.mjs';
+import {g4e7djNativeStoryboard} from '../scripts/p101-w9c2-g4e7dj-native-storyboard.mjs';
 test('DO exact native-camera world-space master exports without changing physics or classifying new art',()=>{
+ const native=g4e7djNativeStoryboard();
  for(const road of ['true-pinch','pinch-switch']){
-  const a=buildDoReference(road),b=buildDoReference(road);
+  const a=buildDoReference(road,native),b=buildDoReference(road,native);
   assert.equal(a.schema,'dopagaki.g4e7do-native-master-editable-blender/1');
   assert.equal(a.camera,'ORIGINAL_BALL_RELATIVE_240HZ_START00_P96_FIXED_SCRIPT_NOT_HUMAN');
   assert.equal(a.geometryName,'ORIGINAL_CX_WORLD_XYZ_UNALTERED');
