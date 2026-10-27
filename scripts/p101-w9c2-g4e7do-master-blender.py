@@ -28,6 +28,10 @@ scene.unit_settings.system='METRIC'
 scene.render.engine='CYCLES'
 scene.cycles.device='CPU'
 scene.cycles.samples=2
+# Ubuntu Blender 4.0.2 is built WITHOUT OpenImageDenoiser; fail early on
+# camera projection issues, but never request unsupported CPU denoising.
+scene.cycles.use_denoising=False
+scene.view_layers[0].cycles.use_denoising=False
 scene.render.threads_mode='FIXED'
 scene.render.threads=2
 scene.render.image_settings.file_format='PNG'
