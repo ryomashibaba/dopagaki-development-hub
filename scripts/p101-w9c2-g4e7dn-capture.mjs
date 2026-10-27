@@ -151,7 +151,7 @@ try{
  fs.writeFileSync(path.join(out,'G4E7DN_REAL_GAME_20_PAIRS_ART_HOLD.json'),
   JSON.stringify(report,null,2)+'\n');
  if(baselineMismatch.length)throw Error('DN strict CX SHA failed for '+baselineMismatch.length+' images; evidence captured but entire CI FAIL');
- console.log('G4E7DN_WEBGL_12_PAIRS_FINISHED_ART_HOLD',report.pairs.map(p=>[p.road,p.id,p.changedFraction]));
+ console.log('G4E7DN_WEBGL_20_PAIRS_FINISHED_ART_HOLD',report.pairs.map(p=>[p.road,p.id,p.changedFraction]));
 }finally{
  if(browser)await browser.close();
  await new Promise(resolve=>server.close(resolve));

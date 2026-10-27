@@ -48,6 +48,6 @@ jobs:
         if: always()
         with:
           name: G4E7DN_PRIVATE_NEGATIVE_SPACE_REAL_WEBGL_ART_HOLD
-          path: test-results/g4e7dn-confluence
+          path: test-results/g4e7dn-negative-space
           if-no-files-found: ignore
           retention-days: 7
