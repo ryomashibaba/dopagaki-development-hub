@@ -1,3 +1,9 @@
+# G4E-7DZ R1 実WebGLカメラ立地審査完了 — 技術検証PASS／3サイト正式選定なし、ART HOLD（2026-10-28 JST）
+
+[初回実装 098c8c8](https://github.com/ryomashibaba/dopagaki-development-hub/commit/098c8c8da5f95b096baa00315ff4f8179e47165b) → 外積バグのため初回CI FAIL → [修正 10f4dc8](https://github.com/ryomashibaba/dopagaki-development-hub/commit/10f4dc8048c05c1a8fde20de9d02d85728eeca97) → [専用Actions #40603393437](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40603393437) SUCCESS（独立テスト4/4）。[真正比較Artifact #12779426808](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40603393437/artifacts/12779426808)：元DJ真正WebGL20枚SHA256一致、3空洞**立地ガイド**×2道路×4画角=24比較（画角内18/24）。**24枚は元ゲーム画面に数学的輪郭を合成したものであり新都市をゲーム描画した映像でもBlender本制作でもない**。過去DY R1の棚・支柱、DZ R0 Aの壁、DZ R0 Bの画角外殻を本物Blender画像で再確認してART REJECT維持。3新立地候補も主空洞の見せ方が成立したとは言えず正式選定なし／新建築0。次R2は元複数視点が重なる前方空間を探索して四段階の空洞・交通・居住・道路予告を先に設計。main/Gold/本番/元CX/B48/B51/gap52/正規カメラ/物理は不変更、PR#46 Draft未マージ、正式美術採用0件、Slope2認定0m、ART/HUMAN/GAMEPLAY/PERFORMANCE/INTEGRATION/PUBLISH/MERGE HOLD。詳細[専用審査](docs/G4E7DZ_R1_NATIVE_CAMERA_SITE_SCREEN_REVIEW_JA.md)。
+
+---
+
 # G4E-7DZ R0 完了 — 元世界・正規カメラによる大空洞都市２形態を真正Blenderで制作・審査／TECH PASS・両案ART REJECT（2026-10-28 JST）
 
 [実制作 d36ee601](https://github.com/ryomashibaba/dopagaki-development-hub/commit/d36ee6014a97526ca87d5826a5bac0894ece4080)、[専用CI #40592618142](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40592618142) SUCCESS、[Artifact #12774512351](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40592618142/artifacts/12774512351) を実取得・解凍。**独立２形態A=削り出した都市峡湾、B=片側に開口を持つ縦型都市セル**を原DR同世界で各道路4画角ずつ制作。**16真正Blender PNG＋4編集可能.blend＋4監査JSON**。元CX18・B48×7・B51×28・gap52・240Hzカメラ5維持、新ゲームコライダー0。限定静的原道路三角交差0、B51原4時刻サンプル重なり0（全連続時間・人間の安全性ではない）。
