@@ -1,0 +1,68 @@
+name: G4E-7DO REAL Blender original 240Hz camera master (ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7do-master-export.mjs'
+      - 'scripts/p101-w9c2-g4e7do-master-blender.py'
+      - 'tests/p101-w9c2-g4e7do-master.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7do-master-blender.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7do-original-cameras-blender
+  cancel-in-progress: true
+jobs:
+  original-camera-blender-authoring:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prove CX geometry blob and Node exporter/test
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-w9c2-g4e7do-master-export.mjs
+          node --test tests/p101-w9c2-g4e7do-master.test.mjs
+          node scripts/p101-w9c2-g4e7do-master-export.mjs
+      - name: Install actual Blender reference authoring environment
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender
+          blender -b --factory-startup --python-expr "import bpy; print('DO_NATIVE_BLENDER_VERSION',bpy.app.version_string)"
+      - name: Real editable Blender scenes, exact original camera projection and previews
+        run: |
+          mkdir -p test-results/g4e7do-master-camera/true-pinch test-results/g4e7do-master-camera/pinch-switch
+          blender -b --factory-startup -t 2 --python scripts/p101-w9c2-g4e7do-master-blender.py -- --source test-results/g4e7do-master-camera/true-pinch.json --out test-results/g4e7do-master-camera/true-pinch
+          blender -b --factory-startup -t 2 --python scripts/p101-w9c2-g4e7do-master-blender.py -- --source test-results/g4e7do-master-camera/pinch-switch.json --out test-results/g4e7do-master-camera/pinch-switch
+          python3 - <<'PY'
+          import glob,json,os
+          p='test-results/g4e7do-master-camera'
+          blends=glob.glob(p+'/**/*.blend',recursive=True)
+          images=glob.glob(p+'/**/*.png',recursive=True)
+          reports=glob.glob(p+'/**/*CAMERA_AUDIT.json',recursive=True)
+          assert len(blends)==2,(blends,images)
+          assert len(images)==10,images
+          assert len(reports)==2,reports
+          for f in reports:
+           a=json.load(open(f))
+           assert a['cameraCount']==5
+           assert a['maxProjectionErrorNormalized']<1e-4
+           assert a['nativeGameFramebufferOrShaderMatch']=='NOT_CLAIMED'
+           assert a['art']=='HOLD' and a['officialSlope2Meters']==0
+          print('DO_REAL_BLENDER_ALL_2_MASTER_10_IMAGE_PROVENANCE_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DO_NATIVE_CAMERA_BLENDER_EDITABLE_MASTER_ART_HOLD
+          path: test-results/g4e7do-master-camera
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 6
