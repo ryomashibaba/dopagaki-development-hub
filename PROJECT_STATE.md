@@ -1,3 +1,13 @@
+# G4E-7DY R0 — DX R1美術不採用を確定し、真のB48道路中心360m都市統合配置のPRIVATE研究を開始（2026-10-28 JST）
+
+**DX R1判定**：内部通視は初案3/30→R1 18/30へ技術改善。[R1成功CI](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40506610828)のBlender画像は、依然として大きな暗い基壇や箱型施設が目立ち、都市交通・生活と道路が一体で読めない。**DX R1 TECH PASS / ART REJECT**。正式採用0件、全体ART/HUMAN HOLD、正式Slope2認定0m。
+
+**DY R0**：DX R2の局所修正を中止し、元ゲームの真のB48×7、B51×28、gap52を維持しながら、正規240Hzの16秒位置から真の実道路中心360m・21サンプル・5空間ゲートを両道路で取得するPRIVATE実コード/テスト/CIを追加。原物理形状のある通過区間を未来都市の公共空洞・交通・居住施設へ統合するための初期空間ガイドOBJ（線のみ）とJSONを生成。**新しい建築メッシュも新しいコライダーもゼロ、実WebGL/人間QA/美術採用は未実施**。詳細 [DY設計資料](docs/G4E7DY_INTEGRATED_SLICE_JA.md)。
+
+main/Gold/本番/原作/既存カメラ・速度・240Hz/公開QA、CX blob af076d67492a677d2235e4730aef8cdf4808e106 不変更。PR #46 OPEN/Draft/未マージ、ART/HUMAN/READY/PUBLISH/MERGE HOLD。
+
+---
+
 # G4E-7DW 完了 — 実B48道路端2016候補×元240Hz両道路6視点×56012三角・28動体の入口選定、低い2m案を実Blenderで検証（2026-10-27 JST）
 
 **DW開発・本物CI**：[初期実装 69a580b](https://github.com/ryomashibaba/dopagaki-development-hub/commit/69a580b580ead8c933736b331228971be57136f7)、[精密候補計算 CI #40498009759](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40498009759) **SUCCESS**、[Artifact #12730883340](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40498009759/artifacts/12730883340) ダウンロード・実監査JSON照合。元B48実道路上面の左右エッジを7面×元サーフェスuの9地点（0.12～0.92）×左右2×道路外方向4距離（12/24/42/64m）×高低差4（2/6/13/24m）で**2016元B48路肩起点の単一ワールド候補**生成。元ゲームの両道路それぞれ15.5/16/16.5秒、合計**正規カメラ6視点**で18×19m門型の画角投影を計算。全6視点で門の各基準点が画角に収まる候補**518**。上位と多様性を含む72候補を元CX22920＋元B48実物理33092＝**56012三角形/道路**および各正規フレームの元B51動体28ヨー付きOBBで、入口4基準点×6視点の遮蔽と、元B48路面端から入口への仮中心線の静的三角形交差を検査。コード・専用テスト・ActionsすべてPASS。**18px幅/16px高＋全遮蔽なしの最初の形式的閾値を全部満たしたのは72候補中1つ**：`B481_U62_V0_O42_H24`。幅18.04679px、高さ36.10px（6視点の最小）、元路面端から42m・高低差24m、直結斜度**57.14%**なので美術・歩行アクセス案として採用不可。閾値達成と都市機能成立は別。

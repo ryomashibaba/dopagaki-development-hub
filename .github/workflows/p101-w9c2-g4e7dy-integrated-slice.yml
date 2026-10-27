@@ -1,0 +1,65 @@
+name: G4E-7DY actual B48 360m route-centred city slice PRIVATE preflight (ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dy-integrated-slice.mjs'
+      - 'tests/p101-w9c2-g4e7dy-integrated-slice.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7dy-integrated-slice.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7dy-private-real-b48-city-spatial-preflight
+  cancel-in-progress: true
+jobs:
+  read-only-real-native-road-spatial-qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Assert real original source and run native QA
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-w9c2-g4e7dy-integrated-slice.mjs
+          node --test tests/p101-w9c2-g4e7dy-integrated-slice.test.mjs
+          node scripts/p101-w9c2-g4e7dy-integrated-slice.mjs
+      - name: No gameplay or art overclaims and both physical guides present
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          files=glob.glob('test-results/g4e7dy-integrated-slice/*.json')
+          objs=glob.glob('test-results/g4e7dy-integrated-slice/*.obj')
+          assert len(files)==1 and len(objs)==2,(files,objs)
+          a=json.load(open(files[0]))
+          assert set(a['roads'])=={'true-pinch','pinch-switch'}
+          assert a['originalCXSourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['newGameColliders']==a['newGameRoads']==0
+          assert not a['sourceRoadModified'] and not a['sourceCameraModified']
+          assert a['actualWebGL']=='NOT_RENDERED'
+          assert a['manualHumanTest']=='NOT_RUN'
+          assert a['art']=='HOLD' and a['formalArtAdoptionCount']==0
+          assert a['formalSlope2Meters']==0
+          for v in a['roads'].values():
+           assert v['sampledPhysicalWindowMeters']==360
+           assert v['stationCount']==21 and v['originalMovingHazards']==28
+           assert len(v['gates'])==5
+          for f in objs:
+           s=open(f).read()
+           assert sum(x.startswith('v ') for x in s.splitlines())==105
+           assert not any(x.startswith('f ') for x in s.splitlines())
+          print('DY_NATIVE_REAL_360M_B48_PRIVATE_GUIDE_PASS_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DY_REAL_B48_360M_ROUTE_CENTRED_CITY_GUIDE_PRIVATE_ART_HOLD
+          path: test-results/g4e7dy-integrated-slice
+          retention-days: 7
+          if-no-files-found: error
