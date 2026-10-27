@@ -1,3 +1,13 @@
+# G4E-7DZ R0 完了 — 元世界・正規カメラによる大空洞都市２形態を真正Blenderで制作・審査／TECH PASS・両案ART REJECT（2026-10-28 JST）
+
+[実制作 d36ee601](https://github.com/ryomashibaba/dopagaki-development-hub/commit/d36ee6014a97526ca87d5826a5bac0894ece4080)、[専用CI #40592618142](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40592618142) SUCCESS、[Artifact #12774512351](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40592618142/artifacts/12774512351) を実取得・解凍。**独立２形態A=削り出した都市峡湾、B=片側に開口を持つ縦型都市セル**を原DR同世界で各道路4画角ずつ制作。**16真正Blender PNG＋4編集可能.blend＋4監査JSON**。元CX18・B48×7・B51×28・gap52・240Hzカメラ5維持、新ゲームコライダー0。限定静的原道路三角交差0、B51原4時刻サンプル重なり0（全連続時間・人間の安全性ではない）。
+
+**画像の美術判定：Aは近景に巨大な無表情の斜面壁、Bは上方画角外に切れた巨大殻となり、どちらも空洞の内部と交通・居住の生活が読めない。ART REJECT／採用0件。** 4メッシュでも失敗。従来の部品方式だけが問題なのではなく、実走行カメラに合う配置区間と4段階の構図が先に確立していないことが原因。新建築はゲームWebGL未投入。DJ既存真正WebGL20枚は元景観の別の比較基準、A/BのWebGLではない。ART/HUMAN/GAMEPLAY/PERFORMANCE/INTEGRATION/PUBLISH/MERGE HOLD、Slope2認定0m、PR#46 Draft未マージ、main/Gold/P100以前/本番/元ゲーム/CX元blob af076d67492a677d2235e4730aef8cdf4808e106不変更。
+
+**次 G4E-7DZ R1**：同じ360m・15.5～17秒に長期拘束されず、正規カメラ14～20秒・元B48内で構図の成立する別位置を比較。大造形以前に時系列の4段階を同一実画角へ重ねて観察し、壁化・画角外主役を事前却下。旧A/B微修正禁止。詳細[正式不採用と根本反省](docs/G4E7DZ_R0_VOID_FIRST_ART_RESEARCH_JA.md)。
+
+---
+
 # G4E-7DY R1 実結果確定 — 360m正規カメラ改善・本物Blender34メッシュ制作／TECH PREVIEW PASS・ART REJECT（2026-10-28 JST）
 
 [本物専用CI #40587470014](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40587470014) SUCCESS、[Artifact #12771488099](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40587470014/artifacts/12771488099)、コミット3a3f6b3。真の15.5秒プレイヤー前方を起点に元B48×7/B51×28/gap52/CX×18/240Hzカメラ5を保持し、360mの2道路とも5地点投影数は15.5/16/16.5/17秒=5/4/4/3。新実Blender3Dメッシュ34個/道路、元DO/DR20PNG＋新DY8PNG＝計28本物PNG・6編集可能.blend。静的B48三角との交差0件、各道路4サンプル時刻で元B51×28 OBBとの交差0件（**未来の完全安全性ではない**）。ゲーム追加コライダー0／元物理変更なし。
