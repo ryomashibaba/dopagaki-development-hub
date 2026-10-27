@@ -1,3 +1,11 @@
+# G4E-7DL 完了：APERTURE CITY / 真正WebGL 24画角検証 — **ART REJECT**（2026-10-27 JST）
+
+[PRIVATE実装 a5f14fe7](https://github.com/ryomashibaba/dopagaki-development-hub/commit/a5f14fe7022d9e6e09c78f75a379d1b034d20926)、[DL真正WebGL #40430724416](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40430724416) SUCCESS、[独立物理 #40430724261](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40430724261) **2 jobs SUCCESS**、[証拠Artifact #12702566144](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40430724416/artifacts/12702566144)。前DKの薄板・柱と遮蔽問題を改善するため、GLB既存基盤を調査しつつ無意味なレンダラ置換は避け、単一の厚い曲面大開口と奥に６個の実3D居住・交通区画を持つPRIVATE候補を制作。元２道路の正規カメラ５時点で10候補を比較して固定した世界座標に配置。2道路×6時刻×CX/DL=**24枚の本物の元ゲームWebGL**を取得し、元DJのCX12PNG SHA-256 **12/12完全一致**、ペア時刻/速度/カメラ一致。
+
+しかし実画像では「巨大アーチの背後に小さな棚」でしかなく、公共都市の内部空間・街区・交通の一体感は生まれず、15.5〜16.5秒の構図断絶が継続。**DL ART REJECT／正式美術採用0件**。DLは凍結されたPRIVATE研究として保存。技術成功は美術成功・人間の公平性・FPSを保証しない。次は巨大な孤立形状の反復をやめ、15→17秒に同じ都市公共動線と居住の奥行きが読める連続画角の証拠を先に設計する。[詳細DL最終QA](docs/G4E7DL_APERTURE_CITY_PRIVATE_STUDY_JA.md)。CX blob `af076d67492a677d2235e4730aef8cdf4808e106`、B48×7/B51×28/gap52/240Hz/カメラ/操作/main/Gold/本番非変更。PR #46 OPEN/Draft未マージ、ART/HUMAN/READY/PUBLISH/MERGE HOLD、公式Slope2 0m。
+
+---
+
 # G4E-7DK 完了：CIVIC ESTUARYを真正240Hz 12対WebGLでART REJECT（2026-10-27 JST）
 
 実装 [c3d5f0c8](https://github.com/ryomashibaba/dopagaki-development-hub/commit/c3d5f0c8a0c99d65738e579c4f6013e4cab59955)、[真正WebGL CI #40428018396](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40428018396) SUCCESS、[独立物理 #40428017965](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40428017965) SUCCESS、[証拠Artifact #12701191210](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40428018396/artifacts/12701191210)。DJで確認した15.5〜16.5秒の都市の断絶を、湾岸都市のひとつの母体で埋める狙いのPRIVATE実3D。2道路×14.5/15/15.5/16/16.5/17秒×CX/DK=24真正WebGL画面、カメラ・速度・日時が厳格一致。原CX12PNGはDJ真正WebGL12/12 SHA-256完全一致、元CX generator Git blob `af076d67492a677d2235e4730aef8cdf4808e106`不変。15.5→16.5秒では新規画面差が3.79→6.97%（true-pinch）、4.26→7.26%（pinch-switch）まで増加。ただし実画像は湾岸の住区・公共空洞ではなく、**巨大な縦の柱や薄い板**に見え、従来のDB棒／DA壁／クリップ失敗を再発。**DK個別ART REJECT、正式美術採用0件**。画素変化は美術成功・プレイ公平性の証明ではない。

@@ -1,3 +1,44 @@
+# G4E-7DL 最終QA：APERTURE CITYの本物のゲームWebGL 24枚 — **ART REJECT**
+
+2026-10-27 JST。**QUALITY-FIRST / INTEGRATED VERTICAL SLICE**。元の候補設定・仮説はこの文書の下段に記録して保存。
+
+- PRIVATE実装コミット [a5f14fe7](https://github.com/ryomashibaba/dopagaki-development-hub/commit/a5f14fe7022d9e6e09c78f75a379d1b034d20926)。
+- [PRIVATE真正WebGL CI #40430724416](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40430724416) **SUCCESS**、[証拠Artifact #12702566144](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40430724416/artifacts/12702566144)（7日retention）。
+- [独立240Hz物理CI #40430724261](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40430724261) **2 jobs SUCCESS**。
+- PRIVATE `npm run build:private` とnode単体試験は専用CIでPASS。共有build/drive3d/CX generator blobなど変更なし。
+- WebGL #view framebuffer PNG **2道路×6時刻×CX/DL＝24枚**、各撮影時点のtime/speed/eye/front/physics/road厳格一致。**元CX画像の既知DJ SHA-256 12/12完全一致**。ユーザー向け表示など本番は不変更。
+- 同Artifact内のスクリーンショットの名前 `-DK.png`／監査JSONのmode `DK` は前DKから継承した一時PRIVATE WebGL差替え経路の歴史的ラベルであり、**中身はDLモジュールと `APERTURE_CITY_DEEP_TRANSIT_V1`**。画像の混同・名前だけの違いを隠さない。元の比較基準CXは変更せず。
+- fps、GPU timings、プレイ公平性はこの工程のWebGL静止画撮影では計測していない。
+
+## 12対の真正CX→DL WebGL変化画素率
+
+RGBの各画素差合計が48を超えた割合。これは可視の変更度であり、**美術得点でもゲームフェアネスの証明でもない**。
+
+| 道路 | 14.5秒 | 15.0秒 | 15.5秒 | 16.0秒 | 16.5秒 | 17.0秒 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| true-pinch | 2.490% | 2.612% | 3.069% | 3.991% | 5.337% | 7.127% |
+| pinch-switch | 1.523% | 1.512% | 1.665% | 1.968% | 2.571% | 3.385% |
+
+## 目視ART審査（真正PNGを直接比較）
+
+- **14.5〜15秒**：右側遠景に独立したアーチが出現する。元の巨大主役と次の都市群とは接続した公共都市として見えない。
+- **15.5秒**：左のCX主役は画角端で消え、DLの新要素は独立した大きな円弧になる。公共都市の大きな街区輪郭・居住内部への導入とは読めない。断絶継続。
+- **16秒**：正面右寄りにくっきりしたアーチと少数の浮いた棚状内部区画だけ。実装した６個の部屋、内部交通階層、実在の大空洞が、一体の建築/街の体験としては読み取れない。
+- **16.5〜17秒**：アーチが大きくなる一方、既存の次の主役と一部重なって孤立シンボルに見える。奥の高層街区との距離/交通関係も不明瞭。市街地の一体感より単独円弧の記号が強まる。
+- ２実道路とも本質的問題は同じ。道路先読みの全域を塞いではいないが、ゲームの人間公平性・動的な障害物視認やFPSへの影響は未認定。
+
+### なぜREJECTか
+
+前DKの板/柱に対して、**物理的な前面の空孔は成立**し、輪郭の誤りは「板」から「孤立した輪」へ変化した。しかし「空洞を幾何学的に作った」だけでは、正規カメラから巨大建築の内部世界/公共用途は見えない。大きな曲面そのものが視線と意味を支配している。正規投影から10候補をスコア選点する方式は可視性の研究には有効だったが、**ARTの可読性を保証しない**。技術PASSと景観PASSを完全に分離する。
+
+**DL個別ART REJECT。正式美術採用0件。CX比較基準維持。ART/HUMAN/READY/PUBLISH/MERGE HOLD、公式Slope2認定0m。PR #46 OPEN/Draft/未マージ。** main/Gold/本番は不変更。
+
+## 次工程の本質的修正方針
+
+今後は別の巨大アーチを作り直すのではなく、連続したカメラ視野の中で「離脱する左クレセント→公共都市の内部→右前方の第二都市核」と**同一の都市生活と交通の連続動線**を証明することを先に要求する。孤立した大屋根、輪、建物の箱増設、巨大な遠景板は再開しない。ビューポートに見える居住階段/複数の奥行き階層/公共交通の行先が画面で読めることをプロキシ構図で確認してから、本制作に移る。GLB/Blenderの導入は表面データや制作効率に役立ち得るが、今回の失敗の第一原因である「画角からの意味の読めなさ」をそれだけでは解決しないため、先に構図証拠を優先する。
+
+---
+
 # G4E-7DL PRIVATE APERTURE CITY — 技術仮説と正規カメラ構図の比較
 
 基準：2026-10-27 JST。**未検証の研究候補、ART/HUMAN/READY/PUBLISH/MERGE HOLD。** この文書はCI結果や美術PASSを先取りしない。
