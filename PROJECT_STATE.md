@@ -1,3 +1,15 @@
+# G4E-7DR 完了 — 元ゲーム実B48×7/B51×28/240Hz可視審査Blender基盤 PASS・ART採択0（2026-10-27 JST）
+
+[PRIVATE実装 db6b301f](https://github.com/ryomashibaba/dopagaki-development-hub/commit/db6b301f4daf2b549b100f3aa1d9c25bdc0227ff)、[Blender float32表現と元f64座標の丸め誤差監査修正 fe1f5575](https://github.com/ryomashibaba/dopagaki-development-hub/commit/fe1f5575bd00849e1a06aef6a7d2cd5141cdf7ac)、[最終専用CI #40469650772](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40469650772) **SUCCESS**、[全証拠Artifact #12717668295](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40469650772/artifacts/12717668295)。ZIPを実ダウンロード・展開して**32ファイル＝20PNG / 4.blend / 実道路f64バイナリ2個 / 物理監査2個 / オリジナルメタJSON2個 / DOカメラ監査2個**を確認。両道路の監査JSONで元B48物理サーフェス7・元B51動体28・元CX18ソース・全5元カメラ・真のギャップ52・物理変更なしを確認した。各道路の元B48の上面/裏面/側壁/切断面を合わせた合計**33,092三角形**を実Blenderにロード。元stageソースから生成したfloat64位置＋uint32索引のバイナリを SHA-256 証明。先頭roadのcell52は実走路TOP三角形0枚、51・53は存在。動体28全ての中心／回転／半寸法は元ゲーム`movingObstaclePose`で、同じ非人間P96 start00 240Hz shot.tick×DTの15/15.5/16/16.5/17秒で証明。Blenderの位置/キーフレームは内部float32の表現限界があり、**元f64→Blender f32最大丸め差 true-pinch=0.0000533643m、pinch-switch=0.0000595087m**。元64bitバイナリは無損失で保存し、Blender各時刻の位置はそのf32に一致することを自動検査。物理を捏造するための許容幅緩和は禁止。
+
+初回[CI #40469220277](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40469220277) は元ゲーム物理抽出テストPASS、Blenderでfloat64との直比較をしたためfalse-failure。元座標のf32量子化チェックに正しく置換して再実行しSUCCESS。元ゲームレンダラ・道路/動体材質は**再現していない**。28個はcollision OBBの正確な形状・位置であり、障害物本来のアート外観ではない。プレイヤーボール・HUD/スコア・霧・高速演出も未再現。**Blender画像を真正ゲームWebGLと呼ばない**。元ゲーム主役CX形状は元blob `af076d67492a677d2235e4730aef8cdf4808e106` 不変、camもDOに合わせて不変。
+
+**美術面の実画像判定**：元CXのみのBlender10画角と、新たに元道路・衝突動体を入れた10画角を目視。15〜17秒の手前画面は実際には巨大な物理道路面で占有され、旧DOの線ガイドのみの画面とは印象が大幅に異なる。道路中央の前方都市核が小さいまま、旧左クレセントが15.5〜16秒で退場する問題は一切解決していない。DR自体は新美術造形0なのでART PASS/REJECTではなく、**技術的な制作審査基盤のPASS／正式都市美術採択0件・総合ART HOLD**。数値や差分を美しさの評価点と呼ばない。次DSは、この実道路面＋全動体のPRIVATE参照シーンを設計の基準にして、正面15.5〜16.5秒の都市連続性を優先。建物の乱造や単一巨大アーチ・棚・リボンの再挑戦は禁止。最終審査には真正ゲームWebGLと人間操作性検証を別途要求。
+
+B48×7/B51×28/gap52/240Hz/元操作/カメラ/HUD/Gold/main/publicとproduction URLsは変更なし、PR #46 OPEN/Draft/未マージ、ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2 0m。
+
+---
+
 # G4E-7DQ 最終実制作検証 — 既存BW R3細密3Dの実240Hzカメラ配置、ART REJECT（2026-10-27 JST）
 
 [実装コミット abb81f8](https://github.com/ryomashibaba/dopagaki-development-hub/commit/abb81f8d5d9e8e2995f1d39164143c4effec7ae3) を [専用CI #40454837621](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40454837621) で実行し**SUCCESS**。真正Blenderの２道路×CX/DQ×15.0/15.5/16.0/16.5/17.0秒=**20PNG**、編集可能.blend４個（DO参照２・DQ候補２）、基準カメラ・DQ監査を含む [Artifact #12712420146](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40454837621/artifacts/12712420146) を実際にダウンロード、ZIPを展開して画像・監査JSONの存在を確認。BW R3元Blenderオブジェクト**1,493**を実座標へ読み込み、元CX**18**ソース／**22,920**三角形を保全、２道路とも元ゲーム240Hzカメラ５台。座標は元Blender Z-UP→ゲームY-UPを正確に変換。基準DOカメラ投影誤差最大約2.70435e-7。新しい道路・動体・コライダーは0、元物理不変更。
