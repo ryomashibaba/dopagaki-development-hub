@@ -228,9 +228,9 @@ for i,id in enumerate(('t1550','t1600','t1650'),start=2):
   label='CLEAR'
   if hit:
    if ob.name in col.objects:label='NEW_DX_ART'
-   elif ob in ro:label='EXISTING_B48'
-   elif ob in cx:label='EXISTING_CX'
-   elif ob in obbs:label='EXISTING_B51'
+   elif ob.name in {x.name for x in ro}:label='EXISTING_B48'
+   elif ob.name in {x.name for x in cx}:label='EXISTING_CX'
+   elif ob.name in {x.name for x in obbs}:label='EXISTING_B51'
    else:label='OTHER_SOURCE'
   sightChecks.append({'target':tag,'rayLengthMeters':dist,'firstOcclusionType':label,
    'firstObject':ob.name if hit else None,'pointOnlyNotFullInteriorProof':True})
