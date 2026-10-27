@@ -1,3 +1,11 @@
+# G4E-7DY R1 実結果確定 — 360m正規カメラ改善・本物Blender34メッシュ制作／TECH PREVIEW PASS・ART REJECT（2026-10-28 JST）
+
+[本物専用CI #40587470014](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40587470014) SUCCESS、[Artifact #12771488099](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40587470014/artifacts/12771488099)、コミット3a3f6b3。真の15.5秒プレイヤー前方を起点に元B48×7/B51×28/gap52/CX×18/240Hzカメラ5を保持し、360mの2道路とも5地点投影数は15.5/16/16.5/17秒=5/4/4/3。新実Blender3Dメッシュ34個/道路、元DO/DR20PNG＋新DY8PNG＝計28本物PNG・6編集可能.blend。静的B48三角との交差0件、各道路4サンプル時刻で元B51×28 OBBとの交差0件（**未来の完全安全性ではない**）。ゲーム追加コライダー0／元物理変更なし。
+
+**実画像の厳格美術判定 ART REJECT**。遠景は小さな設備群、近景は棚・支柱・厚い水平床に変わり、都市内部の生活と交通が読めない。17秒は視界圧迫。過去DS/DI/DT失敗の形を繰り返したため、形の局所修正・再パラメータ調整を禁止。元CX比較画角の問題へ戻り、**建築としての大構図・巨大空洞・都市機能を先に設計し、元ゲームWebGLでの検証へ接続する**。美術採用0件、Slope2認定0m、ART/HUMAN/READY/PUBLISH/MERGE HOLD、PR#46 Draft未マージ、main/Gold/本番/原作・物理/操作/カメラ不変。詳細[審査記録](docs/G4E7DY_R1_INTEGRATED_CITY_ART_JA.md)。
+
+---
+
 # G4E-7DY R1 — 正規15.5秒前方360mに実3D未来都市の立体通過区間を制作（2026-10-28 JST）
 
 **R0設計修正**：16秒基準中心360mのうち入口2ゲートがカメラ背面だった。実B48センターラインを15.5秒プレイヤー+28m前方に寄せ、正規4時点の投影と実路幅を再評価。左右の非対称公共/交通/居住街区、巨大な中央通過空洞、上空1本の公共連絡通路を元DO/DR本物Blender物理シーンへ実造形。元B48 7、B51 28、CX 18、240Hzカメラ5・gap52を保持。Blender新三角の実道路・障害物重なりを報告、Blender画像と原本比較を専用PRIVATE Actionsで作成。実WebGLと人間試走の証拠ではない。

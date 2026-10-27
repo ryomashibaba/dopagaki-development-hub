@@ -1,3 +1,16 @@
+## R1 実制作の最終審査・ART REJECT（2026-10-28 JST）
+
+**証拠（本物）**：[実コミット 3a3f6b3](https://github.com/ryomashibaba/dopagaki-development-hub/commit/3a3f6b3a8418f2c2610125fdffbdda7b488e5627)、[専用Actions 40587470014](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40587470014) SUCCESS、[Artifact #12771488099](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40587470014/artifacts/12771488099)（28枚の真正Blender PNG＝DO10/DR10/新DY8、編集可能.blend6、R1道路空間JSON、両道路の衝突監査JSON）。実Artifactを取得し、元DRと新DYを真の同カメラ×4時点×2道路で目視比較して採否を決定した。
+
+**技術結果**：実CROWN REVERSALの元B48空間360mを正規15.5秒前方へ補正。元カメラの5ゲート画角内数：true-pinch 15.5/16/16.5/17秒で **5/4/4/3**、pinch-switchも **5/4/4/3**。R0で入口が後方に抜けた問題は改善。非衝突PRIVATE建築メッシュ34個／道路。元B48×7/CX×18/B51×28/実gap52、正規カメラ5を変更せず保存。実三角BVHによる新建築×元道路交差は各道路**0件**、正規4時点の新建築×B51動体OBB交差も全て**0件**。**これはその時刻のメッシュ交差だけで、連続時間の球体安全性や未来のゲーム追加コライダーの承認ではない**。元物理は変えていない。
+
+**目視ART REJECTの原因**：15.5/16.0秒では新地区は左・右の遠景に小さな棚／柱として映り、16.5秒からは道路沿いの広い厚い水平床と支柱が画面の近景へ急増。17.0秒では連結せず宙に浮く棚・橋・太い棒が大きく張り出し、進路への圧迫感がある。公共・交通・居住の機能の違い、駅内部の奥行き、居住生活の実在感、建築の主役性はほぼ読めない。元CXの象徴的クレセントも統合されず、過去DS（柱/キオスク）・DT（壁）・DI（棚）と共通する失敗を再現した。実Blenderの低サンプル・素材プロキシ等の制約はあるが、**形と構図自体が失敗**であり光源やBloomを変える対処は本質改善にならない。
+
+**判定**：R1空間配置TECH PREVIEW PASS、Blender実制作PASS、**R1 ART REJECT、採用0、公式Slope2 0m**。GAMEPLAY/HUMAN/PERFORMANCE/READY/PUBLISH/MERGE HOLD。ゲームWebGLへの建築採用、公開、main、元物理、PRのReady化・Mergeは行わない。
+
+**次工程の品質方針（DZ研究ゲート）**：340〜360mの道路が見えることをゴールにしない。再びBOX/支柱/スラブの生成パラメータだけ動かすR2小修正を禁止。現行CX＋実B48の景観に対し、1) 走行画角上の建築群が一つの構造として読める**連続した巨大実空洞**、2) 壁・棚にならない三次元曲面と非対称な厚み・光環境、3) 地区間の実都市交通と生活を示す分かりやすい内部の断面、4) 高速時の路面予告と視界確保、5) 実WebGLとの描画差を、事前にまとまった美術方向として研究・比較してから**完全に別の造形構造を制作**する。次も実ゲームWebGLと実人間QAを切り分けて合格させる。
+
+---
 # G4E-7DY R1 — 正規B48道路内部都市の真正Blender実造形
 
 2026-10-28 JST / QUALITY-FIRST・INTEGRATED VERTICAL SLICE・PRIVATE・ART HOLD。
