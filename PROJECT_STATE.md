@@ -1,3 +1,17 @@
+# G4E-7DV 完了 — DU公共駅入口と元B48実道路は不接続。実路面最近接調査・昇降機アクセス3D実制作 → ART REJECT（2026-10-27 JST）
+
+**原DUの通視帯はアクセスできる床ではなかった。**  DU可視通路 `x=-65,y=95,z=-475～-355` の近接元B48物理上面を、真の `tessellate` 全三角形を走査する正確な最近接点計算で2道路×6地点検証。[初回実装 989ff54](https://github.com/ryomashibaba/dopagaki-development-hub/commit/989ff54be60870982a47e43b221488294caadb7d)、[専用CI #40494337294 SUCCESS](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40494337294)、[原始診断 Artifact #12729707311](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40494337294/artifacts/12729707311)。2道路同一の入口中央から最寄り真正B48元物理`p93-CROWN_REVERSAL-01`まで**3D直線64.525249m、水平63.441325m、高さ差11.777355m**。直線勾配**18.5642%**（歩行しやすい駅アクセスと認定不可）。入口左右端の最近距離58.94 / 70.16m、中間地点86.58m、120m遠端105.58m。入口および通路に既存の歩行可能な床は実証されていない。元DUで視線が通ったことと交通アクセスの成立は全く別。
+
+**DV第二段階：PRIVATE未採用アクセス建築一案を実制作・正規視点で審査**。[新3D造形・専用CI実装 532a4da](https://github.com/ryomashibaba/dopagaki-development-hub/commit/532a4da56ab73ab9972704bb589651711d145cf0) を [CI #40495483037](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40495483037) **SUCCESS**まで実行。[Artifact #12730083322](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40495483037/artifacts/12730083322) 実ダウンロード・ZIP展開・2道路各3画像目視・監査を実施。ZIP**40ファイル＝元DO10/DR10/DV6枚の真正Blender PNG26枚＋編集可能.blend6個＋上記診断・監査**。元B48真の最近接点から高さ95mまでの**昇降機**、水平約63.44mの実立体**高架歩行デッキ**、幅広の本当の空気開口を持つ駅入口の**14個のPRIVATEメッシュオブジェクト**をBlenderだけに作成。元ゲームB48×7・B51×28・CX×18・オリジナル240Hzカメラ5台を保全。直接の18.6%スロープは赤い不適合参照線に留める。**既存ゲームの車線・路肩と安全に結ばれたわけではない**：道路の上面最近接点が車線中央か路肩かは未検証、元CX/B51との3D新メッシュ交差、構造支持・安全な歩行幅・操作・HUD・真正ゲームWebGL・人間試走すべて未検証。元ゲームへの新道路/コライダー0、B48 gap52も維持。
+
+**最終美術評価：DVアクセス模型 ART REJECT／全体ART HOLD／正式採用0**。元DR対DVの同じBlender原240Hz 2道路×15.5/16/16.5秒6画像を並べて比較すると、デッキは小さな遠景の横棒、入口はごく小さな灯った四角い門にしか見えない。都市内部へ入る人や広場は理解できず、見た目の設計突破にはならない。画面上部55%で、元DRからDVへの各ピクセルRGB最大絶対差が70（8bit）超となる画素比はtrue-pinch**0.257/0.333/0.615%**、pinch-switch**0.283/0.396/0.765%**（順に15.5/16/16.5秒）。レンダノイズを含む単純差なので品質値ではないが画角上の小ささと整合。小型建築の細部を増やしてもこの視野では見えないため作らない。
+
+**次DWの実質課題**：DU〜DVで視線/実道路隔たりを証明した結果、現在の候補街路はカメラから遠く、建築主役になるための投影サイズと実路肩アクセス条件が両立していない。むやみに巨大化・塔量産はDS/DTの失敗を再発させる。次は**原ゲームカメラを固定したまま、想定街路入口の正規スクリーン寸法（px）・周辺の真正物理路面への離隔・路肩の位置・既存B51との遮蔽を同時に測り、見えて安全に接続し得る新配置を先に探す**。候補入口の比較選定に留め、採択前の巨大造形生成/公開改造禁止。ゲームボールは道路を超えて街を実際に歩くプレイではないため、PRIVATE未来都市背景アートの歩行連絡路と、プレイヤーが走行で実際に通るB48物理ルートを明確に分離する。
+
+PR #46 OPEN/Draft/未マージ、CX source blob `af076d67492a677d2235e4730aef8cdf4808e106`・B48×7/B51×28/gap52/240Hz/カメラ/元操作/HUD/Gold/main/本番URL不変。ART/HUMAN/READY/PUBLISH/MERGE HOLD、公式Slope2 0m。
+
+---
+
 # G4E-7DU 完了 — 元物理全56012三角/28動体×正規240Hz 通視ゲート、Blender実6比較画像 PASS（2026-10-27 JST）
 
 **前DTのART REJECTを維持し、新都市造形0件**。今回の対象は従来の「駅入口がカメラ視野に入る＝見える」という誤検証を根絶すること。 [実装 e38ff5bacf0c3b613d08459d191e17ebda9d9b20](https://github.com/ryomashibaba/dopagaki-development-hub/commit/e38ff5bacf0c3b613d08459d191e17ebda9d9b20) にて、元CX建築**22920三角形**＋元B48物理**33092三角形**＝**合計56012元三角形**への正確な3D線分交差と、各元240Hzフレームの**B51動体28個のヨーつき衝突OBB**に対する線分交差をPRIVATE導入。元ゲーム物理/カメラ/速度/操作/HUD/GLB/Gold/main/publicを変更しない。
