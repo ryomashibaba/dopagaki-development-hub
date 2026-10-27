@@ -1,0 +1,83 @@
+name: G4E-7DY R1 original B48 integrated real Blender skycut (PRIVATE ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dy-r1-approach-plan.mjs'
+      - 'tests/p101-w9c2-g4e7dy-r1-approach-plan.test.mjs'
+      - 'scripts/p101-w9c2-g4e7dy-r1-city-blender.py'
+      - '.github/workflows/p101-w9c2-g4e7dy-r1-city.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7dy-r1-original-360m-real-city-source-blender
+  cancel-in-progress: true
+jobs:
+  native-physical-city-blender-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 29
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protect original geometry and derive real 15.5s forward-facing B48 corridor
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-w9c2-g4e7dy-r1-approach-plan.mjs
+          node --test tests/p101-w9c2-g4e7dy-r1-approach-plan.test.mjs
+          node scripts/p101-w9c2-g4e7dy-r1-approach-plan.mjs
+          node scripts/p101-w9c2-g4e7do-master-export.mjs
+          node scripts/p101-w9c2-g4e7dr-physical-export.mjs
+          python3 -m py_compile scripts/p101-w9c2-g4e7dy-r1-city-blender.py
+      - name: Install official Blender 4.2 without slow apt dependency
+        uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Verify real Blender
+        run: blender --version | head -n 2
+      - name: Render original DO DR and new DY inhabitable 3D city for BOTH roads
+        run: |
+          for road in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dy-r1-city/do-$road" "test-results/g4e7dy-r1-city/dr-$road" "test-results/g4e7dy-r1-city/dy-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7do-master-blender.py -- --source "test-results/g4e7do-master-camera/$road.json" --out "test-results/g4e7dy-r1-city/do-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7dr-physical-blender.py -- --master "test-results/g4e7dy-r1-city/do-$road/G4E7DO_$road"_ORIGINAL_NATIVE_CAMERA_MASTER_ART_HOLD.blend --source "test-results/g4e7dr-physical-reference/data/$road.json" --binary "test-results/g4e7dr-physical-reference/data/$road.b48-f64.bin" --out "test-results/g4e7dy-r1-city/dr-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7dy-r1-city-blender.py -- --source "test-results/g4e7dy-r1-city/dr-$road/G4E7DR_$road"_B48_B51_240HZ_EDITABLE_ART_HOLD.blend --site-report test-results/g4e7dy-r1-city/G4E7DY_R1_NATIVE_APPROACH_SPATIAL_DATA.json --road "$road" --out "test-results/g4e7dy-r1-city/dy-$road"
+          done
+      - name: Audit source fidelity and exclude WebGL / human / art false claims
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          root='test-results/g4e7dy-r1-city'
+          png=glob.glob(root+'/**/*.png',recursive=True)
+          blend=glob.glob(root+'/**/*.blend',recursive=True)
+          audits=glob.glob(root+'/dy-*/*TRUE_CITY_ART_AUDIT.json')
+          assert len(png)==28,(len(png),png)
+          assert len(blend)==6,(len(blend),blend)
+          assert len(audits)==2,audits
+          for f in audits:
+           a=json.load(open(f))
+           assert a['originalB48']==7 and a['originalCX']==18 and a['originalMovingB51']==28
+           assert a['originalCameraObjects']==5
+           assert 20<a['actual3DArchitecturalMeshes']<65
+           assert a['newGameColliders']==0 and not a['originalGamePhysicsChanged']
+           assert a['actualGameWebGL']=='NOT_RENDERED' and a['humanPlay']=='NOT_RUN'
+           assert a['art']=='HOLD' and a['artAdoptionCount']==0
+           assert len(a['actuallyRenderedNative240HzBlenderShots'])==4
+           assert len(a['sourceB51MovingOverlapRecordsAtOriginal240HzShots'])==4
+           assert a['roadOrMovingObstructionFullyCertified'] is False
+           assert a['formalSlope2Meters']==0
+          print('DY_R1_REAL_EDITABLE_BLENDER_CITY_ORIGINAL_PHYSICS_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DY_R1_ORIGINAL_B48_SKY_CIVIC_CITY_BLENDER_PRIVATE_ART_HOLD
+          path: test-results/g4e7dy-r1-city
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 6

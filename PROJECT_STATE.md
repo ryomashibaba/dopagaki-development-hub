@@ -1,3 +1,11 @@
+# G4E-7DY R1 — 正規15.5秒前方360mに実3D未来都市の立体通過区間を制作（2026-10-28 JST）
+
+**R0設計修正**：16秒基準中心360mのうち入口2ゲートがカメラ背面だった。実B48センターラインを15.5秒プレイヤー+28m前方に寄せ、正規4時点の投影と実路幅を再評価。左右の非対称公共/交通/居住街区、巨大な中央通過空洞、上空1本の公共連絡通路を元DO/DR本物Blender物理シーンへ実造形。元B48 7、B51 28、CX 18、240Hzカメラ5・gap52を保持。Blender新三角の実道路・障害物重なりを報告、Blender画像と原本比較を専用PRIVATE Actionsで作成。実WebGLと人間試走の証拠ではない。
+
+**保護**：CX元blob af076d67492a677d2235e4730aef8cdf4808e106、main/Gold/公開サイト、元ゲーム物理、操作、HUD、スコアは変更なし。ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式採用0、Slope2認定0m、PR#46 Draft未マージ。[専用R1資料](docs/G4E7DY_R1_INTEGRATED_CITY_ART_JA.md)。
+
+---
+
 # G4E-7DY R0 — DX R1美術不採用を確定し、真のB48道路中心360m都市統合配置のPRIVATE研究を開始（2026-10-28 JST）
 
 **DX R1判定**：内部通視は初案3/30→R1 18/30へ技術改善。[R1成功CI](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40506610828)のBlender画像は、依然として大きな暗い基壇や箱型施設が目立ち、都市交通・生活と道路が一体で読めない。**DX R1 TECH PASS / ART REJECT**。正式採用0件、全体ART/HUMAN HOLD、正式Slope2認定0m。
