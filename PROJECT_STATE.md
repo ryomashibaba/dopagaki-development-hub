@@ -1,3 +1,17 @@
+# G4E-7DN 完了 — NEGATIVE-SPACE真正WebGL30枚、構図仮説不成立 / ART REJECT（2026-10-27 JST）
+
+[DN PRIVATE実装 4461a318](https://github.com/ryomashibaba/dopagaki-development-hub/commit/4461a31889a3e0e8e0c900f59c9531c18e1781fa)、[証拠保存修正 53691337](https://github.com/ryomashibaba/dopagaki-development-hub/commit/536913370da7c85e6c0362978872db862ffffd86)、[最終真正WebGL CI #40436641309](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40436641309) **SUCCESS**、[本物の30枚・監査JSON Artifact #12703663917](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40436641309/artifacts/12703663917)（7日retention）、[独立物理 #40436070565](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40436070565) **2 jobs SUCCESS**。初回CI #40436070653はWebGL技術PASSだがArtifactアップロードのパスが誤っており証拠0（結果採用不可）、次コミットで修正し再撮影した。
+
+**新建築0個・追加三角形0枚**。PRIVATE差替えだけで、元CX、CX主役2基、道路7面、動体28個、gap52、240Hz、ボール相対カメラ、自然ジャンプ、操作、shared build/main/Gold/本番に変更なし。正規２道路×15/15.5/16/16.5/17秒×CX/UNROOF/REVEAL=30枚撮影。CX元DJ PNG SHA **10/10完全一致**、同じカメラ・時刻・速度比較20対を検証。
+
+- **UNROOF**：画素差合計10/10で **0.0000%**。この5時点では遠景折屋根の除去は最終描画に可視の変化をもたらさず、主要な断絶原因とする根拠がない（他物体への遮蔽・画角外など原因は未特定）。
+- **REVEAL**：近景station2左公共歩道１ソースをさらに外した変化率はtrue-pinchの15→17秒順で **0.0814/0.1115/0.2073/0.5343/2.0718%**、pinch-switchで **0.0912/0.1378/0.2593/0.7695/1.8742%**。17秒の数％弱の差は実表示確認できたが、主役〜街区間の連続性や大きな内部空間は改善しない。
+- 30枚をモンタージュにして人間目視。左既存クレセントは15.5秒で画角から退場、次の主役はまだ小さく、道路の占有感が強い。削除だけでは都市の内部生活・一体化した交通・中景から遠景への都市構造は出現しない。REVEALは公共歩道自体を取り去る診断であり完成景観として不適格。
+
+**DNのアブレーションを正式美術としてART REJECT**。ただし原因切り分けの技術研究としては真正CI PASS。pixel delta≠美術改善、スクリーンショット≠人間操作性/FPS。次DOは「巨大モノリス増設」「規則的箱の再配置」「見えない屋根の微調整」を中止し、**世界の都市核・居住・交通が同じ造形言語で連なる単一の街づくりマスター構成**を先に設計。Blender/GLB等を利用するなら実視点に沿った都市断面・素材・実内部を全景として制作し、前景・中景・遠景が15〜17秒で機能的に連なることを証拠にする。まず絵になる都市の統合構図、次に実装／計測。正式美術採用0件、ART/HUMAN/READY/PUBLISH/MERGE HOLD、Slope2認定0m、PR #46 OPEN/Draft未マージ。
+
+---
+
 # G4E-7DM 完了：LIVING CONFLUENCE → **早期ART REJECT／真正WebGL CI FAIL**（2026-10-27 JST）
 
 [PRIVATE実装 1d3a485e](https://github.com/ryomashibaba/dopagaki-development-hub/commit/1d3a485e7ec92a31fe82f7f6df85e1de7c0b6f6b)、[DM専用CI #40433597701](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40433597701) **FAILURE**、[不完全証拠Artifact #12702903731](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40433597701/artifacts/12702903731) 7枚（true-pinch 14.5/15/15.5秒各CX/DM、16秒CXだけ）、[独立物理 #40433597503](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40433597503) B5/A13 **2 jobs SUCCESS**。CX旧SHA 3/3一致後、16秒の元CX出力が旧画像と2画素±1 RGBで異なり strict SHA checkが停止。両道路24枚は未達、ハッシュゲートは緩めない。真正画像で新住区は単純な白い箱ビル列に見え、DGを再発。**DM ART REJECT／正式採用0**。不採用の早期確定につき完成24枚の再撮影や微調整はせず、失敗資料として凍結。次DNでは建築物追加より**連続視点の都市的構成と本物の内部の造形言語**を先に検討。[DM最終QA](docs/G4E7DM_LIVING_CONFLUENCE_PRIVATE_STUDY_JA.md)。元CX blob `af076d67492a677d2235e4730aef8cdf4808e106`、B48×7/B51×28/gap52/240Hz/カメラ/入力/main/Gold/本番不変更。PR #46 Draft未マージ、ART/HUMAN/READY/PUBLISH/MERGE HOLD、Slope2正式0m。
