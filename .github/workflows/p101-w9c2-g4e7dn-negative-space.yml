@@ -1,0 +1,53 @@
+name: G4E-7DN negative-space audit PRIVATE native game WebGL (ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/p101-w9c2-g4e7dn-negative-space.mjs'
+      - 'tests/p101-w9c2-g4e7dn-negative-space.test.mjs'
+      - 'scripts/p101-w9c2-g4e7dn-capture.mjs'
+      - '.github/workflows/p101-w9c2-g4e7dn-negative-space.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7dn-private-city
+  cancel-in-progress: true
+jobs:
+  genuine-240hz-webgl-urban-composition:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 23
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Existing physics plus new isolated city source integrity
+        run: |
+          node --check web/p101-w9c2-g4e7dn-negative-space.mjs
+          node --check scripts/p101-w9c2-g4e7dn-capture.mjs
+          node --test tests/p101-w9c2-g4e7dn-negative-space.test.mjs
+      - name: Genuine private engine build only
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          npx playwright install --only-shell chromium
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends fonts-ipafont-gothic
+          fc-cache -f
+          if ! fc-list :lang=ja family | grep -q .; then
+            echo 'Missing required CJK font; cannot certify genuine WebGL screenshots'
+            exit 1
+          fi
+      - name: CX versus DN 20 strict negative-space real WebGL comparison pairs
+        run: node scripts/p101-w9c2-g4e7dn-capture.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DN_PRIVATE_NEGATIVE_SPACE_REAL_WEBGL_ART_HOLD
+          path: test-results/g4e7dn-confluence
+          if-no-files-found: ignore
+          retention-days: 7
