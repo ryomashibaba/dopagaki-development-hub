@@ -219,3 +219,5 @@ if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.ur
     blockedNegativeControlFrames:x.blockedControlFrames,art:x.art}));
  }
 }
+// DW read-only reuse: exact previous source-geometry and moving-OBB ray engine.
+export {unpackStaticTriangles,intersectStatic,intersectMoving,rayHit,project};
