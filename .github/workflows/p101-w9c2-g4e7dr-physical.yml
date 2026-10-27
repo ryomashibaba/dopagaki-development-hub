@@ -1,0 +1,75 @@
+name: G4E-7DR original B48+B51 exact physics in Blender PRIVATE (ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dr-physical-export.mjs'
+      - 'scripts/p101-w9c2-g4e7dr-physical-blender.py'
+      - 'tests/p101-w9c2-g4e7dr-physical.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7dr-physical.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7dr-exact-physics
+  cancel-in-progress: true
+jobs:
+  original-native-physical-render-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check original protected CX, B48/B51/gap52 and native pose parity
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-w9c2-g4e7dr-physical-export.mjs
+          python3 -m py_compile scripts/p101-w9c2-g4e7dr-physical-blender.py
+          node --test tests/p101-w9c2-g4e7dr-physical.test.mjs
+          node scripts/p101-w9c2-g4e7do-master-export.mjs
+          node scripts/p101-w9c2-g4e7dr-physical-export.mjs
+      - name: Install actual Blender CPU rendering environment
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender libegl1 libgl1 libx11-6
+      - name: Produce original reference and real B48 B51 animated views at five actual 240Hz ticks
+        run: |
+          mkdir -p test-results/g4e7dr-physical-reference
+          for road in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dr-physical-reference/reference-$road" "test-results/g4e7dr-physical-reference/$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7do-master-blender.py -- --source "test-results/g4e7do-master-camera/$road.json" --out "test-results/g4e7dr-physical-reference/reference-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7dr-physical-blender.py -- --master "test-results/g4e7dr-physical-reference/reference-$road/G4E7DO_$road"_ORIGINAL_NATIVE_CAMERA_MASTER_ART_HOLD.blend --source "test-results/g4e7dr-physical-reference/data/$road.json" --binary "test-results/g4e7dr-physical-reference/data/$road.b48-f64.bin" --out "test-results/g4e7dr-physical-reference/$road"
+          done
+          python3 - <<'PY'
+          import glob,json
+          root='test-results/g4e7dr-physical-reference'
+          blends=glob.glob(root+'/**/*.blend',recursive=True)
+          imgs=glob.glob(root+'/**/*.png',recursive=True)
+          reports=glob.glob(root+'/*/G4E7DR_*_PHYSICAL_AUDIT.json')
+          assert len(blends)==4,(len(blends),blends)
+          assert len(imgs)==20,(len(imgs),imgs)
+          assert len(reports)==2,reports
+          for fp in reports:
+           a=json.load(open(fp))
+           assert a['originalPhysicalSurfaces']==7
+           assert a['originalMovingObstacles']==28
+           assert a['actualGap52'] is True and a['originalCXSourceObjects']==18
+           assert len(a['frameProof'])==5
+           assert a['gameRendererParity']=='NOT_CLAIMED'
+           assert not a['gamePhysicsChanged'] and a['addedColliders']==0
+           assert a['art']=='HOLD' and a['officialSlope2Meters']==0
+          print('DR_REAL_ORIGINAL_B48_B51_BLENDER_4_BLENDS_20_IMAGES_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DR_EXACT_B48_B51_240HZ_REAL_BLENDER_ART_HOLD
+          path: test-results/g4e7dr-physical-reference
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 6
