@@ -9,7 +9,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: g4e7dx-one-open-inhabited-civic-section-bounded-v2
+  group: g4e7dx-one-open-inhabited-civic-section-officialbinary-v3
   cancel-in-progress: true
 jobs:
   original-road-city-interior-line-of-sight-art-qa:
@@ -30,11 +30,12 @@ jobs:
           node scripts/p101-w9c2-g4e7dw-screen-road-visibility.mjs
           node scripts/p101-w9c2-g4e7do-master-export.mjs
           node scripts/p101-w9c2-g4e7dr-physical-export.mjs
-      - name: Install genuine headless Blender CPU Cycles
-        run: |
-          sudo timeout 105s apt-get update -qq -o Acquire::Retries=0 -o Acquire::http::Timeout=25 -o Acquire::https::Timeout=25 || echo 'DX apt index update timed out; attempting cached package indexes'
-          sudo timeout 270s env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender libegl1 libgl1 libx11-6
-          blender --version | head -n 2
+      - name: Install official Blender binary without slow Ubuntu Azure apt archive
+        uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Verify genuine Blender executable
+        run: blender --version | head -n 2
       - name: Render original DO/DR + ONE inhabited DX city segment from real physical road contact
         run: |
           for road in true-pinch pinch-switch; do
