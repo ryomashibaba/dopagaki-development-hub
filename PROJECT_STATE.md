@@ -1,3 +1,15 @@
+# G4E-7DU 完了 — 元物理全56012三角/28動体×正規240Hz 通視ゲート、Blender実6比較画像 PASS（2026-10-27 JST）
+
+**前DTのART REJECTを維持し、新都市造形0件**。今回の対象は従来の「駅入口がカメラ視野に入る＝見える」という誤検証を根絶すること。 [実装 e38ff5bacf0c3b613d08459d191e17ebda9d9b20](https://github.com/ryomashibaba/dopagaki-development-hub/commit/e38ff5bacf0c3b613d08459d191e17ebda9d9b20) にて、元CX建築**22920三角形**＋元B48物理**33092三角形**＝**合計56012元三角形**への正確な3D線分交差と、各元240Hzフレームの**B51動体28個のヨーつき衝突OBB**に対する線分交差をPRIVATE導入。元ゲーム物理/カメラ/速度/操作/HUD/GLB/Gold/main/publicを変更しない。
+
+**根拠を伴う新しい通視帯**：元世界絶対座標 **x=-65, y=95, z=-475～-355**、長さ120m×幅12m。原正規ゲームP96 start00スクリプト（**人間プレイではない**）の2道路×3時点（15.5/16/16.5秒）×左右端・中心の3列×13地点＝**234本**の線分全てが、元56012三角/B51全28衝突箱に遮蔽されず、両道路とも画角内。元三角形への経路中心/左右端の36線分/道路にも交差なし。**ただしこの結果は実際に道路から入れる歩行路・床材の支持・人間公平性・完全な３D建築の遮蔽不在ではない**。元の盲目駅入口 `[-18,90,-440]` を負対照で採用し、現実の元CX等に遮蔽される時刻はtrue-pinch **1/3**、pinch-switch **3/3**と検出。「中央に建物が映るだけ」では内部空間に入れるとは言えない。
+
+[専用 CI #40487969893](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40487969893) **SUCCESS**。 [証拠 Artifact #12725892248](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40487969893/artifacts/12725892248) 実ダウンロード・ZIP構造/監査JSON/実画像目視を確認。合計**44ファイル**：真正Blenderレンダー**26PNG**（DO元景観10＋DR実道路/障害物10＋DU診断6）、編集可能.blend６個（各道路DO/DR/DU）・プランJSON２・物理データ等。実B48７・B51 28・元CX18・元カメラ５を維持、都市美術**新規0**、追加ゲームコライダー0。DU新規オブジェクトは**16個の診断マーカー**のみ。スクリーンの3門型は元CXの間、道路遠方に小さく見える。**現状では都市としての強い視覚的魅力・接近して入れる機能が全く成立しないため美術の採択をしない**。Blenderは元ゲームWebGLの外観と物理・人間プレイの証拠ではない。
+
+**次DVの限定工程**：この通視帯を新しい巨大壁で覆わず、人が分かる駅への入口/公共空間の**横方向の寸法・手前の路肩からの交通接続・画面上の最低限の視認寸法**を検証。追加する造形は通視ゲートを通った後に限る。将来形が増えればDUの正確なレイ交差検査へその造形三角形を必ず入れ、修正前の元カメラ×３時点を維持する。未確認の路面導線や衝突公平性を「接続した」と言い換えない。PR#46 OPEN/Draft未マージ、正式都市美術採用0、ART/HUMAN/READY/PUBLISH/MERGE HOLD、認定Slope2 0m。
+
+---
+
 # G4E-7DT 完了 — 3居住断崖・29巨大部材 / 正規240Hz・実道路＋28動体Blender実画角 ART REJECT（2026-10-27 JST）
 
 [PRIVATE新造形コミット db98d221](https://github.com/ryomashibaba/dopagaki-development-hub/commit/db98d2219769dfbcf970a4a15c0110d5f900b0e6) を実制作・検証。[専用 GitHub CI #40481138606](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40481138606) **SUCCESS**、[証拠Artifact #12723012609](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40481138606/artifacts/12723012609)。このArtifact実物ZIPをダウンロード・解凍・画像目視・監査JSON確認し**44ファイル：真正Blenderレンダー26PNG（DO原景観10＋DR実走路・障害物10＋DT新造形6）、.blend６個（DO/DR/DT各2道路）、実B48物理バイナリ・監査**を確認。元CX18メッシュ・元B48実物理7面・元B51移動OBB28個・元ゲームカメラ５台の証拠は不変、新規ゲームコライダー0。DT造形は計29メッシュ（実基壇から立つ地形的居住断崖18、広い公共テラス6、峡谷広場3、太い交通接続2）。窓・柱の大量反復を中止。一次造形候補1つ、2道路×15.5/16/16.5秒で評価。予定どおりCIは Blender実レンダーであり、元ゲームWebGLを再現したものではなくプレイヤー操作やFPSの認定もない。
