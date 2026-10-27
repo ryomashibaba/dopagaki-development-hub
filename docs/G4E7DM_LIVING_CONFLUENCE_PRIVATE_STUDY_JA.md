@@ -1,3 +1,37 @@
+# G4E-7DM 最終判定 — LIVING CONFLUENCE / **早期ART REJECT・真正WebGL CI FAIL**
+
+**2026-10-27 JST。QUALITY-FIRST / INTEGRATED VERTICAL SLICE。**
+
+- PRIVATE実装：[1d3a485e](https://github.com/ryomashibaba/dopagaki-development-hub/commit/1d3a485e7ec92a31fe82f7f6df85e1de7c0b6f6b)。
+- [専用CI #40433597701](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40433597701) **FAILURE**（元CX t1600のPNG SHA不一致。失敗をPASSに変更しない）。
+- その[不完全なWebGL証拠 Artifact #12702903731](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40433597701/artifacts/12702903731) に、true-pinch t1450/t1500/t1550 CX・DM 3対6 PNG＋t1600 CXのみ、合計**7枚**（JSON最終比較報告は未生成）を保存。未撮影の全画角・pinch-switchを撮影済みと主張しない。
+- [独立B5/A13 240Hz物理CI #40433597503](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40433597503) **2 jobs SUCCESS**。既存物理・操作・カメラ保護の技術試験結果。専用CI内部のnode単体試験＋PRIVATE buildもPASSしたが、WebGL工程がFAILしたので全体PASSではない。
+
+## 7枚の真正画像から直接確認した美術的失敗
+
+- **14.5秒**：既存左の巨大CXクレセントと右の街区の間に、DMの白っぽい格子状の箱ビルが出現。１つの巨大未来都市の構造ではなく「独立したマンション状ブロック」に見える。
+- **15.0秒**：新設住区は規則正しい四角窓・直立箱の列として見え、元主役の象徴性・大規模公共空間との統合がない。
+- **15.5秒**：左主役が切れ、中心は道路。前方右に白い箱型住区が目立つが、生活内部・公共交通・交通拠点への連続性は判読しにくい。**DGの箱街区失敗を再発**。
+- ソースには6街区/36区画/4区間の連絡構造があっても、正規画面の読める巨大空間として認識できず、美術品質は改善しない。
+- この時点で候補を**ART REJECT**。美術不適格の明白な初期画角があるため、これ以上のGPU再撮影/テクスチャや色調の微調整は行わない。pinch-switchは未撮影なので両道路共通の美術失敗を実証したとは言わない。
+
+## CI FAILの根本原因切り分け（基準は緩めない）
+
+true-pinch t1450/t1500/t1550 のCX PNGは、直前のDL成功ArtifactのCXと**3/3 SHA-256完全一致**。t1600は事前凍結DJ SHA `920d53b8...` と一致せず `9e6dcf1d...` になったため、厳格assertで停止した。CIログからDM候補の美術PASSはもちろん、24PNGの完遂は認められない。
+
+ダウンロードしたt1600の二つの元CX PNG（1008×645 RGB）を展開して**全画素比較**したところ、差異は **わずか2画素のみ**：
+`(x=1007,y=1)` の青B値 46→45、`(x=1004,y=643)` の青B値 41→42。RGB各差の最大は1、RGB差合計>48の画素は0。これは描画端の微小GPUラスタ出力差と整合するが、その原因を断定しない。**SHA完全一致はFAILとして保持し、許容値を無断で拡大しない**。元CXのジオメトリ／カメラが変更された証拠はなく、ソースblobの改変もない。将来もし同じ現象が再現した場合は個別診断し、確実に安定化するまで「完全一致」を主張しない。
+
+## 今後の技術・美術方針
+
+DA不透明な壁→DB骨組→DC棚→DG箱ビル→DH楔→DI梁→DK板/柱→DL単独アーチ→DM規則的な箱の再発。**幾何学を多数生成する方式で都市の壮大さに近づいたという認定はできない**。このDMの単純な箱を装飾で救済しない。
+
+次DNの最優先は単独の構造体も規則的な住区の列も作り始めず、**本物の15.0〜17.0秒カメラで前景／中景／遠景の意味的な接続が成立する造形の基礎研究**。Blender/GLBの既存限定技術を検討しつつ、外観と内部導線が双方読める独自の曲面ボリューム設計へ手法を転換。最小限の構図証拠が得られない案は製作しない。正規HUD/道路先読みは保護する。
+
+保護：CX generator Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、B48道路7面/B51動体28/gap52/240Hz原物理・カメラ・操作は非変更。PR #46 OPEN/Draft未マージ。正式採用美術0件、ART/HUMAN/READY/PUBLISH/MERGE HOLD、正式Slope2認定0m。
+
+---
+
 # G4E-7DM — LIVING CONFLUENCE / PRIVATE実3D・真正WebGL審査
 
 **2026-10-27 JST / 研究候補の実装仕様（美術採用は厳格にHOLD）**

@@ -1,3 +1,9 @@
+# G4E-7DM 完了：LIVING CONFLUENCE → **早期ART REJECT／真正WebGL CI FAIL**（2026-10-27 JST）
+
+[PRIVATE実装 1d3a485e](https://github.com/ryomashibaba/dopagaki-development-hub/commit/1d3a485e7ec92a31fe82f7f6df85e1de7c0b6f6b)、[DM専用CI #40433597701](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40433597701) **FAILURE**、[不完全証拠Artifact #12702903731](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40433597701/artifacts/12702903731) 7枚（true-pinch 14.5/15/15.5秒各CX/DM、16秒CXだけ）、[独立物理 #40433597503](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40433597503) B5/A13 **2 jobs SUCCESS**。CX旧SHA 3/3一致後、16秒の元CX出力が旧画像と2画素±1 RGBで異なり strict SHA checkが停止。両道路24枚は未達、ハッシュゲートは緩めない。真正画像で新住区は単純な白い箱ビル列に見え、DGを再発。**DM ART REJECT／正式採用0**。不採用の早期確定につき完成24枚の再撮影や微調整はせず、失敗資料として凍結。次DNでは建築物追加より**連続視点の都市的構成と本物の内部の造形言語**を先に検討。[DM最終QA](docs/G4E7DM_LIVING_CONFLUENCE_PRIVATE_STUDY_JA.md)。元CX blob `af076d67492a677d2235e4730aef8cdf4808e106`、B48×7/B51×28/gap52/240Hz/カメラ/入力/main/Gold/本番不変更。PR #46 Draft未マージ、ART/HUMAN/READY/PUBLISH/MERGE HOLD、Slope2正式0m。
+
+---
+
 # G4E-7DL 完了：APERTURE CITY / 真正WebGL 24画角検証 — **ART REJECT**（2026-10-27 JST）
 
 [PRIVATE実装 a5f14fe7](https://github.com/ryomashibaba/dopagaki-development-hub/commit/a5f14fe7022d9e6e09c78f75a379d1b034d20926)、[DL真正WebGL #40430724416](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40430724416) SUCCESS、[独立物理 #40430724261](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40430724261) **2 jobs SUCCESS**、[証拠Artifact #12702566144](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40430724416/artifacts/12702566144)。前DKの薄板・柱と遮蔽問題を改善するため、GLB既存基盤を調査しつつ無意味なレンダラ置換は避け、単一の厚い曲面大開口と奥に６個の実3D居住・交通区画を持つPRIVATE候補を制作。元２道路の正規カメラ５時点で10候補を比較して固定した世界座標に配置。2道路×6時刻×CX/DL=**24枚の本物の元ゲームWebGL**を取得し、元DJのCX12PNG SHA-256 **12/12完全一致**、ペア時刻/速度/カメラ一致。
