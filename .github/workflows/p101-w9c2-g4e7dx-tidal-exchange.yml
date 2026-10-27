@@ -1,0 +1,84 @@
+name: G4E-7DX Open Tidal Exchange original B48 B51 CX native camera inhabited section (ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dx-tidal-exchange-blender.py'
+      - '.github/workflows/p101-w9c2-g4e7dx-tidal-exchange.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7dx-one-open-inhabited-civic-section
+  cancel-in-progress: true
+jobs:
+  original-road-city-interior-line-of-sight-art-qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 29
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protect native physics and exact DW road-side projected candidate
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dx-tidal-exchange-blender.py
+          node scripts/p101-w9c2-g4e7dw-screen-road-visibility.mjs
+          node scripts/p101-w9c2-g4e7do-master-export.mjs
+          node scripts/p101-w9c2-g4e7dr-physical-export.mjs
+      - name: Install genuine headless Blender CPU Cycles
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender libegl1 libgl1 libx11-6
+      - name: Render original DO/DR + ONE inhabited DX city segment from real physical road contact
+        run: |
+          for road in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dx-open-tidal/do-$road" "test-results/g4e7dx-open-tidal/dr-$road" "test-results/g4e7dx-open-tidal/dx-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7do-master-blender.py -- --source "test-results/g4e7do-master-camera/$road.json" --out "test-results/g4e7dx-open-tidal/do-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7dr-physical-blender.py -- --master "test-results/g4e7dx-open-tidal/do-$road/G4E7DO_$road"_ORIGINAL_NATIVE_CAMERA_MASTER_ART_HOLD.blend --source "test-results/g4e7dr-physical-reference/data/$road.json" --binary "test-results/g4e7dr-physical-reference/data/$road.b48-f64.bin" --out "test-results/g4e7dx-open-tidal/dr-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7dx-tidal-exchange-blender.py -- --source "test-results/g4e7dx-open-tidal/dr-$road/G4E7DR_$road"_B48_B51_240HZ_EDITABLE_ART_HOLD.blend --site-report "test-results/g4e7dw-road-screen-selection/G4E7DW_WORLD_SOURCE_SELECTION_ART_HOLD.json" --road "$road" --out "test-results/g4e7dx-open-tidal/dx-$road"
+          done
+      - name: Audit all original source objects 26 actual Blender frames and interior occlusion samples
+        run: |
+          python3 - <<'PY'
+          import glob,json
+          root='test-results/g4e7dx-open-tidal'
+          png=glob.glob(root+'/**/*.png',recursive=True)
+          blend=glob.glob(root+'/**/*.blend',recursive=True)
+          audits=glob.glob(root+'/dx-*/*_NONADOPTED_CITY_AUDIT.json')
+          assert len(png)==26,(len(png),png)
+          assert len(blend)==6,(len(blend),blend)
+          assert len(audits)==2,audits
+          for f in audits:
+           a=json.load(open(f))
+           assert a['originalB48Count']==7 and a['originalB51MovingCount']==28
+           assert a['originalCXCount']==18 and a['nativeOriginalCameras']==5
+           assert a['actualGeneratedArchitecturalParts']==30
+           assert a['intent']['occupiedPublicFloors']>=9
+           assert a['intent']['independentLivingWings']==2
+           assert a['intent']['fullStreetRoofSheets']==0
+           assert a['intent']['trueGameColliders']==0
+           assert len(a['renderedNative240HzShots'])==3
+           for shot in a['renderedNative240HzShots']:
+            assert len(shot['actualBlenderSceneRaycastIntoCivicInterior'])==5
+            assert all(x['pointOnlyNotFullInteriorProof'] for x in shot['actualBlenderSceneRaycastIntoCivicInterior'])
+           assert a['newGameColliderCount']==0 and not a['originalRoadEdited']
+           assert a['actualGameWebGL']=='NOT_RENDERED'
+           assert a['humanAccess']=='NOT_TESTED'
+           assert a['art']=='HOLD' and a['formalSlope2Meters']==0
+          print('DX_REAL_B48_B51_CX_NATIVECAMERA_INHABITED_PUBLIC_OPEN_AIR_CITY_RENDERED_NOT_ADOPTED')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DX_ORIGINAL_PHYSICAL_OPEN_TIDAL_EXCHANGE_REAL_BLENDER_ART_HOLD
+          path: |
+            test-results/g4e7dx-open-tidal
+            test-results/g4e7dw-road-screen-selection
+          retention-days: 7
+          if-no-files-found: error
+          compression-level: 6
