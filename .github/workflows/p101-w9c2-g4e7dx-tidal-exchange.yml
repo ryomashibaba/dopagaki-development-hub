@@ -9,7 +9,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: g4e7dx-one-open-inhabited-civic-section
+  group: g4e7dx-one-open-inhabited-civic-section-bounded-v2
   cancel-in-progress: true
 jobs:
   original-road-city-interior-line-of-sight-art-qa:
