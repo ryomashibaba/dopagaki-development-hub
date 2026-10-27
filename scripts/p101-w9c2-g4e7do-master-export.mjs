@@ -6,6 +6,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 import {generateG4E7BC} from './p101-w9c2-g4e7bc-bank-contour.mjs';
@@ -77,7 +78,7 @@ export function buildDoReference(road){
    noNewCollider:true,officialSlope2Meters:0},
   review:{art:'HOLD',human:'HOLD',ready:'HOLD',publish:'HOLD',merge:'HOLD'}};
 }
-if(import.meta.url===new URL('file://'+process.argv[1]).href){
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  fs.mkdirSync(OUT,{recursive:true});
  const summary=[];
  for(const road of ['true-pinch','pinch-switch']){
