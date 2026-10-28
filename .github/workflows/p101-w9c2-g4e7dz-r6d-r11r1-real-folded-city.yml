@@ -51,7 +51,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import json,glob,os
-          root='test-results/g4e7dz-r11'
+          root='test-results/g4e7dz-r11r1'
           audits=glob.glob(root+'/result-*/*_ACTUAL_SOURCE_AUDIT.json')
           photos=glob.glob(root+'/result-*/*.png')
           editable=glob.glob(root+'/result-*/*.blend')
