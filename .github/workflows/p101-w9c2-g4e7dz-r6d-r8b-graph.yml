@@ -1,0 +1,99 @@
+name: G4E-7DZ R6D-R8B PRIVATE 4-role chronological source-graph optimizer
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r8b-time-ordered-graph.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r8b-graph.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r8b-chronological-source-only
+  cancel-in-progress: true
+jobs:
+  original-chronology-grade-graph:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 16
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check protected original and syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r8b-time-ordered-graph.py
+      - name: Retrieve all 144 genuinely sampled R8A sites and R1 native 240Hz original route
+        run: |
+          mkdir -p test-results/g4e7dz-r8b/source-r8a test-results/g4e7dz-r8b/source-r1
+          gh run download 40678460212 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R8A_TRUE_SOURCE_CAMERA_SITE_GRAPH_PREMODEL_HOLD \
+            --dir test-results/g4e7dz-r8b/source-r8a
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r8b/source-r1
+      - name: Reconstruct source camera chronology, penalize steep paths and test both roads
+        run: |
+          for r in true-pinch pinch-switch; do
+            python3 scripts/p101-w9c2-g4e7dz-r6d-r8b-time-ordered-graph.py \
+              --input "test-results/g4e7dz-r8b/source-r8a/result-$r/R8A_$r"_PREMODEL_SOURCE_GRAPH.json \
+              --native "test-results/g4e7dz-r8b/source-r1/source/$r.json" \
+              --out "test-results/g4e7dz-r8b/R8B_$r"_TEMPORAL_GRADE_GRAPH.json
+          done
+      - name: Independent role, source-camera, original CX, graph and fail-closed boundary checks
+        run: |
+          python3 - <<'PY'
+          import glob,json,math,copy,importlib.util
+          p='test-results/g4e7dz-r8b'
+          reports=glob.glob(p+'/R8B_*_TEMPORAL_GRADE_GRAPH.json')
+          assert len(reports)==2,reports
+          assert {json.load(open(x))['road'] for x in reports}=={'true-pinch','pinch-switch'}
+          names=['EARLY_PUBLIC','MID_TRANSFER','LATE_HABITAT','EXIT_INTERIOR']
+          for filename in reports:
+           d=json.load(open(filename))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r8b-chronology-grade-constrained/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['rawCandidateCount']==144
+           assert list(d['candidateGroupsByOriginalCamera'])==names
+           assert d['siteRoleTimeOrderValid'],d['road']
+           assert d['siteRoleNativeVisibilityAtLeastTwoFrames']
+           assert len(d['selectedChronologicalSites'])==5
+           assert [x['id'] for x in d['selectedChronologicalSites'][1:]]==names
+           assert len(d['proposedGraphEdges'])==4
+           for i,edge in enumerate(d['proposedGraphEdges']):
+            a,b=d['selectedChronologicalSites'][i:i+2]
+            assert edge['from']==a['id'] and edge['to']==b['id']
+            assert edge['publicWalkabilityCertified'] is False
+            h=math.hypot(b['xyz'][0]-a['xyz'][0],b['xyz'][2]-a['xyz'][2])
+            assert abs(edge['directLineGrade']-abs(b['xyz'][1]-a['xyz'][1])/h)<.00002
+           assert d['existingCxFaceProvenButPedestrianLink']=='NOT_CERTIFIED'
+           assert not d['realPhysicalHumanPathCertified']
+           assert d['modelingPermission'].startswith('PREMODEL_RESEARCH_ONLY_')
+           assert d['newCityMeshes']==d['officialArt']==d['newGameColliders']==d['officialSlope2Metres']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R8B_SOURCE_GRAPH_RESULT',d['road'],
+             [(e['from'],e['to'],e['directLineGrade'],e['verticalLiftOrSwitchbackRequired']) for e in d['proposedGraphEdges']],
+             'physicalCompletion',d['realPhysicalHumanPathCertified'])
+          # Mutation test: removing all possible exit anchors must fail before art.
+          from pathlib import Path
+          spec=importlib.util.spec_from_file_location('r8b','scripts/p101-w9c2-g4e7dz-r6d-r8b-time-ordered-graph.py')
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          a=json.load(open(p+'/source-r8a/result-true-pinch/R8A_true-pinch_PREMODEL_SOURCE_GRAPH.json'))
+          n=json.load(open(p+'/source-r1/source/true-pinch.json'))
+          mutated=copy.deepcopy(a)
+          mutated['siteCandidateTable']=[dict(x,full721tickB51SampledAabbMargin9mHits=['SYNTHETIC_UNSAFE'])
+             if x['anchor']=='t1700' else x for x in mutated['siteCandidateTable']]
+          blocked=m.evaluate(mutated,n)
+          assert not blocked['siteRoleTimeOrderValid']
+          assert 'FOUR_CHRONOLOGICAL_PREMODEL_ROLES_NOT_FOUND' in blocked['hardRequirementsRemaining']
+          assert blocked['officialArt']==0
+          print('R8B_FAIL_CLOSED_INVALID_EXIT_REGION_PROVEN')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R8B_TIME_ORDERED_ROUTE_GRAPH_NO_ART_HOLD
+          path: test-results/g4e7dz-r8b/R8B_*_TEMPORAL_GRADE_GRAPH.json
+          retention-days: 7
+          if-no-files-found: warn
