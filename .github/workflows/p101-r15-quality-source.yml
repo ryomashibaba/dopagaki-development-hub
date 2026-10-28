@@ -25,6 +25,8 @@ on:
       - 'scripts/p101-r15i3-independent-true-r1-civic-entry-art.py'
       - 'scripts/p101-r15i4-source-camera-cx-access-grade-sites.py'
       - 'scripts/p101-r15i4-independent-source-camera-grade-gate.py'
+      - 'scripts/p101-r15j-two-source-grounded-macro-studies.py'
+      - 'scripts/p101-r15j-independent-two-macro-source-art-veto.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -770,6 +772,7 @@ jobs:
           if-no-files-found: warn
 
   r15i4-original-source-multiframe-road-to-cx-slope-rank:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 25
@@ -821,5 +824,82 @@ jobs:
         with:
           name: P101_R15I4_ORIGINAL_B48_CX_TWIN_WORLD_CAMERA_AND_GRADE_PREFLIGHT_ART_HOLD
           path: test-results/r15i4/results/
+          retention-days: 7
+          if-no-files-found: warn
+
+  r15j-two-source-grounded-competing-macros-original-camera:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exact source immutability and R15J script syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15j-two-source-grounded-macro-studies.py scripts/p101-r15j-independent-two-macro-source-art-veto.py
+      - name: Reuse source-original Blender R1, original B51, and verified original B48-CX site
+        run: |
+          mkdir -p test-results/r15j/r1 test-results/r15j/r4 test-results/r15j/r15i test-results/r15j/r15i4 test-results/r15j/independent
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD --dir test-results/r15j/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD --dir test-results/r15j/r4
+          gh run download 40773579399 --repo ryomashibaba/dopagaki-development-hub --name P101_R15I_ACTUAL_B48_ROADSIDE_GROUND_FIRST_PAIRED_SOURCE_PRELIMINARY_HOLD --dir test-results/r15j/r15i
+          gh run download 40776460960 --repo ryomashibaba/dopagaki-development-hub --name P101_R15I4_ORIGINAL_B48_CX_TWIN_WORLD_CAMERA_AND_GRADE_PREFLIGHT_ART_HOLD --dir test-results/r15j/r15i4
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Two actual macros x two original roads = four editable scenes and 28 genuine source-camera PNGs
+        run: |
+          for design in LANDSCAPE RIFT; do
+            for road in true-pinch pinch-switch; do
+              mkdir -p "test-results/r15j/$design-$road"
+              blender -b --factory-startup -t 2 --python-exit-code 5 \
+                --python scripts/p101-r15j-two-source-grounded-macro-studies.py -- \
+                --road "$road" --variant "$design" \
+                --source "test-results/r15j/r1/result-$road/R1_$road"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+                --native "test-results/r15j/r1/source/$road.json" \
+                --hazards "test-results/r15j/r4/source/$road.json" \
+                --r15i test-results/r15j/r15i/R15I_TRUE_B48_ROAD_FIRST_TWO_WORLD_PREFLIGHT.json \
+                --r15i4 test-results/r15j/r15i4/R15I4_ORIGINAL_TWO_ROAD_CX_MACRO_SITE_PREFLIGHT.json \
+                --out "test-results/r15j/$design-$road"
+            done
+          done
+      - name: Independent source R1 image comparison and forged certification rejection
+        run: |
+          python3 -m pip install --quiet Pillow
+          for design in LANDSCAPE RIFT; do
+            for road in true-pinch pinch-switch; do
+              python3 scripts/p101-r15j-independent-two-macro-source-art-veto.py \
+                --audit "test-results/r15j/$design-$road/R15J_${design}_${road}_SOURCE_MASSING_AND_CAMERA_AUDIT.json" \
+                --original "test-results/r15j/r1/result-$road" \
+                --trial "test-results/r15j/$design-$road" \
+                --out test-results/r15j/independent
+            done
+          done
+          python3 - <<'PY'
+          import glob,json
+          sources=glob.glob('test-results/r15j/*-*/*_SOURCE_MASSING_AND_CAMERA_AUDIT.json')
+          gates=glob.glob('test-results/r15j/independent/R15J_*_INDEPENDENT_IMAGE_AND_SOURCE_GATE.json')
+          assert len(sources)==len(gates)==4,(sources,gates)
+          a=[json.load(open(p)) for p in sources];b=[json.load(open(p)) for p in gates]
+          assert {x['design'] for x in a}=={'LANDSCAPE','RIFT'}
+          assert {x['originalRoad'] for x in a}=={'true-pinch','pinch-switch'}
+          assert len({tuple(x['originalRoadRimWorldXYZ']) for x in a})==1
+          assert len({tuple(x['originalCXExactLandingXYZ']) for x in a})==1
+          assert all(x['officialArt']==x['officialSlope2Meters']==x['newSourceGameColliders']==0 for x in a)
+          assert all(x['ART'] in ('HOLD','REJECT') and x['GAMEPLAY']=='HOLD' and x['HUMAN']=='HOLD' for x in b)
+          print('R15J_REAL_BLENDER_NATIVE_CAMERA_ART_PRIVATE',[(x['variant'],x['road'],
+            x['mean13To17SevenFrameSourceNewFirstHitNotBeauty'],x['sourceIntersectionStatus'],
+            x['B51ConservativeSourceStatus'],x['ART']) for x in b],flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15J_TWO_MACROS_FOUR_EDITABLE_SOURCE_BLEND_28_TRUE_R1_IMAGES_ART_HOLD
+          path: |
+            test-results/r15j/LANDSCAPE-*/
+            test-results/r15j/RIFT-*/
+            test-results/r15j/independent/
           retention-days: 7
           if-no-files-found: warn
