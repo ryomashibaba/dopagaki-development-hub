@@ -62,11 +62,18 @@ for phase,prefix in (('EARLY','E'),('MIDDLE','M'),('LATE','L')):
    'referenceOriginalFrame':s['trueOriginalFrame']})
 assert len(anchors)>=9
 sites=[]
+seenDomainVolumes=set()
 for a in anchors:
  specs=[('R14B_REFERENCE',a['referenceMetres']),
         ('EXPANDED_48',[48,48,48]),('EXPANDED_72',[72,60,64]),
         ('EXPANDED_96',[96,72,80])]
  for label,dimensions in specs:
+  # Distinct R14B historical rows can share the same world XYZ but use
+  # different base dimensions; their expanded 48/72/96 versions would
+  # otherwise be duplicated. A physical domain is world XYZ + box shape.
+  domainIdentity=(tuple(round(float(x),3) for x in a['center']),tuple(dimensions))
+  if domainIdentity in seenDomainVolumes:continue
+  seenDomainVolumes.add(domainIdentity)
   key=a['id']+':'+label
   sites.append({**a,'key':key,'scale':label,'dimensions':dimensions})
 
@@ -312,6 +319,8 @@ report={'schema':'dopagaki.r15c-both-original-native-source-safety-camera-macro-
  'R14BProvenSharedUniqueSmallSitesReused':len(anchors),
  'R14BProvenSharedSmallSitesReused':len(anchors),
  'R15CNewGeometryScaleTests':len(sites),
+ 'R15CRawUncollapsedScaleRows':4*len(anchors),
+ 'R15CIdenticalWorldAndSizeScaleRowsSuppressed':4*len(anchors)-len(sites),
  'R15CSourceScaleKinds':['R14B_REFERENCE','EXPANDED_48','EXPANDED_72','EXPANDED_96'],
  'R15CProgressiveMacroVolumeOnlyNotActualArchitecture':True,
  'R15COriginalSourceRoadResults':result,

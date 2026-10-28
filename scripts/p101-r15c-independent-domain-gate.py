@@ -29,7 +29,10 @@ def validate(d):
  assert len(aa)==d['R15CNewGeometryScaleTests']
  assert d['R14BOriginalSharedCandidateRowsIncludingRepeatedLocations']>=d['R14BProvenSharedSmallSitesReused']
  assert d['R14BProvenSharedUniqueSmallSitesReused']==d['R14BProvenSharedSmallSitesReused']
- assert len(aa)==4*d['R14BProvenSharedSmallSitesReused']
+ assert len(aa)==d['R15CNewGeometryScaleTests']
+ assert d['R15CRawUncollapsedScaleRows']==4*d['R14BProvenSharedSmallSitesReused']
+ assert d['R15CIdenticalWorldAndSizeScaleRowsSuppressed']==d['R15CRawUncollapsedScaleRows']-len(aa)
+ assert 0<=d['R15CIdenticalWorldAndSizeScaleRowsSuppressed']<len(aa)
  assert len(aa)>=36
  anchors=set(k.split(':')[0] for k in aa)
  assert len(anchors)==d['R14BProvenSharedSmallSitesReused']
