@@ -18,6 +18,7 @@ out=arg("--out");os.makedirs(out,exist_ok=True)
 SRC="af076d67492a677d2235e4730aef8cdf4808e106"
 TARGET="B48 original physics p93-CROWN_REVERSAL-01:377:390"
 study=json.load(open(arg("--r15i4"),encoding="utf8"))
+road_preflight=json.load(open(arg("--r15i"),encoding="utf8"))
 native=json.load(open(arg("--native"),encoding="utf8"))
 hazards=json.load(open(arg("--hazards"),encoding="utf8"))
 assert study["schema"]=="dopagaki.r15i4-dual-original-source-multicamera-true-cx-access-grade-shortlist/1"
@@ -26,7 +27,11 @@ assert native["road"]==hazards["road"]==road
 assert len(native["frames"])==13 and len(hazards["hazards"])==28
 site=next(x for x in study["gradeAndEarlyCameraSelectionOnlyNotBuilt"] if x["id"]==TARGET)
 assert site["theoreticalBezierApproachMetres"]<85 and site["theoretical32SegmentMaxSlope"]<.09
+road_test=next(x for x in road_preflight["originalPairedWorldCandidateEvaluations"][road] if x["id"]==TARGET)
+assert road_test["rimMid"]==site["originalRoadRimXYZ"]
+assert road_test["originalB48InboardSurfaceWitness"] is not None
 a=Vector(site["originalRoadRimXYZ"])
+outward_source=Vector(road_test["outward"])
 c=Vector(site["originalCXTerrainLandingWorldXYZ"])
 horiz=c-a;horiz.y=0
 along=horiz.normalized()
@@ -73,7 +78,7 @@ near,n,j,d=bvh(sourceCx[0]).find_nearest(c,2.0)
 assert near is not None and (near-c).length<.6 and n.y>.5
 # Visible-from-road at time t13 and genuine B48 road surface at entrance.
 road_sources=[t for k,o,t in original if k=="B48"]
-assert any(t.ray_cast(a+Vector((0,3,0)),Vector((0,-1,0)),6)[0] is not None for t in road_sources)
+assert any(t.ray_cast(a-outward_source*.45+Vector((0,3,0)),Vector((0,-1,0)),6)[0] is not None for t in road_sources)
 col=bpy.data.collections.new("R15J "+variant+" ORIGINAL ROAD AND CX MASSING HUMAN ART HOLD")
 scene.collection.children.link(col)
 def mat(name,rgb,metal):
