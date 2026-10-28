@@ -65,7 +65,23 @@ atroad=contact(a-outward*.45+Vector((0,3,0)),Vector((0,-1,0)),5,
 atcx=contact(c+Vector((0,3,0)),Vector((0,-1,0)),5,
   [x for x in original if x[0]=="CX"])
 assert atroad and abs(atroad[0][3].y-a.y)<1.5
-assert atcx and (atcx[0][3]-c).length<.6
+# R15I2 selected the nearest point on an EXACT original source CX mesh.
+# A DOWNWARD RAY across ALL CX meshes may hit a DIFFERENT overlying source
+# mesh first, so that is not an identity test of the chosen contact point.
+cx_name=site["bestUnobstructedHypotheticalCXBrace"]["cxTerrainSource"]
+cx_sources=[(o,tr) for kind,o,tr in original if kind=="CX" and o.name==cx_name]
+assert len(cx_sources)==1,(cx_name,len(cx_sources))
+cx_hit,cx_normal,cx_index,cx_near_distance=cx_sources[0][1].find_nearest(c,1.0)
+assert cx_hit is not None and (cx_hit-c).length<.6 and cx_normal.y>.75,(
+  cx_name,c, cx_hit,cx_normal,cx_near_distance)
+# The independent all-CX vertical witness is logged separately, with no
+# claim that all-CX upward obstruction is harmless.
+cx_vertical_nearest=atcx[0] if atcx else None
+print("R15I3_CX_RECHECK",road,"target",cx_name,"target_surface_distance",
+ round(float((cx_hit-c).length),4),"vertical_first_source",
+ cx_vertical_nearest[2] if cx_vertical_nearest else None,
+ "vertical_first_delta",round(float((cx_vertical_nearest[3]-c).length),4)
+ if cx_vertical_nearest else None,flush=True)
 # Curve footpath along the genuine B48 source rim to an actual existing
 # CX roadbank-promenade. No invented vertical lift or disconnected sky dock.
 p0=a+outward*.08
@@ -244,6 +260,10 @@ audit={"schema":"dopagaki.r15i3-real-road-to-cx-editable-civic-entry-source-prot
  "exactSourceRoadLipXYZ":[round(float(v),4) for v in a],
  "exactSourceCXPublicPromenadeContactXYZ":[round(float(v),4) for v in c],
  "originalSourceCXEndpointAndRoadSurfaceReverified":True,
+ "sourceCXVerifiedLandingObject":cx_name,
+ "sourceCXLandingNearestTriangleDistance":round(float((cx_hit-c).length),5),
+ "allSourceCXDownwardRayFirstObject":cx_vertical_nearest[2] if cx_vertical_nearest else None,
+ "allSourceCXDownwardRayFirstDistanceFromSelectedLanding":round(float((cx_vertical_nearest[3]-c).length),4) if cx_vertical_nearest else None,
  "sourcePublicPathCenterlineSampleCount":len(path),
  "sourceCurvedPathMaximumCenterlineGrade":round(max(grade),5),
  "originalSourceCX18B48_7B51_28Unchanged":signature()==before,
