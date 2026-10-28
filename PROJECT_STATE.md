@@ -1,3 +1,15 @@
+# G4E-7DZ R6D-R8A〜R8F 六工程一括の原世界立地・動線・構造研究完了 — SOURCE PREMODEL TECH限定PASS／R8F構造STOP／ART HOLD（2026-10-28 JST）
+
+**R8A** [真正CI #40678460212](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40678460212) 成功：元R1正規13時点のカメラで両道路各144候補を調査し、連続可視＋元B48面距離＋B51全28×721時点の標本制約を満たす候補true-pinch **137**／pinch-switch **138**。ただし可視性だけの選定は順序逆転・最大約81%勾配を生む。
+
+**R8B** [CI #40678683173](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40678683173) 成功：4都市役割の時間順を両道路で修正。しかし元R5A CX接点→早期公共区画は水平true **464.705m**／pinch **454.718m**、直線勾配10.7〜10.8%。**R8C** [元Blender実監査CI #40678958090](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40678958090) 成功：その長距離経路は元CX/B48実三角形交差**両道路7**、支持基礎も不足。選んだ4地点の13元カメラの視認性再検証は全一致。長距離経路は不採用。
+
+**R8D** [実既存CX床候補CI #40679407999](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40679407999) 成功：元CX `00 roadbank-inhabited None` polygon **2381**、XYZ **(-176.7074,134.0796,-925.2911)** という実上向き床面を発見。代替接続はtrue **110.060m／6.065%**、pinch **96.094m／6.439%**。**R8E** [実幅6m通路CI #40679711147](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40679711147) 成功：元CX/B48実メッシュの中心±3m線分交差**両道路0**、B51全28×721tick標本AABB警告**0**。ただし下方20m以内の原物支持面はtrue **1/14**、pinch **1/13** 標本のみ。歩行・荷重・連続時間安全は未認証。
+
+**R8F** [5工程再利用の停止ゲートCI #40680040040](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40680040040) 成功：証拠不足の大都市建築を作らないため、両道路`STOP_BUILDING_3D_CITY_UNTIL_TRUE_LOAD_SUPPORT_AND_ACCESS_DESIGNED`を実確定。追加都市Blenderメッシュ0、ゲーム新コライダー0、元CX18/B48×7/B51×28/元カメラ5/gap52/元240Hz物理・操舵/保護CX blob不変。ARTは**未制作・HOLD**、前R7は**ART REJECT**のまま。正式美術0、Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR#46 OPEN/Draft未マージ、本番公開禁止。[R8完全審査](docs/G4E7DZ_R6D_R8A_R8F_PREMODEL_ACTUAL_VERDICT_JA.md)／[次R9支持構造先行ゲート](docs/G4E7DZ_R6D_R9_ACTUAL_SUPPORT_PREMODEL_GATE_JA.md)。
+
+---
+
 # G4E-7DZ R6D-R7〜R7C 一括制作・真正3D・空間視界・機能動線反証を完了 — SOURCE TECH限定PASS／ART REJECT／歩行FAIL／STOP（2026-10-28 JST）
 
 **R7の真正建築試作** [Actions #40676273915](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40676273915) **SUCCESS**・[Artifact #12810108245](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40676273915/artifacts/12810108245) を実取得：両道路各253編集メッシュ、6実天空吹抜、斜路32本（最大約9.48%）、元正規11〜17秒×両道路のBlender14画像。原B48三角交差0、B51元13時点交差0、B51全28×721tick標本AABB重複0、元CX重複true-pinch17／pinch-switch29組。原物保護継続。ただし画像は積層フレームが道路脇に並ぶ印象で都市内部の生活が見えない。**ART REJECT**。
