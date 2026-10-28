@@ -1,0 +1,115 @@
+name: G4E-7DZ R6D-R10A+R10B original void and true source structural feasibility
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r10a-native-cx-internal-void.py'
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r10b-structural-support-search.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r10ab-actual-void-support.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r10ab-original-cx-research
+  cancel-in-progress: true
+jobs:
+  real-source-existing-void-or-true-foundation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Original immutable CX source identity and scripts are valid
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r10a-native-cx-internal-void.py
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r10b-structural-support-search.py
+      - name: Retrieve immutable R1 true source scene, R4 28 moving hazards, R8E real source connector and R9C rejection
+        run: |
+          mkdir -p test-results/g4e7dz-r10ab/r1 test-results/g4e7dz-r10ab/r4 test-results/g4e7dz-r10ab/r8e test-results/g4e7dz-r10ab/r9c
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r10ab/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r10ab/r4
+          gh run download 40679711147 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R8E_REAL_SOURCE_SHORT_CX_FLOOR_SIXMETRE_RESEARCH_HOLD \
+            --dir test-results/g4e7dz-r10ab/r8e
+          gh run download 40682296528 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R9C_TRUE_ORIGINAL_CX_COURT_POCKET_3D_RESEARCH_ART_HOLD \
+            --dir test-results/g4e7dz-r10ab/r9c
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: R10A original real internal void survey and R10B actual footing search both road variants
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r10ab/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r10a-native-cx-internal-void.py -- \
+              --scene "test-results/g4e7dz-r10ab/r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r10ab/r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r10ab/r4/source/$r.json" \
+              --r9c "test-results/g4e7dz-r10ab/r9c/result-$r/R9C_$r"_TRUE_CX_ORIGINAL_3D_POCKET.json \
+              --road "$r" --out "test-results/g4e7dz-r10ab/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r10b-structural-support-search.py -- \
+              --scene "test-results/g4e7dz-r10ab/r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r10ab/r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r10ab/r4/source/$r.json" \
+              --r8e "test-results/g4e7dz-r10ab/r8e/result-$r/R8E_$r"_CX_EARLY_SIX_METRE_SOURCE.json \
+              --road "$r" --out "test-results/g4e7dz-r10ab/result-$r"
+          done
+      - name: Independent original integrity and no false load-bearing or room-entry approval
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          root='test-results/g4e7dz-r10ab'
+          a=glob.glob(root+'/result-*/*_ORIGINAL_CX_VOID_SURVEY.json')
+          b=glob.glob(root+'/result-*/*_BRIDGE_SOURCE_SUPPORT.json')
+          assert len(a)==len(b)==2,(a,b)
+          assert {json.load(open(x))['road'] for x in a}=={'true-pinch','pinch-switch'}
+          for aa,bb in zip(sorted(a),sorted(b)):
+           x=json.load(open(aa));y=json.load(open(bb))
+           assert x['road']==y['road']
+           assert x['schema']=='dopagaki.g4e7dz-r6d-r10a-real-source-contained-cx-void-survey/1'
+           assert y['schema']=='dopagaki.g4e7dz-r6d-r10b-real-source-bridge-footing-grid/1'
+           assert x['sourceCXBlob']==y['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert (x['sourceCX'],x['sourceB48'],x['sourceB51'],x['originalCameras'])==(18,7,28,5)
+           assert (y['originalCX'],y['originalB48'],y['originalB51'],y['originalCameras'])==(18,7,28,5)
+           assert x['originalMeshesCompletelyUnchanged'] and y['originalSourceIdentityUnchanged']
+           assert x['gridPositionsExamined']==486
+           assert x['realNativeCameraVisibleEnclosedExistingCxVoidCandidates']<=x['originalCxVoidEmptyRealMeshAndContainingOpposingWalls']
+           for entry in x['topTenOriginalSpatialVoids']:
+            assert entry['b48CxRealMeshIntersectingNewVolume']==0
+            assert not entry['B51All28x721SampleAabbWarnings']
+            assert entry['CxWallsOppositePairs']>=1 and entry['originalFloorBelow']['type']=='CX'
+            assert len(entry['actualSourceNativeCameraVisibleUnoccluded'])>=2
+            assert not entry['humanIngressPortalFromCXExteriorProven']
+           assert y['bridgeDeckSupportStations']==len(y['realFootingStationSamples'])
+           assert y['stationsWithGeometricSourceCxFootingB48B51SampleClear']<=y['bridgeDeckSupportStations']
+           assert not y['originalSourceFootingCapacityAndTrueLoadPathCertified']
+           assert not y['continuousTimeB51SweptDynamicCollisionCertified']
+           assert not x['entryFromExteriorPhysicallyProven']
+           assert not x['exitWalkwayContinuityPhysicallyProven']
+           assert x['actualNewBlenderCityMeshes']==y['newBlenderMeshes']==0
+           assert x['newGameColliders']==y['newGameColliders']==0
+           assert x['officialArt']==y['officialArt']==x['officialSlope2Metres']==y['officialSlope2Metres']==0
+           assert all(x[k]==y[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R10AB_ORIGINAL_SOURCE_RESEARCH',x['road'],
+            'enclosed CX voids',x['originalCxVoidEmptyRealMeshAndContainingOpposingWalls'],
+            'native camera visible',x['realNativeCameraVisibleEnclosedExistingCxVoidCandidates'],
+            'potential CX footings',y['stationsWithGeometricSourceCxFootingB48B51SampleClear'],
+            'out of',y['bridgeDeckSupportStations'])
+          print('R10AB_SOURCE_ANALYSIS_SUCCESS_NEVER_ART_OR_HUMAN_CERTIFICATION')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R10AB_ORIGINAL_SOURCE_CX_TRUE_VOID_AND_PIER_GRID_ART_HOLD
+          path: test-results/g4e7dz-r10ab/result-*/
+          retention-days: 7
+          if-no-files-found: warn
