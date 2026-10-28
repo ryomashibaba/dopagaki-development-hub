@@ -1,0 +1,91 @@
+name: G4E-7DZ R6D-R5 PRIVATE genuine city-depth field 3D vs B48 B51 ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r5-urban-deep-field.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r5-depth-field.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r6d-r5-depthfield
+  cancel-in-progress: true
+jobs:
+  authentic-city-stress-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protected original proof and compile
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r5-urban-deep-field.py
+      - name: Reuse existing authentic 240Hz camera, 28-hazard temporal and CX contact artifacts
+        run: |
+          mkdir -p test-results/g4e7dz-r6d-r5/source-r1 test-results/g4e7dz-r6d-r5/source-r4 test-results/g4e7dz-r6d-r5/source-r5a
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r6d-r5/source-r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r6d-r5/source-r4
+          gh run download 40635016206 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R5A_PRIVATE_SOURCE_CX_B48_CONNECTION_HOLD \
+            --dir test-results/g4e7dz-r6d-r5/source-r5a
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Build actual 3D one city on two protected roads and 7 cameras each
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r6d-r5/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r5-urban-deep-field.py -- \
+              --source "test-results/g4e7dz-r6d-r5/source-r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r6d-r5/source-r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r6d-r5/source-r4/source/$r.json" \
+              --contact "test-results/g4e7dz-r6d-r5/source-r5a/result-$r/R5A_$r"_SOURCE_CONTACT.json \
+              --road "$r" --out "test-results/g4e7dz-r6d-r5/result-$r"
+          done
+      - name: Separate technical failures from render success and automatic ART gating
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          root='test-results/g4e7dz-r6d-r5'
+          audit=glob.glob(root+'/result-*/*_AUDIT.json')
+          blend=glob.glob(root+'/result-*/*.blend')
+          png=glob.glob(root+'/result-*/*.png')
+          assert len(audit)==len(blend)==2 and len(png)==14,(len(audit),len(blend),len(png))
+          assert {json.load(open(p))['road'] for p in audit}=={'true-pinch','pinch-switch'}
+          for p in audit:
+           d=json.load(open(p))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r5-city-depth-field/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert (d['sourceCX'],d['originalB48'],d['originalB51'],d['originalCameras'])==(18,7,28,5)
+           assert d['gap52'] and d['originalObjectsUnchanged']
+           assert d['newRealCityMeshes']>=35
+           assert len(d['genuineBlenderPngs'])==7
+           assert len(d['B51ThirteenPreciseSampleTriangleIntersections'])==13
+           assert len(d['sourceCameraVertexPotentialNotHumanLegibility'])==7
+           assert d['noContinuousTimeCollisionCertification']
+           assert d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+           assert d['sourceGameChanged'] is False and d['newCityGameWebGL']=='NOT_RENDERED'
+           assert all(d[x]=='HOLD' for x in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R5_PRIVATE_DESIGN_REVIEW',d['road'],
+            'meshes',d['newRealCityMeshes'],
+            'source B48 hits',len(d['originalB48TriangleIntersections']),
+            'source B51 13 samples',sum(map(len,d['B51ThirteenPreciseSampleTriangleIntersections'].values())),
+            'all28 hazard 721 sampled AABB warnings',len(d['all28X721SourceHazardsConservativeAabbOverlapWarnings']))
+          print('R5_SAFETY_AND_ART_NOT_AUTOMATICALLY_APPROVED')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R6D_R5_DEEP_CITY_REAL_BLENDER_PRIVATE_REVIEW_HOLD
+          path: test-results/g4e7dz-r6d-r5/result-*/
+          retention-days: 7
+          if-no-files-found: warn
