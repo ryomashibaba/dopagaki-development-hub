@@ -16,7 +16,7 @@ road=arg("--road");variant=arg("--variant")
 assert road in ("true-pinch","pinch-switch") and variant in ("LANDSCAPE","RIFT")
 out=arg("--out");os.makedirs(out,exist_ok=True)
 SRC="af076d67492a677d2235e4730aef8cdf4808e106"
-TARGET="B48 original physics p93-CROWN_REVERSAL-01:377:390"
+TARGET="B48 original physics p93-CROWN_REVERSAL-01:559:572"
 study=json.load(open(arg("--r15i4"),encoding="utf8"))
 road_preflight=json.load(open(arg("--r15i"),encoding="utf8"))
 native=json.load(open(arg("--native"),encoding="utf8"))
@@ -75,7 +75,7 @@ original=[("CX",o,bvh(o)) for o in CX]+[("B48",o,bvh(o)) for o in B48]
 sourceCx=[o for o in CX if o.name==site["originalCXSourceMeshName"]]
 assert len(sourceCx)==1,site["originalCXSourceMeshName"]
 near,n,j,d=bvh(sourceCx[0]).find_nearest(c,2.0)
-assert near is not None and (near-c).length<.6 and n.y>.5
+assert near is not None and (near-c).length<.6 and n.y>.75,("CX_LANDING_NOT_UPWARD_FACING",site["id"],n.y)
 # Visible-from-road at time t13 and genuine B48 road surface at entrance.
 road_sources=[t for k,o,t in original if k=="B48"]
 assert any(t.ray_cast(a-outward_source*.45+Vector((0,3,0)),Vector((0,-1,0)),6)[0] is not None for t in road_sources)
