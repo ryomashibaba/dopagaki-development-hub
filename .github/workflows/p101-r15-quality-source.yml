@@ -17,6 +17,8 @@ on:
       - 'scripts/p101-r15g-three-true-original-cinematic-sites.py'
       - 'scripts/p101-r15h-editable-real-three-76m-sculptures.py'
       - 'scripts/p101-r15h-independent-real-r1-image-art-veto.py'
+      - 'scripts/p101-r15i-original-road-rim-entrance-preflight.py'
+      - 'scripts/p101-r15i-independent-road-first-gate.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -480,6 +482,7 @@ jobs:
           if-no-files-found: warn
 
   r15g-h-distinct-city-source-sites-and-actual-editable-blender-14-camera-art:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 60
@@ -557,3 +560,65 @@ jobs:
             test-results/r15gh/independent/
           retention-days: 7
           if-no-files-found: warn
+
+  r15i-b48-real-road-rim-dual-source-ground-first-preflight:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect exact original source and validate new R15I scripts
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15i-original-road-rim-entrance-preflight.py scripts/p101-r15i-independent-road-first-gate.py
+      - name: Reuse authentic paired R1 original 240Hz 3D scene and R4 all 28 B51 envelopes
+        run: |
+          mkdir -p test-results/r15i/r1 test-results/r15i/r4 test-results/r15i/results
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15i/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/r15i/r4
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Examine ACTUAL paired-world B48 top-face boundary and CX source-ground support witnesses
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-r15i-original-road-rim-entrance-preflight.py -- \
+            --source-true-pinch test-results/r15i/r1/result-true-pinch/R1_true-pinch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --source-pinch-switch test-results/r15i/r1/result-pinch-switch/R1_pinch-switch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --native-true-pinch test-results/r15i/r1/source/true-pinch.json \
+            --native-pinch-switch test-results/r15i/r1/source/pinch-switch.json \
+            --hazards-true-pinch test-results/r15i/r4/source/true-pinch.json \
+            --hazards-pinch-switch test-results/r15i/r4/source/pinch-switch.json \
+            --out test-results/r15i/results
+      - name: Independently recompute road-first candidate evidence and reject false support/ART/WebGL
+        run: |
+          python3 scripts/p101-r15i-independent-road-first-gate.py \
+            --in test-results/r15i/results/R15I_TRUE_B48_ROAD_FIRST_TWO_WORLD_PREFLIGHT.json \
+            --out test-results/r15i/results/R15I_INDEPENDENT_ROAD_FIRST_GATE.json
+          python3 - <<'PY'
+          import json
+          p='test-results/r15i/results/'
+          a=json.load(open(p+'R15I_TRUE_B48_ROAD_FIRST_TWO_WORLD_PREFLIGHT.json'))
+          b=json.load(open(p+'R15I_INDEPENDENT_ROAD_FIRST_GATE.json'))
+          assert a['originalGameEdited'] is False and b['negativeForgeryTestsPassed']
+          assert not a['realPublicFloorOrPedestrianEntranceBuilt']
+          assert not a['realFoundationsOrLoadPathsBuilt']
+          assert a['officialArt']==a['officialSlope2Meters']==a['newGameColliders']==0
+          assert a['realWebGLGameRendered'] is False
+          print('R15I_SOURCE_ROADSIDE_RESEARCH_ONLY',a['spatiallyDistinctSourceRoadsideTestHypotheses'],
+                'two-world tentative next study candidates',a['eligibleSameXYZPhysicalSupportAndCameraStudyCount'],
+                'ART HOLD / SUPPORT HOLD / HUMAN HOLD / NO GAME CHANGES')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15I_ACTUAL_B48_ROADSIDE_GROUND_FIRST_PAIRED_SOURCE_PRELIMINARY_HOLD
+          path: test-results/r15i/results/
+          if-no-files-found: warn
+          retention-days: 7
