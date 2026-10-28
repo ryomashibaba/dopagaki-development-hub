@@ -42,13 +42,33 @@ jobs:
               --pixels "test-results/g4e7dz-r7c/source-r7b/R7B_SOURCE_VS_R7_PIXEL_EVIDENCE.json" \
               --out "test-results/g4e7dz-r7c/R7C_$r"_INDEPENDENT_STOP_GATE.json
           done
-      - name: Negative fixture: fail-safe conditions are NOT auto-art approval
+      - name: Negative fixture: mutation catches source road collisions and cannot auto-certify art
         run: |
           python3 - <<'PY'
-          import json,glob
-          from scripts.p101_w9c2_g4e7dz_r6d_r7c_evidence_gate import check
+          import json,copy,importlib.util
+          spec=importlib.util.spec_from_file_location('gate','scripts/p101-w9c2-g4e7dz-r6d-r7c-evidence-gate.py')
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          root='test-results/g4e7dz-r7c'
+          r='true-pinch'
+          a=json.load(open(f'{root}/source-r7/result-{r}/R7_{r}_AUDIT.json'))
+          b=json.load(open(f'{root}/source-r7b/result-{r}/R7B_{r}_FALSIFICATION.json'))
+          p=json.load(open(f'{root}/source-r7b/R7B_SOURCE_VS_R7_PIXEL_EVIDENCE.json'))
+          valid=m.check(a,b,p)
+          assert valid['prototypeBuildGate']=='STOP'
+          unsafe=copy.deepcopy(a)
+          unsafe['newR7ExactB48TriangleIntersections']=[['R7 synthetic bad','original road',1]]
+          rejected=m.check(unsafe,b,p)
+          assert 'ORIGINAL_B48_TRIANGLE_CONFLICT' in rejected['sourceReasons']
+          lucky=copy.deepcopy(b)
+          lucky['genuineVisibleVoidTargetsByFrame']['t1700']=5
+          for x in lucky['rampEndpointContactEvidence']:
+           for end in x['endpoints']:end['closestGalleryDistanceMetres']=0.1
+          stillNotArt=m.check(a,lucky,p)
+          assert stillNotArt['prototypeBuildGate']=='STOP'
+          assert not stillNotArt['R7OfficialCityArtAdopted']
+          assert 'NO_PROVEN_EXISTING_CX_PUBLIC_ACCESS' in stillNotArt['sourceReasons']
+          print('R7C_TESTED_FAIL_CLOSED_SOURCE_COLLISION_AND_EVEN_IF_ART_PIXEL_GOOD')
           PY
-        continue-on-error: true
       - name: Real expected rejection is mandatory; virtual CI success is NOT artistic success
         run: |
           python3 - <<'PY'
