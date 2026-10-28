@@ -1,3 +1,13 @@
+# G4E-7DZ R6D-R5 3都市ノード《CITY DEPTH FIELD》真正14視点比較・28動体安全監査完了 — SOURCE TECH限定PASS／ART REJECT（2026-10-28 JST）
+
+[R5真正Actions #40672567617](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40672567617) **SUCCESS**、[Artifact #12808653048](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40672567617/artifacts/12808653048) を実取得、**真正Blender画像14・編集可能BLEND2・監査JSON2**を元R1の同14カメラ画角と比較。元の14〜17秒の蛇行道路に沿って**公共・居住・交通の3都市ノード×各道路37真正3Dメッシュ**を新試作。原CX18/B48物理7/B51動体28/元カメラ5/gap52/保護Git blob不変。元B48実三角形交差0／両道路、B51の13時点実三角形交差0／両道路、全28動体の721tick標本AABB重なり0／両道路。ただし元CXとtrue-pinch 1・pinch-switch 2オブジェクト組の重なりあり、歩行・構造接合・連続時刻安全未認証。
+
+**真正画像ART REJECT**：高層でも左右の孤立支柱・薄板・水平構造として見え、居住・公共・鉄道の都市内部を駆け抜ける体験なし。16.5〜17秒には実カメラからほぼ消える。17秒の元R1との差分45/255超画素はtrue-pinch 2.02%、pinch-switch 1.82%（画像差であってART品質指標ではない）。**R5案の美術採用・詳細化禁止。** SOURCE保護TECH限定PASS／ART REJECT、正式美術0、Slope2 0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。PR#46 OPEN/Draft未マージ、本番公開禁止。[独立審査](docs/G4E7DZ_R6D_R5_CITY_DEPTH_FIELD_ACTUAL_VERDICT_JA.md)。
+
+次R6は**局所に追加する小・中・大規模の建物実験の繰り返しを止め、全域粗実3D・交通・住民生活・空洞・遠景の統合設計**を最初から検証する。元物理／元カメラに手を加えて見た目だけを作らない。
+
+---
+
 # G4E-7DZ R6D-R4 正規原世界3D地図・7時点カメラ視界・B51全28体×721tick監査完了 — SOURCE SPATIAL TECH限定PASS／ART HOLD（2026-10-28 JST）
 
 [真正Actions #40671430779](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40671430779) **SUCCESS**、[Artifact #12808491815](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40671430779/artifacts/12808491815) の全24ファイルを実取得・検査。14〜17秒の**元カメラ7時点×両道路×375レイ**から、実CX18・B48道路7・B51動体28・空のファーストヒット画面比率を解析。既存CX可視平均はtrue-pinch **9.30%**／pinch-switch **10.06%**、B48道路**38.82%／38.13%**、空**51.43%／51.77%**。元建築は道沿いに点在するが、元ゲーム視界では内部の連続した立体都市として読めない。数値は粗い視線サンプルであり美術採点ではない。
