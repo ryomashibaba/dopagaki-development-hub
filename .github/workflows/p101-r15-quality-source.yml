@@ -12,6 +12,8 @@ on:
       - 'scripts/p101-r15d-independent-detour-gate.py'
       - 'scripts/p101-r15e-editable-native-civic-spine.py'
       - 'scripts/p101-r15e-independent-native-art-gate.py'
+      - 'scripts/p101-r15f-source-camera-first-landmark-sites.py'
+      - 'scripts/p101-r15f-independent-camera-site-gate.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -332,6 +334,7 @@ jobs:
           retention-days: 7
 
   r15e-real-two-road-3d-civic-spine-native-art:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 58
@@ -407,3 +410,67 @@ jobs:
             test-results/r15e/independent/
           if-no-files-found: warn
           retention-days: 7
+
+  r15f-real-source-camera-first-landmark-volume-research:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check frozen original game source and compile both independent R15F studies
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15f-source-camera-first-landmark-sites.py scripts/p101-r15f-independent-camera-site-gate.py
+      - name: Reuse actual 13-frame original camera R1 and all 28 original B51 moving 721 tick envelopes
+        run: |
+          mkdir -p test-results/r15f/r1 test-results/r15f/r4 test-results/r15f/results
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15f/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/r15f/r4
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Original two-road exact CX/B48/B51 safety vs screen-facing 42m and 76m landmark bodies
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-r15f-source-camera-first-landmark-sites.py -- \
+            --source-true-pinch test-results/r15f/r1/result-true-pinch/R1_true-pinch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --source-pinch-switch test-results/r15f/r1/result-pinch-switch/R1_pinch-switch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --native-true-pinch test-results/r15f/r1/source/true-pinch.json \
+            --native-pinch-switch test-results/r15f/r1/source/pinch-switch.json \
+            --hazards-true-pinch test-results/r15f/r4/source/true-pinch.json \
+            --hazards-pinch-switch test-results/r15f/r4/source/pinch-switch.json \
+            --out test-results/r15f/results
+      - name: Independent source camera first result contract / fake ART WebGL source rejection
+        run: |
+          python3 scripts/p101-r15f-independent-camera-site-gate.py \
+            --in test-results/r15f/results/R15F_TRUE_TWO_ORIGINAL_CAMERA_FIRST_SHARED_MACRO_SITES.json \
+            --out test-results/r15f/results/R15F_INDEPENDENT_SOURCE_CAMERA_SITE_GATE.json
+          python3 - <<'PY'
+          import json
+          p='test-results/r15f/results/'
+          a=json.load(open(p+'R15F_TRUE_TWO_ORIGINAL_CAMERA_FIRST_SHARED_MACRO_SITES.json'))
+          b=json.load(open(p+'R15F_INDEPENDENT_SOURCE_CAMERA_SITE_GATE.json'))
+          assert a['candidateOriginalWorldSitesTested']==b['testedHypotheses']==336
+          assert a['newGameColliders']==a['officialArt']==a['officialSlope2Meters']==0
+          assert a['monumentalFutureCityOrArtActualBuilt'] is False
+          assert a['originalGameCameraImagePixelFootprintActuallyMeasured'] is False
+          assert b['falsifiedGameOrArtClaimsRejected']
+          assert all(a[x]=='HOLD' for x in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+          print('R15F_ORIGINAL_CAMERA_FIRST_PHYSICAL_SITE_RESEARCH',
+            'true both road candidates',a['originalCandidateSiteCountRaw'],
+            'era options',{k:len(v) for k,v in a['topActualSharedCameraAndSourceVisibleSpatialSitesByEra'].items()},
+            'do not claim game integration or human art approval')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15F_TWO_ROAD_SOURCE_CAMERA_FIRST_MONUMENTAL_SITE_PREFLIGHT_NO_ART
+          path: test-results/r15f/results/
+          retention-days: 7
+          if-no-files-found: warn
