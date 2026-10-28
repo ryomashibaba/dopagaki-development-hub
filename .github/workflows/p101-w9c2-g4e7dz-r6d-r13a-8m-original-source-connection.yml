@@ -1,0 +1,99 @@
+name: G4E-7DZ R6D-R13A PRIVATE genuine 8m 3D original-world corridor between early and middle
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r13a-true-connected-native-corridor.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r13a-8m-original-source-connection.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: r13a-original-real-mesh-8m-3d-connection
+  cancel-in-progress: true
+jobs:
+  true-source-cx-b48-b51-3d-connection:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect original game source, compile premodel Blender script
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r13a-true-connected-native-corridor.py
+      - name: Fetch actual original R1 world and R4 B51 28 x 721 moving envelope plus proven R12A/R12D exact source endpoints
+        run: |
+          mkdir -p test-results/g4e7dz-r13a/r1 test-results/g4e7dz-r13a/r4 test-results/g4e7dz-r13a/r12a test-results/g4e7dz-r13a/r12d
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r13a/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r13a/r4
+          gh run download 40687143619 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R12A_ORIGINAL_13CAM_SAFE_VOLUME_ALL28_B51_HOLD \
+            --dir test-results/g4e7dz-r13a/r12a
+          gh run download 40688829549 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R12D_TRUE_SOURCE_DISCONNECTED_CANDIDATES_R13_GATE_REJECT \
+            --dir test-results/g4e7dz-r13a/r12d
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Native actual 8m original physical CX/B48/B51 3D search on both variants
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r13a/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r13a-true-connected-native-corridor.py -- \
+              --source "test-results/g4e7dz-r13a/r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r13a/r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r13a/r4/source/$r.json" \
+              --r12a "test-results/g4e7dz-r13a/r12a/result-$r/R12A_$r"_SAFE_NATIVE_VOLUME_FIELD.json \
+              --r12d "test-results/g4e7dz-r13a/r12d/R12D_$r"_SOURCE_DISCONNECTION_GATE.json \
+              --road "$r" --out "test-results/g4e7dz-r13a/result-$r"
+          done
+      - name: Independently prove 3D source search bounded, not silently promote a fake construction certificate
+        run: |
+          python3 - <<'PY'
+          import glob,json,math
+          paths=glob.glob('test-results/g4e7dz-r13a/result-*/*_ORIGINAL_SOURCE_8M_VOXEL_CORRIDOR.json')
+          assert len(paths)==2,paths
+          assert {json.load(open(p))['road'] for p in paths}=={'true-pinch','pinch-switch'}
+          for p in paths:
+           d=json.load(open(p))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r13a-genuine-3d-source-connected-corridor/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['sourceCX18B48_7B51_28Cameras5Unchanged']
+           assert d['original3DSweptProbeQuarterMidThreeQuarter']
+           assert d['originalSource8mStepLateralRangeMetres']==[-64,64]
+           assert d['originalSource8mStepVerticalRangeMetres']==[-32,32]
+           assert d['originalSource3DStudySearchLongitudinalStations']>=8
+           assert sum(d['gridCellsRealCXB48B51EnvelopeResults'].values())==d['originalSource3DStudySearchLongitudinalStations']*17*9
+           assert len(d['endpointSourceClear'])==2
+           if d['bounded8mEmptyCubeRouteExists']:
+            assert len(d['bounded8mClearCubeRouteSourcePathNodes'])>=8
+            assert d['bounded8mClearCubeRouteMetres']>60
+            assert len(d['routeOriginalSource13CameraVisibleCellCounts'])==13
+            assert d['decision']=='POTENTIAL_8M_GEOMETRIC_VOID_ROUTE_ONLY'
+           else:
+            assert not d['bounded8mClearCubeRouteSourcePathNodes']
+            assert d['decision']=='NO_MONOTONIC_8M_VOID_LINK_WITHIN_64M_LATERAL_32M_VERTICAL_WINDOW'
+           assert d['notARealGameRouteOrPlatform']
+           assert d['originalHumanIngressAndFloorConnectivity']==d['structuralSupportsAndLoadCapacity']==d['continuousTimeB51ExactCollision']=='NOT_CERTIFIED'
+           assert not d['sourceObjectOrGamePhysicsEdited']
+           assert d['newBlenderCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R13A_ACTUAL_BOUNDED_TRUE_3D_SOURCE',d['road'],'clear3Dcells',d['gridCellsRealCXB48B51EnvelopeResults']['clear'],
+            'path',d['bounded8mEmptyCubeRouteExists'],'metres',d['bounded8mClearCubeRouteMetres'])
+          print('R13A_TECH_RESEARCH_NOT_WALKABILITY_OR_ART_ACCEPTANCE')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R13A_TRUE_SOURCE_8M_3D_CONNECTED_EARLY_MIDDLE_RESEARCH_HOLD
+          path: test-results/g4e7dz-r13a/result-*/
+          retention-days: 7
+          if-no-files-found: warn
