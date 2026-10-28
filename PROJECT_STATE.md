@@ -1,3 +1,19 @@
+# G4E-7DZ R6D-R14A〜R14E 5工程完了 — 同時刻プレイヤー・カメラ一致→二道路同一安全座標→実Blender一断面→画像ART REJECT（2026-10-28 JST）
+
+**R14A** [真正CI #40692425178](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40692425178) **SUCCESS**／Artifact #12818335288：元プレイヤーと正規元カメラの同時刻、元CX18/B48実物理7の真正三角面、B51全28×721tick包囲を統合した大型32×36×36m・中型20×24×26m立地探索。元物理非干渉＋同時刻3D内部が見える候補true**970（前435/中293/後242）**、pinch**956（前413/中294/後249）**。原プレイヤーが最接近する時刻も±0.5秒以内の候補を複数確認。元床や人間入口は未認証。
+
+**R14B** [修正後真正CI #40693102074](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40693102074) **SUCCESS**／Artifact #12818391129：**両道路で同一世界XYZのまま、同じ寸法の建築体積・元CX/B48/B51に干渉せず、同時刻の原カメラで内部3高度が見える**共通立地、前半**4**／中盤**5**／後半**9**件。共通最良XYZは前(-320.84753,116.51085,-904.74261)、中**(-218.91870,109.83630,-766.24292)**、後(-142.78160,98.96365,-491.04324)。初回CI #40692906018はB51 JSONを数値変数で上書きするスクリプトミスによる失敗で修正済み。
+
+**R14C** [独立CI #40693614337](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40693614337) **SUCCESS**／Artifact #12817937813：実BVH結果の二道路照合・偽世界座標の注入拒否。真の共通立地間の最短3D距離は前→中約**134.1m**／中→後約**176.7m**。まだ一体化した歩行可能な都市ではない。
+
+**R14D** [真正Blender CI #40694210972](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40694210972) **SUCCESS**／Artifact #12819395101：上記中盤の元両道路共通安全XYZで**新規70個の真正編集Blender非対称中庭都市断面**を制作、両道路の元カメラ11/12/13/14/15/16/17秒の本物のBlender14PNG＋編集BLEND2＋監査JSON2を保存。元CX18/B48×7への実三角交差両道路0、B51全28×721tick包囲重複0、B51元13時点実姿勢交差0。14.5秒の一時的な都市初ヒットはtrue14.04%／pinch20.61%だが、**15〜17秒0%**、実画像では遠い細い単独建物で、大きな未来都市の生活空間として不十分。**ART REJECT**。
+
+**R14E** [独立画像CI #40694742949](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40694742949) **SUCCESS**／Artifact #12819365701：元R1と同じ正規Blender画像とのRGB差とR11-R1元カメラBVHを独立比較。元11〜17秒7代表時点の新都市初ヒット率平均R14Dは**true0.564%／pinch1.003%**（R11-R1は約10.901%／11.153%）、両道路6/7時点が2%未満。**ART_REJECT_REAL_SOURCE_IMAGE_DISAPPEARS_AND_SMALL_FACADE**。正式美術0、Slope2正式認定0m。
+
+原CX18/B48実物理7/B51動体28/正規元カメラ5＋8研究延長/gap52/元240Hz・P96操舵・CX保護Git blob・Gold/P100/main/本番URL不変更。ゲーム新コライダー0、R14はBlender研究のみ、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR#46 OPEN/Draft未マージ、本番公開禁止。[完全審査](docs/G4E7DZ_R6D_R14A_R14E_TRUE_NATIVE_CITY_VERDICT_JA.md)／[次R15全体方針](docs/G4E7DZ_R6D_R15_GAME_AND_MEGA_CITY_RETHINK_JA.md)。
+
+---
+
 # G4E-7DZ R6D-R13A〜R13C 原世界8m接続→32m幅真正空き領域→実床・実走行視点ゲート完了（2026-10-28 JST）
 
 **R13A** [CI #40690352681](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40690352681) **SUCCESS**／[Artifact #12817141387](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40690352681/artifacts/12817141387)：R12A原物非干渉EARLY→MIDDLE安全箱間を、元CX18/B48実物理7/B51全28×721tickの真正Blender 8m立体格子（両道路各1530セル）で再探索。true**1447**／pinch**1458**空きセル、原CX交差true83／pinch72。中間1/4・1/2・3/4標本も原物非干渉の**10ノード連続空間68.302m／68.420m**発見。ただし勾配true**18.74%**／pinch**18.11%**、実床・構造・歩行は未認証。最初のCI #40690069714 のfloat32対JSON 4桁座標の誤った完全一致を2mm距離検証へ修正し再実行SUCCESS。
