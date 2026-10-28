@@ -1,3 +1,11 @@
+# G4E-7DZ R15B 605m巨大都市・37実Blenderメッシュ・14真正画像・独立ART/GEOMETRY REJECT（2026-10-28 JST）
+
+真正R15B生成CI #40700631638 **SUCCESS**、真正独立審査CI #40701514443 **SUCCESS**。原240Hz両道路×同一世界XYZの約605.463m都市候補、Blender編集37メッシュ、原カメラ7時点×両道路14PNG、編集BLEND2。**元CX18の実三角面交差16組ずつ**、B48実三角面交差0、B51全28×721tick保守AABB警告3組ずつ（元13姿勢実三角交差0）。新都市初ヒット7時点平均true 2.256%／pinch 1.692%。13〜17秒の主空洞への見通しゼロ、17秒新都市可視ゼロ。元R1画像との独立差分でも原景観への影響が小さく、壁状形態が残ったため**SOURCE GEOMETRY REJECT／ART REJECT**。別スクリプトによる元R1画像比較と偽美術承認注入の拒否を実証、R15B真正最終Artifact #12821199337。**CI SUCCESSはART PASSではない。**
+
+R15Cは巨大造形の追加量産を停止し、まず元CX/B48/B51との安全×11〜17秒の同時刻カメラ可視領域を、両道路同一世界XYZで探索してから造形。前方障害物の視認性・主空洞・公道/居住/交通の実体積を技術と美術で分けて判定。原blob af076d67492a677d2235e4730aef8cdf4808e106、元CX18/B48×7/B51×28、元カメラ5＋R1追加8、gap52、P96、240Hz、Gold/P100/main、本番変更なし。正式ART採用0件、Slope2正式認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、Draft PR #46未マージ、本番公開禁止。詳細: docs/G4E7DZ_R15B_ONE_CURVED_MACRO_CITY_STUDY_JA.md。
+
+---
+
 # G4E-7DZ R15A 真正ゲーム体験ソース監査 — CI SUCCESS / R14D既存ART REJECT継続（2026-10-28 JST）
 
 [真正R15A CI #40698730601](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40698730601) **SUCCESS**、Artifact **#12819844559**。原240Hz／P96 start00／11〜17秒13時点×両道路と元B51移動28基を再実行。原ソースblob `af076d67492a677d2235e4730aef8cdf4808e106`不変、追加単体テスト2/2 PASS、真正軌跡検査と独立JSON確認PASS。標本速度true-pinch **90.915〜110.602m/s**、pinch-switch **92.173〜112.189m/s**。動体中心の原カメラ投影は両道路13/13時点で1基以上、現在速度に対する**直線距離換算2秒以内かつ中心投影範囲**の候補ありtrue **10/13**、pinch **11/13**。接地代表時点両道路**10/13**。この指標は実視認性・先読み2秒・遮蔽・実避難経路・人間公平性を認証しない。画像の正式美術審査も実WebGL認証もNOT RUN、正式ART0、Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。
