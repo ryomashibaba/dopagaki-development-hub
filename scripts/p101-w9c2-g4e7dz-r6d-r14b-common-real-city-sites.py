@@ -67,11 +67,11 @@ for road in ('true-pinch','pinch-switch'):
     # selected midpoint here then genuinely tested independently below.
     common=(pa+pb)*.5
     hclass='LARGE' if aa['sizeClass']==bb['sizeClass']=='LARGE' else 'MEDIUM'
-    hx,hz,height=(16,18,36) if hclass=='LARGE' else (10,12,26)
+    hx,halfZ,height=(16,18,36) if hclass=='LARGE' else (10,12,26)
     key=(phase,round(aa['time'],2),hclass,
      tuple(round(float(x),3) for x in common))
     if any(x['key']==key for x in candidates):continue
-    vtree,verts=volume(common,hx,hz,height)
+    vtree,verts=volume(common,hx,halfZ,height)
     moverWarnings=[x['id'] for x in hz['hazards'] if x['sampledAabb'] and overlapping(x['sampledAabb'],verts)]
     collide=[]
     if not moverWarnings:
@@ -108,7 +108,7 @@ for road in ('true-pinch','pinch-switch'):
     candidates.append({'key':key,'phase':phase,'sameTimeSeconds':aa['time'],
       'realCommonXYZ':[round(float(q),5) for q in common],
       'realR14ASeparateSafeSitesMetres':round(float(separation),4),
-      'sourceResearchPhysicalSize':[2*hx,2*hz,height],
+      'sourceResearchPhysicalSize':[2*hx,2*halfZ,height],
       'srcGameOriginalB51_721AabbOverlapIds':moverWarnings,
       'sourceGameCXB48ExactTriangleOverlaps':collide,
       'trueOriginalNativeVisibility':visible,
