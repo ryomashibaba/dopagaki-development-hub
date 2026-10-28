@@ -1,3 +1,11 @@
+# G4E-7DZ R15A 真正ゲーム体験ソース監査 — CI SUCCESS / R14D既存ART REJECT継続（2026-10-28 JST）
+
+[真正R15A CI #40698730601](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40698730601) **SUCCESS**、Artifact **#12819844559**。原240Hz／P96 start00／11〜17秒13時点×両道路と元B51移動28基を再実行。原ソースblob `af076d67492a677d2235e4730aef8cdf4808e106`不変、追加単体テスト2/2 PASS、真正軌跡検査と独立JSON確認PASS。標本速度true-pinch **90.915〜110.602m/s**、pinch-switch **92.173〜112.189m/s**。動体中心の原カメラ投影は両道路13/13時点で1基以上、現在速度に対する**直線距離換算2秒以内かつ中心投影範囲**の候補ありtrue **10/13**、pinch **11/13**。接地代表時点両道路**10/13**。この指標は実視認性・先読み2秒・遮蔽・実避難経路・人間公平性を認証しない。画像の正式美術審査も実WebGL認証もNOT RUN、正式ART0、Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。
+
+別途R14Dの真正Blender 11〜17秒×両道路14画像（Artifact #12819395101）を目視再比較。14秒の単独的で細い新造形が16秒の実視点から消え、既存道路と背景構造ばかりが残る。R14D/E **ART REJECT維持**。R15Bでは巨大都市のマクロ構造と近・中・遠景を先に比較し、旧案へ装飾を足さない。元CX/B48/B51・正規カメラ・Gold/P100/main・本番を変更せず、PR#46 Draft維持。[R15A詳細](docs/G4E7DZ_R15A_NATIVE_GAME_EXPERIENCE_SOURCE_AUDIT_JA.md)。
+
+---
+
 # G4E-7DZ R6D-R14A〜R14E 5工程完了 — 同時刻プレイヤー・カメラ一致→二道路同一安全座標→実Blender一断面→画像ART REJECT（2026-10-28 JST）
 
 **R14A** [真正CI #40692425178](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40692425178) **SUCCESS**／Artifact #12818335288：元プレイヤーと正規元カメラの同時刻、元CX18/B48実物理7の真正三角面、B51全28×721tick包囲を統合した大型32×36×36m・中型20×24×26m立地探索。元物理非干渉＋同時刻3D内部が見える候補true**970（前435/中293/後242）**、pinch**956（前413/中294/後249）**。原プレイヤーが最接近する時刻も±0.5秒以内の候補を複数確認。元床や人間入口は未認証。
