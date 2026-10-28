@@ -57,6 +57,11 @@ def gate(d):
    assert s["originalSourceUpFacingFacesWithin28m"]>=s["originalLargestEdgeConnectedUpFacingFaces"]>=0
    assert s["originalLargestConnectedSurfaceAreaProxySqm"]>=0
    assert 0<=s["originalLargestPatchSampleCount"]<=48
+   assert s["realTriangulatedOriginalPolygonInteriorSamples"] is True
+   # A single huge quad must never be judged with ONE point: this exact
+   # regression falsely vetoed all R15K first-run candidates.
+   if s["originalLargestConnectedSurfaceAreaProxySqm"]>=200:
+    assert s["originalLargestPatchSampleCount"]>=2,"GIANT_POLYGON_ONE_CENTER_FALSE_NEGATIVE"
    if s["nearestLanding"]["sourceFaceLocated"]:
     assert 0<=s["nearestLanding"]["distanceMetres"]<=2.01
     assert -1.001<=s["nearestLanding"]["nearestFaceNormalY"]<=1.001
