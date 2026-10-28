@@ -77,13 +77,31 @@ def connected(o,landing):
  groups.sort(key=lambda g:(-sum(candidates[x][1] for x in g),min(g)))
  best=groups[0] if groups else []
  area=sum(candidates[i][1] for i in best)
- # Spatially diverse deterministically sorted real centers rather than a
- # single invented prospective architecture visibility point.
+ # IMPORTANT: source CX polygons are sometimes HUGE true polygons
+ # (e.g. one 840sqm quad). One center per polygon would force 0/4 site
+ # passes under a 2-sample camera test. Tessellate the actual source
+ # polygon and sample interior barycentric points on those ORIGINAL faces.
+ from mathutils.geometry import tessellate_polygon
+ pool=[]
+ for i in best:
+  poly=o.data.polygons[i]
+  face=[mat@o.data.vertices[v].co for v in poly.vertices]
+  triangles=tessellate_polygon([face])
+  for triangle in triangles:
+   p0,p1,p2=triangle
+   for u in range(1,7):
+    for v in range(1,7-u):
+     w=7-u-v
+     if w<1:continue
+     point=(p0*u+p1*v+p2*w)/7
+     # Exclude triangle-fan artifacts; only original tessellated faces.
+     pool.append(point)
+ # Deterministic spatial decimation: no score is assigned just because
+ # an original source polygon has only one center.
+ pool.sort(key=lambda p:(round(float(p.x),3),round(float(p.z),3),round(float(p.y),3)))
  samples=[]
- for i in sorted(best,key=lambda i:(round(float(candidates[i][0].x),1),
-                                       round(float(candidates[i][0].z),1),i)):
-  p=candidates[i][0]
-  if all((p-q).length>2.1 for q in samples):samples.append(p)
+ for p in pool:
+  if all((p-q).length>1.35 for q in samples):samples.append(p)
   if len(samples)>=48:break
  actual=tree(o)
  hit,n,j,d=actual.find_nearest(landing,2)
@@ -96,6 +114,7 @@ def connected(o,landing):
   "originalSourceUpFacingFacesWithin28m":len(candidates),
   "originalLargestEdgeConnectedUpFacingFaces":len(best),
   "originalLargestConnectedSurfaceAreaProxySqm":round(area,3),
+  "realTriangulatedOriginalPolygonInteriorSamples":True,
   "originalLargestPatchSampleCount":len(samples)},samples
 results={}
 for road in ROADS:
