@@ -1,0 +1,109 @@
+name: G4E-7DZ R6D-R4 PRIVATE source spatial map and 28x721 hazard samples ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r4-28-source-hazard-envelopes.mjs'
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r4-source-spatial-map.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r4-source-spatial.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r6d-r4-readonly-spatial-map
+  cancel-in-progress: true
+jobs:
+  spatial-diagnosis-no-city-construction:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Source identity + compile 28 moving 240Hz diagnostic
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-w9c2-g4e7dz-r6d-r4-28-source-hazard-envelopes.mjs
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r4-source-spatial-map.py
+          node scripts/p101-w9c2-g4e7dz-r6d-r4-28-source-hazard-envelopes.mjs
+      - name: Require 28×721 tick samples and unchanged protection
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          files=glob.glob('test-results/g4e7dz-r6d-r4/source/*.json')
+          assert len(files)==2,files
+          for f in files:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r4-all28-240hz-samples/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert (d['sourceB48'],d['sourceB51'],d['sourceCameras'])==(7,28,5)
+           assert d['physicsHz']==240 and d['frames721']==721 and d['sixHalfSecondWindows']==6
+           assert d['gap52'] and not d['sourceChanged']
+           assert len(d['hazards'])==28 and len(set(x['id'] for x in d['hazards']))==28
+           assert all(len(h['anchors'])==7 and len(h['sixHalfSecondSampleAabbs'])==6 and not h['continuousTimeCertified'] for h in d['hazards'])
+           assert d['newCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+           print('R4_SOURCE_ALL_28_MOVERS_721_TRUE_TICKS',d['road'])
+          PY
+      - name: Retrieve original 11-17s authenticated Blender source (no new city)
+        run: |
+          mkdir -p test-results/g4e7dz-r6d-r4/source-r1
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r6d-r4/source-r1
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Render two real-source 3D world maps and seven source first-hit ray masks per road
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r6d-r4/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r4-source-spatial-map.py -- \
+              --source "test-results/g4e7dz-r6d-r4/source-r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --timeline "test-results/g4e7dz-r6d-r4/source-r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r6d-r4/source/$r.json" \
+              --road "$r" --out "test-results/g4e7dz-r6d-r4/result-$r"
+          done
+      - name: Validate genuine-source spatial counts and categorical ray coverage independently
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          root='test-results/g4e7dz-r6d-r4'
+          reports=glob.glob(root+'/result-*/*_SOURCE_SPATIAL_AUDIT.json')
+          blends=glob.glob(root+'/result-*/*.blend')
+          images=glob.glob(root+'/result-*/*.png')
+          assert len(reports)==2 and len(blends)==2 and len(images)==18,(len(reports),len(blends),len(images))
+          assert {json.load(open(f))['road'] for f in reports}=={'true-pinch','pinch-switch'}
+          for f in reports:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r4-original-spatial-audit/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert (d['originalCX'],d['originalB48'],d['originalB51'],d['originalCameras'])==(18,7,28,5)
+           assert d['gap52'] and d['sourceUnchanged']
+           assert d['hazards28At240HzSampledTicks']==721
+           assert d['independentHazardAnchorParity']=='28/28_AT_SEVEN_SOURCE_FRAMES'
+           assert len(d['views'])==7 and len(d['mapsAreOrthographicNonGameplayViews'])==2
+           assert d['sevenSourceFirstHitMaskPNGs']==7
+           for v in d['views'].values():
+            assert sum(v['sourceFirstHitGrid'].values())==d['nativeCameraRayGrid']['cellsPerFrame']==375
+            assert v['native7Frame28B51AnchorParity']=='PASS'
+           assert d['actualNewCityMeshes']==d['gameNewColliders']==d['officialArt']==d['officialSlope2Metres']==0
+           assert not d['sourceGameChanged'] and d['actualGameWebGL']=='NOT_RENDERED'
+           assert d['continuousTimeCollisionAndFairness']=='NOT_CERTIFIED'
+           assert all(d[x]=='HOLD' for x in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R4_OLD_CX_SCREEN_COVERAGE_REAL_SOURCE',d['road'],d['sourceFirstHitSummary']['CX']['perFrameFractions'])
+          print('R4_DIAGNOSIS_ONLY_NO_ART_MESHES_AND_NO_NEW_GAME_COLLIDERS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD
+          path: |
+            test-results/g4e7dz-r6d-r4/source/*.json
+            test-results/g4e7dz-r6d-r4/result-*/
+          if-no-files-found: warn
+          retention-days: 7
