@@ -1,0 +1,90 @@
+name: G4E-7DZ R6D-R9D PRIVATE source-visible unsupported city stop
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r9d-source-volume-stop-gate.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r9d-stop.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: r9d-evidence-backed-source-stop
+  cancel-in-progress: true
+jobs:
+  use-genuine-artifact-evidence-not-new-render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original protected code and Python syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r9d-source-volume-stop-gate.py
+      - name: Download genuine R9A, R9B and R9C independently verified Blender source audits
+        run: |
+          mkdir -p test-results/g4e7dz-r9d/r9a test-results/g4e7dz-r9d/r9b test-results/g4e7dz-r9d/r9c
+          gh run download 40681660432 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R9A_BRIDGE_FREE_ORIGINAL_CX_FLOOR_REAL_CAMERAS_HOLD \
+            --dir test-results/g4e7dz-r9d/r9a
+          gh run download 40681964142 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R9B_B48_CX_B51_REAL_8M_VOLUME_GATE_ART_HOLD \
+            --dir test-results/g4e7dz-r9d/r9b
+          gh run download 40682296528 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R9C_TRUE_ORIGINAL_CX_COURT_POCKET_3D_RESEARCH_ART_HOLD \
+            --dir test-results/g4e7dz-r9d/r9c
+      - name: Fail closed in both physical original roads without extra Blender
+        run: |
+          for r in true-pinch pinch-switch; do
+            python3 scripts/p101-w9c2-g4e7dz-r6d-r9d-source-volume-stop-gate.py \
+              --r9a "test-results/g4e7dz-r9d/r9a/result-$r/R9A_$r"_EXISTING_CX_FLOOR_AND_EARLY_CAMERA.json \
+              --r9b "test-results/g4e7dz-r9d/r9b/result-$r/R9B_$r"_REAL_EIGHT_METRE_VOLUME_AUDIT.json \
+              --r9c "test-results/g4e7dz-r9d/r9c/result-$r/R9C_$r"_TRUE_CX_ORIGINAL_3D_POCKET.json \
+              --out "test-results/g4e7dz-r9d/R9D_$r"_SOURCE_PREMODEL_STOP.json
+          done
+      - name: Independent expected STOP and false positive injection QA
+        run: |
+          python3 - <<'PY'
+          import json,glob,copy,importlib.util
+          root='test-results/g4e7dz-r9d'
+          reports=glob.glob(root+'/R9D_*_SOURCE_PREMODEL_STOP.json')
+          assert len(reports)==2,reports
+          for f in reports:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r9d-proven-source-volume-stop/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['protectedOriginalSource']
+           assert d['real8mFourCornerSupportedFaces']>=3
+           assert d['realEarlyCameraAndFourCornerSupportedFaces']>=3
+           assert d['R9BVolume8x8x31mActualOriginalSourceTested']==3
+           assert d['R9BGeometricPhysicalNoCollision']==0
+           assert d['R9C6x6x23_2mSameSourceFloorPocketPositionsTested']==17
+           assert d['R9CGeometricEmptySafePocketCount']==0
+           assert d['decision']=='STOP_CURRENT_DIRECT_CX_FLOOR_CITY_MODEL_NO_GEOMETRIC_POCKET'
+           assert not d['sourceOriginalGameChanged']
+           assert d['actualCityNewMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R9D_ACTUAL_PREMODEL_STOP',d['road'],d['R9CCollisionSourceCategories'])
+          spec=importlib.util.spec_from_file_location('r9d','scripts/p101-w9c2-g4e7dz-r6d-r9d-source-volume-stop-gate.py')
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          r='true-pinch'
+          a=json.load(open(root+'/r9a/result-'+r+'/R9A_'+r+'_EXISTING_CX_FLOOR_AND_EARLY_CAMERA.json'))
+          b=json.load(open(root+'/r9b/result-'+r+'/R9B_'+r+'_REAL_EIGHT_METRE_VOLUME_AUDIT.json'))
+          c=json.load(open(root+'/r9c/result-'+r+'/R9C_'+r+'_TRUE_CX_ORIGINAL_3D_POCKET.json'))
+          fake=copy.deepcopy(c)
+          fake['bestRealSourceResearchPocket']={'fake':'art approved'}
+          fake['realExistingFloorSpatialPocketCandidates']=1
+          assert m.evaluate(a,b,fake)['decision']=='STOP_CURRENT_DIRECT_CX_FLOOR_CITY_MODEL_NO_GEOMETRIC_POCKET'
+          assert m.evaluate(a,b,fake)['officialArt']==0
+          print('R9D_NEGATIVE_TEST_NO_FAKE_SAFE_PROTOTYPE_PROMOTION')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R9D_TRUE_CX_FLOOR_VOLUME_FALSE_PASS_STOP_HOLD
+          path: test-results/g4e7dz-r9d/R9D_*_SOURCE_PREMODEL_STOP.json
+          retention-days: 7
+          if-no-files-found: warn
