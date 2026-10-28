@@ -8,10 +8,10 @@ import bpy,sys,os,json,math,heapq,collections
 from mathutils import Vector
 from mathutils.bvhtree import BVHTree
 
-a=sys.argv[sys.argv.index('--')+1:]
+arguments=sys.argv[sys.argv.index('--')+1:]
 def arg(key):
- assert key in a,key
- return a[a.index(key)+1]
+ assert key in arguments,key
+ return arguments[arguments.index(key)+1]
 out=arg('--out');os.makedirs(out,exist_ok=True)
 SHA='af076d67492a677d2235e4730aef8cdf4808e106'
 ROADS=('true-pinch','pinch-switch')
