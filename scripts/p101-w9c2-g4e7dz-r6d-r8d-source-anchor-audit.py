@@ -68,7 +68,13 @@ for obj in cx:
    'score':round(score,4),
    'physicalPedestrianAccessCertified':False})
 floorCandidates.sort(key=lambda x:x['score'])
-best=floorCandidates[0] if floorCandidates else None
+# The nearest floor is NOT a usable public ramp if the CX mesh blocks
+# its centerline. Prioritize genuine unoccluded real-source segments.
+shortClear=[x for x in floorCandidates
+ if x['originalMeshCenterlineObstruction'] is None
+ and x['horizontalDistanceToEarly']<=150
+ and x['directLineGrade']<=.09]
+best=shortClear[0] if shortClear else None
 camVisibility={}
 for f in source['frames']:
  id=f['id']
@@ -90,6 +96,8 @@ report={'schema':'dopagaki.g4e7dz-r6d-r8d-alternative-existing-cx-floor/1',
  'existingR5ACXInitialRouteHorizontalMetres':round(originalDistance,3),
  'surveyedActualUpwardCXPolygonsWithin420m':len(floorCandidates),
  'topPotentialRealExistingCxFloorFaces':floorCandidates[:20],
+ 'actualUnobstructedOriginalSourceFloorCandidatesUnder150mGrade9Percent':len(shortClear),
+ 'topActualUnobstructedSourceFloorCandidates':shortClear[:10],
  'bestExistingSourceCxFloorCandidate':best,
  'bestFloorFaceWithinEarlyNativeCameraFrame':camVisibility,
  'alternativeIsOnlyOriginalMeshSurfaceNoCertifiedEntrance':True,
