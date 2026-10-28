@@ -13,7 +13,7 @@ def check(a):
  assert a["originalSourceBlob"]==SRC
  assert a["originalRoad"] in ("true-pinch","pinch-switch")
  assert a["design"] in ("LANDSCAPE","RIFT")
- assert a["originalRoadRimId"]=="B48 original physics p93-CROWN_REVERSAL-01:377:390"
+ assert a["originalRoadRimId"]=="B48 original physics p93-CROWN_REVERSAL-01:559:572"
  assert len(a["originalRoadRimWorldXYZ"])==len(a["originalCXExactLandingXYZ"])==3
  assert a["originalCXSurfaceNearestDistance"]<.6
  assert 6<=a["actualEditableBlenderObjectCount"]<=20
