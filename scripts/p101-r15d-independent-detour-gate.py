@@ -108,7 +108,7 @@ if __name__=='__main__':
  tests=[
   ('false-art',lambda q:q.__setitem__('officialArt',1)),
   ('false-game',lambda q:q.__setitem__('genuineGameArchitectureOrArtBuilt',True)),
-  ('false-proof',lambda q:q['researchWorldNonStraightDetours4CandidatePairs'][0].__setitem__('conservativeSWEPT_OriginalWorldSafeRouteExists',True)),
+  ('false-proof',lambda q:q['researchWorldNonStraightDetours4CandidatePairs'][0].__setitem__('trueConservativeSweptProofEachEdge',[])),
   ('false-source',lambda q:q.__setitem__('sourceCXBlob','bogus'))]
  for name,fn in tests:
   fake=copy.deepcopy(d);fn(fake)
