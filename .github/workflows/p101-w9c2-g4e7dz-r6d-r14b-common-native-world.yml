@@ -1,0 +1,90 @@
+name: G4E-7DZ R6D-R14B two original roads one identical 3D city site, real camera and B51
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r14b-common-real-city-sites.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r14b-common-native-world.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r14b-both-roads-same-world
+  cancel-in-progress: true
+jobs:
+  independently-verify-two-original-physical-roads-one-city-site:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm original CX Git object protection and native script compile
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r14b-common-real-city-sites.py
+      - name: Recover R14A native player/camera sites and real source R1/CX/B48/B51+R4 originals
+        run: |
+          mkdir -p test-results/g4e7dz-r14b/r14a test-results/g4e7dz-r14b/r1 test-results/g4e7dz-r14b/r4
+          gh run download 40692425178 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R14A_ORIGINAL_13_PLAYER_AND_SAME_CAMERA_SAFE_CITY_SITES_HOLD \
+            --dir test-results/g4e7dz-r14b/r14a
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r14b/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r14b/r4
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: True both-original-game-road same physical location original real source CX/B48/B51 and 13 native cameras
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-w9c2-g4e7dz-r6d-r14b-common-real-city-sites.py -- \
+            --source-true-pinch test-results/g4e7dz-r14b/r1/result-true-pinch/R1_true-pinch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --source-pinch-switch test-results/g4e7dz-r14b/r1/result-pinch-switch/R1_pinch-switch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --native-true-pinch test-results/g4e7dz-r14b/r1/source/true-pinch.json \
+            --native-pinch-switch test-results/g4e7dz-r14b/r1/source/pinch-switch.json \
+            --hazards-true-pinch test-results/g4e7dz-r14b/r4/source/true-pinch.json \
+            --hazards-pinch-switch test-results/g4e7dz-r14b/r4/source/pinch-switch.json \
+            --r14a-true-pinch test-results/g4e7dz-r14b/r14a/result-true-pinch/R14A_true-pinch_TRUE_ORIGINAL_TIME_PLAYER_CAMERA_SITES.json \
+            --r14a-pinch-switch test-results/g4e7dz-r14b/r14a/result-pinch-switch/R14A_pinch-switch_TRUE_ORIGINAL_TIME_PLAYER_CAMERA_SITES.json \
+            --out test-results/g4e7dz-r14b/result
+      - name: Check same exact source site BOTH original games, no false auto art
+        run: |
+          python3 - <<'PY'
+          import json
+          p='test-results/g4e7dz-r14b/result/R14B_REAL_BOTH_ROADS_COMMON_SITE_AUDIT.json'
+          x=json.load(open(p))
+          assert x['schema']=='dopagaki.g4e7dz-r6d-r14b-two-real-roads-identical-world-source-city-site/1'
+          assert x['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert x['originalTrueAndSwitchCX18B48_7B51_28Cameras5Unchanged']
+          assert x['actualOriginalGame13FrameAllMovingAndCameraData']
+          assert set(x['bothOriginalRoadSameCoordinatesConfirmedPerPhase'])=={'EARLY','MIDDLE','LATE'}
+          for phase,v in x['bothOriginalRoadSameCoordinatesConfirmedPerPhase'].items():
+           assert v['sourceCandidatePairsTried']>=0
+           assert v['actuallySafeCommonNativeWorldSites']>=0
+           assert v['actuallySafeCommonNativeWorldSites']==len(v['topAllVerifiedRealSharedSites']) or v['actuallySafeCommonNativeWorldSites']>10
+           for candidate in v['topAllVerifiedRealSharedSites']:
+            assert candidate['bothActualRoadVariantsSourceVolumeClear']
+            assert len(candidate['sharedOriginal3DWorldXYZ'])==3
+            assert min(candidate['bothSameFrameCameraIntoInteriorCount'])>=2
+            assert candidate['notAnActualBuiltPublicCity']
+           print('R14B_TWO_REAL_GAME_SITES',phase,
+             'source pairs',v['sourceCandidatePairsTried'],
+             'single shared real source world site passes',v['actuallySafeCommonNativeWorldSites'],
+             'best',v['bestSharedSite'])
+          assert not x['commonCityPhysicalAndCameraSiteAlreadyBuilt']
+          assert not x['commonSiteSourceLoadBearingAndPlayerIngressCertified']
+          assert x['newGameColliders']==x['newBlenderArchitectureMeshes']==x['officialArt']==x['officialSlope2Meters']==0
+          assert all(x[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R14B_BOTH_ORIGINAL_ROADS_IDENTICAL_WORLD_SAFE_VISIBLE_SITES_HOLD
+          path: test-results/g4e7dz-r14b/result/
+          retention-days: 7
+          if-no-files-found: warn
