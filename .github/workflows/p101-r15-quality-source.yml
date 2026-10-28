@@ -23,6 +23,8 @@ on:
       - 'scripts/p101-r15i2-independent-terrain-source-gate.py'
       - 'scripts/p101-r15i3-true-source-road-to-cx-civic-entry.py'
       - 'scripts/p101-r15i3-independent-true-r1-civic-entry-art.py'
+      - 'scripts/p101-r15i4-source-camera-cx-access-grade-sites.py'
+      - 'scripts/p101-r15i4-independent-source-camera-grade-gate.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -691,6 +693,7 @@ jobs:
           if-no-files-found: warn
 
   r15i3-one-real-source-road-to-cx-editable-civic-gallery:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 65
@@ -763,5 +766,60 @@ jobs:
           path: |
             test-results/r15i3/result-*/
             test-results/r15i3/independent/
+          retention-days: 7
+          if-no-files-found: warn
+
+  r15i4-original-source-multiframe-road-to-cx-slope-rank:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm immutable original, original-camera source Python and independent geometry grade gates
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15i4-source-camera-cx-access-grade-sites.py scripts/p101-r15i4-independent-source-camera-grade-gate.py
+      - name: Reuse authentic completed R15I and R15I2 original-road/real-CX JSON evidence
+        run: |
+          mkdir -p test-results/r15i4/r15i test-results/r15i4/r15i2 test-results/r15i4/results
+          gh run download 40773579399 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15I_ACTUAL_B48_ROADSIDE_GROUND_FIRST_PAIRED_SOURCE_PRELIMINARY_HOLD \
+            --dir test-results/r15i4/r15i
+          gh run download 40774307893 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15I2_REAL_CX_TERRAIN_SUPPORT_OPTIONS_UNBUILT_TWO_ROAD_HOLD \
+            --dir test-results/r15i4/r15i2
+      - name: Rank both-source-camera real road/CX hypothetical cubic public approach by max slope and temporal visibility
+        run: |
+          python3 scripts/p101-r15i4-source-camera-cx-access-grade-sites.py \
+            --r15i test-results/r15i4/r15i/R15I_TRUE_B48_ROAD_FIRST_TWO_WORLD_PREFLIGHT.json \
+            --r15i2 test-results/r15i4/r15i2/R15I2_REAL_TERRAIN_BRACE_HYPOTHESES.json \
+            --out test-results/r15i4/results
+      - name: Independently recompute candidate grade and source camera ranking; veto forged art/human approval
+        run: |
+          python3 scripts/p101-r15i4-independent-source-camera-grade-gate.py \
+            --r15i test-results/r15i4/r15i/R15I_TRUE_B48_ROAD_FIRST_TWO_WORLD_PREFLIGHT.json \
+            --r15i2 test-results/r15i4/r15i2/R15I2_REAL_TERRAIN_BRACE_HYPOTHESES.json \
+            --preflight test-results/r15i4/results/R15I4_ORIGINAL_TWO_ROAD_CX_MACRO_SITE_PREFLIGHT.json \
+            --out test-results/r15i4/results
+          python3 - <<'PY'
+          import json
+          p='test-results/r15i4/results/'
+          d=json.load(open(p+'R15I4_ORIGINAL_TWO_ROAD_CX_MACRO_SITE_PREFLIGHT.json'))
+          q=json.load(open(p+'R15I4_INDEPENDENT_TWO_ROAD_GRADE_AND_CAMERA_VETO.json'))
+          assert d['officialArt']==d['officialSlope2Meters']==0
+          assert d['actual3DColliderAdded'] is False and d['noTrueSceneBlenderRenderedThisStage']
+          assert q['originalRoadsideCandidatesIndependentlyChecked']==79
+          assert len(q['forgeryCasesRejected'])>=6 and not q['humanARTCertified']
+          print('R15I4_ORIGINAL_CAMERA_AND_SOURCE_CX_SITE_PREFLIGHT',
+                d['theoreticalSourceModelSiteQualifiers'],
+                'theoretical two-road sites, ZERO actual future city/ART/WEGBL',flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15I4_ORIGINAL_B48_CX_TWIN_WORLD_CAMERA_AND_GRADE_PREFLIGHT_ART_HOLD
+          path: test-results/r15i4/results/
           retention-days: 7
           if-no-files-found: warn
