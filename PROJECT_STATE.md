@@ -1,3 +1,13 @@
+# G4E-7DZ R15I4 — 両道路同一世界のCX支持候補8件を実ソース・元R1視界・曲線勾配で再選定（2026-10-29 JST）
+
+R15I〜R15I3の元B48路肩79→元CXの支持線研究42→真正Blender道路脇通路各道路6メッシュ（元R1カメラ14画像、平均初ヒット0.50%／1.13%）を維持。R15I3の独立ART REJECTを停止条件として、**同一の細道・単独庇の延命はしない**。
+
+R15I4初回CI [#40776263247](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40776263247) は独立QAの退化曲線判定不一致でFAIL。改訂後CI [#40776460960](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40776460960) **SUCCESS**（Artifact #12854717840）。元世界79候補の元B48接続・元CX実体接近・B51保守・両道路の元カメラ視認時間・構想曲線勾配を調べ、**8つの未施工立地を研究上残した**。優先調査は元道路 `:377:390`（約81.35m／5.29%、t11/12/13の同一地点視認）、`:559:572`（約44.74m／4.112%、t13/14/15の同一地点視認）。これは元ソース1点視認と理論曲線であり、建築の美術・構造・荷重・人間通行・元B51の警告公平性・本物のWebGLは証明しない。
+
+原ソースblob `af076d67492a677d2235e4730aef8cdf4808e106` は不変。公式ART採用0件／Slope2正式認定0m／GAMEPLAY・HUMAN・INTEGRATION・RELEASE・MERGE HOLD、PR #46 Draft・未マージ・本番変更禁止。全根拠：[R15I〜R15I4の実証・ART REJECT記録](docs/G4E7DZ_R15I_ROAD_CX_SOURCE_ART_REJECT_AND_NEXT_JA.md)。
+
+---
+
 # G4E-7DZ R15I～R15I3 — 実B48路肩79候補→CX立体接点42候補→32.3m編集可能3D通路：技術検査PASS／独立ART REJECT（2026-10-29 JST）
 
 **R15I** 真正Actions [#40773579399](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40773579399) SUCCESS（Artifact #12853108594）：元B48の路肩・近傍79地点を両道路同一world XYZで検査。道路内側実面ヒット58、仮想床原CX/B48交差0の位置78、B51保守範囲クリア79。しかし下方45mの実支持面が四隅中2点以上ある候補は0。建築成立ではない。
