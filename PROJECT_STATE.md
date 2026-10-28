@@ -1,3 +1,17 @@
+# G4E-7DZ R6D-R9A〜R9D 元CX直接設置の4工程真正監査完了 — 原物TECH限定PASS／試作条件STOP／新ART HOLD（2026-10-28 JST）
+
+**R9A** [Actions #40681660432](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40681660432) **SUCCESS**／[Artifact #12812119475](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40681660432/artifacts/12812119475)：元CX18の上向き床候補true-pinch **111面**／pinch-switch **115面**、8m四隅の原メッシュ支持候補**両道路16面**。原11〜13秒の真正5カメラで想定複層立体が連続見通せる床候補**両道路3面**。共通最良は元CX`00 roadbank-inhabited None` polygon**0**、XYZ **(-215.16902,113.41296,-837.28394)**、面積約961m²。これは構造安全・空き体積・入口の証明ではない。
+
+**R9B** [Actions #40681964142](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40681964142) **SUCCESS**／[Artifact #12813162094](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40681964142/artifacts/12813162094)：両道路各3候補へ8×8×31mの真正BVH試験体積を適用。B48／B51の交差警告0でも、3/3すべて**既存CX自身との元三角メッシュ交差**→安全な実体積0。
+
+**R9C** [Actions #40682296528](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40682296528) **SUCCESS**／[Artifact #12812753756](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40682296528/artifacts/12812753756)：床面上で4m刻みに移動し、四隅が同じ元床ポリゴンに乗る6×6×23.2m候補を**両道路17配置**ずつ試験。**安全かつ早期実カメラで可視な体積0/17**。確認した不合格は元CXメッシュ自身が干渉。大規模な未来都市内部は、この元建築上へ無理に押し込められない。
+
+**R9D** [Actions #40682620751](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40682620751) **SUCCESS**／[Artifact #12812729960](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40682620751/artifacts/12812729960)：3工程の実証Artifactから**両道路`STOP_CURRENT_DIRECT_CX_FLOOR_CITY_MODEL_NO_GEOMETRIC_POCKET`**と独立判定。偽の安全結果を挿入する負のテストでも美術採用拒否。
+
+**最終**：R9A〜R9Dの正規幾何研究TECH限定PASS、現CX直接設置方式は体積衝突でSTOP、新規R9美術・ゲームメッシュ0。前R7 ART REJECT維持。元CX18/B48物理7/B51動体28/原カメラ5/gap52/保護blob、原240Hz物理・操作、main/Gold/本番公開不変、PR#46 OPEN/Draft未マージ。正式美術0・Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。[R9完全審査](docs/G4E7DZ_R6D_R9A_R9D_SOURCE_FLOOR_VOLUME_ACTUAL_VERDICT_JA.md)／[次R10研究方針](docs/G4E7DZ_R6D_R10_CITY_VOID_AND_SUPPORT_DESIGN_GATE_JA.md)。
+
+---
+
 # G4E-7DZ R6D-R8A〜R8F 六工程一括の原世界立地・動線・構造研究完了 — SOURCE PREMODEL TECH限定PASS／R8F構造STOP／ART HOLD（2026-10-28 JST）
 
 **R8A** [真正CI #40678460212](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40678460212) 成功：元R1正規13時点のカメラで両道路各144候補を調査し、連続可視＋元B48面距離＋B51全28×721時点の標本制約を満たす候補true-pinch **137**／pinch-switch **138**。ただし可視性だけの選定は順序逆転・最大約81%勾配を生む。
