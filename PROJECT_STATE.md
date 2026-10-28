@@ -1,3 +1,15 @@
+# G4E-7DZ R6D-R7〜R7C 一括制作・真正3D・空間視界・機能動線反証を完了 — SOURCE TECH限定PASS／ART REJECT／歩行FAIL／STOP（2026-10-28 JST）
+
+**R7の真正建築試作** [Actions #40676273915](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40676273915) **SUCCESS**・[Artifact #12810108245](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40676273915/artifacts/12810108245) を実取得：両道路各253編集メッシュ、6実天空吹抜、斜路32本（最大約9.48%）、元正規11〜17秒×両道路のBlender14画像。原B48三角交差0、B51元13時点交差0、B51全28×721tick標本AABB重複0、元CX重複true-pinch17／pinch-switch29組。原物保護継続。ただし画像は積層フレームが道路脇に並ぶ印象で都市内部の生活が見えない。**ART REJECT**。
+
+**R7Bの独立反証** [Actions #40676864540](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40676864540) **SUCCESS**・[Artifact #12809984071](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40676864540/artifacts/12809984071)：6空洞×3高度×7正規カメラ＝126真の3D視線で画角に入る83点のうち、真正BVH視線が通ったのはtrue-pinch **16**／pinch-switch **14**点、17秒は**両道路0**。斜路32本の両端最近接は0.25mでは0/32、モデル厚さに配慮した**1m許容でも16/32**。4フライト連続ルート**0/8**。入口約7.06m／出口約10.21mの接続欠落。実画像のRGB45/255超差分は17秒に両道路約24%だが美術の改善ではない。
+
+**R7C実STOPゲート** [Actions #40677351763](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40677351763) **SUCCESS**・[Artifact #12811590703](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40677351763/artifacts/12811590703)：原物Artifact再利用・新描画0、両道路とも`STOP`を確定。理由は**歩行ルート0/8、17秒の中庭内部可視0、元CXへの人間アクセス未証明**。仮想B48衝突を入れれば必ずSTOPし、見た目の可視性・端点距離だけ改善しても原CX歩行接続がなければ採用しない負の試験にPASS。
+
+**結論：R7 SOURCE幾何TECH限定PASS／R7 ART REJECT／人の動線FAIL／R7C STOP。** 正式美術0件／Slope2認定0m／GAMEPLAY・HUMAN・PERFORMANCE・INTEGRATION・RELEASE・MERGE HOLD、PR#46 OPEN/Draft未マージ、本番公開禁止。元CX18/B48×7/B51×28/原カメラ5/gap52/原物理・操作・main/Gold/本番不変更、新ゲームコライダー0。[R7完全実測報告](docs/G4E7DZ_R6D_R7_R7B_R7C_INDEPENDENT_VERDICT_JA.md)／[次R8の成立条件](docs/G4E7DZ_R6D_R8_PREMODEL_DESIGN_GATE_JA.md)。
+
+---
+
 # G4E-7DZ R6D-R6 全域粗実3D・R6R1前方都市の真正14画像×2比較完了 — SOURCE TECH限定PASS／両案ART REJECT（2026-10-28 JST）
 
 R6初回：元11〜17秒の広域6都市街区を両道路各73真正編集メッシュで制作。[Actions #40674227788](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40674227788) **SUCCESS**、[Artifact #12809598357](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40674227788/artifacts/12809598357) のBLEND2/真正PNG14/監査JSON2を実取得。**16〜17秒で新都市の投影候補が両道路0**になり、カメラから消失。**初回ART REJECT**。
