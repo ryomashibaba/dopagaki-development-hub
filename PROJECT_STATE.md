@@ -1,3 +1,13 @@
+# G4E-7DZ R6A 原物カメラ視野監査完了 — 限定TECH PASS／新都市ART HOLD（2026-10-28 JST）
+
+[実装コミット 1eac577](https://github.com/ryomashibaba/dopagaki-development-hub/commit/1eac5771906d10baf07e74bddc9d4a698d0b673c)、[専用Actions #40636653095](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40636653095) **SUCCESS**、[Artifact #12794295300](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40636653095/artifacts/12794295300) **実ダウンロード・JSON検査・画像確認済み**。元DR真正Blenderの実カメラにより、両道路×4時点で**元世界Blender実画像8枚と64×40レイ視野解析マスク8枚、監査JSON2個**を作成。原CX18・B48×7・B51×28・元カメラ5・gap52・CX保護blob一致。**R6Aは新規美術メッシュ0、新ゲームコライダー0**。元のゲーム映像に新都市を描いた証拠ではない。
+
+**見え方の新しい事実：** true-pinchの元CXカメラサンプル視野占有率は15.5/16/16.5/17秒で**13.20%／6.56%／5.90%／9.77%**、pinch-switchは**10.47%／4.53%／7.62%／9.26%**。同16.0秒のB48原道路はそれぞれ50.78%／50.35%。R5Aの元CX接触候補はpinch-switch 17秒で画角外、true-pinchでは画角内でも左寄り。サンプル視野占有率は新都市の美術・用途判読・FPS・安全性を証明しない。**現行のCX一点接触への薄い連絡床を追加・延長しても十分な巨大都市体験を作れる根拠はない。**元R4巨大地形・R5B短床はART REJECT維持。次は[専用実結果とR6B設計制約](docs/G4E7DZ_R6A_ACTUAL_CAMERA_VISIBILITY_VERDICT_JA.md)に基づき、道路周辺に連続する機能・空洞・交通の一体断面を一候補だけ実3D化して厳格比較する。新候補のART合否は未判定。
+
+**品質：R6A原物視野解析限定TECH PASS／R6A新都市ART HOLD（新都市造形なし）／既存R4・R5B ART REJECT。GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、正式美術採用0、Slope2認定0m。PR #46 OPEN／Draft／未マージ。main/Gold/P100/原物理/ゲームカメラ/本番サイト不変更。**
+
+---
+
 # G4E-7DZ R5A/R5B 完了 — 実CX接続候補監査TECH限定PASS・真正Blender接続小模型ART REJECT（2026-10-28 JST）
 
 [実結果と厳格な不採用理由](docs/G4E7DZ_R5AB_SOURCE_CONNECTION_REAL_BLENDER_VERDICT_JA.md)。R5A [Actions #40635016206](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40635016206) SUCCESS／監査Artifact #12793336478。元DR真正Blenderの両道路各128候補から、実CX「04 roadbank-promenade」への暫定幾何条件をtrue-pinch 6件、pinch-switch 7件確認。代表のCX表面距離25.270m／7.087m。歩行可能な幅員・支持・連続動体安全性は未認証。
