@@ -33,6 +33,9 @@ def provenance():
  }
 source_before=provenance()
 # Hide previous R6D B51 visual-only proxies while keeping original source intact.
+old_r6d_proxies=bpy.data.collections.get('R6D PRIVATE TEN-SNAPSHOT B51 VISUAL REPLAY / NOT COLLIDERS')
+assert old_r6d_proxies is not None and len(old_r6d_proxies.objects)==28
+old_r6d_proxies.hide_render=True  # Collection-level hide overrides animated object hide_render keys.
 for o in bpy.data.objects:
  if o.get('R6D_SOURCE_B51_ID'):o.hide_render=True
 camera_collection=bpy.data.collections.new('R6D-R1 PRIVATE EARLY CAMERA EXTENSION NOT ORIGINAL MUTATION')
