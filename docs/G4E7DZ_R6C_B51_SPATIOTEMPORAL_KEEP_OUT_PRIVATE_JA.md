@@ -24,3 +24,14 @@ R6D以降の新都市は、15.5〜17秒の道路に沿った帯を主構造と�
 ## 品質境界
 
 R6B TECH安全FAIL/ART REJECTを維持。R6Cは原物の診断ガイドが真正生成されればSOURCE QA限定TECH PASS、ART HOLD（都市模型を作っていない）。GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。正式美術0件、Slope2認定0m、PR #46 Draft未マージ、本番公開禁止。
+
+
+---
+
+## 実行結果・独立確認（R6C完了）
+
+- [実装 71e537e](https://github.com/ryomashibaba/dopagaki-development-hub/commit/71e537e90fcb2929519a259251f2fb72e478f5ac)、[Actions #40646409781 SUCCESS](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40646409781)、[Artifact #12797925953](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40646409781/artifacts/12797925953)。取得したZIP内の2 BLEND、8本物BlenderガイドPNG、2監査JSONを実際に展開・確認した。
+- B51 a13-machine-04 4時点の元ワールド境界は両道路で min=(-171.047195,72.894531,-410.082520)、max=(-134.545044,81.894531,-387.027802)。4時点の元頂点サンプルのみで作った包含箱であり、連続時刻のモーション掃引と同一ではない。
+- 2m拡張の診断箱を加え、各道路5本の編集可能な箱型カーブ。正規カメラ×8時点に投影され、両道路・全4時点で拡張箱8隅が画角内。**見えることと危険を予告できることは別**。本物の都市を描いたフレームではない。
+- 元CX18／B48 7／B51 28／カメラ5／gap52保護一致。ゲームコード・物理・操作・固定URL・既存原物は不変更。新都市3Dメッシュ0、ゲームコライダー0、真の新都市ゲームWebGL0。
+- R6Bの美術REJECTとB51安全FAILは解除しない。これは次の建築立地を考えるための真正空間ガイドに限定。**R6C SOURCE TECH限定PASS／ART HOLD、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、正式美術0、Slope2認定0m**。

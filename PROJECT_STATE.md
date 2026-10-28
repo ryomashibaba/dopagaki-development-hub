@@ -1,3 +1,13 @@
+# G4E-7DZ R6C 原物B51障害物の時系列診断ガイド制作完了 — SOURCE TECH限定PASS／新都市ART HOLD（2026-10-28 JST）
+
+[R6C実装コミット 71e537e](https://github.com/ryomashibaba/dopagaki-development-hub/commit/71e537e90fcb2929519a259251f2fb72e478f5ac)、[真正Blender専用Actions #40646409781](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40646409781) **SUCCESS**、[Artifact #12797925953](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40646409781/artifacts/12797925953) を**実ダウンロードして編集BLEND2、真正BlenderガイドPNG8、監査JSON2を独立確認**。元DR真正ソースの B51 a13-machine-04 について両道路×4時点の実頂点ワールド座標境界と4サンプル包含AABBを計算。両道路で4サンプルの共通座標範囲は min=(-171.047,72.895,-410.083)、max=(-134.545,81.895,-387.028) m（元ソースの座標）。表示用の+2m拡張枠と各時点の4枠を編集可能なBlenderカーブ5個/道路で制作。**8画角すべてで拡張枠の8隅が画角内に投影**、ただしその数値は画面上の危険予告、実際の衝突安全性、景観品質を証明しない。
+
+**保護は限定PASS**：元CX18、B48×7、B51×28、正規カメラ5、gap52、CX保護blobを保持。原ソースを変更せず、都市造形メッシュ0、ゲーム新コライダー0、本物の新都市WebGL描画0。**この2mは設計ガイド用であって連続時間の衝突回避認証ではない**。R6BのB51サンプル25組交差（全て a13-machine-04）・ART REJECTを覆さない。
+
+**判定：R6C SOURCE TECH限定PASS／新都市ART HOLD（新都市は未制作）**。R6B安全ゲートFAIL・ART REJECT、R4/R5B等の不採用継続。正式美術0件、正式Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR#46 OPEN/Draft未マージ、本番公開禁止。**次R6D**は同じ道路沿い帯状断面を再提出せず、15.5～17秒だけの短い景観に全用途を詰め込まず、正規ゲームカメラのより長い時間区間を取得して「進入→都市内生活→鉄道・居住の接続→退出」の視覚的な時間構成を設計する。一案の最小真正3Dで反証可能な比較へ進み、安易な微修正や監査量産をしない。[R6C詳細](docs/G4E7DZ_R6C_B51_SPATIOTEMPORAL_KEEP_OUT_PRIVATE_JA.md)。
+
+---
+
 # G4E-7DZ R6B 真正Blender都市断面を実制作・目視審査完了 — TECH安全ゲートFAIL／ART REJECT（2026-10-28 JST）
 
 [R6B実装コミット 6dbcd2a](https://github.com/ryomashibaba/dopagaki-development-hub/commit/6dbcd2aefe68f4042e5760c86f7346347e5e1e7f)、[専用Actions #40637504539](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40637504539) SUCCESS、[実Blender Artifact #12794281741](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40637504539/artifacts/12794281741) を**実ダウンロードし画像8・編集BLEND2・監査JSON2確認**。各道路9新メッシュ、元CX18・B48×7・B51×28・元カメラ5・gap52保持、原CX保護blob一致、新ゲームコライダー0・元B48三角交差0。しかし元B51への**サンプル交差true-pinch合計12件／pinch-switch13件**で安全基準FAIL。新都市と元CXの重なりも8組／11組で構造接続と認証不可。
