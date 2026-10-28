@@ -1,3 +1,11 @@
+# G4E-7DZ R6D 正規10時点Blender・B51-04の240Hz標本解析完了 — SOURCE TECH限定PASS／都市ART HOLD（2026-10-28 JST）
+
+[実装後の専用CI #40664059724](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40664059724) **SUCCESS**、[Artifact #12804948792](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40664059724/artifacts/12804948792) **実ダウンロード・展開・20真正Blender PNG・編集可能BLEND2・監査JSON2・ソース時系列JSON2を確認**。元DJの正規240Hz走行から14.0〜18.5秒×両道路の10画角を新規参照化し、元DRのCX18/B48×7/B51×28/カメラ5/gap52/保護blob維持。追加の5カメラは元正規フレームの姿勢から生成したBlender参考カメラであり、原物カメラやゲームは変更していない。元B51 `a13-machine-04` の1081tick回転OBB標本AABBは min=(-171.047186,72.894535,-410.082510)、max=(-119.012096,81.894535,-373.913634)。R6Cの4標本箱よりmax x約15.53m・max z約13.11m拡大。ただし連続時間安全性は未認証。
+
+実画像では14〜17秒に既存CXと道路の接近が見える一方、17.5〜18.5秒は原走行データで非接地かつ道路IDなし、18.5秒は元DJでもoff-road diagnostic。したがって**その時間を正常な都市退出ビートとして使用しない**。新都市メッシュ0、ゲーム新コライダー0。R6B安全FAIL/ART REJECT継続。**R6D SOURCE TECH限定PASS／新都市ART HOLD、正式美術0、Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD**。次R6D-R1は元ゲームを改造せず、時間窓を11〜17秒など前方に広げ、使用可能な正規走行時間に4ビートを配置して最小真正3D案一つへ進める。[詳細](docs/G4E7DZ_R6D_TENFRAME_NATIVE_TEMPORAL_BLENDER_VERDICT_JA.md)。
+
+---
+
 # G4E-7DZ R6C 原物B51障害物の時系列診断ガイド制作完了 — SOURCE TECH限定PASS／新都市ART HOLD（2026-10-28 JST）
 
 [R6C実装コミット 71e537e](https://github.com/ryomashibaba/dopagaki-development-hub/commit/71e537e90fcb2929519a259251f2fb72e478f5ac)、[真正Blender専用Actions #40646409781](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40646409781) **SUCCESS**、[Artifact #12797925953](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40646409781/artifacts/12797925953) を**実ダウンロードして編集BLEND2、真正BlenderガイドPNG8、監査JSON2を独立確認**。元DR真正ソースの B51 a13-machine-04 について両道路×4時点の実頂点ワールド座標境界と4サンプル包含AABBを計算。両道路で4サンプルの共通座標範囲は min=(-171.047,72.895,-410.083)、max=(-134.545,81.895,-387.028) m（元ソースの座標）。表示用の+2m拡張枠と各時点の4枠を編集可能なBlenderカーブ5個/道路で制作。**8画角すべてで拡張枠の8隅が画角内に投影**、ただしその数値は画面上の危険予告、実際の衝突安全性、景観品質を証明しない。
