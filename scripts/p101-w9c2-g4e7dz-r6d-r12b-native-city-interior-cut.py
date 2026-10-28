@@ -334,7 +334,7 @@ for key in keys:
  bpy.ops.render.render(write_still=True)
  renders.append(file)
 assert signature()==before
-audit={'schema':'dopagaki.g4e7dz-r6d-r11-inhabited-estuary-true-source/1',
+audit={'schema':'dopagaki.g4e7dz-r6d-r12b-source-safe-real-city-cut/1',
  'road':road,'sourceCXBlob':'af076d67492a677d2235e4730aef8cdf4808e106',
  'unchangedOriginalCX18_B48_7_B51_28_Cameras5':True,'originalGap52':True,
  'originalNativeFrames':len(src['frames']),'actualOriginalSourceCameraFrames':list(keys),
