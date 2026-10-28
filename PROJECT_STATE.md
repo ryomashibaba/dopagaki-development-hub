@@ -1,3 +1,13 @@
+# G4E-7DZ R6D-R10A〜R10C 真正元CX空洞・橋梁支持の二方式比較完了 — SOURCE研究TECH限定PASS／両設計仮説STOP／ART HOLD（2026-10-28 JST）
+
+**R10A＋R10B [真正Blender CI #40683577944](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40683577944) SUCCESS／[Artifact #12813284015](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40683577944/artifacts/12813284015)**：原CX18・B48物理7・B51動体28・正規原カメラ5に変更なし。R10Aは元R9/R8近傍の各道路486サンプルで6×6×10mの真の元CX空き体積・床・対向CX壁を同時に満たす候補**両道路0/486**。これは調査範囲の結果のみでCX全域否定ではない。R10Bは約96〜110mのR8E接続に元CXの上向き床面から橋脚支持できそうな幾何候補を探し、true-pinch **3/15駅**、pinch-switch **5/14駅**。**両道路とも橋梁の終端に支持点なし、全駅連続支持なし**。強度・設計・連続時間B51安全・人間動線は未認証。
+
+**R10C [独立CI #40683892224](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40683892224) SUCCESS／[Artifact #12814042274](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40683892224/artifacts/12814042274)**：R10AB＋R8E＋R9D真正証拠の再利用、造形・レンダー追加なし。偽の集計値を注入しても採用しない負試験をPASS。両道路`STOP_BOTH_SPECIFIC_R10_HYPOTHESES_NO_REJECTED_ART_RECYCLE`。元CXに既存の支持／空洞がないことは**独立した新しい未来都市建築が不可能という意味ではない**ため、R11は原物を保護しながら自立・懸架・浮遊構造を含む一体的な都市断面を、原走行カメラの**実画像と空間体積から再設計**する。
+
+R10新都市・ゲームメッシュ0、原CX18/B48実物理7/B51動体28/正規元カメラ5/gap52/元CX blob／P96操作／元240Hz／Gold／main／本番公開物不変更。前R7 ART REJECT、現R9直接設置STOP、新ART採用0件、Slope2正式認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR#46 OPEN/Draft未マージ、本番公開禁止。[R10全文](docs/G4E7DZ_R6D_R10_SOURCE_TRUE_VOID_BRIDGE_COMPARATIVE_VERDICT_JA.md)／[R11の実制作方針](docs/G4E7DZ_R6D_R11_INTEGRATED_CITY_SECTION_ACTUAL_IMAGE_PLAN_JA.md)。
+
+---
+
 # G4E-7DZ R6D-R9A〜R9D 元CX直接設置の4工程真正監査完了 — 原物TECH限定PASS／試作条件STOP／新ART HOLD（2026-10-28 JST）
 
 **R9A** [Actions #40681660432](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40681660432) **SUCCESS**／[Artifact #12812119475](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40681660432/artifacts/12812119475)：元CX18の上向き床候補true-pinch **111面**／pinch-switch **115面**、8m四隅の原メッシュ支持候補**両道路16面**。原11〜13秒の真正5カメラで想定複層立体が連続見通せる床候補**両道路3面**。共通最良は元CX`00 roadbank-inhabited None` polygon**0**、XYZ **(-215.16902,113.41296,-837.28394)**、面積約961m²。これは構造安全・空き体積・入口の証明ではない。
