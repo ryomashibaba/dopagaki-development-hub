@@ -14,6 +14,9 @@ on:
       - 'scripts/p101-r15e-independent-native-art-gate.py'
       - 'scripts/p101-r15f-source-camera-first-landmark-sites.py'
       - 'scripts/p101-r15f-independent-camera-site-gate.py'
+      - 'scripts/p101-r15g-three-true-original-cinematic-sites.py'
+      - 'scripts/p101-r15h-editable-real-three-76m-sculptures.py'
+      - 'scripts/p101-r15h-independent-real-r1-image-art-veto.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -412,6 +415,7 @@ jobs:
           retention-days: 7
 
   r15f-real-source-camera-first-landmark-volume-research:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 55
@@ -472,5 +476,84 @@ jobs:
         with:
           name: P101_R15F_TWO_ROAD_SOURCE_CAMERA_FIRST_MONUMENTAL_SITE_PREFLIGHT_NO_ART
           path: test-results/r15f/results/
+          retention-days: 7
+          if-no-files-found: warn
+
+  r15g-h-distinct-city-source-sites-and-actual-editable-blender-14-camera-art:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect original game's exact source and compile real R15G/H Blender studies
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15g-three-true-original-cinematic-sites.py scripts/p101-r15h-editable-real-three-76m-sculptures.py scripts/p101-r15h-independent-real-r1-image-art-veto.py
+      - name: Reuse authentic original two-road R1 native scene and R15F 336 tested camera-site evidence
+        run: |
+          mkdir -p test-results/r15gh/r1 test-results/r15gh/r15f test-results/r15gh/g-sites test-results/r15gh/independent
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15gh/r1
+          gh run download 40712198305 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15F_TWO_ROAD_SOURCE_CAMERA_FIRST_MONUMENTAL_SITE_PREFLIGHT_NO_ART \
+            --dir test-results/r15gh/r15f
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Independently select 3 non-overlapping era-specific 76m sites and inspect TRUE original B48 support/ingress proximity
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-r15g-three-true-original-cinematic-sites.py -- \
+            --source-true-pinch test-results/r15gh/r1/result-true-pinch/R1_true-pinch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --source-pinch-switch test-results/r15gh/r1/result-pinch-switch/R1_pinch-switch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --r15f test-results/r15gh/r15f/R15F_TRUE_TWO_ORIGINAL_CAMERA_FIRST_SHARED_MACRO_SITES.json \
+            --out test-results/r15gh/g-sites
+      - name: Create actual editable source camera visible asymmetric mass and REAL physical central void at same 3 world sites
+        run: |
+          for road in true-pinch pinch-switch; do
+            mkdir -p "test-results/r15gh/result-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-r15h-editable-real-three-76m-sculptures.py -- \
+              --road "$road" \
+              --source "test-results/r15gh/r1/result-$road/R1_$road"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/r15gh/r1/source/$road.json" \
+              --r15g test-results/r15gh/g-sites/R15G_THREE_DISTINCT_REAL_WORLD_SOURCE_SITES_AND_SUPPORT.json \
+              --out "test-results/r15gh/result-$road"
+          done
+      - name: Compare 14 true original R1 camera images and reject fake ART/WebGL/open-void certificates
+        run: |
+          python3 -m pip install --quiet Pillow
+          for road in true-pinch pinch-switch; do
+            python3 scripts/p101-r15h-independent-real-r1-image-art-veto.py \
+              --r15g test-results/r15gh/g-sites/R15G_THREE_DISTINCT_REAL_WORLD_SOURCE_SITES_AND_SUPPORT.json \
+              --r15h "test-results/r15gh/result-$road/R15H_$road"_TRUE_NATIVE_SCULPTED_CITY_ORIGINAL_CAMERA_AUDIT.json \
+              --trial "test-results/r15gh/result-$road" \
+              --original "test-results/r15gh/r1/result-$road" \
+              --out test-results/r15gh/independent
+          done
+          python3 - <<'PY'
+          import json,glob
+          p='test-results/r15gh/independent/'
+          f=glob.glob(p+'*_INDEPENDENT_SAME_R1_CAMERA_ART_GATE.json')
+          assert len(f)==2,f
+          data=[json.load(open(v)) for v in f]
+          assert {v['road'] for v in data}=={'true-pinch','pinch-switch'}
+          assert all(v['physicalOriginalCXB48Intersections']==0 and v['realOpenVoidRayChecks']==3 for v in data)
+          assert all(v['newGameColliders']==v['officialArt']==v['officialSlope2Meters']==0 for v in data)
+          assert all(v['ART'] in ('REJECT','HOLD') for v in data)
+          print('R15G_H_ORIGINAL_REAL_SOURCE_3_CITY_SITES_14_SOURCE_IMAGES_FINAL_PRIVATE_QA',
+            [(v['road'],v['meanSourceCameraNewGeometryFirstHit'],v['independentArtVisualImpactDecision']) for v in data])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15GH_REAL_THREE_ASYMMETRIC_76M_NATIVE_EDITABLE_14_IMAGE_ORIGINAL_CAMERA_HOLD
+          path: |
+            test-results/r15gh/g-sites/
+            test-results/r15gh/result-*/
+            test-results/r15gh/independent/
           retention-days: 7
           if-no-files-found: warn
