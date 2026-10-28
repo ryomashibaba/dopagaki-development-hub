@@ -190,13 +190,19 @@ for key,item in sites.items():
         ta["originalLargestEdgeConnectedUpFacingFaces"]==tb["originalLargestEdgeConnectedUpFacingFaces"])
  common=[x["frame"] for x,y in zip(a["realOriginalCXSourceCameraViews"],b["realOriginalCXSourceCameraViews"])
          if x["originalCXPatchSamplesNotOccluded"]>=2 and y["originalCXPatchSamplesNotOccluded"]>=2]
+ frame_ids=[z["frame"] for z in a["realOriginalCXSourceCameraViews"]]
+ longest=0;streak=0
+ for t in frame_ids:
+  streak=streak+1 if t in common else 0
+  longest=max(longest,streak)
  connected=bool(ta["originalLargestConnectedSurfaceAreaProxySqm"]>=120 and
-                ta["originalLargestPatchSampleCount"]>=10 and len(common)>=2 and
+                ta["originalLargestPatchSampleCount"]>=10 and longest>=5 and
                 ta["nearestLanding"]["sourceFaceLocated"] and
                 ta["nearestLanding"]["nearestFaceNormalY"]>=.70)
  summary.append({"landingWorldXYZ":list(key),"originalCXSourceName":item["originalCXSourceName"],
   "originalRoadCandidateIds":item["originalRoadCandidates"],
   "sameFrameTwoRoadOriginalCXSurfaceVisible2Samples":common,
+  "maxConsecutiveMatchedOriginalHalfSecondFrames":longest,
   "largestSourceUpFacingPatchAreaProxySqm":ta["originalLargestConnectedSurfaceAreaProxySqm"],
   "nearLandingOriginalSourceNormalY":ta["nearestLanding"]["nearestFaceNormalY"],
   "sourceSurfacePreliminaryKeepForNewSiteResearch":connected,
