@@ -4,6 +4,7 @@ on:
     branches: [p101-velocity-overdrive-native-trial]
     paths:
       - 'scripts/p101-r15a-native-game-experience-audit.mjs'
+      - 'scripts/p101-r15b-one-native-macro-city.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -55,3 +56,90 @@ jobs:
           path: test-results/r15a-native-game-audit/
           retention-days: 7
           if-no-files-found: warn
+  r15b-actual-native-macro-city-private-art:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preserve original game source and compile true Blender study
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15b-one-native-macro-city.py
+      - name: Reuse true R1 original editable Blender + R4 source moving hazard whole-duration envelopes
+        run: |
+          mkdir -p test-results/r15b/r1 test-results/r15b/r4
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15b/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/r15b/r4
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Create ONE shared-world full-trajectory city 3D and run original-camera/physics audits
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/r15b/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-r15b-one-native-macro-city.py -- \
+              --source "test-results/r15b/r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/r15b/r1/source/$r.json" \
+              --shared-true test-results/r15b/r1/source/true-pinch.json \
+              --shared-pinch test-results/r15b/r1/source/pinch-switch.json \
+              --hazards "test-results/r15b/r4/source/$r.json" \
+              --road "$r" --out "test-results/r15b/result-$r"
+          done
+      - name: Independently reject claims of game completion, merge, safe route, or art adoption
+        run: |
+          python3 - <<'PY'
+          import glob,json
+          root='test-results/r15b'
+          reports=glob.glob(root+'/result-*/*_SOURCE_MACRO_ART_AUDIT.json')
+          pngs=glob.glob(root+'/result-*/*.png')
+          blends=glob.glob(root+'/result-*/*.blend')
+          assert len(reports)==2 and len(pngs)==14 and len(blends)==2,(reports,len(pngs),len(blends))
+          result={}
+          for p in reports:
+           d=json.load(open(p))
+           result[d['road']]=d
+           assert d['schema']=='dopagaki.r15b-one-actual-paired-world-macro-city-source-art/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['originalCX18B48_7B51_28Cameras5Unchanged']
+           assert d['bothOriginalRoadSharedWorldGeometry'] and d['bothRoadsInputToExactSharedWorldCoords']
+           assert d['originalPhysicsHz']==240 and d['sourceCameraFramesOriginal13']==13
+           assert d['originalTrajectoryPathSpanMetres']>350
+           assert d['trueWorldMacroCityObjectCount']>=25
+           assert len(d['originalSevenTrueBlenderRenders'])==7
+           assert len(d['original13CameraFirstHit'])==13
+           assert len(d['original13CourtActualRayClear'])==13
+           assert len(d['original13MoverPosesTriangleIntersections'])==13
+           assert all(0<=v['newCityFirstHitFraction']<=1 for v in d['original13CameraFirstHit'].values())
+           assert d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+           assert d['sourceGameChanged'] is False
+           assert d['originalGameTrueWebGLRendered'] is False
+           assert not d['continuousWalkableTrafficFloorCertified'] and not d['humanAestheticApproval']
+           assert not d['originalB51ContinuousTimeSafetyCertified']
+           assert all(d[k]=='HOLD' for k in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+          assert set(result)=={'true-pinch','pinch-switch'}
+          assert result['true-pinch']['cityActualWorldBoundingBoxMetres']==result['pinch-switch']['cityActualWorldBoundingBoxMetres']
+          for road,d in result.items():
+           print('R15B_REAL_3D_SOURCE_ONLY_ART_REQUIRES_INDEPENDENT_IMAGE_REVIEW',road,
+            'meshes',d['trueWorldMacroCityObjectCount'],
+            'CX intersection objects',len(d['actualSourceCXTriangleIntersections']),
+            'B48 intersection objects',len(d['actualSourceB48TriangleIntersections']),
+            'B51 conservative envelope warnings',len(d['all28B51_721TickSampledEnvelopeWarnings']),
+            'seven real camera first hits',
+            [(k,d['original13CameraFirstHit'][k]['newCityFirstHitFraction']) for k in ('t1100','t1200','t1300','t1400','t1500','t1600','t1700')])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15B_ONE_REAL_MACRO_CITY_NATIVE_BLENDER_14_SOURCE_IMAGES_ART_HOLD
+          path: |
+            test-results/r15b/result-*/
+          if-no-files-found: warn
+          retention-days: 7
