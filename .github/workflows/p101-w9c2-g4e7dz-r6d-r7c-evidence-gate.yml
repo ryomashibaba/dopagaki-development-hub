@@ -42,7 +42,7 @@ jobs:
               --pixels "test-results/g4e7dz-r7c/source-r7b/R7B_SOURCE_VS_R7_PIXEL_EVIDENCE.json" \
               --out "test-results/g4e7dz-r7c/R7C_$r"_INDEPENDENT_STOP_GATE.json
           done
-      - name: Negative fixture: mutation catches source road collisions and cannot auto-certify art
+      - name: "Negative fixture — mutation catches source road collisions and cannot auto-certify art"
         run: |
           python3 - <<'PY'
           import json,copy,importlib.util
