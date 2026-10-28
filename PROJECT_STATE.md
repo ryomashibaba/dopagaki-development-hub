@@ -1,3 +1,17 @@
+# G4E-7DZ R6D-R12A〜R12D 原3D安全体積→実内部→真正14カメラ画像審査→連結失敗原因の4工程完了（2026-10-28 JST）
+
+**R12A** [CI #40687143619](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40687143619) SUCCESS／[Artifact #12815611873](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40687143619/artifacts/12815611873)：元R1真正13カメラ、CX18/B48×7実三角BVH、B51全28×721tick標本包囲を用いた26×30×36m候補の元空間探索。真正原物への交差なし＋カメラの内部高さ方向が複数時点で見える候補**true-pinch 213（前65/中64/後84）／pinch-switch 204（前64/中57/後83）**。元物変更なし。
+
+**R12B** [専用成功CI #40688145741](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40688145741) SUCCESS／[Artifact #12815029591](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40688145741/artifacts/12815029591)：前・中・後の3区画を実際の安全体積へ配置し、**各道路123個の真正編集Blenderメッシュ／2BLEND＋元カメラ11〜17秒14PNG＋監査JSON2**を制作。屋外公共床、3層の居住ギャラリー、窓・階段・交通プラットフォームの実体積。元CX・B48・B51（13姿勢三角形＋全28×721標本）との干渉**両道路0組**。ただし実画像では遠くの細い建物が3つに分断し、大未来都市としての存在感不足で**ART REJECT**。当初CI #40687773969は監査schema旧名によるFAIL、修正済み。
+
+**R12C** [CI #40688475676](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40688475676) SUCCESS／[Artifact #12815353376](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40688475676/artifacts/12815353376)：真正元R1/R11-R1/R12Bの同カメラPNGのRGB差と7時点の実BVH初ヒットを独立審査。**都市初ヒット7時点平均R11-R1→R12B true10.90%→1.63%、pinch11.15%→1.69%**へ低下、全7時点とも8%未満。視界だけでART合格しない。**R12B ART REJECT**を確定。
+
+**R12D** [CI #40688829549](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40688829549) SUCCESS／[Artifact #12815319446](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40688829549/artifacts/12815319446)：選択3区画間の真正3D中心距離は**true205m/185m、pinch205m/188m**で人間通路なし。元の安全候補全部から選び直してもEARLY→MIDDLEの最短**true68.3m／pinch68.4m**で、中心32m以内の既知候補ペア0。MIDDLE→LATE最短**true15.0m／pinch17.8m**で32m以内ペア5組（ただし連結安全未認証）。**断片的な小型箱量産を停止しR13では初めに連続した大きい元空間を探索**。
+
+元CX18／B48実物理7／B51動体28／原カメラ5／gap52／CX保護blob、P96原操舵・元240Hz・Gold・main・本番サイト不変更。研究Blenderはゲーム未統合。正式ART0、Slope2正式認定0m、R12B ART REJECT・R11-R1 ART REJECT／GAMEPLAY・HUMAN・PERFORMANCE・INTEGRATION・RELEASE・MERGE HOLD／PR#46 OPEN/Draft未マージ、本番公開禁止。[R12完全審査](docs/G4E7DZ_R6D_R12A_R12D_TRUE_SOURCE_CITY_VERDICT_JA.md)／[R13の一体的都市計画](docs/G4E7DZ_R6D_R13_CONTIGUOUS_CITY_SOURCE_FIRST_PLAN_JA.md)。
+
+---
+
 # G4E-7DZ R6D-R11＋R11-R1 真正3D新都市1案×設計修正、元カメラ画像28枚・原物安全監査完了 — TECH限定PASS／両案ART REJECT（2026-10-28 JST）
 
 **R11初回**：[専用Actions #40685217676](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40685217676) **SUCCESS**／[Artifact #12814995390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40685217676/artifacts/12814995390)。元Blender R1真の11〜17秒×2道路14画像・BLEND2・監査JSON2。公共／居住／交通で構成する道路へ開いた一体的都市96実編集メッシュ。元B48実三角交差0、B51全28×721tick標本包囲重複0、元CX交差true-pinch12／pinch-switch13組。実画像は巨大な垂直壁・板、17秒でほぼ見えなくなり**ART REJECT**。
