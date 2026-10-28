@@ -1,0 +1,97 @@
+name: G4E-7DZ R6D-R11 PRIVATE actual integrated inhabited estuary source-camera evidence
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r11-integrated-estuary-blender.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r11-real-integrated-city.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r11-one-city-both-original-camera-roads
+  cancel-in-progress: true
+jobs:
+  source-immutable-editable-city-and-actual-blender:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 48
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Original CX source provenance and R11 script compile
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r11-integrated-estuary-blender.py
+      - name: Retrieve original 240Hz 13 camera sources and original all28 B51 721 tick hazard map
+        run: |
+          mkdir -p test-results/g4e7dz-r11/r1 test-results/g4e7dz-r11/r4
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r11/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r11/r4
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Original source R11 urban estuary actual scene, original 7 camera PNG per road, all 28 B51 physical envelopes
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r11/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r11-integrated-estuary-blender.py -- \
+              --source "test-results/g4e7dz-r11/r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r11/r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r11/r4/source/$r.json" \
+              --road "$r" --out "test-results/g4e7dz-r11/result-$r"
+          done
+      - name: Independent coverage and exact game original source collision audit without automatic ART PASS
+        run: |
+          python3 - <<'PY'
+          import json,glob,os
+          root='test-results/g4e7dz-r11'
+          audits=glob.glob(root+'/result-*/*_ACTUAL_SOURCE_AUDIT.json')
+          photos=glob.glob(root+'/result-*/*.png')
+          editable=glob.glob(root+'/result-*/*.blend')
+          assert len(audits)==2 and len(photos)==14 and len(editable)==2,(audits,len(photos),editable)
+          assert {json.load(open(x))['road'] for x in audits}=={'true-pinch','pinch-switch'}
+          for f in audits:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r11-inhabited-estuary-true-source/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['unchangedOriginalCX18_B48_7_B51_28_Cameras5'] and d['originalGap52']
+           assert d['originalNativeFrames']==13
+           assert d['newBlenderResearchMeshes']>=65
+           assert len(d['districtsWithActualWorldCoordinates'])==3
+           assert len(d['original13TimedMoverB51ExactTriangleIntersections'])==13
+           assert len(d['original7CamerasActualBVHFirstHit'])==7
+           assert len(d['original7CamerasActualCourt3DRay'])==7
+           assert len(d['actualBlenderRenders'])==7
+           for t,v in d['original7CamerasActualBVHFirstHit'].items():
+            assert sum(v['firstHitGrid'].values())==19*12
+            assert v['realOriginalMoverFrameChecked']
+            assert v['notActualGameWebGLAndNotHumanArt']
+            assert 0<=v['newCityFirstHitFraction']<=1
+           for t,rows in d['original7CamerasActualCourt3DRay'].items():
+            assert len(rows)==9
+           assert not d['sourceGameChanged']
+           assert d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+           assert d['ART']=='HOLD_INDEPENDENT_REAL_IMAGE_REVIEW'
+           assert all(d[k]=='HOLD' for k in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R11_PRIVATE_REAL_SOURCE_BOTH_ROADS',d['road'],
+             'new editable meshes',d['newBlenderResearchMeshes'],
+             'B48 original exact intersections',len(d['originalSourceB48ExactTrianglesIntersectionPairs']),
+             'CX exact intersections',len(d['originalSourceCXExactTrianglesIntersectionPairs']),
+             'B51 all28 721tick conservative box warnings',len(d['all28MovingB51_721TickSampledAabbIntersectionPairs']),
+             'real original camera visibility',[(k,v['newCityFirstHitFraction']) for k,v in d['original7CamerasActualBVHFirstHit'].items()])
+          print('R11_SOURCE_PHYSICAL_EVIDENCE_COMPLETE_NO_HUMAN_ART_ADOPTION')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R11_TRUE_NATIVE_INHABITED_ESTUARY_REAL_14IMAGE_SOURCE_HOLD
+          path: test-results/g4e7dz-r11/result-*/
+          if-no-files-found: warn
+          retention-days: 7
