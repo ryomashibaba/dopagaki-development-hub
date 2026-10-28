@@ -1,3 +1,17 @@
+# G4E-7DZ R4 実制作・真正画像監査 完了 — 限定TECH PASS／ART REJECT（2026-10-28 JST）
+
+[PRIVATE研究実装コミット fc4f110](https://github.com/ryomashibaba/dopagaki-development-hub/commit/fc4f11045ba95f3cfe8a30afe55e9d9d1a6a8659)、[専用Actions #40629896298](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40629896298) **SUCCESS**、[本物Blender Artifact #12790628370](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40629896298/artifacts/12790628370) を**実ダウンロード／展開／画像目視／監査JSON読取**した。真のDR元世界から原カメラ4視点×2道路の**8枚真正Blender PNG・編集可能BLEND2・監査JSON2**を作成。各道路8つの新3Dメッシュ（非対称都市地形２、公共/交通床２、床に埋めた鉄道軌跡２、異なる公共・住宅コート２）。R3の門や横梁は流用せず新たな巨大門も０。
+
+**技術限定PASS：** 原CX18／B48実道路7／B51動体28／真正240Hzカメラ5／gap52不変、原CX blob af076d67492a677d2235e4730aef8cdf4808e106一致。新ゲームコライダー0、両道路新建築×B48静的三角交差0件、B51原15.5・16・16.5・17秒の4時点OBB重なり0件。完全連続時間安全性、実人間公平性、実ゲームWebGL、FPS、正式ゲーム統合は**未検証**。
+
+**R4真正画像の厳格な美術評価：ART REJECT。** R3の大きな矩形門は消えたが、15.5秒では遠景に低い平たい巨大な斜面帯が見え、16.0秒でそれが道路側の長い板・堤防になり、16.5～17.0秒では大きな三角断面の斜面・段床が近景を占める。公共・交通・居住の違いと、建築の内部に入る体験は十分に読めない。CXの主役となる既存建築と新地形が**独立した造形のまま**で、都市が一つの生活交通構造としてつながって見えない。元DR、R3との同一画角比較で、R4の方が魅力的な巨大都市になったとは判定不可。**R3の門→R4の巨大な斜面板へ、失敗する母体形態を置換した**。形状の局所修正・詳細化は禁止。
+
+R4正規カメラ代表4点の画角内かつ遮蔽なしのレイは、true-pinch 15.5/16/16.5/17sで **1/4・1/4・2/4・2/4**、pinch-switchで **1/4・1/4・3/4・2/4**（R3は両道路2/4・2/4・3/4・1/4）。観測値から機能の判読・美術品質を導かない。元CXへの最短参照距離は手前左で**14.351m／32.692m**、奥右で**10.334m／8.931m**（true-pinch／pinch-switch）。実際の生活・歩行・支持連絡は確認されておらず「同じ都市に接続済」と見なさない。
+
+**結論・次段階：** 技術は真正DR原物保護／限定静的検査PASS、都市美術はART REJECT。新しい地形の位置・傾き・素材だけを変える再試作をしない。**都市と道路の実接続を先に定義し、実走行カメラの前後変化の中で公共/居住/駅の用途が判別できる立体都市断面と交通の交点を、まず最小の実模型で示す。** 不成立ならモデリング再開を見送る。正式ART採用0、Slope2正式認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE HOLD。main/Gold/P100/本番/元物理・操作・カメラ保護、PR#46 OPEN／Draft／未マージ継続。[詳細R4研究・結果](docs/G4E7DZ_R4_GROUND_CITY_PRIVATE_TRIAL_JA.md)。
+
+---
+
 # G4E-7DZ R3 完了 — 元世界19実3Dメッシュ／2実開口・2道路8枚真正Blender／TECH PASS・ART REJECT（2026-10-28 JST）
 
 [実装 2f497876](https://github.com/ryomashibaba/dopagaki-development-hub/commit/2f497876caeb1e7138e074fee9e4bd4c4310a149)、[専用CI #40615167856](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40615167856) **SUCCESS**、[実Blender Artifact #12784548819](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40615167856/artifacts/12784548819) 実取得・解凍：**本物Blender PNG8・編集可能.blend2・監査JSON2**。両道路それぞれ新3D **19メッシュ、実際に穴の空いた2開口**。原CX18/B48×7/B51×28/原カメラ5/gap52を保持し、ゲーム新コライダー0。道路静的三角干渉0、B51の4時点重なり0（連続時間の全安全性ではない）。元世界の代表室内点までの正規カメラ投影＋遮蔽レイで可視点は両道路とも15.5/16/16.5/17秒=**2/4・2/4・3/4・1/4**。ただし線が通ることは奥の都市機能が読めることを保証しない。
