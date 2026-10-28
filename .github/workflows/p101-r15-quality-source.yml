@@ -8,6 +8,8 @@ on:
       - 'scripts/p101-r15b-independent-art-veto.py'
       - 'scripts/p101-r15c-true-source-macro-domain.py'
       - 'scripts/p101-r15c-independent-domain-gate.py'
+      - 'scripts/p101-r15d-real-two-road-swept-detours.py'
+      - 'scripts/p101-r15d-independent-detour-gate.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -60,6 +62,7 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
   r15b-actual-native-macro-city-private-art:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 55
@@ -186,6 +189,7 @@ jobs:
           retention-days: 7
 
   r15c-shared-original-game-safe-camera-domain:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 58
@@ -252,5 +256,74 @@ jobs:
         with:
           name: P101_R15C_TWO_ROAD_REAL_ORIGINAL_SOURCE_SAFE_VISIBLE_MACRO_DOMAIN_NO_ART
           path: test-results/r15c/results/
+          if-no-files-found: warn
+          retention-days: 7
+
+  r15d-original-two-road-true-swept-detours:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preserve frozen original game source and compile R15D geometric code
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15d-real-two-road-swept-detours.py scripts/p101-r15d-independent-detour-gate.py
+      - name: Reuse proven actual R1 240Hz Blender sources, R4 28 x 721 envelopes, audited R15C report
+        run: |
+          mkdir -p test-results/r15d/r1 test-results/r15d/r4 test-results/r15d/r15c test-results/r15d/results
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15d/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/r15d/r4
+          gh run download 40705855639 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15C_TWO_ROAD_REAL_ORIGINAL_SOURCE_SAFE_VISIBLE_MACRO_DOMAIN_NO_ART \
+            --dir test-results/r15d/r15c
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Actual original two-road CX/B48+B51 3D swept 8/12m non-straight four-link A-star search
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-r15d-real-two-road-swept-detours.py -- \
+            --source-true-pinch test-results/r15d/r1/result-true-pinch/R1_true-pinch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --source-pinch-switch test-results/r15d/r1/result-pinch-switch/R1_pinch-switch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --native-true-pinch test-results/r15d/r1/source/true-pinch.json \
+            --native-pinch-switch test-results/r15d/r1/source/pinch-switch.json \
+            --hazards-true-pinch test-results/r15d/r4/source/true-pinch.json \
+            --hazards-pinch-switch test-results/r15d/r4/source/pinch-switch.json \
+            --r15c test-results/r15d/r15c/R15C_BOTH_SOURCE_MACRO_DOMAIN_AUDIT.json \
+            --out test-results/r15d/results
+      - name: Independent two-original-roads route and false-acceptance gate
+        run: |
+          python3 scripts/p101-r15d-independent-detour-gate.py \
+            --r15d test-results/r15d/results/R15D_TWO_ORIGINAL_WORLDS_3D_DETOUR_AUDIT.json \
+            --r15c test-results/r15d/r15c/R15C_BOTH_SOURCE_MACRO_DOMAIN_AUDIT.json \
+            --out test-results/r15d/results/R15D_INDEPENDENT_LOGICAL_ROUTE_GATE.json
+          python3 - <<'PY'
+          import json
+          root='test-results/r15d/results/'
+          d=json.load(open(root+'R15D_TWO_ORIGINAL_WORLDS_3D_DETOUR_AUDIT.json'))
+          x=json.load(open(root+'R15D_INDEPENDENT_LOGICAL_ROUTE_GATE.json'))
+          assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+          assert len(d['researchWorldNonStraightDetours4CandidatePairs'])==8
+          assert x['independentPathShapeAndTwoRoadProofLogicalContract']=='PASS'
+          assert d['allTwoRoadConservativeSourceSweptRoutesFound']==x['conservativeActualTwoRoadPaths']
+          assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+          print('R15D_TRUE_TWO_ORIGINAL_SOURCE_SWEPT_SEARCH_FINISHED',
+            'paths',d['allTwoRoadConservativeSourceSweptRoutesFound'],
+            'node and swept-source tests',d['counts'],
+            'PUBLIC GAME ART HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15D_TRUE_TWO_ROAD_3D_ASTAR_SWEPT_VOLUMES_PRIVATE_SOURCE_HOLD
+          path: test-results/r15d/results/
           if-no-files-found: warn
           retention-days: 7
