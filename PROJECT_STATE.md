@@ -1,3 +1,13 @@
+# G4E-7DZ R6D-R2 真正3D《POROUS CONFLUENCE》・原物監査完了 — SOURCE TECH限定PASS／ART REJECT（2026-10-28 JST）
+
+[実装CI #40668156864](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40668156864) **SUCCESS**、[Artifact #12806144908](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40668156864/artifacts/12806144908) の実BLEND2・真正Blender PNG12・監査JSON2を独立に取得／目視比較。元R5Aの実CX接点を起点に両道路各19編集可能メッシュ・中央径38mの真の空洞を備えた一案を制作。ただし**遠景は小さな箱、16秒前後は板・別々の施設、17秒近景は巨大な不透明壁に見え、道路が都市内部を横断する感覚、公共・鉄道・居住の判読は成立しなかった**。過去の失敗に対する本質的な改善は認定できず **ART REJECT**。模型の詳細化・ゲーム統合禁止。
+
+実監査：新R2×元B48実三角交差**両道路0**、元B51×13時点交差**両道路0**、R6D `a13-machine-04` 1081tick標本AABB重なり**両道路0**。ただし元CXメッシュ交差 true-pinch **4**／pinch-switch **6** 組で、歩行・構造接合の認証なし。全28動体・連続時刻の安全性も**未証明**。元CX18/B48実道路7/B51 28/カメラ5/gap52/原CX blob `af076d67492a677d2235e4730aef8cdf4808e106`、物理・操舵・公開物全て維持。ゲーム新コライダー0。**SOURCE TECH限定PASS／ART REJECT／GAMEPLAY・HUMAN・PERFORMANCE・INTEGRATION・RELEASE・MERGE HOLD**。正式美術0件、Slope2認定0m、PR #46 OPEN/Draft、未マージ。本番公開禁止。[R2詳細](docs/G4E7DZ_R6D_R2_POROUS_CONFLUENCE_ACTUAL_VERDICT_JA.md)。
+
+**次R6D-R3**は道路脇に別の箱／円環／斜面を再制作する前に、正規走行道路そのものが実際に横断する空洞と歩行・交通の立体関係を先に検討する。形だけの反復やCI量産を停止する。
+
+---
+
 # G4E-7DZ R6D-R1 正規11〜17秒の真正26画像・元DJ 7時点一致検査完了 — SOURCE TECH限定PASS／ART HOLD（2026-10-28 JST）
 
 [専用Actions #40666518657](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40666518657) **SUCCESS**、[Artifact #12805694338](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40666518657/artifacts/12805694338) を**実取得**。両道路13時点ずつの正規11〜17秒（真正Blender PNG26／編集可能BLEND2／JSON4）を独立確認。元DJの14〜17秒7時点すべてで正規240Hz走行／カメラ／速度／接地／路面ID一致。15〜17秒×2道路の元R6D同時刻画像10枚は画素値完全一致。元CX18／B48実道路7／B51動体28／元カメラ5／gap52／保護CX blob不変、追加ゲームコライダー0、新都市メッシュ0。
