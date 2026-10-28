@@ -5,6 +5,7 @@ on:
     paths:
       - 'scripts/p101-r15a-native-game-experience-audit.mjs'
       - 'scripts/p101-r15b-one-native-macro-city.py'
+      - 'scripts/p101-r15b-independent-art-veto.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -135,11 +136,49 @@ jobs:
             'seven real camera first hits',
             [(k,d['original13CameraFirstHit'][k]['newCityFirstHitFraction']) for k in ('t1100','t1200','t1300','t1400','t1500','t1600','t1700')])
           PY
+      - name: Original source baseline vs actual new images and independently veto false ART acceptance
+        run: |
+          python3 -m pip install --quiet Pillow
+          python3 -m py_compile scripts/p101-r15b-independent-art-veto.py
+          for r in true-pinch pinch-switch; do
+            python3 scripts/p101-r15b-independent-art-veto.py \
+              --audit "test-results/r15b/result-$r/R15B_$r"_SOURCE_MACRO_ART_AUDIT.json \
+              --original "test-results/r15b/r1/result-$r" \
+              --trial "test-results/r15b/result-$r" \
+              --out "test-results/r15b/independent"
+          done
+          python3 - <<'PY'
+          import glob,json,importlib.util,copy
+          z=glob.glob('test-results/r15b/independent/*_INDEPENDENT_REAL_IMAGE_ART_REJECT.json')
+          assert len(z)==2,z
+          for p in z:
+           x=json.load(open(p))
+           assert x['R15BIndependentART']=='REJECT' and not x['R15BOriginalSourceGeometrySafe']
+           assert x['CXActualTriangleIntersectionPairs']>0
+           assert len(x['lateBelow2PctCityFirstHit'])>=2
+           assert len(x['pairedOriginalCameraImageAnyChannelDiff45'])==7
+           assert x['officialArt']==x['officialSlope2Meters']==x['newGameColliders']==0
+           assert all(x[k]=='HOLD' for k in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R15B_STOPS_UNSAFE_INVISIBLE_MACRO_CITY',x['road'],
+            'CX',x['CXActualTriangleIntersectionPairs'],
+            'city initial hit',x['sourceSevenFrameMeanCityFirstHit'])
+          s=importlib.util.spec_from_file_location('art','scripts/p101-r15b-independent-art-veto.py')
+          mod=importlib.util.module_from_spec(s);s.loader.exec_module(mod)
+          source=json.load(open('test-results/r15b/result-true-pinch/R15B_true-pinch_SOURCE_MACRO_ART_AUDIT.json'))
+          fake=copy.deepcopy(source);fake['humanAestheticApproval']=True
+          try:
+           mod.compare(fake,'test-results/r15b/r1/result-true-pinch','test-results/r15b/result-true-pinch','test-results/r15b/independent')
+           raise AssertionError('FAKE_ART_ACCEPTANCE_NOT_REJECTED')
+          except AssertionError as e:
+           assert 'FAKE_ART_ACCEPTANCE_NOT_REJECTED' not in str(e)
+           print('R15B_NEGATIVE_FAKE_ART_APPROVAL_REJECTED')
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: P101_R15B_ONE_REAL_MACRO_CITY_NATIVE_BLENDER_14_SOURCE_IMAGES_ART_HOLD
           path: |
             test-results/r15b/result-*/
+            test-results/r15b/independent/
           if-no-files-found: warn
           retention-days: 7
