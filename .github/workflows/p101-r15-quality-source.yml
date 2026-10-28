@@ -1,0 +1,57 @@
+name: P101 R15 unified native game-experience source audit (PRIVATE HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r15a-native-game-experience-audit.mjs'
+      - 'tests/p101-r15a-native-game-experience.test.mjs'
+      - '.github/workflows/p101-r15-quality-source.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15a-source-immutable-native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirm frozen original source and module syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15a-native-game-experience-audit.mjs
+          node --test tests/p101-r15a-native-game-experience.test.mjs
+      - name: Reconstruct actual original 240Hz scripted trajectory and project original movers
+        run: node scripts/p101-r15a-native-game-experience-audit.mjs
+      - name: Independently verify both source datasets and NO false promotion
+        run: |
+          python3 - <<'PY'
+          import json,glob,math
+          p=glob.glob('test-results/r15a-native-game-audit/*.json')
+          assert len(p)==2,p
+          roads=set()
+          for f in p:
+           d=json.load(open(f,encoding='utf8'))
+           roads.add(d['road'])
+           assert d['schema']=='dopagaki.r15a-native-kinematic-hazard-visibility-readonly/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert (d['originalCX'],d['originalB48'],d['originalB51'],d['originalCameras'],d['sourcePhysicsHz'])==(18,7,28,5,240)
+           assert len(d['observedFrames'])==13 and len(d['trajectoryParityWithPreviousR1'])==7
+           assert all(len(x['originalMoverReadOnlyProjection'])==28 for x in d['observedFrames'])
+           assert all(x['originalMoverCount']==28 and math.isfinite(x['sourceSpeedMps']) for x in d['observedFrames'])
+           assert d['actualBrowserWebGL']=='NOT_RUN' and d['actualJumpRecovery']=='NOT_TESTED'
+           assert d['officialArt']==d['officialSlope2Meters']==d['newGameColliders']==0
+           assert d['sourceGameChanged'] is False
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+          assert roads=={'true-pinch','pinch-switch'},roads
+          print('R15A_TRUE_240HZ_SOURCE_ONLY_CANDIDATES_NEVER_REAL_HUMAN_VISIBILITY_CERTIFICATION')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15A_NATIVE_240HZ_SOURCE_EXPERIENCE_READONLY_HOLD
+          path: test-results/r15a-native-game-audit/
+          retention-days: 7
+          if-no-files-found: warn
