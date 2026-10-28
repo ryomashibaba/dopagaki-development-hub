@@ -1,3 +1,11 @@
+# G4E-7DZ R15J — 真正2案×2道路の編集Blender・28原カメラ画像：ART REJECT／元ソース交差（2026-10-29 JST）
+
+**最終Actions #40780029723 SUCCESS／Artifact #12856865952。** R15I4の順位1位は元CX面法線が下向きで、R15J初回 #40779820764 が正しくFAIL。CX面法線が上向きの元B48路肩559:572（元道路→CX理論約44.736m、最大勾配4.112%、元地点視認t13〜t15）へ変更。LANDSCAPE・RIFTの2案を両道路で合計4実編集可能Blender／元R1カメラ28PNG・独立画像4ペア組で比較した。各案各道路10メッシュ。原CX/B48と新造形との三角面交差検出オブジェクト組はLANDSCAPE各道路7、RIFT各道路6（0ではない）。主空洞4標本レイも新造形に当たり非開放。元B51保守AABB警告0は人間公平性認証ではない。7代表時点で新造形初ヒット平均はLANDSCAPE true **0.877%**／pinch **0.752%**、RIFT true **0.815%**／pinch **0.940%**。元画像との実視覚比較でもわずかな単独壁状塊がt15で浮かぶ程度で、立体都市・入口・生活・公共空洞の一体感なし。**SOURCE TECH限定PASS／SOURCE GEOMETRY CONFLICT／両案独立ART REJECT。二翼ロフト等の微修正を停止。**
+
+次R15Kは元CX実面の法線・支持/入口連続性、元カメラ連続可視三角形群、元B51予告視界を測った上で、真に見えてつながる都市マクロ設計に転換する。新3Dの量産前の停止条件を導入。原ソースblob `af076d67492a677d2235e4730aef8cdf4808e106` 不変、新ゲームコライダー0、正式ART採用0件／Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR #46 Draft未マージ、main/Gold/P100/本番変更なし。全根拠：[R15J真正比較とR15K停止ゲート](docs/G4E7DZ_R15J_ORIGINAL_SOURCE_MACRO_ART_REJECT_AND_R15K_GATE_JA.md)。
+
+---
+
 # G4E-7DZ R15I4 — 両道路同一世界のCX支持候補8件を実ソース・元R1視界・曲線勾配で再選定（2026-10-29 JST）
 
 R15I〜R15I3の元B48路肩79→元CXの支持線研究42→真正Blender道路脇通路各道路6メッシュ（元R1カメラ14画像、平均初ヒット0.50%／1.13%）を維持。R15I3の独立ART REJECTを停止条件として、**同一の細道・単独庇の延命はしない**。
