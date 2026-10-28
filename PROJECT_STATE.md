@@ -1,3 +1,13 @@
+# G4E-7DZ R6D-R3 元道路中心都市《ROAD-INTERNAL AIR DISTRICT》実3D・14視点判定完了 — 原物SOURCE限定PASS／B48安全FAIL／ART REJECT（2026-10-28 JST）
+
+[R3真正Blender Actions #40669433729](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40669433729) **SUCCESS**、[Artifact #12807682590](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40669433729/artifacts/12807682590) の**真正PNG14・編集BLEND2・監査JSON2**を実取得、元R1の同カメラ14画像と比較。R2の「既存CX横の独立円環」と異なり、元の15〜17秒約211〜215mの正規走行を中心空洞として両側に公共・居住・高架鉄道・既存CX連絡の28実メッシュ／道路を制作。ただし新支持脚`08 structural diagonal root 3`が元B48 `p93-CROWN_REVERSAL-01`と真正三角形交差：**true-pinch 10組／pinch-switch 11組、両道路とも安全FAIL**。B51の13時点交差は0、元CXとは両道路2組干渉、全時刻安全・構造接合・連続歩行未認証。
+
+**実画像ART REJECT**：14〜15秒は細い架線・横へ突き出た部材、15.5秒は上空の細長い線と未完成の両側部材、16〜17秒はほぼ画面外へ流れ、元CXと生活都市の内部を横断する体験は成立しない。原物CX18/B48×7/B51×28/正規カメラ5/gap52/保護blob `af076d67492a677d2235e4730aef8cdf4808e106`、main／Gold／本番／元240Hz物理・操作は不変更、新ゲームコライダー0。**SOURCE保護TECH限定PASS／R3候補TECH安全FAIL／ART REJECT**、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、正式美術0、Slope2認定0m、PR#46 OPEN/Draft未マージ。[独立審査詳細](docs/G4E7DZ_R6D_R3_ROAD_INTERNAL_ACTUAL_BLENDER_VERDICT_JA.md)。
+
+**次R6D-R4**は形だけの支持移動・架線増量・別の小門制作を止め、まず元道路・既存CX全体・原カメラ・危険と都市内空間の関係を立体的に再定義する根本立地検証から始める。
+
+---
+
 # G4E-7DZ R6D-R2 真正3D《POROUS CONFLUENCE》・原物監査完了 — SOURCE TECH限定PASS／ART REJECT（2026-10-28 JST）
 
 [実装CI #40668156864](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40668156864) **SUCCESS**、[Artifact #12806144908](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40668156864/artifacts/12806144908) の実BLEND2・真正Blender PNG12・監査JSON2を独立に取得／目視比較。元R5Aの実CX接点を起点に両道路各19編集可能メッシュ・中央径38mの真の空洞を備えた一案を制作。ただし**遠景は小さな箱、16秒前後は板・別々の施設、17秒近景は巨大な不透明壁に見え、道路が都市内部を横断する感覚、公共・鉄道・居住の判読は成立しなかった**。過去の失敗に対する本質的な改善は認定できず **ART REJECT**。模型の詳細化・ゲーム統合禁止。
