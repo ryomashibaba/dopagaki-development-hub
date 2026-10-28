@@ -1,3 +1,11 @@
+# G4E-7DZ R3 完了 — 元世界19実3Dメッシュ／2実開口・2道路8枚真正Blender／TECH PASS・ART REJECT（2026-10-28 JST）
+
+[実装 2f497876](https://github.com/ryomashibaba/dopagaki-development-hub/commit/2f497876caeb1e7138e074fee9e4bd4c4310a149)、[専用CI #40615167856](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40615167856) **SUCCESS**、[実Blender Artifact #12784548819](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40615167856/artifacts/12784548819) 実取得・解凍：**本物Blender PNG8・編集可能.blend2・監査JSON2**。両道路それぞれ新3D **19メッシュ、実際に穴の空いた2開口**。原CX18/B48×7/B51×28/原カメラ5/gap52を保持し、ゲーム新コライダー0。道路静的三角干渉0、B51の4時点重なり0（連続時間の全安全性ではない）。元世界の代表室内点までの正規カメラ投影＋遮蔽レイで可視点は両道路とも15.5/16/16.5/17秒=**2/4・2/4・3/4・1/4**。ただし線が通ることは奥の都市機能が読めることを保証しない。
+
+**R3真正画像美術審査 ART REJECT。** 同条件のDR原景観／不採用DY R1／R3を両道路×4視点で目視比較。R3遠景は巨大な四角い門が並ぶに留まり、16.5～17秒の近景は大きな門柱で圧迫。向こう側の公共・鉄道・住居は線・板のようにしか読めず、元CXとの都市の連続性、超未来都市内部通過の驚きは不成立。**元の巨大壁・棚の失敗を巨大門へ置き換えたに近い**。R3直接詳細化・ゲーム導入は禁止。これは**Blender**の証拠であり**新都市のWebGLは未実施**。人間操作・ゲーム性・FPSはHOLD。正式美術採用0件、Slope2正式認定0m、ART/HUMAN/GAMEPLAY/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。次R4では単独巨大門の再調整をやめ、元CXと路線の都市母体そのものを先に接続する構造へ切り替える。main/Gold/P100/本番/CX保護blob/元物理・カメラ不変更、PR#46 OPEN/Draft/未マージ。[詳細R3審査](docs/G4E7DZ_R3_REAL_WORLD_CARVED_CITY_JA.md)。
+
+---
+
 # G4E-7DZ R2 完了 — 真正WebGL20枚の原本SHA照合・3都市構図×両道路×4時点を実画像監査／TECH PASS・SITE HOLD（2026-10-28 JST）
 
 [PRIVATE実装・専用CIコミット 4ec4dcb](https://github.com/ryomashibaba/dopagaki-development-hub/commit/4ec4dcb07541e702e2a3975827f84ef23d6f44c0)、[Actions #40614088291](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40614088291) SUCCESS。新規R2テスト4/4＋R1回帰4/4 PASS、元CX保護blob af076d67492a677d2235e4730aef8cdf4808e106一致。[Artifact #12784616591](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40614088291/artifacts/12784616591) は24真正WebGL背景＋**架空3D線投影**SVG、閲覧HTML、監査JSONの26ファイル。元DJ実WebGL20枚SHA256検査PASS、両道路×3独立都市叙事×4時点の24投影で各4種の線区間が画角と重なるが、**投影成立率24/24は建築・美術・都市通過・障害物視認性・遮蔽安全性の合格ではない**。
