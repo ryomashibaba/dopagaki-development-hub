@@ -25,8 +25,11 @@ assert len(edges)==2 and edges[0]['from']=='EARLY' and edges[0]['to']=='MIDDLE'
 assert edges[1]['from']=='MIDDLE' and edges[1]['to']=='LATE'
 start0,end0=[Vector(q) for q in edges[0]['closestProvenR12ASafeSourceBoxes']]
 assert 60<math.dist(start0,end0)<85
-assert any(v['worldXYZ']==list(start0) for v in a['allSafeCameraVisibleCandidatePositions'])
-assert any(v['worldXYZ']==list(end0) for v in a['allSafeCameraVisibleCandidatePositions'])
+# Blender Vector is float32 whereas the archived JSON coordinates are
+# 4-decimal original-source world values. Preserve provenance with a real
+# spatial tolerance rather than failing a float-exact Python list test.
+assert any(math.dist(v['worldXYZ'],start0)<.002 and v['era']=='EARLY' for v in a['allSafeCameraVisibleCandidatePositions'])
+assert any(math.dist(v['worldXYZ'],end0)<.002 and v['era']=='MIDDLE' for v in a['allSafeCameraVisibleCandidatePositions'])
 bpy.ops.wm.open_mainfile(filepath=arg('--source'))
 scene=bpy.context.scene
 assert scene['DO_SCENE_IS_NOT_GAME_WEBGL'] and scene['DR_ACTUAL_B48_MESH_COUNT']==7
