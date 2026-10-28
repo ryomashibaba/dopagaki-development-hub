@@ -1,3 +1,11 @@
+# G4E-7DZ R6B 真正Blender都市断面を実制作・目視審査完了 — TECH安全ゲートFAIL／ART REJECT（2026-10-28 JST）
+
+[R6B実装コミット 6dbcd2a](https://github.com/ryomashibaba/dopagaki-development-hub/commit/6dbcd2aefe68f4042e5760c86f7346347e5e1e7f)、[専用Actions #40637504539](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40637504539) SUCCESS、[実Blender Artifact #12794281741](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40637504539/artifacts/12794281741) を**実ダウンロードし画像8・編集BLEND2・監査JSON2確認**。各道路9新メッシュ、元CX18・B48×7・B51×28・元カメラ5・gap52保持、原CX保護blob一致、新ゲームコライダー0・元B48三角交差0。しかし元B51への**サンプル交差true-pinch合計12件／pinch-switch13件**で安全基準FAIL。新都市と元CXの重なりも8組／11組で構造接続と認証不可。
+
+**真正画像ART REJECT。** R6Bの都市断面は横長の帯・床・巨大スロープ状の塊に見え、17秒で近景圧迫。公共／交通／居住の視覚的違いも内部生活も読み取れず、既存CXとの一体化も不成立。R3/R4の失敗を違う断面に置き換えた。**同案の詳細化は禁止**。CI SUCCESSは制作・監査の実行成功だけ。**R6B TECH（安全性）FAIL／ART REJECT**、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、正式美術0、Slope2正式認定0m、PR#46 OPEN/Draft/未マージ、本番・元物理・公開物不変更。[R6B詳細結果](docs/G4E7DZ_R6B_INHABITED_ROAD_SECTION_PRIVATE_RESEARCH_JA.md)。
+
+---
+
 # G4E-7DZ R6A 原物カメラ視野監査完了 — 限定TECH PASS／新都市ART HOLD（2026-10-28 JST）
 
 [実装コミット 1eac577](https://github.com/ryomashibaba/dopagaki-development-hub/commit/1eac5771906d10baf07e74bddc9d4a698d0b673c)、[専用Actions #40636653095](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40636653095) **SUCCESS**、[Artifact #12794295300](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40636653095/artifacts/12794295300) **実ダウンロード・JSON検査・画像確認済み**。元DR真正Blenderの実カメラにより、両道路×4時点で**元世界Blender実画像8枚と64×40レイ視野解析マスク8枚、監査JSON2個**を作成。原CX18・B48×7・B51×28・元カメラ5・gap52・CX保護blob一致。**R6Aは新規美術メッシュ0、新ゲームコライダー0**。元のゲーム映像に新都市を描いた証拠ではない。
