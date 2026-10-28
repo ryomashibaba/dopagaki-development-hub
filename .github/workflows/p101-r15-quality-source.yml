@@ -27,6 +27,8 @@ on:
       - 'scripts/p101-r15i4-independent-source-camera-grade-gate.py'
       - 'scripts/p101-r15j-two-source-grounded-macro-studies.py'
       - 'scripts/p101-r15j-independent-two-macro-source-art-veto.py'
+      - 'scripts/p101-r15k-actual-cx-connected-surface-original-camera.py'
+      - 'scripts/p101-r15k-independent-cx-camera-gate.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -904,3 +906,72 @@ jobs:
             test-results/r15j/independent/
           retention-days: 7
           if-no-files-found: warn
+
+  r15k-original-connected-cx-surface-two-road-native-camera-preflight:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Freeze original source and syntax-check both R15K independent tests
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15k-actual-cx-connected-surface-original-camera.py scripts/p101-r15k-independent-cx-camera-gate.py
+      - name: Reuse actual source R1 paired Blender and R15I2/I4 original source evidence
+        run: |
+          mkdir -p test-results/r15k/r1 test-results/r15k/r15i2 test-results/r15k/r15i4 test-results/r15k/result
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15k/r1
+          gh run download 40774307893 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15I2_REAL_CX_TERRAIN_SUPPORT_OPTIONS_UNBUILT_TWO_ROAD_HOLD \
+            --dir test-results/r15k/r15i2
+          gh run download 40776460960 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15I4_ORIGINAL_B48_CX_TWIN_WORLD_CAMERA_AND_GRADE_PREFLIGHT_ART_HOLD \
+            --dir test-results/r15k/r15i4
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Actual connected CX topology / original 13 frames both native roads / original B51 cue baseline
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-r15k-actual-cx-connected-surface-original-camera.py -- \
+            --source-true-pinch test-results/r15k/r1/result-true-pinch/R1_true-pinch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --source-pinch-switch test-results/r15k/r1/result-pinch-switch/R1_pinch-switch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --native-true-pinch test-results/r15k/r1/source/true-pinch.json \
+            --native-pinch-switch test-results/r15k/r1/source/pinch-switch.json \
+            --r15i2 test-results/r15k/r15i2/R15I2_REAL_TERRAIN_BRACE_HYPOTHESES.json \
+            --r15i4 test-results/r15k/r15i4/R15I4_ORIGINAL_TWO_ROAD_CX_MACRO_SITE_PREFLIGHT.json \
+            --out test-results/r15k/result
+      - name: Independent original polygon, same-time native camera and negative-fraud gate
+        run: |
+          python3 scripts/p101-r15k-independent-cx-camera-gate.py \
+            --result test-results/r15k/result/R15K_TRUE_ORIGINAL_CX_PATCH_TWO_WORLD_CAMERA_BASELINE.json \
+            --r15i4 test-results/r15k/r15i4/R15I4_ORIGINAL_TWO_ROAD_CX_MACRO_SITE_PREFLIGHT.json \
+            --out test-results/r15k/result
+          python3 - <<'PY'
+          import json
+          root='test-results/r15k/result/'
+          d=json.load(open(root+'R15K_TRUE_ORIGINAL_CX_PATCH_TWO_WORLD_CAMERA_BASELINE.json'))
+          g=json.load(open(root+'R15K_INDEPENDENT_REAL_CX_PATCH_CAMERA_QA.json'))
+          assert d['priorR15I4DifferentRoadCandidateIds']==8
+          assert d['actualDistinctOriginalCXLandingCoordinates']==4
+          assert g['geometryAndCameraEvidenceRecomputed'] and g['independentForgedApprovalRejected']
+          assert d['officialArt']==d['officialSlope2Meters']==d['newGameColliders']==0
+          assert not d['sourceGameEdited'] and not d['actualGameWebGLRendered']
+          assert not d['certifiedRealContinuousPublicFloor'] and not d['humanStructuralLoadingTested']
+          print('R15K_ORIGINAL_CX_SOURCE_ONLY_NO_ART_PROMOTION',
+            [(x['originalCXSourceName'], x['largestSourceUpFacingPatchAreaProxySqm'],
+            x['maxConsecutiveMatchedOriginalHalfSecondFrames'],
+            x['sourceSurfacePreliminaryKeepForNewSiteResearch'])
+             for x in d['rankedActualOriginalCXSourceSurfaceVisibilityPreflight']])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15K_REAL_4_CX_CONNECTED_SURFACE_2ROAD_13_CAMERA_B51_BASELINE_NO_ART_HOLD
+          path: test-results/r15k/result/
+          if-no-files-found: warn
+          retention-days: 7
