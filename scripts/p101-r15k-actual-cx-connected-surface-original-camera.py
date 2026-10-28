@@ -88,7 +88,10 @@ def connected(o,landing):
   face=[mat@o.data.vertices[v].co for v in poly.vertices]
   triangles=tessellate_polygon([face])
   for triangle in triangles:
-   p0,p1,p2=triangle
+   # Blender 4.x tessellate_polygon returns vertex INDEX triples.
+   # Interpret them against the actual original face world vertices.
+   assert len(triangle)==3 and all(0<=idx<len(face) for idx in triangle)
+   p0,p1,p2=(face[triangle[0]],face[triangle[1]],face[triangle[2]])
    for u in range(1,7):
     for v in range(1,7-u):
      w=7-u-v
