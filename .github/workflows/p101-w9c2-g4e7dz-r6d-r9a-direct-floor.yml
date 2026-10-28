@@ -1,0 +1,97 @@
+name: G4E-7DZ R6D-R9A PRIVATE original floor pad instead of unsupported bridge
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r9a-existing-supported-city-site.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r9a-direct-floor.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: r9a-real-source-floor-early-cameras
+  cancel-in-progress: true
+jobs:
+  native-original-cx-floor-research:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original Git blob and compile
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r9a-existing-supported-city-site.py
+      - name: Read genuine R1 original cameras, 28 original B51 mover samples and R8E unsupported bridge
+        run: |
+          mkdir -p test-results/g4e7dz-r9a/r1 test-results/g4e7dz-r9a/r4 test-results/g4e7dz-r9a/r8e
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r9a/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r9a/r4
+          gh run download 40679711147 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R8E_REAL_SOURCE_SHORT_CX_FLOOR_SIXMETRE_RESEARCH_HOLD \
+            --dir test-results/g4e7dz-r9a/r8e
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Survey actual existing CX floors and early genuine 240Hz camera rays without new city model
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r9a/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r9a-existing-supported-city-site.py -- \
+              --blend "test-results/g4e7dz-r9a/r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r9a/r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r9a/r4/source/$r.json" \
+              --r8e "test-results/g4e7dz-r9a/r8e/result-$r/R8E_$r"_CX_EARLY_SIX_METRE_SOURCE.json \
+              --road "$r" --out "test-results/g4e7dz-r9a/result-$r"
+          done
+      - name: Independent exact old source verification and false structural claims veto
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          files=glob.glob('test-results/g4e7dz-r9a/result-*/*_EXISTING_CX_FLOOR_AND_EARLY_CAMERA.json')
+          assert len(files)==2,files
+          assert {json.load(open(x))['road'] for x in files}=={'true-pinch','pinch-switch'}
+          for f in files:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r9a-existing-cx-supported-footprint/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert (d['originalCX'],d['originalB48'],d['originalB51'],d['originalCameras'])==(18,7,28,5)
+           assert d['sourceIdentityUnchanged'] and d['gap52']
+           assert d['oldR8ESuspendedSpanMetres']>90
+           assert d['oldR8ESupportSampleWithin20m']==1
+           assert d['realOriginalFloorFootprints4of4Support']<=d['realOriginalFacesExplored']
+           assert d['realSourceSupportedVisibleEarlyTwoFrames']<=d['realOriginalFloorFootprints4of4Support']
+           for x in d['topSourceFloorResearchFaces']:
+            assert x['originalFaceArea']>=55 and x['faceNormalY']>=.88
+            assert x['genuine8mPadCornersHavingSourceFloorWithin2_3m']<=4
+            assert len(x['nativeOriginal5CameraEvidence'])==5
+            assert not x['trueStructuralLoadBearingCertified']
+           best=d['bestSourceFloorDirectBuildSite']
+           if best:
+            assert best['genuine8mPadCornersHavingSourceFloorWithin2_3m']==4
+            assert best['longestConsecutiveEarlyCamerasWithVisibleMultiFloor']>=2
+            assert d['decision']=='SOURCE_FOUND_GEOMETRIC_DIRECT_FLOOR_SITE'
+           assert not d['anyPublicCityPedestrianEntryCertified'] and not d['structuralLoadCapacityCertified']
+           assert d['anyNewBlenderCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R9A_ORIGINAL_CX_FLOOR_RESEARCH',d['road'],
+            'candidate faces',d['realOriginalFacesExplored'],
+            '4-corner geo-support',d['realOriginalFloorFootprints4of4Support'],
+            'early genuinely visible',d['realSourceSupportedVisibleEarlyTwoFrames'],
+            'best real face',best['faceIndex'] if best else 'NONE')
+          print('R9A_ORIGINAL_FACE_RESEARCH_NOT_HUMAN_ACCESS_OR_LOAD_CERTIFICATION')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R9A_BRIDGE_FREE_ORIGINAL_CX_FLOOR_REAL_CAMERAS_HOLD
+          path: test-results/g4e7dz-r9a/result-*/
+          retention-days: 7
+          if-no-files-found: warn
