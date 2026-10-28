@@ -19,9 +19,9 @@ def independent_slope(a,b,c,d):
   aa=mix(a,b,t);bb=mix(b,c,t);cc=mix(c,d,t)
   pts.append(mix(mix(aa,bb,t),mix(bb,cc,t),t))
  ds=[dist(a,b) for a,b in zip(pts,pts[1:])]
- grade=[abs(b[1]-a[1])/max(.001,math.hypot(b[0]-a[0],b[2]-a[2]))
-  for a,b in zip(pts,pts[1:])]
- return sum(ds),max(grade)
+ horizontal=[math.hypot(b[0]-a[0],b[2]-a[2]) for a,b in zip(pts,pts[1:])]
+ grade=[abs(b[1]-a[1])/max(.001,h) for (a,b),h in zip(zip(pts,pts[1:]),horizontal)]
+ return sum(ds),max(grade),min(horizontal)
 def validate(x):
  assert x["schema"]=="dopagaki.r15i4-dual-original-source-multicamera-true-cx-access-grade-shortlist/1"
  assert x["sourceBlob"]==r1["originalSourceCXBlob"]==r2["originalSourceCXBlob"]==SRC
@@ -71,7 +71,7 @@ def validate(x):
    p0=[rim[i]+.08*direction[i] for i in range(3)]
    p1=[center[i]+2*direction[i] for i in range(3)]
    p2=[c[i]-.4*(c[i]-center[i])+(.05 if i==1 else 0) for i in range(3)]
-   actual_len,actual_slope=independent_slope(p0,p1,p2,c)
+   actual_len,actual_slope,min_horizontal=independent_slope(p0,p1,p2,c)
    assert z["originalCXTerrainLandingWorldXYZ"]==c
    assert z["originalCXSourceMeshName"]==w0["cxTerrainSource"]
    assert abs(z["theoreticalBezierApproachMetres"]-actual_len)<.002
@@ -79,7 +79,7 @@ def validate(x):
    if actual_len>85:rejects.append("TOO_LONG_FOR_FIRST_INTEGRATED_REPRESENTATIVE_SLICE")
    if actual_slope>=.09:rejects.append("CURVE_CENTERLINE_GRADE_GT_OR_EQ_9_PERCENT")
    # A duplicated or invalid parametric path is blocked before an art model.
-   if not math.isfinite(actual_len):rejects.append("DEGENERATE_APPROACH")
+   if not math.isfinite(actual_len) or min_horizontal<.12:rejects.append("DEGENERATE_APPROACH")
   assert sorted(z["rejectedStudyReasons"])==sorted(rejects),(id,z["rejectedStudyReasons"],rejects)
   allowed=not rejects
   assert z["originalGameGeometryAndCXSupportCandidateOnly"]==allowed
