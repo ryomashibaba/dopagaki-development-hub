@@ -1,3 +1,13 @@
+# G4E-7DZ R2 完了 — 真正WebGL20枚の原本SHA照合・3都市構図×両道路×4時点を実画像監査／TECH PASS・SITE HOLD（2026-10-28 JST）
+
+[PRIVATE実装・専用CIコミット 4ec4dcb](https://github.com/ryomashibaba/dopagaki-development-hub/commit/4ec4dcb07541e702e2a3975827f84ef23d6f44c0)、[Actions #40614088291](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40614088291) SUCCESS。新規R2テスト4/4＋R1回帰4/4 PASS、元CX保護blob af076d67492a677d2235e4730aef8cdf4808e106一致。[Artifact #12784616591](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40614088291/artifacts/12784616591) は24真正WebGL背景＋**架空3D線投影**SVG、閲覧HTML、監査JSONの26ファイル。元DJ実WebGL20枚SHA256検査PASS、両道路×3独立都市叙事×4時点の24投影で各4種の線区間が画角と重なるが、**投影成立率24/24は建築・美術・都市通過・障害物視認性・遮蔽安全性の合格ではない**。
+
+**実物24枚画像目視のR2結論：3候補とも正式SITE選定なし。** CIVIC_CLEFTは既存CX左主役と別の薄い弧・輪郭の組み合わせに留まり、奥行きのある公共空洞を走り抜ける構図が読めない。TRANSPORT_CONFLUENCEは青い交通線が長く空中を横断するが駅・鉄道・住居の接続と支持が読めず、棚/横棒再発リスク。LIVING_CANYON_SEQUENCEは桃・黄の輪郭が空へ立つが谷と居住街路の体験にならず、既存都市との一体感がない。2道路とも元の道路自体は見える一方、線ガイドは実コライダー・実建築・真の照明/遮蔽を持たないため、新建築後の走行視認性・魅力度は証明していない。R2で新モデル・新ゲームコライダーは**0件**。ガイドを3D本制作として採択しない。
+
+**品質**：R2投影基盤と原物保護の限定TECH PASS／候補3案SITE HOLD・正式ART HOLD（未造形）／GAMEPLAY・HUMAN・PERFORMANCE・INTEGRATION・RELEASE・MERGE HOLD。正式美術採用0、Slope2認定0m、PR#46 OPEN/Draft/未マージ。main/Gold/P100/元CX/B48×7/B51×28/gap52/正規240Hzカメラ・物理/公開ゲームは変更なし。次R3では単に線を太くしない。最初に**既存CXと道路を同じ実世界座標でつないだ通過空間の深さと実開口**を強制し、最小の本物3Dブロッキングを元ゲームカメラで比較する。現在のR2三案の直接の詳細化は禁止。詳細[研究・評価](docs/G4E7DZ_R2_NATIVE_CITY_NARRATIVE_STUDY_JA.md)。
+
+---
+
 # G4E-7DZ R1 実WebGLカメラ立地審査完了 — 技術検証PASS／3サイト正式選定なし、ART HOLD（2026-10-28 JST）
 
 [初回実装 098c8c8](https://github.com/ryomashibaba/dopagaki-development-hub/commit/098c8c8da5f95b096baa00315ff4f8179e47165b) → 外積バグのため初回CI FAIL → [修正 10f4dc8](https://github.com/ryomashibaba/dopagaki-development-hub/commit/10f4dc8048c05c1a8fde20de9d02d85728eeca97) → [専用Actions #40603393437](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40603393437) SUCCESS（独立テスト4/4）。[真正比較Artifact #12779426808](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40603393437/artifacts/12779426808)：元DJ真正WebGL20枚SHA256一致、3空洞**立地ガイド**×2道路×4画角=24比較（画角内18/24）。**24枚は元ゲーム画面に数学的輪郭を合成したものであり新都市をゲーム描画した映像でもBlender本制作でもない**。過去DY R1の棚・支柱、DZ R0 Aの壁、DZ R0 Bの画角外殻を本物Blender画像で再確認してART REJECT維持。3新立地候補も主空洞の見せ方が成立したとは言えず正式選定なし／新建築0。次R2は元複数視点が重なる前方空間を探索して四段階の空洞・交通・居住・道路予告を先に設計。main/Gold/本番/元CX/B48/B51/gap52/正規カメラ/物理は不変更、PR#46 Draft未マージ、正式美術採用0件、Slope2認定0m、ART/HUMAN/GAMEPLAY/PERFORMANCE/INTEGRATION/PUBLISH/MERGE HOLD。詳細[専用審査](docs/G4E7DZ_R1_NATIVE_CAMERA_SITE_SCREEN_REVIEW_JA.md)。
