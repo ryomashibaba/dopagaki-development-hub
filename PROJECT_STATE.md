@@ -1,3 +1,13 @@
+# G4E-7DZ R6D-R4 正規原世界3D地図・7時点カメラ視界・B51全28体×721tick監査完了 — SOURCE SPATIAL TECH限定PASS／ART HOLD（2026-10-28 JST）
+
+[真正Actions #40671430779](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40671430779) **SUCCESS**、[Artifact #12808491815](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40671430779/artifacts/12808491815) の全24ファイルを実取得・検査。14〜17秒の**元カメラ7時点×両道路×375レイ**から、実CX18・B48道路7・B51動体28・空のファーストヒット画面比率を解析。既存CX可視平均はtrue-pinch **9.30%**／pinch-switch **10.06%**、B48道路**38.82%／38.13%**、空**51.43%／51.77%**。元建築は道沿いに点在するが、元ゲーム視界では内部の連続した立体都市として読めない。数値は粗い視線サンプルであり美術採点ではない。
+
+元B51**全28体×721tick×両道路＝40,376原物動体姿勢標本**を取得し、元R1走行の7時点×28体で全一致。最大同一角tick変位は`a13-machine-11`約0.247m。しかし**連続時刻の安全性は未認証**。実Blenderの元世界上面／斜視マップ4 PNG、元カメラ由来レイヒット分類画像14 PNG、編集可能BLEND2、監査JSON4を保存。新都市美術0・ゲーム新コライダー0、原CX18/B48×7/B51×28/正規カメラ5/gap52/保護Git blob不変。
+
+**R4 SOURCE SPATIAL TECH限定PASS／都市ART HOLD**。前R3はB48安全FAIL・ART REJECT、R2 ART REJECT維持。正式採用0、Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR#46 OPEN/Draft未マージ、本番公開禁止。[詳細研究](docs/G4E7DZ_R6D_R4_TRUE_SOURCE_SPATIAL_AND_HAZARD_VERDICT_JA.md)。**次R5**は模型の増量を止め、元カメラに前景・中景・遠景で連続した都市内部が成立する実世界立地／CXへの人間アクセス／B48/B51の危険を最初に説明できる構造を検討する。
+
+---
+
 # G4E-7DZ R6D-R3 元道路中心都市《ROAD-INTERNAL AIR DISTRICT》実3D・14視点判定完了 — 原物SOURCE限定PASS／B48安全FAIL／ART REJECT（2026-10-28 JST）
 
 [R3真正Blender Actions #40669433729](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40669433729) **SUCCESS**、[Artifact #12807682590](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40669433729/artifacts/12807682590) の**真正PNG14・編集BLEND2・監査JSON2**を実取得、元R1の同カメラ14画像と比較。R2の「既存CX横の独立円環」と異なり、元の15〜17秒約211〜215mの正規走行を中心空洞として両側に公共・居住・高架鉄道・既存CX連絡の28実メッシュ／道路を制作。ただし新支持脚`08 structural diagonal root 3`が元B48 `p93-CROWN_REVERSAL-01`と真正三角形交差：**true-pinch 10組／pinch-switch 11組、両道路とも安全FAIL**。B51の13時点交差は0、元CXとは両道路2組干渉、全時刻安全・構造接合・連続歩行未認証。
