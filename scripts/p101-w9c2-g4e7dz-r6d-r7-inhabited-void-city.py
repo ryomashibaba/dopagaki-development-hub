@@ -221,6 +221,20 @@ for ob in new:
  for h in hazards['hazards']:
   if h['sampledAabb'] and bboxHit(bb,h['sampledAabb']):
    hzWarnings.append([ob.name,h['id']])
+# A real geometric empty-void test: vertically raycast from each 3D
+# atrium centre, and independently require no R7 mesh caps for >100m.
+actualVoidChecks=[]
+for site in voids:
+ origin=Vector(site['centerWorld'])
+ hits=[]
+ for ob,tr in newTree:
+  hit,normal,poly,dist=tr.ray_cast(origin,Vector((0,1,0)),85)
+  if hit is not None:
+   hits.append([ob.name,round(float(dist),4)])
+ actualVoidChecks.append({'zone':site['zone'],'upwardRayHits':hits,
+   'realOpenSky85m':len(hits)==0})
+# Do not call it an empty 3D atrium if the real mesh roof/bridge blocks the ray.
+assert all(v['realOpenSky85m'] for v in actualVoidChecks),actualVoidChecks
 movers={}
 for fi,f in enumerate(native['frames'],1):
  s.frame_set(fi);bpy.context.view_layer.update()
@@ -244,17 +258,19 @@ for id in times:
  e=Vector(f['eye']);forward=Vector(f['front']).normalized()
  r=forward.cross(Vector((0,1,0))).normalized()
  up=r.cross(forward).normalized()
- counts={'NEW_R7':0,'ORIGINAL_CX':0,'ORIGINAL_B48':0,'SKY':0}
+ counts={'NEW_R7':0,'ORIGINAL_CX':0,'ORIGINAL_B48':0,'ORIGINAL_B51':0,'SKY':0}
  firstNames={}
  for j in range(H):
   for i in range(W):
    u=(i+.5)/W;v=(j+.5)/H
    ray=(forward+r*((u-.5)*2/1.35*(1008/645))+up*((.5-v)*2/1.35)).normalized()
    closest=(2000,'SKY','')
-   for category,obj,tr in ([('NEW_R7',ob,tr) for ob,tr in newTree]+protected):
+   active={x['id'] for x in f['moving'] if x['enabled']}
+   currentB51=[('B51',obj,bvh(obj)) for obj in P if obj['R1_B51_ID'] in active]
+   for category,obj,tr in ([('NEW_R7',ob,tr) for ob,tr in newTree]+protected+currentB51):
     hit,n,idx,d=tr.ray_cast(e,ray,closest[0])
     if hit is not None and d is not None and d<closest[0]:
-     closest=(d,'ORIGINAL_CX' if category=='CX' else 'ORIGINAL_B48' if category=='B48' else category,obj.name)
+     closest=(d,'ORIGINAL_CX' if category=='CX' else 'ORIGINAL_B48' if category=='B48' else 'ORIGINAL_B51' if category=='B51' else category,obj.name)
    counts[closest[1]]+=1
    if closest[1]=='NEW_R7':
     firstNames[closest[2]]=firstNames.get(closest[2],0)+1
@@ -292,6 +308,7 @@ report={'schema':'dopagaki.g4e7dz-r6d-r7-true-volume-court-city/1','road':road,
  'newEditableBlenderMeshes':len(new),
  'sourceWorldCourtBays':bays,'openRealSkyVoidProof':voids,
  'realWalkwayHorizontalGraphEdges':links,
+ 'realSourceMeshSkyVoidRayChecks':actualVoidChecks,
  'actual32SlopeSegments':len(rampGrades),'maxSegmentVerticalGrade':max(rampGrades),
  'unverifiedSwitchbackLandingContinuity':True,
  'sourceCivicCxAnchor':contact['best']['CXcontactWorldXYZ'] if contact['best'] else None,
