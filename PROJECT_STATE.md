@@ -1,3 +1,15 @@
+# G4E-7DZ R6D-R13A〜R13C 原世界8m接続→32m幅真正空き領域→実床・実走行視点ゲート完了（2026-10-28 JST）
+
+**R13A** [CI #40690352681](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40690352681) **SUCCESS**／[Artifact #12817141387](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40690352681/artifacts/12817141387)：R12A原物非干渉EARLY→MIDDLE安全箱間を、元CX18/B48実物理7/B51全28×721tickの真正Blender 8m立体格子（両道路各1530セル）で再探索。true**1447**／pinch**1458**空きセル、原CX交差true83／pinch72。中間1/4・1/2・3/4標本も原物非干渉の**10ノード連続空間68.302m／68.420m**発見。ただし勾配true**18.74%**／pinch**18.11%**、実床・構造・歩行は未認証。最初のCI #40690069714 のfloat32対JSON 4桁座標の誤った完全一致を2mm距離検証へ修正し再実行SUCCESS。
+
+**R13B** [CI #40690811555](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40690811555) **SUCCESS**／[Artifact #12817865029](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40690811555/artifacts/12817865029)：10経路点＋各区間1/4,1/2,3/4の**37点**で、8×8、12×10、16×12、24×16、**32m幅×20m高さ**の真正3D体積を原CX/B48実三角面＋B51全28×721tick標本に再照合。両道路・各寸法**37/37非干渉**（離散標本であり連続時間/全区間体積認証ではない）。下方12m以内の実既存支持面は**両道路0/10**。最浅の原CX面でもtrue約30.7m・pinch約30.8m下。元R1真正7時点×2道路の**診断PNG14枚、編集BLEND2、元研究JSON2**。青の線材は空間位置のデバッグ図形のみ、都市ART制作物やゲームの橋梁ではない。
+
+**R13C** [独立CI #40691321448](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40691321448) **SUCCESS**／[Artifact #12817536370](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40691321448/artifacts/12817536370)：本物の13時点のプレイヤーに経路が最接近するのは**16.0秒**、水平距離true**81.909m**／pinch**83.990m**、高さ差true約**58.973m**／pinch約**59.604m**。**16〜17秒の実カメラから経路可視点0**。可視点は11〜13秒の遠景に偏る。立地を「EARLY」と名付けるだけでは実プレイヤー時系列と一致しない。元高度差true12.578m／pinch12.194mから研究上の9%勾配目標に必要な水平経路は約140／135mで、現67m直線より約73／68m長い。本当の支持・入口・通路と美術・WebGLは未制作。**研究資料は採用、現位置を人間の主都市通路／完成ARTには昇格しない。**
+
+原CX18/B48実物理7/B51動体28/正規元カメラ5＋研究延長8/gap52/保護CX blob/原240HzとP96、Gold/P100/main/本番URL不変更。R13 source geometry限定TECH PASS、**ART HOLD／R11・R12既存ART REJECT維持**。正式ART採用0、Slope2正式認定0m、新ゲームコライダー0、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR#46 OPEN/Draft未マージ、本番公開禁止。[R13完全検証](docs/G4E7DZ_R6D_R13A_R13C_ACTUAL_SOURCE_CONNECTIVITY_VERDICT_JA.md)／[R14源走行・源視点先行設計](docs/G4E7DZ_R6D_R14_NATIVE_PLAY_AND_CAMERA_ALIGNED_CITY_PLAN_JA.md)。
+
+---
+
 # G4E-7DZ R6D-R12A〜R12D 原3D安全体積→実内部→真正14カメラ画像審査→連結失敗原因の4工程完了（2026-10-28 JST）
 
 **R12A** [CI #40687143619](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40687143619) SUCCESS／[Artifact #12815611873](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40687143619/artifacts/12815611873)：元R1真正13カメラ、CX18/B48×7実三角BVH、B51全28×721tick標本包囲を用いた26×30×36m候補の元空間探索。真正原物への交差なし＋カメラの内部高さ方向が複数時点で見える候補**true-pinch 213（前65/中64/後84）／pinch-switch 204（前64/中57/後83）**。元物変更なし。
