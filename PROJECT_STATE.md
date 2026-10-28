@@ -1,3 +1,11 @@
+# G4E-7DZ R5A/R5B 完了 — 実CX接続候補監査TECH限定PASS・真正Blender接続小模型ART REJECT（2026-10-28 JST）
+
+[実結果と厳格な不採用理由](docs/G4E7DZ_R5AB_SOURCE_CONNECTION_REAL_BLENDER_VERDICT_JA.md)。R5A [Actions #40635016206](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40635016206) SUCCESS／監査Artifact #12793336478。元DR真正Blenderの両道路各128候補から、実CX「04 roadbank-promenade」への暫定幾何条件をtrue-pinch 6件、pinch-switch 7件確認。代表のCX表面距離25.270m／7.087m。歩行可能な幅員・支持・連続動体安全性は未認証。
+
+R5B [Actions #40635313787](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40635313787) SUCCESS／実Blender Artifact #12792424367：真正正規カメラPNG8／編集可能BLEND2／監査JSON2。新3Dメッシュ2個/道路、新ゲームコライダー0、元B48静的三角交差0、B51の4時点重なり0。**画像美術はART REJECT**：遠景で小さく、近景では薄い床・短い橋にしか見えず、公共・交通・居住が連結する巨大都市内部には未達。単純な詳細化禁止。元CX18/B48×7/B51×28/正規カメラ5/gap52/CX保護blob、main/Gold/P100/本番/元物理・操作不変。**限定TECH PASS、ART REJECT、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE HOLD、正式美術0、Slope2 0m、PR #46 OPEN/Draft/未マージ。**
+
+---
+
 # G4E-7DZ R4 実制作・真正画像監査 完了 — 限定TECH PASS／ART REJECT（2026-10-28 JST）
 
 [PRIVATE研究実装コミット fc4f110](https://github.com/ryomashibaba/dopagaki-development-hub/commit/fc4f11045ba95f3cfe8a30afe55e9d9d1a6a8659)、[専用Actions #40629896298](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40629896298) **SUCCESS**、[本物Blender Artifact #12790628370](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40629896298/artifacts/12790628370) を**実ダウンロード／展開／画像目視／監査JSON読取**した。真のDR元世界から原カメラ4視点×2道路の**8枚真正Blender PNG・編集可能BLEND2・監査JSON2**を作成。各道路8つの新3Dメッシュ（非対称都市地形２、公共/交通床２、床に埋めた鉄道軌跡２、異なる公共・住宅コート２）。R3の門や横梁は流用せず新たな巨大門も０。
