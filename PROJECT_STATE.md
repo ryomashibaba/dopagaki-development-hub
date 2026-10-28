@@ -1,3 +1,13 @@
+# G4E-7DZ R6D-R11＋R11-R1 真正3D新都市1案×設計修正、元カメラ画像28枚・原物安全監査完了 — TECH限定PASS／両案ART REJECT（2026-10-28 JST）
+
+**R11初回**：[専用Actions #40685217676](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40685217676) **SUCCESS**／[Artifact #12814995390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40685217676/artifacts/12814995390)。元Blender R1真の11〜17秒×2道路14画像・BLEND2・監査JSON2。公共／居住／交通で構成する道路へ開いた一体的都市96実編集メッシュ。元B48実三角交差0、B51全28×721tick標本包囲重複0、元CX交差true-pinch12／pinch-switch13組。実画像は巨大な垂直壁・板、17秒でほぼ見えなくなり**ART REJECT**。
+
+**R11-R1修正**：[専用真正再実行CI #40686105227](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40686105227) **SUCCESS**／[Artifact #12815840157](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40686105227/artifacts/12815840157)。修正版99編集メッシュ、厚い斜面化した街区・広い公共中庭進入面・中間区画配置調整・最終都市を17秒正規カメラ前方168mへ。元B48交差0、B51×721tick重複0、元CX交差**true6／pinch8組**に減少。17秒元カメラ新都市初ヒット率**true3.5%→11.4%、pinch2.6%→10.5%**へ改善。しかし11〜15秒の都市可視率は低下し、実画像にはなお巨大な折れた壁・建築片が目立ち、中庭の内部を通り抜ける生活空間は読めない。17秒の中庭内部視線はtrue0点/pinch1点。**R11-R1もART REJECT**。最初のR11-R1 CI #40685737365 は旧R11出力フォルダー参照の監査パスミスでFAIL、修正のうえ再実行成功済み。
+
+元R1・R11・R11-R1の同一正規画像を三段比較して目視検証。元CX18／B48物理7／B51動体28／原カメラ5／gap52／原CX blob／240Hz原物理／P96操舵／main/Gold/P100／正式公開URLは一切変更していない。**正式美術0件、Slope2正式認定0m、新ゲームコライダー0／GAMEPLAY・HUMAN・PERFORMANCE・INTEGRATION・RELEASE・MERGE HOLD**。PR#46 OPEN/Draft未マージ、本番公開禁止。[R11完全実画像レビュー](docs/G4E7DZ_R6D_R11_R11R1_ORIGINAL_IMAGE_ART_VERDICT_JA.md)／[R12造形方針](docs/G4E7DZ_R6D_R12_TRUE_GAME_CAMERA_OCCUPIED_CITY_DESIGN_GATE_JA.md)。
+
+---
+
 # G4E-7DZ R6D-R10A〜R10C 真正元CX空洞・橋梁支持の二方式比較完了 — SOURCE研究TECH限定PASS／両設計仮説STOP／ART HOLD（2026-10-28 JST）
 
 **R10A＋R10B [真正Blender CI #40683577944](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40683577944) SUCCESS／[Artifact #12813284015](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40683577944/artifacts/12813284015)**：原CX18・B48物理7・B51動体28・正規原カメラ5に変更なし。R10Aは元R9/R8近傍の各道路486サンプルで6×6×10mの真の元CX空き体積・床・対向CX壁を同時に満たす候補**両道路0/486**。これは調査範囲の結果のみでCX全域否定ではない。R10Bは約96〜110mのR8E接続に元CXの上向き床面から橋脚支持できそうな幾何候補を探し、true-pinch **3/15駅**、pinch-switch **5/14駅**。**両道路とも橋梁の終端に支持点なし、全駅連続支持なし**。強度・設計・連続時間B51安全・人間動線は未認証。
