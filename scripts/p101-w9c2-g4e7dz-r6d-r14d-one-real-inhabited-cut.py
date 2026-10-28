@@ -199,8 +199,8 @@ def bounds(o):
   'max':[max(q[i] for q in v) for i in range(3)]}
 def overlap(aa,bb):
  return all(aa['min'][i]<=bb['max'][i] and bb['min'][i]<=aa['max'][i] for i in range(3))
-for ob in new:
- t=bvh(ob)
+newBVH=[(ob,bvh(ob)) for ob in new]
+for ob,t in newBVH:
  for kind,sourceObject,bt in sourceObjects:
   h=t.overlap(bt)
   if h:
@@ -218,8 +218,8 @@ for key,(i,f) in frames.items():
  hits=[]
  for o in real:
   bt=bvh(o)
-  for obj in new:
-   overlapSource=bvh(obj).overlap(bt)
+  for obj,objTree in newBVH:
+   overlapSource=objTree.overlap(bt)
    if overlapSource:hits.append([o['R1_B51_ID'],obj.name,len(overlapSource)])
  poseHits[key]=hits
 # Exact original camera visibility: count REAL CITY FIRST HITS in a 19x12
@@ -231,7 +231,7 @@ for key,(i,f) in frames.items():
  assert cam and (cam.location-Vector(f['eye'])).length<.0002
  active={x['id'] for x in f['moving'] if x['enabled']}
  movers=[bvh(o) for o in PROX if o['R1_B51_ID'] in active]
- meshes=[bvh(o) for o in new]
+ meshes=[item[1] for item in newBVH]
  fr=Vector(f['front']).normalized()
  rr=fr.cross(Vector((0,1,0))).normalized()
  up=rr.cross(fr).normalized()
