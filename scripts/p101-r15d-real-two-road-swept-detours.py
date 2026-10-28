@@ -56,7 +56,7 @@ def cube(a,b,half):
  hi=tuple(max(a[i],b[i])+half for i in range(3))
  vertices=[Vector((x,y,z)) for y in (lo[1],hi[1])
   for x,z in ((lo[0],lo[2]),(lo[0],hi[2]),(hi[0],hi[2]),(hi[0],lo[2]))]
- faces=[(0,3,2,1),(4,5,6,7),(0,1,5,4),(1,2,6,5),(2,3,7),(3,0,4,7))]
+ faces=[(0,3,2,1),(4,5,6,7),(0,1,5,4),(1,2,6,5),(2,3,7),(3,0,4,7)]
  return lo,hi,bvh(vertices,faces)
 
 sources={}
