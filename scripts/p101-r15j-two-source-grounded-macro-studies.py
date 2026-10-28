@@ -124,7 +124,7 @@ def prism_strip(name,pts,width,depth,skin,role):
  return obj(name,vs,f,skin,role)
 # Actual longitudinal continuous study floor: a broad 8m approach, not
 # a guarantee that source B48 and CX endpoints join without a gap.
-prism_strip("01 open 81m B48 to CX entry ribbon",path,7.2,.42,"stone",
+prism_strip("01 B48 to CX 44m research entry ribbon",path,7.2,.42,"stone",
     "PHYSICAL_EDITABLE_STUDY_FLOOR_NO_CONTINUOUS_HUMAN_TRAVERSAL_CERTIFICATION")
 # Ground-related public ground-plane: 4 radial platforms whose ends
 # fan out at the roadbank, shaped as curved bands (not repeated boxes).
