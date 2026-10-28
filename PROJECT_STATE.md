@@ -1,3 +1,15 @@
+# G4E-7DZ R6D-R6 全域粗実3D・R6R1前方都市の真正14画像×2比較完了 — SOURCE TECH限定PASS／両案ART REJECT（2026-10-28 JST）
+
+R6初回：元11〜17秒の広域6都市街区を両道路各73真正編集メッシュで制作。[Actions #40674227788](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40674227788) **SUCCESS**、[Artifact #12809598357](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40674227788/artifacts/12809598357) のBLEND2/真正PNG14/監査JSON2を実取得。**16〜17秒で新都市の投影候補が両道路0**になり、カメラから消失。**初回ART REJECT**。
+
+R6R1補正：元17秒真正カメラ前方172/342/548mに追加公共・居住・交通都市輪郭29メッシュ／道路、総102メッシュ／道路。[Actions #40674790128](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40674790128) **SUCCESS**、[Artifact #12810505174](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40674790128/artifacts/12810505174) のBLEND2/真正PNG14/監査JSON2を実取得。元R1／R6／R6R1同14視点を3段比較。17秒新前方都市の投影候補は両道路28、元R1比45/255超画素差はtrue-pinch 2.30%→13.08%、pinch-switch 2.38%→12.91%となり**可視性改善は事実**。しかし実像は巨大柱・門状骨組み・細線路に留まり、内部都市の空洞・生活機能は読めないため**R6R1もART REJECT**。
+
+監査：R6 73とR6R1追加29の元B48実三角形交差**両道路0**、B51×13時点交差**両道路0**、B51全28体×721tick標本AABB重なり**両道路0**。元CX交差はR6が8／10、R6R1追加が5／4組。連続時間動的安全、建築接合・人間アクセス、正式ゲームWebGLは**未証明・未実施**。元CX18/B48物理7/B51動体28/正規カメラ5/gap52/保護blob原物不変、物理・操舵・本番・main/Gold不変更、新ゲームコライダー0。**SOURCE TECH限定PASS／両案ART REJECT／正式美術0件／Slope2認定0m**。GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR#46 OPEN/Draft未マージ、本番公開禁止。[詳細](docs/G4E7DZ_R6D_R6_WHOLE_CITY_AND_FORWARD_ACTUAL_VERDICT_JA.md)。
+
+**次R7**：別の門・壁・吊り線を量産しない。真の体積を持つ生活建築、開いた空洞・立体経路・都市交通が正規カメラから同時に読める都市断面を先に設計し、不成立なら制作停止。CI成功・画素差・見える頂点数ではARTを採用しない。
+
+---
+
 # G4E-7DZ R6D-R5 3都市ノード《CITY DEPTH FIELD》真正14視点比較・28動体安全監査完了 — SOURCE TECH限定PASS／ART REJECT（2026-10-28 JST）
 
 [R5真正Actions #40672567617](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40672567617) **SUCCESS**、[Artifact #12808653048](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40672567617/artifacts/12808653048) を実取得、**真正Blender画像14・編集可能BLEND2・監査JSON2**を元R1の同14カメラ画角と比較。元の14〜17秒の蛇行道路に沿って**公共・居住・交通の3都市ノード×各道路37真正3Dメッシュ**を新試作。原CX18/B48物理7/B51動体28/元カメラ5/gap52/保護Git blob不変。元B48実三角形交差0／両道路、B51の13時点実三角形交差0／両道路、全28動体の721tick標本AABB重なり0／両道路。ただし元CXとtrue-pinch 1・pinch-switch 2オブジェクト組の重なりあり、歩行・構造接合・連続時刻安全未認証。
