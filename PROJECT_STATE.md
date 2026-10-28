@@ -1,3 +1,17 @@
+# G4E-7DZ R15I～R15I3 — 実B48路肩79候補→CX立体接点42候補→32.3m編集可能3D通路：技術検査PASS／独立ART REJECT（2026-10-29 JST）
+
+**R15I** 真正Actions [#40773579399](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40773579399) SUCCESS（Artifact #12853108594）：元B48の路肩・近傍79地点を両道路同一world XYZで検査。道路内側実面ヒット58、仮想床原CX/B48交差0の位置78、B51保守範囲クリア79。しかし下方45mの実支持面が四隅中2点以上ある候補は0。建築成立ではない。
+
+**R15I2** 真正Actions [#40774307893](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40774307893) SUCCESS（Artifact #12853428623）：元CX18実三角面への3D最近接および仮想支持線の原物・B51保守干渉を探索。79地点中、各道路68に近接支持線研究可能性、**両道路同一XYZ・同じCX接点条件を満たす42個の未施工仮説**。実構造・歩行・入口は未実証。
+
+**R15I3** 初回真正Actions [#40775006797](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40775006797) **FAIL**：元CX選定点を鉛直全CX First Hitと同一視した誤検査。選択メッシュのBVH最近接検査で実点距離0.0mを再確認して修正。再実行真正Actions [#40775378736](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40775378736) **SUCCESS**（Artifact **#12855260486**）：約32.3m・最大勾配2.37%の開いた公共通路の研究模型を元B48実路肩→元CXの異なる同一world XYZに両道路各6個の編集可能Blenderメッシュとして保存。元CX/B48実三角交差0、元R1同一カメラ両道路14真正Blender画像と独立画像QA実施。新造形初ヒット平均true-pinch **0.50%**、pinch-switch **1.13%**。実画像ではほとんどの時点で見えず、t17で単独の庇に見える。**独立ART REJECT**。支持・端部接触・人間歩行・実動体公平性・本物のWebGLは未認証。
+
+**重要な制作転換**：R15Hの空中箱方式を停止したが、R15I3の細い路肩通路＋庇方式も美術不合格。形式的なメッシュ追加・色変更を行わず、道路×CX入口×生活スケール×複層都市マクロ形態と原カメラ複数時点を同時に成立させる設計に転換。詳細・途中FAILの根拠：[R15I総括](docs/G4E7DZ_R15I_ROAD_CX_SOURCE_ART_REJECT_AND_NEXT_JA.md)。
+
+**正規状態**：原ゲームblob `af076d67492a677d2235e4730aef8cdf4808e106`、CX18/B48×7/B51×28/240Hz/P96/gap52不変。新コライダー0、正式ART採用0、Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。PR #46 Draft・main/P100/Gold/本番変更・マージ禁止。
+
+---
+
 # G4E-7DZ R15G-H 最終真正13カメラ・14画像：SOURCE TECH PASS／美術REJECT／支持未成立（2026-10-29 JST）
 
 **最終真正GitHub Actions #40770848623 SUCCESS／artifact #12852028785。** 元R1正規240Hz真正両道路・CX18/B48元実物理7/B51元動体28/元カメラ5を維持して、R15Fの候補から世界XYZ150m以上分離した前半／中盤／後半の76×64×84m同一座標3地点を選定。R15Gでは元B48道路の底面9点の鉛直下方射線：EARLY **3/9**（元道路最近接28.365m）、MIDDLE **0/9**（90.696m）、LATE **0/9**（34.925m）。原道路との連続歩行・基礎・本当の構造支持は認証できず、空中の独立体積である。
