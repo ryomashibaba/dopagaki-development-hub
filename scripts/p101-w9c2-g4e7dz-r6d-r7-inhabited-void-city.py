@@ -260,14 +260,15 @@ for id in times:
  up=r.cross(forward).normalized()
  counts={'NEW_R7':0,'ORIGINAL_CX':0,'ORIGINAL_B48':0,'ORIGINAL_B51':0,'SKY':0}
  firstNames={}
+ active={x['id'] for x in f['moving'] if x['enabled']}
+ currentB51=[('B51',obj,bvh(obj)) for obj in P if obj['R1_B51_ID'] in active]
+ rayCandidates=[('NEW_R7',ob,tr) for ob,tr in newTree]+protected+currentB51
  for j in range(H):
   for i in range(W):
    u=(i+.5)/W;v=(j+.5)/H
    ray=(forward+r*((u-.5)*2/1.35*(1008/645))+up*((.5-v)*2/1.35)).normalized()
    closest=(2000,'SKY','')
-   active={x['id'] for x in f['moving'] if x['enabled']}
-   currentB51=[('B51',obj,bvh(obj)) for obj in P if obj['R1_B51_ID'] in active]
-   for category,obj,tr in ([('NEW_R7',ob,tr) for ob,tr in newTree]+protected+currentB51):
+   for category,obj,tr in rayCandidates:
     hit,n,idx,d=tr.ray_cast(e,ray,closest[0])
     if hit is not None and d is not None and d<closest[0]:
      closest=(d,'ORIGINAL_CX' if category=='CX' else 'ORIGINAL_B48' if category=='B48' else 'ORIGINAL_B51' if category=='B51' else category,obj.name)
