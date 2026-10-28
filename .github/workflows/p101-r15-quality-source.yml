@@ -21,6 +21,8 @@ on:
       - 'scripts/p101-r15i-independent-road-first-gate.py'
       - 'scripts/p101-r15i2-cx-terrain-anchor-options.py'
       - 'scripts/p101-r15i2-independent-terrain-source-gate.py'
+      - 'scripts/p101-r15i3-true-source-road-to-cx-civic-entry.py'
+      - 'scripts/p101-r15i3-independent-true-r1-civic-entry-art.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -627,6 +629,7 @@ jobs:
           retention-days: 7
 
   r15i2-original-cx-terrain-three-d-support-proximity:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 50
@@ -684,5 +687,81 @@ jobs:
         with:
           name: P101_R15I2_REAL_CX_TERRAIN_SUPPORT_OPTIONS_UNBUILT_TWO_ROAD_HOLD
           path: test-results/r15i2/result/
+          retention-days: 7
+          if-no-files-found: warn
+
+  r15i3-one-real-source-road-to-cx-editable-civic-gallery:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect frozen source and compile actual R15I3 Blender + independent image comparator
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15i3-true-source-road-to-cx-civic-entry.py scripts/p101-r15i3-independent-true-r1-civic-entry-art.py
+      - name: Reuse original 240Hz two-world R1 scenes plus independently validated R15I+R15I2 physical sites
+        run: |
+          mkdir -p test-results/r15i3/r1 test-results/r15i3/r15i test-results/r15i3/r15i2 test-results/r15i3/independent
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15i3/r1
+          gh run download 40773579399 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15I_ACTUAL_B48_ROADSIDE_GROUND_FIRST_PAIRED_SOURCE_PRELIMINARY_HOLD \
+            --dir test-results/r15i3/r15i
+          gh run download 40774307893 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15I2_REAL_CX_TERRAIN_SUPPORT_OPTIONS_UNBUILT_TWO_ROAD_HOLD \
+            --dir test-results/r15i3/r15i2
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Produce two genuine editable source 3D galleries on exact shared road-to-CX 27m site and 14 actual R1 camera views
+        run: |
+          for road in true-pinch pinch-switch; do
+            mkdir -p "test-results/r15i3/result-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-r15i3-true-source-road-to-cx-civic-entry.py -- \
+              --road "$road" \
+              --source "test-results/r15i3/r1/result-$road/R1_$road"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/r15i3/r1/source/$road.json" \
+              --r15i test-results/r15i3/r15i/R15I_TRUE_B48_ROAD_FIRST_TWO_WORLD_PREFLIGHT.json \
+              --r15i2 test-results/r15i3/r15i2/R15I2_REAL_TERRAIN_BRACE_HYPOTHESES.json \
+              --out "test-results/r15i3/result-$road"
+          done
+      - name: Independent 14 real R1 camera image comparisons and false certification rejection
+        run: |
+          python3 -m pip install --quiet Pillow
+          for road in true-pinch pinch-switch; do
+            python3 scripts/p101-r15i3-independent-true-r1-civic-entry-art.py \
+              --audit "test-results/r15i3/result-$road/R15I3_$road"_TRUE_ORIGINAL_CIVIC_ENTRY_AUDIT.json \
+              --original "test-results/r15i3/r1/result-$road" \
+              --trial "test-results/r15i3/result-$road" \
+              --out test-results/r15i3/independent
+          done
+          python3 - <<'PY'
+          import json,glob
+          r=glob.glob('test-results/r15i3/result-*/R15I3_*_TRUE_ORIGINAL_CIVIC_ENTRY_AUDIT.json')
+          v=glob.glob('test-results/r15i3/independent/R15I3_*_INDEPENDENT_IMAGE_ART_GATE.json')
+          assert len(r)==len(v)==2
+          a=[json.load(open(x)) for x in r]
+          g=[json.load(open(x)) for x in v]
+          assert {x['road'] for x in a}=={'true-pinch','pinch-switch'}
+          assert a[0]['exactSourceRoadLipXYZ']==a[1]['exactSourceRoadLipXYZ']
+          assert a[0]['exactSourceCXPublicPromenadeContactXYZ']==a[1]['exactSourceCXPublicPromenadeContactXYZ']
+          assert all(x['actualBlenderEditableMeshCount']==6 for x in a)
+          assert all(x['officialArt']==x['officialSlope2Meters']==x['newGameColliders']==0 for x in a)
+          assert all(x['negativeFraudTestsPassed'] and x['ART'] in ('HOLD','REJECT') for x in g)
+          print('R15I3_EDITABLE_GENUINE_3D_SAME_WORLD_SOURCE_CAMERA_ONLY',[(x['road'],x['sourceCurvedPathMaximumCenterlineGrade'],len(x['newGeometryAllActualSourceCXB48IntersectionsUnwaived'])) for x in a])
+          print('NEVER human structural load or WebGL approval',[(x['road'],x['numericalPreliminaryArtImpact']) for x in g])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15I3_ONE_REAL_27M_ROAD_CX_EDITABLE_GALLERY_14_SOURCE_R1_IMAGES_ART_HOLD
+          path: |
+            test-results/r15i3/result-*/
+            test-results/r15i3/independent/
           retention-days: 7
           if-no-files-found: warn
