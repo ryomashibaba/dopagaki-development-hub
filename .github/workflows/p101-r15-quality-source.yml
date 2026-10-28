@@ -19,6 +19,8 @@ on:
       - 'scripts/p101-r15h-independent-real-r1-image-art-veto.py'
       - 'scripts/p101-r15i-original-road-rim-entrance-preflight.py'
       - 'scripts/p101-r15i-independent-road-first-gate.py'
+      - 'scripts/p101-r15i2-cx-terrain-anchor-options.py'
+      - 'scripts/p101-r15i2-independent-terrain-source-gate.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -562,6 +564,7 @@ jobs:
           if-no-files-found: warn
 
   r15i-b48-real-road-rim-dual-source-ground-first-preflight:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 50
@@ -622,3 +625,64 @@ jobs:
           path: test-results/r15i/results/
           if-no-files-found: warn
           retention-days: 7
+
+  r15i2-original-cx-terrain-three-d-support-proximity:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect unchanged game source and compile R15I2 source terrain analysis
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15i2-cx-terrain-anchor-options.py scripts/p101-r15i2-independent-terrain-source-gate.py
+      - name: Reuse genuine 79-candidate R15I source results and R1 both-original-world Blender, R4 hazards
+        run: |
+          mkdir -p test-results/r15i2/r15i test-results/r15i2/r1 test-results/r15i2/r4 test-results/r15i2/result
+          gh run download 40773579399 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15I_ACTUAL_B48_ROADSIDE_GROUND_FIRST_PAIRED_SOURCE_PRELIMINARY_HOLD \
+            --dir test-results/r15i2/r15i
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15i2/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/r15i2/r4
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Search true original CX terrain nearest triangles, deeper ground and source-safe hypothetical brace paths
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-r15i2-cx-terrain-anchor-options.py -- \
+            --r15i test-results/r15i2/r15i/R15I_TRUE_B48_ROAD_FIRST_TWO_WORLD_PREFLIGHT.json \
+            --source-true-pinch test-results/r15i2/r1/result-true-pinch/R1_true-pinch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --source-pinch-switch test-results/r15i2/r1/result-pinch-switch/R1_pinch-switch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --hazards-true-pinch test-results/r15i2/r4/source/true-pinch.json \
+            --hazards-pinch-switch test-results/r15i2/r4/source/pinch-switch.json \
+            --out test-results/r15i2/result
+      - name: Independently veto fabricated built supports, real entrance, art and gameplay
+        run: |
+          python3 scripts/p101-r15i2-independent-terrain-source-gate.py \
+            --in test-results/r15i2/result/R15I2_REAL_TERRAIN_BRACE_HYPOTHESES.json \
+            --out test-results/r15i2/result/R15I2_INDEPENDENT_REAL_CX_TERRAIN_GATE.json
+          python3 - <<'PY'
+          import json
+          p='test-results/r15i2/result/'
+          d=json.load(open(p+'R15I2_REAL_TERRAIN_BRACE_HYPOTHESES.json'))
+          g=json.load(open(p+'R15I2_INDEPENDENT_REAL_CX_TERRAIN_GATE.json'))
+          assert d['originalPairedWorldHypothesesTested']==79 and g['fakeCertificationRejected']
+          assert not d['actualSupportStructuresBuilt'] and not d['actualHumanRoadAccessBuilt']
+          assert d['officialArt']==d['officialSlope2Meters']==d['newGameColliders']==0
+          print('R15I2_ACTUAL_CX_GEOMETRY_CANDIDATES',d['twoRoadUnbuiltCXBracingResearchHypothesisCount'],
+                'NO certified foundation / human route / ART / WebGL')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15I2_REAL_CX_TERRAIN_SUPPORT_OPTIONS_UNBUILT_TWO_ROAD_HOLD
+          path: test-results/r15i2/result/
+          retention-days: 7
+          if-no-files-found: warn
