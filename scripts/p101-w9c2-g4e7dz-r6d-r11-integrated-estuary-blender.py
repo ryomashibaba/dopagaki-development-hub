@@ -159,8 +159,8 @@ for sector,key,lateral,outer,inner,high,gap,programMat in definitions:
  faces=[]
  for i in range(1,17):
   j=1+(i%16)
-  faces.extend(((0,i,j),(17,16+j,16+i)))
-  faces.append((i,16+i,16+j,j))
+  faces.extend(((0,i,j),(17,17+j,17+i)))
+  faces.append((i,17+i,17+j,j))
  mesh(sector+' real outdoor metropolitan plaza FLOOR no roof',vs,faces,
   'civic' if sector=='CIVIC' else 'garden' if sector=='HABITAT' else 'water',
   sector+'_TRUE_OUTDOOR_FUNCTIONAL_PLAZA_VOLUME',sector)
