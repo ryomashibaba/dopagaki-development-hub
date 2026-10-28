@@ -27,6 +27,8 @@ def validate(d):
  bb=results[ROADS[1]]['scannedSourceSafeDomains']
  assert set(aa)==set(bb)
  assert len(aa)==d['R15CNewGeometryScaleTests']
+ assert d['R14BOriginalSharedCandidateRowsIncludingRepeatedLocations']>=d['R14BProvenSharedSmallSitesReused']
+ assert d['R14BProvenSharedUniqueSmallSitesReused']==d['R14BProvenSharedSmallSitesReused']
  assert len(aa)==4*d['R14BProvenSharedSmallSitesReused']
  assert len(aa)>=36
  anchors=set(k.split(':')[0] for k in aa)
@@ -71,6 +73,9 @@ def validate(d):
  claimed=d['bothVariantsCameraAndSourceSafeTwoSecondEquivalentHazardNoObstructionEligible']
  assert len(claimed)==d['bothVariantsEligibleCount']==len(eligible)
  assert {x['id'] for x in claimed}=={x[0] for x in eligible}
+ # Historical time-index rows can point to the exact same 3D location;
+ # fail closed if such duplicates are misrepresented as independent domains.
+ assert len({(tuple(x['worldXYZ']),tuple(x['volumeDimensionsMetres'])) for x in claimed})==len(claimed)
  look={x[0]:x for x in eligible}
  for x in claimed:
   assert x['pairedOriginalCameraConsecutiveFrames']==look[x['id']][1]

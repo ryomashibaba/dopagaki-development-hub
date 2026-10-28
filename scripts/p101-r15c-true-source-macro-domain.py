@@ -38,6 +38,8 @@ for r in ROADS:
 # Retain original world-coordinate identity; NEVER shift the two variants
 # independently for a false positive. Test 3 larger scales as new hypotheses.
 anchors=[]
+rawR14BVerifiedRows=0
+seenAnchorIdentity=set()
 for phase,prefix in (('EARLY','E'),('MIDDLE','M'),('LATE','L')):
  x=r14['bothOriginalRoadSameCoordinatesConfirmedPerPhase'][phase]
  assert x['actuallySafeCommonNativeWorldSites']>=1
@@ -47,6 +49,13 @@ for phase,prefix in (('EARLY','E'),('MIDDLE','M'),('LATE','L')):
   assert s['phase']==phase and s['bothActualRoadVariantsSourceVolumeClear']
   assert len(s['sharedOriginal3DWorldXYZ'])==3
   assert len(s['commonPhysicalBoxMetres'])==3
+  rawR14BVerifiedRows+=1
+  # R14B can record the SAME original-world site in multiple time rows.
+  # Count it once before scaling; 2 rows are not 2 independent urban sites.
+  identity=(tuple(round(float(v),3) for v in s['sharedOriginal3DWorldXYZ']),
+            tuple(s['commonPhysicalBoxMetres']))
+  if identity in seenAnchorIdentity:continue
+  seenAnchorIdentity.add(identity)
   anchors.append({'id':prefix+str(i+1).zfill(2),'phase':phase,
    'center':s['sharedOriginal3DWorldXYZ'],
    'referenceMetres':s['commonPhysicalBoxMetres'],
@@ -217,7 +226,10 @@ for road in ROADS:
      eq=(center-Vector(f['playerPosition'])).length/max(1,f['speedMps'])
      if eq>2.3:continue
      if not point_projection(scene,cam,center):continue
-     if static_occluded(eye,center,static,live):continue
+     # Exclude the target mover itself from the occluder list: otherwise
+     # its own triangle surface hides its center and falsely reports no risk.
+     # Testing CX/B48 only is conservative wrt other live movers.
+     if static_occluded(eye,center,static,[]):continue
      if ray_hits_box(eye,center,bb):
       risk.append(m['id'])
     # Only flag an originally clear source-camera hazard-center ray
@@ -296,6 +308,8 @@ report={'schema':'dopagaki.r15c-both-original-native-source-safety-camera-macro-
  'sourceGameBlob':SHA,'sourceGameUnchanged':True,
  'originalCX':18,'originalB48':7,'originalB51':28,'originalCameras':5,'physicsHz':240,
  'originalGap52':True,'bothVariantsSameWorldXYZAndExactDimension':True,
+ 'R14BOriginalSharedCandidateRowsIncludingRepeatedLocations':rawR14BVerifiedRows,
+ 'R14BProvenSharedUniqueSmallSitesReused':len(anchors),
  'R14BProvenSharedSmallSitesReused':len(anchors),
  'R15CNewGeometryScaleTests':len(sites),
  'R15CSourceScaleKinds':['R14B_REFERENCE','EXPANDED_48','EXPANDED_72','EXPANDED_96'],
@@ -316,7 +330,7 @@ report={'schema':'dopagaki.r15c-both-original-native-source-safety-camera-macro-
 with open(os.path.join(out,'R15C_BOTH_SOURCE_MACRO_DOMAIN_AUDIT.json'),'w',encoding='utf8') as f:
  json.dump(report,f,ensure_ascii=False,indent=2)
 print('R15C_SHARED_SOURCE_AND_ORIGINAL_CAMERA_RESEARCH',
- 'shared_small_reference_sites',len(anchors),'scales',len(sites),
+ 'raw_original_shared_rows',rawR14BVerifiedRows,'unique_shared_small_sites',len(anchors),'scales',len(sites),
  'truly_eligible_at_two_seconds_source_sampled',len(eligible),
  'sampled_joint_links',len(jointlinks),
  'reject_causes',dict(rejection),'ART/HUMAN/RELEASE HOLD')
