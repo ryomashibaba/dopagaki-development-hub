@@ -24,3 +24,18 @@ R15Dの幾何証拠で使える連続空間が見つかれば、次にその形�
 R15D研究用スクリプト：scripts/p101-r15d-real-two-road-swept-detours.py、独立QA：scripts/p101-r15d-independent-detour-gate.py。既存R15統合Actionsを再利用。繰り返し無用のR15B/R15C重い仕事はworkflow_dispatch実行に整理し、R15D真正SOURCE QAを追加する。
 
 **保護契約：**元ソースblob af076d67492a677d2235e4730aef8cdf4808e106、main、P100、Gold、本番URL、既存CX/B48/B51、240Hz、P96不変。Draft PR #46未マージ、新コライダー0、正式ART0件、Slope2正式認定0m、ART/GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、本番公開禁止。実測値は真正CI完了後だけ追記する。
+
+
+---
+
+## R15D 真正結果（修正後）2026-10-28 JST
+
+**GitHub Actions #40709760374 SUCCESS、Artifact #12826345777、SOURCE 3D 研究TECH PASS／ART HOLD。** 前回のR15D初回はPython括弧構文のエラー、2回目はBlender引数変数の上書き、3回目は偽経路を実際には改ざんしていない負のテストの失敗で止まった。これを修正した最終実行で、R15A元240Hz回帰／R15D真正Blender2道路source A*／独立負のQAを通過。
+
+- 4接続（E_M1、M1_M2、M2_L、E_M2_ALT）それぞれ8m幅・12m幅の**8条件すべて**で、両道路同一world XYZ、元CX/B48真正BVH・元B51全28×721tick保守AABBに重ならない**区間全体の保守的な世界軸AABB**を満たす非直線経路を発見。点だけの安全チェックではない。
+- 8m／12mの経路長：E_M1 134.106／144.549m、M1_M2 46.867／46.867m、M2_L 223.129／223.129m、E_M2_ALT 191.148／191.148m。
+- 実原世界の固有立体検査4,064、両道路で非干渉3,629、拒否435（元CX/B48実三角干渉、頂点包含、B51保守包囲を含む）。独立QAで経路長・格子連続・元二道路の保守スイープ証拠・元ソース名・幅と各区間の証明を検査し、偽ART・偽PATH・偽SOURCE拒否。
+- R15Cの7標本の直線候補全滅とR15DのA*経路全8成立は矛盾ではない。**非直線空間を検索し、全区間AABBを検査したこと**、かつ検索開始終点の組と判定条件が異なる。R15Dが成立させたのは実建築なしの幾何学的空き空間で、将来の人間歩行床・支持・導線・空洞・本当の巨大未来都市の完成ではない。
+- 次R15Eではこのうち12m幅の前半→中盤①→中盤②→後半3接続（合計約414.545m）から**実編集可能Blenderの交通と部分居住3D**をつくり、真正元カメラ7時点×両道路の画面上の見え方を比較する。これを正式ARTの採用とはしない。
+
+保護継続：原ゲームソースblob af076d67492a677d2235e4730aef8cdf4808e106、元CX18/B48×7/B51×28、240Hz、P96、gap52、main/P100/Gold/本番不変。ゲーム内新コライダー0、正式ART0件、Slope2正式認定0m、ART/GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR #46 Draft未マージ。

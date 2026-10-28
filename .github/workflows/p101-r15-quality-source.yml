@@ -10,6 +10,8 @@ on:
       - 'scripts/p101-r15c-independent-domain-gate.py'
       - 'scripts/p101-r15d-real-two-road-swept-detours.py'
       - 'scripts/p101-r15d-independent-detour-gate.py'
+      - 'scripts/p101-r15e-editable-native-civic-spine.py'
+      - 'scripts/p101-r15e-independent-native-art-gate.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -260,6 +262,7 @@ jobs:
           retention-days: 7
 
   r15d-original-two-road-true-swept-detours:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 55
@@ -325,5 +328,82 @@ jobs:
         with:
           name: P101_R15D_TRUE_TWO_ROAD_3D_ASTAR_SWEPT_VOLUMES_PRIVATE_SOURCE_HOLD
           path: test-results/r15d/results/
+          if-no-files-found: warn
+          retention-days: 7
+
+  r15e-real-two-road-3d-civic-spine-native-art:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 58
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify immutable game source and compile source scene plus independent image gate
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15e-editable-native-civic-spine.py scripts/p101-r15e-independent-native-art-gate.py
+      - name: Download immutable R1 original Blender / R4 all-original moving / R15D independently validated two-road swept route
+        run: |
+          mkdir -p test-results/r15e/r1 test-results/r15e/r4 test-results/r15e/r15d
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15e/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/r15e/r4
+          gh run download 40709760374 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15D_TRUE_TWO_ROAD_3D_ASTAR_SWEPT_VOLUMES_PRIVATE_SOURCE_HOLD \
+            --dir test-results/r15e/r15d
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Build editable REAL Blender civic transit, same original 3D shared corridor and 14 source cameras
+        run: |
+          for road in true-pinch pinch-switch; do
+            mkdir -p "test-results/r15e/result-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-r15e-editable-native-civic-spine.py -- \
+              --road "$road" \
+              --source "test-results/r15e/r1/result-$road/R1_$road"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/r15e/r1/source/$road.json" \
+              --hazards "test-results/r15e/r4/source/$road.json" \
+              --r15d test-results/r15e/r15d/R15D_TWO_ORIGINAL_WORLDS_3D_DETOUR_AUDIT.json \
+              --out "test-results/r15e/result-$road"
+          done
+      - name: Independently compare ORIGINAL R1 actual Blender image and new R15E at unchanged source camera
+        run: |
+          python3 -m pip install --quiet Pillow
+          mkdir -p test-results/r15e/independent
+          for road in true-pinch pinch-switch; do
+            python3 scripts/p101-r15e-independent-native-art-gate.py \
+              --audit "test-results/r15e/result-$road/R15E_$road"_SOURCE_EDITABLE_VISUAL_AND_GEOMETRY_AUDIT.json \
+              --trial "test-results/r15e/result-$road" \
+              --original "test-results/r15e/r1/result-$road" \
+              --out test-results/r15e/independent
+          done
+          python3 - <<'PY'
+          import json,glob
+          r='test-results/r15e/independent/'
+          files=glob.glob(r+'*_INDEPENDENT_ART_SOURCE_GATE.json')
+          assert len(files)==2,files
+          data=[json.load(open(p)) for p in files]
+          assert {x['road'] for x in data}=={'true-pinch','pinch-switch'}
+          assert all(x['actualOriginalCXAndB48Intersections']==0 for x in data)
+          assert all(x['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106' for x in data)
+          assert all(x['officialArt']==x['officialSlope2Meters']==x['newGameColliders']==0 for x in data)
+          assert all(x['ART'] in ('HOLD','REJECT') for x in data)
+          assert all(x['independentArtResearchVerdict'] in ('ART_REJECT_LOW_ORIGINAL_CAMERA_IMPACT','ART_HOLD_HUMAN_REVIEW_REQUIRED') for x in data)
+          print('R15E_REAL_R1_CAMERA_14_NATIVE_BLENDER_IMAGES_INDEPENDENT_EVALUATION_DONE',
+                [(x['road'],x['sevenFrameMeanVisibleNewGeometryFirstHit'],x['independentArtResearchVerdict']) for x in data],
+                'NO game, human playtest or official art certification')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15E_SOURCE_12M_3D_EDITABLE_CIVIC_SPINE_14_ORIGINAL_CAMERAS_ART_HOLD
+          path: |
+            test-results/r15e/result-*/
+            test-results/r15e/independent/
           if-no-files-found: warn
           retention-days: 7
