@@ -17,3 +17,21 @@ R15F真正JSON237安全可視候補から、EARLY（11.0〜12.5秒）／MIDDLE�
 原ゲームSource Blob af076d67492a677d2235e4730aef8cdf4808e106、不変CX18/B48×7/B51×28、元240Hz・P96・gap52。元ゲーム・main・P100・Gold・本番URL不変更、PR#46 Draft、ゲーム新コライダー0、正式ART採用0、Slope2正式認定0m。GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。本当に荷重支持する脚、歩ける元道路からの連続経路、正規の障害予告2秒、実WebGL、実試遊、真の美術品質は未検証として分離する。
 
 R15Gは scripts/p101-r15g-three-true-original-cinematic-sites.py、R15Hは scripts/p101-r15h-editable-real-three-76m-sculptures.py、独立QAは scripts/p101-r15h-independent-real-r1-image-art-veto.py。共通GitHub ActionsのR15 Workflowに統合し、過去の重い完了CIは通常pushで再実行しない。真正結果はCI確認後に追記する。
+
+
+---
+
+## R15G-H 最終真正結果・美術と機能の二重不採用
+
+最終Actions **#40770848623 SUCCESS**、Artifact **#12852028785**。元R1真正Blender×両道路、R15Fから3地点選定、元B48道路への実BVH上下レイによる支持・入口近接、各道路18実編集可能Blenderメッシュ、元カメラ14真正レンダリング＋独立QAまで実行済み。
+
+R15G選定：
+- EARLY t1200D225S50H18W76、元XYZ(-225.7628,139.015,-809.0723)／元B48への下向きレイ3/9命中／最近接28.365m
+- MIDDLE t1600D150S-100H18W76、元XYZ(-4.5326,120.3405,-544.6389)／下向きレイ0/9／最近接90.696m
+- LATE t1700D150S50H18W76、元XYZ(-139.835,109.992,-398.1999)／下向きレイ0/9／最近接34.925m
+
+上記のレイは構造の実支持を証明しない。R15Hでは3つの巨大主空洞に通るBlender BVHレイはすべて空き、原CX/B48実三角面交差0、R15F元世界安全体積から逸脱した頂点0。見た目の初ヒット率はtrue-pinch平均4.95%、pinch-switch平均5.89%。最終画像はいずれも巨大な基本プリズムの箱・アーチが原世界から浮き、遮蔽・道路・住居・公共床との結びつきが欠落。t13・t16では上端に巨大面が切れ、不快な覆いとして感じられる。**独立ART REJECT、機能的な支持と公共経路もHOLD。**
+
+初回CI #40770093302 は実箱逸脱約1mを正しく捕捉してFAIL、修正後の真正CI #40770848623のみ完成成果として採用。Blender編集可能源.blendと両道路7画像×2、接触・空洞・独立画像審査結果はArtifactに保存。元R1の同一カメラ画像と対比した見た目を確認し、アートに採用しない。
+
+次工程では浮いた塔のディテールや色だけを変更しない。実元物理道路からの可達性、支える立体地形、実ゲームカメラに強いマクロ量塊と主空洞を同時に満たす設計を**底部から立て直す**。今までの単なるsource camera firstHit割合改善は目的達成と同義ではない。正式ART0・Slope2認定0m、HUMAN/RELEASE/INTEGRATION HOLD。
