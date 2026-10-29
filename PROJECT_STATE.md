@@ -1,3 +1,13 @@
+# R15S3B 12真正240Hz SOURCE TECH限定PASS → R15S3C 34秒後の真終端検証へ（2026-10-29 JST）
+
+[真正R15S3B Actions #40866341059](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40866341059) SUCCESS／Artifact #12894166744／元B16 CROWN実格子全保持、3個の新SCISSOR物理路面×2元世界×2合法操作の**12真正240Hz実走行**。17秒・21.5秒の元R15Q B16との原位置一致と独立QA偽認証13種拒否。12/12でSCISSOR実接地あり。D/FとE旧P96の計10本はすべて最終落下。**E_BANKED_LANDING＋P94フルでは両世界34s時点でrunning、しかしすでに空中で、最後の真接地は32.845833/33.141667s。正式完走0。** EのSCISSOR累積実接地4.35/4.0375秒、到達ガイド近似u.5625/.578125。元B16＋フルの最終接地23.54/23.42sより大幅に改善したが、人間が楽しめる・実ゲームで完走可能とは証明していない。
+
+**次R15S3C**：E/P94の元0秒開始2世界を34秒以降まで延長し、原0〜34sの元保存標本を逐一照合して、本当の失敗・完走・打切りを調べる。実際の再接地・後続道路進入を確認し、成功までGAMEPLAY HOLD。正式ART0件、Slope2正式認定0m、HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、Draft PR #46未マージ、本番禁止。
+
+詳細：[R15S3B真正12走行とR15S3C検証条件](docs/G4E7DZ_R15S3B_TRUE_12_NATIVE_SCISSOR_SOURCE_REENTRY_JA.md)。
+
+---
+
 # R15S3真正240Hz 3マクロ形状×2世界×2合法入力＝12試験完了：全形状不採用 → R15S3B原CROWN保護再設計開始（2026-10-29 JST）
 
 [真正R15S3 Actions #40865305848](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40865305848) SUCCESS／Artifact #12893781001／独立QA偽認証13拒否。ただし3案いずれもSCISSORに実接地0秒で、**12/12全件落下**。CROWN後半まで変更したことで、R15S2Bで成立していたSCISSOR実到達も失った。A最終接地19.85/19.7125秒、B20.3875/20.2625秒、C20.0333/13.354167秒（true-pinch/pinch-switch）。正式ART・Slope2採択0、GAMEPLAY/ART/HUMAN等HOLD。
