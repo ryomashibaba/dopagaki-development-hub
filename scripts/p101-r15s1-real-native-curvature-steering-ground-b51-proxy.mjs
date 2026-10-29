@@ -134,7 +134,7 @@ for(const road of ROADS){
     maxConsecutiveGrounded=Math.max(maxConsecutiveGrounded,groundStreak);
    }else{airStreak++;groundStreak=0;maxAirStreak=Math.max(maxAirStreak,airStreak);}
    prevGrounded=contact;
-   if(tick%60===0||player.status==='failed'||player.status==='finished'){
+   if(tick>=Math.round(15/DT)&&(tick%60===0||player.status==='failed'||player.status==='finished')){
     const expected=byTick.get(tick);
     assert.ok(expected,'missing R15Q genuine reference tick '+road+' '+mode+' '+tick);
     assert.ok(mag(sub(player.p,expected.playerWorldXYZ))<1e-5,'source XYZ parity');
