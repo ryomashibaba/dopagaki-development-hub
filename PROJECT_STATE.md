@@ -1,3 +1,17 @@
+# R15S3D5真正4条件: guide / forward / 球速度を分離して根因候補を狭めた（2026-10-30 JST）
+
+**真正 [Actions #40956811818](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40956811818) SUCCESS／[Artifact #12934470871](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40956811818/artifacts/12934470871)。** 元R15S3D4×4条件の全637tick位置・速度・操舵・接地・衝突回数を元Runner 0秒開始の240Hzで再現。元CROWN/B16 17s・21.5s prefix全4一致、元B48×7・B51×28・CCD・P96/P94・正規ガイド・元保護blob変更なし。独立QA12虚偽認定を拒否。
+
+- **L true-pinch（31.4→31.6s）**：球の水平速度方向77.215250°変化に対し、元Runner実forwardは60.116003°回転、元guide局所向き0°変化。実接地は両端とも `p93-LOWER_REVERSAL-01`、guide距離15.558655→0.704717m。**路面着地の衝撃だけでなく、接地・原guide追従／法線投影を伴うforward再配向が重要な診断候補**。元物理のCCD瞬間法線・個別インパルスと各寄与の因果比率は未実測、断定禁止。
+- **対照**：L pinch-switch 球6.776714°／forward0.002620°／guide0°、M true-pinch 球8.832734°／forward0.011621°／guide32.750776°（空中→接地でguide選択対象が変わる）、M pinch-switch 球8.200168°／forward0.002252°／guide0°。L true-pinchのみ45秒runningで**finishedではなく、他3条件落下**。全コース完走0/4。
+- **次R15S3D6（未実装）**：CROWN成功領域・SCISSOR行0〜11・元物理と元route維持、(A) 早期実路面支持の長半径曲線／(B) 自然ギャップの迎え角・着地衝撃低減という真のB48形状二仮説を比較。両世界2×2真正240Hz、前方速度・実接地・衝撃・forwardとguide・終端判定を評価。無理な幅増し・見えない床・強制補正・原ソース改変禁止。実ゲームWebGL・人間QA前の正式採用禁止。
+
+**SOURCE TECH R15S3D5限定PASS／GAMEPLAY FAIL/HOLD／ART REJECT/HOLD／HUMAN・PERFORMANCE・INTEGRATION・RELEASE・MERGE HOLD。** ART正式採用0、Slope2認定0m、PR#46 OPEN/Draft未マージ、本番・main・Gold・P100未変更。
+
+[完整な真正データ分析・採否境界・R15S3D6実設計ゲート](docs/G4E7DZ_R15S3D5_SOURCE_NATIVE_DRIVEFRAME_GUIDE_VERDICT_AND_R15S3D6_DESIGN_GATE_JA.md)
+
+---
+
 # R15S3D4真正4条件再試験・初着地の速度急変と一世界限定の急旋回を特定（2026-10-30 JST）
 
 **真正 [Actions #40900490016](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40900490016) SUCCESS／[Artifact #12908457792](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40900490016/artifacts/12908457792)。** 元R15S3D3 L/M×2世界の4真正240Hzを0秒から同じ道路・同じ合法操舵・元B51 28基で再生。旧結果への終端/接地tick/B51イベント回帰4/4一致、独立QA誇大認定・偽テレメトリ11種拒否。CROWN・早期SCISSOR・原物理・保護blob不変。
