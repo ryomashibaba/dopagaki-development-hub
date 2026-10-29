@@ -1,3 +1,11 @@
+# R15R 完了：元240Hzカメラ＋元B51 28体＋実B48道路の真正18視点・WebGL画角同値（2026-10-29 JST）
+
+**最終 GitHub Actions [#40843279477](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40843279477) SUCCESS／Artifact #12884446304／元ゲームblob `af076d67492a677d2235e4730aef8cdf4808e106` 不変／PR #46 Draft未マージ。** 初回[#40842697659]でも技術QAは成功したが元ShaderとBlenderの画角不一致を発見し、原WebGLの`1.35`投影係数に相当する**15.549107mm（1008×645）**へ修正・独立QA13偽認証拒否して最終成功。元R15Q 8条件×元P96 240Hz真Runnerから得たカメラ姿勢を元B48 3Dに当て、動的B51全28体の時刻別物理OBBを重ね、**真正ソース由来PNG18枚・編集可能BLEND6枚**を生成。これらは**再構成Blender**であり元ブラウザWebGLではない。
+
+**22秒の実元エンジン接地は8/8すべて空中、23秒は1/8のみ接地、全8走行は最終落下し完走0。** 実画像を直接確認し、路面が単調・背景が空虚・未来都市建築が未成立なので**ART REJECT**。次はカメラゲート追加ではなく、元117m/s級の曲率・連続接地・10〜16m狭幅・元B51先読みを両立する本物のマクロ道路設計と、接続された大規模都市造形へ。GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、正式ART0件・Slope2認定0m、本番/主ブランチ禁止。 [根拠とR15S方針](docs/G4E7DZ_R15R_TRUE_SOURCE_CAMERA_28_B51_PHYSICAL_BOUNDS_AND_WEBGL_FOV_JA.md)。
+
+---
+
 # R15Q / R15Q3 — 真の狭幅C1 SCISSOR道路8走行＋実B48編集可能3D8案の独立検証（2026-10-29 JST）
 
 **技術的SOURCE PASS／実元ゲームGAMEPLAY FAIL／ART REJECT。正式採用0、Slope2正式認定0m。元ゲームのGit blob `af076d67492a677d2235e4730aef8cdf4808e106`不変、Draft PR #46未マージ。ART/GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、公開・正式施工禁止。**
