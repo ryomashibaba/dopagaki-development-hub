@@ -27,7 +27,7 @@ const CONTROLS=[{id:'ORIGINAL_P96_EARLY_SOFT',start:null,bias:0},
 const round=(x,n=6)=>Number(x.toFixed(n)),vec=x=>x.map(v=>round(v));
 const maxDiff=(x,y)=>Math.max(...x.map((v,i)=>Math.abs(v-y[i])));
 const horizon=24;
-const realSource=(r,ref,mode,control,n2){
+const realSource=(r,ref,mode,control,n2)=>{
  const doc=buildR15OIsolatedB48(r,mode),str=JSON.stringify(doc);
  const collider=compile(doc);
  assert.ok(collider.count>28000&&collider.invalid===0);
