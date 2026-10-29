@@ -2,7 +2,7 @@
 
 **R15K4B 真正Actions #40796634747 SUCCESS。** 元CX02（面index1・840.00037㎡）とCX04（面index0・216.00031㎡）の元頂点を解析し、着地点0件に対して地形重心側で5点全支持4件を検出。ただし元ゲームでの歩行や巨大都市成立を認定しない。
 
-R15K4Cは最初に同じCXメッシュの**別の上向き面まで含む誤った40件**を抽出したため、その値を正式採用しない。元R15K4B真正Artifact #12864276582の指定ポリゴンindex・頂点・原面積に制限し、25点実面内支持を**CX02 20案／CX04 16案＝36案**で元Blender計測。両道路の正規13時点で、スクリーン標本の連続可視は両地区とも最長**2半秒標本**。要求5標本に届くもの0。道路→CXの人間用連続動線、真のB51全姿勢・美術を認定せず、正式採用0。元Blender測定はActions #40797415284で完了したが、独立QA引数不足で全体FAIL。引数修正版の真正CI [#40797876186](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40797876186) が独立QAまで完了するまでは正式技術PASSと称しない。
+R15K4Cは最初に同じCXメッシュの**別の上向き面まで含む誤った40件**を抽出したため、その値を正式採用しない。元R15K4B真正Artifact #12864276582の指定ポリゴンindex・頂点・原面積に制限し、25点実面内支持を**CX02 20案／CX04 16案＝36案**で元Blender計測。両道路の正規13時点で、スクリーン標本の連続可視は両地区とも最長**2半秒標本**。要求5標本に届くもの0。道路→CXの人間用連続動線、真のB51全姿勢・美術を認定せず、正式採用0。元Blender初回測定Actions #40797415284は独立QA引数不足でFAIL。その後修正し**真正Actions [#40797876186](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40797876186) SUCCESS／Artifact #12864532551**。指定2枚のポリゴン同一性・25点床・R1両道路・元B51距離の独立QA PASS、偽認証**14件拒否**。SOURCE研究に限定した技術PASSであって、ART/GAMEPLAY/HUMAN PASSではない。
 
 今後の方向性：既存のCX02/CX04の二面だけで巨大未来都市の主役を成立させる過度な局所調整を停止。**R15Lでは元ゲームの広域時間／道路区域へ都市用地探索を移し、道路連続アクセス・主空洞の目視時間・B51警告視界を先に満たす。** 新規美術モデル・物理コライダーはまだ追加しない。R15Jの美術REJECT、公式ART採択0、Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、元ソースblob `af076d67492a677d2235e4730aef8cdf4808e106` 不変、PR #46 Draft未マージ。本番公開禁止。根拠：[R15K4C研究と訂正](docs/G4E7DZ_R15K4C_TRUE_CX_POLYGON_25POINT_CAMERAS_AND_R15L_DECISION_JA.md)。
 
