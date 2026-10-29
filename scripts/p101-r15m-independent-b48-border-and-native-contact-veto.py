@@ -45,7 +45,7 @@ def contract(d,b):
   assert len(actual)==len(geometry)==3
   assert [x["scenario"] for x in actual]==[x["scenario"] for x in geometry]==list(modes)
   assert [x["inputAfter16p5Bias"] for x in actual]==list(deltas)
-  assert all(x["sourceRoad"]==road for x in geometry)
+  assert all(x["road"]==road for x in geometry)
   originalL2=L2["originalSourceScenarioAndTwoAfter17UserInputSensitivityTrials"][road][0]
   for n,(c,g) in enumerate(zip(actual,geometry)):
    assert c["originalP96SourceNativeInputBefore16p5"] is True
