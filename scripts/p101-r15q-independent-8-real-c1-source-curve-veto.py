@@ -62,7 +62,10 @@ def check(d):
     # Catmull-Rom tangent/curvature at the untouched row14 or row0
     # depends on adjacent modified row13/row1; do not assert its
     # derivative is unchanged when its POINT and width are unchanged.
-    if n>=15:assert x==y
+    # Catmull-Rom i=15 derivative samples still depend on the i=13
+    # control point just outside the seam. Only i>=16 derivatives are
+    # strictly unaffected by the changed row13.
+    if n>=16:assert x==y
    if mode==MODES[0]:
     assert geo["changedOnlyRealScissorRows1To13"]==[]
     assert geo["maximumWorldLatticeShiftM"]==0
