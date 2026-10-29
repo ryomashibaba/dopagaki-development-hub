@@ -27,7 +27,8 @@ const CONTROLS=[{id:'ORIGINAL_P96_EARLY_SOFT',start:null,bias:0},
 const round=(x,n=6)=>Number(x.toFixed(n)),vec=x=>x.map(v=>round(v));
 const maxDiff=(x,y)=>Math.max(...x.map((v,i)=>Math.abs(v-y[i])));
 const horizon=24;
-const realSource=(r,ref,mode,control,n2)=>{
+export const realSource=(r,ref,mode,control,n2,horizonSeconds=horizon)=>{
+ assert.ok(horizonSeconds>=24&&horizonSeconds<=36);
  const doc=buildR15OIsolatedB48(r,mode),str=JSON.stringify(doc);
  const collider=compile(doc);
  assert.ok(collider.count>28000&&collider.invalid===0);
@@ -41,7 +42,7 @@ const realSource=(r,ref,mode,control,n2)=>{
  let contactTransitions=0,airTransitions=0,secondsSeen=0;
  let lastContiguousContactFrom17Ticks=0,maxContiguousContactFrom17Ticks=0;
  let originalReferenceT14CameraParity=null;const quarter=[];
- for(let tick=1;tick<=Math.round(horizon/DT);tick++){
+ for(let tick=1;tick<=Math.round(horizonSeconds/DT);tick++){
   if(player.status==='failed'||player.status==='finished')break;
   const nativeSteer=p96DodgeSteer(player,plan,'early-soft',movingObstaclePose).input/4.8;
   const bias=control.start!==null&&tick*DT>=control.start?control.bias:0;
