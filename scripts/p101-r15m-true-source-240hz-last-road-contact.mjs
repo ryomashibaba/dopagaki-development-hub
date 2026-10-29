@@ -18,7 +18,8 @@ const modes=[['ORIGINAL',0],['FROM_16P5_LEFT_MINUS_0P35',-.35],['FROM_16P5_RIGHT
 const rounded=(x,n=7)=>Number(x.toFixed(n));
 const coord=v=>v.map(x=>rounded(x,7));
 const maxDiff=(x,y)=>Math.max(...x.map((v,i)=>Math.abs(v-y[i])));
-export function sourceExit(road,scenario,bias,reference,oldL2){
+export function sourceExit(road,scenario,bias,reference,oldL2,horizonSeconds=20){
+ assert.ok(horizonSeconds>=20&&horizonSeconds<=30);
  assert.ok(roads.includes(road));
  const doc=generateG4E7BC(road,'rollDeck'),frozen=JSON.stringify(doc);
  assert.equal(doc.surfaces.length,7);assert.equal(doc.movingObstacles.length,28);
@@ -30,7 +31,7 @@ export function sourceExit(road,scenario,bias,reference,oldL2){
  let lastPhysicalSupport=null,previousSupport=true,exits=[];
  let refAt16=null,refAt17=null;
  const samples=[];
- for(let tick=1;tick<=Math.round(20/DT);tick++){
+ for(let tick=1;tick<=Math.round(horizonSeconds/DT);tick++){
   if(player.status==='failed'||player.status==='finished')break;
   const raw=p96DodgeSteer(player,route,'early-soft',movingObstaclePose).input/4.8;
   // The same original input up to 16.5 seconds in every scenario.
