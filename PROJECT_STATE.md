@@ -1,3 +1,16 @@
+# R15Q / R15Q3 — 真の狭幅C1 SCISSOR道路8走行＋実B48編集可能3D8案の独立検証（2026-10-29 JST）
+
+**技術的SOURCE PASS／実元ゲームGAMEPLAY FAIL／ART REJECT。正式採用0、Slope2正式認定0m。元ゲームのGit blob `af076d67492a677d2235e4730aef8cdf4808e106`不変、Draft PR #46未マージ。ART/GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、公開・正式施工禁止。**
+
+- **R15Q元真正の物理**：元B48 SCISSOR_RISEの格子行1〜13を物理的に曲げ、元CROWN B16・SCISSOR入口行0／行14以降・B51×28を保持。4形態（B16基準／元幅維持C1中心線24mシフト／元幅維持40mシフト／30mシフト＋局所16m幅）×2元道路＝**8真正240Hz native 0秒実走行**。すべてエンジン`failed`「コースから落下」。
+- **実測**：B16基準の落下true-pinch25.704167s／pinch-switch25.562500s。24mシフト25.845833／25.695833s、**40mシフト26.104167／25.954167s（この4形態中最良）**、局所16m幅25.954167／25.804167s。B40は接地最後23.079167／22.929167s、基準比たった約0.283／0.279秒の実接地延長。元の広幅77.256mは保持、目標の狭幅は未達。C狭幅案は本物の一部16m物理路面を作れたが2世界とも落下でGAMEPLAY FAIL。
+- 本物の試験データは [Actions #40833907561](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40833907561) から保存（元のJS変位accumulator `const`失敗を修正して計8本作成）。初回独立QAは、元Catmull-Rom補間の不変位置点でも曲率導関数が変わることを正しく扱えずFAIL。保存済み8本の独立QA [Actions #40834442343](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40834442343) **SUCCESS**、12種類の偽承認を拒否。真の物理試験と独立QAのCI結論を混同しない。[R15Q研究報告](docs/G4E7DZ_R15Q_GENUINE_SOURCE_C1_CURVE_AND_16M_NARROW_EIGHT_NATIVE_JA.md)
+- **R15Q3元3D造形可視化**：元の`tessellate()`から真正CROWN+SCISSOR各4728三角形の物理道路面を生成、2世界×4形態で**8 BLEND（編集可）／8 GLB／8 Blender技術俯瞰PNG**にし、元Runner0.25秒ごとの接地/空中を区別してモデルへ重ねた。真正 [Actions #40835268471](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40835268471) **SUCCESS**、Artifact #12880063847、独立QAはBLEND/GLB2.0/PNG原画像・真のソース三角形・実測サンプル点＋10偽認証拒否、すべてPASS。初回[#40835079050](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40835079050)は空Blender World未設定で止まったが修正。俯瞰画像は本来のゲームプレイヤーカメラではない。[R15Q3の3D証拠・美術/物理批判](docs/G4E7DZ_R15Q3_TRUE_NATIVE_B48_8_EDITABLE_3D_ROAD_AND_TRAIL_CRITICAL_REVIEW_JA.md)
+- **重要な反省**：source本物の水平XZ俯瞰比較により、SCISSORが曲がるのに対して、最後の実接地を離れたボール軌跡は道路外を直線的に飛び続けることが明瞭。局所曲率や狭幅のつまみ調整で安全走行や魅力的なSlope2道を得たと誤判定しない。16m狭幅の局所「くびれ」も、元巨大112m入口～幅77mの後続との連続美術がなくART採用禁止。
+- **次R15R**：**元約117m/sの実速度、必要な走行方向変更に対して曲率／操舵能力／勾配を計算・整合し、CROWN出口～SCISSOR～上り道を一体の長い狭幅10〜16mコースとして設計**。元B51×28とカメラ警告、戻れる落下復帰、超未来都市美術、原作DNAが必要。完走0・人間QA0・原ゲームWebGL0である以上「ART/GAMEPLAY合格」発表は禁止。
+
+---
+
 # R15P 完了 — SCISSOR入口の真正B48物理8試験／全例落下・単純拡幅REJECT（2026-10-29 JST）
 
 **R15O実道路の重要改善は維持。ただしR15Pの外縁拡幅8/16/24mの3案はゲーム採択REJECT／ART REJECT。** 元ゲームソースblob `af076d67492a677d2235e4730aef8cdf4808e106`不変、PR #46 Draft未マージ、R15O/Pの新規ゲームコライダー0、正式ART採択0件、Slope2正式認定0m、本番禁止、**ART/GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD**。
