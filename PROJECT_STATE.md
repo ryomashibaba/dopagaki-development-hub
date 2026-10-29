@@ -1,3 +1,11 @@
+# G4E-7DZ R15L2 — 元Runner失敗理由の真正確定と17秒以降の操舵比較（2026-10-29 JST）
+
+**真正 GitHub Actions [#40803935993](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40803935993) SUCCESS／Artifact #12867133216。** 元17.0秒の位置・カメラ・物理路面とR15L真正保存証拠は全て一致。原P96固定入力と17秒以降の左右±0.35だけを変更した入力の**2道路×3試験＝6走行**を原240Hzで実行。6/6全件、元エンジンの `Runner.failure.reason` が **「コースから落下」**。元入力はtrue-pinch 19.583333s／最終接地17.170833s、pinch-switch 19.412500s／最終接地17.008333s。左右補正でも19秒台に落下し、前半からのコース進入変更や道路支持構造を調べる必要がある。**元物理エンジンと元ゲームソース編集0、コライダー追加0、人間プレイ未確認。** 独立QA PASS、12偽認証拒否。
+
+次のR15Mは16.5〜17.5sの元道路支持・進入方向・縁距離の**本物のB48 3D接続原因**を調べ、17秒より前からの入力・安全な道路支持の比較。路外落下を都市アートだけで隠すことはしない。[R15L2元エンジンの根拠とR15M方針](docs/G4E7DZ_R15L2_REAL_SOURCE_TERMINAL_FAILURE_6_INPUT_SENSITIVITY_JA.md)。正式ART採択0件、Slope2認定0m、ART/GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR #46 Draft未マージ、本番公開禁止。
+
+---
+
 # G4E-7DZ R15L — 元240Hz開始0秒の真正全可走行区間・CX18広域土地研究（2026-10-29 JST）
 
 **元ゲームソース不変** `af076d67492a677d2235e4730aef8cdf4808e106`。元P96 early-soft＋P101 OVERDRIVE固定スクリプトでR1の11〜17秒13カメラを再現し、元ゲームRunnerの実終了まで観測：**true-pinchは19.583333秒でfailed、pinch-switchは19.4125秒でfailed**。両道路共有実カメラは0.5〜19.0秒の38時点（26時点?ではない）、架空の52秒カメラなし。17.0秒は接地、17.5秒以降路面離脱し、Yが急降下。ただし人間が必ず失敗する証拠ではなく、真のエンジン失敗理由を検査するR15L2が次。
