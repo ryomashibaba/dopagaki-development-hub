@@ -1,0 +1,90 @@
+name: P101 R15R genuine native 240Hz chase camera source B48+B51 editable 3D 18 views HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15r-native-camera-replay-source-8-cases.mjs
+      - scripts/p101-r15r-native-camera-original-b48-b51-blender-views.py
+      - scripts/p101-r15r-independent-actual-chase-camera-b51-3d-source-veto.py
+      - .github/workflows/p101-r15r-source-native-camera-original-b48-b51-perspective.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15r-exact-source-camera-and-time-exact-original-b51-3d-perspective:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 95
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protected original game and R15R research source syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15r-native-camera-replay-source-8-cases.mjs
+          python3 -m py_compile scripts/p101-r15r-native-camera-original-b48-b51-blender-views.py scripts/p101-r15r-independent-actual-chase-camera-b51-3d-source-veto.py
+      - name: Retrieve actual 8 native R15Q 240Hz source physics, original R15L 2-road camera, and 8 original R15Q3 Blender scenes
+        run: |
+          mkdir -p test-results/r15r/native test-results/r15r/original test-results/r15r/blender-original test-results/r15r/replay test-results/r15r/source-perspective
+          gh run download 40833907561 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15Q_TRUE_ORIGINAL_B48_C1_CURVATURE_NARROW16_8_NATIVE_240HZ_SOURCE_HOLD \
+            --dir test-results/r15r/native
+          gh run download 40802904554 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15L_TRUE_NATIVE_ALL_PLAYABLE_TIME_CX18_B48_7_TWO_ROAD_B51_WIDE_RESEARCH_NO_ART \
+            --dir test-results/r15r/original
+          gh run download 40835268471 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15Q3_TRUE_B48_ORIGINAL_GEOMETRY_8_BLENDER_GLB_NATIVE_TRAILS_REAL_TECHNICAL_IMAGES_HOLD \
+            --dir test-results/r15r/blender-original
+          test -s test-results/r15r/native/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json
+          test -s test-results/r15r/original/native/true-pinch.json
+          test -s test-results/r15r/original/native/pinch-switch.json
+          test -s test-results/r15r/blender-original/R15Q3_EIGHT_REAL_SOURCE_MESHES_MANIFEST.json
+      - name: Actually replay all 8 ORIGINAL 240Hz real-road simulation source scenarios and save exact chase cameras and B51 time poses
+        run: |
+          node scripts/p101-r15r-native-camera-replay-source-8-cases.mjs \
+            --r15q test-results/r15r/native/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json \
+            --true-pinch test-results/r15r/original/native/true-pinch.json \
+            --pinch-switch test-results/r15r/original/native/pinch-switch.json \
+            --out test-results/r15r/replay
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Render true native game-source chase perspective T17 T22 T23 x source 2 roads x 3 C1 cases, original B51 physical volume proxies, save 6 editable scenes
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-r15r-native-camera-original-b48-b51-blender-views.py -- \
+            --source test-results/r15r/blender-original \
+            --camera test-results/r15r/replay/R15R_EIGHT_ACTUAL_NATIVE_CHASE_CAMERA_240HZ_REPLAY.json \
+            --out test-results/r15r/source-perspective
+      - name: Independent 8 saved actual source Runner physics comparisons, mathematical camera construction, B51 physical poses, 18 source perspective PNG, 6 editable BLEND, 12 forged-approval veto
+        run: |
+          python3 scripts/p101-r15r-independent-actual-chase-camera-b51-3d-source-veto.py \
+            --camera test-results/r15r/replay/R15R_EIGHT_ACTUAL_NATIVE_CHASE_CAMERA_240HZ_REPLAY.json \
+            --original-q test-results/r15r/native/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json \
+            --scenes test-results/r15r/source-perspective/R15R_TRUE_SOURCE_PLAYER_CAMERA_B48_B51_BLENDER_IMAGES_AND_EDITABLE_QA.json \
+            --root test-results/r15r/source-perspective
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 - <<'PY'
+          import json,glob,os
+          d=json.load(open('test-results/r15r/replay/R15R_EIGHT_ACTUAL_NATIVE_CHASE_CAMERA_240HZ_REPLAY.json'))
+          q=json.load(open('test-results/r15r/source-perspective/R15R_INDEPENDENT_TRUE_NATIVE_SOURCE_CAMERAS_AND_B51_OBB_GLANCE_QA.json'))
+          assert d['actualPhysicalTrialCount']==8
+          assert len(glob.glob('test-results/r15r/source-perspective/**/*.png',recursive=True))==18
+          assert len(glob.glob('test-results/r15r/source-perspective/**/*.blend',recursive=True))==6
+          assert len(q['nativeRoadComparisonWitnesses'])==6
+          assert len(q['rejectedForgedArtGameCameraAndB51Claims'])==12
+          assert q['officialArt']==q['officialSlope2Meters']==0
+          print('R15R_EXACT_NATIVE_GAME_SOURCE_CAMERA_B48_B51_NO_WEBGL_NO_ART',q,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15R_REAL_SOURCE_NATIVE_CAMERAS_B48_B51_18_TRUE_PERSPECTIVE_6_EDITABLE_NO_ART_HOLD
+          path: |
+            test-results/r15r/replay/
+            test-results/r15r/source-perspective/
+          retention-days: 7
+          if-no-files-found: warn
