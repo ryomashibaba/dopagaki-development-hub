@@ -1,3 +1,13 @@
+# R15S3D2真正4/4失敗確定 → R15S3D3実B48西進／再接地研究（2026-10-29 JST）
+
+**最新真正R15S3D2 [Actions #40870432064](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40870432064) SUCCESS／artifact #12895893405。4/4元240Hz実走行で最終落下、次B48接地0。** SCISSOR最後の真接地（true-pinch J/K 26.704167/26.7125s、pinch-switch J/K 26.6125/26.575s）。元エンジンforward<25m/s接地0tick、B51接触0件、SCISSOR符号付き接線速度平均約+110m/s：逆走ではなく高速時の物理支持喪失が主問題。SOURCE TECH限定PASS、GAMEPLAY FAIL。
+
+**R15S3D3開始：実験候補2形状×元2世界。** 既存の凍結CROWNとSCISSOR初期行を保存し、元球の西向き空中進路に沿う本物のSCISSOR再設計と次実B48の入口接続を研究。元240Hzを使う4真正条件／独立QA／真接地遷移記録。新CI結果を確認する前にR15S3D3のPASS/改善は認定しない。ガイド変更・元物理変更・本番デプロイなし。GAMEPLAY/ART/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、ART採用0件、Slope2正式認定0m、Draft PR #46維持・main/Gold/P100/本番禁止。
+
+[研究根拠・制御格子・採否](docs/G4E7DZ_R15S3D3_REAL_WESTWARD_RECONTACT_STUDY_JA.md)
+
+---
+
 # R15S3D0/S3D真正診断確定：急登坂と符号付逆走が本質的問題、R15S3D2二道路縦断実装中（2026-10-29 JST）
 
 **真正R15S3D0 [Actions #40868422387](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40868422387) SUCCESS**、SCISSOR元E実高度は行11=66.521m→行17=146.787m→行30=195.000m、次道路入口中央位置と接続一致。元走行の路面接線向き半秒変位プロキシはt31以降で負に転じ、速度停滞・逆方向移動が起きていた。
