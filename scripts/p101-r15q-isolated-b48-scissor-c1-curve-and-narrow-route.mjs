@@ -70,7 +70,7 @@ export function buildR15Q(road,mode){
     // centre stays shifted; surface has continuous topology all across.
     const flatten=spec.narrowTarget===null?0:
       narrow*Math.max(0,1-spec.narrowTarget/width(before,sampleU));
-    const constrict=direction.map(v=>v*(-across)*len*.5*flatten);
+    const constrict=direction.map(v=>v*across*len*flatten);
     const post=orig.map((v,i)=>v+direction[i]*shift+constrict[i]);
     s.points[row*5+j]=post;
     maxShift=Math.max(maxShift,Math.hypot(...post.map((v,k)=>v-orig[k])));
