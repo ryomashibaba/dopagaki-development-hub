@@ -21,11 +21,11 @@ def arg(k):
  return av[av.index(k)+1]
 OUT=arg("--out");os.makedirs(OUT,exist_ok=True)
 load=lambda p:json.load(open(p,encoding="utf8"))
-R15K=load(arg("--r15k"));R15K3=load(arg("--r15k3"));R15I4=load(arg("--r15i4"));R15K4=load(arg("--r15k4"))
+R15K=load(arg("--r15k"));R15K3=load(arg("--r15k3"));R15I4=load(arg("--r15i4"));R15K4=load(arg("--r15k4"));R15K4B=load(arg("--r15k4b"))
 SRC="af076d67492a677d2235e4730aef8cdf4808e106"
 roads=("true-pinch","pinch-switch")
 patches=("02 roadbank-promenade None","04 roadbank-promenade None")
-assert R15K["originalSourceCXBlob"]==R15K3["sourceBlob"]==R15I4["sourceBlob"]==R15K4["sourceBlob"]==SRC
+assert R15K["originalSourceCXBlob"]==R15K3["sourceBlob"]==R15I4["sourceBlob"]==R15K4["sourceBlob"]==R15K4B["sourceBlob"]==SRC
 assert R15K4["hypotheticalBoxDesignCount"]==30 and not R15K4["humanWalkingEntranceVerified"]
 N={r:load(arg("--native-"+r)) for r in roads}
 envelopes={(x["road"],x["originalCXPatchName"]):{
@@ -41,13 +41,16 @@ def xyz(v):return [f4(c) for c in v]
 def original_tree(o):
  return BVHTree.FromPolygons([tuple(o.matrix_world@v.co) for v in o.data.vertices],
  [tuple(p.vertices) for p in o.data.polygons],all_triangles=False)
-def top_triangles(obj,landings):
+def top_triangles(obj,landings,selected_face_id,known_world_verts):
  mat=obj.matrix_world
  normal_mat=mat.to_3x3().inverted().transposed()
  found=[]
  for poly in obj.data.polygons:
+  if poly.index!=selected_face_id:continue
   if (normal_mat@poly.normal).normalized().y<.70:continue
   vertices=[mat@obj.data.vertices[i].co for i in poly.vertices]
+  assert len(vertices)==len(known_world_verts)
+  assert all((p-Vector(q)).length<.002 for p,q in zip(vertices,known_world_verts)),("R15K4C_SOURCE_FACE_CHANGED",obj.name,selected_face_id)
   for tri in tessellate_polygon([vertices]):
    a,b,c=[vertices[i] for i in tri]
    # Filter by triangle's XZ bounds, not polygon CENTER: prior large
@@ -159,8 +162,11 @@ for road in roads:
  obs=[(o,original_tree(o)) for o in CX+B48]
  report={}
  for name in patches:
-  tris=top_triangles(objs[name],landings[name])
-  assert tris,(road,name,"missing true source upward faces")
+  exact=R15K4B["originalSource2FaceTrialsByRoad"][road][name]
+  tris=top_triangles(objs[name],landings[name],
+      exact["selectedOriginalCXSourceFaceIndex"],exact["faceSourceWorldVertices"])
+  assert tris,(road,name,"missing exact selected original source face")
+  assert abs(sum(t["area"] for t in tris)-exact["exactOriginalSourceFaceAreaSqm"])<.01,("SELECTED_FACE_AREA_MISMATCH",name)
   samples=samples_for(name,tris)
   candidates=[]
   for point in samples:
@@ -185,7 +191,9 @@ for road in roads:
    q["sourceRoadsCamera"]=[frame_probes(centre,q["virtualSquareFootprintSideMetres"],
     q["virtualHeightMetres"],frame,obs,envelopes[(road,name)][frame["id"]])
      for frame in N[road]["frames"]]
-  report[name]={"originalSourceUpFaceTriangleCount":len(tris),
+  report[name]={"exactOriginalR15K4BSelectedCXFaceIndex":exact["selectedOriginalCXSourceFaceIndex"],
+    "exactOriginalR15K4BSelectedCXFaceAreaSqm":exact["exactOriginalSourceFaceAreaSqm"],
+    "originalSourceUpFaceTriangleCount":len(tris),
     "originalSourceUpFaceTriangleAreaSumSqm":round(sum(t["area"] for t in tris),2),
     "originalSourceUpFacePolygonIndices":sorted({t["poly"] for t in tris}),
     "sourceFaceInteriorSamplePoints":len(samples),
@@ -235,6 +243,7 @@ paired.sort(key=lambda x:(-int(x["sourceOnlyConditionalCameraAndHalfsizeResearch
 result={"schema":"dopagaki.r15k4b-original-upface-triangulated-interior-25point-floor-recheck/1",
  "sourceCXBlob":SRC,"sourceWorlds":list(roads),"sourceOriginalCXMeshes":list(patches),
  "priorR15K4DisqualifiedEdgeAnchoredStudyBoxes":30,
+ "restrictToExactlyTwoVerifiedOriginalR15K4BSelectedFaces":True,
  "noNewMeshesOrCollider":True,
  "sourceFaceInteriorWorldResults":world,
  "matchedTwoRoadSourceOnlyCandidateScreenResults":paired,
