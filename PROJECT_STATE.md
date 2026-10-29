@@ -1,3 +1,15 @@
+# G4E-7DZ R15L — 元240Hz開始0秒の真正全可走行区間・CX18広域土地研究（2026-10-29 JST）
+
+**元ゲームソース不変** `af076d67492a677d2235e4730aef8cdf4808e106`。元P96 early-soft＋P101 OVERDRIVE固定スクリプトでR1の11〜17秒13カメラを再現し、元ゲームRunnerの実終了まで観測：**true-pinchは19.583333秒でfailed、pinch-switchは19.4125秒でfailed**。両道路共有実カメラは0.5〜19.0秒の38時点（26時点?ではない）、架空の52秒カメラなし。17.0秒は接地、17.5秒以降路面離脱し、Yが急降下。ただし人間が必ず失敗する証拠ではなく、真のエンジン失敗理由を検査するR15L2が次。
+
+元Blenderの**CX全18、B48×7、B51×28**と上記の実カメラを交差検証。上向き25点支持研究対象の両道路同一XYZ候補240件、幅6/10/16m支持標本113/102/25件。最長共通連続視認は4半秒時点で要求5に届かず、元B51画面警告・道路近接の統合研究通過**0/240**。CX地形の視認はほぼ11〜17秒に限定、0〜11秒には今回の研究閾値を満たす候補なし。**支持した床≠巨大都市の美術/交通/安全認定**。
+
+真正固定物理・Blender全測定GitHub [#40802904554](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40802904554) はデータ生成成功・QAフレームゼロ詰めバグでワークフローFAIL。保存Artifact #12867410080を**高負荷再実行せず**独立QA [#40803366440](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40803366440) **SUCCESS**、18種の偽合格拒否、検査Artifact #12866588180。正式評価SOURCE RESEARCH TECH PASS／ART HOLD、正式ART採用0、Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、元ゲーム新コライダー0、PR #46 Draft未マージ、本番公開禁止。
+
+研究報告：[R15L 真正固定ルート・CX18広域土地・独立QA](docs/G4E7DZ_R15L_ALL_ACTUALLY_REPLAYABLE_NATIVE_FULL_CX_ATLAS_JA.md)。次工程はR15L2「本当のRunner.failure.reasonと17秒以降の入力感度比較」を隔離し、主都市は狭いCX片での箱の再試作を停止、元道路に連結する広域実3D設計を優先。
+
+---
+
 # G4E-7DZ R15K4C — 元CX指定2ポリゴン限定25点支持・R1カメラ研究（2026-10-29 JST）
 
 **R15K4B 真正Actions #40796634747 SUCCESS。** 元CX02（面index1・840.00037㎡）とCX04（面index0・216.00031㎡）の元頂点を解析し、着地点0件に対して地形重心側で5点全支持4件を検出。ただし元ゲームでの歩行や巨大都市成立を認定しない。
