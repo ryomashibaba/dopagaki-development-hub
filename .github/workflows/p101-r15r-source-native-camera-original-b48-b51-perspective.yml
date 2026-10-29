@@ -38,10 +38,17 @@ jobs:
           gh run download 40835268471 --repo ryomashibaba/dopagaki-development-hub \
             --name P101_R15Q3_TRUE_B48_ORIGINAL_GEOMETRY_8_BLENDER_GLB_NATIVE_TRAILS_REAL_TECHNICAL_IMAGES_HOLD \
             --dir test-results/r15r/blender-original
-          test -s test-results/r15r/native/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json
-          test -s test-results/r15r/original/native/true-pinch.json
-          test -s test-results/r15r/original/native/pinch-switch.json
-          test -s test-results/r15r/blender-original/R15Q3_EIGHT_REAL_SOURCE_MESHES_MANIFEST.json
+          for d in native original blender-original; do
+            echo "==== R15R retrieved $d"
+            find "test-results/r15r/$d" -maxdepth 3 -type f -printf '%P (%s bytes)\\n' | head -50
+          done
+          for p in \
+            test-results/r15r/native/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json \
+            test-results/r15r/original/native/true-pinch.json \
+            test-results/r15r/original/native/pinch-switch.json \
+            test-results/r15r/blender-original/R15Q3_SOURCE_EIGHT_REAL_MESH_SCENES_MANIFEST.json; do
+            test -s "$p" || { echo "::error::R15R_DOWNLOAD_EXPECTED_FILE_MISSING:$p"; exit 1; }
+          done
       - name: Actually replay all 8 ORIGINAL 240Hz real-road simulation source scenarios and save exact chase cameras and B51 time poses
         run: |
           node scripts/p101-r15r-native-camera-replay-source-8-cases.mjs \
