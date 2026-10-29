@@ -1,3 +1,17 @@
+# R15O + R15O4元B48実路面・物理改修研究／R15P後続SCISSOR接続実験開始（2026-10-29 JST）
+
+**真の改善・ただし全コース未修復。** 元ゲームソースblob `af076d67492a677d2235e4730aef8cdf4808e106`と物理エンジン・既存B48/B51・本番は**一切変更していない**。Draft PR #46の隔離試験のみ。ART/GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、本番禁止、公式ART採択0件、Slope2正式認定0mを維持。
+
+- **R15O根本原因**：真の元P96 240Hzプレイヤーは `p93-CROWN_REVERSAL-01` の急カーブ外縁、**u≈0.600・v=0**で支持を失う。元道路幅約33.96m→約14.44m。真正原メッシュ照合[Actions #40829468768](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40829468768) SUCCESS。
+- **隔離実物理路面3案、16真正実走行**：8m外縁拡幅／**16m外縁拡幅＋最大1mバンク**／22m中心線修正を元のB48乗れるコライダーで構築。元のP96またはR15N2共通の15.75秒から右+0.18、2世界×4形態×2操作=16走行。真正ソース計測[Actions #40830080170](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40830080170)本体16走行生成、全体は重複メタデータ属性名誤りでFAIL。保存済みの真正結果を再利用した独立QA[Actions #40830496328](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40830496328)SUCCESS、偽GAME/ART等12件拒否。
+- **16mバンク案が実物理を大幅改善**：元P96操舵を**変更しない条件**でtrue-pinchの最終接地17.170833→**22.795833秒**、本物の落下19.583333→**25.704167秒**。pinch-switch最終接地17.008333→**22.650000秒**、落下19.412500→**25.562500秒**。元より**6.121秒／6.150秒**延長。R15O4真正0〜36秒再走行[Actions #40830811488](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40830811488)SUCCESS、保存済み0〜24秒と厳密同一、独立QA偽認証10件拒否。「24秒時点でrunning」は完走ではなく両方25秒台で落下。
+- **実際に次の元道路へ到達**：16mバンク案の最終接地元道路は**`p93-SCISSOR_RISE-01`**（B48原区間）。R15O5真正検査[Actions #40831145326](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40831145326)SUCCESS。元SCISSOR出口直後ではなく**入口u≈0.025・v=0の外縁**で支持が切れる。原メッシュ最近距離約3.17m／3.06m。
+- **R15P隔離試験の方向**：元B16 CROWNを保持し、元SCISSOR入口u0断面を固定、実路面の外縁行1〜8を8／16／24m滑らかに補正する元物理シーン3案とB16無変更基準を比較する。元物理コード、本番、他道路、B51全28は元のまま。**結果は実Actionsおよび真正QAを確認するまで未確定**。正式施工・ブラウザWebGL・人間評価も未実施。
+
+詳細[ R15O / R15O4研究報告 ](docs/G4E7DZ_R15O_ORIGINAL_REAL_B48_PHYSICAL_CURVE_16_REPLAYS_AND_BANKED36_JA.md)。次に重要なのは改修路面の物理連続性に加え、真のゲームカメラとB51人間公平性、狭い道路・Slope2 DNA・超未来都市の景観を統合して成立させること。**数秒延長のみをGAMEPLAY PASSとしない。**
+
+---
+
 # G4E-7DZ R15N＋R15N2 — 実BLEND橋梁4案ART REJECT／元240Hz進入操舵24件すべて落下（2026-10-29 JST）
 
 **元ゲーム本体・物理・B48/CX/B51は不変。Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、PR #46 Draft・未マージ、本番非公開。正式ART採択0件、Slope2正式認定0m、ART/GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。**
