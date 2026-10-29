@@ -1,3 +1,15 @@
+# R15S1＋R15S2A技術限定PASS／R15S2B開始（2026-10-29 JST）
+
+真正R15S1 Actions #40861606593 SUCCESS、元R15Qの8真正240Hz走行一致・独立QA13偽認証拒否。真正R15S2A Actions #40861980465 SUCCESS、元SCISSOR狭幅の真補間XZ道路幅とP96旧横回避目標の静的監査。R15S2Bは12合法操舵の元240Hz試験を実装し、結果待ちのため未認定。
+
+新しい重要事実：8条件の最後のSCISSOR実接地はu約0.018〜0.065・幅約110〜113mの入口であり、狭幅u約0.177には到達していない。従って最初の転落を旧P96の狭幅回避目標が引き起こしたとは現状断定できない。補間XZ幅の局所最狭は約14.314m、ボール半径控除後の左右対称近似片側余裕約6.507m。元P96希望横回避目標24／25／33／34mは狭幅設計に不適合だが、即座の実落下や人間公平性の立証ではない。
+
+元ゲームblob af076d67492a677d2235e4730aef8cdf4808e106不変。SOURCE TECH限定PASS、ART REJECT/HOLD、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、公式ART採択0件・Slope2認定0m。PR #46 Draft・未マージ、本番サイト公開禁止を維持。
+
+詳細：[R15S1/R15S2Aの真正証拠とR15S2B計画](docs/G4E7DZ_R15S1_R15S2A_TRUE_NATIVE_STEERING_GEOMETRY_CRITICAL_JA.md)。
+
+---
+
 # R15R 完了：元240Hzカメラ＋元B51 28体＋実B48道路の真正18視点・WebGL画角同値（2026-10-29 JST）
 
 **最終 GitHub Actions [#40843279477](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40843279477) SUCCESS／Artifact #12884446304／元ゲームblob `af076d67492a677d2235e4730aef8cdf4808e106` 不変／PR #46 Draft未マージ。** 初回[#40842697659]でも技術QAは成功したが元ShaderとBlenderの画角不一致を発見し、原WebGLの`1.35`投影係数に相当する**15.549107mm（1008×645）**へ修正・独立QA13偽認証拒否して最終成功。元R15Q 8条件×元P96 240Hz真Runnerから得たカメラ姿勢を元B48 3Dに当て、動的B51全28体の時刻別物理OBBを重ね、**真正ソース由来PNG18枚・編集可能BLEND6枚**を生成。これらは**再構成Blender**であり元ブラウザWebGLではない。
