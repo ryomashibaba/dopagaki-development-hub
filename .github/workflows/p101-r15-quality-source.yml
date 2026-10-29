@@ -33,6 +33,8 @@ on:
       - 'scripts/p101-r15k2-independent-original-cx-b51-screen-gate.py'
       - 'scripts/p101-r15k3-original-b51-3d-envelope-vs-cx-screen.py'
       - 'scripts/p101-r15k3-independent-b51-envelope-camera-veto.py'
+      - 'scripts/p101-r15k4-true-original-b48-cx-walk-and-virtual-volume-bvh.py'
+      - 'scripts/p101-r15k4-independent-source-support-screen-veto.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -1040,6 +1042,7 @@ jobs:
           retention-days: 7
 
   r15k3-real-original-b51-moving-obb-source-camera-envelope-qa:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 30
@@ -1097,5 +1100,76 @@ jobs:
         with:
           name: P101_R15K3_REAL_3D_B51_YAW_HALF_SIZE_ORIGINAL_13_CAMERA_CX_PROTECTION_SOURCE_HOLD
           path: test-results/r15k3/results/
+          retention-days: 7
+          if-no-files-found: warn
+
+  r15k4-real-b48-cx-fullwidth-support-and-virtual-macro-camera-source:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Source fingerprint and exact R15K4 original geometry diagnostic syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15k4-true-original-b48-cx-walk-and-virtual-volume-bvh.py scripts/p101-r15k4-independent-source-support-screen-veto.py
+      - name: Reuse original R1 editable Blender and genuine R15I4/R15K/R15K3 source evidence
+        run: |
+          mkdir -p test-results/r15k4/r1 test-results/r15k4/r15i4 test-results/r15k4/r15k test-results/r15k4/r15k3 test-results/r15k4/results
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15k4/r1
+          gh run download 40776460960 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15I4_ORIGINAL_B48_CX_TWIN_WORLD_CAMERA_AND_GRADE_PREFLIGHT_ART_HOLD \
+            --dir test-results/r15k4/r15i4
+          gh run download 40791002177 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15K_REAL_4_CX_CONNECTED_SURFACE_2ROAD_13_CAMERA_B51_BASELINE_NO_ART_HOLD \
+            --dir test-results/r15k4/r15k
+          gh run download 40792817387 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15K3_REAL_3D_B51_YAW_HALF_SIZE_ORIGINAL_13_CAMERA_CX_PROTECTION_SOURCE_HOLD \
+            --dir test-results/r15k4/r15k3
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Actual original B48 road to CX floor support 41x3 and 30 virtual 3D macro source-camera trials in two original worlds
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-r15k4-true-original-b48-cx-walk-and-virtual-volume-bvh.py -- \
+            --source-true-pinch test-results/r15k4/r1/result-true-pinch/R1_true-pinch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --source-pinch-switch test-results/r15k4/r1/result-pinch-switch/R1_pinch-switch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --native-true-pinch test-results/r15k4/r1/source/true-pinch.json \
+            --native-pinch-switch test-results/r15k4/r1/source/pinch-switch.json \
+            --r15i4 test-results/r15k4/r15i4/R15I4_ORIGINAL_TWO_ROAD_CX_MACRO_SITE_PREFLIGHT.json \
+            --r15k test-results/r15k4/r15k/R15K_TRUE_ORIGINAL_CX_PATCH_TWO_WORLD_CAMERA_BASELINE.json \
+            --r15k3 test-results/r15k4/r15k3/R15K3_ORIGINAL_B51_3D_SCREEN_ENVELOPE_TWO_CX_PATCHES.json \
+            --out test-results/r15k4/results
+      - name: Independent 2-road screen and 41x3 original support contracts with forged-approval rejection
+        run: |
+          python3 scripts/p101-r15k4-independent-source-support-screen-veto.py \
+            --r15k test-results/r15k4/r15k/R15K_TRUE_ORIGINAL_CX_PATCH_TWO_WORLD_CAMERA_BASELINE.json \
+            --r15k3 test-results/r15k4/r15k3/R15K3_ORIGINAL_B51_3D_SCREEN_ENVELOPE_TWO_CX_PATCHES.json \
+            --r15i4 test-results/r15k4/r15i4/R15I4_ORIGINAL_TWO_ROAD_CX_MACRO_SITE_PREFLIGHT.json \
+            --trial test-results/r15k4/results/R15K4_REAL_SOURCE_CX_B48_PATH_AND_VIRTUAL_MACRO_VOLUMES.json \
+            --out test-results/r15k4/results
+          python3 - <<'PY'
+          import json
+          root='test-results/r15k4/results/'
+          a=json.load(open(root+'R15K4_REAL_SOURCE_CX_B48_PATH_AND_VIRTUAL_MACRO_VOLUMES.json'))
+          b=json.load(open(root+'R15K4_INDEPENDENT_B48_CX_SUPPORT_AND_SCREEN_CONTRACT_GATE.json'))
+          assert a['hypotheticalBoxDesignCount']==b['twoRoadVirtualMacroVolumeCandidates']==30
+          assert a['originalR15I4TheoreticalRoadRimHypotheses']==b['studiedPhysicalApproachHypothesesPerRoad']==5
+          assert b['exactSourceRectAndFullWidthSupportCountsRecomputed']
+          assert len(b['negativeFalsificationPasses'])>=10
+          assert not a['actualNewBlenderMeshesCreated'] and not a['humanWalkingEntranceVerified']
+          assert a['newSourceGameColliders']==a['officialArt']==a['officialSlope2Meters']==0
+          print('R15K4_ORIGINAL_TWO_ROAD_SOURCE_ONLY',b,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15K4_TRUE_B48_CX_41X3_SUPPORT_30_NATIVE_MACRO_VOLUMES_SCREEN_SOURCE_HOLD
+          path: test-results/r15k4/results/
           retention-days: 7
           if-no-files-found: warn
