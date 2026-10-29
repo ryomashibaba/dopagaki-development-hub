@@ -1,3 +1,17 @@
+# R15S3D4真正4条件再試験・初着地の速度急変と一世界限定の急旋回を特定（2026-10-30 JST）
+
+**真正 [Actions #40900490016](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40900490016) SUCCESS／[Artifact #12908457792](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40900490016/artifacts/12908457792)。** 元R15S3D3 L/M×2世界の4真正240Hzを0秒から同じ道路・同じ合法操舵・元B51 28基で再生。旧結果への終端/接地tick/B51イベント回帰4/4一致、独立QA誇大認定・偽テレメトリ11種拒否。CROWN・早期SCISSOR・原物理・保護blob不変。
+
+- 初めての次道路接地付近の**元Runner 1tick全速度差分**: L(true-pinch)76.3160m/s (31.3875s、固定衝突+1)、L(pinch-switch)75.4858m/s (31.220833s、+1)、M(true-pinch)78.3690m/s (31.454167s、+1)、M(pinch-switch)78.0729m/s (31.245833s、+2)。全4条件で本路面への**激しい鉛直着地速度修正**が示唆された。これは全速度差分であり直接CCD個別インパルス値ではない。
+- 元240Hz速度ベクトルを使う31.4→31.6秒の水平方向角差: **L true-pinch 約77.22°** 対 **L pinch-switch 約6.78°**。M true/pinchは約8.83°／8.20°。L true-pinch 45秒runningに依存した成功認証は不可、他3条件は落下。**全コース完走0/4、正式GAMEPLAY FAIL/HOLD**。
+- **次の実装方針:** 落下時間と着地角差を減らす連続した本物のB48支持線形を設計し、同時にL片世界の着地後急旋回が元ガイド・法線・合法操舵のどこから発生するかを分解。源流CCD接触法線・衝突インパルスそのものは未計測で、`contacts()`の事前支持法線と区別する。2世界の自然走行・実WebGL・人間公平性を検証するまで正式採用しない。
+
+**SOURCE TECH: R15S3D4の原ソース再現・独立整合性限定PASS／GAMEPLAY: FAIL/HOLD／ART: REJECT/HOLD／HUMAN・PERFORMANCE・INTEGRATION・RELEASE・MERGE: HOLD。** ART正式0件、Slope2認定0m、保護元ソース・本番・main・Gold・P100変更禁止。Draft PR #46を維持。
+
+[新しい元データと原因診断・次の物理設計](docs/G4E7DZ_R15S3D4_ORIGINAL_NATIVE_CONTACT_DISCONTINUITY_PROTOCOL_JA.md)
+
+---
+
 # R15S3D3真正4条件: 次B48への再接地4/4・ただし高速Uターンと世界差で正式HOLD（2026-10-29 JST）
 
 **真正 [Actions #40879559256](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40879559256) SUCCESS／Artifact #12900355259：元240Hz 4/4実走行・独立QA偽7種拒否。次の物理B48への実再接地が4/4で初めて成立したが、全コース正式完走は0/4。** 真正接地継続はL(true-pinch) 13.6125s／L(pinch-switch) 0.883333s／M(true-pinch) 0.741667s／M(pinch-switch) 0.854167s。L(true-pinch)は45秒上限まで次道路上を約103m/sで走行中（**finishedではない**）、他3条件は33.63〜33.82秒に落下。
