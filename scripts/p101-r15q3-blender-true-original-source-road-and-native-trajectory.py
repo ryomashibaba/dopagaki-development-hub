@@ -47,25 +47,34 @@ for item in data["pairedRoadAssets"]:
  assert len(points)==item["realNativeSampledTrailPoints"]
  bpy.ops.wm.read_factory_settings(use_empty=True)
  scene=bpy.context.scene
- before=set(o.name for o in bpy.data.objects)
- bpy.ops.wm.obj_import(filepath=os.path.join(folder,item["actualSourceMeshOBJ"]),forward_axis="Y",up_axis="Z")
- # Blender OBJ source convention Y-up is explicitly overridden below
- # to retain the unchanged game world XYZ. Blender's native OBJ import
- # arguments affect coordinate conversion; set axes to negative Z / Y
- # only after verification via original mesh vertices.
- meshes=[o for o in scene.objects if o.type=="MESH" and o.name not in before]
- assert len(meshes)==2,("EXPECTED_TWO_REAL_B48_SOURCE_ROADS",road,mode,[o.name for o in meshes])
- # World coordinates must match original game XYZ exactly.
- # Use imported vertex local coordinates and matrix transform for source
- # point comparison against a source original CROWN/SCISSOR native trace.
- # Both game and Blender are Z-up in their own API? Blender is Z-up but
- # game is Y-up. Insert explicit world conversion X_game -> X_blender,
- # Y_game -> Z_blender, Z_game -> -Y_blender.
- from mathutils import Matrix
- conv=Matrix(((1,0,0,0),(0,0,-1,0),(0,1,0,0),(0,0,0,1)))
- # File OBJ imported with no built-in axis conversion is preferable:
- # any Blender importer rotation is overwritten with explicit conv.
- for o in meshes:o.matrix_world=conv
+ # Deterministic literal source OBJ parsing (avoids Blender importer
+ # coordinate-system ambiguity). Game source [x,y,z] -> Blender [x,-z,y].
+ # Original source faces and playable triangles are never rebuilt differently.
+ objs=[];groups=[];vertex_global_index=0;part=None
+ with open(os.path.join(folder,item["actualSourceMeshOBJ"]),encoding="utf8") as infile:
+  for line in infile:
+   if line.startswith("o "):
+    part={"name":line[2:].strip(),"verts":[],"faces":[],"start":vertex_global_index}
+    groups.append(part)
+   elif line.startswith("v "):
+    assert part is not None
+    x,y,z=map(float,line[2:].split())
+    part["verts"].append((x,-z,y));vertex_global_index+=1
+   elif line.startswith("f "):
+    assert part is not None
+    face=tuple(int(x)-1-part["start"] for x in line[2:].split())
+    assert len(face)==3 and min(face)>=0
+    part["faces"].append(face)
+ assert len(groups)==2
+ meshes=[]
+ for part in groups:
+  assert part["verts"] and part["faces"]
+  assert max(max(t) for t in part["faces"])<len(part["verts"])
+  me=bpy.data.meshes.new(part["name"]+" native real source mesh")
+  me.from_pydata(part["verts"],[],part["faces"]);me.update()
+  o=bpy.data.objects.new(part["name"],me)
+  scene.collection.objects.link(o);meshes.append(o)
+ assert len(meshes)==2
  mats={
   "crown":material("R15Q3 source original B48 CROWN/B16 structural dark steel",(.16,.24,.32),.49),
   "scissor":material("R15Q3 source actual physical B48 SCISSOR",(.52,.69,.79),.32),
