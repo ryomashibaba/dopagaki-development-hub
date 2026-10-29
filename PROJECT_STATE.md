@@ -1,3 +1,16 @@
+# G4E-7DZ R15M3完了 — B48元道路端での真の240Hz落下・早期右補正の限界（2026-10-29 JST）
+
+**R15M/ R15M3 SOURCE TECH検査PASS。実道路修復未実装、ART HOLD、GAMEPLAY HOLD。** 元物理・入力・B48×7/CX18/B51×28・カメラ、ゲームソースblob `af076d67492a677d2235e4730aef8cdf4808e106`不変。PR #46 Draft未マージ、本番非公開。
+
+- **元固定操舵**：true-pinchの最終元道路接地17.170833s→離脱17.175s→19.583333s落下。pinch-switch最終接地17.008333s→離脱17.0125s→19.4125s落下。接地していた原道路IDは両方`p93-CROWN_REVERSAL-01`。本物の原Blender B48上面境界への水平最短距離はtrue-pinchで0.174m→0.286m、pinch-switchで0.147m→0.257m。
+- **16.5sより早期操舵補正（試験のみ）**：左-0.35はtrue-pinch 19.525s／pinch-switch 19.375sで落下。右+0.35は20秒時点では両道路ともrunningだが、原B48最終接地は18.483333s／18.358333sで終わる。20秒以降も元の入力で本当に継続すると、**true-pinch 20.650s／pinch-switch 20.483333sで再び「コースから落下」**。完走でもゲーム修復でもない。true-pinch右補正の一時離脱17.591667sと再接地、最終離脱18.4875sを別々に確認。
+- **真のCI・独立QA**：R15M元ゲーム6走行本体の初回[#40808924333](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40808924333)は途中離脱を最終離脱と取り違えてBlenderゲートFAIL。元6走行を再利用した元B48実面測定[#40809307778](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40809307778)は元Blender測定完了・独立QA属性名誤りでFAIL。**元ソース証拠を再利用し、独立QA[#40809596433](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40809596433) SUCCESS（偽認証13件拒否）**。延長走行R15M3真正[#40809877708](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40809877708) **SUCCESS（偽認証12件拒否）**。
+- 次工程**R15N**は、原B48道路端・走行軌道・横速度・路面連続支持の因果分析と、隔離した原地形上の橋／道路接続実3D設計の可否を確認。**都市を浮遊箱だけで追加して問題を隠さない**。公式ART採択0件、Slope2正式認定0m、ゲーム新コライダー0、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD維持。
+
+関連報告：[R15M 元物理の道路端](docs/G4E7DZ_R15M_REAL_B48_240HZ_FINAL_EDGE_AND_EARLY_STEER_JA.md)／[R15M3 20秒以降の最終確認](docs/G4E7DZ_R15M3_ACTUAL_POST20_RIGHT_STEER_STILL_FALLS_JA.md)。
+
+---
+
 # G4E-7DZ R15L2 — 元Runner失敗理由の真正確定と17秒以降の操舵比較（2026-10-29 JST）
 
 **真正 GitHub Actions [#40803935993](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40803935993) SUCCESS／Artifact #12867133216。** 元17.0秒の位置・カメラ・物理路面とR15L真正保存証拠は全て一致。原P96固定入力と17秒以降の左右±0.35だけを変更した入力の**2道路×3試験＝6走行**を原240Hzで実行。6/6全件、元エンジンの `Runner.failure.reason` が **「コースから落下」**。元入力はtrue-pinch 19.583333s／最終接地17.170833s、pinch-switch 19.412500s／最終接地17.008333s。左右補正でも19秒台に落下し、前半からのコース進入変更や道路支持構造を調べる必要がある。**元物理エンジンと元ゲームソース編集0、コライダー追加0、人間プレイ未確認。** 独立QA PASS、12偽認証拒否。
