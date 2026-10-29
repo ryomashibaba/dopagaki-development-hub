@@ -66,9 +66,11 @@ def check(d, ref):
                             "guideDistance3dM"):
                     assert finite(s[key]), (road, mode, key)
                 assert -1 <= s["trueNativeInput"] <= 1
+                assert isinstance(s["preStepGroundedForInput"], bool)
+                nominal = 172.8 if s["preStepGroundedForInput"] else 25.9
                 assert math.isclose(s["nominalCommandedSteeringAccelerationMps2"],
-                                    172.8 * s["trueNativeInput"], abs_tol=0.001)
-                assert s["fullSteerNominalSourceAccelerationMps2"] == 172.8
+                                    nominal * s["trueNativeInput"], abs_tol=0.001)
+                assert s["fullSteerNominalSourceAccelerationMps2"] == nominal
                 assert s["approxRoadWidthXZ"] > 0
                 assert math.isclose(s["approxPlanCurveRequiredLateralAccelerationMps2"],
                                     s["speedMps"] ** 2 * abs(s["approxPlanCurvaturePerM"]),

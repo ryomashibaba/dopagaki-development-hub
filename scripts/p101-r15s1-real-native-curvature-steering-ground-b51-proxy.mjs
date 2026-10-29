@@ -100,7 +100,7 @@ const results={schema:'dopagaki.r15s1-native-physics-curvature-control-b51-centr
   geometryLabel:'sampled XZ centerline/edge margin; NOT collision distance',
   curvatureLabel:'sampled geometric 2D plan curvature; not full physics force',
   b51Label:'time-correct B51 collision-box CENTERS in unoccluded mathematical source-camera frustum only; NOT actual WebGL visibility or true time-to-collision',
-  steeringLabel:'original scaled P96 input; nominal 36*4.8*steer command is NOT realized lateral acceleration or human achievable steering',
+  steeringLabel:'original scaled P96 input; PRE-step nominal steering command 172.8 grounded / 25.9 airborne, but native step RECHECKS contact and lateral damping; NOT realized lateral acceleration or human achievable steering',
   sourceBrowserWebGLRendered:false,humanPlayableCertified:false,
   officialArt:0,officialSlope2Meters:0,
   ART:'HOLD',GAMEPLAY:'HOLD',HUMAN:'HOLD',PERFORMANCE:'HOLD',INTEGRATION:'HOLD',RELEASE:'HOLD',MERGE:'HOLD',
@@ -122,6 +122,7 @@ for(const road of ROADS){
   const samples=[];
   for(let tick=1;tick<=Math.round(32/DT);tick++){
    if(player.status==='failed'||player.status==='finished')break;
+   const preStepGrounded=Boolean(player.grounded);
    const steer=p96DodgeSteer(player,plan,'early-soft',movingObstaclePose).input/4.8;
    p101Step(player,steer,'OVERDRIVE',{forwardScale:p101A13ForwardScale(player,surge),collisionRecovery:false});
    camera=advanceCamera(camera,player.forward,DT);
@@ -150,13 +151,14 @@ for(const road of ROADS){
     const near=nearestRoad(player.p,curves);
     const hz=b51CameraProxy(doc,player,view);
     const velocity=mag(player.v);
+    const nominal=preStepGrounded?172.8:25.9;
     const required=velocity*velocity*Math.abs(near.curvature);
     const guide=routeFrame(doc.route,player.p);
     samples.push({tick,seconds:round(player.time,6),actualNativeStatus:player.status,
       actualNativeGrounded:contact,actualNativeRoad:player.surface,
-      speedMps:round(velocity),trueNativeInput:round(steer,6),
-      nominalCommandedSteeringAccelerationMps2:round(36*4.8*steer),
-      fullSteerNominalSourceAccelerationMps2:172.8,
+      speedMps:round(velocity),trueNativeInput:round(steer,6),preStepGroundedForInput:preStepGrounded,
+      nominalCommandedSteeringAccelerationMps2:round(nominal*steer),
+      fullSteerNominalSourceAccelerationMps2:nominal,
       guideDistance3dM:round(guide.distance),roadCurveId:near.road,approxU:near.u,
       approxRoadWidthXZ:round(near.physicalSurfaceWidthXZApproxM),
       approxSignedXZTrackOffsetM:round(near.signedXZOffsetM),
