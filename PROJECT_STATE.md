@@ -1,3 +1,13 @@
+# R15S3D3真正4条件: 次B48への再接地4/4・ただし高速Uターンと世界差で正式HOLD（2026-10-29 JST）
+
+**真正 [Actions #40879559256](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40879559256) SUCCESS／Artifact #12900355259：元240Hz 4/4実走行・独立QA偽7種拒否。次の物理B48への実再接地が4/4で初めて成立したが、全コース正式完走は0/4。** 真正接地継続はL(true-pinch) 13.6125s／L(pinch-switch) 0.883333s／M(true-pinch) 0.741667s／M(pinch-switch) 0.854167s。L(true-pinch)は45秒上限まで次道路上を約103m/sで走行中（**finishedではない**）、他3条件は33.63〜33.82秒に落下。
+
+**重大な品質上の留保：** L(true-pinch)ではt31.4→31.6の球X速度が約−90.43→+7.39m/sへ急変し、0.2秒標本差によるX加速度の平均約+489m/s²。pinch-switchでは同区間も約−88.68→−87.02m/sで西進を続け、t32.1後に路面を失う。人間が快適に操舵した証拠も、滑らかな曲率・法線連続性の証拠もない。衝突による急激な方向転換の可能性があり、L(true-pinch)の45秒生存をGAMEPLAY改善認定に転用禁止。**次は2世界の真の接触時刻・法線・曲率・衝撃と元合法入力の一致／不一致を調査し、両世界で滑らかに走れる真のB48連続曲線に修正する。** エンジンやカメラ・操舵ルートを隠れて変更しない。
+
+SOURCE TECH=限定PASS／GAMEPLAY=FAIL/HOLD／ART=REJECT/HOLD／HUMAN・PERFORMANCE・INTEGRATION・RELEASE・MERGE=HOLD。正式ART0件、Slope2認定0m。本番・main・Gold・P100未変更。Draft PR#46未マージ。[R15S3D3真正検査と次工程](docs/G4E7DZ_R15S3D3_REAL_WESTWARD_RECONTACT_STUDY_JA.md)。
+
+---
+
 # R15S3D2真正4/4失敗確定 → R15S3D3実B48西進／再接地研究（2026-10-29 JST）
 
 **最新真正R15S3D2 [Actions #40870432064](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40870432064) SUCCESS／artifact #12895893405。4/4元240Hz実走行で最終落下、次B48接地0。** SCISSOR最後の真接地（true-pinch J/K 26.704167/26.7125s、pinch-switch J/K 26.6125/26.575s）。元エンジンforward<25m/s接地0tick、B51接触0件、SCISSOR符号付き接線速度平均約+110m/s：逆走ではなく高速時の物理支持喪失が主問題。SOURCE TECH限定PASS、GAMEPLAY FAIL。
