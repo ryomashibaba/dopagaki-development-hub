@@ -123,6 +123,8 @@ for item in data["pairedRoadAssets"]:
   light=bpy.context.object;light.name=name
   light.data.energy=power;light.data.shape="DISK";light.data.size=size
   direction=aim-light.location;light.rotation_euler=direction.to_track_quat("-Z","Y").to_euler()
+ if scene.world is None:
+  scene.world=bpy.data.worlds.new("R15Q3 technical source-only neutral world")
  scene.world.color=(.10,.10,.12)
  scene.render.engine="CYCLES";scene.cycles.samples=8
  scene.cycles.device="CPU";scene.cycles.use_denoising=False
