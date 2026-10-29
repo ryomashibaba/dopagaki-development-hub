@@ -56,7 +56,13 @@ def check(d):
     assert x["row"]==y["row"]==n
     if mode in MODES[:3]:
      assert abs(x["realWidthXZ"]-y["realWidthXZ"])<.06
-    if n==0 or n>=14:assert x==y
+    if n==0 or n>=14:
+     assert x["centreXYZ"]==y["centreXYZ"]
+     assert abs(x["realWidthXZ"]-y["realWidthXZ"])<.00001
+    # Catmull-Rom tangent/curvature at the untouched row14 or row0
+    # depends on adjacent modified row13/row1; do not assert its
+    # derivative is unchanged when its POINT and width are unchanged.
+    if n>=15:assert x==y
    if mode==MODES[0]:
     assert geo["changedOnlyRealScissorRows1To13"]==[]
     assert geo["maximumWorldLatticeShiftM"]==0
