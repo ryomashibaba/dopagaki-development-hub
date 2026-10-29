@@ -160,10 +160,11 @@ for road in ROADS:
  b51=[o for o in bpy.data.objects if o.get("SOURCE_ORIGINAL_B51_ID")]
  proxy=[o for o in bpy.data.objects if o.get("R1_B51_ID")]
  assert (len(cx),len(b48),len(b51),len(proxy))==(18,7,28,28)
- sig=(sorted((o.name,o["source_sha256"],len(o.data.polygons)) for o in cx),
-      sorted((o.name,o["ORIGINAL_GAME_B48_SHA256"],len(o.data.polygons)) for o in b48))
+ sig=sorted((o.name,o["source_sha256"],len(o.data.polygons)) for o in cx)
  if allnames is None:allnames=sig
- else:assert sig==allnames,("R15L_ORIGINAL_SOURCE_GEOMETRY_NOT_SAME_ROAD",road)
+ else:assert sig==allnames,("R15L_ORIGINAL_CX_TERRAIN_NOT_SAME_SOURCE",road)
+ # B48x7 is purposely different between true-pinch and pinch-switch;
+ # do NOT assert both road variants have one identical road mesh.
  roadBVH=[(o.name,tree(o)) for o in b48]
  obstacles=[(o,tree(o)) for o in cx+b48]
  stats={}
