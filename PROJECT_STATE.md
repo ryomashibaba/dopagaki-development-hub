@@ -1,3 +1,15 @@
+# R15S3D0/S3D真正診断確定：急登坂と符号付逆走が本質的問題、R15S3D2二道路縦断実装中（2026-10-29 JST）
+
+**真正R15S3D0 [Actions #40868422387](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40868422387) SUCCESS**、SCISSOR元E実高度は行11=66.521m→行17=146.787m→行30=195.000m、次道路入口中央位置と接続一致。元走行の路面接線向き半秒変位プロキシはt31以降で負に転じ、速度停滞・逆方向移動が起きていた。
+
+**真正R15S3D [Actions #40869087958](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40869087958) SUCCESS**、SCISSOR後半行17〜28を3形状×2世界の6元240Hz物理試験。6/6とも次道路への真の接地0。G pinch-switchは45s runningであるがSCISSOR符号付接線速度平均−18.452m/s・原forward25m/s未満の接地約11.33sであり、走破やGAMEPLAYの改善と認定できず。公式ART0、Slope2認定0m。
+
+**R15S3D2を実装**：急登坂そのものを修正し、SCISSOR行12〜30＋次道路実入口行0〜19を一体縦断にする2実形状（出口130m／145m）×2世界＝4真正240Hz試験。元CROWN B16、SCISSOR行0〜11、元28 B51、240Hz/CCD/操作を保持。元R15S3Bのt17／21.5と一致すること、正方向の接線速度・実接地・次B48進入で判断。[Actions #40870432064](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40870432064)は検証待ちで、未確認PASSは出さない。ART REJECT/HOLD、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、Draft PR#46未マージ、本番禁止。
+
+詳細：[R15S3D0/S3Dソース証拠とR15S3D2縦断計画](docs/G4E7DZ_R15S3D0_D_NATIVE_SIGNED_SPEED_FAILURE_AND_D2_DESIGN_JA.md)。
+
+---
+
 # R15S3D 隔離道路6真正240Hz試験を実装・CI結果待ち（2026-10-29 JST）
 
 **最新実装状態**：元B16 CROWN全面凍結・SCISSOR行0〜16保持のまま、後半行17〜28の実B48を3候補（G 勾配緩和／H 接線方向道路延長／I 接線道路＋後半細道）として試作。2元B48世界×3形状×元21.5sまでP96／以後合法P94＝6真正240Hz走行、最大45秒。元28 B51、240Hz/CCD、ボール操作、原ゲームファイルは変更なし。移動方向の**符号付き道路接線速度**、原前進速度25m/s未満／逆向きtick、実SCISSOR支持／後続道路実接地を必須評価。
