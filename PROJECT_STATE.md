@@ -1,3 +1,11 @@
+# G4E-7DZ R15K3 — 元3D B51寸法・回転の両符号画面矩形でCX2実面の危険近接研究を検証（2026-10-29 JST）
+
+**R15K3最終真正Actions #40792817387 SUCCESS／Artifact #12862671094。** 元R1両道路13時点のB51動体の halfSize/yawRadians を元カメラに投影し、回転符号が不確かなため ±yaw の保守的な画面矩形和集合を使用。元CX02 840㎡の実可視面から48px以内の近接はtrue-pinch **5/13**／pinch-switch **5/13**（元p95-hazard-11/12、a13-machine-13/14）。元CX04 216㎡はtrue **1/13**（a13-machine-12）／pinch **2/13**（a13-machine-12、p95-hazard-10）。独立QAで元カメラ画面座標・元3D寸法・回転・距離を再計算PASS、偽認証9例拒否。13視点×2道路×2元CX面の真正原R1画像4比較シートとJSON証拠を保管。
+
+**重要：B51全体の実メッシュ輪郭・回転符号・連続240Hz・人間の2秒警告／回避経路・本物のWebGLは未認証。** 48pxは研究上の近接閾値であり、安全PASSではない。CX04も都市規模不足、CX02は障害物視界近接が強い。次R15K4では実道路入口・建築の構造支持・巨大都市マクロの視認性／障害物警告を同時検査し、同じ浮遊箱・二翼建築を量産しない。R15J ART REJECTを維持。新ゲームコライダー0／正式ART採択0／Slope2正式認定0m、全GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR #46 Draft未マージ、main/Gold/P100/本番公開不変更。根拠：[R15K3真正観測と次工程方針](docs/G4E7DZ_R15K3_REAL_B51_3D_YAW_CX_SOURCE_CAMERA_JA.md)。
+
+---
+
 # G4E-7DZ R15K2 — 元R1全52画像の実CX面＋B51中心オーバーレイ／独立検証成功（2026-10-29 JST）
 
 **最終真正Actions #40792033183 SUCCESS（Artifact #12861868482）。** R15K元CX真正面の実半秒13時点×両道路×独立したCX 2面（840㎡／216㎡）の**原R1画像52枚**に元B51中心投影を重ね、独立QAの再計算と偽認証拒否をPASS。研究上の任意48px以内に元B51中心が近づく時点は840㎡でtrue-pinch **5/13**・pinch-switch **5/13**、最短3.606px／4.000px。216㎡では0/13・1/13、最短48.549px／14.318px。元地形が見えても巨大全体都市が見えることを意味せず、840㎡側は地平線近くの細い帯として現れ、13～14秒前後の原障害物中心と極めて近い。**この場所にR15H/J式の巨大単独造形を置かない。** 2D中心近接は未来建築の実遮蔽・反応時間・安全認証ではない。正式ART採用0、Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。元blob af076d67492a677d2235e4730aef8cdf4808e106 不変、PR #46 Draft未マージ、main/Gold/P100/本番変更なし。詳細：[R15K2実際の元画像・B51近接とR15L方針](docs/G4E7DZ_R15K2_SOURCE_B51_CAMERA_RISK_AND_R15L_PLAN_JA.md)。
