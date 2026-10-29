@@ -81,7 +81,9 @@ def check(d):
       x["originalB48SupportWitness"]["normalY"]>.15 and
       x["originalB48SupportWitness"]["distance"]<=.691) for x in evidence)
     meta=item["sourceB48StudyGeometryMetadata"]
-    assert meta["originalSourceGameBlob"]==SRC
+    # Study trace metadata records exact geometry and frozen native hazard state;
+    # source SHA is independently checked in top-level trace and every trial.
+    assert item["sourceBlob"]==SRC
     assert meta["original28B51PosesFrozenForIsolation"] is True
     assert meta["realSourceB48ChangedRows"]==([] if mode=="ORIGINAL" else meta["realSourceB48ChangedRows"])
     assert len(meta["studyRealRoadSourceGeomPost"])==14
