@@ -12,6 +12,7 @@ permissions:
   contents: read
 jobs:
   original-genuine-240hz-physical-b48-original-a-b-c-with-original-and-best-steering:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 65
     env:
