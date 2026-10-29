@@ -52,24 +52,12 @@ def distance(pt,rect):
  x,y=pt;x0,y0,x1,y1=rect
  return math.hypot(max(x0-x,0,x-x1),max(y0-y,0,y-y1))
 def source_site(road,name):
- vals=[v for v in d["originalSourceEvidenceByRoad"][road]["realOriginalCXSiteObservations"].values()
+ vals=[v for v in d["originalSourceEvidenceByRoad"][road]["realOriginalSourceCXSiteObservations"].values()
        if v["originalCXSourceName"]==name]
  assert vals
  assert all(v["realOriginalCXSourceCameraViews"]==vals[0]["realOriginalCXSourceCameraViews"]
             for v in vals)
  return {q["frame"]:q for q in vals[0]["realOriginalCXSourceCameraViews"]}
-# Backwards-compatible public source field is "realOriginalCXSiteObservations"
-# ONLY in future APIs. The R15K actual JSON calls this "realOriginalCXSiteObservations"?
-# Resolve exact recognized saved schema here, never silently accept unknown keys.
-if "realOriginalCXSiteObservations" not in d["originalSourceEvidenceByRoad"][ROADS[0]]:
- def source_site(road,name):
-  vals=[v for v in d["originalSourceEvidenceByRoad"][road]["realOriginalCXSiteObservations"].values()
-        if v["originalCXSourceName"]==name]
-  assert vals
-  assert all(v["realOriginalCXSourceCameraViews"]==vals[0]["realOriginalCXSourceCameraViews"]
-            for v in vals)
-  return {q["frame"]:q for q in vals[0]["realOriginalCXSourceCameraViews"]}
-# R15K's actual schema uses realOriginalCXSiteObservations?
 reports=[]
 for road in ROADS:
  native=json.load(open(getattr(a,"native_"+road.replace("-","_")),encoding="utf8"))
