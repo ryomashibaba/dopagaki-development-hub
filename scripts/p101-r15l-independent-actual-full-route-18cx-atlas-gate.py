@@ -57,7 +57,7 @@ def validate(data):
   assert n["originalR1OverlappingTrue13FramesParity"]==["t"+str(k) for k in range(1100,1701,50)]
   fs=n["originalFullTimelineFrames"];assert len(fs)>=13
   ids=[f["id"] for f in fs];assert len(ids)==len(set(ids))
-  assert ids==["t"+str(i*50) for i in range(1,len(fs)+1)]
+  assert ids==["t"+str(i*50).zfill(4) for i in range(1,len(fs)+1)]
   for f in fs:
    assert f["tick"]==round(f["seconds"]*240)
    assert f["originalSource"]=="ACTUAL_240HZ_START00_P96_FIXED_SCRIPT_NOT_HUMAN"
