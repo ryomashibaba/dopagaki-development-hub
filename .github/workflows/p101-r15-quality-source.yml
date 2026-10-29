@@ -35,6 +35,8 @@ on:
       - 'scripts/p101-r15k3-independent-b51-envelope-camera-veto.py'
       - 'scripts/p101-r15k4-true-original-b48-cx-walk-and-virtual-volume-bvh.py'
       - 'scripts/p101-r15k4-independent-source-support-screen-veto.py'
+      - 'scripts/p101-r15k4b-true-cx-face-centroid-footprint.py'
+      - 'scripts/p101-r15k4b-independent-real-polygon-centroid-gate.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -1172,5 +1174,64 @@ jobs:
         with:
           name: P101_R15K4_TRUE_B48_CX_41X3_SUPPORT_30_NATIVE_MACRO_VOLUMES_SCREEN_SOURCE_HOLD
           path: test-results/r15k4/results/
+          retention-days: 7
+          if-no-files-found: warn
+
+  r15k4b-actual-original-cx-upface-centroid-recovery:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify frozen source and compile original-CX polygon interior QA
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15k4b-true-cx-face-centroid-footprint.py scripts/p101-r15k4b-independent-real-polygon-centroid-gate.py
+      - name: Original Blender R1, trustworthy R15K source faces and R15K4 contradictory centroid evidence
+        run: |
+          mkdir -p test-results/r15k4b/r1 test-results/r15k4b/r15k test-results/r15k4b/r15k4 test-results/r15k4b/results
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD --dir test-results/r15k4b/r1
+          gh run download 40791002177 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15K_REAL_4_CX_CONNECTED_SURFACE_2ROAD_13_CAMERA_B51_BASELINE_NO_ART_HOLD --dir test-results/r15k4b/r15k
+          gh run download 40794617097 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15K4_TRUE_B48_CX_41X3_SUPPORT_30_NATIVE_MACRO_VOLUMES_SCREEN_SOURCE_HOLD --dir test-results/r15k4b/r15k4
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Audit exact original upper CX polygon face vertices and 36 direct XZ centroid-vs-landing footprint tests both original roads
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-r15k4b-true-cx-face-centroid-footprint.py -- \
+            --source-true-pinch test-results/r15k4b/r1/result-true-pinch/R1_true-pinch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --source-pinch-switch test-results/r15k4b/r1/result-pinch-switch/R1_pinch-switch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --r15k test-results/r15k4b/r15k/R15K_TRUE_ORIGINAL_CX_PATCH_TWO_WORLD_CAMERA_BASELINE.json \
+            --r15k4 test-results/r15k4b/r15k4/R15K4_REAL_SOURCE_CX_B48_PATH_AND_VIRTUAL_MACRO_VOLUMES.json \
+            --out test-results/r15k4b/results
+      - name: Independent true source 2D polygon support and vertical ray contradiction/forgery negative gate
+        run: |
+          python3 scripts/p101-r15k4b-independent-real-polygon-centroid-gate.py \
+            --source test-results/r15k4b/results/R15K4B_REAL_CX_UPWARD_SOURCE_POLYGON_CENTROID_5POINT_FOOTPRINT.json \
+            --r15k test-results/r15k4b/r15k/R15K_TRUE_ORIGINAL_CX_PATCH_TWO_WORLD_CAMERA_BASELINE.json \
+            --out test-results/r15k4b/results
+          python3 - <<'PY'
+          import json
+          root='test-results/r15k4b/results/'
+          a=json.load(open(root+'R15K4B_REAL_CX_UPWARD_SOURCE_POLYGON_CENTROID_5POINT_FOOTPRINT.json'))
+          b=json.load(open(root+'R15K4B_INDEPENDENT_ORIGINAL_CX_FACE_CENTROID_AND_FOOTPRINT_GATE.json'))
+          assert a['actualDistinctCXPolygonsExamined']==b['verifiedUniqueOriginalCXPolygons']==2
+          assert len(a['pairedOriginalSourceTwoFacePositionAndFootprints'])==b['pairedOriginalSurfaceFootprintTrials']==36
+          assert b['originalWorldVerticesRecomputed'] and len(b['rejectedForgedClaims'])>=9
+          assert a['newOriginalGameOrBlenderMeshes']==a['officialArt']==a['officialSlope2Meters']==0
+          assert not a['B48OriginalRoadIngressActualWalkableCertified']
+          print('R15K4B_SOURCE_ONLY_REAL_FACE_INTERIOR_CENTROID',b,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15K4B_REAL_CX2_UPWARD_FACE_CENTROID_VS_EDGE_ANCHOR_36_PAIRED_FOOTPRINTS_HOLD
+          path: test-results/r15k4b/results/
           retention-days: 7
           if-no-files-found: warn
