@@ -1,0 +1,71 @@
+name: P101 R15O4 original physically banked B48 16m real 240Hz 24s+ terminal study HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15o4-original-banked16-actual-36second-source-physics.mjs
+      - scripts/p101-r15o4-independent-banked-real-b48-after24-veto.py
+      - .github/workflows/p101-r15o4-b16-original-source-beyond24.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15o4-genuine-240hz-b48-original-banked16-replay-to-real-engine-failure-or36:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original source game protected, B48 isolated native source code import no full 16 rerun
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15o-16-real-native-original-b48-geometry-trials.mjs
+          node --check scripts/p101-r15o4-original-banked16-actual-36second-source-physics.mjs
+          python3 -m py_compile scripts/p101-r15o4-independent-banked-real-b48-after24-veto.py
+      - name: Fetch actual source 0-24 and original R15L cameras and R15N2 native source steering
+        run: |
+          mkdir -p test-results/r15o4/r15o test-results/r15o4/r15l test-results/r15o4/n2 test-results/r15o4/results
+          gh run download 40830080170 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15O_GENUINE_ORIGINAL_240HZ_B48_REAL_3_GEOMETRY_CORRECTIONS_16_RUNS_ART_HOLD \
+            --dir test-results/r15o4/r15o
+          gh run download 40802904554 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15L_TRUE_NATIVE_ALL_PLAYABLE_TIME_CX18_B48_7_TWO_ROAD_B51_WIDE_RESEARCH_NO_ART \
+            --dir test-results/r15o4/r15l
+          gh run download 40815591798 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15N2_ORIGINAL_REAL_240HZ_24_EARLIER_STEERING_CURVE_CONTACT_STUDY_HOLD \
+            --dir test-results/r15o4/n2
+      - name: TRUE original engine B48 16m physically banked actual 240Hz 0-36s vs saved 0-24 identical source trace
+        run: |
+          node scripts/p101-r15o4-original-banked16-actual-36second-source-physics.mjs \
+            --true-pinch test-results/r15o4/r15l/native/true-pinch.json \
+            --pinch-switch test-results/r15o4/r15l/native/pinch-switch.json \
+            --r15o test-results/r15o4/r15o/R15O_REAL_16_NATIVE_CROWN_PHYSICAL_RESHAPE_240HZ_DRIVING.json \
+            --r15n2 test-results/r15o4/n2/R15N2_24_GENUINE_ORIGINAL_NATIVE_B48_EARLIER_RIGHT_INPUT_TRIALS.json \
+            --out test-results/r15o4/results
+      - name: Independent original 24 second true real physics source parity plus genuine 36s terminal, 10 false game and art claims rejected
+        run: |
+          python3 scripts/p101-r15o4-independent-banked-real-b48-after24-veto.py \
+            --real test-results/r15o4/results/R15O4_ACTUAL_NATIVE_B16_REAL_PHYSICAL_ROAD_SOURCE_EXTENDED_TO_36.json \
+            --old test-results/r15o4/r15o/R15O_REAL_16_NATIVE_CROWN_PHYSICAL_RESHAPE_240HZ_DRIVING.json \
+            --out test-results/r15o4/results
+          python3 - <<'PY'
+          import json
+          p="test-results/r15o4/results/"
+          j=json.load(open(p+"R15O4_INDEPENDENT_TRUE_NATIVE_BANKED_B48_AFTER24_QA.json"))
+          assert j['originalGameBlobUnchanged']
+          assert len(j['forgedSourceAndGameplayAndArtPromotionsRejected'])==10
+          assert not j['actualGameRepairedOrHumanCertified']
+          assert j['officialArt']==j['officialSlope2Meters']==0
+          print("R15O4_GENUINE_NATIVE_PHYSICAL_SHAPE_REAL_CAUSAL_AFTER24",j,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15O4_TRUE_NATIVE_SOURCE_BANKED_B48_16M_REPLAY_BEYOND24_REAL_END_HOLD
+          path: test-results/r15o4/results/
+          retention-days: 7
+          if-no-files-found: warn
