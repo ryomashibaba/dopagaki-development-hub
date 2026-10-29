@@ -65,20 +65,23 @@ def contract(d,b):
    first=c["sourcePhysicalSupportExitEventsAfter16p5"]
    assert first
    tlast=c["lastPhysicalGroundedSourceSupportBeforeEngineTerminal"]
+   assert g["numberOfActualSourceAirExitEventsAfter16p5"]==len(first)
+   assert g["firstTrueOriginalAirExitTickAfter16p5"]==first[0]["tick"]
+   assert g["finalLastSupportCorrespondingOriginalAirExitTick"]==first[-1]["tick"]
+   assert g["runnerStillRunningAt20s"]==(c["actualRunnerStatus"]=="running")
    assert g["trueLastSourcePhysicalRoadSupport"]["tick"]==tlast["tick"]
-   assert g["firstOriginalTickWithoutRoadSupport"]["tick"]==first[0]["tick"]
-   assert first[0]["tick"]==tlast["tick"]+1 or first[0]["tick"]<tlast["tick"]+1
-   # A later contact after first non-support is possible. Must not claim
-   # physical continuous permanent exit unless last == first-adjacent.
+   assert g["firstOriginalTickWithoutRoadSupport"]["tick"]==first[-1]["tick"]
+   assert first[-1]["tick"]==tlast["tick"]+1
+   # If there was a recontact, final exit is NOT the first air event.
    assert tlast["surface"] is not None
    assert g["trueLastSourcePhysicalRoadSupport"]["sourceEngineGrounded"] is True
    assert g["firstOriginalTickWithoutRoadSupport"]["sourceEngineGrounded"] is False
    assert abs(g["trueLastSourcePhysicalRoadSupport"]["seconds"]-tlast["seconds"])<1e-6
-   assert abs(g["firstOriginalTickWithoutRoadSupport"]["seconds"]-first[0]["seconds"])<1e-6
+   assert abs(g["firstOriginalTickWithoutRoadSupport"]["seconds"]-first[-1]["seconds"])<1e-6
    assert dist(g["trueLastSourcePhysicalRoadSupport"]["playerWorldXYZ"],tlast["position"])<1e-5
-   assert dist(g["firstOriginalTickWithoutRoadSupport"]["playerWorldXYZ"],first[0]["playerCentreXYZ"])<1e-5
+   assert dist(g["firstOriginalTickWithoutRoadSupport"]["playerWorldXYZ"],first[-1]["playerCentreXYZ"])<1e-5
    assert abs(g["lastSupportedTickToFirstUnsupportedTickDistanceMetres"]-
-    round(dist(tlast["position"],first[0]["playerCentreXYZ"]),4))<.00015
+    round(dist(tlast["position"],first[-1]["playerCentreXYZ"]),4))<.00015
    for label,step in [("last",g["trueLastSourcePhysicalRoadSupport"]),
                        ("first",g["firstOriginalTickWithoutRoadSupport"])]:
     assert step["originalContactSolverVsProjected3DNotEquivalent"] is True
@@ -118,7 +121,7 @@ def contract(d,b):
     assert c["observedR15LTime17OriginalCameraReference"]["sourceSnapshotEqualsOriginalReference"] is False
   summary[road]={
    "originalSourceLastGroundedTick":actual[0]["lastPhysicalGroundedSourceSupportBeforeEngineTerminal"]["tick"],
-   "originalSourceFirstRoadlessTick":actual[0]["sourcePhysicalSupportExitEventsAfter16p5"][0]["tick"],
+   "originalSourceFirstRoadlessTick":actual[0]["sourcePhysicalSupportExitEventsAfter16p5"][-1]["tick"],
    "exactOriginalLastSupportedRoadSurface":geometry[0]["lastSupportedRealRoadId"],
    "sourceOriginalNearestBorderAtLastSupportMetres":geometry[0]["trueLastSourcePhysicalRoadSupport"]["sourceOriginalB48NearestTopBoundaryXZDistanceMetres"],
    "sourceOriginalNearestBorderAtFirstExitMetres":geometry[0]["firstOriginalTickWithoutRoadSupport"]["sourceOriginalB48NearestTopBoundaryXZDistanceMetres"],
