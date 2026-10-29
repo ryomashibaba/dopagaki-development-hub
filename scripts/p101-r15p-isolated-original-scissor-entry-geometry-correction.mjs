@@ -69,7 +69,7 @@ export function buildR15P(road,variant){
    originalB16CrownPreservedExactly:true,
    originalSCISSORRoadEntryRow0Preserved:true,
    originalSCISSORAfterRow9Preserved:true,
-   28B51FrozenPositionsAndShapes:true,
+   original28B51FrozenPositionsAndShapes:true,
    sourceRealB48ModifiedRows:changedRows,
    physicalChangedSourceMaximumMetres:round(maxDelta),
    beforeOriginalScissorWidths:widths(src),afterStudyScissorWidths:widths(s),
