@@ -31,6 +31,8 @@ on:
       - 'scripts/p101-r15k-independent-cx-camera-gate.py'
       - 'scripts/p101-r15k2-original-camera-cx-b51-overlays.py'
       - 'scripts/p101-r15k2-independent-original-cx-b51-screen-gate.py'
+      - 'scripts/p101-r15k3-original-b51-3d-envelope-vs-cx-screen.py'
+      - 'scripts/p101-r15k3-independent-b51-envelope-camera-veto.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -980,6 +982,7 @@ jobs:
           retention-days: 7
 
   r15k2-two-source-cx-patch-original-b51-hazard-screen-comparison:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 25
@@ -1035,3 +1038,64 @@ jobs:
           path: test-results/r15k2/results/
           if-no-files-found: warn
           retention-days: 7
+
+  r15k3-real-original-b51-moving-obb-source-camera-envelope-qa:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preserve exact original gameplay source and compile R15K3
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15k3-original-b51-3d-envelope-vs-cx-screen.py scripts/p101-r15k3-independent-b51-envelope-camera-veto.py
+      - name: Reuse original genuine R1 camera images/halfSize/yaw and independently verified R15K source polygons
+        run: |
+          mkdir -p test-results/r15k3/r1 test-results/r15k3/r15k test-results/r15k3/results
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15k3/r1
+          gh run download 40791002177 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15K_REAL_4_CX_CONNECTED_SURFACE_2ROAD_13_CAMERA_B51_BASELINE_NO_ART_HOLD \
+            --dir test-results/r15k3/r15k
+      - name: Actual paired original source camera versus 3D B51 halfSize/yaw uncertainty 52 comparisons
+        run: |
+          python3 -m pip install --quiet Pillow
+          python3 scripts/p101-r15k3-original-b51-3d-envelope-vs-cx-screen.py \
+            --r15k test-results/r15k3/r15k/R15K_TRUE_ORIGINAL_CX_PATCH_TWO_WORLD_CAMERA_BASELINE.json \
+            --native-true-pinch test-results/r15k3/r1/source/true-pinch.json \
+            --native-pinch-switch test-results/r15k3/r1/source/pinch-switch.json \
+            --original-images test-results/r15k3/r1 \
+            --out test-results/r15k3/results
+      - name: Independent original 3D hazards reprojected with source R1 cameras, negative certifications veto
+        run: |
+          python3 scripts/p101-r15k3-independent-b51-envelope-camera-veto.py \
+            --r15k test-results/r15k3/r15k/R15K_TRUE_ORIGINAL_CX_PATCH_TWO_WORLD_CAMERA_BASELINE.json \
+            --native-true-pinch test-results/r15k3/r1/source/true-pinch.json \
+            --native-pinch-switch test-results/r15k3/r1/source/pinch-switch.json \
+            --audit test-results/r15k3/results/R15K3_ORIGINAL_B51_3D_SCREEN_ENVELOPE_TWO_CX_PATCHES.json \
+            --images test-results/r15k3/results \
+            --out test-results/r15k3/results
+          python3 - <<'PY'
+          import glob,json
+          p='test-results/r15k3/results/'
+          d=json.load(open(p+'R15K3_ORIGINAL_B51_3D_SCREEN_ENVELOPE_TWO_CX_PATCHES.json'))
+          q=json.load(open(p+'R15K3_INDEPENDENT_ORIGINAL_OBB_CONSERVATIVE_CAMERA_VETO.json'))
+          assert len(d['twoRoadTwoCXOriginalCameraDetailedComparisons'])==4
+          assert len(glob.glob(p+'R15K3_*_13_FRAME_COMPARISON.jpg'))==4
+          assert q['sourceObbBoundingBoxAndDistanceIndependentlyRecomputed']
+          assert len(q['rejectedFalseResultMutations'])>=9
+          assert d['newSourceGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+          assert not q['humanArtGameplayAndGenuineWebGLCertified']
+          print('R15K3_ORIGINAL_B51_3D_SOURCE_BOUNDS',q['fourRoadPatchSourceResults'],
+            'NO HUMAN / ART / WEBGL',flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15K3_REAL_3D_B51_YAW_HALF_SIZE_ORIGINAL_13_CAMERA_CX_PROTECTION_SOURCE_HOLD
+          path: test-results/r15k3/results/
+          retention-days: 7
+          if-no-files-found: warn
