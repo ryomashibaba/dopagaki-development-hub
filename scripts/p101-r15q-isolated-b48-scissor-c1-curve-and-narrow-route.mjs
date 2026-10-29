@@ -49,7 +49,8 @@ export function buildR15Q(road,mode){
  assert.equal(s.id,'p93-SCISSOR_RISE-01');
  assert.equal(s.rows,31);assert.equal(s.cols,5);
  assert.equal(doc.surfaces.length,7);assert.equal(doc.movingObstacles.length,28);
- const changed=[],deltaByRow=[],maxShift=0;
+ const changed=[],deltaByRow=[];
+ let maxShift=0;
  if(spec.shift>0){
   for(let row=1;row<14;row++){
    const weight=arc(row),sampleU=row/30,centre=before.points[row*5+2],
