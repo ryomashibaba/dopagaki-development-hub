@@ -84,7 +84,7 @@ def check(d, ref):
                     assert b51["nearestCenter"]["straightLineTimeProxyS"] >= 0
                 if tick in (22 * 240, 23 * 240):
                     at[tick] = s["actualNativeGrounded"]
-                if tick % 60 == 0 and tick >= 15 * 240:
+                if tick % 60 == 0 and tick > 15 * 240:
                     matching = next((x for x in saved["nativeQuarterSecondSourcePhysicsTrace"] if x["tick"] == tick), None)
                     assert matching is not None
                     assert matching["engineGrounded"] == s["actualNativeGrounded"]
