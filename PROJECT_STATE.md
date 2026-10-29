@@ -1,3 +1,15 @@
+# R15S3C真正最終失敗確認：R15S3Bの接地改善は成果だが大幅減速を伴う、次R15S3Dへ（2026-10-29 JST）
+
+真正 [R15S3C Actions #40867343670](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40867343670) **SUCCESS／Artifact #12893084995**。元R15S3B E_BANKED_LANDING＋P94フルの2世界を元0秒から再走行し、保存済み0〜34s全標本一致・独立QA偽承認10拒否。**true-pinch 35.770833s、pinch-switch 36.062500sでともに「コースから落下」。**最後の真正接地32.845833/33.141667s、34s後の実再接地0、後続B48進入0。R15S3Bの34s時点runningは完走ではなかった。
+
+さらに速度は24秒128.743/130.033m/s→31秒約10.701/20.325m/sに低下し、接地延長と引き換えに高速爽快感が失われる問題を確認。34秒の速度上昇は両世界とも空中であり前進加速の証明ではない。**E案は「実再接地を増やした物理研究成果」として保管、正式GAMEPLAY・ART採択禁止。**
+
+次R15S3Dでは元CROWN B16の成功域を守りつつ、SCISSOR中盤〜出口・後続道路の真の線形、縦断、曲率、前方接線速度と実接地／自然再接地を同時設計。単純な滞在時間延長や装飾の量産を成果扱いしない。公式ART0件・Slope2認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。本番禁止・Draft PR #46未マージ。
+
+証拠：[R15S3C真の終了・大幅減速を含む独立批判](docs/G4E7DZ_R15S3C_TRUE_NATIVE_TERMINAL_SPEED_CRITICAL_JA.md)。
+
+---
+
 # R15S3B 12真正240Hz SOURCE TECH限定PASS → R15S3C 34秒後の真終端検証へ（2026-10-29 JST）
 
 [真正R15S3B Actions #40866341059](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40866341059) SUCCESS／Artifact #12894166744／元B16 CROWN実格子全保持、3個の新SCISSOR物理路面×2元世界×2合法操作の**12真正240Hz実走行**。17秒・21.5秒の元R15Q B16との原位置一致と独立QA偽認証13種拒否。12/12でSCISSOR実接地あり。D/FとE旧P96の計10本はすべて最終落下。**E_BANKED_LANDING＋P94フルでは両世界34s時点でrunning、しかしすでに空中で、最後の真接地は32.845833/33.141667s。正式完走0。** EのSCISSOR累積実接地4.35/4.0375秒、到達ガイド近似u.5625/.578125。元B16＋フルの最終接地23.54/23.42sより大幅に改善したが、人間が楽しめる・実ゲームで完走可能とは証明していない。
