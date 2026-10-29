@@ -37,6 +37,8 @@ on:
       - 'scripts/p101-r15k4-independent-source-support-screen-veto.py'
       - 'scripts/p101-r15k4b-true-cx-face-centroid-footprint.py'
       - 'scripts/p101-r15k4b-independent-real-polygon-centroid-gate.py'
+      - 'scripts/p101-r15k4b-true-cx-polygon-interior-support-and-camera.py'
+      - 'scripts/p101-r15k4b-independent-real-cx-footprint-source-veto.py'
       - 'tests/p101-r15a-native-game-experience.test.mjs'
       - '.github/workflows/p101-r15-quality-source.yml'
   workflow_dispatch:
@@ -1178,6 +1180,7 @@ jobs:
           if-no-files-found: warn
 
   r15k4b-actual-original-cx-upface-centroid-recovery:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 45
@@ -1235,3 +1238,69 @@ jobs:
           path: test-results/r15k4b/results/
           retention-days: 7
           if-no-files-found: warn
+
+  r15k4c-actual-upface-25point-floor-and-native-two-road-screen-guard:
+    needs: r15a-source-immutable-native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original source blob and both research-only R15K4C scripts
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15k4b-true-cx-polygon-interior-support-and-camera.py scripts/p101-r15k4b-independent-real-cx-footprint-source-veto.py
+      - name: Reuse true original R1 and verified R15I4 K K3 K4 K4B artifacts
+        run: |
+          mkdir -p test-results/r15k4c/r1 test-results/r15k4c/i4 test-results/r15k4c/k test-results/r15k4c/k3 test-results/r15k4c/k4 test-results/r15k4c/k4b test-results/r15k4c/result
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD --dir test-results/r15k4c/r1
+          gh run download 40776460960 --repo ryomashibaba/dopagaki-development-hub --name P101_R15I4_ORIGINAL_B48_CX_TWIN_WORLD_CAMERA_AND_GRADE_PREFLIGHT_ART_HOLD --dir test-results/r15k4c/i4
+          gh run download 40791002177 --repo ryomashibaba/dopagaki-development-hub --name P101_R15K_REAL_4_CX_CONNECTED_SURFACE_2ROAD_13_CAMERA_B51_BASELINE_NO_ART_HOLD --dir test-results/r15k4c/k
+          gh run download 40792817387 --repo ryomashibaba/dopagaki-development-hub --name P101_R15K3_REAL_3D_B51_YAW_HALF_SIZE_ORIGINAL_13_CAMERA_CX_PROTECTION_SOURCE_HOLD --dir test-results/r15k4c/k3
+          gh run download 40794617097 --repo ryomashibaba/dopagaki-development-hub --name P101_R15K4_TRUE_B48_CX_41X3_SUPPORT_30_NATIVE_MACRO_VOLUMES_SCREEN_SOURCE_HOLD --dir test-results/r15k4c/k4
+          gh run download 40796634747 --repo ryomashibaba/dopagaki-development-hub --name P101_R15K4B_REAL_CX2_UPWARD_FACE_CENTROID_VS_EDGE_ANCHOR_36_PAIRED_FOOTPRINTS_HOLD --dir test-results/r15k4c/k4b
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: 25 point true source CX floor interiors, paired actual R1 13 times, conservative original B51 warning
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 --python scripts/p101-r15k4b-true-cx-polygon-interior-support-and-camera.py -- \
+            --blend-true-pinch test-results/r15k4c/r1/result-true-pinch/R1_true-pinch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --blend-pinch-switch test-results/r15k4c/r1/result-pinch-switch/R1_pinch-switch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --native-true-pinch test-results/r15k4c/r1/source/true-pinch.json \
+            --native-pinch-switch test-results/r15k4c/r1/source/pinch-switch.json \
+            --r15i4 test-results/r15k4c/i4/R15I4_ORIGINAL_TWO_ROAD_CX_MACRO_SITE_PREFLIGHT.json \
+            --r15k test-results/r15k4c/k/R15K_TRUE_ORIGINAL_CX_PATCH_TWO_WORLD_CAMERA_BASELINE.json \
+            --r15k3 test-results/r15k4c/k3/R15K3_ORIGINAL_B51_3D_SCREEN_ENVELOPE_TWO_CX_PATCHES.json \
+            --r15k4 test-results/r15k4c/k4/R15K4_REAL_SOURCE_CX_B48_PATH_AND_VIRTUAL_MACRO_VOLUMES.json \
+            --out test-results/r15k4c/result
+      - name: Independently recompute all 25 original face witnesses, dual road camera, source B51 screen and forged approval rejection
+        run: |
+          python3 scripts/p101-r15k4b-independent-real-cx-footprint-source-veto.py \
+            --r15k test-results/r15k4c/k/R15K_TRUE_ORIGINAL_CX_PATCH_TWO_WORLD_CAMERA_BASELINE.json \
+            --r15k3 test-results/r15k4c/k3/R15K3_ORIGINAL_B51_3D_SCREEN_ENVELOPE_TWO_CX_PATCHES.json \
+            --r15k4 test-results/r15k4c/k4/R15K4_REAL_SOURCE_CX_B48_PATH_AND_VIRTUAL_MACRO_VOLUMES.json \
+            --data test-results/r15k4c/result/R15K4B_REAL_SOURCE_UPFACE_INTERIOR_25POINT_TWO_ROADS.json \
+            --out test-results/r15k4c/result
+          python3 - <<'PY'
+          import json
+          root="test-results/r15k4c/"
+          cur=json.load(open(root+"result/R15K4B_REAL_SOURCE_UPFACE_INTERIOR_25POINT_TWO_ROADS.json"))
+          qa=json.load(open(root+"result/R15K4B_INDEPENDENT_CX_FACE_25POINT_AND_SCREEN_GATE.json"))
+          old=json.load(open(root+"k4b/R15K4B_INDEPENDENT_ORIGINAL_CX_FACE_CENTROID_AND_FOOTPRINT_GATE.json"))
+          assert old['full5InteriorCentroidBasedTrials']==4
+          assert qa['sourceFaceGridReconciledBothRoads']
+          assert qa['recomputedSourceB51ScreenConcernDistance']
+          assert len(qa['independentFalseApprovalMutationsRejected'])==13
+          assert cur['newSourceGameColliders']==cur['officialArt']==cur['officialSlope2Meters']==0
+          assert not cur['anyOriginalRoadToCXPublicAccessibleRouteBuilt']
+          print("R15K4C_REAL_CX_INTERIOR_CAMERAS_NO_ART",qa,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15K4C_ORIGINAL_CX_INTERIOR_25POINT_PAIRED_R1_CAMERA_SOURCE_RESEARCH_HOLD
+          path: test-results/r15k4c/result/
+          if-no-files-found: warn
+          retention-days: 7
