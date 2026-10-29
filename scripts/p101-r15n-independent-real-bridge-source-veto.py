@@ -6,7 +6,7 @@ Blender scene carried real CX/B48/B51 signatures, source native camera frames,
 and lack of false physical contact certification. Inspect PNG signatures.
 """
 import os,sys,json,struct,copy
-args=sys.argv[sys.argv.index("--")+1:]
+args=sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else sys.argv[1:]
 def arg(n):
  assert n in args,n
  return args[args.index(n)+1]
