@@ -1,3 +1,15 @@
+# R15S2B真正12本合法操舵の物理対照試験完了 → R15S3マクロ道路再設計（2026-10-29 JST）
+
+**真正 [Actions #40862771923](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40862771923) SUCCESS／Artifact #12892262124／元240Hz 12/12実試験・独立QA偽認証13拒否。ただし12/12すべて真のRunnerで「コースから落下」、完走0。** 元P96 early-soft入力を21.5秒までは原物と完全一致させ、以後に既存P94合法操舵を1/4.8倍またはフルで入力。同一B48道路形状・全28動体・元物理を保持。
+
+**P94合法フルはSCISSOR最後の実接地を元P96比+0.504〜+0.767秒延長**。入力方式にも原因の一部があるが、元道路を実際に抜けるには不足。2道路×B16/B40/C30狭幅×2入力＝12条件とも最終落下。フル入力6試験で障害物接触系イベント1件ずつ、ただし最終失敗は落下。元狭幅最狭u約0.177の真正接地通過は未確認。自動合法入力は人間公平性証明ではない。
+
+**次のR15S3**：局所幅増しや固定操舵試験の反復を停止し、CROWN出口〜SCISSOR入口〜上り区間を一体のマクロ道路として曲率・縦断・バンク・路幅移行・B51予告とともに実コライダー再設計。実接地通過を確認できた候補を都市の巨大構造と真正Blender＋実WebGLへ進める。公式ART0件、Slope2認定0m、ART REJECT/HOLD、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、Draft PR #46未マージ、本番禁止。
+
+証拠：[R15S2Bの12真正フル走行と批判的評価](docs/G4E7DZ_R15S2B_12_LEGAL_CONTROLLER_NATIVE_REPLAY_JA.md)。
+
+---
+
 # R15S1＋R15S2A技術限定PASS／R15S2B開始（2026-10-29 JST）
 
 真正R15S1 Actions #40861606593 SUCCESS、元R15Qの8真正240Hz走行一致・独立QA13偽認証拒否。真正R15S2A Actions #40861980465 SUCCESS、元SCISSOR狭幅の真補間XZ道路幅とP96旧横回避目標の静的監査。R15S2Bは12合法操舵の元240Hz試験を実装し、結果待ちのため未認定。
