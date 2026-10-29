@@ -115,7 +115,7 @@ def main():
   ('fake-source',lambda x:x.update(sourceOriginalBlob='deadbeef')),
   ('fake-prefix',lambda x:x['results']['true-pinch'].update(prefixTicks=[])),
   ('fake-last-support-tick',lambda x:x['results']['pinch-switch'].update(lastSupportedTick=999)),
-  ('fake-contact',lambda x:x['results']['true-pinch']['allNative240HzWindowSamples'][70].update(nativeRunnerGrounded=False)),
+  ('fake-contact',lambda x:x['results']['true-pinch']['allNative240HzWindowSamples'][70].update(nativeRunnerGrounded=not x['results']['true-pinch']['allNative240HzWindowSamples'][70]['nativeRunnerGrounded'])),
   ('fake-speed',lambda x:x['results']['pinch-switch']['allNative240HzWindowSamples'][60].update(postVelocityXYZ=[600,0,0])),
   ('fake-geometry',lambda x:x['results']['true-pinch']['realOriginalB48Rows6To22Geometry'][5].update(actualSurfaceWidthXZ=0)),
   ('fake-independent-window',lambda x:x['results']['pinch-switch'].update(maxNativePerStepDeltaInWindowMps=999)),
