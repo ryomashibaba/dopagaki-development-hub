@@ -9,10 +9,10 @@ witnesses. ALL newly generated meshes are STUDY ONLY, not game colliders.
 import bpy,os,sys,json,math,collections
 from mathutils import Vector
 from mathutils.bvhtree import BVHTree
-a=sys.argv[sys.argv.index("--")+1:]
+ARGV=sys.argv[sys.argv.index("--")+1:]
 def arg(x):
- assert x in a,x
- return a[a.index(x)+1]
+ assert x in ARGV,x
+ return ARGV[ARGV.index(x)+1]
 read=lambda f:json.load(open(f,encoding="utf8"))
 ROOT=arg("--out");os.makedirs(ROOT,exist_ok=True)
 D=read(arg("--r15m"))
