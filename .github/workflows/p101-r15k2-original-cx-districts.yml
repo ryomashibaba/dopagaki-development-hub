@@ -1,0 +1,52 @@
+name: P101 R15K2 original CX paired-camera district triage (PRIVATE HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r15k2-deduplicate-cx-districts-hazard-baseline.py'
+      - '.github/workflows/p101-r15k2-original-cx-districts.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-source-cx-b51-two-district-hold:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preserve source game and no art/game promotion
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15k2-deduplicate-cx-districts-hazard-baseline.py
+      - name: Use genuine corrected R15K Blender-source CI result (not original one-sample regression)
+        run: |
+          mkdir -p test-results/r15k2/prior test-results/r15k2/results
+          gh run download 40791002177 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15K_REAL_4_CX_CONNECTED_SURFACE_2ROAD_13_CAMERA_B51_BASELINE_NO_ART_HOLD \
+            --dir test-results/r15k2/prior
+      - name: Recount three source landings / two 15m-separated actual districts / original B51 cue screens
+        run: |
+          python3 scripts/p101-r15k2-deduplicate-cx-districts-hazard-baseline.py \
+            --r15k test-results/r15k2/prior/R15K_TRUE_ORIGINAL_CX_PATCH_TWO_WORLD_CAMERA_BASELINE.json \
+            --out test-results/r15k2/results
+          python3 - <<'PY'
+          import json
+          p='test-results/r15k2/results/R15K2_TWO_REAL_CX_CIVIC_DISTRICTS_B51_BASELINE_HOLD.json'
+          x=json.load(open(p))
+          assert x['spatiallyIndependentCivicDistricts']==2
+          assert x['independentSourceDataRevalidated'] and x['sourceR15KDistinctTrueLandingsKept']==3
+          assert not x['genuineArtApproved'] and not x['actualGameWebGLRendered']
+          assert x['officialArt']==x['officialSlope2Meters']==x['newGameColliders']==0
+          assert all(x[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+          print('R15K2_TRUE_ORIGINAL_CX_2_DISTRICTS_ZERO_BUILT_ARCHITECTURE',
+            [(a['districtSourceName'],len(a['members']),list(a['originalB51BaselineNearCueById'])) for a in x['originalTwoRoadSourceDistricts']])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15K2_2_SOURCE_CX_DISTRICTS_B51_ORIGINAL_CUE_SAFETY_NOT_CERTIFIED
+          path: test-results/r15k2/results/
+          retention-days: 7
+          if-no-files-found: warn
