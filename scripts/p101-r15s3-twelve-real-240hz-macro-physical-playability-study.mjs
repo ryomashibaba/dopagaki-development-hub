@@ -65,7 +65,7 @@ for(const world of worlds){
     if(onRoad){
      groundedTicks++;airStreak=0;
      lastGrounded={tick,timeSeconds:round(player.time),physicalRoadId:player.surface,
-       ballPositionXYZ:player.p.map(round)};
+       ballPositionXYZ:player.p.map(x=>round(x))};
      if(player.surface===scissor){
       scissorSupportedTicks++;
       if(firstScissorGrounded===null)firstScissorGrounded={tick,timeSeconds:round(player.time)};
@@ -80,12 +80,12 @@ for(const world of worlds){
     if(previousGround!==onRoad)changes++;
     previousGround=onRoad;
     if([Math.round(13/DT),Math.round(17/DT),Math.round(21.25/DT),switchTick].includes(tick)){
-     preSwitch.push({tick,xyz:player.p.map(round),velocityXYZ:player.v.map(round),
+     preSwitch.push({tick,xyz:player.p.map(x=>round(x)),velocityXYZ:player.v.map(x=>round(x)),
        grounded:onRoad,road:player.surface,steer:round(input)});
     }
     if(tick%60===0||player.status==='failed'||player.status==='finished'){
      trajectory.push({tick,t:round(player.time),status:player.status,
-       xyz:player.p.map(round),grounded:onRoad,physicalRoad:player.surface,
+       xyz:player.p.map(x=>round(x)),grounded:onRoad,physicalRoad:player.surface,
        speedMps:round(Math.hypot(...player.v)),steer:round(input)});
     }
    }

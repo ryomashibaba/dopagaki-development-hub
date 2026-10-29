@@ -57,7 +57,7 @@ export function buildR15S3(road,mode){
     const across=(col-2)/2;
     const contraction=section===2?narrow:0;
     const post=[
-      orig[0]+direction[0]*(shift*gain-(orig[0]-center[0])*direction[0]*0), 
+      orig[0]+direction[0]*shift*gain, 
       orig[1]+sag+bank*gain*(-across),
       orig[2]+direction[2]*shift*gain
     ];
