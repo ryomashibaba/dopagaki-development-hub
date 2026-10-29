@@ -1274,6 +1274,7 @@ jobs:
             --r15k test-results/r15k4c/k/R15K_TRUE_ORIGINAL_CX_PATCH_TWO_WORLD_CAMERA_BASELINE.json \
             --r15k3 test-results/r15k4c/k3/R15K3_ORIGINAL_B51_3D_SCREEN_ENVELOPE_TWO_CX_PATCHES.json \
             --r15k4 test-results/r15k4c/k4/R15K4_REAL_SOURCE_CX_B48_PATH_AND_VIRTUAL_MACRO_VOLUMES.json \
+            --r15k4b test-results/r15k4c/k4b/R15K4B_REAL_CX_UPWARD_SOURCE_POLYGON_CENTROID_5POINT_FOOTPRINT.json \
             --out test-results/r15k4c/result
       - name: Independently recompute all 25 original face witnesses, dual road camera, source B51 screen and forged approval rejection
         run: |
@@ -1292,7 +1293,7 @@ jobs:
           assert old['full5InteriorCentroidBasedTrials']==4
           assert qa['sourceFaceGridReconciledBothRoads']
           assert qa['recomputedSourceB51ScreenConcernDistance']
-          assert len(qa['independentFalseApprovalMutationsRejected'])==13
+          assert len(qa['independentFalseApprovalMutationsRejected'])>=14
           assert cur['newSourceGameColliders']==cur['officialArt']==cur['officialSlope2Meters']==0
           assert not cur['anyOriginalRoadToCXPublicAccessibleRouteBuilt']
           print("R15K4C_REAL_CX_INTERIOR_CAMERAS_NO_ART",qa,flush=True)
