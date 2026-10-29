@@ -8,12 +8,15 @@ p.add_argument("--camera",required=True)
 p.add_argument("--original-q",required=True)
 p.add_argument("--scenes",required=True)
 p.add_argument("--root",required=True)
+p.add_argument("--source-webgl",required=True)
 a=p.parse_args()
 J=lambda path:json.load(open(path,encoding="utf8"))
 D=J(a.camera)
 Q=J(a.original_q)
 S=J(a.scenes)
 SHA="af076d67492a677d2235e4730aef8cdf4808e106"
+webgl_source=open(a.source_webgl,encoding="utf8").read()
+assert "gl_Position=vec4(1.35*x/aspect,1.35*y," in webgl_source, "Original WebGL source projection changed"
 roads=["true-pinch","pinch-switch"]
 modes=["B16_ONLY_REFERENCE","A_C1_SHIFT_24M_SOURCE_WIDTH",
  "B_C1_SHIFT_40M_SOURCE_WIDTH","C_CURVE_SHIFT_30M_NARROW_16M"]
@@ -34,6 +37,10 @@ def verify(d,s):
  assert all(d[k]=="HOLD" for k in ("ART","GAMEPLAY","HUMAN","PERFORMANCE","INTEGRATION","RELEASE","MERGE"))
  assert s["schema"]=="dopagaki.r15r-source-native-240hz-camera-and-b51-obb-original-two-b48-road-proxies/1"
  assert s["originalGameBlob"]==SHA
+ assert s["sourceGameWebGLShaderPerspectiveNormalizedScaleY"]==1.35
+ assert s["sourcePerspectivePixelDimensions"]==[1008,645]
+ assert s["sourceCameraMatchesOriginalGLSLPerspectiveNotOnlyEyeAndFront"]
+ assert abs(s["sourcePerspectiveEquivalentBlenderLensMM"]-18*1.35*645/1008)<2e-6
  assert s["genuineRunnerCameraReplayed240Hz"] and s["actualOriginalCameraMathFromGameSource"]
  assert not s["actualBrowserWebGLRendered"] and not s["originalGameB51VisualMeshUsed"]
  assert s["sourceOriginalB51CollisionVolumeProxiesOnly"]
@@ -92,6 +99,7 @@ def verify(d,s):
    key=road+"|"+mode
    scene=s["scenes"][key]
    assert scene["nativeOriginalRealB48Meshes"]==2
+   assert abs(scene["sourceGLSLPerspectiveEquivalentBlenderLensMM"]-18*1.35*645/1008)<2e-6
    assert scene["actualSource28B51PhysicalVolumeOnly"]
    assert not scene["nativeGameWebGLRendered"]
    assert len(scene["sourceCameraSamples"])==3
@@ -142,6 +150,7 @@ bad=[
  ("fake_visual_model",lambda d,s:s.__setitem__("originalGameB51VisualMeshUsed",True)),
  ("fake_frame",lambda d,s:s["scenes"][skey]["sourceCameraSamples"][0].__setitem__("tick",1)),
  ("fake_human",lambda d,s:d.__setitem__("humanCameraFairnessCertified",True)),
+ ("fake_projection",lambda d,s:s.__setitem__("sourcePerspectiveEquivalentBlenderLensMM",30.0)),
 ]
 # B51 mutation point must target its actual time key, never arbitrary index.
 bad[7]=("fake_b51",lambda d,s:next(x for x in key(d)["actualNativeQuarterSecondCameraFrames"] if x["seconds"]==17)["sourceRealB51TimeSyncedPhysicalOBBs"].clear())

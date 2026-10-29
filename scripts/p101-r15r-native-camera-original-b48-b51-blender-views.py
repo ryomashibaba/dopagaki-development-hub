@@ -35,6 +35,10 @@ def matt(name,color):
  return m
 summary={"schema":"dopagaki.r15r-source-native-240hz-camera-and-b51-obb-original-two-b48-road-proxies/1",
  "originalGameBlob":SHA,"genuineRunnerCameraReplayed240Hz":True,
+ "sourceGameWebGLShaderPerspectiveNormalizedScaleY":1.35,
+ "sourcePerspectivePixelDimensions":[1008,645],
+ "sourcePerspectiveEquivalentBlenderLensMM":round(18*1.35*645/1008,6),
+ "sourceCameraMatchesOriginalGLSLPerspectiveNotOnlyEyeAndFront":True,
  "actualOriginalCameraMathFromGameSource":True,
  "actualBrowserWebGLRendered":False,"originalGameB51VisualMeshUsed":False,
  "sourceOriginalB51CollisionVolumeProxiesOnly":True,
@@ -63,12 +67,17 @@ for road in worlds:
   cam=bpy.data.cameras.new("R15R real source player camera 240Hz NOT WEBGL")
   cam_obj=bpy.data.objects.new("R15R original source-camera state not WebGL",cam)
   scene.collection.objects.link(cam_obj)
-  cam.type="PERSP";cam.lens=30
+  cam.type="PERSP"
+  # Source original WebGL shader: x_ndc=1.35*x/(aspect*z), y_ndc=1.35*y/z.
+  # Blender horizontal sensor 36mm => lens=18*1.35/aspect (not arbitrary 30mm).
+  cam.sensor_fit="HORIZONTAL";cam.sensor_width=36
+  cam.lens=18*1.35*645/1008
+  cam.clip_start=.65
   scene.camera=cam_obj
   scene.render.engine="CYCLES";scene.cycles.samples=8
   scene.cycles.device="CPU";scene.cycles.use_denoising=False
   scene.render.threads_mode="FIXED";scene.render.threads=2
-  scene.render.resolution_x=960;scene.render.resolution_y=600
+  scene.render.resolution_x=1008;scene.render.resolution_y=645
   scene.render.resolution_percentage=100;scene.render.image_settings.file_format="PNG"
   scene.render.film_transparent=False
   if scene.world is None:scene.world=bpy.data.worlds.new("R15R SOURCE camera neutral")
@@ -128,7 +137,8 @@ for road in worlds:
   summary["scenes"][key]={"nativeOriginalRealB48Meshes":len(realmesh),
    "sourceCameraSamples":per,"editableNativeCameraBLENDAt22":blendname,
    "actualSource28B51PhysicalVolumeOnly":True,
-   "nativeGameWebGLRendered":False}
+   "nativeGameWebGLRendered":False,
+   "sourceGLSLPerspectiveEquivalentBlenderLensMM":round(cam.lens,6)}
   print("R15R_TRUE_SOURCE_CAMERA_BLENDER_B48_B51_SOURCE_ONLY",key,
    [p["second"] for p in per],flush=True)
 assert len(summary["scenes"])==6

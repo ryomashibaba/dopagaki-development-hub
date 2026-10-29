@@ -24,6 +24,7 @@ jobs:
       - name: Protected original game and R15R research source syntax
         run: |
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          grep -Fq "gl_Position=vec4(1.35*x/aspect,1.35*y," web/drive3d.mjs
           node --check scripts/p101-r15r-native-camera-replay-source-8-cases.mjs
           python3 -m py_compile scripts/p101-r15r-native-camera-original-b48-b51-blender-views.py scripts/p101-r15r-independent-actual-chase-camera-b51-3d-source-veto.py
       - name: Retrieve actual 8 native R15Q 240Hz source physics, original R15L 2-road camera, and 8 original R15Q3 Blender scenes
@@ -72,7 +73,8 @@ jobs:
             --camera test-results/r15r/replay/R15R_EIGHT_ACTUAL_NATIVE_CHASE_CAMERA_240HZ_REPLAY.json \
             --original-q test-results/r15r/native/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json \
             --scenes test-results/r15r/source-perspective/R15R_TRUE_SOURCE_PLAYER_CAMERA_B48_B51_BLENDER_IMAGES_AND_EDITABLE_QA.json \
-            --root test-results/r15r/source-perspective
+            --root test-results/r15r/source-perspective \
+            --source-webgl web/drive3d.mjs
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           python3 - <<'PY'
           import json,glob,os
@@ -82,7 +84,7 @@ jobs:
           assert len(glob.glob('test-results/r15r/source-perspective/**/*.png',recursive=True))==18
           assert len(glob.glob('test-results/r15r/source-perspective/**/*.blend',recursive=True))==6
           assert len(q['nativeRoadComparisonWitnesses'])==6
-          assert len(q['rejectedForgedArtGameCameraAndB51Claims'])==12
+          assert len(q['rejectedForgedArtGameCameraAndB51Claims'])==13
           assert q['officialArt']==q['officialSlope2Meters']==0
           print('R15R_EXACT_NATIVE_GAME_SOURCE_CAMERA_B48_B51_NO_WEBGL_NO_ART',q,flush=True)
           PY
