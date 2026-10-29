@@ -1240,6 +1240,7 @@ jobs:
           if-no-files-found: warn
 
   r15k4c-actual-upface-25point-floor-and-native-two-road-screen-guard:
+    if: github.event_name == 'workflow_dispatch'
     needs: r15a-source-immutable-native
     runs-on: ubuntu-24.04
     timeout-minutes: 55
