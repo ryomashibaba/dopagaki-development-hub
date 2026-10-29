@@ -1,0 +1,72 @@
+name: P101 R15Q original B48 SCISSOR physical C1 curved route and 16m narrow native QA HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15q-isolated-b48-scissor-c1-curve-and-narrow-route.mjs
+      - scripts/p101-r15q-eight-source-native-c1-steering-curve-physics.mjs
+      - scripts/p101-r15q-independent-8-real-c1-source-curve-veto.py
+      - .github/workflows/p101-r15q-actual-native-b48-physical-c1-curvature.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15q-real-8-original-native-240hz-curvature-and-narrow-physical-surface-studies:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original protected code and real B48 curvature physics generator syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15q-isolated-b48-scissor-c1-curve-and-narrow-route.mjs
+          node --check scripts/p101-r15q-eight-source-native-c1-steering-curve-physics.mjs
+          python3 -m py_compile scripts/p101-r15q-independent-8-real-c1-source-curve-veto.py
+      - name: Source baseline actual B16 original physics 36s + 0-19s R15L genuine original cameras + R15N2 controls
+        run: |
+          mkdir -p test-results/r15q/r15o4 test-results/r15q/r15l test-results/r15q/r15n2 test-results/r15q/results
+          gh run download 40830811488 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15O4_TRUE_NATIVE_SOURCE_BANKED_B48_16M_REPLAY_BEYOND24_REAL_END_HOLD \
+            --dir test-results/r15q/r15o4
+          gh run download 40802904554 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15L_TRUE_NATIVE_ALL_PLAYABLE_TIME_CX18_B48_7_TWO_ROAD_B51_WIDE_RESEARCH_NO_ART \
+            --dir test-results/r15q/r15l
+          gh run download 40815591798 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15N2_ORIGINAL_REAL_240HZ_24_EARLIER_STEERING_CURVE_CONTACT_STUDY_HOLD \
+            --dir test-results/r15q/r15n2
+      - name: Run real source-original game 240Hz across original B16 and SCISSOR C1 shifted road/16m true physically narrow route on two native worlds
+        run: |
+          node scripts/p101-r15q-eight-source-native-c1-steering-curve-physics.mjs \
+            --true-pinch test-results/r15q/r15l/native/true-pinch.json \
+            --pinch-switch test-results/r15q/r15l/native/pinch-switch.json \
+            --r15n2 test-results/r15q/r15n2/R15N2_24_GENUINE_ORIGINAL_NATIVE_B48_EARLIER_RIGHT_INPUT_TRIALS.json \
+            --r15o4 test-results/r15q/r15o4/R15O4_ACTUAL_NATIVE_B16_REAL_PHYSICAL_ROAD_SOURCE_EXTENDED_TO_36.json \
+            --out test-results/r15q/results
+      - name: Independent native original B48 source contact, C1 curve real geometry and false completion/art/game QA
+        run: |
+          python3 scripts/p101-r15q-independent-8-real-c1-source-curve-veto.py \
+            --result test-results/r15q/results/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json \
+            --original test-results/r15q/r15o4/R15O4_ACTUAL_NATIVE_B16_REAL_PHYSICAL_ROAD_SOURCE_EXTENDED_TO_36.json \
+            --out test-results/r15q/results
+          python3 - <<'PY'
+          import json
+          p="test-results/r15q/results/"
+          a=json.load(open(p+"R15Q_INDEPENDENT_TRUE_SOURCE_8_C1_ROAD_AND_NARROW_PHYSICS_QA.json"))
+          assert len(a["rejectedFalseOfficialGameplayOrSourceClaims"])==12
+          assert sum(map(len,a["actualOriginalC1AndNarrowPhysicalRoadEvidence"].values()))==8
+          assert a["originalGameCodeAndPhysicsPreserved"]
+          assert a["officialArt"]==a["officialSlope2Meters"]==0
+          print("R15Q_NATIVE_ORIGINAL_B48_C1_PHYSICAL_GEOMETRY_SLOPE2_NARROW_TRUE_QA",a,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15Q_TRUE_ORIGINAL_B48_C1_CURVATURE_NARROW16_8_NATIVE_240HZ_SOURCE_HOLD
+          path: test-results/r15q/results/
+          retention-days: 7
+          if-no-files-found: warn
