@@ -1,0 +1,53 @@
+name: P101 R15S1 actual native 240Hz corner physics steering support and B51 camera center QA HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s1-real-native-curvature-steering-ground-b51-proxy.mjs
+      - scripts/p101-r15s1-independent-native-curvature-steering-b51-veto.py
+      - .github/workflows/p101-r15s1-real-native-corner-control-b51-diagnostics.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15s1-original-240hz-8-road-source-curvature-steering-b51-qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify protected original source SHA, no game code edits and research script syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s1-real-native-curvature-steering-ground-b51-proxy.mjs
+          python3 -m py_compile scripts/p101-r15s1-independent-native-curvature-steering-b51-veto.py
+      - name: Download previously preserved R15Q actual eight source 240Hz studies for independent per-tick parity
+        run: |
+          mkdir -p test-results/r15s1/reference test-results/r15s1/output
+          gh run download 40833907561 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15Q_TRUE_ORIGINAL_B48_C1_CURVATURE_NARROW16_8_NATIVE_240HZ_SOURCE_HOLD \
+            --dir test-results/r15s1/reference
+          test -s test-results/r15s1/reference/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json
+      - name: Original physical native 240Hz 8 cases with road curvature, actual input, support and time-synced camera B51 28 center proxies
+        run: |
+          node scripts/p101-r15s1-real-native-curvature-steering-ground-b51-proxy.mjs \
+            --r15q test-results/r15s1/reference/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json \
+            --out test-results/r15s1/output
+      - name: Independent physical contact and genuine 8 reference parity plus 13 forged approval/visibility veto
+        run: |
+          python3 scripts/p101-r15s1-independent-native-curvature-steering-b51-veto.py \
+            --result test-results/r15s1/output/R15S1_8_TRUE_NATIVE_CURVATURE_CONTROL_B51_CAMERA_PROXIES.json \
+            --reference test-results/r15s1/reference/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json \
+            --out test-results/r15s1/output
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S1_8_NATIVE_240HZ_CURVATURE_STEERING_SUPPORT_B51_UNOCCLUDED_CAMERA_PROXIES_HOLD
+          path: test-results/r15s1/output/
+          retention-days: 7
+          if-no-files-found: warn
