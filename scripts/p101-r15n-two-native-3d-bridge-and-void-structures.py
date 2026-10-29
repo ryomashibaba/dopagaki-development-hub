@@ -18,7 +18,8 @@ ROOT=arg("--out");os.makedirs(ROOT,exist_ok=True)
 D=read(arg("--r15m"))
 R1={r:read(arg("--native-"+r)) for r in ("true-pinch","pinch-switch")}
 SHA="af076d67492a677d2235e4730aef8cdf4808e106"
-assert D["originalSourceGameBlob"]==SHA
+assert D["schema"]=="dopagaki.r15m-original-b48-world-mesh-last-grounded-and-top-boundary-240hz/1"
+assert D["sourceGameBlob"]==SHA
 ROADS=("true-pinch","pinch-switch")
 KINDS=("A_LATTICE_RIB","B_SPLIT_CIVIC_SPINE")
 def rounded(v):return [round(float(x),4) for x in v]
