@@ -120,9 +120,12 @@ for road in ROADS:
   at={x["tick"]:x for x in native}
   exitEvents=c["sourcePhysicalSupportExitEventsAfter16p5"]
   assert exitEvents
-  exitTick=exitEvents[0]["tick"]
+  # A source run can leave B48, land again and leave a second time.
+  # Pair the FINAL physically grounded tick with its NEXT source air tick.
+  exitEvent=exitEvents[-1]
+  exitTick=exitEvent["tick"]
   last=c["lastPhysicalGroundedSourceSupportBeforeEngineTerminal"]
-  assert last and last["tick"]<exitTick
+  assert last and last["tick"]+1==exitTick,("final contact must immediately precede last exit",road,c["scenario"],last["tick"],exitTick)
   # The last physical supporting tick may not have been emitted as frame
   # (outside full-density window); evaluate the true original world position
   # without inventing a fake Runner event.
@@ -131,15 +134,20 @@ for road in ROADS:
    "sourcePhysicalB48Road":last["surface"],"positionXYZ":last["position"],
    "velocityXYZ":last["velocity"]},roadmeshes,boundaries)
   atExit=at.get(exitTick) or sample({
-   "tick":exitTick,"seconds":exitEvents[0]["seconds"],"grounded":False,
-   "sourcePhysicalB48Road":None,"positionXYZ":exitEvents[0]["playerCentreXYZ"],
-   "velocityXYZ":exitEvents[0]["playerVelocityXYZ"]},roadmeshes,boundaries)
+   "tick":exitTick,"seconds":exitEvent["seconds"],"grounded":False,
+   "sourcePhysicalB48Road":None,"positionXYZ":exitEvent["playerCentreXYZ"],
+   "velocityXYZ":exitEvent["playerVelocityXYZ"]},roadmeshes,boundaries)
   if c["scenario"]=="ORIGINAL":
    assert round(atLast["seconds"]+1/240,6)==round(atExit["seconds"],6),("departure not adjacent",road)
   # Actual B48 ownership checked by true source nearest face ID vs last physical road
   ownerProximity=atLast["sourceOriginalB48NearestMeshName"]==last["surface"]
   lastToExitGap=math.dist(atLast["playerWorldXYZ"],atExit["playerWorldXYZ"])
-  case.append({"scenario":c["scenario"],"road":road,"sourceOriginalRoadB48FaceCounts":signatures[road],
+  case.append({"scenario":c["scenario"],"road":road,
+   "numberOfActualSourceAirExitEventsAfter16p5":len(exitEvents),
+   "firstTrueOriginalAirExitTickAfter16p5":exitEvents[0]["tick"],
+   "finalLastSupportCorrespondingOriginalAirExitTick":exitTick,
+   "runnerStillRunningAt20s":c["actualRunnerStatus"]=="running",
+   "sourceOriginalRoadB48FaceCounts":signatures[road],
    "actualOriginalTopBoundarySegmentsCount":len(boundaries),
    "trueLastSourcePhysicalRoadSupport":atLast,
    "firstOriginalTickWithoutRoadSupport":atExit,
