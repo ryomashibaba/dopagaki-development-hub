@@ -1,3 +1,19 @@
+# R15S3D8 + R15S3D8R1 + R15S3D8R2 — 元物理長距離B48真正走行改善／下流106m道路で静的REJECT（2026-10-30 JST）
+
+**[R15S3D8 Actions #40974883310](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40974883310) SUCCESS／[Artifact #12942306619](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40974883310/artifacts/12942306619)。** PRIVATE本物のB48道路3・4の大局線形を2案制作、元Runner真正0秒240Hz×2世界×2案＝4実走行、元CROWN prefix4/4一致・独立QA偽認定12種拒否。AのLOWER真正接地11.583333/11.879167秒、さらにVOID_SURGE実接地1.4125/1.129167秒、45秒時点`running`で**未完走**。Bは40.866667/41.045833秒に失敗し次道路0s、正式棄却。Aは道路4横断向きが約179.9°反転していたため正式不採用のまま。
+
+**[R15S3D8R1 Actions #40975463767](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40975463767) SUCCESS／[Artifact #12942251735](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40975463767/artifacts/12942251735)。** 実B48道路4の反転を取り除き、元2世界で65秒上限の真正240Hz再走行・偽認定10種拒否。法線隣接最大0.092324°、最小法線Y+0.999622、VOID_SURGE実接地**12.587500/12.816667秒**。しかしその終端から既存道路5入口まで**1330.555063m**空間的に離れ、道路5真正接地0s。元Runnerは58.383333/58.895833秒に`failed`（落下）、真正`finished`0/2。元ゲーム・カメラ・ガイド・240Hz・B51全28・保護CROWN/SCISSOR不変。
+
+**[R15S3D8R2 Actions #40975864305](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40975864305) SUCCESS（静的検査のみ）／[Artifact #12941719676](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40975864305/artifacts/12941719676)。** 実B48道路4から元道路5への**2,496.412m**の長距離再接続を試作。5頂点の実位置シーム0m、終端接線角8.619°まで達したが、元道路5入口**幅106m**と横断向きに合わせた結果、曲面法線最大171.408°反転・法線Y最低−0.999919で**真正静的形状ゲート両世界REJECT**。無理に元Runner物理を走らせず早期棄却。CI SUCCESSはゲート合格ではない。
+
+**次R15S3D9：実既存道路4・5（必要なら6）を同時マクロ再設計。** まず全7 B48と全28 B51の路面・幅・横断向き・実シーム・元ガイドを真正3Dで監査し、無理な幅16→106m／裏返りを避ける。CROWN成功領域とSCISSOR前半、元Runner/CCD/P96/P94/A13・カメラ・本番・`main`・Gold・P100保護。真正2世界で実道路5以降の物理支持・`finished`まで確認後に実WebGL・HUMAN・ART・Slope2約40%へ接続。
+
+**SOURCE TECH：本2試験限定PASS／R2 GEOMETRY REJECT／GAMEPLAY FAIL/HOLD／ART REJECT/HOLD／HUMAN・PERFORMANCE・INTEGRATION・RELEASE・MERGE HOLD。** 正式ART0件、Slope2認定0m、保護元game blob `af076d67492a677d2235e4730aef8cdf4808e106` 一致、[PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46) OPEN/Draft未マージ。本番公開・元ソース改変なし。
+
+[実際の6真正240Hz結果・3設計の比較と下流全体再設計ゲート](docs/G4E7DZ_R15S3D8_D8R1_D8R2_MACRO_NATIVE_AND_SPATIAL_VERDICT_JA.md)
+
+---
+
 # R15S3D7 — 34.5秒の両世界共通路端離脱と本物の曲面折返しを特定（2026-10-30 JST）
 
 **真正 [Actions #40960042785](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40960042785) SUCCESS／[Artifact #12934369573](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40960042785/artifacts/12934369573)。** R15S3D6R1の両世界を元Runner真正0秒/240Hzで再生、旧R1の168/169標本全件一致、原17/21.5秒prefix一致、34.25〜34.75秒の121tick×2を元`contacts()`支持・実速度/forward・元guide・本物のB48中心/左右外縁で観測。独立QA12種の虚偽認定を拒否。元B48×7/B51×28、元P96/P94、元原物理/CDD、source blob、本番は不変。
