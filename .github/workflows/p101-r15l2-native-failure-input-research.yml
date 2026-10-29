@@ -1,0 +1,68 @@
+name: P101 R15L2 exact original 19s failure and after17 input-only physics research (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15l2-exact-original-terminal-and-post17-analog-sensitivity.mjs
+      - scripts/p101-r15l2-independent-runner-terminal-source-veto.py
+      - .github/workflows/p101-r15l2-native-failure-input-research.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15l2-original-game-source-failure-reason-and-isolated-analog-qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Exact original P101 frozen physics file blob and 2 independent new script syntax checks
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15l2-exact-original-terminal-and-post17-analog-sensitivity.mjs
+          python3 -m py_compile scripts/p101-r15l2-independent-runner-terminal-source-veto.py
+      - name: Load verified R15L actual source replay 0-19 seconds, not an invented 52 seconds
+        run: |
+          mkdir -p test-results/r15l2/original-native test-results/r15l2/results
+          gh run download 40802904554 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15L_TRUE_NATIVE_ALL_PLAYABLE_TIME_CX18_B48_7_TWO_ROAD_B51_WIDE_RESEARCH_NO_ART \
+            --dir test-results/r15l2/original-native
+          test -s test-results/r15l2/original-native/native/true-pinch.json
+          test -s test-results/r15l2/original-native/native/pinch-switch.json
+      - name: Actual engine failure reason, exact t1700 native and 2 post17 input-only variants per world
+        run: |
+          node scripts/p101-r15l2-exact-original-terminal-and-post17-analog-sensitivity.mjs \
+            --native-true-pinch test-results/r15l2/original-native/native/true-pinch.json \
+            --native-pinch-switch test-results/r15l2/original-native/native/pinch-switch.json \
+            --out test-results/r15l2/results
+      - name: Independent source failure provenance, original t17 parity, 2 input-only trials and forged-approval vetoes
+        run: |
+          python3 scripts/p101-r15l2-independent-runner-terminal-source-veto.py \
+            --source test-results/r15l2/results/R15L2_TRUE_SOURCE_RUNNER_TERMINAL_REASON_AND_AFTER17_INPUT_SWEEP.json \
+            --true-pinch test-results/r15l2/original-native/native/true-pinch.json \
+            --pinch-switch test-results/r15l2/original-native/native/pinch-switch.json \
+            --out test-results/r15l2/results
+          python3 - <<'PY'
+          import json
+          p='test-results/r15l2/results/'
+          d=json.load(open(p+'R15L2_TRUE_SOURCE_RUNNER_TERMINAL_REASON_AND_AFTER17_INPUT_SWEEP.json'))
+          q=json.load(open(p+'R15L2_INDEPENDENT_ACTUAL_TERMINAL_AND_ANALOG_QA.json'))
+          assert q['originalPriorR15LAt17CameraVerified']
+          assert q['genuineSourceEndReasonIndependentContractChecked']
+          assert len(q['forgedGameAndFailureClaimsRejected'])>=12
+          assert q['actualNewSourceGameColliderCount']==0
+          assert d['officialSlope2Meters']==d['originalArtAccepted']==d['newGameColliders']==0
+          assert not d['genuineHumanPlaySession'] and not d['actualGameBrowserWebGL']
+          print('R15L2_ACTUAL_SOURCE_FAIL_CAUSE_PASS',q,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15L2_ACTUAL_RUNNER_TERMINAL_REASON_AND_17S_INPUT_VARIANTS_ORIGINAL_HOLD
+          path: test-results/r15l2/results/
+          retention-days: 7
+          if-no-files-found: warn
