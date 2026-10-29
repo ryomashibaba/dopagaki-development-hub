@@ -1,3 +1,13 @@
+# R15S3D 隔離道路6真正240Hz試験を実装・CI結果待ち（2026-10-29 JST）
+
+**最新実装状態**：元B16 CROWN全面凍結・SCISSOR行0〜16保持のまま、後半行17〜28の実B48を3候補（G 勾配緩和／H 接線方向道路延長／I 接線道路＋後半細道）として試作。2元B48世界×3形状×元21.5sまでP96／以後合法P94＝6真正240Hz走行、最大45秒。元28 B51、240Hz/CCD、ボール操作、原ゲームファイルは変更なし。移動方向の**符号付き道路接線速度**、原前進速度25m/s未満／逆向きtick、実SCISSOR支持／後続道路実接地を必須評価。
+
+[本試験Actions #40869325008](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40869325008)と[道路・次道路の幾何監査 #40868422387](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40868422387)は実行待ちで、**結果未検証**。技術PASS・GAMEPLAY PASSを事前に主張してはならない。独立QAは偽次道路通過、偽人間／WebGL／美術等13ケースを拒否する設計。実測で次道路まで自然接地が確定するまでは正式ART0件／Slope2認定0m、公開・マージ禁止。PR#46 Draft・元保護blob af076d67492a677d2235e4730aef8cdf4808e106 保持。
+
+[R15S3D研究仕様・棄却条件](docs/G4E7DZ_R15S3D_GENUINE_SPEED_NEXT_JUNCTION_PROTOCOL_JA.md)
+
+---
+
 # R15S3C真正最終失敗確認：R15S3Bの接地改善は成果だが大幅減速を伴う、次R15S3Dへ（2026-10-29 JST）
 
 真正 [R15S3C Actions #40867343670](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40867343670) **SUCCESS／Artifact #12893084995**。元R15S3B E_BANKED_LANDING＋P94フルの2世界を元0秒から再走行し、保存済み0〜34s全標本一致・独立QA偽承認10拒否。**true-pinch 35.770833s、pinch-switch 36.062500sでともに「コースから落下」。**最後の真正接地32.845833/33.141667s、34s後の実再接地0、後続B48進入0。R15S3Bの34s時点runningは完走ではなかった。
