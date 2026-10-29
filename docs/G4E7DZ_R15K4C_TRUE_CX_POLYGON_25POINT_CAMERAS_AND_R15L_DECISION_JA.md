@@ -8,9 +8,9 @@
 
 修正では上記の真の原面インデックス、各頂点座標、原面積を元Blenderと突き合わせ、その**二つの指定ポリゴンだけ**を三角分割。原ポリゴン内部の床候補で5×5=25点全てが元上向き面に載る条件を課した。ゲーム新コライダー、実Blender新メッシュは0。
 
-## 指定面限定のR15K4C真正Blender測定（独立QA実行中の原測定証拠）
+## 指定面限定のR15K4C真正Blender測定・独立QA最終PASS
 
-初回修正CI #40797415284ではBlenderによる**指定面限定の実測自体は完了**したが、独立QAへの原R15K4B証拠パス渡し忘れによってワークフローはFAIL。**CI成功と称しない。** 保存Artifact #12865065659の元測定JSONと再読込解析を照合：
+初回修正CI #40797415284ではBlender実測が完了したが、独立QAへの元R15K4B証拠パス不足でFAILした。引数を修正し**最終真正CI #40797876186 SUCCESS／Artifact #12864532551**、独立QAも全項目PASS。偽ART・偽足元・別ポリゴンの混入・偽スクリーン・偽B51等**14件の不正認定注入拒否**まで確認した。最終元測定JSONと独立監査JSONを照合：
 
 | 対象元面 | 面内位置標本 | 25点すべて上向き実面に収まる研究用仮想床 | 床幅内訳 | 両道路13半秒原画面の最長連続可視 |
 |---|---:|---:|---|---:|
@@ -25,7 +25,7 @@
 
 この11〜17秒CX02/CX04の2枚だけで巨大未来都市の主景観を成立させようとする旧方式は停止。**元ゲームのより広い実時刻／道路区間に対して**、(a)複数半秒カメラで公共空洞とシルエットが成立する場所、(b)元道路から連続動線を導ける地形、(c)元B51を表示上塞がない余地、(d)実街区の階層が連結する余地、を同時探索する。既存二面は街路に接続する脇の小さな要素として研究維持に留める。
 
-R15K4Cのソースの厳密な独立QA PASS以前は、正式なSOURCE PASSやR15L建築に移行したとは主張しない。原ゲームblob `af076d67492a677d2235e4730aef8cdf4808e106` は保護、PR #46 Draft未マージ、正式ART採択0件、Slope2正式認定0m、GAMEPLAY／HUMAN／PERFORMANCE／INTEGRATION／RELEASE／MERGE HOLD、新コライダー0、本番公開禁止。
+R15K4Cは**原ソース研究に限定した技術PASS**。ここから実際のR15L都市施工・公式美術採択に移行したわけではない。原ゲームblob `af076d67492a677d2235e4730aef8cdf4808e106` は保護、PR #46 Draft未マージ、正式ART採択0件、Slope2正式認定0m、GAMEPLAY／HUMAN／PERFORMANCE／INTEGRATION／RELEASE／MERGE HOLD、新コライダー0、本番公開禁止。
 
 - R15K4B真正CI：https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40796634747
-- R15K4C指定原面の測定／独立QA再実行：https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40797876186
+- R15K4C真正元面測定＋独立QA最終SUCCESS：https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40797876186（Artifact #12864532551）
