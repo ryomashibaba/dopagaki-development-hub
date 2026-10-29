@@ -86,6 +86,7 @@ jobs:
           if-no-files-found: warn
 
   r15m-original-b48-final-exit-recontact-blender-and-independent-qa:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
@@ -148,5 +149,55 @@ jobs:
         with:
           name: P101_R15M2_LAST_REAL_B48_CONTACT_3D_BOUNDARY_RECONTACT_INDEPENDENT_SOURCE_HOLD
           path: test-results/r15m2/results/
+          retention-days: 7
+          if-no-files-found: warn
+
+  r15m-independent-verify-genuine-saved-240hz-and-blender-no-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Original immutable game and independent source QA syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15m-independent-b48-border-and-native-contact-veto.py
+      - name: Reuse actual 6-source 240Hz and original Blender B48 border source evidence without repeating costly source engine or Blender
+        run: |
+          mkdir -p test-results/r15mqa/original test-results/r15mqa/l2 test-results/r15mqa/r15l test-results/r15mqa/results
+          gh run download 40809307778 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15M2_LAST_REAL_B48_CONTACT_3D_BOUNDARY_RECONTACT_INDEPENDENT_SOURCE_HOLD \
+            --dir test-results/r15mqa/original
+          gh run download 40803935993 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15L2_ACTUAL_RUNNER_TERMINAL_REASON_AND_17S_INPUT_VARIANTS_ORIGINAL_HOLD \
+            --dir test-results/r15mqa/l2
+          gh run download 40802904554 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15L_TRUE_NATIVE_ALL_PLAYABLE_TIME_CX18_B48_7_TWO_ROAD_B51_WIDE_RESEARCH_NO_ART \
+            --dir test-results/r15mqa/r15l
+      - name: Independent true 240Hz last B48 contact/real 3D source-top-boundary audit, 13 forged approvals rejected
+        run: |
+          python3 scripts/p101-r15m-independent-b48-border-and-native-contact-veto.py \
+            --source test-results/r15mqa/original/R15M_ACTUAL_ORIGINAL_B48_240HZ_EXIT_TRAJECTORIES.json \
+            --blender test-results/r15mqa/original/R15M_TRUE_SOURCE_240HZ_LAST_ROAD_SUPPORT_TO_REAL_B48_BORDER.json \
+            --l2 test-results/r15mqa/l2/R15L2_TRUE_SOURCE_RUNNER_TERMINAL_REASON_AND_AFTER17_INPUT_SWEEP.json \
+            --native-true-pinch test-results/r15mqa/r15l/native/true-pinch.json \
+            --native-pinch-switch test-results/r15mqa/r15l/native/pinch-switch.json \
+            --out test-results/r15mqa/results
+          python3 - <<'PY'
+          import json
+          p="test-results/r15mqa/results/"
+          x=json.load(open(p+"R15M_INDEPENDENT_TRUE_PHYSICAL_B48_3D_EDGE_AND_240HZ_QA.json"))
+          assert x["twoRoadThreeOriginalEngineInputSensitivityStudies"]==6
+          assert x["realSourceB48x7SurfaceAndTopBoundaryRecomputed"]
+          assert len(x["forgedSourcePhysicsExitAndGamePromotionRejected"])==13
+          assert x["officialArt"]==x["officialSlope2Meters"]==0
+          print("R15M_REAL_ORIGINAL_B48_BORDER_INDEPENDENT_FINAL_PASS",x,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15M_FINAL_NATIVE_B48_3D_REAL_SOURCE_CONTACT_INDEPENDENT_QA_HOLD
+          path: test-results/r15mqa/results/
           retention-days: 7
           if-no-files-found: warn
