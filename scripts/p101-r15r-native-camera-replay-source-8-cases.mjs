@@ -85,7 +85,14 @@ for(const road of roads){
       sourceNativeContactRoad:expected.sourceRoad,
       sourceNativeSteer:expected.steer,
       sourceNativeSpeedMps:expected.speedMps,
-      sourcePlayerStatus:expected.nativeStatus});
+      sourcePlayerStatus:expected.nativeStatus,
+      ...([17,22,23].includes(round(player.time))?{
+       sourceRealB51TimeSyncedPhysicalOBBs:course.movingObstacles.map(ob=>{
+        const b=movingObstaclePose(ob,player.time);
+        return {id:b.id,type:b.type,centerXYZ:vec(b.center),
+         halfSizeXYZ:vec(b.halfSize),yawRadians:round(b.yawRadians),
+         enabled:b.enabled,originalSourceOnlyPhysicalShape:true};
+       })}: {})});
     }
    }
   }
