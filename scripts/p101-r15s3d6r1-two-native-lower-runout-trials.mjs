@@ -18,7 +18,7 @@ const args=k=>{const i=process.argv.indexOf(k);assert.ok(i>=0&&process.argv[i+1]
 const prefix=JSON.parse(fs.readFileSync(args('--r15s3b'),'utf8'));
 const d4=JSON.parse(fs.readFileSync(args('--r15s3d6'),'utf8'));
 assert.equal(prefix.sourceGameBlob,SHA);
-assert.equal(d4.sourceGameBlob,SHA);
+assert.equal(d4.originalSourceBlob,SHA);
 const worlds=['true-pinch','pinch-switch'];
 const modes=['B_RUNOUT_SUPPORT'];
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
