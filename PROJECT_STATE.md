@@ -1,3 +1,15 @@
+# G4E-7DZ R15N＋R15N2 — 実BLEND橋梁4案ART REJECT／元240Hz進入操舵24件すべて落下（2026-10-29 JST）
+
+**元ゲーム本体・物理・B48/CX/B51は不変。Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、PR #46 Draft・未マージ、本番非公開。正式ART採択0件、Slope2正式認定0m、ART/GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。**
+
+**R15N 実3D建築試作：** 真正Actions [#40815310461](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40815310461) SUCCESS。元B48 `p93-CROWN_REVERSAL-01` の最終原物理接地を起点に、両道路で64m×10m開放ラチスA（各54編集オブジェクト）、72m×14m分岐回廊B（各63）を元R1 Blenderに構築。**計4 BLEND＋4 GLB＋8元ゲームカメラ実レンダリング**、12偽認証拒否まで実施。元地形に基礎がついた支持脚**0/5×4案**。視認割合は両道路16秒では0、16.5秒でも最大1/135、17秒で最大18/135。**全4案ART REJECT／実コライダー0・施工0**。この浮遊橋の詳細化を停止。[美術／設計否認の根拠](docs/G4E7DZ_R15N_ORIGINAL_SOURCE_4_REAL_BRIDGE_ART_REJECT_AND_R15N2_PIVOT_JA.md)
+
+**R15N2 元の高速カーブ改善の実走行：** 真正Actions [#40815591798](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40815591798) SUCCESS／Artifact #12873030009。元P96 fixed入力を保持し、15.0／15.75／16.25／16.5秒から右+0.18／+0.35／+0.52を付加する**12条件×元道路2＝24の実240Hz走行**と独立QA12偽承認拒否。24件すべて元エンジンで「コースから落下」、完走0件。接地を最も保った個別試験はtrue-pinch **18.995833秒**（16.25s,+0.18）、pinch-switch **18.712500秒**（15.75s,+0.18）。両道路共通の限定12条件で最良は**15.75s,+0.18**（true-pinch18.808333s、pinch-switch18.712500sの実接地）だが、両方とも21秒前後に落下、GAMEPLAY PASSではない。入力を強めると悪化する条件があり、定数右操舵だけでは根本解決できない。[全24試験と次方針](docs/G4E7DZ_R15N2_24_REAL_NATIVE_EARLY_STEER_TESTS_FAIL_NO_NEW_BRIDGE_JA.md)
+
+**次R15Oの方針：** 元p93急カーブの横断・曲率・走行予告・狭幅10〜16m・B51との共存・落下復帰を統合し、見た目だけの浮遊物や定数操舵の追加乱試験ではなく、**元道路の実際のプレイ可能な変更案（隔離した試験の実3Dと元物理の対応）**を品質優先で検証。正式元ゲームソース変更・本番反映・マージは禁止継続。
+
+---
+
 # G4E-7DZ R15M3完了 — B48元道路端での真の240Hz落下・早期右補正の限界（2026-10-29 JST）
 
 **R15M/ R15M3 SOURCE TECH検査PASS。実道路修復未実装、ART HOLD、GAMEPLAY HOLD。** 元物理・入力・B48×7/CX18/B51×28・カメラ、ゲームソースblob `af076d67492a677d2235e4730aef8cdf4808e106`不変。PR #46 Draft未マージ、本番非公開。
