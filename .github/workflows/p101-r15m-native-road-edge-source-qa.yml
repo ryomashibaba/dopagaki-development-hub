@@ -1,0 +1,85 @@
+name: P101 R15M genuine 240Hz last B48 road support & original Blender road border (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15m-true-source-240hz-last-road-contact.mjs
+      - scripts/p101-r15m-original-b48-edge-and-native-fall-3d.py
+      - scripts/p101-r15m-independent-b48-border-and-native-contact-veto.py
+      - .github/workflows/p101-r15m-native-road-edge-source-qa.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15m-genuine-native-240hz-original-b48-road-last-support:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original game code immutable and 3 new source investigation scripts compile
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15m-true-source-240hz-last-road-contact.mjs
+          python3 -m py_compile scripts/p101-r15m-original-b48-edge-and-native-fall-3d.py scripts/p101-r15m-independent-b48-border-and-native-contact-veto.py
+      - name: Reuse exact original R15L 0-19 sec native and verified R15L2 failure scenario
+        run: |
+          mkdir -p test-results/r15m/r15l test-results/r15m/r15l2 test-results/r15m/blender test-results/r15m/results
+          gh run download 40802904554 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15L_TRUE_NATIVE_ALL_PLAYABLE_TIME_CX18_B48_7_TWO_ROAD_B51_WIDE_RESEARCH_NO_ART \
+            --dir test-results/r15m/r15l
+          gh run download 40803935993 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15L2_ACTUAL_RUNNER_TERMINAL_REASON_AND_17S_INPUT_VARIANTS_ORIGINAL_HOLD \
+            --dir test-results/r15m/r15l2
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15m/blender
+      - name: Original 240Hz exact last physical B48 contact; four 16p5-before-exit steering contrasts without physics mutations
+        run: |
+          node scripts/p101-r15m-true-source-240hz-last-road-contact.mjs \
+            --true-pinch test-results/r15m/r15l/native/true-pinch.json \
+            --pinch-switch test-results/r15m/r15l/native/pinch-switch.json \
+            --l2 test-results/r15m/r15l2/R15L2_TRUE_SOURCE_RUNNER_TERMINAL_REASON_AND_AFTER17_INPUT_SWEEP.json \
+            --out test-results/r15m/results
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Original B48x7 real mesh nearest upper boundary, vertical ray and triangle for last native supported/first unsupported tick
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-r15m-original-b48-edge-and-native-fall-3d.py -- \
+            --trace test-results/r15m/results/R15M_ACTUAL_ORIGINAL_B48_240HZ_EXIT_TRAJECTORIES.json \
+            --source-true-pinch test-results/r15m/blender/result-true-pinch/R1_true-pinch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --source-pinch-switch test-results/r15m/blender/result-pinch-switch/R1_pinch-switch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --out test-results/r15m/results
+      - name: Independent B48 physical source identity, 240Hz departure precision, engine failure and anti-fake-gate
+        run: |
+          python3 scripts/p101-r15m-independent-b48-border-and-native-contact-veto.py \
+            --source test-results/r15m/results/R15M_ACTUAL_ORIGINAL_B48_240HZ_EXIT_TRAJECTORIES.json \
+            --blender test-results/r15m/results/R15M_TRUE_SOURCE_240HZ_LAST_ROAD_SUPPORT_TO_REAL_B48_BORDER.json \
+            --l2 test-results/r15m/r15l2/R15L2_TRUE_SOURCE_RUNNER_TERMINAL_REASON_AND_AFTER17_INPUT_SWEEP.json \
+            --native-true-pinch test-results/r15m/r15l/native/true-pinch.json \
+            --native-pinch-switch test-results/r15m/r15l/native/pinch-switch.json \
+            --out test-results/r15m/results
+          python3 - <<'PY'
+          import json
+          p='test-results/r15m/results/'
+          d=json.load(open(p+'R15M_ACTUAL_ORIGINAL_B48_240HZ_EXIT_TRAJECTORIES.json'))
+          r=json.load(open(p+'R15M_INDEPENDENT_TRUE_PHYSICAL_B48_3D_EDGE_AND_240HZ_QA.json'))
+          assert r['twoRoadThreeOriginalEngineInputSensitivityStudies']==6
+          assert r['realSourceB48x7SurfaceAndTopBoundaryRecomputed'] is True
+          assert len(r['forgedSourcePhysicsExitAndGamePromotionRejected'])==13
+          assert d['officialArt']==d['officialSlope2Meters']==d['newGameColliders']==0
+          print('R15M_GENUINE_NATIVE_B48_3D_SOURCE_ONLY',r,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15M_REAL_SOURCE_240HZ_LAST_B48_SUPPORT_AND_3D_TOP_BOUNDARY_ORIGINAL_HOLD
+          path: test-results/r15m/results/
+          retention-days: 7
+          if-no-files-found: warn
