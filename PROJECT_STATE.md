@@ -1,3 +1,17 @@
+# R15S3D7 — 34.5秒の両世界共通路端離脱と本物の曲面折返しを特定（2026-10-30 JST）
+
+**真正 [Actions #40960042785](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40960042785) SUCCESS／[Artifact #12934369573](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40960042785/artifacts/12934369573)。** R15S3D6R1の両世界を元Runner真正0秒/240Hzで再生、旧R1の168/169標本全件一致、原17/21.5秒prefix一致、34.25〜34.75秒の121tick×2を元`contacts()`支持・実速度/forward・元guide・本物のB48中心/左右外縁で観測。独立QA12種の虚偽認定を拒否。元B48×7/B51×28、元P96/P94、元原物理/CDD、source blob、本番は不変。
+
+- **共通支持喪失**：真のLOWER_REVERSAL最終支持34.504167/34.562500秒（true-pinch/pinch-switch）、道路の左側縁との最近3D距離0.876338/0.850160m、水平XZ近似距離**0.142629/0.295461m**（球半径0.65m）、右側縁3D距離6.396761/6.200663m。次tickに元`contacts()`走行支持が消滅。事前支持法線は(0.249757,0.958426,-0.137987)/(0.413438,0.886831,-0.206398)。原CCD各インパルス・瞬間衝突法線は未計測。
+- **実形状の根本問題**：元LOWER_REVERSAL行9→11のCatmull-Rom局所接線差**約101.44°**、行10→11の`frame()`法線差**約170.92°**。行10中心(-1668.683,-4.782,374.370)→行11(-1668.844,-4.730,396.386)→行12(-1631.585,-2.775,435.546)へ、球の高速西進を2格子行で東側に戻す不自然な急折返しがある。**路端離脱・異常な曲面向き・方向補正の複合問題の可能性が高い**。幾何法線をCCD衝突法線と取り違えず因果断定はHOLD。
+- 最初の[Actions #40959897832](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40959897832)は負テスト`fake-contact`が実際にはデータを変更しない不備で独立QA FAIL。元240Hz再現自体は成功。値反転方式へ修正し、上記真正成功CIで12/12拒否を確認。
+- **R15S3D7採否**：観測と独立数値QAだけSOURCE TECH限定PASS。元R1道路は正式GAMEPLAY採用禁止、ART正式0件、Slope2認定0m。GAMEPLAY FAIL/HOLD、ART REJECT/HOLD、HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。
+- **次R15S3D8**：局所幅増し・勾配微調整を停止。元LOWER_REVERSALから次の実B48までのマクロ線形・接続・曲率・正常法線・生成guide・元ボール進路を一体設計し、真正2世界0秒240Hzで評価してから実WebGL/正規カメラ/人間QA・巨大未来都市アートへ進む。main/Gold/P100/本番・保護blob `af076d67492a677d2235e4730aef8cdf4808e106` 不変更、Draft PR#46維持。
+
+[実走行・曲面・左右路端の数値、失敗原因と次設計ゲート](docs/G4E7DZ_R15S3D7_TRUE_NATIVE_EDGE_EXIT_FOLDED_LOWER_ROAD_AND_NEXT_MACRO_GATE_JA.md)
+
+---
+
 # R15S3D6・R15S3D6R1 — 本物のB48道路計6真正240Hz、限定改善と新しい支持喪失を確認（2026-10-30 JST）
 
 **SOURCE TECH限定PASS／GAMEPLAY FAIL/HOLD／ART REJECT/HOLD／HUMAN・PERFORMANCE・INTEGRATION・RELEASE・MERGE HOLD。** 元ゲーム・main・Gold・P100・本番、保護blob `af076d67492a677d2235e4730aef8cdf4808e106` 不変更。Draft PR #46 OPEN/未マージ。正式ART0件、Slope2認定0m。
