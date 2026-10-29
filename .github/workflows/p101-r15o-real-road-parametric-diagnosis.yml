@@ -1,0 +1,43 @@
+name: P101 R15O real B48 road crown end-versus-side parametric source (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15o-actual-native-b48-crown-road-exit-parametrics.mjs
+      - .github/workflows/p101-r15o-real-road-parametric-diagnosis.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  actual-unchanged-game-b48-road-exit-vs-edge-original-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Freeze original game and parse true source-only geometry diagnostic
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15o-actual-native-b48-crown-road-exit-parametrics.mjs
+      - name: Reuse actual R15M source B48/Runner support and original geometry
+        run: |
+          mkdir -p test-results/r15o/source test-results/r15o/results
+          gh run download 40809307778 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15M2_LAST_REAL_B48_CONTACT_3D_BOUNDARY_RECONTACT_INDEPENDENT_SOURCE_HOLD \
+            --dir test-results/r15o/source
+      - name: True source B48 current CROWN u,v nearest and next road actual contact/edge evidence
+        run: |
+          node scripts/p101-r15o-actual-native-b48-crown-road-exit-parametrics.mjs \
+            --r15m test-results/r15o/source/R15M_TRUE_SOURCE_240HZ_LAST_ROAD_SUPPORT_TO_REAL_B48_BORDER.json \
+            --out test-results/r15o/results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15O_REAL_NATIVE_B48_CROWN_ROAD_END_SIDE_PARAMETRIC_CAUSE_SOURCE_HOLD
+          path: test-results/r15o/results/
+          retention-days: 7
+          if-no-files-found: warn
