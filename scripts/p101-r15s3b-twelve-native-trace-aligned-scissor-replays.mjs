@@ -16,8 +16,6 @@ import {p101Step} from '../web/p101-overdrive.mjs';
 import {createA13SurgeState,p101A13ForwardScale} from '../web/p101-a13-forward.mjs';
 const SHA='af076d67492a677d2235e4730aef8cdf4808e106';
 const worlds=['true-pinch','pinch-switch'];
-const saved=JSON.parse(fs.readFileSync(arg('--r15q'),'utf8'));
-assert.equal(saved.originalGameSourceBlob,SHA);
 const modes=Object.keys(R15S3B);
 const controls=['P96_ORIGINAL','P94_FULL_AFTER_21P5'];
 const switchTick=Math.round(21.5/DT),maxTick=Math.round(34/DT);
@@ -25,6 +23,8 @@ const round=(x,n=6)=>Number(x.toFixed(n));
 const distance=(a,b)=>Math.hypot(...a.map((x,i)=>x-b[i]));
 const hash=x=>crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex');
 const arg=k=>{const i=process.argv.indexOf(k);assert.ok(i>=0&&process.argv[i+1],k);return process.argv[i+1]};
+const saved=JSON.parse(fs.readFileSync(arg('--r15q'),'utf8'));
+assert.equal(saved.originalGameSourceBlob,SHA);
 const output={schema:'dopagaki.r15s3b-crown-frozen-trail-aware-scissor-macro-3design-2world-2controls-240hz/1',
  sourceGameBlob:SHA,source240Hz:true,sourceBallRadiusM:.65,
  actualSourceRealPhysicsTrials:12,roadWorlds:worlds,macroPhysicalDesigns:modes,
