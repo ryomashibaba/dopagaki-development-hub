@@ -96,7 +96,7 @@ def main():
   ('fake-prefix',lambda x:x['cases'][WORLDS[0]][MODES[0]].update(originalPrefixParityCount=0)),
   ('fake-next-road',lambda x:x['cases'][WORLDS[1]][MODES[0]].update(nextRoadGroundedSeconds=0)),
   ('fake-impulse',lambda x:x['cases'][WORLDS[0]][MODES[0]]['native240HzWindowSamples'][100].update(velocityChangeMps=999)),
-  ('fake-contact',lambda x:x['cases'][WORLDS[0]][MODES[0]]['native240HzWindowSamples'][100].update(nativePreStepRideableSupport=None)),
+  ('fake-contact',lambda x:x['cases'][WORLDS[0]][MODES[0]]['native240HzWindowSamples'][100].update(nativeRunnerGroundedFromPreStep=not x['cases'][WORLDS[0]][MODES[0]]['native240HzWindowSamples'][100]['nativeRunnerGroundedFromPreStep'])),
   ('fake-heading',lambda x:x['cases'][WORLDS[0]][MODES[0]].update(peakWholeStepHeadingDelta={'degrees':999,'tick':1})),
  ):
   trial=copy.deepcopy(d);fn(trial)
