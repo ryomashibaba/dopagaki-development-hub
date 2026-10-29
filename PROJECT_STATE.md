@@ -1,3 +1,17 @@
+# R15P 完了 — SCISSOR入口の真正B48物理8試験／全例落下・単純拡幅REJECT（2026-10-29 JST）
+
+**R15O実道路の重要改善は維持。ただしR15Pの外縁拡幅8/16/24mの3案はゲーム採択REJECT／ART REJECT。** 元ゲームソースblob `af076d67492a677d2235e4730aef8cdf4808e106`不変、PR #46 Draft未マージ、R15O/Pの新規ゲームコライダー0、正式ART採択0件、Slope2正式認定0m、本番禁止、**ART/GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD**。
+
+- 真正源流 [R15P Actions #40831737781](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40831737781) **SUCCESS**。元のP96操作、P101 240Hz、2道路×4形態（B16 CROWNのみ／後続SCISSOR入口v0の8/16/24m外側実路面拡幅）＝**8本の真正フル走行**。基準のR15O4（0〜36秒）全記録と完全一致。独立QA偽GAMEPLAY/ART/人間・元物理改変等10件拒否、SUCCESS。Artifact #12878653870。
+- 基準B16のみの真の落下：**true-pinch 25.704167秒／pinch-switch 25.562500秒**。
+- SCISSOR入口v0 +8m：25.991667秒／25.845833秒で落下。
+- +16m：26.241667秒／26.100000秒で落下。
+- **+24m：26.458333秒／26.308333秒で落下**。これが限定3形態中では最長だが**両世界でGAMEPLAY FAIL、完走0**。B16比の延長は約0.754秒／0.746秒、最後の実SCISSOR接地は23.2875秒／23.1375秒。
+- SCISSOR元入口幅は**112m**あり、+24mまで拡幅しても改善が約0.75秒しかない。物理的改修としての結果は再現可能だが**10〜16mの狭幅・Slope2 DNA・美術には不適合**。外縁を広げる反復を停止。[R15P真正8ケース＋批判的美術判断](docs/G4E7DZ_R15P_REAL_SCISSOR_B48_8_NATIVE_TRIALS_CONTOUR_REJECT_JA.md)
+- 次R15Q：**道路中心線の旋回半径、速度、横加速度、路面勾配、前方予告、元B51公平性**を合わせて**別案の実3D曲線設計と物理対照試験**を優先。場当たり的な橋／過剰な幅増し／固定操舵を再採用しない。実WebGL・人間操作・都市アートの正式QAは未実施。
+
+---
+
 # R15O + R15O4元B48実路面・物理改修研究／R15P後続SCISSOR接続実験開始（2026-10-29 JST）
 
 **真の改善・ただし全コース未修復。** 元ゲームソースblob `af076d67492a677d2235e4730aef8cdf4808e106`と物理エンジン・既存B48/B51・本番は**一切変更していない**。Draft PR #46の隔離試験のみ。ART/GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、本番禁止、公式ART採択0件、Slope2正式認定0mを維持。
