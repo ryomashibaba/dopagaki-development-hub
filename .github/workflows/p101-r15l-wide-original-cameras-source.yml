@@ -12,6 +12,7 @@ permissions:
   contents: read
 jobs:
   r15l-real-original-240hz-both-road-extended-camera-source:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 70
     env:
@@ -88,5 +89,55 @@ jobs:
           path: |
             test-results/r15l/native/
             test-results/r15l/results/
+          retention-days: 7
+          if-no-files-found: warn
+
+  r15l-independent-verify-saved-genuine-source-no-expensive-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Frozen original game SHA and independent source audit script syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15l-independent-actual-full-route-18cx-atlas-gate.py
+      - name: Reuse EXACT true original R15L 240Hz 0-19.5s native replay, Blender CX18 B48x7 screen and B51 saved source
+        run: |
+          mkdir -p test-results/r15l-review
+          gh run download 40802904554 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15L_TRUE_NATIVE_ALL_PLAYABLE_TIME_CX18_B48_7_TWO_ROAD_B51_WIDE_RESEARCH_NO_ART \
+            --dir test-results/r15l-review
+          test -s test-results/r15l-review/native/true-pinch.json
+          test -s test-results/r15l-review/native/pinch-switch.json
+          test -s test-results/r15l-review/results/R15L_ACTUAL_ORIGINAL_TWO_ROAD_WIDE_TIME_CX_B48_SOURCE_ATLAS.json
+      - name: Independently verify exact 38 same 0.5s source frames, 18 terrain meshes, 240 paired sites and B51 no-art veto
+        run: |
+          python3 scripts/p101-r15l-independent-actual-full-route-18cx-atlas-gate.py \
+            --native-true-pinch test-results/r15l-review/native/true-pinch.json \
+            --native-pinch-switch test-results/r15l-review/native/pinch-switch.json \
+            --atlas test-results/r15l-review/results/R15L_ACTUAL_ORIGINAL_TWO_ROAD_WIDE_TIME_CX_B48_SOURCE_ATLAS.json \
+            --out test-results/r15l-review/results
+          python3 - <<'PY'
+          import json
+          p='test-results/r15l-review/results/'
+          q=json.load(open(p+'R15L_INDEPENDENT_WIDE_ORIGINAL_NATIVE_CX_B48_B51_ATLAS_QA.json'))
+          d=json.load(open(p+'R15L_ACTUAL_ORIGINAL_TWO_ROAD_WIDE_TIME_CX_B48_SOURCE_ATLAS.json'))
+          assert q['originalTwoRoadSharedActual0p5sFrames']==38
+          assert q['sourceOriginalCXMeshesInspected']==18 and q['originalB48RoadVariantsInspected']==2
+          assert q['twoRoadSameXYZSourceSiteCount']==240
+          assert len(q['adversarialFalsePromotionRejected'])>=16
+          assert q['independentCrossRoadSourcePointAndFrameCountRecomputed']
+          assert d['preliminaryResearchGateSurvivorCount']==q['strictResearchCandidateCount']
+          assert q['realWebGLOrHumanWalkOrArtApproved'] is False
+          assert d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+          print('R15L_SOURCE_ONLY_FINAL_VERIFIED',q,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15L_VERIFIED_ORIGINAL_BROAD_18CX_240_SOURCE_ATLAS_INDEPENDENT_QA_NO_ART
+          path: test-results/r15l-review/results/R15L_INDEPENDENT_WIDE_ORIGINAL_NATIVE_CX_B48_B51_ATLAS_QA.json
           retention-days: 7
           if-no-files-found: warn
