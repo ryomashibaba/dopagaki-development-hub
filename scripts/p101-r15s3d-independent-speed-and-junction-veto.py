@@ -44,6 +44,11 @@ def check(d):
                 assert math.isfinite(r["sampledSignedScissorRoadTangentSpeedMeanMps"])
             if r["nativeNextRoadContactEntered"] is not None:
                 assert r["actualNextRoadGroundedSeconds"]>0
+                entry=r["nativeNextRoadContactEntered"]
+                assert isinstance(entry,dict)
+                assert 21.5<entry["timeSeconds"]<=r["trueTerminalOrCapSeconds"]
+                assert len(entry["xyz"])==3
+                assert all(math.isfinite(v) for v in entry["xyz"])
             else:assert r["actualNextRoadGroundedSeconds"]==0
             if r["sourceSCISSORLastGrounding"] is not None:
                 assert r["actualSCISSORGroundedSeconds"]>0
