@@ -7,19 +7,20 @@ reject forged geographic, screen, topology and authorization claims.
 """
 import json,os,copy,math,argparse
 P=argparse.ArgumentParser()
-for k in ("r15k","r15k3","r15k4","data","out"):P.add_argument("--"+k,required=True)
+for k in ("r15k","r15k3","r15k4","r15k4b","data","out"):P.add_argument("--"+k,required=True)
 a=P.parse_args()
 read=lambda p:json.load(open(p,encoding="utf8"))
-K=read(a.r15k);K3=read(a.r15k3);K4=read(a.r15k4);D=read(a.data)
+K=read(a.r15k);K3=read(a.r15k3);K4=read(a.r15k4);K4B=read(a.r15k4b);D=read(a.data)
 SRC="af076d67492a677d2235e4730aef8cdf4808e106"
 roads=("true-pinch","pinch-switch")
 patches=("02 roadbank-promenade None","04 roadbank-promenade None")
 def validate(d):
  assert d["schema"]=="dopagaki.r15k4b-original-upface-triangulated-interior-25point-floor-recheck/1"
- assert d["sourceCXBlob"]==K["originalSourceCXBlob"]==K3["sourceBlob"]==K4["sourceBlob"]==SRC
+ assert d["sourceCXBlob"]==K["originalSourceCXBlob"]==K3["sourceBlob"]==K4["sourceBlob"]==K4B["sourceBlob"]==SRC
  assert d["sourceWorlds"]==list(roads)
  assert d["sourceOriginalCXMeshes"]==list(patches)
  assert d["priorR15K4DisqualifiedEdgeAnchoredStudyBoxes"]==30
+ assert d["restrictToExactlyTwoVerifiedOriginalR15K4BSelectedFaces"] is True
  assert d["noNewMeshesOrCollider"] is True
  for x in ("anyOriginalRoadToCXPublicAccessibleRouteBuilt","allOriginalMovingB51TrueObstaclesRendered",
   "physicalLoadOrStructureCertified","actualRealGameplayWebGL","humanArtApproved"):
@@ -35,6 +36,11 @@ def validate(d):
   originals[road]={}
   for patch in patches:
    info=worlds[road][patch]
+   baseline=K4B["originalSource2FaceTrialsByRoad"][road][patch]
+   assert info["exactOriginalR15K4BSelectedCXFaceIndex"]==baseline["selectedOriginalCXSourceFaceIndex"]
+   assert abs(info["exactOriginalR15K4BSelectedCXFaceAreaSqm"]-baseline["exactOriginalSourceFaceAreaSqm"])<.001
+   assert abs(info["originalSourceUpFaceTriangleAreaSumSqm"]-baseline["exactOriginalSourceFaceAreaSqm"])<.01
+   assert info["originalSourceUpFacePolygonIndices"]==[baseline["selectedOriginalCXSourceFaceIndex"]]
    assert info["originalSourceUpFaceTriangleCount"]>=1
    assert info["originalSourceUpFaceTriangleAreaSumSqm"]>0
    assert len(info["originalSourceUpFacePolygonIndices"])>=1
@@ -149,6 +155,7 @@ mutations=[("fake_art",lambda q:q.__setitem__("officialArt",1)),
  ("fake_source",lambda q:q.__setitem__("sourceCXBlob","fake")),
  ("fake_newmesh",lambda q:q.__setitem__("noNewMeshesOrCollider",False)),
  ("fake_original_sites",lambda q:q.__setitem__("sourceOriginalCXMeshes",["02","04","04"])),
+ ("fake_other_polygon",lambda q:q["sourceFaceInteriorWorldResults"][road][patch].__setitem__("originalSourceUpFacePolygonIndices",[999])),
  ("fake_artcount",lambda q:q.__setitem__("officialSlope2Meters",100)),
  ("fake_footprint",change_foot if first else lambda q:q["sourceFaceInteriorWorldResults"][road][patch].__setitem__("fullySourceGrounded25PointStudyBoxes",88)),
  ("fake_screen",change_frame if first else lambda q:q.__setitem__("priorR15K4DisqualifiedEdgeAnchoredStudyBoxes",31)),
