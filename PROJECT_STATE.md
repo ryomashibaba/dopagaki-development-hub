@@ -1,3 +1,16 @@
+# R15S3D6・R15S3D6R1 — 本物のB48道路計6真正240Hz、限定改善と新しい支持喪失を確認（2026-10-30 JST）
+
+**SOURCE TECH限定PASS／GAMEPLAY FAIL/HOLD／ART REJECT/HOLD／HUMAN・PERFORMANCE・INTEGRATION・RELEASE・MERGE HOLD。** 元ゲーム・main・Gold・P100・本番、保護blob `af076d67492a677d2235e4730aef8cdf4808e106` 不変更。Draft PR #46 OPEN/未マージ。正式ART0件、Slope2認定0m。
+
+- **R15S3D6真正 [Actions #40958123543](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40958123543) SUCCESS／[Artifact #12935000733](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40958123543/artifacts/12935000733)**：SCISSOR〜LOWERの2実B48立体形状×true-pinch/pinch-switch＝4真正240Hz。全4条件原17/21.5秒CROWN prefix一致、独立QA偽認定12拒否。Aはtrue-pinch 33.525秒落下／pinch-switch 28.6秒で衝突専用面へ衝突し棄却。Bは両世界で後続実B48へ接地（1.345833/1.404167秒、平均符号付接線速度+119.385/+116.010m/s）したが、33.433333/33.462500秒に転落。最大1tick全速度差51.234/53.898m/s、元R15S3D4とは観測窓・走行軌道が異なり衝突インパルスを直接証明しない。
+- **R15S3D6R1真正 [Actions #40958849153](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40958849153) SUCCESS／[Artifact #12934677277](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40958849153/artifacts/12934677277)**：Bを土台に実LOWER_REVERSAL制御行2〜19を追加物理コライダーなしで再縦断。元2世界からの真0秒再生2/2と独立QA虚偽10拒否。**後続B48の本物の接地が1.345833→2.500000秒／1.404167→2.570833秒、最終転落は33.433333→38.404167秒／33.462500→38.454167秒へ延長**。正方向平均接線速度+119.590/+116.139m/s、後続接地中の負forward tick0。ただし**34.504/34.562秒のほぼ同じ原空間（X≈−1673、Y≈−3.8、Z≈380.5）、次道路u≈0.345665で実支持を失う**。直前の固定衝突増分と全速度変化54.215/56.480m/sはBよりむしろ悪化。全コース正式完走0/2、正式GAMEPLAY不可。
+- R1初回[Actions #40958814417](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40958814417)は旧証拠JSON参照キー不一致でFAIL、コードを修正し上記本試験SUCCESS。失敗履歴を隠さない。
+- **次のR15S3D7**：微小勾配調整を続けず、元LOWER_REVERSAL約34.5秒の真接触・速度/forward/guide・支持法線/CCD・両外縁最短距離を240Hzで因果切り分けし、次の実道路を含む連続な支持線形を設計して真正2世界で検証。元routeや物理の隠れ変更・安全床追加は禁止。実WebGL＋人間操作＋未来都市美術の統合ゲートを経るまで採用しない。
+
+[詳細な真正結果、反証、R15S3D7次工程方針](docs/G4E7DZ_R15S3D6_R15S3D6R1_REAL_B48_NATIVE_RESULTS_CRITICAL_JA.md)
+
+---
+
 # R15S3D5真正4条件: guide / forward / 球速度を分離して根因候補を狭めた（2026-10-30 JST）
 
 **真正 [Actions #40956811818](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40956811818) SUCCESS／[Artifact #12934470871](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40956811818/artifacts/12934470871)。** 元R15S3D4×4条件の全637tick位置・速度・操舵・接地・衝突回数を元Runner 0秒開始の240Hzで再現。元CROWN/B16 17s・21.5s prefix全4一致、元B48×7・B51×28・CCD・P96/P94・正規ガイド・元保護blob変更なし。独立QA12虚偽認定を拒否。
