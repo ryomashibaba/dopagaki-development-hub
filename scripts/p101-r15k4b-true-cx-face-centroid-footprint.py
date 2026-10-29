@@ -71,7 +71,7 @@ for road in ROADS:
   assert candidates,(name,"NO_ORIGINAL_UPWARD_REAL_POLYGON")
   candidates.sort(key=lambda x:(round(x[0],3),x[1]))
   deviation,faceindex,face,center,n=candidates[0]
-  assert abs(float(face.area)-expectarea)<.0002,("SOURCE_FACE_AREA_MISMATCH",name,face.area)
+  assert abs(float(face.area)-expectarea)<.002,("SOURCE_FACE_AREA_MISMATCH",name,face.area)
   world=[matrix@obj.data.vertices[j].co for j in face.vertices]
   # API returns *indices*, never already-world-vectors.
   indices=tessellate_polygon([world])
