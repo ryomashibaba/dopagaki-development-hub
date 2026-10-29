@@ -162,6 +162,7 @@ export const realSource=(r,ref,mode,control,n2,horizonSeconds=horizon)=>{
   failure:res.originalNativeFailReason}));
  return res;
 };
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
 const argv=process.argv.slice(2),arg=k=>{const i=argv.indexOf(k);assert.ok(i>=0,k);return argv[i+1]};
 const refs=Object.fromEntries(ROADS.map(r=>[r,JSON.parse(fs.readFileSync(arg('--'+r),'utf8'))]));
 const n2=JSON.parse(fs.readFileSync(arg('--r15n2'),'utf8'));
@@ -185,3 +186,4 @@ const results={schema:'dopagaki.r15o-isolated-original-b48-physical-curve-multi-
 fs.mkdirSync(arg('--out'),{recursive:true});
 fs.writeFileSync(arg('--out')+'/R15O_REAL_16_NATIVE_CROWN_PHYSICAL_RESHAPE_240HZ_DRIVING.json',
  JSON.stringify(results,null,2)+'\n');
+}
