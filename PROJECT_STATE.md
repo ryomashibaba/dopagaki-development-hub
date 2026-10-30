@@ -1,3 +1,17 @@
+# R15S3D14／R1 → R15S3D15 — 連続壁を棄却し巨大象徴都市核・公共テラスの真正実3D制作完了／実カメラ投影を先に確認（2026-10-30 JST）
+
+**source B48/B51/240Hzの真正状態は保持**。[Draft PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46) はOPEN/Draft/未マージ。保護元ゲームBlob `af076d67492a677d2235e4730aef8cdf4808e106`不変。MAIN/Gold/P100/本番/物理/camera/合法操舵/7実道路・28実動体・元HUD早期B51警告は無改変、全新ARTは`dist-private`の非衝突3Dのみ。
+
+- **R15S3D14・本物の象徴都市核**：巨大な三日月状厚みある非衝突3Dを実道路5/6の進行方向に3つ設計。A 5,652三角形、B 5,232三角形、各3つの約147m以上の中央実空洞と12デッキ。真の元球240Hz・同RAWカメラWebGL2×6条件・24本物の画像、各新A/B×2世界元`finished`+原`finish`イベント1/1＝**4/4 PASS**、独立QAで10件の虚偽証拠を拒否。[真正Actions #41041624933](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41041624933) SUCCESS／[24画像原本 #12970791757](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41041624933/artifacts/12970791757)。**美術：A HOLD**（旧R1長壁より象徴性改善、しかし暗い空に輪だけが浮く）、**B REJECT**（Aより画面構図に優位なし）。
+- **R15S3D14R1・周辺の本物の公共都市を追加**：R14 Aの真3D主核を保持し、本物の15層公共テラス／非矩形居住デッキ／空中街区／下層連絡/実中庭の2案。A `A_INHABITED_CRESCENT_DISTRICTS` 7,920実三角形/36開放セル、B `B_DEEP_CIVIC_TERRACES` 7,668三角形/61開放セル。PRIVATEの依存モジュール未同梱で初回CI #41042937428 FAIL、`p101-r15s3d14`基礎ES moduleをPRIVATE版へ同梱修正。後続CI成功。
+- **R14R1真正最終CI [#41044411374](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41044411374) SUCCESS**／[原WebGL2実画像24枚＋独立QA Artifact #12972097319](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41044411374/artifacts/12972097319)。R14参照×2世界＋新R14R1 A/B×2世界＝6条件、元58s/64s/67s同1/240秒時刻・元Rawカメラ、元源球`finished`4/4/原`finish`イベント各1。独立10偽認定VETO。**実画像批判：A ART HOLD**（街区は増えたが大半が画面端の大輪内側、道路中央は暗闇のまま）、**B ART REJECT**（細い平板が反復しAより劇的進歩なし）。正式ART採用ゼロ、Slope2認定0m。
+- **重大な工程転換：R15S3D15ではカメラの真正投影を先に測る**。幾何や三角形数が増えてもカメラ前方で主役都市にならない欠点を断つ。元の`drive3d`レンダラー内`viewForPose()`が実際に返すeye/front/right/up・元球位置を別PRIVATE複製に読み取り専用で記録。`sample()`で元実B48道路5/6から直接得た50+個の景観主核候補（横方向/高さ違い）を**元のGLSL式そのまま**真正WebGL2の54/58/61/64/67秒、true-pinch/pinch-switchの2世界×5場面でスクリーン投影して証拠化。候補の遮蔽や美術合格ではない。今の新CI [Actions #41047236192](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41047236192)は**完了判定をまだ確認していない**ため結果が出るまでHOLD。出所は`scripts/p101-r15s3d15-private-actual-raw-camera-probe-pack.mjs`と`scripts/p101-r15s3d15-source-native-project-true-landmarks.mjs`。
+- **次の本制作の明確なゲート**：スクリーン中央遠景の実カメラ座標を測定し、「遠方の巨大一体シルエット→近景の本物の生活公共空洞→通過後の街」の時間構成を固定して初めて新3Dを造形。画面端の同じ輪、連続側壁/細破片、色替えと装飾のみを禁止。元B51の実画面内サイズ・遮蔽/手動回避、Windows GPU FPSは未検証で**HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD**。実走自動完走を人間PLAY PASSとは絶対呼ばない。
+
+[根拠・失敗と美術批評・次工程設計](docs/G4E7DZ_R15S3D14_TRUE_THREE_HOLLOW_CITIES_AND_INHABITED_R1_ART_GATE_JA.md)
+
+---
+
 # R15S3D13／R1 — 元ゲーム真正WebGL2大規模連続都市の実制作と批判的美術REJECT（2026-10-30 JST）
 
 **確定SOURCE TECH：** [Actions #41015677226](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41015677226) **SUCCESS／[Artifact #12959673348](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41015677226/artifacts/12959673348)**。元の真正240Hz `Runner`・CCD・P96/P94/A13・本物の7 B48実道路・28 B51実動体・元GLSL WebGL2/RAWカメラ/HUDを元原本のまま、道路5/6の本当の物理面サンプルに沿った連続巨大3D都市2案をPRIVATE版に実制作。旧背景・前R15S3D12 A、新2案×2世界の**7セッション・27真正PNG**を同じ元ネイティブt58(13920tick)/64(15360tick)/67(16080tick)で比較し、真正原`finished`＋本物の`finish`イベント／最終路面接地**新2案×2世界の4/4 PASS**。独立QAで虚偽認定10件拒否。元物理とゲームソース未変更。
