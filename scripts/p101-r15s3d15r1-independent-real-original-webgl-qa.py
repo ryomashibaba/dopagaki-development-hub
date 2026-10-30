@@ -29,12 +29,12 @@ def inspect(d):
   assert session['realGPU']['webGL2'] is True
   assert session['artApproved'] is False and session['humanTested'] is False
   snaps=session['realScreenshots']
-  assert len(snaps)>=3
+  assert len(snaps)>=len(TIMES)
   assert all(x['cameraMode']=='ball-lock-unfiltered-heading' for x in snaps)
   assert all(x['sourceB48']==7 and x['sourceB51']==28 for x in snaps)
   assert all(x['actualCanvasPngBytes']>15000 and x['actualHudPngBytes']>26000 for x in snaps)
   assert all(re.fullmatch(r'[0-9a-f]{64}',x['canvasPngSHA256']) for x in snaps)
-  assert [x['originalNativeTargetSeconds'] for x in snaps[:3]]==list(TIMES)
+  assert [x['originalNativeTargetSeconds'] for x in snaps[:len(TIMES)]]==list(TIMES)
   for i,t in enumerate(TIMES):
    x=snaps[i]
    assert x['runnerStatus']=='running'
@@ -70,9 +70,9 @@ def inspect(d):
     assert new['groundedRoad']==base['groundedRoad']
   for n in scenes:
    distinct=sum(n['realScreenshots'][i]['canvasPngSHA256']!=
-    prior['realScreenshots'][i]['canvasPngSHA256'] for i in range(3))
+    prior['realScreenshots'][i]['canvasPngSHA256'] for i in range(len(TIMES)))
    assert distinct>=2, 'new real GPU background is not seen in original camera'
-  for i in range(3):
+  for i in range(len(TIMES)):
    assert scenes[0]['realScreenshots'][i]['canvasPngSHA256']!=scenes[1]['realScreenshots'][i]['canvasPngSHA256'], 'two proposals look identical at the real camera/time'
  return results
 def main():
