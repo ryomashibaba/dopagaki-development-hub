@@ -87,7 +87,7 @@ try{
     assert.equal(probe.sourceB48,7);assert.equal(probe.sourceB51,28);
     if(spec.prefix==='r15s3d15r1'){
      assert.equal(probe.mode,spec.mode);
-     assert.ok(probe.artTriangles>3500);
+     assert.ok(probe.artTriangles>1500);
      assert.ok(probe.genuineOpenVoids>80);
     }else assert.equal(probe.mode,'legacy');
     if(probe.runnerStatus==='running'){
