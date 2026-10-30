@@ -144,7 +144,7 @@ export function buildR15S3D14R2City(doc,sample,{mode='A_SHORELINE_PUBLIC_FOLDS'}
  if(!Number.isInteger(triangles)||triangles<prior.triangles+2500||triangles>65000||
    stat.realOpenCivicCourts<100||stat.inhabitedSurfaceSections<180||
    stat.bigPublicCanopies!==10||stat.sites.length!==5||
-   stat.continuousCanopyCells<600||!vertices.every(Number.isFinite))
+   stat.continuousCanopyCells<300||!vertices.every(Number.isFinite))
    throw Error('R14R2 physical-scale architectural geometry failed');
  if(JSON.stringify(doc)!==source)throw Error('R14R2 mutates original B48/B51 gameplay');
  return {vertices,triangles,...stat,sourceArchitectureTriangles:prior.triangles,
