@@ -57,11 +57,27 @@ js=js.replace(anchor,[
 const oldGate="new URLSearchParams(window.location.search).get('r15s3d10')==='on'";
 assert.equal(js.split(oldGate).length,2);
 js=js.replace(oldGate,"new URLSearchParams(window.location.search).get('r15s3d11')==='on'");
+const cueModule="import {actualOriginalRoadAheadB51Cue} from './r15s3d11-source-road-ahead-b51-warning.mjs';";
+const oldImport="import {originalB51TrueSpatialCue} from './r15s3d10-physical-b51-hud-cue.mjs';";
+assert.equal(js.split(oldImport).length,2,'D11 actual original renderer did not retain D10 true OBB HUD');
+js=js.replace(oldImport,oldImport+'\n'+cueModule);
+const warning="machineLabel.textContent=physical.message;";
+assert.equal(js.split(warning).length,2,'D11 private renderer original HUD anchor missing');
+js=js.replace(warning,[
+ 'const physicalCourseAhead=actualOriginalRoadAheadB51Cue(doc,runner,sample,movingObstaclePose,sphereBoxSeparation);',
+ 'const useEarlyActualRoadCue=Boolean(!physical.next&&physicalCourseAhead);',
+ 'machineLabel.textContent=useEarlyActualRoadCue?physicalCourseAhead.message:physical.message;',
+ "canvas.dataset.r15s3d11RealB48RoadAheadM=useEarlyActualRoadCue?physicalCourseAhead.alongActualB48RoadMetres.toFixed(1):'none';",
+ "canvas.dataset.r15s3d11RoadAheadB51Id=useEarlyActualRoadCue?physicalCourseAhead.id:'none';",
+ "canvas.dataset.r15s3d11RiskNotCertified='true';",
+].join('\n'));
+fs.copyFileSync(path.join(root,'scripts/p101-r15s3d11-source-road-ahead-b51-warning.mjs'),
+ path.join(dest,'r15s3d11-source-road-ahead-b51-warning.mjs'));
 fs.writeFileSync(src,js);
 const htmlPath=path.join(dest,'index.html');
 let html=fs.readFileSync(htmlPath,'utf8');
 assert.ok(html.includes('R15S3D10 PRIVATE'));
-html=html.replace('R15S3D10 PRIVATE','R15S3D11 PRIVATE / 6 ORIGINAL B51 PHYSICALLY RE-ANCHORED');
+html=html.replace('R15S3D10 PRIVATE','R15S3D11 PRIVATE / 6 REAL B51 / ACTUAL B48 ROAD-AHEAD WARNING');
 fs.writeFileSync(htmlPath,html);
 assert.ok(!fs.readFileSync(path.join(dist,'r15s3d10/drive3d.mjs'),'utf8').includes('R15S3D11 inserted'));
 assert.ok(!fs.readFileSync(path.join(dist,'drive3d/drive3d.mjs'),'utf8').includes('r15s3d10OptIn'));
