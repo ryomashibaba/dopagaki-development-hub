@@ -1,3 +1,21 @@
+# R15S3D11 — 実B51障害物の競技性向上・元240Hz真正走行4条件・実WebGL2四条件・同一路面全軌跡照合（2026-10-30 JST）
+
+**重要な技術進歩：PRIVATE実験では元全7道路と元Runner/CCD/元操舵P96→P94/A13・カメラ/HUDを凍結し、実際の既存B51動体28基中6基（`a13-machine-11`〜`16`）のみ道路5/6へ移設。** 既存ID/タイプ/動作周期/位相/衝突モードを保持、実B51物理箱を狭路向けに調整。元22基や元ゲーム原本、`main`/Gold/P100/本番は無改変。
+
+- **真正240Hz×4条件**：[Actions #40996596408](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40996596408) SUCCESS／[Artifact #12951144376](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40996596408/artifacts/12951144376)。A（左右路肩配置）は元true-pinch **69.829167秒`finished`**／pinch-switch **70.516667秒`finished`**、元`finish`イベント各1／移動体接触0。B（車線内障害物）は元`a13-machine-12`実接触で60.733333／61.304167秒`failed`、元`finish`0。原CROWNの17／21.5秒source prefix4/4一致。独立QA偽認定12種拒否。最初のCI2回のFAILは新試験の初期`ready`を誤って終了と扱った観測側のバグ。正しく`failed/finished`のみ終了とする修正後の真正証拠が正本。
+- **公平な後半B51接近比較**：[Actions #40997061397](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40997061397) SUCCESS／[Artifact #12951313883](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40997061397/artifacts/12951313883)。同じ原Runnerの球XYZ・同じ時間・**23秒以降0.5秒刻み**で元28基の球面と実回転OBB距離を比較し、true-pinch 30m以内**1→5基**、pinch-switch **3→7基**。元R15S3D9との球XYZ差0m。新試験の0秒からの接近13/14基と、旧23秒以降の3基を直接比べる誤りは禁止。独立QA偽認定9種拒否。
+- **本物のゲームWebGL2×4条件**：[Actions #40996713244](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40996713244) SUCCESS／[Artifact #12951946719](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40996713244/artifacts/12951946719)、**元GLSLとゲームHUD・追従カメラ・28本物のB51**で18実スクリーンショット。Aのブラウザ真正FINISH2/2、Bの`a13-machine-12`衝突失敗2/2一致。元の`dist-private/drive3d/`を上書きせず、隔離`dist-private/r15s3d11/`のみ研究用拡張。実機人間FPS・公平性・美術は未承認。
+- **美術/ゲームの重大REJECT**：B案は58秒時点で元HUDが「危険なし」、60.7／61.3秒の実接触でようやくB51真距離0mを表示。**速度170m/s級の予告が遅すぎる**。A案は完走できるが機械近接が増えただけでは駆け引き・回避可能性の証明にならない。ART正式採用0件、Slope2認定0m。B致命衝突レイアウトを正式採用不可。
+- **R15S3D11-R1実装・検証中**：`scripts/p101-r15s3d11-source-road-ahead-b51-warning.mjs`を追加し、元routeではなく真正B48中心線を用いた**最大650mの実路面前方動体予告**をPRIVATE元WebGL2 HUDに組み込んだ。未来衝突/遮蔽/人間回避/ETAを捏造しない。単体/再ブラウザCIは結果を確認するまで**PENDING（未認定）**。
+- **ローカル試験1クリック**：`scripts/R15S3D11_PRIVATE_HAZARD_WEBGL_ONE_CLICK.cmd`で当該ブランチをWindows作業コピーで実行すれば、プライベートビルド→本ゲーム複製→実4ステージ→localhost起動・ブラウザ表示まで一括。自動デモは人間試験ではない。
+- **次R15S3D12**：Aの6基が本当に人間にとって判断・避ける楽しさを作れるか、元WebGL2画面の障害物サイズ・遮蔽・前方警告時間・手動入力を同条件で検証。小物の追加だけでなく未来巨大都市の**大胆な実3D骨格・多階公共空洞・高速の接近/通過/退出**を本物の原カメラで制作・批判的に審査。正式GAMEPLAY/HUMAN/ART/PERFORMANCE/RELEASE/MERGE HOLD。
+
+**正式ゲート：SOURCE-NATIVE A`finished`2/2 PASS、B衝突FAIL/REJECT、SOURCE B51同軌道比較限定PASS、PRIVATE実WebGL2実描画4/4限定TECH PASS。GAMEPLAY/ART REJECT・HOLD／HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。** 保護元ゲームblob `af076d67492a677d2235e4730aef8cdf4808e106`不変、[PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46) OPEN/Draft未マージ。
+
+[真正証拠・失敗・美術批判・次ゲート詳細](docs/G4E7DZ_R15S3D11_TRUE_B51_28_REAL_GAME_WEBGL_AND_FAIR_WARNING_VERDICT_JA.md)
+
+---
+
 # R15S3D10 — 本物の原WebGL2ゲームPRIVATE統合で240Hz真正完走2/2、元28 B51の接近不足・美術REJECT（2026-10-30 JST）
 
 **実ゲームの限定技術成果**：元ゲーム`drive3d`本体を改変せず、PRIVATEビルド`dist-private/r15s3d10/`に実WebGL2レンダラー/240Hz Runner/CCD/元追従カメラ/HUD/元B51全28とR15S3D9実B48幅16m級道路7本を一体接続。原0秒から合法P96→P94・A13・OVERDRIVEの**自動走行**で、真正Chromium GPU APIによる実ブラウザ版も元世界2条件とも元Runnerの`finished`・`finish`イベント各1件を再現。原走行時計**true-pinch 69.83秒／pinch-switch 70.52秒**。元ステージゲームソースGit blob `af076d67492a677d2235e4730aef8cdf4808e106`不変。これは**PRIVATE SOURCE-GAME WEBGL2 TECH限定PASS**であり**本人手動・GAMEPLAYの楽しさ・都市ART・実機PERFORMANCE・RELEASE合格ではない**。
