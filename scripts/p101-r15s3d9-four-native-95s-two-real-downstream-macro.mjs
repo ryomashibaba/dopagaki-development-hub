@@ -129,7 +129,7 @@ for(const world of worlds){
    terminalFailureReason:runner.failure?.reason??null,
    priorR15S3D8R1Original65sStatus:baseline.originalNativeRunnerStatus,
    priorR15S3D8R1Original65sRoad4SupportedSeconds:baseline.trueFollowingB48GroundSeconds,
-   priorR15S3D8R1TerminalSeconds:baseline.terminalTimeOr95sCap,
+   priorR15S3D8R1TerminalSeconds:baseline.terminalTimeOr45sCap,
    actualPhysicalRoads:7,originalPhysicalB51:28,
    trueSCISSORGroundSeconds:round(roadCounts[0]*DT),
    trueLOWERGroundSeconds:round(roadCounts[1]*DT),
