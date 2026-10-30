@@ -5,6 +5,8 @@ on:
     paths:
       - scripts/p101-r15s3d10-private-real-webgl-pack.mjs
       - scripts/p101-r15s3d10-real-webgl-playwright-capture.mjs
+      - scripts/p101-r15s3d10-physical-b51-hud-cue.mjs
+      - tests/p101-r15s3d10-source-b51-hud-cue.test.mjs
       - .github/workflows/p101-r15s3d10-actual-game-private-webgl2.yml
   workflow_dispatch:
 permissions:
@@ -23,6 +25,8 @@ jobs:
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           node --check scripts/p101-r15s3d10-private-real-webgl-pack.mjs
           node --check scripts/p101-r15s3d10-real-webgl-playwright-capture.mjs
+          node --check scripts/p101-r15s3d10-physical-b51-hud-cue.mjs
+          node --test tests/p101-r15s3d10-source-b51-hud-cue.test.mjs
       - name: Build original PRIVATE game, never publish
         run: |
           npm install --no-save --no-package-lock --no-audit --no-fund
@@ -37,6 +41,12 @@ jobs:
       - name: Use genuine headless Chromium WebGL2 backend
         run: |
           npx playwright install --only-shell chromium
+      - name: Ensure Japanese HUD glyphs render in original Chromium screenshots
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends fonts-ipafont-gothic
+          fc-cache -f
+          fc-list :lang=ja family | grep -q .
       - name: Two worlds original drive3d source renderer with original HUD/camera and 240Hz scripted evidence
         run: |
           node scripts/p101-r15s3d10-real-webgl-playwright-capture.mjs
