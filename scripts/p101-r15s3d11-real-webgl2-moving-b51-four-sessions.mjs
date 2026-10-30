@@ -47,7 +47,7 @@ try{
    await page.locator('#demoSpeed').selectOption('2');
    await page.locator('#demoRun').click();
    const snapshots=[];
-   for(const milestone of [23.5,45,57,63,71,94]){
+   for(const milestone of (id.endsWith('-CROSS')?[23.5,45,57,59.2,60.15,63]:[23.5,45,57,59.2,63,71,94])){
     try{await page.waitForFunction(sec=>{
       const c=document.getElementById('view'),time=Number.parseFloat(document.getElementById('simTime').textContent||0);
       return time>=sec||['failed','finished'].includes(c.dataset.r15s3d10Status);
@@ -68,6 +68,9 @@ try{
       actualControlMode:c.dataset.r15s3d10DriveMode,
       actualPhysicalB51Warning:document.getElementById('machineCue').textContent,
       movingOBBSeparationM:c.dataset.r15s3d10PhysicallyNearB51,
+      realB48AheadMovingB51Id:c.dataset.r15s3d11RoadAheadB51Id??'none',
+      realB48AheadMovingB51ArcMetres:c.dataset.r15s3d11RealB48RoadAheadM??'none',
+      actualCueCannotClaimImpactOrVisibility:c.dataset.r15s3d11RiskNotCertified??'unknown',
       fovOnlyNotOcclusion:c.dataset.r15s3d10FovOnlyNotVisibility,
       hudFPS:Number(document.getElementById('fps').textContent)};
     });
@@ -75,7 +78,10 @@ try{
     console.log('R15S3D11_REAL_WEBGL2_HAZARD_FRAME',JSON.stringify({id,...snapshots.at(-1)}));
     if(['failed','finished'].includes(sample.realNativeStatus))break;
    }
+   const actualAheadBeforeTerminal=snapshots.filter(x=>x.realB48AheadMovingB51Id!=='none'&&x.realNativeStatus==='running');
    record.sessions[id]={realSourceEngineWebGL2:webgl,actualBrowserSourceFrames:snapshots,
+    originalB48ArcAdvanceWarningBeforeEnd:actualAheadBeforeTerminal.length,
+    originalB48RealAdvanceWarningEvidence:actualAheadBeforeTerminal.map(x=>({time:x.time,id:x.realB48AheadMovingB51Id,metres:x.realB48AheadMovingB51ArcMetres})),
     terminalStatus:snapshots.at(-1)?.realNativeStatus,
     all28OriginalIDsAndSixRelocatedResearch:true,scriptedAutomationNotHuman:true,
     actualHUDOriginalCameraUsed:true,browserErrors};
