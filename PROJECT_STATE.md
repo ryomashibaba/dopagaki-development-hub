@@ -1,3 +1,16 @@
+# R19 A0 真正GAMEPLAY×ART統合代表区間 0〜12秒：技術SOURCE PASS・正式品質HOLD（2026-10-31 JST）
+
+**R18 P5の美術量産を停止。元ゲームの本当の7.28km/約52秒コースで、開始0〜12秒のW9-C1 ABYSS DIVE、実14m対28mを正規240Hz・28 B51と既存非衝突G5B都市で同時検証。正式ART採用0件・Slope2 DNA認定0m・HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。**
+
+- 真正[CI #41131784122](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41131784122)全工程SUCCESS。既存W9C1の実B48物理／元28個B51／元240Hz Runnerと本物のChromium WebGL2 G5Bを一つのCIで試験。初回 #41131345970 の成果物にNative JSONが欠落する証拠保全バグを発見し、Playwrightが掃除しない r19-evidence/ に移して修正。最終GitHub Artifact #13013401969（ZIP SHA256 3249da442b0a824931aa95c27a8754f20af2797e8c90daf4aa68af98102f2258、2026-11-06期限）に真正Native元JSON・4枚の本物WebGL2 PNG・元画面審査JSONを確保。
+- 完全0秒スタート元12秒＝2,880tickでCONTROL 28mとULTRA 14mの両方がsource Runner running、真B48道路0→1まで接地進行。最高速度116.742m/s vs115.519m/s、B51実接触0、空中区間0。両方警告初1.104秒・狭路コア初到達4.404秒・プログラム上の警告余裕3.300秒。
+- **ULTRA最重要：真正Catmull-Rom補間の310〜360mコア物理幅13.159〜14m**、約82.423〜87.874m/sで走行し、記録上の概算路端最小余裕**1.743m**。自動で通れたことは初見の人間が公平に楽しく通れることを保証しない。
+- 既存G5Bの元WebGL2は同スポーン320mの14m／28mデフォルトOFF・ONの4枚で描画確認、各4,608実三角形で非衝突。但し**320m局所初速52m/sのWebGL2像は、0〜12秒の真正時刻同期走行映像ではない**。元G5Bの柱状・箱状都市は依然美術HOLDで新規美術として正式採用していない。
+- 修正方針：**今後のA1では本物の0〜12秒Native球XYZ・速度・B51動体・元カメラを同時刻で同期比較**、A2で１つの巨大都市とSlope2実細道の真正共同設計、A3で初期から短いWindows人間試走とGPU FPSを検査。現時点でSlope認定0m、ART採用0件を保持。今後は旧R18の5都市案・6条件36枚を毎回量産する工程へ戻さない。
+- 原保護 source blob af076d67492a677d2235e4730aef8cdf4808e106、main/Gold/P100/W9-X/B5/本番を変えず、PR #46 Draft/open/未マージを継続。詳細 [R19 A0根拠](docs/R19_A0_FIRST_REAL_12S_GAMEPLAY_ART_VERTICAL_SLICE_JA.md) と [短い復帰](docs/DOPAGAKI_LIVE_HANDOFF.md) に記録。
+
+---
+
 # R18 P4元ゲーム真正SOURCE TECH PASS、ART A/B REJECT → R18 P5都市デザインゲート（2026-10-31 JST）
 
 **正規SOURCE TECH確定：6/6真正元WebGL2 Nativeセッション、36/36 Canvas PNG SHA、R18 P4 A/B×2世界の真Runner finished/finishEvents=1 4/4、10偽認定拒否。ART両案REJECT。正式ART採用0、Slope2認定0m、HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。**
