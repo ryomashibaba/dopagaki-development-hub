@@ -48,7 +48,7 @@ for(const world of worlds){
   const touched=new Set(),nearest=new Map(doc.movingObstacles.map(m=>[m.id,{id:m.id,separation:Infinity,time:null,road:null,xyz:null,samplesWithin30m:0,samplesWithin10m:0,leadWithin2s:0}]));
   const snapshots=[];
   for(let tick=1;tick<=Math.round(95/DT);tick++){
-   if(runner.status!=='running')break;
+   if(runner.status==='failed'||runner.status==='finished')break; // Runner starts as 'ready': let ORIGINAL first 240Hz step transition to running
    const steer=tick<=Math.round(21.5/DT)?
     p96DodgeSteer(runner,plan,'early-soft',movingObstaclePose).input/4.8:p94NativeSteer(runner,'corrective');
    assert.ok(Number.isFinite(steer)&&Math.abs(steer)<=1);
