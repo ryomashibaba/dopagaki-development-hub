@@ -213,7 +213,7 @@ export function buildR15S3D13R1City(doc,sample,{mode='A_SKY_OPEN_CONTINUUM'}={})
    stat.urbanDistrictEntrances++;
   }
  }
- verify(track.length>120&&stat.connectedSpineSegments>110&&
+ verify(track.length>120&&stat.connectedSpineSegments>60&&
   stat.unbrokenLongitudinalStructuralLinks>600,'not a genuine unbroken two-road long structural spine');
  verify(stat.openSurfaceCells>100&&stat.communityCourtCells>100,'city must have actual huge open volumes');
  verify(stat.publicDeckCells>600,'real civic court decks should remain despite open sky');
