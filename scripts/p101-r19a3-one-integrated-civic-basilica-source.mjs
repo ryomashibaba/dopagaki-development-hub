@@ -248,7 +248,10 @@ export function buildR19A3IntegratedCivicCity(stage,sample,{enabled=false}={}){
  // Main landmark is *along road1* rather than the previous single
  // road0 station. 8 and 11.5 sec now have actual source street programmes.
  const hero=frame(stage.surfaces[1],.23,1,sample);
+ const editableGroups=[];
+ const first=o.length/18;
  oneHollowCivicLandmark(o,hero,st);
+ editableGroups.push({name:'01 — RIFT CIVIC BASILICA — source road1 open civic hall',startTriangle:first,endTriangle:o.length/18});
  const quarters=[
   {road:0,u:.29,side:-1,kind:'arrival exhibition gardens'},
   {road:0,u:.72,side:1,kind:'narrow-road open station'},
@@ -256,9 +259,15 @@ export function buildR19A3IntegratedCivicCity(stage,sample,{enabled=false}={}){
   {road:1,u:.78,side:1,kind:'civic housing and observation campus'}
  ];
  for(const [i,p] of quarters.entries()){
+  const start=o.length/18;
   quarter(o,frame(stage.surfaces[p.road],p.u,p.side,sample),
    p.kind,i,st);
+  editableGroups.push({name:String(i+2).padStart(2,'0')+' — '+p.kind+
+   ' — original B48 road'+p.road,startTriangle:start,endTriangle:o.length/18});
  }
+ assertScene(editableGroups.length===5&&
+  editableGroups.every(g=>g.endTriangle>g.startTriangle),
+  'real five architecture groups not separated');
  assertScene(JSON.stringify(stage)===before,'original B48/B51 mutated');
  assertScene(st.heroBuildingCount===1&&st.singleOpenAtrium===1&&
   st.publicCourtyards===4&&st.trueEmptyBays>=6&&
@@ -270,5 +279,6 @@ export function buildR19A3IntegratedCivicCity(stage,sample,{enabled=false}={}){
  return {active:true,vertices:o,triangles:o.length/18,colliders:0,
   noDriveableArt:true,originalB48:7,originalB51:28,
   mode:'ONE_CIVIC_BASILICA_A4_VOLUMETRIC_INHABITED_TWO_ROAD',
-  sourceBasedNominalClearanceNotActualGlobalProof:true,...st};
+  sourceBasedNominalClearanceNotActualGlobalProof:true,
+  editableGroups,...st};
 }
