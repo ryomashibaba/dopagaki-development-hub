@@ -1,3 +1,17 @@
+# R15S3D16R1 — 36枚の真正WebGL2画像・原完走の独立美術審査、両新都市ART REJECT → R15S3D17設計転換（2026-10-30 JST）
+
+**最新原本：** この記載直前のHEAD `9e6f44c7f531ad960f66e2aae65e7dd3daf8567c`（最新HEADは次の作業ごとに再取得）。[Draft PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46) OPEN／Draft／未マージ。保護元ゲーム blob `af076d67492a677d2235e4730aef8cdf4808e106`・`main`／Gold／P100／本番・原B48×7／B51×28／240Hz・RAWカメラ・HUDは無改変。
+
+- R15S3D16の初版記録にあった「再試験QUEUED」は歴史的記録。実際の**再試験 [#41051738027](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41051738027) はSUCCESS**。真のWebGL2・240Hz元カメラ×6セッション／36枚／新2案×2世界の元`finished`＋元`finish`イベント**4/4**、10偽装認定を独立拒否。保存原PNG36/36の個別SHA256はJSONと一致。元の成功やTECHは人間のゲーム性を証明しない。
+- 期限付き[原画像Artifact #12975179431](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41051738027/artifacts/12975179431)は2026-11-06 12:15 UTCまで。ZIP原本はこの独立審査時に別途取得済み（GitHub恒久保存は**未完了**、期限を過ぎる前に保全が必要）。
+- 旧D15R1／新A`A_CASCADE_HARBOR`／新B`B_CROWNED_ACROPOLIS`を2世界・54/58/61/64/67秒＋終端の実原カメラ画像で直接目視比較した結果、**A=ART REJECT、B=ART REJECT**。理由：遠景は小さな断片、接近時はカメラ上部で浮遊する巨大棚・薄層、道路に連なる公共都市の「進入・接近・内部通過・退出」が成立しない。A/Bの形態文法がほぼ共通で、ディテール増強だけでは解決しない。
+- 数値面では上中央ROIの同時刻差分も確認済み。ただし画素差と三角形数は美術品質・遮蔽安全性の保証ではない。GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE はHOLD。正式ART採用**0件**／Slope2真正認定**0m**。
+- **次R15S3D17（未実装）**：PRIVATE背景の造形文法を根本改造し、原道路・原カメラの進行時間の中で巨大公共都市が見えることを狙う。左右の高い同心円島／上空大板の詳細化は禁止。実WebGL2の真正6条件・同tick画像・厳格なART拒否基準を維持する。ユーザー承認なき本番公開／merge禁止。
+
+[36枚の直接視覚審査・原本照合・明確なR17制作ゲート](docs/G4E7DZ_R15S3D16R1_REAL_IMAGE_ART_REVIEW_AND_R17_DESIGN_GATE_JA.md) ／ [今後の短い復帰文書](docs/DOPAGAKI_LIVE_HANDOFF.md)
+
+---
+
 # R15S3D16 — 元カメラ中央に映る公共都市核・本物の立体居住群2案の制作（2026-10-30 JST）
 
 **元ゲーム原本変更なし／実WebGL2の最新再試験はGitHub Actionsで現在QUEUED、正式ART・原Runner完走再認定はHOLD。** これまでのR15S3D13連続峡谷ART REJECT→R14輪の孤立ART HOLD→R15R1板状の右偏りART HOLDを受け、元WebGL2の10真正カメラ実測に基づく元B48道路5 u=.78、道路6 u=.62に、**2か所の空中公共都市核（各左右の立体居住アイランド、実中庭、3層公共デッキ、厚い連続都市主骨格）**を制作。旧背景を排他的に置換し、数値だけの巨大さを美術と混同しない。元7 B48／元28 B51の位置・衝突・原240Hz Runner・合法P96/P94/A13・正規カメラ・早期警告HUDは完全保持。
