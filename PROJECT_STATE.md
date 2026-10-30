@@ -1,3 +1,16 @@
+# R18 P1 — 連続した5時間帯の実3D巨大SF都市を2案実装（2026-10-30 JST）
+
+**元ゲームは不変／研究用独立3D。正式ART採用0件／Slope2認定0m／GAMEPLAY・HUMAN・PERFORMANCE・RELEASE・MERGE HOLD。**
+
+- R18 P0の真RAWカメラ2世界共通候補に基づく5地点（54/58/61/64/67秒）、元B48道路5前半から道路6後半まで、様々な公共施設・真の開放中庭・居住ボリュームと間をつなぐ空中交通骨格を作成。
+- 新2案は構造を別設計：`A_CIVIC_RIBBON_CONCOURSE`（非対称の曲面公共交通施設と複合市街地）、`B_TERRACED_COURT_NETWORK`（段状の開放中庭・駅街区と高さの異なる都市スパイン）。実頂点 XYZ/RGB。元Stage docを改変せず、物理コライダー追加0。
+- 新実装 `scripts/p101-r18p1-temporal-inhabited-city-architecture.mjs`・研究用元WebGL2パッカー・元240Hz 6条件テスト・独立PNGハッシュ/10偽証拠否定検査・Windows 1クリック起動まで実装。詳細は[本工程の実装記録](docs/G4E7DZ_R18P1_FIVE_TIME_REAL_3D_MEGACITY_INTEGRATION_AND_QA_JA.md)。
+- 初回CIの失敗原因はPRIVATE交通リンクの高さベクトル3次元成分欠落による非有限Z。修正コミット `65b1b0f5019b44f8e2d35c83e732b0cba4c43ac2`で解消。修正後の[真正元ゲームCI #41075148883](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41075148883)は**元SHA・形状単体QAと研究用ビルドPASS**。元WebGL2 6条件走行はこの記録作成時点で実行中。**真正Runnerの完走、PNG36枚、独立QA、画像ARTの合否は未確定**。次回必ずCIの実際の結果で更新する。
+- 不変ルール：元ソースBlob `af076d67492a677d2235e4730aef8cdf4808e106`、240Hz CCD、半径0.65m、7本の元B48物理道路、28基の元B51動体、合法P96/P94/A13、RAWカメラ/HUD、main/Gold/P100/本番URL・既存PR#46 Draftを保護。偽路面/透明床/強制吸着/自動運転/カメラすり替え/偽finishを禁止。
+- 最新の短い[復帰案内](docs/DOPAGAKI_LIVE_HANDOFF.md)と完全証拠の場所はGitHub正本で管理。元Runnerの自動成功はART/HUMAN/PERFORMANCE PASSを意味しない。
+
+---
+
 # R15S3D17R1真正36画像ART REJECT → 元カメラ幾何診断PASS → R18 P0時系列配置PASS（2026-10-30 JST）
 
 **本段階の最終結果：R17 A/B双方正式美術REJECT。R18 P0は元カメラ配置研究のみSOURCE TECH PASS、R18の新規3D美術は未着手。正式ART採用0件／Slope2認定0m／GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。**
