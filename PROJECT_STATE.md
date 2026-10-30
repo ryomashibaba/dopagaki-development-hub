@@ -1,3 +1,23 @@
+# R15S3D10 — 本物の原WebGL2ゲームPRIVATE統合で240Hz真正完走2/2、元28 B51の接近不足・美術REJECT（2026-10-30 JST）
+
+**実ゲームの限定技術成果**：元ゲーム`drive3d`本体を改変せず、PRIVATEビルド`dist-private/r15s3d10/`に実WebGL2レンダラー/240Hz Runner/CCD/元追従カメラ/HUD/元B51全28とR15S3D9実B48幅16m級道路7本を一体接続。原0秒から合法P96→P94・A13・OVERDRIVEの**自動走行**で、真正Chromium GPU APIによる実ブラウザ版も元世界2条件とも元Runnerの`finished`・`finish`イベント各1件を再現。原走行時計**true-pinch 69.83秒／pinch-switch 70.52秒**。元ステージゲームソースGit blob `af076d67492a677d2235e4730aef8cdf4808e106`不変。これは**PRIVATE SOURCE-GAME WEBGL2 TECH限定PASS**であり**本人手動・GAMEPLAYの楽しさ・都市ART・実機PERFORMANCE・RELEASE合格ではない**。
+
+**実証証拠：**
+- [真正原ゲームWebGL2 Actions #40994589547](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40994589547) SUCCESS／[実画面計10枚 Artifact #12950203398](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40994589547/artifacts/12950203398)。原物理・原GLSL・正規カメラ・HUD・球/B48/B51を実Chromiumで撮影。元CROWN/LOWER/VOID/PRISM/FINISHで実道路接地、2世界とも真`finished`＋元`finish`。
+- [B51真正時空間監査 #40994708979](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40994708979) SUCCESS／[Artifact #12949689963](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40994708979/artifacts/12949689963)。元動体**28基中、実走行中30m以内へ接近した障害物は両世界で3基**、真球表面最接近4.367585/4.239973m、動体接触イベント0。画面への簡易投影27基は**遮蔽を除いた実視認証明ではない**。ハザード数と迫力・安全性は別。
+- [HUD距離是正＋日本語フォント真WebGL再撮影 #40995166967](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40995166967) SUCCESS／[実画面 Artifact #12950903128](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40995166967/artifacts/12950903128)。元の誤解を招くrouteベース「0m・0.0秒」B51予報をPRIVATEコピーのみ排除し、元`movingObstaclePose`＋実`sphereBoxSeparation`による物理表面距離＋正規カメラの投影候補表示へ変更。単体テスト4/4 PASS。日本語フォント導入で文字化け改善、元真正FINISH2/2再現。**遮蔽・予測衝突・安全性は未認定**。
+- さらに実B51最近接時刻23.5/65.3/67.3〜67.9秒の試験を追加し、スクリーンショットが500ms HUD更新遅延で数秒ずれる弱点を発見。新しい`R15S3D10 PRIVATE SOURCE TICK FREEZE`実装により、**試験専用の任意ターゲット時刻±1/240秒で元Runnerを一時停止**して撮影後に再開できる。通常プレイには介入しない。この正確な撮影ゲートをCIで確認し、B51警告見逃しを別判定する。
+
+**実制作で確認した厳格な美術批評**：実画面で巨大直方体の壁/柱・線状ゲート、暗い単調な空間・繰返すネオン線が支配。現状は美しい巨大未来都市の圧倒的な内部空洞・非対称建築・街区断面・時間的接近/通過/退出を実現できていない。**ART REJECT/HOLD**。本当に走るゲームが描画されても「面白い/完成」とは判定しない。CIヘッドレスSwiftShader約11〜52fpsはハードウェア実機ベンチマークでないためPERFORMANCE HOLD。
+
+**起動負担軽減**：Windows用`scripts/R15S3D10_PRIVATE_WEBGL_ONE_CLICK.cmd`を追加。ブランチの作業コピーで実行すると依存導入→PRIVATEビルド→隔離実3Dステージ→`127.0.0.1:4373`起動・ブラウザ表示まで一括。手動操作可だが手動QA未提出。公開版・`main`/Gold/P100/保護元ソースは不変更。[正式な開発・次のR15S3D11方針](docs/G4E7DZ_R15S3D10_REAL_ORIGINAL_WEBGL2_CAMERA_HUD_B51_VISUAL_AND_HUMAN_GATE_JA.md)。
+
+**次R15S3D11**：現在28基中接近3基の「障害物の実コース上での意味」と、正確なスクリーン画素・遮蔽・回避予告、原カメラ真正3D街区美術を同時に設計。元のB51正本を破壊せず、PRIVATE候補でのみ本当の物理可避なレイアウトを制作・元240Hzと人間目線で評価。都市美術は旧直方体/ワイヤーの詳細化を停止し、巨大曲線・生活圏の立体公共空洞・複数高低差・非対称主構造の実3Dを実カメラ5〜8視点で比較。正式ART採用0、Slope2認定0m、手動HUMAN・GAMEPLAY/ART/PERFORMANCE/RELEASE/MERGE HOLD。
+
+**状態**：Draft [PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46) OPEN/未マージ、正式本番公開なし。元ゲーム/CROWN・元Runner・元B51の定義・元`main`/Gold/P100を無改変の研究追加。
+
+---
+
 # R15S3D9 — 原240Hz Runnerで全7道路の真正FINISH・実イベント2世界PASS（2026-10-30 JST）
 
 **R15S3D9 A_CONTINUOUS_NARROW_MACRO：SOURCE-NATIVE FINISH 2/2 PASS（実WebGL/人間/美術/正式GAMEPLAYではない）。** PRIVATE実験の実既存B48道路5・6を同時に再制作し、元ゲームの7本B48・28 B51、原Runner/CCD 240Hz、原P96/P94/A13、元route/routeSegments、正規カメラ、元CROWN〜道路4、元本番・main/Gold/P100・保護元blob `af076d67492a677d2235e4730aef8cdf4808e106`を凍結したまま、元0秒から真正240Hz×4条件を試験。
