@@ -196,13 +196,13 @@ function connectDistricts(out,frames,stat,mode){
   const offset=mode===DESIGNS[0]?[-63,-74,36]:[69,54,63];
   const aa=at(a,offset[0],96,12),bb=at(b,offset[1],-106,23);
   const span=mag(minus(bb,aa));
-  // No unbounded giant rails accidentally spanning a discontinuous world.
+  // The gentle 8m sag protects each chord from zero-length cancellation even on steep B48.\n  // No unbounded giant rails accidentally spanning a discontinuous world.
   // Only draw a visually continuous connection when world-space plausible.
   if(span>1100||span<15){stat.disconnectedCorridors++;continue;}
   const n=Math.ceil(span/74),points=[];
   for(let j=0;j<=n;j++){
    const t=j/n,p=plus(scale(aa,1-t),scale(bb,t));
-   points.push(plus(p,[0,37*Math.sin(Math.PI*t)]));
+   points.push(plus(p,[0,8*Math.sin(Math.PI*t)]));
   }
   for(let j=0;j<n;j++)beam(out,points[j],points[j+1],
    3.4,4.6,mode===DESIGNS[0]?PAL.glass:PAL.gold);
