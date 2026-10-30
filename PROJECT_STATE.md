@@ -1,3 +1,15 @@
+# R15S3D17R1真正36画像ART REJECT → 元カメラ幾何診断PASS → R18 P0時系列配置PASS（2026-10-30 JST）
+
+**本段階の最終結果：R17 A/B双方正式美術REJECT。R18 P0は元カメラ配置研究のみSOURCE TECH PASS、R18の新規3D美術は未着手。正式ART採用0件／Slope2認定0m／GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。**
+
+1. **R17真正6条件テスト確定**：[Actions #41062687304](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41062687304) SUCCESS、2世界×旧D15R1/新A/B＝6セッション36実WebGL2 Canvas PNG。各PNGのSHA256 36/36一致。新A/B×2世界の正規240Hz原Runner`finished`・源`finish`各1は**4/4**成功。独立10偽認定拒否。原Artifact #12981741098（11/6期限）。両案とも実画像で、遠景小片・近景箱と壁・都市生活空間不足からART REJECT。詳しくは[画像監査原本](docs/G4E7DZ_R15S3D17R1_GENUINE_WEBGL2_ART_REJECT_AND_CAMERA_PREFLIGHT_JA.md)。
+2. **R17R1真正RAWカメラ対真XYZ診断**：[Actions #41067099727](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41067099727) SUCCESS。元R15S3D15真正カメラ×両世界×新A/B投影で、前方の建築最短重心深度が54秒約1525〜1600m→61秒約427〜522m→64秒約52〜67m（A）。見た目の急接近を説明するが、真の遮蔽/美術PASSを保証しない。
+3. **R18 P0の元真正カメラ2世界×5時刻配置**：[Actions #41067613036](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41067613036) SUCCESS。元7B48/28B51、実GLSL投影を基に有効66候補。54秒=9、58秒=8、61秒=19、64秒=23、67秒=7。前半の都市をroad5 u=.18付近から見せ、road6 u=.78の抜けまで分散する5場面の具体的な候補地・符号注意・R18 P1制作ゲートを[詳細](docs/G4E7DZ_R18P0_TRUE_CAMERA_SPATIAL_CITY_TIME_DESIGN_GATE_JA.md)に確定。見える位置の検査はART・B51遮蔽の認証ではない。
+4. **変更禁止**：元保護ソースGit blob `af076d67492a677d2235e4730aef8cdf4808e106`／`main`／Gold／P100／本番／正規240Hz CCD・球r=.65／元B48×7／B51×28／元P96/P94/A13・RAWカメラ・HUD。PR #46はOPEN/Draft/未マージ。新ゲームコライダー0、公開禁止。
+5. **再開時の最小負荷入口**：[最新LIVE_HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)を先に読む。次はR18 P1の**一体的なSF都市造形と真正元カメラ実画像比較**。同じ箱/薄板/反復島/側壁方式を詳細化しない。品質・時間構成・ゲームプレイを優先。
+
+---
+
 # R15S3D17 — 旧天空島を廃止、真正道路脇SF公共都市2案を新規実制作（2026-10-30 JST）
 
 **QUALITY/GAMEPLAY/ART-FIRST・元240Hzゲーム原本保護・正式ART採用0件／Slope2認定0m。** 前工程R15S3D16R1の原PNG画像審査でA/Bとも正式ART REJECT。旧案の色・部材の微調整でなく、新規の非衝突真正3D造形を2案制作し、元ランナー用WebGL2へ隔離組み込み。
