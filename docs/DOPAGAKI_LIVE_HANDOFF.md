@@ -15,6 +15,12 @@ R18 P4の真正 WebGL2 Actions #41128954286は全工程SOURCE TECH PASS、6/6正
 - 実装 scripts/p101-r19a0-real-12s-integrated-gameplay-city.mjs、unit tests/p101-r19a0-12s-integrated-source-play-and-art.test.mjs、GitHub Actions [#41131345970](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41131345970)。A0 Native物理・既存G5B同スポーンの真正Chromium画像を1本のCIで検証する。**CIの最新実結果を再確認すること。** ART/人間/実GPU FPSの合格は宣言しない。
 - 詳細 docs/R19_A0_FIRST_REAL_12S_GAMEPLAY_ART_VERTICAL_SLICE_JA.md。設計・テストの重複を増やさず、旧W9-C1の証拠・テスト・Windows手動比較を再利用する。
 
+
+## R19 A0 真正完了（実結果優先）
+[修正後Actions #41131784122](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41131784122) 全ジョブSUCCESS。初回 #41131345970 もCI成功だがPlaywrightがNative JSONの出力ディレクトリを消してArtifact欠落→保存先を r19-evidence に変更して再実行。真の原Artifact #13013401969（ZIP SHA256 3249da442b0a824931aa95c27a8754f20af2797e8c90daf4aa68af98102f2258、2026-11-06期限）は完全な12秒Native JSON＋実Chromium WebGL2元320m同スポーンON/OFF画像4枚＋視覚QA JSONを含む。
+元0秒スタートで12秒間の正規240Hz/2,880tick連続：幅28m CONTROL/14m ULTRAともrunningで、元の道路0→道路1へ接地進行、移動B51接触0・空中0。最高速度は116.742/115.519m/s、警告1.104秒→本物の狭路コア初到達4.404秒＝3.300秒。ULTRAのコア真補間幅13.159〜14.000m、速度82.423〜87.874m/s、元B48上の概算路端余裕最小1.743m（危険余裕。人間の公平性は未確認）。元G5B景観は本物のWebGL2に表示できるが、320m局所52m/s画像は0〜12秒の加速走行時のカメラではない。
+正式ART0件/Slope2 0m。A1は元Native12秒・本物の元WebGL2時刻一致と元B51の前方視認性、A2は道路と都市の**1案だけ**の同時高品質設計、早期人間試走は別ゲート。詳細は docs/R19_A0_FIRST_REAL_12S_GAMEPLAY_ART_VERTICAL_SLICE_JA.md。
+
 ## 次工程
 A0の真正Native traceとブラウザ同スポーン画像を確認。途中で死んだ・コアに到達しない・2秒警告不足などを正直に記録。A1で初の「本物の0〜12秒走行中のカメラ・元B51視認」とsource physicsを時刻一致で比較。A2で走行と巨大都市の主造形を**1案だけ**同時に制作し、ゲーム本体と実画像で評価。Human/Windows GPU/FPSは別ゲート、承認なしに公開/mergeしない。
 
