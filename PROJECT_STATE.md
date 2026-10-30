@@ -1,3 +1,16 @@
+# R15S3D13／R1 — 元ゲーム真正WebGL2大規模連続都市の実制作と批判的美術REJECT（2026-10-30 JST）
+
+**確定SOURCE TECH：** [Actions #41015677226](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41015677226) **SUCCESS／[Artifact #12959673348](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41015677226/artifacts/12959673348)**。元の真正240Hz `Runner`・CCD・P96/P94/A13・本物の7 B48実道路・28 B51実動体・元GLSL WebGL2/RAWカメラ/HUDを元原本のまま、道路5/6の本当の物理面サンプルに沿った連続巨大3D都市2案をPRIVATE版に実制作。旧背景・前R15S3D12 A、新2案×2世界の**7セッション・27真正PNG**を同じ元ネイティブt58(13920tick)/64(15360tick)/67(16080tick)で比較し、真正原`finished`＋本物の`finish`イベント／最終路面接地**新2案×2世界の4/4 PASS**。独立QAで虚偽認定10件拒否。元物理とゲームソース未変更。
+
+- **D13 A_CIVIC_MANTLE**：10,556実三角形、連続外殻247区間・4層公共デッキ981、真の空洞414。**ART REJECT**：実ゲームの元カメラで左右の巨大垂直壁が道を囲い込み、暗い単調なトンネルが支配。連続建造物として描けることと、壮大で美しい未来都市は別。
+- **D13 B_OPEN_CALDERA**：8,888実三角形、真の空洞594、公共デッキ804。**ART REJECT**：穴の数を増やしても同じ巨大壁・暗い直線都市峡谷の美術欠点が残る。ゲームの2案ART正式採用ゼロ。
+- **D13R1の修正研究（CI結果未確定）**：元のD13成功・失敗画像を保持し、`scripts/p101-r15s3d13r1-open-sky-continuous-civic-spine.mjs`として別の本物の3D再設計。原路面の左右壁を実B48路肩から**68m以上外側**へ退避。近接正面壁を大幅に除去し道路上空を開放。ただし浮遊破片へ逆戻りしないよう**600以上の途切れない実3D主ロードパス**を遠方側に接続。A_SKY_OPEN_CONTINUUM／B_ASYMMETRIC_FREE_EDGE の2モード。正規PRIVATEの元WebGL2×7同条件CI [#41017399399](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41017399399) を実行中。初期2CI（#41017020585／#41017286493）は新研究用の変数スコープ・「壁を除去するのに壁面連続数を要求する」不適切な内部テストのため失敗し修正、これを成功と偽装しない。**R1 ART/HUMAN/原finishはCI実結果までHOLD**。
+- **保護**：元生産用`web/p101-w9c2-g4e7ci-integrated-streetscape.mjs` blob `af076d67492a677d2235e4730aef8cdf4808e106`。元`main`、Gold、P100、本番URL、原物理、原カメラ、原B51定義は未変更。Draft PR #46 OPEN/未マージ。合法な本物の実走と実画像に基づくART評価を分離、正式ART採用0件・Slope2正式認定0m。人間手動回避・Windows FPS・本番統合/HUMAN/GAMEPLAY/RELEASE/MERGE HOLD。
+
+[画像評価とR1修正の真正GitHub出典](docs/G4E7DZ_R15S3D13_GENUINE_TWO_ROAD_CIVIC_CONTINUUM_ART_REVIEW_R1_HANDOFF_JA.md)
+
+---
+
 # R15S3D12 — 元240Hz真正WebGL2に巨大未来都市2案を実制作・ART批判的比較／A HOLD・B REJECT（2026-10-30 JST）
 
 **真正技術結果：** [Actions #40999592638](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40999592638) **SUCCESS**／[Artifact #12953081232：元ゲームの本物の19画像](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40999592638/artifacts/12953081232)。PRIVATE元`drive3d`の本物のGLSL/追従カメラ/HUDを保持した`dist-private/r15s3d12`を構築、現行の旧柱・門・箱状背景を**排他的に置換**。真の既存B48道路5/6に合わせ、全7道路・全28の元移動障害物、合法P96/P94/A13、元Runner/CCD 240Hz、元実`finish`を無変更のまま、下流街区の3Dアート候補を2案制作した。
