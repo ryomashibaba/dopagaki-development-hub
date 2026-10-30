@@ -82,7 +82,7 @@ function sculptCivicSky(v,frame,site,mode,stats,idx){
   for(let level=0;level<4;level++){
    const front=(split?116:94)+level*11,far=(split?345:360)+level*5;
    const signX=side===-1?-1:1;
-   const y=-42+level*48+idx*12,segments=18;
+   const y=-42+level*48+idx*12,segments=24;
    for(let j=0;j<segments;j++){
     const a=-site.depth*.77+j*site.depth*1.54/segments,
       b=-site.depth*.77+(j+1)*site.depth*1.54/segments;
