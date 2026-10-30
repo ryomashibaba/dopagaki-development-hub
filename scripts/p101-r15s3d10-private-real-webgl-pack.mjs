@@ -101,6 +101,22 @@ edit("   if(seq!==loading)return;\n   buildVisual(value);doc=value;world=compile
  "   }",
  "   buildVisual(value);doc=value;world=compiled;ghostData=replay;"
 ].join('\n'));
+// PRIVATE inspector only. A Playwright explicit variable freezes at the exact
+// 240Hz committed tick (±1/240s), not a coarse HUD 500ms polling target.
+// Absent this variable, ordinary manual/source-demo gameplay is identical.
+edit("   return runner.status!=='failed'&&runner.status!=='finished';\n  });",[
+ "   if(r15s3d10Plan&&Number.isFinite(window.__r15s3d10PauseAt)&&",
+ "      runner.time+1e-9>=window.__r15s3d10PauseAt&&runner.status==='running'){",
+ "    paused=true;accum=0;",
+ "    canvas.dataset.r15s3d10PausedAt=runner.time.toFixed(6);",
+ "    window.__r15s3d10PauseAt=null;",
+ "    $('pause').textContent='再開 (Space)';",
+ "    hud();",
+ "    return false;",
+ "   }",
+ "   return runner.status!=='failed'&&runner.status!=='finished';",
+ "  });"
+].join('\n'));
 edit("  const advance=['VB-P95','VB-P99','VB-P100','VB-P101'].includes(doc?.stageForge?.id)",
  [
  "  if(r15s3d10Plan){",
