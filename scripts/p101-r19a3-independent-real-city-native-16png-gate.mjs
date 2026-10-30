@@ -7,10 +7,10 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 const dir=path.resolve('r19-evidence/r19a3');
-const proof=JSON.parse(fs.readFileSync(path.join(dir,'R19_A3_ONE_CITY_ORIGINAL_NATIVE_CAMERA.json'),'utf8'));
+const proof=JSON.parse(fs.readFileSync(path.join(dir,'R19_A3R_ONE_CITY_TWO_ROAD_TRUE_CAMERA.json'),'utf8'));
 const sha=x=>crypto.createHash('sha256').update(x).digest('hex');
 function verify(p){
- assert.equal(p.schema,'dopagaki.r19a3-one-civic-city-actual-12second-art-comparison/1');
+ assert.equal(p.schema,'dopagaki.r19a3r-one-city-two-road-actual-12second-art-comparison/1');
  assert.equal(p.originalSourceSHA,'af076d67492a677d2235e4730aef8cdf4808e106');
  assert.equal(p.originalB48,7);assert.equal(p.originalMovingB51,28);
  assert.equal(p.failures.length,0);assert.equal(p.sessions.length,4);
@@ -30,8 +30,8 @@ function verify(p){
    assert.equal(s.before.r19a3ColliderCount,0);
    assert.ok(s.before.r19a3Triangles>2000);
   }
-  assert.equal(s.screens.length,4);
-  for(let i=0;i<4;i++){
+  assert.equal(s.screens.length,6);
+  for(let i=0;i<6;i++){
    const f=s.screens[i];
    assert.equal(f.tick,p.nativeTicks[i]);assert.equal(f.sourceScreenshotState.tick,f.tick);
    assert.equal(f.sourceScreenshotState.status,'running');
@@ -61,8 +61,8 @@ function verify(p){
    n++;
   }
  }
- assert.equal(ids.size,4);assert.equal(n,16);assert.ok(realDifferent>0);
- return {sessions:ids.size,native16Frames:n,independentPNGHashVerified:n,
+ assert.equal(ids.size,4);assert.equal(n,24);assert.ok(realDifferent>0);
+ return {sessions:ids.size,native24Frames:n,independentPNGHashVerified:n,
   artTrulyChangesSourceCanvasFrames:realDifferent,sourceRoads:7,realB51:28,
   sourcePhysicsUnchanged:true,officialArtApproved:0,officialSlope40Meters:0};
 }
