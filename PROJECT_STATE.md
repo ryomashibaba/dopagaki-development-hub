@@ -1,3 +1,17 @@
+# R18 P3 — 巨大中心建築1＋4補助街区の新実3D生成・SOURCE CI起動（2026-10-30 JST）
+
+**旧「5か所に似た巨大建築を反復」方式を廃止。sourceの本物のゲーム道路や動体は不変、MAIN/本番非接触。新R18P3は実制作済みだが真正元WebGL2の結果はGitHub Actions側QUEUEDのため未確定。正式ART採用0件／Slope2認定0m、HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。**
+
+- 旧R18 P1とR18 P2の元Chromium WebGL2×6条件・PNG36枚・原finish4/4・偽判定10拒否はSOURCE TECH PASS。ただし**両案美術REJECT**。詳しくは[ R18 P2実画像監査 ](docs/G4E7DZ_R18P2_ORIGINAL_36_PNG_ART_REVIEW_AND_R18P3_DIRECTION_JA.md)。
+- 新R18P3 A`A_CRESCENT_CIVIC_ATRIUM`は**半径142m/79mの実中空C字公共建築を主役**、B`B_CARVED_TRANSIT_CITADEL`は**主役となる2つの非対称巨大駅街区を挟む空間構成**。その他の4地点は小さい低層地区・前庭・退出景観とする。主役のある地点は元R18P0真正カメラの`road5 u=.91, offset -120, up+100`。原B48 7/B51 28、元stage document不変・新collision0。
+- 生成ソース`scripts/p101-r18p3-single-landmark-city-architecture.mjs`／PRIVATE真正WebGL2`scripts/p101-r18p3-private-original-webgl2-city-pack.mjs`／元Runner6条件`scripts/p101-r18p3-six-real-original-webgl2-runs.mjs`／個別PNG SHA・偽成功10条件拒否の独立Python`scripts/p101-r18p3-independent-real-webgl2-source-gate.py`／2世界Stage不変単体テスト／WindowsワンクリックをGitHubブランチに保存。
+- [R18 P3真正CI #41081325468](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41081325468)を起動したが、この記録の最終確認時点では**QUEUED**。CI正式SOURCE TECH PASS、6条件元finish、PNG36枚、視覚ARTについて推測や既成事実化は禁止。成功したら必ず元Canvasを同一条件で画像目視して厳格に合否を更新。
+- sourceコードの純粋な合成Stageを使った補助実行ではA**4,440三角形**、B**3,276三角形**、異なるXYZ、主役1・補助街区4・開放空洞1。元JSON不変および4種類の偽入力拒否に成功。**これは元ゲーム真正試験ではない**。本物の元7 B48/28 B51/240Hzは専用GitHub Actionsでのみ確認する。
+- 元ソースGit blob `af076d67492a677d2235e4730aef8cdf4808e106`、元240Hz CCD・ボール半径0.65m・7 B48/28 B51・正規P96/P94/A13・RAWカメラ/HUDを変えない。PR#46 OPEN/Draft/未マージ、main/Gold/P100/本番を維持。
+- 詳細[ R18 P3設計・品質条件 ](docs/G4E7DZ_R18P3_ONE_HERO_TRUE_CITY_IMPLEMENTATION_GATE_JA.md)・再開時の短い[ LIVE_HANDOFF ](docs/DOPAGAKI_LIVE_HANDOFF.md)。前工程のREJECT画像を表紙にしない。次はCI実結果→真正PNG視覚評価、技術か美術が失敗なら原因修正。正式ART採用0件のまま。
+
+---
+
 # R18 P2真正技術PASS・画像ART両案REJECT → R18 P3の構図抜本再設計（2026-10-30 JST）
 
 **今回の確定事実：R18 P2 6/6真正WebGL2 source sessions / 元Canvas PNG36/36 SHA一致 / 真Runner新A/B×2世界finish 4/4 / 独立偽成功10拒否 = SOURCE TECH PASS。ただしA/Bとも真正RAWカメラ実画像目視でART REJECT。正式ART採択0件／Slope2正式認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。**
