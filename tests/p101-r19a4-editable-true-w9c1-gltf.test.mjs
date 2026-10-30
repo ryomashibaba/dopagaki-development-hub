@@ -11,6 +11,9 @@ test('R19 A4 exports true editable Blender-compatible glTF 2 GLB for original 14
   assert.ok(report.inhabitedBays>=24);
   assert.equal(report.recessedWindows,report.inhabitedBays);
   assert.equal(report.mainHeroCount,1);
+  assert.equal(report.editableObjectCount,5);
+  assert.equal(report.editableGroupNames.length,5);
+  assert.equal(new Set(report.editableGroupNames).size,5);
   assert.equal(report.publicQuarters,4);
   assert.equal(report.colliders,0);
   assert.equal(report.sourceRoads,7);
