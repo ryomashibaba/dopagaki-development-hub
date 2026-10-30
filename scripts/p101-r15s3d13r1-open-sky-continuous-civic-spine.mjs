@@ -151,7 +151,7 @@ export function buildR15S3D13R1City(doc,sample,{mode='A_SKY_OPEN_CONTINUUM'}={})
    const a=cells[i],b=cells[i+1],t=(a.t+b.t)*.5;
    // Dominant uninterrupted curving mantle (except purposeful BIG skylights);
    // true 3D top with opposing normal/back and separated underside.
-   const opening=aperture(t,mode,0,sign)||(!main&&i%17<11)||
+   const opening=aperture(t,mode,0,sign)||(sign>0&&i%17<11)||
     (mode==='B_ASYMMETRIC_FREE_EDGE'&&i%23<13);
    strip(vertices,[a.upperNear,a.upperFar],[b.upperNear,b.upperFar],
     sign<0?(i%27<8?c.porcelain:c.steel):c.water,stat,{opening});
