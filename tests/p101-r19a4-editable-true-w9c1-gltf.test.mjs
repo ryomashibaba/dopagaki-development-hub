@@ -7,7 +7,7 @@ test('R19 A4 exports true editable Blender-compatible glTF 2 GLB for original 14
   const {glb,report}=makeR19A4GLB(kind);
   assert.equal(verifyR19A4GLB(glb,report),true);
   assert.ok(glb.length>100000&&glb.length<3000000);
-  assert.ok(report.triangleCount>8000&&report.triangleCount<25000);
+  assert.ok(report.triangleCount>10000&&report.triangleCount<25000);
   assert.ok(report.inhabitedBays>=24);
   assert.equal(report.recessedWindows,report.inhabitedBays);
   assert.equal(report.mainHeroCount,1);
@@ -15,6 +15,10 @@ test('R19 A4 exports true editable Blender-compatible glTF 2 GLB for original 14
   assert.equal(report.editableGroupNames.length,5);
   assert.equal(new Set(report.editableGroupNames).size,5);
   assert.equal(report.publicQuarters,4);
+  assert.equal(report.deepUrbanLandforms,15);
+  assert.ok(report.urbanStrataDepthM>=100);
+  assert.equal(report.actualTerrainContactVerified,false);
+  assert.equal(report.bakedSourceFacetLightOnly,true);
   assert.equal(report.colliders,0);
   assert.equal(report.sourceRoads,7);
   assert.equal(report.sourceB51,28);
