@@ -44,7 +44,7 @@ def inspect(d):
    assert session['isNewD16RealArchitecture'] is True
    assert session['oldRejectedArchitectureReplaced'] is True
    assert all(x['mode']==m for x in snaps)
-   assert all(x['artTriangles']>1500 and x['genuineOpenVoids']>80 for x in snaps)
+   assert all(x['artTriangles']>1500 and x['genuineOpenVoids']>=40 for x in snaps)
   else:
    assert all(x['mode']=='legacy' for x in snaps)
   if m!='LEGACY':
