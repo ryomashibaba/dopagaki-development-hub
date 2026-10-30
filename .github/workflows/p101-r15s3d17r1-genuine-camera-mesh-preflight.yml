@@ -1,0 +1,58 @@
+name: P101 R15S3D17R1 genuine original camera-space real geometry audit (no art pass)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r15s3d17r1-genuine-camera-mesh-projection-gate.mjs'
+      - '.github/workflows/p101-r15s3d17r1-genuine-camera-mesh-preflight.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  original-camera-screen-projection-preflight:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify immutable original source and JS source
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d17r1-genuine-camera-mesh-projection-gate.mjs
+          node --test tests/p101-r15s3d17-roadside-architecture.test.mjs
+      - name: Retrieve true 10 original 240Hz source camera frames from original R15S3D15 CI
+        run: |
+          mkdir -p test-results/r15s3d17r1-raw-camera
+          gh run download 41047602697 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3D15_TWO_REAL_NATIVE_ORIGINAL_WEBGL2_RAW_CAMERA_B48_FRUSTUM_GATE \
+            --dir test-results/r15s3d17r1-raw-camera
+          test -s test-results/r15s3d17r1-raw-camera/R15S3D15_ACTUAL_SOURCE_CAMERA_FRUSTUM_AND_VISIBLE_B48_ANCHORS.json
+      - name: Project exact R17 real mesh to authentic original camera frames and preserve risks
+        run: |
+          node scripts/p101-r15s3d17r1-genuine-camera-mesh-projection-gate.mjs \
+            test-results/r15s3d17r1-raw-camera/R15S3D15_ACTUAL_SOURCE_CAMERA_FRUSTUM_AND_VISIBLE_B48_ANCHORS.json \
+            test-results/r15s3d17r1-risks
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';import assert from 'node:assert/strict';
+          const p=JSON.parse(fs.readFileSync('test-results/r15s3d17r1-risks/R15S3D17R1_EXACT_CAMERA_REAL_MESH_PROJECTION_RISK.json'));
+          assert.equal(p.results.length,4);
+          assert.equal(p.sourceB48,7);assert.equal(p.sourceB51,28);
+          assert.equal(p.officialARTAccepted,0);
+          assert.equal(p.officialSlope2Metres,0);
+          assert.equal(p.cannotInferRenderedOcclusionOrHumanArtFromTriangleCentroids,true);
+          assert.ok(p.results.every(x=>x.shots.length===5));
+          console.log('R17R1_CAMERA_PROJECTION_ONLY_NEVER_FALSE_ART_CERTIFICATION');
+          JS
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D17R1_TRUE_10_NATIVE_CAMERA_REAL_MESH_RISK_NO_ART
+          path: test-results/r15s3d17r1-risks/
+          retention-days: 7
+          if-no-files-found: warn
