@@ -80,6 +80,8 @@ change("if((g4e7aiOptIn&&g4e7aiBackdrop==='quiet')||(g4e7akOptIn&&g4e7akBackdrop
  "if(r15s3d14r1ArtMesh){\n  // This replaces EVERY old rejected cubic wall/portal/gate; original true\n  // B48/B51 and HUD remain drawn in original source later in render().\n  draw(r15s3d14r1ArtMesh);\n }else if((g4e7aiOptIn&&g4e7aiBackdrop==='quiet')||(g4e7akOptIn&&g4e7akBackdrop==='quiet')){");
 fs.copyFileSync(path.join(root,'scripts/p101-r15s3d14r1-real-inhabited-hollow-city-districts.mjs'),
  path.join(target,'r15s3d14r1-real-inhabited-hollow-city-districts.mjs'));
+fs.copyFileSync(path.join(root,'scripts/p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'),
+ path.join(target,'p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'));
 fs.writeFileSync(src,js);
 const html=path.join(target,'index.html');
 let body=fs.readFileSync(html,'utf8');
