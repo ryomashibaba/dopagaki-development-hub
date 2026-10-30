@@ -1,3 +1,16 @@
+# R19 A3R 真正24画像SOURCE TECH PASS・美術REJECT：Road1表示は改善、実都市の品質不足（2026-10-31 JST）
+
+**最新正式状態**：完成目標7,280m約52秒・Slope2 DNA 2,912m・高品質超未来都市＋人間の楽しい実物理。正式ART採用0件、Slope2正式認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+
+- 前工程R19 A3の巨大白柱/厚棚/8秒City消失という正式ART REJECTを受け、**同じ**`RIFT CIVIC BASILICA`案のsourceを大幅再設計。元Road1 u=.23へ唯一の主役・曲線の中空支柱群、元Road0/1の各2地点で計4公共プログラム。非衝突の元source6408真3D三角形（合成Stage試験と実元Stageの両方で確認）。新たな道路や移動障害物を作らない。
+- [R19 A3Rの真正CI #41141671482](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41141671482) 全ジョブSUCCESS。元W9C1 ULTRA14m/CONTROL28m×新City ON/OFF×真tick265,721,1057,1249,1921,2761＝**元WebGL2 Canvas 24枚**、個別SHA24/24一致。元Native比球XYZ最大0.00077036m・速度最大0.0004716m/s、City ON/OFF差球位置0、正規B48 7本・動体B51 28基・240Hz/P96-A13生カメラHUD維持。原GitHub Artifact #13018934710：3,223,527bytes、SHA256 `c457e888b6a06306e21a1f735a807fbfc59921ccbf72ba8275d46ae5f48088b0`、2026-11-06失効。
+- 同画角元Canvas中央ROI画素差（描画変化だけ）ULTRA 1.104秒2.486%、3.004秒5.472%、4.404秒5.098%、5.204秒2.456%、**8.004秒0.936%、11.504秒4.099%**。前A3は8秒0.000%だったので、Road1でも構造物が見えるという**配置上の進展**はある。
+- **ARTは厳格にREJECT**。前A3の白い厚壁・巨大棚は減ったが、実生カメラでは遠景の細い支柱、右/左の巨大フレーム、空疎な骨組みが中心で、建築の実体・公共空洞の読み取り・奥行き・都市の多層の生活空間が見えない。8秒/11.5秒の画像差が非ゼロでも巨大未来都市の連続した景観としては成立せず、フレーム数を増やすだけの繰返しは不可。詳細は[元24 PNG正式美術審査](docs/R19_A3R_ORIGINAL_24_PNG_ART_REJECT_AND_MEANINGFUL_CITY_REDIRECT_JA.md)、[Road0/1の位置に基づく都市マスタープラン](docs/R19_A3R_SOURCE_REAL_12_SECOND_TWO_ROAD_CITY_MASTERPLAN_JA.md)。
+- **次工程では美術制作手法を根本改善**：インテリアのある実体の大規模建築、正しい支持・入口・空洞、複数建築が共有する公共施設、質感・光・近景中景遠景の設計。元走行6時刻で作図・配置を逐次確かめ、以前の白壁と今回のワイヤーフレームへの回帰を両方禁止する。元B51の実画素遮蔽、人間操作・RTX実GPU FPSは別HOLD。旧QA基盤を再利用し、似た案/CIの増殖を抑制。
+- 元ソースGit blob `af076d67492a677d2235e4730aef8cdf4808e106`、240Hz CCD/球r.65/7 B48/28 B51/P96-P94-A13/RAW camera-HUD、main/Gold/P100/B5/W9-X/本番は未改変。唯一の研究PR #46 Draft/open/未マージ。再開は[短いLIVE_HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)で可。
+
+---
+
 # R19 A3真正16画像SOURCE PASS／単一都市案ART REJECT（2026-10-31 JST）
 
 **最上位目標は正規7.28km・約52秒の楽しいSlope2系高速ゲーム＋大規模で圧倒的に美しい未来都市。正式ART採用0、Slope2 DNA公式認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
