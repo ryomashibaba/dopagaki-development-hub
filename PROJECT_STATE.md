@@ -1,3 +1,15 @@
+# R18 P2真正技術PASS・画像ART両案REJECT → R18 P3の構図抜本再設計（2026-10-30 JST）
+
+**今回の確定事実：R18 P2 6/6真正WebGL2 source sessions / 元Canvas PNG36/36 SHA一致 / 真Runner新A/B×2世界finish 4/4 / 独立偽成功10拒否 = SOURCE TECH PASS。ただしA/Bとも真正RAWカメラ実画像目視でART REJECT。正式ART採択0件／Slope2正式認定0m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。**
+
+- 真正[Actions #41078746216](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41078746216)全工程成功、実証Artifact #12987684703（ZIP sha256 `ce186b7d48262305f7ac6b64c408158e91ee4e2925b1c2948d85770ff9379956`、2026-11-06 15:22:22 UTC期限）。新A`A_INHABITED_ESCARPMENT`30,053三角形、新B`B_HOLLOW_TRANSIT_SAILS`30,084三角形。ゲーム本体は不変、PRIVATEコライダー0。
+- 真の2世界×旧D15R1/新A/B同時刻54/58/61/64/67s（plus終端）のCanvas PNGを実視。旧R18P1の細塔・アーチより物理的な巨体の輪郭は増したが、都市が鋸歯状/スクラップ状の面とシェルの反復へ変わり、都市全体の中心・まとまり・道路との連続性が**目標の巨大SF都市として不成立**。両案ART REJECT。画像SHA検証、比較と根拠は[ R18P2画像審査 ](docs/G4E7DZ_R18P2_ORIGINAL_36_PNG_ART_REVIEW_AND_R18P3_DIRECTION_JA.md)。
+- 次R18 P3の正式方針：**カメラ時間帯5箇所へ類似構造物を複製する設計をやめる**。原ソース真カメラ54→67秒を使って、ひとつの巨大な主役建築＋中規模街区＋退出時に残る地平という都市景観の優先階層、大きい空洞と道路視認性を先に設計。色・面・ポリゴン数を増やしてARTを強弁しない。B51真正回避、人間操作とWindows実GPU FPSは未実施。
+- 原本保護：Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、元240Hz CCD/球.65m/B48×7/B51×28/合法P96-P94-A13/RAWカメラ-HUD、main/Gold/P100/本番URL、PR #46 Draft未マージ。新規衝突ゼロ。新3Dは隔離 PRIVATE のみ。
+- 長いチャットからの最小復帰は[最新LIVE_HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。GitHub原Artifactは7日後失効、会話証拠ZIPに原本と目視比較を収めたがGitHubへの恒久アーカイブは別作業。
+
+---
+
 # R18 P1 — 連続した5時間帯の実3D巨大SF都市を2案実装（2026-10-30 JST）
 
 **元ゲームは不変／研究用独立3D。正式ART採用0件／Slope2認定0m／GAMEPLAY・HUMAN・PERFORMANCE・RELEASE・MERGE HOLD。**
