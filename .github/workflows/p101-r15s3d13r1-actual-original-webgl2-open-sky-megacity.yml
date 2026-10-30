@@ -1,0 +1,67 @@
+name: P101 R15S3D13R1 source original WebGL2 OPEN SKY real 3D noncollision city 7 native camera comparisons
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d13r1-open-sky-continuous-civic-spine.mjs
+      - scripts/p101-r15s3d13r1-private-open-sky-real-webgl2-pack.mjs
+      - scripts/p101-r15s3d13r1-original-webgl2-art-seven-sessions.mjs
+      - scripts/p101-r15s3d13r1-independent-seven-real-webgl2-veto.py
+      - tests/p101-r15s3d13r1-real-open-sky-geometry.test.mjs
+      - .github/workflows/p101-r15s3d13r1-actual-original-webgl2-open-sky-megacity.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-original-game-native-240hz-two-worlds-open-sky-city-rebuild:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protect original game and test corrected two-road source-physical 3D skyline
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d13r1-open-sky-continuous-civic-spine.mjs
+          node --check scripts/p101-r15s3d13r1-private-open-sky-real-webgl2-pack.mjs
+          node --check scripts/p101-r15s3d13r1-original-webgl2-art-seven-sessions.mjs
+          python3 -m py_compile scripts/p101-r15s3d13r1-independent-seven-real-webgl2-veto.py
+          node --test tests/p101-r15s3d13r1-real-open-sky-geometry.test.mjs
+      - name: Original true private game and D10 D11 D12 D13 source comparator then isolate the new R1 from them
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-r15s3d11-private-genuine-webgl-hazard-pack.mjs
+          node scripts/p101-r15s3d12-private-original-webgl-art-comparison-pack.mjs
+          node scripts/p101-r15s3d13-private-real-continuous-city-webgl2-pack.mjs
+          node scripts/p101-r15s3d13r1-private-open-sky-real-webgl2-pack.mjs
+          node --check dist-private/r15s3d13r1/drive3d.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          ! grep -q 'r15s3d13r1ArtMesh' dist-private/drive3d/drive3d.mjs
+          ! grep -q 'r15s3d13r1ArtMesh' dist-private/r15s3d13/drive3d.mjs
+      - name: Genuine browser original GPU renderer and Japanese HUD
+        run: |
+          npx playwright install --only-shell chromium
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends fonts-ipafont-gothic
+          fc-cache -f
+          fc-list :lang=ja family | grep -q .
+      - name: 7 true native camera sessions prior D12 HOLD, D13 art-wall REJECT versus R1 SKY OPEN x2 worlds
+        run: |
+          node scripts/p101-r15s3d13r1-original-webgl2-art-seven-sessions.mjs
+      - name: Independent no forgery, same original 240Hz runner, 28 B51, 7 B48, 10 tampered claims REJECT
+        run: |
+          python3 scripts/p101-r15s3d13r1-independent-seven-real-webgl2-veto.py \
+            test-results/r15s3d13r1-real-webgl2/R15S3D13R1_REAL_WEBGL2_FIXED_NATIVE_TICK_CITY_VERSIONS.json \
+            test-results/r15s3d13r1-real-webgl2
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D13R1_SOURCE_REAL_WEBGL2_OPEN_SKY_CITY_ART_CRITICAL_HOLD
+          path: test-results/r15s3d13r1-real-webgl2/
+          retention-days: 7
+          if-no-files-found: warn
