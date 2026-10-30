@@ -95,6 +95,7 @@ for(const world of worlds){
    assert.equal(runner.surface,'p93-FINISH_RIDGE-01');
    assert.ok(runner.grounded);
   }
+  if(checks!==2)console.log('R15S3D11_EARLY_REGRESSION',JSON.stringify({world,mode,checks,terminalTime:round(runner.time),status:runner.status,failure:runner.failure,ground:runner.grounded,surface:runner.surface,xyz:v(runner.p),events:runner.events.slice(-10),moved:doc.stageForge.r15s3d11.changedMachines.map(x=>x.id)}));
   assert.equal(checks,2);
   const ranking=[...nearest.values()].map(x=>({...x,
    separation:Number.isFinite(x.separation)?round(x.separation):null,
