@@ -26,3 +26,20 @@ R14 Aの一体化した巨大三日月の外殻を保ちつつ、`scripts/p101-r
 最優先は「圧倒的に美しい超未来都市を本物の高速ゲームで走ること」。画像に見える象徴性・公共空間/住居の密度・大規模構造の一体感・接近→内部通過→退出の時間設計、実B51の視認性を分離して評価する。単純なポリゴン増加、空洞数の増加、正規Runnerの自動完走のみでは正式ART/人間GAMEPLAY認定禁止。
 
 完全な本番導入、PRマージ、保護元B48/B51/物理、通常の`main`、ユーザーの本番URLは**一切変更しない**。Windows PRIVATE比較一括実行は`scripts/R15S3D14R1_PRIVATE_REAL_INHABITED_CITY_ONE_CLICK.cmd`（ユーザー実機での動作は未検証）。
+
+
+## 5. R15S3D14R1 真正本番元ゲームの成功と、実画面での厳格な不採用
+
+- **真正最終CI [#41044411374](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41044411374) SUCCESS**／[元GLSL WebGL2・24実画像・独立QA Artifact #12972097319](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41044411374/artifacts/12972097319)。6条件（R14参照×2世界、R14R1 A/B×2世界）、正規RAWカメラの元240Hz 58秒・64秒・67秒と終端、元`finish`イベント4/4、7実B48・28実B51、独立QA 10/10の虚偽認定を拒否。新PRIVATE browser dependencyに元R14真3Dモジュールが不足していた初回CI [#41042937428](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41042937428) はFAIL、配布時に基礎モジュールをPRIVATE内へ実際にコピーして後続の3回（#41044316356、#41044353424、#41044411374）SUCCESS。元物理・原ソースは未変更。
+- A_INHABITED_CRESCENT_DISTRICTS：7,920実三角形、36真空洞セル、15公共テラス層。技術的な巨大都市部材の追加と実WebGL2描画は成功。**画像の決定的な問題**：元64秒と67秒では新しい層の大半が画面右端・大円の内側に並び、ゲーム中央の遠景は暗い空と細い線のまま。正規画面で一目見て「壮麗な住める未来都市」とは言い難い。**Aは比較研究用ART HOLD／正式採用禁止**。
+- B_DEEP_CIVIC_TERRACES：7,668三角形、61空洞セル。追加層の形が前景に薄く反復し、Aに比べて劇的に良い構図ではなく、暗い遠景の問題を解消しなかった。**B ART REJECT**、現形状への更なる窓・色・細部装飾は禁止。
+- 正規画像だけでは**遮蔽の無さや人間の回避可能性は証明されない**。実B51の事前警告は元ゲーム実情報のままで、遮蔽・未来衝突・画面サイズは未認定。CIのSwiftShader性能もWindows実機FPSではない。
+- 全R14/R14R1で正式美術0、正式Slope2 0m、HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD維持。
+
+## 6. R15S3D15 設計作業の軌道修正：実カメラの遠景投影を先に証拠化
+
+繰り返しの失敗は「3Dメッシュの数と構造がある」ことを確認しても、**車速170～190m/sの真正正面カメラで主役が視野中央に入ることが担保されていない**点。次は3D制作の前に、元WebGL2の`viewForPose()`が実際に計算したeye/front/right/upと球位置を**PRIVATE読取専用**で観測し、R15S3D11実道路5・6にサンプリングした候補座標のスクリーン投影を元GLSLの`1.35*dot()/aspect/z`通りに比較する。
+
+- 制作済`scripts/p101-r15s3d15-private-actual-raw-camera-probe-pack.mjs`、`scripts/p101-r15s3d15-source-native-project-true-landmarks.mjs`：元source private `drive3d`を隔離複製し、元RAW camera計算値をDOMへ観測だけで公開、54/58/61/64/67秒で元2世界の原native球を0秒から実走、実B48アンカーの画面中央/上下/前方距離をJSONと真正WebGL2 PNGに保存する。これは配置診断であり**新建築の美術PASS・遮蔽検査ではない**。
+- [Actions R15S3D15ワークフロー](https://github.com/ryomashibaba/dopagaki-development-hub/actions/workflows/p101-r15s3d15-original-webgl2-camera-frustum-anchor-audit.yml)での実結果・原PNGを確認して初めて主役建築の中心配置を確定する。
+- その後の実形状は「視野中央の遠景で大きな主輪郭→接近時の住居/公共デッキと空洞→退出後の街の眺望」がそれぞれ明瞭に異なる**時間構成**にする。都市をまた道路端に置く・固定の建物を3つ描く・デッキ面を増やすだけに後退しない。元の7 B48/28 B51、物理/RAWカメラ/速度、B51早期予告は一切変更不可。
