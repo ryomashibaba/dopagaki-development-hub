@@ -1,20 +1,21 @@
-# DOPAGAKI SLOPE — LIVE HANDOFF（R18 P3実3D制作・真正CI待機／2026-10-30 JST）
+# DOPAGAKI SLOPE — LIVE HANDOFF（R18 P3真正ART不採用→R18 P4道路接地型都市実制作、2026-10-31 JST）
 
-**最初にGitHub PR #46の最新HEADと最新Actionsを確認。巨大チャットを毎回読み直す必要はない。**
+**最新HEADとGitHub Actionsを優先。チャット全文を読み直さない。**
+再開時：本ファイル→`PROJECT_STATE.md`先頭→[最新詳細監査](G4E7DZ_R18P3_ART_REJECT_AND_R18P4_REAL_ROAD_GROUNDING_JA.md)→真正CIの実結果。
 
-## 絶対固定
-QUALITY/GAMEPLAY/ART-FIRST・INTEGRATED VERTICAL SLICE。元WebGL2/240Hz CCD、ボールr=.65m、元の7 B48本物理道路/28 B51動体、合法P96/P94/A13、元RAWカメラ/HUDのゲーム挙動を変更しない。保護元blob `af076d67492a677d2235e4730aef8cdf4808e106`。main/Gold/P100/本番URL保護、`p101-velocity-overdrive-native-trial`でPR #46をDraft/open/未マージ維持。開発はPRIVATE非衝突アートのみ。手動QAを偽らず、運転支援・幽霊道路・偽finish・公開禁止。
+## 絶対の保護
+品質/ゲーム性/美術優先、INTEGRATED VERTICAL SLICE。元`web/p101-w9c2-g4e7ci-integrated-streetscape.mjs`の Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、元240Hz CCD/r=.65m、実道路B48×7/動体B51×28、正規P96/P94/A13操舵、RAW camera/HUDを不変。main/Gold/P100/本番URLに変更なし。研究は`p101-velocity-overdrive-native-trial` Draft PR #46に限り、PRIVATE非衝突背景のみ。マージ・公開・透明床・磁力・自動操舵・偽finishを禁止。
 
-## 直近で本当に判明したこと
-- R18 P1もR18 P2も、元Chromium WebGL2の6真正セッション・36 PNGのhash個別一致・新A/B×2世界元Runner finish4/4・独立10偽認定拒否をクリア。ただし真正同条件54/58/61/64/67sの見た目で**両案ART REJECT**。P1は薄い塔と空中アーチ、P2は約30k三角形の鋸歯状混乱・繰り返すシェルという失敗。最終正式ART採用0件、Slope2認定0m。
-- [R18 P2真正画像監査](G4E7DZ_R18P2_ORIGINAL_36_PNG_ART_REVIEW_AND_R18P3_DIRECTION_JA.md)／[R18 P3の新造形と厳格ゲート](G4E7DZ_R18P3_ONE_HERO_TRUE_CITY_IMPLEMENTATION_GATE_JA.md) が出発点。P2の元CIは[ #41078746216 ](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41078746216)、元Artifact #12987684703、期限2026-11-06。
+## 前工程の確定実績
+- **R18 P3真正 SOURCE TECH PASS**：[Actions #41081325468](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41081325468) SUCCESS。2世界×元D15R1/新A/B＝6真正WebGL2セッション、36枚Canvas PNG SHA個別36/36一致。新A/B×2世界の本物Runner `finished`と元`finishEvents=1`は4/4。偽認定10/10拒否。元Artifact #12990212624（ZIP SHA256 `96c7ba05fddca46ef8354680d5294e07ddfdb3efa74d1edc4f6a9e9733b4d2b6`、2026-11-06期限）。
+- **R18 P3 A/BともART REJECT**。真正元Canvasの54・58秒は遠景の箱群、61〜64秒は唐突に頭上へ来る浮いた巨大建築、67秒は黒い空白。元B48と街区の地盤がつながって見えない。実原本の三角形数はA4,200／B3,036。合成ステージの三角形数は異なるので混同しない。
+- 原因の一つを幾何コードから特定：R18P3の基準は真の道路Y+100m、主要基礎`bottom=-59m`なので**路面Y+41mに建築下端を置いた**。これだけが全ての原因とは断定せず、都市空間の形態・光・画角も分離する。
 
-## 現在のR18 P3実制作
-- **5か所へ類似巨大建築を作る旧設計を明確に廃止**。メイン`road5,u=.91,横-120m`に唯一の中心巨大建築、54/58秒の低い前景街区、64秒の交通地区、67秒退出時のスカイライン。元R18 P0真正カメラ2世界の5地点を時間制約に使用。
-- A `A_CRESCENT_CIVIC_ATRIUM`：外半径142m/内半径79m程度の大きなC字型公共構造＋屋根のない中央アトリウム。
-- B `B_CARVED_TRANSIT_CITADEL`：高さの異なる2つの巨大な駅街区外皮と中央の大きな吹抜け。AとBは構造設計・XYZメッシュとも別物。
-- 実コード `scripts/p101-r18p3-single-landmark-city-architecture.mjs`、真正オリジナルWebGL2 PRIVATE研究用統合`scripts/p101-r18p3-private-original-webgl2-city-pack.mjs`、元6条件ゲームRunner `scripts/p101-r18p3-six-real-original-webgl2-runs.mjs`、36 PNG SHA検証＆真finish＆10偽証明拒否`scripts/p101-r18p3-independent-real-webgl2-source-gate.py`、2世界の元stage不変テスト`tests/p101-r18p3-single-landmark-source-geometry.test.mjs`、Windows研究用ワンクリック`scripts/R18P3_PRIVATE_SINGLE_LANDMARK_ONE_CLICK.cmd`まで保存。
-- 真正[ R18 P3専用Actions #41081325468 ](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41081325468)。このhandoff作成時点では**GitHub ActionsでQUEUED（ランナー割当待ち）**。正規源物理・実画像・実GPUレンダリングのPASSはまだ未認定。結果を必ず再読し、失敗なら根因をPRIVATEだけ修正。成功時は元Artifactを期限内に確保、元36枚を直接比較しA/BのARTを厳密に判定する。
+## 今回のR18 P4開発
+- **R18 P4は元B48の道路の高さへ視覚上の都市街区を再配置**。`scripts/p101-r18p4-original-road-grounded-urban-fabric.mjs`で元road5/6の各8位置、計16の沿道街区と主役1を実3D生成。建物下端を**実B48 source road Y-2m**へ統一、街区は元路面中心から約40〜100m横に置く。衝突は0・架空ドライブ床は作らない。これは実際に歩行/走行できる都市ができたという保証ではない。
+- 形状別2案：`A_GROUNDED_TRANSIT_BOULEVARD`（交通駅を中心とする大道路沿い都市）／`B_CARVED_GARDEN_DISTRICT`（開放庭園と公共施設が連続する低層街区）。3D元Stage全JSON不変・基礎Y検査・偽ソース拒否を実装。
+- PRIVATE元WebGL2 pack`scripts/p101-r18p4-private-grounded-original-webgl2-pack.mjs`、6ケース元240Hz Runner`scripts/p101-r18p4-six-real-source-webgl2-runs.mjs`、独立PNG SHA＆偽成功拒否`scripts/p101-r18p4-original-webgl2-independent-art-gate.py`、専用unit`tests/p101-r18p4-road-anchored-3d-original-source.test.mjs`、Windows1クリック`scripts/R18P4_PRIVATE_ORIGINAL_GROUNDED_CITY_ONE_CLICK.cmd`。
+- [R18 P4真正CI #41128954286](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41128954286)：最新確認では**元source SHAと正規7B48/28B51形状テストPASS、PRIVATEビルド実行中**。未完了CIの原finish・真正PNG・ART PASSを断言禁止。結果が出たらArtifactから元画像を取得し両世界×54/58/61/64/67秒で前作と直接比較して厳しく美術判定すること。
 
-## 次の完了ゲート
-R18P3実CI Source/physics保護→実6条件/元finish4/4→個別PNG36/36→2世界×54,58,61,64,67秒の実Canvas目視→ART A/B HOLD/REJECT/PASSを根拠付きに更新。Human・Gameplay・Performance・Release・Mergeは別ゲートHOLD。テスト成功・面積増加・ポリゴン数や画素差は美術点にならない。
+## 正式判定
+R18 P3正式ART A/B REJECT、R18 P4正式ART HOLD。**正式ART採用0件・Slope2正式認定0m。** HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGEは引き続きHOLD。真正自動Runner完走≠人間のゲームプレイQA≠ART合格≠Windows実GPU FPS。
