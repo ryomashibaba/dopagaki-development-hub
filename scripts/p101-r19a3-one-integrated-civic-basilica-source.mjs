@@ -20,7 +20,15 @@ const len=a=>Math.hypot(...a);
 const unit=a=>mul(a,1/(len(a)||1));
 const dot=(a,b)=>a.reduce((t,v,i)=>t+v*b[i],0);
 function assertScene(condition,msg){if(!condition)throw Error('R19 A3R '+msg);}
-function tri(o,a,b,c,col){o.push(...a,...col,...b,...col,...c,...col);}
+// PRIVATE A5 fixed directional facet lighting baked into vertex RGB.
+ // This is a source-mesh visual preview, NOT game PBR, shadows, or GPU lighting.
+function tri(o,a,b,c,col){
+ const n=unit(cross(sub(b,a),sub(c,a)));
+ const sun=unit([.54,.83,-.24]);
+ const brightness=.65+.33*Math.abs(dot(n,sun));
+ const shaded=col.map(channel=>Math.min(1,channel*brightness));
+ o.push(...a,...shaded,...b,...shaded,...c,...shaded);
+}
 function quad(o,a,b,c,d,col){
  tri(o,a,b,c,col);tri(o,a,c,d,col);
  tri(o,d,c,b,col.map(x=>x*.74));tri(o,d,b,a,col.map(x=>x*.74));
@@ -364,5 +372,7 @@ export function buildR19A3IntegratedCivicCity(stage,sample,{enabled=false}={}){
   noDriveableArt:true,originalB48:7,originalB51:28,
   mode:'ONE_CIVIC_BASILICA_A5_LANDSCAPE_AND_PUBLIC_COURT',
   sourceBasedNominalClearanceNotActualGlobalProof:true,
+  actualTerrainContactVerified:false,playableLandscapeColliders:0,
+  bakedDirectionalPreviewOnly:true,fullPBRLightingImplemented:false,
   editableGroups,...st};
 }
