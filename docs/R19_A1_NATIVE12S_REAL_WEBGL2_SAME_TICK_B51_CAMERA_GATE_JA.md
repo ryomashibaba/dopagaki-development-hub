@@ -71,3 +71,15 @@ G5B差分が狭路コアの4.404秒に集中し、そこでは視覚の障害に
 5. 7.28km約52秒級の最終ゲーム、Slope2 DNA2,912m、正式認定0mのまま。SOURCE TECHが成功しても公式ART/人間/性能が不合格なら**正式採用なし**。
 
 **保護元SHA af076d67492a677d2235e4730aef8cdf4808e106、PR#46 Draft未マージ・main/Gold/P100/B5/W9-X/本番不変。**
+
+
+## A2開始前の既存大構造の発生源・静的コード調査
+
+今回、**G5B OFFでも見える大きい壁/柱の候補生成源が、元ゲームの描画パイプラインに複数存在することをコードで確認**。この段階ではピクセル単位の発生源を確定したわけではない。
+
+- web/p101-a13-w9-architecture.mjs の W9_HERO_DISTRICTS **road0 u=.045〜.46、肩外側19m、高さ68m、24分割**のLAUNCH FOUNDRY、road3のUNDERPASS CROWN。各sliceで左右の壁板4枚・屋根2枚を連続生成する（本体road0の青い板状構造物の有力原因）。実物理コライダーではないが、見た目は大きな長壁となる。
+- web/p101-a13-architecture.mjs は元B51全16の追加機械まわりに、各位置の左右支持柱・上部梁・発光冠を生成する。元の動く28基を変えず、架台の見た目だけが別のシルエットになる。
+- web/p82-megastructure.mjs の megastructureGeometry は大きな非衝突GPU世界構造。web/drive3d.mjs の実描画で **scenery/megaWorld/g5bSceneryMesh** が描かれ、その次に **a13ArchMesh**（上記A13機械架台とW9 HERO一体）が別レイヤーで常時描かれる。
+- web/drive3d.mjs の通常の描画経路（original line 929〜934）：G5BのON/OFFは **g5bSceneryMeshのみ**を切り替える。a13ArchMeshなどをOFFにするわけではない。よってG5B OFF画像で既存の壁が残る現象と、ソース構成は整合する。
+
+**次工程A2の第一ゲート**は、今の元24枚とtickが一致するTRUE private WebGL2原カメラのまま、scenery／megaWorld／a13MachineArch／W9 heroArch／G5Bを独立に切替えて実ピクセル上の原因割合を確定すること。元物理、動体、元カメラ、HUDへの介入禁止。**新建築をいきなり上から積むのは保留**。壁原因を整理した後で、巨大未来都市の主役を1つ高品質に設計する。
