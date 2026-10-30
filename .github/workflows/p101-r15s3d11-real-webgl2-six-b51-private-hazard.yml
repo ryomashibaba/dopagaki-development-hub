@@ -5,6 +5,8 @@ on:
     paths:
       - scripts/p101-r15s3d11-private-genuine-webgl-hazard-pack.mjs
       - scripts/p101-r15s3d11-real-webgl2-moving-b51-four-sessions.mjs
+      - scripts/p101-r15s3d11-source-road-ahead-b51-warning.mjs
+      - tests/p101-r15s3d11-real-physical-road-ahead-warning.test.mjs
       - .github/workflows/p101-r15s3d11-real-webgl2-six-b51-private-hazard.yml
   workflow_dispatch:
 permissions:
@@ -23,6 +25,8 @@ jobs:
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           node --check scripts/p101-r15s3d11-private-genuine-webgl-hazard-pack.mjs
           node --check scripts/p101-r15s3d11-real-webgl2-moving-b51-four-sessions.mjs
+          node --check scripts/p101-r15s3d11-source-road-ahead-b51-warning.mjs
+          node --test tests/p101-r15s3d11-real-physical-road-ahead-warning.test.mjs
       - name: Build true original private game, then D10 and D11 PRIVATE COPIES ONLY
         run: |
           npm install --no-save --no-package-lock --no-audit --no-fund
