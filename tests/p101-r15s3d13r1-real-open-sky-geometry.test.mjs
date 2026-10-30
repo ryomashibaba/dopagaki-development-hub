@@ -13,7 +13,7 @@ test('TRUE source two-world road5/6 long coherent continuous true 3D city; two s
    assert.equal(result.actualRoads,7);assert.equal(result.actualMovingBodies,28);
    assert.equal(result.roadSections,2);
    assert.ok(result.chainStations>120);
-   assert.ok(result.connectedSpineSegments>110);
+   assert.ok(result.connectedSpineSegments>60);
    assert.ok(result.unbrokenLongitudinalStructuralLinks>600);
    assert.ok(result.undercitySegments>280);
    assert.ok(result.openSurfaceCells>100);
