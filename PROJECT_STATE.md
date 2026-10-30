@@ -1,3 +1,15 @@
+# R19 A3真正16画像SOURCE PASS／単一都市案ART REJECT（2026-10-31 JST）
+
+**最上位目標は正規7.28km・約52秒の楽しいSlope2系高速ゲーム＋大規模で圧倒的に美しい未来都市。正式ART採用0、Slope2 DNA公式認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
+
+- A2の元360°ではなく本物の同RAWカメラ4時刻×9条件[Actions #41139471545](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41139471545)がSOURCE TECH PASS。3.004秒旧W9長壁29.677%画素差、4.404秒G5B18.416%/Mega13.749%、5.204秒A13 B51装飾架台13.396%が元14m道路の原因。画素差は美術点/遮蔽率ではない。元36/36 PNG SHA、正規球/28 B51不変。
+- 一つの新しい都市案`RIFT CIVIC BASILICA`を同じ本物のW9C1物理道路（旧景観を除いた元道路＋障害物）にPRIVATE統合。実3D主役1、開放中庭1、4公共区画、三角形3,336、衝突追加0。元[Actions R19A3 #41140541323](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41140541323)全SUCCESS・16/16 PNG個別SHA、元12秒Native球XYZ/速度同tick、14m/28m×ON/OFF、B51 28保持、独立偽証明4件拒否。原Artifact #13018858099 ZIP SHA256 `bde6658bc51edd4871eac6b32a9290909ed4dd727c44250966b674fda49d09be`。
+- **真WebGL2美術A3 REJECT**：3.004秒無地の白い巨大柱/箱、4.404〜5.204秒本物14m狭路の視界右に分厚い板、8.004秒新都市が画面から完全消失。ULTRA中央ROI実画素差18.461%/8.888%/3.678%/**0.000%**。中庭数や新規表現のトライ数だけで美術認定しない。詳細[独立16画像評価](docs/R19_A3_ORIGINAL_16_PNG_REJECT_AND_ONE_CITY_REDESIGN_GATE_JA.md)。
+- 次は**R19 A3R：同じ一案の根本再設計**。旧長壁・厚棚・箱・門の反復を避け、元road0狭路の接近・コア・通過とroad1 8〜12秒の都市全景を同一の世界座標と元カメラで先に構図設計する。真正の公共空洞や建築用途、素材・照明・制作可能な高品質3D、元B51視界を優先。改修済みA0/A1/A2のテスト共通基盤を再利用し、手動Windows人間14/28m・FPS QAを早期別ゲートとして追加。
+- 元ゲームのGit Blob `af076d67492a677d2235e4730aef8cdf4808e106`、7 B48/28 B51・240Hz CCD・元カメラ/HUD・合法P96/P94/A13・球r.65m、Gold/W9-X/B5/P100/main/本番を不変。Draft PR#46 OPEN未マージ。復帰は[LIVE_HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)から。
+
+---
+
 # R19 A2 真正14m元ゲーム36画像の都市発生源分離PASS・既存美術REJECT（2026-10-31 JST）
 
 **正式結果：SOURCE TECH PASS。既存都市ART REJECT、新都市の正式採用0件、Slope2 DNA認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。** 本来の完成像は7,280m約52秒級、Slope2 DNA目標2,912mの実高速操作＋圧倒的未来都市。R18の箱・架台の量産から転換し、同じ本物の道路/時刻でGAMEPLAY×ART共同設計。
