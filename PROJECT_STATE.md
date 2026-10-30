@@ -1,3 +1,17 @@
+# R19 A5（最新） — 実ゲーム源24枚TECH PASS、GLB5材質PASS、都市ART REJECT（2026-10-31 JST）
+
+**最新正式状態**：7,280m／約52秒級の本物のSlope系高速ゲーム×超未来巨大都市の完成を最優先。正式ART採用0・Slope2 DNA 2,912m目標の正式認定0m。GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。既存の不採用巨大壁/薄い門/単純箱の量産へ戻らない。
+
+- 同じ`RIFT CIVIC BASILICA`単一案をA5へ改修：34の実体ベイ/開口に加え、15個の段状多角形都市基盤・10個の離れた公共空間・10下部支持・5景観動線。実ソース元14m/28m W9C1 2道路を含む5編集地区、10,566三角形、0衝突追加。基盤は**実地形への真の接地を証明せず**、仮陰影も真PBRではない。
+- [最新真正Actions #41144200111](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41144200111)全ジョブSUCCESS。元0秒から6時刻、ULTRA14m/CONTROL28m×都市OFF/ON＝元WebGL2 **24枚/24枚SHA256一致**、元Native球XYZ最大差0.00077036m／速度0.0004716m/s、元7 B48/28 B51、240Hz/P96-A13/正規HUD・カメラを保持。研究ArtのOFF/ONで元球の動きは不変。
+- Blender互換編集GLB各14m/28m、**5独立オブジェクト・5仮マテリアル**、各10,566三角形、約765kB。第三者`trimesh`で両GLBの5ジオメトリを実読み込み、SHA256を独立照合。Blender GUI未検証・本格PBR未実装・元Gameへの逆インポート未実装。
+- 元Artifact [#13019233506](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41144200111/artifacts/13019233506) 3,661,306 bytes、ZIP SHA256 `2f05fcd04fcfc369cea8dacc268af746046f94b4cd4346fa57172aceb0c9d300`、2026-11-06 UTC失効。14m生カメラ都市ON/OFF中央ROI画素差（非美術点）：1.104秒4.230%、3.004秒9.750%、4.404秒10.576%、5.204秒3.658%、8.004秒1.383%、11.504秒6.508%。
+- **実画像ART REJECT**：下部基盤を追加しても箱・門の孤立が残り、14m狭路付近の表示要素は増加。道路1の8〜11.5秒も大都市の連続感には程遠い。ゲーム性・元B51の実ピクセル視認・人間操作・Windows GPU FPSは未認定。詳細[独立審査](docs/R19_A5_TRUE24_GLB5_ART_REJECT_AND_SOURCE_GAME_CONTINUITY_JA.md)、再開用[LIVE_HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。
+- **次工程A6**：新しいJavaScript単色箱/門の量産を停止。5編集GLB原本を使う真正3D制作の往復入出力（PRIVATEのみ）と、人間が見る6原カメラでの遠中近景マスタープランを先に作り、建築の質とゲーム性の両方を審査。既存CIを再利用し、今ある保護済み元7.28km/240Hz/B48/B51とmain/Gold/P100/W9-X/B5/本番は絶対に触れない。
+- 元ソースのGit Blob `af076d67492a677d2235e4730aef8cdf4808e106`固定。PR #46 `p101-velocity-overdrive-native-trial` Draft/open/未マージ。
+
+---
+
 # R19 A4 編集可能GLB/正規24枚 SOURCE TECH PASS、ART REJECT（2026-10-31 JST）
 
 **完成目標は本物のSlope2系7.28km約52秒高速ゲーム＋圧倒的に美しい超未来都市。Slope2 DNA目標2,912m、正式合格0m、ART採用0件、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
