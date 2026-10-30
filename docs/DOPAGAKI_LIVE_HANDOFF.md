@@ -1,27 +1,22 @@
-# DOPAGAKI SLOPE — LIVE HANDOFF（R19 A0 統合代表区間へ、2026-10-31 JST）
+# DOPAGAKI SLOPE — LIVE HANDOFF（R19 A1、2026-10-31 JST）
 
-**最新の方針**：R18 P5の「美術だけの形状量産」を停止した。実ゲームのGAMEPLAY×ARTの一体的な10〜15秒代表区間を先に成立させ、約7.28km中2,912mのSlope2 DNA目標へ実証距離だけを加算する。現在の公式Slope2認定0m・正式ART採用0件。ユーザー操作は最小化する。
+**最上位目標は、美しく巨大な未来都市の中を人間が気持ちよく操作する実物理Slope2系高速ゲーム。** A0で真正12秒の14m狭路を確認、現在はA1で同じNative 240Hz tickと本物の元WebGL2カメラを照合中。R18の不採用都市量産は停止し、GAMEPLAY×ART共同設計へ転換済み。
 
-## 保護するもの
-元ゲーム web/p101-w9c2-g4e7ci-integrated-streetscape.mjs Git blob af076d67492a677d2235e4730aef8cdf4808e106、元240Hz/CCD、球半径0.65m、元B48道路7・B51動体28・正規P96/P94/A13・原RAWカメラ/HUD。本番/main/Gold/P100/W9-X/B5に未承認変更なし。作業は p101-velocity-overdrive-native-trial の Draft PR #46、未マージ・公開不可。不可視床/強制接地/減速/自動救済/偽finish禁止。
+## 絶対に破らない境界
+元WebGL2ゲームファイル web/p101-w9c2-g4e7ci-integrated-streetscape.mjs Git blob af076d67492a677d2235e4730aef8cdf4808e106、元240Hz CCD、球半径.65m、B48実道路7・B51実動体28、元P96/P94/A13合法操作、RAWカメラ・HUDを不変。Gold/W9-X/B5/P100/main/本番を変更せず、研究ブランチ p101-velocity-overdrive-native-trial のDraft PR#46だけでPRIVATE実験。透明床・救済、偽finish、勝手な製品公開禁止。
 
-## 前工程の厳格結果
-R18 P4の真正 WebGL2 Actions #41128954286は全工程SOURCE TECH PASS、6/6正規ケース・36/36 Canvas PNG SHA・新A/B×2世界の真正自動Runner finish4/4。ただし両案ART REJECT。R18 P4で初めて改善した本物の道路沿いの市街地の連続性は研究成果として保存するが、巨大無地壁/反復箱/視界の圧迫を正式美術に採用しない。証拠は docs/G4E7DZ_R18P4_GENUINE_36_PNG_ART_REJECT_AND_R18P5_GATE_JA.md。
+## R19 A0 真正確定
+[修正済Actions #41131784122](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41131784122)全工程SUCCESS。元0秒スポーンで12秒2,880tick走行、CONTROL 28m/ULTRA 14mともrunning、B48 road0→1まで接地、元B51接触0。ピーク116.742/115.519m/s、狭路コアは4.404秒、警告の初観測1.104秒で計測上の余裕3.300秒。ULTRAは真補間道路幅13.159〜14m、概算路端最小1.743mで、人間QAが必須。既存G5B 4,608三角形は同スポーン320mの静止的元WebGL2表示に成功したが、0〜12秒の本物の高速走行画像ではない。原Artifact #13013401969。ART採用0件、Slope2正式認定0m。
 
-## 現在の工程R19 A0
-- 真の完成モデル約52秒の「0秒〜12秒」ABYSS DIVEを代表区間に確定。以前R18の70秒研究コースにおける54〜67秒とは時間軸が別、同じ12秒だと偽らない。
-- ユーザー既定のW9-C0/Slope DNA約40%=2,912mと、既存W9-C1真正B48実狭幅14m/対照28mを再利用。対象は元道路0の310〜360m（狭幅コア50m、正式認定ではない）。本物の0秒スポーンから同じ240Hz nativeで12秒まで、元位置・速度・接地・警告からコアまでの秒・路端・元B51接触を計測する。手動試遊の代替と偽らない。
-- 既存の非衝突景観 G5B（web/p101-w9c1-g5b-skyline.mjs）を再利用、デフォルトOFF。新しい巨大都市案を毎回作らない。
-- 実装 scripts/p101-r19a0-real-12s-integrated-gameplay-city.mjs、unit tests/p101-r19a0-12s-integrated-source-play-and-art.test.mjs、GitHub Actions [#41131345970](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41131345970)。A0 Native物理・既存G5B同スポーンの真正Chromium画像を1本のCIで検証する。**CIの最新実結果を再確認すること。** ART/人間/実GPU FPSの合格は宣言しない。
-- 詳細 docs/R19_A0_FIRST_REAL_12S_GAMEPLAY_ART_VERTICAL_SLICE_JA.md。設計・テストの重複を増やさず、旧W9-C1の証拠・テスト・Windows手動比較を再利用する。
+## R19 A1：今の実作業
+- PRIVATE元ゲームそのものをコピーして dist-private/r19a1 のみに差分を挿入する scripts/p101-r19a1-private-original-native-camera-pack.mjs（本体/Goldは不変）。
+- scripts/p101-r19a1-six-true-native-matched-camera-frames.mjs：本物の元B48幅28/14m × G5B OFF/ONの4セッション、各6つの**native tick 265,721,1057,1249,1921,2761**で本物元Canvasをスクリーンショット、24枚の真画像をNative A0の同じtickの球XYZ（0.08m以内）・速度（0.05m/s以内）・ロードIDで厳格に検査。本人の手動操舵ではなくP96スクリプトが再現する。
+- 元28 B51のカメラFoV投影候補と実物理的な形状距離を記録するが、遮蔽/実画素視認/HUMANの認証はしない。
+- scripts/p101-r19a1-independent-24-native-frame-gate.mjs は各PNGのbytes/SHA256と偽成功4条件を独立検査、原本はPlaywrightが削除しない r19-evidence に保存。
+- 真正[専用GitHub CI #41133092902](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41133092902) はこのhandoff更新時点で実行中。前回 #41132919104 は元物理ではなくPRIVATEレンダラにカメラ検査コードを挿入する際の文字列検索ミスで失敗し、修正済み。現在の最終CIの成功や撮影24枚をまだ確認していない以上、SOURCE TECH PASSを宣言しない。
+- 技術・美術ゲートと現工程の正本：[R19 A1設計・真実性監査](R19_A1_NATIVE12S_REAL_WEBGL2_SAME_TICK_B51_CAMERA_GATE_JA.md)。
 
+## 次にすること
+CI最終結果を確認→失敗ならPRIVATE挿入コードか本物Native不一致の根因を修正し再検査→成功なら24本物Canvas元画像を同tickで視覚比較、実B51カメラFoVと遮蔽を明確に区別する→**1つの新都市＋本当の細道を同じ代表区間で高品質に同時設計するA2**。次のNative/HUMAN/FPS/ARTは正式別ゲート。コース全体の完成目標は7,280m約52秒、Slope DNA2,912m、認定0mのまま。
 
-## R19 A0 真正完了（実結果優先）
-[修正後Actions #41131784122](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41131784122) 全ジョブSUCCESS。初回 #41131345970 もCI成功だがPlaywrightがNative JSONの出力ディレクトリを消してArtifact欠落→保存先を r19-evidence に変更して再実行。真の原Artifact #13013401969（ZIP SHA256 3249da442b0a824931aa95c27a8754f20af2797e8c90daf4aa68af98102f2258、2026-11-06期限）は完全な12秒Native JSON＋実Chromium WebGL2元320m同スポーンON/OFF画像4枚＋視覚QA JSONを含む。
-元0秒スタートで12秒間の正規240Hz/2,880tick連続：幅28m CONTROL/14m ULTRAともrunningで、元の道路0→道路1へ接地進行、移動B51接触0・空中0。最高速度は116.742/115.519m/s、警告1.104秒→本物の狭路コア初到達4.404秒＝3.300秒。ULTRAのコア真補間幅13.159〜14.000m、速度82.423〜87.874m/s、元B48上の概算路端余裕最小1.743m（危険余裕。人間の公平性は未確認）。元G5B景観は本物のWebGL2に表示できるが、320m局所52m/s画像は0〜12秒の加速走行時のカメラではない。
-正式ART0件/Slope2 0m。A1は元Native12秒・本物の元WebGL2時刻一致と元B51の前方視認性、A2は道路と都市の**1案だけ**の同時高品質設計、早期人間試走は別ゲート。詳細は docs/R19_A0_FIRST_REAL_12S_GAMEPLAY_ART_VERTICAL_SLICE_JA.md。
-
-## 次工程
-A0の真正Native traceとブラウザ同スポーン画像を確認。途中で死んだ・コアに到達しない・2秒警告不足などを正直に記録。A1で初の「本物の0〜12秒走行中のカメラ・元B51視認」とsource physicsを時刻一致で比較。A2で走行と巨大都市の主造形を**1案だけ**同時に制作し、ゲーム本体と実画像で評価。Human/Windows GPU/FPSは別ゲート、承認なしに公開/mergeしない。
-
-**正規SOURCE TECH合格≠ART合格≠GAMEPLAY合格≠人間の楽しさの証明。**
+**GAMEPLAY/HUMAN/ART/PERFORMANCE/RELEASE/MERGE HOLD、正式ART 0、正式Slope2 0m。**
