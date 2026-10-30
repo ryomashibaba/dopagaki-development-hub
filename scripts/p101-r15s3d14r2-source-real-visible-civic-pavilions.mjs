@@ -70,7 +70,7 @@ function site(out,doc,sample,s,mode,index,stat){
   for(let i=0;i<panels;i++){
    const a=samples[i],b=samples[i+1],u=i/panels;
    // Large negative-space COURTS: actual absent surfaces, not painting.
-   const missing=(i>=8&&i<=12)||(court&&(i>=18&&i<=20))||
+   const missing=(i>=8&&i<=14)||(court&&(i>=18&&i<=20))||
      (!court&&level===1&&i>=2&&i<=4);
    if(missing){stat.realOpenCivicCourts++;continue;}
    sheet(out,a.nearLow,b.nearLow,b.farLow,a.farLow,
@@ -145,7 +145,7 @@ export function buildR15S3D14R2City(doc,sample,{mode='A_SHORELINE_PUBLIC_FOLDS'}
    stat.realOpenCivicCourts<100||stat.inhabitedSurfaceSections<180||
    stat.bigPublicCanopies!==10||stat.sites.length!==5||
    stat.continuousCanopyCells<300||!vertices.every(Number.isFinite))
-   throw Error('R14R2 physical-scale architectural geometry failed');
+   throw Error('R14R2 physical-scale architectural geometry failed: '+JSON.stringify({triangles,prior:prior.triangles,open:stat.realOpenCivicCourts,occupied:stat.inhabitedSurfaceSections,canopies:stat.bigPublicCanopies,sites:stat.sites.length,canopyCells:stat.continuousCanopyCells}));
  if(JSON.stringify(doc)!==source)throw Error('R14R2 mutates original B48/B51 gameplay');
  return {vertices,triangles,...stat,sourceArchitectureTriangles:prior.triangles,
   realOriginalB48:7,realMovingB51:28,addedOriginalCollisionBodies:0,
