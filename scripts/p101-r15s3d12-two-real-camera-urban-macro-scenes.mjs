@@ -16,7 +16,7 @@ const K={porcelain:[.87,.92,.92],deep:[.075,.14,.21],satin:[.24,.43,.53],
 const plus=(a,b)=>a.map((v,i)=>v+b[i]),sub=(a,b)=>a.map((v,i)=>v-b[i]),
  m=(v,t)=>v.map(x=>x*t),len=v=>Math.hypot(...v),norm=v=>m(v,1/(len(v)||1)),
  dot=(a,b)=>a.reduce((n,x,i)=>n+x*b[i],0),
- cross=(a,b)=>[a[1]*b[2]-a[2]*b[0]-a[0]*b[2],a[2]*b[0]-a[0]*b[2]+0,a[0]*b[1]-a[1]*b[0]],
+ cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],
  lerp=(a,b,t)=>plus(m(a,1-t),m(b,t)),mix=(a,b,t)=>lerp(a,b,t);
 function triangle(a,p,q,r,c){for(const v of [p,q,r])a.push(...v,...c);}
 function quad(a,p,q,r,s,c){
