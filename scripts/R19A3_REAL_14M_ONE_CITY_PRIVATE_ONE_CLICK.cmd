@@ -22,7 +22,7 @@ start "DOPAGAKI R19 A3 PRIVATE ORIGINAL SERVER" cmd /k "node scripts/serve.mjs d
 timeout /t 3 /nobreak >nul
 start "" "http://127.0.0.1:4373/r19a3/?r19a1=on&r19a2Layer=road-hazards-only&r19a3=on&g5b=on&stage=VB-P101-A13-W9C1-ULTRA"
 echo [R19A3] Compare OFF using r19a3=off in URL. In page choose real camera and demo for scripted native replay.
-echo [R19A4] GLB files in r19-evidence\r19a4 (ULTRA and CONTROL). Blender: File - Import - glTF 2.0.
+echo [R19A4] GLB files in r19-evidence\r19a5 (ULTRA and CONTROL). Blender: File - Import - glTF 2.0.
 echo [R19A4] Human gameplay, Windows FPS, official ART and Slope DNA certification remain HOLD.
 exit /b 0
 :FAILED
