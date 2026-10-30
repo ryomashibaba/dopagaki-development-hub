@@ -58,6 +58,7 @@ function frame(doc,sample,s){
  ok(mag(vector)>1&&Math.abs(dot(right,forward))<1e-8,'invalid genuine tangent');
  // Explicit independent R15 R18 camera normal calculation, not rim sign.
  const origin=plus(plus(center,scale(right,s.offset)),[0,s.up,0]);
+ ok(origin.every(Number.isFinite), 'nonfinite camera source site '+JSON.stringify({site:s,center,a,b,forward,right,origin}));
  return {origin,forward,right,center,edgeVector:minus(rim,center),
   cameraReferenceNormal:right};
 }
