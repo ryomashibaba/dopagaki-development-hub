@@ -55,9 +55,9 @@ const point=(f,lateral,along,up)=>add(add(add(f.edge,m(f.outward,lateral)),m(f.a
 const spec=Object.freeze([
  // Non-repeat: main west city = one enormous broken elliptical ring; later a
  // subordinate horizontally fanned commons; last road = a rising finale.
- {road:5,u:.43,side:-1,role:'primary',offset:255,rx:166,ry:216,elev:74,thick:25},
+ {road:5,u:.43,side:-1,role:'primary',offset:326,rx:166,ry:216,elev:74,thick:25},
  {road:5,u:.81,side:1,role:'inhabited',offset:230,rx:114,ry:144,elev:102,thick:19},
- {road:6,u:.44,side:-1,role:'finale',offset:290,rx:176,ry:244,elev:101,thick:28}
+ {road:6,u:.44,side:-1,role:'finale',offset:337,rx:176,ry:244,elev:101,thick:28}
 ]);
 // The most important architectural geometry is a continuous thick 3D folded
 // crescent, with a large EMPTY void at its centre. It is oriented nearly
