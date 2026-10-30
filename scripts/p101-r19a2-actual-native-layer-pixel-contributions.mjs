@@ -21,7 +21,7 @@ try{
    const original=ref.screens.find(x=>x.tick===target.tick);assert.ok(original);
    const pngA=fs.readFileSync(path.join(dir,original.file)).toString('base64');
    const pngB=fs.readFileSync(path.join(dir,target.file)).toString('base64');
-   const result=await page.evaluate(async (a,b)=>{
+   const result=await page.evaluate(async ({a,b})=>{
     async function rgba(str){
      const blob=await(await fetch('data:image/png;base64,'+str)).blob();
      const bitmap=await createImageBitmap(blob);
@@ -58,7 +58,7 @@ try{
      changedROIpercent:Number((altered/area*100).toFixed(3)),
      changedWholeCanvasPercent:Number((global/(W*H)*100).toFixed(3)),
      grid3x3Percent:cells.map(c=>Number((100*c.changed/c.total).toFixed(3)))};
-   },pngA,pngB);
+   },{a:pngA,b:pngB});
    cases.push({mode:s.kind,removedLayer:s.layer,tick:target.tick,
     trueNativeSec:target.nativeTime,originalSourceRoad:target.sourceNativeB48Road,
     baselineSHA256:original.pngSHA256,layerlessSHA256:target.pngSHA256,
