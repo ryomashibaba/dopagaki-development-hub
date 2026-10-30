@@ -25,3 +25,18 @@ R18 P1〜P4の8つの都市案は真正元WebGL2の技術証拠を残したが�
 5. R18 P4研究成果は凍結して保存。ART失敗の繰返しを防ぎ、ゲーム性と視覚の統合を優先。PR #46 OPEN/Draft/未マージ、Gold/P100/main/本番は不変更。
 
 この工程でユーザーが必要な操作はなし。人間の判断が必要なQA段階だけ、一度の短い試走を依頼する。
+
+
+## R19 A0 実測確定（2026-10-31 JST）
+
+**初回[GitHub Actions #41131345970](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41131345970)は全ジョブSUCCESSだが、test-resultsを後続Playwrightが掃除するためnative JSONがArtifactに含まれなかった。この証拠欠落を見逃さず、保存先を独立r19-evidence/へ変更し、[修正再実行 #41131784122](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41131784122)で全ジョブSUCCESSと元JSONの保全を再確認。**
+
+- 修正後の原[Artifact #13013401969](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41131784122/artifacts/13013401969)：ZIP 657,439 bytes、SHA256 3249da442b0a824931aa95c27a8754f20af2797e8c90daf4aa68af98102f2258、失効2026-11-06 21:33:57 UTC。JSON本体1件、CONTROL/ULTRAの各WebGL2元320m・ON/OFF画像4枚と視覚QA原JSONを全て実際に再検証。
+- 12秒間の元240Hz真正NativeでCONTROL/ULTRAとも状態running、2,880tick、走行区間0 ABYSS DIVE→1 CROWN REVERSALまで真正実接地。途中スポーン、途中速度リセット、偽走行床、隠し救済を使っていない。
+- CONTROL実物理幅28m：最高速度116.742m/s、移動B51実接触0、最長非接地0秒、警告初観測1.104秒、310mコア初到達4.404秒、警告→コア3.300秒。コアで速度82.886〜88.247m/s、元B48真幅27.329〜28.000m、概算路端最小余裕9.093m。
+- ULTRA実物理幅14m：最高速度115.519m/s、実接触0、最長非接地0秒、警告1.104秒、コア4.404秒、警告→コア3.300秒。コア速度82.423〜87.874m/s、元Catmull–Rom真補間幅13.159〜14.000m、**概算路端最小余裕1.743m**。この危険な小余裕を正式人間QAで足切りする必要がある。14m目標の一部で真幅が13.159mになることを隠さない。
+- Native 50msサンプルはCONTROL/ULTRA各240点の真正球XYZ、速度、road ID、接地、実横幅、推定路端、警告フェーズを含む。原本JSON中の数値は回帰・手動比較の正本。
+- 既存G5B同スポーン320mの真正Chromium WebGL2 ON/OFF画像4枚：元source B48幅28m/14m、G5B全4,608本物の表示三角形、路端65m以上の非衝突、デフォルトOFF、同視点の描画差を確認。ただし**320mローカルプレビューは初速52m/sへ戻す別資料であり、本物の0〜12秒加速走行中の元カメラ動画ではない**。G5Bは巨大な柱・単純な外形が多く、美術上の完成度は未達、正式ARTはHOLD（採用0）。
+- この12秒の走行成立から、コア50mを正式Slope2 DNA認定済みとすることはまだできない。0mのまま。人間操作の予告認識・操舵・落下リスク/楽しさ・Windows実GPU FPS、原B51を実際に認識・回避できるか、元0〜12秒の同期WebGL2美術は次A1/A2で検証。
+
+**次工程A1優先**：元Native12秒の球XYZ/速度/警告の真正時刻を、同じ初期走行・相同の元WebGL2カメラ画像と同期させる。320m地点に速度52m/sで瞬間移動した美術画像を12秒プレイ画面として再利用してはならない。その後、物理道と都市を1案同時設計し、人間QAを早期に入れる。
