@@ -8,7 +8,7 @@ on:
       - scripts/p101-r15s3d16-original-webgl2-true-camera-six-runs.mjs
       - scripts/p101-r15s3d16-independent-original-webgl2-game-qa.py
       - tests/p101-r15s3d16-true-camera-inhabited-heart.test.mjs
-      - .github/workflows/p101-r15s3d16-true-source-cam-framed-megacity.yml
+      - .github/workflows/p101-r15s3d16-real-native-3d-civic-heart-source.yml
   workflow_dispatch:
 permissions:
   contents: read
@@ -29,7 +29,7 @@ jobs:
           node --check scripts/p101-r15s3d16-original-webgl2-true-camera-six-runs.mjs
           python3 -m py_compile scripts/p101-r15s3d16-independent-original-webgl2-game-qa.py
           node --test tests/p101-r15s3d16-true-camera-inhabited-heart.test.mjs
-      - name: Build original source native private WebGL2 D10 D11 D14R1 and two D15R1 physically invariant city alternatives
+      - name: Build source private WebGL2 D10 D11 D15R1 baseline and 2 D16 inhabited city art variants
         run: |
           npm install --no-save --no-package-lock --no-audit --no-fund
           npm run build:private
