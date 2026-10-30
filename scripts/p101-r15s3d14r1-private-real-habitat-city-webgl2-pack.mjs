@@ -82,6 +82,16 @@ fs.copyFileSync(path.join(root,'scripts/p101-r15s3d14r1-real-inhabited-hollow-ci
  path.join(target,'r15s3d14r1-real-inhabited-hollow-city-districts.mjs'));
 fs.copyFileSync(path.join(root,'scripts/p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'),
  path.join(target,'p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'));
+// Browser ES module resolution contract: the R14R1 city dynamically imports
+// the original R14 genuine structural module. A Node-only geometry PASS is
+// insufficient; BOTH real local modules MUST exist beside drive3d.mjs.
+assert.ok(fs.readFileSync(path.join(target,'r15s3d14r1-real-inhabited-hollow-city-districts.mjs'),'utf8')
+  .includes("from './p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'"));
+assert.ok(fs.existsSync(path.join(target,'p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs')));
+assert.equal(fs.readFileSync(path.join(target,'p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'),'utf8'),
+ fs.readFileSync(path.join(root,'scripts/p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'),'utf8'));
+fs.copyFileSync(path.join(root,'scripts/p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'),
+ path.join(target,'p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'));
 fs.writeFileSync(src,js);
 const html=path.join(target,'index.html');
 let body=fs.readFileSync(html,'utf8');
