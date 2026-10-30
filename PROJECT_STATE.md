@@ -1,3 +1,21 @@
+# R15S3D9 — 原240Hz Runnerで全7道路の真正FINISH・実イベント2世界PASS（2026-10-30 JST）
+
+**R15S3D9 A_CONTINUOUS_NARROW_MACRO：SOURCE-NATIVE FINISH 2/2 PASS（実WebGL/人間/美術/正式GAMEPLAYではない）。** PRIVATE実験の実既存B48道路5・6を同時に再制作し、元ゲームの7本B48・28 B51、原Runner/CCD 240Hz、原P96/P94/A13、元route/routeSegments、正規カメラ、元CROWN〜道路4、元本番・main/Gold/P100・保護元blob `af076d67492a677d2235e4730aef8cdf4808e106`を凍結したまま、元0秒から真正240Hz×4条件を試験。
+
+- **全7 B48トポロジー監査**：真正[Actions #40987951631](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40987951631) SUCCESS／[Artifact #12947213686](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40987951631/artifacts/12947213686)。元道路4→5中心1330.555063mの断絶、元道路5入口106m幅・道路6 110m幅、元物理路面の左右断面不整合を確認。旧R15S3D8R2単道路接続方式は物理反転でREJECT。
+- **真のB48狭幅一体4案静的検査**：真正[Actions #40988252405](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40988252405) SUCCESS／[Artifact #12948201217](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40988252405/artifacts/12948201217)。2モード×2元世界の実道路5・6全31行を調整し、元道路4→5・道路5→6の実5頂点シーム0m、幅約16m、法線上向き・隣接最大0.096〜0.267°、接線差0.38〜0.72°。静的4/4 PASS（GAMEPLAY判定とは別）。
+- **元Runner初回 [Actions #40988524554](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40988524554) FAIL**：原240Hz真正4条件の走行結果は記録完了したが、独立QAが旧R15S3D8R1の`terminalTimeOr45sCap`を新`terminalTimeOr95sCap`と誤参照したため比較証拠が欠落。元物理やB48形状は修正せず、読み込みスキーマの参照を修正した。失敗履歴を隠さない。
+- **真正再実行 [Actions #40988751126](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40988751126) SUCCESS**：原CROWN 17s・21.5s prefix4/4、原物理4条件完全再試行、偽認定12拒否。Aは元true-pinch **69.829167s finished**、元pinch-switch **70.516667s finished**。B実物理ギャップは61.262500/61.845833s failed、ROAD6実接地0秒。
+- **finishイベント最終監査 [Actions #40989026403](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40989026403) SUCCESS／[Artifact #12948217815](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40989026403/artifacts/12948217815)**：独立QA**14件の虚偽認定を拒否**。Aの両元世界で本物の`finished`だけでなく、元Runner発行の`finish`イベント各1件、**最終実B48 `p93-FINISH_RIDGE-01`に真正接地したまま終了**を再現。原実道路5支持10.258333/10.400000秒、道路6支持3.395833/3.433333秒。Bは元`finish`イベント0件。
+- **残る重大課題**：今回はB51動体28基の元定義を維持したが、真正4ケースの**移動障害物への接触イベント0件**。ハザードの視認性・回避可能性・プレイの魅力のQA未実行。現行Aの真完走はSOURCE-NATIVE限定。元ゲームへ入れた正規WebGL、カメラ/HUD、本当の人間操作、性能、未来都市の圧倒的な美しさ、Slope2狭幅DNA約40%は未認定（ART正式採用0、正式Slope2認定0m）。
+- **次のR15S3D10**：PRIVATE正規WebGLの実制作・元物理データ一致、実B51相対姿勢と予告・回避・画面内サイズ、元HUD・カメラと高速人間操作、元都市との立体的統合美術を、実画像と実体験で検査。診断コードだけの反復に戻らない。公開/マージ/main/Gold/P100/保護元ソースの改変なし。
+
+**正式境界**：SOURCE-NATIVE 完走2/2 PASS・SOURCE TECH限定PASS。B GEOMETRYはPASSでもGAMEPLAY失敗でREJECT。**GAMEPLAY統合／ART REJECT・HOLD、HUMAN・PERFORMANCE・INTEGRATION・RELEASE・MERGE HOLD**。 [Draft PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46) OPEN/未マージ、本番URLは変更なし。
+
+[完全な真正出典・4条件比較・虚偽証明防止・R15S3D10へ繋ぐ実制作ゲート](docs/G4E7DZ_R15S3D9_REAL_FINISHED_TWO_WORLDS_AND_REAL_16M_DOWNSTREAM_CRITICAL_GATE_JA.md)
+
+---
+
 # R15S3D8 + R15S3D8R1 + R15S3D8R2 — 元物理長距離B48真正走行改善／下流106m道路で静的REJECT（2026-10-30 JST）
 
 **[R15S3D8 Actions #40974883310](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40974883310) SUCCESS／[Artifact #12942306619](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40974883310/artifacts/12942306619)。** PRIVATE本物のB48道路3・4の大局線形を2案制作、元Runner真正0秒240Hz×2世界×2案＝4実走行、元CROWN prefix4/4一致・独立QA偽認定12種拒否。AのLOWER真正接地11.583333/11.879167秒、さらにVOID_SURGE実接地1.4125/1.129167秒、45秒時点`running`で**未完走**。Bは40.866667/41.045833秒に失敗し次道路0s、正式棄却。Aは道路4横断向きが約179.9°反転していたため正式不採用のまま。
