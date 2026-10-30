@@ -1,3 +1,15 @@
+# R19 A2 真正14m元ゲーム36画像の都市発生源分離PASS・既存美術REJECT（2026-10-31 JST）
+
+**正式結果：SOURCE TECH PASS。既存都市ART REJECT、新都市の正式採用0件、Slope2 DNA認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。** 本来の完成像は7,280m約52秒級、Slope2 DNA目標2,912mの実高速操作＋圧倒的未来都市。R18の箱・架台の量産から転換し、同じ本物の道路/時刻でGAMEPLAY×ART共同設計。
+
+- [R19 A2真正Actions #41139471545](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41139471545)全工程SUCCESS。14m ULTRA=7独立描画レイヤー条件×本物の元tick721,1057,1249,1921、28m CONTROL=2条件×同4tick、真正元WebGL2原Canvas**36/36個別SHA256一致**、元Native 0秒からの球XYZ最大差0.0007704m、速度差0.0004716m/s、同正規B48 7本/B51動体28体とP96/A13、生カメラ/HUD保持。原Artifact #13018741656、ZIP 5,756,192bytes、SHA256 4b563546766b86c6198a211c337b89bf1577b38f9923d859a813b9760a9854aa（2026-11-06 UTC期限）。PRIVATE変更のみ。
+- 実画面の画素差から発生源を特定（中央ROI RGB差>20。美術点・人間視認・遮蔽率ではない）：元3.004秒の巨大長壁は**W9 Hero連続壁削除で29.677%変化**。4.404秒のULTRA14mコアでは**G5B削除18.416%、メガ構造削除13.749%**。5.204秒では**B51周辺のGPU架台削除13.396%**。8.004秒では景観が薄くなり城市連続性なし。全装飾なしでは空虚でART不採用。旧Epicを抜いてもこの4時刻では画像変化0%。層の割合は重複し加算不可。
+- ソース所有権：web/p101-a13-w9-architecture.mjsがroad0 u=.045〜.46の巨大連続側壁、web/p101-a13-architecture.mjsが元B51機械の装飾支柱、web/p82-megastructure.mjsがMega、web/p101-w9c1-g5b-skyline.mjsがG5B。元WebGL drawの複数レイヤーが重なり、G5B単体の色替えだけでは原因は解消できない。
+- **次R19 A2-B**：同真正0〜12秒高速実カメラを基準とする一つの高品質都市に設計方針を切替。3秒長壁→真の開放公共空間、4.4秒コア→B51可読の余白、5.2秒機械架台→区別しやすい建築、8秒以降→主役と接続する生活・交通街区。最初から複数の巨大箱/リングを生成することは禁止。元14m最小推定路肩1.743mの人間操作・Windows GPU FPS・元B51本当の視認は未検証でHOLD。
+- 元原本Git blob af076d67492a677d2235e4730aef8cdf4808e106、main/Gold/W9-X/B5/P100/本番保護、PR #46はDraft/未マージを維持。詳細は [R19 A2真正36画像監査](docs/R19_A2_TRUE_CAMERA_36_LAYER_SOURCE_ATTRIBUTION_AND_SINGLE_CITY_GATE_JA.md) と [短い復帰文書](docs/DOPAGAKI_LIVE_HANDOFF.md)。
+
+---
+
 # R19 A1 本物の0〜12秒元WebGL2生カメラ×240Hz Native同期PASS（2026-10-31 JST）
 
 **全体方針を維持：真に面白いSlope2系超高速ゲーム＋巨大で美しい未来都市を同一代表走行で成立。ゲーム元7,280m・52秒級、Slope2 DNA目標2,912m。正式ART採用0件、Slope2認定0m、HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。R18の美術案反復量産から転換。**
