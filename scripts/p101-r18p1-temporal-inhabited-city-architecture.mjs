@@ -38,7 +38,7 @@ function quad(out,a,b,c,d,color){
 function beam(out,a,b,width,height,color){
  const axis=norm(minus(b,a)),base=Math.abs(axis[1])>.95?[0,0,1]:[0,1,0],
  side=norm(cross(axis,base)),up=norm(cross(axis,side));
- ok(mag(minus(b,a))>.5,'degenerate actual beam');
+ ok(mag(minus(b,a))>.5,'degenerate actual beam '+JSON.stringify({distance:mag(minus(b,a)),from:a,to:b}));
  const ring=p=>[
   plus(plus(p,scale(side,width/2)),scale(up,height/2)),
   plus(minus(p,scale(side,width/2)),scale(up,height/2)),
