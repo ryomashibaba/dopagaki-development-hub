@@ -40,21 +40,38 @@ export function makeR19A4GLB(mode='ultra'){
    buffer.writeFloatLE(col,i*24+12+k*4);
   }
  }
+ const editable=design.editableGroups;
+ assert.equal(editable.length,5);
+ assert.equal(editable[0].startTriangle,0);
+ assert.equal(editable.at(-1).endTriangle,design.triangles);
+ const accessors=[],meshes=[],nodes=[];
+ for(const [index,g] of editable.entries()){
+  if(index)assert.equal(g.startTriangle,editable[index-1].endTriangle,
+   'gltf has missing or overlapping architectural faces');
+  const startVertex=g.startTriangle*3,vertexCount=(g.endTriangle-g.startTriangle)*3;
+  const l=[Infinity,Infinity,Infinity],h=[-Infinity,-Infinity,-Infinity];
+  for(let i=startVertex;i<startVertex+vertexCount;i++)for(let k=0;k<3;k++){
+   const value=vertices[i*6+k];l[k]=Math.min(l[k],value);h[k]=Math.max(h[k],value);
+  }
+  const p=accessors.length;
+  accessors.push({bufferView:0,byteOffset:startVertex*24,componentType:5126,
+   count:vertexCount,type:'VEC3',min:l,max:h});
+  accessors.push({bufferView:0,byteOffset:startVertex*24+12,componentType:5126,
+   count:vertexCount,type:'VEC3'});
+  meshes.push({name:g.name,primitives:[{attributes:{POSITION:p,COLOR_0:p+1},
+   material:0,mode:4}]});
+  nodes.push({name:g.name,mesh:index});
+ }
  const asset={
   asset:{version:'2.0',generator:'DOPAGAKI source-true R19A4; read-only physics; editable 3D mesh'},
-  scene:0,scenes:[{name:'R19 A4 source-road civic district (PRIVATE ART HOLD)',nodes:[0]}],
-  nodes:[{name:'RIFT CIVIC BASILICA — source genuine B48 world coordinates',mesh:0}],
-  meshes:[{name:'One volumetric city — edits allowed after review, no physical road collider',
-   primitives:[{attributes:{POSITION:0,COLOR_0:1},material:0,mode:4}]}],
+  scene:0,scenes:[{name:'R19 A4 original B48 source civic district (PRIVATE ART HOLD)',nodes:nodes.map((_,i)=>i)}],
+  nodes,meshes,
   materials:[{name:'A4 vertex-color architectural material; not final PBR art',
    pbrMetallicRoughness:{baseColorFactor:[1,1,1,1],metallicFactor:.18,roughnessFactor:.64},
    doubleSided:true}],
   buffers:[{byteLength:buffer.length}],
   bufferViews:[{buffer:0,byteOffset:0,byteLength:buffer.length,byteStride:24,target:34962}],
-  accessors:[
-   {bufferView:0,byteOffset:0,componentType:5126,count:amount,type:'VEC3',min:lo,max:hi},
-   {bufferView:0,byteOffset:12,componentType:5126,count:amount,type:'VEC3'}
-  ],
+  accessors,
   extras:{researchOnly:true,sourceBlob:originalBlob(),sourceMode:mode,
    physicalRoadsUntouched:7,movingB51Untouched:28,collisionMeshesAdded:0,
    mainHeroCount:1,realPublicCourts:design.publicCourtyards,inhabitedBays:design.inhabitedBays,
@@ -76,6 +93,7 @@ export function makeR19A4GLB(mode='ultra'){
  buffer.copy(glb,offset+8);
  const report={schema:'dopagaki.r19a4-blender-editable-source-geometry/1',
   mode,sourceBlob:originalBlob(),vertexCount:amount,triangleCount:design.triangles,
+  editableObjectCount:editable.length,editableGroupNames:editable.map(x=>x.name),
   glbBytes:glb.length,glbSHA256:hash(glb),componentType:'float32',
   actualRoadDependentGeometry:true,sourceRoads:7,sourceB51:28,colliders:0,
   inhabitedBays:design.inhabitedBays,recessedWindows:design.recessedWindows,
@@ -98,11 +116,25 @@ export function verifyR19A4GLB(bytes,record){
  const dataLen=g.readUInt32LE(loc);
  assert.equal(loc+8+dataLen,g.length);
  assert.equal(dataLen,obj.buffers[0].byteLength);
- assert.equal(obj.accessors[0].count,record.vertexCount);
- assert.equal(obj.accessors[1].count,record.vertexCount);
- assert.equal(obj.accessors[0].count/3,record.triangleCount);
+ assert.equal(obj.accessors.length,record.editableObjectCount*2);
+ assert.equal(obj.meshes.length,record.editableObjectCount);
+ assert.equal(obj.nodes.length,record.editableObjectCount);
+ assert.deepEqual(obj.meshes.map(x=>x.name),record.editableGroupNames);
+ assert.equal(obj.scenes[0].nodes.length,record.editableObjectCount);
+ let total=0;
+ for(let i=0;i<record.editableObjectCount;i++){
+  const p=obj.accessors[i*2],c=obj.accessors[i*2+1],mesh=obj.meshes[i];
+  assert.equal(p.count,c.count);
+  assert.equal(p.type,'VEC3');assert.equal(c.type,'VEC3');
+  assert.equal(p.componentType,5126);assert.equal(c.componentType,5126);
+  assert.equal(mesh.primitives[0].attributes.POSITION,i*2);
+  assert.equal(mesh.primitives[0].attributes.COLOR_0,i*2+1);
+  assert.ok(p.count>0&&p.count%3===0);
+  total+=p.count;
+ }
+ assert.equal(total,record.vertexCount);
+ assert.equal(total/3,record.triangleCount);
  assert.equal(obj.bufferViews[0].byteStride,24);
- assert.equal(obj.meshes.length,1);
  assert.equal(obj.materials.length,1);
  assert.equal(obj.extras.sourceBlob,record.sourceBlob);
  assert.equal(obj.extras.collisonMeshesAdded,undefined);
