@@ -51,7 +51,8 @@ try{
    await page.locator('#demoSpeed').selectOption('2');
    await page.locator('#demoRun').click();
    const screenshots=[],samples=[];
-   for(const t of [17,34,48,60,70]){
+   // Also inspect native B51 closest approach sites, not only easy empty-road frames.
+   for(const t of [17,23.5,34,48,60,65.3,world==='true-pinch'?67.3:67.9,70]){
     try{
      await page.waitForFunction(target=>{
       const c=document.querySelector('#view');
@@ -75,6 +76,8 @@ try{
       hudGround:document.getElementById('ground').textContent,
       hudFps:document.getElementById('fps').textContent,
       warning:document.getElementById('machineCue')?.textContent||null,
+      measuredInViewB51SeparationM:c.dataset.r15s3d10PhysicallyNearB51||'none',
+      warningOcclusionUntested:c.dataset.r15s3d10FovOnlyNotVisibility||'not-sampled',
       framePixels:[c.width,c.height]};
     });
     screenshots.push({file:name,bytes:image.length,atTargetSeconds:t});
