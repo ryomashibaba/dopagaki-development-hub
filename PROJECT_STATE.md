@@ -1,3 +1,16 @@
+# R19 A1 本物の0〜12秒元WebGL2生カメラ×240Hz Native同期PASS（2026-10-31 JST）
+
+**全体方針を維持：真に面白いSlope2系超高速ゲーム＋巨大で美しい未来都市を同一代表走行で成立。ゲーム元7,280m・52秒級、Slope2 DNA目標2,912m。正式ART採用0件、Slope2認定0m、HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。R18の美術案反復量産から転換。**
+
+- 真正[Actions #41133092902](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41133092902)全工程SUCCESS。元W9-C1 28m CONTROL／14m ULTRA×既存G5B都市OFF/ON各6時刻、原開始0秒からの元240Hz/native tick 265,721,1057,1249,1921,2761で元正規WebGL2 Canvas画像**24/24**保存、個別PNG SHA256一致。A0真正NativeのXYZ最大差0.0007704m、速度最大差0.0004716m/s、道路ID/tick一致。元B48 7本、B51 28体、P96/A13、RAWカメラ/HUD維持。Artifact #13014316341（3,855,835 bytes、ZIP SHA256 1bcebaf205a52e2bddba861eb5d15aedfc32f89d88dd53fff3ec4e7aec6e4c4d、2026-11-06 21:45:43 UTC期限）。初回#41132919104はPRIVATE挿入テキスト不一致によるFAIL、修正後再実行。
+- 真正画像目視では、**G5B OFFにも単純な青い巨大柱と箱があり、ONは追加細線・箱のみ**。ゲーム道路14mのカーブ、狭路警告は正規生カメラで確認できるが、圧倒的に美しい未来巨大都市としては未完成。旧既存都市の正式ARTはREJECT。画像のG5B ON/OFF差（実ピクセル差）は同tick同じ物理の補助測定で美術点ではない。
+- 本物のB51のカメラ内中心投影候補は9〜21体/時刻だが、遮蔽や小さすぎる危険物は判定できず、**見えた/回避できると証明したものではない**。5.204秒に実B51 a13-machine-02まで約36.84m CONTROL／37.69m ULTRA。正式人間操作、B51実ピクセル視認、Windows実GPU FPS、正式Slope2狭路50m認定はいずれもHOLD。
+- 次工程A2：本物の0〜12秒の原画像に基づき、G5B OFFの巨大箱を生成する既存景観源を調査し、14m実物理コースと都市の**1案だけ**を高度な3Dで共同設計。毎工程の巨大箱・反復・証拠システムの無駄な増殖はしない。元14mの最小推定路肩余裕1.743m（要人間QA）と道路/障害物の可視性を優先。
+- 元保護源のGit blob af076d67492a677d2235e4730aef8cdf4808e106、main/Gold/W9-X/B5/P100/本番URLを不変更。研究はPR #46 Draft/open/未マージ、元コライダーに隠し床・操作救済なし。
+- 根拠：[R19 A1完全監査](docs/R19_A1_NATIVE12S_REAL_WEBGL2_SAME_TICK_B51_CAMERA_GATE_JA.md)、[短いLIVE_HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。
+
+---
+
 # R19 A0 真正GAMEPLAY×ART統合代表区間 0〜12秒：技術SOURCE PASS・正式品質HOLD（2026-10-31 JST）
 
 **R18 P5の美術量産を停止。元ゲームの本当の7.28km/約52秒コースで、開始0〜12秒のW9-C1 ABYSS DIVE、実14m対28mを正規240Hz・28 B51と既存非衝突G5B都市で同時検証。正式ART採用0件・Slope2 DNA認定0m・HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。**
