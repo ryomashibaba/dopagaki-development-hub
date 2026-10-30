@@ -38,7 +38,7 @@ test('close physical B51 cannot vanish solely because behind camera',()=>{
 });
 test('off-axis real 10m B51 stays noted but not falsely marked visible',()=>{
  const bodies=Array.from({length:28},(_,i)=>make(400+i*3,500,'ob-'+i));
- bodies[2]=make(13,0,'source-outboard');
+ bodies[2]=make(20,0,'source-outboard');
  const r=originalB51TrueSpatialCue({movingObstacles:bodies},runner,view,pose,separation);
  assert.equal(r.next.id,'source-outboard');
  assert.equal(r.sideOrRearPhysicalNearNotSilentlyHidden,true);
