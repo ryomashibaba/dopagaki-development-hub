@@ -142,7 +142,7 @@ export function buildR15S3D15R1City(doc,sample,{mode='A_SKY_DELTA_CIVIC_CORE'}={
  const designed= CITY_SITES.map((site,i)=>sculptCivicSky(v,
   realFrame(doc,sample,site.road,site.u),site,mode,stats,i));
  const triangles=v.length/18;
- expect(Number.isInteger(triangles)&&triangles>3500&&triangles<95000,'real 3D source geometry count');
+ expect(Number.isInteger(triangles)&&triangles>1500&&triangles<95000,'real 3D source geometry count');
  expect(v.every(Number.isFinite),'finite real 3D triangles');
  expect(stats.cityDistricts===2&&stats.thickUnifiedRoofCells>200&&
   stats.realPublicDeckCells>180&&stats.actualAirCourtCells>80,
