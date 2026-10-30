@@ -81,7 +81,7 @@ patch("return runner.status!=='failed'&&runner.status!=='finished';\n  });",
   "return runner.status!=='failed'&&runner.status!=='finished';",
   "  });"
  ].join('\n'));
-patch("const view=viewForPose(pose,cameraState);\n  // CJ: read-only evidence",
+patch("const view=viewForPose(pose,cameraState);",
  [
   "const view=viewForPose(pose,cameraState);",
   " if(r19a1Plan&&demoMode){",
