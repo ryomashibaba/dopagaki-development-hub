@@ -49,7 +49,7 @@ for(const world of ['true-pinch','pinch-switch']){
   fs.writeFileSync(path.join(dist,'generated',name),JSON.stringify(doc)+'\n');
   ids[id]=name;
   checks.push({id,world,mode,triangles:candidate.triangles,
-   voids:candidate.trueAirCourtyards,units:candidate.realPublicTerraceLevels,
+   voids:candidate.realOpenCivicCourts,units:candidate.multilevelPublicTerraces,
    physicsEqualsBase:JSON.stringify(doc.surfaces)===JSON.stringify(originalStage.surfaces)&&
     JSON.stringify(doc.movingObstacles)===JSON.stringify(originalStage.movingObstacles)});
  }
