@@ -24,7 +24,7 @@ test('no false source hazard when visible bodies are far / behind',()=>{
  const bodies=Array.from({length:28},(_,i)=>make(200+i*3,800,'source-'+i));
  const r=originalB51TrueSpatialCue({movingObstacles:bodies},runner,view,pose,separation);
  assert.equal(r.next,null);
- assert.match(r.message,/近接動体なし/);
+ assert.match(r.message,/前方近接なし/);
 });
 test('close physical B51 cannot vanish solely because behind camera',()=>{
  const bodies=Array.from({length:28},(_,i)=>make(100+i*3,500,'ob-'+i));
