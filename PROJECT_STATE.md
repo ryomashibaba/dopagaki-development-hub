@@ -1,3 +1,21 @@
+# R15S3D16 — 元カメラ中央に映る公共都市核・本物の立体居住群2案の制作（2026-10-30 JST）
+
+**元ゲーム原本変更なし／実WebGL2の最新再試験はGitHub Actionsで現在QUEUED、正式ART・原Runner完走再認定はHOLD。** これまでのR15S3D13連続峡谷ART REJECT→R14輪の孤立ART HOLD→R15R1板状の右偏りART HOLDを受け、元WebGL2の10真正カメラ実測に基づく元B48道路5 u=.78、道路6 u=.62に、**2か所の空中公共都市核（各左右の立体居住アイランド、実中庭、3層公共デッキ、厚い連続都市主骨格）**を制作。旧背景を排他的に置換し、数値だけの巨大さを美術と混同しない。元7 B48／元28 B51の位置・衝突・原240Hz Runner・合法P96/P94/A13・正規カメラ・早期警告HUDは完全保持。
+
+- **A_CASCADE_HARBOR**：実物の15,696三角形、76住居ボリューム、63中庭開口、44連続構造材。
+- **B_CROWNED_ACROPOLIS**：実物の16,488三角形、84住居ボリューム、63中庭開口、44連続構造材。単なる色違いでないXYZメッシュを検証。
+- **初回CI [#41050960908](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41050960908) FAIL**：真正幾何試験と元GLSL PRIVATEビルドはPASS、前R15R1対照2世界の12画像と源`finish`は撮影されたが、新案4条件は元工程のブラウザテストが開口数「>80」を誤要求し、実際の設計「63開口」と矛盾し全て撮影開始前にFAIL。保護元ゲーム/新3Dメッシュに手を触れず、ブラウザ・独立QAを設計の真中庭数に整合する「>=40」に修正。
+- **最新再CI [#41051738027](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41051738027) はQUEUED／結果未確定**。新たな実写真・完走・美術を推測でPASSにしない。先行の既存D15R1真正CI[#41049194707](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41049194707)はSUCCESS（元6条件・36画像・新2案原finish4/4・10偽認定拒否）だがD16の証明に流用しない。
+- **真正画素証明スクリプト**：`scripts/p101-r15s3d16-independent-real-png-visual-evidence.py`は公開ART承認とは独立に、真正PNGのSHA256/元RAWカメラ同tick 54・58・61・64・67秒での画面中央ROIの実画素差を計算する。コード実装済み、実D16の成功画像が得られるまで結果は未認定。
+- **操作削減**：`scripts/R15S3D16_PRIVATE_ORIGINAL_GAME_TWO_CIVIC_HEARTS_ONE_CLICK.cmd`は当該GitHubブランチのWindowsで原PRIVATE→D10→D11→D15R1（基準）→D16だけをビルドしlocalhostで実ゲーム比較、以前のREJECT都市多数を順番に無駄ビルドしない。ユーザーのWindows実GPU/HUMAN検証は未実行。
+- **次の真正ゲート**：後続の6条件実WebGL2・元54/58/61/64/67秒の同カメラ実画像と元終端イベントを取得し、新案が本当に中央視線の主役になるか、近距離で屋根が路面/元B51を隠さないかを人間が批評。単なるポリゴン増加、画素差だけの合格は禁止。次はシルエット/居住都市構造を抜本再設計し、実物理道路・原HUD・本番を守る。
+
+**正式状態：R15S3D16 STATIC GEOMETRY 2世界×2案 PASS／SOURCE NATIVE WEBGL2 NEW ART/FINISH PENDING、ART A/B HOLD、HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。** 正式ART0件・Slope2認定0m、元保護ソース `af076d67492a677d2235e4730aef8cdf4808e106`、[Draft PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46)未マージ。
+
+[実制作・初回CI不合格と厳格な新美術ゲート](docs/G4E7DZ_R15S3D16_TRUE_CAMERA_CIVIC_HEART_GEOMETRY_AND_ART_GATE_JA.md)
+
+---
+
 # R15S3D14／R1 → R15S3D15 — 連続壁を棄却し巨大象徴都市核・公共テラスの真正実3D制作完了／実カメラ投影を先に確認（2026-10-30 JST）
 
 **source B48/B51/240Hzの真正状態は保持**。[Draft PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46) はOPEN/Draft/未マージ。保護元ゲームBlob `af076d67492a677d2235e4730aef8cdf4808e106`不変。MAIN/Gold/P100/本番/物理/camera/合法操舵/7実道路・28実動体・元HUD早期B51警告は無改変、全新ARTは`dist-private`の非衝突3Dのみ。
