@@ -1,3 +1,16 @@
+# R18 P4 — 真正R18 P3画像両案ART不採用→元B48道路接地型16街区実3Dの制作（2026-10-31 JST）
+
+**今回SOURCE TECHの確定はR18 P3まで。R18 P4新造形はコード・静的試験を制作済みだが真正WebGL2のCI全体結果は未確定。正式ART採用0件／Slope2正式認定0m／HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。**
+
+- R18 P3 [真正Actions #41081325468](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41081325468)全SUCCESS、2世界×参照D15R1・新A/B＝6条件、36/36真正Canvas PNG SHA一致、新A/B×2世界の元Runner真正finish4/4、10件偽成功拒否。**A/Bとも目視ART REJECT**。巨大公共建築の反復は減ったが空中に浮いた箱を通過するように映り、道路沿いの連続市街地が不成立。[画像評価](docs/G4E7DZ_R18P3_ART_REJECT_AND_R18P4_REAL_ROAD_GROUNDING_JA.md)。
+- P3造形sourceの正規道路サンプルY+100mと主要建物下端Y-59mより、建築の基礎は**路面Y+41m**。地盤/道路との隔たりを示す設計上の原因の一つ。根拠不足なART/PERF PASSはしない。
+- R18 P4 `scripts/p101-r18p4-original-road-grounded-urban-fabric.mjs`：元B48道路5・6沿い各8位置、計16小規模地区＋唯一の主役建築。**元sample()の実道路Y-2mを全建築基礎へ使用**、旧空中区画方式を停止。A道路に接地した大規模公共交通地区／B公共庭園と複合住宅の市街地区、同じ元道路から異なる実XYZメッシュ。衝突0、道路の改造0、架空床0。
+- PRIVATE pack `scripts/p101-r18p4-private-grounded-original-webgl2-pack.mjs`、6条件元240Hz WebGL2 Runner `scripts/p101-r18p4-six-real-source-webgl2-runs.mjs`、独立PNG+10偽証明否定 `scripts/p101-r18p4-original-webgl2-independent-art-gate.py`、元物理不変と接地のunit `tests/p101-r18p4-road-anchored-3d-original-source.test.mjs`、Windows一クリックを追加。[R18 P4 CI #41128954286](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41128954286)は元SOURCE SHA/幾何/検査テストPASS、PRIVATEビルド中（本記録時）。真正画像・元finishの実結果が出るまでは判定HOLD。
+- 保護元ソースGit blob `af076d67492a677d2235e4730aef8cdf4808e106`、元240Hz CCD/球r.65m/元7B48/28B51/P96-P94-A13/RAWカメラ/HUD、main/Gold/P100/本番URL変更禁止。PR#46 Draft/open/未マージ。SOURCE TECH合格≠人間操作/美術/パフォーマンスの合格。
+- 長いチャット復帰は[短いLIVE_HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)から。次の工程ではR18 P4真正CI最終結果とArtifactを確認、両世界54・58・61・64・67秒の元Canvasと旧案の直接比較を行い、不足ならART REJECTのまま原因を記録して修正する。
+
+---
+
 # R18 P3 — 巨大中心建築1＋4補助街区の新実3D生成・SOURCE CI起動（2026-10-30 JST）
 
 **旧「5か所に似た巨大建築を反復」方式を廃止。sourceの本物のゲーム道路や動体は不変、MAIN/本番非接触。新R18P3は実制作済みだが真正元WebGL2の結果はGitHub Actions側QUEUEDのため未確定。正式ART採用0件／Slope2認定0m、HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。**
