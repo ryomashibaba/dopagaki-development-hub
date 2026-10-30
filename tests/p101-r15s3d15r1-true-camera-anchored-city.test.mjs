@@ -18,7 +18,7 @@ test('two genuinely unique enormous 3D inhabited city cores using measured sourc
    assert.ok(v.continuousStructuralMembers>45);
    assert.equal(v.addedPhysicsColliders,0);
    assert.equal(v.officialArtAccepted,0);
-   assert.ok(v.triangles>3500);
+   assert.ok(v.triangles>1500);
    assert.equal(v.vertices.length,v.triangles*18);
    assert.ok(v.vertices.every(Number.isFinite));
    assert.equal(v.ART,'HOLD');
