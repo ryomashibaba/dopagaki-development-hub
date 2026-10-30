@@ -53,3 +53,18 @@
 5. **採用境界**：`main`/Gold/P100/本番サイトと保護元blobを変更しない。Draft PR #46を保ったまま、レビュー・批准・正式公開は別承認があるまでHOLD。
 
 **正式判定：SOURCE-NATIVE FINISH2/2 PASS、REAL WEBGL2 ORIGINAL RENDERER INTEGRATION TECH LIMITED PASS、HUD/B51 SOURCE TEST限定PASS。GAMEPLAY/ART/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD、正式ART0件、Slope2認定0m。**
+
+## 6. 240Hz厳密同時刻・B51警告の実画面比較（追加実施）
+
+[Actions #40996000955](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40996000955) **SUCCESS**。PRIVATEの元ゲーム画面だけに、Playwrightから明示された場合に限り、`Runner.time`が所定時刻に到達した**その240Hz tick**で画面を凍結する検査を追加した。普通のゲーム／手動試走でこの変数は設定されず、一時停止はしない。
+
+真正ソース画面 **true-pinch 8枚＋pinch-switch 9枚、計17PNG**。17.000/23.500/34.000/48.000/60.000/65.300/67.300〜67.900/70.000秒の元`Runner`時刻が`nativeTicks==時刻×240`で実一致。true-pinchは元16759 tick／69.83s`finished`、pinch-switchは元16924 tick／70.52s`finished`を**途中凍結後も再現**。UI表示と物理時計を偽装することなく同じ瞬間を撮影可能になった。
+
+**発見された明確な不具合**：true-pinch 67.3sで、元10Hz実走行の`a13-machine-15`は実球表面から4.367585mに接近していたのに、画面内/前方優先の警告が「進行方向の近接動体なし」だった。pinch-switch 67.9sでは同B51 4.239973mをHUDに表示。これは単なる0m ETAの是正だけでは不十分で、側方・後方・画面外の真正近接を落としていたことを示す。
+
+**R15S3D10近接補修（別候補）**：物理OBB真分離が25m以内なら、画面前方に該当する候補が無くても「近接B51・現在の実距離・後方/側方/画面外・遮蔽は未判定」を明記する。衝突予言秒・人間の回避保証は加えない。元B51正本/物理/通常版には触れない。`scripts/p101-r15s3d10-physical-b51-hud-cue.mjs`で実装。`tests/p101-r15s3d10-source-b51-hud-cue.test.mjs`に側方・後方の見逃しを拒否するテストを追加。
+
+**診断失敗履歴も保持**：[Actions #40996383282](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40996383282)で、変更したHUD文言に対する旧テストの正規表現`/近接動体なし/`が古く、単体テストのみFAIL。これはHUD物理動作や本番の失敗と別。その後テスト文言を修正したが、**後続の真正Actionsで成功が確認されるまで補修の合格認定を行わない**。
+
+追加試験を含め、SOURCE-GAME WEBGL2真正完走2/2という既存の実証は維持。ただしB51近接警告の品質は補修QA HOLD、正式GAMEPLAY/HUMAN/ART/PERFORMANCE/RELEASEはHOLDのまま。スクリーンが写ったこと、元Runnerが完走したこと、ユーザーが楽しめることを混同しない。
+
