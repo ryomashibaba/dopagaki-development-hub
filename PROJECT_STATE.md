@@ -1,3 +1,16 @@
+# R19 A4 編集可能GLB/正規24枚 SOURCE TECH PASS、ART REJECT（2026-10-31 JST）
+
+**完成目標は本物のSlope2系7.28km約52秒高速ゲーム＋圧倒的に美しい超未来都市。Slope2 DNA目標2,912m、正式合格0m、ART採用0件、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
+
+- A3Rの単純な骨組みと巨大門ART REJECTを受け、同じRIFT CIVIC BASILICA一案で**34件の真3D建築ベイ**を作成。道路0〜1の主役公共施設1件＋4地区、後退窓・側壁・背面・屋根、真source8,376三角形、新コライダー0。
+- [R19 A4 Actions #41143016158](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41143016158)全SUCCESS。元生カメラ×正規14m/28mの各OFF/ON×6 native tick＝24枚の元WebGL2 Canvas、個別PNG SHA24/24、元240Hz球XYZ/速度・元B48 7/B51 28不変、独立詐称拒否。GitHub Artifact #13019567092 (ZIP SHA256 `b681a0f44b1aaf7d1e11eea341e3c30b6f6f0c36ba1f424a99233dd124a7b947`、2026-11-06期限)。
+- 同source真B48に依存する**編集可能GLB2件**を作成。ULTRA14mとCONTROL28mそれぞれ5独立メッシュ（公共主役＋4地区）、各606,736bytes・8,376三角形。JSON/BIN/glTF2と元SHAをNode独立検査し、更に`trimesh`で両ファイルを5ジオメトリとして実ロード成功。Blender GUIそのもののインポートは未検証、完成PBR/ライト未実装。
+- 真同画像のULTRA中央ROI ON/OFF RGB差1.104秒4.216%、3.004秒9.271%、4.404秒8.591%、5.204秒3.118%、8.004秒1.723%、11.504秒7.329%。これは描画差分だけ。**元画像のART厳格REJECT**：立体建築と窓の表現はA3Rより進歩したが、孤立して浮く矩形構造/公共基盤と地形/色・光/市街地の連続性が欠け、目標の美しく巨大な都市として不成立。
+- 次はA5でGLB編集原本から真の建築・地形支持・入口・用途・光・マテリアルの一体設計を進め、Blenderの実読み込みとゲームの安全なPRIVATE GLB取り込みを検証する。元0〜12秒生カメラで品質とB51視認、人間14m/28m走行・Windows GPU FPSを別ゲートで審査。単純白壁・巨大門/骨組みの反復に戻らない。詳細[真正A4監査](docs/R19_A4_TRUE_24_WEBGL2_AND_5_OBJECT_EDITABLE_BLDG_ART_REJECT_JA.md)、[LIVE_HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。
+- 元source blob `af076d67492a677d2235e4730aef8cdf4808e106`、7 B48/28 B51、240Hz CCD、P96/P94/A13/RAWカメラ・HUD、Gold/P100/B5/W9-X/main/本番を不変。PR #46はDraft OPEN未マージ。
+
+---
+
 # R19 A3R 真正24画像SOURCE TECH PASS・美術REJECT：Road1表示は改善、実都市の品質不足（2026-10-31 JST）
 
 **最新正式状態**：完成目標7,280m約52秒・Slope2 DNA 2,912m・高品質超未来都市＋人間の楽しい実物理。正式ART採用0件、Slope2正式認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
