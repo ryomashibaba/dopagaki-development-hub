@@ -1,3 +1,15 @@
+# R18 P4元ゲーム真正SOURCE TECH PASS、ART A/B REJECT → R18 P5都市デザインゲート（2026-10-31 JST）
+
+**正規SOURCE TECH確定：6/6真正元WebGL2 Nativeセッション、36/36 Canvas PNG SHA、R18 P4 A/B×2世界の真Runner finished/finishEvents=1 4/4、10偽認定拒否。ART両案REJECT。正式ART採用0、Slope2認定0m、HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。**
+
+1. [R18 P4 Actions #41128954286](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41128954286) SUCCESS、原Artifact #13012063628（ZIP SHA256 `611a2ebb774bfe6899e078450dc1afc84595318ea19d1f9b16fce0db84c71799`, 2026-11-06 21:16:35 UTC期限）。2世界×参照D15R1/新A/B×各54・58・61・64・67秒＋完走。
+2. 元のR18 P3は路面+41mの建築下端で浮遊して見え、A/B ART REJECT。R18 P4では路面Y-2mの接地型16沿道街区、非衝突の別設計A`GROUNDED_TRANSIT_BOULEVARD`/B`CARVED_GARDEN_DISTRICT`を元Sourceに統合し、本物の三角形数A4,992/B4,808。**58〜67秒で道路沿いの街区の連続した立体が初めて明瞭に見えた点は改善**。
+3. ただし真正同カメラで54秒の街の予告は弱く、61〜67秒の巨大無地白壁・単調な箱壁・峡谷が美術水準未達。B51の人間による前方可視性と回避は未検証。両案**ART REJECT**。正式画素差やスクリーンショット全証拠・基礎幾何の説明は[ R18 P4本物36 PNG監査 ](docs/G4E7DZ_R18P4_GENUINE_36_PNG_ART_REJECT_AND_R18P5_GATE_JA.md)。
+4. R18 P5では改善した**元B48道路に根付いた都市の連続性**を保持。巨大な無地壁と反復箱を単に色替え・厚くするのでなく、真正建築的な巨大開口、後退、層構成、街区内の公共空間へ刷新し、54秒の遠景→67秒の退出まで元カメラで成立させる。人間実GPUと手動ゲーム性は必ず別HOLD。
+5. 保護元ソース Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、元240Hz CCD/球r.65/7 B48/28 B51/正規P96-P94-A13/元RAWカメラ・HUD、main/Gold/P100/本番、Draft PR #46の未マージを固定。ソース成功≠ART成功≠公式Slope2認定。短い復帰は[ LIVE_HANDOFF ](docs/DOPAGAKI_LIVE_HANDOFF.md)から。
+
+---
+
 # R18 P4 — 真正R18 P3画像両案ART不採用→元B48道路接地型16街区実3Dの制作（2026-10-31 JST）
 
 **今回SOURCE TECHの確定はR18 P3まで。R18 P4新造形はコード・静的試験を制作済みだが真正WebGL2のCI全体結果は未確定。正式ART採用0件／Slope2正式認定0m／HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。**
