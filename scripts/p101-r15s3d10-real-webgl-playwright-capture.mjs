@@ -49,18 +49,29 @@ try{
    assert.ok(engine.actualWebGL2,'no actual source WebGL2');
    assert.equal(engine.sourceStage,id);
    await page.locator('#demoSpeed').selectOption('2');
-   await page.locator('#demoRun').click();
    const screenshots=[],samples=[];
-   // Also inspect native B51 closest approach sites, not only easy empty-road frames.
-   for(const t of [17,23.5,34,48,60,65.3,world==='true-pinch'?67.3:67.9,70]){
-    try{
-     await page.waitForFunction(target=>{
-      const c=document.querySelector('#view');
-      const s=document.querySelector('#simTime');
-      const current=Number.parseFloat(s?.textContent||'0');
-      return current>=target||c?.dataset?.r15s3d10Status==='finished'||c?.dataset?.r15s3d10Status==='failed';
-     },t,{timeout:110000,polling:300});
-    }catch(e){errors.push('SCREENSHOT_TIME_GATE '+t+': '+String(e.message).slice(0,230));}
+   // The private test alone sets an opt-in exact native tick pause. No game
+   // behaviour changes in the untouched original game or ordinary manual run.
+   const targets=[17,23.5,34,48,60,65.3,world==='true-pinch'?67.3:67.9,70,72];
+   for(let k=0;k<targets.length;k++){
+    const t=targets[k];
+    await page.evaluate(target=>{window.__r15s3d10PauseAt=target;},t);
+    if(k===0)await page.locator('#demoRun').click();
+    else await page.locator('#pause').click(); // resume from prior 240Hz committed-tick freeze
+    await page.waitForFunction(target=>{
+     const c=document.querySelector('#view');
+     const frozen=Number.parseFloat(c?.dataset?.r15s3d10PausedAt||'NaN');
+     const status=c?.dataset?.r15s3d10Status;
+     return Number.isFinite(frozen)&&Math.abs(frozen-target)<.009||
+       status==='finished'||status==='failed';
+    },t,{timeout:110000,polling:40});
+    const exact=await page.evaluate(target=>{
+     const c=document.querySelector('#view'),status=c.dataset.r15s3d10Status;
+     const frozen=Number.parseFloat(c.dataset.r15s3d10PausedAt||'NaN');
+     return {target,committedTickTime:frozen,terminal:['failed','finished'].includes(status),
+      actualTickAccurate:status==='running'&&Math.abs(frozen-target)<.009};
+    },t);
+    if(!exact.terminal)assert.ok(exact.actualTickAccurate,'actual original 240Hz screenshot not captured on target');
     const name=world+'_'+String(t).padStart(2,'0')+'s_actual_webgl2_original_game.png';
     const image=await page.screenshot({path:path.join(dest,name),timeout:25000});
     assert.ok(image.length>30000,'screenshot too small for meaningful actual game WebGL');
@@ -69,6 +80,7 @@ try{
      const status=c.dataset.r15s3d10Status||'not-started';
      return {nativeTicks:Number(c.dataset.r15s3d10NativeTicks||0),
       realRunnerStatus:status,realRoad:c.dataset.r15s3d10Road,
+      actualNativeCommittedPauseAtSeconds:c.dataset.r15s3d10PausedAt||null,
       finishEvents:Number(c.dataset.r15s3d10FinishEvents||0),
       scriptOrManual:c.dataset.r15s3d10DriveMode,
       hudTime:document.getElementById('simTime').textContent,
@@ -80,7 +92,7 @@ try{
       warningOcclusionUntested:c.dataset.r15s3d10FovOnlyNotVisibility||'not-sampled',
       framePixels:[c.width,c.height]};
     });
-    screenshots.push({file:name,bytes:image.length,atTargetSeconds:t});
+    screenshots.push({file:name,bytes:image.length,atTargetSeconds:t,sourceNativeExactPause:exact});
     samples.push(state);
     console.log('R15S3D10_REAL_WEBGL_FRAME',JSON.stringify({world,target:t,screenshotBytes:image.length,...state}));
     if(['finished','failed'].includes(state.realRunnerStatus))break;
