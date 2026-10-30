@@ -91,7 +91,7 @@ try{
       return {tick:Number(e.r19a1NativeTicks),pauseTick:Number(e.r19a1PauseTick),
        xyz:e.r19a1XYZ.split(',').map(Number),speed:Number(e.r19a1Speed),
        road:e.r19a1Road,actualMask:e.r19a2Layer,
-       civicCityEnabled:e.r19a3Enabled,'
+       civicCityEnabled:e.r19a3Enabled,
        currentB51:Number(e.r19a1B51),status:e.r19a1Status,
        camera:e.cameraMode,near:e.r19a1ClosestB51,occlusion:e.r19a1B51OcclusionUntested};
      });
