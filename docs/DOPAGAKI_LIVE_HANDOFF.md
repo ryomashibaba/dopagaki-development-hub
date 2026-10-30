@@ -1,18 +1,21 @@
-# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R18 P4真正結果・R18 P5設計ゲート）
+# DOPAGAKI SLOPE — LIVE HANDOFF（R19 A0 統合代表区間へ、2026-10-31 JST）
 
-**正本は本ファイル、`PROJECT_STATE.md`先頭、最新PR#46 HEAD、最新ART監査。失われたチャットや過去の大量ログを毎回読み直さない。**
+**最新の方針**：R18 P5の「美術だけの形状量産」を停止した。実ゲームのGAMEPLAY×ARTの一体的な10〜15秒代表区間を先に成立させ、約7.28km中2,912mのSlope2 DNA目標へ実証距離だけを加算する。現在の公式Slope2認定0m・正式ART採用0件。ユーザー操作は最小化する。
 
-## 不変条件
-ユーザー最上位目標は圧倒的に美しい巨大未来都市でプレイできるSlope2 DNAの正規レースゲーム。ゲーム性／美術／安全／統合を、単に動くCIより優先。元`web/p101-w9c2-g4e7ci-integrated-streetscape.mjs` Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、元240Hz CCD、半径.65m、実B48道路7・実B51動体28、P96/P94/A13合法操舵、RAWカメラ/HUDは不変。元main/Gold/P100/本番URLに変更禁止。唯一の研究ブランチ`p101-velocity-overdrive-native-trial`のDraft PR #46はOPEN/未マージのまま。透明床・強制吸着・偽finish・無断公開禁止。
+## 保護するもの
+元ゲーム web/p101-w9c2-g4e7ci-integrated-streetscape.mjs Git blob af076d67492a677d2235e4730aef8cdf4808e106、元240Hz/CCD、球半径0.65m、元B48道路7・B51動体28・正規P96/P94/A13・原RAWカメラ/HUD。本番/main/Gold/P100/W9-X/B5に未承認変更なし。作業は p101-velocity-overdrive-native-trial の Draft PR #46、未マージ・公開不可。不可視床/強制接地/減速/自動救済/偽finish禁止。
 
-## 最新確定：R18 P4
-- 前工程R18P3の真正6条件元Canvas36/36SHAと元Runner4/4はSOURCE TECH PASS、しかしA/Bとも**ART REJECT**。旧デザインの根本問題は元道路の高さ+100mを基準点に、建物基礎=-59mとしたため実際の路面より約+41m浮くこと、主役と道路の景観のつながりがないこと。
-- 新R18P4は**元B48の道路5・6各8座標、計16の連続する街区**を、元`sample(surface,u,.5)`の道路Y-2mに接地させる実3Dへ刷新。主役は1つ、他は低中層の街区。A `A_GROUNDED_TRANSIT_BOULEVARD`／B `B_CARVED_GARDEN_DISTRICT`。PRIVATE非衝突・元Stage不変。実装`scripts/p101-r18p4-original-road-grounded-urban-fabric.mjs`、元WebGL2 PACK、6条件元Runner、独立PNG/偽認定QA、元stage-Y-grounding単体テスト、Windows 1クリック済み。
-- **[R18 P4真正Actions #41128954286](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41128954286) は全ジョブSUCCESS**。元6実ブラウザセッション、36 Canvas PNG SHA全一致、A/B×2世界元Runner finish4/4、独立10偽認定拒否。元Artifact #13012063628、ZIP 18,722,382bytes、SHA256 `611a2ebb774bfe6899e078450dc1afc84595318ea19d1f9b16fce0db84c71799`、2026-11-06 21:16:35 UTC期限。本物の新3D三角形数A4,992/B4,808。
-- **直接目視ART A/BともREJECT。** ただし58〜67秒には以前にない道路沿いの連続した街区が確かに映る。54秒の予告は小さいまま、61〜67秒には巨大な白壁と単調な箱形の道路峡谷が強く、未来都市の建築的な美しさと路面・B51の認識条件がまだ不十分。詳細は[ R18P4真正36画像審査 ](G4E7DZ_R18P4_GENUINE_36_PNG_ART_REJECT_AND_R18P5_GATE_JA.md)。
-- R18P3とR18P4の真正元ZIP・2世界の比較画像・SHA256は会話内の`DOPAGAKI_R18P4_VERIFIED_P3_P4_NATIVE_WEBGL2_EVIDENCE.zip`へ二重保全したが、GitHub恒久保存と偽らない。
+## 前工程の厳格結果
+R18 P4の真正 WebGL2 Actions #41128954286は全工程SOURCE TECH PASS、6/6正規ケース・36/36 Canvas PNG SHA・新A/B×2世界の真正自動Runner finish4/4。ただし両案ART REJECT。R18 P4で初めて改善した本物の道路沿いの市街地の連続性は研究成果として保存するが、巨大無地壁/反復箱/視界の圧迫を正式美術に採用しない。証拠は docs/G4E7DZ_R18P4_GENUINE_36_PNG_ART_REJECT_AND_R18P5_GATE_JA.md。
 
-## 次の正式R18 P5
-R18P4で達成した元B48接地と道沿い都市の連続性を維持し、従来の無地巨大壁を**意図を持つ建築的な開口・後退・多層の公共空間**へ抜本的に変更。大きな不自然な棚、反復リング、ただの箱・側壁峡谷への後退不可。54秒の都市予告を強め、58〜67秒の視界を維持し、元B51の情報が読めることを本物の画面で確認。美術とsource techは別々に判定する。
+## 現在の工程R19 A0
+- 真の完成モデル約52秒の「0秒〜12秒」ABYSS DIVEを代表区間に確定。以前R18の70秒研究コースにおける54〜67秒とは時間軸が別、同じ12秒だと偽らない。
+- ユーザー既定のW9-C0/Slope DNA約40%=2,912mと、既存W9-C1真正B48実狭幅14m/対照28mを再利用。対象は元道路0の310〜360m（狭幅コア50m、正式認定ではない）。本物の0秒スポーンから同じ240Hz nativeで12秒まで、元位置・速度・接地・警告からコアまでの秒・路端・元B51接触を計測する。手動試遊の代替と偽らない。
+- 既存の非衝突景観 G5B（web/p101-w9c1-g5b-skyline.mjs）を再利用、デフォルトOFF。新しい巨大都市案を毎回作らない。
+- 実装 scripts/p101-r19a0-real-12s-integrated-gameplay-city.mjs、unit tests/p101-r19a0-12s-integrated-source-play-and-art.test.mjs、GitHub Actions [#41131345970](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41131345970)。A0 Native物理・既存G5B同スポーンの真正Chromium画像を1本のCIで検証する。**CIの最新実結果を再確認すること。** ART/人間/実GPU FPSの合格は宣言しない。
+- 詳細 docs/R19_A0_FIRST_REAL_12S_GAMEPLAY_ART_VERTICAL_SLICE_JA.md。設計・テストの重複を増やさず、旧W9-C1の証拠・テスト・Windows手動比較を再利用する。
 
-現正式ART採用0件／Slope2正式認定0m。人間操作、Windows RTX実GPU FPS、元B51回避、GAMEPLAY/PERFORMANCE/RELEASE/MERGEはHOLD。
+## 次工程
+A0の真正Native traceとブラウザ同スポーン画像を確認。途中で死んだ・コアに到達しない・2秒警告不足などを正直に記録。A1で初の「本物の0〜12秒走行中のカメラ・元B51視認」とsource physicsを時刻一致で比較。A2で走行と巨大都市の主造形を**1案だけ**同時に制作し、ゲーム本体と実画像で評価。Human/Windows GPU/FPSは別ゲート、承認なしに公開/mergeしない。
+
+**正規SOURCE TECH合格≠ART合格≠GAMEPLAY合格≠人間の楽しさの証明。**
