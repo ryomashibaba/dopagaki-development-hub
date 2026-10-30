@@ -109,7 +109,7 @@ try{
    }
    report.sessions.push({...spec,realGPU:gpu,realScreenshots:pictures,
     oldRejectedArchitectureReplaced:spec.mode!=='LEGACY',
-    isNewD13R1RealArchitecture:spec.prefix==='r15s3d14',
+    isNewD14RealArchitecture:spec.prefix==='r15s3d14',
     artApproved:false,humanTested:false});
   }catch(e){
    const err={world:spec.world,mode:spec.mode,error:String(e.stack||e).slice(0,1100),jsErrors};
