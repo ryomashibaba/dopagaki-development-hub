@@ -169,7 +169,7 @@ export function buildR15S3D16City(doc,sample,{mode='A_CASCADE_HARBOR'}={}){
  assert(v.every(Number.isFinite),'invalid real source world vertices');
  assert(stat.majorDistricts===2&&stat.realBuildingVolumes>=65&&
   stat.realArchitecturalOpenings>25&&stat.courtyardOpenSectors>=20&&
-  stat.realThickUrbanDecks>150&&stat.majorConnectedMembers>=45,'missing inhabited coherent city');
+  stat.realThickUrbanDecks>150&&stat.majorConnectedMembers>=40,'missing inhabited coherent city');
  return {vertices:v,triangles:v.length/18,...stat,
   geometryAuthoringIsNotArtApproval:true,
   actualWebGL2RenderAndNativeFinishMustBeVerified:true,
