@@ -24,7 +24,10 @@ export function makeR19A4GLB(mode='ultra'){
  assert.equal(stage.surfaces.length,7);assert.equal(stage.movingObstacles.length,28);
  const design=buildR19A3IntegratedCivicCity(stage,sample,{enabled:true});
  assert.equal(JSON.stringify(stage),before);
- assert.equal(design.mode,'ONE_CIVIC_BASILICA_A4_VOLUMETRIC_INHABITED_TWO_ROAD');
+ assert.equal(design.mode,'ONE_CIVIC_BASILICA_A5_LANDSCAPE_AND_PUBLIC_COURT');
+ assert.equal(design.realVolumetricLandforms,15);
+ assert.equal(design.structuralUnderpinnings,10);
+ assert.equal(design.actualTerrainContactVerified,false);
  assert.ok(design.inhabitedBays>=24);
  assert.equal(design.colliders,0);
  const vertices=design.vertices,amount=vertices.length/6,lo=[Infinity,Infinity,Infinity],hi=[-Infinity,-Infinity,-Infinity];
@@ -59,16 +62,20 @@ export function makeR19A4GLB(mode='ultra'){
   accessors.push({bufferView:0,byteOffset:startVertex*24+12,componentType:5126,
    count:vertexCount,type:'VEC3'});
   meshes.push({name:g.name,primitives:[{attributes:{POSITION:p,COLOR_0:p+1},
-   material:0,mode:4}]});
+   material:index,mode:4}]});
   nodes.push({name:g.name,mesh:index});
  }
  const asset={
-  asset:{version:'2.0',generator:'DOPAGAKI source-true R19A4; read-only physics; editable 3D mesh'},
-  scene:0,scenes:[{name:'R19 A4 original B48 source civic district (PRIVATE ART HOLD)',nodes:nodes.map((_,i)=>i)}],
+  asset:{version:'2.0',generator:'DOPAGAKI source-true R19A5; FIVE editable city objects; research-only preview'},
+  scene:0,scenes:[{name:'R19 A5 original B48 source civic district (PRIVATE ART HOLD)',nodes:nodes.map((_,i)=>i)}],
   nodes,meshes,
-  materials:[{name:'A4 vertex-color architectural material; not final PBR art',
-   pbrMetallicRoughness:{baseColorFactor:[1,1,1,1],metallicFactor:.18,roughnessFactor:.64},
-   doubleSided:true}],
+  materials:editable.map((g,i)=>({
+   name:'A5 editable architecture draft material '+(i+1)+' — '+g.name,
+   pbrMetallicRoughness:{baseColorFactor:[1,1,1,1],
+    metallicFactor:i===0?.26:i===2?.35:.09,
+    roughnessFactor:i===0?.54:i===2?.43:.78},
+   doubleSided:true
+  })),
   buffers:[{byteLength:buffer.length}],
   bufferViews:[{buffer:0,byteOffset:0,byteLength:buffer.length,byteStride:24,target:34962}],
   accessors,
@@ -91,14 +98,18 @@ export function makeR19A4GLB(mode='ultra'){
  glb.writeUInt32LE(buffer.length+binPadding,offset);
  glb.writeUInt32LE(0x004e4942,offset+4);
  buffer.copy(glb,offset+8);
- const report={schema:'dopagaki.r19a4-blender-editable-source-geometry/1',
+ const report={schema:'dopagaki.r19a5-city-landforms-editable-source-geometry/1',
   mode,sourceBlob:originalBlob(),vertexCount:amount,triangleCount:design.triangles,
   editableObjectCount:editable.length,editableGroupNames:editable.map(x=>x.name),
   glbBytes:glb.length,glbSHA256:hash(glb),componentType:'float32',
   actualRoadDependentGeometry:true,sourceRoads:7,sourceB51:28,colliders:0,
   inhabitedBays:design.inhabitedBays,recessedWindows:design.recessedWindows,
   mainHeroCount:design.heroBuildingCount,
-  publicQuarters:design.publicCourtyards,originalStageUnchanged:true,
+  publicQuarters:design.publicCourtyards,
+  deepUrbanLandforms:design.realVolumetricLandforms,
+  urbanStrataDepthM:design.trueStratifiedDepthM,
+  architecturalAccessSceneOnly:true,actualTerrainContactVerified:false,
+  bakedSourceFacetLightOnly:true,originalStageUnchanged:true,
   productionQualityMaterials:false,ART:'HOLD',HUMAN:'HOLD'};
  return {glb,report};
 }
@@ -135,7 +146,9 @@ export function verifyR19A4GLB(bytes,record){
  assert.equal(total,record.vertexCount);
  assert.equal(total/3,record.triangleCount);
  assert.equal(obj.bufferViews[0].byteStride,24);
- assert.equal(obj.materials.length,1);
+ assert.equal(obj.materials.length,record.editableObjectCount);
+ for(let i=0;i<record.editableObjectCount;i++)
+  assert.equal(obj.meshes[i].primitives[0].material,i);
  assert.equal(obj.extras.sourceBlob,record.sourceBlob);
  assert.equal(obj.extras.collisonMeshesAdded,undefined);
  assert.equal(obj.extras.collisionMeshesAdded,0);
@@ -149,9 +162,9 @@ if(process.argv[1]&&fileURLToPath(import.meta.url)===path.resolve(process.argv[1
  for(const mode of ['ultra','control']){
   const {glb,report}=makeR19A4GLB(mode);
   assert.ok(verifyR19A4GLB(glb,report));
-  fs.writeFileSync(path.join(out,'R19A4_ORIGINAL_W9C1_'+mode+'_EDITABLE_CITY.glb'),glb);
-  fs.writeFileSync(path.join(out,'R19A4_'+mode+'_SOURCE_GEOMETRY.json'),
+  fs.writeFileSync(path.join(out,'R19A5_ORIGINAL_W9C1_'+mode+'_EDITABLE_CITY.glb'),glb);
+  fs.writeFileSync(path.join(out,'R19A5_'+mode+'_SOURCE_GEOMETRY.json'),
    JSON.stringify(report,null,2)+'\n');
-  console.log('R19A4_ACTUAL_EDITABLE_GLB',JSON.stringify(report));
+  console.log('R19A5_ACTUAL_EDITABLE_GLB',JSON.stringify(report));
  }
 }
