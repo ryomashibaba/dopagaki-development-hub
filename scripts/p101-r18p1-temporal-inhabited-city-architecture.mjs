@@ -203,7 +203,7 @@ function connectDistricts(out,frames,stat,mode){
   const n=Math.ceil(span/74),points=[];
   for(let j=0;j<=n;j++){
    const t=j/n,p=plus(scale(aa,1-t),scale(bb,t));
-   points.push(plus(p,[0,8*Math.sin(Math.PI*t)]));
+   points.push(plus(p,[0,8*Math.sin(Math.PI*t),0]));
   }
   for(let j=0;j<n;j++)beam(out,points[j],points[j+1],
    3.4,4.6,mode===DESIGNS[0]?PAL.glass:PAL.gold);
