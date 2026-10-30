@@ -124,12 +124,12 @@ for(const world of worlds){
   const result={
    world,mode,originalSourcePrefixChecks:checks,
    actualGeometry:doc.stageForge.r15s3d9,
-   originalNativeRunnerStatus:runner.status,terminalTimeOr45sCap:round(runner.time),
+   originalNativeRunnerStatus:runner.status,terminalTimeOr95sCap:round(runner.time),
    actualFinishedAllSevenRoads:runner.status==='finished',
    terminalFailureReason:runner.failure?.reason??null,
    priorR15S3D8R1Original65sStatus:baseline.originalNativeRunnerStatus,
    priorR15S3D8R1Original65sRoad4SupportedSeconds:baseline.trueFollowingB48GroundSeconds,
-   priorR15S3D8R1TerminalSeconds:baseline.terminalTimeOr45sCap,
+   priorR15S3D8R1TerminalSeconds:baseline.terminalTimeOr95sCap,
    actualPhysicalRoads:7,originalPhysicalB51:28,
    trueSCISSORGroundSeconds:round(roadCounts[0]*DT),
    trueLOWERGroundSeconds:round(roadCounts[1]*DT),
@@ -153,7 +153,7 @@ for(const world of worlds){
   };
   output.cases[world][mode]=result;
   console.log('R15S3D9_REAL_NATIVE_RESULT',JSON.stringify({world,mode,
-   status:runner.status,end:result.terminalTimeOr45sCap,road3S:result.trueLOWERGroundSeconds,
+   status:runner.status,end:result.terminalTimeOr95sCap,road3S:result.trueLOWERGroundSeconds,
    road4S:result.trueFollowingB48GroundSeconds,road4First:result.firstFollowingB48TrueContact,
    maxTickDelta:peakDelta,road4To5Continuity:result.actualGeometry.realRoad4ToRoad5FiveVertexSeamDistancesM,
    road5To6Continuity:result.actualGeometry.realRoad5ToRoad6FiveVertexSeamDistancesM,
