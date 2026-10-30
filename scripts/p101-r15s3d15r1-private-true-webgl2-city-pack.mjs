@@ -79,18 +79,11 @@ change("if((g4e7aiOptIn&&g4e7aiBackdrop==='quiet')||(g4e7akOptIn&&g4e7akBackdrop
  "if(r15s3d15r1ArtMesh){\n  // This replaces EVERY old rejected cubic wall/portal/gate; original true\n  // B48/B51 and HUD remain drawn in original source later in render().\n  draw(r15s3d15r1ArtMesh);\n }else if((g4e7aiOptIn&&g4e7aiBackdrop==='quiet')||(g4e7akOptIn&&g4e7akBackdrop==='quiet')){");
 fs.copyFileSync(path.join(root,'scripts/p101-r15s3d15r1-real-camera-anchored-delta-city.mjs'),
  path.join(target,'r15s3d15r1-real-camera-anchored-delta-city.mjs'));
-fs.copyFileSync(path.join(root,'scripts/p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'),
- path.join(target,'p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'));
-// Browser ES module resolution contract: the R14R1 city dynamically imports
-// the original R14 genuine structural module. A Node-only geometry PASS is
-// insufficient; BOTH real local modules MUST exist beside drive3d.mjs.
-assert.ok(fs.readFileSync(path.join(target,'r15s3d15r1-real-camera-anchored-delta-city.mjs'),'utf8')
-  .includes("from './p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'"));
-assert.ok(fs.existsSync(path.join(target,'p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs')));
-assert.equal(fs.readFileSync(path.join(target,'p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'),'utf8'),
- fs.readFileSync(path.join(root,'scripts/p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'),'utf8'));
-fs.copyFileSync(path.join(root,'scripts/p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'),
- path.join(target,'p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs'));
+// R15S3D15R1 is self-contained; do NOT inherit the previous city's
+// dependency contract. Reject Node-only imports from the real browser module.
+const artModule=fs.readFileSync(path.join(target,'r15s3d15r1-real-camera-anchored-delta-city.mjs'),'utf8');
+assert.ok(artModule.includes('export function buildR15S3D15R1City'));
+assert.ok(!artModule.includes("from 'node:"));
 fs.writeFileSync(src,js);
 const html=path.join(target,'index.html');
 let body=fs.readFileSync(html,'utf8');
