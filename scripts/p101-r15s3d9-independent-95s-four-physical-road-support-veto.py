@@ -62,6 +62,19 @@ def verify(d):
    assert g['GAMEPLAY']==g['ART']==g['HUMAN']==g['RELEASE']=='HOLD'
    assert r['originalNativeRunnerStatus'] in ('failed','finished','running')
    assert r['actualFinishedAllSevenRoads']==(r['originalNativeRunnerStatus']=='finished')
+   assert r['realSourceFinalB48ID']=='p93-FINISH_RIDGE-01'
+   assert len(r['trueNativeBallAtTerminalXYZ'])==3
+   assert all(math.isfinite(x) for x in r['trueNativeBallAtTerminalXYZ'])
+   assert r['trueOriginalNativeFinishEventCount']==int(r['originalNativeRunnerStatus']=='finished')
+   if r['originalNativeRunnerStatus']=='finished':
+    e=r['originalNativeActualFinishEvent']
+    assert e is not None
+    assert r['originalNativeGroundedAtTerminal'] is True
+    assert r['originalNativeSurfaceAtTerminal']==r['realSourceFinalB48ID']
+    assert abs(e['timeSeconds']-r['terminalTimeOr95sCap'])<.00001
+    assert mag([a-b for a,b in zip(e['positionXYZ'],r['trueNativeBallAtTerminalXYZ'])])<.00001
+   else:
+    assert r['originalNativeActualFinishEvent'] is None
    assert 21.5<r['terminalTimeOr95sCap']<=95.00001
    assert r['priorR15S3D8R1Original65sStatus']=='failed'
    assert r['priorR15S3D8R1Original65sRoad4SupportedSeconds']>12
@@ -123,7 +136,9 @@ def main():
   ('fake-gap',lambda x:x['cases'][WORLDS[0]][MODES[1]]['actualGeometry'].update(genuineB48GapCellsOnRoad5=0)),
   ('fake-prefix',lambda x:x['cases'][WORLDS[0]][MODES[0]].update(originalSourcePrefixChecks=1)),
   ('fake-speed',lambda x:x['cases'][WORLDS[0]][MODES[0]]['genuineNative10HzAndContactTimeline'][10].update(nativeTrueSpeedMps=999)),
-  ('fake-road5-contact',lambda x:x['cases'][WORLDS[1]][MODES[1]].update(trueOriginalRoad5GroundSeconds=-1))
+  ('fake-road5-contact',lambda x:x['cases'][WORLDS[1]][MODES[1]].update(trueOriginalRoad5GroundSeconds=-1)),
+  ('fake-source-finish-event',lambda x:x['cases'][WORLDS[0]][MODES[0]].update(trueOriginalNativeFinishEventCount=0)),
+  ('fake-source-finish-surface',lambda x:x['cases'][WORLDS[1]][MODES[0]].update(originalNativeSurfaceAtTerminal='p93-VOID_SURGE-01'))
  )
  rejected=[]
  for name,fn in tests:
@@ -131,7 +146,7 @@ def main():
   try:verify(t)
   except (AssertionError,KeyError,TypeError,ValueError,ZeroDivisionError):rejected.append(name)
   else:raise AssertionError('forged source accepted '+name)
- assert len(rejected)==12
+ assert len(rejected)==14
  out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
  (out/'R15S3D9_FOUR_REAL_PHYSICS_95S_SOURCE_ONLY_INDEPENDENT_QA.json').write_text(
   json.dumps({'actualSourceNativeCases':evidence,'rejectedFalseClaims':rejected,
