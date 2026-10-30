@@ -38,6 +38,9 @@ jobs:
           node scripts/p101-r15s3d14-private-original-webgl-crescent-city-pack.mjs
           node scripts/p101-r15s3d14r1-private-real-habitat-city-webgl2-pack.mjs
           node --check dist-private/r15s3d14r1/drive3d.mjs
+          test -s dist-private/r15s3d14r1/p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs
+          test -s dist-private/r15s3d14r1/r15s3d14r1-real-inhabited-hollow-city-districts.mjs
+          grep -q 'p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs' dist-private/r15s3d14r1/r15s3d14r1-real-inhabited-hollow-city-districts.mjs
           ! grep -q 'r15s3d14r1ArtMesh' dist-private/drive3d/drive3d.mjs
           ! grep -q 'r15s3d14r1ArtMesh' dist-private/r15s3d14/drive3d.mjs
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
