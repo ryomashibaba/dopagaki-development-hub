@@ -1,3 +1,16 @@
+# R15S3D17 — 旧天空島を廃止、真正道路脇SF公共都市2案を新規実制作（2026-10-30 JST）
+
+**QUALITY/GAMEPLAY/ART-FIRST・元240Hzゲーム原本保護・正式ART採用0件／Slope2認定0m。** 前工程R15S3D16R1の原PNG画像審査でA/Bとも正式ART REJECT。旧案の色・部材の微調整でなく、新規の非衝突真正3D造形を2案制作し、元ランナー用WebGL2へ隔離組み込み。
+
+- **実制作A：** `A_OBLIQUE_CIVIC_EXCHANGE`。非対称斜架と低層交通/公共施設、道路脇の中庭を持つ連続街区。
+- **実制作B：** `B_SPLIT_STATION_COURTS`。2段の開放中庭・分割駅街区・道路外側の立体フィン。Aのリング色違いではなく異なるXYZ造形構造。
+- **真正独立検証：** 元D15R1対照2世界＋新A/B×2世界の6条件、54/58/61/64/67秒ネイティブ240Hzカメラと真の終端。元PNG実SHA256・サイズも独立検査し、10偽成功認定拒否。専用[Actions #41062687304](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41062687304)を実行。**最初の元blob・真正メッシュ単体テスト、研究用PRIVATEビルドは成功。実走行結果・真PNG・美術はCI確定と直接画像批評までHOLD。**
+- **保護：** `main`/Gold/P100/本番/元保護blob `af076d67492a677d2235e4730aef8cdf4808e106`／本物のB48×7・B51×28・元CCD240Hz・カメラ/HUDと合法操舵を変更せず。新規物理コライダー0。PR #46 OPEN/Draftを維持。
+- [新2都市の実装・真正QAの設計詳細](docs/G4E7DZ_R15S3D17_PRIVATE_ROADSIDE_TWO_CITY_SOURCE_AND_QA_JA.md)／[短い再開文書](docs/DOPAGAKI_LIVE_HANDOFF.md)。
+- **次ゲート**：元WebGL2 PNGで進入→接近→公共空間通過→退出を観察し、元B51の視認と原道路上のプレイ公平性を批判的に判定。CI成功・三角形数・自動完走を美術や人間PLAYと混同しない。
+
+---
+
 # R15S3D16R1 — 36枚の真正WebGL2画像・原完走の独立美術審査、両新都市ART REJECT → R15S3D17設計転換（2026-10-30 JST）
 
 **最新原本：** この記載直前のHEAD `9e6f44c7f531ad960f66e2aae65e7dd3daf8567c`（最新HEADは次の作業ごとに再取得）。[Draft PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46) OPEN／Draft／未マージ。保護元ゲーム blob `af076d67492a677d2235e4730aef8cdf4808e106`・`main`／Gold／P100／本番・原B48×7／B51×28／240Hz・RAWカメラ・HUDは無改変。
