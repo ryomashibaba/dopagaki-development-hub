@@ -54,6 +54,8 @@ edit("// G4E-1 physical trials are private opt-in; Gold remains the visible defa
  "}}",
  "// G4E-1 physical trials are private opt-in; Gold remains the visible default."
 ].join('\n'));
+edit("import {movingObstaclePose,sphereBoxSeparation} from '../reference_only/director/moving/moving-obstacles.mjs';",
+ "import {movingObstaclePose,sphereBoxSeparation} from '../reference_only/director/moving/moving-obstacles.mjs';\\nimport {originalB51TrueSpatialCue} from './r15s3d10-physical-b51-hud-cue.mjs';".replace('\\n','\n'));
 edit("import {p101Step,P101_DEFAULT,p101ReboundRecoveryState} from './p101-overdrive.mjs';",[
  "import {makeP96RoutePlan,p96DodgeSteer} from './p96-avoidance-steer.mjs';",
  "import {p94NativeSteer} from './p94-native-steer.mjs';",
@@ -99,6 +101,31 @@ edit("   if(seq!==loading)return;\n   buildVisual(value);doc=value;world=compile
  "   }",
  "   buildVisual(value);doc=value;world=compiled;ghostData=replay;"
 ].join('\n'));
+edit("  const advance=['VB-P95','VB-P99','VB-P100','VB-P101'].includes(doc?.stageForge?.id)",
+ [
+ "  if(r15s3d10Plan){",
+ "   const view=viewForPose(capturePose(runner),cameraState??createCameraState(runner.forward));",
+ "   const physical=originalB51TrueSpatialCue(doc,runner,view,movingObstaclePose,sphereBoxSeparation,RADIUS);",
+ "   machineLabel.hidden=false;",
+ "   machineLabel.textContent=physical.message;",
+ "   machineLabel.dataset.mode=physical.next?.mode||'none';",
+ "   machineLabel.dataset.urgency=physical.next?.actualBoxSurfaceSeparationM<30?'spatial-near':'none';",
+ "   canvas.dataset.hazardUrgency=machineLabel.dataset.urgency;",
+ "   canvas.dataset.hazardTarget=physical.next?.id||'none';",
+ "   canvas.dataset.hazardEta='NOT_EVALUATED';",
+ "   canvas.dataset.r15s3d10PhysicallyNearB51=physical.next?physical.next.actualBoxSurfaceSeparationM.toFixed(2):'none';",
+ "   canvas.dataset.r15s3d10FovOnlyNotVisibility=String(physical.occlusionUntested);",
+ "  }else{",
+ "  const advance=['VB-P95','VB-P99','VB-P100','VB-P101'].includes(doc?.stageForge?.id)"
+].join('\n'));
+edit("  else if(cue)machineLabel.textContent=cue.typeLabel+' / '+cue.modeLabel+' · '+cue.lateralLabel+' '+cue.distance+'m';\n }\n updateChapterHUD();",[
+ "  else if(cue)machineLabel.textContent=cue.typeLabel+' / '+cue.modeLabel+' · '+cue.lateralLabel+' '+cue.distance+'m';",
+ "  }",
+ " }",
+ " updateChapterHUD();"
+].join('\n'));
+fs.copyFileSync(path.join(root,'scripts/p101-r15s3d10-physical-b51-hud-cue.mjs'),
+ path.join(dest,'r15s3d10-physical-b51-hud-cue.mjs'));
 const banner='<aside style="position:fixed;bottom:10px;left:12px;z-index:1000;max-width:420px;background:#071728e8;border:1px solid #73dcdd;color:#b6f5ef;border-radius:10px;padding:10px;font:12px/1.5 system-ui;pointer-events:none">R15S3D10 PRIVATE · REAL GAME WEBGL2 / 240Hz · B48×7 B51×28　<br>原ゲーム描画・カメラ・HUD。自動デモはP96→P94研究用。人間・ART・本番はHOLD。</aside>';
 assert.equal(html.split('<script type="module" src="./drive3d.mjs"></script>').length,2);
 html=html.replace('<script type="module" src="./drive3d.mjs"></script>',banner+'<script type="module" src="./drive3d.mjs"></script>');
