@@ -26,6 +26,24 @@ test('no false source hazard when visible bodies are far / behind',()=>{
  assert.equal(r.next,null);
  assert.match(r.message,/近接動体なし/);
 });
+test('close physical B51 cannot vanish solely because behind camera',()=>{
+ const bodies=Array.from({length:28},(_,i)=>make(100+i*3,500,'ob-'+i));
+ bodies[4]=make(0,-5,'real-near-behind');
+ const r=originalB51TrueSpatialCue({movingObstacles:bodies},runner,view,pose,separation);
+ assert.equal(r.next.id,'real-near-behind');
+ assert.equal(r.sideOrRearPhysicalNearNotSilentlyHidden,true);
+ assert.match(r.message,/近接B51 real-near-behind/);
+ assert.match(r.message,/後方・側方/);
+ assert.ok(!/衝突予測秒|0.0秒|必ず危険/.test(r.message));
+});
+test('off-axis real 10m B51 stays noted but not falsely marked visible',()=>{
+ const bodies=Array.from({length:28},(_,i)=>make(400+i*3,500,'ob-'+i));
+ bodies[2]=make(13,0,'source-outboard');
+ const r=originalB51TrueSpatialCue({movingObstacles:bodies},runner,view,pose,separation);
+ assert.equal(r.next.id,'source-outboard');
+ assert.equal(r.sideOrRearPhysicalNearNotSilentlyHidden,true);
+ assert.match(r.message,/画面外・側方/);
+});
 test('reject malformed missing 28 original B51',()=>{
  assert.throws(()=>originalB51TrueSpatialCue({movingObstacles:[]},runner,view,pose,separation),/28 original/);
 });
