@@ -1,17 +1,20 @@
-# DOPAGAKI SLOPE — LIVE HANDOFF（R18 P2 実CI完了／ART両案REJECT、2026-10-30 JST）
+# DOPAGAKI SLOPE — LIVE HANDOFF（R18 P3実3D制作・真正CI待機／2026-10-30 JST）
 
-**チャット故障後の入口：このファイル→`PROJECT_STATE.md`の先頭→本項目のR18 P2監査→最新HEADとPR #46のみ。**
+**最初にGitHub PR #46の最新HEADと最新Actionsを確認。巨大チャットを毎回読み直す必要はない。**
 
-## 不変境界
-QUALITY/GAMEPLAY/ART-FIRST、INTEGRATED VERTICAL SLICE。保護元WebGL2 `web/p101-w9c2-g4e7ci-integrated-streetscape.mjs` blob `af076d67492a677d2235e4730aef8cdf4808e106`、元240Hz CCD/球半径.65m/原B48物理道路7・B51動体28/合法P96・P94・A13/RAWカメラ・HUDすべて不変。main/Gold/P100/本番URL変更禁止。PR #46はp101-velocity-overdrive-native-trialのOPEN/Draft/未マージ、ユーザー承認なしにマージや公開をしない。
+## 絶対固定
+QUALITY/GAMEPLAY/ART-FIRST・INTEGRATED VERTICAL SLICE。元WebGL2/240Hz CCD、ボールr=.65m、元の7 B48本物理道路/28 B51動体、合法P96/P94/A13、元RAWカメラ/HUDのゲーム挙動を変更しない。保護元blob `af076d67492a677d2235e4730aef8cdf4808e106`。main/Gold/P100/本番URL保護、`p101-velocity-overdrive-native-trial`でPR #46をDraft/open/未マージ維持。開発はPRIVATE非衝突アートのみ。手動QAを偽らず、運転支援・幽霊道路・偽finish・公開禁止。
 
-## 今回の確定実結果
-- R18 P1の本物36元Canvas PNG・4/4本物Runner finish・独立10偽証拒否はSOURCE TECH PASS、元画像のA/BはART REJECT。詳細：[R18P1監査](G4E7DZ_R18P1_ORIGINAL_36_PNG_ART_REJECT_AND_R18P2_GATE_JA.md)。
-- R18 P2新規3Dは`scripts/p101-r18p2-sculpted-inhabited-megacity-source.mjs`で造形、PRIVATE隔離WebGL2/6ケースの元ランナーと独立PNG QA・1クリックWindows研究用プレビューを制作。A「INHABITED_ESCARPMENT」は30,053三角形、B「HOLLOW_TRANSIT_SAILS」は30,084三角形。前工程の低密度のアーチ/塔から立体建築に変更。
-- **[R18 P2 Actions #41078746216](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41078746216) 全ジョブSUCCESS**。6ケース、36枚の元Canvas PNGの本物bytes SHA256全一致、R18P2新A/B×両世界元Runner finish **4/4**、独立偽成功10件拒否。元Artifact #12987684703、ZIP SHA256 `ce186b7d48262305f7ac6b64c408158e91ee4e2925b1c2948d85770ff9379956`、期限2026-11-06 15:22:22 UTC。
-- **目視ART判定：A REJECT／B REJECT**。大きな面体積は増えたが、鋸歯状の混雑・反復シェル・スクラップ的積み上げが支配し、都市全体の機能と道路とのつながり、主役/背景の優先度が視覚的に不成立。RGB差をART得点にしていない。詳しくは[真正画像審査・R18P3方針](G4E7DZ_R18P2_ORIGINAL_36_PNG_ART_REVIEW_AND_R18P3_DIRECTION_JA.md)。
-- SOURCE TECH PASSは人間操作・Windows実RTX GPU FPS・B51の手動回避・ARTを保証しない。正式ART採択0件／Slope2正式認定0m／GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGEはHOLD。
+## 直近で本当に判明したこと
+- R18 P1もR18 P2も、元Chromium WebGL2の6真正セッション・36 PNGのhash個別一致・新A/B×2世界元Runner finish4/4・独立10偽認定拒否をクリア。ただし真正同条件54/58/61/64/67sの見た目で**両案ART REJECT**。P1は薄い塔と空中アーチ、P2は約30k三角形の鋸歯状混乱・繰り返すシェルという失敗。最終正式ART採用0件、Slope2認定0m。
+- [R18 P2真正画像監査](G4E7DZ_R18P2_ORIGINAL_36_PNG_ART_REVIEW_AND_R18P3_DIRECTION_JA.md)／[R18 P3の新造形と厳格ゲート](G4E7DZ_R18P3_ONE_HERO_TRUE_CITY_IMPLEMENTATION_GATE_JA.md) が出発点。P2の元CIは[ #41078746216 ](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41078746216)、元Artifact #12987684703、期限2026-11-06。
 
-## 次のR18 P3：ユーザーの目標に向けた抜本的改善
-R18 P0の5時刻を**５つの同形巨大建築を置く枠とみなすのを停止**。時間帯はカメラ構図の制約として使い、一つの強い巨大中心街区を主役に、連続する低い都市組織と出口の遠景を設計。道路の見通しと大きな負の空間を最優先し、見た目を複雑にするだけの多面体を拒否。原B48/B51/240Hz/RAWカメラ・HUDを守りPRIVATE実3D → 真正WebGL2 54/58/61/64/67秒×2世界→直接ART再審査。ARTの基準が満たされるまで本番施工・公開禁止。
+## 現在のR18 P3実制作
+- **5か所へ類似巨大建築を作る旧設計を明確に廃止**。メイン`road5,u=.91,横-120m`に唯一の中心巨大建築、54/58秒の低い前景街区、64秒の交通地区、67秒退出時のスカイライン。元R18 P0真正カメラ2世界の5地点を時間制約に使用。
+- A `A_CRESCENT_CIVIC_ATRIUM`：外半径142m/内半径79m程度の大きなC字型公共構造＋屋根のない中央アトリウム。
+- B `B_CARVED_TRANSIT_CITADEL`：高さの異なる2つの巨大な駅街区外皮と中央の大きな吹抜け。AとBは構造設計・XYZメッシュとも別物。
+- 実コード `scripts/p101-r18p3-single-landmark-city-architecture.mjs`、真正オリジナルWebGL2 PRIVATE研究用統合`scripts/p101-r18p3-private-original-webgl2-city-pack.mjs`、元6条件ゲームRunner `scripts/p101-r18p3-six-real-original-webgl2-runs.mjs`、36 PNG SHA検証＆真finish＆10偽証明拒否`scripts/p101-r18p3-independent-real-webgl2-source-gate.py`、2世界の元stage不変テスト`tests/p101-r18p3-single-landmark-source-geometry.test.mjs`、Windows研究用ワンクリック`scripts/R18P3_PRIVATE_SINGLE_LANDMARK_ONE_CLICK.cmd`まで保存。
+- 真正[ R18 P3専用Actions #41081325468 ](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41081325468)。このhandoff作成時点では**GitHub ActionsでQUEUED（ランナー割当待ち）**。正規源物理・実画像・実GPUレンダリングのPASSはまだ未認定。結果を必ず再読し、失敗なら根因をPRIVATEだけ修正。成功時は元Artifactを期限内に確保、元36枚を直接比較しA/BのARTを厳密に判定する。
 
+## 次の完了ゲート
+R18P3実CI Source/physics保護→実6条件/元finish4/4→個別PNG36/36→2世界×54,58,61,64,67秒の実Canvas目視→ART A/B HOLD/REJECT/PASSを根拠付きに更新。Human・Gameplay・Performance・Release・Mergeは別ゲートHOLD。テスト成功・面積増加・ポリゴン数や画素差は美術点にならない。
