@@ -1,0 +1,52 @@
+name: P101 R15S3D11 4 original WebGL2 game hazard layout screens PRIVATE only
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d11-private-genuine-webgl-hazard-pack.mjs
+      - scripts/p101-r15s3d11-real-webgl2-moving-b51-four-sessions.mjs
+      - .github/workflows/p101-r15s3d11-real-webgl2-six-b51-private-hazard.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  four-private-original-game-webgl2:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original production game source frozen and all JS compile
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d11-private-genuine-webgl-hazard-pack.mjs
+          node --check scripts/p101-r15s3d11-real-webgl2-moving-b51-four-sessions.mjs
+      - name: Build true original private game, then D10 and D11 PRIVATE COPIES ONLY
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-r15s3d11-private-genuine-webgl-hazard-pack.mjs
+          node --check dist-private/r15s3d11/drive3d.mjs
+          ! grep -q 'R15S3D11 inserted' dist-private/drive3d/drive3d.mjs
+          ! grep -q 'R15S3D11 inserted' dist-private/r15s3d10/drive3d.mjs
+      - name: Real Chromium WebGL2 renderer and Japanese HUD fonts
+        run: |
+          npx playwright install --only-shell chromium
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends fonts-ipafont-gothic
+          fc-cache -f
+          fc-list :lang=ja family | grep -q .
+      - name: Capture 4 genuinely rendered original-game source cameras with real B51 HUD
+        run: |
+          node scripts/p101-r15s3d11-real-webgl2-moving-b51-four-sessions.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D11_FOUR_REAL_ORIGINAL_PRIVATE_WEBGL2_SIX_B51_HAZARDS_HOLD
+          path: test-results/r15s3d11-real-webgl2/
+          retention-days: 7
+          if-no-files-found: warn
