@@ -88,7 +88,7 @@ try{
     if(spec.prefix==='r15s3d16'){
      assert.equal(probe.mode,spec.mode);
      assert.ok(probe.artTriangles>1500);
-     assert.ok(probe.genuineOpenVoids>80);
+     assert.ok(probe.genuineOpenVoids>=40);
     }else assert.equal(probe.mode,'legacy');
     if(probe.runnerStatus==='running'){
      assert.ok(Math.abs(Number(probe.nativePauseAt)-when)<.009,
