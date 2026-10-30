@@ -1,3 +1,19 @@
+# R15S3D12 — 元240Hz真正WebGL2に巨大未来都市2案を実制作・ART批判的比較／A HOLD・B REJECT（2026-10-30 JST）
+
+**真正技術結果：** [Actions #40999592638](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40999592638) **SUCCESS**／[Artifact #12953081232：元ゲームの本物の19画像](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40999592638/artifacts/12953081232)。PRIVATE元`drive3d`の本物のGLSL/追従カメラ/HUDを保持した`dist-private/r15s3d12`を構築、現行の旧柱・門・箱状背景を**排他的に置換**。真の既存B48道路5/6に合わせ、全7道路・全28の元移動障害物、合法P96/P94/A13、元Runner/CCD 240Hz、元実`finish`を無変更のまま、下流街区の3Dアート候補を2案制作した。
+
+- **A_INHABITED_VOID**：7街区の多層居住テラス、巨大な負空間、空中連絡路と下面骨格。**9,536真正3D三角形／空きセル109／居住風断面227**、元2世界とも`finished`・元`finish`イベント各1。ART **HOLD**：真正スクリーンショットで道路周辺の街区・空洞の可視性は改善したが、壁・長方形ボリューム・板の反復が強く、公式採用0件のまま。
+- **B_BRAIDED_ESTUARY**：浮遊する曲面帯・環状公共街区・空中トラス。**15,180三角形／空きセル375／居住風断面1,095**、元2世界とも`finished`・元`finish`イベント各1。しかし実画像では**細切れの浮遊パネルが分断され、都市全体の骨格として成立せず ART REJECT**。旧門の反復が浮遊破片に変わっただけでは不十分。
+- **同条件5実画面セッション**：旧景観true-pinchと、新A/B×true-pinch/pinch-switch。58秒**13,920tick**、64秒**15,360tick**、67秒**16,080tick**で元Runnerを1/240秒単位に正確停止し、元ゲームの**補間なしRAWカメラ**／同一ゲーム画角で実画像を比較。合計**19枚**。新案の元Runner真正完走tickはtrue-pinch **16,759tick**、pinch-switch **16,924tick**。元B51早期警告を維持し、正式HUMAN/ARTとは別の**SOURCE WEBGL2 TECH限定PASS**。
+- **初回実行失敗**：[Actions #40998734049](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40998734049) は、都市モジュールにNode.js用の`node:assert/strict`依存が残っていたため、静的2/2・元ゲームPRIVATEビルドはPASSするもブラウザART候補4件の読み込み失敗。ブラウザ互換の検証ガードに置換して**#40999592638で完全再実行成功**。失敗履歴を消さない。
+- **画像差＝品質ではない**：元景観と新A/Bの真正画面でRGB差30以上の画素率はtrue-pinch67秒にA**約37.8%**、B**約19.2%**。変化量を「美しい」とは認定しない。形は増えたが、街の暮らし・統一された壮大な曲面主構造・接近/通過/退出のシーケンスは未達。正式ART採用0件・Slope2認定0m、現状の道路10〜16m/高速度の人間視認性・実機FPSは未認定。
+- **起動/検査**：`scripts/R15S3D12_PRIVATE_TWO_CITIES_ONE_CLICK.cmd`はローカルWindows上で原ゲーム→D10→D11→D12のPRIVATEビルドとlocalhostの比較を一度に起動（実機での動作/人間手動試験はまだ未実施）。都市幾何のソース独立検査2/2合格、元実Stage JSON全B48/B51不変、他のオリジナルWebGL PRIVATEや元`web`ファイルに変更を加えない。
+- **次R15S3D13**：Aの実カメラ可視性・空洞構成だけを最低限の出発点とし、Bの切れ端とAの箱壁を**両方いったん棄却して**、巨大な連続的非対称曲面の主骨格、内部の公開都市生活断面、奥行き・光・高度差を真の3Dで一体に再設計。元カメラのt58/64/67や実B51の接近地点で本物の画面を批判的に比較し、視界を遮る案はART即REJECT。実球真正`finished`と実障害物28・早期警告を保護、人間操作・FPS・総合美術は別ゲート。詳細は[本物の2案の批判・完全ログ](docs/G4E7DZ_R15S3D12_ACTUAL_WEBGL_TWO_REAL_3D_CITIES_NATIVE_ART_VERDICT_JA.md)。
+
+**正式判定：SOURCE NATIVE/WEBGL2 2案×2世界 TECH限定PASS、A ART HOLD／B ART REJECT／正式ART0・Slope2認定0m。GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。** 元本番ソースblob `af076d67492a677d2235e4730aef8cdf4808e106`一致、[Draft PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46) OPEN/未マージ、`main`/Gold/P100/本番URLは変更なし。
+
+---
+
 # R15S3D11 — 実B51障害物の競技性向上・元240Hz真正走行4条件・実WebGL2四条件・同一路面全軌跡照合（2026-10-30 JST）
 
 **重要な技術進歩：PRIVATE実験では元全7道路と元Runner/CCD/元操舵P96→P94/A13・カメラ/HUDを凍結し、実際の既存B51動体28基中6基（`a13-machine-11`〜`16`）のみ道路5/6へ移設。** 既存ID/タイプ/動作周期/位相/衝突モードを保持、実B51物理箱を狭路向けに調整。元22基や元ゲーム原本、`main`/Gold/P100/本番は無改変。
