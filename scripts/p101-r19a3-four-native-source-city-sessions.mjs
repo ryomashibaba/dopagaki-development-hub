@@ -17,8 +17,8 @@ const cases={
  ultra:['off','on'],
  control:['off','on']
 };
-const ticks=[721,1057,1249,1921];
-const proof={schema:'dopagaki.r19a3-one-civic-city-actual-12second-art-comparison/1',
+const ticks=[265,721,1057,1249,1921,2761];
+const proof={schema:'dopagaki.r19a3r-one-city-two-road-actual-12second-art-comparison/1',
  originalSourceSHA:truth.sourceBlob,originalA1NativeProof:'r19a0-real-12second-integrated-slice',
  originalCamera:'ball-lock-unfiltered-heading',originalB48:7,originalMovingB51:28,
  nativeTicks:ticks,ART:'HOLD',HUMAN:'HOLD',GAMEPLAY:'HOLD',PERFORMANCE:'HOLD',
@@ -127,11 +127,11 @@ try{
 }finally{
  if(browser)await browser.close();
  await new Promise(resolve=>server.close(resolve));
- fs.writeFileSync(path.join(dir,'R19_A3_ONE_CITY_ORIGINAL_NATIVE_CAMERA.json'),
+ fs.writeFileSync(path.join(dir,'R19_A3R_ONE_CITY_TWO_ROAD_TRUE_CAMERA.json'),
   JSON.stringify(proof,null,2)+'\n');
 }
 assert.equal(proof.failures.length,0,'original WebGL scene source or native mismatch');
 assert.equal(proof.sessions.length,4);
-assert.equal(proof.sessions.reduce((s,x)=>s+x.screens.length,0),16);
+assert.equal(proof.sessions.reduce((s,x)=>s+x.screens.length,0),24);
 console.log('R19A3_ONE_CIVIC_CITY_SOURCE_CAMERA_COMPLETE',JSON.stringify({
- cases:4,realFrames:16,sourceNativeMatched:true,ART:'HOLD',HUMAN:'HOLD'}));
+ cases:4,realFrames:24,sourceNativeMatched:true,ART:'HOLD',HUMAN:'HOLD'}));
