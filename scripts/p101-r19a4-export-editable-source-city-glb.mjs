@@ -157,7 +157,7 @@ export function verifyR19A4GLB(bytes,record){
  return true;
 }
 if(process.argv[1]&&fileURLToPath(import.meta.url)===path.resolve(process.argv[1])){
- const out=path.resolve(root,process.argv[2]??'r19-evidence/r19a4');
+ const out=path.resolve(root,process.argv[2]??'r19-evidence/r19a5');
  fs.mkdirSync(out,{recursive:true});
  for(const mode of ['ultra','control']){
   const {glb,report}=makeR19A4GLB(mode);
