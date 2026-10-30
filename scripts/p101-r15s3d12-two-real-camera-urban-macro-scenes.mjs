@@ -8,7 +8,7 @@
  * Both generate original renderer six-float XYZ/RGB triangles, noncollision.
  * Source B48/B51, Runner, camera, input, shader, main and production untouched.
  */
-import assert from 'node:assert/strict';
+const assert={ok(condition,message='R15S3D12 source urban geometry assertion failed'){if(!condition)throw Error(message);},equal(actual,expected,message='R15S3D12 protected stage contract mismatch'){if(actual!==expected)throw Error(message+': '+actual+' !== '+expected);}};
 export const CITY_MODES=Object.freeze(['A_INHABITED_VOID','B_BRAIDED_ESTUARY']);
 const K={porcelain:[.87,.92,.92],deep:[.075,.14,.21],satin:[.24,.43,.53],
  slate:[.17,.32,.44],glass:[.21,.72,.81],mint:[.46,.97,.87],
