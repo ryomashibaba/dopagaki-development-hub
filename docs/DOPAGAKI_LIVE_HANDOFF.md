@@ -1,23 +1,19 @@
-# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A3 真正技術PASS／ART REJECT）
+# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A3R 真24画像美術REJECT）
 
-**原則**：完成目標7,280m約52秒・Slope2 DNA約40%=2,912m・圧倒的に美しい超未来都市・実際に面白い人間の高速物理操作を同じ代表区間で成立。R18式の量産美術や偽QAに戻さない。正式ART採用0件、Slope2正式認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+**完成最優先：7.28km/約52秒級・最高200m/s級の本物の人間に面白いSlope系レース＋圧倒的な超未来都市。Slope2 DNA 40%目標2,912m、正式認定0m、正式ART採用0件。ゲームと都市は同じ実走行で成立させる。**
 
-## 正式保護
-元web/p101-w9c2-g4e7ci-integrated-streetscape.mjs Git blob af076d67492a677d2235e4730aef8cdf4808e106、元240Hz CCD/球半径0.65m/実B48 7本/本物B51 28基/合法P96/P94/A13/正規RAWカメラ・HUDを不変。Gold/W9-X/B5/P100/main/本番保護。研究用PR#46 Draft/open/未マージ、PRIVATE sourceのみ。透明床・偽finish・自動強制救済・勝手な本番移行禁止。
+## 絶対保護
+元`web/p101-w9c2-g4e7ci-integrated-streetscape.mjs` Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、240Hz CCD、球r.65m、7本の真B48/28基の実B51、合法P96/P94/A13、生RAWカメラ・HUD。Gold/P100/W9-X/B5/main/本番URLを守る。研究は`p101-velocity-overdrive-native-trial` Draft PR #46 OPEN未マージ。透明床、偽減速/助走、磁石救済、本番変更禁止。
 
-## A0/A1：実ゲーム×生カメラの真正試験
-- 0秒から12秒でULTRA14m/CONTROL28m両方running。狭路コア310〜360mへ4.404秒、警告1.104秒（3.3秒余裕）、ULTRA本物の道路の補間幅13.159〜14.000m、推定路肩最小1.743m、元B51接触0。SCRIPTED P96で人間安全や楽しさは未認定。
-- A1正規same-tick 24 WebGL2元PNG、Native球XYZ差最大0.0007704m、速度差0.0004716m/s、元Source/カメラSHA全PASS。既存W9/G5B美術は不採用。
+## 既存の合格した技術証拠
+- R19 A0：0〜12秒のW9C1 ULTRA14m/CONTROL28m TRUE Native各2,880tick、両方走行継続、最高速度115〜117m/s。狭路コア4.404秒、警告1.104秒で計測上3.300秒余裕。ULTRA真補間幅13.159〜14m、概算路端最小1.743m。SCRIPTED P96で人間に公平/楽しいという証拠ではない。
+- R19 A1：元ゲーム生WebGL2カメラとNative球座標の同tick 24枚証拠。R19 A2：同一14m実走行で景観の発生源を36枚に分離、3.004秒W9巨大長壁、4.404秒G5B+Mega、5.204秒B51装飾架台を根拠付き特定。旧美術不採用。
+- R19 A3：最初の1都市`RIFT CIVIC BASILICA`を制作し、元16枚真カメラで大白壁・厚棚・8秒で都市消滅を確認→SOURCE TECH PASS/ART REJECT。証拠[ docs/R19_A3_ORIGINAL_16_PNG_REJECT_AND_ONE_CITY_REDESIGN_GATE_JA.md ](R19_A3_ORIGINAL_16_PNG_REJECT_AND_ONE_CITY_REDESIGN_GATE_JA.md)。
+- **R19 A3R（今回）：同じ1案を改修**。元Road0からRoad1まで公共地区4つと、Road1 u=.23の中空の主役建築1つ、合成形状6408三角形/新コライダー0。画像はA3R真正[CI #41141671482](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41141671482)全SUCCESS。元ULTRA14m/CONTROL28m×CITY OFF/ON×6真正tick(265,721,1057,1249,1921,2761)の**24/24 PNG SHA256と正規球位置/速度・元28B51一致**、原ZIP Artifact #13018934710（SHA256 `c457e888b6a06306e21a1f735a807fbfc59921ccbf72ba8275d46ae5f48088b0`、2026-11-06失効）。元Native比XYZ最大0.00077036m/速度最大0.0004716m/s、OFF/ONの同tick球座標差0。
+- 真画面ROI画素差ULTRA14m：1.104秒2.486%、3.004秒5.472%、4.404秒5.098%、5.204秒2.456%、8.004秒**0.936%**、11.504秒**4.099%**。旧A3の8秒0.000%から一部表示は進展。ただしこれらは画素差だけでART評価ではない。
+- **A3Rも正式ART REJECT**。巨大白棚は消えたが、実画像は細い中空骨組みと繰り返す巨大な門/フレームが主で、人が暮らす実体のある深い未来都市とは読めず、道路1まで都市としての統一空間も不成立。路端・B51の初見人間可視性、Windows GPU FPS、実操作は未確認。詳しい評価：[R19 A3R真正24画像監査](R19_A3R_ORIGINAL_24_PNG_ART_REJECT_AND_MEANINGFUL_CITY_REDIRECT_JA.md)。
 
-## A2：既存都市の原因分析を本当の元Canvas36枚で完了
-[A2 Actions #41139471545](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41139471545)全工程SOURCE TECH PASS。レイヤー除去による中央ROI画素差は3.004秒W9長壁29.677%、4.404秒G5B18.416%+Mega13.749%、5.204秒B51周辺装飾架台13.396%、8.004秒遠景の都市密度不足。元画素差は美術・遮蔽やB51安全性の数値ではない。元36 PNG SHA36/36、真B48/B51不変。[A2完全記録](R19_A2_NATIVE_SOURCE_36_PNG_VERDICT_AND_R19_A3_ONE_CITY_GATE_JA.md)。
+## 次の正式工程
+「骨組みを増やす」修正はしない。**制作方法自体の転換**：主役1案・本物の3D実体積・開いた公共空洞・奥行き/入口/内部機能・外皮/照明/素材・近景中景遠景の階層を先に本格設計する。建築の主役は主役として読める必要があり、空中薄線だけでも大きな白箱でも不採用。実体建築の3D制作と本物の元0〜12秒6カメラからのフィードバックを使う。元B48/B51や元球/カメラは触らない。早期のWindows人間14m/28m手動QA・FPS・元B51本当の画素視認を別ゲートに組込む。新規の類似案やCIの大量増殖を止め、A0/A1/A2/A3の既存基盤を再利用。
 
-## A3：一案だけの都市を実装し、真カメラで厳格不採用
-- SINGLE案 `RIFT CIVIC BASILICA`：scripts/p101-r19a3-one-integrated-civic-basilica-source.mjs、元road0実座標で唯一の主役曲面建築・真空洞1・公共街区4・約3,336三角形、PRIVATE衝突追加0。新建築を旧W9/G5B/Megaの上に重ねず、A2のroad-hazards-only基準の上で元0秒/240Hzコースに組み込み。Windowsワンクリックscripts/R19A3_REAL_14M_ONE_CITY_PRIVATE_ONE_CLICK.cmdも保存。
-- [A3 Actions #41140541323](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41140541323)全成功。初回#41140446842はPRIVATE撮影スクリプトの構文ミスのみでFAIL→修正。元ULTRA14m/CONTROL28m×新都市OFF/ON×4原tick=本物の16 Canvas、元Nativeの位置/速度一致、元B51全28、個別PNG SHA16/16独立確認、偽認定4件拒否。元Artifact #13018858099（ZIP SHA256 bde6658bc51edd4871eac6b32a9290909ed4dd727c44250966b674fda49d09be、2026-11-06 22:51 UTC失効）。
-- **目視ART REJECT**。3.004秒は旧W9壁と同じ巨大な白い柱・箱、4.404秒は右側の厚い水平棚が狭路進入の構図を悪化、5.204秒も途切れた板、8.004秒City OFF/ONの全画素が同じ＝都市が完全に退出画角から消える。旧R18と同じ失敗を再発。コード上の空洞数は映像上の魅力ではない。
-- 実Canvas中央ROI画素差（RGB>20）ULTRA3.004秒18.461%→4.404秒8.888%→5.204秒3.678%→8.004秒0%。28m側18.307→8.296→3.256→0%。**差分は美術得点でも視界遮蔽率でもない**。
-- 詳細／修正制約：[R19 A3真正16画像・美術REJECTと再設計ゲート](R19_A3_ORIGINAL_16_PNG_REJECT_AND_ONE_CITY_REDESIGN_GATE_JA.md)。
-
-## 次R19 A3Rへ進めるための条件
-**一案のまま根本的に都市の世界座標マスタープランを作り直すこと**。road0の3〜5秒だけでなくroad1の8〜11秒まで、真カメラ同tickの主役→中景→出口都市を一本の空間に接続。厚い平板・無地大壁・断続箱・反復門の延長は禁止。最初に視野の構図・本物の空洞・街としての連続性・危険物のマスキングを設計してから編集可能な本格的3Dと素材/光へ進む。A0/A1/A2/A3の既存元QAコードを再利用し、CI/新ファイルの増殖を抑える。初期段階でWindows実GPUと人間の14m/28m操作を短い試走に組み込む。正式ART0件・Slope2認定0m。
+**正式ART0件/Slope2認定0m。GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。SOURCE TECHの成功は作品完成ではない。**
