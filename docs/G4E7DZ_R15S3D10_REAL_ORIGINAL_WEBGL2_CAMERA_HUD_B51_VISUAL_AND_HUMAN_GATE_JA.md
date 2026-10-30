@@ -68,3 +68,23 @@
 
 追加試験を含め、SOURCE-GAME WEBGL2真正完走2/2という既存の実証は維持。ただしB51近接警告の品質は補修QA HOLD、正式GAMEPLAY/HUMAN/ART/PERFORMANCE/RELEASEはHOLDのまま。スクリーンが写ったこと、元Runnerが完走したこと、ユーザーが楽しめることを混同しない。
 
+
+## 7. R15S3D10 B51側方見逃し補修・最終真正CI PASS（確定）
+
+[真正元WebGL2 Actions #40996525096](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40996525096) **SUCCESS**、[計17枚の同時刻実スクリーンショット・証拠 Artifact #12951985924](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/40996525096/artifacts/12951985924)。補修後の独立単体テスト**6/6 PASS／FAIL 0**。途中の旧文字列テスト失敗`#40996383282/#40996408122/#40996429737`はそのまま失敗履歴として保持し、後続成功で検証済みとする。
+
+**実際の240Hzターゲット一致：** 元コース開始00から私的検査用の正確なtick停止を行い、17.000000秒＝4080tick、23.500000秒＝5640tick、34.000000秒＝8160tick、48.000000秒＝11520tick、60.000000秒＝14400tick、65.300000秒＝15672tick、true-pinchの67.300000秒＝16152tick、pinch-switchの67.900000秒＝16296tickを実ブラウザ内の元Runnerで検証。スクリーンショットのHUD表示と原物理時計が一致した。正常デモではこのテスト停止ロジックは発火しない。
+
+| 元世界 | 時刻 | 実B51 | 真の球面距離 | PRIVATE HUDに表示した内容 | 技術結果 |
+|---|---:|---|---:|---|---|
+| true-pinch | 23.5秒 | `a13-machine-05` | **9.09m** | 後方・側方の実B51近接 | 偽陰性修正 |
+| true-pinch | 65.3秒 | `p95-hazard-12` | **18.32m** | 後方・側方の実B51近接 | 偽陰性修正 |
+| true-pinch | 67.3秒 | `a13-machine-15` | **4.37m** | **旧画面では「近接なし」→改修後「近接B51・4m」** | **元障害物の最重要見逃しを修正** |
+| pinch-switch | 23.5秒 | `a13-machine-05` | **19.35m** | 後方・側方の実B51近接 | 偽陰性修正 |
+| pinch-switch | 67.9秒 | `a13-machine-15` | **4.24m** | 画面右の実B51近接 | 維持 |
+
+元物理で2世界とも`finished`／元`finish`各1件をさらに再現。true-pinch **16759 tick／69.83秒**、pinch-switch **16924 tick／70.52秒**。途中で正確に停止し再開しても実走行の原証拠と終端が不変であることを確認。元B48×7・B51×28、元ゲームソースblob `af076d67492a677d2235e4730aef8cdf4808e106`、元HUD/GLSL/正規カメラ/Runnerは非改変。
+
+**ただし、正式HUD・HUMANの判定は依然HOLD**：画面に映るか、遮蔽物に隠れるか、予告が十分に早いか、実速度約190m/sで人間が回避できるかは未検証。25m以下の現在の立体距離は**近接状態の通知**であって、将来の衝突時間予測ではない。実に危険な接近が後方・側方で起きること、28基中3基しか走行軌道に接近しないことをこの補修は解消していない。次工程の実B51コース再配置・事前予告・実画素遮蔽・人間QAの設計課題として保持する。
+
+**現時点の最終境界：PRIVATE SOURCE-GAME WebGL2真正完走2/2 TECH PASS、実B51現時刻25m近接false-negative補修に限りSOURCE QA PASS。GAMEPLAY/ART REJECT・HOLD、HUMAN/PERFORMANCE/INTEGRATION正式採用/RELEASE/MERGE HOLD。**
