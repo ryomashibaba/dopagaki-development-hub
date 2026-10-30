@@ -121,8 +121,20 @@ for(const world of worlds){
   assert.equal(checks,2);assert.equal(JSON.stringify(doc),snapshot);
   const moving=runner.events.filter(e=>['moving-contact','moving-crush','moving-unsafe'].includes(e.type));
   movingEvents=moving.length;
+  const nativeFinishEvents=runner.events.filter(e=>e.type==='finish');
+  assert.equal(nativeFinishEvents.length,runner.status==='finished'?1:0,'original Runner finish event versus native status');
+  if(runner.status==='finished'){
+   assert.equal(runner.surface,doc.surfaces[6].id,'finished must be real final B48');
+   assert.equal(runner.grounded,true,'original Runner finish must be grounded');
+  }
   const result={
    world,mode,originalSourcePrefixChecks:checks,
+   trueOriginalNativeFinishEventCount:nativeFinishEvents.length,
+   originalNativeActualFinishEvent:nativeFinishEvents[0]?{timeSeconds:round(nativeFinishEvents[0].t),positionXYZ:vec(nativeFinishEvents[0].position)}:null,
+   realSourceFinalB48ID:doc.surfaces[6].id,
+   originalNativeGroundedAtTerminal:runner.grounded,
+   originalNativeSurfaceAtTerminal:runner.surface,
+   trueNativeBallAtTerminalXYZ:vec(runner.p),
    actualGeometry:doc.stageForge.r15s3d9,
    originalNativeRunnerStatus:runner.status,terminalTimeOr95sCap:round(runner.time),
    actualFinishedAllSevenRoads:runner.status==='finished',
@@ -160,6 +172,9 @@ for(const world of worlds){
    road5S:result.trueOriginalRoad5GroundSeconds,
    road6S:result.trueOriginalRoad6GroundSeconds,
    realOriginalFinished:runner.status==='finished',
+   originalRunnerFinishEventCount:nativeFinishEvents.length,
+   originalRunnerEndSurface:runner.surface,
+   originalRunnerGrounded:runner.grounded,
    CROWNchecks:checks,movingEvents}));
  }
 }
