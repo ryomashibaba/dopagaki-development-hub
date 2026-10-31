@@ -1,3 +1,14 @@
+## 最新 R19 A6 P4 R2E：公共空間起点の新制作 → R2E-A美術REJECT／R2E-B直接改修
+
+- **[R2E-A専用Actions #41192335941](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41192335941)は全SUCCESS**。[真Artifact #13039806771](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41192335941/artifacts/13039806771)を実ダウンロード・正規PNG12/12を実見。元Blender5メッシュ／**22用途別建築翼**／12区画の**開放中庭公共歩廊（各地区継ぎ目0.0m、直径36m空洞）**、12,630 Blender面／独立GPU25,260三角形。元B48×7/B51×28/元球240Hz/元RAW camera/HUD/元ソースBlob `af076d67492a677d2235e4730aef8cdf4808e106`無変更。
+- **R2E-Aの全240Hz B51真正SAT（両幅×元0..2880 tick×全28体＝161,336動体時刻、GLB25,260三角形）交差0**。ただし離散240Hz点の非干渉であって、時刻間連続掃引、人間のB51可視・走行、地盤支持、ゲームでの歩行はHOLD。
+- **R2E-AのART判定はREJECT**：元12画面では厚い建築が消えて、多色の薄い皿型フロアが幾重にも浮遊するように見える。Road0 4.404秒／Road1 8.004／11.504秒の中央ROIの参考色差（元P3都市なしとのRGB最大差36超、建築だけの画素ではない）はR2D-B `17.72/27.38/29.52%` → R2E-A `9.80/13.44/15.95%`。空洞・用途が3D内部にあっても元ゲームの遠景からは都市として認識できず、正式ART採用0。原画像の批判的監査：[R2E-A正式記録](R19_A6P4_R2E_A_REAL_COURTYARD_ART_REJECT_B_DIRECT_GEOMETRY_REVISION_JA.md)。
+- そこで**R2E-Bを実3Dメッシュに直接修正**：各建物の4階層に、実厚みのある**部分開口を備える垂直外壁**を追加。下部の実3D支持部材も増設。屋外中庭と12区間の連続床は維持し、以前の巨大塔/門/長い横リボンは戻さない。新設の建築は、色だけでなく幾何形状として建物に見える必要がある。
+- **[R2E-B専用Actions #41193208028](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41193208028)を開始、初回はrunner待ち**。R2E-AのTECH/SAT成功をR2E-Bに流用禁止。実Blender・GLB再読込・元12画像・元B51の全2881tick検査が本当に成功し、画像を実見するまで**R2E-B TECH/ART未認定**。
+- main/Gold/P100/W9-X/B5/本番無改変、元240Hz・7B48/28B51不変。PR #46 Draft・未マージ。公式ART採用0／Slope2 DNA正式認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+
+---
+
 ## 最新 R19 A6 P4 R2E（2026-10-31 JST） — 真の公共空間を起点とするBlender都市制作に転換
 
 - **R2D-Bは元240Hz・実GLB 40,628三角形・真正12WebGL2画像・全2,881tick B51 SATはTECH PASS、しかしART REJECT**。巨大無地の都市崖に窓や床を加えても、実画像では石碑の反復に見え、都市の公共性・人間規模・用途が成立しなかった。[厳格R2D-B監査](R19_A6P4_R2D_B_ACTUAL_BLENDER_12_WEBGL2_2881_B51_ART_REJECT_JA.md)。
