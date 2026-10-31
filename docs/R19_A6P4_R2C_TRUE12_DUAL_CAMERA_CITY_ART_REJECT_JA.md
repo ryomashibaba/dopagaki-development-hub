@@ -1,3 +1,11 @@
+## R2C全240Hz後追い検査：結果確定
+
+**[全時刻独立Actions #41190038075](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41190038075) 全SUCCESS**。[原Artifact #13037653968](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41190038075/artifacts/13037653968) のJSONを実際にダウンロードして確認した。双方の元14m/28m道路幅について、**2881 tick/幅、B51 28体、実GLB 30,088三角形**。元ステージの全0..2880 native 240Hz点、各**80,668個の動体・時刻組み合わせ**を厳密な回転OBB対三角形SATで判定し、**交差三角形0**、JSON `failures=[]`。全幅合計**161,336動体・時刻組み合わせ**で検出0。これはGPU実画素視認・時刻間の数学的連続掃引安全・身体操作の達成ではない。
+
+R2Cの**技術判定は実Blender/GLB・元WebGL2 12/12・元240Hz全2881点B51空間ゲートPASS**。**美術判定はART REJECTのまま**。実家屋の居住可能性、地盤接地、人間プレイ、安全視認性、性能、リリースのHOLDは変わらない。
+
+---
+
 # R19 A6 P4 R2C — 本物の12画面で「8秒・11.5秒両方に都市」を実証／美術REJECT
 
 **2026-10-31 JST。** [R2C真正Blender・GLB・元WebGL2 CI #41189700048](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41189700048)は全SUCCESS。原[Artifact #13038431720](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41189700048/artifacts/13038431720)のBLEND/GLB・元14m/28m×6 native tick計12画面を取得し、元ソースのP3真正「都市なし」画像と比較した。
