@@ -47,15 +47,15 @@ def frame(site,u):
  return bvec(edge),bvec(outward),bvec(fw),bvec((0,1,0))
 SITES=[
  {"id":"P4-A1 OPEN ATOLL — west civic heart","road":1,"side":-1,
-  "u":.375,"out":95,"height":278,"cores":4,"baseR":31,"skew":11,"seed":.2},
+  "u":.35,"out":155,"height":194,"cores":2,"petals":7,"baseR":56,"skew":16,"seed":.2},
  {"id":"P4-A2 FRACTURED SOLAR LIBRARY — east terraced towers","road":1,"side":1,
-  "u":.46,"out":83,"height":233,"cores":4,"baseR":26,"skew":9,"seed":1.5},
+  "u":.50,"out":162,"height":166,"cores":2,"petals":5,"baseR":48,"skew":11,"seed":1.5},
  {"id":"P4-A3 SKYWARD VERTICAL COMMONS — distant west","road":1,"side":-1,
-  "u":.70,"out":176,"height":178,"cores":3,"baseR":28,"skew":13,"seed":2.8},
+  "u":.70,"out":270,"height":146,"cores":2,"petals":4,"baseR":39,"skew":13,"seed":2.8},
  {"id":"P4-A4 ROAD0 QUIET HABITAT — outer west","road":0,"side":-1,
-  "u":.40,"out":230,"height":110,"cores":3,"baseR":20,"skew":7,"seed":3.8},
+  "u":.40,"out":236,"height":105,"cores":2,"petals":6,"baseR":31,"skew":8,"seed":3.8},
  {"id":"P4-A5 ROAD0 INHABITED FORESHORE — outer east","road":0,"side":1,
-  "u":.73,"out":264,"height":94,"cores":3,"baseR":23,"skew":8,"seed":5.3}
+  "u":.73,"out":273,"height":92,"cores":2,"petals":5,"baseR":34,"skew":9,"seed":5.3}
 ]
 PALETTES=[
  [(0.16,.40,.51),(.39,.66,.68),(.08,.23,.32),(.92,.70,.39),(.62,.77,.69)],
@@ -134,17 +134,18 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   # Six offset vertical massing petals. Each has a solid 4-vertex cross section.
   # Interior radius remains >12m throughout: a TRUE OPEN ATRIUM, not a
   # facade painted with a dark artificial hole. No overhead ribbons.
-  for petal in range(6):
+  for petal in range(site["petals"]):
    rings=[]
    twist=(.24+.08*index)*(1 if (petal+ci)%2 else -1)
-   for j in range(30):
-    t=j/29
-    z=20+H*t
-    phase=2*pi*petal/6+site["seed"]*.17+twist*t
+   for j in range(60):
+    t=j/59
+    peak=H*(.68+.30*abs(sin(petal*1.43+ci*.83+site["seed"])))
+    z=20+peak*t
+    phase=2*pi*petal/site["petals"]+site["seed"]*.17+twist*t
     centre=base+up*z+outward*(site["skew"]*sin(pi*t)**1.4*t)+tangent*(9*sin(1.6*pi*t+ci*.8)*t)
     outer=radius*(1-.28*t)+6*sin(pi*t)**2
-    inner=max(12.5,outer-12.5)
-    half_angle=(.33+.025*sin(ci*.7+petal))*pi/6
+    inner=max(14.0,outer-21.0)
+    half_angle=(.69+.03*sin(ci*.7+petal))*pi/site["petals"]
     ring=[]
     for rad,sign in [(inner,-1),(outer,-1),(outer,1),(inner,1)]:
      a=phase+sign*half_angle
@@ -154,14 +155,14 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   # Arc-shaped inhabited decks anchor towers; separate radial wedges preserve
   # central void and six open sky slots, unlike long aerial bridge ribbons.
   for level in [.17,.38,.62,.82]:
-   for petal in range(6):
-    ang=2*pi*petal/6+site["seed"]*.17
+   for petal in range(site["petals"]):
+    ang=2*pi*petal/site["petals"]+site["seed"]*.17
     inner=radius*.43;outer=radius*1.17
     spans=[]
     for zz in [20+H*level,20+H*level+3.5]:
      ring=[]
      for rad,sign in [(inner,-1),(outer,-1),(outer,1),(inner,1)]:
-      phi=ang+sign*(.29*pi/6)
+      phi=ang+sign*(.65*pi/site["petals"])
       ring.append(base+up*zz+outward*rad*cos(phi)+tangent*rad*.79*sin(phi))
      spans.append(ring)
     addloft(spans,(petal+int(level*10)+index)%5)
@@ -173,8 +174,10 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   aa,ao,at,au=core_origins[ci];bb,bo,bt,bu=core_origins[ci+1]
   height=site["height"]*.32
   a=aa+au*height;b=bb+bu*height
-  if (b-a).length<=95:
-   box_bridge(a,b,7.0,4.2,ci+index);bridge_count+=1
+  if (b-a).length<=185:
+   for deck_height,deck_width in [(10.,22.),(22.,13.)]:
+    box_bridge(aa+au*deck_height,bb+bu*deck_height,deck_width,6.0,ci+index)
+    bridge_count+=1
  mesh=bpy.data.meshes.new("P4 camera driven inhabited petal arcology "+str(index+1))
  mesh.from_pydata(vertices,[],polygons)
  mesh.update()
@@ -203,6 +206,7 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   "actualOpenAtriumPetalCount":petal_count,
   "sculptedFoundationCount":plinth_count,"localPublicTerracePieces":terrace_count,
   "localBridgesNotHumanValidated":bridge_count,"faces":len(mesh.polygons),
+  "revision":"R1 fewer sculptural inhabited masses / stronger asymmetric roofline / short civic decks",
   "cameraProjectedSparseVertexSampleBBoxNotConservative":projected})
  num_vertices+=len(vertices)
 assert len([obj for obj in bpy.context.scene.objects if obj.type=="MESH"])==5
@@ -222,6 +226,7 @@ report={"schema":"dopagaki.r19a6p4-real-A1-camera-anchored-vertical-atrium-arcol
  "new_colliders":0,"globalB48B51ClearanceVerified":False,
  "humanArchitecturalAccess":"NOT_VERIFIED","actualTerrainContactVerified":False,
  "PBR_game":"NOT_IMPLEMENTED","Blender":bpy.app.version_string,
+ "designRevision":"R1_AFTER_R0_NATIVE_12_ART_REJECT",
  "cameraProjectionOnlyNotActualB51RasterMask":True,
  "officialSlope2Metres":0,"ART":"HOLD","HUMAN":"HOLD","GAMEPLAY":"HOLD","PERFORMANCE":"HOLD",
  "RELEASE":"HOLD","MERGE":"HOLD"}
