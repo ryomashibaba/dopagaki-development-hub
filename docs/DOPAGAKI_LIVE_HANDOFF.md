@@ -1,3 +1,14 @@
+## R19 A6 P4 R2A 技術PASS／美術REJECT → R2B元カメラ直接修正
+
+- [R2A実Blender/元12WebGL2 Actions #41186356391](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41186356391)全SUCCESS。[原Artifact #13036978998](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41186356391/artifacts/13036978998)を回収。元A5を真Blenderで**5地区29マス**の中低層実3D都市へ作り直し、ULTRA14m/CONTROL28mの編集可能BLEND/GLBと、元240Hz×6時刻=真WebGL2 12/12画面が生成。Blender **14,424面**、独立GPU **30,088三角形**、元球XYZ差最大0.0007703576m、源Blob `af076d67492a677d2235e4730aef8cdf4808e106`保護。
+- **[R2A元B51全240Hz 12秒独立Actions #41186681731](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41186681731)全SUCCESS**。[原Artifact #13037146231](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41186681731/artifacts/13037146231)を回収してJSON照合。14m/28m各0～2880の**2,881原native tick×28基B51**、回転した真OBB対編集GLB30,088三角形の13軸SAT、**実3D交差0**。離散元240Hz時刻の全点検査であり、間の数学的連続時間、画素視認・人間安全の証明ではない。
+- R2Aの元画像の批判評価は**ART REJECT**。Road0 4.404sは小箱、Road1 8.004sは都市の主役核が画面右遠方で小さく主題を欠く、11.504sの巨大左壁消失は前R1から改善したが、色が積み木的で公共街区として貧弱。元画像実見比較の根拠[正式R2A監査](docs/R19_A6P4_R2A_TRUE12_ALL_2881_TICKS_TECH_PASS_ART_REJECT_JA.md)。
+- **R2B改修のソース保存済み**：P3真正元カメラからRoad1 8.004秒の焦点を元画面座標NDC x≈-0.24, y≈0.18～0.47に移すため、主役街区を道路1u=.54→.30／左外側208→270m、164m高の非対称屋根、まとまった落ち着いた壁面配色へ直接再編集。11.504sには焦点街区がカメラ左後方に退出し、以前の近景巨大壁回帰を避ける設計。[R2B真正Actions #41186791512](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41186791512)で元12画面・元B51を**別途検証待ち**。**R2Aの2,881tick SAT PASSをR2Bに流用禁止**。最終美術判定は実写真を比較してから。
+- main/Gold/P100/W9-X/B5/元物理/本番変更なし。PR #46 Draft未マージ。正式ART採用0件／Slope2 DNA正式認定0/2,912m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+
+
+---
+
 # DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P4 R1 TECH PASS／ART REJECT、次R2の抜本都市建築へ）
 
 **本来の不変目標**：本物の7,280m・約52秒級Slope2高速ゲーム（200m/s級、本物のカーブ・細道・ジャンプ・動体）と、圧倒的に美しく一体的な超未来巨大都市を**同じ人間プレイ体験で**成立させる。Slope2 DNA目標2,912m、正式認定0m。正式ART採用0件。技術QAの成功をART/GAMEPLAY/HUMAN合格と混同しない。
