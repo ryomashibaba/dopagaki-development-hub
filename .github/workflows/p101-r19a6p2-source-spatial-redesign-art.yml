@@ -8,7 +8,7 @@ on:
       - scripts/p101-r19a6p1-read-blender-glb.mjs
       - scripts/p101-r19a6p2-private-spatial-art-pack.mjs
       - scripts/p101-r19a6p2-six-native-spatial-camera-qa.mjs
-      - .github/workflows/p101-r19a6p2-blender-original-native-art.yml
+      - .github/workflows/p101-r19a6p2-source-spatial-redesign-art.yml
   workflow_dispatch:
 permissions:
   contents: read
@@ -29,6 +29,7 @@ jobs:
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           python3 -m py_compile scripts/p101-r19a6p2-blender-true-spatial-redesign.py
           node --check scripts/p101-r19a6p1-read-blender-glb.mjs
+          node --check scripts/p101-r19a6p2-real-road-spatial-anchors.mjs
           node --check scripts/p101-r19a6p2-private-spatial-art-pack.mjs
           node --check scripts/p101-r19a6p2-six-native-spatial-camera-qa.mjs
           node --test tests/p101-r19a6-pinned-city-glb-roundtrip.test.mjs
