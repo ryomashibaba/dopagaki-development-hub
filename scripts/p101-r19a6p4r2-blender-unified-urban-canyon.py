@@ -47,7 +47,7 @@ def frame(site,u):
  return bvec(edge),bvec(outward),bvec(fw),bvec((0,1,0))
 SITES=[
  {"id":"R2-01 WEST CIVIC CANYON — principal urban capital","road":1,"side":-1,
-  "u":.54,"out":208,"buildings":7,"height":145,"width":66,"span":.24,"seed":.2},
+  "u":.30,"out":270,"buildings":7,"height":164,"width":78,"span":.18,"seed":.2},
  {"id":"R2-02 EAST DELTA ACADEMY — inhabited stepped district","road":1,"side":1,
   "u":.46,"out":219,"buildings":7,"height":99,"width":62,"span":.23,"seed":1.7},
  {"id":"R2-03 FAR SKY ORCHARDS — split luminous civic slope","road":1,"side":-1,
@@ -96,7 +96,7 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
    for k in range(n):
     a=start+row*n+k;bb=start+row*n+(k+1)%n
     cc=start+(row+1)*n+(k+1)%n;dd=start+(row+1)*n+k
-    addface((a,bb,cc,dd),material+row//5+k//2)
+    addface((a,bb,cc,dd),material+(1 if k in (2,6) and row%11<2 else 0))
   addface(tuple(start+k for k in reversed(range(n))),material+2)
   addface(tuple(start+(len(rings)-1)*n+k for k in range(n)),material+3)
  def box_bridge(a,b,width,thickness,color):
@@ -170,10 +170,10 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
     r=1+.065*sin(v*4*pi+bi*.65)
     lateral=(W*.5*math.cos(angle)*setback*r)
     longitudinal=(D*.5*math.sin(angle)*setback*r)
-    roofPitch=(0 if ring_i<47 else 4.5*sin(angle+site["seed"]+bi*.7))
+    roofPitch=(0 if ring_i<47 else 12.5*sin(angle+site["seed"]+bi*.7)+4*cos(2*angle+bi))
     ring.append(center+outward*lateral+tangent*longitudinal+up*roofPitch)
    rings.append(ring)
-  addloft(rings,(bi+index)%5)
+  addloft(rings,0)
   # Separate, solid 3D exterior platforms, not painted or simulated streets.
   for lev in [.21,.46,.72]:
    p=base+outward*(4*sin(lev*pi+bi))+tangent*(3*cos(bi))+up*(H*lev-8)
@@ -200,7 +200,7 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
      d=facade+tangent*(-3.5)+up*(2.3)
      start=len(vertices)
      for p in [a,b,c,d]:vertices.append(tuple(local_inverse@p))
-     addface((start,start+1,start+2,start+3),3 if floor%3 else 1)
+     addface((start,start+1,start+2,start+3),3 if floor%4==0 else 2)
      glazed_bays+=1
   massings.append({"roofline_height_m":round(H,3),"width_m":round(W,3),
    "camera_city_u":round(u,4),"outboard_m":round(distance,3),
@@ -272,7 +272,7 @@ report={"schema":"dopagaki.r19a6p4r2-camera-grounded-unified-urban-canyon/1",
  "humanArchitecturalAccess":"NOT_VERIFIED","actualTerrainContactVerified":False,
  "PBR_game":"NOT_IMPLEMENTED","Blender":bpy.app.version_string,
  "architecturalLanguage":"STEPPED_INHABITED_URBAN_STREETS_AND_OPEN_CIVIC_CANYON",
- "designRevision":"R2_FULL_CITY_REDESIGN_AFTER_R1_ART_REJECT",
+ "designRevision":"R2B_TRUE_CAMERA_LEFT_FOCAL_URBAN_REDIRECT_AFTER_R2A_ART_REJECT",
  "cameraProjectionOnlyNotActualB51RasterMask":True,
  "officialSlope2Metres":0,"ART":"HOLD","HUMAN":"HOLD","GAMEPLAY":"HOLD","PERFORMANCE":"HOLD",
  "RELEASE":"HOLD","MERGE":"HOLD"}
