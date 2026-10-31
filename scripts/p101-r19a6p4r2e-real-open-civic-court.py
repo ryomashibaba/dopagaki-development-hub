@@ -172,15 +172,17 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
     wedge(a+.038,b-.03,innerLev-7,innerLev+6,low+3,3,1)
     publicBalconies+=1
    # radial exterior wall faces with actual depth. Not shell fragments.
-   for col in range(10):
-    t=(col+.5)/10
+   for col in range(20):
+    t=(col+.5)/20
     th=a+(b-a)*t
     radius=outerLev+1.7
     center=at(radius,th,low+H*.075)
     tangent=(-outer*sin(th)+along*cos(th))
     radial=outer*cos(th)+along*sin(th)
-    slab(center+radial*1.7,(tangent,up),
-         (1.65,2.6 if level%2 else 3.7),2.2,2)
+    w=1.06;h=2.6 if level%2 else 3.7
+    face=[center+tangent*(-w)+up*(-h),center+tangent*w+up*(-h),
+          center+tangent*w+up*h,center+tangent*(-w)+up*h]
+    addloft([face,[p+radial*2.2 for p in face]],2)
     glazing+=1
   # A sculpted roof canopy only over the building. Courtyard stays open.
   for roof in range(3):
@@ -197,7 +199,7 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
    addloft([lowring,highring],3)
   programs.append({"program":programMaps[kname][k],
     "floors":4,"openCourtyardAccessGraph":"MESH_ADJACENCY_ONLY",
-    "wingHeightM":round(H,3),"glazingPanels":40,"material":"VERTEX_COLOR_NOT_PBR"})
+    "wingHeightM":round(H,3),"glazingPanels":80,"material":"VERTEX_COLOR_NOT_PBR"})
  # Each district gains small shopfronts/street furniture attached to its
  # connected public annulus rather than floating monolith bases.
  for kiosk in range(12):
