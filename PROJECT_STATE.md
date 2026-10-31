@@ -1,3 +1,17 @@
+# R19 A6 P2（最新） — 元B48基準の5地区Blender全面再設計、真正12画像SOURCE TECH PASS／ART REJECT（2026-10-31 JST）
+
+**最上位目標：7,280m・約52秒級Slope2物理体験と圧倒的に美しい超未来巨大都市を同一の人間プレイで完成する。正式ART採用0件・Slope2 DNA認定0/2,912m。A6 P2は技術PASSだが、巨大な水平リボン架構が旧箱/門の代わりに目立ち、ART REJECT。GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
+
+- [R19 A6 P2 Actions #41181717911](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41181717911) **全ステップSUCCESS**。元WebGL2 Git blob `af076d67492a677d2235e4730aef8cdf4808e106`とB48×7/B51×28/240Hz CCD不変。元道路0/1の各81断面×14m/28mを実sampleしてBlender 4.0.2で本当のGLB 5地区を全面再構成。編集可能`.blend`2件、編集GLB2件、非衝突0。
+- 元A5の5地区・10,566三角形に代え、新デザインの5地区・**実GPU形式33,700三角形**。Blenderでのポリゴン数は16,710（四角形・n-gon混合、三角形と直接同単位で比較しない）。元sourceにSHAトレースしたindexed/TRS/COLOR GLBの真正再取込PASS。
+- 14m/28m×元source 6時刻=**12本物のWebGL2 Canvas PNG**と元XYZ/速度/B51・カメラ同tick検査PASS（元XYZ最大0.0007703576m・速度差最大0.0004716m/s）。旧A5とのSHA差12/12は画像変化の事実であり美術の得点ではない。
+- **独立ART REJECT：** Road1 8.004sの暗黒空白とRoad0 4.404s右箱は減ったが、巨大な明色の曲がった水平橋/屋根/ぶら下がった支持脚が4.404・8.004・11.504秒の空を覆う。都市の住居、公共機能、連続的な地勢や中庭空洞は読めない。巨大門が巨大架構に置き換わっただけであり、ARTを採用しない。14m B51の実画素視認・人間/性能はHOLD。
+- [原Artifact #13034723431](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41181717911/artifacts/13034723431)：約5.1MB、`.blend`／GLB／元道路アンカー／12PNG／QA、**2026-11-07 07:46 UTC失効予定**。永久GitHubバイナリ保存は未実施。CI成功のHEADは`8061c8e8c0ab836e0f583bcc37b0f6b6e098f16c`。
+- **次R19 A6 P3：** 元6時刻の本物の**カメラeye/front/right/up・視錐台・実道路/動体マスク**から都市の配置を設計。道路1の前方に縦方向の巨大都市/公共区画・歩行と地勢を正しく見せる。旧箱/門だけでなく吊り橋/長い水平リボンも禁止。Blender制作→元GLB→PRIVATE元WebGL2は既証明基盤を再利用して、質の高いART設計と実カメラでの直接修正に集中する。詳細：[A6 P2完全監査](docs/R19_A6P2_REAL_B48_SPATIAL_REDESIGN_TRUE12_ART_REJECT_JA.md)。
+- main/Gold/P100/W9-X/B5/本番・元ゲーム/元カメラHUDは変更しない。PR #46 Draft/OPEN/未マージ。GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+
+---
+
 # R19 A6 P1（最新） — Blender本物の編集GLBを元ゲーム12画像で検証、TECH PASS／ART REJECT（2026-10-31 JST）
 
 **最上位目標は不変：7,280m・約52秒級の本物のSlope 2 DNA高速ゲーム×圧倒的な超未来都市。A6 P1の「GLB→実Blender→編集GLB→PRIVATE元WebGL2」技術はPASSだが、都市美術は正式REJECT。ART正式採用0件、Slope2 DNA正式認定0/2,912m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
