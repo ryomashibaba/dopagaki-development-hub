@@ -9,7 +9,8 @@ def arg(k):
     return a[a.index(k)+1]
 def sha(p):
     with open(p,"rb") as f:return hashlib.sha256(f.read()).hexdigest()
-src,out,blend,rep,mode=(os.path.abspath(arg(k)) for k in ("--source","--output","--blend","--report"))+(arg("--mode"),)
+src,out,blend,rep=[os.path.abspath(arg(k)) for k in ("--source","--output","--blend","--report")]
+mode=arg("--mode")
 assert mode in ("ultra","control")
 os.makedirs(os.path.dirname(out),exist_ok=True)
 bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
