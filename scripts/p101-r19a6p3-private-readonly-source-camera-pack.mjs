@@ -22,7 +22,7 @@ assert.equal(code.split(importAnchor).length,2,'P3 requires known original B51 s
 code=code.replace(importAnchor,importAnchor+"\n"+
  "import {sourceP3ReadOnlyActualFrame} from './r19a6p3-readonly-source-camera-and-b51.mjs';");
 code=code.replace(needle,needle+"\n"+
- " if(r19a1OptIn&&new URLSearchParams(location.search).get('r19a6p3')==='on'){\n"+
+ " if(r19a1OptIn&&r19a1Plan&&demoMode&&new URLSearchParams(location.search).get('r19a6p3')==='on'){\n"+
  "  const proof=sourceP3ReadOnlyActualFrame(doc,runner,pose,view,w,h,movingObstaclePose);\n"+
  "  canvas.dataset.r19a6p3ActualCamera=JSON.stringify(proof);\n"+
  " }");
