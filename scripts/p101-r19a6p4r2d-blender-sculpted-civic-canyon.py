@@ -191,8 +191,8 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   u=site["u"]+du
   edge,oo,aa,uu=frame(site,u)
   lateral=(-1 if k%2 else 1)*(35+9*sin(k*1.9+index))
-  out=site["out"]+77+(-15 if k%3 else 23)
-  centre=edge+oo*(out+lateral)+aa*(19*sin(k*1.51+index))+uu*(-10)
+  outboard_m=site["out"]+77+(-15 if k%3 else 23)
+  centre=edge+oo*(outboard_m+lateral)+aa*(19*sin(k*1.51+index))+uu*(-10)
   H=site["height"]*([.64,1.,.47,.73][k%4])
   W=[80,105,64,94,58][(k+index)%5]
   D=[69,92,76,53,81][(k*2+index)%5]
@@ -204,7 +204,7 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
    H*=.60;W*=1.2
   sculptural_wall(centre,aa,oo,uu,H,W,D,k+.7*index,0 if k%3 else 1)
   massings.append({"kind":"carved irregular civic wing","height":round(H,2),
-    "width":W,"depth":D,"outboard_m":round(out+lateral,2),"u":round(u,4)})
+    "width":W,"depth":D,"outboard_m":round(outboard_m+lateral,2),"u":round(u,4)})
  # Additional true low/midrise massing anchors near road and between cliffs.
  # Faceted, stepped and folded *real geometry* create depth without towers.
  for k in range([5,5,6,6,7][index]):
