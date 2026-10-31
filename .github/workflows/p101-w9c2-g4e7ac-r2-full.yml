@@ -1,0 +1,50 @@
+name: W9-C2 G4E-7AC R2 real 7-road native full pairs (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7ac-r2-full-native.mjs'
+      - 'tests/research/p101-w9c2-g4e7ac-r2-full.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ac-r2-full.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  full-native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Road protection and script integrity
+        run: |
+          node --check scripts/p101-w9c2-g4e7ac-r2-full-native.mjs
+          node --test tests/research/p101-w9c2-g4e7ac-r2-full.test.mjs
+      - name: Actual 240Hz full seven-road cut/intact pairs (no human certification)
+        run: |
+          node scripts/p101-w9c2-g4e7ac-r2-full-native.mjs ac-r2-full.json
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const d=JSON.parse(fs.readFileSync("ac-r2-full.json","utf8"));
+          if(d.hz!==240||!d.start00||d.realRoads!==7||
+             d.originalMovingB51C!==28||d.pairs.length!==2||
+             d.formalSlope2Meters!==0||d.publication!=="HOLD"||
+             d.pairs.some(x=>x.fullRoadCut.certifiedSlope2Meters!==0||
+                                x.fullRoadIntact.certifiedSlope2Meters!==0))
+            throw Error("R2 full native evidence is invalid");
+          console.log("AC_R2_FULL_VERIFIED "+JSON.stringify(d.pairs.map(x=>({
+             variant:x.variant,status:x.fullRoadCut.status,
+             visited:x.fullRoadCut.visitedRoads,time:x.fullRoadCut.timeSeconds,
+             landing:x.fullRoadCut.firstB48Rejoin,
+             failure:x.fullRoadCut.failure,
+             eligible:x.candidateForHumanReview}))));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ac-r2-real-full240Hz-${{ github.run_id }}
+          path: ac-r2-full.json
+          if-no-files-found: ignore
+          retention-days: 14

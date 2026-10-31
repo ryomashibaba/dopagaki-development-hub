@@ -33,18 +33,73 @@ const CHAPTERS=[
  {main:[.36,.16,.62],light:[.96,.65,1],tower:170},
  {main:[.10,.39,.50],light:[.42,1,.96],tower:160}
 ];
-export function voidBreakerGeometry(stage,sample){
- if(!['VB-P93','VB-P95','VB-P99','VB-P100'].includes(stage?.stageForge?.id))return {vertices:[],beams:0,sections:[]};
+/**
+ * G4E-7Y R3: replace ONLY first chapter's overhead 4 P93 portals with
+ * staggered asymmetric 3D wings safely outboard of BOTH genuine B48 edges.
+ * Draw only in PRIVATE W camera experiment. Seven roads, moving hazards,
+ * and native collision geometry are not changed here.
+ */
+function realRoadOutboardWings(out,road,sample){
+ const stations=[.10,.265,.415,.72,.86],colors=[
+  [.12,.36,.46],[.16,.45,.53],[.10,.27,.39],[.19,.46,.55],[.09,.31,.46]
+ ];
+ let wings=0,minGap=Infinity,highest=0;
+ for(let j=0;j<stations.length;j++){
+  const u=stations[j],s=sample(road,u,.5);
+  for(const sign of [-1,1]){
+   // Asymmetric side placement and different profiles prevent a tunnel or
+   // repetitive box lineup. All control vertices are beyond actual edges.
+   const edge=sample(road,u,sign<0?0:1),
+    dx=edge[0]-s[0],dz=edge[2]-s[2],
+    length=Math.hypot(dx,dz)||1,dir=[dx/length,0,dz/length],
+    lateral=sign<0?94+(j%2)*18:113+((j+1)%3)*13,
+    spread=14+3*(j%3),height=68+17*((j*3+(sign>0?1:0))%5),
+    col=colors[(j+(sign>0?1:0))%colors.length],
+    dark=col.map(k=>k*.57),bright=col.map(k=>Math.min(1,k*1.19)),
+    pos=(t,along,h)=>{
+     const e=sample(road,Math.min(.98,Math.max(.02,u+t)),sign<0?0:1);
+     return add(add(e,mul(dir,lateral+along)),[0,h,0]);
+    },
+    a=pos(-.028,0,-10),b=pos(.032,spread*.15,-8),
+    c=pos(-.008,spread,20+j*3),
+    d=pos(.005,spread+18,height),
+    peak=pos(-.018,spread+29,height+23),
+    heel=pos(.045,spread+23,height*.40);
+   tri(out,a,b,d,col);tri(out,a,d,peak,dark);
+   tri(out,b,heel,d,bright);tri(out,c,peak,d,col);
+   tri(out,a,peak,c,dark);tri(out,b,d,heel,dark);
+   minGap=Math.min(minGap,lateral);highest=Math.max(highest,height+23);
+   wings++;
+  }
+ }
+ return {wings,minOutboardMeters:minGap,maxHeightMeters:highest,
+  collision:false,noOverheadCrossbeam:true};
+}
+export function voidBreakerGeometry(stage,sample,{firstChapterVista=false,vistaChapters=1}={}){
+ if(!['VB-P93','VB-P95','VB-P99','VB-P100','VB-P101'].includes(stage?.stageForge?.id))return {vertices:[],beams:0,sections:[]};
  if(typeof sample!=='function')throw Error('P93 requires exact B48 read-only sampler');
  const roads=stage.surfaces.filter(s=>s.rideable&&s.collidable);
  if(roads.length!==7||!roads.every(s=>s.id.startsWith('p93-')))throw Error('P93 visual requires 7 authentic physical road skins');
  const vertices=[],sections=[];
- const p100=stage.stageForge.id==='VB-P100';
+ const p100=['VB-P100','VB-P101'].includes(stage.stageForge.id);
+ if(firstChapterVista&&(![1,2].includes(vistaChapters)||!p100||![.65,.7].includes(stage.stageForge?.g4e7wStudy?.physicalTakeoffTransition)||
+  stage.stageForge?.g4e7wStudy?.gap?.cells?.join(',')!=='52'||
+  stage.movingObstacles.length!==28||stage.surfaces.length!==7||
+  stage.stageForge?.g4e7wStudy?.officialSlope2Meters!==0))
+  throw Error('G4E-7Y requires private validated real physical narrow gap');
  // P100 actual Chromium sightline audit: opening real curves while keeping
  // the proven P98/P99 monumental skyline unaffected.
  const portalCount=p100?4:6,exteriorStandOff=p100?56:26;
  for(let n=0;n<roads.length;n++){
   const s=roads[n],palette=CHAPTERS[n],before=vertices.length;
+  if(firstChapterVista&&n<vistaChapters){
+   const meta=realRoadOutboardWings(vertices,s,sample);
+   sections.push({name:s.id,triangles:(vertices.length-before)/18,
+    exteriorClearanceMeters:meta.minOutboardMeters,
+    portalCount:0,nonblockingWings:meta.wings,
+    noOverheadCrossbeam:true,physicalGapUnaffected:true});
+   continue;
+  }
   // Giant superstructures separate each distinctly authored bend/drop.
   for(let j=0;j<portalCount;j++){
    const t=(j+.5)/portalCount;
@@ -86,5 +141,6 @@ export function voidBreakerGeometry(stage,sample){
  }
  if(vertices.length>500000||vertices.some(v=>!Number.isFinite(v)))throw Error('P93 visual GPU budget or coordinate validation failed');
  return {vertices,beams:Math.round(vertices.length/216),sections,
-  visualReadability:p100?'P100_FOUR_WIDE_SETBACK_PORTALS_PER_CHAPTER':'P98_SIX_EXTERIOR_GATES_PER_CHAPTER_WITH_OFFROAD_COLUMNS'};
+  visualReadability:firstChapterVista?'G4E7Y_FIRST_'+vistaChapters+'_CHAPTERS_ASYMMETRIC_OUTBOARD_WINGS_NONCOLLISION':
+   p100?'P100_FOUR_WIDE_SETBACK_PORTALS_PER_CHAPTER':'P98_SIX_EXTERIOR_GATES_PER_CHAPTER_WITH_OFFROAD_COLUMNS'};
 }

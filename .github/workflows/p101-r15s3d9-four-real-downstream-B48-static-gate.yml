@@ -1,0 +1,35 @@
+name: P101 R15S3D9 original 7 real B48 paired road5 road6 4-case STATIC HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d9-source-real-road5-road6-integrated-macro.mjs
+      - scripts/p101-r15s3d9-static-four-physical-macro-integrity.mjs
+      - .github/workflows/p101-r15s3d9-four-real-downstream-B48-static-gate.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  genuine-downstream-two-B48-four-source-static:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original source never modified and Node syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d9-source-real-road5-road6-integrated-macro.mjs
+          node --check scripts/p101-r15s3d9-static-four-physical-macro-integrity.mjs
+      - name: Genuine physical B48 x4 source mesh and all five seam vertices audit
+        run: |
+          node scripts/p101-r15s3d9-static-four-physical-macro-integrity.mjs --out test-results/r15s3d9-static
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D9_FOUR_REAL_B48_PAIR_GEOMETRY_STATIC_GATE_HOLD
+          path: test-results/r15s3d9-static/
+          retention-days: 7
+          if-no-files-found: warn

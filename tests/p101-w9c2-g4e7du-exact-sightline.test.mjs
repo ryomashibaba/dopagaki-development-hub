@@ -1,0 +1,42 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {buildDuVisibility,DU_CORRIDOR,DU_CAMERA_IDS,DU_FAILED_BLIND_GATE} from '../scripts/p101-w9c2-g4e7du-exact-sightline.mjs';
+import {g4e7djNativeStoryboard} from '../scripts/p101-w9c2-g4e7dj-native-storyboard.mjs';
+test('DU demonstrates 120m actual static urban sightline with 3 edges ×13 samples × both roads × 3 ORIGINAL 240Hz shots, plus rejected negative control',()=>{
+ const native=g4e7djNativeStoryboard(),reports=[];
+ assert.deepEqual(DU_CAMERA_IDS,['t1550','t1600','t1650']);
+ assert.deepEqual(DU_FAILED_BLIND_GATE,[-18,90,-440]);
+ assert.equal(DU_CORRIDOR.widthMeters,12);
+ assert.equal(DU_CORRIDOR.farZ-DU_CORRIDOR.nearZ,120);
+ for(const road of ['true-pinch','pinch-switch']){
+  const p=buildDuVisibility(road,native);
+  reports.push(p);
+  assert.equal(p.schema,'dopagaki.g4e7du-exact-world-civic-visibility-gate/1');
+  assert.equal(p.originalCXTriangleCount,22920);
+  assert.equal(p.originalSourceGeometryCount,56012);
+  assert.equal(p.actualB48PhysicalSurfaces,7);
+  assert.equal(p.actualB51MovingVolumes,28);
+  assert.equal(p.actualGap52,true);
+  assert.equal(p.actualCameraRaysTested,117);
+  assert.equal(p.actualGeometryPathSegmentsTested,36);
+  assert.equal(p.cameraTests.length,3);
+  assert.ok(p.cameraTests.every(s=>s.probes.length===39));
+  assert.ok(p.cameraTests.every(s=>s.probes.every(q=>q.onScreen&&q.clearLineOfSight&&q.occlusion===null)));
+  assert.ok(p.pathSegments.every(s=>!s.intersectsOriginalCxOrPhysicalB48));
+  assert.equal(p.rayVisibilityAllClear,true);
+  assert.equal(p.onScreenAllFrames,true);
+  assert.equal(p.originalGeometryPathIntersections,0);
+  assert.equal(p.staticBlockers,0);assert.equal(p.movingBlockers,0);
+  assert.ok(p.blockedControlFrames>=1);
+  assert.equal(p.physicalCourseEdited,false);
+  assert.equal(p.productionEdited,false);
+  assert.equal(p.newGameColliders,0);
+  assert.equal(p.cityArtAdopted,false);
+  assert.equal(p.art,'HOLD');
+  assert.equal(p.originalGameRenderer,'NOT_TESTED_NO_WEBGL_CLAIM');
+  assert.equal(p.officialSlope2Meters,0);
+ }
+ assert.equal(reports[0].originalCXVertexSha256,reports[1].originalCXVertexSha256);
+ assert.deepEqual(reports[0].sameCivicAxisBothRoads,reports[1].sameCivicAxisBothRoads);
+ assert.throws(()=>buildDuVisibility('new-physics-road',native),/unsupported original B48 road/);
+});

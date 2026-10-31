@@ -1,0 +1,82 @@
+name: G4E-7DT THREE-CLEF macro silhouette against original B48+B51 actual Blender 240Hz (ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dt-three-clef-plan.mjs'
+      - 'scripts/p101-w9c2-g4e7dt-three-clef-author.py'
+      - 'tests/p101-w9c2-g4e7dt-three-clef.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7dt-three-clef.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7dt-three-macro-masses-art-hold
+  cancel-in-progress: true
+jobs:
+  three-camera-first-art-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protect exact CX, native temporal projections, and original physics source
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dt-three-clef-author.py
+          node --check scripts/p101-w9c2-g4e7dt-three-clef-plan.mjs
+          node --test tests/p101-w9c2-g4e7dt-three-clef.test.mjs
+          node scripts/p101-w9c2-g4e7dt-three-clef-plan.mjs
+          node scripts/p101-w9c2-g4e7do-master-export.mjs
+          node scripts/p101-w9c2-g4e7dr-physical-export.mjs
+      - name: Install actual Blender Cycles CPU environment
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender libegl1 libgl1 libx11-6
+      - name: Rebuild exact original road + 28 physical moving OBBs and author only 29 DR-based macro objects
+        run: |
+          for road in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dt-three-clef/do-$road" "test-results/g4e7dt-three-clef/dr-$road" "test-results/g4e7dt-three-clef/dt-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7do-master-blender.py -- --source "test-results/g4e7do-master-camera/$road.json" --out "test-results/g4e7dt-three-clef/do-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7dr-physical-blender.py -- --master "test-results/g4e7dt-three-clef/do-$road/G4E7DO_$road"_ORIGINAL_NATIVE_CAMERA_MASTER_ART_HOLD.blend --source "test-results/g4e7dr-physical-reference/data/$road.json" --binary "test-results/g4e7dr-physical-reference/data/$road.b48-f64.bin" --out "test-results/g4e7dt-three-clef/dr-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7dt-three-clef-author.py -- --source "test-results/g4e7dt-three-clef/dr-$road/G4E7DR_$road"_B48_B51_240HZ_EDITABLE_ART_HOLD.blend --plan "test-results/g4e7dt-three-clef/plans/$road.json" --out "test-results/g4e7dt-three-clef/dt-$road"
+          done
+      - name: Verify real .blend files, actual Blender PNGs, and ART prohibition
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          root='test-results/g4e7dt-three-clef'
+          png=glob.glob(root+'/**/*.png',recursive=True)
+          blends=glob.glob(root+'/**/*.blend',recursive=True)
+          audits=glob.glob(root+'/dt-*/G4E7DT_*_ART_AUDIT.json')
+          assert len(png)==26,(len(png),png)
+          assert len(blends)==6,(len(blends),blends)
+          assert len(audits)==2,audits
+          for file in audits:
+           x=json.load(open(file))
+           assert x['realB48Count']==7 and x['realB51Count']==28
+           assert x['originalCameraCount']==5 and x['comparableFrames']==['t1550','t1600','t1650']
+           assert x['geometryAdded']==29
+           assert x['sculptureResearchCounts']['tinyWindowRepeats']==0
+           assert x['sculptureResearchCounts']['isolatedSkyscrapers']==0
+           assert x['sculptureResearchCounts']['floatingThinRoofSheets']==0
+           assert x['newColliders']==0 and not x['originalGamePhysicsEdited']
+           assert x['referenceRenderer']=='REAL_BLENDER_CPU_NOT_GAME_WEBGL'
+           assert x['art']=='HOLD' and x['formalSlope2Meters']==0
+          print('DT_26_GENUINE_BLENDER_IMAGES_6_EDITABLE_BLEND_FILES_ART_UNADOPTED')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DT_THREE_CLEF_REAL_B48_B51_240HZ_ART_HOLD
+          path: |
+            test-results/g4e7dt-three-clef
+            test-results/g4e7dr-physical-reference/data
+          retention-days: 7
+          if-no-files-found: error
+          compression-level: 6

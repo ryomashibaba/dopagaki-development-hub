@@ -1,0 +1,79 @@
+{
+  "schema": "dopagaki.bx-cc0-original-city-proof/1",
+  "humanArtApproval": "HOLD",
+  "realGameCamera": "NOT_YET_RUN",
+  "certifiedSlope2Meters": 0,
+  "publication": "FORBIDDEN",
+  "files": [
+    {
+      "file": "G4E7BX_AERIAL_TRUE_CYCLES.png",
+      "bytes": 2717348,
+      "sha256": "c15a0398d3c8a4efced74d05293527f476fc7fb2bda3f92accaed2dffa7cfc43"
+    },
+    {
+      "file": "G4E7BX_APPROACH_TRUE_CYCLES.png",
+      "bytes": 2930473,
+      "sha256": "27ad1d25db8633275e5aa3318919cd9f250419f73c76c00cd6afebf6ccaefbd9"
+    },
+    {
+      "file": "G4E7BX_BP_ADMISSION.json",
+      "bytes": 1724,
+      "sha256": "588e2dcce3511766c718b75da2a7490ba8dfac7a05abc4acf9907f1e0bc519de"
+    },
+    {
+      "file": "G4E7BX_BP_CLAIM.json",
+      "bytes": 643,
+      "sha256": "31ef014d8e793eeec5286de3bba2f8e004e564b251623d72ba449ceb72ee938a"
+    },
+    {
+      "file": "G4E7BX_CC0_PROVENANCE.json",
+      "bytes": 10877,
+      "sha256": "f04ac64d4d97c4c588d1bdb8f7d2fb189d6be19235d0ab532f27128939ac2e92"
+    },
+    {
+      "file": "G4E7BX_CC0_URBAN_DEPTH_ONLY.glb",
+      "bytes": 3808972,
+      "sha256": "e2657905aa7145fda87a2e8ab9d56575f6ae52bbe19d184c4a9dd282a864abea"
+    },
+    {
+      "file": "G4E7BX_FORWARD_300_TRUE_CYCLES.png",
+      "bytes": 2793629,
+      "sha256": "eb3c9aff1282d06f2f80d2941c2841fad7b49e45f4558933d7575c76e5597aa3"
+    },
+    {
+      "file": "G4E7BX_FORWARD_700_TRUE_CYCLES.png",
+      "bytes": 2786390,
+      "sha256": "10ae5da6a2fe958ae498de01690bc3d9d1cea85480d9194213e81b27e2636036"
+    },
+    {
+      "file": "G4E7BX_FORWARD_CITY_EDITABLE.blend",
+      "bytes": 12999152,
+      "sha256": "f4470866fda1f341fa80ca0ae7e4c97bb63a42e0c8eda86c75cc95ddd82a030f"
+    },
+    {
+      "file": "G4E7BX_FRONT_TRUE_CYCLES.png",
+      "bytes": 3036192,
+      "sha256": "024f536d4dcdca3da36712626d33a26b3f486710f3a2d92da8c26c33acdd78d3"
+    },
+    {
+      "file": "G4E7BX_OBLIQUE_TRUE_CYCLES.png",
+      "bytes": 2782807,
+      "sha256": "dc917252f78046bce5d1a87edd2089b37d63b621e28bf6877722ca641a347359"
+    },
+    {
+      "file": "G4E7BX_SIDE_TRUE_CYCLES.png",
+      "bytes": 2757970,
+      "sha256": "fb894f1ba053d0c37d758150ec08c909b11fb465e293cec3b167a00dc5e82863"
+    },
+    {
+      "file": "KENNEY_CC0_SOURCE_SHA256.txt",
+      "bytes": 147,
+      "sha256": "699cbb8208ade202d8e53fee92bff8228bda11577d3e391001dc685e008dfaa7"
+    },
+    {
+      "file": "kenney_city-kit-commercial_2.1.zip",
+      "bytes": 4096974,
+      "sha256": "f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b"
+    }
+  ]
+}

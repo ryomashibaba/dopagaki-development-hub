@@ -1,0 +1,475 @@
+name: G4E original Blender art studies / CC0 HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7bx-forward-cc0-depth.py'
+      - 'scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py'
+      - 'scripts/p101-w9c2-g4e7bz-real-facade-study.py'
+      - 'scripts/p101-w9c2-g4e7bz-assemble-inhabited-facade.py'
+      - 'scripts/p101-w9c2-g4e7ca-rift-exchange-architecture.py'
+      - '.github/workflows/p101-w9c2-g4e7br-blender-art.yml'
+  workflow_dispatch:
+    inputs:
+      study:
+        description: 'Existing BX/BY or BZ component-first genuine Blender research'
+        type: choice
+        required: true
+        default: by
+        options:
+          - by
+          - bx
+          - bz
+          - ca
+permissions:
+  contents: write
+concurrency:
+  group: g4e7bx-licensed-art-corridor
+  cancel-in-progress: false
+jobs:
+  true-city-art-study:
+    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.study == 'bx') || (github.event_name == 'push' && contains(github.event.head_commit.message, 'g4e7bx')) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      ART: artifacts/private/g4e7bx-licensed-urban-depth
+      PACK: kenney_city-kit-commercial_2.1.zip
+      SRC: artifacts/private/g4e7bw-halocut-concourse-r3/G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: p101-velocity-overdrive-native-trial
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Blender and download original Kenney authored CC0 source
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender python3-numpy unzip
+          python3 -m py_compile scripts/p101-w9c2-g4e7bx-forward-cc0-depth.py
+          test -s "$SRC"
+          mkdir -p "$ART" "$RUNNER_TEMP/kenney-cc0-v2"
+          curl -fL --retry 3 --connect-timeout 20 --max-time 150 \
+             'https://opengameart.org/sites/default/files/kenney_city-kit-commercial_2.1.zip' \
+             -o "$ART/$PACK"
+          test -s "$ART/$PACK"
+          sha256sum "$ART/$PACK" | tee "$ART/KENNEY_CC0_SOURCE_SHA256.txt"
+          python3 - <<'PY'
+          import os,zipfile,pathlib
+          zpath=pathlib.Path(os.environ['ART'])/os.environ['PACK']
+          target=pathlib.Path(os.environ['RUNNER_TEMP'])/'kenney-cc0-v2'
+          with zipfile.ZipFile(zpath) as z:
+              members=z.infolist()
+              if len(members)>2000: raise RuntimeError('bad archive')
+              for info in members:
+                  dest=(target/info.filename).resolve()
+                  if not dest.is_relative_to(target.resolve()) or info.file_size>200_000_000:
+                      raise RuntimeError('unsafe zip member')
+              z.extractall(target)
+          glbs=list(target.rglob('*.glb'))
+          print('KENNEY_CC0_SOURCE_ACTUAL_GLB_COUNT',len(glbs))
+          print('SAMPLE_SOURCE_NAMES',*[p.name for p in glbs[:12]],sep='\n')
+          if len(glbs)<7: raise RuntimeError('real CC0 building meshes missing')
+          PY
+      - name: Integrate genuinely modelled CC0 architecture into existing R3 art scene
+        run: |
+          set -euo pipefail
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bx-forward-cc0-depth.py -- \
+             --source "$SRC" --archive "$ART/$PACK" --assetdir "$RUNNER_TEMP/kenney-cc0-v2" --out "$ART"
+          for f in G4E7BX_FORWARD_CITY_EDITABLE.blend G4E7BX_CC0_URBAN_DEPTH_ONLY.glb G4E7BX_CC0_PROVENANCE.json; do
+             test -s "$ART/$f"
+          done
+          for v in OBLIQUE FRONT SIDE AERIAL APPROACH FORWARD_300 FORWARD_700; do
+             test -s "$ART/G4E7BX_"$v"_TRUE_CYCLES.png"
+          done
+      - name: Independent binary/provenance gate never visual acceptance
+        run: |
+          set -euo pipefail
+          node --test tests/p101-w9c2-g4e7bp-artist-intake.test.mjs
+          cat > "$ART/G4E7BX_BP_CLAIM.json" <<'JSON'
+          {
+            "assetId":"g4e7bx-cc0-authored-forward-urban-depth",
+            "author":"Kenney original CC0 model art and DOPAGAKI source Blender architectural assembly",
+            "sourceTool":"Native Blender with imported real Kenney CC0 human-made glTF building models",
+            "sourceFile":"G4E7BX_FORWARD_CITY_EDITABLE.blend",
+            "rights":"appropriately-licensed-third-party",
+            "licenseName":"Creative Commons CC0 1.0 Universal",
+            "licenseEvidence":"https://kenney.nl/assets/city-kit-commercial and https://opengameart.org/content/city-kit-commercial",
+            "unitsMetersPerUnit":1,
+            "coordinateSystem":"glTF-Y-UP",
+            "reviewStatus":"HOLD",
+            "publicationStatus":"HOLD"
+          }
+          JSON
+          node scripts/p101-w9c2-g4e7bp-artist-asset-intake.mjs \
+            "$ART/G4E7BX_CC0_URBAN_DEPTH_ONLY.glb" \
+            "$ART/G4E7BX_BP_CLAIM.json" "$ART/G4E7BX_BP_ADMISSION.json"
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import crypto from 'node:crypto';
+          const d=process.env.ART;
+          const qa=JSON.parse(fs.readFileSync(path.join(d,'G4E7BX_BP_ADMISSION.json')));
+          const p=JSON.parse(fs.readFileSync(path.join(d,'G4E7BX_CC0_PROVENANCE.json')));
+          if(qa.admission!=='METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS'
+             ||qa.publicRelease!=='FORBIDDEN'||qa.humanVisualReview!=='HOLD'
+             ||qa.realCameraWebGLProof!=='NOT_YET_RUN'||qa.glb.meshes<12
+             ||p.placements.length<25||p.modelSources.length<8)
+             throw Error('actual CC0 model intake not met: '+JSON.stringify(qa));
+          const names=fs.readdirSync(d).filter(x=>!x.startsWith('SHA256_ART_HOLD_MANIFEST'));
+          const files=names.map(file=>{const b=fs.readFileSync(path.join(d,file));return {
+              file,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex')}});
+          fs.writeFileSync(path.join(d,'SHA256_ART_HOLD_MANIFEST.json'),
+            JSON.stringify({schema:'dopagaki.bx-cc0-original-city-proof/1',
+              humanArtApproval:'HOLD',realGameCamera:'NOT_YET_RUN',
+              certifiedSlope2Meters:0,publication:'FORBIDDEN',files},null,2));
+          console.log('BX_BINARY_LICENSE_STUDY_NOT_ART_PASS',qa.glb);
+          JS
+      - name: Archive editable source, verified CC0 origin and native seven views privately
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f "$ART"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "art(g4e7bx): preserve true CC0 pack, blend, glb and seven native art HOLD views"
+          git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial
+      - name: Export all seven unaltered Blender Cycles images for actual art review
+        uses: actions/upload-artifact@v4
+        with:
+          name: g4e7bx-seven-true-cc0-blender-views-ART-HOLD
+          path: |
+            artifacts/private/g4e7bx-licensed-urban-depth/G4E7BX_*_TRUE_CYCLES.png
+            artifacts/private/g4e7bx-licensed-urban-depth/SHA256_ART_HOLD_MANIFEST.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: Preserve original productions and protected gameplay
+        run: |
+          test ! -e dist/generated/G4E7BX_CC0_URBAN_DEPTH_ONLY.glb
+          test ! -e dist-site/generated/G4E7BX_CC0_URBAN_DEPTH_ONLY.glb
+
+  polyhaven-urban-pbr-corridor:
+    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.study != 'bx') || (github.event_name == 'push' && (contains(github.event.head_commit.message, 'g4e7by') || contains(github.event.head_commit.message, 'g4e7bz') || contains(github.event.head_commit.message, 'g4e7ca'))) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 80
+    env:
+      STUDY: ${{ (github.event_name == 'workflow_dispatch' && inputs.study == 'ca') || (github.event_name == 'push' && contains(github.event.head_commit.message, 'g4e7ca')) && 'ca' || ((github.event_name == 'workflow_dispatch' && inputs.study == 'bz') || (github.event_name == 'push' && contains(github.event.head_commit.message, 'g4e7bz'))) && 'bz' || 'by' }}
+      ART: ${{ (github.event_name == 'workflow_dispatch' && inputs.study == 'ca') || (github.event_name == 'push' && contains(github.event.head_commit.message, 'g4e7ca')) && 'artifacts/private/g4e7ca-rift-exchange' || ((github.event_name == 'workflow_dispatch' && inputs.study == 'bz') || (github.event_name == 'push' && contains(github.event.head_commit.message, 'g4e7bz'))) && 'artifacts/private/g4e7bz-facade-lab' || 'artifacts/private/g4e7by-urban-pbr-corridor' }}
+      ASSETS: /tmp/polyhaven-cc0-gltf
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: p101-velocity-overdrive-native-trial
+          persist-credentials: true
+      - name: Verify Python source and install native Blender
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq blender python3-numpy
+          python3 -m py_compile scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py scripts/p101-w9c2-g4e7bz-real-facade-study.py scripts/p101-w9c2-g4e7bz-assemble-inhabited-facade.py scripts/p101-w9c2-g4e7ca-rift-exchange-architecture.py
+          mkdir -p "$ASSETS" "$ART"
+      - name: Download genuine Poly Haven CC0 original glTF and dependencies (1K only)
+        if: env.STUDY != 'ca'
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,urllib.request,time,os,pathlib,hashlib
+          target=pathlib.Path(os.environ['ASSETS'])
+          assets=['modular_urban_apartments_facade','modular_factory_facade']
+          def get(url,maxbytes=80_000_000):
+              if not url.startswith('https://'):raise RuntimeError('HTTPS source required')
+              err=None
+              for attempt in range(3):
+                  try:
+                      with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Dopagaki-Art-CC0-Research/1.0'}),timeout=65) as res:
+                          b=res.read(maxbytes+1)
+                      if not b or len(b)>maxbytes:raise RuntimeError('Asset over limit or empty')
+                      return b
+                  except Exception as e:
+                      err=e;time.sleep(2*(attempt+1))
+              raise RuntimeError('Official Poly Haven fetch failed: '+url+' / '+str(err))
+          info=[]
+          for asset in assets:
+              base=target/asset;base.mkdir(parents=True,exist_ok=True)
+              meta=json.loads(get('https://api.polyhaven.com/files/'+asset,6_000_000))
+              options=meta.get('gltf',{}).get('1k',{})
+              main=options.get('gltf')
+              if not isinstance(main,dict) or not main.get('url'):
+                  raise RuntimeError('Authentic official Poly Haven 1k glTF unavailable for '+asset)
+              mainfile=base/'source.gltf'
+              b=get(main['url']);mainfile.write_bytes(b)
+              deps=main.get('include',{})
+              if not isinstance(deps,dict) or not deps:
+                  raise RuntimeError('Missing official linked dependencies '+asset)
+              for name,source in deps.items():
+                  if not isinstance(source,dict) or not source.get('url'):
+                      raise RuntimeError('Invalid official dependency '+name)
+                  p=base/name
+                  if not p.resolve().is_relative_to(base.resolve()):raise RuntimeError('Unsafe asset path')
+                  p.parent.mkdir(parents=True,exist_ok=True)
+                  p.write_bytes(get(source['url']))
+              gltf=json.loads(b)
+              refs=[x['uri'] for x in gltf.get('buffers',[]) if x.get('uri')]+[
+                   x['uri'] for x in gltf.get('images',[]) if x.get('uri')]
+              for uri in refs:
+                  if uri.startswith('data:'):continue
+                  if not (base/uri).is_file():raise RuntimeError('Missing glTF dependency '+uri)
+              info.append({'asset':asset,'license':'CC0 1.0',
+                 'url':'https://polyhaven.com/a/'+asset,'api':'https://api.polyhaven.com/files/'+asset,
+                 'gltfSha256':hashlib.sha256(b).hexdigest(),'dependentFiles':len(deps)})
+          pathlib.Path(os.environ['ART'],'G4E7'+('BZ' if os.environ['STUDY']=='bz' else 'BY')+'_EXTERNAL_CC0_FILES.json').write_text(json.dumps(info,indent=2))
+          print('POLY_HAVEN_CC0_ORIGINALS_READY',json.dumps(info))
+          PY
+      - name: Build distinct connected road-facing city architecture and true Cycles images
+        if: env.STUDY == 'by'
+        run: |
+          set -euo pipefail
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7by-urban-pbr-corridor.py -- --assets "$ASSETS" --out "$ART"
+          test -s "$ART/G4E7BY_ARCHITECTURE_TRANSIT_EDITABLE.blend"
+          test -s "$ART/G4E7BY_CITY_ART_ONLY.glb"
+          test -s "$ART/G4E7BY_PROVENANCE.json"
+          for angle in OBLIQUE FRONT SIDE AERIAL APPROACH FORWARD_300 FORWARD_700; do
+            test -s "$ART/G4E7BY_${angle}_TRUE_CYCLES.png"
+          done
+      - name: Confirm source evidence, never certify art or human experience automatically
+        if: env.STUDY == 'by'
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os,json,hashlib,pathlib
+          d=pathlib.Path(os.environ['ART'])
+          provenance=json.loads((d/'G4E7BY_PROVENANCE.json').read_text())
+          if provenance['actualNativeGameCamera']!='NOT_TESTED' or provenance['humanGameplay']!='HOLD' or provenance['publication']!='FORBIDDEN':
+              raise RuntimeError('Release gate regression')
+          required=['G4E7BY_ARCHITECTURE_TRANSIT_EDITABLE.blend','G4E7BY_CITY_ART_ONLY.glb']+[
+              'G4E7BY_'+v+'_TRUE_CYCLES.png' for v in provenance['views']]
+          checks=[]
+          for name in required:
+              p=d/name
+              if not p.is_file() or p.stat().st_size<1000:raise RuntimeError('Missing true file '+name)
+              checks.append({'file':name,'bytes':p.stat().st_size,
+                  'sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
+          (d/'SHA256_ART_UNJUDGED_MANIFEST.json').write_text(json.dumps({
+              'humanArt':'UNJUDGED','realGameCamera':'NOT_TESTED',
+              'publication':'FORBIDDEN','slope2CertifiedMeters':0,'files':checks},indent=2))
+          print('G4E7BY_BINARY_PROOF_EXISTS_NOT_VISUAL_PASS')
+          PY
+      - name: Preserve real 3D source, PBR provenance and seven original views on Draft branch
+        if: env.STUDY == 'by'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f "$ART"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "art(g4e7by): archive original CC0 PBR architecture and real 7-view HOLD proof"
+          git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial
+      - name: Seven native Blender proof images for art review
+        if: env.STUDY == 'by'
+        uses: actions/upload-artifact@v4
+        with:
+          name: g4e7by-original-pbr-urban-corridor-ART-UNJUDGED
+          path: |
+            artifacts/private/g4e7by-urban-pbr-corridor/G4E7BY_*_TRUE_CYCLES.png
+            artifacts/private/g4e7by-urban-pbr-corridor/SHA256_ART_UNJUDGED_MANIFEST.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: Public and immutable real gameplay untouched
+        if: env.STUDY == 'by'
+        run: |
+          test ! -e dist/generated/G4E7BY_CITY_ART_ONLY.glb
+          test ! -e dist-site/generated/G4E7BY_CITY_ART_ONLY.glb
+
+      - name: Confirm ORIGINAL modular source anatomy, not another empty block city
+        if: env.STUDY == 'bz'
+        run: |
+          set -euo pipefail
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bz-real-facade-study.py -- --assets "$ASSETS" --out "$ART"
+          test -s "$ART/G4E7BZ_SOURCE_INSPECTION_EDITABLE.blend"
+          test -s "$ART/G4E7BZ_SOURCE_COMPONENT_INVENTORY.json"
+          for angle in FRONT OBLIQUE; do
+            test -s "$ART/G4E7BZ_SOURCE_${angle}_TRUE_CYCLES.png"
+          done
+      - name: Assemble authentic CC0 parts into a 21m 4-level occupied architectural unit
+        if: env.STUDY == 'bz'
+        run: |
+          set -euo pipefail
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7bz-assemble-inhabited-facade.py -- --assets "$ASSETS" --out "$ART"
+          test -s "$ART/G4E7BZ_ACTUAL_ASSEMBLED_FACADE_EDITABLE.blend"
+          test -s "$ART/G4E7BZ_BUILT_ARCHITECTURE_ART_ONLY.glb"
+          test -s "$ART/G4E7BZ_BUILT_PROVENANCE.json"
+          for angle in STREET_EYE FRONT OBLIQUE ENTRANCE AERIAL; do
+            test -s "$ART/G4E7BZ_BUILD_${angle}_TRUE_CYCLES.png"
+          done
+      - name: SHA256 source inventory and genuine render validation, never art acceptance
+        if: env.STUDY == 'bz'
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import pathlib,json,hashlib,os
+          d=pathlib.Path(os.environ['ART'])
+          inv=json.loads((d/'G4E7BZ_SOURCE_COMPONENT_INVENTORY.json').read_text())
+          if inv['release']!='FORBIDDEN' or not inv['notGameplay'] or len(inv['assets'])!=2:
+              raise RuntimeError('BZ evidence or release integrity failed')
+          result=json.loads((d/'G4E7BZ_BUILT_PROVENANCE.json').read_text())
+          if result['art']!='UNJUDGED' or result['gameCamera']!='NOT_TESTED' or result['publication']!='FORBIDDEN':
+              raise RuntimeError('Built model illicit art acceptance or gameplay claim')
+          if result['counts']['facadeOriginalParts']<100 or result['counts']['windows']<30 or result['counts']['publicEntrances']<1:
+              raise RuntimeError('Genuine architectural assembly and openings not demonstrated')
+          files=[p for p in d.iterdir() if p.is_file()]
+          if not all(a['sourcePartCount']>50 for a in inv['assets']):raise RuntimeError('Not actual facade modular source')
+          checks=[{'file':p.name,'bytes':p.stat().st_size,
+            'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in files]
+          (d/'G4E7BZ_SOURCE_SHA256.json').write_text(json.dumps({
+            'technical':'SOURCE_ONLY','architecturalArt':'UNJUDGED','human':'HOLD',
+            'gameCamera':'NOT_TESTED','publish':'FORBIDDEN',
+            'officialSlope2Meters':0,'files':checks},indent=2))
+          print('BZ_INSPECTION_TECH_PASS_NOT_CITY_OR_ART_PASS')
+          PY
+      - name: Preserve genuine modular inventory and 2 native close-up images on Draft
+        if: env.STUDY == 'bz'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f "$ART"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "art(g4e7bz): preserve authentic CC0 source module proof ART HOLD"
+          git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial
+      - name: Export source module geometry inventory and genuine 2-view render
+        if: env.STUDY == 'bz'
+        uses: actions/upload-artifact@v4
+        with:
+          name: g4e7bz-pbr-original-unassembled-modules-ART-UNJUDGED
+          path: |
+            artifacts/private/g4e7bz-facade-lab/G4E7BZ_SOURCE_*_TRUE_CYCLES.png
+            artifacts/private/g4e7bz-facade-lab/G4E7BZ_BUILD_*_TRUE_CYCLES.png
+            artifacts/private/g4e7bz-facade-lab/G4E7BZ_SOURCE_COMPONENT_INVENTORY.json
+            artifacts/private/g4e7bz-facade-lab/G4E7BZ_SOURCE_SHA256.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: Source-only check all gameplay, public and Gold untouched
+        if: env.STUDY == 'bz'
+        run: |
+          test ! -e dist/generated/G4E7BZ_BUILT_ARCHITECTURE_ART_ONLY.glb
+          test ! -e dist-site/generated/G4E7BZ_BUILT_ARCHITECTURE_ART_ONLY.glb
+
+      - name: Download authentic Poly Haven PBR surfaces for architecture
+        if: env.STUDY == 'ca'
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os,json,pathlib,urllib.request,hashlib,time
+          base=pathlib.Path(os.environ['ASSETS'])
+          manifest=[]
+          for slug in ['concrete_tile_facade','blue_metal_plate']:
+              dest=base/slug;dest.mkdir(parents=True,exist_ok=True)
+              def read(url,limit=24000000):
+                  if not url.startswith('https://'):raise RuntimeError('Untrusted asset URL')
+                  last=None
+                  for attempt in range(3):
+                      try:
+                          with urllib.request.urlopen(urllib.request.Request(url,
+                              headers={'User-Agent':'DOPAGAKI-CC0-Architectural-Research/1.0'}),timeout=60) as response:
+                              payload=response.read(limit+1)
+                          if not payload or len(payload)>limit:raise RuntimeError('Empty/large official file')
+                          return payload
+                      except Exception as e:
+                          last=e;time.sleep(2*(attempt+1))
+                  raise RuntimeError('Official Poly Haven asset load failed '+url+' : '+str(last))
+              tree=json.loads(read('https://api.polyhaven.com/files/'+slug,1200000))
+              entries={}
+              for channel,formats in tree.items():
+                  if not isinstance(formats,dict):continue
+                  low=channel.lower()
+                  if low in ('diffuse','diff','basecolor','base_color','albedo'):tag='diffuse'
+                  elif low in ('rough','roughness'):tag='roughness'
+                  else:continue
+                  variants=formats.get('1k',{})
+                  if not isinstance(variants,dict):continue
+                  for ext in ('jpg','png'):
+                      if ext in variants and isinstance(variants[ext],dict) and variants[ext].get('url'):
+                          entries[tag]=(ext,variants[ext]['url']);break
+              if 'diffuse' not in entries:raise RuntimeError('PBR texture diffuse not found for '+slug+': '+str(list(tree)))
+              for channel,(ext,url) in entries.items():
+                  payload=read(url)
+                  destination=dest/(channel+'.jpg')
+                  destination.write_bytes(payload)
+                  manifest.append({'texture':slug,'channel':channel,'origin':url,
+                      'sha256':hashlib.sha256(payload).hexdigest(),'bytes':len(payload)})
+          pathlib.Path(os.environ['ART'],'G4E7CA_CC0_SURFACES.json').write_text(json.dumps({
+              'origin':'Poly Haven API, CC0 1.0, credit: Powered by Poly Haven',
+              'textures':manifest},indent=2))
+          print('REAL_POLY_HAVEN_TEXTURES_AVAILABLE',json.dumps(manifest))
+          PY
+      - name: Build independent modern-future inhabited transit architecture and six native views
+        if: env.STUDY == 'ca'
+        run: |
+          set -euo pipefail
+          blender --background --threads 4 --python scripts/p101-w9c2-g4e7ca-rift-exchange-architecture.py -- --textures "$ASSETS" --out "$ART"
+          test -s "$ART/G4E7CA_RIFT_EXCHANGE_EDITABLE.blend"
+          test -s "$ART/G4E7CA_RIFT_EXCHANGE_ART_ONLY.glb"
+          test -s "$ART/G4E7CA_PROVENANCE.json"
+          for view in STREET_APPROACH STREET_LEFT ENTRANCE OBLIQUE AERIAL SIDE; do
+              test -s "$ART/G4E7CA_${view}_TRUE_CYCLES.png"
+          done
+      - name: Strict original PBR/geometry provenance and publication HOLD
+        if: env.STUDY == 'ca'
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,os,pathlib,hashlib
+          d=pathlib.Path(os.environ['ART'])
+          meta=json.loads((d/'G4E7CA_PROVENANCE.json').read_text())
+          maps=json.loads((d/'G4E7CA_CC0_SURFACES.json').read_text())
+          assert meta['realB48Camera']=='NOT_RUN' and meta['artReview']=='UNJUDGED'
+          assert meta['publication']=='FORBIDDEN' and meta['humanPlay']=='HOLD'
+          assert meta['officialCertifiedSlope2Meters']==0 and len(meta['licenseSources'])==2
+          assert meta['geometry']['occupiedFloors']==10
+          assert meta['geometry']['supportedBridges']==3
+          assert meta['geometry']['publicEntrances']==1
+          assert meta['geometry']['transitAlignments']==1
+          assert len({x['texture'] for x in maps['textures'] if x['channel']=='diffuse'})==2
+          expected=['G4E7CA_RIFT_EXCHANGE_EDITABLE.blend','G4E7CA_RIFT_EXCHANGE_ART_ONLY.glb',
+                    'G4E7CA_PROVENANCE.json','G4E7CA_CC0_SURFACES.json']+[
+                    'G4E7CA_'+v+'_TRUE_CYCLES.png' for v in
+                    'STREET_APPROACH STREET_LEFT ENTRANCE OBLIQUE AERIAL SIDE'.split()]
+          checks=[]
+          for filename in expected:
+              f=d/filename
+              if not f.is_file() or f.stat().st_size<(200 if filename.endswith('.json') else 2000):
+                  raise RuntimeError('Missing or truncated authentic file '+filename)
+              checks.append({'path':filename,'bytes':f.stat().st_size,
+                             'sha256':hashlib.sha256(f.read_bytes()).hexdigest()})
+          (d/'G4E7CA_ART_UNJUDGED_SHA256.json').write_text(json.dumps({
+              'studioOnly':True,'art':'UNJUDGED','human':'HOLD','publication':'FORBIDDEN',
+              'playableRoad':False,'certifiedSlope2Meters':0,'files':checks},indent=2))
+          print('G4E7CA_BINARY_TECH_CONTRACT_PASS_DOES_NOT_MEAN_ART_PASS')
+          PY
+      - name: Preserve genuine Blender architecture, PBR metadata and six views on Draft only
+        if: env.STUDY == 'ca'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f "$ART"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "art(g4e7ca): archive editable modern architecture and authentic six-view studio art HOLD"
+          git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial
+      - name: Expose genuine Cycles six views separately from human evaluation
+        if: env.STUDY == 'ca'
+        uses: actions/upload-artifact@v4
+        with:
+          name: g4e7ca-genuine-six-views-futuristic-art-UNJUDGED
+          path: |
+            artifacts/private/g4e7ca-rift-exchange/G4E7CA_*_TRUE_CYCLES.png
+            artifacts/private/g4e7ca-rift-exchange/G4E7CA_ART_UNJUDGED_SHA256.json
+          retention-days: 7
+          if-no-files-found: error
+      - name: Protect the original game, both public destinations and certification
+        if: env.STUDY == 'ca'
+        run: |
+          test ! -e dist/generated/G4E7CA_RIFT_EXCHANGE_ART_ONLY.glb
+          test ! -e dist-site/generated/G4E7CA_RIFT_EXCHANGE_ART_ONLY.glb

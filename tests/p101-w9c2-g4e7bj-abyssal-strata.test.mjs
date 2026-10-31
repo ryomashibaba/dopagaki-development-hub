@@ -1,0 +1,31 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {g4e7bjAbyssalStrata,BJ_DISTRICTS} from '../web/p101-w9c2-g4e7bj-abyssal-strata.mjs';
+import {generateG4E7BC} from '../scripts/p101-w9c2-g4e7bc-bank-contour.mjs';
+import {generateG4E7AY} from '../scripts/p101-w9c2-g4e7ay-tangent-bridge.mjs';
+import {sample} from '../private/reference_only/director/surface.js';
+for(const road of ['true-pinch','pinch-switch'])test('BJ real B48 roads unchanged with massive genuine cliff-face render '+road,()=>{
+ const stage=generateG4E7BC(road,'rollDeck'),before=JSON.stringify(stage);
+ assert.equal(g4e7bjAbyssalStrata(stage,sample).active,false);
+ const art=g4e7bjAbyssalStrata(stage,sample,{enabled:true});
+ assert.equal(art.active,true);assert.equal(art.districts,4);
+ assert.equal(art.openAtriums,32);
+ assert.equal(art.triangles*18,art.vertices.length);
+ assert(art.triangles>=2500);assert(art.vertices.every(Number.isFinite));
+ assert(art.inhabitedCells>=110);assert(art.hangingUndersides>=40);
+ assert(art.sideSetbackMin>=60);
+ assert.equal(art.addedColliderSurfaces,0);
+ assert.equal(art.changedInput,false);assert.equal(art.changedCamera,false);
+ assert.equal(art.nativeB48Unchanged,true);
+ assert.equal(art.officialSlope2Meters,0);assert.equal(art.art,'HOLD');
+ assert.equal(stage.surfaces.length,7);assert.equal(stage.movingObstacles.length,28);
+ assert.deepEqual(stage.surfaces[0].voidLongitudinalCells,[52]);
+ assert.equal(JSON.stringify(stage),before);
+});
+test('BJ refuses earlier AY, BC wrong variant or promoted source',()=>{
+ assert.throws(()=>g4e7bjAbyssalStrata(generateG4E7AY('true-pinch','bankedSweep'),sample,{enabled:true}),/unpublished BC B48/);
+ assert.throws(()=>g4e7bjAbyssalStrata(generateG4E7BC('true-pinch','skylineSaddle'),sample,{enabled:true}),/unpublished BC B48/);
+ const stage=generateG4E7BC('true-pinch','rollDeck');stage.stageForge.productionPromoted=true;
+ assert.throws(()=>g4e7bjAbyssalStrata(stage,sample,{enabled:true}),/unpublished BC B48/);
+ assert(BJ_DISTRICTS.every(x=>x.center-x.extent>.5&&x.center+x.extent<.89&&x.offset>=60));
+});

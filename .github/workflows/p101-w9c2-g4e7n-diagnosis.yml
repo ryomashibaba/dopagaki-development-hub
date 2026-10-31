@@ -1,0 +1,49 @@
+name: W9-C2 G4E-7N 240Hz side-edge fatal vs over-wide hazard steering diagnosis
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7n-diagnose.mjs'
+      - 'tests/p101-w9c2-g4e7n-diagnose.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7n-diagnosis.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e7n-diagnosis-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-physics-diagnosis:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Immutable true B48 240Hz physical conditions and no injection
+        run: |
+          node --check scripts/p101-w9c2-g4e7n-diagnose.mjs
+          node --test tests/p101-w9c2-g4e7n-diagnose.test.mjs tests/p101-w9c2-g4e7m-physical.test.mjs
+      - name: Reproduce original THREAD fatal and isolate P96 steering cause without physics changes
+        run: |
+          node scripts/p101-w9c2-g4e7n-diagnose.mjs g4e7n-diagnostic-native.json
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const r=JSON.parse(fs.readFileSync("g4e7n-diagnostic-native.json"));
+          if(r.cases.length!==6||r.cases[0].finished||
+             !r.cases[0].fatal.some(c=>c.type==="static-fatal-contact")||
+             !r.cases[3].finished||!r.cases[3].allSeven||
+             r.cases[3].movingContactCount!==0||
+             !r.cases[4].finished||!r.cases[5].finished||
+             r.cases.some(c=>c.officialSlopeMeters!==0)||
+             r.inGameSteeringChanged||r.certifiedSlope2Meters!==0)
+            throw Error("G4E7N failed to preserve original fail + control evidence");
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7n-real-native-fatal-analysis-${{ github.run_id }}
+          path: g4e7n-diagnostic-native.json
+          if-no-files-found: ignore
+          retention-days: 10

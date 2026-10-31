@@ -1,0 +1,89 @@
+name: P101 B5 isolated real-physics fast lane
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - '.github/workflows/p101-b5-fast.yml'
+      - 'package.json'
+      - 'scripts/build.mjs'
+      - 'scripts/pack-p101-b5-review.mjs'
+      - 'scripts/p101-b4*.mjs'
+      - 'scripts/p101-b5*.mjs'
+      - 'scripts/p101-a13*.mjs'
+      - 'scripts/p101-overdrive*.mjs'
+      - 'tests/p101-b5*.test.mjs'
+      - 'tests/p101-a13*.test.mjs'
+      - 'tests/p101-overdrive.test.mjs'
+      - 'web/**'
+      - 'private/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: p101-b5-fast-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  a13-native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: A13 shape integrity and actual native road machine tests
+        run: node --test tests/p101-a13-road.test.mjs tests/p101-a13-machine-visual.test.mjs
+      - name: A13 W7F exact browser-stage 7-skin, 28-machine structural QA
+        run: node --test tests/p101-a13-w7-gameplay.test.mjs tests/p101-a13-road-art.test.mjs
+      - name: A13 W7F current selected native 240Hz 7-of-7 proof (not human)
+        run: |
+          set -o pipefail
+          node scripts/p101-a13-w7-native-verify.mjs | tee a13-w7f-selected-native.jsonl
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p101-a13-native-pilot-${{ github.run_id }}
+          path: a13-w7f-selected-native.jsonl
+          if-no-files-found: ignore
+          retention-days: 7
+  b5-native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Regress actual P100/P101 B4E, B5 geometry seams, native 12 obstacle mechanics
+        run: node --test tests/p101-b5.test.mjs tests/p101-overdrive.test.mjs tests/p101-b5-forward.test.mjs tests/p101-b5-optic.test.mjs
+      - name: A13 independent genuine narrow-road geometry and native steering integrity
+        run: node --test tests/p101-a13-road.test.mjs
+      - name: B5 A6 true 240Hz 7.28km course 155m-drop safe-then-surge acceleration test
+        run: |
+          set -o pipefail
+          node scripts/p101-b5-a6-surge.mjs | tee p101-b5-a6-true-physics.jsonl
+      - name: B5 A9 real startup-speed safety envelope using EXACT browser physical boost law
+        run: |
+          set -o pipefail
+          node scripts/p101-b5-startup.mjs | tee p101-b5-startup.jsonl
+      - name: A11 manual in-browser audit, no automatic report transmission or physics drift
+        run: node --test tests/p101-b5-manual-qa.test.mjs
+      - name: Package A11 PR-only Windows one-click offline-local B5 manual QA
+        run: |
+          npm run build:site
+          node scripts/pack-p101-b5-review.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p101-b5-a11-local-oneclick-review-${{ github.run_id }}
+          path: b5-manual-review/
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p101-b5-a6-physical-results-${{ github.run_id }}
+          path: |
+            p101-b5-a6-true-physics.jsonl
+            p101-b5-startup.jsonl
+          if-no-files-found: ignore
+          retention-days: 7

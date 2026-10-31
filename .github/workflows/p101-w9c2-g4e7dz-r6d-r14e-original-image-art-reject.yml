@@ -1,0 +1,99 @@
+name: G4E-7DZ R6D-R14E genuine original native 7-camera image art audit
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r14e-independent-real-image-art-gate.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r14e-original-image-art-reject.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r14e-independent-original-native-image-veto
+  cancel-in-progress: true
+jobs:
+  inspect-genuine-original-r1-vs-r14d-image-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 16
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Original CX game git blob protected; source image QA script syntax + Pillow
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r14e-independent-real-image-art-gate.py
+          python3 -m pip install --quiet Pillow
+      - name: Retrieve three original source native 7-camera evidence scenes (R1 / rejected R11R1 / R14D)
+        run: |
+          mkdir -p test-results/g4e7dz-r14e/r1 test-results/g4e7dz-r14e/r11r1 test-results/g4e7dz-r14e/r14d
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r14e/r1
+          gh run download 40686105227 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R11R1_TRUE_NATIVE_INHABITED_ESTUARY_REAL_14IMAGE_SOURCE_HOLD \
+            --dir test-results/g4e7dz-r14e/r11r1
+          gh run download 40694210972 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R14D_TRUE_NATIVE_SHARED_14_IMAGE_EDITABLE_INHABITED_CITY_ART_HOLD \
+            --dir test-results/g4e7dz-r14e/r14d
+      - name: Independently compare genuine identical source camera pixels and actual source physical properties
+        run: |
+          for r in true-pinch pinch-switch; do
+            python3 scripts/p101-w9c2-g4e7dz-r6d-r14e-independent-real-image-art-gate.py \
+              --r14 "test-results/g4e7dz-r14e/r14d/result-$r/R14D_$r"_TRUE_SOURCE_CITY_COURT_AUDIT.json \
+              --r11 "test-results/g4e7dz-r14e/r11r1/result-$r/R11R1_$r"_ACTUAL_SOURCE_AUDIT.json \
+              --r1dir "test-results/g4e7dz-r14e/r1/result-$r" \
+              --r14dir "test-results/g4e7dz-r14e/r14d/result-$r" \
+              --out "test-results/g4e7dz-r14e/R14E_$r"_REAL_SOURCE_IMAGE_ART_VERDICT.json
+          done
+      - name: Independently assert physically clear, visually underexposed city and false PASS rejection
+        run: |
+          python3 - <<'PY'
+          import json,glob,importlib.util,copy
+          root='test-results/g4e7dz-r14e'
+          files=glob.glob(root+'/R14E_*_REAL_SOURCE_IMAGE_ART_VERDICT.json')
+          assert len(files)==2,files
+          for file in files:
+           d=json.load(open(file))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r14e-original-image-physical-source-art-reject/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['nativeSourceOriginalImmutable']
+           assert len(d['framesWithUnder2PctTrueCityFirstHits'])>=4
+           assert d['trueOriginalCamera7FrameCityFirstHitFractions']['t1500']==0
+           assert d['trueOriginalCamera7FrameCityFirstHitFractions']['t1600']==0
+           assert d['trueOriginalCamera7FrameCityFirstHitFractions']['t1700']==0
+           assert len(d['trueNativeOriginalSourceRGBAnyChannelThreshold45Diff'])==7
+           assert not d['sourceCXB48B51AnyOriginalPhysicsCollision']
+           assert d['R14DTrue3DCityArchitectureBuiltButNotInGame']
+           assert not d['actualPlayerWalkFromGameRoadToPrivateCitySectionProven']
+           assert not d['originalGameSourceModified']
+           assert d['formalIndependentVisualDecision']=='ART_REJECT_REAL_SOURCE_IMAGE_DISAPPEARS_AND_SMALL_FACADE'
+           assert d['humanViewingTheOriginalRendersRequiredToCertifyArt']
+           assert d['noAutomaticARTPASSFromHighSingleTimeHitFraction']
+           assert d['officialArt']==d['officialSlope2Metres']==d['newGameColliders']==0
+           assert d['ART']=='REJECT'
+           assert all(d[k]=='HOLD' for k in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R14E_TRUE_NATIVE_ART_REJECT',d['road'],
+            'mean R14',d['R14DTrueSevenFrameMeanFirstHitFraction'],
+            'mean R11',d['R11R1TrueSevenFrameMeanFirstHitFraction'],
+            'late frames entirely absent')
+          spec=importlib.util.spec_from_file_location('r14e','scripts/p101-w9c2-g4e7dz-r6d-r14e-independent-real-image-art-gate.py')
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          road='true-pinch'
+          a=json.load(open(f'{root}/r14d/result-{road}/R14D_{road}_TRUE_SOURCE_CITY_COURT_AUDIT.json'))
+          b=json.load(open(f'{root}/r11r1/result-{road}/R11R1_{road}_ACTUAL_SOURCE_AUDIT.json'))
+          fake=copy.deepcopy(a);fake['humanCityQualityAlreadyApproved']=True
+          try:
+           m.evaluate(fake,f'{root}/r1/result-{road}',f'{root}/r14d/result-{road}',b)
+           raise RuntimeError('R14E unsupported art pass was accepted')
+          except AssertionError:
+           print('R14E_NEGATIVE_FAKE_ART_ACCEPTANCE_REJECTED')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R14E_REAL_ORIGINAL_CAMERA_ART_REJECT_AND_SAFE_GEOMETRY
+          path: test-results/g4e7dz-r14e/R14E_*_REAL_SOURCE_IMAGE_ART_VERDICT.json
+          retention-days: 7
+          if-no-files-found: warn

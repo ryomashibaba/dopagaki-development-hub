@@ -1,0 +1,54 @@
+name: P101 R15Q real original 8 C1/native 240Hz archived independent QA no replay
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15q-independent-8-real-c1-source-curve-veto.py
+      - .github/workflows/p101-r15q-real-c1-archived-independent-qa.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qa-genuine-source-eight-real-physical-original-road-no-heavy-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Original game source immutable, independent guard compiled
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15q-independent-8-real-c1-source-curve-veto.py
+      - name: Recover 8 true original native C1 curved-source road trials, plus actual 36s B16 source
+        run: |
+          mkdir -p test-results/r15qqa/native test-results/r15qqa/old test-results/r15qqa/results
+          gh run download 40833907561 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15Q_TRUE_ORIGINAL_B48_C1_CURVATURE_NARROW16_8_NATIVE_240HZ_SOURCE_HOLD \
+            --dir test-results/r15qqa/native
+          gh run download 40830811488 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15O4_TRUE_NATIVE_SOURCE_BANKED_B48_16M_REPLAY_BEYOND24_REAL_END_HOLD \
+            --dir test-results/r15qqa/old
+          test -s test-results/r15qqa/native/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json
+      - name: Independent original source physical shape, preserved road seam points versus curved derivative, true 240Hz contact, 12 fake approvals
+        run: |
+          python3 scripts/p101-r15q-independent-8-real-c1-source-curve-veto.py \
+            --result test-results/r15qqa/native/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json \
+            --original test-results/r15qqa/old/R15O4_ACTUAL_NATIVE_B16_REAL_PHYSICAL_ROAD_SOURCE_EXTENDED_TO_36.json \
+            --out test-results/r15qqa/results
+          python3 - <<'PY'
+          import json
+          p="test-results/r15qqa/results/"
+          x=json.load(open(p+"R15Q_INDEPENDENT_TRUE_SOURCE_8_C1_ROAD_AND_NARROW_PHYSICS_QA.json"))
+          assert len(x["rejectedFalseOfficialGameplayOrSourceClaims"])==12
+          assert sum(map(len,x["actualOriginalC1AndNarrowPhysicalRoadEvidence"].values()))==8
+          assert x["officialArt"]==x["officialSlope2Meters"]==0
+          print("R15Q_REAL_ORIGINAL_8_NATIVE_240HZ_C1_TRUE_CURVATURE_INDEPENDENT_QA",x,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15Q_GENUINE_SOURCE_8_240HZ_CURVED_ROAD_INDEPENDENT_QA_HOLD
+          path: test-results/r15qqa/results/
+          retention-days: 7
+          if-no-files-found: warn

@@ -1,0 +1,39 @@
+name: P101 G5-C1 nonlethal rebound recovery fast QA
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/p101-overdrive.mjs'
+      - 'web/drive3d.mjs'
+      - 'web/p101-b5-manual-qa.mjs'
+      - 'tests/p101-rebound-recovery.test.mjs'
+      - '.github/workflows/p101-rebound-recovery-fast.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: p101-rebound-recovery-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  recoil-physics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: 240Hz nonlethal recoil, actual B48 isolation, Gold and B5 manual audit
+        run: node --test tests/p101-rebound-recovery.test.mjs tests/p101-b5-manual-qa.test.mjs
+      - name: Native physics and forward-regression invariants
+        run: node --test tests/p101-overdrive.test.mjs tests/p101-b5-forward.test.mjs
+      - name: Build PR-only stage bundle (no publish)
+        run: |
+          npm run build:site
+          node scripts/pack-p101-b5-review.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p101-g5c1-windows-local-recovery-qa-${{ github.run_id }}
+          path: b5-manual-review/
+          if-no-files-found: error
+          retention-days: 7

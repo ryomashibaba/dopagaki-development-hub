@@ -1,0 +1,32 @@
+name: W9-C2 G4E-7AD real B48 road and monumental city visibility rays (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7ad-real-sightlines.mjs'
+      - 'tests/research/p101-w9c2-g4e7ad-rays.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ad-ray.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-physical-rays:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original camera vs genuine B48 / GPU architecture triangle occlusion
+        run: |
+          node --check scripts/p101-w9c2-g4e7ad-real-sightlines.mjs
+          node scripts/p101-w9c2-g4e7ad-real-sightlines.mjs g4e7ad-ray-report.json
+          node --test tests/research/p101-w9c2-g4e7ad-rays.test.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ad-240Hz-road-city-rays-${{ github.run_id }}
+          path: g4e7ad-ray-report.json
+          if-no-files-found: ignore
+          retention-days: 14

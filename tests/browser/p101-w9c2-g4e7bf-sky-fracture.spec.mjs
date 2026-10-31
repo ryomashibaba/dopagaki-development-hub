@@ -1,0 +1,43 @@
+import {test,expect} from '@playwright/test';
+import fs from 'node:fs/promises';
+const base='/drive3d/?g4e7al=manual&g4e7be=roll-deck';
+test('BF sky fracture is private BC only, cannot be enabled in normal production-like mode',async({page})=>{
+ test.setTimeout(120000);
+ await page.goto('/drive3d/?g4e7bf=sky-fracture&stage=VB-P101-A13-W9C2-G4E7BC-TRUE-PINCH-ROLLDECK');
+ await expect(page.locator('#stage')).toHaveValue('EP-P66');
+ await expect(page.locator('#view')).toHaveAttribute('data-g4e7bf-scene','off',{timeout:90000});
+});
+test('BF baseline and separate NON COLLIDING macro-city visible on authentic BC TRUE/SWITCH 240Hz',async({page},info)=>{
+ test.setTimeout(180000);const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(base);
+ const view=page.locator('#view');
+ await expect(view).toHaveAttribute('data-g4e7be-loaded-road','true-pinch',{timeout:90000});
+ await expect(view).toHaveAttribute('data-g4e7bf-scene','off');
+ await view.screenshot({path:info.outputPath('g4e7bf-BC-true-existing-city-control.png')});
+ await page.goto(base+'&g4e7bf=sky-fracture');
+ await expect(view).toHaveAttribute('data-g4e7be-loaded-road','true-pinch',{timeout:90000});
+ await expect(view).toHaveAttribute('data-g4e7bf-scene','sky-fracture');
+ await expect(view).toHaveAttribute('data-g4e7bf-masses','3');
+ await expect(view).toHaveAttribute('data-g4e7bf-non-collision','true');
+ const sky=Number(await view.getAttribute('data-g4e7bf-open-sky'));
+ const triangles=Number(await view.getAttribute('data-g4e7bf-triangles'));
+ expect(sky).toBeGreaterThan(160);expect(triangles).toBeGreaterThan(1000);
+ await expect(view).toHaveAttribute('data-machine-count','28');
+ await expect(page.locator('#g4e7alPanel')).toContainText('BC rollDeck');
+ await view.screenshot({path:info.outputPath('g4e7bf-BC-true-sky-fracture-real-WebGL.png')});
+ await page.keyboard.down('KeyD');await page.waitForTimeout(520);await page.keyboard.up('KeyD');
+ const dl0=page.waitForEvent('download');await page.locator('#g4e7alDownload').click();
+ const data0=JSON.parse(await fs.readFile(await(await dl0).path(),'utf8'));
+ expect(data0.uncommittedCurrentRun.source).toBe('LOCAL_MANUAL_INPUT_NO_P96');
+ expect(data0.uncommittedCurrentRun.metrics.activeDirectionalSteps).toBeGreaterThan(0);
+ expect(data0.uncommittedCurrentRun.physicalCourse.researchBCRealContour).toBe(true);
+ await page.locator('#g4e7alNext').click();
+ await expect(page.locator('#stage')).toHaveValue('VB-P101-A13-W9C2-G4E7BC-PINCH-SWITCH-ROLLDECK');
+ await expect(view).toHaveAttribute('data-g4e7be-loaded-road','pinch-switch',{timeout:90000});
+ await expect(view).toHaveAttribute('data-g4e7bf-scene','sky-fracture');
+ await expect(view).toHaveAttribute('data-g4e7bf-non-collision','true');
+ await view.screenshot({path:info.outputPath('g4e7bf-BC-switch-sky-fracture-real-WebGL.png')});
+ expect(errors).toEqual([]);
+ await fs.writeFile(info.outputPath('g4e7bf-visual-webgl-proof-no-human.json'),
+ JSON.stringify({human:false,artApproved:false,skyWindows:sky,triangles,roads:2,errors},null,2));
+});

@@ -1,0 +1,51 @@
+name: R19 A6 P4 R2C all 2881 original native B51 triangle SAT without rerender
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r19a6p4r2-full-240hz-spatial-sat.mjs
+      - .github/workflows/p101-r19a6p4r2-2881-native-true-b51-sat.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  source-native-all-2881-b51-spatial-sat:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Immutable original source and full 240Hz SAT preflight
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r19a6p4r2-full-240hz-spatial-sat.mjs
+      - name: Download R2C true source-verified genuine Blender GPU triangles
+        uses: actions/download-artifact@v4
+        with:
+          name: R19_A6P4R2_TRUE_BLENDER_29_URBAN_MASSES_12_REAL_WEBGL2_ART_HOLD
+          run-id: 41189700048
+          github-token: ${{ github.token }}
+          path: .
+      - name: Verify R2C source-bound genuine Blender GPU triangles
+        run: |
+          test -s r19-evidence/r19a6p4r2/P4R2_ultra_audited_gpu.bin
+          test -s r19-evidence/r19a6p4r2/P4R2_control_audited_gpu.bin
+          test -s r19-evidence/r19a6p4r2/P4R2_ultra_blender_report.json
+          test -s r19-evidence/r19a6p4r2/P4R2_control_blender_report.json
+          node -e "const fs=require('fs');for(const m of ['ultra','control']){const q=JSON.parse(fs.readFileSync('r19-evidence/r19a6p4r2/P4R2_'+m+'_blender_report.json'));if(q.originalSourceBlob!=='af076d67492a677d2235e4730aef8cdf4808e106'||q.designRevision!=='R2C_DUAL_CAMERA_8S_11S_URBAN_CONTINUITY_AFTER_R2B_REJECT')process.exit(2)}"
+      - name: Independently scan all 0 through 2880 native physics ticks and real original 28 moving B51 bodies
+        run: |
+          node scripts/p101-r19a6p4r2-full-240hz-spatial-sat.mjs
+          test -s r19-evidence/r19a6p4r2/P4R2_ALL_2881_NATIVE_TICKS_B51_TRIANGLE_OBB_CONTACT_AUDIT.json
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Preserve exact results even when collision found
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: R19_A6P4R2C_ALL_2881_NATIVE_240HZ_B51_EXACT_SAT_HOLD
+          path: r19-evidence/r19a6p4r2/P4R2_ALL_2881_NATIVE_TICKS_B51_TRIANGLE_OBB_CONTACT_AUDIT.json
+          retention-days: 7
+          if-no-files-found: warn

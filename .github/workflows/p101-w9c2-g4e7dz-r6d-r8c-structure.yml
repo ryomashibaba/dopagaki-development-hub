@@ -1,0 +1,95 @@
+name: G4E-7DZ R6D-R8C PRIVATE actual geometry of pre-model site network
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r8c-real-source-route-clearance.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r8c-structure.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r8c-actual-existing-source-geometry
+  cancel-in-progress: true
+jobs:
+  actual-existing-geometry-not-new-city:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm protected original and compile independent pre-model validator
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r8c-real-source-route-clearance.py
+      - name: Retrieve immutable native camera source, four-route R8B, all moving envelopes and source CX landing
+        run: |
+          mkdir -p test-results/g4e7dz-r8c/source-r1 test-results/g4e7dz-r8c/source-r8b test-results/g4e7dz-r8c/source-r4 test-results/g4e7dz-r8c/source-r5a
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r8c/source-r1
+          gh run download 40678683173 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R8B_TIME_ORDERED_ROUTE_GRAPH_NO_ART_HOLD \
+            --dir test-results/g4e7dz-r8c/source-r8b
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r8c/source-r4
+          gh run download 40635016206 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R5A_PRIVATE_SOURCE_CX_B48_CONNECTION_HOLD \
+            --dir test-results/g4e7dz-r8c/source-r5a
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Independently recheck actual source 13-camera rays, 3m corridor half width and floor support gaps
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r8c/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r8c-real-source-route-clearance.py -- \
+              --source "test-results/g4e7dz-r8c/source-r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r8c/source-r1/source/$r.json" \
+              --r8b "test-results/g4e7dz-r8c/source-r8b/R8B_$r"_TEMPORAL_GRADE_GRAPH.json \
+              --contact "test-results/g4e7dz-r8c/source-r5a/result-$r/R5A_$r"_SOURCE_CONTACT.json \
+              --hazards "test-results/g4e7dz-r8c/source-r4/source/$r.json" \
+              --road "$r" --out "test-results/g4e7dz-r8c/result-$r"
+          done
+      - name: Ensure real route, camera revalidation, false-source-collision veto and no false passage approval
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          root='test-results/g4e7dz-r8c'
+          reports=glob.glob(root+'/result-*/*_SOURCE_ROUTE_CLEARANCE.json')
+          assert len(reports)==2,reports
+          assert {json.load(open(f))['road'] for f in reports}=={'true-pinch','pinch-switch'}
+          for f in reports:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r8c-actual-source-route-structure/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['sourceIdentityProtected'] and d['realCxLandingFaceWithin2_5cm']
+           assert (d['sourceCX'],d['sourceB48'],d['sourceB51'],d['originalCameras'])==(18,7,28,5)
+           assert len(d['trueOriginalRoute4EdgeStudy'])==4 and len(d['sourceRayReverificationVsR8A'])==4
+           assert d['allRolesAndTimeProgression']
+           assert d['originalCameraAll13TimesReverified']
+           assert all(x['original13CameraSiteClearFramesAgree'] for x in d['sourceRayReverificationVsR8A'])
+           assert all(x['12mCorridorSampleCount']>0 for x in d['trueOriginalRoute4EdgeStudy'])
+           assert d['physicalContinuousPedestrianCityPath']=='NOT_CERTIFIED'
+           assert d['structuralBearingAndLongSpanSupport']=='NOT_PROVEN'
+           assert not d['sourceCXEntryPublicFloorBuilt'] and not d['artInterior3DExists']
+           assert d['newBlenderCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+           assert all(d[x]=='HOLD' for x in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R8C_ACTUAL_SOURCE_SPATIAL_PATH',d['road'],
+             [(x['from'],x['to'],
+               x['centerAnd3mSideOriginalMeshTriangleHitCount'],
+               x['samplesWithExistingUpwardFloorBelowWithin25m'],
+               x['12mCorridorSampleCount']) for x in d['trueOriginalRoute4EdgeStudy']])
+          print('R8C_SUCCESS_MUST_NOT_TRIGGER_ART_OR_GAME_MERGE')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R8C_REAL_ORIGINAL_ROUTE_SUPPORT_13_CAMERA_HOLD
+          path: test-results/g4e7dz-r8c/result-*/
+          retention-days: 7
+          if-no-files-found: warn

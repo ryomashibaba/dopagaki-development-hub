@@ -50,8 +50,16 @@ export class Runner{
   // then use moving *surface* velocity to resolve relative normal motion.
   const fraction=clamp(moving.interpolation,0,1);
   this.p=add(this.p,mul(delta,fraction));this.collisions++;
+  // G5-A: observational diagnostics only; do not modify the contact impulse.
+  const velocityBefore=[...this.v];
   const response=movingContactResponse(ob,this.v,moving);
-  this.events.push({type:'moving-contact',id:moving.obstacleId,mode:response.mode,t:moving.time,normal:moving.normal,position:[...this.p],deltaVelocity:[...response.deltaVelocity]});
+  this.events.push({type:'moving-contact',id:moving.obstacleId,obstacleType:ob.type,
+   mode:response.mode,t:moving.time,normal:[...moving.normal],position:[...this.p],
+   velocityBefore,velocityAfter:[...response.velocity],forward:[...this.forward],
+   forwardBeforeMps:dot(velocityBefore,this.forward),
+   forwardAfterMps:dot(response.velocity,this.forward),
+   surfaceVelocity:response.surfaceVelocity?[...response.surfaceVelocity]:null,
+   deltaVelocity:[...response.deltaVelocity]});
   if(response.mode==='fail'){this.fail('赤い障害物に衝突（移動障害物）');break;}
   // Two opposing closing moving surfaces cannot both be satisfied by one
   // contact impulse. A ball sandwiched between them must fail closed, not pass
@@ -85,12 +93,21 @@ export class Runner{
   continue;
  }
  if(!hit){this.p=add(this.p,delta);remaining=0;break;}
+ const fixedVelocityBefore=[...this.v];
  this.p=add(this.p,mul(delta,Math.max(0,hit.time-1e-5)));const inward=dot(this.v,hit.normal);if(inward<0)this.v=sub(this.v,mul(hit.normal,inward));this.p=add(this.p,mul(hit.normal,.0003));remaining*=1-hit.time;this.collisions++;
  if(hit.triangle.part==='fixture'){
   const id=hit.triangle.surface.slice('fixture:'.length),fixture=this.doc.fixtures?.find(f=>f.id===id);
   if(['danger','block','wall'].includes(fixture?.kind)){this.fail('赤い障害物に衝突');break;}
  }
- if(!hit.triangle.rideable&&-inward>10){this.fail('衝突専用面へ衝突');break;}
+ if(!hit.triangle.rideable&&-inward>10){
+  // G5-A: distinguish lethal static surfaces from prior moving-machine contacts.
+  this.events.push({type:'static-fatal-contact',t:this.time,
+   surface:hit.triangle.surface??null,part:hit.triangle.part??null,
+   normal:[...hit.normal],position:[...this.p],velocityBefore:fixedVelocityBefore,
+   forward:[...this.forward],forwardBeforeMps:dot(fixedVelocityBefore,this.forward),
+   inwardNormalMps:inward});
+  this.fail('衝突専用面へ衝突');break;
+ }
  }
  // A contact may consume all five conservative substeps at nearly zero TOI.
  // The remaining physics time is UNSOLVED. Do not carry on with a falsely

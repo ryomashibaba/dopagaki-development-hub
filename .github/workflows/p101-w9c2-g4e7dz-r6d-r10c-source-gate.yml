@@ -1,0 +1,100 @@
+name: G4E-7DZ R6D-R10C provenance-gated stop for bounded source geometry studies
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r10c-dual-strategy-decision.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r10c-source-gate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: r10c-independent-original-source-gate
+  cancel-in-progress: true
+jobs:
+  verify-source-research-and-stop-misleading-art-promotion:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm immutable source, compile R10C
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r10c-dual-strategy-decision.py
+      - name: Reuse actual R10AB Blender/source artifacts and R8E/R9D historical findings
+        run: |
+          mkdir -p test-results/g4e7dz-r10c/ab test-results/g4e7dz-r10c/r8e test-results/g4e7dz-r10c/r9d
+          gh run download 40683577944 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R10AB_ORIGINAL_SOURCE_CX_TRUE_VOID_AND_PIER_GRID_ART_HOLD \
+            --dir test-results/g4e7dz-r10c/ab
+          gh run download 40679711147 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R8E_REAL_SOURCE_SHORT_CX_FLOOR_SIXMETRE_RESEARCH_HOLD \
+            --dir test-results/g4e7dz-r10c/r8e
+          gh run download 40682620751 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R9D_TRUE_CX_FLOOR_VOLUME_FALSE_PASS_STOP_HOLD \
+            --dir test-results/g4e7dz-r10c/r9d
+      - name: Quantify bounded R10A and R10B failures for both original physical roads
+        run: |
+          for r in true-pinch pinch-switch; do
+            python3 scripts/p101-w9c2-g4e7dz-r6d-r10c-dual-strategy-decision.py \
+              --r10a "test-results/g4e7dz-r10c/ab/result-$r/R10A_$r"_ORIGINAL_CX_VOID_SURVEY.json \
+              --r10b "test-results/g4e7dz-r10c/ab/result-$r/R10B_$r"_BRIDGE_SOURCE_SUPPORT.json \
+              --r8e "test-results/g4e7dz-r10c/r8e/result-$r/R8E_$r"_CX_EARLY_SIX_METRE_SOURCE.json \
+              --r9d "test-results/g4e7dz-r10c/r9d/R9D_$r"_SOURCE_PREMODEL_STOP.json \
+              --out "test-results/g4e7dz-r10c/R10C_$r"_EVIDENCE_STOP.json
+          done
+      - name: Independently test completeness and no false art/bridge certification
+        run: |
+          python3 - <<'PY'
+          import json,glob,copy,importlib.util
+          root='test-results/g4e7dz-r10c'
+          reports=glob.glob(root+'/R10C_*_EVIDENCE_STOP.json')
+          assert len(reports)==2,reports
+          assert {json.load(open(x))['road'] for x in reports}=={'true-pinch','pinch-switch'}
+          for f in reports:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r10c-independent-provenance-design-veto/1'
+           assert d['originalCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['R10AOriginalSourceSamples']==486
+           assert d['R10AOriginalEnclosedEmptyCxVolumeCount']==0
+           assert d['R10AOriginalNativeCameraVisibleEmptyCxVolumeCount']==0
+           assert d['R10BOriginalCxGeometricPotentialStations']<d['R10BOriginalCXFoundationStations']
+           assert not d['R10BOriginalEndpointCXFoundationOpportunity']
+           assert not d['R10BAllBridgeStationsSourceCxPotential']
+           assert d['boundedSurveyCannotExcludeUnsampledOriginalCxVoids']
+           assert d['R9DOriginalCxDirectPushInArtGate']=='STOP_CURRENT_DIRECT_CX_FLOOR_CITY_MODEL_NO_GEOMETRIC_POCKET'
+           assert d['decision']=='STOP_BOTH_SPECIFIC_R10_HYPOTHESES_NO_REJECTED_ART_RECYCLE'
+           assert not d['newStructuralFoundationEngineered']
+           assert not d['originalHumanIngressAndContinuousWalkGraphProven']
+           assert not d['visualArtCandidateAuthorized']
+           assert not d['continuouslyMovingB51DynamicsVerified']
+           assert d['newGameOrResearchMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R10C_REAL_SOURCE_STOP',d['road'],
+             'original source void in bounded study',d['R10AOriginalEnclosedEmptyCxVolumeCount'],
+             'pier station witnesses',d['R10BOriginalCxGeometricPotentialStations'],
+             'of',d['R10BOriginalCXFoundationStations'])
+          spec=importlib.util.spec_from_file_location('r10c','scripts/p101-w9c2-g4e7dz-r6d-r10c-dual-strategy-decision.py')
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          road='true-pinch'
+          r10a=json.load(open(f'{root}/ab/result-{road}/R10A_{road}_ORIGINAL_CX_VOID_SURVEY.json'))
+          r10b=json.load(open(f'{root}/ab/result-{road}/R10B_{road}_BRIDGE_SOURCE_SUPPORT.json'))
+          r8e=json.load(open(f'{root}/r8e/result-{road}/R8E_{road}_CX_EARLY_SIX_METRE_SOURCE.json'))
+          r9d=json.load(open(f'{root}/r9d/R9D_{road}_SOURCE_PREMODEL_STOP.json'))
+          a=copy.deepcopy(r10a);a['realNativeCameraVisibleEnclosedExistingCxVoidCandidates']=1
+          assert not m.decide(a,r10b,r8e,r9d)['visualArtCandidateAuthorized']
+          b=copy.deepcopy(r10b);b['allStationsAtLeastOneGeometricPotentialFooting']=True
+          assert not m.decide(r10a,b,r8e,r9d)['visualArtCandidateAuthorized']
+          assert m.decide(r10a,b,r8e,r9d)['decision'].startswith('STOP_')
+          print('R10C_FAKE_ART_VISIBLE_COUNT_AND_FALSE_PIER_SUMMARY_CANNOT_OVERRIDE_EVIDENCE')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R10C_BOUNDED_ORIGINAL_CX_VOID_AND_BRIDGE_VETO_ART_HOLD
+          path: test-results/g4e7dz-r10c/R10C_*_EVIDENCE_STOP.json
+          retention-days: 7
+          if-no-files-found: warn

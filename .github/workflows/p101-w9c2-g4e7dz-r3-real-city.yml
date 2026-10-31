@@ -1,0 +1,90 @@
+name: G4E-7DZ R3 PRIVATE actual source-world Blender carved city ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r3-carved-city-blender.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r3-real-city.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r3-actual-city-private-unadopted
+  cancel-in-progress: true
+jobs:
+  genuine-original-world-blender:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Refuse drift in preserved original CX source, static Python audit
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r3-carved-city-blender.py
+          node --test tests/p101-w9c2-g4e7dy-r1-approach-plan.test.mjs
+      - name: Fetch REAL original DR Blender scenes from frozen DY R1 run
+        run: |
+          mkdir -p test-results/g4e7dz-r3/source
+          gh run download 40587470014 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DY_R1_ORIGINAL_B48_SKY_CIVIC_CITY_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r3/source
+          python3 - <<'PY'
+          import json,os
+          root='test-results/g4e7dz-r3/source'
+          a=json.load(open(root+'/G4E7DY_R1_NATIVE_APPROACH_SPATIAL_DATA.json'))
+          assert a['originalB48']==7 and a['originalB51']==28 and a['newColliders']==0
+          for road in ('true-pinch','pinch-switch'):
+           assert os.path.exists(root+'/dr-'+road+'/G4E7DR_'+road+'_B48_B51_240HZ_EDITABLE_ART_HOLD.blend')
+          PY
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Native exact source camera render of ONE 3D architecture on both real roads
+        run: |
+          blender --version | head -n 2
+          for road in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r3/r3-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 5 --python scripts/p101-w9c2-g4e7dz-r3-carved-city-blender.py -- \
+              --source "test-results/g4e7dz-r3/source/dr-$road/G4E7DR_$road"_B48_B51_240HZ_EDITABLE_ART_HOLD.blend \
+              --site-report test-results/g4e7dz-r3/source/G4E7DY_R1_NATIVE_APPROACH_SPATIAL_DATA.json \
+              --road "$road" --out "test-results/g4e7dz-r3/r3-$road"
+          done
+      - name: Independently reject false game/art/human assertions
+        run: |
+          python3 - <<'PY'
+          import glob,json,os
+          root='test-results/g4e7dz-r3/r3-*'
+          png=glob.glob(root+'/*.png');blend=glob.glob(root+'/*.blend')
+          audits=glob.glob(root+'/*REAL3D_AUDIT.json')
+          assert len(png)==8,(len(png),png)
+          assert len(blend)==2,(len(blend),blend)
+          assert len(audits)==2,audits
+          for f in audits:
+           d=json.load(open(f))
+           assert (d['originalCX'],d['originalB48'],d['originalB51'],d['originalNativeCameras'])==(18,7,28,5)
+           assert d['genuineMeshApertures']==2 and 18<=d['actualEditableNewMeshes']<=30
+           assert d['newGameColliders']==d['artAdoptionCount']==d['officialSlope2Meters']==0
+           assert not d['sourcePhysicsChanged']
+           assert d['actualNewCityWebGL']=='NOT_RENDERED' and d['humanPlay']=='NOT_RUN'
+           assert d['art']==d['publish']==d['merge']=='HOLD'
+           assert len(d['realRenderedBlenderFrames'])==4
+           assert len(d['actualNativeCameraDepthAndRayAudits'])==4
+           assert not d['sourceRoadTriangleIntersections'],d['sourceRoadTriangleIntersections']
+           assert all(not hit for hit in d['B51AtFourOriginalFramesIntersections'].values())
+          print('DZ_R3_TRUE_BLENDER_SOURCE_WORLD_NO_PHYSICAL_COLLISIONS_NO_ART_ADOPTION')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R3_ACTUAL_EDITABLE_BLENDER_NATIVE_CAMERAS_PRIVATE_UNADOPTED
+          path: |
+            test-results/g4e7dz-r3/r3-*
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6

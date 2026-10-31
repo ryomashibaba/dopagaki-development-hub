@@ -1,0 +1,80 @@
+name: W9-C2 G4E-7L massive rift/skyseam 3D native-road-anchored WebGL
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/p101-w9c2-g4e7l-titan.mjs'
+      - 'tests/p101-w9c2-g4e7l-titan.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7l-titan.spec.mjs'
+      - 'scripts/build.mjs'
+      - 'web/drive3d.mjs'
+      - '.github/workflows/p101-w9c2-g4e7l-titan.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e7l-titan-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  real-titan-webgl:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      DOPAGAKI_G4E7G_VISUAL: '1'
+      DOPAGAKI_BUILD_DIR: dist-private
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate two tectonic districts anchored to real B48; W7F original untouched
+        run: |
+          node --check web/p101-w9c2-g4e7l-titan.mjs
+          node --check web/drive3d.mjs
+          node --test tests/p101-w9c2-g4e7l-titan.test.mjs tests/p101-w9c2-g4e7g-visual-stage.test.mjs tests/p101-a13-road-art.test.mjs
+      - name: Preserve native 240Hz full seven-road physics at Gold and proven Glide
+        run: |
+          node --input-type=module -e '
+          import fs from "node:fs";
+          import {g4e7fNativeRun} from "./scripts/p101-w9c2-g4e7f-native-matrix.mjs";
+          const gold=g4e7fNativeRun("GOLD"),glide=g4e7fNativeRun("glide");
+          fs.writeFileSync("g4e7l-physics.json",JSON.stringify({gold,glide,certifiedSlope2Meters:0,visualStudyOnly:true},null,2)+"\n");
+          if(!gold.finished||!glide.finished||!gold.allSevenInOrder||!glide.allSevenInOrder||
+            gold.originalMovingCount!==28||glide.originalMovingCount!==28||
+            gold.hz!==240||glide.hz!==240||gold.initialSpeedMps!==52||glide.initialSpeedMps!==52||
+            glide.approvedSlopeDnaMeters!==0||glide.elapsedSeconds>gold.elapsedSeconds+3)
+           throw Error("G4E7L may not claim scenic 3D geometry as physics or change Gold native proof");
+          console.log(JSON.stringify({goldSec:gold.elapsedSeconds,glideSec:glide.elapsedSeconds,
+            goldPeak:gold.peakSpeedMps,glidePeak:glide.peakSpeedMps}));
+          '
+      - name: Install pinned Chromium on supported host
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Private GLIDE and GOLD research-only assets
+        run: |
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E7G_GLIDE_LOCAL_VISUAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7G_GOLD_LOCAL_VISUAL.json
+      - name: Real 3D WebGL captures of two huge architectures at two actual B48 road viewpoints
+        run: npx playwright test tests/browser/p101-w9c2-g4e7l-titan.spec.mjs
+      - name: Public builds never contain private GLIDE candidates
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7G_GLIDE_LOCAL_VISUAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7G_GLIDE_LOCAL_VISUAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7l-massive-rift-real-webgl-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7l-*.png
+            test-results/**/g4e7l-*.json
+            g4e7l-physics.json
+            test-results/**/test-failed-*.png
+            test-results/**/error-context.md
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 10

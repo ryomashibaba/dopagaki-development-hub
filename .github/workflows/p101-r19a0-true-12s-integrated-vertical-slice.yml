@@ -1,0 +1,56 @@
+name: R19 A0 true 12s gameplay and existing city vertical slice private
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r19a0-real-12s-integrated-gameplay-city.mjs'
+      - 'tests/p101-r19a0-12s-integrated-source-play-and-art.test.mjs'
+      - '.github/workflows/p101-r19a0-true-12s-integrated-vertical-slice.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: r19a0-integrated-native-browser-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  r19a0:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      DOPAGAKI_BUILD_DIR: dist-site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify protected original Git blob and isolated 7 road/28 B51 candidate sources
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r19a0-real-12s-integrated-gameplay-city.mjs
+          node --test tests/p101-w9c1-physical.test.mjs tests/p101-w9c1-cue.test.mjs tests/p101-w9c1-g5b-skyline.test.mjs
+      - name: REAL 240Hz native 12 second 28m versus 14m and noncolliding existing city
+        run: |
+          node --test tests/p101-r19a0-12s-integrated-source-play-and-art.test.mjs
+          node scripts/p101-r19a0-real-12s-integrated-gameplay-city.mjs r19-evidence/R19A0_FIRST_12S_REAL_NATIVE_PLAY_CITY.json
+          test -s r19-evidence/R19A0_FIRST_12S_REAL_NATIVE_PLAY_CITY.json
+      - name: Install original Chromium actual WebGL2 browser test dependencies
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Build actual PRIVATE W9-C1 road and opt-in skyline review page
+        run: npm run build:site
+      - name: Reuse original WebGL screenshots (CONTROL/ULTRA and noncolliding G5B, same-spawn)
+        run: npx playwright test tests/browser/p101-w9c1-g5b-skyline.spec.mjs
+      - name: Keep 12s native gameplay and original WebGL2 city evidence together, not an ART pass
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: R19_A0_REAL_FIRST_12S_CONTROL_ULTRA_GAMEPLAY_CITY_HOLD
+          path: |
+            r19-evidence/R19A0_FIRST_12S_REAL_NATIVE_PLAY_CITY.json
+            test-results/**/w9c1-g5b-*.png
+            test-results/**/w9c1-g5b-visual-audit.json
+            test-results/**/test-failed-*.png
+            test-results/**/error-context.md
+          if-no-files-found: warn
+          retention-days: 7

@@ -1,0 +1,84 @@
+name: G4E-7DZ R6D-R3 PRIVATE genuine road-internal air district safety and ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r3-road-internal-air-city.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r3-internal-air.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r6d-r3-internal-air-private
+  cancel-in-progress: true
+jobs:
+  authentic-source-air-city:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check protected CX and script
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r3-road-internal-air-city.py
+      - name: Reuse actual R1 240Hz scene and R5 original CX contact
+        run: |
+          mkdir -p test-results/g4e7dz-r6d-r3/source-r1 test-results/g4e7dz-r6d-r3/source-r5a
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r6d-r3/source-r1
+          gh run download 40635016206 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R5A_PRIVATE_SOURCE_CX_B48_CONNECTION_HOLD \
+            --dir test-results/g4e7dz-r6d-r3/source-r5a
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Render two real source scenes in seven actual running cameras
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r6d-r3/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r3-road-internal-air-city.py -- \
+              --source "test-results/g4e7dz-r6d-r3/source-r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --contact "test-results/g4e7dz-r6d-r3/source-r5a/result-$r/R5A_$r"_SOURCE_CONTACT.json \
+              --timeline "test-results/g4e7dz-r6d-r3/source-r1/source/$r.json" \
+              --road "$r" --out "test-results/g4e7dz-r6d-r3/result-$r"
+          done
+      - name: Independent QA of original geometry protection, overlap and image evidence
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          root='test-results/g4e7dz-r6d-r3'
+          reports=glob.glob(root+'/result-*/*_AUDIT.json')
+          blend=glob.glob(root+'/result-*/*.blend')
+          png=glob.glob(root+'/result-*/*.png')
+          assert len(reports)==len(blend)==2 and len(png)==14,(reports,blend,len(png))
+          assert {json.load(open(f))['road'] for f in reports}=={'true-pinch','pinch-switch'}
+          for f in reports:
+            d=json.load(open(f))
+            assert d['schema']=='dopagaki.g4e7dz-r6d-r3-road-internal-private/1'
+            assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+            assert (d['sourceCX'],d['sourceB48'],d['sourceB51'],d['sourceCameras'])==(18,7,28,5)
+            assert d['sourceIdentityPreserved'] and d['gap52']
+            assert d['newCityMeshes']>=26 and len(d['genuineBlenderPngs'])==7
+            assert len(d['B51ThirteenSampleIntersections'])==13
+            assert d['all28ContinuousTimeMovingObstacleSafety']=='NOT_PROVEN'
+            assert d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+            assert d['sourceGameChanged'] is False and d['newCityWebGL']=='NOT_RENDERED'
+            assert all(d[k]=='HOLD' for k in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+            print('R3_SOURCE_ACTUAL_PROTOTYPE',d['road'],'meshes',d['newCityMeshes'],
+              'road_triangle_hits',len(d['originalB48TriangleIntersections']),
+              'B51_sample_hits',sum(map(len,d['B51ThirteenSampleIntersections'].values())),
+              'CX_overlap',len(d['originalCXTriangleIntersections']))
+          print('R3_BUILD_SUCCESS_DOES_NOT_CERTIFY_SAFETY_OR_ART')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R6D_R3_ROAD_INTERNAL_REAL_BLENDER_PRIVATE_ART_HOLD
+          path: test-results/g4e7dz-r6d-r3/result-*/
+          if-no-files-found: warn
+          retention-days: 7

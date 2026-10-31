@@ -1,0 +1,39 @@
+name: W9-C2 G4E-7AX actual continuous long-CROWN B48 gameplay experiment
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7ax-long-crown.mjs'
+      - 'scripts/p101-w9c2-g4e7ax-compare.mjs'
+      - 'tests/p101-w9c2-g4e7ax-long-crown.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ax-long-crown.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7ax-real-long-crown-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  physical-narrow-crown-native240:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify actual 31x5 B48 taper, real CROWN CHASM cores and all 28 native B51
+        run: |
+          node --check scripts/p101-w9c2-g4e7ax-long-crown.mjs
+          node --test tests/p101-w9c2-g4e7ax-long-crown.test.mjs
+      - name: Genuine 240Hz start00 AV-versus-AX 21-second comparative race
+        run: |
+          node scripts/p101-w9c2-g4e7ax-compare.mjs g4e7ax-native-evidence.json
+          test -s g4e7ax-native-evidence.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ax-long-crown-native-nonhuman
+          path: g4e7ax-native-evidence.json
+          if-no-files-found: ignore
+          retention-days: 14

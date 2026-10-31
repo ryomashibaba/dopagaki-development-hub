@@ -1,0 +1,63 @@
+{
+  "schema": "dopagaki.g4e7bq-rejected-private-art-archive/1",
+  "sourceRun": 40166540111,
+  "sourceCommit": "88abaa2207ac8cd7175f1bedf67a98a557e66afa",
+  "branch": "p101-velocity-overdrive-native-trial",
+  "sourceType": "SIX_GENUINE_CHROMIUM_P96_240HZ_SCRIPTED_CAMERA_FRAMES_NOT_HUMAN",
+  "speedsMps": [
+    122.9,
+    112.2,
+    125.8
+  ],
+  "officialSlope2CertifiedMeters": 0,
+  "techQA": "PASS",
+  "visualArt": "REJECT",
+  "humanFairness": "HOLD",
+  "publish": "FORBIDDEN",
+  "readyToMerge": false,
+  "detailedAudit": "docs/W9C2_G4E7BP_ART_FIRST_ASSET_INTAKE_HOLD_JA.md",
+  "copyright": "CODE_AUTHORED_EXISTING_REPO_NOT_BLENDER",
+  "immutableReviewEvidence": true,
+  "files": [
+    {
+      "path": "glb/P101_A13_W9C2_G4E7BO_PINCH_SWITCH_FRAMED_LOCAL.glb",
+      "bytes": 247360,
+      "sha256": "56cbc22c71d22b9c286adaf4b48f23015c69675274eb957ee07a28fae0607ddb"
+    },
+    {
+      "path": "glb/P101_A13_W9C2_G4E7BO_TRUE_PINCH_FRAMED_LOCAL.glb",
+      "bytes": 247356,
+      "sha256": "6d89b833732a2b625b7df109a9eda920df869c889c4c4f00b47e23e26470390a"
+    },
+    {
+      "path": "webgl/g4e7bo-BN-old-pinch-switch-t1700.png",
+      "bytes": 147778,
+      "sha256": "b3f5728cd6f8b0e009f1d5c0604fec31f7d49db0563665d3b4705e3d4fc88591"
+    },
+    {
+      "path": "webgl/g4e7bo-BN-old-pinch-switch-t1850.png",
+      "bytes": 119680,
+      "sha256": "e0e140e6d0b416e0b9f30d0d26bf273c52bcd33e0dedc41954b3b5bde2fb9638"
+    },
+    {
+      "path": "webgl/g4e7bo-BN-old-true-pinch-t1850.png",
+      "bytes": 122781,
+      "sha256": "d7e00fd939b2d461469bb3bbf5d2961c92cc1c31e59f493eaee0ff6e8ff1844e"
+    },
+    {
+      "path": "webgl/g4e7bo-BO-framed-pinch-switch-t1700.png",
+      "bytes": 145905,
+      "sha256": "25a9a36f2a5441463185964788059943d1d5c2b8c0bff9cfd938fe84f12072d0"
+    },
+    {
+      "path": "webgl/g4e7bo-BO-framed-pinch-switch-t1850.png",
+      "bytes": 121338,
+      "sha256": "fe1f8de2c52c126a29046cba6a017c2403423013009e717cfd57c3ea36f03146"
+    },
+    {
+      "path": "webgl/g4e7bo-BO-framed-true-pinch-t1850.png",
+      "bytes": 124475,
+      "sha256": "29b5d9dca46f423329175f7ae036e3ffb66752379a357dc257680b963dfd86af"
+    }
+  ]
+}

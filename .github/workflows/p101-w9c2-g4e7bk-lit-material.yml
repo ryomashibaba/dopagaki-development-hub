@@ -1,0 +1,76 @@
+name: G4E-7BK TRUE glTF material city private real-native WebGL
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7bk-glb-author.mjs'
+      - 'web/p101-w9c2-g4e7bk-lit-glb.mjs'
+      - 'tests/p101-w9c2-g4e7bk-material-glb.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7bk-material-glb.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7bk-lit-material.yml'
+      - 'scripts/build.mjs'
+      - 'web/drive3d.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7bk-glb-material-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  actual-b48-lit-glb-chromium:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CI: 'true'
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+      DOPAGAKI_G4E7BK_VISUAL: '1'
+      DOPAGAKI_BUILD_DIR: 'dist-private'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Genuine two roads GLB2 normals six materials independent physics test
+        run: |
+          node --check scripts/p101-w9c2-g4e7bk-glb-author.mjs
+          node --check web/p101-w9c2-g4e7bk-lit-glb.mjs
+          node --check web/drive3d.mjs
+          node --check scripts/build.mjs
+          node --test tests/p101-w9c2-g4e7bk-material-glb.test.mjs
+      - name: Install real Chromium WebGL2
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Generate two actual GLB2 binaries only inside private BC distribution
+        run: |
+          node scripts/build.mjs private
+          test -s dist-private/generated/P101_A13_W9C2_G4E7BK_TRUE_PINCH_LIT_LOCAL.glb
+          test -s dist-private/generated/P101_A13_W9C2_G4E7BK_PINCH_SWITCH_LIT_LOCAL.glb
+          test -s dist-private/generated/P101_A13_W9C2_G4E7BG_240HZ_FRAMES_LOCAL.json
+      - name: Real WebGL2 lit material city vs rejected BJ and 240Hz human-control isolation
+        run: npx playwright test tests/browser/p101-w9c2-g4e7bk-material-glb.spec.mjs
+      - name: Public and public-safe have NO experimental GLB assets, BC road or BG frames
+        run: |
+          node scripts/build.mjs public
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7BK_TRUE_PINCH_LIT_LOCAL.glb
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7BK_PINCH_SWITCH_LIT_LOCAL.glb
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7BC_TRUE_PINCH_ROLLDECK_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7BG_240HZ_FRAMES_LOCAL.json
+          node scripts/build.mjs public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7BK_TRUE_PINCH_LIT_LOCAL.glb
+          test ! -e dist/generated/P101_A13_W9C2_G4E7BK_PINCH_SWITCH_LIT_LOCAL.glb
+          test ! -e dist/generated/P101_A13_W9C2_G4E7BG_240HZ_FRAMES_LOCAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7bk-real-binary-lit-glb-WebGL-human-HOLD
+          path: |
+            dist-private/generated/P101_A13_W9C2_G4E7BK_*_LIT_LOCAL.glb
+            test-results/**/g4e7bk-*.png
+            test-results/**/g4e7bk-*.json
+            test-results/**/test-failed*.png
+            test-results/**/error-context.md
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 14

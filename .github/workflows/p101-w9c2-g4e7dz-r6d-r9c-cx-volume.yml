@@ -1,0 +1,94 @@
+name: G4E-7DZ R6D-R9C PRIVATE actual 3D pocket on original CX real floor
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r9c-original-cx-void-search.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r9c-cx-volume.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: r9c-real-cx-original-pocket
+  cancel-in-progress: true
+jobs:
+  source-3d-pocket-validation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original protected source and Python script syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r9c-original-cx-void-search.py
+      - name: Reuse proven R9A and R9B source audits and full original moving source
+        run: |
+          mkdir -p test-results/g4e7dz-r9c/r1 test-results/g4e7dz-r9c/r4 test-results/g4e7dz-r9c/r9a test-results/g4e7dz-r9c/r9b
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r9c/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r9c/r4
+          gh run download 40681660432 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R9A_BRIDGE_FREE_ORIGINAL_CX_FLOOR_REAL_CAMERAS_HOLD \
+            --dir test-results/g4e7dz-r9c/r9a
+          gh run download 40681964142 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R9B_B48_CX_B51_REAL_8M_VOLUME_GATE_ART_HOLD \
+            --dir test-results/g4e7dz-r9c/r9b
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Attempt 6m volume on actual source polygon, real CX/B48/B51 narrow-phase and frame-camera study
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r9c/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r9c-original-cx-void-search.py -- \
+              --source "test-results/g4e7dz-r9c/r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r9c/r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r9c/r4/source/$r.json" \
+              --r9a "test-results/g4e7dz-r9c/r9a/result-$r/R9A_$r"_EXISTING_CX_FLOOR_AND_EARLY_CAMERA.json \
+              --r9b "test-results/g4e7dz-r9c/r9b/result-$r/R9B_$r"_REAL_EIGHT_METRE_VOLUME_AUDIT.json \
+              --road "$r" --out "test-results/g4e7dz-r9c/result-$r"
+          done
+      - name: Independently verify selected original polygon, source collision zero, no art promotion
+        run: |
+          python3 - <<'PY'
+          import glob,json
+          files=glob.glob('test-results/g4e7dz-r9c/result-*/*_TRUE_CX_ORIGINAL_3D_POCKET.json')
+          assert len(files)==2,files
+          for f in files:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r9c-original-floor-void-grid-search/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['sourcePreservedCX18B48_7B51_28'] and d['r9bOriginalZeroClearCandidates']
+           assert d['originalCxFloorSamePolygonPadCentersTested']>=0
+           assert d['realExistingFloorSpatialPocketCandidates']>=0
+           assert d['researchFootprintMetres']==[6,6,23.2]
+           for x in d['top12ClearPhysicalVolumeCandidates']:
+            assert x['sourceFourCornersSamePolygon']
+            assert not x['originalStaticSourceIntersectionPairs']
+            assert not x['B51_28Moving721TickSampleEnvelopeWarnings']
+            assert x['room6x6x23mResearchSourceClear']
+            assert len(x['originalFiveCameraUnoccludedMultiFloorPoint'])>=2
+           assert not d['newGameArchitectureActuallyBuilt']
+           assert not d['originalCxHumanEntryAccessCertified'] and not d['safeStructuralLoadBearingCertified']
+           assert d['newBlenderCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R9C_REAL_SOURCE_3D_POCKET',d['road'],
+              'tested',d['originalCxFloorSamePolygonPadCentersTested'],
+              'genuine physically empty',d['realExistingFloorSpatialPocketCandidates'],
+              'best',d['bestRealSourceResearchPocket']['centerWorld'] if d['bestRealSourceResearchPocket'] else 'NONE')
+          print('R9C_SUCCESS_IS_ONLY_TRUE_SOURCE_POCKET_RESEARCH')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R9C_TRUE_ORIGINAL_CX_COURT_POCKET_3D_RESEARCH_ART_HOLD
+          path: test-results/g4e7dz-r9c/result-*/
+          retention-days: 7
+          if-no-files-found: warn

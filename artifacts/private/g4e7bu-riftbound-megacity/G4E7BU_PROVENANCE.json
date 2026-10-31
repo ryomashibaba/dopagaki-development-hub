@@ -1,0 +1,13 @@
+{
+  "schema": "dopagaki-g4e7bu-original-blender-art-study-v1",
+  "authorship": "SCRIPTED_BPY_MODELLING_NOT_HAND_SCULPTED",
+  "model": "RIFTBOUND MEGACITY",
+  "atlas": "ORIGINAL_GENERATED_PNG_PACKED_IN_GLB",
+  "units": "METERS_BLENDER_Z_UP_GLTF_Y_UP",
+  "urbanTypology": "ASYMMETRIC_CONTINUOUS_TECTONIC_CANYON",
+  "gameplayIntegration": "NOT_YET_DONE",
+  "artReview": "HOLD",
+  "humanPlay": "HOLD",
+  "publish": "FORBIDDEN",
+  "officiallyCertifiedSlope2Meters": 0
+}

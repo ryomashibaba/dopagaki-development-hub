@@ -1,0 +1,45 @@
+name: W9-C2 G4E-7U genuine 14m B48 micro-landing native (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7u-micro-landing-build.mjs'
+      - 'scripts/p101-w9c2-g4e7u-micro-landing-native.mjs'
+      - 'tests/p101-w9c2-g4e7u-micro-landing.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7u-micro-landing.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-real-B48-grade:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: True physical B48 and no imaginary catch-floor
+        run: |
+          node --check scripts/p101-w9c2-g4e7u-micro-landing-build.mjs
+          node --check scripts/p101-w9c2-g4e7u-micro-landing-native.mjs
+          node --test tests/p101-w9c2-g4e7u-micro-landing.test.mjs tests/p101-w9c2-g4e7u-one-cell.test.mjs
+      - name: Authentic 240Hz full-run and collision-speed review
+        run: |
+          node scripts/p101-w9c2-g4e7u-micro-landing-native.mjs g4e7u-micro-landing.json
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const x=JSON.parse(fs.readFileSync("g4e7u-micro-landing.json","utf8"));
+          if(x.hz!==240||x.results.length!==7||!x.start00||x.initialSpeed!==52||
+           x.results.some(y=>y.officialSlope2Meters!==0)||
+           x.publication!=="HOLD"||x.officialSlope2Meters!==0)
+           throw Error("Native output must be honest nonpromoted evidence");
+          console.log("G4E7U seven true B48 micro landing outcomes recorded.");
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7u-genuine-narrow-micro-landing-${{ github.run_id }}
+          path: g4e7u-micro-landing.json
+          if-no-files-found: ignore
+          retention-days: 10

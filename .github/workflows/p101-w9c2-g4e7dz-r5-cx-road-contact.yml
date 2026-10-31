@@ -1,0 +1,80 @@
+name: G4E-7DZ R5A PRIVATE genuine CX-B48 connection gate HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r5-cx-road-contact.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r5-cx-road-contact.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r5a-source-connection-private
+  cancel-in-progress: true
+jobs:
+  exact-original-world-contact-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect source CX and compile standalone Blender gate
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r5-cx-road-contact.py
+          node --test tests/p101-w9c2-g4e7dy-r1-approach-plan.test.mjs
+      - name: Fetch original DR world used by R3/R4
+        run: |
+          mkdir -p test-results/g4e7dz-r5a/source
+          gh run download 40587470014 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DY_R1_ORIGINAL_B48_SKY_CIVIC_CITY_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r5a/source
+          python3 - <<'PY'
+          import json,os
+          p='test-results/g4e7dz-r5a/source'
+          x=json.load(open(p+'/G4E7DY_R1_NATIVE_APPROACH_SPATIAL_DATA.json'))
+          assert (x['originalB48'],x['originalB51'],x['newColliders'])==(7,28,0)
+          for r in ('true-pinch','pinch-switch'):
+            assert os.path.isfile(p+'/dr-'+r+'/G4E7DR_'+r+'_B48_B51_240HZ_EDITABLE_ART_HOLD.blend')
+          PY
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Real original-world Blender source contact sweep on BOTH roads
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r5a/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r5-cx-road-contact.py -- \
+              --source "test-results/g4e7dz-r5a/source/dr-$r/G4E7DR_$r"_B48_B51_240HZ_EDITABLE_ART_HOLD.blend \
+              --site-report test-results/g4e7dz-r5a/source/G4E7DY_R1_NATIVE_APPROACH_SPATIAL_DATA.json \
+              --road "$r" --out "test-results/g4e7dz-r5a/result-$r"
+          done
+      - name: Independent no-art-promotion and primary source checks
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          files=glob.glob('test-results/g4e7dz-r5a/result-*/*SOURCE_CONTACT.json')
+          assert len(files)==2,files
+          for f in files:
+            a=json.load(open(f))
+            assert a['schema']=='dopagaki.g4e7dz-r5a-source-contact/1'
+            assert (a['sourceCX'],a['originalB48'],a['originalB51'],a['originalCameras'])==(18,7,28,5)
+            assert a['scanned']>0 and 0<=a['preliminaryCount']<=a['scanned']
+            assert a['actualNewArtMeshes']==a['newGameColliders']==a['officialArt']==a['officialSlope2Meters']==0
+            assert not a['sourceChanged'] and a['gap52']
+            assert a['realWebGL']=='NOT_RENDERED' and a['humanPlay']=='NOT_RUN'
+            assert a['art']==a['release']==a['merge']=='HOLD'
+            for v in a['topCandidates']:
+              assert not v['walkableConnectionCertified'] and not v['newGameCollider']
+          print('R5A_REAL_SOURCE_CONTACT_TECH_AUDIT_COMPLETE_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R5A_PRIVATE_SOURCE_CX_B48_CONNECTION_HOLD
+          path: test-results/g4e7dz-r5a/result-*/R5A_*_SOURCE_CONTACT.json
+          retention-days: 7
+          if-no-files-found: warn

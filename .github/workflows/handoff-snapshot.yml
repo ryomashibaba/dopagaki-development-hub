@@ -1,0 +1,39 @@
+name: DOPAGAKI read-only handoff snapshot
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'PROJECT_STATE.md'
+      - 'docs/**'
+      - 'scripts/generate-handoff.mjs'
+      - 'tests/handoff/**'
+      - '.github/workflows/handoff-snapshot.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: dopagaki-handoff-snapshot-dev
+  cancel-in-progress: true
+jobs:
+  snapshot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 80
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate read-only handoff generator
+        run: node --test tests/handoff/handoff-snapshot.test.mjs
+      - name: Generate fresh git-derived handoff (no repo write)
+        run: node scripts/generate-handoff.mjs > handoff-snapshot.md
+      - name: Ensure original tracked files remain unchanged
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dopagaki-handoff-${{ github.run_id }}
+          path: handoff-snapshot.md
+          if-no-files-found: error
+          retention-days: 7

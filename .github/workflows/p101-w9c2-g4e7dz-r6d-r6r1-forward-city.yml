@@ -1,0 +1,89 @@
+name: G4E-7DZ R6D-R6R1 PRIVATE genuine forward-frustum whole-world city ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-w9c2-g4e7dz-r6d-r6r1-forward-city.py
+      - .github/workflows/p101-w9c2-g4e7dz-r6d-r6r1-forward-city.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r6d-r6r1-forward-world-private
+  cancel-in-progress: true
+jobs:
+  genuine-forward-world-camera-study:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Source identity and R6R1 syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r6r1-forward-city.py
+      - name: Retrieve true original R1 camera, R6 broader source city and all 28×721 hazard envelopes
+        run: |
+          mkdir -p test-results/g4e7dz-r6d-r6r1/source-r1 test-results/g4e7dz-r6d-r6r1/source-r6 test-results/g4e7dz-r6d-r6r1/source-r4
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r6d-r6r1/source-r1
+          gh run download 40674227788 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R6_WORLD_CITY_TRUE_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r6d-r6r1/source-r6
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r6d-r6r1/source-r4
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Extend entire editable world and render true 7 views each physical road
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r6d-r6r1/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r6r1-forward-city.py -- \
+              --source "test-results/g4e7dz-r6d-r6r1/source-r6/result-$r/R6_$r"_WHOLE_WORLD_COARSE_CITY_EDITABLE_UNADOPTED.blend \
+              --native "test-results/g4e7dz-r6d-r6r1/source-r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r6d-r6r1/source-r4/source/$r.json" \
+              --road "$r" --out "test-results/g4e7dz-r6d-r6r1/result-$r"
+          done
+      - name: Independently gate source protection, collision sampling and truthful art status
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          root='test-results/g4e7dz-r6d-r6r1'
+          audits=glob.glob(root+'/result-*/*_AUDIT.json')
+          png=glob.glob(root+'/result-*/*.png')
+          blend=glob.glob(root+'/result-*/*.blend')
+          assert len(audits)==len(blend)==2 and len(png)==14,(len(audits),len(blend),len(png))
+          assert {json.load(open(p))['road'] for p in audits}=={'true-pinch','pinch-switch'}
+          for f in audits:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r6r1-forward-world-camera/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert (d['originalCX'],d['originalB48'],d['originalB51'],d['originalCameras'])==(18,7,28,5)
+           assert d['sourceOldR6WholeCityCount']==73 and d['newR6R1ForwardMeshes']>=20
+           assert d['sourceIdentityUnchanged'] and d['gap52']
+           assert len(d['originalB51True13PoseTriangleIntersections'])==13
+           assert len(d['sevenTrueCameraProjection'])==7 and len(d['genuineBlenderPNGs'])==7
+           assert d['continuousTimeB51Safety']=='NOT_CERTIFIED'
+           assert d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+           assert d['sourceGameChanged'] is False and d['newCityGameWebGL']=='NOT_RENDERED'
+           assert all(d[x]=='HOLD' for x in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R6R1_AUTHENTIC_FORWARD_CITY',d['road'],
+            'new city meshes',d['newR6R1ForwardMeshes'],
+            'source B48 collisions',len(d['originalRoadB48ExactTriangleIntersections']),
+            'source mover AABB warnings',len(d['all28B51_721TickAabbWarnings']),
+            'projection change',[(k,v['newForwardCityMeshesWithPotentialVertex']) for k,v in d['sevenTrueCameraProjection'].items()])
+          print('R6R1_TRUE_RENDER_SUCCESS_NEVER_ART_ADOPTION')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R6D_R6R1_ORIGINAL_CAMERA_FORWARD_WORLD_ART_HOLD
+          path: test-results/g4e7dz-r6d-r6r1/result-*/
+          retention-days: 7
+          if-no-files-found: warn

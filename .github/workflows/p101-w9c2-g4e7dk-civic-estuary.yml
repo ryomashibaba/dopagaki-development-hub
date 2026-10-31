@@ -1,0 +1,53 @@
+name: G4E-7DK civic estuary PRIVATE native game WebGL (ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/p101-w9c2-g4e7dk-civic-estuary.mjs'
+      - 'tests/p101-w9c2-g4e7dk-civic-estuary.test.mjs'
+      - 'scripts/p101-w9c2-g4e7dk-capture.mjs'
+      - '.github/workflows/p101-w9c2-g4e7dk-civic-estuary.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7dk-private-city
+  cancel-in-progress: true
+jobs:
+  genuine-240hz-webgl-urban-composition:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 23
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Existing physics plus new isolated city source integrity
+        run: |
+          node --check web/p101-w9c2-g4e7dk-civic-estuary.mjs
+          node --check scripts/p101-w9c2-g4e7dk-capture.mjs
+          node --test tests/p101-w9c2-g4e7dk-civic-estuary.test.mjs
+      - name: Genuine private engine build only
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          npx playwright install --only-shell chromium
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends fonts-ipafont-gothic
+          fc-cache -f
+          if ! fc-list :lang=ja family | grep -q .; then
+            echo 'Missing required CJK font; cannot certify genuine WebGL screenshots'
+            exit 1
+          fi
+      - name: CX versus DK real original game 12 strict native camera pairs
+        run: node scripts/p101-w9c2-g4e7dk-capture.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DK_PRIVATE_CIVIC_ESTUARY_REAL_WEBGL_ART_HOLD
+          path: test-results/g4e7dk-estuary
+          if-no-files-found: ignore
+          retention-days: 7

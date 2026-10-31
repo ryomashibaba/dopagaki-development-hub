@@ -1,0 +1,54 @@
+name: P101 R15S3D true 240Hz source road forward-speed stall/reverse and next-junction physical study HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d-isolated-scissor-late-velocity-geometry.mjs
+      - scripts/p101-r15s3d-six-original-native-road-speed-and-junction-trials.mjs
+      - scripts/p101-r15s3d-independent-speed-and-junction-veto.py
+      - .github/workflows/p101-r15s3d-genuine-native-forward-speed-junction.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15s3d-6-original-source-real-240hz-geometry-and-honest-speed-stall-junction:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Immutable original blob plus study syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d-isolated-scissor-late-velocity-geometry.mjs
+          node --check scripts/p101-r15s3d-six-original-native-road-speed-and-junction-trials.mjs
+          python3 -m py_compile scripts/p101-r15s3d-independent-speed-and-junction-veto.py
+      - name: Fetch original source R15S3B E P94 real 0-34s B16 prefix to guard against regressions
+        run: |
+          mkdir -p test-results/r15s3d/ref test-results/r15s3d/out
+          gh run download 40866341059 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3B_12_NATIVE_240HZ_FROZEN_CROWN_TRAIL_AWARE_SCISSOR_MACRO_NO_ART_HOLD \
+            --dir test-results/r15s3d/ref
+          test -s test-results/r15s3d/ref/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json
+      - name: Real original B48 240Hz 6 cases with signed speed and physically grounded next-road witness
+        run: |
+          node scripts/p101-r15s3d-six-original-native-road-speed-and-junction-trials.mjs \
+            --r15s3b test-results/r15s3d/ref/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json \
+            --out test-results/r15s3d/out
+      - name: Independent source 240Hz contact/speed and 13 forged human art gameplay certificates veto
+        run: |
+          python3 scripts/p101-r15s3d-independent-speed-and-junction-veto.py \
+            --source test-results/r15s3d/out/R15S3D_TRUE_NATIVE_6_ROAD_SPEED_AND_NEXT_JUNCTION_TRIALS.json \
+            --out test-results/r15s3d/out
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D_6_GENUINE_NATIVE_240HZ_SIGNED_SPEED_AND_REAL_ROAD_JUNCTION_HOLD
+          path: test-results/r15s3d/out/
+          retention-days: 7
+          if-no-files-found: warn

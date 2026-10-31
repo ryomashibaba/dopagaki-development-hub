@@ -1,0 +1,90 @@
+{
+  "technical": "SOURCE_ONLY",
+  "architecturalArt": "UNJUDGED",
+  "human": "HOLD",
+  "gameCamera": "NOT_TESTED",
+  "publish": "FORBIDDEN",
+  "officialSlope2Meters": 0,
+  "files": [
+    {
+      "file": "G4E7BZ_SOURCE_OBLIQUE_TRUE_CYCLES.png",
+      "bytes": 1576494,
+      "sha256": "1c2c8796b85f47a29ca14ee6be3a697fc510afcadfcc53f4dc6f0afd16102410"
+    },
+    {
+      "file": "G4E7BZ_SOURCE_FRONT_TRUE_CYCLES.png",
+      "bytes": 1432871,
+      "sha256": "7e3c927c1b5e9b908237dab623c7c7333cb9639ef325b7f1ff84227b9c442a41"
+    },
+    {
+      "file": "G4E7BZ_BUILT_ARCHITECTURE_ART_ONLY.glb",
+      "bytes": 11639244,
+      "sha256": "528be70e14098686a7162659fe5ced99629f50e4c371d2754dcfbef4eab55343"
+    },
+    {
+      "file": "G4E7BZ_SOURCE_INSPECTION_EDITABLE.blend1",
+      "bytes": 71317479,
+      "sha256": "e87fe7c3a751848f341ca3c12c197ff97f24788b05f31122e04bbd2820ec7fc4"
+    },
+    {
+      "file": "G4E7BZ_BUILD_FRONT_TRUE_CYCLES.png",
+      "bytes": 2432226,
+      "sha256": "7136c1fa70075614036983938ca96151cd4187027162b6367cebd28fe1d9434f"
+    },
+    {
+      "file": "G4E7BZ_SOURCE_SHA256.json",
+      "bytes": 2786,
+      "sha256": "eeaf8073ef669dacba018a78591509922e8b91786a1bc501eba7480257dd5529"
+    },
+    {
+      "file": "G4E7BZ_ACTUAL_ASSEMBLED_FACADE_EDITABLE.blend1",
+      "bytes": 41216497,
+      "sha256": "896238f9345603aeffdeaa96c4a7bf23638d5df8906d8fb92ca65010a206903c"
+    },
+    {
+      "file": "G4E7BZ_SOURCE_COMPONENT_INVENTORY.json",
+      "bytes": 184303,
+      "sha256": "247c8dd4f9686c173fd9c460daf7a769435d35deb4403d3ed003e6ccba92956f"
+    },
+    {
+      "file": "G4E7BZ_EXTERNAL_CC0_FILES.json",
+      "bytes": 659,
+      "sha256": "6456046004174b858ccdff183566ebcdddcde3dcc702a156e91961921daf125c"
+    },
+    {
+      "file": "G4E7BZ_BUILT_PROVENANCE.json",
+      "bytes": 2157,
+      "sha256": "652ab6ec654f5d71daba57719ef839dd0176d6bce45c3a296379b267e235761e"
+    },
+    {
+      "file": "G4E7BZ_SOURCE_INSPECTION_EDITABLE.blend",
+      "bytes": 71317479,
+      "sha256": "9381f90595535b507a400b5144c2083d58ced674d794280c5dd28fc1d78cbdcd"
+    },
+    {
+      "file": "G4E7BZ_BUILD_OBLIQUE_TRUE_CYCLES.png",
+      "bytes": 2194474,
+      "sha256": "b2ca29e8662a3b26ac07e117da9ffe7dab46be68be2a8e242cea5c5e7acd74aa"
+    },
+    {
+      "file": "G4E7BZ_BUILD_AERIAL_TRUE_CYCLES.png",
+      "bytes": 2294068,
+      "sha256": "016f2d6ea19c5395db63c029f2de2a2c1b275aa9c025779cd5814914ef97a596"
+    },
+    {
+      "file": "G4E7BZ_ACTUAL_ASSEMBLED_FACADE_EDITABLE.blend",
+      "bytes": 41574341,
+      "sha256": "2e304c7d2a3c5644e03e8c702d704649452a1faf86111ec0746f71047f19b3c8"
+    },
+    {
+      "file": "G4E7BZ_BUILD_STREET_EYE_TRUE_CYCLES.png",
+      "bytes": 2125663,
+      "sha256": "7de4aa6102dbfdc008a154d3e0cbb4c8c6f97e71d46a82837f52b47c8bd97d32"
+    },
+    {
+      "file": "G4E7BZ_BUILD_ENTRANCE_TRUE_CYCLES.png",
+      "bytes": 2489657,
+      "sha256": "977dca508951808dd7ed81aa935cf8ba35fb8a1eeaf87778eb92f8c63f39b3d7"
+    }
+  ]
+}

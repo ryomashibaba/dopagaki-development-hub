@@ -1,0 +1,37 @@
+name: W9-C2 G4E-7AU start00 vs real second B48 continuous native physics (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7au-continuous-native.mjs'
+      - 'tests/p101-w9c2-g4e7au-continuous-native.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7au-continuous-native.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7au-continuous-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  actual-native-240hz-not-human:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      DOPAGAKI_G4E7AU_EVIDENCE: test-results/g4e7au-native-long-vs-road2.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Real unchanged native 240Hz continuous start00 and isolated 2nd-road checkpoints
+        run: |
+          node --check scripts/p101-w9c2-g4e7au-continuous-native.mjs
+          node --test tests/p101-w9c2-g4e7au-continuous-native.test.mjs
+          test -s test-results/g4e7au-native-long-vs-road2.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7au-native-continuous-nonhuman-${{ github.run_id }}
+          path: test-results/g4e7au-native-long-vs-road2.json
+          if-no-files-found: ignore
+          retention-days: 14

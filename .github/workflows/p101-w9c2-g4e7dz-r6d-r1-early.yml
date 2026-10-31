@@ -1,0 +1,106 @@
+name: G4E-7DZ R6D-R1 PRIVATE authentic 11-17s original native Blender study HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r1-early-native.mjs'
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r1-early-blender.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r1-early.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r6d-r1-original-native-private
+  cancel-in-progress: true
+jobs:
+  genuine-early-timeline-blender:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check original source and independently reconstruct 11-17s native 240Hz trajectory
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-w9c2-g4e7dz-r6d-r1-early-native.mjs
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r1-early-blender.py
+          node scripts/p101-w9c2-g4e7dz-r6d-r1-early-native.mjs
+      - name: Independently verify full original 14-17s temporal parity and certification boundary
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          paths=glob.glob('test-results/g4e7dz-r6d-r1/source/*.json')
+          assert len(paths)==2,paths
+          assert {json.load(open(p))['road'] for p in paths}=={'true-pinch','pinch-switch'}
+          times=[11+i*.5 for i in range(13)]
+          for p in paths:
+           d=json.load(open(p))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r1-original-early-native/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert (d['originalCX'],d['originalB48'],d['originalB51'],d['originalCameras'])==(18,7,28,5)
+           assert d['physicsHz']==240 and d['gap52'] and d['sourceGameChanged'] is False
+           assert d['sampleTimesSeconds']==times
+           assert len(d['frames'])==13 and len(d['originalTrajectoryParity'])==7
+           assert all(len(f['moving'])==28 for f in d['frames'])
+           assert all(f['originalSource']=='ACTUAL_240HZ_START00_P96_FIXED_SCRIPT_NOT_HUMAN' for f in d['frames'])
+           assert all(all(v<.001 for v in x['errors'].values()) for x in d['originalTrajectoryParity'])
+           assert d['passageCertification']=='NOT_TESTED' and d['dangerPrewarning']=='NOT_CERTIFIED'
+           assert d['newCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+          print('R6D_R1_NATIVE_11_17_OVERLAP_PARITY_7_OVER_7_SOURCE_ONLY')
+          PY
+      - name: Reuse actual R6D editable Blender source only, NEVER production scene
+        run: |
+          mkdir -p test-results/g4e7dz-r6d-r1/source-blend
+          gh run download 40664059724 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_AUTHENTIC_10FRAME_B51_240HZ_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r6d-r1/source-blend
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Render 2 x 13 genuine original-source Blender viewpoints in editable scenes
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r6d-r1/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r1-early-blender.py -- \
+              --source "test-results/g4e7dz-r6d-r1/source-blend/result-$r/R6D_$r"_ORIGINAL_TENFRAME_CAMERAS_B51_EDITABLE_PRIVATE_HOLD.blend \
+              --native "test-results/g4e7dz-r6d-r1/source/$r.json" --road "$r" \
+              --out "test-results/g4e7dz-r6d-r1/result-$r"
+          done
+      - name: Inspect actual Blender file existence, projection, protection and 26 images
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          root='test-results/g4e7dz-r6d-r1'
+          reports=glob.glob(root+'/result-*/*_AUDIT.json')
+          blends=glob.glob(root+'/result-*/*.blend')
+          pngs=glob.glob(root+'/result-*/*.png')
+          assert len(reports)==2 and len(blends)==2 and len(pngs)==26,(reports,blends,len(pngs))
+          for p in reports:
+           d=json.load(open(p))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r1-early-blender/1'
+           assert (d['sourceCX'],d['originalB48'],d['originalB51'])==(18,7,28)
+           assert d['originalProtectedCameraCount']==5 and d['earlierNewPrivateCameras']==8
+           assert d['originalSourceIdentityPreserved'] and d['nativeScriptSourceParity']==7
+           assert d['nativeCameraMaxProjectionErrorNdc']<.0001
+           assert d['frames']==len(d['trueBlenderPngs'])==13
+           assert d['unbounded240HzCollision']=='NOT_CERTIFIED'
+           assert d['newCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+          print('R6D_R1_TRUE_BLENDER_26_IMAGES_2_EDITABLE_SCENES_NOT_WEBGL_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD
+          path: |
+            test-results/g4e7dz-r6d-r1/source/
+            test-results/g4e7dz-r6d-r1/result-*/
+          if-no-files-found: warn
+          retention-days: 7

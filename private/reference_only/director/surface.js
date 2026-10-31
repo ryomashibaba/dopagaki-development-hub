@@ -17,6 +17,10 @@ export function tessellate(s){
  const nu=(s.rows-1)*s.resolution,nv=(s.cols-1)*s.resolution;
  const positions=[],uv=[],tp=[],indices=[],degenerate={count:0};
  const thickness=surfaceThickness(s),total=(nu+1)*(nv+1);
+ // G4E-3: opt-in *missing physical tessellation cells*, not an invisible bridge.
+ // A longitudinal cell is one complete cross-road strip, including underside
+ // and both outer edge skirts. All original control points and route stay intact.
+ const voidCells=new Set(s.voidLongitudinalCells??[]);
  const coords=(i,j)=>i*(nv+1)+j;
  const top=[],bottom=[];
  for(let i=0;i<=nu;i++)for(let j=0;j<=nv;j++){
@@ -48,11 +52,13 @@ export function tessellate(s){
  const face=(a,b,c)=>flipped?triangle(a,c,b):triangle(a,b,c);
  // First group is the original top. Only this group can be driveable.
  for(let i=0;i<nu;i++)for(let j=0;j<nv;j++){
+  if(voidCells.has(i))continue;
   const a=coords(i,j),b=coords(i+1,j);
   face(a,b,a+1);face(a+1,b,b+1);
  }
  const topIndexCount=indices.length;
  for(let i=0;i<nu;i++)for(let j=0;j<nv;j++){
+  if(voidCells.has(i))continue;
   const a=coords(i,j),b=coords(i+1,j);
   face(a+1+total,b+total,a+total);face(b+1+total,b+total,a+1+total);
  }
@@ -65,7 +71,19 @@ export function tessellate(s){
  for(let i=nu-1;i>=1;i--)boundary.push(coords(i,0));
  for(let k=0;k<boundary.length;k++){
   const a=boundary[k],b=boundary[(k+1)%boundary.length];
+  // Skip the two side walls spanning the open longitudinal strip.
+  const ia=Math.floor(a/(nv+1)),ib=Math.floor(b/(nv+1));
+  if(Math.abs(ia-ib)===1&&voidCells.has(Math.min(ia,ib)))continue;
   face(a,b,a+total);face(b,b+total,a+total);
+ }
+ // Solid end caps at each actual takeoff/landing edge. Do not fill the void.
+ for(let i=1;i<nu;i++)if(voidCells.has(i)!==voidCells.has(i-1)){
+  const leavingRoad=voidCells.has(i);
+  for(let j=0;j<nv;j++){
+   const a=coords(i,j),b=coords(i,j+1);
+   if(leavingRoad){face(a,b,a+total);face(b,b+total,a+total);}
+   else {face(a,a+total,b);face(b,a+total,b+total);}
+  }
  }
  return {positions,uv,tp,indices,topIndexCount,bottomIndexCount,sideIndexCount:indices.length-topIndexCount-bottomIndexCount,degenerate:degenerate.count,thickness};
 }
@@ -80,6 +98,14 @@ export function validate(doc){
  if(s.thickness!==undefined&&(!Number.isFinite(s.thickness)||s.thickness<0.15||s.thickness>20))throw Error('厚さは0.15〜20mで指定してください');
  if(s.thicknessMirror!==undefined&&(!Array.isArray(s.thicknessMirror)||s.thicknessMirror.length!==3||s.thicknessMirror.some(v=>v!==1&&v!==-1)))throw Error('厚みの鏡映方向が不正です');
  const nu=(s.rows-1)*s.resolution,nv=(s.cols-1)*s.resolution;
+ if(s.voidLongitudinalCells!==undefined){
+  const cells=s.voidLongitudinalCells;
+  if(!s.collidable||!s.rideable||s.material!=='road'||!Array.isArray(cells)||
+     !cells.length||cells.length>Math.floor(nu/5)||
+     cells.some((i,k)=>!Number.isInteger(i)||i<3||i>nu-4||
+      (k>0&&i<=cells[k-1])))
+   throw Error('実物理ギャップの縦セル指定が不正です');
+ }
  triangles+=4*nu*nv+4*(nu+nv);
  }
  if(triangles>200000)throw Error('曲面が重すぎます（立体20万三角形上限）');

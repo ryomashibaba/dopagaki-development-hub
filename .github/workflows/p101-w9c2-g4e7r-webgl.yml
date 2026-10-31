@@ -1,0 +1,69 @@
+name: W9-C2 G4E-7R honest B48 real WebGL and public isolation (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/build.mjs'
+      - 'scripts/p101-w9c2-g4e7r-grade-build.mjs'
+      - 'web/drive3d.mjs'
+      - 'web/p101-a13-road-art.mjs'
+      - 'web/p100-road-read.mjs'
+      - 'web/p101-b5-road-optic.mjs'
+      - 'tests/p101-w9c2-g4e7r-private-visual.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7r-webgl.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7r-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7r-webgl-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  true-B48-visual:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      DOPAGAKI_G4E7R_VISUAL: '1'
+      DOPAGAKI_BUILD_DIR: dist-private
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Regenerate Gold/Q and compare true graded collision, gap-safe GPU art
+        run: |
+          node --check scripts/build.mjs
+          node --check web/drive3d.mjs
+          node --test tests/p101-w9c2-g4e7r-grade.test.mjs tests/p101-w9c2-g4e7r-private-visual.test.mjs tests/p101-a13-road-art.test.mjs
+      - name: Install supported Playwright Chromium
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Private B48 SWEEP/CUT generation
+        run: |
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E7R_SWEEP_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7R_CUT_LOCAL_TRIAL.json
+      - name: Actual WebGL view of approach and post-void with identical B48 positions
+        run: npx playwright test tests/browser/p101-w9c2-g4e7r-webgl.spec.mjs
+      - name: R candidates never enter public or public-safe output
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7R_SWEEP_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7R_CUT_LOCAL_TRIAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7R_SWEEP_LOCAL_TRIAL.json
+          test ! -e dist/generated/P101_A13_W9C2_G4E7R_CUT_LOCAL_TRIAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7r-real-graded-WebGL-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7r-*.png
+            test-results/**/g4e7r-*.json
+            test-results/**/test-failed-*.png
+            test-results/**/error-context.md
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 10

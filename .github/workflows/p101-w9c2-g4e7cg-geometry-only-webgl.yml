@@ -1,0 +1,53 @@
+name: G4E-7CG true isolated WebGL source geometry 240Hz camera (ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7cg-source-geometry.html'
+      - 'scripts/p101-w9c2-g4e7cg-chromium-source-geometry.mjs'
+      - '.github/workflows/p101-w9c2-g4e7cg-geometry-only-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7cg-source-webgl
+  cancel-in-progress: true
+jobs:
+  original-source-webgl-without-third-party-textures:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Read only original checked upstream binary, never redistribute GLB
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 2 --connect-timeout 15 --max-time 150 -o /tmp/original-source.glb 'https://raw.githubusercontent.com/SpectraStudios/SourceCityToolkit_glb/4db7cf1aecba9bbc011d153d6d923a0cb4ac9d9d/Market_Day.glb'
+          test "$(wc -c < /tmp/original-source.glb | tr -d ' ')" = 17786532
+          test "$(git hash-object /tmp/original-source.glb)" = ee3334d9f13f63e38a1f813eee8eb9e7c720b4e1
+      - name: Install isolated three.js renderer and Chromium
+        run: |
+          npm install --no-save --no-audit --no-fund three@0.180.0
+          npx playwright install --with-deps chromium
+          node --check scripts/p101-w9c2-g4e7cg-chromium-source-geometry.mjs
+      - name: Render real GLB mesh WebGL 12 frames with genuine original 240Hz poses (not game)
+        run: |
+          node scripts/p101-w9c2-g4e7cg-chromium-source-geometry.mjs /tmp/original-source.glb test-results/g4e7cg-geometry-only
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const r=JSON.parse(fs.readFileSync('test-results/g4e7cg-geometry-only/G4E7CG_GEOMETRY_PIXELS_NOT_GAME_ART.json','utf8'));
+          if(r.sampleCount!==12||!r.nonBlank||r.originalTexturesRendered!==false||
+             r.actualGameWebgl!=='NOT_TESTED'||r.rights!=='THIRD_PARTY_TEXTURE_EXCEPTION_HOLD'||
+             r.art!=='NOT_TESTED'||r.slope2Meters!==0)throw Error('False art/rights approval');
+          console.log('REAL CHROMIUM GEOMETRY PIXELS, NOT REAL GAME SCREENSHOTS');
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7cg-geometry-only-real-webgl-12-BG-240hz-HOLD
+          path: test-results/g4e7cg-geometry-only/
+          if-no-files-found: ignore
+          retention-days: 7

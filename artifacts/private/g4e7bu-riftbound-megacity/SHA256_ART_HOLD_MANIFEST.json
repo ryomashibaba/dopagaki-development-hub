@@ -1,0 +1,62 @@
+{
+  "schema": "dopagaki.bu-native-blender-art-archive/1",
+  "originalScript": "scripts/p101-w9c2-g4e7bu-riftbound-city.py",
+  "source": "ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY",
+  "authorship": "SCRIPTED_BPY_NOT_HAND_SCULPTED",
+  "humanArtApproval": "HOLD",
+  "gameCameraProof": "NOT_YET_RUN",
+  "certifiedSlope2Meters": 0,
+  "publication": "FORBIDDEN",
+  "files": [
+    {
+      "file": "G4E7BU_AERIAL_REAL_BLENDER_RENDER.png",
+      "bytes": 2563453,
+      "sha256": "1ae2906592099f509dba092b3fedb4be9e031fcf1c87cefa6cc74dc4a63d8317"
+    },
+    {
+      "file": "G4E7BU_BP_ADMISSION.json",
+      "bytes": 1510,
+      "sha256": "ae47547ce1b60ceb677574da18432bfe0a8594faa96aeb28bc7ad5afa1b01243"
+    },
+    {
+      "file": "G4E7BU_BP_CLAIM.json",
+      "bytes": 384,
+      "sha256": "48b8bbab1a815cc5a4a7b5c8e409b793904fdfa02a57df2823f58660e05555ee"
+    },
+    {
+      "file": "G4E7BU_FRONT_REAL_BLENDER_RENDER.png",
+      "bytes": 2157418,
+      "sha256": "6c712dec87a154324b7a02ac35d6304e33189362406b4fe932b484b3abc3853a"
+    },
+    {
+      "file": "G4E7BU_OBLIQUE_REAL_BLENDER_RENDER.png",
+      "bytes": 1863484,
+      "sha256": "1b573b8b9da879207953af55cdfcc08e20e5077f554ae9a1faf4d92cb1e3c356"
+    },
+    {
+      "file": "G4E7BU_ORIGINAL_FACADE_ATLAS.png",
+      "bytes": 9349,
+      "sha256": "8d7f0a767525060bc850fb780008074d9fe8815a0858764234ad7a1381cd6601"
+    },
+    {
+      "file": "G4E7BU_PROVENANCE.json",
+      "bytes": 464,
+      "sha256": "1a87a86c590ac3befd4e28e2f13ba0be36a97a87be53d98f31fee79599b237e5"
+    },
+    {
+      "file": "G4E7BU_RIFTBOUND_MEGACITY_ART_ONLY.glb",
+      "bytes": 2893828,
+      "sha256": "5b33e7abfedc92aeb52f0278d05cdcc627cc6e179839f1e87044024400de1bf6"
+    },
+    {
+      "file": "G4E7BU_RIFTBOUND_MEGACITY_SOURCE.blend",
+      "bytes": 6653836,
+      "sha256": "f979155f529d23cbd8551bb5c82e2c912142e4005a31955065c3c238a3b60018"
+    },
+    {
+      "file": "G4E7BU_SIDE_REAL_BLENDER_RENDER.png",
+      "bytes": 2245176,
+      "sha256": "5b486bc95bfe02b8204d805a218157731ee90c4c3b5ac8d2f6ef52b83ad49103"
+    }
+  ]
+}

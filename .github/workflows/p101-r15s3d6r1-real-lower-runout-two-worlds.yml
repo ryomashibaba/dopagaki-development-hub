@@ -1,0 +1,59 @@
+name: P101 R15S3D6R1 genuine lower B48 runout two native worlds HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d6r1-real-lower-b48-runout-candidate.mjs
+      - scripts/p101-r15s3d6r1-two-native-lower-runout-trials.mjs
+      - scripts/p101-r15s3d6r1-independent-two-world-runout-veto.py
+      - .github/workflows/p101-r15s3d6r1-real-lower-runout-two-worlds.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15s3d6r1-actual-lower-support-two-native-240hz:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protected original source and trial syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d6r1-real-lower-b48-runout-candidate.mjs
+          node --check scripts/p101-r15s3d6r1-two-native-lower-runout-trials.mjs
+          python3 -m py_compile scripts/p101-r15s3d6r1-independent-two-world-runout-veto.py
+      - name: Retrieve genuine B16 and prior actual R15S3D6 geometry results
+        run: |
+          mkdir -p test-results/r15s3d6r1/old-b16 test-results/r15s3d6r1/old-d6 test-results/r15s3d6r1/out
+          gh run download 40866341059 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3B_12_NATIVE_240HZ_FROZEN_CROWN_TRAIL_AWARE_SCISSOR_MACRO_NO_ART_HOLD \
+            --dir test-results/r15s3d6r1/old-b16
+          gh run download 40958123543 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3D6_TWO_REAL_B48_NATIVE_4_CASES_SOURCE_TECH_HOLD \
+            --dir test-results/r15s3d6r1/old-d6
+          test -s test-results/r15s3d6r1/old-b16/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json
+          test -s test-results/r15s3d6r1/old-d6/R15S3D6_FOUR_GENUINE_NATIVE_B48_CANDIDATES_AND_SUPPORT.json
+      - name: Regrade REAL B48 downstream and run two 0-second original 240Hz worlds
+        run: |
+          node scripts/p101-r15s3d6r1-two-native-lower-runout-trials.mjs \
+            --r15s3b test-results/r15s3d6r1/old-b16/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json \
+            --r15s3d6 test-results/r15s3d6r1/old-d6/R15S3D6_FOUR_GENUINE_NATIVE_B48_CANDIDATES_AND_SUPPORT.json \
+            --out test-results/r15s3d6r1/out
+      - name: Independent source-only QA and fake approval veto
+        run: |
+          python3 scripts/p101-r15s3d6r1-independent-two-world-runout-veto.py \
+            --source test-results/r15s3d6r1/out/R15S3D6R1_TWO_GENUINE_NATIVE_B48_DOWNSTREAM_RUNOUT.json \
+            --out test-results/r15s3d6r1/out
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D6R1_TWO_REAL_ORIGINAL_B48_RUNOUT_NATIVE_SOURCE_HOLD
+          path: test-results/r15s3d6r1/out/
+          retention-days: 7
+          if-no-files-found: warn

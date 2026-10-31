@@ -1,0 +1,59 @@
+name: P101 R15S3D6 two real B48 candidates x two native 240Hz worlds HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d6-two-real-b48-flight-support-designs.mjs
+      - scripts/p101-r15s3d6-four-native-real-240hz-geometry-trials.mjs
+      - scripts/p101-r15s3d6-independent-real-b48-fairness-veto.py
+      - .github/workflows/p101-r15s3d6-real-b48-four-native-hypothesis.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15s3d6-original-source-two-real-b48-four-native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original protected source and syntax unchanged
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d6-two-real-b48-flight-support-designs.mjs
+          node --check scripts/p101-r15s3d6-four-native-real-240hz-geometry-trials.mjs
+          python3 -m py_compile scripts/p101-r15s3d6-independent-real-b48-fairness-veto.py
+      - name: Retrieve genuine B16 frozen original source and previous four-case 240Hz forensic artifact
+        run: |
+          mkdir -p test-results/r15s3d6/old-b16 test-results/r15s3d6/old-d4 test-results/r15s3d6/out
+          gh run download 40866341059 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3B_12_NATIVE_240HZ_FROZEN_CROWN_TRAIL_AWARE_SCISSOR_MACRO_NO_ART_HOLD \
+            --dir test-results/r15s3d6/old-b16
+          gh run download 40900490016 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3D4_ORIGINAL_FOUR_NATIVE_CONTACT_VELOCITY_FORENSIC_HOLD \
+            --dir test-results/r15s3d6/old-d4
+          test -s test-results/r15s3d6/old-b16/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json
+          test -s test-results/r15s3d6/old-d4/R15S3D4_ORIGINAL_FOUR_CASE_SUPPORT_AND_VELOCITY_FORENSIC.json
+      - name: Real B48 geometry and four original 0-second 240Hz native trials
+        run: |
+          node scripts/p101-r15s3d6-four-native-real-240hz-geometry-trials.mjs \
+            --r15s3b test-results/r15s3d6/old-b16/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json \
+            --r15s3d4 test-results/r15s3d6/old-d4/R15S3D4_ORIGINAL_FOUR_CASE_SUPPORT_AND_VELOCITY_FORENSIC.json \
+            --out test-results/r15s3d6/out
+      - name: Independent QA negative tests and no unsupported gameplay promotion
+        run: |
+          python3 scripts/p101-r15s3d6-independent-real-b48-fairness-veto.py \
+            --source test-results/r15s3d6/out/R15S3D6_FOUR_GENUINE_NATIVE_B48_CANDIDATES_AND_SUPPORT.json \
+            --out test-results/r15s3d6/out
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D6_TWO_REAL_B48_NATIVE_4_CASES_SOURCE_TECH_HOLD
+          path: test-results/r15s3d6/out/
+          retention-days: 7
+          if-no-files-found: warn
