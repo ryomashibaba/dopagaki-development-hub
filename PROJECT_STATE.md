@@ -1,3 +1,13 @@
+# 最新 R19 A6 P4 R2C：両実カメラ都市配置TECH PASS／美術REJECT（2026-10-31 JST）
+
+- **[R2C正規Blender/真12画面CI #41189700048](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41189700048)全SUCCESS**。[原Artifact #13038431720](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41189700048/artifacts/13038431720)回収・実見。元A5/元B48 7/B51 28/元240Hz・RAW camera/HUD無変更、5独立編集可能BLEND地区、29中低層都市マス、14,424 Blender面・30,088 GPU三角形、14m/28m×元6tick=真正WebGL2 12/12画像。R2B「8秒だけ都市・11.5秒は空白」を修正し、Road1の主役配置を維持しつつ後方二地区を元路肩の左側へu=.47,out308mとu=.64,out267mに直接再配置。
+- **[R2C元B51全native240Hz 0～12秒独立CI #41190038075](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41190038075)全SUCCESS**。[Artifact #13037653968](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41190038075/artifacts/13037653968)のJSON原本をダウンロード確認。14m・28m各元2,881tick×28真正B51回転OBB×R2C実GLB 30,088三角形をSAT検査。**各幅80,668、全161,336動体・時刻に対して実三角形干渉0**。240Hz点間の連続掃引や人間の障害物認知は未検証。
+- **元P3「都市無し」真WebGL2画面との参考色差計測**（ROI x202..809/y140..319; RGB最大チャネル差>36、純粋な建物画素占有率ではない）：4.404s R2A9.13%/R2B18.70%/**R2C21.63%**、8.004s R2A5.60%/R2B29.26%/**R2C35.12%**、11.504s R2A32.40%/R2B0.00%/**R2C23.59%**。8秒と11.5秒の両方で都市が再出現し、R2Bの時間的な構図回帰を解決。
+- **独立美術判定：ART REJECT**。R2Cで8秒と11.5秒の都市構図とB51全240Hz離散干渉の問題は前進。ただし中低層建物は段付き箱／同形8断面押出の反復に見え、背景・実公共空間・人間規模の都市美術の質がまだ足りない。R2Cを本番採用しない。**次R2Dは塔数/改色の手直しでなく、建築言語・屋外公共地盤・真3D都市機能の大幅再設計**。取得した前方2時刻のバランスを崩さない。詳細[厳格R2C監査](docs/R19_A6P4_R2C_TRUE12_DUAL_CAMERA_CITY_ART_REJECT_JA.md)。
+- 正式ART採用0、Slope2 DNA正式認定0/2912m、HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。main/Gold/P100/W9-X/B5/本番、元Blob `af076d67492a677d2235e4730aef8cdf4808e106`無変更。PR #46はOPEN/Draft未マージ。
+
+---
+
 ## R19 A6 P4 R2A 技術PASS／美術REJECT → R2B元カメラ直接修正
 
 - [R2A実Blender/元12WebGL2 Actions #41186356391](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41186356391)全SUCCESS。[原Artifact #13036978998](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41186356391/artifacts/13036978998)を回収。元A5を真Blenderで**5地区29マス**の中低層実3D都市へ作り直し、ULTRA14m/CONTROL28mの編集可能BLEND/GLBと、元240Hz×6時刻=真WebGL2 12/12画面が生成。Blender **14,424面**、独立GPU **30,088三角形**、元球XYZ差最大0.0007703576m、源Blob `af076d67492a677d2235e4730aef8cdf4808e106`保護。
