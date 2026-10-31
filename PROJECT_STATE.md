@@ -1,3 +1,16 @@
+# R19 A6 P0（最新） — 元A5 GLBの読み戻しを真正WebGL2画像で証明、SOURCE TECH PASS（2026-10-31 JST）
+
+**最上位目標は変わらない：本物の7,280m・約52秒級Slope 2 DNAの高速走行×圧倒的な一体未来都市を同じ人間プレイで成立させること。A5都市は正式ART REJECT、ART正式採用0件、Slope2 DNA認定0/2,912m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
+
+- **R19 A6 P0限定TECH PASS：** A5で実作成したULTRA14m/CONTROL28mの真正5オブジェクトGLBをSHA256・元source blobで固定し、POSITION/COLOR_0の全float32値をバイナリから元WebGL2のXYZRGBへ読み戻した。両モードで元JavaScriptメッシュの全GPU入力要素と完全一致、偽SHA・変造GLB・間違ったモード/blobを拒否。新コライダー0、元B48×7/B51×28/240Hz/RAW camera・HUD維持。
+- **真正GitHub CI [Actions #41179550859](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41179550859) 全SUCCESS。** 元A3/A5都市の真正24画像を再実行後、隔離`dist-private/r19a6`でGLB由来描画を元14m/28m×4.404/8.004秒の4真正WebGL2 Canvas画像で比較。4/4個別PNG SHA256完全一致、元240Hz球XYZ/速度/道路/B51と生カメラ同tickを独立検査。**画が一致したことは元A5不合格の見た目も同じという意味で、ART PASSではない。**
+- **期限付き原本 [Artifact #13033983651](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41179550859/artifacts/13033983651)**：664,446 bytes、2026-11-07 07:13 UTC失効予定。ZIP原本の永久GitHub保存までは未実施。正規CIが検査したHEADは`038872b79a91ad70f68b6645652c795c76291cb2`。後続の文書・Windows起動cmdの新規追加は同CIの検査対象外。
+- **制作境界：** 今回はオリジナルA5 GLBの再読み込みであり、Blender GUI実編集→再書出し→取り込み、indices/transform対応、本物の高品質材質、地形への実接地、元B51の実ピクセル視認、Windows/iphone実GPU FPS、人間の14m/28m手動走行は未完了。A5 ART REJECTを撤回しない。
+- **次工程A6 P1/P2：** 1都市の編集可能GLBへ実際に人が見て美しい外皮・機能的中庭・都市の連続性を直接制作し、同一6時刻（1.104/3.004/4.404/5.204/8.004/11.504秒）で真正画像を比較。Blender再書出しのindices/node transform等は独立QAへ拡張するが、旧JS箱・門・骨組み量産に戻らない。ゲーム/人間/性能の判定は別ゲート。
+- 元保護Git blob `af076d67492a677d2235e4730aef8cdf4808e106`不変。main/Gold/P100/W9-X/B5/本番を変更せず、PR #46 OPEN/Draft/未マージ。詳細：[A6 P0検証契約](docs/R19_A6_P0_ORIGINAL_GLB_PRIVATE_ROUNDTRIP_AND_ART_GATE_JA.md)、[6視点美術計画](docs/R19_A6_SIX_TRUE_CAMERA_CITY_ART_MASTERPLAN_JA.md)、[短いLIVE_HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。
+
+---
+
 # R19 A5（最新） — 実ゲーム源24枚TECH PASS、GLB5材質PASS、都市ART REJECT（2026-10-31 JST）
 
 **最新正式状態**：7,280m／約52秒級の本物のSlope系高速ゲーム×超未来巨大都市の完成を最優先。正式ART採用0・Slope2 DNA 2,912m目標の正式認定0m。GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。既存の不採用巨大壁/薄い門/単純箱の量産へ戻らない。
