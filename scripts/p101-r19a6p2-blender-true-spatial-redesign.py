@@ -68,6 +68,7 @@ PALETTE=[
 counts=[];all_nominal_offsets=[]
 for idx,(obj,site) in enumerate(zip(objects,SITES)):
     name=obj.name
+    local_inv=obj.matrix_world.inverted()
     verts=[];faces=[];colors=[]
     def emit_face(indices,color):
         assert len(indices) in (3,4)
@@ -77,7 +78,7 @@ for idx,(obj,site) in enumerate(zip(objects,SITES)):
             assert len(rings[j])==facets
             for v in rings[j]:
                 assert all(math.isfinite(float(x)) for x in v)
-                verts.append(tuple(v))
+                verts.append(tuple(local_inv @ v))
         base=len(verts)-len(rings)*facets
         for j in range(len(rings)-1):
             for k in range(facets):
