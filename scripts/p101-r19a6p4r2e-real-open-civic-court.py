@@ -171,6 +171,31 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
    if level>0:
     wedge(a+.038,b-.03,innerLev-7,innerLev+6,low+3,3,1)
     publicBalconies+=1
+   # R2E-B real load-bearing facade walls below each floor. In R2E-A the
+   # disconnected-looking stacked plates were an explicit ART failure.
+   # Carved vertical wall volumes restore architectural enclosure while leaving
+   # open-air slots and openings on the courtyard-facing side.
+   for segment in range(12):
+    t0=a+(b-a)*(segment+.08)/12
+    t1=a+(b-a)*(segment+.86)/12
+    if segment in (3,9):continue
+    bottomZ=low-2
+    bodyHeight=max(4.0,H*.23-4.5)
+    face0=[at(outerLev-4,t0,bottomZ),at(outerLev+2,t0,bottomZ),
+           at(outerLev+2,t1,bottomZ),at(outerLev-4,t1,bottomZ)]
+    face1=[p+up*bodyHeight for p in face0]
+    addloft([face0,face1],2 if (segment+level)%5==0 else 0)
+   # Four actual corner supports carry the public wing to its lower ground;
+   # program usability and terrain contact remain separate verification gates.
+   if level==0:
+    for angle in (a+.03,b-.03):
+     for radialR in (inner+2,outerR-2):
+      t0=angle-.011;t1=angle+.011
+      baseZ=-5
+      rail0=[at(radialR-2,t0,baseZ),at(radialR+2,t0,baseZ),
+             at(radialR+2,t1,baseZ),at(radialR-2,t1,baseZ)]
+      rail1=[p+up*(H*.23+12) for p in rail0]
+      addloft([rail0,rail1],1)
    # radial exterior wall faces with actual depth. Not shell fragments.
    for col in range(20):
     t=(col+.5)/20
@@ -256,7 +281,7 @@ report={"schema":"dopagaki.r19a6p4r2e-open-civic-programmed-urban-courts/1",
  "humanArchitecturalAccess":"NOT_VERIFIED","actualTerrainContactVerified":False,
  "PBR_game":"NOT_IMPLEMENTED","Blender":bpy.app.version_string,
  "architecturalLanguage":"PHYSICALLY_CONNECTED_RING_WALKWAYS_PROGRAMMED_PUBLIC_ARCHITECTURE",
- "designRevision":"R2E_COURT_AND_REAL_WALKABLE_MESH_METHOD_AFTER_R2D_ART_REJECT",
+ "designRevision":"R2E_B_TRUE_BUILDING_WALLS_AND_SUPPORTS_AFTER_R2E_A_FLOATING_PLATES_REJECT",
  "cameraProjectionOnlyNotActualB51RasterMask":True,
  "officialSlope2Metres":0,"ART":"HOLD","HUMAN":"HOLD","GAMEPLAY":"HOLD","PERFORMANCE":"HOLD",
  "RELEASE":"HOLD","MERGE":"HOLD"}
