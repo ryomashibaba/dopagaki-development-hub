@@ -1,4 +1,4 @@
-# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P4実Blender造形ソース追加／CI待ち・ART REJECT継続）
+# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P4 R0 TECH PASS／ART REJECT、R1直接美術修正CI待ち）
 
 **本来の不変目標**：本物の7,280m・約52秒級Slope2高速ゲーム（200m/s級、本物のカーブ・細道・ジャンプ・動体）と、圧倒的に美しく一体的な超未来巨大都市を**同じ人間プレイ体験で**成立させる。Slope2 DNA目標2,912m、正式認定0m。正式ART採用0件。技術QAの成功をART/GAMEPLAY/HUMAN合格と混同しない。
 
@@ -9,6 +9,13 @@
 - 元ゲーム実Road1の34断面×左右2×道路端距離5×高さ4、計**1,360サイト**を元カメラ画面へ投影。両幅でRoad1 8/11.5秒のどちらかに一定面積見える候補684件（**独立ローカルPython計算**）。それらがさらにRoad0 3/4.4/5.2秒の大きな中央ROIに一切重ならないという保守条件では**0件**。これは「都市が不可能」という結論でもB51実画素遮蔽の証明でもない。単純な直立箱塔だけで問題を解決できるとは言えないという**負の設計証拠**。詳細：[P3負の監査](R19_A6P3_PRIOR_A1_REAL_CAMERA_12_NEGATIVE_ARCHITECTURE_GATE_JA.md)／[再現可能なNodeコード](../scripts/p101-r19a6p3-prior-a1-vertical-tower-counterexample.mjs)。
 - 新P3 Chromium/28物理B51-OBB完全投影の専用CIは**GitHub runner割り当て待ち**。初回[#41182781084](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41182781084)は後続の初期化時read-onlyガード修正によりキャンセル、新[#41183558390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41183558390)がpending/queued（2026-10-31 JST確認）。**12フレーム28OBB測定TECH PASSとはまだ言わない。**
 - 次の造形は正規カメラ＋B51の前方マスクを明示し、Road1に**相互接続する縦の公共/居住地区・実3D内庭**を構築。中央視野を水平架構で再び覆うことは禁止。元B48/B51/カメラ/本番、main、Goldを変更しない。正式ART採用0/Slope2 DNA認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+
+## R19 A6 P4 R1 — 直接美術修正（コード更新済み・真正CI待ち）
+
+- **P3専用 Actions #41183558390 は全SUCCESS**。[真正Artifact #13036507375](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41183558390/artifacts/13036507375)を回収し、14m/28m×6時刻計12真正WebGL2・カメラeye/front/right/up・元28 B51 OBB投影を確認。FOV元GLSL係数1.35、垂直73.057711°／水平94.141613°。画面と幾何外接箱が交差するB51は各tick 9～21基（**実画素可視ではない**）。配置評価512候補中17件を研究上の幾何学的低リスク候補に選別（**都市や視認のPASSではない**）。**P3 TECH PASS**。
+- **P4 R0専用 Actions #41184387785 も全SUCCESS**。[真正Artifact #13036687584](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41184387785/artifacts/13036687584)回収、両幅の実Blender `.blend`各1件、編集GLB各1件、5建築地区、Blender **15,098面**／GPU **30,332三角形**、真元240Hz WebGL2**12/12画面**、球元XYZ差最大0.0007703576m、非衝突0。原ソース・元B48×7/B51×28・元RAW camera/HUD不変。**R0 TECH PASS／ART REJECT**：14mの4.404s、Road1 8.004/11.504sでは17個のそっくりな縦長塔・基礎が並び、都市生活／密な市街区に見えず、11.5sには画面端の巨大近景柱が視界を支配。旧水平リボンの失敗を同形の縦塔に置換しただけ。[P4 R0美術REJECT根拠](R19_A6P4_R0_TRUE12_BLENDER_TECH_PASS_ART_REJECT_JA.md)。
+- **P4 R1直接修正実装済み**：既存P4 Blenderスクリプトを見た目の失敗から直接修正。17の反復塔→10の非対称居住マス、地区ごとにペタル4～7枚／峰高さ変化、外壁厚み・低層デッキ・都市基盤強化、Road1-A3を路肩外側**176→270m**に変更（元動体`a13-machine-12`との6時刻の幾何学的近接を減らすため）。ただし全軌道とGLB実3D干渉/実画素視認は未認定。新[Actions #41185315879](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41185315879)がrunner割当待ち。**R1のTECH/ARTは未判定**、成功を先取りしない。
+- main/Gold/P100/W9-X/B5/本番無変更、PR #46 Draft未マージ、正式美術採用0件／Slope2 DNA認定0m、人間プレイ/FPS/発売はHOLD。
 
 ## 最新 R19 A6 P4 — 実Blender縦型都市の制作ソース追加・真WebGL2 12画面CI待ち
 
