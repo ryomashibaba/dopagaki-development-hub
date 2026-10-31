@@ -1,9 +1,16 @@
-# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P1実Blender編集TECH PASS／ART REJECT）
+# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P2 SOURCE/BLENDER TECH PASS／ART REJECT）
 
 **本来の不変目標**：本物の7,280m・約52秒級Slope2高速ゲーム（200m/s級、本物のカーブ・細道・ジャンプ・動体）と、圧倒的に美しく一体的な超未来巨大都市を**同じ人間プレイ体験で**成立させる。Slope2 DNA目標2,912m、正式認定0m。正式ART採用0件。技術QAの成功をART/GAMEPLAY/HUMAN合格と混同しない。
 
 
-## 最新 R19 A6 P1（実Blender編集の技術PASS・真正美術REJECT）
+## 最新 R19 A6 P2（本物の5地区Blender全面再設計・真正12画像ART REJECT）
+
+- [GitHub Actions #41181717911](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41181717911) **全SUCCESS**。元source Blob `af076d67492a677d2235e4730aef8cdf4808e106`、正規7 B48/28 B51、240Hz物理、RAW camera/HUD無改変。元道路0/1各81断面を14m・28mで採取し、実Blender 4.0.2で旧A5箱形を**5地区とも別の真3Dへ置換**、本物の`.blend`2件/編集GLB2件を生成。元source SHA・indexed/TRS/COLOR再読込PASS。5建築オブジェクト、実GPU **33,700三角形**、非衝突0。
+- 元14m/28m×元0〜12秒6時刻の**真正12 WebGL2 Canvas画像全取得**、球XYZ差最大0.0007703576m、速度差最大0.0004716m/s、B51=28、カメラ同tick。旧A5から画素は12/12枚変わったが美術認定ではない。[原Artifact #13034723431](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41181717911/artifacts/13034723431)（2026-11-07 07:46 UTC失効予定・永久バイナリ化は未実施）。
+- **ARTはREJECT。** Road1の空虚な空とRoad0右側の旧箱は減ったが、新しい巨大水平曲面帯と長い吊り脚が4.404s/8.004s/11.504sで視野上部を覆い、都市ではなく浮遊高架に見える。前の巨大門失敗を巨大リボンに置換しただけ。実B51の見やすさ・人間走行・Windows/iPhone GPU FPSは**HOLD**、正式ART採用0・Slope2 DNA認定0m。ART成功を偽装しない。
+- **次P3：** 先に本物の6元カメラの位置・向き・視錐台とB51画面マスクを記録し、実画像の構図から都市の主役と縦の建築区画/中庭/都市基盤を再設計。旧箱・巨大門・長い水平リボン・ぶら下がる脚の反復は禁止。真Blender→GLB→元ゲーム描画基盤は再利用。成果と反省は[A6 P2完全監査](R19_A6P2_REAL_B48_SPATIAL_REDESIGN_TRUE12_ART_REJECT_JA.md)。PR #46 OPEN/Draft未マージ、main/本番無改変。
+
+## 旧 R19 A6 P1（実Blender編集の技術PASS・真正美術REJECT）
 
 - **本物のBlender 4.0.2で**、A5 14m/28m GLB各5地区を import→三次元メッシュ編集（非対称彫塑+主役地区の立体曲面）→編集可能 `.blend`・編集GLB保存。10,566→**10,728三角形**（+162）、5独立地区、非衝突0追加。Node独立のindexed glTF/node変換/色データのGPU再読込PASS。**Blender GUI手動で作品を完成させたとの主張ではない**。
 - [専用Actions #41180479851](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41180479851) **SUCCESS**。元14m/28m×元6tickの実WebGL2 Canvas**12/12撮影・旧A5とのSHA画像差12/12**。元240Hz球XYZ誤差最大0.0007703576m／速度誤差最大0.0004716m/s、元道路7/B51 28/元カメラHUD保持。
