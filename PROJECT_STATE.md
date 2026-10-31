@@ -1,3 +1,16 @@
+# R19 A6 P1（最新） — Blender本物の編集GLBを元ゲーム12画像で検証、TECH PASS／ART REJECT（2026-10-31 JST）
+
+**最上位目標は不変：7,280m・約52秒級の本物のSlope 2 DNA高速ゲーム×圧倒的な超未来都市。A6 P1の「GLB→実Blender→編集GLB→PRIVATE元WebGL2」技術はPASSだが、都市美術は正式REJECT。ART正式採用0件、Slope2 DNA正式認定0/2,912m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
+
+- [GitHub Actions #41180479851](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41180479851) **全ジョブSUCCESS**。A5真正5地区・10,566三角形の元14m/28m GLBをBlender 4.0.2でそれぞれ実編集し、`.blend`+編集GLB（5地区、**10,728三角形・追加162面**）を実出力。independent Nodeによるindexed glTF/node transform/COLORの読み戻しをPASS、新コライダー0。元原本blob検査不変。
+- 元240Hz・元source WebGL2の14m/28m×6時刻（1.104/3.004/4.404/5.204/8.004/11.504秒）実PNG **12/12取得、旧A5との差分12/12**。原球XYZ最大差0.0007703576m／速度差0.0004716m/s、元B48×7/B51×28、原HUD/camera保持。人間手動走行でない。
+- **A6 P1 ART REJECT**：4.404秒の道路右側の箱群・門フレームが未改善、8.004秒Road1前方の大きな空白と右端だけの建築配置も未改善。Blenderの実編集や変化12/12を「美しい都市完成」と誤認しない。元B51ピクセル遮蔽とWindows/iPhone GPU FPS、人間走行は未認定。
+- 原Artifact [#13034364524](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41180479851/artifacts/13034364524) は期限付き（2026-11-07 UTC予定）。編集済み`.blend`/GLB/12元写真/独立QAを含む。バイナリ永久保存未実施、再現可能な制作・検査スクリプトは正本に保存。
+- **次工程R19 A6 P2：** 旧箱・門・微小変形追加の方式を止め、元0〜12秒6視点の遠/中/近景で**都市の全体配置・正面シルエット・地盤・公共空洞**を抜本的に再設計。Road1 8〜11.5秒正面の都市連続性、14m狭路4.4秒のB51視認を最優先。今できたBlender→GLB→元ゲームの証明基盤を再利用し、技術CIの増殖に戻らない。
+- 詳細：[A6 P1独立美術監査](docs/R19_A6P1_REAL_BLENDER_EDITED_GLBS_NATIVE12_ART_REJECT_JA.md)。保護対象：元web source blob `af076d67492a677d2235e4730aef8cdf4808e106`／main/Gold/P100/W9-X/B5/本番／240Hz・7B48/28B51・RAWカメラ/HUD。PR #46 OPEN Draft 未マージ。
+
+---
+
 # R19 A6 P0（最新） — 元A5 GLBの読み戻しを真正WebGL2画像で証明、SOURCE TECH PASS（2026-10-31 JST）
 
 **最上位目標は変わらない：本物の7,280m・約52秒級Slope 2 DNAの高速走行×圧倒的な一体未来都市を同じ人間プレイで成立させること。A5都市は正式ART REJECT、ART正式採用0件、Slope2 DNA認定0/2,912m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
