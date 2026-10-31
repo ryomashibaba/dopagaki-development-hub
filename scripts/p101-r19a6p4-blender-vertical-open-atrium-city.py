@@ -203,7 +203,7 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   "actualOpenAtriumPetalCount":petal_count,
   "sculptedFoundationCount":plinth_count,"localPublicTerracePieces":terrace_count,
   "localBridgesNotHumanValidated":bridge_count,"faces":len(mesh.polygons),
-  "cameraProjectedSampleBBoxUpperBoundOnly":projected})
+  "cameraProjectedSparseVertexSampleBBoxNotConservative":projected})
  num_vertices+=len(vertices)
 assert len([obj for obj in bpy.context.scene.objects if obj.type=="MESH"])==5
 new_faces=sum(len(o.data.polygons) for o in objects)
