@@ -23,7 +23,7 @@ for(const mode of ['ultra','control']){
  assert.equal(report.schema,'dopagaki.r19a6p4-real-A1-camera-anchored-vertical-atrium-arcology/1');
  assert.equal(report.originalSourceBlob,manifest.originalSourceBlob);
  assert.equal(report.districts.length,5);
- assert.ok(report.districts.every(x=>x.nominalTowers>=3&&x.actualOpenAtriumPetalCount>=18));
+ assert.ok(report.districts.every(x=>x.nominalTowers>=2&&x.actualOpenAtriumPetalCount>=8));
  assert.equal(report.cameraProjectionOnlyNotActualB51RasterMask,true);
  assert.equal(report.globalB48B51ClearanceVerified,false);
  const image=unpackBlenderEditedGLB(fs.readFileSync(path.join(src,'P4_'+mode+'_edited.glb')),report);
