@@ -238,6 +238,13 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   projected.append({"tick":sh["tick"],"boundsNDC":bounds,
    "screenClippedAreaProxy":roi_area(bounds,(-1,1),(-1,1))/4,
    "road0CentralArealOverlapUpperBoundProxy":roi_area(bounds,(-.65,.65),(-.4,.4))/4})
+ projected=[]
+ for shot in actual_cameras:
+  points=[q for v in world_samples if (q:=projection(shot,v)) is not None]
+  bbox=[min(v[0] for v in points),max(v[0] for v in points),
+        min(v[1] for v in points),max(v[1] for v in points)] if points else None
+  projected.append({"tick":shot["tick"],"sparseSourceCameraNDCBBoxNotSafeOrComplete":bbox,
+    "sparseVisibleAreaProxy":roi_area(bbox,(-1,1),(-1,1))/4})
  reports.append({"district":old_name,"sourceRoad":site["road"],"side":site["side"],
   "u":site["u"],"outboardDistanceM":site["out"],
   "inhabitedUrbanMassingCount":len(massings),"cityMassingSamples":massings,
@@ -245,7 +252,7 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   "localSteppedPublicTerracePieces":terrace_count,"shortSameSideStreetPieces":streetpieces,
   "renderOnlyFacadeGlazingPanels":glazed_bays,"faces":len(mesh.polygons),
   "revision":"P4 R2 FULL ARCHITECTURAL LANGUAGE REBUILD — real stepped plazas, low-midrise city",
-  "cameraProjectedSparseVertexSampleBBoxNotConservative":[]})
+  "cameraProjectedSparseVertexSampleBBoxNotConservative":projected})
  num_vertices+=len(vertices)
 assert len([obj for obj in bpy.context.scene.objects if obj.type=="MESH"])==5
 new_faces=sum(len(o.data.polygons) for o in objects)
@@ -254,7 +261,7 @@ assert all(a["faces"]>1600 for a in reports)
 bpy.ops.wm.save_as_mainfile(filepath=blend)
 bpy.ops.export_scene.gltf(filepath=out,export_format="GLB",use_selection=False)
 assert os.stat(out).st_size>100000
-report={"schema":"dopagaki.r19a6p4-real-A1-camera-anchored-vertical-atrium-arcology/1",
+report={"schema":"dopagaki.r19a6p4r2-camera-grounded-unified-urban-canyon/1",
  "mode":mode,"originalSourceBlob":roads["sourceBlob"],
  "source_glb_sha256":sha(src),"edited_glb_sha256":sha(out),
  "blend_sha256":sha(blend),"source_anchors_sha256":sha(anchor),
