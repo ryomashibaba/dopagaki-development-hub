@@ -1,0 +1,88 @@
+name: R19 A6 P1 true Blender GLB 12 raw camera ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r19a6p1-blender-five-district-sculpt.py
+      - scripts/p101-r19a6p1-read-blender-glb.mjs
+      - scripts/p101-r19a6p1-private-blender-art-pack.mjs
+      - scripts/p101-r19a6p1-six-native-blender-camera-qa.mjs
+      - .github/workflows/p101-r19a6p1-blender-original-native-art.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: r19a6p1-real-blender-source
+  cancel-in-progress: true
+jobs:
+  real-blender-private:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 48
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protect original game and preflight
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r19a6p1-blender-five-district-sculpt.py
+          node --check scripts/p101-r19a6p1-read-blender-glb.mjs
+          node --check scripts/p101-r19a6p1-private-blender-art-pack.mjs
+          node --check scripts/p101-r19a6p1-six-native-blender-camera-qa.mjs
+          node --test tests/p101-r19a6-pinned-city-glb-roundtrip.test.mjs
+      - name: Build only private source game and A5 source GLB
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a3-private-original-one-city-pack.mjs
+          node scripts/p101-r19a6-private-pinned-glb-scene-pack.mjs
+          node scripts/p101-r19a4-export-editable-source-city-glb.mjs
+      - name: Install actual Blender
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender fonts-ipafont-gothic
+          blender --version | head -4
+      - name: Import and sculpt five real source districts in Blender
+        run: |
+          mkdir -p r19-evidence/r19a6p1
+          for mode in ultra control; do
+            blender -b --factory-startup --python scripts/p101-r19a6p1-blender-five-district-sculpt.py -- \
+              --source "r19-evidence/r19a5/R19A5_ORIGINAL_W9C1_$mode_EDITABLE_CITY.glb" \
+              --output "r19-evidence/r19a6p1/P1_$mode_edited.glb" \
+              --blend "r19-evidence/r19a6p1/P1_$mode_editable.blend" \
+              --report "r19-evidence/r19a6p1/P1_$mode_blender_report.json" \
+              --mode "$mode"
+          done
+      - name: Independent edited glTF parser, TRS and source check
+        run: |
+          for mode in ultra control; do
+            node scripts/p101-r19a6p1-read-blender-glb.mjs \
+              "r19-evidence/r19a6p1/P1_$mode_edited.glb" \
+              "r19-evidence/r19a6p1/P1_$mode_blender_report.json" \
+              "r19-evidence/r19a6p1/P1_$mode_audited_gpu.bin"
+          done
+          node scripts/p101-r19a6p1-private-blender-art-pack.mjs
+          node --check dist-private/r19a6p1/drive3d.mjs
+          ! grep -q "r19a6p1" dist-private/r19a6/drive3d.mjs
+      - name: Install Chromium
+        run: |
+          npx playwright install --only-shell chromium
+          fc-cache -f
+      - name: Reproduce old A5 native 24 WebGL2 Canvas frames
+        run: |
+          node scripts/p101-r19a3-four-native-source-city-sessions.mjs
+          node scripts/p101-r19a3-independent-real-city-native-16png-gate.mjs
+      - name: Source-native 6 tick x 2 edited Blender screenshots, physical proof
+        run: |
+          node scripts/p101-r19a6p1-six-native-blender-camera-qa.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: R19_A6P1_TRUE_BLENDER_GLBS_BLEND_NATIVE12_ART_HOLD
+          path: |
+            r19-evidence/r19a6p1/
+            dist-private/r19a6p1/R19A6_P1_SCULPT_MANIFEST.json
+          retention-days: 7
+          if-no-files-found: warn
