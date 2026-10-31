@@ -1,6 +1,16 @@
-# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A5実体都市基盤／真24画像ART REJECT）
+# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P0真正GLB再投入TECH PASS／ART REJECT）
 
 **本来の不変目標**：本物の7,280m・約52秒級Slope2高速ゲーム（200m/s級、本物のカーブ・細道・ジャンプ・動体）と、圧倒的に美しく一体的な超未来巨大都市を**同じ人間プレイ体験で**成立させる。Slope2 DNA目標2,912m、正式認定0m。正式ART採用0件。技術QAの成功をART/GAMEPLAY/HUMAN合格と混同しない。
+
+
+## 最新 R19 A6 P0（技術限定PASS）
+
+- A5元14m/28mそれぞれの**5独立メッシュ・5仮材料・10,566三角形の真正GLB**をSHA固定で実バイナリ読込し、全GPU XYZRGB float32を元直接ソースと照合して完全一致。改ざん/別モード/別blobの負のゲートを拒否。Blender GUIでの実編集・再書出しは未実施。
+- [真正GitHub Actions #41179550859](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41179550859) **全ジョブSUCCESS**：元A5直接都市の生WebGL2 24PNGを再収集後、GLB由来PRIVATE描画で元14m/28m×4.404sと8.004sの4枚を原同tick画像とSHA256 **4/4完全一致**。元球位置/速度・7 B48/28 B51・240Hz RAW cameraを検査。元source blob保護。
+- [原Artifact #13033983651](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41179550859/artifacts/13033983651)：約664kB、2026-11-07 07:13 UTC失効予定。CI検査HEAD `038872b79a91ad70f68b6645652c795c76291cb2`、後続docs/Windows cmdは同CI未検査。
+- **最終判定はR19 A6 P0 SOURCE GLB READBACK TECH PASS／ART REJECT。** A5の孤立箱・門・偽地盤と視認問題は解決していない。正式ART0件／Slope2認定0m／HUMAN・GAMEPLAY・PERFORMANCE・RELEASE・MERGE HOLD。
+- **次工程A6 P1/P2：** 実編集可能GLBをBlender等で修正し、indexed geometry/node transform/材質の検証済み再取込を確立。元6視点で遠中近景の都市一体感を大幅に改善して厳しくART判定する。単純なJS箱/門の追加は禁止。Windows手動14m/28mと原B51の真視認/GPU FPSは別途HOLD。[詳細証拠](R19_A6_P0_ORIGINAL_GLB_PRIVATE_ROUNDTRIP_AND_ART_GATE_JA.md)／[時間構図マスタープラン](R19_A6_SIX_TRUE_CAMERA_CITY_ART_MASTERPLAN_JA.md)。
+
 
 ## 永久保護
 元WebGL2 `web/p101-w9c2-g4e7ci-integrated-streetscape.mjs` Git Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元240Hz CCD、球r0.65m、実B48道路7本／本物B51動体28基、元P96/P94/A13、元RAWカメラ/HUD。本番/main/Gold/P100/W9-X/B5無改変。作業は`p101-velocity-overdrive-native-trial` Draft PR #46 OPEN未マージのPRIVATEのみ。透明床・磁石救済・偽減速/完走/資格詐称は禁止。
@@ -19,7 +29,7 @@
 - **ART REJECT**。建築の下へ都市基盤が加わったものの、実画面は近景の孤立した箱型建物・柱・門状フレームと空白が大半。元14m細道コア4.404秒の側面視界占有が増え、元B51の初見読解に関する安全性は未証明。8〜11.5秒でも巨大な実都市として連続しない。15基盤や10,566面を質の合格とすることは禁止。
 - 詳細：[A5の完全独立監査](R19_A5_TRUE24_GLB5_ART_REJECT_AND_SOURCE_GAME_CONTINUITY_JA.md)、[A5設計](R19_A5_CIVIC_TERRACES_FIVE_EDITABLE_MATERIALS_GENUINE_CAMERA_GATE_JA.md)。
 
-## 次工程
+## A5時点の旧次工程記録（A6 P0技術検証で部分達成・美術は未解決）
 **似た箱/門/基盤を増やす工程は停止**。A6は制作方法の進化：今回確実に作った5オブジェクトGLBを本当のデザイン原本として編集し、PRIVATE元WebGL2に安全に再読み込みできる入出力基盤を構築。元の6カメラで道路0/1の遠景・中景・近景と一体都市の造形を先に判断。既存スクリプト/CIを再利用し、高品質建築の外皮・視覚機能・色/照明と街のつながりを優先する。Windows RTXの人間14m/28m実プレイとFPS/B51のピクセル視認は別ゲートでHOLD。
 
 **正式ART0件、Slope2 DNA 0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
