@@ -1,6 +1,15 @@
-# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P0真正GLB再投入TECH PASS／ART REJECT）
+# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P1実Blender編集TECH PASS／ART REJECT）
 
 **本来の不変目標**：本物の7,280m・約52秒級Slope2高速ゲーム（200m/s級、本物のカーブ・細道・ジャンプ・動体）と、圧倒的に美しく一体的な超未来巨大都市を**同じ人間プレイ体験で**成立させる。Slope2 DNA目標2,912m、正式認定0m。正式ART採用0件。技術QAの成功をART/GAMEPLAY/HUMAN合格と混同しない。
+
+
+## 最新 R19 A6 P1（実Blender編集の技術PASS・真正美術REJECT）
+
+- **本物のBlender 4.0.2で**、A5 14m/28m GLB各5地区を import→三次元メッシュ編集（非対称彫塑+主役地区の立体曲面）→編集可能 `.blend`・編集GLB保存。10,566→**10,728三角形**（+162）、5独立地区、非衝突0追加。Node独立のindexed glTF/node変換/色データのGPU再読込PASS。**Blender GUI手動で作品を完成させたとの主張ではない**。
+- [専用Actions #41180479851](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41180479851) **SUCCESS**。元14m/28m×元6tickの実WebGL2 Canvas**12/12撮影・旧A5とのSHA画像差12/12**。元240Hz球XYZ誤差最大0.0007703576m／速度誤差最大0.0004716m/s、元道路7/B51 28/元カメラHUD保持。
+- [Artifact #13034364524](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41180479851/artifacts/13034364524)：実`.blend`2件・GLB2件・12真正写真/QA記録、2026-11-07 UTC失効予定。**バイナリ恒久GitHub原本化は未実施**。ソーススクリプトはこのブランチに保存。
+- **ARTは厳格REJECT**。4.404秒の右の孤立した箱/フレームと、8.004秒Road1の空虚な前景・右端だけの巨大建築がそのまま残る。僅かな曲面化やPNG差を美術改善と偽らない。正式ART0件／Slope2 DNA認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+- **次R19 A6 P2**：旧箱・門・微小変形の続きは中止。元6視点をもとに**道路0/1の遠中近景の都市主役配置と連続街区を抜本再設計**する。特にRoad1 8〜11.5秒の正面を埋める本物の巨大都市と、14m細道4.404秒のB51危険認知の両立。作成済みBlender↔GLB↔PRIVATE元ゲーム検証基盤を再利用。[完全監査](R19_A6P1_REAL_BLENDER_EDITED_GLBS_NATIVE12_ART_REJECT_JA.md)。
 
 
 ## 最新 R19 A6 P0（技術限定PASS）
@@ -21,7 +30,7 @@
 - A3は巨大白棚・柱が再発してART REJECT。A3Rはroad1の8/11.5秒にも構造が現れるが薄い骨組み/巨大門でART REJECT。
 - A4は34ベイの本物の建築奥行き、5独立オブジェクトのglTF2編集GLB×2、真WebGL2元24画像・物理同tickでSOURCE TECH PASS。ただし建物が空中で孤立し、都市の内部機能/基盤がなくART REJECT。元証拠 #13019567092。
 
-## R19 A5（最新実検証）
+## R19 A5（過去の正式ART REJECT）
 - **同じ1都市案RIFT CIVIC BASILICA**を再改修。主役1/公共地区4、34の厚みのある建築ベイに加え、**15件の多角形段状都市基盤・10件の公共空間の隙間・10件の下部支持部材・5件の景観アクセス**、合計**10,566三角形**の元B48ソース位置の独立5地区3D。元道路・B51本体/カメラ/操作を変えず、衝突追加0。
 - **glTF2 GLBをULTRA14m/CONTROL28m各1件**、いずれもBlender等で5つの独立建築区画と**5個の仮編集マテリアル**を編集可能。1件約765kB。第三者`trimesh`で両方を5ジオメトリ、合計10,566面として正常読込、各SHA確認。Blender GUI実操作は未確認。光は元RGB頂点の簡易方向シェードであって**本物のPBRやシャドウは未実装**、実地形へ接地したとの証明もない。
 - 最新[Actions #41144200111](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41144200111) **全ジョブSUCCESS**、原元Canvas画像24/24 SHA、元Native球XYZ最大誤差0.00077036m/速度0.0004716m/s、元7 B48/28 B51、GLB双方SHA・編集用5メッシュ構造を確認。一次Artifact #13019233506（ZIP SHA256 `2f05fcd04fcfc369cea8dacc268af746046f94b4cd4346fa57172aceb0c9d300`、2026-11-06 23:26 UTC失効）。
