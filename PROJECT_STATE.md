@@ -1,3 +1,15 @@
+# R19 A6 P3（最新）— 元A1真正カメラ12件を正本化／Road1タワー1,360候補の保守的負の判定（2026-10-31 JST）
+
+**新P3カメラ・28 B51 OBB CIはまだqueued。実測TECH PASS・美術PASSを主張しない。P2のART REJECTを継続。正式ART採用0／Slope2 DNA正式認定0/2,912m。GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
+
+- 初回P3測定ジョブ #41182781084はコード修正後キャンセル。新[専用CI #41183558390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41183558390) は元の正規WebGL2 `viewForPose`カメラと真正B51物理OBBの12視点測定・候補選別を実行する設計。GitHub Actions runner割り当て待ちで、測定成功かどうかは**未確認**。
+- 待ちの間に[以前の真正R19 A1 CI #41133092902](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41133092902)から、14m/28m×6 native ticksの本物の`cameraEye/front`＋原画面解像度を源SHA256照合で復元、[12本物のカメラの恒久JSON](docs/R19_A6P3_PRIOR_A1_ORIGINAL_12_TRUE_CAMERAS.json)保存。これは新P3 B51-OBB完成ではない。
+- Road1沿いの実B48 `sample`と真正A1カメラで**1,360件の直立24m×24m塔の立体投影**を独立ローカル計算。Road1の8/11.5秒に一定以上見える配置は両幅で684件。そのうちRoad0の3/4.4/5.2秒すべてで大きな中央視野と厳密に無交差、という**非常に保守的な仮ルール**では0件。**これは建築不可能の証明や実B51視認の証明ではない。** 正規カメラ・道路視界と都市形状の構成を分けて考え直す必要性を実データで確認。
+- [P3先行ネガティブ研究・設計基準](docs/R19_A6P3_PRIOR_A1_REAL_CAMERA_12_NEGATIVE_ARCHITECTURE_GATE_JA.md)、[新P3実行ゲート](docs/R19_A6P3_TRUE_CAMERA_B51_GEOMETRY_FIRST_SITE_GATE_JA.md)、[LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。
+- 進行方針：本物の28 B51 OBB投影と元6カメラの計測→Road1前方で立体的な公共／居住区画・接続される地盤・本物の空洞を設計し、真Blender/GLB/元WebGL2で直接修正。孤立箱/巨大門/水平リボン/吊り高架の再生産は禁止。main/本番/Gold/P100/W9-X/B5/元Blob `af076d67492a677d2235e4730aef8cdf4808e106`/元240Hz B48×7 B51×28/元RAW camera/HUD無改変。Draft PR #46 OPEN未マージ。
+
+---
+
 # R19 A6 P2（最新） — 元B48基準の5地区Blender全面再設計、真正12画像SOURCE TECH PASS／ART REJECT（2026-10-31 JST）
 
 **最上位目標：7,280m・約52秒級Slope2物理体験と圧倒的に美しい超未来巨大都市を同一の人間プレイで完成する。正式ART採用0件・Slope2 DNA認定0/2,912m。A6 P2は技術PASSだが、巨大な水平リボン架構が旧箱/門の代わりに目立ち、ART REJECT。GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
