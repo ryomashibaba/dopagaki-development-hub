@@ -1,3 +1,13 @@
+## 最新 R19 A6 P4 R2E（2026-10-31 JST） — 真の公共空間を起点とするBlender都市制作に転換
+
+- **R2D-Bは元240Hz・実GLB 40,628三角形・真正12WebGL2画像・全2,881tick B51 SATはTECH PASS、しかしART REJECT**。巨大無地の都市崖に窓や床を加えても、実画像では石碑の反復に見え、都市の公共性・人間規模・用途が成立しなかった。[厳格R2D-B監査](R19_A6P4_R2D_B_ACTUAL_BLENDER_12_WEBGL2_2881_B51_ART_REJECT_JA.md)。
+- 反省を受け、**R2EはBlender制作ソース自体を刷新**。[新しい真の屋外中庭＋公共歩廊制作コード](../scripts/p101-r19a6p4r2e-real-open-civic-court.py)：元道路Road1 u=.30/.47/.64、Road0 u=.44/.73の5地区を維持し、交通／文化・大学／植物園・劇場／住宅／市場の建築プログラムを設定。各地区に**直径36mの開放中庭、12枚の実3D厚床で構成する一周の公共歩廊、接続ギャップ1e-8m未満の直接検査、3〜5の曲線状複数階建築翼と実3D張出し床・窓・低層装飾**を生成。ゲーム上のプレイヤー通行、建築の居住、元地盤への支持は**一切未確認**。単純な押出石碑や門・巨大水平帯へ回帰しない。
+- [R2E専用Actions #41192335941](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41192335941)を実際に作成・起動。初回確認ではrunner**QUEUED**。実Blender/GPU変換、元14m/28m×6 native ticks=真正12 WebGL2画像、元B48×7/B51×28・0..2880の全2,881 tick厳密3D SAT、実歩廊床の繋ぎの検査が完了するまで**R2E TECH/HUMAN/ARTは未認定**。
+- 次はR2Eの実元ゲーム画像をR2D-Bと4.404／8.004／11.504秒で比較し、単純な画像差やポリゴン増加ではなく、実在する公共空間が視認できるか・中低層のつながり・原障害物の読み取りを厳しく評価。ART REJECTなら新Blenderソースの形状に直接修正を加える。詳細：[R2E設計と厳格QA](R19_A6P4_R2E_OPEN_PUBLIC_COURT_METHOD_AND_QA_JA.md)。
+- 元Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、7B48／28B51／240Hz球／RAW camera/HUD、main/Gold/P100/W9-X/B5/本番を無変更。正式ART採用0／Slope2 DNA認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。PR #46 OPEN/Draft未マージ。
+
+---
+
 ## 【最新】R19 A6 P4 R2D-B 実Blender+全2881tick TECH PASS／ART REJECT（2026-10-31 JST）
 
 - [正規Actions #41191352574](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41191352574)全SUCCESS。[実Artifact #13038474627](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41191352574/artifacts/13038474627)をダウンロード／画像実見。**元14m/28mのBlender編集可能5地区、19,722面、独立GPU40,628三角形、元ゲーム本物の12/12 WebGL2画面**、元A0球XYZ差最大0.0007703576m。
