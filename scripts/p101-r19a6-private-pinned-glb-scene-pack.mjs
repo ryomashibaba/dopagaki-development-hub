@@ -55,7 +55,7 @@ patch('  canvas.dataset.r19a3ColliderCount=String(a3.colliders);',[
  "  canvas.dataset.r19a6Status=r19a6OptIn?'loading-original-glb-readback':'off';",
  '  if(r19a6OptIn){',
  "   if(!r19a6Kind)throw Error('R19 A6 only supports real source W9C1 ULTRA/CONTROL');",
- "   const expected=r19a6Kind==='ultra'?760752:760752;", // replaced by manifest from embed during builder below
+ "   const expected=r19a6Kind==='ultra'?"+manifests.modes.ultra.bytes+":"+manifests.modes.control.bytes+";",
  "   fetch('./R19A6_'+r19a6Kind+'_GPU_VERTICES.bin',{cache:'no-store'}).then(r=>{",
  "    if(!r.ok)throw Error('A6 trusted bin not found');return r.arrayBuffer();",
  '   }).then(buffer=>{',
