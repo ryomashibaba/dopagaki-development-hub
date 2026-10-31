@@ -1,0 +1,95 @@
+name: R19 A6 P4 true Blender camera-guided open atrium city 12 native ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r19a6p4-blender-vertical-open-atrium-city.py
+      - scripts/p101-r19a6p4-private-source-game-real-blender-pack.mjs
+      - scripts/p101-r19a6p4-12-original-native-camera-art-qa.mjs
+      - .github/workflows/p101-r19a6p4-camera-guided-true-blender-city.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: r19a6p4-camera-original-source-true-blender
+  cancel-in-progress: true
+jobs:
+  real-Blender-five-district-original-WebGL2:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Immutable original B48 B51 and preflight all P4 source
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r19a6p4-blender-vertical-open-atrium-city.py
+          node --check scripts/p101-r19a6p4-private-source-game-real-blender-pack.mjs
+          node --check scripts/p101-r19a6p4-12-original-native-camera-art-qa.mjs
+          node --check scripts/p101-r19a6p1-read-blender-glb.mjs
+          node --test tests/p101-r19a6-pinned-city-glb-roundtrip.test.mjs
+          test -s docs/R19_A6P3_PRIOR_A1_ORIGINAL_12_TRUE_CAMERAS.json
+      - name: Build true untouched game, A5 source editable geometry and road0/1
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a3-private-original-one-city-pack.mjs
+          node scripts/p101-r19a6-private-pinned-glb-scene-pack.mjs
+          node scripts/p101-r19a4-export-editable-source-city-glb.mjs
+          node scripts/p101-r19a6p2-real-road-spatial-anchors.mjs
+      - name: Install actual Blender 4 and color-capable glTF exporter
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil fonts-ipafont-gothic
+          blender --version | head -4
+      - name: Actual Blender source GLB import and P4 five editable solid-open-void districts
+        run: |
+          mkdir -p r19-evidence/r19a6p4
+          for mode in ultra control; do
+            blender -b --factory-startup --python-exit-code 3 --python scripts/p101-r19a6p4-blender-vertical-open-atrium-city.py -- \
+              --source "r19-evidence/r19a5/R19A5_ORIGINAL_W9C1_${mode}_EDITABLE_CITY.glb" \
+              --output "r19-evidence/r19a6p4/P4_${mode}_edited.glb" \
+              --blend "r19-evidence/r19a6p4/P4_${mode}_editable.blend" \
+              --report "r19-evidence/r19a6p4/P4_${mode}_blender_report.json" \
+              --anchors "r19-evidence/r19a6p2/P2_${mode}_real_road_anchors.json" \
+              --cameras "docs/R19_A6P3_PRIOR_A1_ORIGINAL_12_TRUE_CAMERAS.json" \
+              --mode "$mode"
+            test -s "r19-evidence/r19a6p4/P4_${mode}_edited.glb"
+            test -s "r19-evidence/r19a6p4/P4_${mode}_editable.blend"
+            test -s "r19-evidence/r19a6p4/P4_${mode}_blender_report.json"
+          done
+      - name: Verify actual independently parsed indexed glTF COLOR0 and source SHA
+        run: |
+          for mode in ultra control; do
+            node scripts/p101-r19a6p1-read-blender-glb.mjs \
+              "r19-evidence/r19a6p4/P4_${mode}_edited.glb" \
+              "r19-evidence/r19a6p4/P4_${mode}_blender_report.json" \
+              "r19-evidence/r19a6p4/P4_${mode}_audited_gpu.bin"
+          done
+          node scripts/p101-r19a6p4-private-source-game-real-blender-pack.mjs
+          node --check dist-private/r19a6p4/drive3d.mjs
+          ! grep -q "r19a6p4" dist-private/r19a6/drive3d.mjs
+      - name: Chromium original WebGL2 native renderer
+        run: |
+          npx playwright install --only-shell chromium
+          fc-cache -f
+      - name: Real original A5 24 native WebGL2 frames for trustworthy baseline
+        run: |
+          node scripts/p101-r19a3-four-native-source-city-sessions.mjs
+          node scripts/p101-r19a3-independent-real-city-native-16png-gate.mjs
+      - name: Real P4 14m and 28m x six exact 240Hz frames
+        run: |
+          node scripts/p101-r19a6p4-12-original-native-camera-art-qa.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Save Blender native editable project, GLBs, raw game images and QA
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: R19_A6P4_5_TRUE_BLENDER_EDITABLE_VERTICAL_CITY_12_WEBGL2_ART_UNAPPROVED
+          path: |
+            r19-evidence/r19a6p4/
+            dist-private/r19a6p4/P4_EDITABLE_BLENDER_PRIVATE_GLB_MANIFEST.json
+          retention-days: 7
+          if-no-files-found: warn
