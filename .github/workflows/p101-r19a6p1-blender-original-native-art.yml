@@ -41,18 +41,21 @@ jobs:
       - name: Install actual Blender
         run: |
           sudo apt-get update -qq
-          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender fonts-ipafont-gothic
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil fonts-ipafont-gothic
           blender --version | head -4
       - name: Import and sculpt five real source districts in Blender
         run: |
           mkdir -p r19-evidence/r19a6p1
           for mode in ultra control; do
-            blender -b --factory-startup --python scripts/p101-r19a6p1-blender-five-district-sculpt.py -- \
+            blender -b --factory-startup --python-exit-code 3 --python scripts/p101-r19a6p1-blender-five-district-sculpt.py -- \
               --source "r19-evidence/r19a5/R19A5_ORIGINAL_W9C1_${mode}_EDITABLE_CITY.glb" \
               --output "r19-evidence/r19a6p1/P1_${mode}_edited.glb" \
               --blend "r19-evidence/r19a6p1/P1_${mode}_editable.blend" \
               --report "r19-evidence/r19a6p1/P1_${mode}_blender_report.json" \
               --mode "$mode"
+            test -s "r19-evidence/r19a6p1/P1_${mode}_edited.glb"
+            test -s "r19-evidence/r19a6p1/P1_${mode}_editable.blend"
+            test -s "r19-evidence/r19a6p1/P1_${mode}_blender_report.json"
           done
       - name: Independent edited glTF parser, TRS and source check
         run: |
