@@ -24,7 +24,7 @@ for(const mode of ['ultra','control']){
  assert.equal(report.originalSourceBlob,manifest.originalSourceBlob);
  assert.equal(report.districts.length,5);
  assert.equal(report.architecturalLanguage,'STEPPED_INHABITED_URBAN_STREETS_AND_OPEN_CIVIC_CANYON');
- assert.equal(report.designRevision,'R2B_TRUE_CAMERA_LEFT_FOCAL_URBAN_REDIRECT_AFTER_R2A_ART_REJECT');
+ assert.equal(report.designRevision,'R2C_DUAL_CAMERA_8S_11S_URBAN_CONTINUITY_AFTER_R2B_REJECT');
  assert.ok(report.districts.every(x=>x.inhabitedUrbanMassingCount>=5&&x.actualPhysicalCivicBaseVolumes===3));
  assert.equal(report.districts.reduce((n,x)=>n+x.inhabitedUrbanMassingCount,0),29);
  assert.equal(report.cameraProjectionOnlyNotActualB51RasterMask,true);
