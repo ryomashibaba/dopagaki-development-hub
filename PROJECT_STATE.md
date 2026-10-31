@@ -1,3 +1,15 @@
+# R19 A6 P4 R0実績・R1直接美術修正（2026-10-31 JST）
+
+**新しい真実**：P3の本物の12カメラ＋元28 B51 OBB幾何学投影は専用[CI #41183558390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41183558390)全SUCCESS（P3技術PASS）、R19 A6 P4 R0は[CI #41184387785](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41184387785) 全SUCCESS／本物のBlender 5地区・編集BLEND/GLB各2モード、GPU30,332三角形、元240Hz 12/12原WebGL2撮影、A0球XYZ差最大0.0007703576m。ただし**ART REJECT**：17本の類似した細いタワー、都市基盤不足、11.5sの近距離柱圧迫。
+
+**新しい重大な発見**：R0の本物のGPU編集GLBの三角形重心（index 16069/16071）が、元B51 `a13-machine-12`の3D回転実物理OBB内部に入る（native tick 1249/2761）。これは画面上の外接矩形推定ではなく、実3D重心座標・OBB半辺の直接内部判定。R0は都市景観として立体干渉があるためREJECTを維持。[真正R0監査・数値](docs/R19_A6P4_R0_TRUE12_BLENDER_TECH_PASS_ART_REJECT_JA.md)。
+
+**次の直接修正P4 R1**：17個の類似塔を10個の非対称建築マスに組み替え、外壁厚み・分節した曲面・山高さ・中央空洞・段状の基盤/地区内デッキを修正。Road1 A3を元道路外側176→270mに移動、近接動体との構図と3D干渉を減らす。さらに[元物理ソースから全28基の回転OBBを生成し、実GLB三角形をSAT13軸で交差判定する独立6時刻×2幅の厳格ゲート](scripts/p101-r19a6p4-original-b51-triangle-obb-contact-gate.mjs)を[専用CI #41185479775](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41185479775)へ必須接続。**R1のTECH/ART判定はまだCI runner待ちで未確認**。本物の6時刻の3D非干渉であっても0～12秒連続全時刻、安全な人間認知、人物歩行機能、実地面支持は別のHOLD。
+
+元GitBlob `af076d67492a677d2235e4730aef8cdf4808e106`、B48×7/B51×28、元240Hz／RAW camera/HUD、main/Gold/P100/W9-X/B5/本番不変。正式ART採用0件／Slope2 DNA正式認定0/2,912m。GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。PR #46 OPEN/Draft未マージ。
+
+---
+
 # R19 A6 P4（最新・2026-10-31 JST） — 真A1カメラ誘導型5地区Blender立体都市コード保存／CI待ち
 
 **成果：実Blenderを起動して5地区を編集可能なBLEND/GLBへ書き出す設計・スクリプトと、元WebGL2 native 12画面QAの専用CIを実装済み。未実行のBlender造形は完成したと主張しない。**
