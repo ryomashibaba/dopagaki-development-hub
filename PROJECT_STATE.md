@@ -1,3 +1,12 @@
+## 【2026-11-01 R19 A6 P4 R2E-B 独立再監査】
+
+- [真正R2E-B Actions #41193208028](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41193208028) の実ジョブは**全SUCCESS**。原Artifact #13039852952（4,815,031 bytes／ZIP SHA256 `676403ac58fdac8028c208845f411b4acf05ef39a9d236df06ac039233ed2fc9`）を直接取得し、編集可能BLEND/GLB、真正元WebGL2 12/12画像と元2881tick×28 B51×両幅のSAT JSONを監査。
+- 実Blender **18,438面**・GPU **36,876三角形**・5地区22翼・元球240Hz・元B48 7/B51 28・元Blob `af076d67492a677d2235e4730aef8cdf4808e106` 無変更、追加コライダー0。原動体との**161,336瞬間サンプルで3D接触0**。連続時刻間、実B51ピクセル視認、地盤接地、人間操作/FPSは**未証明**。
+- R2E-A/Bを同一原カメラの4.404/8.004/11.504秒で再実見。R2E-Bでは皿状フロア→厚みのある建物へ確実に改善した一方、道路脇に**孤立した建物群**が並ぶだけで、街路・都市基盤・公共空間の連続性と圧倒的な未来都市が成立しない。**独立ART REJECT**。公式採用0件、Slope2 DNA正式認定0/2912m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+- [R2E-B独立監査および次の都市構成ゲート](R19_A6P4_R2E_B_NATIVE12_TECH_PASS_ART_REJECT_URBAN_COHESION_GATE_JA.md) に真画像A/B比較・画素差・再現根拠・次のR2E-C候補手順を保存。次は**地盤・街路・中低層・公共核・遠景を本物の走行カメラから一体的に設計**し、既存Blender→GLB→PRIVATE WebGL2 QAを再利用。別案の量産／巨大門・リボン／旧箱の反復／新たなCIの乱立は禁止。main/Gold/P100/W9-X/B5/本番と元物理は不変、PR #46 Draft維持。
+
+---
+
 ## 最新 R19 A6 P4 R2E：公共空間起点の新制作 → R2E-A美術REJECT／R2E-B直接改修
 
 - **[R2E-A専用Actions #41192335941](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41192335941)は全SUCCESS**。[真Artifact #13039806771](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41192335941/artifacts/13039806771)を実ダウンロード・正規PNG12/12を実見。元Blender5メッシュ／**22用途別建築翼**／12区画の**開放中庭公共歩廊（各地区継ぎ目0.0m、直径36m空洞）**、12,630 Blender面／独立GPU25,260三角形。元B48×7/B51×28/元球240Hz/元RAW camera/HUD/元ソースBlob `af076d67492a677d2235e4730aef8cdf4808e106`無変更。
