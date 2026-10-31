@@ -72,13 +72,10 @@ export function importR19A6PinnedSourceGLB(input,proof){
     const xyz=data.getFloat32(pp,true),rgb=data.getFloat32(cc,true);
     assert.ok(Number.isFinite(xyz)&&Math.abs(xyz)<1e6,'invalid source GLB geometry');
     assert.ok(Number.isFinite(rgb)&&rgb>=0&&rgb<=1,'invalid source GLB color');
-    out[cursor++]=xyz;out[cursor++]=rgb; // overwritten below: interleaving corrected by direct offsets
+    out[cursor+k]=xyz;
+    out[cursor+k+3]=rgb;
    }
-   const first=(cursor/6-1)*6;
-   // Convert XYZ RGB -> XYZRGB; both are exact float32 from original GLB.
-   const a=out[first],c=out[first+1],e=out[first+2],b=out[first+3],d=out[first+4],f=out[first+5];
-   out[first]=a;out[first+1]=e;out[first+2]=d;
-   out[first+3]=c;out[first+4]=b;out[first+5]=f;
+   cursor+=6;
   }
  }
  assert.equal(cursor,out.length);
