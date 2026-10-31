@@ -124,8 +124,8 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
    t=step/65
    setback=1.0-.28*t-.07*sin(2*pi*t+identity)
    pitch=10*sin(1.7*pi*t+identity)*t
-   base=center+up*(H*t)+along*(18*sin(pi*t)**1.4*sin(identity+.4))+
-         across*(10*sin(pi*t)*cos(identity))
+   base=(center+up*(H*t)+along*(18*sin(pi*t)**1.4*sin(identity+.4))+
+         across*(10*sin(pi*t)*cos(identity)))
    ring=[]
    for q in range(8):
     theta=2*pi*q/8+.11*sin(identity)
