@@ -1,3 +1,14 @@
+# P3 完了追記（2026-10-31 JST）
+
+**[真正CI #41183558390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41183558390) は全SUCCESS。** [真正Artifact #13036507375](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41183558390/artifacts/13036507375)（失効予定2026-11-07 08:28 UTC）を実際に取り出し、`P3_ACTUAL_RAW_CAMERA_B51_12_FRAMES.json`と`P3_CAMERA_GROUNDED_VERTICAL_CITY_SITE_PROPOSALS.json`、Canvas12枚を確認した。
+
+- 14m・28m × native tick 265/721/1057/1249/1921/2761の**真正12撮影**。元球native XYZ/速度・元B48 7/B51 28、GLSL係数1.35、Canvas 1013×698、元前方ベクトル・右方/上方の直交正規化の検査成功。FOV垂直73.057711°、水平94.141613°。
+- B51全28基の実OBBの現在時刻座標・向き・半サイズ・外接矩形を各画面へ投影。完全に前方の外接箱が画像領域と交差する件数は`265:21, 721:16, 1057:15, 1249:13, 1921:9, 2761:11`。両幅共通。ただし**画像内で実際に見えるB51の数ではない**。
+- 実カメラ＋Road0/1の全512幾何学研究候補から、P3独自のROIとOBB外接箱リスク判定で**17件**を研究用サイトとして抽出。候補スコアは視認・走行・美術・地盤・実B51全時間安全性のPASSではない。
+- 技術判定 **P3 TECH PASS**。**ART/GAMEPLAY/HUMAN/PERFORMANCE/MERGE HOLD**。公式ART採用0、正式Slope2 DNA認定0m。成果はP4 R0で実Blender造形に入力されたがP4 R0の真正美術審査はREJECT。
+
+---
+
 # DOPAGAKI SLOPE — R19 A6 P3 / 真正カメラ駆動の都市設計・実B51視野投影ゲート
 
 **2026-10-31 JST。P3ソース実装済み／GitHub CI実行待ち。未実測値は推測で埋めない。P2 ART REJECT継続、正式ART採用0件、Slope2 DNA正式認定0/2,912m。**
