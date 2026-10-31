@@ -1,3 +1,15 @@
+# R19 A6 P4 R1 完了・本物の独立美術REJECT（2026-10-31 JST）
+
+**真正[CI #41185479775](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41185479775)全SUCCESS：P4 R1の実Blenderで独立5地区・10建築コアのBLEND/GLB（14m/28m）、元240Hz×12実WebGL2画像、A0物理・元7 B48/28 B51・元カメラ/HUD不変。14,548 Blender面、29,176 GPU三角形、元球XYZ最大差0.0007703576m、元速度最大差0.0004716m/s。**
+
+前R0で`a13-machine-12`の元回転OBBの**内部に本当のGPU三角形の重心が2時刻で存在**していた件は、R1で元物理B51の`movingObstaclePose`を利用した13軸SATの真正全GPU三角形検査（両幅×6時刻×28動体）で**交差0**に改善。ただし連続0～12秒全時刻・GPU画素上の可視・人間視認/歩行・実地盤接地は未検証。
+
+**美術：ART REJECT**。元4.404/8.004/11.504sの12写真を実見。反復塔の数は減ったが、中央の孤立した塊と左の巨大近景柱が支配し、目指す超未来巨大都市の立体街区・密度・公共機能・都市基盤を実現できていない。次P4 R2は**同じペタル塔の増減・改色による焼き直しを拒否**し、都市の核1＋非対称な中低層街区・実3Dの居住/公共空洞・道路側から読める立体地盤を本当に制作する。元カメラ12画面と独立B51 3D交差ゲートを保持。[正式R1監査](docs/R19_A6P4_R1_REAL_12_WEBGL2_AND_B51_3D_SAT_TECH_PASS_ART_REJECT_JA.md)・[LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。証拠は[原Artifact #13035893443](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41185479775/artifacts/13035893443)、2026-11-07 UTC失効予定。
+
+main/Gold/P100/W9-X/B5/本番/元Blob `af076d67492a677d2235e4730aef8cdf4808e106`/元240Hz B48×7 B51×28/元RAW camera/HUDは無変更。正式ART採用0件、Slope2 DNA正式認定0/2,912m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD、PR #46 OPEN/Draft未マージ。
+
+---
+
 # R19 A6 P4 R0実績・R1直接美術修正（2026-10-31 JST）
 
 **新しい真実**：P3の本物の12カメラ＋元28 B51 OBB幾何学投影は専用[CI #41183558390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41183558390)全SUCCESS（P3技術PASS）、R19 A6 P4 R0は[CI #41184387785](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41184387785) 全SUCCESS／本物のBlender 5地区・編集BLEND/GLB各2モード、GPU30,332三角形、元240Hz 12/12原WebGL2撮影、A0球XYZ差最大0.0007703576m。ただし**ART REJECT**：17本の類似した細いタワー、都市基盤不足、11.5sの近距離柱圧迫。
