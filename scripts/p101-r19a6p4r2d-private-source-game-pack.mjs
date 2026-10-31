@@ -24,7 +24,7 @@ for(const mode of ['ultra','control']){
  assert.equal(report.originalSourceBlob,manifest.originalSourceBlob);
  assert.equal(report.districts.length,5);
  assert.equal(report.architecturalLanguage,'ASYMMETRIC_SCULPTED_CIVIC_WALLS_AND_REAL_OPEN_AIR_COURTS');
- assert.equal(report.designRevision,'R2D_NEW_MASSING_LANGUAGE_AFTER_R2C_ART_REJECT');
+ assert.equal(report.designRevision,'R2D_B_VISIBLE_3D_PUBLIC_FACADE_AND_LOWRISE_AFTER_R2D_A_ART_REJECT');
  assert.ok(report.districts.every(x=>x.realOpenAirCentralCourt===true&&x.separatePublicGroundAndSteps>=7&&x.sculptedArchitecturalMasses>=8));
  assert.equal(report.districts.length,5);
  assert.equal(report.cameraProjectionOnlyNotActualB51RasterMask,true);
