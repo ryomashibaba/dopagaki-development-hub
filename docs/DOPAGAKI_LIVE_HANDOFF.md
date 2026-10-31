@@ -1,7 +1,14 @@
-# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P2 SOURCE/BLENDER TECH PASS／ART REJECT）
+# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P3実カメラ検証コード完成／CI待ち・ART REJECT継続）
 
 **本来の不変目標**：本物の7,280m・約52秒級Slope2高速ゲーム（200m/s級、本物のカーブ・細道・ジャンプ・動体）と、圧倒的に美しく一体的な超未来巨大都市を**同じ人間プレイ体験で**成立させる。Slope2 DNA目標2,912m、正式認定0m。正式ART採用0件。技術QAの成功をART/GAMEPLAY/HUMAN合格と混同しない。
 
+
+## 最新 R19 A6 P3 — 実カメラ12時刻・B51/道路0・1配置計測へ（CI待ち・未認定）
+
+- [P3専用GitHub Actions #41182781084](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41182781084) は最初の確認時点で**queued**。ソース、CI、検査コードはPR #46の研究ブランチへコミットしたが、**生カメラ12枚と配置候補の実測成功は未確認**。公式ART0件、Slope2 DNA認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+- 元sourceの`viewForPose`・WebGL2 GLSL係数1.35、真カメラeye/front/right/up/viewport、28物理B51の真OBB現在位置/向きを**PRIVATE copyに読み取り専用**で追加。元14m/28m×6 native ticksの元Canvas画像・A0物理一致を計測するCIを用意。実道路0/1各81サンプルを使った**縦型都市区画の画面投影候補**も、実カメラに照合するコードを実装。
+- **B51 OBB投影≠GPUピクセル可視/遮蔽**、配置候補≠都市3D完成、評価スコア≠美しさ。これらを混同しない。前P2の巨大な吊りリボン・反復柱もART REJECTのまま。
+- [P3実装と技術/美術ゲート](R19_A6P3_TRUE_CAMERA_B51_GEOMETRY_FIRST_SITE_GATE_JA.md)。次に必要なのは真正CI実測、原12画像とカメラ・実B51の視認監査。その後**カメラで見える立体都市主役・縦区画・公共空洞**を美術制作し、実画面で判定。単純な箱・巨大門・水平リボンへ回帰禁止。
 
 ## 最新 R19 A6 P2（本物の5地区Blender全面再設計・真正12画像ART REJECT）
 
