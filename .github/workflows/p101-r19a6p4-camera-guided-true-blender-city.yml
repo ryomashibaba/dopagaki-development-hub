@@ -6,6 +6,7 @@ on:
       - scripts/p101-r19a6p4-blender-vertical-open-atrium-city.py
       - scripts/p101-r19a6p4-private-source-game-real-blender-pack.mjs
       - scripts/p101-r19a6p4-12-original-native-camera-art-qa.mjs
+      - scripts/p101-r19a6p4-original-b51-triangle-obb-contact-gate.mjs
       - .github/workflows/p101-r19a6p4-camera-guided-true-blender-city.yml
   workflow_dispatch:
 permissions:
@@ -28,6 +29,7 @@ jobs:
           python3 -m py_compile scripts/p101-r19a6p4-blender-vertical-open-atrium-city.py
           node --check scripts/p101-r19a6p4-private-source-game-real-blender-pack.mjs
           node --check scripts/p101-r19a6p4-12-original-native-camera-art-qa.mjs
+          node --check scripts/p101-r19a6p4-original-b51-triangle-obb-contact-gate.mjs
           node --check scripts/p101-r19a6p1-read-blender-glb.mjs
           node --test tests/p101-r19a6-pinned-city-glb-roundtrip.test.mjs
           test -s docs/R19_A6P3_PRIOR_A1_ORIGINAL_12_TRUE_CAMERAS.json
@@ -71,6 +73,10 @@ jobs:
           node scripts/p101-r19a6p4-private-source-game-real-blender-pack.mjs
           node --check dist-private/r19a6p4/drive3d.mjs
           ! grep -q "r19a6p4" dist-private/r19a6/drive3d.mjs
+      - name: Independent actual original B51 instantaneous 3D triangle-versus-rotating-box collision veto
+        run: |
+          node scripts/p101-r19a6p4-original-b51-triangle-obb-contact-gate.mjs
+          test -s r19-evidence/r19a6p4/P4_NATIVE_SIX_TIME_B51_TRIANGLE_OBB_3D_CONTACT_AUDIT.json
       - name: Chromium original WebGL2 native renderer
         run: |
           npx playwright install --only-shell chromium
