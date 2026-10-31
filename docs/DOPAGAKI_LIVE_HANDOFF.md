@@ -1,3 +1,14 @@
+## 【最新】R19 A6 P4 R2D-B 実Blender+全2881tick TECH PASS／ART REJECT（2026-10-31 JST）
+
+- [正規Actions #41191352574](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41191352574)全SUCCESS。[実Artifact #13038474627](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41191352574/artifacts/13038474627)をダウンロード／画像実見。**元14m/28mのBlender編集可能5地区、19,722面、独立GPU40,628三角形、元ゲーム本物の12/12 WebGL2画面**、元A0球XYZ差最大0.0007703576m。
+- **元B51全28基×元native0..2880の2,881tick×両幅＝161,336の動体時刻検査、真GLB三角形と原回転OBBの13軸SAT交差0**。これは離散240Hz点の非干渉であって、時刻間連続掃引／元B51の画素視認／人間の安全確認はまだHOLD。
+- [R2D-A正規CI #41190775304](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41190775304)もTECH PASS/ART REJECT。無地岩柱という欠点があり、R2D-Bでは実3Dファサード・張り出し床・追加低層区画をBlenderで**直接修正**。しかし元4.4/8/11.5秒の同じ原ゲーム画面を比較すると、**窓と階層が少し見えるだけで、巨大石碑型の都市崖が反復しており都市の完成美術に未達**。**R2D-BもART REJECT**。
+- R2Cからの元画面の中央ROI参考差分（建築だけの可視画素ではない）：4.404秒 R2C21.67%→R2D-B17.66%、8.004秒 R2C35.35%→R2D-B27.56%、11.504秒 R2C23.70%→R2D-B29.54%。8秒の都会の広がりはR2Cより弱まった。
+- 初回R2DはPython構文、次は出力パス変数の衝突で失敗し、真正CIログから直接修正して成功。**失敗/修正記録は消さない**。元Blenderソース、元物理と本番は無改変。公式ART採用0件／Slope2 DNA正式認定0m、人間ゲームプレイ・性能・出荷・マージはHOLD。PR #46 Draft未マージ。
+- **次の厳守方針：R2Eでは押出塔・巨大彫刻・箱群に小さな窓や色を足す方式をやめる。実都市の路地・歩行可能な公共床・異なる用途の建築・建物内外の接続・遠景から接近までの時間設計を中心に、PRIVATE本物の3Dシーン/描画材質を抜本設計。元12真正WebGL2・元全2881tick B51 SATを採用ゲートとして維持。** [詳細と直接美術判定](R19_A6P4_R2D_B_ACTUAL_BLENDER_12_WEBGL2_2881_B51_ART_REJECT_JA.md)。
+
+---
+
 # 最新 R19 A6 P4 R2C：両実カメラ都市配置TECH PASS／美術REJECT（2026-10-31 JST）
 
 - **[R2C正規Blender/真12画面CI #41189700048](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41189700048)全SUCCESS**。[原Artifact #13038431720](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41189700048/artifacts/13038431720)回収・実見。元A5/元B48 7/B51 28/元240Hz・RAW camera/HUD無変更、5独立編集可能BLEND地区、29中低層都市マス、14,424 Blender面・30,088 GPU三角形、14m/28m×元6tick=真正WebGL2 12/12画像。R2B「8秒だけ都市・11.5秒は空白」を修正し、Road1の主役配置を維持しつつ後方二地区を元路肩の左側へu=.47,out308mとu=.64,out267mに直接再配置。
