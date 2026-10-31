@@ -1,4 +1,4 @@
-# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P4 R0 TECH PASS／ART REJECT、R1直接美術修正CI待ち）
+# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P4 R1 TECH PASS／ART REJECT、次R2の抜本都市建築へ）
 
 **本来の不変目標**：本物の7,280m・約52秒級Slope2高速ゲーム（200m/s級、本物のカーブ・細道・ジャンプ・動体）と、圧倒的に美しく一体的な超未来巨大都市を**同じ人間プレイ体験で**成立させる。Slope2 DNA目標2,912m、正式認定0m。正式ART採用0件。技術QAの成功をART/GAMEPLAY/HUMAN合格と混同しない。
 
@@ -9,6 +9,13 @@
 - 元ゲーム実Road1の34断面×左右2×道路端距離5×高さ4、計**1,360サイト**を元カメラ画面へ投影。両幅でRoad1 8/11.5秒のどちらかに一定面積見える候補684件（**独立ローカルPython計算**）。それらがさらにRoad0 3/4.4/5.2秒の大きな中央ROIに一切重ならないという保守条件では**0件**。これは「都市が不可能」という結論でもB51実画素遮蔽の証明でもない。単純な直立箱塔だけで問題を解決できるとは言えないという**負の設計証拠**。詳細：[P3負の監査](R19_A6P3_PRIOR_A1_REAL_CAMERA_12_NEGATIVE_ARCHITECTURE_GATE_JA.md)／[再現可能なNodeコード](../scripts/p101-r19a6p3-prior-a1-vertical-tower-counterexample.mjs)。
 - 新P3 Chromium/28物理B51-OBB完全投影の専用CIは**GitHub runner割り当て待ち**。初回[#41182781084](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41182781084)は後続の初期化時read-onlyガード修正によりキャンセル、新[#41183558390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41183558390)がpending/queued（2026-10-31 JST確認）。**12フレーム28OBB測定TECH PASSとはまだ言わない。**
 - 次の造形は正規カメラ＋B51の前方マスクを明示し、Road1に**相互接続する縦の公共/居住地区・実3D内庭**を構築。中央視野を水平架構で再び覆うことは禁止。元B48/B51/カメラ/本番、main、Goldを変更しない。正式ART採用0/Slope2 DNA認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+
+## 最新 P4 R1（元3D貫通の回帰防止、真正12写真TECH PASS／ART REJECT）
+
+- [真正 GitHub Actions #41185479775](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41185479775) **全SUCCESS**。[原Artifact #13035893443](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41185479775/artifacts/13035893443)をダウンロード・検証し、Blender `.blend`/GLB両幅各1、5メッシュ、**10コア・14,548 Blender面／29,176 GPU三角形**、元14m/28m×6 native tick **12/12実WebGL2 Canvas**撮影。A0元球XYZ差最大0.0007703576m／速度差最大0.0004716m/s、元Blob/元7 B48/28 B51/240Hz/RAW camera/HUD不変。**P4 R1 TECH PASS**。
+- 新規[元B51回転OBB対実GLBの13軸SAT独立ゲート](../scripts/p101-r19a6p4-original-b51-triangle-obb-contact-gate.mjs)で**両幅×6元時刻×28動体で真3D三角形交差0**。旧R0の`a13-machine-12`に三角形重心が2時刻で内部侵入した問題を、この範囲では除去。**12秒連続全時刻の非交差・B51画素遮蔽・人間視認は未検証**。
+- 実画像をR0と同条件で厳格比較して**ART REJECT**。旧R0の17本の痩せた塔→10の太い形で数は減ったが、4.404秒は短い塔群、8.004秒は道路前方の孤立した建築塊、11.504秒は近景左の巨大な塔基部＋右側の細い2塔。都市街区・中低層基盤・広がり・公共機能の可読性不足。単にペタル塔の数や太さを変える微修正を**今後の主戦略から外す**。
+- 次P4 R2は[美術REJECTと次ゲートの正式監査](R19_A6P4_R1_REAL_12_WEBGL2_AND_B51_3D_SAT_TECH_PASS_ART_REJECT_JA.md)に従う。**異なる建築言語を採用し都市の主役核・非対称の中低層街区・立体地盤・公共空洞を実制作**して、人間の元カメラの遠景→接近→通過を比較する。巨大門／水平リボン／柱列／空中ポータルの再生は禁止。正式ART採用0、Slope2 DNA正式認定0m、HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD、PR #46 Draft未マージ。
 
 ## R19 A6 P4 R1 — 直接美術修正（コード更新済み・真正CI待ち）
 
