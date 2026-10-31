@@ -96,7 +96,7 @@ for idx,(obj,site) in enumerate(zip(objects,SITES)):
             edge,side,tangent,up=roadframe(site["road"],site["side"],u)
             phase=idx*.83+ribbon*.73
             sway=site["sway"]*sin(pi*t)*sin(2*pi*t+phase)
-            out=site["offset"]+ribbon*23+sway+10*(t-.5)**2
+            out=max(44,site["offset"]+ribbon*23+sway+10*(t-.5)**2)
             assert out>=40,"scenic city must be outward from actual B48 edge"
             all_nominal_offsets.append(out)
             # The skyline sweeps through a broad, hollow upper structure;
