@@ -71,7 +71,7 @@ for idx,(obj,site) in enumerate(zip(objects,SITES)):
     local_inv=obj.matrix_world.inverted()
     verts=[];faces=[];colors=[]
     def emit_face(indices,color):
-        assert len(indices) in (3,4)
+        assert len(indices) in (3,4,8)
         faces.append(indices);colors.append(color)
     def loft(rings,facets,palette,phase=0):
         for j in range(len(rings)):
