@@ -1,4 +1,4 @@
-# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P3実カメラ検証コード完成／CI待ち・ART REJECT継続）
+# DOPAGAKI SLOPE — LIVE HANDOFF（2026-10-31 JST・R19 A6 P4実Blender造形ソース追加／CI待ち・ART REJECT継続）
 
 **本来の不変目標**：本物の7,280m・約52秒級Slope2高速ゲーム（200m/s級、本物のカーブ・細道・ジャンプ・動体）と、圧倒的に美しく一体的な超未来巨大都市を**同じ人間プレイ体験で**成立させる。Slope2 DNA目標2,912m、正式認定0m。正式ART採用0件。技術QAの成功をART/GAMEPLAY/HUMAN合格と混同しない。
 
@@ -9,6 +9,13 @@
 - 元ゲーム実Road1の34断面×左右2×道路端距離5×高さ4、計**1,360サイト**を元カメラ画面へ投影。両幅でRoad1 8/11.5秒のどちらかに一定面積見える候補684件（**独立ローカルPython計算**）。それらがさらにRoad0 3/4.4/5.2秒の大きな中央ROIに一切重ならないという保守条件では**0件**。これは「都市が不可能」という結論でもB51実画素遮蔽の証明でもない。単純な直立箱塔だけで問題を解決できるとは言えないという**負の設計証拠**。詳細：[P3負の監査](R19_A6P3_PRIOR_A1_REAL_CAMERA_12_NEGATIVE_ARCHITECTURE_GATE_JA.md)／[再現可能なNodeコード](../scripts/p101-r19a6p3-prior-a1-vertical-tower-counterexample.mjs)。
 - 新P3 Chromium/28物理B51-OBB完全投影の専用CIは**GitHub runner割り当て待ち**。初回[#41182781084](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41182781084)は後続の初期化時read-onlyガード修正によりキャンセル、新[#41183558390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41183558390)がpending/queued（2026-10-31 JST確認）。**12フレーム28OBB測定TECH PASSとはまだ言わない。**
 - 次の造形は正規カメラ＋B51の前方マスクを明示し、Road1に**相互接続する縦の公共/居住地区・実3D内庭**を構築。中央視野を水平架構で再び覆うことは禁止。元B48/B51/カメラ/本番、main、Goldを変更しない。正式ART採用0/Slope2 DNA認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+
+## 最新 R19 A6 P4 — 実Blender縦型都市の制作ソース追加・真WebGL2 12画面CI待ち
+
+- 前P2「水平リボン・浮遊橋の反復」をART REJECTとしたまま、**A1真正12カメラ／P2元B48 Road0/1×81断面**から、[P4独立Blender制作スクリプト](../scripts/p101-r19a6p4-blender-vertical-open-atrium-city.py)を開発。Road1を主役にした5地区／17コアの**分節された縦型建築、実際に中央が空洞の6ペタル外壁、階段状テラス、彫塑された基礎、短い地区内連絡路**を設計。旧箱／巨大門／横長リボンに戻さない。
+- Pythonコード、[GLB PRIVATE取込](../scripts/p101-r19a6p4-private-source-game-real-blender-pack.mjs)、[元ゲーム12画面QA](../scripts/p101-r19a6p4-12-original-native-camera-art-qa.mjs)、[Blender/Chromium専用Actions](../.github/workflows/p101-r19a6p4-camera-guided-true-blender-city.yml)は**PR #46に保存済み**。ただし**[現P4 CI #41184387785](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41184387785)がrunner未割当のため、実Blender起動・GLB/BLEND実生成・元WebGL2実画像12枚の完了は未確認**。TECH/HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。
+- P3の28基 B51 OBB全面計測も[CI #41183558390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41183558390)で**runner未割当**。P4が使ったのは**旧A1で本当に収録したeye/front**であり、28動体の実GPU画素マスクではない。元B51視認性、人体通路、地盤接地、PBR、Windows/iPhone FPSは検証していない。間引き頂点から投影した画面矩形は保守的な全メッシュ外接の証明でもない。
+- **ARTは過去P2のREJECTが継続**。物理元Blob `af076d67492a677d2235e4730aef8cdf4808e106`／B48×7／B51×28／240Hz／RAWカメラは無変更。正式ART採用0／Slope2 DNA認定0m。次は専用CI完走→真正12枚のP2同条件比較→実Blenderで**少なくとも2回直接造形修正**（良く見えないならREJECT）を優先。[P4監査](R19_A6P4_SOURCE_CAMERA_VERTICAL_BLENDER_CITY_IMPLEMENTATION_AND_HOLD_JA.md)。PR #46 Draft、main未マージ。
 
 ## 最新 R19 A6 P3 — 実カメラ12時刻・B51/道路0・1配置計測へ（CI待ち・未認定）
 
