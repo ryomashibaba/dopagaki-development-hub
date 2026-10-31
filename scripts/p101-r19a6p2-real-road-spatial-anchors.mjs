@@ -11,7 +11,7 @@ import {generateP101W9C1AbyssCandidate} from './p101-w9c1-abyss-narrow.mjs';
 import {sample} from '../private/reference_only/director/surface.js';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const original=fs.readFileSync(path.join(root,'web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'));
-const blob=crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+original.length+'\\0'),original])).digest('hex');
+const blob=crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+original.length),Buffer.from([0]),original])).digest('hex');
 assert.equal(blob,'af076d67492a677d2235e4730aef8cdf4808e106');
 const out=path.join(root,'r19-evidence/r19a6p2');fs.mkdirSync(out,{recursive:true});
 for(const mode of ['ultra','control']){
