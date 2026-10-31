@@ -3,9 +3,16 @@
 **本来の不変目標**：本物の7,280m・約52秒級Slope2高速ゲーム（200m/s級、本物のカーブ・細道・ジャンプ・動体）と、圧倒的に美しく一体的な超未来巨大都市を**同じ人間プレイ体験で**成立させる。Slope2 DNA目標2,912m、正式認定0m。正式ART採用0件。技術QAの成功をART/GAMEPLAY/HUMAN合格と混同しない。
 
 
+### P3新規：本物の旧A1カメラ12件の再利用と、単純タワー1,360配置の負の分析
+
+- 旧A1原Chromium CI [#41133092902](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41133092902)／原Artifact #13014316341から正規元`cameraEye/cameraFront`12件を再取得、オリジナルJSON SHA256 `b5641a5298ec9f20fec48712f9e80dcc26f01a2b473b2a571fc61b07f9701ee0`確認。[実測12カメラ記録](R19_A6P3_PRIOR_A1_ORIGINAL_12_TRUE_CAMERAS.json)をGitHubで読める正本化。
+- 元ゲーム実Road1の34断面×左右2×道路端距離5×高さ4、計**1,360サイト**を元カメラ画面へ投影。両幅でRoad1 8/11.5秒のどちらかに一定面積見える候補684件（**独立ローカルPython計算**）。それらがさらにRoad0 3/4.4/5.2秒の大きな中央ROIに一切重ならないという保守条件では**0件**。これは「都市が不可能」という結論でもB51実画素遮蔽の証明でもない。単純な直立箱塔だけで問題を解決できるとは言えないという**負の設計証拠**。詳細：[P3負の監査](R19_A6P3_PRIOR_A1_REAL_CAMERA_12_NEGATIVE_ARCHITECTURE_GATE_JA.md)／[再現可能なNodeコード](../scripts/p101-r19a6p3-prior-a1-vertical-tower-counterexample.mjs)。
+- 新P3 Chromium/28物理B51-OBB完全投影の専用CIは**GitHub runner割り当て待ち**。初回[#41182781084](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41182781084)は後続の初期化時read-onlyガード修正によりキャンセル、新[#41183558390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41183558390)がpending/queued（2026-10-31 JST確認）。**12フレーム28OBB測定TECH PASSとはまだ言わない。**
+- 次の造形は正規カメラ＋B51の前方マスクを明示し、Road1に**相互接続する縦の公共/居住地区・実3D内庭**を構築。中央視野を水平架構で再び覆うことは禁止。元B48/B51/カメラ/本番、main、Goldを変更しない。正式ART採用0/Slope2 DNA認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+
 ## 最新 R19 A6 P3 — 実カメラ12時刻・B51/道路0・1配置計測へ（CI待ち・未認定）
 
-- [P3専用GitHub Actions #41182781084](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41182781084) は最初の確認時点で**queued**。ソース、CI、検査コードはPR #46の研究ブランチへコミットしたが、**生カメラ12枚と配置候補の実測成功は未確認**。公式ART0件、Slope2 DNA認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+- [P3専用GitHub Actions #41183558390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41183558390) は2026-10-31 JST時点で**queued**（旧#41182781084は後続更新のため取消）。ソース、CI、検査コードはPR #46の研究ブランチへコミットしたが、**生カメラ12枚と配置候補の実測成功は未確認**。公式ART0件、Slope2 DNA認定0m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
 - 元sourceの`viewForPose`・WebGL2 GLSL係数1.35、真カメラeye/front/right/up/viewport、28物理B51の真OBB現在位置/向きを**PRIVATE copyに読み取り専用**で追加。元14m/28m×6 native ticksの元Canvas画像・A0物理一致を計測するCIを用意。実道路0/1各81サンプルを使った**縦型都市区画の画面投影候補**も、実カメラに照合するコードを実装。
 - **B51 OBB投影≠GPUピクセル可視/遮蔽**、配置候補≠都市3D完成、評価スコア≠美しさ。これらを混同しない。前P2の巨大な吊りリボン・反復柱もART REJECTのまま。
 - [P3実装と技術/美術ゲート](R19_A6P3_TRUE_CAMERA_B51_GEOMETRY_FIRST_SITE_GATE_JA.md)。次に必要なのは真正CI実測、原12画像とカメラ・実B51の視認監査。その後**カメラで見える立体都市主役・縦区画・公共空洞**を美術制作し、実画面で判定。単純な箱・巨大門・水平リボンへ回帰禁止。
