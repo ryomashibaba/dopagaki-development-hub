@@ -96,9 +96,9 @@ for idx,(obj,site) in enumerate(zip(objects,SITES)):
             edge,side,tangent,up=roadframe(site["road"],site["side"],u)
             phase=idx*.83+ribbon*.73
             sway=site["sway"]*sin(pi*t)*sin(2*pi*t+phase)
-            out=max(44,site["offset"]+ribbon*23+sway+10*(t-.5)**2)
-            assert out>=40,"scenic city must be outward from actual B48 edge"
-            all_nominal_offsets.append(out)
+            outboard=max(44,site["offset"]+ribbon*23+sway+10*(t-.5)**2)
+            assert outboard>=40,"scenic city must be outward from actual B48 edge"
+            all_nominal_offsets.append(outboard)
             # The skyline sweeps through a broad, hollow upper structure;
             # five layers of differing height create true open air volumes.
             height=site["height"]+ribbon*24+site["rise"]*(.36+.64*sin(pi*t)**1.4)
@@ -106,7 +106,7 @@ for idx,(obj,site) in enumerate(zip(objects,SITES)):
             height-=9*(ribbon%2)
             width=17+9*sin(pi*t)**2+5*((idx+ribbon)%3)
             thickness=7+4*sin(2*pi*t+phase)**2
-            center=edge+side*out+up*height+tangent*(3.8*sin(3*pi*t+phase))
+            center=edge+side*outboard+up*height+tangent*(3.8*sin(3*pi*t+phase))
             # Sculpted thick eight-sided architectural cross section.
             ring=[]
             for q in range(8):
