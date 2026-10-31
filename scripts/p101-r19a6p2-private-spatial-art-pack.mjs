@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
-import {verifySourceOfBlenderEdit,unpackBlenderEditedGLB} from './p101-r19a6p2-read-blender-glb.mjs';
+import {verifySourceOfBlenderEdit,unpackBlenderEditedGLB} from './p101-r19a6p1-read-blender-glb.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const original=path.join(root,'dist-private/r19a6');
 const dir=path.join(root,'dist-private/r19a6p2');
@@ -41,7 +41,7 @@ assert.ok(expected.test(code),'original A6 GPU byte size anchor changed');
 code=code.replace(expected,"const expected=r19a6Kind==='ultra'?"+
  manifest.imported.ultra.gpuBytes+":"+manifest.imported.control.gpuBytes+";");
 assert.equal(code.split('PINNED_ORIGINAL_GLB_IMPORTED_ART_REJECT').length,2);
-code=code.replace('PINNED_ORIGINAL_GLB_IMPORTED_ART_REJECT','P2_BLENDER_EDITED_GLB_ART_HOLD');
+code=code.replace('PINNED_ORIGINAL_GLB_IMPORTED_ART_REJECT','P2_SPATIAL_REDESIGN_ART_HOLD');
 assert.ok(!code.includes("get('r19a6')"));
 fs.writeFileSync(path.join(dir,'drive3d.mjs'),code);
 const p0=fs.readFileSync(path.join(original,'drive3d.mjs'),'utf8');
