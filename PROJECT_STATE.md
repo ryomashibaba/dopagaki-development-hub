@@ -1,3 +1,14 @@
+# R19 A6 P4（最新・2026-10-31 JST） — 真A1カメラ誘導型5地区Blender立体都市コード保存／CI待ち
+
+**成果：実Blenderを起動して5地区を編集可能なBLEND/GLBへ書き出す設計・スクリプトと、元WebGL2 native 12画面QAの専用CIを実装済み。未実行のBlender造形は完成したと主張しない。**
+
+- [P4専用CI #41184387785](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41184387785) は初回確認でrunner割当待ち。Blenderの実生成・GLB実読込・元12画面・ART評価は**未実証**。旧P2はTECH PASS/ART REJECTのまま。正式ART採用0、Slope2 DNA認定0/2,912m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。
+- 旧A1の真正14/28m×6カメラと実B48 road0/1各81断面を設計入力に、5地区／17建築コア、中央開放空洞・立体ペタル・階層テラス・基礎・短い地区内連絡路の編集可能Blender造形スクリプトを研究ブランチへ保存。旧箱・巨大門・長い水平リボン/脚のART失敗を繰り返さないことを最優先。実カメラでの美術評価はこれから。
+- P3の真正28 B51動体OBB投影CI #41183558390もrunner待ち。P4では**元B51の実GPU画素遮蔽・人間視認・接地・歩行機能・性能は不明**。カメラ疎サンプル投影矩形は全メッシュの保守的上界ではない。元Git blob af076d67492a677d2235e4730aef8cdf4808e106、B48×7/B51×28/元RAW camera/HUD/240Hz、本番/main/Gold/P100/W9-X/B5は不変。
+- [詳細P4制作・監査記録](docs/R19_A6P4_SOURCE_CAMERA_VERTICAL_BLENDER_CITY_IMPLEMENTATION_AND_HOLD_JA.md)、[LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。次は専用CI実証後12本物の画像を実見→P2との同条件批判比較→2回以上のBlender直接改善。PR #46 OPEN/Draft未マージ。
+
+---
+
 # R19 A6 P3（最新）— 元A1真正カメラ12件を正本化／Road1タワー1,360候補の保守的負の判定（2026-10-31 JST）
 
 **新P3カメラ・28 B51 OBB CIはまだqueued。実測TECH PASS・美術PASSを主張しない。P2のART REJECTを継続。正式ART採用0／Slope2 DNA正式認定0/2,912m。GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。**
