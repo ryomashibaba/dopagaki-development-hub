@@ -115,6 +115,19 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
    rings.append([center+along*(l*scale*cos(2*pi*q/8))+
                  across*(w*scale*sin(2*pi*q/8))+up*z for q in range(8)])
   addloft(rings,mat)
+ def physical_glazing_bay(rings,ring_index,facet,centre,colour=3):
+  # Genuinely extruded facade pocket with real side/back/cap faces.
+  # It is visual architecture, NOT an accessible room certification.
+  r0=rings[ring_index];r1=rings[ring_index+3]
+  q=facet;q1=(q+1)%8
+  quad=[r0[q].lerp(r0[q1],.22),r0[q].lerp(r0[q1],.78),
+        r1[q].lerp(r1[q1],.78),r1[q].lerp(r1[q1],.22)]
+  facetCentre=sum(quad,Vector((0,0,0)))*.25
+  normal=facetCentre-centre;normal.z=0.
+  if normal.length<1e-6:return
+  normal.normalize()
+  addloft([[v+normal*.9 for v in quad],
+           [v+normal*2.4 for v in quad]],colour)
  def sculptural_wall(center,along,across,up,H,W,D,identity,mat):
   # An inhabited cliff wing: 4 diagonal shoulders, eroded central ridges,
   # stepped cuts, deliberately singular roof profile.
@@ -139,6 +152,17 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
                 across*(radD*sin(theta))+up*(pitch+roofCut))
    rings.append(ring)
   addloft(rings,mat)
+  # Eroded cliff facade: physically modeled inset bands and cantilever floors
+  # replace the single smooth monolith from the R2D-A raw screenshots.
+  for bayLevel in [9,18,28,39,50]:
+   for facet in ([0,2,4,6] if index in (0,1,2) else [1,4]):
+    if (bayLevel+facet+int(identity*3))%7==0:continue
+    physical_glazing_bay(rings,bayLevel,facet,center,3)
+  for ledgeLevel in [13,35]:
+   layer=rings[ledgeLevel]
+   avg=sum(layer,Vector((0,0,0)))/8
+   expanded=[avg+(v-avg)*1.14 for v in layer]
+   addloft([layer,expanded,[v+up*2.7 for v in expanded]],2)
  def carved_pod(center,along,across,up,H,width,length,k,mat):
   # Broad layered midrise, never an upright 48-ring octagonal prism.
   # Distinct inclined faces and a genuine 3D splayed roof in each body.
@@ -156,6 +180,9 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
      across*(width*.5*sin(a)*v*folded)+up*(top+6*sin(a+k*.91)*t*t))
    rings.append(ring)
   addloft(rings,mat)
+  for lev in [5,12,17]:
+   for facet in [0,3,5]:
+    physical_glazing_bay(rings,lev,facet,center,3)
  # Keep the whole district close to the already proven R2C road stations.
  # Road edge offsets remain >= 240m; actual B51 crossing is still CI-gated.
  baseEdge,outward,tangent,up=frame(site,site["u"])
@@ -207,8 +234,8 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
     "width":W,"depth":D,"outboard_m":round(outboard_m+lateral,2),"u":round(u,4)})
  # Additional true low/midrise massing anchors near road and between cliffs.
  # Faceted, stepped and folded *real geometry* create depth without towers.
- for k in range([5,5,6,6,7][index]):
-  t=(k+.5)/[5,5,6,6,7][index]
+ for k in range([8,5,6,6,7][index]):
+  t=(k+.5)/[8,5,6,6,7][index]
   locu=site["u"]+site["span"]*(t-.5)*.9
   edge,oo,aa,uu=frame(site,locu)
   dest=site["out"]+28+18*(k%3)
@@ -272,7 +299,7 @@ report={"schema":"dopagaki.r19a6p4r2d-sculpted-urban-civic-canyon/1",
  "humanArchitecturalAccess":"NOT_VERIFIED","actualTerrainContactVerified":False,
  "PBR_game":"NOT_IMPLEMENTED","Blender":bpy.app.version_string,
  "architecturalLanguage":"ASYMMETRIC_SCULPTED_CIVIC_WALLS_AND_REAL_OPEN_AIR_COURTS",
- "designRevision":"R2D_NEW_MASSING_LANGUAGE_AFTER_R2C_ART_REJECT",
+ "designRevision":"R2D_B_VISIBLE_3D_PUBLIC_FACADE_AND_LOWRISE_AFTER_R2D_A_ART_REJECT",
  "cameraProjectionOnlyNotActualB51RasterMask":True,
  "officialSlope2Metres":0,"ART":"HOLD","HUMAN":"HOLD","GAMEPLAY":"HOLD","PERFORMANCE":"HOLD",
  "RELEASE":"HOLD","MERGE":"HOLD"}
