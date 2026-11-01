@@ -1,4 +1,14 @@
-> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**次工程K4、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**次工程K4R（K4はTECH PASS／ART REJECT）、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+
+## 【2026-11-02 R2F5-K4 Road0開放型市場1案・真WebGL2 16画像 TECH限定PASS／独立ART REJECT／次K4R】
+
+- [K4 GitHub Actions #41320140127](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41320140127) **全工程SUCCESS**：原source blob `af076d67492a677d2235e4730aef8cdf4808e106` 固定、原A5編集可能5メッシュに**Road0 u=.75 右外70mの新市場1案だけ追加**（旧B/F/G2/IのART REJECTモデルは混ぜない）。Blender 4.0.2のBLEND/GLB各2幅と独立GPU読戻、32モジュール・420新面、WebGL2 GPU三角形10,566→11,406。原B48 7/B51 28/240Hz/原カメラ・元XYZ/速度完全一致（JSON精度0）、追加コライダー0。
+- 原 [Artifact #13089117035](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41320140127/artifacts/13089117035) 4,022,036bytes、ZIP SHA256 `223a4e9d476c767d04b9479e537f8bdc2c6951bb283f3914a38397384969bb0e`。真正**元A5×K4×14/28m×4tick＝16PNG、16SHA実物一致**、errors=[]。元球XYZ/速度/カメラ・元B48/B51/ソースを保存。
+- **独立ART REJECT：** 真画像では屋根／売店は確実に見えるが元の大型骨組みの足元に数棟の小屋根が集まる程度。速い走行視点で市場用途、公開空洞、都市的連続性を理解できない。画面全体のRGB差36超割合は1.104s 0.178/0.181%、3.004s 0.611/0.618%、4.404s 1.853/1.943%、5.204s 1.593/1.430%（14m/28m）。画像差を美術PASSと誤認しない。
+- 証拠失敗履歴：[初回 #41319228895](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41319228895) 中央広場へ小屋根越境→assert緩和せず撤退修正、[分離初回 #41319723784](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41319723784) Blender色属性ドメイン不一致→POINT/CORNER両対応。K4正式採用0、Slope2 DNA0m、HUMAN/B48/B51/CCD/FPS/RELEASE/MERGE全HOLD。main/Gold/P100/W9-X/B5/本番2URL無変更、PR#46 OPEN Draft未マージ。
+- **次K4R：同じRoad0市場の1案だけを、原4tick×2幅の真画面に合わせて建築的シルエット・実空洞・公共連続地盤を根本見直し。別案やRoad2/3の同時量産禁止**。改善見込みが成立しなければSTOPしてカメラ位置と位置選定を再研究。[K4完全審査正本](R19_A6P4_R2F5K4_ROAD0_ONE_NATIVE_MARKET_16_TRUE_WEBGL2_TECH_PASS_ART_REJECT_JA.md)。
+
+---
 
 ## 【2026-11-01 R2F5-K3B 元WebGL2真正Road4〜6カメラ獲得・Kと合計で7道路観測】
 
