@@ -180,6 +180,30 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
    2:[(.03,.49,.49),(.60,.94,.68)],
    3:[(.07,.41,.48),(.53,.88,.55)],
    4:[(.03,.37,.46),(.45,.82,.61)]}[index]
+ # R2F1-C: SELECT the hero wall from the original 240Hz camera
+ # rather than always carving arbitrary form #0 (invisible at 11.504s).
+ # This is a projection proxy only; true raster occlusion is reviewed later.
+ cameraTick=1921 if index==0 else 2761 if index in (1,2) else None
+ cameraForHero=next((f for f in actual_cameras if f["tick"]==cameraTick),None)
+ def screenScore(form):
+  if cameraForHero is None:return 0.
+  u0,u1,fraction=form;H=site["height"]*fraction
+  p=[]
+  for t in (0,.17,.33,.50,.67,.83,1.):
+   theta=2*pi*(u0+(u1-u0)*t)
+   inner=65+10*sin(index+forms.index(form)+2.8*t)
+   far=130+18*sin(index*.9+forms.index(form)+2.6*t)
+   high=H*(.59+.22*sin(pi*t)+.13*sin(3*pi*t+forms.index(form)*.7))
+   for r,z in ((inner,-30),(far,-30),(far,high),(inner,high*.75)):
+    v=at(r,theta,z)
+    q=projection(cameraForHero,Vector((v.x,v.z,-v.y)))
+    if q is not None and abs(q[0])<1 and abs(q[1])<1:p.append(q)
+  if len(p)<3:return 0.
+  return round((max(v[0] for v in p)-min(v[0] for v in p))*
+               (max(v[1] for v in p)-min(v[1] for v in p)),6)
+ heroCameraScores=[screenScore(form) for form in forms]
+ heroFormIndex=max(range(len(forms)),key=lambda i:heroCameraScores[i])
+ if index<3:assert heroCameraScores[heroFormIndex]>0,(index,heroCameraScores)
  for sp,(u0,u1,hFraction) in enumerate(forms):
   a=2*pi*u0;b=2*pi*u1;H=site["height"]*hFraction
   def section(t):
@@ -191,11 +215,11 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
    return [at(r0,th,-30),at(r1,th,-30),
            at(r1+lean,th,height),
            at(r0+lean*.4,th,height*(.65+.12*sin(2*pi*t+index)))]
-  countSections=112 if index<3 else 88
+  countSections=132 if index<3 else 88
   # The first hero of each Road1 district has a REAL full-height
   # open-to-sky void. Original game road, colliders and camera unchanged.
-  opening=(.31,.53) if index==0 else (.37,.61) if index==1 else (.29,.51)
-  carvedHero=(index<3 and sp==0)
+  opening=(.24,.57) if index==0 else (.28,.64) if index==1 else (.23,.56)
+  carvedHero=(index<3 and sp==heroFormIndex)
   if carvedHero:
    for lo,hi in ((0.,opening[0]),(opening[1],1.)):
     count=max(8,round(countSections*(hi-lo)))
@@ -388,6 +412,9 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   "programmedReal3DVolumes":programs,"realPublicBalconySlabs":publicBalconies,
   "realGlazingPocketPanels":glazing,"siteID":site["id"],"urbanStreet":urbanStreet,
    "heroOpenSkySlots":heroSkySlots,"publicStairMasses":publicStairTiers,
+   "heroFormIndexChosenByOriginalCamera":heroFormIndex if index<3 else None,
+   "heroOriginalCameraTick":cameraTick,
+   "heroProjectedCandidateAreaNDCOnly":heroCameraScores,
    "actualHumanPathVerified":False,"faces":len(mesh.polygons),
   "sparseCameraProjectedBoundsNoVisualProof":projected})
  num_vertices+=len(vertices)
@@ -411,7 +438,7 @@ report={"schema":"dopagaki.r19a6p4r2f1-connected-street-urban-district/1",
  "humanArchitecturalAccess":"NOT_VERIFIED","actualTerrainContactVerified":False,
  "PBR_game":"NOT_IMPLEMENTED","Blender":bpy.app.version_string,
  "architecturalLanguage":"R2F_CAMERA_FIRST_THREE_DIFFERENT_ROAD1_CIVIC_LANDFORMS",
- "designRevision":"R2F1B_TRUE_SKY_OPEN_PUBLIC_CANYON_DIRECT_ART_HOLD",
+ "designRevision":"R2F1C_ORIGINAL_CAMERA_SELECTED_VISUAL_CANYON_ART_HOLD",
  "cameraProjectionOnlyNotActualB51RasterMask":True,
  "officialSlope2Metres":0,"ART":"HOLD","HUMAN":"HOLD","GAMEPLAY":"HOLD","PERFORMANCE":"HOLD",
  "RELEASE":"HOLD","MERGE":"HOLD"}
