@@ -44,6 +44,17 @@ jobs:
           test "$(cut -f4 /tmp/j-i.txt)" = 10508592
           gh run download 41299372268 -n R2F4_NATIVE_CITY_ROAD1_CLIFF_GARDEN_12CAMERA_B51_ART_HOLD -D .
           gh run download 41304269353 -n R2F5I_SOURCE_ORIGINAL_F_G2_I_NATIVE_56FRAMES_ART_HOLD -D .
+          # A single-root artifact omits its common source parent on extraction.
+          # The old G2 multi-root artifact keeps r19-evidence/... intact.
+          mkdir -p r19-evidence/r19a6p4r2f5i
+          shopt -s nullglob
+          i_files=(P4R2F5I_* R2F5I_*)
+          test "${#i_files[@]}" -ge 10
+          for file in "${i_files[@]}"; do
+            test -f "$file"
+            mv -- "$file" r19-evidence/r19a6p4r2f5i/
+          done
+          shopt -u nullglob
           test -s r19-evidence/r19a6p4r2f5g2/P4R2F5G2_ultra_edited.glb
           test -s r19-evidence/r19a6p4r2f5i/P4R2F5I_control_edited.glb
       - name: Real private game plus source/G2/I strict frozen GLB readback
