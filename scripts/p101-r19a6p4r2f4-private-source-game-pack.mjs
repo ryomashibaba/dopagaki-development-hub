@@ -8,13 +8,17 @@ import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 import {verifySourceOfBlenderEdit,unpackBlenderEditedGLB} from './p101-r19a6p1-read-blender-glb.mjs';
 import {bakeR2F4CFlatNormals} from './p101-r19a6p4r2f4c-normal-bake.mjs';
+import {buildR2F4DNormals} from './p101-r19a6p4r2f4d-gpu-normal-layout.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const original=path.join(root,'dist-private/r19a6');
 const dir=path.join(root,'dist-private/r19a6p4r2f4');
 const src=path.join(root,'r19-evidence/r19a6p4r2f4');
 const shadedDir=path.join(root,'dist-private/r19a6p4r2f4shade');
+const gpuDir=path.join(root,'dist-private/r19a6p4r2f4gpu');
 fs.rmSync(shadedDir,{recursive:true,force:true});
 fs.cpSync(original,shadedDir,{recursive:true});
+fs.rmSync(gpuDir,{recursive:true,force:true});
+fs.cpSync(original,gpuDir,{recursive:true});
 const lightingStudies={schema:'dopagaki.r2f4c-private-normal-bake-comparison/1',
  researchOnly:true,immutableShader:true,PBRImplemented:false,
  originalGamePhysicsModified:false,originalGameStageModified:false,
@@ -81,6 +85,12 @@ for(const mode of ['ultra','control']){
  fs.writeFileSync(path.join(shadedDir,'R19A6_'+mode+'_GPU_VERTICES.bin'),
   Buffer.from(shaded.vertices.buffer,shaded.vertices.byteOffset,shaded.vertices.byteLength));
  lightingStudies.modes[mode]=shaded.stats;
+ const normed=buildR2F4DNormals(image.vertices);
+ const normalBuf=Buffer.from(normed.vertices.buffer,normed.vertices.byteOffset,normed.vertices.byteLength);
+ if(!fs.existsSync(gpuDir))fs.mkdirSync(gpuDir,{recursive:true});
+ fs.writeFileSync(path.join(gpuDir,'R19A6_'+mode+'_GPU_VERTICES.bin'),normalBuf);
+ lightingStudies.modes[mode].gpuRealNormals=normed.report;
+
  manifest.modes[mode]={sourceGLBSHA:report.source_glb_sha256,
   editedGLBSHA:report.edited_glb_sha256,triangles:image.triangles,gpuBytes:buf.length,
   districtMeshes:image.meshInstances,verifiedPhysicsCollidersAdded:0,ART:'HOLD'};
@@ -105,6 +115,35 @@ shadedCode=shadedCode.replace("P4R2F4B_REAL_HOLLOW_SIDE_GALLERIES_ART_HOLD",
 fs.writeFileSync(path.join(shadedDir,'drive3d.mjs'),shadedCode);
 fs.writeFileSync(path.join(shadedDir,'R2F4C_PRIVATE_NORMAL_BAKE_MANIFEST.json'),
  JSON.stringify(lightingStudies,null,2)+'\n');
+let gpuCode=code;
+const r2dShaderPatches=[["'layout(location=0) in vec3 p;layout(location=1) in vec3 color;'","'layout(location=0) in vec3 p;layout(location=1) in vec3 color;layout(location=2) in vec3 r2dNormalIn;'"],["'out vec3 shade;out float haze;'","'out vec3 shade;out float haze;out vec3 r2dNormal;'"],["'gl_Position=vec4(1.35*x/aspect,1.35*y,1.00022*z-1.30014,z);shade=color;haze=clamp","'r2dNormal=vec3(c*r2dNormalIn.x+s*r2dNormalIn.z,r2dNormalIn.y,-s*r2dNormalIn.x+c*r2dNormalIn.z);gl_Position=vec4(1.35*x/aspect,1.35*y,1.00022*z-1.30014,z);shade=color;haze=clamp"],["'#version 300 es','precision highp float;in vec3 shade;in float haze;out vec4 outColor;'","'#version 300 es','precision highp float;in vec3 shade;in float haze;in vec3 r2dNormal;uniform float r2dLit;out vec4 outColor;'"],["'void main(){outColor=vec4(mix(shade,vec3(.019,.041,.083),haze),1.0);}'","'void main(){vec3 finalShade=shade;if(r2dLit>0.5){vec3 n=normalize(r2dNormal);vec3 key=normalize(vec3(-.44,.82,.36));vec3 fill=normalize(vec3(.48,.31,-.82));float kd=max(dot(n,key),0.);float ks=abs(dot(n,key));float fd=abs(dot(n,fill));finalShade=clamp(shade*(vec3(.29,.34,.41)+vec3(.83,.78,.69)*(kd*.58+ks*.42)+vec3(.17,.24,.34)*fd),0.,1.);}outColor=vec4(mix(finalShade,vec3(.019,.041,.083),haze),1.0);}'"],["'fogStrength','fogStart','fogSpan'])locations[name]","'fogStrength','fogStart','fogSpan','r2dLit'])locations[name]"],["function discard(m){if(m?.buffer)gl.deleteBuffer(m.buffer);}","function meshR2F4DLit(v){\n const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);\n gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(v),gl.STATIC_DRAW);\n return {buffer,count:v.length/9,r2dLit:true};\n}\nfunction discard(m){if(m?.buffer)gl.deleteBuffer(m.buffer);}"],["gl.bindBuffer(gl.ARRAY_BUFFER,m.buffer);gl.enableVertexAttribArray(0);gl.enableVertexAttribArray(1);","gl.bindBuffer(gl.ARRAY_BUFFER,m.buffer);gl.enableVertexAttribArray(0);gl.enableVertexAttribArray(1);gl.uniform1f(locations.r2dLit,m.r2dLit?1:0);if(m.r2dLit){gl.enableVertexAttribArray(2);gl.vertexAttribPointer(2,3,gl.FLOAT,false,36,24);}else{gl.disableVertexAttribArray(2);}"],["gl.vertexAttribPointer(0,3,gl.FLOAT,false,24,0);gl.vertexAttribPointer(1,3,gl.FLOAT,false,24,12);","gl.vertexAttribPointer(0,3,gl.FLOAT,false,m.r2dLit?36:24,0);gl.vertexAttribPointer(1,3,gl.FLOAT,false,m.r2dLit?36:24,12);"]];
+for(const [before,after] of r2dShaderPatches){
+ assert.equal(gpuCode.split(before).length,2,'R2F4-D source shader anchor drift '+before.slice(0,70));
+ gpuCode=gpuCode.replace(before,after);
+}
+assert.equal(gpuCode.split("get('r19a6p4r2f4')").length,2);
+gpuCode=gpuCode.replace("get('r19a6p4r2f4')","get('r19a6p4r2f4gpu')");
+assert.equal(gpuCode.split("P4R2F4B_REAL_HOLLOW_SIDE_GALLERIES_ART_HOLD").length,2);
+gpuCode=gpuCode.replace("P4R2F4B_REAL_HOLLOW_SIDE_GALLERIES_ART_HOLD",
+ "P4R2F4D_GPU_NORMAL_LIGHTING_PRIVATE_ART_HOLD");
+assert.equal(gpuCode.split('r19a6Mesh=mesh(raw);').length,2);
+gpuCode=gpuCode.replace('r19a6Mesh=mesh(raw);','r19a6Mesh=meshR2F4DLit(raw);');
+assert.equal(gpuCode.split("buffer.byteLength%72!==0").length,2);
+gpuCode=gpuCode.replace("buffer.byteLength%72!==0","buffer.byteLength%108!==0");
+const gpuBytes=Object.fromEntries(['ultra','control'].map(m=>[
+ m,fs.statSync(path.join(gpuDir,'R19A6_'+m+'_GPU_VERTICES.bin')).size]));
+assert.equal(gpuCode.split("const expected=r19a6Kind==='ultra'?"+manifest.modes.ultra.gpuBytes+":"+manifest.modes.control.gpuBytes+";").length,2);
+gpuCode=gpuCode.replace("const expected=r19a6Kind==='ultra'?"+manifest.modes.ultra.gpuBytes+":"+manifest.modes.control.gpuBytes+";",
+ "const expected=r19a6Kind==='ultra'?"+gpuBytes.ultra+":"+gpuBytes.control+";");
+fs.copyFileSync(path.join(dir,'index.html'),path.join(gpuDir,'index.html'));
+fs.writeFileSync(path.join(gpuDir,'drive3d.mjs'),gpuCode);
+fs.writeFileSync(path.join(gpuDir,'R2F4D_PRIVATE_GPU_NORMALS_MANIFEST.json'),
+ JSON.stringify({schema:'dopagaki.r2f4d-private-gpu-normal-light/1',
+ originalSourceBlob:manifest.originalSourceBlob,
+ noPBR:true,privateShaderOnly:true,originalGameUnmodified:true,
+ originalMeshPositionAndColorBitIdentical:true,newColliders:0,
+ lighting:lightingStudies.modes},null,2)+'\n');
+
 assert.ok(!fs.readFileSync(path.join(original,'drive3d.mjs'),'utf8').includes("get('r19a6p4r2f4')"));
 fs.writeFileSync(path.join(dir,'P4R2F4_EDITABLE_BLENDER_PRIVATE_GLB_MANIFEST.json'),
  JSON.stringify(manifest,null,2)+'\n');
