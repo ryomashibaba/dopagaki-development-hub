@@ -156,7 +156,7 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
  # R2E-E is ONE composition per district, not 22 freestanding lookalikes.
  # Multiple programmes occupy 3 differentiated sculpted masses. Interiors,
  # occupancy, ground contact and egress are NOT certified.
- shellCount=0;facadePockets=0;siteTerraces=0
+ shellCount=0;facadePockets=0;siteTerraces=0;heroSkySlots=0;publicStairTiers=0
  archProfiles={
   "crescent":[(.02,.34,1.12,1.20),(.39,.62,.62,1.06),(.69,.94,.87,.88)],
   "forum":[(.02,.27,.65,1.17),(.34,.72,1.03,1.24),(.78,.96,.50,.92)],
@@ -192,13 +192,38 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
            at(r1+lean,th,height),
            at(r0+lean*.4,th,height*(.65+.12*sin(2*pi*t+index)))]
   countSections=112 if index<3 else 88
-  addloft([section(j/countSections) for j in range(countSections+1)],
-          (sp+index)%3)
-  shellCount+=1
+  # The first hero of each Road1 district has a REAL full-height
+  # open-to-sky void. Original game road, colliders and camera unchanged.
+  opening=(.31,.53) if index==0 else (.37,.61) if index==1 else (.29,.51)
+  carvedHero=(index<3 and sp==0)
+  if carvedHero:
+   for lo,hi in ((0.,opening[0]),(opening[1],1.)):
+    count=max(8,round(countSections*(hi-lo)))
+    addloft([section(lo+(hi-lo)*n/count) for n in range(count+1)],
+            (sp+index)%3)
+    shellCount+=1
+   # Six genuinely thick terraced approach masses within the gap.
+   # They look like public access; actual walkability is UNVERIFIED.
+   az0=a+(b-a)*(opening[0]+.045)
+   az1=a+(b-a)*(opening[1]-.045)
+   for step in range(6):
+    r0=52+15*step;r1=r0+16
+    z=2.5+step*2.8+(1.3 if index==1 else 0.)
+    surface=[at(r0,az0,z),at(r1,az0,z),
+             at(r1,az1,z),at(r0,az1,z)]
+    addloft([[v-up*(28+step*1.5) for v in surface],surface],
+            1 if step%3 else 2)
+    publicStairTiers+=1
+   heroSkySlots+=1
+  else:
+   addloft([section(j/countSections) for j in range(countSections+1)],
+           (sp+index)%3)
+   shellCount+=1
   # Inhabited-looking true recess volumes, not fake PBR windows.
   for k in range(72):
    if (k+sp)%4==0:continue
    t=(k+.5)/72
+   if carvedHero and opening[0]<=t<=opening[1]:continue
    theta=a+(b-a)*t
    r=131+18*sin(index*.9+sp+2.6*t)
    centre=at(r,theta,H*(.17+.22*(k%3)))
@@ -212,9 +237,17 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   for level in range(3 if index==1 else 2):
    begin=a+(b-a)*(.18+level*.09)
    finish=b-(b-a)*(.18+level*.05)
-   wedge(begin,finish,64+7*level,97+8*level,
-         H*(.21+level*.19),11+level*3,1 if level%2 else 0)
-   publicBalconies+=1
+   if carvedHero:
+    for az0,az1 in ((begin,min(finish,a+(b-a)*opening[0])),
+                    (max(begin,a+(b-a)*opening[1]),finish)):
+     if az1-az0>.025:
+      wedge(az0,az1,64+7*level,97+8*level,
+            H*(.21+level*.19),11+level*3,1 if level%2 else 0)
+      publicBalconies+=1
+   else:
+    wedge(begin,finish,64+7*level,97+8*level,
+          H*(.21+level*.19),11+level*3,1 if level%2 else 0)
+    publicBalconies+=1
  # Preserve a truthful total of 22 use-zones; the shell geometry is shared.
  for k,program in enumerate(programMaps[kname]):
   share=k%3
@@ -353,13 +386,17 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   "side":site["side"],"outboardDistanceM":site["out"],
   "actualOpenCourt":True,"publicWalkDeckGraph":graph,
   "programmedReal3DVolumes":programs,"realPublicBalconySlabs":publicBalconies,
-  "realGlazingPocketPanels":glazing,"siteID":site["id"],"urbanStreet":urbanStreet,"faces":len(mesh.polygons),
+  "realGlazingPocketPanels":glazing,"siteID":site["id"],"urbanStreet":urbanStreet,
+   "heroOpenSkySlots":heroSkySlots,"publicStairMasses":publicStairTiers,
+   "actualHumanPathVerified":False,"faces":len(mesh.polygons),
   "sparseCameraProjectedBoundsNoVisualProof":projected})
  num_vertices+=len(vertices)
 assert len([obj for obj in bpy.context.scene.objects if obj.type=="MESH"])==5
 new_faces=sum(len(o.data.polygons) for o in objects)
 assert source_faces+100<new_faces<45000,(source_faces,new_faces)
 assert all(x["publicWalkDeckGraph"]["connected"] and x["faces"]>950 for x in reports)
+assert [x["heroOpenSkySlots"] for x in reports]==[1,1,1,0,0]
+assert [x["publicStairMasses"] for x in reports]==[6,6,6,0,0]
 bpy.ops.wm.save_as_mainfile(filepath=blend)
 bpy.ops.export_scene.gltf(filepath=out,export_format="GLB",use_selection=False)
 assert os.stat(out).st_size>100000
@@ -374,7 +411,7 @@ report={"schema":"dopagaki.r19a6p4r2f1-connected-street-urban-district/1",
  "humanArchitecturalAccess":"NOT_VERIFIED","actualTerrainContactVerified":False,
  "PBR_game":"NOT_IMPLEMENTED","Blender":bpy.app.version_string,
  "architecturalLanguage":"R2F_CAMERA_FIRST_THREE_DIFFERENT_ROAD1_CIVIC_LANDFORMS",
- "designRevision":"R2F1_CIVIC_CLIFF_FORUM_GARDENS_UNAPPROVED",
+ "designRevision":"R2F1B_TRUE_SKY_OPEN_PUBLIC_CANYON_DIRECT_ART_HOLD",
  "cameraProjectionOnlyNotActualB51RasterMask":True,
  "officialSlope2Metres":0,"ART":"HOLD","HUMAN":"HOLD","GAMEPLAY":"HOLD","PERFORMANCE":"HOLD",
  "RELEASE":"HOLD","MERGE":"HOLD"}
