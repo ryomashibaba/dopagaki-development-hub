@@ -1,9 +1,9 @@
-"""R2F5-H: compare 42 REAL source PNGs, no semantic or collision PASS."""
+"""R2F5-I: compare 56 REAL source PNGs, no semantic or collision PASS."""
 import json,hashlib
 from pathlib import Path
 from PIL import Image,ImageChops,ImageDraw
 root=Path('r19-evidence/r19a6p4r2f5i')
-src=json.loads((root/'R2F5I_REAL_TEMPORAL_42FRAMES.json').read_text())
+src=json.loads((root/'R2F5I_REAL_TEMPORAL_56FRAMES.json').read_text())
 assert src['actualWebGL2'] and src['errors']==[] and len(src['sessions'])==8
 ticks=[1681,1801,1861,1921,1981,2041,2161]
 assert src['ticks']==ticks

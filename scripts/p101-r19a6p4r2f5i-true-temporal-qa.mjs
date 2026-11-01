@@ -1,4 +1,4 @@
-/** R2F5-H actual 240Hz 7-frame source window: original, F, G2, ultra/control. */
+/** R2F5-I 7 original 240Hz ticks x original/F/G2/I x ultra/control, 56 true frames. */
 import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';
 import assert from 'node:assert/strict';import {chromium} from '@playwright/test';
 import {server} from './serve.mjs';
@@ -6,9 +6,9 @@ const ticks=[1681,1801,1861,1921,1981,2041,2161];
 const dir=path.resolve('r19-evidence/r19a6p4r2f5i');
 const sha=x=>crypto.createHash('sha256').update(x).digest('hex');
 const manifest=JSON.parse(fs.readFileSync(path.join(dir,'R2F5I_PINNED_ASSETS.json')));
-assert.equal(manifest.originalGitBlob,'af076d67492a677d2235e4730aef8cdf4808e106');
+assert.equal(manifest.sourceBlob,'af076d67492a677d2235e4730aef8cdf4808e106');
 const proof={schema:'dopagaki.r2f5i-original-native-temporal-7tick-4scenes/1',
- sourceBlob:manifest.originalGitBlob,sourceRun:41299372268,
+ sourceBlob:manifest.sourceBlob,sourceRun:41299372268,
  nativeHz:240,ticks,sourceRoads:7,sourceB51:28,actualWebGL2:true,
  sourceCamera:'ball-lock-unfiltered-heading',sourcePhysicsUnmodified:true,
  ART:'HOLD',HUMAN:'HOLD',PERFORMANCE:'HOLD',GAMEPLAY:'HOLD',
@@ -82,7 +82,7 @@ try{
 }finally{
  if(browser)await browser.close();
  await new Promise(resolve=>server.close(resolve));
- fs.writeFileSync(path.join(dir,'R2F5I_REAL_TEMPORAL_42FRAMES.json'),JSON.stringify(proof,null,2)+'\n');
+ fs.writeFileSync(path.join(dir,'R2F5I_REAL_TEMPORAL_56FRAMES.json'),JSON.stringify(proof,null,2)+'\n');
 }
 assert.deepEqual(proof.errors,[],'real 240Hz temporal frame rendering failed');
 assert.equal(proof.sessions.length,8);
