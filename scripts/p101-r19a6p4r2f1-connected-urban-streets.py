@@ -196,15 +196,15 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
           (sp+index)%3)
   shellCount+=1
   # Inhabited-looking true recess volumes, not fake PBR windows.
-  for k in range(10 if index<3 else 7):
+  for k in range(72):
    if (k+sp)%4==0:continue
-   t=(k+.5)/(10 if index<3 else 7)
+   t=(k+.5)/72
    theta=a+(b-a)*t
    r=131+18*sin(index*.9+sp+2.6*t)
    centre=at(r,theta,H*(.17+.22*(k%3)))
    tang=-outer*sin(theta)+along*cos(theta)
    norm=outer*cos(theta)+along*sin(theta)
-   w=4.2+(k%3)*1.8;h=3.5+(sp%2)*1.5
+   w=1.05+(k%3)*.4;h=2.8+(sp%2)*1.3
    face=[centre-tang*w-up*h,centre+tang*w-up*h,
          centre+tang*w+up*h,centre-tang*w+up*h]
    addloft([face,[v+norm*4.2 for v in face]],2 if k%3 else 3)
