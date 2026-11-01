@@ -19,8 +19,8 @@ def sha(p):
     with open(p,'rb') as f:
         for c in iter(lambda:f.read(1024*1024),b''):h.update(c)
     return h.hexdigest()
-source,k_path,k3b_path,anchor_path,out=map(arg,(
- '--original-glb','--k-camera','--k3b-camera','--anchors','--output'))
+source_ultra,source_control,k_path,k3b_path,anchor_path,out=map(arg,(
+ '--source-ultra','--source-control','--k-camera','--k3b-camera','--anchors','--output'))
 k,k3b,anchors=js(k_path),js(k3b_path),js(anchor_path)
 assert k['sourceBlob']==k3b['sourceBlob']==anchors['originalGameBlob']==SOURCE
 assert k['Hz']==k3b['sourceHz']==240
@@ -32,22 +32,27 @@ assert not k3b['geometryChanged'] and not k3b['collisionChanged']
 assert k3b['actualWebGL2'] and k3b['allSourceRoadsCameraTarget']
 assert len(anchors['sourceModes'])==2
 
-# World-space original ONLY: GLB is not exported or modified, BVH used as read-only.
-bpy.ops.object.select_all(action='SELECT')
-bpy.ops.object.delete(use_global=False)
-bpy.ops.import_scene.gltf(filepath=os.path.abspath(source))
-objs=sorted((o for o in bpy.context.scene.objects if o.type=='MESH'),key=lambda o:o.name)
-assert len(objs)==5
-vertices=[]; triangles=[]
-for o in objs:
-    m=o.data
-    m.calc_loop_triangles()
-    offset=len(vertices)
-    vertices.extend([o.matrix_world @ v.co for v in m.vertices])
-    triangles.extend([tuple(offset+i for i in t.vertices) for t in m.loop_triangles])
-assert len(triangles)==10566,(len(triangles),len(vertices))
-tree=BVHTree.FromPolygons(vertices,triangles,all_triangles=True)
-assert tree is not None
+# Separate authentic source-original city GLB per width, never candidate geometry.
+def original_tree(glb):
+    bpy.ops.object.select_all(action='SELECT')
+    bpy.ops.object.delete(use_global=False)
+    bpy.ops.import_scene.gltf(filepath=os.path.abspath(glb))
+    objs=sorted((o for o in bpy.context.scene.objects if o.type=='MESH'),key=lambda o:o.name)
+    assert len(objs)==5
+    vertices=[];triangles=[]
+    for o in objs:
+        m=o.data;m.calc_loop_triangles()
+        offset=len(vertices)
+        vertices.extend([o.matrix_world @ vt.co for vt in m.vertices])
+        triangles.extend([tuple(offset+i for i in t.vertices) for t in m.loop_triangles])
+    assert len(triangles)==10566,(glb,len(triangles))
+    tree=BVHTree.FromPolygons(vertices,triangles,all_triangles=True)
+    assert tree is not None
+    return tree,len(triangles)
+original_mesh={}
+for mode,glb in [('ultra',source_ultra),('control',source_control)]:
+    bvh,number=original_tree(glb)
+    original_mesh[mode]={'tree':bvh,'triangles':number,'sha256':sha(glb)}
 def vec(p):return Vector(p)
 def game_to_blender(p):return Vector((p[0],-p[2],p[1]))
 def lerp(a,b,u):return vec(a).lerp(vec(b),u)
@@ -76,12 +81,12 @@ def projected(state,p):
     if depth<=.66:return None
     return (W*(1+1.35*v.dot(right)/(W/H)/depth)/2,
             H*(1-1.35*v.dot(up)/depth)/2,depth)
-def ray_occluded(eye,target):
+def ray_occluded(mode,eye,target):
     delta=game_to_blender(target)-game_to_blender(eye)
     length=delta.length
     if length<.05:return None
     direction=delta/length
-    hit,normal,index,distance=tree.ray_cast(game_to_blender(eye)+direction*.015,
+    hit,normal,index,distance=original_mesh[mode]['tree'].ray_cast(game_to_blender(eye)+direction*.015,
         direction,max(0,length-.035))
     return hit is not None
 
@@ -148,8 +153,9 @@ assert set(x['state']['road'] for x in camera_samples['ultra'])==set(road_ids)
 assert set(x['state']['road'] for x in camera_samples['control'])==set(road_ids)
 
 report=dict(schema='dopagaki.k4s-original-a5-occlusion-and-real-7road-camera-siting/1',
- originalSourceBlob=SOURCE,originalGeometryTriangles=len(triangles),
- originalGLBSha256=sha(source),cameraKFileSha256=sha(k_path),
+ originalSourceBlob=SOURCE,
+ originalGeometryTrianglesByWidth={m:original_mesh[m]['triangles'] for m in ('ultra','control')},
+ originalGLBSha256ByWidth={m:original_mesh[m]['sha256'] for m in ('ultra','control')},cameraKFileSha256=sha(k_path),
  cameraK3BFileSha256=sha(k3b_path),freshRoadAnchorSha256=sha(anchor_path),
  sourceModes=['ultra','control'],realCameraCountPerWidth=21,
  originalRealRoadsCoveredPerWidth=7,sourceHz=240,sourceB51=28,
@@ -176,7 +182,7 @@ for site in cases:
             for tag,p in pts:
                 v=projected(state,p)
                 if v is None or not(0<=v[0]<=W and 0<=v[1]<=H):continue
-                q=dict(kind=tag,blockedByOriginalA5=ray_occluded(state['cameraEye'],p))
+                q=dict(kind=tag,blockedByOriginalA5=ray_occluded(mode,state['cameraEye'],p))
                 (court if tag=='court' else candidate).append(q)
             shellVis=sum(q['blockedByOriginalA5'] is False for q in candidate)
             courtVis=sum(q['blockedByOriginalA5'] is False for q in court)
@@ -207,6 +213,6 @@ Path(out).parent.mkdir(parents=True,exist_ok=True)
 Path(out).write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
 print('K4S_TRUE7ROAD_CAMERA_ORIGINAL_A5_BVH_SITING_LIMITED_PASS',json.dumps({
  'sourceCameraSamples':42,'siteProxies':len(report['cases']),
- 'originalCityTris':len(triangles),'readOnly':True,
+ 'originalCityTrisPerMode':{m:original_mesh[m]['triangles'] for m in original_mesh},'readOnly':True,
  'summary':{x['id']:{m:x['summary'][m]['sampleTicksWithSixOrMoreA5ClearProxySurfacePoints'] for m in ('ultra','control')} for x in report['cases']},
  'ART':'HOLD','SAFETY':'HOLD','HUMAN':'HOLD','release':'HOLD'}))
