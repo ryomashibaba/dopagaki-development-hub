@@ -1,3 +1,12 @@
+## 【2026-11-01 R2F5-K3B 元WebGL2真正Road4〜6カメラ獲得・Kと合計で7道路観測】
+
+- [K3 native #41314887466](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41314887466)全job SUCCESS、16合法操舵×両幅、最初32秒の原軌跡完全一致。P94 corrective÷3の2幅は**51.525s/51.270833s**、P94原倍率は**51.3625s/51.05s**で元7/7道路物理完走。非合法手段0。元P96/4.8は37秒台落下。K3 Artifact #13086649501 SHA `102079ddf56435a54769da34d3d1dbd999751a52c673b77a6f0d12504047704f`。
+- [K3B genuine WebGL2 #41315509252](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41315509252)全job SUCCESS。原A1 privateだけをP94/3(32s後)へ切替、真正WebGL2 **28PNG/28SHA一致**、archive6tick×2カメラ・native8tick×2 xyz/速度も独立一致。Road4/5/6 の**40.0/46.0/49.0秒**実視点を14/28mで取得。元KのRoad2真正画像と合わせ**道路0〜6すべて実走元カメラ観測**。Artifact #13086878340 ZIP **3,302,953B SHA `cdb87edcfe3b0ec8069f5d6e36488536d777a86c2e19b32339f9ed573ada5780`**。原source Git blob `af076d67492a677d2235e4730aef8cdf4808e106` 不変、追加collider0、元物理/カメラ/B48×7/B51×28/本番2URL/main/Gold/P100/W9-X/B5保護。
+- 真画像ではRoad4〜6の道路・既存ゲートは見えるが、都市用途の異なる高品質建築/巨大真空洞はまだない。**ART採用0・Slope2 DNA0m**。次K4はK2で選んだRoad0市場を**1案だけNative Blenderで実建築し、元カメラ多時刻×2幅ART独立審査**。品質が不足したら量産禁止。人間プレイ/新建築専用B48/B51/CCD/FPS/RELEASE/MERGE HOLD。
+- [K3/K3B完全正本](R19_A6P4_R2F5K3_K3B_ALL_SEVEN_TRUE_ORIGINAL_CAMERAS_ART_HOLD_K4_GATE_JA.md)。
+
+---
+
 ## 【2026-11-01 R2F5-K3 元16 Native操舵試行：合法P94で両幅全7 Roadスクリプト完走・K3B真カメラ再試験】
 
 - [K3 Actions #41314887466](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41314887466) **SUCCESS**。Artifact [#13086649501](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41314887466/artifacts/13086649501)：10,115B SHA `102079ddf56435a54769da34d3d1dbd999751a52c673b77a6f0d12504047704f`、14/28m×8操舵。元同一32秒prefixを厳格照合。P96派6本はRoad3で落下、P94 corrective÷3とP94 fullの両幅4本は7/7実Road物理完走。P94÷3：**51.525s/51.270833s**、P94 full：**51.3625s/51.05s**。源物理・カメラ/球/道路/28 B51不変、追加床等0。
