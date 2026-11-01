@@ -11,8 +11,8 @@ const blob=b=>crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob 
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 assert.equal(blob(fs.readFileSync('web/p101-w9c2-g4e7ci-integrated-streetscape.mjs')),ORIGINAL);
 const base=path.resolve('dist-private/r19a6');
-const out=path.resolve('dist-private/r19a6p4r2f5k4rr');
-const src=path.resolve('r19-evidence/r19a6p4r2f5k4rr');
+const out=path.resolve('dist-private/r19a6p4r2f5k4r');
+const src=path.resolve('r19-evidence/r19a6p4r2f5k4r');
 assert.ok(fs.existsSync(path.join(base,'drive3d.mjs')));
 fs.rmSync(out,{recursive:true,force:true});
 fs.cpSync(base,out,{recursive:true});
@@ -47,7 +47,7 @@ for(const mode of ['ultra','control']){
 }
 let code=fs.readFileSync(path.join(out,'drive3d.mjs'),'utf8');
 assert.equal(code.split("get('r19a6')").length,2);
-code=code.replace("get('r19a6')","get('r19a6p4r2f5k4rr')");
+code=code.replace("get('r19a6')","get('r19a6p4r2f5k4r')");
 assert.match(code,/const expected=r19a6Kind==='ultra'\?\d+:\d+;/);
 code=code.replace(/const expected=r19a6Kind==='ultra'\?\d+:\d+;/,
  "const expected=r19a6Kind==='ultra'?"+manifest.modes.ultra.bytes+":"+manifest.modes.control.bytes+";");
