@@ -1,4 +1,20 @@
-> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**K4S TECH限定PASS／K4T初回起動FAIL修正・正規再実行 #41355153090 判定待ち、ART0/Slope2 DNA0**、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+> **【GitHub正本再開入口・ユーザー操作最小化】** 新チャットはファイル再添付・ZIP・長文引き継ぎ不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで [DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46最新HEAD → このLIVE HANDOFF冒頭 → PROJECT_STATE → Actions原本を直接照合する。**最新K4Uは「位置だけ移動した真Native Blender/16真正WebGL2 TECH限定PASS、独立ART REJECT」。次K4Vは真元画面の「空洞・公共性がなぜ読めないか」のART-FIRST調査に限定、建築量産STOP。公式ART採用0・Slope2 DNA0m、PR OPEN/Draft未マージ、main/本番変更禁止。**
+
+## 【2026-11-02 K4U 真正移設34モジュール/16画像 TECH限定PASS・独立ART REJECT／次K4V】
+
+- [**K4U GitHub Actions #41359514124**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41359514124) **全job SUCCESS**、実行HEAD `0765091ff354519f98542a6127a8264c9a09cf6a`。[Artifact #13104454224](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41359514124/artifacts/13104454224) 4,070,133 bytes、実ZIP SHA256 `2b3480cafc1d64c5a861c8b927f42c96cb3120fc7c8fa4a76b108cec2d37ca00`、全26ファイル・CRC OK／16真正PNGそれぞれ独立SHA一致／errors=[]。元A5と旧K4Rの原画像8/8は、新K4U原画像とバイト完全一致。
+- **再設計なし**：既存K4R市場モデルGit blob `e653029771982b2c39ee2831ea19199f0704ddaa`を凍結してそのまま読込み、原Road0 `u=.75`→`u=.85`の座標フレームだけ移動。モジュール34・668追加面・GPU三角形元10,566→新11,902（14m/28m両幅）を保持。Native Blender4のBLEND/GLB／原GPU読戻、本物の元ゲーム元球XYZ/速度/CameraEye/Front・B48×7/B51×28/240Hz・新collider0確認。元source blob `af076d67492a677d2235e4730aef8cdf4808e106`不変。
+- 4.404秒/tick1057では画面全域RGB差>36の元→旧K4R **2.4869/2.6127%**に対し元→移設K4U **1.4318/1.4781%**（14/28m、早期の見かけの縮小）。5.204秒/tick1249はK4R **3.3138/3.2106%**→K4U **3.7570/3.8763%**で、移設により右画面に残る量は増加。ただしこれらは画像差であり美術品質の自動合格値ではない。
+- **独立ART REJECT**：真A/B画面では同一34モジュールの屋根群が元巨大A5骨組み脇でやや左に見えるだけ。市場の用途が明瞭な公共街路、人間スケール、中庭の実奥行きが高速チェイス画面で認識できない。**K4/K4R/K4U全てART REJECT、正式ART0・Slope2 DNA0m**。K4U専用全B48/B51 SAT/CCD／地面歩行／動体ピクセル視認／HUMAN・iPhone/Windows FPS／GAMEPLAY／RELEASE／MERGE全HOLD。PR OPEN/Draft未マージ、main/Gold/P100/W9-X/B5/本番2URL変更禁止。
+- [K4U 16枚の真正Native・ART独立最終審査報告](R19_A6P4_R2F5K4U_FROZEN_ART_ONLY_ROAD0_RELOCATION_TRUE_WEBGL2_JA.md)に全文・8×3画面比較実測・失敗原因と次ゲートを保存。**次K4V：同じ市場・幅を繰返し再造形せず、実WebGL2画面から元都市と市場の「真空洞／地表・屋根下の利用」の読めなさを視点別に解体し、都市デザインの根本条件を先に研究する**。景観の大きさや数字だけをART採用の代理にしない。
+
+---
+
+## 【2026-11-02 K4T修正版CI成功／元WebGL2注釈研究は技術限定PASS（K4Uに先行した歴史）】
+
+- [K4T Actions #41355153090](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41355153090) は初回引数エラーを修正後、**全job SUCCESS**。[Artifact #13102728886](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41355153090/artifacts/13102728886) ZIP3,307,518 bytes／SHA256 `919964f4e3159baf87ed89dcbfdac7f69a5c27517fde5ad39794315b6b609fd3`、本物の元A5スクリーン8枚へ旧/候補の**数学的代理枠**を上書きした比較PNG×8＋幅別シート×2。注釈は実建築の真ゲーム描画でない。後続K4U真正モデル検証が正本の最新結果。過去のK4T「実行待ち」「初回FAIL」は履歴。
+
+---
 
 ## 【K4T初回起動FAILの修正／再実行の正本（2026-11-02）】
 
