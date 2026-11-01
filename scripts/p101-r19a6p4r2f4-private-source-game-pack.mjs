@@ -136,6 +136,9 @@ assert.equal(gpuCode.split("const expected=r19a6Kind==='ultra'?"+manifest.modes.
 gpuCode=gpuCode.replace("const expected=r19a6Kind==='ultra'?"+manifest.modes.ultra.gpuBytes+":"+manifest.modes.control.gpuBytes+";",
  "const expected=r19a6Kind==='ultra'?"+gpuBytes.ultra+":"+gpuBytes.control+";");
 fs.copyFileSync(path.join(dir,'index.html'),path.join(gpuDir,'index.html'));
+assert.equal(gpuCode.split('canvas.dataset.r19a6Triangles=String(raw.length/18);').length,2);
+gpuCode=gpuCode.replace('canvas.dataset.r19a6Triangles=String(raw.length/18);',
+ 'canvas.dataset.r19a6Triangles=String(raw.length/27);');
 fs.writeFileSync(path.join(gpuDir,'drive3d.mjs'),gpuCode);
 fs.writeFileSync(path.join(gpuDir,'R2F4D_PRIVATE_GPU_NORMALS_MANIFEST.json'),
  JSON.stringify({schema:'dopagaki.r2f4d-private-gpu-normal-light/1',

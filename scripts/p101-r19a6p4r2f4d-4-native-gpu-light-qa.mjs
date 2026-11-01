@@ -39,8 +39,8 @@ try{
    await page.waitForFunction(id=>{
     const canvas=document.querySelector('#view');
     return document.querySelector('#stage')?.value===id&&
-     canvas?.dataset?.r19a6Status==='P4R2F4D_NORMAL_BAKED_PRIVATE_ART_HOLD';
-   },id,{timeout:90000});
+     canvas?.dataset?.r19a6Status==='P4R2F4D_GPU_NORMAL_LIGHTING_PRIVATE_ART_HOLD';
+   },id,{timeout:25000});
    const before=await page.evaluate(()=>{
     const el=document.querySelector('#view'),d=el.dataset;
     return {isWebGL2:el.getContext('webgl2') instanceof WebGL2RenderingContext,
@@ -94,7 +94,14 @@ try{
    }
    assert.deepEqual(errors,[]);
   }catch(e){
-   report.errors.push({mode,error:String(e.stack||e).slice(0,1800),browserErrors:errors});
+   const debug=await page.evaluate(()=>{
+    const d=document.querySelector('#view')?.dataset||{};
+    return {url:location.href,readyState:document.readyState,stage:document.querySelector('#stage')?.value,
+     loadState:d.r19a6Loaded,loadStatus:d.r19a6Status,loadError:d.r19a6LoadError,
+     meshCount:d.r19a6MeshCount,reportedTriangles:d.r19a6Triangles,
+     r19a1Status:d.r19a1Status,sourceB51:d.machineCount,glAvailable:Boolean(document.querySelector('#view')?.getContext('webgl2'))};
+   }).catch(err=>({error:String(err)}));
+   report.errors.push({mode,error:String(e.stack||e).slice(0,1800),browserErrors:errors,debug});
   }finally{await context.close();}
  }
 }finally{
