@@ -1,3 +1,13 @@
+## 【2026-11-01 R19 A6 P4 R2E-D 新モデル真正実走QA → SOURCE TECH限定PASS／ART REJECT】
+
+- 実装：[研究コミット `05ac66026aac`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/05ac66026aac4faecf6c55e8b6bf1a646f84d863)。R2E-C原本保存／同ワークフロー再利用、新Blender生成コードとR2E-D専用真WebGL2/SATテストを隔離。main・Gold・P100・W9-X・B5・本番・元ゲームblob `af076d67492a677d2235e4730aef8cdf4808e106`無変更。
+- **真正R2E-D [Actions #41269655028](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41269655028)全SUCCESS**。[Artifact #13067864733](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41269655028/artifacts/13067864733) SHA256 `b6f87bd98f7de9251feec13d055873cfc3c2f02288c2c8b86198559220e0f598`原本回収。実Blender 19,710 faces／独立GPU39,420三角形、5地区22用途・分節街路42・開放U字街区14。元球240Hz/元7B48/元28 B51/原カメラ・HUD不変、追加コライダー0。**元2幅×2,881tick×28B51=161,336の離散実GLB三角形SAT交差0**。連続時刻／地盤支持／歩行／元B51の画素遮蔽・人間走行／FPSは未証明。
+- **同条件の元WebGL2全12PNGをR2E-Cと直接目視比較し、独立ART REJECT。** 14m原画面でRGB差>36の全画面割合は4.404s 2.031%、8.004s 3.625%、11.504s 6.853%。実際の中景建築量は増えたが、8秒も11.5秒も箱と独立建物の連なりに見え、目標の一体都市・建築の美しさ・公共空間に未達。数値差分は美術PASSの代用品ではない。
+- **次R2E-Eの制作方針を厳格化**：同型箱/デッキ/街区の量産をやめ、元8.004/11.504s二つの本物の視線に共通する主役公共核＋分節地盤＋人間規模の公共空間を一案の実Blender形状として最初から設計。3重要時刻の真正画像で美術改善がない場合はフルCI増殖前に直接修正する。詳細：[R2E-D独立監査・R2E-E方針](R19_A6P4_R2E_D_TRUE12_2881_SOURCE_TECH_PASS_ART_REJECT_JA.md)。
+- 正式ART採用0件、Slope2 DNA正式認定0/2912m。GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR #46 OPEN/Draft未マージ。
+
+---
+
 ## 【2026-11-01 R19 A6 P4 R2E-C 原本直接監査：TECH限定PASS／ART REJECT】
 
 - **独立再判定：** R2E-C [真正Actions #41266597018](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41266597018)の全ステップSUCCESS。独立Artifact #13067775684をZIP SHA256 `95c8dcbd1274d53dcac34900f6624c8fc9e95669ecb8dc3b1bc0d32978a861e1`まで照合し、24原本ファイル、真正12/12 WebGL2 PNG、編集BLEND/GLB、全2881tickのB51 SATを直接確認。旧R2E-B Artifactも再取得して同一時刻の原画像を目視比較した。
