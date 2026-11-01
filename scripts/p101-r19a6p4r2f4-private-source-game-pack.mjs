@@ -7,10 +7,19 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 import {verifySourceOfBlenderEdit,unpackBlenderEditedGLB} from './p101-r19a6p1-read-blender-glb.mjs';
+import {bakeR2F4CFlatNormals} from './p101-r19a6p4r2f4c-normal-bake.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const original=path.join(root,'dist-private/r19a6');
 const dir=path.join(root,'dist-private/r19a6p4r2f4');
 const src=path.join(root,'r19-evidence/r19a6p4r2f4');
+const shadedDir=path.join(root,'dist-private/r19a6p4r2f4shade');
+fs.rmSync(shadedDir,{recursive:true,force:true});
+fs.cpSync(original,shadedDir,{recursive:true});
+const lightingStudies={schema:'dopagaki.r2f4c-private-normal-bake-comparison/1',
+ researchOnly:true,immutableShader:true,PBRImplemented:false,
+ originalGamePhysicsModified:false,originalGameStageModified:false,
+ sourceBlob:'af076d67492a677d2235e4730aef8cdf4808e106',
+ modes:{}};
 assert.ok(fs.existsSync(path.join(original,'drive3d.mjs')),'requires original A6 pinned GLB private renderer');
 fs.rmSync(dir,{recursive:true,force:true});fs.cpSync(original,dir,{recursive:true});
 const manifest={schema:'dopagaki.r19a6p4r2f4-original-source-unified-urban-private/1',
@@ -67,6 +76,11 @@ for(const mode of ['ultra','control']){
  assert.ok(image.triangles>10566&&image.triangles<50000);
  const buf=Buffer.from(image.vertices.buffer,image.vertices.byteOffset,image.vertices.byteLength);
  fs.writeFileSync(path.join(dir,'R19A6_'+mode+'_GPU_VERTICES.bin'),buf);
+ const shaded=bakeR2F4CFlatNormals(image.vertices);
+ assert.equal(shaded.vertices.length,image.vertices.length);
+ fs.writeFileSync(path.join(shadedDir,'R19A6_'+mode+'_GPU_VERTICES.bin'),
+  Buffer.from(shaded.vertices.buffer,shaded.vertices.byteOffset,shaded.vertices.byteLength));
+ lightingStudies.modes[mode]=shaded.stats;
  manifest.modes[mode]={sourceGLBSHA:report.source_glb_sha256,
   editedGLBSHA:report.edited_glb_sha256,triangles:image.triangles,gpuBytes:buf.length,
   districtMeshes:image.meshInstances,verifiedPhysicsCollidersAdded:0,ART:'HOLD'};
@@ -82,6 +96,15 @@ assert.equal(code.split('PINNED_ORIGINAL_GLB_IMPORTED_ART_REJECT').length,2);
 code=code.replace('PINNED_ORIGINAL_GLB_IMPORTED_ART_REJECT',
  'P4R2F4B_REAL_HOLLOW_SIDE_GALLERIES_ART_HOLD');
 fs.writeFileSync(path.join(dir,'drive3d.mjs'),code);
+let shadedCode=code;
+assert.equal(shadedCode.split("get('r19a6p4r2f4')").length,2);
+shadedCode=shadedCode.replace("get('r19a6p4r2f4')","get('r19a6p4r2f4shade')");
+assert.equal(shadedCode.split("P4R2F4B_REAL_HOLLOW_SIDE_GALLERIES_ART_HOLD").length,2);
+shadedCode=shadedCode.replace("P4R2F4B_REAL_HOLLOW_SIDE_GALLERIES_ART_HOLD",
+ "P4R2F4C_NORMAL_BAKED_PRIVATE_ART_HOLD");
+fs.writeFileSync(path.join(shadedDir,'drive3d.mjs'),shadedCode);
+fs.writeFileSync(path.join(shadedDir,'R2F4C_PRIVATE_NORMAL_BAKE_MANIFEST.json'),
+ JSON.stringify(lightingStudies,null,2)+'\n');
 assert.ok(!fs.readFileSync(path.join(original,'drive3d.mjs'),'utf8').includes("get('r19a6p4r2f4')"));
 fs.writeFileSync(path.join(dir,'P4R2F4_EDITABLE_BLENDER_PRIVATE_GLB_MANIFEST.json'),
  JSON.stringify(manifest,null,2)+'\n');

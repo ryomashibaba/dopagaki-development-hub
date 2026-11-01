@@ -9,6 +9,9 @@ on:
       - scripts/p101-r19a6p4r2f4-28-b51-source-sat.mjs
       - scripts/p101-r19a6p4r2f4-full-2881-b51-source-sat.mjs
       - scripts/p101-r19a6p4r2f4-b48-sampled-static-triangle-sat.mjs
+      - scripts/p101-r19a6p4r2f4c-normal-bake.mjs
+      - scripts/p101-r19a6p4r2f4c-4-native-shading-qa.mjs
+      - tests/p101-r19a6p4r2f4c-normal-bake.test.mjs
       - scripts/p101-r19a6p4r2f-camera-geometry-audit.py
       - scripts/p101-r19a6p4r2f4-native-overlays.py
       - scripts/p101-r19a6p4r2f4-roadside-placement-gate.mjs
@@ -34,6 +37,8 @@ jobs:
           python3 -m py_compile scripts/p101-r19a6p4r2f4-connected-urban-streets.py
           python3 -m py_compile scripts/p101-r19a6p4r2f-camera-geometry-audit.py scripts/p101-r19a6p4r2f4-native-overlays.py
           node --check scripts/p101-r19a6p4r2f4-private-source-game-pack.mjs
+          node --check scripts/p101-r19a6p4r2f4c-4-native-shading-qa.mjs
+          node --test tests/p101-r19a6p4r2f4c-normal-bake.test.mjs
           node --check scripts/p101-r19a6p4r2f4-12-native-visual-qa.mjs
           node --check scripts/p101-r19a6p4r2f4-28-b51-source-sat.mjs
           node --check scripts/p101-r19a6p4r2f4-full-2881-b51-source-sat.mjs
@@ -119,6 +124,11 @@ jobs:
         run: |
           node scripts/p101-r19a6p4r2f4-12-native-visual-qa.mjs
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: R2F4-C four genuine original source camera frames with isolated normal-baked vertex colors
+        run: |
+          test -s dist-private/r19a6p4r2f4shade/R2F4C_PRIVATE_NORMAL_BAKE_MANIFEST.json
+          node scripts/p101-r19a6p4r2f4c-4-native-shading-qa.mjs
+          test -s r19-evidence/r19a6p4r2f4shade/R19A6P4R2F4C_SHADE_REAL_12_NATIVE_WEBGL2_REPORT.json
       - name: R2F genuine source PNG checked camera-director overlays (read-only ART HOLD)
         run: |
           for mode in ultra control; do
@@ -132,6 +142,8 @@ jobs:
           name: R2F4_NATIVE_CITY_ROAD1_CLIFF_GARDEN_12CAMERA_B51_ART_HOLD
           path: |
             r19-evidence/r19a6p4r2f4/
+            r19-evidence/r19a6p4r2f4shade/
+            dist-private/r19a6p4r2f4shade/R2F4C_PRIVATE_NORMAL_BAKE_MANIFEST.json
             r19-evidence/r19a6p4r2f4/
             dist-private/r19a6p4r2f4/P4R2F4_EDITABLE_BLENDER_PRIVATE_GLB_MANIFEST.json
           retention-days: 7
