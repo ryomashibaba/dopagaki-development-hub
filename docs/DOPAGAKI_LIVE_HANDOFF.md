@@ -1,3 +1,13 @@
+## 【2026-11-01 R2F5-F 真Native Blender・元8秒2画像独立審査：TECH限定PASS／ART REJECT】
+
+- [R2F5-F実装`4eaae279`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/4eaae279d58c0fe74d6a9c9961eb6694bb5dd21c)後、[真正Actions #41294304510](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41294304510)全job SUCCESS。[原Artifact #13078872759](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41294304510/artifacts/13078872759)実ZIP27,477,702B／SHA256 `da6e5d2645b0c9dbced0a8a49c95571bdb25e853118f12a8bcc51d9f85ab4947`、全106ファイル・F固有12件、真BLEND/GLB×2・GLB **44,172三角形**・Native49部品・元8.004秒WebGL2 2画像SHA独立一致。
+- 旧Eより『二本の塔』は解消し建物が一体化したが、実画像では**暗い横長の箱／壁／小さな入口**に見え、駅市場の空間・内部用途が判読できない。元F真頂点BBox高 ultra/control **81.65/83.78px**（旧E104.23/106.62px）。E→F元RGB>36差は全画面 **1.39745/1.46958%**、左建築ROI **9.53764/10.02992%**、中央道路ROI0%。**独立ART REJECT**、正式0、Slope2 DNA 0m。
+- CIのstep #24は旧E名が重複している**表示ラベルだけの軽微不具合**。#24の実コマンドと原ArtifactはF。次の実開発時に修正し、表示だけのために高コストの全回帰CIを再実行しない。
+- 次R2F5-Gは設計を再び無理に大きくせず、真1921tickの約200×80pxに適した**一つの輪郭／読める駅入口／前景の公共地盤から奥へつながる見通し**を事前に研究する。光/色/屋根数で誤魔化さない。旧B/D/E/Fの原本・元物理/本番/main保護、新Fの固有B48/B51/CCD/FPS/HUMANはHOLD。詳細：[完全審査とR2F5-G要件](R19_A6P4_R2F5F_TRUE_NATIVE_TWO_CAMERA_ART_REJECT_R2F5G_GATE_JA.md)。
+- PR #46 OPEN/Draft未マージ、正式ART0・Slope2 0m、RELEASE/MERGE HOLD。
+
+---
+
 ## 【2026-11-01 R2F5-F 一体交通基盤＋実空洞を持つNative Blender造形を開始・CI未審査】
 
 - 旧R2F5-Eは実8.004秒では「二本の孤立塔」に見えて厳格ART REJECT。今回Fは位置再調整でなく、**50.5×36.5m級一体基盤・大きい中央実空洞・幅ほぼ49mの連続非対称大屋根・厚い側面の占有人間スケールの市場・奥の交通ギャラリー**で一棟として根本設計。見た目の合格を事前主張しない。
