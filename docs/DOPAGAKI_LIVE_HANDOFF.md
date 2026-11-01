@@ -1,3 +1,13 @@
+## 【2026-11-01 R2F5-D 真正CI SUCCESS／独立ART REJECT・R2F5-E設計へ】
+
+- [真正GitHub Actions #41290765902](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41290765902)全job SUCCESS。新R2F5-D Native Blender×ultra/control、glTF GPU独立再読込、元8.004秒真正WebGL2 PNG2/2、報告SHAまで原[Artifact #13077252682](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41290765902/artifacts/13077252682)をダウンロードして確認。ZIP 19,476,270B、SHA256 `d056da19883025f2c9376d5a01aa639f9c4ec7dd62c40d2afa672d4a331ab064`。元ゲーム物理・カメラ・本番不変。
+- 8秒側はRoad1 u=.125／左端45mへ再配置、11.5秒側は旧u=.350／35mを維持。新画像に元位置で切れていた施設のより多くが映った。旧R2F5-B→D真正画像差RGB>36は全画面 ultra/control **2.02270/2.00417%**、左ROI **13.80502/13.67857%**、中央道路ROI両0%。ただし真建築の投影縦高は約**59.52/61.02px**で、旧包絡予測91/93pxより小さい。
+- **厳格独立 ART REJECT**：屋根と柱は見えるようになったものの、二つの小さな低層屋根としてしか認識できず、実在する都市交通・市場施設の内部／公共地盤／建築の生命感が不十分。正式採用0件・Slope2正式0/2912m。
+- 次R2F5-Eは**道路方向への位置微調整の繰り返しを停止**。元8秒実カメラで公共交通市場として読める一棟のNative Blender本格再設計、まず2画像の低コストARTゲート。ART候補として合格して初めて新GLB専用B48/B51厳密QAへ。 [R2F5-D完全根拠・R2F5-Eゲート](R19_A6P4_R2F5D_TRUE_TWO_CAMERA_ART_REJECT_AND_E_DESIGN_GATE_JA.md)。
+- PR #46 OPEN/Draft、main/Gold/P100/W9-X/B5・両本番不変。GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。元物理/カメラ/元source blob `af076d67492a677d2235e4730aef8cdf4808e106`保持。
+
+---
+
 ## 【2026-11-01 R2F5-D 非本番Native Blender建築の再配置・真正画像CI（結果未確認）】
 
 - R2F5-Cの元8.004秒・14/28m両モード共通候補 **Road1 u=.125／左端45m** に、R2F5-B Native Blender建築1棟だけを非本番で再配置する研究工程を実装。11.504秒側は元の u=.350／左端35mを維持。旧BのPython/JS原本をGit blob SHA照合し、配置に必要な3ヶ所だけ一時変更して実行。旧Bスクリプト・旧BLEND/GLB保存。
