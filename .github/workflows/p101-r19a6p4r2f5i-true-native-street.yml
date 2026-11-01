@@ -51,7 +51,7 @@ jobs:
       - name: Blender 4 Native I street 14/28m original source GLB only
         run: |
           sudo apt-get update -qq
-          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil
           mkdir -p r19-evidence/r19a6p4r2f5i
           for mode in ultra control; do
             blender -b --factory-startup --python-exit-code 3 --python scripts/p101-r19a6p4r2f5i-native-placement.py -- \
