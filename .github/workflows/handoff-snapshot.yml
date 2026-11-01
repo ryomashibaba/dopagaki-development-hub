@@ -7,6 +7,8 @@ on:
       - 'docs/**'
       - 'scripts/generate-handoff.mjs'
       - 'tests/handoff/**'
+      - 'scripts/p101-r19a6p4r2f5g-camera-readability-gate.mjs'
+      - 'tests/p101-r19a6p4r2f5g-camera-readability-gate.test.mjs'
       - '.github/workflows/handoff-snapshot.yml'
   workflow_dispatch:
 permissions:
@@ -25,6 +27,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: R2F5-G cheap source-camera geometry-only unit gate (NOT native ART)
+        run: node --test tests/p101-r19a6p4r2f5g-camera-readability-gate.test.mjs
       - name: Validate read-only handoff generator
         run: node --test tests/handoff/handoff-snapshot.test.mjs
       - name: Generate fresh git-derived handoff (no repo write)

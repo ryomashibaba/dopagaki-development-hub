@@ -1,3 +1,12 @@
+## 【2026-11-01 R2F5-G 元カメラ投影の低コスト読解性ゲート／真正ART未認定】
+
+- R2F5-Fは元1921tick本物画像で暗い大壁・車庫風になりART REJECT。F原Artifact #13078872759の真Blender報告`sourceWorldCentreXYZ=[-656.3844604492188,119.39430236816406,-1017.1207885742188]`と、元A1 240HzカメラJSONを固定し、**Blender/GPU不要の画像空間前審査**を新設。これは実ゲーム画面・実GLBの代わりではない。
+- G0：旧壁型、G1：奥行き駅型、G2：低い広場＋横へ寄せた奥の乗換施設の3構成を14/28mで同時比較。入口投影寸法・人が使う3ゾーンの画面間隔・前奥差・フレーム余白・道路中央ROI非侵入に加え、入口を奥の大壁が塞ぐ**投影矩形重なりの粗い代理指標**を加えた。G0は100%、G1約58%、G2約8〜9%。**G2のみ両幅の予備条件PASS**。重なり率はラスタ深度判定でも実3Dの通行証明でもない。
+- 新`scripts/p101-r19a6p4r2f5g-camera-readability-gate.mjs`、テストを追加。高コストな旧BLEND/真正カメラ全回帰は回さず、既存軽量handoff-snapshot workflow内に一工程だけ検証追加。**G2のART採用、実BLEND/GLB、元B48/B51真衝突ゼロ、CCD、FPS、HUMANは依然未審査**。次はG2から独立Native Blender 1案だけを作り、真正8.004秒元カメラ14/28m画像で拒否可能なART判定。
+- 元source git blob `af076d67492a677d2235e4730aef8cdf4808e106`／元240Hz球／B48×7・B51×28／カメラ／本番2サイト／main/Gold/P100/W9-X/B5不変。PR#46 Draft未マージ、正式ART0件、Slope2 DNA 0m、GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。
+
+---
+
 ## 【2026-11-01 R2F5-F 真Native Blender・元8秒2画像独立審査：TECH限定PASS／ART REJECT】
 
 - [R2F5-F実装`4eaae279`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/4eaae279d58c0fe74d6a9c9961eb6694bb5dd21c)後、[真正Actions #41294304510](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41294304510)全job SUCCESS。[原Artifact #13078872759](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41294304510/artifacts/13078872759)実ZIP27,477,702B／SHA256 `da6e5d2645b0c9dbced0a8a49c95571bdb25e853118f12a8bcc51d9f85ab4947`、全106ファイル・F固有12件、真BLEND/GLB×2・GLB **44,172三角形**・Native49部品・元8.004秒WebGL2 2画像SHA独立一致。
