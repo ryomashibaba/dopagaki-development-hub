@@ -36,14 +36,19 @@ obj=objects[-1]
 old_mesh=obj.data
 inverse=obj.matrix_world.inverted()
 old_attr=old_mesh.color_attributes.get("COLOR_0")
-assert old_attr is not None and old_attr.domain=="CORNER"
+if old_attr is None:
+    assert len(old_mesh.color_attributes)==1,[
+        (attr.name,attr.domain) for attr in old_mesh.color_attributes]
+    old_attr=old_mesh.color_attributes[0]
+assert old_attr.domain in ("CORNER","POINT"),(old_attr.name,old_attr.domain)
 base_vertices=[tuple(v.co) for v in old_mesh.vertices]
 vertices=list(base_vertices)
 faces=[tuple(poly.vertices) for poly in old_mesh.polygons]
 colors=[]
 for polygon in old_mesh.polygons:
     for index in polygon.loop_indices:
-        colors.append(tuple(old_attr.data[index].color))
+        source_index=index if old_attr.domain=="CORNER" else old_mesh.loops[index].vertex_index
+        colors.append(tuple(old_attr.data[source_index].color))
 assert len(colors)==len(old_mesh.loops)
 candidate_face_count=0
 palette=[(.20,.41,.51,1),(.61,.70,.64,1),(.12,.26,.35,1),
