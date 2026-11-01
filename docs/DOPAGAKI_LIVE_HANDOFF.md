@@ -1,3 +1,14 @@
+## 【2026-11-01 R2F4-D 真GPU法線方向光：23工程PASS、ART REJECT】
+
+- [実装`bbacacb`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/bbacacbb0c7d665e6ef989e5a541c8df607920c8)：元`web/drive3d.mjs` shader/mesh/drawを読取監査した後、研究用private clone **`r19a6p4r2f4gpu`のみ**に法線location2×3、stride36(元XYZRGB×6+Normal×3)、fragmentの実GPU Lambert＋ambient＋fill、`r2dLit`対象限定を追加。元GLB 44,512三角形の全XYZRGBビット完全一致、原通常Private/CPU bake版を保存。元ゲーム本番shader・物理を変更せず、PBR/動的影はなし。
+- 初回[Actions #41282571913](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41282571913)FAIL：GPU実装statusとQA側のstatus名の不一致で90s×2タイムアウト。修正[コミット`1b5f30d`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/1b5f30d74ae4701c5bd1c8f488939a48d80a9266)で一致／stride36三角形数修正／再発時のloadStatus・loadError採取＋25秒診断。
+- 再検証[Actions #41283177433](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41283177433) **23/23工程SUCCESS**、[Artifact #13074203101](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41283177433/artifacts/13074203101) ZIP 7,212,889B SHA256 `261ef35c26018c28a22ef8e317d8768201a752f061a6d16a7a0db6be799f0a86`。真Blender/GLB、元真WebGL2 12枚＋CPU bake 4枚＋GPU照明4枚、元B51×28×2881×2幅=**161,336離散接触0**、元B48×7近似道路サンプル接触0。
+- 旧flat色→GPU照明：14m真8.004秒全画面RGB差>36 **0.5473%**／左建築ROI2.1322%、真11.504秒 **1.8982%**／左建築ROI9.5347%。28mも同程度。確かにGPU法線面陰影が実画面で増えたが、美しい公共市場/未来都市としての質的改善は乏しく**ART REJECT**。B51真画素遮蔽・FPS・実地盤/通路・元B48厳密/時刻間CCDは別HOLD。
+- **次は光の係数・屋根数を増やす反復を停止**し、実カメラで見える公共市場・駅の内部用途、都市の一体感、建築そのものの説得力を美術コンセプトから作り直す。必要ならPrivate GPU照明は限定試作の土台にするが正式採用しない。
+- [全QA・失敗原因・美術監査](R19_A6P4_R2F4D_TRUE_GPU_NORMAL_SOURCE_CAMERA_INDEPENDENT_ART_REJECT_JA.md)。元Git blob `af076d67492a677d2235e4730aef8cdf4808e106`不変、PR #46 OPEN/Draft/未マージ、main/Gold/P100/W9-X/B5/2本番不変。ART0、Slope2 DNA正式0/2912m、RELEASE/MERGE HOLD。
+
+---
+
 ## 【2026-11-01 R2F4-C 本物の法線明暗を隔離CPU bakeで比較 → TECH PASS、ART REJECT】
 
 - [実装`c3210e8`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/c3210e8d423338117b1b4f52fde8de0921203cda)：旧R2F4-B編集済みGLB実GPU 44,512三角形の面法線から2方向の静的RGB bake。元XYZ 1ビットも変更せず、RGB 400,596チャネルを変更。元flat色のprivate scene保持、隔離`r19a6p4r2f4shade`を作成。**シェーダー変更なし、PBR実装なし**。
