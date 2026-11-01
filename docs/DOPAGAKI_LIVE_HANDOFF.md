@@ -1,4 +1,13 @@
-> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**K4S原7道路カメラ遮蔽研究実装・CI待ち／K4R ART REJECT継続・正式ART0/Slope2 DNA0**、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**K4S GitHub CI＋独立1,344値 TECH限定PASS／K4T原WebGL2代理画面比較CI起動（ART正式0/Slope2 DNA0）**、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+
+## 【2026-11-02 K4S CI原本1,344値一致／K4T真正元WebGL2配置画像比較を実装（CI結果待ち）】
+
+- **[K4S Actions #41352432473](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41352432473) 全job SUCCESS**、原Artifact [#13102955065](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41352432473/artifacts/13102955065) ZIP12,512B SHA256 `f8a290a21097d06850f123186a5205834efd2d2ffab06fd1b010a906b6b80a11`、中のK4S JSON SHA256 `a56a0a06746892110027908cd9b4e99349c006fa1aadec3ee1c42100007bfac7`。原K 30PNG＋K3B28PNG全SHAチェック・原両幅A5 10,566tris・真正カメラ21×2・8位置×42=**336組の4整数値1,344個が独立ローカルBVHと完全一致（差異0）**。**K4S SOURCE/BVH TECH限定PASS、ART未認定**。K4/K4R ART REJECTは覆らず。
+- **有力な暫定位置**はRoad0の同一90×65×32m市場 `u=.85/右路端+70m`（元K4Rの`u=.75/右70m`から仮移動）。元Road0 tick1249の元A5に遮られず画面内にある外殻は元28/75→仮63/75（両幅）、公開中庭は元2/9・1/9→仮9/9（14/28m）。これは**元建築BVHの実レイ交差とK2近似射影の代理サンプル**で、真建築用途・全シーン遮蔽・歩行を証明しない。
+- **次K4T実装**：[K4T original WebGL2 annotation code](../scripts/p101-r19a6p4r2f5k4t-original-webgl2-proxy-review.py)／[独立Actions #41354665119](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41354665119)／[K4T設計・証拠契約正本](R19_A6P4_R2F5K4T_TRUE_SOURCE_WEBGL2_SITE_OVERLAY_REVIEW_JA.md)。K4R真正**原A5** WebGL2 14m/28m×4tick＝8原PNGを、Kの源cameraEye/front/xyzとSHAで独立照合後、**元原画を変更せず**同じ原画に2サイトの「近似代理BBox」を注釈した比較8 PNG＋幅別シート2JPEGを制作する。**注釈は建築3Dの描画ではない**。CI終了・Artifact・比較画面の意味審査は現時点で未認定。新BLEND・コライダー・道路／物理・本番／main変更0、ART採用0、Slope2 DNA0m、人間/FPS/B48B51 SAT/CCD/RELEASE/MERGE HOLD。
+- 次の継続は**K4T GitHub CIを最初にチェック**し、実Artifact比較画像をダウンロードして、純粋な見え方の研究として独立評価。比較枠が見えるだけなら正式制作／ART採用に進めない。
+
+---
 
 ## 【2026-11-02 K4S独立元GLB検算：Road0 u=.85右70mのみ位置検討候補、まだCI未認定】
 
