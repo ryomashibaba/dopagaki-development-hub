@@ -30,8 +30,12 @@ for(const mode of ['ultra','control']){
 
  assert.deepEqual(report.districts.map(x=>x.publicStairMasses),[6,6,6,0,0]);
  assert.ok(report.districts.every(x=>x.actualHumanPathVerified===false));
+ assert.ok(report.districts.slice(0,3).every(x=>
+  x.civicGroundRealVolumeModules>=120 &&
+  x.civicUrbanRibButtresses>=4 &&
+  x.heroGeometryMode==='OPEN_AIR_STEPPED_CIVIC_GROUND'));
  assert.equal(report.architecturalLanguage,'R2F_CAMERA_FIRST_THREE_DIFFERENT_ROAD1_CIVIC_LANDFORMS');
- assert.equal(report.designRevision,'R2F1C_ORIGINAL_CAMERA_SELECTED_VISUAL_CANYON_ART_HOLD');
+ assert.equal(report.designRevision,'R2F1D_CAMERA_HERO_REPLACED_BY_OPEN_AIR_CIVIC_ESCARPMENT_ART_HOLD');
  assert.ok(report.districts.every(x=>x.actualOpenCourt===true&&x.publicWalkDeckGraph?.connected===true&&x.publicWalkDeckGraph?.maxJointGapM<1e-8&&x.programmedReal3DVolumes?.length>=3));
  assert.equal(report.districts.length,5);
  assert.equal(report.terrainSupportGate,'HOLD');
@@ -63,7 +67,7 @@ code=code.replace(pattern,"const expected=r19a6Kind==='ultra'?"+
  manifest.modes.ultra.gpuBytes+":"+manifest.modes.control.gpuBytes+";");
 assert.equal(code.split('PINNED_ORIGINAL_GLB_IMPORTED_ART_REJECT').length,2);
 code=code.replace('PINNED_ORIGINAL_GLB_IMPORTED_ART_REJECT',
- 'P4R2F1C_CAMERA_SELECTED_CANYON_ART_HOLD');
+ 'P4R2F1D_OPEN_AIR_CIVIC_ESCARPMENT_ART_HOLD');
 fs.writeFileSync(path.join(dir,'drive3d.mjs'),code);
 assert.ok(!fs.readFileSync(path.join(original,'drive3d.mjs'),'utf8').includes("get('r19a6p4r2f1')"));
 fs.writeFileSync(path.join(dir,'P4R2F1_EDITABLE_BLENDER_PRIVATE_GLB_MANIFEST.json'),

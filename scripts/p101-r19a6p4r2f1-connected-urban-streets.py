@@ -156,7 +156,7 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
  # R2E-E is ONE composition per district, not 22 freestanding lookalikes.
  # Multiple programmes occupy 3 differentiated sculpted masses. Interiors,
  # occupancy, ground contact and egress are NOT certified.
- shellCount=0;facadePockets=0;siteTerraces=0;heroSkySlots=0;publicStairTiers=0
+ shellCount=0;facadePockets=0;siteTerraces=0;heroSkySlots=0;publicStairTiers=0;civicGroundModules=0;civicButtressVolumes=0
  archProfiles={
   "crescent":[(.02,.34,1.12,1.20),(.39,.62,.62,1.06),(.69,.94,.87,.88)],
   "forum":[(.02,.27,.65,1.17),(.34,.72,1.03,1.24),(.78,.96,.50,.92)],
@@ -220,31 +220,68 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   # open-to-sky void. Original game road, colliders and camera unchanged.
   opening=(.24,.57) if index==0 else (.28,.64) if index==1 else (.23,.56)
   carvedHero=(index<3 and sp==heroFormIndex)
+  # R2F1-D original source-camera-selected hero: REPLACE the tall
+  # bisected wall with a 3D inhabited-looking open-air civic escarpment.
+  # Nine deep concentric inhabited terraces, independent angular modules,
+  # genuine open-to-sky public canyon, and large voids all the way to
+  # the public street: no giant portal, no repetitive cubes, no sky ribbon.
   if carvedHero:
-   for lo,hi in ((0.,opening[0]),(opening[1],1.)):
-    count=max(8,round(countSections*(hi-lo)))
-    addloft([section(lo+(hi-lo)*n/count) for n in range(count+1)],
-            (sp+index)%3)
-    shellCount+=1
-   # Six genuinely thick terraced approach masses within the gap.
-   # They look like public access; actual walkability is UNVERIFIED.
-   az0=a+(b-a)*(opening[0]+.045)
-   az1=a+(b-a)*(opening[1]-.045)
-   for step in range(6):
-    r0=52+15*step;r1=r0+16
-    z=2.5+step*2.8+(1.3 if index==1 else 0.)
-    surface=[at(r0,az0,z),at(r1,az0,z),
-             at(r1,az1,z),at(r0,az1,z)]
-    addloft([[v-up*(28+step*1.5) for v in surface],surface],
-            1 if step%3 else 2)
-    publicStairTiers+=1
    heroSkySlots+=1
+   for band in range(9):
+    r0=49+band*10.4;r1=r0+10.8
+    for piece in range(24):
+     # Three generous radial skylight cuts, not a cosmetic wall stencil.
+     # Primary court corridor is pieces 10..13. Thin cuts separate
+     # other occupied stepped terraces as actual empty 3D air.
+     if piece in (3,4,10,11,12,13,19):continue
+     t0=(piece+.015)/24;t1=(piece+.985)/24
+     az0=a+(b-a)*t0;az1=a+(b-a)*t1
+     h0=5.5+band*7.7+4.3*sin(piece*.42+index*.6+band*.19)
+     h1=5.5+band*7.7+4.3*sin((piece+1)*.42+index*.6+band*.19)
+     crown0=2.5+3.1*sin(band*.76+piece*.27+sp)
+     crown1=2.5+3.1*sin(band*.76+(piece+1)*.27+sp)
+     upper=[at(r0,az0,h0),at(r1,az0,h0+crown0),
+            at(r1,az1,h1+crown1),at(r0,az1,h1)]
+     # Every terrace is a REAL 28+ metre deep polygon volume.
+     # Individual segments do not form a thin floating slab.
+     lower=[v-up*(29+band*1.8) for v in upper]
+     middle=[v-up*(13+band*.4) for v in upper]
+     addloft([lower,middle,upper],0 if band<4 else (1 if band<7 else 2))
+     civicGroundModules+=1
+     # Sculptural access ribs inhabit the outer terrace, placed behind
+     # the civic plaza rather than across the original racing roadway.
+     if band in (2,5,8) and piece in (0,7,16,22):
+      center=(upper[1]+upper[2])*.5
+      tang=-outer*sin((az0+az1)*.5)+along*cos((az0+az1)*.5)
+      radial=outer*cos((az0+az1)*.5)+along*sin((az0+az1)*.5)
+      depth=4+band*.46
+      cross=[center-tang*4-radial*depth,
+             center+tang*4-radial*depth,
+             center+tang*2+radial*depth,
+             center-tang*2+radial*depth]
+      addloft([[v-up*(18+band*1.2) for v in cross],
+               [v+up*(7+band*.75) for v in cross],
+               [center+(v-center)*.72+up*(12+band*.78) for v in cross]],3)
+      civicButtressVolumes+=1
+   # Six thick terrain segments visually lead from public centre to the
+   # fully sky-open radial slot. No claim that a human can traverse it.
+   slot0=a+(b-a)*10.5/24;slot1=a+(b-a)*13.5/24
+   for step in range(6):
+    r0=48+step*15;r1=r0+15.4
+    h0=2+step*5.6+(2.3 if index==1 else 0)
+    h1=h0+2.2
+    top=[at(r0,slot0,h0),at(r1,slot0,h1),
+         at(r1,slot1,h1+1.1),at(r0,slot1,h0+1.1)]
+    addloft([[v-up*(32+step*2) for v in top],
+             [v-up*(15+step*.7) for v in top],top],1 if step%2 else 0)
+    publicStairTiers+=1
+   shellCount+=1
   else:
    addloft([section(j/countSections) for j in range(countSections+1)],
            (sp+index)%3)
    shellCount+=1
   # Inhabited-looking true recess volumes, not fake PBR windows.
-  for k in range(72):
+  for k in range(0 if carvedHero else 72):
    if (k+sp)%4==0:continue
    t=(k+.5)/72
    if carvedHero and opening[0]<=t<=opening[1]:continue
@@ -258,7 +295,7 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
          centre+tang*w+up*h,centre-tang*w+up*h]
    addloft([face,[v+norm*4.2 for v in face]],2 if k%3 else 3)
    facadePockets+=1
-  for level in range(3 if index==1 else 2):
+  for level in range(0 if carvedHero else (3 if index==1 else 2)):
    begin=a+(b-a)*(.18+level*.09)
    finish=b-(b-a)*(.18+level*.05)
    if carvedHero:
@@ -412,6 +449,10 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   "programmedReal3DVolumes":programs,"realPublicBalconySlabs":publicBalconies,
   "realGlazingPocketPanels":glazing,"siteID":site["id"],"urbanStreet":urbanStreet,
    "heroOpenSkySlots":heroSkySlots,"publicStairMasses":publicStairTiers,
+   "civicGroundRealVolumeModules":civicGroundModules,
+   "civicUrbanRibButtresses":civicButtressVolumes,
+   "heroGeometryMode":"OPEN_AIR_STEPPED_CIVIC_GROUND" if heroSkySlots else "PRESERVED_NON_HERO",
+
    "heroFormIndexChosenByOriginalCamera":heroFormIndex if index<3 else None,
    "heroOriginalCameraTick":cameraTick,
    "heroProjectedCandidateAreaNDCOnly":heroCameraScores,
@@ -424,6 +465,9 @@ assert source_faces+100<new_faces<45000,(source_faces,new_faces)
 assert all(x["publicWalkDeckGraph"]["connected"] and x["faces"]>950 for x in reports)
 assert [x["heroOpenSkySlots"] for x in reports]==[1,1,1,0,0]
 assert [x["publicStairMasses"] for x in reports]==[6,6,6,0,0]
+assert all(x["civicGroundRealVolumeModules"]>=120 for x in reports[:3])
+assert all(x["civicUrbanRibButtresses"]>=4 for x in reports[:3])
+assert all(x["civicGroundRealVolumeModules"]==0 for x in reports[3:])
 bpy.ops.wm.save_as_mainfile(filepath=blend)
 bpy.ops.export_scene.gltf(filepath=out,export_format="GLB",use_selection=False)
 assert os.stat(out).st_size>100000
@@ -438,7 +482,7 @@ report={"schema":"dopagaki.r19a6p4r2f1-connected-street-urban-district/1",
  "humanArchitecturalAccess":"NOT_VERIFIED","actualTerrainContactVerified":False,
  "PBR_game":"NOT_IMPLEMENTED","Blender":bpy.app.version_string,
  "architecturalLanguage":"R2F_CAMERA_FIRST_THREE_DIFFERENT_ROAD1_CIVIC_LANDFORMS",
- "designRevision":"R2F1C_ORIGINAL_CAMERA_SELECTED_VISUAL_CANYON_ART_HOLD",
+ "designRevision":"R2F1D_CAMERA_HERO_REPLACED_BY_OPEN_AIR_CIVIC_ESCARPMENT_ART_HOLD",
  "cameraProjectionOnlyNotActualB51RasterMask":True,
  "officialSlope2Metres":0,"ART":"HOLD","HUMAN":"HOLD","GAMEPLAY":"HOLD","PERFORMANCE":"HOLD",
  "RELEASE":"HOLD","MERGE":"HOLD"}
