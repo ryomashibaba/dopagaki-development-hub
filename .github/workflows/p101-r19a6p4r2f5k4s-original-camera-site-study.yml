@@ -1,0 +1,96 @@
+name: DOPAGAKI K4S original 7 road cameras original A5 BVH occlusion site study HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4s-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4s-original-camera-site-study.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-k4s-original-camera-siting
+  cancel-in-progress: true
+jobs:
+  source-original-siting-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Source rules immutable and Python original-GLB BVH preflight
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-r19a6p4r2f5k-seven-road-anchors.mjs)" = 7da6edde6916258e187c8b9d5fc787961951a4c9
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4s-source-occlusion-study.py
+      - name: Retrieve pinned real native source camera evidence from original successful K and K3B
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p r19-evidence/r19a6p4r2f5k r19-evidence/r19a6p4r2f5k3b
+          gh run download 41312758260 -n R2F5K_ORIGINAL_SOURCE_7ROAD_CAMERA_COVERAGE_ART_HOLD -D r19-evidence/r19a6p4r2f5k
+          gh run download 41315509252 -n R2F5K3B_GENUINE_ORIGINAL_ALL_SEVEN_ROAD_CAMERAS_ART_HOLD -D r19-evidence/r19a6p4r2f5k3b
+          python3 - <<'PY'
+          import json,hashlib,pathlib
+          cases=[
+             ('r19-evidence/r19a6p4r2f5k','R2F5K_REAL_ORIGINAL_EXTENDED_CAMERA_COVERAGE.json','observed'),
+             ('r19-evidence/r19a6p4r2f5k3b','R2F5K3B_REAL_SEVEN_ROAD_WEBGL2_CAMERA.json','shots')]
+          for folder,f,key in cases:
+              base=pathlib.Path(folder)
+              d=json.loads((base/f).read_text())
+              assert d['errors']==[] and len(d['sessions'])==2
+              checked=0
+              for run in d['sessions']:
+                  for shot in run[key]:
+                      p=base/shot['file']
+                      assert p.is_file() and len(p.read_bytes())==shot['bytes']
+                      assert hashlib.sha256(p.read_bytes()).hexdigest()==shot['sha256']
+                      checked+=1
+              assert checked==(30 if key=='observed' else 28),checked
+              print(f,checked,'real original SHA-verified frames')
+          PY
+      - name: Build immutable original native 7x81 B48 road anchors and source A5 GLB for BOTH widths
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a3-private-original-one-city-pack.mjs
+          node scripts/p101-r19a4-export-editable-source-city-glb.mjs
+          node scripts/p101-r19a6p4r2f5k-seven-road-anchors.mjs
+          test -s r19-evidence/r19a5/R19A5_ORIGINAL_W9C1_ultra_EDITABLE_CITY.glb
+          test -s r19-evidence/r19a5/R19A5_ORIGINAL_W9C1_control_EDITABLE_CITY.glb
+          test -s r19-evidence/r19a6p4r2f5k/R2F5K_ALL7_FROZEN_SOURCE_ROAD_ANCHORS.json
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Original GLB readonly BVH and 42 true-camera states x 8 siting-only proxy hypotheses
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy
+          mkdir -p r19-evidence/r19a6p4r2f5k4s
+          blender -b --factory-startup --python-exit-code 3 --python scripts/p101-r19a6p4r2f5k4s-source-occlusion-study.py -- \
+            --source-ultra r19-evidence/r19a5/R19A5_ORIGINAL_W9C1_ultra_EDITABLE_CITY.glb \
+            --source-control r19-evidence/r19a5/R19A5_ORIGINAL_W9C1_control_EDITABLE_CITY.glb \
+            --k-camera r19-evidence/r19a6p4r2f5k/R2F5K_REAL_ORIGINAL_EXTENDED_CAMERA_COVERAGE.json \
+            --k3b-camera r19-evidence/r19a6p4r2f5k3b/R2F5K3B_REAL_SEVEN_ROAD_WEBGL2_CAMERA.json \
+            --anchors r19-evidence/r19a6p4r2f5k/R2F5K_ALL7_FROZEN_SOURCE_ROAD_ANCHORS.json \
+            --output r19-evidence/r19a6p4r2f5k4s/K4S_REAL_SEVEN_ROADS_ORIGINAL_A5_OCCLUSION_ONLY.json
+          python3 - <<'PY'
+          import json
+          p='r19-evidence/r19a6p4r2f5k4s/K4S_REAL_SEVEN_ROADS_ORIGINAL_A5_OCCLUSION_ONLY.json'
+          a=json.load(open(p))
+          assert len(a['cases'])==8 and a['realCameraCountPerWidth']==21
+          assert a['originalRealRoadsCoveredPerWidth']==7
+          assert all(len(c['results'])==42 for c in a['cases'])
+          assert all(a['originalGeometryTrianglesByWidth'][m]==10566 for m in ('ultra','control'))
+          assert a['newBlenderModels']==a['addedColliders']==a['officialArtAccepted']==0
+          assert a['ART']=='HOLD' and a['RELEASE']=='HOLD' and a['MERGE']=='HOLD'
+          print('K4S_READONLY_42_REAL_CAMERAS_8_PROXY_LOCATIONS_BVH_LIMITED_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4S_GENUINE_ORIGINAL_7ROAD_42_CAMERA_ORIGINAL_A5_BVH_PROXY_ONLY
+          path: r19-evidence/r19a6p4r2f5k4s/
+          if-no-files-found: warn
+          retention-days: 7
