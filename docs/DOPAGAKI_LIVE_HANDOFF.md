@@ -1,3 +1,11 @@
+## 【2026-11-01 R2F5-H 元240Hz×複数時刻の真画面調査開始（結果HOLD）】
+
+- G2単一1921tick 2真正PNGはART REJECT。新造形を量産せず、真正元A6/F/G2の3モード×元道路14/28m×7tick（1681/1801/1861/1921/1981/2041/2161）＝**予定42枚**の真正WebGL2撮影・球XYZ/速度の完全一致検査と視認時間の独立調査へ。
+- 旧[Actions #41299372268](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41299372268)の[Artifact #13080348046](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41299372268/artifacts/13080348046)をGH CLIで読み、GLBの4つのSHA256・元ソースblobを固定し、各候補の実GPUバッファを独立GLB importerで再構築。**重いBlender前工程は一切再実行しない**H専用workflow新設。Archive 7日で消えたら再現性の限界を明示し、失敗閉鎖。
+- 真画面が生成されれば7時刻×2幅の旧F/G2+原A6の横比較、画素差監査、コンタクトシートを原Artifactで証拠化。**本記録時点でCI PASS・42枚・視認改善いずれも未主張。** 元240Hz物理/球/カメラ/B48×7/B51×28、旧モデル・main/Gold/P100/W9-X/B5・本番2サイトを変更せず。新候補ART正式0、Slope2 DNA0、B48/B51固有安全・CCD・人間・FPS・公開・マージ全HOLD、PR#46 Draft未マージ。
+
+---
+
 ## 【2026-11-01 R2F5-G2 選抜G2の真Native Blender・2幅WebGL2成功／独立ART REJECT・R2F5-Hへ】
 
 - [実装`e1c8cbbb`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/e1c8cbbb03427f62ab8dbf5a39033f0a8162bac9)でG2予備幾何の唯一選抜1案を真Native Blenderへ。元Road1 u=.125／左端45m、旧B/D/E/Fと11.504秒側を不変保存。前面公共地盤、市場、右の交通、中央開空間、右寄り奥の乗換の実立体を追加。新コライダー0・原物理/カメラ不変。
