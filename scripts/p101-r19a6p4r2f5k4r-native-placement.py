@@ -90,7 +90,7 @@ def frame(site,u):
     assert abs(outward.dot(forward))<.015
     return bvec(edge),bvec(outward),bvec(forward),bvec((0,1,0))
 
-market_path=Path(__file__).with_name("p101-r19a6p4r2f5k4rr-open-market.py")
+market_path=Path(__file__).with_name("p101-r19a6p4r2f5k4r-open-market.py")
 spec=spec_from_file_location("k4r_native_market",market_path)
 model=module_from_spec(spec);spec.loader.exec_module(model)
 candidate=model.add_open_market(addloft,frame)
@@ -112,7 +112,7 @@ bpy.ops.wm.save_as_mainfile(filepath=blend)
 bpy.ops.export_scene.gltf(filepath=out,export_format="GLB",use_selection=False)
 assert os.stat(out).st_size>100000
 report={
- "schema":"dopagaki.r2f5k4rr-source-original-only-native-market/1",
+ "schema":"dopagaki.r2f5k4r-source-original-only-native-market/1",
  "mode":mode,"originalSourceBlob":SOURCE,
  "source_glb_sha256":sha(src),"edited_glb_sha256":sha(out),
  "blend_sha256":sha(blend),"source_anchors_sha256":sha(anchors),
