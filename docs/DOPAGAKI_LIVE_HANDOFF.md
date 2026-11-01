@@ -1,3 +1,13 @@
+## 【2026-11-01 R2F5-E 真Native Blender×2幅成功／独立ART REJECT・次R2F5-F】
+
+- [初回Actions #41292509962](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41292509962)はEの`station`変数による元`station()`関数のシャドーイングでFAIL。原因を正確に特定し[修正`7e5693a`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/7e5693a79b63b035b6d8f831ff3892716c39dea3)で`hall_script`に改名、再発assert追加。旧失敗履歴は保持。
+- [正規CI #41292913215](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41292913215)全job SUCCESS。[Artifact #13077971560](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41292913215/artifacts/13077971560)原本23,481,339B／ZIP SHA256 `51a7f1e6bb52c1737eb11869410389d00a84aeab818ea58bd6d323a399641ed6`、94 files・E固有12。実BLEND/GLB×14/28m、GLB **44,260実三角形**、Native 51部品、元8.004秒2真正PNGとSHA、旧DとのRGB画素差監査成功。元source/blob、B48×7/B51×28、240Hz、カメラ、main/Gold/P100/W9-X/B5、2本番不変、新collider0。
+- 旧D→Eは元視点の建築投影高さ **59.52/61.02px→104.23/106.62px**。全画面RGB>36差 **1.21670/1.28091%**、左建築ROI **8.30405/8.74228%**、中央道路ROI0%。縦寸法拡大は確認。ただし実画面では**2本の孤立した骨組み塔のように見え、利用される駅市場・都市基盤・一体公共空間として未達**。**独立ART REJECT**、正式採用0件・Slope2 DNA 0m。
+- 次R2F5-Fは位置調整や二本の塔の装飾追加を停止し、実カメラから読める一つの厚い交通公共基盤と真の人間規模の内部／街区連続性を同じBlenderモデルで作り直す。元2画像ART候補PASSまで新E GLB固有B48/B51/CCD/FPS/人間QAの合格主張は禁止。 [真正監査詳細・R2F5-F設計ゲート](R19_A6P4_R2F5E_TRUE_NATIVE_TWO_CAMERA_ART_REJECT_R2F5F_GATE_JA.md)。
+- PR #46 OPEN/Draft未マージ、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。
+
+---
+
 ## 【2026-11-01 R2F5-E 一棟の実Native Blender再設計・真正2カメラゲート開始（結果未確認）】
 
 - R2F5-Dの元8.004秒 Road1 `u=.125`／左エッジ45mは維持。旧R2F5-B・Dの原本をGit blob SHA固定し、旧8秒1棟のNative Blender形状ブロックだけを**新実装の複数階公共交通市場モデル**へ差し替える独立R2F5-Eを追加。11.504秒側の旧u=.350／35mは対照保護。
