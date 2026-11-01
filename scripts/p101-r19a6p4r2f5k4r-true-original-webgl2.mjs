@@ -8,7 +8,7 @@ import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 import {chromium} from '@playwright/test';
 import {server} from './serve.mjs';
-const out=path.resolve('r19-evidence/r19a6p4r2f5k4rr');
+const out=path.resolve('r19-evidence/r19a6p4r2f5k4r');
 const native=JSON.parse(fs.readFileSync(path.join(out,'K4R_PINNED_NATIVE_ASSETS.json'),'utf8'));
 const archived=JSON.parse(fs.readFileSync('docs/R19_A6P3_PRIOR_A1_ORIGINAL_12_TRUE_CAMERAS.json','utf8'));
 const SHA='af076d67492a677d2235e4730aef8cdf4808e106';
@@ -31,7 +31,7 @@ try{
   '--use-angle=swiftshader','--enable-webgl','--enable-unsafe-swiftshader',
   '--ignore-gpu-blocklist','--disable-dev-shm-usage']});
  for(const mode of ['ultra','control'])for(const variant of ['original','k4r']){
-  const scene=variant==='original'?'r19a6':'r19a6p4r2f5k4rr';
+  const scene=variant==='original'?'r19a6':'r19a6p4r2f5k4r';
   const status=variant==='original'?'PINNED_ORIGINAL_GLB_IMPORTED_ART_REJECT':
    'R2F5K4R_NATIVE_MARKET_ART_HOLD';
   const stage='VB-P101-A13-W9C1-'+mode.toUpperCase();
