@@ -1,4 +1,12 @@
-> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**K4R TECH限定PASS・独立ART REJECT／次K4Sカメラ・地点選定先行（正式ART0/Slope2 DNA0）**、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**K4S原7道路カメラ遮蔽研究実装・CI待ち／K4R ART REJECT継続・正式ART0/Slope2 DNA0**、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+
+## 【2026-11-02 R2F5-K4S 真正全7道路42カメラ×原A5建築BVH遮蔽・新3D制作停止／実行結果待ち】
+
+- **実装**：[K4S read-only原視点・元建築BVH研究](../scripts/p101-r19a6p4r2f5k4s-source-occlusion-study.py)、[専用CI](../.github/workflows/p101-r19a6p4r2f5k4s-original-camera-site-study.yml)、[独立監査記録](R19_A6P4_R2F5K4S_TRUE_SOURCE_7ROAD_BVH_SITING_STUDY_JA.md)。[Actions #41352432473](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41352432473)を起動。**現時点ではCIは完了未確認、最終PASS未認定。** 既存K真正30PNG・K3B真正28PNGを一枚ずつSHA照合したうえで、元7Road B48×81標本を再生成。元A5の5編集用メッシュのBVHレイだけを両幅ごとに使う。幅14/28m×元実走13早期+8後期=42カメラの視野・元大建築による線分遮蔽を測る。
+- 比較対象は**Road0 6位置×旧K2 Road2/Road3参考2＝8代理ボックス（新Native/GLBモデル0）**。カメラK2の1013×698/1.35は近似、元GLB BVHのレイは本物だが道路・B51や全シーン遮蔽は未含有、代理視界・屋外空洞・歩行・都市用途は**正式な真画面美術審査ではない**。画像を増やしたことやBBox増をART PASS扱いしない。
+- 前工程K4/K4Rの同地点連続ART REJECTを保持。**正式ART採用0、Slope2 DNA0m、人体・静的B48/B51全SAT・CCD・HUMAN/FPS・公開/PR merge HOLD**。元source `af076d67492a677d2235e4730aef8cdf4808e106`、B48×7/B51×28/240Hz/元球/カメラ/main/Gold/P100/W9-X/B5/本番2URLは編集禁止、PR#46 OPEN/Draft。次はActionsの原JSONを独立検証してから場所採否の研究判断。
+
+---
 
 ## 【2026-11-02 R2F5-K4R：34モジュールNative・真16画像 TECH限定PASS／独立ART REJECT・次K4Sカメラ先行】
 
