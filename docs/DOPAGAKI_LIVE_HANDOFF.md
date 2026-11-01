@@ -1,3 +1,14 @@
+## 【2026-11-01 R2F4-B 空洞の実造形・静的B48高密度検査／SOURCE TECH PASS・ART REJECT】
+
+- [実Blender直接修正`836269a`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/836269ac7b6dc4e9e44057f2ce1f36779a816831)：Road1の前景2館を実厚の基壇+外側壁+独立曲面屋根へ分解し、各2つの実空洞ギャラリー、入口横断屋根の撤去、奥の実3D市場3店＋公共デッキで直接改修。旧R2F4 GLB／実画像Artifactは保存。元の道路／物理／カメラ／本番変更なし。
+- [独立QA追加`cdcd8b0`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/cdcd8b0556f2c655dd0d5687708653180ea5c884)：全B48×7を各320×12×2三角形＝**53,760**サンプル三角形で近似再構成し、新実GLBとの静的3D AABB＋SAT検査。**重なり候補0、実SAT対象0、サンプル接触0**。元B48エンジン三角形との完全同一検査ではないため厳密静的CLEARANCEはHOLD。
+- [Actions #41279367644](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41279367644) **21/21工程SUCCESS**／[Artifact #13072192904](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41279367644/artifacts/13072192904) ZIP SHA256 `dc8830fcb816416e9edff0fbd2a4e2809a3bc580aabb6793cca7098fdcbe6488`。Blender22,164 faces、GPU44,512 triangles、元B51全28×2881×2=161,336離散SAT交差0、元14/28m×6=true12 WebGL2 PNG。
+- 旧R2F4→B真正14m画面変化：8.004秒全体1.329%／左ROI8.817%、11.504秒全体1.501%／左ROI10.243%。横断屋根削減と内部空洞は画面に反映されたが、いまだ箱状の低い色面で市場と人の活動が読めず**ART REJECT**。
+- **次の改善点を見直す**：現行glTF importerはXYZRGBのみで**PBR/materialレンダリング未実装**と明記。さらに屋根や柱を作るのでなく、まず専用private rendererの素材・法線・陰影を独立調査し、元の8s/11.5s美術と障害物視認が実際に改善するか最小単位で比較。旧本番/Gold/P100/W9-X/B5、元Blob `af076d67492a677d2235e4730aef8cdf4808e106`保持。静的元B48厳密/地盤支持/実歩行/B51実画素/CCD/FPSはHOLD。
+- [詳細根拠と次工程](R19_A6P4_R2F4B_NATIVE_OPEN_GALLERIES_ALL_B48_STATIC_QA_ART_REJECT_JA.md)。PR #46 OPEN/Draft/未マージ、ART正式0件・Slope2 DNA正式0/2912m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。
+
+---
+
 ## 【2026-11-01 R2F4：正規B48/B51・元カメラの距離最適化→初の2近景公共施設、TECH PASS／ART REJECT】
 
 - 初期遠方配置の公共入口は元8s/11.5sで431〜952px²と小さい。そこで[配置探索`7f5fad3`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/7f5fad321dbc554872bec870f66e71953d69730a)＋[進行方向最適化`0c4fe48`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/0c4fe482be65eec9a6286fa1e1c0e160d923b6d2)を追加。元Road1全U32点×横25/35/45m×元8s/11.5s、B48全7道路の高密度29,211サンプルと元B51全80,668ポーズ/モードを調査。**u=.100（8秒）とu=.350（11.5秒）、道路1左端から35m**を選択。14mの仮16×14m立体カメラ投影8,702px²／8,191px²（前より9〜20倍）、元B48サンプル平面余裕25.8m、B51 XZ保守余裕193.9m／119.9m。精密静的三角形交差/真画素/地盤支持は未証明。
