@@ -1,4 +1,12 @@
-> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**K4S GitHub CI＋独立1,344値 TECH限定PASS／K4T原WebGL2代理画面比較CI起動（ART正式0/Slope2 DNA0）**、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**K4S TECH限定PASS／K4T初回起動FAIL修正・正規再実行 #41355153090 判定待ち、ART0/Slope2 DNA0**、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+
+## 【K4T初回起動FAILの修正／再実行の正本（2026-11-02）】
+
+- [初回K4T Actions #41354665119](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41354665119) は**FAIL、TECH PASSではない**。原因は通常Pythonで `--`区切りなしの引数を渡したのに、Blender起動と同じ `sys.argv.index('--')` 必須の解析を流用していたこと。原画像／カメラ／BVHの不整合ではなく、起動直後の `ValueError`。
+- [修正commit `3776f4d`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/3776f4d63141b579bfcd506029dc2ed6b184940a)：通常Python `argv[1:]` とBlender `--`形式の双方に対応。**元ゲーム・建築物・K4Sの原メッシュ／遮蔽値／カメラ検証条件は全て同一**。修正版 [Actions #41355153090](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41355153090) が最優先のCI原本。最終確認まではTECH/ART判定HOLD。CIのArtifactがなければ独立ローカルで原A5 PNG8枚から作った参考図と明示して区別する。
+- 独立K4T原画像上の近似2地点矩形も実際に目視した。u=.85は元A5遮蔽が少ないが**tick265、721、1057で代理BBox面積が旧u=.75より小さい**。視認性改善と建築スケール感はトレードオフ。旧u=.75が直ちに敗北またはu=.85が正式採用という判断は禁止。[K4T評価書](R19_A6P4_R2F5K4T_TRUE_SOURCE_WEBGL2_SITE_OVERLAY_REVIEW_JA.md)。正式ART0/Slope2 DNA0、HUMAN／SAFE／RELEASE／MERGE全HOLD。
+
+---
 
 ## 【2026-11-02 K4S CI原本1,344値一致／K4T真正元WebGL2配置画像比較を実装（CI結果待ち）】
 
