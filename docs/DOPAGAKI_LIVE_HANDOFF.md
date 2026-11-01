@@ -1,3 +1,12 @@
+## 【2026-11-01 R2F5-D 非本番Native Blender建築の再配置・真正画像CI（結果未確認）】
+
+- R2F5-Cの元8.004秒・14/28m両モード共通候補 **Road1 u=.125／左端45m** に、R2F5-B Native Blender建築1棟だけを非本番で再配置する研究工程を実装。11.504秒側は元の u=.350／左端35mを維持。旧BのPython/JS原本をGit blob SHA照合し、配置に必要な3ヶ所だけ一時変更して実行。旧Bスクリプト・旧BLEND/GLB保存。
+- 既存の単一GitHub ActionsにR2F5-D用真BLEND/GLB×2幅、元glTF独立GPUデコード、元240Hz tick1921 WebGL2真正PNG×2幅とそのSHA証跡を追加。元game Git blob af076d67492a677d2235e4730aef8cdf4808e106不変。
+- **これは実装記録であり、R2F5-DのCI・画像・ART合格・道路/障害物衝突なしは未認定。** 次はActions完走の原Artifactと真2画像をR2F5-B同時刻で視覚比較し、左端切れや内部可視の独立ART評価。ART改善が確認できてから新メッシュ固有のB48/B51検査。実地盤支持/人体歩行/時刻間CCD/FPS/HUMAN/RELEASE/MERGE全HOLD。
+- PR#46 Draft未マージ、main/Gold/P100/W9-X/B5・両本番不変。正式ART0件、Slope2正式認定0/2912m。
+
+---
+
 ## 【2026-11-01 R2F5-C 元8秒画角とB48/B51安全側サンプルの配置候補を独立再探索】
 
 - **R2F5-Bの位置`Road1 u=.100/外側35m`は左切れ（ART REJECT）**。元画像を変えず、配置前に実カメラ×2幅と大きめの**全建築包絡体±26m×±20m×−2..+22.5m**で候補を事前判定。
