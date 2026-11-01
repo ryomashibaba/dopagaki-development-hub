@@ -1,3 +1,11 @@
+## 【2026-11-01 R2F5-G2 唯一予備PASS形状をNative Blenderに実体化・真正2幅ゲート（実行結果未認定）】
+
+- R2F5-Gカメラ投影代理で唯一選抜された `G2_SUNKEN_COURT_AND_TRANSFER` を、元BlenderのRoad1 `u=.125`／道路左端45mに実体化する**非本番1案限定**。元Fの約49m幅中央屋根・背面壁を再利用せず、前景の低い実公共地盤・左右別機能の市場/改札エリア・中央空洞の本物の通路・右寄りの奥乗換エリアで形を作る。正本は真の元8.004秒の14/28m画像。表層色差だけでART合格を出さない。
+- 旧B/D/E/FのPython・BLEND/GLB・結果を保存したまま、独立 `r2f5g2` モデル/配置・真Native GLB読戻・真WebGL2×2/元Fの同条件RGB監査を既存Workflowに追加。表示ラベルの旧F/E混同も次の真正CIで修正。実際の真画像確認前はTECH/ART PASS未認定。
+- 元物理240Hz・source blob `af076d67492a677d2235e4730aef8cdf4808e106`・B48×7/B51×28・カメラ・本番2サイト・main/Gold/P100/W9-X/B5不変。新コライダー0、実地盤・人間歩行、モデル固有B48/B51 SAT、tick間CCD、FPS、RELEASE/MERGE全HOLD、正式ART0／Slope2 DNA0m、PR#46 Draft未マージ。
+
+---
+
 ## 【2026-11-01 R2F5-G 元カメラ投影の低コスト読解性ゲート／真正ART未認定】
 
 - R2F5-Fは元1921tick本物画像で暗い大壁・車庫風になりART REJECT。F原Artifact #13078872759の真Blender報告`sourceWorldCentreXYZ=[-656.3844604492188,119.39430236816406,-1017.1207885742188]`と、元A1 240HzカメラJSONを固定し、**Blender/GPU不要の画像空間前審査**を新設。これは実ゲーム画面・実GLBの代わりではない。
