@@ -8,6 +8,8 @@ on:
       - scripts/p101-r19a6p4r2ee-12-native-visual-qa.mjs
       - scripts/p101-r19a6p4r2ee-28-b51-source-sat.mjs
       - scripts/p101-r19a6p4r2ee-full-2881-b51-source-sat.mjs
+      - scripts/p101-r19a6p4r2f-camera-geometry-audit.py
+      - scripts/p101-r19a6p4r2f-native-overlays.py
       - .github/workflows/p101-r19a6p4r2ec-connected-streets-source-native.yml
   workflow_dispatch:
 permissions:
@@ -28,6 +30,7 @@ jobs:
         run: |
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           python3 -m py_compile scripts/p101-r19a6p4r2ee-connected-urban-streets.py
+          python3 -m py_compile scripts/p101-r19a6p4r2f-camera-geometry-audit.py scripts/p101-r19a6p4r2f-native-overlays.py
           node --check scripts/p101-r19a6p4r2ee-private-source-game-pack.mjs
           node --check scripts/p101-r19a6p4r2ee-12-native-visual-qa.mjs
           node --check scripts/p101-r19a6p4r2ee-28-b51-source-sat.mjs
@@ -75,6 +78,15 @@ jobs:
           node scripts/p101-r19a6p4r2ee-private-source-game-pack.mjs
           node --check dist-private/r19a6p4r2ee/drive3d.mjs
           ! grep -q "r19a6p4r2ee" dist-private/r19a6/drive3d.mjs
+      - name: R2F read-only Blender original-camera five-site projection (ART not certified)
+        run: |
+          for mode in ultra control; do
+            blender -b "r19-evidence/r19a6p4r2ee/P4R2EE_${mode}_editable.blend" --python-exit-code 4 --python scripts/p101-r19a6p4r2f-camera-geometry-audit.py -- \
+              --mode "$mode" \
+              --cameras docs/R19_A6P3_PRIOR_A1_ORIGINAL_12_TRUE_CAMERAS.json \
+              --report "r19-evidence/r19a6p4r2ee/R2F_${mode}_CAMERA_GEOMETRY_ONLY.json"
+            test -s "r19-evidence/r19a6p4r2ee/R2F_${mode}_CAMERA_GEOMETRY_ONLY.json"
+          done
       - name: Independent actual original B51 instantaneous 3D triangle-versus-rotating-box collision veto
         run: |
           node scripts/p101-r19a6p4r2ee-28-b51-source-sat.mjs
@@ -95,6 +107,12 @@ jobs:
         run: |
           node scripts/p101-r19a6p4r2ee-12-native-visual-qa.mjs
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: R2F genuine source PNG checked camera-director overlays (read-only ART HOLD)
+        run: |
+          for mode in ultra control; do
+            python3 scripts/p101-r19a6p4r2f-native-overlays.py r19-evidence/r19a6p4r2ee "$mode"
+            test -s "r19-evidence/r19a6p4r2ee/R2F_${mode}_1921_SOURCE_CAMERA_DIRECTOR_ONLY.png"
+          done
       - name: Save Blender native editable project, GLBs, raw game images and QA
         uses: actions/upload-artifact@v4
         if: always()
