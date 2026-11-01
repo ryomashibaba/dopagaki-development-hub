@@ -16,7 +16,13 @@ GitHub接続済みChatGPTが上の1文を受けたら、本人に過去ZIP・Mar
 4. 最新 [K4R設計・独立CI審査ゲート](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K4R_ROAD0_MARKET_NATIVE_REDESIGN_JA.md) と、直前の [K4審査正本](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K4_ROAD0_ONE_NATIVE_MARKET_16_TRUE_WEBGL2_TECH_PASS_ART_REJECT_JA.md) と直前 [K3/K3B正本](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K3_K3B_ALL_SEVEN_TRUE_ORIGINAL_CAMERAS_ART_HOLD_K4_GATE_JA.md) を読む。必要に応じてK2、I/J、F/G2等の判定報告と原Actions・Artifactを照合する。
 5. **最新ブランチ・CIを起点として継続**し、ソース追加/QA/画像/SHA/アート判定/未検証事項/次工程をGitHubで保持する。チャットでは要点＋正本リンクのみ。新チャットを開始するたびに全資料を再生成しない。
 
-## 最新K4R（2026-11-02）— 新造形保存・原WebGL2 CI実行中、合否未判定
+## 【最新実測 2026-11-02 K4R】独立TECH限定PASS・ART REJECT — 次K4Sカメラ地点研究
+
+- [K4R Actions #41351118263](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41351118263) **SUCCESS**、[Artifact #13101775313](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41351118263/artifacts/13101775313) **4,043,206bytes／SHA256 `4e41ad2be9cf2c360a1727d6dfbb372e56c7a08698192dd5da87c807298ddcf6`**。Native Blender 4.0.2、実34モジュール/668新面/GPU三角形11,902。元A5・K4Rの14/28m×4tickの16真正WebGL2 PNG/SHA全部一致、旧K4元8PNGとも元原画像8/8バイト一致。元B48 7/B51 28、240Hz、球XYZ/速度/元カメラ不変、新collider0。
+- **独立ART REJECT**：新屋根／テラスの画面差増は確認できたが、高速走行画面で独自市場・実空洞・都市的空間が依然読み取れない。K4に続く同一地点二連続ART REJECTのため増築ループを止め、**次K4Sは本当の7道路カメラで地点・遮蔽・投影スケールを研究するだけ**。新BLENDや別道路候補の量産は禁止。正式ART 0件／Slope2 DNA 0m、B48/B51/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。main/Gold/P100/W9-X/B5/本番URL不変更、PR#46 OPEN Draft未マージ、Work事前承認。
+- **[K4R完了独立審査](docs/R19_A6P4_R2F5K4R_ROAD0_MARKET_NATIVE_REDESIGN_JA.md) → [LIVE HANDOFF冒頭](docs/DOPAGAKI_LIVE_HANDOFF.md) が最新版。** 以下のK4R実装中・CI未判定記述は履歴であり最新の結論ではない。
+
+## 【履歴】K4R造形保存・原WebGL2 CI実行待ち（現在は判定済み）
 
 - **[K4R専用Actions #41351118263](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41351118263)**。同じRoad0 u=.75右70mの1市場を独立造形へ差替。非対称の高低ある折板建築、奥行きある居住・交易テラス、空に開いた中央広場をNative Blenderでモデル化。14/28m×原/K4R×原カメラ4tick=**真正16枚を自動検証する新runner**を追加。**原WebGL2の成功およびART評価はCIと新画像の直接確認前に主張禁止。**
 - [K4R開発と判定正本](docs/R19_A6P4_R2F5K4R_ROAD0_MARKET_NATIVE_REDESIGN_JA.md) → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md) の最上段を読む。元K4はTECH限定PASS／ART REJECT。正式ART 0件／Slope2 DNA 0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。物理/本番/main変更禁止。**新チャット再開時は実際のCI実行完了を確認し、新16PNGを独立評価してから次工程を決める。**
