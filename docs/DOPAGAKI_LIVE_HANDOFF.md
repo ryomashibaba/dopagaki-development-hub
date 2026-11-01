@@ -1,3 +1,13 @@
+## 【2026-11-01 R2F1-D 真真正銘の屋外公共地形置換 → SOURCE TECH PASS / ART REJECT】
+
+- 実Blender形状直接改修 [`0f5b22b`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/0f5b22b22ffa90327b214102529da499cc30718b)。原カメラ選択済みRoad1 3地区主壁を取り除き、各153個の9層分割実地盤モジュール、12基の実構造リブ、6段の公共歩道候補へ変換。旧R2F1-Cレポート/Artifact保持。
+- 本物の独立[Actions #41275208203](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41275208203) **全19工程SUCCESS**、[Artifact #13071520257](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41275208203/artifacts/13071520257) ZIP SHA256 `16a2899dd9868d0ee953f3c4d2e9216724f23972dde42d6facd6d9ca92776408`原本照合。Blender14,314 faces／GPU28,628三角形。元14m/28m×6 tickの真WebGL2 12画面、元2,881×28×2 = **161,336離散B51 SAT交差0**。元ゲームsource blob `af076d67492a677d2235e4730aef8cdf4808e106`無変更、新collider0。
+- 真画面の旧C→D 14m差分は4.404s 0.957%、8.004s 1.367%、11.504s 3.454%、中央ROIは6.126/8.299/19.198%。壁が減る効果はあったが、11.5秒の明るい細い柱状の配列と実都市空間の不在が目立つ。**独立ART REJECT**。実歩行/地形接地/静的道路/連続時刻衝突/B51実画素/HUMAN/FPSすべて未検証。
+- **次の美術制作ルール**：箱・巨大壁・穴・柱・段々のパラメータ増殖では美しくならないので停止。まず元8秒・11.5秒の画面で、人間にとって魅力的な公共都市空間の一体構図と建築言語を明示し、実メッシュの単一造形を小さく素早く直接修正して早期ART評価。既存CI再利用。正式ART採用0件、Slope2 DNA 0/2912m。詳細：[R2F1-D独立QA・ART監査](R19_A6P4_R2F1D_TRUE_SOURCE_CAMERA_OPEN_AIR_CITY_ART_REJECT_JA.md)。
+- 元B48×7/B51×28/240Hz/元操作・カメラ/HUD/物理/スコア、main/Gold/P100/W9-X/B5・二つの本番サイト不変。PR #46 OPEN/Draft・未マージ。GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。
+
+---
+
 ## 【2026-11-01 R2F1-B/C：真正画面で可視化改善は確認、ART REJECT】
 
 - R2F1の直接B改修 [`be14631370f1`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/be14631370f141a378cac8aee635dd189ac9d3fe) は、Road1各主役建築に本物の全高空洞と厚い公共地盤6段を実装。真正[Actions #41274215491](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41274215491)全19工程PASS、Artifact 13071255659 SHA256 `2acae79d8af465a663297860281b4560e3db0d86f05d82cbbbb2535d72825603`。Blender 10,772面/GPU 21,544三角形、元14/28m真12画面、28×2881×2の元B51離散SAT交差0。ただし元R2F1と比べ14mの8.004s画面差0.197%、11.504s画面差0.010%で、**空洞がほぼ見えない**ためART REJECT。
