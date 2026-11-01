@@ -1,3 +1,11 @@
+## 【2026-11-01 R2F5-K 真7道路座標と新カメラの実測ゲート着手（CI結果未認定）】
+
+- JでG2→I全画面の最大差分は観測13tick内で8.129秒（2.90281/2.93053%）と確定、走行視点から左へ消える短期問題を根拠に**Road1左の局所駅改築の反復を停止**。元のA1 12カメラは各幅6tick・11.504秒までしかなく、**7道路7280mを代表できない**ため元ゲームで後半を測定する。
+- 今回、元ソース `af076d67492a677d2235e4730aef8cdf4808e106` に対して2幅×7Road×81実座標、既存6tickを元camera archiveで検証して追加3001〜12461tickの真正元240Hz WebGL2撮影を試みる独立CIを追加。到達不能時間は偽造せず未観測とする。元物理・B48/B51・カメラ・Gold/P100/W9-X/B5/main/本番2URL変更0、追加collider0。
+- ART/HUMAN/SAFE/FPS/RELEASE/MERGE全HOLD。正式ART0／Slope2 DNA0m、PR#46 OPEN Draft未マージ。[K証拠計画](R19_A6P4_R2F5K_COURSE_CAMERA_COVERAGE_GATE_JA.md)。
+
+---
+
 ## 【2026-11-01 R2F5-J 真78枚・固定ROI最大差の誤解を是正／独立CI PASS／次Kへ】
 
 - 新Blenderは作らず、[J Actions #41310654446](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41310654446)全job SUCCESS。[Artifact #13084644147](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41310654446/artifacts/13084644147) **8,791,173 bytes**／SHA256 `c4be0aba03e0fa9e26384139b128b54db8ce979c27a3fcee73fa685503710f4c`、81 files中78真正WebGL2 PNG、元A6/G2/I×14/28m×13tick(1801〜2161、30tick間隔)。全78SHA実物独立一致、元球XYZ/速度・カメラ/ソースと正規GLBを固定。新collider0・元物理不変。初回[#41310229140](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41310229140)・診断[#41310376825](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41310376825) FAILは旧G2/新I GitHub Artifactのroot展開構造差、コミット`7549dcd8`で原本を変えず修復。
