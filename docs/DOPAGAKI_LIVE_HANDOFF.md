@@ -1,3 +1,12 @@
+## 【2026-11-01 R2F5-I 連続街区の真Native Blender・56元カメラ時系列試作（結果HOLD）】
+
+- R2F5-H真正42PNGで**8.254秒**のF/G2差が最も大きい。静止8.004秒だけを見る方針は禁止。Iは巨大駅1棟/2つの小屋の反復を止め、**道路方向に約117m連続する屋外歩行スパイン、左右の4連続居住・商業街区、オープンな交差公共広場、機能的な市場・交通改札・後方歩行連続性**を本当にBlenderで1案設計。原道路外の配置が実用可能かは未検証。意匠上の色や飾りによる偽装はしない。
+- 重いA〜G2総CIを再度実行せず、H専用の原F/G2 GLB原本Artifact #13080348046 SHA固定復元を流用。元A5を独立再生、I真BLEND/GLBを14/28mで作成、独立GLBインポータと50k三角形上限を維持。元240Hz/原カメラ**7.004/7.504/7.754/8.004/8.254/8.504/9.004秒×original/F/G2/I×2道路幅＝56真正PNG**、新GLBと旧候補の画素比較・時系列コンタクトシートを専用CIに統合。H原本は書換禁止。
+- **実行成功・画面改善は未認定**。真画像にて2〜3主要な機能、広がる街路、前後の奥行きの連続性を判断。どの時刻でも車庫壁/孤立箱に見えればART REJECT。元game blob `af076d67492a677d2235e4730aef8cdf4808e106`、B48×7/B51×28、ball camera 240Hz、正本旧モデル・main/Gold/P100/W9-X/B5・2本番サイト保護、新collider0。
+- Iメッシュ固有のB48静的/全tick B51/CCD/HUMAN/FPS未判定で正式ART0件/Slope2 DNA0m。PR#46 Draft・未マージ、RELEASE HOLD。
+
+---
+
 ## 【2026-11-01 R2F5-H 真240Hz時系列42PNG成功／8.254秒ピーク・独立ART採用なし】
 
 - [H初回 Actions #41301266697](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41301266697)は元A6正規10,566三角形に対する不等号の誤りでFAIL（旧F/G2の28枚は本物として保存）。[修正`d05c0be4`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/d05c0be488b795df26fe8b8fc591d8bc53e60673)で原A6=10566・F=44172・G2=44568の正確な三角形数を個別検証。
