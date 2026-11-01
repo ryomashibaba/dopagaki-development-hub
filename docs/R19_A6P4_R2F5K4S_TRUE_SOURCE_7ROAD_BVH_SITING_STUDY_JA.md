@@ -16,6 +16,22 @@ K4→K4Rが**Road0 u=.75・右外70mという同じ配置**で2連続ART REJECT�
 - 測定結果は全8案×両幅×21視点＝**336地点・カメラ組**で、代理BBox、元A5だけに遮られない外殻点数・中庭点数、元ソースの対応カメラtickを記録。5m程度の小要素や使い方を判定する品質基準としては使わない。離散サンプルの連続可視時間は未証明。
 - 新GLB／コライダー0、Source・B48/B51/元球/240Hz/元カメラ/main/Gold/P100/W9-X/B5/本番2URL変更0、公式ART0件/Slope2 DNA0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。
 
+## K4S実CI・独立原本検算 最終結果（2026-11-02）
+
+**TECH限定PASS。** [Actions #41352432473](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41352432473) 全job success、実行HEAD `637dfc402e1170ab0a245d867ea8584828f44a45`。[Artifact #13102955065](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41352432473/artifacts/13102955065)を直接取得。ZIP **12,512bytes、SHA256 `f8a290a21097d06850f123186a5205834efd2d2ffab06fd1b010a906b6b80a11`**、収録JSON `K4S_REAL_SEVEN_ROADS_ORIGINAL_A5_OCCLUSION_ONLY.json`（SHA256 `a56a0a06746892110027908cd9b4e99349c006fa1aadec3ee1c42100007bfac7`）。ZIPのCRC・構造検査PASS、原K/K3Bの真正画像58PNG（K30、K3B28）のSHA検証もCI success。
+
+元ゲームA5の5メッシュ・GPU原三角形10,566、元Kの前期13点×両幅、元K3Bの後期8点×両幅、7/7 Road、B51 28、240Hz、原球／原カメラの記録を再利用。**8配置×42真正カメラ＝336評価行**。GitHub版の外殻画面内サンプル／元A5非遮蔽外殻／中庭画面内サンプル／元A5非遮蔽中庭の4整数を独立ローカルJSONと全336行×4項目直接照合し、**差異0件（1,344値一致）**。両幅の元GLBをBlenderで別々に読んでいる。
+
+**同じ元Road0市場90×65×32m包絡・右路端+70mの位置のみ**：
+- `u=.75`（旧K4R）、元tick1249、14/28m：A5に遮られない外殻**28/75（両幅）**、屋外中庭**2/9・1/9**。
+- `u=.85`（移設仮説）、元tick1249、両幅：元A5に遮られない外殻**63/75**、屋外中庭**9/9**。
+- `u=.85`の元tick265/721/1057/1249で、両幅共に外殻非遮蔽**61/63/60/63**点、屋外中庭**9/9/9/9**点。**数学的な候補位置として優位**だが、実建築・市場・歩行・FPSの採用判断でない。
+- 旧K4R地点でもRoad4周辺のK3B後期カメラから外殻が映るケースがあり、道路0外までの**時系列滞在や全コース連続可視性を立証していない**。
+
+**K4Sは位置選定研究の限定PASSのみ。ART独立審査は未実施で、K4RのART REJECTは継続、ART正式0件、Slope2 DNA0m、HUMAN/B48B51 SAT/CCD/FPS/RELEASE/MERGE HOLD。** 次K4Tは別の新建築造形には着手せず、元A5真正WebGL2原PNGとK4Sの代理BBoxを重ねて、元A5の文脈に対する位置・画面上の変化を明示的に視認できる**説明用画像**を生成する。代理BBoxは本物の建物の画素や遮蔽合格にはならない。
+
+---
+
 ## 独立ローカル原メッシュ交差監査（Actionsとは別の検算、2026-11-02）
 
 **出典真正Artifactの実ZIP SHA256再照合：** K #13086435838 `b493ddaf0dd70d34660e47107e7cfca154d69bda2ab121206e24823dabf4586c`、K3B #13086878340 `cdb87edcfe3b0ec8069f5d6e36488536d777a86c2e19b32339f9ed573ada5780`、K4 #13089117035 `223a4e9d476c767d04b9479e537f8bdc2c6951bb283f3914a38397384969bb0e`、K4R #13101775313 `4e41ad2be9cf2c360a1727d6dfbb372e56c7a08698192dd5da87c807298ddcf6`。ローカル独立K4S JSON **SHA256 `61ad5259e0fd72bd914913069275cb503354d3542720433c432c0e8332809fe3`**、約73.8KB。このローカルJSONは元GitHub Actions Artifactと異なる独立計算であり、**K4SのGitHub CI PASSは未認証**。
