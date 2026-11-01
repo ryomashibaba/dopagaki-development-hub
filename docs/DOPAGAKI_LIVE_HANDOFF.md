@@ -1,3 +1,14 @@
+## 【2026-11-01 R2F4：正規B48/B51・元カメラの距離最適化→初の2近景公共施設、TECH PASS／ART REJECT】
+
+- 初期遠方配置の公共入口は元8s/11.5sで431〜952px²と小さい。そこで[配置探索`7f5fad3`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/7f5fad321dbc554872bec870f66e71953d69730a)＋[進行方向最適化`0c4fe48`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/0c4fe482be65eec9a6286fa1e1c0e160d923b6d2)を追加。元Road1全U32点×横25/35/45m×元8s/11.5s、B48全7道路の高密度29,211サンプルと元B51全80,668ポーズ/モードを調査。**u=.100（8秒）とu=.350（11.5秒）、道路1左端から35m**を選択。14mの仮16×14m立体カメラ投影8,702px²／8,191px²（前より9〜20倍）、元B48サンプル平面余裕25.8m、B51 XZ保守余裕193.9m／119.9m。精密静的三角形交差/真画素/地盤支持は未証明。
+- [実3D試作`4f94b07`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/4f94b07d93e019c38e34fbafba06ff6c1560ef6e)：近景に新2小規模公共施設（実3D各568頂点、厚い低層広場・左右非対称の館・空いた玄関と後方交易館）を追加。旧R2F3保存、元WebGL2・物理・本番変更なし。
+- 真正[Actions #41278482489](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41278482489) **20/20工程PASS**、[Artifact #13072421208](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41278482489/artifacts/13072421208) ZIP SHA256 `a03d9113ffb8211158d6cfcc01738d863a27e75e9d3ea363bd54be71c5654c29`。Blender21,176 faces／GPU42,568 triangles、元真WebGL2 12枚、元B51全161,336離散SAT交差0、新collider0。
+- 旧R2F3→R2F4の14m元8.004/11.504秒で全画面差2.092/2.407%、左ROI変化14.093/16.425%。**小さい公共建物は実際に近景左側へ映った**が、入口はまだ単純な色の塊で、人間規模の内部市場と地上広場に見えず**ART REJECT**。
+- 次はこの2棟の実内部断面・入口・公共歩廊を直接造形改善。**元B48静的三角形交差、元B51ラスタ画素・時刻間CCD、実地盤支持・歩行、実人間操作・FPS**を独立検証するまで本番禁止。
+- [詳細と証拠](R19_A6P4_R2F4_SOURCE_B48_B51_PROBE_AND_NATIVE_ROADSIDE_ART_JA.md)。元ソースblob `af076d67492a677d2235e4730aef8cdf4808e106`不変、PR #46 OPEN/Draft/未マージ、main/Gold/P100/W9-X/B5/2本番不変、正式ART0、Slope2 DNA正式0/2912m。RELEASE/MERGE HOLD。
+
+---
+
 ## 【2026-11-01 R2F3 元カメラ向き公共入口・実BLEND/GLB → TECH PASS / ART REJECT】
 
 - [実装 `ac5c3a3`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/ac5c3a35ecf2c3846b4cf5dcabc829a42ab8efc5)：元tick1921/2761のカメラ方位に合わせて道路に開いた入口、地表4大曲面広場、左右低層2館＋後背文化館へ変更。旧R2F2の巨大壁を低い構成へ改修、旧R2F2スクリプトと証拠は保存、既存CIワークフロー再利用。
