@@ -1,3 +1,13 @@
+## 【2026-11-01 R2E-E初稿→E2直接造形改修、真正技術PASS／独立ART REJECT】
+
+- **初稿** [`54d07c7`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/54d07c7200864150770f57eb1773651641291f49) の真正[Actions #41270654771](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41270654771)全SUCCESS。Artifact #13069550680、SHA256 `f534c7296d23c53bc42e3417896a33ef4f8c40481e8cb48f0d64c2bf741475ca`。実BLEND/GLB・元12WebGL2画像、GPU33,316三角形、161,336離散B51 SAT交差0。しかし巨大一枚壁と黄色屋根が現代オフィス群に見えるため**ART REJECT**。
+- **同案E2直接改修** [`5eae7d0`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/5eae7d0e703c1316452279164802a5676441cc78)、真正[Actions #41271119206](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41271119206)全SUCCESS、Artifact #13068924481、ZIP SHA256 `38f66f71525f9dcdbd541f0710c09872c1ae795881b01aba0dbcd5723dd47940`。実Blender15,098 faces/GPU30,436三角形、原B48×7/B51×28/240Hz・元ゲームblob不変。原12WebGL2真画像、元2幅×2,881tick×28 B51 **161,336離散SAT交差0**。
+- **真正画面比較**：E1→E2 14m全画面RGB>36差は原4.404s 3.211%／8.004s 7.140%／11.504s 8.861%。本物の立体空隙・異なる屋根傾きは増えたが、実画像では大きな台形壁が独立して並び、立体街区・公共街路・前景から遠景の連続都市が不足。**E2もART REJECT、正式採用0件**。
+- **次R2F方針**：建物数やbox/wingの自動増殖を停止。元3ヒーロー画角から人間的に強い空間構図・都市地盤・公共核を先行設計し、Blenderの意匠を真正画像で早期監査。新案がARTに見込みを示してから全真正QA。独立[監査と次ゲート](R19_A6P4_R2E_E1_E2_INDEPENDENT_NATIVE_ART_REVIEW_JA.md)を必読。
+- Source Git blob `af076d67492a677d2235e4730aef8cdf4808e106`不変、B48×7/B51×28、球/HUD/RAW camera/採点、main/Gold/P100/W9-X/B5/2本番変更なし。Slope2 DNA認定0/2912m。GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR #46 OPEN/Draft未マージ。
+
+---
+
 ## 【2026-11-01 R19 A6 P4 R2E-D 新モデル真正実走QA → SOURCE TECH限定PASS／ART REJECT】
 
 - 実装：[研究コミット `05ac66026aac`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/05ac66026aac4faecf6c55e8b6bf1a646f84d863)。R2E-C原本保存／同ワークフロー再利用、新Blender生成コードとR2E-D専用真WebGL2/SATテストを隔離。main・Gold・P100・W9-X・B5・本番・元ゲームblob `af076d67492a677d2235e4730aef8cdf4808e106`無変更。
