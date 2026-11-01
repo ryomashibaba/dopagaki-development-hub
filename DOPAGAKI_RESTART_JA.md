@@ -16,7 +16,13 @@ GitHub接続済みChatGPTが上の1文を受けたら、本人に過去ZIP・Mar
 4. 最新 [K4R設計・独立CI審査ゲート](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K4R_ROAD0_MARKET_NATIVE_REDESIGN_JA.md) と、直前の [K4審査正本](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K4_ROAD0_ONE_NATIVE_MARKET_16_TRUE_WEBGL2_TECH_PASS_ART_REJECT_JA.md) と直前 [K3/K3B正本](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K3_K3B_ALL_SEVEN_TRUE_ORIGINAL_CAMERAS_ART_HOLD_K4_GATE_JA.md) を読む。必要に応じてK2、I/J、F/G2等の判定報告と原Actions・Artifactを照合する。
 5. **最新ブランチ・CIを起点として継続**し、ソース追加/QA/画像/SHA/アート判定/未検証事項/次工程をGitHubで保持する。チャットでは要点＋正本リンクのみ。新チャットを開始するたびに全資料を再生成しない。
 
-## 【最新実測 2026-11-02 K4R】独立TECH限定PASS・ART REJECT — 次K4Sカメラ地点研究
+## 【現在最優先：K4S真正7道路カメラ×元A5遮蔽（2026-11-02、CI結果確認必須）】
+
+- K4Sの[研究コード](scripts/p101-r19a6p4r2f5k4s-source-occlusion-study.py)／[独立CI](.github/workflows/p101-r19a6p4r2f5k4s-original-camera-site-study.yml)／[審査正本](docs/R19_A6P4_R2F5K4S_TRUE_SOURCE_7ROAD_BVH_SITING_STUDY_JA.md)はGitHubに保存。**[Actions #41352432473](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41352432473)は起動後、成功判定は実行結果確認までHOLD**。
+- 元K/K3BのWebGL2計58PNGのSHAを直接検証し、実7道路の元14/28mカメラ合計42状態、原A5 GLB5メッシュの独立BVH遮蔽と市場Road0 6配置＋旧K2参考2配置＝8代理サイト研究のみ。**新Blender建物・物理床0、模型製作STOP、公式ART0件/Slope2 DNA0m**。カメラ矩形と遮蔽の研究データは美術合格／障害物可視性/全SAT/CCD/人間操舵の証明ではない。
+- 次回はZIP再提出を要求せず、**まずK4S ActionsとArtifactの原本を検証**、実際の遮蔽率と時系列から再配置の研究判断。K4/K4R二連続ART REJECT、本番/main/Gold/P100/W9-X/B5変更禁止、Draft PR#46マージ禁止。Work事前承認。
+
+## 【直前の実測 2026-11-02 K4R】独立TECH限定PASS・ART REJECT — 次K4Sカメラ地点研究
 
 - [K4R Actions #41351118263](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41351118263) **SUCCESS**、[Artifact #13101775313](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41351118263/artifacts/13101775313) **4,043,206bytes／SHA256 `4e41ad2be9cf2c360a1727d6dfbb372e56c7a08698192dd5da87c807298ddcf6`**。Native Blender 4.0.2、実34モジュール/668新面/GPU三角形11,902。元A5・K4Rの14/28m×4tickの16真正WebGL2 PNG/SHA全部一致、旧K4元8PNGとも元原画像8/8バイト一致。元B48 7/B51 28、240Hz、球XYZ/速度/元カメラ不変、新collider0。
 - **独立ART REJECT**：新屋根／テラスの画面差増は確認できたが、高速走行画面で独自市場・実空洞・都市的空間が依然読み取れない。K4に続く同一地点二連続ART REJECTのため増築ループを止め、**次K4Sは本当の7道路カメラで地点・遮蔽・投影スケールを研究するだけ**。新BLENDや別道路候補の量産は禁止。正式ART 0件／Slope2 DNA 0m、B48/B51/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。main/Gold/P100/W9-X/B5/本番URL不変更、PR#46 OPEN Draft未マージ、Work事前承認。
