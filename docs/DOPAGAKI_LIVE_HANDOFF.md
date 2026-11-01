@@ -1,3 +1,13 @@
+## 【2026-11-01 R2F2独立真正QA：柱列削減は成功／巨大曲面壁への退化でART REJECT】
+
+- [実装`6562825`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/6562825ca90eb9a18e0d12c7ff0a221d44ae9a95)：R2F1-Dの153小地盤片と細柱をやめ、Road1の主役を2大曲面建築＋4連続公共地盤＋2入口側構造へ根本再造形。5地区/22用途維持、旧R2F1Dコード保護、既存Workflow再利用。
+- [真正Actions #41275836322](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41275836322)全19工程SUCCESS、[原本Artifact #13071502142](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41275836322/artifacts/13071502142) ZIP SHA256 `0c94bd6d70b46ea373496d9fd311a6a3c1cd0d516f92a98b1733b99c6086d820`確認。Blender20,800 faces／GPU41,792 triangles、元WebGL2真正12画像、元B51離散161,336組交差0、source blob `af076d67492a677d2235e4730aef8cdf4808e106`不変・追加collider0。
+- 同一元カメラ対R2F1-D：14m全画面RGB>36差 4.404秒0.999%／8.004秒1.236%／11.504秒**4.141%**（中央ROI5.939/7.498/21.884%）。細柱列は消えたが、11.5秒の紫灰色巨大曲面壁と8秒の青緑壁が支配的で、意図した内部公共広場は画面に読めない。**ART REJECT**。外面/柱/面数を追加するだけの方向は禁止。
+- **次は元8sと11.5sで見える公共入口・地表広場・内部都市空間から先に美術構図を1案設計**。人が見て美しいとわかる画面が成立しない候補でフルCIを増殖させず、既存の検証基盤を使いART早期判定後にSOURCE QA。
+- [独立監査の原本](R19_A6P4_R2F2_TRUE12_2881_SOURCE_TECH_PASS_ART_REJECT_JA.md)。main/Gold/P100/W9-X/B5/2本番・元物理/カメラ/HUDを保護、PR#46 OPEN/Draft/未マージ。正式ART0件・Slope2 DNA0/2912m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。
+
+---
+
 ## 【2026-11-01 R2F1-D 真真正銘の屋外公共地形置換 → SOURCE TECH PASS / ART REJECT】
 
 - 実Blender形状直接改修 [`0f5b22b`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/0f5b22b22ffa90327b214102529da499cc30718b)。原カメラ選択済みRoad1 3地区主壁を取り除き、各153個の9層分割実地盤モジュール、12基の実構造リブ、6段の公共歩道候補へ変換。旧R2F1-Cレポート/Artifact保持。
