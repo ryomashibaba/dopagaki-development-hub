@@ -1,3 +1,11 @@
+## 【2026-11-01 R2F5-F 一体交通基盤＋実空洞を持つNative Blender造形を開始・CI未審査】
+
+- 旧R2F5-Eは実8.004秒では「二本の孤立塔」に見えて厳格ART REJECT。今回Fは位置再調整でなく、**50.5×36.5m級一体基盤・大きい中央実空洞・幅ほぼ49mの連続非対称大屋根・厚い側面の占有人間スケールの市場・奥の交通ギャラリー**で一棟として根本設計。見た目の合格を事前主張しない。
+- F実Blender×14/28m→独立GLBを再読込→元8.004秒native WebGL2×2の真正PNG→旧E同一カメラ画像監査を既存CIに追加。旧B/D/Eのコード・結果保護。元Road1 u=.125／左端45m固定、旧11.504秒の対照を固定。
+- **現時点は実装のみ。F新GLBのART・B48/B51衝突なし・地盤接地・人間使用・FPS・ゲーム快適性未判定。** 元source blob af076d67492a677d2235e4730aef8cdf4808e106、元物理/元カメラ/240Hz、B48×7/B51×28、本番2サイト・main・Gold/P100/W9-X/B5不変。PR #46 Draft未マージ、正式ART0・Slope2正式0m。
+
+---
+
 ## 【2026-11-01 R2F5-E 真Native Blender×2幅成功／独立ART REJECT・次R2F5-F】
 
 - [初回Actions #41292509962](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41292509962)はEの`station`変数による元`station()`関数のシャドーイングでFAIL。原因を正確に特定し[修正`7e5693a`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/7e5693a79b63b035b6d8f831ff3892716c39dea3)で`hall_script`に改名、再発assert追加。旧失敗履歴は保持。

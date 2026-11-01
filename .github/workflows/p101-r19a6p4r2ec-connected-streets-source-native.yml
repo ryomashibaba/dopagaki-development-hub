@@ -31,6 +31,10 @@ on:
       - scripts/p101-r19a6p4r2f5e-native-placement.py
       - scripts/p101-r19a6p4r2f5e-private-and-native-qa.mjs
       - scripts/p101-r19a6p4r2f5e-pixel-audit.py
+      - scripts/p101-r19a6p4r2f5f-native-hall.py
+      - scripts/p101-r19a6p4r2f5f-native-placement.py
+      - scripts/p101-r19a6p4r2f5f-private-and-native-qa.mjs
+      - scripts/p101-r19a6p4r2f5f-pixel-audit.py
       - .github/workflows/p101-r19a6p4r2ec-connected-streets-source-native.yml
   workflow_dispatch:
 permissions:
@@ -55,6 +59,8 @@ jobs:
           python3 -m py_compile scripts/p101-r19a6p4r2f5b-native-support-hall.py
           python3 -m py_compile scripts/p101-r19a6p4r2f5d-native-placement.py
           python3 -m py_compile scripts/p101-r19a6p4r2f5e-native-hall.py scripts/p101-r19a6p4r2f5e-native-placement.py scripts/p101-r19a6p4r2f5e-pixel-audit.py
+          python3 -m py_compile scripts/p101-r19a6p4r2f5f-native-hall.py scripts/p101-r19a6p4r2f5f-native-placement.py scripts/p101-r19a6p4r2f5f-pixel-audit.py
+          node --check scripts/p101-r19a6p4r2f5f-private-and-native-qa.mjs
           node --check scripts/p101-r19a6p4r2f5e-private-and-native-qa.mjs
           node --check scripts/p101-r19a6p4r2f5d-private-and-native-qa.mjs
           node --check scripts/p101-r19a6p4r2f5b-private-scene-pack.mjs
@@ -248,6 +254,27 @@ jobs:
           python3 scripts/p101-r19a6p4r2f5e-pixel-audit.py
           test -s r19-evidence/r19a6p4r2f5e/R2F5E_VS_D_TRUE_SOURCE_PIXELS_RESEARCH_ONLY.json
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: R2F5-E genuine multi-level station native Blender and two original WebGL2 ART frames
+        run: |
+          mkdir -p r19-evidence/r19a6p4r2f5f
+          for mode in ultra control; do
+            blender -b --factory-startup --python-exit-code 3 --python scripts/p101-r19a6p4r2f5f-native-placement.py -- \
+              --source "r19-evidence/r19a5/R19A5_ORIGINAL_W9C1_${mode}_EDITABLE_CITY.glb" \
+              --output "r19-evidence/r19a6p4r2f5f/P4R2F5F_${mode}_edited.glb" \
+              --blend "r19-evidence/r19a6p4r2f5f/P4R2F5F_${mode}_editable.blend" \
+              --report "r19-evidence/r19a6p4r2f5f/P4R2F5F_${mode}_blender_report.json" \
+              --anchors "r19-evidence/r19a6p2/P2_${mode}_real_road_anchors.json" \
+              --cameras "docs/R19_A6P3_PRIOR_A1_ORIGINAL_12_TRUE_CAMERAS.json" \
+              --mode "$mode"
+            node scripts/p101-r19a6p1-read-blender-glb.mjs \
+              "r19-evidence/r19a6p4r2f5f/P4R2F5F_${mode}_edited.glb" \
+              "r19-evidence/r19a6p4r2f5f/P4R2F5F_${mode}_blender_report.json" \
+              "r19-evidence/r19a6p4r2f5f/P4R2F5F_${mode}_audited_gpu.bin"
+          done
+          node scripts/p101-r19a6p4r2f5f-private-and-native-qa.mjs
+          python3 scripts/p101-r19a6p4r2f5f-pixel-audit.py
+          test -s r19-evidence/r19a6p4r2f5f/R2F5F_VS_E_TRUE_SOURCE_PIXELS_RESEARCH_ONLY.json
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
       - name: R2F genuine source PNG checked camera-director overlays (read-only ART HOLD)
         run: |
           for mode in ultra control; do
@@ -269,6 +296,7 @@ jobs:
             r19-evidence/r19a6p4r2f5c/
             r19-evidence/r19a6p4r2f5d/
             r19-evidence/r19a6p4r2f5e/
+            r19-evidence/r19a6p4r2f5f/
             dist-private/r19a6p4r2f4gpu/R2F4D_PRIVATE_GPU_NORMALS_MANIFEST.json
             r19-evidence/r19a6p4r2f4/
             dist-private/r19a6p4r2f4/P4R2F4_EDITABLE_BLENDER_PRIVATE_GLB_MANIFEST.json
