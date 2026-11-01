@@ -1,3 +1,12 @@
+## 【2026-11-01 R2F5-K/K2 全7元道路1134ステーション・新30真正カメラ・3別道路投影研究PASS（ART未認定）】
+
+- [K Actions #41312758260](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41312758260) SUCCESS。元source blob `af076d67492a677d2235e4730aef8cdf4808e106` の14/28m×Road0〜6×81地点＝**1,134真正道路アンカー**を生成。元P96スクリプト走行カメラは各幅15tick＝**合計30真正WebGL2 PNG、全SHA一致**。最長tick8641=36.004s。ultra走行の落下tick8994=37.475s/control8927=37.196s。Road0 ABYSS／Road1 CROWN／Road2 SCISSOR／Road3 LOWERの元カメラまで観測、**Road4 VOID/Road5 PRISM/Road6 FINISHカメラ未観測**。Artifact [#13086435838](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41312758260/artifacts/13086435838) ZIP3,856,011B SHA `b493ddaf0dd70d34660e47107e7cfca154d69bda2ab121206e24823dabf4586c`。
+- [K2 Actions #41313451046](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41313451046) SUCCESS。Kの元カメラと全道路座標から仮の3景観 **Road0市場(u=.75/右70m), Road2交通(u=.25/左70m), Road3公共広場(u=.20/右100m)** を投影。2幅×8tick合計16の**投影検証のみPASS**。原ART/HUMANは全未認定。Artifact [#13086063935](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41313451046/artifacts/13086063935) ZIP2,565B SHA `0f1ed75a026c538a9e2036c2f894307ea3ca956663ec591254ca48299de5cc67`。
+- 次K3優先：**Road4〜6の元真カメラ未観測を埋めるために元ゲームの実走QA（非透明床、非テレポート、原物理固定）を検討。区間別スタートと連続完走は別物として表示**。3景観のうち最小1案ずつ本当のNative Blender/GLBを作成し、多時刻14/28m真正WebGL2で独立ART審査する前に正式モデル採用不可。大壁・2小屋・列柱反復の再発禁止。
+- main/Gold/P100/W9-X/B5・本番2サイト・元7Road×28B51/240Hz球/自然ジャンプ/元カメラ不変、新コライダー0、**正式ART0件・Slope2 DNA0m・PR#46 OPEN Draft未マージ・RELEASE HOLD**。[K/K2完全審査報告](R19_A6P4_R2F5K_K2_TRUE_SEVEN_ROAD_CAMERA_AND_THREE_SILHOUETTES_GATE_JA.md)。
+
+---
+
 ## 【2026-11-01 R2F5-K 真7道路座標と新カメラの実測ゲート着手（CI結果未認定）】
 
 - JでG2→I全画面の最大差分は観測13tick内で8.129秒（2.90281/2.93053%）と確定、走行視点から左へ消える短期問題を根拠に**Road1左の局所駅改築の反復を停止**。元のA1 12カメラは各幅6tick・11.504秒までしかなく、**7道路7280mを代表できない**ため元ゲームで後半を測定する。
