@@ -13,10 +13,15 @@ GitHub接続済みChatGPTが上の1文を受けたら、本人に過去ZIP・Mar
 1. GitHubの `ryomashibaba/dopagaki-development-hub` の [Draft PR #46](https://github.com/ryomashibaba/dopagaki-development-hub/pull/46) を直接取得し、**現在のHEAD**・OPEN/Draft/未マージ・保護対象を検査する。
 2. PRのhead branch `p101-velocity-overdrive-native-trial` で最新 [`docs/DOPAGAKI_LIVE_HANDOFF.md`](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/DOPAGAKI_LIVE_HANDOFF.md) の**冒頭から最新工程を読む**。旧履歴を新状態として誤認しない。
 3. [`PROJECT_STATE.md`](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/PROJECT_STATE.md) で固定された全体目標・設計経緯・過去の合否・失敗原因・運用ルールを確認する。最新ゲートと矛盾した古い記述は履歴と扱う。
-4. 最新 [K4審査正本](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K4_ROAD0_ONE_NATIVE_MARKET_16_TRUE_WEBGL2_TECH_PASS_ART_REJECT_JA.md) と直前 [K3/K3B正本](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K3_K3B_ALL_SEVEN_TRUE_ORIGINAL_CAMERAS_ART_HOLD_K4_GATE_JA.md) を読む。必要に応じてK2、I/J、F/G2等の判定報告と原Actions・Artifactを照合する。
+4. 最新 [K4R設計・独立CI審査ゲート](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K4R_ROAD0_MARKET_NATIVE_REDESIGN_JA.md) と、直前の [K4審査正本](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K4_ROAD0_ONE_NATIVE_MARKET_16_TRUE_WEBGL2_TECH_PASS_ART_REJECT_JA.md) と直前 [K3/K3B正本](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K3_K3B_ALL_SEVEN_TRUE_ORIGINAL_CAMERAS_ART_HOLD_K4_GATE_JA.md) を読む。必要に応じてK2、I/J、F/G2等の判定報告と原Actions・Artifactを照合する。
 5. **最新ブランチ・CIを起点として継続**し、ソース追加/QA/画像/SHA/アート判定/未検証事項/次工程をGitHubで保持する。チャットでは要点＋正本リンクのみ。新チャットを開始するたびに全資料を再生成しない。
 
-## 最新実測（2026-11-02 K4）— 次工程K4R、ART 0/Slope2 DNA 0
+## 最新K4R（2026-11-02）— 新造形保存・原WebGL2 CI実行中、合否未判定
+
+- **[K4R専用Actions #41351118263](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41351118263)**。同じRoad0 u=.75右70mの1市場を独立造形へ差替。非対称の高低ある折板建築、奥行きある居住・交易テラス、空に開いた中央広場をNative Blenderでモデル化。14/28m×原/K4R×原カメラ4tick=**真正16枚を自動検証する新runner**を追加。**原WebGL2の成功およびART評価はCIと新画像の直接確認前に主張禁止。**
+- [K4R開発と判定正本](docs/R19_A6P4_R2F5K4R_ROAD0_MARKET_NATIVE_REDESIGN_JA.md) → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md) の最上段を読む。元K4はTECH限定PASS／ART REJECT。正式ART 0件／Slope2 DNA 0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。物理/本番/main変更禁止。**新チャット再開時は実際のCI実行完了を確認し、新16PNGを独立評価してから次工程を決める。**
+
+## 直前K4実測（2026-11-02 K4）— 次工程K4R、ART 0/Slope2 DNA 0
 
 - [K4 Actions #41320140127](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41320140127)全job **SUCCESS**。原A5の5メッシュにRoad0市場**1案**だけ追加。14m/28m×原/新×4tick=16真WebGL2 PNG/全SHA独立一致。Native Blender 4のBLEND/GLB各2、32モジュール、三角形10,566→11,406。元原物理240Hz、元球XYZ/速度/カメラ、7 B48・28 B51・元source `af076d67492a677d2235e4730aef8cdf4808e106` 変更0、追加collider0。
 - Artifact #13089117035／4,022,036 bytes／ZIP SHA256 `223a4e9d476c767d04b9479e537f8bdc2c6951bb283f3914a38397384969bb0e`。原ZIP16/16真正PNGを直接取得・検査。**TECH限定PASS、独立ART REJECT**：追加形は右側の小屋根・売店にしか見えず、元大型構造の足元に埋もれる。用途の異なる実市場街区や屋外公共空間として成立しない。数字上の画像差をART PASSに転用禁止。
