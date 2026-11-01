@@ -25,6 +25,11 @@ for(const mode of ['ultra','control']){
  assert.equal(report.districts.length,5);
  assert.deepEqual(report.districts.map(d=>d.roadsidePublicFacilities.length),[1,1,0,0,0]);
  assert.ok(report.districts.slice(0,2).every(d=>
+  d.roadsidePublicFacilities[0].interiorOpenGalleries===2 &&
+  d.roadsidePublicFacilities[0].visibleRearMarketBays===3 &&
+  d.roadsidePublicFacilities[0].fullWidthOverEntranceRoofPresent===false &&
+  d.roadsidePublicFacilities[0].entranceSightlineWidthM>=18 &&
+  d.roadsidePublicFacilities[0].interiorPublicAccessCertified===false &&
   d.roadsidePublicFacilities[0].actualReal3DNewVertexCount>100 &&
   d.roadsidePublicFacilities[0].projectedFrustumRectangleAreaPixels>3000 &&
   d.roadsidePublicFacilities[0].noncollidingArt===true &&
@@ -43,7 +48,7 @@ for(const mode of ['ultra','control']){
   Number.isFinite(x.trueOriginalCameraPublicEntranceAzimuthRad) &&
   x.heroGeometryMode==='CAMERA_ORIENTED_TRUE_OPEN_PIAZZA'));
  assert.equal(report.architecturalLanguage,'R2F4_NATIVE_CAMERA_NEAR_ROAD_PUBLIC_EXCHANGE_CITY');
- assert.equal(report.designRevision,'R2F4_TWO_SOURCE_CAMERA_ROADSIDE_PUBLIC_EXCHANGES_ART_HOLD');
+ assert.equal(report.designRevision,'R2F4B_TWO_OPEN_GALLERIES_EXPOSED_REAR_MARKET_ART_HOLD');
  assert.ok(report.districts.every(x=>x.actualOpenCourt===true&&x.publicWalkDeckGraph?.connected===true&&x.publicWalkDeckGraph?.maxJointGapM<1e-8&&x.programmedReal3DVolumes?.length>=3));
  assert.equal(report.districts.length,5);
  assert.equal(report.terrainSupportGate,'HOLD');
@@ -75,7 +80,7 @@ code=code.replace(pattern,"const expected=r19a6Kind==='ultra'?"+
  manifest.modes.ultra.gpuBytes+":"+manifest.modes.control.gpuBytes+";");
 assert.equal(code.split('PINNED_ORIGINAL_GLB_IMPORTED_ART_REJECT').length,2);
 code=code.replace('PINNED_ORIGINAL_GLB_IMPORTED_ART_REJECT',
- 'P4R2F4_ROADSIDE_VISIBLE_PUBLIC_EXCHANGE_ART_HOLD');
+ 'P4R2F4B_REAL_HOLLOW_SIDE_GALLERIES_ART_HOLD');
 fs.writeFileSync(path.join(dir,'drive3d.mjs'),code);
 assert.ok(!fs.readFileSync(path.join(original,'drive3d.mjs'),'utf8').includes("get('r19a6p4r2f4')"));
 fs.writeFileSync(path.join(dir,'P4R2F4_EDITABLE_BLENDER_PRIVATE_GLB_MANIFEST.json'),

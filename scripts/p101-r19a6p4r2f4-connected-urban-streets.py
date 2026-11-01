@@ -451,23 +451,43 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
    w=17-1.6*level;d=6.7
    ground=pg(0,4.4+3.7*level,2.3+level*1.7)
    slab(ground,(lat,toward),(w,d),6+level*.75,1 if level==0 else 0)
-  # Two different curving occupied hall volumes to the LEFT/RIGHT
-  # of a full-width, genuinely empty public entrance. Their front is
-  # toward the real source camera. They are distinct low structures,
-  # not identical box towers or a big wall facing the race.
+  # R2F4-B ART DIRECT REPAIR. Previous solid wings and a single wide
+  # over-entrance roof blocked the very public interior we wanted.
+  # Build TWO actually hollow side galleries: thick public plinth +
+  # lateral shear wall + separated curved roof. AIR under each roof.
+  # The public mouth x=-9..9 remains fully open to the original camera.
+  interiorOpenGalleries=0
   for wing,(left,right,start,stop,roof,mat) in enumerate((
       (-23,-10,-12,7,16,0),(10,22,-9,10,12,2))):
-   count=30
-   def occupiedSection(t):
+   count=38
+   outside=left if wing==0 else right
+   def baseSection(t):
     y=start+(stop-start)*t
-    roundness=sin(pi*t)
-    z=roof*(.61+.27*roundness)+1.7*sin(2.7*pi*t+wing+index)
+    h=2.8+.8*sin(pi*t)+.5*wing
     return [pg(left,y,-14),pg(right,y,-14),
-      pg(right,y,z*.57),pg(right-1.1,y,z),
-      pg(left+2.9,y,z+2.6*roundness),
-      pg(left,y,z*.73),
-      pg(left,y,5+2*roundness),pg(left,y,-7)]
-   addloft([occupiedSection(k/count) for k in range(count+1)],mat)
+            pg(right,y,h),pg(left,y,h)]
+   addloft([baseSection(k/count) for k in range(count+1)],mat)
+   def roofSection(t):
+    y=start+(stop-start)*t
+    roofH=roof*(.76+.15*sin(pi*t))+.9*sin(2.4*pi*t+wing+index)
+    slope=2.5*sin(pi*t+wing*.3)
+    # The real roof is held only on the outside wall. No front
+    # facade spans the wing and no over-entrance sky ribbon.
+    return [pg(left-.7,y,roofH-1.8),pg(right+.7,y,roofH-1.8+slope),
+            pg(right+.7,y,roofH+2.8+slope),pg(left-.7,y,roofH+2.8)]
+   addloft([roofSection(k/count) for k in range(count+1)],4 if wing==0 else 1)
+   def shearWall(t):
+    y=start+(stop-start)*t
+    h=roof*(.74+.13*sin(pi*t))
+    return [pg(outside-1.7,y,-11),pg(outside+1.7,y,-11),
+            pg(outside+1.7,y,h),pg(outside-1.7,y,h)]
+   addloft([shearWall(k/count) for k in range(count+1)],2)
+   # A single slim grounded end-wall braces each wing at the BACK.
+   # It is not a fake arched portal across the public mouth.
+   cheekEnd=[pg(left,start,-13),pg(right,start,-13),
+             pg(right,start,roof*.80),pg(left,start,roof*.80)]
+   addloft([cheekEnd,[v+toward*2.5 for v in cheekEnd]],0)
+   interiorOpenGalleries+=1
   # Visible interior backdrop: a low covered trading gallery BEHIND
   # the open entrance, with one 8m opening into a rear market yard.
   # Only two flanking masonry chevrons; no column forest.
@@ -475,21 +495,31 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
    q=[pg(x-2.7,-12,-10),pg(x+2.7,-12,-10),
       pg(x+2.7,-7,-10),pg(x-2.7,-7,-10)]
    addloft([q,[v+up*13 for v in q]],2 if cheek else 0)
-  # One deliberately offset sculpted roof lip shades ONLY the back
-  # gallery, well inside the public side of Road1, never the racing road.
-  gallery=pg(0,-10,15)
-  slab(gallery,(lat,toward),(12,4.2),2.7,1)
-  # Distinct 4m-high artwork and market screen, actually behind the
-  # entrance. It cannot be mistaken for a physics obstacle on B48.
-  sculptureBase=pg(1.5,-6.7,4.2)
-  addloft([[sculptureBase+lat*(-3)-toward*2-up*3,
-            sculptureBase+lat*3-toward*2-up*3,
-            sculptureBase+lat*3+toward*2-up*3,
-            sculptureBase+lat*(-3)+toward*2-up*3],
-           [sculptureBase+lat*(-2.1)-toward*1.1+up*5,
-            sculptureBase+lat*2.1-toward*1.1+up*5,
-            sculptureBase+lat*2.1+toward*1.1+up*5,
-            sculptureBase+lat*(-2.1)+toward*1.1+up*5]],3)
+  # A short, visible rear market within the real open-air entrance.
+  # Three handcrafted shopfront volumes, not a repeated skyscraper
+  # facade. Actual market function and human movement remain HOLD.
+  marketBays=0
+  for k,x in enumerate((-6.8,0.,6.9)):
+   y=-11.2-(k%2)*1.8
+   # solid human-scale counter, 3.8m across; deliberately distinct.
+   table=[pg(x-2.4,y-2,-8),pg(x+2.4,y-2,-8),
+          pg(x+2.4,y+1.8,-8),pg(x-2.4,y+1.8,-8)]
+   addloft([table,[v+up*(2.8+.6*k) for v in table]],3 if k!=1 else 4)
+   canopy=[pg(x-3.0,y-1.4,7.3),pg(x+3.0,y-1.4,7.3),
+           pg(x+2.8,y+2.5,8.5+.5*k),pg(x-2.8,y+2.5,8.5+.5*k)]
+   addloft([[v-up*1.8 for v in canopy],canopy],1 if k%2 else 4)
+   marketBays+=1
+  # One warm-colored inhabited rear mezzanine; floor only, free sky
+  # above the main public aperture and no unverified bridge over B48.
+  piazzaMezzanine=[pg(-9,-13,7),pg(9,-13,7),
+                   pg(9,-8.2,8.5),pg(-9,-8.2,8.5)]
+  addloft([[v-up*4.5 for v in piazzaMezzanine],piazzaMezzanine],0)
+  # Place two independently thick corner frames along the BACK, not
+  # crossing the 18m-wide central sightline.
+  for frameX in (-10.6,10.8):
+   border=[pg(frameX-1.1,-12,-8),pg(frameX+1.1,-12,-8),
+           pg(frameX+1.1,-8,-8),pg(frameX-1.1,-8,-8)]
+   addloft([border,[v+up*11 for v in border]],2)
   actualNearby=[local_inverse.inverted()@Vector(v) for v in vertices[startNearby:]]
   actualWorld=[Vector((q.x,q.z,-q.y)) for q in actualNearby]
   sampledPixels=[projection(realShot,q) for q in actualWorld]
@@ -515,6 +545,11 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
    "projectedFrustumRectangleAreaPixels":visibleArea,
    "actualReal3DNewVertexCount":len(vertices)-startNearby,
    "realCourtyardCount":1,"inhabitedWingCount":2,
+   "interiorOpenGalleries":interiorOpenGalleries,
+   "visibleRearMarketBays":marketBays,
+   "fullWidthOverEntranceRoofPresent":False,
+   "entranceSightlineWidthM":18,
+   "interiorPublicAccessCertified":False,
    "sourceWorldCentreXYZ":[roadsideCentre.x,roadsideCentre.z,-roadsideCentre.y]})
  assert seamMax<1e-8
  # Source camera projection is diagnostic only; a pixel-level ART or B51
@@ -604,7 +639,7 @@ report={"schema":"dopagaki.r19a6p4r2f4-connected-street-urban-district/1",
  "humanArchitecturalAccess":"NOT_VERIFIED","actualTerrainContactVerified":False,
  "PBR_game":"NOT_IMPLEMENTED","Blender":bpy.app.version_string,
  "architecturalLanguage":"R2F4_NATIVE_CAMERA_NEAR_ROAD_PUBLIC_EXCHANGE_CITY",
- "designRevision":"R2F4_TWO_SOURCE_CAMERA_ROADSIDE_PUBLIC_EXCHANGES_ART_HOLD",
+ "designRevision":"R2F4B_TWO_OPEN_GALLERIES_EXPOSED_REAR_MARKET_ART_HOLD",
  "cameraProjectionOnlyNotActualB51RasterMask":True,
  "officialSlope2Metres":0,"ART":"HOLD","HUMAN":"HOLD","GAMEPLAY":"HOLD","PERFORMANCE":"HOLD",
  "RELEASE":"HOLD","MERGE":"HOLD"}
