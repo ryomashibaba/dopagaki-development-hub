@@ -44,7 +44,7 @@ try{
    assert.equal(info.webgl2,true);assert.equal(info.B51,28);assert.equal(info.B48,7);
    assert.equal(info.width,mode==='ultra'?14:28);assert.equal(info.loaded,'true');
    assert.equal(info.meshCount,5);assert.equal(info.colliders,0);
-   assert.ok(info.triangles>10566&&info.triangles<50000);
+   assert.equal(info.triangles,variant==='original'?10566:variant==='f'?44172:44568, 'independent original/F/G2 GLB triangle count changed');
    await page.locator('#cameraCompare').click();
    await page.waitForFunction(()=>document.querySelector('#view')?.dataset?.cameraMode==='ball-lock-unfiltered-heading');
    await page.locator('#p101Profile').selectOption('OVERDRIVE');
