@@ -1,5 +1,13 @@
 > **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**K4S原7道路カメラ遮蔽研究実装・CI待ち／K4R ART REJECT継続・正式ART0/Slope2 DNA0**、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
 
+## 【2026-11-02 K4S独立元GLB検算：Road0 u=.85右70mのみ位置検討候補、まだCI未認定】
+
+- [K4S独立実在GLB・原カメラ検算](R19_A6P4_R2F5K4S_TRUE_SOURCE_7ROAD_BVH_SITING_STUDY_JA.md)を実施。過去K4/K4R真GLBの**共通原10,566三角形の頂点・面一致を両幅で検証**、真K/K3Bの全7道路カメラデータと合わせ独立BVHを構築。結果JSON SHA256 `61ad5259e0fd72bd914913069275cb503354d3542720433c432c0e8332809fe3`（ローカル監査、CI artifactとは区別）。
+- 原Road0 tick1249（5.204s）の元A5遮蔽なし画面内プロキシ外殻点：元K4R `u=.75右70m` **28/75**、仮位置 `u=.85右70m` **63/75**（14/28m両幅）。中庭可視プロキシ：旧14m **2/9**・28m **1/9** → 仮位置 **両幅9/9**。初期4tick全域でもu=.85は外殻61/63/60/63（両幅同数）・中央9/9点を保持。これらは**真WebGL2上で新建築が読めるという結論ではない**。プロキシ画角近似と元A5メッシュのみのレイ遮蔽で、道路/B51/元建築以外のレンダリング・接触安全・連続時間は未測定。候補を正式採用しない。
+- [K4S GitHub Actions #41352432473](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41352432473)は最終確認時**queued／独立CI PASS未成立**。次は**実CI結果を確認し、ローカル計測との一致検証**。合致すれば「同じ市場を建築する」の前にu=.85の元真画面の位相・遮蔽・スケールを最小プロキシで確かめる研究を優先。正式ART0、Slope2 DNA0m、HUMAN/全B48B51 SAT/CCD/FPS/RELEASE/MERGE HOLD、PR Draft未マージ・main/本番禁止。
+
+---
+
 ## 【2026-11-02 R2F5-K4S 真正全7道路42カメラ×原A5建築BVH遮蔽・新3D制作停止／実行結果待ち】
 
 - **実装**：[K4S read-only原視点・元建築BVH研究](../scripts/p101-r19a6p4r2f5k4s-source-occlusion-study.py)、[専用CI](../.github/workflows/p101-r19a6p4r2f5k4s-original-camera-site-study.yml)、[独立監査記録](R19_A6P4_R2F5K4S_TRUE_SOURCE_7ROAD_BVH_SITING_STUDY_JA.md)。[Actions #41352432473](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41352432473)を起動。**現時点ではCIは完了未確認、最終PASS未認定。** 既存K真正30PNG・K3B真正28PNGを一枚ずつSHA照合したうえで、元7Road B48×81標本を再生成。元A5の5編集用メッシュのBVHレイだけを両幅ごとに使う。幅14/28m×元実走13早期+8後期=42カメラの視野・元大建築による線分遮蔽を測る。
