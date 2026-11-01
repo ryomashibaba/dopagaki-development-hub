@@ -1,3 +1,12 @@
+## 【2026-11-01 R2F1-B/C：真正画面で可視化改善は確認、ART REJECT】
+
+- R2F1の直接B改修 [`be14631370f1`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/be14631370f141a378cac8aee635dd189ac9d3fe) は、Road1各主役建築に本物の全高空洞と厚い公共地盤6段を実装。真正[Actions #41274215491](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41274215491)全19工程PASS、Artifact 13071255659 SHA256 `2acae79d8af465a663297860281b4560e3db0d86f05d82cbbbb2535d72825603`。Blender 10,772面/GPU 21,544三角形、元14/28m真12画面、28×2881×2の元B51離散SAT交差0。ただし元R2F1と比べ14mの8.004s画面差0.197%、11.504s画面差0.010%で、**空洞がほぼ見えない**ためART REJECT。
+- 元カメラを基準に対象建築を選び直すC改修 [`82e2b80d49a2`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/82e2b80d49a27aa369843be56750715e61c1e10a)、真正[Actions #41274666414](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41274666414)全19工程PASS、Artifact 13071315994 ZIP SHA256 `a46af3a5a07cd1f44422383b9b3fe3a07adbdb04c1977972a51a5d40459152f0`。Blender 11,054面/GPU 22,108三角形・元B51全161,336離散SAT交差0。**地区2主役はtick2761原カメラからsp=1を選択**。11.504s旧B→Cの14m画面差1.853%／中央ROI11.562%で、大きな隙間が実際に見えるようになった。
+- **独立美術判定はCもART REJECT**：11.5秒の隙間は巨大壁が切断された形にしか見えず、都市の地盤・内部空洞・人間規模の公共空間・建築同士の一体感が弱い。8秒の改善も限定的。穴の位置・数・ポリゴン数だけをさらに増やすのは禁止。次は元真画面上で一体都市・地上公共空間から先に意匠構図を設計し、実Blenderで少数の主役造形を直接制作。
+- [詳細独立監査](R19_A6P4_R2F1_B_C_TRUE_CAMERA_ART_REJECT_AND_NEXT_COMPOSITION_GATE_JA.md)。元ゲームGit blob `af076d67492a677d2235e4730aef8cdf4808e106`/240Hz/7B48/28B51/元RAW camera/HUD/入力、main/Gold/P100/W9-X/B5、本番2サイト無変更。正式ART0件・Slope2 DNA正式0/2912m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR #46 Draft/未マージ。
+
+---
+
 ## 【2026-11-01 R2F Phase1：R2F1実Blender制作→真正SOURCE TECH PASS／ART REJECT】
 
 - R2F1実Blenderソースを独立作成：[`0e124d0`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/0e124d05449a80d374d5347bad89c9bbbeafbc30)→高曲率化・元品質ゲート維持[`d7575d7`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/d7575d7ab2d45bf8e3f7c216f97dee4545fd3d88)。旧E2ソース維持。道路1の地区1公共崖/2フォーラム/3庭園の異なる湾曲実3Dと、地区間の厚い都市地盤を実装。Road0側の美術形状も一部変更（Road0原物理は不変）。
