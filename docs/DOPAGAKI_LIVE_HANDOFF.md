@@ -1,3 +1,13 @@
+## 【2026-11-01 R2F5-G2 選抜G2の真Native Blender・2幅WebGL2成功／独立ART REJECT・R2F5-Hへ】
+
+- [実装`e1c8cbbb`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/e1c8cbbb03427f62ab8dbf5a39033f0a8162bac9)でG2予備幾何の唯一選抜1案を真Native Blenderへ。元Road1 u=.125／左端45m、旧B/D/E/Fと11.504秒側を不変保存。前面公共地盤、市場、右の交通、中央開空間、右寄り奥の乗換の実立体を追加。新コライダー0・原物理/カメラ不変。
+- [真正Actions #41299372268](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41299372268)**全Job SUCCESS**。[Artifact #13080348046](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41299372268/artifacts/13080348046) **31,509,900 bytes**／ZIP SHA256 `0708347c8bd7f5a768f85d02d81d872112c8edd44bdb44a454712c00c1c1362e`、全119・G2固有12件、実Native Blender58部品、edited faces22,432、44,568 GPU triangles、元1921tick 14/28m真正WebGL2 2画像SHA独立一致。
+- F→G2の実画像：投影高さ旧F **81.65/83.78px→G2 67.41/69.14px**。RGB最大差>36全画面 **1.22123/1.28346%**、左ROI **8.33494/8.75965%**、中央道路0%。実画像ではFの巨大壁は消えたが、**左の小さい離れた2建築と低い接続要素になり、駅市場/公共通路の用途を高速視点で読めない**。幾何代理G2通過≠真画面のART合格。**独立ART REJECT、正式0、Slope2 DNA0m**。
+- 次R2F5-Hは次の巨大Blender作り直しを一旦中断。元105m/s×本物240Hzカメラの8秒近傍**複数時刻の連続画像**を既存F/G2で比較し、動く景観の実視認性・見通し・都市の認識可能性を調査してから次の形状設計範囲を決める。別位置や別地域への方針変更は調査の結果に応じたゲート方式、今は原物理/位置を保持。
+- 元source blob `af076d67492a677d2235e4730aef8cdf4808e106`、B48×7/B51×28・元カメラ/240Hz/2本番・main/Gold/P100/W9-X/B5不変。新G2の厳密B48/B51/CCD/FPS/歩行/HUMAN未認証。RELEASE/MERGE HOLD、PR#46 OPEN/Draft。[真原画審査と次工程の完全証拠](R19_A6P4_R2F5G2_TRUE_NATIVE_TWO_CAMERA_ART_REJECT_R2F5H_GATE_JA.md)。
+
+---
+
 ## 【2026-11-01 R2F5-G2 唯一予備PASS形状をNative Blenderに実体化・真正2幅ゲート（実行結果未認定）】
 
 - R2F5-Gカメラ投影代理で唯一選抜された `G2_SUNKEN_COURT_AND_TRANSFER` を、元BlenderのRoad1 `u=.125`／道路左端45mに実体化する**非本番1案限定**。元Fの約49m幅中央屋根・背面壁を再利用せず、前景の低い実公共地盤・左右別機能の市場/改札エリア・中央空洞の本物の通路・右寄りの奥乗換エリアで形を作る。正本は真の元8.004秒の14/28m画像。表層色差だけでART合格を出さない。
