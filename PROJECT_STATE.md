@@ -1,4 +1,4 @@
-> **【2026-11-01 GitHub自動引き継ぎ入口／最新K3B】** 新チャットはファイルをダウンロード・再添付せず、[DOPAGAKI_RESTART_JA.md](DOPAGAKI_RESTART_JA.md)からPR #46の最新HEAD → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md) → 本PROJECT_STATEをGitHubで直接照合して再開。**K3 native 16試行中4試行7区間完走・K3B 28真正WebGL2画像両幅PASS・元7区間全カメラ観測成立／次K4はRoad0市場建築1案の実Blender+元カメラ美術審査**。正式ART0、Slope2 DNA0m、PR Draft・未マージ、元物理/本番変更禁止。過去の古い工程見出しは歴史記録であり、最新の次工程ではない。
+> **【2026-11-02 GitHub自動引き継ぎ入口／最新K4】** 新チャットはファイルをダウンロード・再添付せず、[DOPAGAKI_RESTART_JA.md](DOPAGAKI_RESTART_JA.md) → PR #46最新HEAD → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md) → [K4原審査報告](docs/R19_A6P4_R2F5K4_ROAD0_ONE_NATIVE_MARKET_16_TRUE_WEBGL2_TECH_PASS_ART_REJECT_JA.md) → 本PROJECT_STATEをGitHubで直接照合。**K3/K3Bの7道路合法スクリプト完走・真7道路カメラ観測TECH PASSを継承。K4 Road0市場1案の元A5+Native Blender BLEND/GLB×2幅・真正WebGL2画像16/16・独立SHA完全一致はTECH限定PASS。しかし実画像では市場が小屋根群に見えるため独立ART REJECT。次工程K4Rは同じRoad0市場だけカメラ先行造形を見直す。** 正式ART採用0件、Slope2 DNA 0m、PR #46 Draft未マージ、B48/B51/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD、元物理/本番URL/main/Gold/P100/W9-X/B5変更禁止。下記の古い工程見出しは履歴であり最新ゲートではない。
 
 ## 【2026-11-01 R19 A6 P4 R2E-C 実3D街路候補と独立検証を開始】
 
