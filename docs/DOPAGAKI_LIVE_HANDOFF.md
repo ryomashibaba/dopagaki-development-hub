@@ -1,3 +1,14 @@
+## 【2026-11-01 R2F5-I 真Blender道路沿い117m街区／56元カメラ画像SUCCESS・独立ART REJECT】
+
+- [実装`858f06d0`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/858f06d07184cdc7ae7512ab30af3ffae30c7b14)で独立Native Blender **道路沿い約117mの連続街区**を構築。旧G2の小屋2つ／Fの大きい壁を避け、公共歩行軸と左右各4建築街区・市場/交通/広場を真の立体で構成。旧F/G2・原B原本改変なし。
+- 新CI初回#41304106560は**python3-numpy未導入によるBlenderのGLB import失敗**。直前commitのrunner sourceBlob/56枚レポート整合修正 `9854a640`、依存性追加 `7cd0bcc9` で修正し、失敗履歴保持。
+- [修正版専用CI #41304269353](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41304269353) **全Job SUCCESS**。[真正Artifact #13082627465](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41304269353/artifacts/13082627465) ZIP実物 **10,508,592B**／SHA256 `4ecf29d843dd9025a0bf2a4e0ec30f84803f7370de1e2a34ee3cf29d61ee3b4a`、**68ファイル・56真正PNG**／時系列比較sheet／原JSON。GLB **47,472 triangles (<50,000)**、Native124部品、faces24,148、元240Hz×7 tick×4 variants(original/F/G2/I)×2幅、球XYZ/速度差0（JSON精度）を全独立照合。
+- G2→I左ROI RGB差>36で8.254秒 **17.648%/17.087%**、8.504秒 **19.328%/19.859%**；主要4tickの中央道路ROI G2対I差0。原に対するI中央道路差との混同禁止。9.004秒はG2/Iの真正PNG両幅で完全一致。
+- **厳格ART REJECT**：元画面では巨大駅壁/2つの箱から、今度は似た暗い柱と壁の反復コロネードに変化。商業/乗換/公共空間の識別や人間利用の奥行きが読み取れない。部品数や画素差の増加を美術品質改善と同一視しない。正式採用0・Slope2 DNA0。
+- 次Jはさらなる大規模Blender量産を止め、**時系列の真画面から3つの主要用途を読める空間的合図／巨大空洞の設計ゲート**。左側の局所駅だけに固執する設計も再考。旧main/Gold/P100/W9-X/B5・物理240Hz/カメラ/B48×7/B51×28・本番2サイト不変、新I固有のB48/B51/CCD/HUMAN/FPS未合格。PR #46 OPEN/Draft、RELEASE/MERGE HOLD。[詳細報告](R19_A6P4_R2F5I_56_REAL_TEMPORAL_ART_REJECT_R2F5J_GATE_JA.md)。
+
+---
+
 ## 【2026-11-01 R2F5-I 連続街区の真Native Blender・56元カメラ時系列試作（結果HOLD）】
 
 - R2F5-H真正42PNGで**8.254秒**のF/G2差が最も大きい。静止8.004秒だけを見る方針は禁止。Iは巨大駅1棟/2つの小屋の反復を止め、**道路方向に約117m連続する屋外歩行スパイン、左右の4連続居住・商業街区、オープンな交差公共広場、機能的な市場・交通改札・後方歩行連続性**を本当にBlenderで1案設計。原道路外の配置が実用可能かは未検証。意匠上の色や飾りによる偽装はしない。
