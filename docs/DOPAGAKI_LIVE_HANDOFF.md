@@ -1,3 +1,13 @@
+## 【2026-11-01 R2F4-C 本物の法線明暗を隔離CPU bakeで比較 → TECH PASS、ART REJECT】
+
+- [実装`c3210e8`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/c3210e8d423338117b1b4f52fde8de0921203cda)：旧R2F4-B編集済みGLB実GPU 44,512三角形の面法線から2方向の静的RGB bake。元XYZ 1ビットも変更せず、RGB 400,596チャネルを変更。元flat色のprivate scene保持、隔離`r19a6p4r2f4shade`を作成。**シェーダー変更なし、PBR実装なし**。
+- 独立[GitHub Actions #41280238609](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41280238609)全22工程PASS。実[Artifact #13072014461](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41280238609/artifacts/13072014461) ZIP SHA256 `0d5f525dbb4aaeea7cc0c82625ba74d939c8dd3aa76f4b8e74b0e19a3c03a12b`。元source SHA/blob・真GLB/BLEND、元B48近似サンプル全道路接触0、元B51全161,336離散SAT交差0、元真正12 PNGと静的法線比較4 PNG、両14/28m実カメラ位置を照合。
+- 画像の独立比較RGB>36差：14m **8.004秒全体0.3930%、左建築2.6824%**／11.504秒 **全体0.0000%**（ただし最大画素差32で画像は同一でない）。28mも8秒0.3563%、11.5秒0%。見た目がほぼ同じで**ART REJECT**。もとの巨大壁/単純屋根/人間スケールのない市場を改善できていない。
+- **今後同じflat color bake/色係数増殖を禁止。** private rendererの実`mesh/draw/shader`をread-onlyで検証し、法線付きGPUレイアウトと局所light/materialの正式な描画実装が安全に可能か小さい4枚の真正カメラで先に判断。真B51ラスタ可読性、元B48エンジン厳密静的、地盤支持・実歩行、時刻間CCD、Windows/iPhone FPS、操作などはHOLD。
+- [R2F4-C真正監査・次工程](R19_A6P4_R2F4C_TRUE_NATIVE_NORMAL_BAKE_INDEPENDENT_ART_REJECT_JA.md)。PR #46 OPEN/Draft/未マージ、main/Gold/P100/W9-X/B5・二つの本番URL・元source blob `af076d67492a677d2235e4730aef8cdf4808e106`不変。正式ART0件、Slope2 DNA正式0/2912m。
+
+---
+
 ## 【2026-11-01 R2F4-B 空洞の実造形・静的B48高密度検査／SOURCE TECH PASS・ART REJECT】
 
 - [実Blender直接修正`836269a`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/836269ac7b6dc4e9e44057f2ce1f36779a816831)：Road1の前景2館を実厚の基壇+外側壁+独立曲面屋根へ分解し、各2つの実空洞ギャラリー、入口横断屋根の撤去、奥の実3D市場3店＋公共デッキで直接改修。旧R2F4 GLB／実画像Artifactは保存。元の道路／物理／カメラ／本番変更なし。
