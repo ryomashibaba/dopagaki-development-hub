@@ -1,3 +1,12 @@
+## 【2026-11-01 R2F5-H 真240Hz時系列42PNG成功／8.254秒ピーク・独立ART採用なし】
+
+- [H初回 Actions #41301266697](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41301266697)は元A6正規10,566三角形に対する不等号の誤りでFAIL（旧F/G2の28枚は本物として保存）。[修正`d05c0be4`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/d05c0be488b795df26fe8b8fc591d8bc53e60673)で原A6=10566・F=44172・G2=44568の正確な三角形数を個別検証。
+- [修正版H CI #41301571981](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41301571981)全job SUCCESS。[原Artifact #13081352113](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41301571981/artifacts/13081352113) ZIP **4,910,349B SHA256 `3ec29bb603849c52d106387feaa2b3ce5fbb67335e6da23142f851e437bedf7d`**。6セッション×7tickの実WebGL2 **42枚のPNG**とタイムシート・JSONのSHA照合、原/F/G2球XYZ/速度差最大0を独立確認。重いBlender全回帰不要。
+- 元の7.004/7.504/7.754/8.004/8.254/8.504/9.004秒×元14/28m真画面におけるF対G2の左建築ROI RGB>36差は、**8.254秒ピーク 14.87635% /14.68393%**、8.004秒 10.65063/11.19334%。9.004秒でF/G2 PNG完全一致だが、両方に共通する都市表現が残るため建物全体が消えたとは主張しない。静止1画像への設計偏重を改善。
+- 真画面を実見すると、旧Fの暗い壁/G2の小屋2つ・公共連続性不足は時間窓でも未解消。旧F/G2**ART REJECT継続**。Iでは新Blender量産を止め、**最小8真正PNG 7.754/8.004/8.254/8.504秒×2幅**を必須にする。個別大型駅より、**道路際市街地の連続建築・通路・奥行き**を重視する設計方向の検証へ。元原物理/カメラ/B48/B51/本番/main不変、G2固有安全・FPS/HUMAN・release/merge全HOLD。正式ART0・Slope2認定0m、PR#46 Draft未マージ。詳細：[R2F5-H 42真正PNGの完成報告・Iゲート](R19_A6P4_R2F5H_42_TRUE_NATIVE_TEMPORAL_ART_HOLD_R2F5I_GATE_JA.md)。
+
+---
+
 ## 【2026-11-01 R2F5-H 元240Hz×複数時刻の真画面調査開始（結果HOLD）】
 
 - G2単一1921tick 2真正PNGはART REJECT。新造形を量産せず、真正元A6/F/G2の3モード×元道路14/28m×7tick（1681/1801/1861/1921/1981/2041/2161）＝**予定42枚**の真正WebGL2撮影・球XYZ/速度の完全一致検査と視認時間の独立調査へ。
