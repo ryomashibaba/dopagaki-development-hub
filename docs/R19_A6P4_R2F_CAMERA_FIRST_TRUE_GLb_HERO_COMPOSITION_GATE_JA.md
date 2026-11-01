@@ -37,3 +37,11 @@
 - 既存R2E-E2 Actionsを再利用し、新ワークフローを増やさず**本体候補の表示・物理・カメラを変更しない独立観測ゲート**として組み込む。
 
 **正式ART採用0件／Slope2 DNA正式認定0/2,912m。main、Gold、P100、W9-X、B5、2本番サイト、元球/物理/入力/HUD/採点、PR #46 Draft・未マージを維持。** Workへ無断切替しない。
+
+## 実行結果：R2Fカメラ観測ゲートの真正CI成功（2026-11-01 JST）
+
+- [R2F再実行Actions #41272020211](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41272020211)は全ステップ**SUCCESS**。旧E2のBlender生成/GLB検査、独立元B51全2881tick×28×2幅SAT、元source WebGL2真正12画像、**追加したR2F Blender投影とSHA照合オーバーレイ生成**がすべて通過。
+- [証拠Artifact #13070295161](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41272020211/artifacts/13070295161)：ZIP 5,296,013 bytes、SHA256 `70559c858f75012668c59d61f68076c862fad7783ccf9f129ff7ddb580141064`（実ダウンロードZIPのバイトで独立再計算一致）。`R2F_ultra/control_CAMERA_GEOMETRY_ONLY.json`2件、`R2F_<mode>_<1057|1921|2761>_SOURCE_CAMERA_DIRECTOR_ONLY.png`計6件の実在とサイズを確認。
+- 各モードの元6時刻、各5地区、SHA対応の元PNGを処理。Blenderから再計測した6重要画面の各地区投影バウンディングボックスは、独立したPython trimesh実GLB計算との最大差**0.00px**（レポートの0.01px丸め精度内）。最短頂点間距離 地区1–2 **0.682341m**／地区2–3 **3.196525m**を再現。これは実連結面・実画素・人間歩行の証拠ではない。
+- **R2F新アートモデルは未制作、ART未合格**。今回のPASSは元ゲーム・既存E2とカメラ分析ツールの技術的再現性に限定。E2のART REJECTと、正式採用0件・Slope2 DNA認定0/2912mを維持。
+- **次の制作作業（制作ゲート）**：同じ道路1の8.004/11.504秒に連続する地区1→2→3の非対称複合公共核＋都市基盤を、まず元3画像の構図として定義したうえで*新しい実Blenderメッシュ*として少数の造形単位から制作する。薄い板/孤立箱の反復は禁止。元B48/B51と道路視認を守り、画像の見た目が改善して初めて独立フルQA。不要な新Workflow・無意味なバリエーション増殖は禁止。

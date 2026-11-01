@@ -1,3 +1,13 @@
+## 【2026-11-01 R2F PHASE 0：原ゲームカメラ起点の美術監督ゲート真正PASS】
+
+- **最新実装：** [コミット `5ed105ac613d`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/5ed105ac613d1802f2b2f102d8ea242140e3f4be)。新モデルを粗製濫造せず、旧R2E-E2の**本物の5地区Blender/GLBと真正6×2元カメラ**から、地区別画面投影と頂点間距離を測る`scripts/p101-r19a6p4r2f-camera-geometry-audit.py`、元PNG SHA確認付き構図補助画を作る`scripts/p101-r19a6p4r2f-native-overlays.py`を追加。既存CIを再利用、新CI数0。
+- **真正[Actions #41272020211](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41272020211)全SUCCESS**、[Artifact #13070295161](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41272020211/artifacts/13070295161) ZIP SHA256 `70559c858f75012668c59d61f68076c862fad7783ccf9f129ff7ddb580141064`。各幅5地区×6時刻の投影JSON2件、元WebGL2実画面＋出力SHA検査の美術監督用PNG6枚を確認。独立GLB計算との画面bounds最大差0.00px。地区1–2の最短メッシュ**頂点**間0.682341m、地区2–3 3.196525m（面の接続保証ではない）。
+- **原因の深化：** 元8.004s（14m）では地区1 x228–637・地区2 x572–963、11.504sでは地区1 x2–328・地区2 x179–705・地区3 x609–851に投影される。道路1の視点間で主役のバトンを引き継ぐ都市意匠・地盤の可読性が弱いのであって、建物単純追加・接近では未解決。
+- **次R2F PHASE 1：** 元3ヒーロー画像で道路/28B51の視認を守り、地区1→2→3が連続する公共基盤と主役を**先に構図設計**してから真Blender造形。実画像審査で改善の見込みがない量産・類似塔・巨大門・リボンは禁止。技術QAとARTの判定は独立。
+- **未実施・HOLD：** R2Fの新しい都市造形／正式美術採用、時刻間B51、静的実B48道路交差、地形支持、実人間歩行、B51本物の画素遮蔽、人間の高速操舵・Windows/iPhone FPS。正式ART採用0件・Slope2 DNA認定0/2912m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。PR #46 Draft/OPEN、元Git blob `af076d67492a677d2235e4730aef8cdf4808e106`・main/Gold/P100/W9-X/B5/本番2サイト・元物理/HUD無変更。詳細：[R2F Phase 0 実証](R19_A6P4_R2F_CAMERA_FIRST_TRUE_GLb_HERO_COMPOSITION_GATE_JA.md)。
+
+---
+
 ## 【2026-11-01 R2E-E初稿→E2直接造形改修、真正技術PASS／独立ART REJECT】
 
 - **初稿** [`54d07c7`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/54d07c7200864150770f57eb1773651641291f49) の真正[Actions #41270654771](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41270654771)全SUCCESS。Artifact #13069550680、SHA256 `f534c7296d23c53bc42e3417896a33ef4f8c40481e8cb48f0d64c2bf741475ca`。実BLEND/GLB・元12WebGL2画像、GPU33,316三角形、161,336離散B51 SAT交差0。しかし巨大一枚壁と黄色屋根が現代オフィス群に見えるため**ART REJECT**。
