@@ -180,59 +180,65 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
   "market":[(.02,.29,.61,.94),(.33,.66,.76,1.14),(.73,.97,.45,.90)]
  }
  for sp,(begin,end,scale,lean) in enumerate(archProfiles[kname]):
-  # Split into 3 broad arc-shaped, structurally thick shell segments. Each
-  # shell has nonplanar roof, different taper and lateral offsets.
-  a=2*pi*begin;b=2*pi*end
+  # R2E-E2 direct source revision after observing the actual native frames:
+  # split each broad office-like solid into TWO separate sky-cut volumes. Their
+  # genuine middle gap is intentionally uncovered, NOT a drawn dark stripe.
+  baseA=2*pi*begin;baseB=2*pi*end
   H=site["height"]*scale
   if kname=="crescent" and sp==0:H*=1.18
   if kname=="forum" and sp==1:H*=1.12
-  def octagon(level):
-   outside=[];inside=[]
-   for n in range(4):
-    theta=a+(b-a)*n/3
-    wobble=sin(pi*n/3+index*.6+sp*.9)
-    radius=119+22*sin(sp+index*.8)+18*level*lean+wobble*9
-    roof=H*level*(.88+.22*sin(theta*1.7+index*.6))
-    outside.append(at(radius,theta,-23 if level==0 else roof+2))
-   for n in reversed(range(4)):
-    theta=a+(b-a)*n/3
-    wobble=cos(pi*n/3+index*.7+sp)
-    radius=67+11*sin(index+sp)+12*level+5*wobble
-    roof=H*level*(.77+.14*cos(theta*2+index))
-    inside.append(at(radius,theta,-22 if level==0 else roof-5))
-   return outside+inside
-  addloft([octagon(0),octagon(.26),octagon(.64),octagon(1.0)],sp%3)
-  shellCount+=1
-  # Recessed wall panels carry scale and inhabited texture on BOTH faces.
-  # Their 3D depth is genuine, not stickers or an image overlay.
-  for level in range(3):
-   for col in range(26):
-    th=a+(b-a)*(col+.45)/26
-    mid=H*(.17+.24*level)
-    radius=120+22*sin(sp+index*.8)+18*(mid/max(H,1))*lean
-    radial=outer*cos(th)+along*sin(th)
-    tangent=-outer*sin(th)+along*cos(th)
-    width=max(.9, (b-a)*radius/26*.33)
-    for faceIndex in (0,1):
-     r=radius+2 if faceIndex==0 else max(65,68+11*sin(index+sp)+12*(mid/H)-3)
-     normal=radial if faceIndex==0 else -radial
-     centre=at(r,th,mid+2*cos(th*.9+index))
-     windowH=H*.052+(col%3)*1.1
-     quad=[centre-tangent*width-up*windowH,
-           centre+tangent*width-up*windowH,
-           centre+tangent*width+up*windowH,
-           centre-tangent*width+up*windowH]
-     addloft([quad,[v+normal*2.6 for v in quad]],2 if (col+level)%4 else 3)
-     facadePockets+=1
-  # Three broad hanging-but-supported terraced promenades per shell, not
-  # the thin floating stacked-plate-only R2E-A artifact.
-  for tier in range(3):
-   z=6+H*(.20+tier*.20)
-   startA=a+(b-a)*(.08+.02*tier)
-   endB=b-(b-a)*(.07+.03*tier)
-   depth=7+2*(tier%2)
-   wedge(startA,endB,64+tier*7,95+tier*9,z,depth,1 if tier%2 else 0)
-   publicBalconies+=1
+  for piece,fracs in enumerate(((0.,.39),(.60,1.))):
+   a=baseA+(baseB-baseA)*fracs[0]
+   b=baseA+(baseB-baseA)*fracs[1]
+   segmentH=H*(1.02 if piece==0 else .83)
+   def octagon(level):
+    outside=[];inside=[]
+    for n in range(4):
+     theta=a+(b-a)*n/3 + (.084 if piece==0 else -.061)*level
+     wobble=sin(pi*n/3+index*.6+sp*.9)
+     radius=116+21*sin(sp+index*.8)+16*level*lean+wobble*11
+     roof=segmentH*level*(.84+.20*sin(theta*1.9+index*.6))
+     outside.append(at(radius,theta,-27 if level==0 else roof+4))
+    for n in reversed(range(4)):
+     theta=a+(b-a)*n/3 + (.084 if piece==0 else -.061)*level
+     wobble=cos(pi*n/3+index*.7+sp)
+     radius=68+10*sin(index+sp)+10*level+5*wobble
+     roof=segmentH*level*(.75+.14*cos(theta*2+index))
+     inside.append(at(radius,theta,-23 if level==0 else roof-5))
+    return outside+inside
+   addloft([octagon(0),octagon(.28),octagon(.69),octagon(1.0)],
+           0 if piece==0 else 2)
+   shellCount+=1
+   # Deep inset windows, but leave a deliberately unbroken patchwork of
+   # masonry to avoid the old repeated curtain-wall skyscraper surface.
+   for level in range(3):
+    for col in range(13):
+     if (col+level+piece+sp)%7==0:continue
+     th=a+(b-a)*(col+.47)/13
+     mid=segmentH*(.17+.24*level)
+     radius=117+21*sin(sp+index*.8)+16*(mid/max(segmentH,1))*lean
+     radial=outer*cos(th)+along*sin(th)
+     tangent=-outer*sin(th)+along*cos(th)
+     width=max(1.25,(b-a)*radius/13*.29)
+     for sideIndex in (0,1):
+      r=radius+2 if sideIndex==0 else max(66,69+10*sin(index+sp)+10*(mid/segmentH))
+      normal=radial if sideIndex==0 else -radial
+      centre=at(r,th,mid+2*cos(th*.9+index))
+      windowH=segmentH*.048+(col%3)*.85
+      quad=[centre-tangent*width-up*windowH,
+            centre+tangent*width-up*windowH,
+            centre+tangent*width+up*windowH,
+            centre-tangent*width+up*windowH]
+      addloft([quad,[v+normal*2.7 for v in quad]],
+              2 if (col+level)%4 else 3)
+      facadePockets+=1
+   for tier in range(2):
+    z=7+segmentH*(.19+tier*.28)
+    startA=a+(b-a)*(.07+.03*tier)
+    endB=b-(b-a)*(.07+.025*tier)
+    wedge(startA,endB,66+tier*8,97+tier*8,
+          z,8+tier*2,1 if tier%2 else 0)
+    publicBalconies+=1
  # Preserve a truthful total of 22 use-zones; the shell geometry is shared.
  for k,program in enumerate(programMaps[kname]):
   share=k%3
@@ -395,7 +401,7 @@ report={"schema":"dopagaki.r19a6p4r2ee-connected-street-urban-district/1",
  "humanArchitecturalAccess":"NOT_VERIFIED","actualTerrainContactVerified":False,
  "PBR_game":"NOT_IMPLEMENTED","Blender":bpy.app.version_string,
  "architecturalLanguage":"FIVE_SCULPTED_MIXED_USE_CIVIC_MESAS_WITH_OPEN_SKY_COURTS",
- "designRevision":"R2E_E_THREE_NON_SYMMETRIC_SCULPTED_DISTRICT_MASSES_ART_CANDIDATE",
+ "designRevision":"R2E_E2_TRUE_SKY_CUT_TWISTED_SHELLS_DIRECT_REVISION_ART_HOLD",
  "cameraProjectionOnlyNotActualB51RasterMask":True,
  "officialSlope2Metres":0,"ART":"HOLD","HUMAN":"HOLD","GAMEPLAY":"HOLD","PERFORMANCE":"HOLD",
  "RELEASE":"HOLD","MERGE":"HOLD"}

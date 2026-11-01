@@ -24,7 +24,7 @@ for(const mode of ['ultra','control']){
  assert.equal(report.originalSourceBlob,manifest.originalSourceBlob);
  assert.equal(report.districts.length,5);
  assert.equal(report.architecturalLanguage,'FIVE_SCULPTED_MIXED_USE_CIVIC_MESAS_WITH_OPEN_SKY_COURTS');
- assert.equal(report.designRevision,'R2E_E_THREE_NON_SYMMETRIC_SCULPTED_DISTRICT_MASSES_ART_CANDIDATE');
+ assert.equal(report.designRevision,'R2E_E2_TRUE_SKY_CUT_TWISTED_SHELLS_DIRECT_REVISION_ART_HOLD');
  assert.ok(report.districts.every(x=>x.actualOpenCourt===true&&x.publicWalkDeckGraph?.connected===true&&x.publicWalkDeckGraph?.maxJointGapM<1e-8&&x.programmedReal3DVolumes?.length>=3));
  assert.equal(report.districts.length,5);
  assert.equal(report.terrainSupportGate,'HOLD');
@@ -56,7 +56,7 @@ code=code.replace(pattern,"const expected=r19a6Kind==='ultra'?"+
  manifest.modes.ultra.gpuBytes+":"+manifest.modes.control.gpuBytes+";");
 assert.equal(code.split('PINNED_ORIGINAL_GLB_IMPORTED_ART_REJECT').length,2);
 code=code.replace('PINNED_ORIGINAL_GLB_IMPORTED_ART_REJECT',
- 'P4R2EE_SCULPTED_CIVIC_MESA_ART_HOLD');
+ 'P4R2EE2_OPEN_SKY_CUT_DIRECT_REVISION_ART_HOLD');
 fs.writeFileSync(path.join(dir,'drive3d.mjs'),code);
 assert.ok(!fs.readFileSync(path.join(original,'drive3d.mjs'),'utf8').includes("get('r19a6p4r2ee')"));
 fs.writeFileSync(path.join(dir,'P4R2EE_EDITABLE_BLENDER_PRIVATE_GLB_MANIFEST.json'),

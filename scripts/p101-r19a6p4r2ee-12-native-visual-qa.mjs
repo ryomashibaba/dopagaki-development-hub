@@ -39,7 +39,7 @@ try{
    await page.waitForFunction(id=>{
     const canvas=document.querySelector('#view');
     return document.querySelector('#stage')?.value===id&&
-     canvas?.dataset?.r19a6Status==='P4R2EE_SCULPTED_CIVIC_MESA_ART_HOLD';
+     canvas?.dataset?.r19a6Status==='P4R2EE2_OPEN_SKY_CUT_DIRECT_REVISION_ART_HOLD';
    },id,{timeout:90000});
    const before=await page.evaluate(()=>{
     const el=document.querySelector('#view'),d=el.dataset;
