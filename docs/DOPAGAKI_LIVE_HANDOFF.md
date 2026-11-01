@@ -1,3 +1,11 @@
+## 【2026-11-01 R2F5-K3 元16 Native操舵試行：合法P94で両幅全7 Roadスクリプト完走・K3B真カメラ再試験】
+
+- [K3 Actions #41314887466](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41314887466) **SUCCESS**。Artifact [#13086649501](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41314887466/artifacts/13086649501)：10,115B SHA `102079ddf56435a54769da34d3d1dbd999751a52c673b77a6f0d12504047704f`、14/28m×8操舵。元同一32秒prefixを厳格照合。P96派6本はRoad3で落下、P94 corrective÷3とP94 fullの両幅4本は7/7実Road物理完走。P94÷3：**51.525s/51.270833s**、P94 full：**51.3625s/51.05s**。源物理・カメラ/球/道路/28 B51不変、追加床等0。
+- [K3B private WebGL2研究実装 `8826730b`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/8826730bcd08a7841ac211ea16213ef9314090ff)：唯一の÷3案を元真240Hz/原カメラで再現し、前半6アーカイブカメラと後半8 Native XYZを双方照合してRoad4〜6の真正画像を試す。**CI結果未判定**。人間走行・美術合格ではなく、公式ART0/Slope2 DNA0、RELEASE/merge全HOLD。
+- [K3正式物理検証結果と次ゲート](R19_A6P4_R2F5K3_LEGAL_LATE_STEERING_NATIVE_GATE_JA.md)。
+
+---
+
 ## 【R2F5-K3B 物理成功条件から元真正WebGL2カメラへの証拠ゲート】
 
 - K3元物理16試行は`#41314887466` SUCCESS。32秒原prefixは全試行一致、P94 corrective/3とfullは14/28mの7/7道路実完走。P96の倍率試行は全部37秒台付近で落下。元コース/速度/B51/CCD/カメラは未変更。
