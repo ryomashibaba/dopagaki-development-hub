@@ -1,6 +1,15 @@
-> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**K4R実装済・CI独立判定待ち（K4はTECH PASS／ART REJECT）、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**K4R TECH限定PASS・独立ART REJECT／次K4Sカメラ・地点選定先行（正式ART0/Slope2 DNA0）**、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
 
-## 【2026-11-02 R2F5-K4R 同一Road0市場の独立Native改修・真正画像CI実行中（結果は未認定）】
+## 【2026-11-02 R2F5-K4R：34モジュールNative・真16画像 TECH限定PASS／独立ART REJECT・次K4Sカメラ先行】
+
+- [K4R GitHub Actions #41351118263](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41351118263) **全job SUCCESS**。HEAD `fed9c27a`。原A5 5メッシュを読み、同一Road0 u=.75右70m市場を34モジュール・668面で造形／独立Blender4.0.2 editable BLEND/GLB×2、GPU元10,566→新11,902 triangles。原B48 7／B51 28／240Hz／原XYZ・速度／原カメラと各4tick×両幅で完全一致（JSON精度0）。追加collider0、元source blob `af076d67492a677d2235e4730aef8cdf4808e106`不変。
+- [Artifact #13101775313](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41351118263/artifacts/13101775313)：**4,043,206bytes／SHA256 `4e41ad2be9cf2c360a1727d6dfbb372e56c7a08698192dd5da87c807298ddcf6`、全26ファイル、真正16 PNG/16 SHA独立一致**。元original 8画像は旧K4と8/8バイト完全同一。全画面RGB>36で原→K4R差分はtick265 0.268/0.267%、721 0.830/0.832%、1057 2.487/2.613%、1249 3.314/3.211%（14/28m）。旧K4より大きく見えるが画素差は美術認定でない。
+- **独立ART REJECT**：オレンジの折板屋根とテラスが分厚くなっただけで、巨大骨組み脇の薄板・段状塊に見え、露天中央空洞／都市の人間スケール／市場の使われ方が実画面から読めない。**ART採用0件・Slope2 DNA0m**。中央x[-10,10] y[-15,15] z>3mにモデル制御点がないことは地面歩行・B48/B51クリアランス証明でない。HUMAN/B48全道路SAT/B51×2881tick×2幅SAT/CCD/FPS/RELEASE/MERGE HOLD。
+- **次K4Sはカメラ・地点選定研究のみ**。同一位置K4→K4Rの二連続ART REJECTにつき、同じ場所での建築嵩上げ／別道路のモデル量産を一旦停止。元真正7道路カメラ・K2候補と元大構造の前後遮蔽を代理投影で精査し、置き場所の再選定と画像上の成立を先に確かめる。原B48/B51/240Hz/元球/元カメラ/main/Gold/P100/W9-X/B5/本番2URL不変、PR#46 OPEN Draft未マージ、Work事前承認。[完全独立審査正本](R19_A6P4_R2F5K4R_ROAD0_MARKET_NATIVE_REDESIGN_JA.md)。
+
+---
+
+## 【履歴：K4R CI開始当時の待機報告・上記の独立最終判定を優先】
 
 - **[K4R専用GitHub Actions #41351118263](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41351118263)**：元A5 5メッシュのオリジナルを保ち、Road0 `u=.75`・右70mの**同一市場1案のみ**に非対称の30m級折板建築、立体テラス、露天中央広場を新作。旧小屋根群／B/F/G2/I REJECTの持込みはしない。K4R独立造形Python、原Blender編集、private GPU readback、原4tick×14/28m×原/候補=16枚の真正WebGL2テスト、単独CIを新規実装。main/本番/原B48×7・B51×28/240Hz/元球・カメラ・物理変更0、追加collider0。
 - [K4R独立設計・証拠ゲート文書](R19_A6P4_R2F5K4R_ROAD0_MARKET_NATIVE_REDESIGN_JA.md)。**CI結果と新PNGの独立ART審査が得られるまで、K4R TECH/ART PASSを主張しない。** K4の旧16PNG、旧技術PASS、旧ART REJECTは履歴として保持。次はK4R新原本の16画像/SHAをダウンロード照合し、建築シルエット／公開空洞／スケールの見え方を独立厳格レビュー。正式ART採用0、Slope2 DNA0m、K4R固有SAT/CCD/B51遮蔽/人間/FPS/RELEASE/MERGE HOLD。PR#46 OPEN/Draft、main禁止、Work事前承認。
