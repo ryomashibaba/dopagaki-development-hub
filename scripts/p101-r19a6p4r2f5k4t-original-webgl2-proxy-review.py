@@ -10,7 +10,7 @@ from PIL import Image,ImageDraw,ImageFont
 
 SOURCE='af076d67492a677d2235e4730aef8cdf4808e106'
 def arg(name):
-    a=sys.argv[sys.argv.index('--')+1:]
+    a=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else sys.argv[1:]
     return a[a.index(name)+1]
 src=Path(arg('--k4r-folder'))
 road_cam=Path(arg('--k-camera'))
