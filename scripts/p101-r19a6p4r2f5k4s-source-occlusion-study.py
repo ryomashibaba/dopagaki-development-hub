@@ -143,9 +143,9 @@ cases=[
  dict(id='ROAD2_K2_TRANSIT_REFERENCE',road=2,u=.25,side='left',offset=70,volume=[120,70,67],programme='transit',basis='K2 ONLY, not new model'),
  dict(id='ROAD3_K2_CIVIC_REFERENCE',road=3,u=.20,side='right',offset=100,volume=[135,95,43],programme='civic',basis='K2 ONLY, not new model')]
 assert len({s['id'] for s in cases})==len(cases)
-source={m:observed(m) for m in ('ultra','control')}
-assert set(x['state']['road'] for x in source['ultra'])==set(road_ids)
-assert set(x['state']['road'] for x in source['control'])==set(road_ids)
+camera_samples={m:observed(m) for m in ('ultra','control')}
+assert set(x['state']['road'] for x in camera_samples['ultra'])==set(road_ids)
+assert set(x['state']['road'] for x in camera_samples['control'])==set(road_ids)
 
 report=dict(schema='dopagaki.k4s-original-a5-occlusion-and-real-7road-camera-siting/1',
  originalSourceBlob=SOURCE,originalGeometryTriangles=len(triangles),
@@ -169,7 +169,7 @@ for site in cases:
         origin,along,outward=frame(mode,site)
         pts=sampled_points(origin,along,outward,site['volume'])
         assert len(pts)==84,len(pts)
-        for shot in source[mode]:
+        for shot in camera_samples[mode]:
             state=shot['state']
             bb=bbox(state,pts)
             candidate=[];court=[]
