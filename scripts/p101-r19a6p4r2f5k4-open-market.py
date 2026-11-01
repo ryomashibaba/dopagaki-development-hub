@@ -52,7 +52,7 @@ def add_open_market(addloft, frame):
         for x in (x0+3.1,x1-3.1):
             block(x-.75,x+.75,y0+2,y0+3.5,.85,roof-1.3,0)
     # A THIRD, lower curved maker shed counters the two-wing silhouette.
-    folded_roof("maker", -32,-4,-27,-9,8.6,12.0,4.9,3)
+    folded_roof("maker", -32,-12,-27,-9,8.6,12.0,4.9,3)
     block(-32,-4,-27,-25.5,.85,7.1,2)
     block(-29,-10,-22,-14,2.1,3.25,4)
     # Irregular street market counters with actual passable gaps between units.
