@@ -13,6 +13,17 @@ K4Sでは元K/K3B真正カメラ42状態と元A5 5メッシュ全10,566三角形
 - 出力予定：14m/28m×4tick＝8個の横2枚対比PNGと、各幅4tick縦連結の2つのレビュー用JPEG、16個の候補×画面根拠を持つJSON。**これは新WebGL2建物をレンダリングする工程でない**。元写真の上に代理矩形を描く静的審査であり、数学的代理BBoxと原シーン文脈の距離感・遮蔽構成をチェックする。
 - 原A5の真の原画なので視野内の既存道路・巨大都市骨組みとの**構図比較**はできるが、黄色枠の輪郭や見える内容は仮数学的位置を表すだけ。元A5以外の遮蔽、道路/B51、実GLB、実人間の視認性を測っていない。
 
+## 【K4T最終原CI照合：TECH限定PASS／美術・配置決定HOLD（2026-11-02）】
+
+- 初回 [#41354665119](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41354665119) は `--` がない通常Python引数に対してBlender形式 `argv.index('--')` を必須にしていた単純な起動不備でFAIL。原画や元physicsの不一致は観測前に停止。原ゲームや美術品質には起因しない。[修正 `3776f4d6`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/3776f4d63141b579bfcd506029dc2ed6b184940a) は通常PythonとBlenderの両引数形式を許可するだけ。
+- **[修正後Actions #41355153090](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41355153090)全job SUCCESS**、実行HEAD `3776f4d63141b579bfcd506029dc2ed6b184940a`。[Artifact #13102728886](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41355153090/artifacts/13102728886)を実ダウンロード。ZIP3,307,518バイト SHA256 **`919964f4e3159baf87ed89dcbfdac7f69a5c27517fde5ad39794315b6b609fd3`**、11ファイル、CRC・ZIP構造PASS。8個の「両配置の注釈を載せた同一元WebGL2原画」PNG、2枚の4時刻縦結合JPEG、根拠JSON SHA256 **`906adfab4088bd590a08c27dc9799b6a891ce345fe1f3c0778231a3b95eccaf0`**。
+- 元A5 PNG 8/8の元SHAとカメラ眼/前方/球XYZ/速度をK/K4R真原本と照合したCIはPASS。**右側へu=.85に移すと元A5遮蔽が減ってtick1249でも画面内に残りやすいが、tick265/721/1057の代理BBox面積が小さくなる**。元ゲーム・カメラ・右路端+70mは不変。現実に建物を移した画像ではなく、黄色枠で近似位置を示すだけの**研究成果**である。
+- 次研究K4Uに進む場合も**新形状案を制作しない**。凍結K4Rと同一34モジュール／668面を元A5 5メッシュへ組込む位置だけ`u=.75`→`u=.85`に変え、本物の元A5 WebGL2 4tick×2幅×原/移設候補16枚を真正レンダリング、K4R元の候補8PNGと直接比較する。造形改善・物理/カメラ・コライダー追加禁止。これでも公共空洞が読めなければ再REJECTし、再び大型化を繰り返さない。
+
+**K4T SOURCE/ANNOTATION TECH限定PASS、位置選定本決定HOLD、正式ART採用0件、Slope2 DNA認定0m、独立B48/B51 SAT・CCD/HUMAN/FPS/RELEASE/MERGE HOLD。**
+
+---
+
 ## 独立ローカル真元A5画像8枚での比較実見（CI最終判定とは区別）
 
 - K4R正規Artifact #13101775313から原A5の8 WebGL2スクリーンショットを再取得、原JSONに記録された8/8のPNG SHA256・画角1013×698・元各tick/source cameraのEye/Front/XYZを元K真正Camera JSONと直接照合し一致。**2幅×4tick、旧 u=.75/右70m と仮 u=.85/右70mを元の同じPNGに図示した現実画面の近似位置比較**を別途作成・実見した。ただし**注釈後の画像自体はゲームが描画した本物の新市場ではない**。真実の原背景だけWebGL2。
