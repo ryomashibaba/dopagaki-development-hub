@@ -26,8 +26,8 @@ replacement="""  if index==0:
    from mathutils import Matrix
    from pathlib import Path
    import importlib.util
-   station=Path(__file__).with_name("p101-r19a6p4r2f5e-native-hall.py")
-   spec=importlib.util.spec_from_file_location("r2f5e_native_hall",station)
+   hall_script=Path(__file__).with_name("p101-r19a6p4r2f5e-native-hall.py")
+   spec=importlib.util.spec_from_file_location("r2f5e_native_hall",hall_script)
    module=importlib.util.module_from_spec(spec)
    spec.loader.exec_module(module)
    new=module.build_hall(bpy,Vector,Matrix,pg,up,lat,toward,palette)
@@ -40,6 +40,7 @@ replacement="""  if index==0:
    retailBaseZ=new["retailBaseZ"]
    venueKind=new["venueKind"]
 """
+assert "   station=" not in replacement, "global road station() must remain a function"
 source=source[:start]+replacement+source[stop:]
 source=source.replace("r2f5b","r2f5e").replace("R2F5B","R2F5E")
 exec(compile(source,str(archived),"exec"),{"__name__":"__main__","__file__":str(archived)})
