@@ -29,7 +29,7 @@ for(const mode of ['ultra','control']){
  assert.equal(verifySourceOfBlenderEdit(report),true);
  assert.equal(report.new_colliders,0);
  assert.equal(report.globalB48B51ClearanceVerified,false);
- assert.equal(report.k4OriginalBuilderGitBlob,'a6ee111319a81c7e83b1a85664d0b1c4da40bbcb');
+ assert.equal(report.k4BaselineMode,'DIRECT_ORIGINAL_A5_NO_HISTORICAL_REJECTED_ART');
  assert.equal(report.k4OfficialArtAcceptance,false);
  const k4=report.k4SingleCandidate;
  assert.equal(k4.originalRoad,0);assert.equal(k4.originalRoadU,.75);
