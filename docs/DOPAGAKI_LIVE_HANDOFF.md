@@ -1,4 +1,11 @@
-> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**次工程K4R（K4はTECH PASS／ART REJECT）、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**K4R実装済・CI独立判定待ち（K4はTECH PASS／ART REJECT）、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+
+## 【2026-11-02 R2F5-K4R 同一Road0市場の独立Native改修・真正画像CI実行中（結果は未認定）】
+
+- **[K4R専用GitHub Actions #41351118263](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41351118263)**：元A5 5メッシュのオリジナルを保ち、Road0 `u=.75`・右70mの**同一市場1案のみ**に非対称の30m級折板建築、立体テラス、露天中央広場を新作。旧小屋根群／B/F/G2/I REJECTの持込みはしない。K4R独立造形Python、原Blender編集、private GPU readback、原4tick×14/28m×原/候補=16枚の真正WebGL2テスト、単独CIを新規実装。main/本番/原B48×7・B51×28/240Hz/元球・カメラ・物理変更0、追加collider0。
+- [K4R独立設計・証拠ゲート文書](R19_A6P4_R2F5K4R_ROAD0_MARKET_NATIVE_REDESIGN_JA.md)。**CI結果と新PNGの独立ART審査が得られるまで、K4R TECH/ART PASSを主張しない。** K4の旧16PNG、旧技術PASS、旧ART REJECTは履歴として保持。次はK4R新原本の16画像/SHAをダウンロード照合し、建築シルエット／公開空洞／スケールの見え方を独立厳格レビュー。正式ART採用0、Slope2 DNA0m、K4R固有SAT/CCD/B51遮蔽/人間/FPS/RELEASE/MERGE HOLD。PR#46 OPEN/Draft、main禁止、Work事前承認。
+
+---
 
 ## 【2026-11-02 R2F5-K4 Road0開放型市場1案・真WebGL2 16画像 TECH限定PASS／独立ART REJECT／次K4R】
 
