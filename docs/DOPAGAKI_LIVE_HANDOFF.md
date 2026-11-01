@@ -1,3 +1,13 @@
+## 【2026-11-01 R2F5-A 道路近景の本物の地上コンコース研究：技術PASS／ART REJECT】
+
+- [独立実装 `f766e66`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/f766e66d0de39ff553e00b962ca059aafcfd85cd)：旧近景市場のカウンターが道路端−8mに埋もれ、上だけ屋根が浮いていた配置矛盾を修正。新しい地上+2.15mの3店、道路端+1.8m広場、中央18m視線コンコース、左右の本物の3D折屋根/外支持壁、8秒駅市場・11.5秒緑地交換ターミナルを独立Blenderで新造形。旧R2F4-Dの元GPUシェーダー研究・BLEND/GLBは保存、元物理/本番変更なし。
+- [真正Actions #41284381008](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41284381008) **24/24工程SUCCESS**／[Artifact #13075000764](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41284381008/artifacts/13075000764) ZIP SHA256 `c519154bd3bac225235c626f307ab7865fe4f74b1bc6bbb81c29239f3ab77114`。新Blender21,742面・43,652GPU三角形、元sourceカメラの14/28m×8.004/11.504秒真正画像4枚・画像SHA成立。**CIにある元B51 161,336組0交差とB48表面近似0接触は旧R2F4-Dに対するものでありR2F5-Aの新メッシュの衝突はHOLD**。
+- 旧R2F4-B→新R2F5-AのRGB差>36：14m元8秒 全画面2.8888%・左ROI18.5502%、11.5秒 全体3.7884%・左ROI25.8562%。28mは2.8058/4.4176%。道路ROI0%。ただし新屋根が高く浮いているように見え、内部市場と街区のつながりが不自然で、**ART REJECT**。数値差だけで美術PASSをしない。
+- 今後は同じ小さな`addloft/slab`屋根／柱の数値変更を停止し、**真Blenderで地上建築1棟の支持・床・階段・外皮・内部・地形・材質を建築として統合**してから元実カメラ美術ゲート。元B48厳密/B51新モデル全tick/時刻間CCD、接地・人間通行、B51ラスタ視認、FPS、人間走行は個別HOLD。
+- [R2F5-A真正証拠・失敗分析・方針](R19_A6P4_R2F5A_ACTUAL_CAMERA_4FRAME_ARCHITECTURE_REVIEW_ART_REJECT_JA.md)。元ゲームblob `af076d67492a677d2235e4730aef8cdf4808e106`不変、PR #46 OPEN/Draft未マージ、ART正式0件、Slope2正式0/2912m。本番/Gold/P100/W9-X/B5保護。
+
+---
+
 ## 【2026-11-01 R2F4-D 真GPU法線方向光：23工程PASS、ART REJECT】
 
 - [実装`bbacacb`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/bbacacbb0c7d665e6ef989e5a541c8df607920c8)：元`web/drive3d.mjs` shader/mesh/drawを読取監査した後、研究用private clone **`r19a6p4r2f4gpu`のみ**に法線location2×3、stride36(元XYZRGB×6+Normal×3)、fragmentの実GPU Lambert＋ambient＋fill、`r2dLit`対象限定を追加。元GLB 44,512三角形の全XYZRGBビット完全一致、原通常Private/CPU bake版を保存。元ゲーム本番shader・物理を変更せず、PBR/動的影はなし。
