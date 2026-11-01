@@ -1,3 +1,14 @@
+## 【2026-11-01 R2F Phase1：R2F1実Blender制作→真正SOURCE TECH PASS／ART REJECT】
+
+- R2F1実Blenderソースを独立作成：[`0e124d0`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/0e124d05449a80d374d5347bad89c9bbbeafbc30)→高曲率化・元品質ゲート維持[`d7575d7`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/d7575d7ab2d45bf8e3f7c216f97dee4545fd3d88)。旧E2ソース維持。道路1の地区1公共崖/2フォーラム/3庭園の異なる湾曲実3Dと、地区間の厚い都市地盤を実装。Road0側の美術形状も一部変更（Road0原物理は不変）。
+- 初回[Actions #41273201395](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41273201395)はBlender元faces(10566)検査で6764面となり**FAIL**。元の安全門を緩めず高精度曲面を作って改修した。
+- 再実行の**[Actions #41273316467](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41273316467)は19工程全SUCCESS**。[原本Artifact #13069444253](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41273316467/artifacts/13069444253) ZIP SHA256 `5098fe4900799b8cd3f0265c37aae9ac736dd1a11fd61230482df67d67c8b485`。Blender実11,148 faces、22,296 GPU triangles、5地区22用途、真12WebGL2画像、元240Hz×28B51×2幅×2881tick **161,336離散SAT交差0**、元ゲームGit blob不変、新コライダー0。実地盤接地・静的道路交差・tick間CCD・B51実画素認知・人間走行・FPSは未認証。
+- **元3画角×両幅のE2 vs R2F1真正PNGをSHA照合して比較**：14m maxRGB差>36の全画面差は4.404s 5.056%／8.004s 7.093%／11.504s 9.832%。湾曲連続屋根は確認できたが、なお巨大のっぺり壁/細帯窓であり、都市の人間規模の広場・地盤の視覚接続・主役建築の美しさが未達。**独立ART REJECT、正式採用0件**。
+- **次**は新候補増殖でなくR2F1の実3D造形を真正元8.004/11.504sで直接改修。主役の巨大壁に真の吹き抜けと深い階層化した公共空間を付与し、レース狭路とB51を見失わない。技術の前に美術ゲート。詳細：[R2F1独立監査](R19_A6P4_R2F1_SOURCE_NATIVE_QA_AND_ART_REJECT_JA.md)。
+- 正本境界：`af076d67492a677d2235e4730aef8cdf4808e106`元ゲーム不変、main/Gold/P100/W9-X/B5、2本番、元240Hz/B48×7/B51×28/元HUD・camera/入力変更なし。Slope2 DNA正式認定0/2912m。GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR #46 OPEN/Draft。
+
+---
+
 ## 【2026-11-01 R2F PHASE 0：原ゲームカメラ起点の美術監督ゲート真正PASS】
 
 - **最新実装：** [コミット `5ed105ac613d`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/5ed105ac613d1802f2b2f102d8ea242140e3f4be)。新モデルを粗製濫造せず、旧R2E-E2の**本物の5地区Blender/GLBと真正6×2元カメラ**から、地区別画面投影と頂点間距離を測る`scripts/p101-r19a6p4r2f-camera-geometry-audit.py`、元PNG SHA確認付き構図補助画を作る`scripts/p101-r19a6p4r2f-native-overlays.py`を追加。既存CIを再利用、新CI数0。
