@@ -191,7 +191,7 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
    return [at(r0,th,-30),at(r1,th,-30),
            at(r1+lean,th,height),
            at(r0+lean*.4,th,height*(.65+.12*sin(2*pi*t+index)))]
-  countSections=14 if index<3 else 10
+  countSections=112 if index<3 else 88
   addloft([section(j/countSections) for j in range(countSections+1)],
           (sp+index)%3)
   shellCount+=1
