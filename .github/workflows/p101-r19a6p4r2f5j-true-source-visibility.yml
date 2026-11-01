@@ -1,0 +1,73 @@
+name: DOPAGAKI R2F5-J dense original-camera 78-frame screen budget QA
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5j-*'
+      - '.github/workflows/p101-r19a6p4r2f5j-true-source-visibility.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-r2f5j-dense-temporal
+  cancel-in-progress: true
+jobs:
+  original-g2-i-78-real-screenshots:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original source lock and J syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r19a6p4r2f5j-dense-true-camera.mjs
+          python3 -m py_compile scripts/p101-r19a6p4r2f5j-screen-budget.py
+      - name: Frozen G2 and I Blender native GLB artifacts (no new Blender)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/${{ github.repository }}/actions/artifacts/13080348046" --jq '[.id,.workflow_run.id,.expired,.size_in_bytes] | @tsv' >/tmp/j-g2.txt
+          gh api "repos/${{ github.repository }}/actions/artifacts/13082627465" --jq '[.id,.workflow_run.id,.expired,.size_in_bytes] | @tsv' >/tmp/j-i.txt
+          test "$(cut -f1 /tmp/j-g2.txt)" = 13080348046
+          test "$(cut -f2 /tmp/j-g2.txt)" = 41299372268
+          test "$(cut -f3 /tmp/j-g2.txt)" = false
+          test "$(cut -f4 /tmp/j-g2.txt)" = 31509900
+          test "$(cut -f1 /tmp/j-i.txt)" = 13082627465
+          test "$(cut -f2 /tmp/j-i.txt)" = 41304269353
+          test "$(cut -f3 /tmp/j-i.txt)" = false
+          test "$(cut -f4 /tmp/j-i.txt)" = 10508592
+          gh run download 41299372268 -n R2F4_NATIVE_CITY_ROAD1_CLIFF_GARDEN_12CAMERA_B51_ART_HOLD -D .
+          gh run download 41304269353 -n R2F5I_SOURCE_ORIGINAL_F_G2_I_NATIVE_56FRAMES_ART_HOLD -D .
+          test -s r19-evidence/r19a6p4r2f5g2/P4R2F5G2_ultra_edited.glb
+          test -s r19-evidence/r19a6p4r2f5i/P4R2F5I_control_edited.glb
+      - name: Real private game plus source/G2/I strict frozen GLB readback
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a3-private-original-one-city-pack.mjs
+          node scripts/p101-r19a4-export-editable-source-city-glb.mjs
+          node scripts/p101-r19a6-private-pinned-glb-scene-pack.mjs
+          node scripts/p101-r19a6p4r2f5i-private-pack.mjs
+          test -s dist-private/r19a6p4r2f5hg2/drive3d.mjs
+          test -s dist-private/r19a6p4r2f5i/drive3d.mjs
+      - name: 78 true source WebGL2 images, SHA and real dynamic viewport budget
+        run: |
+          npx playwright install --only-shell chromium
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-pil
+          node scripts/p101-r19a6p4r2f5j-dense-true-camera.mjs
+          python3 scripts/p101-r19a6p4r2f5j-screen-budget.py
+          test -s r19-evidence/r19a6p4r2f5j/R2F5J_TRUE_NATIVE_SCREEN_BUDGET_REPORT.json
+          test -s r19-evidence/r19a6p4r2f5j/R2F5J_TRUE_CAMERA_SELECTED_STORYBOARD.png
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: R2F5J_78_ORIGINAL_NATIVE_240HZ_TRUE_SCREEN_BUDGET_ART_HOLD
+          path: r19-evidence/r19a6p4r2f5j/
+          retention-days: 7
+          if-no-files-found: warn

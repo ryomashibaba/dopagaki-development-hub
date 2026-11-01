@@ -1,3 +1,11 @@
+## 【2026-11-01 R2F5-J 真視野の旧ROI端欠落を検出・13tick×3scene×2width研究ゲート（結果待ち）】
+
+- 旧IがART REJECTなのは変更なし。左ROI x30..375へG2↔Iの変化が8.254/8.504秒に左端へ達しており、旧ROIの「ピーク」を全画面ピークと誤認しない。次Jでは新Blender量産をSTOPし、**原/G2/I×2幅×13点=78真正元240Hz WebGL2**の時系列、全画面差分BBox、ROI外の変化割合、視野外への退出のサンプル境界を独立測定する。
+- 独立CIで原Git blob `af076d67492a677d2235e4730aef8cdf4808e106`と旧G2/I GLB2幅のSHAを検査し、旧F/G2/I/H原本・原B48×7/B51×28・元カメラ/速度、main/Gold/P100/W9-X/B5・本番2URLを保護。追加コライダー0。**現時点で結果未確認、正式ART0・Slope2 DNA0・人間/パフォーマンス/固有CCD/RELEASE/MERGE HOLD**。
+- [R2F5-J調査プロトコル](R19_A6P4_R2F5J_78_TRUE_CAMERA_SPATIAL_VISIBILITY_GATE_JA.md)。
+
+---
+
 ## 【2026-11-01 R2F5-I 真Blender道路沿い117m街区／56元カメラ画像SUCCESS・独立ART REJECT】
 
 - [実装`858f06d0`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/858f06d07184cdc7ae7512ab30af3ffae30c7b14)で独立Native Blender **道路沿い約117mの連続街区**を構築。旧G2の小屋2つ／Fの大きい壁を避け、公共歩行軸と左右各4建築街区・市場/交通/広場を真の立体で構成。旧F/G2・原B原本改変なし。
