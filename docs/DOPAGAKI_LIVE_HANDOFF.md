@@ -1,3 +1,5 @@
+> **【GitHub再開入口／ユーザー操作最小化】** 新チャットではファイル添付・ZIP/長文プロンプト不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46 最新HEAD → このLIVE HANDOFF → PROJECT_STATE → Actionsを直接確認する。**次工程K4、正式ART0/Slope2 DNA0、PR Draft未マージ**。この入口は恒久的に維持し、古い手動添付方式に戻さない。
+
 ## 【2026-11-01 R2F5-K3B 元WebGL2真正Road4〜6カメラ獲得・Kと合計で7道路観測】
 
 - [K3 native #41314887466](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41314887466)全job SUCCESS、16合法操舵×両幅、最初32秒の原軌跡完全一致。P94 corrective÷3の2幅は**51.525s/51.270833s**、P94原倍率は**51.3625s/51.05s**で元7/7道路物理完走。非合法手段0。元P96/4.8は37秒台落下。K3 Artifact #13086649501 SHA `102079ddf56435a54769da34d3d1dbd999751a52c673b77a6f0d12504047704f`。

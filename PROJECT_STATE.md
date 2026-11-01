@@ -1,3 +1,5 @@
+> **【2026-11-01 GitHub自動引き継ぎ入口／最新K3B】** 新チャットはファイルをダウンロード・再添付せず、[DOPAGAKI_RESTART_JA.md](DOPAGAKI_RESTART_JA.md)からPR #46の最新HEAD → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md) → 本PROJECT_STATEをGitHubで直接照合して再開。**K3 native 16試行中4試行7区間完走・K3B 28真正WebGL2画像両幅PASS・元7区間全カメラ観測成立／次K4はRoad0市場建築1案の実Blender+元カメラ美術審査**。正式ART0、Slope2 DNA0m、PR Draft・未マージ、元物理/本番変更禁止。過去の古い工程見出しは歴史記録であり、最新の次工程ではない。
+
 ## 【2026-11-01 R19 A6 P4 R2E-C 実3D街路候補と独立検証を開始】
 
 - **新規実装コミット：** [R2E-C Blenderソース](https://github.com/ryomashibaba/dopagaki-development-hub/commit/34f592b09d75402d998745fbd69bd94578fb648d) → [独立QA統合](https://github.com/ryomashibaba/dopagaki-development-hub/commit/8f231903907605e36c1252c89a9eac24ecbd28fa)。R2E-B原本・main・Gold・P100・W9-X・B5・本番2サイトは無変更。差分はR2E-C専用7ファイル追加のみ。
