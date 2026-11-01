@@ -16,7 +16,13 @@ GitHub接続済みChatGPTが上の1文を受けたら、本人に過去ZIP・Mar
 4. 最新 [K4R設計・独立CI審査ゲート](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K4R_ROAD0_MARKET_NATIVE_REDESIGN_JA.md) と、直前の [K4審査正本](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K4_ROAD0_ONE_NATIVE_MARKET_16_TRUE_WEBGL2_TECH_PASS_ART_REJECT_JA.md) と直前 [K3/K3B正本](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K3_K3B_ALL_SEVEN_TRUE_ORIGINAL_CAMERAS_ART_HOLD_K4_GATE_JA.md) を読む。必要に応じてK2、I/J、F/G2等の判定報告と原Actions・Artifactを照合する。
 5. **最新ブランチ・CIを起点として継続**し、ソース追加/QA/画像/SHA/アート判定/未検証事項/次工程をGitHubで保持する。チャットでは要点＋正本リンクのみ。新チャットを開始するたびに全資料を再生成しない。
 
-## 【現在最優先：K4S真正7道路カメラ×元A5遮蔽（2026-11-02、CI結果確認必須）】
+## 【2026-11-02 最新：K4S実CI 336/336一致、K4T原ゲーム画面の代理位置比較へ】
+
+- **K4S [Actions #41352432473](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41352432473) 全ジョブSUCCESS。** [Artifact #13102955065](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41352432473/artifacts/13102955065) ZIP12,512B SHA256 `f8a290a21097d06850f123186a5205834efd2d2ffab06fd1b010a906b6b80a11`。元A5 5メッシュ（各幅10,566三角形）・元K/K3B全58枚の真正PNGをSHA検証。元14/28m合計42カメラ×8配置＝336評価行の遮蔽4整数**1,344個全一致**。**SOURCE/BVH TECH限定PASS**（ART/HUMAN/SAFETYではない）。
+- Road0市場の `u=.85・右70m`は、K4R失敗位置`u=.75・右70m`より**tick1249の代理外殻が28→63/75、中央空間2・1→9/9点**（14/28m）。原A5 BVH以外の遮蔽や実3D建築は未評価、位置は**仮説**でありART正式採用でない。
+- **K4T** [真正元A5 WebGL2注釈付き画像研究](docs/R19_A6P4_R2F5K4T_TRUE_SOURCE_WEBGL2_SITE_OVERLAY_REVIEW_JA.md)／[CI #41354665119](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41354665119)を新規実装。K4Rの**本物の原A5画像8枚**で原CameraEye/Front/球XYZ/SHAを再照合し、2研究地点のK2近似枠だけを描く（**新建築の真WebGL2レンダリングではない**）。実験結果はCI最終確認前HOLD。次チャットは**まずK4TのActionsと原Artifactを確認**し、その真画像上でどの程度見やすい位置かを慎重に審査する。元ゲーム・物理・カメラ/コライダー/本番URL/main/Gold/P100/W9-X/B5は未変更、新模型0、PR#46 Draft未マージ、正式ART0/Slope2 DNA0、HUMAN/B48B51全SAT/CCD/FPS/RELEASE/MERGE HOLD。
+
+## 【履歴】K4S計算実装・CI待ち（上の最終TECH限定PASSを優先）
 
 - K4Sの[研究コード](scripts/p101-r19a6p4r2f5k4s-source-occlusion-study.py)／[独立CI](.github/workflows/p101-r19a6p4r2f5k4s-original-camera-site-study.yml)／[審査正本](docs/R19_A6P4_R2F5K4S_TRUE_SOURCE_7ROAD_BVH_SITING_STUDY_JA.md)はGitHubに保存。**[Actions #41352432473](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41352432473)は起動後、成功判定は実行結果確認までHOLD**。
 - 元K/K3BのWebGL2計58PNGのSHAを直接検証し、実7道路の元14/28mカメラ合計42状態、原A5 GLB5メッシュの独立BVH遮蔽と市場Road0 6配置＋旧K2参考2配置＝8代理サイト研究のみ。**新Blender建物・物理床0、模型製作STOP、公式ART0件/Slope2 DNA0m**。カメラ矩形と遮蔽の研究データは美術合格／障害物可視性/全SAT/CCD/人間操舵の証明ではない。
