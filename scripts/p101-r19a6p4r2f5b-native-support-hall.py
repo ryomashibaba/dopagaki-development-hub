@@ -454,7 +454,7 @@ for index,(obj,site) in enumerate(zip(objects,SITES)):
     o.select_set(True);bpy.context.view_layer.objects.active=o
     if bevel:
      mod=o.modifiers.new("STRUCTURAL_EDGE_BEVEL",type="BEVEL")
-     mod.width=bevel;mod.segments=3
+     mod.width=bevel;mod.segments=1
      bpy.ops.object.modifier_apply(modifier=mod.name)
     attr=o.data.color_attributes.new(name="COLOR_0",type="FLOAT_COLOR",domain="CORNER")
     rgba=(*palette[c%5],1.)
