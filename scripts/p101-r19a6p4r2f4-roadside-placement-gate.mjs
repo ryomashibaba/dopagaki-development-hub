@@ -137,10 +137,97 @@ for(const mode of ['ultra','control']){
     trueGroundSupport:'NOT_VERIFIED',humanPassage:'NOT_VERIFIED'});
   }
  }
- assert.equal(JSON.stringify(stage),frozen,'original B48/B51 stage mutated');
+ // R2F4 next-stage longitudinal alignment. Prior trials were all
+ // 280-420m ahead even at 25m sideways; camera-relative U is essential.
+ // These trials are STILL research only; no art/collider integration.
+ const sweep=[];
+ for(const tick of [1921,2761]){
+  const target=frames.find(f=>f.tick===tick);assert(target);
+  for(let uIndex=1;uIndex<=32;uIndex++){
+   const u=uIndex/40;
+   const s=stage.surfaces[1];
+   const center=sample(s,u,.5),edge=sample(s,u,0);
+   const ahead=sample(s,Math.min(1,u+.003),.5);
+   const back=sample(s,Math.max(0,u-.003),.5);
+   const tangent=norm([ahead[0]-back[0],0,ahead[2]-back[2]]);
+   const delta=[edge[0]-center[0],0,edge[2]-center[2]];
+   const n=norm(V(delta,tangent.map(x=>x*dot(delta,tangent))));
+   for(const offsetM of [25,35,45]){
+    const point=[edge[0]+n[0]*offsetM,edge[1],edge[2]+n[2]*offsetM];
+    const r=settings.candidateBoundingHorizontalRadiusM;
+    let nearest=Infinity,roadIndex=-1;
+    for(const p of sourceSamples){
+     const d=Math.hypot(point[0]-p.x,point[2]-p.z);
+     if(d<nearest){nearest=d;roadIndex=p.road;}
+    }
+    let b51=Infinity,closestMoving=null;
+    for(const ob of bodies){
+     const d=Math.hypot(point[0]-ob.x,point[2]-ob.z)-ob.r-r;
+     if(d<b51){b51=d;closestMoving={tick:ob.tick,id:ob.id};}
+    }
+    const projections=[];
+    for(const dx of [-settings.candidateHalfDepthM,settings.candidateHalfDepthM])
+     for(const dy of [-4,settings.candidateHeightM])
+      for(const dz of [-settings.candidateHalfWidthM,settings.candidateHalfWidthM]){
+       const p=[point[0]+n[0]*dx+tangent[0]*dz,point[1]+dy,
+        point[2]+n[2]*dx+tangent[2]*dz];
+       const q=projection(target,p);
+       if(q)projections.push(q);
+      }
+    let visiblePixels=0,bounds=null,depth=Infinity;
+    if(projections.length){
+     depth=Math.min(...projections.map(q=>q.viewDepth));
+     bounds=[Math.min(...projections.map(q=>q.pixel[0])),
+      Math.max(...projections.map(q=>q.pixel[0])),
+      Math.min(...projections.map(q=>q.pixel[1])),
+      Math.max(...projections.map(q=>q.pixel[1]))];
+     visiblePixels=Math.max(0,Math.min(1013,bounds[1])-Math.max(0,bounds[0]))*
+      Math.max(0,Math.min(698,bounds[3])-Math.max(0,bounds[2]));
+    }
+    const centreX=bounds?(bounds[0]+bounds[1])/2:null;
+    const centreY=bounds?(bounds[2]+bounds[3])/2:null;
+    // Proxy for NOT covering center-track visibility: real pixel-mask
+    // and hazard readability audits MUST still be done on genuine PNG.
+    const peripheral=centreX!==null&&(centreX<380||centreX>660);
+    const depthUseful=depth>=75&&depth<=190;
+    const sampledStaticClear=nearest-r>=9;
+    const movingClear=b51>=9;
+    const visibleEnough=visiblePixels>=1200;
+    const eligible=peripheral&&depthUseful&&sampledStaticClear&&movingClear&&visibleEnough;
+    const score=eligible?(Math.min(16000,visiblePixels)*
+      Math.max(.2,1-Math.abs(depth-115)/220)):0;
+    sweep.push({targetNativeTick:tick,originalRoad1U:u,offsetM,
+     sourceWorldXYZ:point,road7NearestSampleRoadIndex:roadIndex,
+     sampledB48PlanarGapToProbeM:nearest-r,
+     B51MinConservativeAllTickPlanarGapM:b51,closestMoving,
+     sourceCameraMinDepthM:depth,
+     projectedPixelBounds:bounds,projectedPixels:visiblePixels,
+     screenCentre:[centreX,centreY],peripheralTrackViewProxy:peripheral,
+     usefulDepthProxy:depthUseful,staticSamplePass:sampledStaticClear,
+     B51SamplePass:movingClear,cameraSizePass:visibleEnough,
+     eligibleForReadOnlyArtStudy:eligible,
+     screenCandidateScore:score,
+     EXACT_B48_CLEARANCE:false,
+     B51_TIME_CONTINUOUS_CCD:false,
+     RASTER_VISIBILITY_APPROVED:false});
+   }
+  }
+ }
+ const byTick=[1921,2761].map(tick=>{
+  const ranked=sweep.filter(x=>x.targetNativeTick===tick)
+   .sort((a,b)=>b.screenCandidateScore-a.screenCandidateScore);
+  return {targetNativeTick:tick,
+   eligibleCount:ranked.filter(x=>x.eligibleForReadOnlyArtStudy).length,
+   topCandidates:ranked.filter(x=>x.eligibleForReadOnlyArtStudy).slice(0,8),
+   largestRawProjection:ranked.slice().sort((a,b)=>b.projectedPixels-a.projectedPixels).slice(0,4),
+   testedCandidateCount:ranked.length};
+ });
  report.modes.push({mode,road7SampleCount:sourceSamples.length,
   B51EnabledPoseSnapshots:bodies.length,sourceB48RoadCount:stage.surfaces.length,
-  originalB51Count:stage.movingObstacles.length,cases});
+  originalB51Count:stage.movingObstacles.length,cases,
+  longitudinalCameraAlignedSweep:byTick,
+  longitudinalSourceRoadTrials:32*3*2});
+ assert.equal(JSON.stringify(stage),frozen,'original B48/B51 stage mutated');
 }
 const output='r19-evidence/r19a6p4r2f4/R2F4_SOURCE_ROADSIDE_PLACEMENT_GATE.json';
 fs.mkdirSync(path.dirname(output),{recursive:true});
