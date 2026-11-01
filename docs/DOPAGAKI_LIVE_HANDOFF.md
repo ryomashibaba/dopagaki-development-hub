@@ -1,3 +1,14 @@
+## 【2026-11-01 R2F5-B 本物のNative Blender 1棟構築が成立／ART REJECT】
+
+- [Native Blender独立設計`d232bb4`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/d232bb4da1e288e872582f0a5d3c3ac113b42567)：元8.004秒のRoad1左端35mの**1棟のみ**を、63個のNative Blender部品・BEVEL適用・上下閉じた屋根・12本実支持柱（計算上の上端/屋根下面隙間0）・一体基壇/店頭/階段で作り直し。11.504秒側は旧R2F5-A対照を保護。実BLEND/GLBで5編集地区・原ソース/B48/B51/本番変更なし。
+- 初回[Actions #41286242881](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41286242881)FAIL：真GLB 53,860 trianglesでインポータの<50,000制限違反。修正[コミット`22c87db`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/22c87db5f59525c606fb90d27fec3da04b6d83f7)でNative BEVEL分割3→1に削減、上限変更禁止。
+- [真正Actions #41286633222](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41286633222) **25/25工程SUCCESS**、[Artifact #13074894706](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41286633222/artifacts/13074894706) ZIP 15,426,877B SHA256 `f07d6b0f6992966721c569f55edf0abfc5c1b0cd9013d24961afdc8e423a0215`。真GLB**44,788三角形**（上限50k）、Blender22,562faces、真正元8.004秒×14/28mの**2画像とPNG SHA照合PASS**。ただし旧B51全161,336離散0交差/旧B48サンプル非接触を**新R2F5-Bの安全認定に流用しない**。
+- 旧R2F5-A→B真正8秒のRGB差>36：14m全体2.38363%、左ROI15.68726%、28m全体2.32055%、左ROI15.35811%、中央道路ROI両0%。実屋根の支持は見えるようになったが、**小さな箱が画面左端で切れる、内部が見えない美術的問題**が残るため**ART REJECT**。
+- **次R2F5-Cは造形前に本来の元カメラに対する配置・全形フレーム内可視性を測る**。いまの外35m/u=.100を無条件に固定するのではなく、元B48/B51との安全側クリアランスを守って道路外位置・進行方向位置を再探索し、内部が読める構図のみBlender作成へ。元カメラ/球/物理/本番改変禁止。実地盤・人体動線/B51真ラスタ/元B48厳密/時刻間CCD/FPSはHOLD。
+- [監査と全証拠](R19_A6P4_R2F5B_TRUE_NATIVE_BLENDER_SUPPORT_TWO_CAMERA_ART_REJECT_JA.md)。最新PR#46 OPEN Draft未マージ、元ゲームGit blob `af076d67492a677d2235e4730aef8cdf4808e106`不変。正式ART0件・Slope2正式0/2912m。
+
+---
+
 ## 【2026-11-01 R2F5-A 道路近景の本物の地上コンコース研究：技術PASS／ART REJECT】
 
 - [独立実装 `f766e66`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/f766e66d0de39ff553e00b962ca059aafcfd85cd)：旧近景市場のカウンターが道路端−8mに埋もれ、上だけ屋根が浮いていた配置矛盾を修正。新しい地上+2.15mの3店、道路端+1.8m広場、中央18m視線コンコース、左右の本物の3D折屋根/外支持壁、8秒駅市場・11.5秒緑地交換ターミナルを独立Blenderで新造形。旧R2F4-Dの元GPUシェーダー研究・BLEND/GLBは保存、元物理/本番変更なし。
