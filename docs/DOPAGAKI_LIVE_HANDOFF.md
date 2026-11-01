@@ -1,3 +1,12 @@
+## 【2026-11-01 R2F5-E 一棟の実Native Blender再設計・真正2カメラゲート開始（結果未確認）】
+
+- R2F5-Dの元8.004秒 Road1 `u=.125`／左エッジ45mは維持。旧R2F5-B・Dの原本をGit blob SHA固定し、旧8秒1棟のNative Blender形状ブロックだけを**新実装の複数階公共交通市場モデル**へ差し替える独立R2F5-Eを追加。11.504秒側の旧u=.350／35mは対照保護。
+- 旧2枚屋根を置き換え、**実厚の地上基壇、空へ開く幅13.8mの正面歩廊、異なる7.0/8.8m到着階と14.6/19.3mバルコニー階、左右異形の立体屋根、実支持柱、後部支持付き乗換デッキ、接地表現付き階段、実店頭**をBlender Nativeメッシュで生成。新物理Collider 0、元ゲーム/球240Hz・B48×7/B51×28・カメラ/HUD・main/Gold/P100/W9-X/B5/本番2サイト不変。地盤本当の接地や人間歩行、実B51 pixel可読性は未証明。
+- 旧BのBLEND/GLB/真正PNGは保護し、既存CIへ新Eの14/28m専用BLEND/GLB・独立glTF三角形読戻・元1921tick真正WebGL2 PNG2枚・旧D同一画像との差分を追加。**CI実行・GLB 50k上限・画像・ARTの成功を事前認定しない。** 旧DのB48/B51合格を流用しない。
+- 真原PNG両幅で読める駅・市場の内部奥行き、実階層と公共地盤、危険認識を独立美術判定する。美術REJECTなら形状を直接修正し、品質改善が証明された段階でのみ新GLB固有の厳密B48／離散B51／CCD／FPS／HUMAN QAへ。正式ART0件・Slope2正式0/2,912m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD、PR #46 Draft未マージ。
+
+---
+
 ## 【2026-11-01 R2F5-D 真正CI SUCCESS／独立ART REJECT・R2F5-E設計へ】
 
 - [真正GitHub Actions #41290765902](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41290765902)全job SUCCESS。新R2F5-D Native Blender×ultra/control、glTF GPU独立再読込、元8.004秒真正WebGL2 PNG2/2、報告SHAまで原[Artifact #13077252682](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41290765902/artifacts/13077252682)をダウンロードして確認。ZIP 19,476,270B、SHA256 `d056da19883025f2c9376d5a01aa639f9c4ec7dd62c40d2afa672d4a331ab064`。元ゲーム物理・カメラ・本番不変。
