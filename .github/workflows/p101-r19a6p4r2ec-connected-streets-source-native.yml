@@ -14,6 +14,9 @@ on:
       - scripts/p101-r19a6p4r2f5a-civic-concourse.py
       - scripts/p101-r19a6p4r2f5a-private-scene-pack.mjs
       - scripts/p101-r19a6p4r2f5a-4-native-art-preview.mjs
+      - scripts/p101-r19a6p4r2f5b-native-support-hall.py
+      - scripts/p101-r19a6p4r2f5b-private-scene-pack.mjs
+      - scripts/p101-r19a6p4r2f5b-2-native-art-preview.mjs
       - scripts/p101-r19a6p4r2f4d-4-native-gpu-light-qa.mjs
       - tests/p101-r19a6p4r2f4d-gpu-normal-layout.test.mjs
       - scripts/p101-r19a6p4r2f4c-4-native-shading-qa.mjs
@@ -42,6 +45,9 @@ jobs:
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           python3 -m py_compile scripts/p101-r19a6p4r2f4-connected-urban-streets.py
           python3 -m py_compile scripts/p101-r19a6p4r2f5a-civic-concourse.py
+          python3 -m py_compile scripts/p101-r19a6p4r2f5b-native-support-hall.py
+          node --check scripts/p101-r19a6p4r2f5b-private-scene-pack.mjs
+          node --check scripts/p101-r19a6p4r2f5b-2-native-art-preview.mjs
           node --check scripts/p101-r19a6p4r2f5a-private-scene-pack.mjs
           node --check scripts/p101-r19a6p4r2f5a-4-native-art-preview.mjs
           python3 -m py_compile scripts/p101-r19a6p4r2f-camera-geometry-audit.py scripts/p101-r19a6p4r2f4-native-overlays.py
@@ -165,6 +171,26 @@ jobs:
           node scripts/p101-r19a6p4r2f5a-private-scene-pack.mjs
           node scripts/p101-r19a6p4r2f5a-4-native-art-preview.mjs
           test -s r19-evidence/r19a6p4r2f5a/R19A6P4R2F5A_REAL_12_NATIVE_WEBGL2_REPORT.json
+      - name: R2F5-B native Blender supported architecture original 8s two-image ART preflight
+        run: |
+          mkdir -p r19-evidence/r19a6p4r2f5b
+          for mode in ultra control; do
+            blender -b --factory-startup --python-exit-code 3 --python scripts/p101-r19a6p4r2f5b-native-support-hall.py -- \
+              --source "r19-evidence/r19a5/R19A5_ORIGINAL_W9C1_${mode}_EDITABLE_CITY.glb" \
+              --output "r19-evidence/r19a6p4r2f5b/P4R2F5B_${mode}_edited.glb" \
+              --blend "r19-evidence/r19a6p4r2f5b/P4R2F5B_${mode}_editable.blend" \
+              --report "r19-evidence/r19a6p4r2f5b/P4R2F5B_${mode}_blender_report.json" \
+              --anchors "r19-evidence/r19a6p2/P2_${mode}_real_road_anchors.json" \
+              --cameras "docs/R19_A6P3_PRIOR_A1_ORIGINAL_12_TRUE_CAMERAS.json" \
+              --mode "$mode"
+            node scripts/p101-r19a6p1-read-blender-glb.mjs \
+              "r19-evidence/r19a6p4r2f5b/P4R2F5B_${mode}_edited.glb" \
+              "r19-evidence/r19a6p4r2f5b/P4R2F5B_${mode}_blender_report.json" \
+              "r19-evidence/r19a6p4r2f5b/P4R2F5B_${mode}_audited_gpu.bin"
+          done
+          node scripts/p101-r19a6p4r2f5b-private-scene-pack.mjs
+          node scripts/p101-r19a6p4r2f5b-2-native-art-preview.mjs
+          test -s r19-evidence/r19a6p4r2f5b/R19A6P4R2F5B_REAL_12_NATIVE_WEBGL2_REPORT.json
       - name: R2F genuine source PNG checked camera-director overlays (read-only ART HOLD)
         run: |
           for mode in ultra control; do
@@ -182,6 +208,7 @@ jobs:
             dist-private/r19a6p4r2f4shade/R2F4C_PRIVATE_NORMAL_BAKE_MANIFEST.json
             r19-evidence/r19a6p4r2f4gpu/
             r19-evidence/r19a6p4r2f5a/
+            r19-evidence/r19a6p4r2f5b/
             dist-private/r19a6p4r2f4gpu/R2F4D_PRIVATE_GPU_NORMALS_MANIFEST.json
             r19-evidence/r19a6p4r2f4/
             dist-private/r19a6p4r2f4/P4R2F4_EDITABLE_BLENDER_PRIVATE_GLB_MANIFEST.json
