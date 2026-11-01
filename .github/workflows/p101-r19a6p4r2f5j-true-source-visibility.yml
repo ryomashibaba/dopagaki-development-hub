@@ -32,6 +32,8 @@ jobs:
         run: |
           gh api "repos/${{ github.repository }}/actions/artifacts/13080348046" --jq '[.id,.workflow_run.id,.expired,.size_in_bytes] | @tsv' >/tmp/j-g2.txt
           gh api "repos/${{ github.repository }}/actions/artifacts/13082627465" --jq '[.id,.workflow_run.id,.expired,.size_in_bytes] | @tsv' >/tmp/j-i.txt
+          printf 'ARTIFACT_METADATA_G2: '; cat /tmp/j-g2.txt
+          printf 'ARTIFACT_METADATA_I: '; cat /tmp/j-i.txt
           test "$(cut -f1 /tmp/j-g2.txt)" = 13080348046
           test "$(cut -f2 /tmp/j-g2.txt)" = 41299372268
           test "$(cut -f3 /tmp/j-g2.txt)" = false
