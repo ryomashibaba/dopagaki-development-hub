@@ -1,3 +1,12 @@
+## 【2026-11-01 R2F5-J 真78枚・固定ROI最大差の誤解を是正／独立CI PASS／次Kへ】
+
+- 新Blenderは作らず、[J Actions #41310654446](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41310654446)全job SUCCESS。[Artifact #13084644147](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41310654446/artifacts/13084644147) **8,791,173 bytes**／SHA256 `c4be0aba03e0fa9e26384139b128b54db8ce979c27a3fcee73fa685503710f4c`、81 files中78真正WebGL2 PNG、元A6/G2/I×14/28m×13tick(1801〜2161、30tick間隔)。全78SHA実物独立一致、元球XYZ/速度・カメラ/ソースと正規GLBを固定。新collider0・元物理不変。初回[#41310229140](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41310229140)・診断[#41310376825](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41310376825) FAILは旧G2/新I GitHub Artifactのroot展開構造差、コミット`7549dcd8`で原本を変えず修復。
+- 固定旧左ROIでは見落とし：G2対I全画面差分はtick **1951=8.129秒で両幅2.90281%/2.93053%（今回の13サンプルの最大）**。同時刻には既に左画面端x=0へ差分が達し旧ROIが15.41048/18.49814%を除外。tick1981は20.37/18.03%、2041は12.45/14.21%、2131は**79.39/100%**を旧ROIが落とす。tick2131=8.879sは差が残り、tick2161=9.004sで全画面差0、連続時間の厳密な証明ではない。旧H/Iの「2041が全画面ピーク」という誤認を修正。
+- 元の走行画面では旧G2小屋2つ・Iの反復コロネードとも**独立ART REJECT継続**。狭いRoad1左側施設を増築し続けるのをSTOP。次Kは**元コース7区間・多時刻に跨る大街区3つと都市的負空間のコーススケール視点シーケンス**のカメラ先行設計研究、位置と正式モデルはまだ未採用。元B48×7/B51×28/240Hz/カメラ/main/Gold/P100/W9-X/B5/本番2URL不変。正式ART0・Slope2 DNA0、固有B48/B51/CCD/HUMAN/FPS/RELEASE/MERGE HOLD、PR#46 Draft未マージ。
+- [独立正本と次K研究ゲート](R19_A6P4_R2F5J_78_TRUE_NATIVE_CAMERA_FULL_FRAME_AND_K_GATE_JA.md)。
+
+---
+
 ## 【2026-11-01 R2F5-J 真視野の旧ROI端欠落を検出・13tick×3scene×2width研究ゲート（結果待ち）】
 
 - 旧IがART REJECTなのは変更なし。左ROI x30..375へG2↔Iの変化が8.254/8.504秒に左端へ達しており、旧ROIの「ピーク」を全画面ピークと誤認しない。次Jでは新Blender量産をSTOPし、**原/G2/I×2幅×13点=78真正元240Hz WebGL2**の時系列、全画面差分BBox、ROI外の変化割合、視野外への退出のサンプル境界を独立測定する。
