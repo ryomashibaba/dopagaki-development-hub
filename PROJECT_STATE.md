@@ -1,3 +1,13 @@
+## 【2026-11-01 R19 A6 P4 R2E-C 実3D街路候補と独立検証を開始】
+
+- **新規実装コミット：** [R2E-C Blenderソース](https://github.com/ryomashibaba/dopagaki-development-hub/commit/34f592b09d75402d998745fbd69bd94578fb648d) → [独立QA統合](https://github.com/ryomashibaba/dopagaki-development-hub/commit/8f231903907605e36c1252c89a9eac24ecbd28fa)。R2E-B原本・main・Gold・P100・W9-X・B5・本番2サイトは無変更。差分はR2E-C専用7ファイル追加のみ。
+- **実制作：** Road1の3地区間を元道路アンカーから計算して、分節された実3D公共街路と高さ・屋根・奥行きの異なる中低層街区を1案として追加。Road0の住宅・市場は道路を横断しない2つの局所街路。現行の5地区、22建築翼、各36m屋外中庭・環状12床は継承。地形接地・歩行の成立は**未検証**。
+- **真正QA：** [R2E-C専用 GitHub Actions #41266597018](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41266597018) を起動。初期preflight（元ソースblob/Python構文）と元PRIVATEゲーム・道路アンカーのビルドはSUCCESS、Blender導入以降は未完了（2026-11-01 JST確認）。**R2E-C TECH PASS、BLEND/GLB完成、真正12画像、全161,336 B51 SAT成功をまだ主張しない**。CI/ART未合格。
+- **次の決定：** Actions完了後、真正元カメラの4.404/8.004/11.504秒をR2E-Bと比較して**一体の都市としての改善**を判定する。薄い空中帯・旧箱群・巨大門の再発、動体/道路の視認阻害があればART REJECTとして同じBlenderモデルを修正。無用な候補量産は禁止。
+- 正式美術採用0件、Slope2 DNA認定0/2912m、GAMEPLAY/HUMAN/PERFORMANCE/RELEASE/MERGE HOLD。PR #46はOPEN/Draft、Work無断切替・本番公開は禁止。[実装と未検証事項](docs/R19_A6P4_R2E_C_PRIVATE_IMPLEMENTATION_QA_HOLD_JA.md)。
+
+---
+
 ## 【2026-11-01 R19 A6 P4 R2E-B 独立再監査】
 
 - [真正R2E-B Actions #41193208028](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41193208028) の実ジョブは**全SUCCESS**。原Artifact #13039852952（4,815,031 bytes／ZIP SHA256 `676403ac58fdac8028c208845f411b4acf05ef39a9d236df06ac039233ed2fc9`）を直接取得し、編集可能BLEND/GLB、真正元WebGL2 12/12画像と元2881tick×28 B51×両幅のSAT JSONを監査。
