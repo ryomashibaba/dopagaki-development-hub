@@ -1,3 +1,11 @@
+## 【R2F5-K3B 物理成功条件から元真正WebGL2カメラへの証拠ゲート】
+
+- K3元物理16試行は`#41314887466` SUCCESS。32秒原prefixは全試行一致、P94 corrective/3とfullは14/28mの7/7道路実完走。P96の倍率試行は全部37秒台付近で落下。元コース/速度/B51/CCD/カメラは未変更。
+- 選抜はP94 corrective ÷3の**1方式だけ**。A1のprivate rendererをコピーし、tick7681以降の操舵入力だけを合法[-1,1]のP94に変更。元カメラeye/frontに手を入れない、ファースト6元archiveを一致照合、後半 tick7680/8640/.../12240 で**元物理のxyz/速度をK3結果と実数一致**。Road4/5/6を両幅で真正WebGL2 PNG撮影しSHAを保存するまで元コース全体の真正視点PASSなし。
+- 原source Git blob固定。main/Gold/P100/W9-X/B5/本番2URL変更なし、新collider0。スクリプトP94の成功は人間プレイ成功でも、ART/Slope2の合格でもない。全てHOLD。
+
+---
+
 ## 【2026-11-01 R2F5-K/K2 全7元道路1134ステーション・新30真正カメラ・3別道路投影研究PASS（ART未認定）】
 
 - [K Actions #41312758260](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41312758260) SUCCESS。元source blob `af076d67492a677d2235e4730aef8cdf4808e106` の14/28m×Road0〜6×81地点＝**1,134真正道路アンカー**を生成。元P96スクリプト走行カメラは各幅15tick＝**合計30真正WebGL2 PNG、全SHA一致**。最長tick8641=36.004s。ultra走行の落下tick8994=37.475s/control8927=37.196s。Road0 ABYSS／Road1 CROWN／Road2 SCISSOR／Road3 LOWERの元カメラまで観測、**Road4 VOID/Road5 PRISM/Road6 FINISHカメラ未観測**。Artifact [#13086435838](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41312758260/artifacts/13086435838) ZIP3,856,011B SHA `b493ddaf0dd70d34660e47107e7cfca154d69bda2ab121206e24823dabf4586c`。
