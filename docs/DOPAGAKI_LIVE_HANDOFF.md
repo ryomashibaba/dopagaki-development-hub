@@ -1,3 +1,13 @@
+## 【2026-11-01 R2F3 元カメラ向き公共入口・実BLEND/GLB → TECH PASS / ART REJECT】
+
+- [実装 `ac5c3a3`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/ac5c3a35ecf2c3846b4cf5dcabc829a42ab8efc5)：元tick1921/2761のカメラ方位に合わせて道路に開いた入口、地表4大曲面広場、左右低層2館＋後背文化館へ変更。旧R2F2の巨大壁を低い構成へ改修、旧R2F2スクリプトと証拠は保存、既存CIワークフロー再利用。
+- 本当の[Actions #41276658086](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41276658086) **全19工程PASS**、[Artifact #13071354443](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41276658086/artifacts/13071354443) ZIP SHA256 `8725b856f1a2530a4c301580468b0bb3ff3f841283dfcdc70347bd6e48141b91`。Blender 20,100 faces・GPU 40,368 triangles、元14/28m×6元WebGL2真正画面12枚、全原B51動体161,336離散SAT交差0。元ゲームblob `af076d67492a677d2235e4730aef8cdf4808e106`、元物理/camera/HUD変更なし、新collider0。
+- 真旧R2F2→新R2F3比較：14mの4.404/8.004/11.504秒で全画面変更2.460/3.837/4.064%、中央ROI13.291/22.260/21.708%。壁は低くなったが、画面には低い黄土色屋根と壁だけが見え、**実公共入口・広場が読めないためART REJECT**。正式採用0件。
+- **根本距離制約の発見**：元Road1敷地中心は原B48道路端アンカーから約291/318/298m外側、R2F3地上公共テラスの同一アンカーからの理論距離下限も**約104/131/111m**。カメラ方位に入口を向けても都市の人間規模が小さく見えることの合理的な要因。これまでの外壁/柱の繰返し調整だけでは突破不能。次R2F4では原道路端から25〜45m側（あくまで安全調査候補）に低層公共施設を置けるか元B48静的道路・B51動体を先に調査、2真正画面ART先行、合格のみフルQA。
+- [R2F3独立監査と次の設計ゲート](R19_A6P4_R2F3_ORIGINAL_CAMERA_PUBLIC_SPACE_VISIBILITY_ART_REJECT_JA.md)。PR #46 OPEN/Draft/未マージ。main/Gold/P100/W9-X/B5/本番2URL不変。ART正式採用0件、Slope2正式DNA 0/2912m。HUMAN/GAMEPLAY/PERFORMANCE/RELEASE/MERGE HOLD。
+
+---
+
 ## 【2026-11-01 R2F2独立真正QA：柱列削減は成功／巨大曲面壁への退化でART REJECT】
 
 - [実装`6562825`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/6562825ca90eb9a18e0d12c7ff0a221d44ae9a95)：R2F1-Dの153小地盤片と細柱をやめ、Road1の主役を2大曲面建築＋4連続公共地盤＋2入口側構造へ根本再造形。5地区/22用途維持、旧R2F1Dコード保護、既存Workflow再利用。
