@@ -1,3 +1,13 @@
+## 【2026-11-01 R19 A6 P4 R2E-C 原本直接監査：TECH限定PASS／ART REJECT】
+
+- **独立再判定：** R2E-C [真正Actions #41266597018](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41266597018)の全ステップSUCCESS。独立Artifact #13067775684をZIP SHA256 `95c8dcbd1274d53dcac34900f6624c8fc9e95669ecb8dc3b1bc0d32978a861e1`まで照合し、24原本ファイル、真正12/12 WebGL2 PNG、編集BLEND/GLB、全2881tickのB51 SATを直接確認。旧R2E-B Artifactも再取得して同一時刻の原画像を目視比較した。
+- **技術：** 5地区22プログラム、Blender 18,848 faces／GPU 37,696三角形。新規35分節街路・20中低層街路量塊。元Source blob `af076d67492a677d2235e4730aef8cdf4808e106`、元B48×7/B51×28／240Hz、追加衝突0。2幅×2881tick×28動体＝**161,336離散B51検査で三角形SAT交差0**。時刻間swept CCD、実道路・地盤接地、実歩行、元B51画素遮蔽や人体認知、Windows/iPhone性能は**未証明**。
+- **実画像の結論：ART REJECT。** 旧R2E-BとのRGB差>36の画素割合（14m全画面）は、元tick1057=0.313%、1921=0.334%、2761=2.085%。11.504秒に左側へ新しい色面や薄い街路帯が出たが、8.004秒を含め都市の連続性・奥行き・公共街区として弱く、旧孤立建物問題を解消していない。差分値は美術採点ではなく実画像も直接確認した。
+- **次ゲート：** 推定配置や小建物の大量増殖でなく、原Road1 8.004/11.504秒の真正カメラとB51の実座標で中景「都市基盤→公共街路→中低層→主役核」を一案直接修正。Road0 4.404秒の狭路読解を保持。美術に改善がないまま同種CI/候補を繰り返さない。新Blender変更後の全真正QAを再実行する。**独立監査原本**：[R2E-C真正12画面 ART REJECT・次ゲート](R19_A6P4_R2E_C_TRUE12_B_VS_C_INDEPENDENT_ART_REJECT_AND_NEXT_GATE_JA.md)。
+- 正式ART採用0件・Slope2 DNA認定0/2,912m、GAMEPLAY/HUMAN/PERFORMANCE/INTEGRATION/RELEASE/MERGE HOLD。PR #46はOPEN/Draft未マージ。main／Gold／P100／W9-X／B5／本番2サイト無変更。
+
+---
+
 ## 【2026-11-01 R19 A6 P4 R2E-C 実3D街路候補と独立検証を開始】
 
 - **新規実装コミット：** [R2E-C Blenderソース](https://github.com/ryomashibaba/dopagaki-development-hub/commit/34f592b09d75402d998745fbd69bd94578fb648d) → [独立QA統合](https://github.com/ryomashibaba/dopagaki-development-hub/commit/8f231903907605e36c1252c89a9eac24ecbd28fa)。R2E-B原本・main・Gold・P100・W9-X・B5・本番2サイトは無変更。差分はR2E-C専用7ファイル追加のみ。
