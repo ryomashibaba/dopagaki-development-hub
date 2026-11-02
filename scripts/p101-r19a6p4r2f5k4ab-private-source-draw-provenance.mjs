@@ -57,7 +57,7 @@ const labels=[
  ['ball','NATIVE_BALL'],
  ['ghostMesh','GHOST_LINE']
 ];
-const anchor='let previousPose=null,currentPose=null,cameraState=null,comparisonMode=\'stable\',frameSkips=0,headingError=0;';
+const anchor='let r19a1Plan=null,r19a1Ticks=0;';
 patch(anchor,[anchor,
  "// K4AB: private-only original GPU buffer provenance and subtraction.",
  "const k4abAuditOn=r19a1OptIn&&['localhost','127.0.0.1','[::1]'].includes(location.hostname)&&",
