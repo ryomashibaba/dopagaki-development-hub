@@ -34,7 +34,7 @@ def c_image(kroot,frame):
 def assert_rays_against_source(report,source):
  assert report['sourceBlob']==source['sourceBlob']==SRC
  assert report['Hz']==source['Hz']==240
- assert report['sourceB48']==source['sourceB51']//4==7
+ assert report['sourceB48']==source['sourceB48']==7 and report['sourceB51']==source['sourceB51']==28
  assert report['originalA5MeshCountPerWidth']==5
  assert report['originalA5TrianglesPerWidth']==10566
  assert report['trueRoad5TickCountPerWidth']==7 and report['sourceCameraStates']==14
@@ -72,15 +72,15 @@ def changed_pixels(a,b,zone):
    'fractionScreenPixelsChanged':round(float(diff.mean()),5),
    'notOpticalFlowOrContinuousVisibility':True}
 def sheet(mode,entries,out):
- width,height=1532,7*391+108
+ width,height=1532,7*437+108
  canvas=Image.new('RGB',(width,height),'white')
  dr=ImageDraw.Draw(canvas)
  dr.rectangle((0,0,width-1,105),fill=INK)
  dr.text((20,12),f'K4AA  |  {mode.upper()}  |  TRUE ROAD5 ORIGINAL CAMERA',font=F28,fill='white')
  dr.text((20,53),'A5 BVH ray probes only, added AFTER real source WebGL2 capture; no new 3D',font=F18,fill=(219,236,246))
  for i,(entry,original,overlay) in enumerate(entries):
-  row=108+i*391
-  dr.rectangle((0,row,width-1,row+389),
+  row=108+i*437
+  dr.rectangle((0,row,width-1,row+435),
     fill=(246,249,252) if i%2==0 else (235,241,247))
   dr.text((13,row+13),f'{entry["tick"]}  |  {entry["seconds"]:.1f}s   {entry["speedMps"]:.1f}m/s',
           font=F18,fill=INK)
@@ -161,7 +161,7 @@ def main():
    assert f['state']['road']==r['road']=='p93-PRISM_CREST-01'
    assert f['state']['cameraEye']==r['cameraEye']
    assert f['state']['cameraFront']==r['cameraFront']
-   assert f['state']['speed']-r['speedMps']<.00002
+   assert abs(f['state']['speed']-r['speedMps'])<.00002
    pic=c_image(kroot,f)
    overlay=pic.copy();d=ImageDraw.Draw(overlay)
    for item in r['rayGrid']:
