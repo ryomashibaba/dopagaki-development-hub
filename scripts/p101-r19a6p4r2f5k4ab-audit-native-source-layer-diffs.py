@@ -49,7 +49,7 @@ def summary_sheet(out,mode,rows,census):
  # Two images per row are authentic screenshots of the SAME original paused
  # source state: unmodified baseline and private renderer-only mask variant.
  # No candidate model / person / fabricated unobserved frame.
- h=120+len(rows)*436
+ h=120+len(rows)*478
  canvas=Image.new('RGB',(1170,h),(246,249,252))
  d=ImageDraw.Draw(canvas)
  d.rectangle((0,0,1170,115),fill=(17,31,46))
@@ -59,8 +59,8 @@ def summary_sheet(out,mode,rows,census):
  d.text((20,76),'ORIGINAL K4Z image SHA exactly reproduced. Not a 3D candidate or depth-buffer test.',
         font=F12,fill=(228,235,242))
  for i,row in enumerate(rows):
-  y=119+i*436
-  d.rounded_rectangle((9,y,1160,y+428),radius=12,fill='white',outline=(195,210,220),width=2)
+  y=119+i*478
+  d.rounded_rectangle((9,y,1160,y+469),radius=12,fill='white',outline=(195,210,220),width=2)
   d.text((25,y+9),row['mask'],font=F23,fill=(28,43,57))
   d.text((26,y+39),'Changed RGB>40: '+f"{row['difference']['changedFraction']*100:.3f}%"+' | Original geometry unchanged',
         font=F16,fill=(65,83,98))
@@ -72,7 +72,7 @@ def summary_sheet(out,mode,rows,census):
   d.rectangle((593,y+66,1144,y+100),fill=(9,20,30))
   d.text((605,y+72),'PRIVATE MASKED WebGL2 - NOT ORIGINAL',font=F16,fill=(255,229,175))
   labels='/'.join(x['layer'] for x in row['suppressedOriginalSourceLayers'])
-  d.text((25,y+416),labels[:120],font=F12,fill=(79,87,100))
+  d.text((25,y+453),labels[:120],font=F12,fill=(79,87,100))
  name='K4AB_'+mode+'_TRUE_11040_ORIGINAL_VS_PRIVATE_SOURCE_DRAW_GROUPS.png'
  canvas.save(out/name,optimize=True)
  return name
