@@ -1,7 +1,9 @@
 """K4AA: independently audit source WebGL2 PNGs and A5-only BVH ray reports.
 
 Produce genuine screenshot review sheets with explicitly colored AFTER-CAPTURE
-ray annotations, numeric screenshot change and an ART gate checklist.
+COUNTERFACTUAL A5 ray annotations, numeric screenshot change and an ART gate
+checklist. IMPORTANT: K4Z's source r19a1 stage DOES NOT RENDER the A5 overlay.
+Ray results do not describe geometry visible in source screenshots.
 No scene construction, no suggested site, no human readability acceptance.
 """
 import argparse, hashlib, json, math
@@ -40,6 +42,9 @@ def assert_rays_against_source(report,source):
  assert report['trueRoad5TickCountPerWidth']==7 and report['sourceCameraStates']==14
  assert report['raysPerTrueCamera']==108
  assert report['sampledTimeNotContinuousVisibility'] and report['noHitByA5IsNotOpenWalkableOrConstructible']
+ assert report['K4ZSourceSceneRenderedA5'] is False
+ assert report['counterfactualA5GeometryUnderRealSourceCamera'] is True
+ assert report['actualK4ZScreenGeometryExplainedByThisBVH'] is False
  assert report['addedColliders']==report['newBuildingModels']==report['officialARTAccepted']==0
  assert report['independentART']=='NOT_TESTED_HOLD' and report['historicK4RAndK4U']=='REJECT'
  assert report['rayObjects']=='ONLY_ORIGINAL_A5_FIVE_STATIC_CITY_MESHES__NO_B48_B51_OR_OTHER'
@@ -77,7 +82,7 @@ def sheet(mode,entries,out):
  dr=ImageDraw.Draw(canvas)
  dr.rectangle((0,0,width-1,105),fill=INK)
  dr.text((20,12),f'K4AA  |  {mode.upper()}  |  TRUE ROAD5 ORIGINAL CAMERA',font=F28,fill='white')
- dr.text((20,53),'A5 BVH ray probes only, added AFTER real source WebGL2 capture; no new 3D',font=F18,fill=(219,236,246))
+ dr.text((20,53),'COUNTERFACTUAL A5 rays (not rendered in source). Overlay AFTER capture.',font=F18,fill=(219,236,246))
  for i,(entry,original,overlay) in enumerate(entries):
   row=108+i*437
   dr.rectangle((0,row,width-1,row+435),
@@ -101,8 +106,8 @@ def sheet(mode,entries,out):
   if step is not None:
    dr.text((rx,row+211),f'Heading difference {step["cameraFrontAngleDifferenceDegrees"]:.1f} deg',
             font=F14,fill=INK)
-  dr.text((rx,row+248),'ORANGE = intersects original A5',font=F12,fill=(174,90,17))
-  dr.text((rx,row+270),'CYAN = no A5 hit within 1.5km',font=F12,fill=(0,108,120))
+  dr.text((rx,row+248),'ORANGE = hypothetical A5 intersection',font=F12,fill=(174,90,17))
+  dr.text((rx,row+270),'CYAN = no hypothetical A5 hit',font=F12,fill=(0,108,120))
   dr.text((rx,row+298),'Not a clear corridor or walkable floor.',font=F12,fill=INK)
   dr.text((rx,row+322),'NO NEW PUBLIC ARCHITECTURE',font=F14,fill=INK)
   dr.text((rx,row+349),'ART NOT TESTED  /  HOLD',font=F18,fill=(170,62,51))
@@ -136,12 +141,15 @@ def main():
   'sourceBlob':SRC,'sourceHz':240,'sourceB48':7,'sourceB51':28,
   'trueOriginalK4ZPNGshaVerified':82,'road5TrueCameraStates':14,
   'originalA5RaysAudited':1512,'geometryIsOnlyFiveOriginalA5Meshes':True,
+  'A5OverlayNotEnabledInK4ZSourceCameraScene':True,
+  'rayStatisticsAreCounterfactualNotActualSourceScreenshotOcclusion':True,
   'originalCityGLBSha256':ray['sourceA5GLBsha256'],
   'sourceK4ZJSONsha256':sha(raw),'sourceK4AARayJSONsha256':sha(ray_path.read_bytes()),
   'originalCamera':'ball-lock-unfiltered-heading','onePhysicsRunPerWidth':True,
   'sparseSnapshotsNotContinuousVideo':True,
   'originalA5RayHitDoesNotCoverRoadsB51OtherObjects':True,
   'imageBrightnessIsNotSpaceClearance':True,
+  'zeroA5RayHitDoesNotDescribeVisibleRoadFrames':True,
   'rayGridIsApproximateNotTrueGPUDepth':True,'sitePreferenceOrRanking':'PROHIBITED',
   'architectureProposal':'NOT_BUILT','humanArtComparison':'NOT_TESTED',
   'entryMiddleBackRealArchitectureVisible':'NOT_TESTED',
