@@ -2,6 +2,12 @@
 
 **ここは短い入口であり、技術正本を複製・上書きしない。** 作業開始時に必ずGitHubから現在の値を取得する。古いHEAD・古いCI結果よりも最新PRと根拠付きの正本を優先。2026-11-01作成。
 
+## 【最新2026-11-02 K4AB 真正Road5 GPU描画群由来を実装／最終CI HOLD、次K4AC】
+
+- [**K4AB実装・厳格反証日本語報告**](docs/R19_A6P4_R2F5K4AB_NATIVE_RENDERED_WEBGL2_SOURCE_DRAW_PROVENANCE_JA.md) → [K4AB最新版GitHub Actions #41446611321](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41446611321) → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。**ソース真正K4Z 82PNG SHA再照合、元Road5 7tick×14m/28m真正14画像、tick11040両幅それぞれ6 GPU描画群のprivate-only実表示スキップ12枚を取得**。元カメラEye/Front・球XYZ・速度・道路ID・元物理/球/元球/原B48×7/B51×28の変更0、新候補・新衝突0。旧K4AAのA5反事実GLBは対象外で、元レンダラーの`roads`/巨大`megaWorld`/A13/W9`a13ArchMesh`/実B51機械ボディなど**実GPU描画呼び出し**を直接計測。
+- 実画像における元14枚中13枚は**フルPNG完全一致**。28m tick11280の1画像だけ元CSS `NEAR MISS` の0.24秒アニメーションで **77,605px**の差が生じ、実座標 x219..794 / y426..575 に局在。アニメーションの外側は本当の元3D画面と一致し、元CSSだけを覆う x218..799,y418..589を独立検証時だけ除外すると14/14画像で各**606,970画素すべてビット一致**。元フルPNG SHAの不一致を隠さず別保存し、3D物理差・見かけの安全性に転用しない。K4AB 6群の実画素変化は元Road5の道路可視スキン34.63/36.06%、道路装飾15.62/13.41%、Mega4.69/4.88%、A13+W9 frame2.11/2.63%、実B51体0.09/0.15%、**EPICはそもそもNOT_DRAWN**（順に14m/28m）。**本物のGPU深度、連続視認秒数、建築可能性や公共用途の証明ではない**。
+- **K4AB Actionsの最終全工程SUCCESSは現時点未確認のため SOURCE TECH判定HOLD**。旧ART REJECT維持、公式採用0・Slope2 DNA認定0m、候補独自B48全SAT/B51全CCD/床/人間/FPS/RELEASE/MERGEすべてHOLD。元ゲーム/本番URL/main/Gold/P100/W9-X/B5不変、Draft PR#46 OPEN未マージ。次K4ACは元WebGL2描画群の真の3D深度・時間窓・公共空洞の設計要件の検証に進む。新たな市場屋根の量産、未描画GLBへの代理レイでART合格の主張、透明床/磁力/テレポート禁止。GitHub正本だけで引き継ぐ。
+
 ## 【最新2026-11-02 K4AA Source Camera/A5反事実BVH限定PASS／実Road5視覚遮蔽・ART HOLD → K4AB】
 
 - **[K4AA改訂GitHub Actions #41433154678](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41433154678) 全job SUCCESS**、[Artifact #13134579869](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41433154678/artifacts/13134579869) 実ZIP**2,114,811B／SHA256 `109520e30874d2d432e0b15db168ff6145e9d2194a7bd45f675cc9557cbd3747`、4ファイルCRC全PASS**。真正元K4Z PNG82枚実バイトSHA一致、元A5 GLB原2幅×5メッシュ10,566三角形／K4S独立GLB SHA一致。Road5元真正7tick×14m/28mの14カメラから計**1,512本のA5だけのBVH幾何レイ**、A5へのヒット**0/1512**（1500mと3000m共通）。元Road5の0.5秒ごとカメラEyeの差97.4〜99.5m、カメラFrontの角度差2.0〜11.9°。
