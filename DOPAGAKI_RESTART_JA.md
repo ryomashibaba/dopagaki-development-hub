@@ -1,3 +1,10 @@
+## 【最新2026-11-02 K4AB 実際のGPU描画構造の真再現SOURCE TECH限定PASS → 次K4AC】
+
+- **[最終K4AB GitHub Actions #41448066954](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41448066954) 全job SUCCESS**、[実Artifact #13144320278](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41448066954/artifacts/13144320278) ZIP **4,461,471B／SHA256 `78c0b3dec7ce2bac83a98d23332faad1e683ddaaaf4c1c9d0a3ef27995fa7baf`／33ファイルCRC全PASS**。[K4AB最終研究報告](docs/R19_A6P4_R2F5K4AB_NATIVE_RENDERED_WEBGL2_SOURCE_DRAW_PROVENANCE_JA.md)／[永続的なArtifact SHA＆反証マニフェスト](docs/R19_A6P4_R2F5K4AB_FINAL_GENUINE_RENDER_GROUP_EVIDENCE_MANIFEST.json)／[LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。
+- 元K4Zの82真正PNG SHA全部検証、元Road5 44.5〜47.5秒×7tick×両幅＝**14元WebGL2画像**と実GPU描画群ログ、46.0秒同一カメラ/球/物理で6元群を1つずつprivate描画スキップした**12真正WebGL2 A/B画像**を採取。元フルPNG 13/14SHA完全一致、残り1画像は実元CSS「NEAR MISS」0.24秒アニメ差**79,558画素**だけ。元CSS ROI x200..809/y418..589外の各**602,154画素は14/14全ビット一致**。マスクから元画像へ戻しても両幅で完全一致。元画像の3D画素変更を拒否する**CI負例テストPASS**。
+- 画面の**46秒1時点だけ**で、実描画群のGPU可視寄与：14m/28m順でB48+fixture道路スキン34.474/35.863%、元路面視認4群15.623/13.442%、MEGA4.731/4.915%、A13/W9フレーム2.123/2.654%、B51動体0.090/0.150%、元EPIC未描画0%。これはHUD外RGB>40差分の割合、単純加算不可。元K4AAで問題化した「本当の元画面にはA5 GLBが描かれていない」誤解を防止し**元で実際に使用されたGPUソース群**を調べた。**実GPU深度・安全な歩行/敷地・人的視認秒数・建築の空洞の可読性は未測定**。
+- **SOURCE TECH限定PASS／ART NOT_TESTED/HOLD、旧K4/K4R/K4U独立ART REJECT、正式ART採用0件・Slope2 DNA認定0m。** 元240Hz/球/Camera/B48 7/B51 28/Gold/P100/W9-X/B5/main/本番2URL不変、候補新モデル0/新コライダー0、全候補固有SAT/CCD/歩行/HUMAN/FPS/RELEASE/MERGE全HOLD、Draft PR#46 OPEN未マージ。**次K4AC**は元真正シーンの3D前後/オブジェクトdepthと高速追走時の時間窓を絞る研究であり、薄い屋根市場・透明床・磁力・テレポート等で偽装しない。GitHub正本から自動再開、ZIPや長文引き継ぎ要求禁止。
+
 # DOPAGAKI SLOPE — 新しいChatのための永久GitHub再開入口
 
 **ここは短い入口であり、技術正本を複製・上書きしない。** 作業開始時に必ずGitHubから現在の値を取得する。古いHEAD・古いCI結果よりも最新PRと根拠付きの正本を優先。2026-11-01作成。
