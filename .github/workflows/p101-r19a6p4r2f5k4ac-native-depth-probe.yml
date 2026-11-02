@@ -27,6 +27,7 @@ jobs:
           test "$(git hash-object scripts/p101-r19a6p4r2f5k3b-private-camera-pack.mjs)" = 3096e5556189221d8411205a6cf96a1f5f5137bd
           node --check scripts/p101-r19a6p4r2f5k4ac-native-depth-probe.mjs
           node --check scripts/p101-r19a6p4r2f5k4ab-private-source-draw-provenance.mjs
+          node tests/k4ac-gl-state-restoration.mock.mjs
           python3 -m py_compile scripts/p101-r19a6p4r2f5k4ac-audit-native-depth.py
       - name: Download and independently verify all 82 genuine K4Z original frames
         env:
