@@ -2,6 +2,12 @@
 
 **ここは短い入口であり、技術正本を複製・上書きしない。** 作業開始時に必ずGitHubから現在の値を取得する。古いHEAD・古いCI結果よりも最新PRと根拠付きの正本を優先。2026-11-01作成。
 
+## 【最新2026-11-02 K4Z 真元240Hz/合法操舵のRoad5高密度カメラ取得・SOURCE TECH限定PASS／次K4AA】
+
+- **K4Z [Actions #41427816258](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41427816258) 全job SUCCESS**。[Artifact #13133042206](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41427816258/artifacts/13133042206) ZIP9,152,549 bytes・SHA256 `2b6dc11228c561f07047253eb6a973d43ffa02e1b88894bf15c3e6abc6baf0e7`・83ファイルCRC全OK。元ゲーム真正WebGL2 **14m/28m×41時刻＝82PNG**を実独立照合。JSON109,457B・SHA256 `da69e5d9283f6a8fc5190cc9fefd4e8476114eedfb218fe2eb802bbecfcddb6c`、全82PNG SHA OK。**元K3Bとの共通14tick×両幅28原PNGがバイト完全一致**、K3 native元物理17tick×両幅34の球XYZ・速度・Road一致、元カメラ6tick×両幅一致。1撮影セッション/幅で合法元スクリプト操舵P96÷4.8→7680tickからP94corrective÷3、原物理/240Hz/B48 7/B51 28/カメラ変更0。
+- 真正ロードID集計は各幅 **Road0〜6=4/2/5/6/10/7/5枚、AIR=2枚**。K4Yで1枚のみだったRoad5は**tick10680〜11400、0.5秒刻み7枚（44.5〜47.5秒）**に増加。**tick11520/11640はAIRでRoad5/6には数えない**。本物の元ゲーム約195〜199m/sで前景路面・既存巨大骨組みは確認、**新建築候補なし＝K4Z独立ART NOT_TESTED/HOLD**。旧K4/K4R/K4UのART REJECT、正式採用0・Slope2 DNA0mは維持。
+- [K4Z独立日本語報告](docs/R19_A6P4_R2F5K4Z_DENSE_GENUINE_ORIGINAL_240HZ_CAMERA_JA.md) → [最新LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。**次K4AA：Road5の本物の時刻別元カメラから「道路・既存都市・開いた公共空洞」の構図と奥行きが読み取れる設計要件をART-FIRSTで絞る**。新建築量産/低い屋根反復禁止、旧失敗繰返し禁止。元ゲーム/カメラ/物理/本番URL/main/Gold/P100/W9-X/B5不変。候補独自SAT/CCD/床/人間/FPS/RELEASE/MERGE全HOLD、Draft PR#46 OPEN未マージ。GitHub再開のみ、ZIP/長文手渡し要求禁止。
+
 ## 【2026-11-02 K4Y 元7道路の真正ART審査資料・SOURCE TECH限定PASS／次K4Z】
 
 - **K4Y** [専用GitHub Actions #41424253272](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41424253272) **全job SUCCESS**、[元Artifact #13131795766](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41424253272/artifacts/13131795766) ZIP **5,330,171 bytes／SHA256 `d7b5b2637c4dc01095768af0cf6be04898c1b7d46f73624fbbda146606033415`／17ファイルCRC OK**。真元PNG K30＋K3B28＝58枚SHA完全一致、KとK3B共通12原画一致。元42状態（2幅×21tick）、元K4Xの1,764解析行・611数学的画像交差の来歴確認、K4Y詳細画像14枚・概観2枚・証拠JSON1件生成と実目視。CIの**SHA改ざん拒否テスト、欠測フレーム検査もPASS**。元ゲーム/物理240Hz/Camera/球/B48 7/B51 28不変、新モデル/コライダー0。
