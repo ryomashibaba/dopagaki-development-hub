@@ -16,6 +16,16 @@
 3. [独立Python監査](../scripts/p101-r19a6p4r2f5k4ac-audit-native-depth.py)：元K4Z 82PNG SHA、今回14PNGのフルSHAとP74本物のCSS `NEAR MISS` 領域（x200..809,y418..589）**外の3D各ピクセル完全一致**を検査。深度比較の changed/farther/nearer を独立再計算し、偽の3D画素変更・深度変化の負例を検査。
 4. [専用GitHub Actions](../.github/workflows/p101-r19a6p4r2f5k4ac-native-depth-probe.yml)：元ソースのGit blobピン留め、Chromium真正WebGL2、独立画素監査、研究Artifact保存。**CI成功でも深度未対応ならDEPTH HOLD。** 自動的にART合格や本番公開に進めない。
 
+## 【2026-11-02 K4AC追補：WebGL2状態復元の誤りを修正・新しい実CIを起動】
+
+最初のK4AC source auditに対して独立静的査読を実施した結果、読み出し専用コードの**GL READ framebufferを束縛しないまま `gl.readBuffer(gl.NONE)` を呼ぶ問題**、**アクティブなテクスチャユニットとTEXTURE0のバインド復元を混同する問題**を発見して修正した。コンテキストロスト時の無限エラーループも上限12回に変更した。元Sourceやカメラ／物理コード自体の変更ではなく、隔離研究用GLの状態復元修正。
+
+さらに**深度プローブの前後に同一pause native tickの真正Source PNGを取得する二重検査**を追加した。幅14m/28m×Road5 7tick=14対のbefore/after画像を、元K4Z保存画像とともに独立Python監査する。元CSS P74 0.24秒アニメの実ROI(x200..809,y418..589)以外、**afterの全3Dピクセルが元画像およびbeforeに完全一致**しなければCI FAIL。GL操作が元ゲームの表示を壊す場合を見逃さない。新たな改ざん許容領域や緩い画素差閾値は導入しない。
+
+最終の検証対象コミット `46f9b8c3b362eebedce3053730006c4812ec32e5`、[K4AC新Actions #41452389126](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41452389126)。最初の #41450761768 は新しいコミットによってキャンセルされたため、これをK4AC最終実行と扱わない。**上記新CIの深度取得・原PNG全一致・Artifactの成否は未判定**。SOURCE TECH合格の新規宣言不可。旧K4AB最終SOURCE TECH限定PASS、旧K4/K4R/K4U独立ART REJECT、正式ART採用0、Slope2 DNA0m、元ゲーム・本番・main保護、SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLDを厳守する。
+
+---
+
 ## CIと採否の現状
 
 - 初回K4AC Actions: [#41450761768](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41450761768)（登録を確認、実行・結論は未検証）。
