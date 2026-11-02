@@ -1,4 +1,14 @@
-> **【DOPAGAKI SLOPE GitHub永久再開入口】** 新チャットは「DOPAGAKI SLOPEをGitHub正本から引き継いで、次工程へ。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR#46 最新HEAD → このLIVE HANDOFF先頭 → PROJECT_STATE → 最新Actions/Artifactを直接確認。**K4W元K/K4R/K4U/K4Vの真正原画像とカメラの逆設計TECH限定PASS／ART REJECT維持。次K4Xは元ゲーム固定カメラによる「負空間と用途の読める構図」ART-FIRST研究、モデル量産STOP。** 正式ART採用0件／Slope2 DNA0m、PR OPEN/Draft未マージ、main・本番変更禁止。
+> **【DOPAGAKI SLOPE 永久GitHub自動引き継ぎ】** 再開指示は「DOPAGAKI SLOPEをGitHub正本から引き継いで次工程へ。」だけ。ZIP再送・長文貼付不要。[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR#46の現在HEAD → このLIVE HANDOFF先頭 → PROJECT_STATEと実Actions/Artifactを直接確認。**最新K4X：元7道路真正58WebGL2 PNG・42カメラ・1764仮位置技術研究限定PASS／ART REJECT維持。次K4Yは元カメラから読み取れる公共空洞と用途の「構図契約」研究のみ、新3D量産STOP。** ART正式0件、Slope2 DNA0m、PR Draft未マージ、main/本番/元物理・カメラ非変更。
+
+## 【2026-11-02 K4X 原7道路の真WebGL2カメラ×未制作空間 TECH限定PASS／独立ART REJECT／次K4Y】
+
+- [K4X Actions #41390354006](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41390354006) 全job**SUCCESS**、テストHEAD `8d29fd91cc4a8a05bd55ea48334a55c97ec94f4b`。[Artifact #13117255848](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41390354006/artifacts/13117255848) ZIP**2,048,804B** SHA256 `97bc93fbc9f3054db1ac6a95632e6e275fe9018fe3e26befd8afbff07098b49f`／3ファイルCRC PASS。原JSON**1,564,747B** SHA256 `867c82c2ea3033e61c331a82aa63a2b1a0a674afc5fdd4cf45afdc9bb965c007`、元WebGL2全7道路場面2枚を独立ダウンロードして原絵と数学的注釈を目視。詳細 [K4X完全審査正本](R19_A6P4_R2F5K4X_TRUE_7ROAD_NEGATIVE_SPACE_COMPOSITION_RESEARCH_JA.md)。
+- Kの**原PNG30枚**＋K3Bの**原PNG28枚**、計58枚の各バイト数とSHAを原Artifactで照合。元K/K3B重複6時刻×2幅で**12件SHA一致**。K前13状態×2幅＋K3B後8状態×2幅で**真CameraEye/Front42状態**、全Road0〜6で少なくとも1枚の実画像を各幅確認。**KとK3Bは別の撮影系列、1本の連続完走トレースとは呼ばない**。
+- 元Kアンカー7道路×81座標標本、全7道路×左右×u=.25/.50/.75＝42**未制作の数学的な空間位置**を真カメラ42状態と照合した1764測定行。**画面枠に概念床の一部が入るのは611/1764**（14m306/882、28m305/882）。**元カメラが走っている同じ道路のサイトに限定すると93/252**（14m48、28m45）。計算したのは画面クリップと前後の投影差のみ。元A5道路・B51の真遮蔽／空間用途／HUMAN／衝突安全の合格証拠ではない。
+- 道路別の各幅7枚の真正元画面の「保存時刻の中央」からなる14代表画面について、一律**u=.50/右・左+70m**の数学的床を後描きしたところ、**14画面のうち1画面だけ**（14m Road5右側、29.3854px²）で画面内に少し入った。他は画面外か背後で投影不明。**「建物を置けない道路がある」の証明ではなく、一律地点と視点が合わない証拠**。
+- [K4X全7道路研究コード](../scripts/p101-r19a6p4r2f5k4x-true-seven-road-negative-space.py)／[CI正本](../.github/workflows/p101-r19a6p4r2f5k4x-seven-road-camera-space-study.yml)。**次K4Yは新建築・地面/コライダー0のまま、元カメラで人が空洞・街路のつながり・奥行き・他A5骨組みとの区別を認識するためのART-FIRST評価契約と反証条件**を整理する。現段階の数学的visible 611を採用候補ランキングにしない。K4/K4R/K4U独立ART REJECT、正式ART0件/Slope2 DNA0m、新候補SAT/CCD/歩行/HUMAN/FPS/RELEASE/MERGE全HOLD。元240Hz球・カメラ/物理、main/本番2URL/Gold/P100/W9-X/B5不変、Draft PR #46 OPEN未マージ、Work事前許可。
+
+---
 
 ## 【2026-11-02 K4W 原真正走行カメラの「公共空洞の必要寸法」逆算 TECH限定PASS／ART REJECT → K4X】
 
