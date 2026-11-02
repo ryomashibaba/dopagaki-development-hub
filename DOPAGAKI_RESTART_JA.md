@@ -1,3 +1,8 @@
+## 【最新2026-11-02 K4AC MockGL6/6 PASS・真GPU CI未完／次Actions#41453572178】
+
+- [K4AC正本と厳格な未検証の区別](docs/R19_A6P4_R2F5K4AC_NATIVE_GPU_DEPTH_CAPABILITY_SOURCE_GATED_JA.md) → [K4AC Actions #41453572178](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41453572178) → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。GitHub上に本当の`readDepth`コードを読み出してGPU無しのMockGLで実行する6条件テストを恒久追加、6/6独立PASS。真ロード5原WebGL2 14枚・深度・CI実Artifactは**まだ未検証／HOLD**であり、Mock成功から推定しない。過去の #41452389126 は取消、新版はpendingとして記録。
+- K4AB最終SOURCE TECH限定PASSのまま、K4AC実GPU SOURCE TECHは未認定。元ゲームsource `af076d67492a677d2235e4730aef8cdf4808e106`/240Hz/球/Camera/B48×7/B51×28、Gold/P100/W9-X/B5/main/本番2URL変更0。K4/K4R/K4U旧ART REJECT、正式ART採用0/Slope2 DNA0m、新建築・Collider0、候補SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD、PR #46 OPEN Draft未マージ。ユーザー再添付/ローカル操作不要、Work事前許可。次はActionsの実ジョブとArtifactの独立照合から着手。
+
 ## 【最新2026-11-02 K4AC GPU深度修正版・Actions#41452389126実測待ち／ART HOLD】
 
 - [最新K4AC原本](docs/R19_A6P4_R2F5K4AC_NATIVE_GPU_DEPTH_CAPABILITY_SOURCE_GATED_JA.md) → [修正版Actions #41452389126](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41452389126) → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。旧#41450761768は新コミットによりキャンセル。元GLのREAD_FRAMEBUFFERへの`gl.readBuffer`指定、TEXTURE0とactive textureの別保存・復元、context lost無限ループ防止を研究コードで改善。元K4Z SHA真正82PNGをピン留めし、Road5 7tick×2幅=14本物WebGL2元画面を**depth試験前後に再撮影**、本物CSS P74以外の全3D元画素一致を独立PythonとCIで監査。深度読出し可否、実PNG正しさ、CI Artifactの成功はいまだUNKNOWN/HOLD（修正版Actionsは2026-11-02 22:22 JST頃キュー待ち）。
