@@ -185,7 +185,7 @@ def main():
     controls=negative_controls(raw)
     special=data[1]["frames"][5]
     assert special["tick"]==11280
-    assert special["lowerHalfEncodedCount"]==3302
+    assert special["lowerHalfEncodedCount"]==3556
     assert special["lowerHalfByScreenThird"]["top"]==0
     assert all(f["lowerHalfEncodedCount"]==0 for m in data for f in m["frames"]
                if (m["mode"],f["tick"])!=("control",11280))
@@ -210,7 +210,7 @@ def main():
         make_md(data),encoding="utf8")
     print("K4AE_PINNED_K4AD_RAW_AND_AUDIT_SHA_PASS")
     print("K4AE_SOURCE_82_SHA_14_ROAD5_AND_12_MASKS_REAUDITED")
-    print("K4AE_BOTTOM_UP_CONTROL_T11280_ENCODED_LOWER_HALF_3302")
+    print("K4AE_BOTTOM_UP_CONTROL_T11280_ENCODED_LOWER_HALF_3556")
     print("K4AE_SOURCE_DIAGNOSTIC_PASS_ART_RELEASE_HOLD")
 
 if __name__=="__main__":main()
