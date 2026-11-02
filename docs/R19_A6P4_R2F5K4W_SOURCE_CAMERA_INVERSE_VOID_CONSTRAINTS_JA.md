@@ -10,6 +10,21 @@
 
 新コードは4件の証拠Artifactを改変せず再取得：K [#41312758260](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41312758260)、K4R [#41351118263](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41351118263)、K4U [#41359514124](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41359514124)、K4V [#41374785974](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41374785974)。各ZIP CRC、元画像SHA、元球/速度/CameraEye/Front、凍結K4V関数のGit blob、K4Vの各16件実カメラ×中庭投影数値を独立再演算で照合する。
 
+## 【最終独立原本判定：K4W TECH限定PASS／ART REJECT・次K4X研究（2026-11-02）】
+
+[**K4W GitHub Actions #41379909949**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41379909949) **全job SUCCESS**、テストHEAD `73fa760113ffa2d435a260702f0878c5f63df0b5`。[Artifact #13113495400](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41379909949/artifacts/13113495400) 実ZIP **1,130,558bytes／SHA256 `1089f0eadd2eedce41095246ab618a2fc350b5dd90fc60811ec2fc9dd3c4d92f`**、**3ファイル／ZIP全CRC OK**。原出力 `K4W_GENUINE_SOURCE_CAMERA_INVERSE_PUBLIC_VOID_CONSTRAINTS.json` **15,669bytes／SHA256 `2894ecddb21591fc62c6629792de29b4e2f8b87cc11df71ae44bfdad81fd5fea`**。幅14m・28mそれぞれ原WebGL2画像4tick×元A5・K4Uを並べたオフライン注釈図 `K4W_ultra_SOURCE_WEBGL2_CAMERA_INVERSE_CONSTRAINTS.png` と `K4W_control_SOURCE_WEBGL2_CAMERA_INVERSE_CONSTRAINTS.png`、**各1774×1400ピクセル**。実ファイルを取得・元画像の真偽・ZIP CRC／JSON SHA・画角と説明の誤認リスクを再確認した。
+
+- K/K4R/K4U/K4Vの元Artifactを全部再取得、原source/blobおよび凍結K4R建築・K4V解析Git blobを照合、元球/カメラ/元A5/候補PNG SHA全ゲート通過。**16組（14m/28m×4tick×K4R/K4U）のK4V基準測定を再計算して一致**。新モデル・新コライダー・元ゲーム変更0。
+- 実施したのは**既存の実3D中庭に対する元カメラでの数学的な逆算**だけ。真正PNGに貼った黄線と分析テキストは**レンダリング後の注釈**であり、新しい柱・人間・建築を本物のゲームで描いた画像ではない。
+- **14m幅K4Uの独立計算とCI数値一致**：tick265/721/1057/1249の仮8px用物理垂直長8.3645/6.1263/4.1687/2.7821m。中庭縦24px用床等方拡大3.42969/2.68270/2.03691/1.54971倍。28m幅は仮8px用8.3645/6.1237/4.1312/2.7325m、床24px用3.42969/2.68476/2.04124/1.53839倍。**2幅×4tickの全8条件で24px仮比較目標に必要な拡大が、現凍結屋根のx方向隙間上限1.20倍を超過**。
+- さらに仮12pxの立体スケールや仮32pxの中庭床も16組分で計算・全値を実JSONに保存。ただし**8/12/24/32pxはいずれも実証されたART合格閾値ではない**。4枚の時刻別静止画像で「一定時間認識した」とも言えず、実人物モデルが存在するわけでもない。等方拡大した床が元シーンに衝突しない・歩けるとは主張しない。
+
+**厳格評価：計算と再現性はSOURCE/TECH限定PASS。実市場のARTは前3件K4/K4R/K4Uの独立REJECTを維持し、正式ART採用0件、Slope2 DNA認定0m。** 現在の形のまま単純に床・屋根を広げるだけでは、仮の画面上の比較目標すら到達できず、空間の意味や用途はなお一層証明できない。
+
+**次工程K4Xの優先事項**：実モデルの制作を再開せず、元K/K3Bの7道路真正カメラから、既存都市の奥行き・前後の空隙・公共用途を読みやすくする「カメラ固定の負空間の構図」を評価する**設計言語と失敗条件**を定義する。屋根の量産、微移設、ゲームカメラ／物理改変、元床の安全性の捏造は禁止。実形状を建てるのは真正WebGL2の独立美術審査の実証計画が成立した時だけ。B48×7/B51×28全SAT/CCD・HUMAN/歩行・FPS・RELEASE/MERGE全HOLD、main/本番/Gold/P100/W9-X/B5変更なし、Draft PR#46 OPEN未マージ。
+
+---
+
 ## 独立ローカル原カメラでの数値予備照合（CIの最終成否とは別）
 
 元Kの道路アンカー（原7道路、81標本/区間）と元K4U `K4U_REAL_ORIGINAL_WEBGL2_16_IMAGES.json`の元CameraEye/Front、凍結K4R屋外床 `x±10,y±14,z=.86m`から、K4Wの逆算と**独立した単純なPython幾何コード**で得た結果。以下はK2近似の1013×698px投影、14m道路。すべて「未描画の仮想目印」「建築物を変更していない理論的倍率」。
