@@ -122,14 +122,17 @@ def main():
  audit=json.loads((k4abdir/'K4AB_TRUE_ORIGINAL_RENDERED_SOURCE_DRAW_PROVENANCE.json').read_text())
  assert original['sourceBlob']==audit['sourceBlob']==SRC
  assert original['errors']==audit['errors']==[]
- assert original['sourceHz'] if 'sourceHz' in original else original['Hz']==240
  assert original['Hz']==audit['sourceHz']==240
  assert original['sourceB48']==audit['sourceB48']==7
  assert original['sourceB51']==audit['sourceB51']==28
  assert original['oneContinuousPhysicalRunPerMode']
  assert audit['originalA5SceneRendered'] is False
  assert audit['originalCameraAndPhysicsUnchanged'] and not audit['sourceNativeGameModified']
- assert audit['sourceOriginalK4ZPNGCountMatched']==14
+ assert audit['sourceOriginalK4ZPNGCountCompared']==14
+ assert 0<=audit['sourceOriginalK4ZPNGCountMatched']<=14
+ assert audit['cssP74NearMissHUDHasPoint24SecondPopAnimation'] is True
+ assert audit['nativeSourcePixelsOutsideKnownAnimatedHUDMustMatchExactly'] is True
+ assert audit['cssHUDPixelExclusionROI']==dict(zip(('x0','y0','x1','y1'),P74_CSS_HUD_ROI))
  assert len(audit['baselineSourceFrames'])==0 # source frames held in sessions only
  assert len(audit['sessions'])==2
  assert audit['candidateArchitectureCreated']==audit['newColliders']==0
@@ -142,9 +145,11 @@ def main():
   'schema':'dopagaki.k4ab-source-original-webgl2-actual-draw-contribution-audit/1',
   'sourceBlob':SRC,'sourceHz':240,'sourceB48':7,'sourceB51':28,
   'genuineOriginalK4ZPNGshaVerified':82,
-  'sameSourceK4ZFramePixelIdentical':14,
+  'sameSourceK4ZFrameOutsideP74HUDPixelIdentical':14,
+  'fullSourcePNGshaMatchedCount':audit['sourceOriginalK4ZPNGCountMatched'],
+  'originalP74NearMissHUDExcludedROI':list(P74_CSS_HUD_ROI),
   'masksActuallySubtractiveAtIdenticalPausedCameraAndBall':12,
-  'allOriginalRoad5ScreenshotsSameAfterInstrumentation':True,
+  'allOriginalRoad5ScenePixelsOutsideCSSHUDSameAfterInstrumentation':True,
   'privateMaskedScreenshotsNotOriginalSource':True,
   'maskDifferenceOnlyMeasuresDownstreamFramebufferContribution':True,
   'sourceA5OverlayRendered':False,
@@ -160,7 +165,8 @@ def main():
    'screen changed fraction cannot prove road-adjacent site constructibility',
    'real architectural entrance/middle/back and usable public void NOT created',
    'A5 civic overlay absent from original K4Z source renderer'
-  ],'byMode':[],'maskEvidence':[],'reviewSheets':[],'errors':[]
+  ],'byMode':[],'maskEvidence':[],'reviewSheets':[],
+  'originalBaselinePixelAudits':[],'restoredMaskPixelAudits':[],'errors':[]
  }
  for sess in original['sessions']:
   assert len(sess['frames'])==41
@@ -171,18 +177,22 @@ def main():
   group=next(s for s in audit['sessions'] if s['mode']==mode)
   origin=next(s for s in original['sessions'] if s['mode']==mode)
   assert len(group['shots'])==7 and len(group['maskShots'])==len(MASKS)
-  assert group['baselineAllSevenK4ZShaMatches']
-  assert group['postMaskRestoredPNG']['sha256']==next(
-    shot['originalSourceNativeImage']['sha256'] for shot in group['shots'] if shot['tick']==11040)
+  assert group['baselineAllSevenK4ZCompared'] is True
+  assert group['baselineAllSevenK4ZShaMatches']==all(
+   shot['imageExactByteReproductionOfK4Z'] for shot in group['shots'])
   for shot in group['shots']:
    ref=next(x for x in origin['frames'] if x['tick']==shot['tick'])
    assert shot['sourceRoad']=='p93-PRISM_CREST-01'
    assert shot['matchingK4ZTruePNGsha']==ref['sha256']
-   assert shot['originalSourceNativeImage']['sha256']==ref['sha256']
-   assert shot['originalSourceNativeImage']['bytes']==ref['bytes']
+   assert shot['imageExactByteReproductionOfK4Z']==(
+    shot['originalSourceNativeImage']['sha256']==ref['sha256'] and
+    shot['originalSourceNativeImage']['bytes']==ref['bytes'])
    aimg=file_png(k4abdir,shot['originalSourceNativeImage'])
    bimg=file_png(k4zdir,ref)
-   assert np.array_equal(np.asarray(aimg),np.asarray(bimg))
+   sameSourcePixels=strict_source_outside_hud(aimg,bimg)
+   result['originalBaselinePixelAudits'].append({
+    'mode':mode,'tick':shot['tick'],'sourceFullPNGSHAEqual':
+     shot['imageExactByteReproductionOfK4Z'],**sameSourcePixels})
    stats=shot['originalState']['audit']
    assert stats['sourceB48']==7 and stats['sourceB51']==28
    assert stats['mask']=='none' and not stats['privateVisualLayerSuppressionOnly']
@@ -196,6 +206,12 @@ def main():
    assert counts['A13_MACHINE_FRAMES_AND_W9_HERO']['renderedDrawCalls']>0
   baseline=next(x for x in group['shots'] if x['tick']==11040)
   origin_img=file_png(k4abdir,baseline['originalSourceNativeImage'])
+  restored_img=file_png(k4abdir,group['postMaskRestoredPNG'])
+  restoredPixelGate=strict_source_outside_hud(origin_img,restored_img)
+  result['restoredMaskPixelAudits'].append({
+   'mode':mode,'tick':11040,
+   'originalFullPNGSHAEqualAfterRestoringMask':group['restoredFullScreenshotSHAEqual'],
+   **restoredPixelGate})
   sheet_rows=[];zone_reports=[]
   for mask in MASKS:
    masked=next(x for x in group['maskShots'] if x['mask']==mask)
@@ -217,7 +233,6 @@ def main():
    compare=compare_images(origin_img,img)
    if masked['sourceGroupStatus']=='NOT_DRAWN_IN_THIS_SOURCE_FRAME':
     assert compare['changedOver40Px']==0
-    assert masked['image']['sha256']==baseline['originalSourceNativeImage']['sha256']
    stat={'mode':mode,'tick':11040,'mask':mask,
      'trueSourceImageSha':baseline['originalSourceNativeImage']['sha256'],
      'maskedResearchImageSha':masked['image']['sha256'],
@@ -235,12 +250,19 @@ def main():
    sheet_rows.append({**masked,'baselineImage':origin_img,'maskedImage':img,'difference':compare})
   image_name=summary_sheet(out,mode,sheet_rows,baseline['originalState']['audit']['originalSceneLayers'])
   result['reviewSheets'].append(image_name)
-  result['byMode'].append({'mode':mode,'sourceOriginalK4ZPNGMatched':7,
+  result['byMode'].append({'mode':mode,
+   'sourceOriginalK4ZOutsideAnimatedHUDPixelsMatched':7,
+   'fullOriginalSourcePNGshaMatchedCount':sum(
+     x['imageExactByteReproductionOfK4Z'] for x in group['shots']),
    'actualSourceLayerDrawCallCensusAt11040':baseline['originalState']['audit']['originalSceneLayers'],
    'samePoseSixSubtractionMaskTests':zone_reports,
    'restoredSourceSHA':group['postMaskRestoredPNG']['sha256'],
    'art':'NOT_TESTED_HOLD'})
  assert len(result['maskEvidence'])==12 and len(result['reviewSheets'])==2
+ assert len(result['originalBaselinePixelAudits'])==14
+ assert all(x['differentPixelsOutsideP74CSSNearMissHUD']==0 for x in result['originalBaselinePixelAudits'])
+ assert len(result['restoredMaskPixelAudits'])==2
+ assert all(x['differentPixelsOutsideP74CSSNearMissHUD']==0 for x in result['restoredMaskPixelAudits'])
  assert all(s['baselineNativeCameraAndBallExactlySame'] for s in result['maskEvidence'])
  assert result['art']=='NOT_TESTED_HOLD'
  with (out/'K4AB_ACTUALLY_RENDERED_ORIGINAL_SOURCE_GROUPS_AND_PIXEL_DIFFS.json').open('w') as fd:
@@ -253,8 +275,9 @@ def main():
    writer.writerow([record['mode'],11040,record['mask'],
     record['pixelDifference']['changedFraction'],
     record['trueSourceImageSha'],record['maskedResearchImageSha']])
- print('K4AB_SOURCE_FRAME_14_SHA_BITWISE_REPRO_AND_PAUSED_12_MASK_PIXEL_DIFF_TECH_LIMITED_PASS',
-  json.dumps({'K4ZOriginalAllFramesSHA':82,'originalUnmodifiedWebGL2BitExact':14,
+ print('K4AB_SOURCE_FRAME_14_OUTSIDE_CSS_HUD_BITWISE_REPRO_AND_12_MASK_PIXEL_DIFF_TECH_LIMITED_PASS',
+  json.dumps({'K4ZOriginalAllFramesSHA':82,'originalSourceOutsideAnimatedHUDBitExact':14,
+   'fullSourcePNGshaMatchedCount':audit['sourceOriginalK4ZPNGCountMatched'],
    'privateSourceMasks':12,'sheets':result['reviewSheets'],
    'byMode':[{ 'mode':x['mode'],
     'diffs':[{q['mask']:q['changedFraction']} for q in x['samePoseSixSubtractionMaskTests']]}
