@@ -150,9 +150,28 @@ try{
     const sync=await syncDepth(page,tick,'none');
     assert.equal(sync.sourceRoad,source.road);
     const after=await state(page);compare(after,source);
+    // Source-authored chapter HUD overlays the screenshot even though it is
+    // not part of WebGL canvas. Record its exact DOM geometry and semantics.
+    const chapterHUD=await page.evaluate(()=>{
+     const canvas=document.querySelector('#view');
+     const hud=document.querySelector('#chapterHud');
+     const a=canvas.getBoundingClientRect(),b=hud.getBoundingClientRect();
+     const style=getComputedStyle(hud);
+     return {id:hud.id,className:hud.className,
+      text:hud.textContent.trim(),position:style.position,
+      pointerEvents:style.pointerEvents,
+      rect:[b.left-a.left,b.top-a.top,b.right-a.left,b.bottom-a.top]
+       .map(x=>Math.round(x*1000)/1000)};
+    });
+    assert.equal(chapterHUD.id,'chapterHud');
+    assert.equal(chapterHUD.className,'chapter');
+    assert.equal(chapterHUD.position,'absolute');
+    assert.equal(chapterHUD.pointerEvents,'none');
+    assert.ok(chapterHUD.text.includes('PRISM SKY CREST'));
+    assert.ok(chapterHUD.rect[1]>=18&&chapterHUD.rect[1]<=23);
     const originalPNG=await screenshot(page,
      'K4AD_'+mode+'_'+tick+'_ORIGINAL_WEBGL2_AFTER_IN_RENDER_READBACK.png');
-    const record={tick,seconds:tick/240,source,
+    const record={tick,seconds:tick/240,source,chapterHUD,
      originalPNG,k4zTrueOriginal:{bytes:reference.bytes,sha256:reference.sha256},
      fullPNGExact:originalPNG.sha256===reference.sha256&&
        originalPNG.bytes===reference.bytes,
