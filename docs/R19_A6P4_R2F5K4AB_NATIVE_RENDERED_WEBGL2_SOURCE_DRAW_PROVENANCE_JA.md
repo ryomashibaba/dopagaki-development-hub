@@ -2,6 +2,36 @@
 
 2026年11月2日 JST。研究正本 `ryomashibaba/dopagaki-development-hub`／`p101-velocity-overdrive-native-trial`／Draft PR #46。
 
+## 【最終確定：2026-11-02 K4AB真正GPU描画元資料のSOURCE TECH限定PASS／ART依然HOLD】
+
+**[K4AB専用GitHub Actions #41448066954](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41448066954) 全job SUCCESS**、検証HEAD `e402ff7cd843b4337b70d79812a450243538a5d0`。**[Artifact #13144320278](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41448066954/artifacts/13144320278)** を実際にダウンロード／独立ZIP検査し、**4,461,471B／SHA256 `78c0b3dec7ce2bac83a98d23332faad1e683ddaaaf4c1c9d0a3ef27995fa7baf`／33ファイルCRC全PASS**。GitHub Actions成果物が期限切れになっても再計算できるように、[**K4AB最終ソース・真画像・描画群・SHA証拠マニフェスト**](R19_A6P4_R2F5K4AB_FINAL_GENUINE_RENDER_GROUP_EVIDENCE_MANIFEST.json)を研究ブランチへ恒久コミット。
+
+### 再検証結果
+
+- 元Source `af076d67492a677d2235e4730aef8cdf4808e106`、元K3B合法P94操舵、B48実道路7・B51実障害物28・元240Hz・本物`ball-lock-unfiltered-heading`カメラは不変。元K4Zの真正82PNGのSHAを全チェック。
+- 14m／28mそれぞれRoad5の7tick、合計**14枚の元WebGL2実再撮影画像**。フルPNG全バイトのSHA一致は**13/14**。例外は28m tick11280の**元CSSの`NEAR MISS`通知が0.24秒アニメーションする領域のみ**（今回取得画像の差分79,558px、実測x217..796/y425..576）。これはゲームの3D差を免除する根拠ではない。
+- 元DOM HUDの動的配置揺れを含む`x200..809, y418..589`の既知CSS領域だけを切り出す厳格な負例つき検査では、**元14枚×各602,154画素すべて厳密完全一致**。12回のプライベート画像取得後に原画へ戻した画像も2幅ともこのHUD外領域でピクセル完全一致。**HUD外の道路画素を改変した偽データはCIで明示的にREJECT、HUD内改変は定義した範囲でのみ許容**。フルPNG SHA不一致13/14という事実は変更しない。
+- **元tick11040（46.0秒）だけ**で、元GPU実描画グループの1群ずつをprivate隔離画面から取り除いた計12比較を独立SHA/画素再計算。元球XYZ/カメラEye/Front/速度/B48道路/B51物理を維持したまま、画面RGBいずれか差>40の**HUD外602,154pxに占める割合**は以下。真GPU深度/オブジェクトIDマスクや安全な建築地形ではない。
+
+| 元WebGL2から1群だけ非描画にしたとき | 14m Road5 | 28m Road5 | 意味 |
+|---|---:|---:|---|
+| B48＋fixture可視スキン | **34.474%** | **35.863%** | 実道路・fixtureを結合した元GPUバッファ。実衝突変更0 |
+| 道路視認用の4描画群 | **15.623%** | **13.442%** | 原A13/W9C1/ROAD_READ/B5 optics |
+| MEGASTRUCTURE_SCENERY | **4.731%** | **4.915%** | 元巨大構造の1バッファ |
+| A13_MACHINE_FRAMES_AND_W9_HERO | **2.123%** | **2.654%** | 元A13機械フレームとW9 heroの結合（分離未検証） |
+| B51_BODY | **0.090%** | **0.150%** | 元B51 **28機**のボディ描画。危険性の測定ではない |
+| EPIC_SCENERY | **0%** | **0%** | 真正W9C1ステージではGPU描画自体がない。**NOT_DRAWN** |
+
+この差分は各群を**別々に取り除く**視覚寄与であり、単純加算して占有率・空き地面積・遮蔽領域と解釈しない。元ソース・WebGL2画面で大半の前景を道路と視認マークが覆い、巨大構造やB51が別群として確実に存在することを数値で裏付けた。近接した危険物の回避可能性や公共空洞の用途認知は未検証。
+
+**真の最終成果物の独立SHA：** 描画元データJSON `188068B／5d735eaa5c7bdf3dcda505850108ad256aba831e613d00cfc4b0b6ceec72214e`、計測JSON `40934B／2371282b9328c45df1d0deb935f6914cc84b7d6822f53fdb288c0420fa15348c`、差分CSV `2173B／83cd6f6867e89b82624ea70b8fa6181e05b996a150b5577ea63c42a9fbe1380b`。各幅のレビュー画像（注釈付き）と撮影された実WebGL2の個別原PNGも同じArtifact内。**注釈・除外マスクは元ゲームが描いた候補建築ではない。**
+
+**独立最終評価：K4AB SOURCE TECH限定PASS。実描画ソースのレイヤー差分・元カメラ再現の技術が成立したが、ART判定は`NOT_TESTED_HOLD`、公共空洞建築を設計・採用していない。** K4/K4R/K4U旧独立ART REJECT、正式ART採用0件、Slope2 DNA認定0m、元球・カメラ・物理・Main・Gold/P100/W9-X/B5・本番URL変更0、候補SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD。次**K4AC**は「元GPU表示構造の真正3D深度や手前・奥の物体判定＋Road5高速度時の画面可読性」を、元の原物理/カメラを変えずに検証してから建築**1候補ずつ**のART-FIRST審査へ。旧屋根市場の単純焼き直し禁止。
+
+> この節は全CI成功後の最終正本。以下の「実測追補」内の`K4AB CI待ち/HOLD`は最終確定前の当時の状態を記録した履歴であり、K4ABの現在状態ではない。
+
+---
+
 ## 【2026-11-02 実測追補：元レンダラ差分は取得済み、独立CI最終判定は別】
 
 **変更したのはK4ABの隔離研究コード／CIのみ**。K4Z固定真正PNG82枚を全SHA再照合後、元Sourceが完全保護された状態でK4ABのprivate GPU描画フレームを14m/28mのRoad5 **7時刻ずつ、計14枚**取得した。各幅の46.0秒／native tick11040で、元球XYZ・カメラEye/Front・速度・道路IDを固定し、元描画群を6種類個別に非表示にした**12個の隔離WebGL2研究画像**と、元描画を復元した原画像2枚の実SHAを記録した。[初回全GPU撮影通過（独立監査はFAIL）Actions #41441353998](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41441353998)／[途中までの原証拠Artifact #13141261497](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41441353998/artifacts/13141261497)（ZIP3,640,617B／SHA256 `eaffd65f609022be48fe1244bf6e6ee2e45b01b26c9319da0887b8dfe4109701`、30ファイルCRC全PASS）。
