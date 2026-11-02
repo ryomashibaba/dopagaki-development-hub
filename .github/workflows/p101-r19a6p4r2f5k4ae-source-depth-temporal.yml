@@ -1,0 +1,70 @@
+name: DOPAGAKI K4AE pinned K4AD WebGL2 depth temporal diagnostic ART HOLD
+on:
+  push:
+    branches: [research/k4ae-verified-road5-depth-temporal-diagnostics-20261102]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4ae-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4ae-source-depth-temporal.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-k4ae-pinned-artifact-temporal
+  cancel-in-progress: true
+jobs:
+  original-source-frozen-depth-temporal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Protect immutable source and validate K4AE diagnostic
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python -m py_compile scripts/p101-r19a6p4r2f5k4ae-pinned-depth-temporal-audit.py
+      - name: Download exact already-verified native K4AD evidence (no new simulation)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p r19-evidence/r19a6p4r2f5k4ae-k4ad-pinned
+          gh run download 41463872981 \
+            -n K4AD_ORIGINAL_MESH_RGBA_DEPTH24_14_ROAD5_AND_12_MASKS_ART_HOLD \
+            -D r19-evidence/r19a6p4r2f5k4ae-k4ad-pinned
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          p=Path('r19-evidence/r19a6p4r2f5k4ae-k4ad-pinned')
+          assert hashlib.sha256((p/'K4AD_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json').read_bytes()).hexdigest()=='537346d1df0afb8c2ba1f0b2581d088dfeae3711a2b27021c199d72800d2d0ad'
+          assert hashlib.sha256((p/'K4AD_INDEPENDENT_GENUINE_SOURCE_GPU_AUDIT.json').read_bytes()).hexdigest()=='edf9a2e1ad20f30e186a0fe708a163f78e3935c489d45054fd273ab342d3f826'
+          print('K4AE_EXACT_K4AD_2_JSON_SHA_PASS')
+          PY
+      - name: Produce source-locked 7-tick x 2-width depth diagnostic and controls
+        run: |
+          python scripts/p101-r19a6p4r2f5k4ae-pinned-depth-temporal-audit.py \
+            --artifact-dir r19-evidence/r19a6p4r2f5k4ae-k4ad-pinned \
+            --out-dir r19-evidence/r19a6p4r2f5k4ae
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          d=json.loads(Path('r19-evidence/r19a6p4r2f5k4ae/K4AE_GENUINE_DEPTH_TEMPORAL.json').read_text())
+          assert d['decision']=='EVIDENCE_SOURCE_DIAGNOSTIC_PASS_ART_HOLD'
+          assert d['sourcePNGOriginalChecked']==82
+          assert d['genuineSourceFramesChecked']==14
+          assert d['genuineSourceMasksChecked']==12
+          assert d['depthReadbackOrigin']=='bottom_left'
+          assert d['depthUnit']=='NONLINEAR_ENCODED24_NOT_METERS'
+          assert d['officialARTAccepted']==d['slope2DNAMetres']==d['newModels']==d['newColliders']==0
+          assert d['ART']=='NOT_TESTED_HOLD' and d['RELEASE']==d['MERGE']=='HOLD'
+          assert len(d['modes'])==2 and all(len(m['frames'])==7 and len(m['masksAt46Sec'])==6 for m in d['modes'])
+          print('K4AE_SOURCE_LOCKED_TEMPORAL_DIAGNOSTIC_ONLY_PASS_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4AE_GENUINE_7TICK_2WIDTH_DEPTH_TEMPORAL_ART_HOLD
+          path: r19-evidence/r19a6p4r2f5k4ae/
+          retention-days: 7
+          if-no-files-found: warn
