@@ -1,0 +1,85 @@
+{
+  "schema": "dopagaki.k4aa-counterfactual-A5-true-camera-final-evidence-manifest/1",
+  "auditDateJST": "2026-11-02",
+  "repository": "ryomashibaba/dopagaki-development-hub",
+  "branch": "p101-velocity-overdrive-native-trial",
+  "workflowRunId": 41433154678,
+  "workflowRunURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41433154678",
+  "sourceTestCommit": "1526797169c512cb9a60b0247f4f74dcf64a3f6b",
+  "workflowConclusion": "success",
+  "artifactId": 13134579869,
+  "artifactName": "K4AA_SOURCE_ONLY_14_NATIVE_ROAD5_CAMERA_1512_A5_BVH_RAYS_ART_HOLD",
+  "downloadedZIP": {
+    "sizeBytes": 2114811,
+    "sha256": "109520e30874d2d432e0b15db168ff6145e9d2194a7bd45f675cc9557cbd3747",
+    "members": 4,
+    "zipCRC": "PASS"
+  },
+  "members": [
+    {
+      "filename": "K4AA_ORIGINAL_A5_FIVE_MESH_BVH_TRUE_14_ROAD5_CAMERA_RAYS.json",
+      "bytes": 433337,
+      "sha256": "723234fadbcc77697555702da6e806077d1d1ac1995d5ab6d452245c37590e63"
+    },
+    {
+      "filename": "K4AA_control_ROAD5_7_NATIVE_WEBGL2_FRAMES_WITH_A5_ONLY_RAYS.png",
+      "bytes": 1057250,
+      "sha256": "4b70829bc2710f19e0d7b6da7e642334570e9475754af319b7d23067c49410d7"
+    },
+    {
+      "filename": "K4AA_GENUINE_ROAD5_SOURCE_CAMERA_AND_ORIGINAL_A5_RAY_REVIEW.json",
+      "bytes": 32811,
+      "sha256": "9357ad23b1f4df228f7ec04d78b4fe1791291b1c6916ac8b24bf186d5fcc9dae"
+    },
+    {
+      "filename": "K4AA_ultra_ROAD5_7_NATIVE_WEBGL2_FRAMES_WITH_A5_ONLY_RAYS.png",
+      "bytes": 1093027,
+      "sha256": "830ffcca6b462a828dc8a1b519a3740fa43cbf988c29a96217ec7e86e428cd8d"
+    }
+  ],
+  "immutableOriginalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalSourcePNGCountVerified": 82,
+  "sourceRoad5CameraFramesByMode": {
+    "ultra": 7,
+    "control": 7
+  },
+  "sourceA5MeshCountPerMode": 5,
+  "sourceA5TrianglesPerMode": 10566,
+  "sourceA5GLBsha256": {
+    "ultra": "00197cab04222acbbb6c27f1c97c348ccbf9df0b74864235bed90c0598d3a527",
+    "control": "bb7edbdcd850be94e49ada0cd148328e663e60d3ea7398542ff44336f38f226f"
+  },
+  "report": {
+    "sourceA5RayCount": 1512,
+    "intersectA5Within1500m": 0,
+    "intersectA5Within3000m": 0,
+    "sourceK4ZRenderedA5": false,
+    "counterfactualA5GLBUnderSourceCameras": true,
+    "actualSourceImageOcclusionDetermined": false,
+    "sourceCamEyeConsecutiveHalfSecondDisplacementMetersApprox": [
+      97.4,
+      99.5
+    ],
+    "sourceCamFrontAngleConsecutiveHalfSecondDegreesApprox": [
+      2,
+      11.9
+    ],
+    "sourceScreenshotsAreSparseNotVideo": true
+  },
+  "importantFailureMode": "K4Z/K3B private source was built from r19a1 with r19a3 overlay OFF. A5 research GLBs were not drawn in genuine K4Z WebGL2 source images. Zero intersections cannot imply open road-adjacent space; original B48 and B51 source render geometry was not BVH-tested.",
+  "nextStudy": "K4AB: rendered source scene provenance + actual road/obstacle geometry and image/depth alignment; no new building or automatic site selection",
+  "technicalResult": "PASS_COUNTERFACTUAL_A5_GEOMETRY_AND_ORIGINAL_CAMERA_AUTHENTICITY_ONLY",
+  "realScreenCompositionTest": "INCOMPLETE",
+  "newCandidateART": "NOT_TESTED_HOLD",
+  "historicK4RAndK4UART": "REJECT",
+  "officialARTAccepted": 0,
+  "slope2DNARecognizedMetres": 0,
+  "addedColliders": 0,
+  "newBuildingModels": 0,
+  "candidateSAT": "NOT_RUN",
+  "candidateCCD": "NOT_RUN",
+  "human": "NOT_TESTED",
+  "FPS": "HOLD",
+  "release": "HOLD",
+  "merge": "HOLD"
+}
