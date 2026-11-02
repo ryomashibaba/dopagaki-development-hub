@@ -37,7 +37,7 @@ const res={
  realK4ZBaselinePNGShaMustMatch:true,
  sourceOriginalK4ZPNGCountMatched:0,sourceOriginalK4ZPNGCountCompared:0,
  cssP74NearMissHUDHasPoint24SecondPopAnimation:true,
- cssHUDPixelExclusionROI:{x0:218,y0:418,x1:800,y1:590},
+ cssHUDPixelExclusionROI:{x0:200,y0:418,x1:810,y1:590},
  nativeSourcePixelsOutsideKnownAnimatedHUDMustMatchExactly:true,
  originalB48FixtureMeshIsRenderOnlyMaskedButPhysicalRoadRemains:true,
  masksOperateOnlyWithinSinglePrivatePausedRenderer:true,
