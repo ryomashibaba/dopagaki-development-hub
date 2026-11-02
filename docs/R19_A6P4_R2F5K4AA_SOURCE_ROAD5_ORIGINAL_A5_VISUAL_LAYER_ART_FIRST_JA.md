@@ -2,6 +2,21 @@
 
 基準日：**2026-11-02 JST**。正本 `ryomashibaba/dopagaki-development-hub`／研究ブランチ `p101-velocity-overdrive-native-trial`／Draft PR #46。
 
+## 【最終確定：K4AA改訂CI成功／原画は真正、A5視線は反事実、実遮蔽・ARTはHOLD】
+
+[**改訂K4AA GitHub Actions #41433154678**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41433154678) **全job SUCCESS**、改訂試験HEAD `1526797169c512cb9a60b0247f4f74dcf64a3f6b`。[**最終Artifact #13134579869**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41433154678/artifacts/13134579869) の実ダウンロードZIP **2,114,811 bytes／SHA256 `109520e30874d2d432e0b15db168ff6145e9d2194a7bd45f675cc9557cbd3747`／4ファイルCRC全PASS**。元BVHレイJSON **433,337B／SHA256 `723234fadbcc77697555702da6e806077d1d1ac1995d5ab6d452245c37590e63`**、元画面と独立ROI数値JSON **32,811B／SHA256 `9357ad23b1f4df228f7ec04d78b4fe1791291b1c6916ac8b24bf186d5fcc9dae`**。残りは14m・28mそれぞれ7枚の元真正原画の**未改変コピー**と、色分けした**後書き反事実A5レイプローブ**を並べた比較シートPNG×2。後書きの水色/橙点は元ゲームが描画した構造物ではない。
+
+**独立した実ZIP開封・CRC／JSON SHA再確認結果：**
+- 元K4Zの真正82枚PNG実bytes/SHA一致、元球・元カメラEye/Front・Road5 7 tick×両幅14状態＝元A5 BVHの1,512発射レイに使用。元ソースGit blobと旧K4S認証済みA5両幅GLBハッシュを保持。改訂CIは**K4Z/K3Bプライベート原画にA5研究都市の `r19a3=on` が一切ないことを**、撮影URLとコピー元`dist-private/r19a1`、A3オプトイン条件を直接検査してPASS。
+- A5反事実BVH内で1500m以内の交差**0/1512**、3000m以内も**0/1512**。これは**撮影時の描画構造物についての空間開放率0/100%を表すものではなく**、元画面の道路・骨組み・B51に対する遮蔽データではない。最終JSONには `K4ZSourceSceneRenderedA5=false`、`counterfactualA5GeometryUnderRealSourceCamera=true`、`actualK4ZScreenGeometryExplainedByThisBVH=false` を強制。
+- 0.5秒間で元カメラEye位置差約97.4〜99.5m、視線方向角度差約2.0〜11.9°。真正PNGの画面領域でRGB差>40が起こった割合（画面上の固定3帯域、HUDの大半除外）は14m左34.8〜59.0%、中央24.3〜39.8%、右9.8〜30.6%。これは**別々の静止画の色差**であり、人物の用途理解、建築可読性、同一3D空間の連続視認秒数の測定ではない。
+
+**厳格最終評価：原ソース・元カメラ・元A5研究用GLB・反事実BVH計算・真正画像のSOURCE TECH限定PASS。実元WebGL2の全表示構造についての視線遮蔽と、本当の公共空洞の入口／中間／奥のART審査は未実施＝`COMPOSITION_INCOMPLETE / ART_NOT_TESTED_HOLD`。** K4/K4R/K4U旧ART REJECT維持、正式ART0、Slope2 DNA0m、新建築・コライダー0、main／本番／元物理・カメラ変更0、候補固有SAT/CCD／歩行／HUMAN／FPS／RELEASE/MERGE HOLD。
+
+正本を長期保存するため、Actions成果物の有効期限が切れても参照できる[**K4AA最終ハッシュ・反証・合否マニフェスト**](R19_A6P4_R2F5K4AA_FINAL_COUNTERFACTUAL_A5_EVIDENCE_MANIFEST.json)をGitHubコミットに保存。**次K4AB**で、元の真正画面に**実際に描画されている**7区間道路・橋梁フレーム・B51等の元ソース生成物をフレームID別に調べる。「A5にレイが当たらない」「暗い空間」を敷地・公共空洞・開発許可の代理として使わない。最後までART-FIRST／真正元視点・新案は1件ずつの独立判定を守る。
+
+---
+
 ## 【独立検証から判明した重要な反証：A5は撮影シーンに表示されていない】
 
 **K4AAの初回GitHub Actions #41432055691 は全工程SUCCESS**、原Artifact #13134283875を実取得・ZIP CRC確認。元PNG82枚のSHA独立一致、A5 GLB両幅SHA一致、真正Road5の14Camera×108点＝**1512レイのBVH計算**は実行された。
