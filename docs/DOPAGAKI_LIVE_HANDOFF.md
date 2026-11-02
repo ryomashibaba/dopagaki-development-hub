@@ -1,4 +1,14 @@
-> **【GitHub正本再開入口・ユーザー操作最小化】** 新チャットはファイル再添付・ZIP・長文引き継ぎ不要。「DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。」だけで [DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR #46最新HEAD → このLIVE HANDOFF冒頭 → PROJECT_STATE → Actions原本を直接照合する。**最新K4Uは「位置だけ移動した真Native Blender/16真正WebGL2 TECH限定PASS、独立ART REJECT」。次K4Vは真元画面の「空洞・公共性がなぜ読めないか」のART-FIRST調査に限定、建築量産STOP。公式ART採用0・Slope2 DNA0m、PR OPEN/Draft未マージ、main/本番変更禁止。**
+> **【GitHub自動引き継ぎ入口・操作最小化】** ZIP/長文貼付不要。新しいチャットは「DOPAGAKI SLOPEをGitHub正本から引き継いで次の工程へ。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR#46最新HEAD → 本LIVE HANDOFF最上節 → PROJECT_STATE → 最新Actions/Artifactを直接読む。**2026-11-02 K4V 真カメラ屋外中庭研究TECH限定PASS／独立ART REJECT継続。次K4Wは視認可能な公共空洞の構図条件研究、新建築量産STOP。公式ART0・Slope2 DNA0m／PR Draft未マージ、main/本番不変。**
+
+## 【2026-11-02 K4V 本物のWebGL2カメラで空洞の判読困難を定量化：TECH限定PASS／ART REJECT・次K4W】
+
+- [K4V Actions #41374785974](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41374785974) **全job SUCCESS**。[Artifact #13110464698](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41374785974/artifacts/13110464698) ZIP **1,630,984B／SHA256 `0f55e30308d9756433cf79693c898bf6524908c92dd1cd2291c15fa036b7028e`、9ファイル・CRC整合**。根拠JSON SHA256 `70fe2ba8bcfa18a28e7332c0908e278cd21fc4c05a4cf39d27a9bbc3ef895b6d`、24枚の元A5/K4R/K4U真正WebGL2 PNG（14/28m×tick265/721/1057/1249）実元SHAを検証。元カメラ/球XYZ/速度/原B48 7/B51 28/240Hzと凍結K4R 34モジュール／668面のGLB SHAを照合。**新3Dモデル0／コライダー0**。
+- [K4V新分析コード](../scripts/p101-r19a6p4r2f5k4v-real-court-readability.py) は実Road0アンカー×元CameraEye/Frontで、中庭の実モデルの中心床 `x±10m,y±14m,z=.86m` を**K2方式の近似1013×698投影**で描き、真元WebGL2原画像とK4R/K4Uの8組の本物の背景の画素変化を照合。近似投影の黄色の中庭枠は画面に後から付ける説明用注釈、ゲームの元ラスタの実中庭ピクセルとして誤認しない。
+- **元14mの中庭縦画面寸法：K4U u=.85はtick265/721/1057/1249で6.93/8.87/11.68/15.38px。1.7m定規（実人物モデルでない）の投影は1.62/2.22/3.26/4.88px。** K4R同じ時刻は中庭の縦8.03/11.22/17.02/29.30px、ただし5.204s時点は右画面外へ大きく切れる。K4Uは中庭のクリップが改善したが床の迫力・用途が縮小。5.204秒にK4Rの床は近似の総投影3,676.9px²でも画面内785px、K4Uは総1,103.3px²/画面内1,080px。**画面内残留改善と空洞の意味認識は別**。
+- 真原A5→候補PNGにおけるRGB最大差>36のうち「近似屋外中庭マスク内」の割合は14mでK4Rの3.2〜7.9%、K4Uの4.1〜6.5%。これは絵の差の地理分布であり、真正中庭可視率でも人間の理解率でもない。人間目視では原A5の巨大道路・建築に対し市場が薄板屋根の集まりとなり、中庭／公開街路の奥行きが読めない。**ART REJECT維持、正式ART0件、Slope2 DNA0m**。候補固有B48/B51全SAT・CCD、床支持、HUMAN、FPS、RELEASE/MERGE全HOLD。
+- [K4V独立完成審査正本](R19_A6P4_R2F5K4V_TRUE_SOURCE_CAMERA_PUBLIC_COURT_READABILITY_RESEARCH_JA.md)。**次K4W：元高速カメラで真の公開空洞の人間スケールと空間的奥行きを読める条件の研究のみ。** K4/K4R/K4UでREJECTした低い屋根の再量産・微移設を繰り返さない。原ゲーム/240Hz/本番2URL/main/Gold/P100/W9-X/B5変更禁止、PR#46 OPEN Draft未マージ、Work事前許可。
+
+---
 
 ## 【2026-11-02 K4U 真正移設34モジュール/16画像 TECH限定PASS・独立ART REJECT／次K4V】
 
