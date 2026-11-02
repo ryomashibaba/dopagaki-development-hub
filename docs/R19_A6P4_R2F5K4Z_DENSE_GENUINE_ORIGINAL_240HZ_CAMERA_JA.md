@@ -2,6 +2,53 @@
 
 2026年11月2日 JST。正本は `ryomashibaba/dopagaki-development-hub` の `p101-velocity-overdrive-native-trial`／Draft PR #46。K4Y 58真正PNG・42元カメラ状態からRoad5の1時点（tick11040のみ）、Road2/4/6の2時点という不足を継承。**元ゲーム/本番/main/Gold/P100/W9-X/B5の変更・新建築・新コライダー・仮想人物・擬似視覚補完を一切許可しない。**
 
+## 【最終独立原本監査 2026-11-02：K4Z SOURCE TECH限定PASS／ART NOT_TESTED・HOLD】
+
+[**K4Z GitHub Actions #41427816258**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41427816258) は**全ジョブSUCCESS**、試験HEAD `7d622a358757ab3ac5b4ca5f9eff6461d294a736`。[**Artifact #13133042206**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41427816258/artifacts/13133042206) を実ダウンロードして独立検査。ZIP **9,152,549 bytes／SHA256 `2b6dc11228c561f07047253eb6a973d43ffa02e1b88894bf15c3e6abc6baf0e7`**、**83ファイル（真正元WebGL2 PNG82枚＋JSON1件）／ZIP CRC全PASS**、JSON **109,457 bytes／SHA256 `da69e5d9283f6a8fc5190cc9fefd4e8476114eedfb218fe2eb802bbecfcddb6c`**。PNG82枚すべての実bytes/SHAを独立再計算し、元記録と一致した。
+
+### 実ロードID別撮影件数（各幅同じ）
+
+| Source Road | K4Y以前の原画/幅 | K4Z新たな原PNG/幅 | 旧証拠での課題と現評価 |
+|---|---:|---:|---|
+| Road0 ABYSS_DIVE | 4 | 4 | 元Source/A5静止画を維持 |
+| Road1 CROWN_REVERSAL | 6 | 2 | K4Zは追加目標外、既存K4Yを別途保存 |
+| Road2 SCISSOR_RISE | **2** | **5** | 4.8/5.0/5.3/5.5/5.8k tick近辺を増補 |
+| Road3 LOWER_REVERSAL | 4 | 6 | 32秒近辺含む元カメラ証拠 |
+| Road4 VOID_SURGE | **2** | **10** | 高密度化成功 |
+| Road5 PRISM_CREST | **1** | **7** | 真正撮影44.5〜47.5秒の0.5秒間隔 |
+| Road6 FINISH_RIDGE | **2** | **5** | 後半ロードの追加カメラ |
+| AIR | （未割当） | 2 | tick11520=48.0秒、11640=48.5秒。**Road5/6に偽割当禁止** |
+
+※「K4Y以前」と「K4Z新たな」は**別の計測シリーズ**であり、合算して一本の連続動画とは呼ばない。K4Zの各道路幅は同一の合法スクリプト操舵で**1回の実Source物理試行から41時点を順番に停止撮影**した。少数の静止画像間で視認がずっと続いたという意味ではない。Road1のK4Z 2枚は前工程の不足を減らすための研究対象外で、K4Yに6枚存在する事実を減じない。
+
+### Road5の実証した7時刻
+
+| tick | 秒 | 両幅の真正Road ID | 速度（14m／28m） |
+|---:|---:|---|---:|
+| 10680 | 44.5 | Road5 PRISM_CREST | 198.3／199.0 m/s |
+| 10800 | 45.0 | Road5 PRISM_CREST | 198.7／198.9 m/s |
+| 10920 | 45.5 | Road5 PRISM_CREST | 198.2／198.2 m/s |
+| 11040 | 46.0 | Road5 PRISM_CREST | 197.3／197.2 m/s |
+| 11160 | 46.5 | Road5 PRISM_CREST | 196.3／196.2 m/s |
+| 11280 | 47.0 | Road5 PRISM_CREST | 195.4／195.5 m/s |
+| 11400 | 47.5 | Road5 PRISM_CREST | 194.9／195.1 m/s |
+
+K4Zの古いK3B撮影14一致tick×両幅＝**28PNGはSHAまでバイト完全一致**。同じ旧真正画像であるだけでなく、元CameraEye/Front・元球XYZ/速度・Roadの実照合も成功。K3の元native物理成功試行では17tick×両幅＝**34物理スナップショット**が元XYZ/速度/ロードと一致。オリジナルA1アーカイブカメラも6tick×両幅で許容誤差内一致。
+
+### 独立画像審査と制限
+
+Road5の14m/28mの真正7時点を別々に視覚比較した。画面は速度約195〜199m/sで走る本物の道路、既存のフレーム状巨構造、左右の路端と前方の障害物に強く占有される。画像の前後時刻によるフレーム位置・路面の変化は十分確認できるが、**新市場・駅・人間が利用できる中庭等の建築候補は一切追加していない**ため、公共空間の奥行き・入口・地上への接続・用途のART判定はできない。この撮影密度は「何を設計するなら元カメラに何時点で見せるべきか」を考える**本物の視点資料**であり、候補ARTが改善した証拠ではない。
+
+- **成功範囲：SOURCE TECH限定PASS**（追加元82PNGの真正性、同一試行の合法240Hz、撮影Road ID、元物理・カメラ保護、元K3B PNG28一致）
+- **未成功：新建築候補ART NOT_TESTED/HOLD**。K4/K4R/K4Uの旧不採用はART REJECTのまま。ART正式0件・Slope2 DNA認定0m。
+- **引き続きHOLD：** 1つの候補を造形した場合のB48×7/B51×28実SAT/CCD、床支持・実歩行・人間認知・Windows/iPhone FPS、RELEASE/MERGE。連続動画の視認秒数は現静止画だけでは**わからない**。
+
+### 次のK4AA工程
+
+K4AAでは、**元Road5の真正44.5〜47.5秒（14時点両幅）、Road4の実10点／Road2と6の各5点**を使い、元A5巨構造と前景道路が視線を占有する**時間窓・方向・空間の重なり**を独立審査する。新建築を量産せず、失敗したK4R/K4Uの低屋根を再制作しない。カメラ固定のまま「本当に奥行きのある公開空洞」を一度に読ませる**美術原案1案の要件**を、元原画の具体的時刻ごとに厳格に設定する。実作品採用には実Glb/A/B動画、独立ART審査、候補固有安全検証を要求。元Sourceと本番は絶対不変。
+
+---
+
 ## 研究の対象・実装
 
 [**K4Z真正再生**](../scripts/p101-r19a6p4r2f5k4z-dense-original-source-webgl2.mjs)、[**K4Z専用CI**](../.github/workflows/p101-r19a6p4r2f5k4z-dense-original-camera.yml)、[**Actions #41427816258**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41427816258)。
