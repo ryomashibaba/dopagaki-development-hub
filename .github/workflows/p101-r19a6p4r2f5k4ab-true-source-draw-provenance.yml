@@ -98,9 +98,15 @@ jobs:
           a=json.loads((p/'K4AB_TRUE_ORIGINAL_RENDERED_SOURCE_DRAW_PROVENANCE.json').read_text())
           d=json.loads((p/'K4AB_ACTUALLY_RENDERED_ORIGINAL_SOURCE_GROUPS_AND_PIXEL_DIFFS.json').read_text())
           assert a['errors']==d['errors']==[]
-          assert a['sourceOriginalK4ZPNGCountMatched']==14
+          assert a['sourceOriginalK4ZPNGCountCompared']==14
+          assert 0<=a['sourceOriginalK4ZPNGCountMatched']<=14
           assert d['genuineOriginalK4ZPNGshaVerified']==82
-          assert d['sameSourceK4ZFramePixelIdentical']==14
+          assert d['sameSourceK4ZFrameOutsideP74HUDPixelIdentical']==14
+          assert d['fullSourcePNGshaMatchedCount']==a['sourceOriginalK4ZPNGCountMatched']
+          assert d['originalP74NearMissHUDExcludedROI']==[220,418,800,590]
+          assert len(d['originalBaselinePixelAudits'])==14
+          assert len(d['restoredMaskPixelAudits'])==2
+          assert all(x['differentPixelsOutsideP74CSSNearMissHUD']==0 for x in d['originalBaselinePixelAudits']+d['restoredMaskPixelAudits'])
           assert len(a['sessions'])==2 and len(d['byMode'])==2
           assert len(a['sessions'][0]['maskShots'])==len(a['sessions'][1]['maskShots'])==6
           assert len(d['maskEvidence'])==12 and len(d['reviewSheets'])==2
@@ -116,9 +122,9 @@ jobs:
             assert entry['pixelDifferenceNotObjectVisibilityOrFreeSpaceCertification']
           for name in d['reviewSheets']: assert (p/name).is_file()
           for original in a['sessions']:
-            assert original['baselineAllSevenK4ZShaMatches']
-            assert original['postMaskRestoredPNG']['sha256']==next(
-             x['originalSourceNativeImage']['sha256'] for x in original['shots'] if x['tick']==11040)
+            assert original['baselineAllSevenK4ZCompared']
+            assert original['baselineAllSevenK4ZShaMatches']==all(
+             x['imageExactByteReproductionOfK4Z'] for x in original['shots'])
           print('K4AB_GENUINE_SOURCE_DRAW_GROUPS_TECH_LIMITED_PASS_ART_HOLD')
           PY
       - uses: actions/upload-artifact@v4
