@@ -2,6 +2,12 @@
 
 **ここは短い入口であり、技術正本を複製・上書きしない。** 作業開始時に必ずGitHubから現在の値を取得する。古いHEAD・古いCI結果よりも最新PRと根拠付きの正本を優先。2026-11-01作成。
 
+## 【2026-11-02 K4Y 元7道路の真正ART審査資料・SOURCE TECH限定PASS／次K4Z】
+
+- **K4Y** [専用GitHub Actions #41424253272](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41424253272) **全job SUCCESS**、[元Artifact #13131795766](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41424253272/artifacts/13131795766) ZIP **5,330,171 bytes／SHA256 `d7b5b2637c4dc01095768af0cf6be04898c1b7d46f73624fbbda146606033415`／17ファイルCRC OK**。真元PNG K30＋K3B28＝58枚SHA完全一致、KとK3B共通12原画一致。元42状態（2幅×21tick）、元K4Xの1,764解析行・611数学的画像交差の来歴確認、K4Y詳細画像14枚・概観2枚・証拠JSON1件生成と実目視。CIの**SHA改ざん拒否テスト、欠測フレーム検査もPASS**。元ゲーム/物理240Hz/Camera/球/B48 7/B51 28不変、新モデル/コライダー0。
+- 各道路・各幅の元画像数は**Road0〜6 = 4/6/2/4/2/1/2件**。欠測を絵で埋めず、K/K3B別撮影を1本の連続走行と偽称せず、Road5の実画像は各幅1時点のみ。建築候補は制作していないため、**K4Y SOURCE TECH限定PASS／独立ART NOT_TESTED・HOLD、旧K4/K4R/K4Uの独立ART REJECTは維持**。正式ART採用0件、Slope2 DNA認定0m、安全SAT/CCD・歩行・人間操作・FPS・RELEASE/MERGE全HOLD。
+- [K4Y日本語独立審査・次ゲート](docs/R19_A6P4_R2F5K4Y_ART_FIRST_NEGATIVE_SPACE_COMPOSITION_CONTRACT_JA.md) → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。**次K4Zは元真正カメラ撮影の不足（特にRoad5）を補う方法の研究**。新建築量産STOP、元source/本番URL/main/Gold/P100/W9-X/B5改変禁止。PR#46 OPEN Draft未マージ。新チャットではGitHub直接参照、ZIP/長文貼付不要。
+
 ## 新チャットでの操作 — 1文のみ。ファイル添付・ダウンロード不要
 
 「**DOPAGAKI SLOPEをGitHub正本から引き継いで、次の工程を進めて。**」
