@@ -1,3 +1,5 @@
+> **【K4AD正規CI訂正 2026-11-02】** 元メッシュRGBA深度試験の初回CI [#41457632488](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41457632488) は研究用フラグ初期化順序の不備を含む旧コミットで開始。**使用すべき修正版**は、先行宣言前のK4ABフラグ参照を除いた `a576b2d7511729a97987c3bb0f4f0a9d1a368e30` の [K4AD Actions #41458103800](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41458103800)。このCIの実WebGL2深度と画像独立監査が終了するまで**K4AD SOURCE TECH未判定・ART HOLD**。K4AC-S正本の82PNG/14PNG PASSとDEPTH_BLIT_ERROR_1282、Artifact2件独立SHA/CRCは既に確定。元物理・カメラ・main/本番不変更。以下は以前の記録。
+
 ## 【最新 2026-11-02 K4AD GPU RGBA24研究 — 専用Actions #41457632488 実行待ち／ART HOLD】
 
 - 開発継続先として、研究ブランチ `research/k4ad-original-mesh-rgba-depth-20261102`、[K4AD正本](docs/R19_A6P4_R2F5K4AD_ORIGINAL_MESH_RGBA24_DEPTH_JA.md)、[専用CI #41457632488](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41457632488) をまず読む。PR#46の元継続ブランチ `p101-velocity-overdrive-native-trial`（HEAD `19d3a32d525c0c2a67082cba646898fab8f2b60f`）とは**別研究ブランチ**であり、PR#46/main/本番を変更しない。
