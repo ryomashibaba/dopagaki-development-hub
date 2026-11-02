@@ -1,3 +1,8 @@
+## 【最新2026-11-02 K4AC GPU深度修正版・Actions#41452389126実測待ち／ART HOLD】
+
+- [最新K4AC原本](docs/R19_A6P4_R2F5K4AC_NATIVE_GPU_DEPTH_CAPABILITY_SOURCE_GATED_JA.md) → [修正版Actions #41452389126](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41452389126) → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。旧#41450761768は新コミットによりキャンセル。元GLのREAD_FRAMEBUFFERへの`gl.readBuffer`指定、TEXTURE0とactive textureの別保存・復元、context lost無限ループ防止を研究コードで改善。元K4Z SHA真正82PNGをピン留めし、Road5 7tick×2幅=14本物WebGL2元画面を**depth試験前後に再撮影**、本物CSS P74以外の全3D元画素一致を独立PythonとCIで監査。深度読出し可否、実PNG正しさ、CI Artifactの成功はいまだUNKNOWN/HOLD（修正版Actionsは2026-11-02 22:22 JST頃キュー待ち）。
+- 前段K4AB SOURCE TECH限定PASS維持。K4ACは新規SOURCE TECH認定未成立。原Source `af076d67492a677d2235e4730aef8cdf4808e106`、元240Hz/カメラ/球/B48 7/B51 28、Gold/P100/W9-X/B5/main/本番2URL無変更。正式ART採用0・Slope2 DNA0m、旧K4/K4R/K4U独立ART REJECT、候補SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD、Draft PR#46未マージ、候補新模型/新コライダー0。次は最新Actions結果とSHA Artifact監査から。ローカル実行・過去ZIP再要求禁止。
+
 ## 【最新2026-11-02 K4AC 深度読出し実装・実CI監査待ち／ART HOLD】
 
 - [K4ACの独立実装とHOLD契約](docs/R19_A6P4_R2F5K4AC_NATIVE_GPU_DEPTH_CAPABILITY_SOURCE_GATED_JA.md) → [K4AC Actions #41450761768](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41450761768) → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。元K4AB SOURCE TECH限定PASSは維持。K4ACは元K4Z 82PNG SHAを原本に、元240Hz合法操舵Road5真正7時刻×14m/28mの14本物WebGL2画面、元GPU描画群6種×両幅の同一tick11040深度読出しを**別研究用コードで試す**。元CSS P74領域以外の原3D画素の完全一致・深度復元・負例検査をCIで独立実施。
