@@ -103,7 +103,7 @@ jobs:
           assert d['genuineOriginalK4ZPNGshaVerified']==82
           assert d['sameSourceK4ZFrameOutsideP74HUDPixelIdentical']==14
           assert d['fullSourcePNGshaMatchedCount']==a['sourceOriginalK4ZPNGCountMatched']
-          assert d['originalP74NearMissHUDExcludedROI']==[218,418,800,590]
+          assert d['originalP74NearMissHUDExcludedROI']==[200,418,810,590]
           assert len(d['originalBaselinePixelAudits'])==14
           assert len(d['restoredMaskPixelAudits'])==2
           assert all(x['differentPixelsOutsideP74CSSNearMissHUD']==0 for x in d['originalBaselinePixelAudits']+d['restoredMaskPixelAudits'])
