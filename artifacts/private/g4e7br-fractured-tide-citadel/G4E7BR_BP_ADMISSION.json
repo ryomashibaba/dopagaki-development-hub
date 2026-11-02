@@ -1,0 +1,55 @@
+{
+  "schema": "dopagaki.g4e7bp-artist-glb-intake/1",
+  "assetId": "g4e7br-fractured-tide-citadel-001",
+  "sha256": "840ca79038f37b914b54b0e81aab263bc02534a411fd27729194ca7049bb3d4b",
+  "provenanceClaim": {
+    "author": "DOPAGAKI original code-assisted Blender art study",
+    "sourceTool": "Blender bpy scripted modelling and cycles",
+    "sourceFile": "G4E7BR_FRACTURED_TIDE_CITADEL_SOURCE.blend",
+    "rights": "original-work",
+    "licenseName": null,
+    "licenseEvidence": null,
+    "verification": "SELF_DECLARED_NOT_INDEPENDENTLY_VERIFIED"
+  },
+  "glb": {
+    "bytes": 1821588,
+    "meshes": 219,
+    "nodes": 219,
+    "triangles": 26594,
+    "primitives": 264,
+    "vertexPositions": 53082,
+    "materials": 17,
+    "embeddedTextures": 0,
+    "textureRefs": 0,
+    "meshLocalAABB": {
+      "min": [
+        -536.018,
+        -140,
+        -442
+      ],
+      "max": [
+        526.2,
+        535,
+        456
+      ],
+      "span": [
+        1062.218,
+        675,
+        898
+      ]
+    },
+    "possibleNodeTransforms": true,
+    "facesWithMaterial": 264
+  },
+  "warnings": [
+    "NO_EMBEDDED_TEXTURES: geometrical prototype only until materials independently inspected",
+    "NODE_TRANSFORMS: local mesh bounds are NOT world-space bounds; separate transform-baking/placement proof required"
+  ],
+  "realCameraWebGLProof": "NOT_YET_RUN",
+  "humanVisualReview": "HOLD",
+  "physicalRoadQA": "UNCHANGED_UNTESTED_BY_INTAKE",
+  "publicRelease": "FORBIDDEN",
+  "mergeApproval": "HOLD",
+  "officialSlope2CertifiedMeters": 0,
+  "admission": "METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS"
+}

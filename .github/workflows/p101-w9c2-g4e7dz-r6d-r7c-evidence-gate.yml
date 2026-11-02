@@ -1,0 +1,103 @@
+name: G4E-7DZ R6D-R7C PRIVATE source evidence fail-fast before more art HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r7c-evidence-gate.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r7c-evidence-gate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: r7c-quality-first-evidence-gate
+  cancel-in-progress: true
+jobs:
+  do-not-promote-unproven-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect source; syntax-compile
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r7c-evidence-gate.py
+      - name: Reuse the actual two completed independent CI audit artifacts (no new renders)
+        run: |
+          mkdir -p test-results/g4e7dz-r7c/source-r7 test-results/g4e7dz-r7c/source-r7b
+          gh run download 40676273915 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R7_GENUINE_INHABITED_COURT_B48_B51_ART_HOLD \
+            --dir test-results/g4e7dz-r7c/source-r7
+          gh run download 40676864540 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R7B_INDEPENDENT_VOID_RAMP_TRUE_CAMERA_PIXEL_REVIEW_HOLD \
+            --dir test-results/g4e7dz-r7c/source-r7b
+      - name: Stop ungrounded R7 polishing, independently on BOTH actual source physical road variants
+        run: |
+          for r in true-pinch pinch-switch; do
+            python3 scripts/p101-w9c2-g4e7dz-r6d-r7c-evidence-gate.py \
+              --r7 "test-results/g4e7dz-r7c/source-r7/result-$r/R7_$r"_AUDIT.json \
+              --r7b "test-results/g4e7dz-r7c/source-r7b/result-$r/R7B_$r"_FALSIFICATION.json \
+              --pixels "test-results/g4e7dz-r7c/source-r7b/R7B_SOURCE_VS_R7_PIXEL_EVIDENCE.json" \
+              --out "test-results/g4e7dz-r7c/R7C_$r"_INDEPENDENT_STOP_GATE.json
+          done
+      - name: "Negative fixture — mutation catches source road collisions and cannot auto-certify art"
+        run: |
+          python3 - <<'PY'
+          import json,copy,importlib.util
+          spec=importlib.util.spec_from_file_location('gate','scripts/p101-w9c2-g4e7dz-r6d-r7c-evidence-gate.py')
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          root='test-results/g4e7dz-r7c'
+          r='true-pinch'
+          a=json.load(open(f'{root}/source-r7/result-{r}/R7_{r}_AUDIT.json'))
+          b=json.load(open(f'{root}/source-r7b/result-{r}/R7B_{r}_FALSIFICATION.json'))
+          p=json.load(open(f'{root}/source-r7b/R7B_SOURCE_VS_R7_PIXEL_EVIDENCE.json'))
+          valid=m.check(a,b,p)
+          assert valid['prototypeBuildGate']=='STOP'
+          unsafe=copy.deepcopy(a)
+          unsafe['newR7ExactB48TriangleIntersections']=[['R7 synthetic bad','original road',1]]
+          rejected=m.check(unsafe,b,p)
+          assert 'ORIGINAL_B48_TRIANGLE_CONFLICT' in rejected['sourceReasons']
+          lucky=copy.deepcopy(b)
+          lucky['genuineVisibleVoidTargetsByFrame']['t1700']=5
+          for x in lucky['rampEndpointContactEvidence']:
+           for end in x['endpoints']:end['closestGalleryDistanceMetres']=0.1
+          stillNotArt=m.check(a,lucky,p)
+          assert stillNotArt['prototypeBuildGate']=='STOP'
+          assert not stillNotArt['R7OfficialCityArtAdopted']
+          assert 'NO_PROVEN_EXISTING_CX_PUBLIC_ACCESS' in stillNotArt['sourceReasons']
+          print('R7C_TESTED_FAIL_CLOSED_SOURCE_COLLISION_AND_EVEN_IF_ART_PIXEL_GOOD')
+          PY
+      - name: Real expected rejection is mandatory; virtual CI success is NOT artistic success
+        run: |
+          python3 - <<'PY'
+          import glob,json
+          files=glob.glob('test-results/g4e7dz-r7c/R7C_*_INDEPENDENT_STOP_GATE.json')
+          assert len(files)==2,files
+          for f in files:
+           x=json.load(open(f))
+           assert x['schema']=='dopagaki.g4e7dz-r6d-r7c-independent-evidence-gate/1'
+           assert x['rootSourcePreserved']
+           assert x['R7SourcePhysicalRoadTriangleClear'] and x['B51_13TrueSamplesTriangleClear']
+           assert x['B51_All28_721TickSampleAabbClearNotContinuousCertified']
+           assert x['realR7SixSkyVoidsOpen']
+           assert x['actual32RampSegments']==32
+           assert x['plannedFourFlightWalkingChains']==8
+           assert x['completeFourFlightWalkingChains']==0
+           assert not x['independentSourceCameraInteriorVisibleAt17']
+           assert x['native17UnobstructedVoidTargets']==0
+           assert x['prototypeBuildGate']=='STOP'
+           assert x['doNotDetailThisCandidate']
+           assert not x['R7OfficialCityArtAdopted'] and not x['R7RoadPlayableCertified']
+           assert x['officialArt']==x['newGameColliders']==x['officialSlope2Meters']==0
+           print('EXPECTED_REAL_R7_STOP_PROVEN',x['road'],x['sourceReasons'])
+          print('R7C_ACTUAL_INDEPENDENT_EVIDENCE_GATE_SUCCESS_STOP_NOT_ART_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R7C_EVIDENCE_FIRST_NO_MORE_LOCAL_POLISH_HOLD
+          path: test-results/g4e7dz-r7c/R7C_*_INDEPENDENT_STOP_GATE.json
+          retention-days: 7
+          if-no-files-found: warn

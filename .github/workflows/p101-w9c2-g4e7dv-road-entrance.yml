@@ -1,0 +1,58 @@
+name: G4E-7DV honest exact original physical road-to-civic entrance survey (NO game changes)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dv-road-entrance-survey.mjs'
+      - 'tests/p101-w9c2-g4e7dv-road-entrance.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7dv-road-entrance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7dv-real-road-entrance-survey
+  cancel-in-progress: true
+jobs:
+  real-b48-road-support-or-gap-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 16
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check CX locked source, original 240Hz + all real B48/B51 surface distances
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-w9c2-g4e7dv-road-entrance-survey.mjs
+          node --test tests/p101-w9c2-g4e7dv-road-entrance.test.mjs
+          node scripts/p101-w9c2-g4e7dv-road-entrance-survey.mjs
+      - name: Disallow hidden fake physical connections or ungrounded certified traversal
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          files=glob.glob('test-results/g4e7dv-road-entrance-survey/*.json')
+          assert len(files)==2,files
+          for f in files:
+           d=json.load(open(f))
+           assert d['realB48Surfaces']==7 and d['realB51Movers']==28
+           assert d['originalGapCell52'] is True
+           assert d['roadContactFromEntryTest']=='EXACT_B48_TRIANGLE_NEAREST_POINT'
+           assert len(d['targetAudits'])==6
+           assert d['realPlayableConnectionCreated'] is False
+           assert d['connectionClaim']=='NOT_ESTABLISHED'
+           assert d['additionalGameColliders']==0
+           assert d['actualGamePhysicsModified'] is False
+           assert d['art']=='HOLD' and d['officialSlope2Meters']==0
+          print('DV_REAL_ROAD_TO_DU_AUDIT_COMPLETE_GAMEPLAY_CONNECTION_UNPROVEN')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DV_REAL_ROAD_TO_DU_ENTRANCE_GEOMETRY_SURVEY_ART_HOLD
+          path: test-results/g4e7dv-road-entrance-survey
+          if-no-files-found: error
+          retention-days: 7

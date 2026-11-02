@@ -1,0 +1,69 @@
+name: P101 R15S3D14R1 original WebGL2 true inhabited civic cities vs R14 iconic baseline
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d14r1-real-inhabited-hollow-city-districts.mjs
+      - scripts/p101-r15s3d14r1-private-real-habitat-city-webgl2-pack.mjs
+      - scripts/p101-r15s3d14r1-original-webgl2-six-native-cameras.mjs
+      - scripts/p101-r15s3d14r1-independent-original-city-6-sessions.py
+      - tests/p101-r15s3d14r1-real-habitat-city.test.mjs
+      - .github/workflows/p101-r15s3d14r1-real-original-webgl2-inhabited-cities.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  six-original-native-world-and-habitat-scenes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify protected source and actual inhabited geometry
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d14r1-real-inhabited-hollow-city-districts.mjs
+          node --check scripts/p101-r15s3d14r1-private-real-habitat-city-webgl2-pack.mjs
+          node --check scripts/p101-r15s3d14r1-original-webgl2-six-native-cameras.mjs
+          python3 -m py_compile scripts/p101-r15s3d14r1-independent-original-city-6-sessions.py
+          node --test tests/p101-r15s3d14r1-real-habitat-city.test.mjs
+      - name: Build actual original source private viewer D10 D11 R14 R14R1 while keeping source itself unchanged
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-r15s3d11-private-genuine-webgl-hazard-pack.mjs
+          node scripts/p101-r15s3d14-private-original-webgl-crescent-city-pack.mjs
+          node scripts/p101-r15s3d14r1-private-real-habitat-city-webgl2-pack.mjs
+          node --check dist-private/r15s3d14r1/drive3d.mjs
+          test -s dist-private/r15s3d14r1/p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs
+          test -s dist-private/r15s3d14r1/r15s3d14r1-real-inhabited-hollow-city-districts.mjs
+          grep -q 'p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs' dist-private/r15s3d14r1/r15s3d14r1-real-inhabited-hollow-city-districts.mjs
+          ! grep -q 'r15s3d14r1ArtMesh' dist-private/drive3d/drive3d.mjs
+          ! grep -q 'r15s3d14r1ArtMesh' dist-private/r15s3d14/drive3d.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Real Chromium headless source WebGL2 GPU and Japanese font
+        run: |
+          npx playwright install --only-shell chromium
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends fonts-ipafont-gothic
+          fc-cache -f
+          fc-list :lang=ja family | grep -q .
+      - name: Run six original native 240Hz physical games with actual original camera HUD and true inhabited city scenes
+        run: |
+          node scripts/p101-r15s3d14r1-original-webgl2-six-native-cameras.mjs
+      - name: Independently validate all native timestamps genuine finish and reject 10 forged proofs
+        run: |
+          python3 scripts/p101-r15s3d14r1-independent-original-city-6-sessions.py \
+            test-results/r15s3d14r1-real-webgl2/R15S3D14R1_REAL_WEBGL2_FIXED_NATIVE_TICK_CITY_VERSIONS.json \
+            test-results/r15s3d14r1-real-webgl2
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D14R1_TRUE_SOURCE_WEBGL2_INHABITED_HOLLOW_CITY_ART_HOLD
+          path: test-results/r15s3d14r1-real-webgl2/
+          retention-days: 7
+          if-no-files-found: warn

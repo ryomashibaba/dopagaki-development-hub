@@ -1,0 +1,73 @@
+name: W9-C2 G4E-7AK reanchored real B48 and 28 moving B51-C native Chromium WebGL (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7ak-native-frames.mjs'
+      - 'scripts/build.mjs'
+      - 'web/drive3d.mjs'
+      - 'tests/browser/p101-w9c2-g4e7ak-webgl.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ak-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  genuine-native-reanchor-webgl:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    env:
+      CI: 'true'
+      DOPAGAKI_BUILD_DIR: dist-private
+      DOPAGAKI_G4E7AK_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Real start00 240Hz reanchor frame proof and strict source syntax
+        run: |
+          node --check scripts/p101-w9c2-g4e7ak-native-frames.mjs
+          node --check web/drive3d.mjs
+          node --check scripts/build.mjs
+          node --input-type=module -e '
+            import {g4e7akNativeFrames} from "./scripts/p101-w9c2-g4e7ak-native-frames.mjs";
+            const x=g4e7akNativeFrames();
+            if(x.physicsHz!==240||Object.keys(x.stages).length!==2||
+              x.publication!=="HOLD"||x.certifiedSlope2Meters!==0||
+              Object.values(x.stages).some(s=>s.frames.length!==6||
+                s.realB51C!==28||s.changedB51C!==2||
+                s.frames.some(f=>f.originalMovingPose.length!==2)))
+              throw Error("AK actual native frames not proven");
+            console.log("AK_TRUE_240HZ_FRAMES "+JSON.stringify(Object.values(x.stages).map(s=>({id:s.stageId,count:s.frames.length}))));
+          '
+      - name: Install local Chromium and build genuine reanchored B48
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install chromium --only-shell
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json
+      - name: Real Chromium WebGL 10 native reanchor screenshots
+        run: npx playwright test tests/browser/p101-w9c2-g4e7ak-webgl.spec.mjs
+      - name: Both public and public-safe builds exclude all AK candidate and pose JSON
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AK_TRUE_PINCH_LOCAL_TRIAL.json
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AK_PINCH_SWITCH_LOCAL_TRIAL.json
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AK_240HZ_FRAMES_LOCAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ak-reanchor-true-240hz-WebGL-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7ak-*.png
+            test-results/**/g4e7ak-*.json
+            test-results/**/test-failed*.png
+            test-results/**/error-context.md
+          if-no-files-found: ignore
+          retention-days: 14

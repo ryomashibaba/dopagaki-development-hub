@@ -1,0 +1,68 @@
+name: W9-C2 G4E-7M REAL 13–16m B48 Chromium visual and publish gates
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/drive3d.mjs'
+      - 'scripts/build.mjs'
+      - 'scripts/p101-w9c2-g4e7m-physical-build.mjs'
+      - 'tests/browser/p101-w9c2-g4e7m-physical-webgl.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7m-physical-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e7m-physical-webgl-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  real-narrow-webgl:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      DOPAGAKI_G4E7M_VISUAL: '1'
+      DOPAGAKI_G4E7G_VISUAL: '1'
+      DOPAGAKI_BUILD_DIR: dist-private
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify real B48 physical width and unchanged Gold before rendering
+        run: |
+          node --check web/drive3d.mjs
+          node --check scripts/build.mjs
+          node --test tests/p101-w9c2-g4e7m-physical.test.mjs tests/p101-w9c2-g4e7g-visual-stage.test.mjs
+      - name: Install pinned Chromium
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Build private actual B48 GLIDE THREAD PRECIPICE
+        run: |
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E7M_THREAD_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7M_PRECIPICE_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7G_GLIDE_LOCAL_VISUAL.json
+      - name: Six exact normalized B48 road positions, 12 actual WebGL captures
+        run: npx playwright test tests/browser/p101-w9c2-g4e7m-physical-webgl.spec.mjs
+      - name: Verify neither real narrow candidates nor GLIDE private assets escape public
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7M_THREAD_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7M_PRECIPICE_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7G_GLIDE_LOCAL_VISUAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7M_THREAD_LOCAL_TRIAL.json
+          test ! -e dist/generated/P101_A13_W9C2_G4E7M_PRECIPICE_LOCAL_TRIAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7m-real-13m-B48-webgl-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7m-*.png
+            test-results/**/g4e7m-*.json
+            test-results/**/test-failed-*.png
+            test-results/**/error-context.md
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 10

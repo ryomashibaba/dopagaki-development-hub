@@ -1,0 +1,45 @@
+name: W9-C2 G4E-4B receiver collision isolation (nonpublishing)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e4b-collider-isolation.mjs'
+      - '.github/workflows/p101-w9c2-g4e4b-collider-isolation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e4b-isolation-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  isolation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Native 240Hz no/visual-only/distant/actual receiver controls
+        run: |
+          node scripts/p101-w9c2-g4e4b-collider-isolation.mjs > g4e4b-raw.txt
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const s=fs.readFileSync("g4e4b-raw.txt","utf8");
+          const d=JSON.parse(s.slice(s.indexOf("{")));
+          if(d.results.length!==4||d.results.some(r=>r.actualHz!==240||
+           r.realMovingBodies!==28||!r.realStart00||r.originalGuideCount!==7))
+           throw Error("G4E4B evidence integrity failure");
+          fs.writeFileSync("g4e4b-verdict.json",JSON.stringify({
+           schema:d.schema,summary:d.summary,human:"HOLD",production:"HOLD"},null,2));
+          console.log(JSON.stringify(d.summary));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e4b-collider-isolation-${{ github.run_id }}
+          path: |
+            g4e4b-raw.txt
+            g4e4b-verdict.json
+          if-no-files-found: ignore
+          retention-days: 10

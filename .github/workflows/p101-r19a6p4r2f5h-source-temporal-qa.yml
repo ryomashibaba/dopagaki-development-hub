@@ -1,0 +1,67 @@
+name: DOPAGAKI R2F5-H original seven-tick source WebGL2
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5h-*'
+      - '.github/workflows/p101-r19a6p4r2f5h-source-temporal-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-r2f5h-source-temporal
+  cancel-in-progress: true
+jobs:
+  source-f-g2-42-original-frames:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original source and H script syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r19a6p4r2f5h-archived-native-private-pack.mjs
+          node --check scripts/p101-r19a6p4r2f5h-true-temporal-qa.mjs
+          python3 -m py_compile scripts/p101-r19a6p4r2f5h-temporal-pixel-audit.py
+      - name: Verified archived F and G2 GLB input without Blender
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/${{ github.repository }}/actions/artifacts/13080348046" --jq '[.id,.workflow_run.id,.expired,.size_in_bytes] | @tsv' > /tmp/r2f5h-artifact.txt
+          test "$(cut -f1 /tmp/r2f5h-artifact.txt)" = 13080348046
+          test "$(cut -f2 /tmp/r2f5h-artifact.txt)" = 41299372268
+          test "$(cut -f3 /tmp/r2f5h-artifact.txt)" = false
+          test "$(cut -f4 /tmp/r2f5h-artifact.txt)" = 31509900
+          gh run download 41299372268 -n R2F4_NATIVE_CITY_ROAD1_CLIFF_GARDEN_12CAMERA_B51_ART_HOLD -D .
+          test -s r19-evidence/r19a6p4r2f5f/P4R2F5F_ultra_edited.glb
+          test -s r19-evidence/r19a6p4r2f5g2/P4R2F5G2_control_edited.glb
+      - name: Rebuild PRIVATE original browser, not prior Blender models
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a3-private-original-one-city-pack.mjs
+          node scripts/p101-r19a4-export-editable-source-city-glb.mjs
+          node scripts/p101-r19a6-private-pinned-glb-scene-pack.mjs
+          node scripts/p101-r19a6p4r2f5h-archived-native-private-pack.mjs
+      - name: Install Chromium and PIL
+        run: |
+          npx playwright install --only-shell chromium
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-pil
+      - name: Native original unmodified 240Hz 42 screenshot evidence
+        run: |
+          node scripts/p101-r19a6p4r2f5h-true-temporal-qa.mjs
+          python3 scripts/p101-r19a6p4r2f5h-temporal-pixel-audit.py
+          test -s r19-evidence/r19a6p4r2f5h/R2F5H_REAL_CAMERA_TEMPORAL_CONTACT_SHEET.png
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: R2F5H_42_ORIGINAL_SOURCE_CAMERA_FRAMES_ART_HOLD
+          path: r19-evidence/r19a6p4r2f5h/
+          if-no-files-found: warn
+          retention-days: 7

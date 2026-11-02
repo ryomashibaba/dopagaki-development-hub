@@ -1,0 +1,55 @@
+name: W9-C2 G4E-6C real gap nearby speed and fullrun 240Hz (nonpublishing)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e6-early-gap-build.mjs'
+      - 'scripts/p101-w9c2-g4e6b-speed-retention.mjs'
+      - 'scripts/p101-w9c2-g4e6c-nearby-speed.mjs'
+      - 'tests/p101-w9c2-g4e6c-nearby-gap.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e6c-nearby-native.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e6c-nearby-native-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  real-gaps:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen original Gold and five actual physical cutout surfaces
+        run: node --test tests/p101-w9c2-g4e6c-nearby-gap.test.mjs
+      - name: Native 240Hz Gold plus prior real 7/7 and five nearby true-gap trials
+        run: |
+          node scripts/p101-w9c2-g4e6c-nearby-speed.mjs > g4e6c-raw.txt
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const t=fs.readFileSync("g4e6c-raw.txt","utf8");
+          const d=JSON.parse(t.slice(t.indexOf("{")));
+          if(!d.gold.finished||!d.knownPass.completed||
+             d.verdict.length!==5||d.results.length!==5||
+             d.results.some(x=>x.hz!==240||x.originalRoads!==7||
+              x.originalMovingBodies!==28||!x.realStart00||!x.trueGap))
+           throw Error("G4E6C physical/Gold/native baseline regression");
+          fs.writeFileSync("g4e6c-verdict.json",JSON.stringify({
+           schema:d.schema,gold:d.gold,reference:d.knownPass,
+           verdict:d.verdict,eligibleForHumanTrial:d.eligibleForHumanTrial,
+           human:"HOLD",production:"HOLD"},null,2));
+          console.log(JSON.stringify({gold:d.gold,reference:d.knownPass,
+           verdict:d.verdict,eligibleForHumanTrial:d.eligibleForHumanTrial}));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e6c-true-gap-native-${{ github.run_id }}
+          path: |
+            g4e6c-raw.txt
+            g4e6c-verdict.json
+          if-no-files-found: ignore
+          retention-days: 10

@@ -1,0 +1,39 @@
+name: W9-C2 G4E-7AY complete mid-CROWN genuine high-speed tangent bridge physics
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-w9c2-g4e7ay-tangent-bridge.mjs
+      - scripts/p101-w9c2-g4e7ay-compare.mjs
+      - tests/p101-w9c2-g4e7ay-tangent-bridge.test.mjs
+      - .github/workflows/p101-w9c2-g4e7ay-tangent-bridge.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7ay-real-bridge-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  physical-bridge-240:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Real two narrow B48 cores and native 28 B51 preserve source
+        run: |
+          node --check scripts/p101-w9c2-g4e7ay-tangent-bridge.mjs
+          node --test tests/p101-w9c2-g4e7ay-tangent-bridge.test.mjs
+      - name: Original spawn00 25s 240Hz comparison, identical fixed inputs
+        run: |
+          node scripts/p101-w9c2-g4e7ay-compare.mjs g4e7ay-original-spawn00-native.json
+          test -s g4e7ay-original-spawn00-native.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ay-real-B48-middle-bridge-nonhuman
+          path: g4e7ay-original-spawn00-native.json
+          if-no-files-found: ignore
+          retention-days: 14

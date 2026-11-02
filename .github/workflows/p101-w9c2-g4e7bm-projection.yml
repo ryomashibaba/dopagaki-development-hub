@@ -1,0 +1,71 @@
+name: G4E-7BM real native camera projected district private
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7bm-camera-registered-author.mjs'
+      - 'scripts/p101-w9c2-g4e7bl-open-crown-author.mjs'
+      - 'scripts/build.mjs'
+      - 'web/drive3d.mjs'
+      - 'tests/p101-w9c2-g4e7bm-projection.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7bm-projection.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7bm-projection.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7bm-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-projection-actual-WebGL:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CI: 'true'
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+      DOPAGAKI_G4E7BK_VISUAL: '1'
+      DOPAGAKI_G4E7BL_VISUAL: '1'
+      DOPAGAKI_G4E7BM_VISUAL: '1'
+      DOPAGAKI_BUILD_DIR: 'dist-private'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: BM native 240Hz projected 3D mesh, B48 and GLB tests
+        run: |
+          node --check scripts/p101-w9c2-g4e7bm-camera-registered-author.mjs
+          node --check scripts/build.mjs
+          node --check web/drive3d.mjs
+          node --test tests/p101-w9c2-g4e7bm-projection.test.mjs
+      - name: Install real Chromium
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Generate BK, BL and BM true private assets
+        run: |
+          node scripts/build.mjs private
+          test -s dist-private/generated/P101_A13_W9C2_G4E7BM_TRUE_PINCH_REGISTERED_LOCAL.glb
+          test -s dist-private/generated/P101_A13_W9C2_G4E7BM_PINCH_SWITCH_REGISTERED_LOCAL.glb
+      - name: Same 240Hz physical camera three-prototype image comparison
+        run: npx playwright test tests/browser/p101-w9c2-g4e7bm-projection.spec.mjs
+      - name: No private model in public/public-safe
+        run: |
+          node scripts/build.mjs public
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7BM_TRUE_PINCH_REGISTERED_LOCAL.glb
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7BM_PINCH_SWITCH_REGISTERED_LOCAL.glb
+          node scripts/build.mjs public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7BM_TRUE_PINCH_REGISTERED_LOCAL.glb
+          test ! -e dist/generated/P101_A13_W9C2_G4E7BM_PINCH_SWITCH_REGISTERED_LOCAL.glb
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7bm-BK-BL-BM-native240-WebGL-ART-HOLD
+          path: |
+            dist-private/generated/P101_A13_W9C2_G4E7BM_*_REGISTERED_LOCAL.glb
+            test-results/**/g4e7bm-*.png
+            test-results/**/test-failed*.png
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 14

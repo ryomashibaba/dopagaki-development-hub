@@ -1,0 +1,89 @@
+name: G4E-7DZ R6D-R9B PRIVATE real footprint source-game collision precheck
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r9b-real-floor-footprint-safety.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r9b-physical-floor.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: r9b-original-source-volume-clearance
+  cancel-in-progress: true
+jobs:
+  original-source-physical-footprint-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protected original git hash and script compilation
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r9b-real-floor-footprint-safety.py
+      - name: Fetch actual R9A real CX floor map and immutable native 3D source plus B51 envelope
+        run: |
+          mkdir -p test-results/g4e7dz-r9b/r1 test-results/g4e7dz-r9b/r4 test-results/g4e7dz-r9b/r9a
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r9b/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r9b/r4
+          gh run download 40681660432 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R9A_BRIDGE_FREE_ORIGINAL_CX_FLOOR_REAL_CAMERAS_HOLD \
+            --dir test-results/g4e7dz-r9b/r9a
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Check candidate 8m original CX building footprint against B48 CX B51 triangles and original actual 240Hz poses
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r9b/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r9b-real-floor-footprint-safety.py -- \
+              --source "test-results/g4e7dz-r9b/r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r9b/r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r9b/r4/source/$r.json" \
+              --r9a "test-results/g4e7dz-r9b/r9a/result-$r/R9A_$r"_EXISTING_CX_FLOOR_AND_EARLY_CAMERA.json \
+              --road "$r" --out "test-results/g4e7dz-r9b/result-$r"
+          done
+      - name: Independent actual source-art safety boundary validation
+        run: |
+          python3 - <<'PY'
+          import glob,json
+          files=glob.glob('test-results/g4e7dz-r9b/result-*/*_REAL_EIGHT_METRE_VOLUME_AUDIT.json')
+          assert len(files)==2,files
+          for f in files:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r9b-actual-footprint-physical-sample-gate/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['originalCX18B48_7B51_28Unchanged']
+           assert d['candidateGenuineSourceFloorFootprintsTested']>=1
+           assert d['physicalGameRoadAndB51_721TickSampleClearCandidateCount']<=d['candidateGenuineSourceFloorFootprintsTested']
+           for x in d['independentExistingFloorBVHPrismChecks']:
+            assert x['original4FootprintCornersConfirmed']
+            assert not x['sourceRoomActualHumanEntranceBuilt']
+            assert not x['sourceExistingFloorLoadCapacityProven']
+           assert not d['originalPhysicalWalkingBridgeCertified']
+           assert not d['existingOriginalCXHumanEntranceCertified']
+           assert not d['actualLoadBearingSafetyCertified']
+           assert d['actualNewCityMeshesBuilt']==d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           best=d['bestSafeResearchSiteForOnePrivateEditableBlenderTrial']
+           print('R9B_REAL_SOURCE_FOOTPRINT',d['road'],
+            'tested',d['candidateGenuineSourceFloorFootprintsTested'],
+            'B48/CX/B51 clear',d['physicalGameRoadAndB51_721TickSampleClearCandidateCount'],
+            'best',best['sourceFaceIndex'] if best else 'NONE')
+          print('R9B_GENUINE_SOURCE_PRECHECK_SUCCESS_NOT_ART_OR_GAME_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R9B_B48_CX_B51_REAL_8M_VOLUME_GATE_ART_HOLD
+          path: test-results/g4e7dz-r9b/result-*/
+          retention-days: 7
+          if-no-files-found: warn

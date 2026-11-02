@@ -1,0 +1,57 @@
+name: P101 R18 genuinely projected camera-first 5-time dual-world candidate sites (no art pass)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r18-true-source-camera-temporal-site-planner.mjs
+      - .github/workflows/p101-r18-real-camera-temporal-sites.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  original-camera-source-temporal-site-preflight:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen original and code validation
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r18-true-source-camera-temporal-site-planner.mjs
+      - name: Fetch original real 10 RAW camera frames
+        run: |
+          mkdir -p test-results/r18-source-camera
+          gh run download 41047602697 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3D15_TWO_REAL_NATIVE_ORIGINAL_WEBGL2_RAW_CAMERA_B48_FRUSTUM_GATE \
+            --dir test-results/r18-source-camera
+          test -s test-results/r18-source-camera/R15S3D15_ACTUAL_SOURCE_CAMERA_FRUSTUM_AND_VISIBLE_B48_ANCHORS.json
+      - name: Evaluate genuine dual-world camera-visible candidate sites before any R18 art build
+        run: |
+          node scripts/p101-r18-true-source-camera-temporal-site-planner.mjs \
+            test-results/r18-source-camera/R15S3D15_ACTUAL_SOURCE_CAMERA_FRUSTUM_AND_VISIBLE_B48_ANCHORS.json \
+            test-results/r18-time-site-evidence
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';import assert from 'node:assert/strict';
+          const x=JSON.parse(fs.readFileSync('test-results/r18-time-site-evidence/R18_TRUE_CAMERA_TWO_WORLD_TEMPORAL_SITE_PROPOSALS.json'));
+          assert.equal(x.sourceOriginalB48,7);assert.equal(x.sourceOriginalB51,28);
+          assert.equal(x.sourceCameraOnlyNoActualArtCreated,true);
+          assert.equal(x.officialARTAccepted,0);
+          assert.ok(x.rankedProposals['54'].length>0);
+          assert.ok(x.rankedProposals['58'].length>0);
+          assert.ok(x.scoreNotBeautyOrHumanPlayability);
+          console.log('R18_GENUINE_SOURCE_CAMERA_RESEARCH_NOT_ART_PASS');
+          JS
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R18_SOURCE_10_TRUE_CAMERA_TEMPORAL_CIVIC_SITES_HOLD
+          path: test-results/r18-time-site-evidence/
+          retention-days: 7
+          if-no-files-found: warn

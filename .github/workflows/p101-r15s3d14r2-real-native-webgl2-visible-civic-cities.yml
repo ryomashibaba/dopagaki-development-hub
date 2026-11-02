@@ -1,0 +1,70 @@
+name: P101 R15S3D14R2 source WebGL2 visible inhabitable skyline 2 real cities native 240Hz
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d14r2-source-real-visible-civic-pavilions.mjs
+      - scripts/p101-r15s3d14r2-private-real-visible-city-webgl2-pack.mjs
+      - scripts/p101-r15s3d14r2-original-webgl2-six-native-cameras.mjs
+      - scripts/p101-r15s3d14r2-independent-source-native-city-six-sessions.py
+      - tests/p101-r15s3d14r2-visible-real-civic-city.test.mjs
+      - .github/workflows/p101-r15s3d14r2-real-native-webgl2-visible-civic-cities.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-240hz-source-webgl2-visible-civic-city:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify protected original B48/B51 and true major 3D architecture tests
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d14r2-source-real-visible-civic-pavilions.mjs
+          node --check scripts/p101-r15s3d14r2-private-real-visible-city-webgl2-pack.mjs
+          node --check scripts/p101-r15s3d14r2-original-webgl2-six-native-cameras.mjs
+          python3 -m py_compile scripts/p101-r15s3d14r2-independent-source-native-city-six-sessions.py
+          node --test tests/p101-r15s3d14r2-visible-real-civic-city.test.mjs
+      - name: Build actual original private WebGL2 and R14+R1 baseline and R2, without changing original/prod
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-r15s3d11-private-genuine-webgl-hazard-pack.mjs
+          node scripts/p101-r15s3d14-private-original-webgl-crescent-city-pack.mjs
+          node scripts/p101-r15s3d14r1-private-real-habitat-city-webgl2-pack.mjs
+          node scripts/p101-r15s3d14r2-private-real-visible-city-webgl2-pack.mjs
+          node --check dist-private/r15s3d14r2/drive3d.mjs
+          node --check dist-private/r15s3d14r2/r15s3d14r2-source-real-visible-civic-pavilions.mjs
+          test -s dist-private/r15s3d14r2/p101-r15s3d14r1-real-inhabited-hollow-city-districts.mjs
+          test -s dist-private/r15s3d14r2/p101-r15s3d14-monumental-inhabited-hollow-crescents.mjs
+          ! grep -q 'r15s3d14r2ArtMesh' dist-private/drive3d/drive3d.mjs
+          ! grep -q 'r15s3d14r2ArtMesh' dist-private/r15s3d14r1/drive3d.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Genuine Chromium WebGL2 GPU and Japanese HUD fonts
+        run: |
+          npx playwright install --only-shell chromium
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends fonts-ipafont-gothic
+          fc-cache -f
+          fc-list :lang=ja family | grep -q .
+      - name: Original 240Hz source camera exact tick 58 64 67 real 6-session WebGL2 image comparison
+        run: |
+          node scripts/p101-r15s3d14r2-original-webgl2-six-native-cameras.mjs
+      - name: Independent original native 4/4 finish plus 10 forged evidence vetoes
+        run: |
+          python3 scripts/p101-r15s3d14r2-independent-source-native-city-six-sessions.py \
+            test-results/r15s3d14r2-real-webgl2/R15S3D14R2_REAL_WEBGL2_FIXED_NATIVE_TICK_CITY_VERSIONS.json \
+            test-results/r15s3d14r2-real-webgl2
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D14R2_ORIGINAL_SOURCE_WEBGL2_VISIBLE_CITY_TWO_WORLD_ART_HOLD
+          path: test-results/r15s3d14r2-real-webgl2/
+          retention-days: 7
+          if-no-files-found: warn

@@ -1,0 +1,107 @@
+name: G4E-7BQ preserve reviewed BO negative-control GLBs and genuine WebGL
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - '.github/workflows/p101-w9c2-g4e7bq-preserve-bo-proof.yml'
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: write
+concurrency:
+  group: g4e7bq-one-time-art-review-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  preserve-private-prototype-not-publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ARCHIVE: artifacts/private/g4e7bo-native-20261025
+      SOURCE_RUN: '40166540111'
+      SOURCE_SHA: '88abaa2207ac8cd7175f1bedf67a98a557e66afa'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: p101-velocity-overdrive-native-trial
+          fetch-depth: 1
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch the exact completed BO source artifact, no synthesis or fake images
+        run: |
+          set -eu
+          gh run view "$SOURCE_RUN" --json conclusion,headSha --jq '.conclusion+" "+.headSha' > /tmp/bo-run-proof.txt
+          test "$(cat /tmp/bo-run-proof.txt)" = "success $SOURCE_SHA"
+          mkdir -p /tmp/bo-original-artifact
+          gh run download "$SOURCE_RUN" --repo "${{ github.repository }}" \
+            --name g4e7bo-TRUE-BN-urban-camera-framed-A-B-ART-HOLD \
+            --dir /tmp/bo-original-artifact
+          test "$(find /tmp/bo-original-artifact -name 'g4e7bo-*.png' -type f | wc -l)" -eq 6
+          test "$(find /tmp/bo-original-artifact -name 'P101_A13_W9C2_G4E7BO_*_FRAMED_LOCAL.glb' -type f | wc -l)" -eq 2
+      - name: Archive real binary GLBs, real Chromium screenshots and conservative reviews
+        run: |
+          set -eu
+          if test -e "$ARCHIVE/AUDIT.json"; then
+            echo "Existing immutable BO archive found, no overwrite."
+            exit 0
+          fi
+          mkdir -p "$ARCHIVE/glb" "$ARCHIVE/webgl"
+          find /tmp/bo-original-artifact -name 'g4e7bo-*.png' -type f -exec cp {} "$ARCHIVE/webgl/" \;
+          find /tmp/bo-original-artifact -name 'P101_A13_W9C2_G4E7BO_*_FRAMED_LOCAL.glb' -type f -exec cp {} "$ARCHIVE/glb/" \;
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import crypto from 'node:crypto';
+          const root=process.env.ARCHIVE;
+          const items=[];
+          for(const dir of ['glb','webgl'])for(const name of fs.readdirSync(path.join(root,dir))){
+            const relative=dir+'/'+name,raw=fs.readFileSync(path.join(root,relative));
+            items.push({path:relative,bytes:raw.length,sha256:crypto.createHash('sha256').update(raw).digest('hex')});
+          }
+          if(items.length!==8)throw Error('BO archive must preserve two GLBs and six actual WebGL images');
+          const report={schema:'dopagaki.g4e7bq-rejected-private-art-archive/1',
+            sourceRun:40166540111,sourceCommit:process.env.SOURCE_SHA,
+            branch:'p101-velocity-overdrive-native-trial',
+            sourceType:'SIX_GENUINE_CHROMIUM_P96_240HZ_SCRIPTED_CAMERA_FRAMES_NOT_HUMAN',
+            speedsMps:[122.9,112.2,125.8],
+            officialSlope2CertifiedMeters:0,
+            techQA:'PASS',visualArt:'REJECT',humanFairness:'HOLD',
+            publish:'FORBIDDEN',readyToMerge:false,
+            detailedAudit:'docs/W9C2_G4E7BP_ART_FIRST_ASSET_INTAKE_HOLD_JA.md',
+            copyright:'CODE_AUTHORED_EXISTING_REPO_NOT_BLENDER',
+            immutableReviewEvidence:true,files:items};
+          fs.writeFileSync(path.join(root,'AUDIT.json'),JSON.stringify(report,null,2)+'\n');
+          JS
+          for glb in "$ARCHIVE"/glb/*.glb; do
+            name="$(basename "$glb" .glb)"
+            cat > "/tmp/${name}.json" <<'JSON'
+          {
+            "assetId": "g4e7bq-code-authored-native-proof-001",
+            "author": "DOPAGAKI development authoring scripts",
+            "sourceTool": "Node scripted GLB2 author",
+            "sourceFile": "scripts/p101-w9c2-g4e7bo-framed-citadel-author.mjs",
+            "rights": "original-work",
+            "unitsMetersPerUnit": 1,
+            "coordinateSystem": "glTF-Y-UP",
+            "reviewStatus": "HOLD",
+            "publicationStatus": "HOLD"
+          }
+          JSON
+            node scripts/p101-w9c2-g4e7bp-artist-asset-intake.mjs "$glb" "/tmp/${name}.json" "/tmp/${name}-intake.json"
+          done
+          test "$(find "$ARCHIVE/webgl" -name '*.png' | wc -l)" -eq 6
+          test "$(find "$ARCHIVE/glb" -name '*.glb' | wc -l)" -eq 2
+      - name: Save only in PRIVATE DRAFT branch — never merge/publish
+        run: |
+          set -eu
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f "$ARCHIVE"
+          if git diff --cached --quiet; then
+            echo "No new archive content. Kept original objects."
+            exit 0
+          fi
+          git commit -m "archive(g4e7bq): preserve rejected BO native GLBs and honest WebGL camera images"
+          git push origin HEAD:refs/heads/p101-velocity-overdrive-native-trial

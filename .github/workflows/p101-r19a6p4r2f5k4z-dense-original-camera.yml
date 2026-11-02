@@ -1,0 +1,92 @@
+name: DOPAGAKI K4Z genuine dense 240Hz original Road5 cameras no art
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4z-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4z-dense-original-camera.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-k4z-genuine-original-240hz-dense-road5
+  cancel-in-progress: true
+jobs:
+  real-original-webgl2-single-source-physics-run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Immutable original gameplay, old camera steering-only pack and syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-r19a6p4r2f5k3b-private-camera-pack.mjs)" = 3096e5556189221d8411205a6cf96a1f5f5137bd
+          test "$(git hash-object scripts/p101-r19a6p4r2f5k3b-seven-road-real-webgl2.mjs)" = 3a86620114c4c2ab08775bb6ac610ce29b9b5a76
+          node --check scripts/p101-r19a6p4r2f5k4z-dense-original-source-webgl2.mjs
+      - name: Native K3 successful lawful steering and historic K3B true original PNG evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p r19-evidence/r19a6p4r2f5k3 r19-evidence/r19a6p4r2f5k3b-original
+          gh run download 41314887466 -n R2F5K3_16_NATIVE_LEGAL_STEERING_PHYSICAL_HOLD -D r19-evidence/r19a6p4r2f5k3
+          gh run download 41315509252 -n R2F5K3B_GENUINE_ORIGINAL_ALL_SEVEN_ROAD_CAMERAS_ART_HOLD -D r19-evidence/r19a6p4r2f5k3b-original
+          test -s r19-evidence/r19a6p4r2f5k3/R2F5K3_REAL_LATE_STEERING_NATIVE_MATRIX.json
+          test -s r19-evidence/r19a6p4r2f5k3b-original/R2F5K3B_REAL_SEVEN_ROAD_WEBGL2_CAMERA.json
+      - name: Independent original native WebGL2 renderer and unchanged legal P96-to-P94 steering
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a1-private-original-native-camera-pack.mjs
+          node scripts/p101-r19a6p4r2f5k3b-private-camera-pack.mjs
+          test -s dist-private/r19a6p4r2f5k3b/drive3d.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Real native 240Hz original 2-width Road2/4/5/6 dense snapshot capture (no fake frames)
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/p101-r19a6p4r2f5k4z-dense-original-source-webgl2.mjs
+          test -s r19-evidence/r19a6p4r2f5k4z/K4Z_ORIGINAL_SOURCE_DENSE_7ROAD_CAMERA.json
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Independently audit actual PNG hashes and dense genuine original road evidence
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,hashlib,collections
+          p=pathlib.Path('r19-evidence/r19a6p4r2f5k4z')
+          d=json.loads((p/'K4Z_ORIGINAL_SOURCE_DENSE_7ROAD_CAMERA.json').read_text())
+          assert d['sourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['Hz']==240 and d['sourceB48']==7 and d['sourceB51']==28
+          assert d['errors']==[] and len(d['sessions'])==2
+          assert not d['originalPhysicsChanged'] and not d['originalCameraChanged']
+          assert d['buildingModelsCreated']==d['addedColliders']==d['officialARTAccepted']==0
+          assert d['newCandidateART']=='NOT_TESTED_HOLD'
+          assert d['continuousHumanVisibilitySeconds']=='UNKNOWN'
+          for sess in d['sessions']:
+            frames=sess['frames']
+            assert len(frames)==len(d['targetTicks'])
+            assert [f['tick'] for f in frames]==d['targetTicks']
+            assert len(sess['historicalMatches'])>=7
+            for record in frames:
+              content=(p/record['file']).read_bytes()
+              assert len(content)==record['bytes'] and hashlib.sha256(content).hexdigest()==record['sha256']
+              assert record['state']['tick']==record['tick']
+              assert record['state']['status']=='running'
+              assert record['state']['camera']=='ball-lock-unfiltered-heading'
+              assert record['state']['B51']==28
+              assert record['state']['privateSteeringLabel']=='K3B_LEGAL_LATE_P94_DIV3__NOT_HUMAN'
+            counts=collections.Counter(f['state']['road'] for f in frames)
+            for road in ('p93-SCISSOR_RISE-01','p93-VOID_SURGE-01',
+                         'p93-PRISM_CREST-01','p93-FINISH_RIDGE-01'):
+              assert counts[road]>=3,(sess['mode'],road,counts)
+          assert len(list(p.glob('K4Z_*_ONE_ORIGINAL_240HZ_WEBGL2.png')))==2*len(d['targetTicks'])
+          print('K4Z_REAL_SOURCE_NATIVE_WEBGL2_AND_ORIGINAL_PHYSICS_TECH_LIMITED_PASS_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4Z_2WIDTH_TRUE_240HZ_ORIGINAL_SOURCE_DENSE_ROAD5_AND_OTHERS_ART_HOLD
+          path: r19-evidence/r19a6p4r2f5k4z/
+          retention-days: 7
+          if-no-files-found: warn

@@ -1,0 +1,49 @@
+name: W9-C2 G4E-7AH real narrow B48 paired 240Hz pilot (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7ah-*.mjs'
+      - 'tests/research/p101-w9c2-g4e7ah-*.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ah-narrow.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  narrow-actual-240hz:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: True real B48 width/route and source immutability
+        run: |
+          node --check scripts/p101-w9c2-g4e7ah-narrow-real-b48.mjs
+          node --check scripts/p101-w9c2-g4e7ah-native-screen.mjs
+          node --test tests/research/p101-w9c2-g4e7ah-physical.test.mjs
+      - name: Real 240Hz start00 9-sec hole vs intact pairs for 3 candidates
+        run: |
+          node scripts/p101-w9c2-g4e7ah-native-screen.mjs g4e7ah-screen.json
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const r=JSON.parse(fs.readFileSync("g4e7ah-screen.json","utf8"));
+            if(r.physicsHz!==240||!r.start00||r.originalMovingMachines!==28||
+              r.originalRoads!==7||r.results.length!==3||
+              r.officialSlope2Meters!==0||r.publication!=="HOLD"||
+              r.results.some(x=>x.fullSevenRoadsProven!==false||
+                x.officialSlope2Meters!==0))throw Error("AH 240Hz research isolation violated");
+            console.log("G4E7AH_NARROW_PILOT "+JSON.stringify(r.results.map(x=>({
+              id:x.variant,width:x.minimumRealPinchWidthMeters,
+              air:x.solidGroundGapAirTicks,delta:x.actualCausalPositionDeltaMeters,
+              rejoin:x.genuineSameRoadRejoin,
+              cut:x.trueGapStatus,eligible:x.recommendLongRun}))));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ah-true-B48-240Hz-narrow-${{ github.run_id }}
+          path: g4e7ah-screen.json
+          if-no-files-found: ignore
+          retention-days: 14

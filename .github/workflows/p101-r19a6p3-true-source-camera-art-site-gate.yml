@@ -1,0 +1,64 @@
+name: R19 A6 P3 original camera and real B51 geometry site gate
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r19a6p3-readonly-source-camera-and-b51.mjs
+      - scripts/p101-r19a6p3-private-readonly-source-camera-pack.mjs
+      - scripts/p101-r19a6p3-exact-12-camera-28obb-native.mjs
+      - scripts/p101-r19a6p3-true-camera-vertical-city-site-proposals.mjs
+      - .github/workflows/p101-r19a6p3-true-source-camera-art-site-gate.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: r19a6p3-truth-source-camera-site
+  cancel-in-progress: true
+jobs:
+  actual-source-view:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protect original game and syntax-validate all camera-only research
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r19a6p3-readonly-source-camera-and-b51.mjs
+          node --check scripts/p101-r19a6p3-private-readonly-source-camera-pack.mjs
+          node --check scripts/p101-r19a6p3-exact-12-camera-28obb-native.mjs
+          node --check scripts/p101-r19a6p3-true-camera-vertical-city-site-proposals.mjs
+          test -f docs/DOPAGAKI_LIVE_HANDOFF.md
+      - name: Build untouched original source plus strictly PRIVATE camera copy
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a3-private-original-one-city-pack.mjs
+          node scripts/p101-r19a6p3-private-readonly-source-camera-pack.mjs
+          node scripts/p101-r19a6p2-real-road-spatial-anchors.mjs
+          node --check dist-private/r19a6p3/drive3d.mjs
+          ! grep -q "r19a6p3ActualCamera" dist-private/r19a3/drive3d.mjs
+          ! grep -q "r19a6p3ActualCamera" dist-private/drive3d/drive3d.mjs
+      - name: Run actual Chromium WebGL2 (not fake camera, no physics rewrite)
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/p101-r19a6p3-exact-12-camera-28obb-native.mjs
+      - name: Source 12 real camera + 2 B48 road spatial candidate evaluation
+        run: |
+          node scripts/p101-r19a6p3-true-camera-vertical-city-site-proposals.mjs
+          test -s r19-evidence/r19a6p3/P3_ACTUAL_RAW_CAMERA_B51_12_FRAMES.json
+          test -s r19-evidence/r19a6p3/P3_CAMERA_GROUNDED_VERTICAL_CITY_SITE_PROPOSALS.json
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Preserve authentic original camera measurements and 12 WebGL2 screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: R19_A6P3_REAL_12_NATIVE_CAMERA_B51_2WIDTH_ART_HOLD
+          path: |
+            r19-evidence/r19a6p3/
+            r19-evidence/r19a6p2/P2_ultra_real_road_anchors.json
+            r19-evidence/r19a6p2/P2_control_real_road_anchors.json
+          retention-days: 7
+          if-no-files-found: warn

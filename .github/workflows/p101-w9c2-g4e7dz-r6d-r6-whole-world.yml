@@ -1,0 +1,90 @@
+name: G4E-7DZ R6D-R6 PRIVATE genuine whole-world city district Blender ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-w9c2-g4e7dz-r6d-r6-world-city-blockout.py
+      - .github/workflows/p101-w9c2-g4e7dz-r6d-r6-whole-world.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r6d-r6-private-world-massing
+  cancel-in-progress: true
+jobs:
+  whole-urban-world-not-game:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check protected original and independent original-script Python syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r6-world-city-blockout.py
+      - name: Fetch prevalidated native Blender and 28 mover, 721 tick data and genuine CX surface contact
+        run: |
+          mkdir -p test-results/g4e7dz-r6d-r6/source-r1 test-results/g4e7dz-r6d-r6/source-r4 test-results/g4e7dz-r6d-r6/source-r5a
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r6d-r6/source-r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r6d-r6/source-r4
+          gh run download 40635016206 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R5A_PRIVATE_SOURCE_CX_B48_CONNECTION_HOLD \
+            --dir test-results/g4e7dz-r6d-r6/source-r5a
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Make one actual broad coarse city in real source for both physical road variants
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r6d-r6/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r6-world-city-blockout.py -- \
+              --source "test-results/g4e7dz-r6d-r6/source-r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r6d-r6/source-r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r6d-r6/source-r4/source/$r.json" \
+              --contact "test-results/g4e7dz-r6d-r6/source-r5a/result-$r/R5A_$r"_SOURCE_CONTACT.json \
+              --road "$r" --out "test-results/g4e7dz-r6d-r6/result-$r"
+          done
+      - name: Independent source-protection and geometric audit; CI success never equals ART approval
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          root='test-results/g4e7dz-r6d-r6'
+          reports=glob.glob(root+'/result-*/*_AUDIT.json')
+          blends=glob.glob(root+'/result-*/*.blend')
+          images=glob.glob(root+'/result-*/*.png')
+          assert len(reports)==len(blends)==2 and len(images)==14,(len(reports),len(blends),len(images))
+          assert {json.load(open(p))['road'] for p in reports}=={'true-pinch','pinch-switch'}
+          for p in reports:
+           d=json.load(open(p))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r6-world-mass-void-network/1'
+           assert d['originalCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert (d['CX'],d['B48'],d['B51'],d['originalCameras'])==(18,7,28,5)
+           assert d['sourceIdentityUnchanged'] and d['gap52']
+           assert len(d['realWorldDistricts'])==6 and d['newEditableWorldMassMeshes']>=70
+           assert len(d['genuineBlenderImages'])==7 and len(d['movingB51ThirteenActualSampleTriangleOverlaps'])==13
+           assert len(d['sourceCameraProjectionNotLegibility'])==7
+           assert d['allMovingContinuousTimeSafe']=='NOT_CERTIFIED'
+           assert d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+           assert d['sourceGameChanged'] is False and d['trueGameWebGL']=='NOT_RENDERED'
+           assert all(d[x]=='HOLD' for x in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R6_TRUE_SOURCE_COARSE_URBAN_CITY',d['road'],
+              'real meshes',d['newEditableWorldMassMeshes'],
+              'B48 TRUE triangles overlap pairs',len(d['originalB48TriangleOverlaps']),
+              'B51 13 time hits',sum(map(len,d['movingB51ThirteenActualSampleTriangleOverlaps'].values())),
+              'B51 ALL28 721tick sampled AABB warnings',len(d['all28B51_721TickSampledAabbCandidateWarnings']))
+          print('R6_CI_ONLY_NOT_SAFETY_APPROVAL_NOT_ART_APPROVAL')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R6D_R6_WORLD_CITY_TRUE_NATIVE_BLENDER_PRIVATE_ART_HOLD
+          path: test-results/g4e7dz-r6d-r6/result-*/
+          retention-days: 7
+          if-no-files-found: warn

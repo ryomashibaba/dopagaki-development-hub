@@ -1,0 +1,53 @@
+name: G4E-7DJ private authentic 240Hz continuous city storyboard (ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dj-native-storyboard.mjs'
+      - 'scripts/p101-w9c2-g4e7dj-capture-storyboard.mjs'
+      - 'tests/p101-w9c2-g4e7dj-storyboard.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7dj-storyboard.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7dj-private-storyboard
+  cancel-in-progress: true
+jobs:
+  real-game-camera-storyboard:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Strict original 240Hz camera comparison and isolated JS syntax
+        run: |
+          node --check scripts/p101-w9c2-g4e7dj-native-storyboard.mjs
+          node --check scripts/p101-w9c2-g4e7dj-capture-storyboard.mjs
+          node --test tests/p101-w9c2-g4e7dj-storyboard.test.mjs
+      - name: PRIVATE build only, original gameplay untouched
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          npx playwright install --only-shell chromium
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends fonts-ipafont-gothic
+          fc-cache -f
+          if ! fc-list :lang=ja family | grep -q .; then
+            echo 'DJ needs Japanese HUD font to compare authentic frames'
+            exit 1
+          fi
+      - name: Continuous original game WebGL 20 native frames, no private city mutation
+        run: node scripts/p101-w9c2-g4e7dj-capture-storyboard.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DJ_PRIVATE_TRUE_GAME_20_FRAME_STORYBOARD_ART_HOLD
+          path: test-results/g4e7dj-storyboard
+          if-no-files-found: ignore
+          retention-days: 7

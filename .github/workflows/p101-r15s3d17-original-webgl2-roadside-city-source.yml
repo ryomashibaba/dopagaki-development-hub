@@ -1,0 +1,66 @@
+name: P101 R15S3D17 original 240Hz WebGL2 new roadside civic city geometry comparison
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d17-roadside-civic-architecture.mjs
+      - scripts/p101-r15s3d17-private-real-webgl2-civic-pack.mjs
+      - scripts/p101-r15s3d17-original-webgl2-six-camera-runs.mjs
+      - scripts/p101-r15s3d17-independent-original-webgl2-gate.py
+      - tests/p101-r15s3d17-roadside-architecture.test.mjs
+      - .github/workflows/p101-r15s3d17-original-webgl2-roadside-city-source.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-native-240hz-roadside-city-trial:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protected original source SHA and giant anchored city actual geometry, noncollision test
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d17-roadside-civic-architecture.mjs
+          node --check scripts/p101-r15s3d17-private-real-webgl2-civic-pack.mjs
+          node --check scripts/p101-r15s3d17-original-webgl2-six-camera-runs.mjs
+          python3 -m py_compile scripts/p101-r15s3d17-independent-original-webgl2-gate.py
+          node --test tests/p101-r15s3d17-roadside-architecture.test.mjs
+      - name: Build source private WebGL2 D10 D11 D15R1 baseline and R17 independent noncolliding roadsides
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-r15s3d11-private-genuine-webgl-hazard-pack.mjs
+          node scripts/p101-r15s3d15r1-private-true-webgl2-city-pack.mjs
+          node scripts/p101-r15s3d17-private-real-webgl2-civic-pack.mjs
+          node --check dist-private/r15s3d17/drive3d.mjs
+          ! grep -q 'r15s3d17ArtMesh' dist-private/drive3d/drive3d.mjs
+          ! grep -q 'r15s3d17ArtMesh' dist-private/r15s3d15r1/drive3d.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Original Chromium WebGL2 GPU and Japanese fonts
+        run: |
+          npx playwright install --only-shell chromium
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends fonts-ipafont-gothic
+          fc-cache -f
+          fc-list :lang=ja family | grep -q .
+      - name: Compare exact original source camera ticks world×2, reference and 2 distinct roadside civic programs
+        run: |
+          node scripts/p101-r15s3d17-original-webgl2-six-camera-runs.mjs
+      - name: Independent exact native camera/physical finish and 10 forged-result rejections
+        run: |
+          python3 scripts/p101-r15s3d17-independent-original-webgl2-gate.py \
+            test-results/r15s3d17-real-webgl2/R15S3D17_REAL_WEBGL2_FIXED_NATIVE_TICK_CITY_VERSIONS.json \
+            test-results/r15s3d17-real-webgl2
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D17_TRUE_SOURCE_WEBGL2_ROADSIDE_CIVIC_TWO_CITIES_ART_HOLD
+          path: test-results/r15s3d17-real-webgl2/
+          retention-days: 7
+          if-no-files-found: warn

@@ -1,0 +1,54 @@
+{
+  "schema": "dopagaki.g4e7bp-artist-glb-intake/1",
+  "assetId": "g4e7bv-architectural-quarter-001",
+  "sha256": "f39a7695c8e02a84e6b5743fb1e7224596433140ee0fd48ef4e6ec3fbe669058",
+  "provenanceClaim": {
+    "author": "DOPAGAKI original scripted Blender 3D architectural research",
+    "sourceTool": "Blender bpy and original generated texture",
+    "sourceFile": "G4E7BV_ARCHITECTURAL_QUARTER_SOURCE.blend",
+    "rights": "original-work",
+    "licenseName": null,
+    "licenseEvidence": null,
+    "verification": "SELF_DECLARED_NOT_INDEPENDENTLY_VERIFIED"
+  },
+  "glb": {
+    "bytes": 1569396,
+    "meshes": 821,
+    "nodes": 821,
+    "triangles": 14458,
+    "primitives": 909,
+    "vertexPositions": 28874,
+    "materials": 11,
+    "embeddedTextures": 1,
+    "textureRefs": 1,
+    "meshLocalAABB": {
+      "min": [
+        -369.072,
+        -161.223,
+        -198
+      ],
+      "max": [
+        389.987,
+        392,
+        398.62
+      ],
+      "span": [
+        759.059,
+        553.223,
+        596.62
+      ]
+    },
+    "possibleNodeTransforms": true,
+    "facesWithMaterial": 909
+  },
+  "warnings": [
+    "NODE_TRANSFORMS: local mesh bounds are NOT world-space bounds; separate transform-baking/placement proof required"
+  ],
+  "realCameraWebGLProof": "NOT_YET_RUN",
+  "humanVisualReview": "HOLD",
+  "physicalRoadQA": "UNCHANGED_UNTESTED_BY_INTAKE",
+  "publicRelease": "FORBIDDEN",
+  "mergeApproval": "HOLD",
+  "officialSlope2CertifiedMeters": 0,
+  "admission": "METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS"
+}

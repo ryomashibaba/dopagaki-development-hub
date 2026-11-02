@@ -1,0 +1,57 @@
+name: P101 R15S3D11 same ball trajectory post23 original vs 6 relocated B51 original OBB
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d11-same-trace-matched-physical-b51-encounter.mjs
+      - scripts/p101-r15s3d11-independent-matched-post23-comparison.py
+      - .github/workflows/p101-r15s3d11-matched-post23-hazard-comparison.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  same-actual-native-ball-time-physics-descriptors:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original protected game and read-only audit syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d11-same-trace-matched-physical-b51-encounter.mjs
+          python3 -m py_compile scripts/p101-r15s3d11-independent-matched-post23-comparison.py
+      - name: Download the genuinely original finished R15S3D9 and 4 original physical R15S3D11 source trials
+        run: |
+          mkdir -p test-results/r15s3d11-same/d9 test-results/r15s3d11-same/d11 test-results/r15s3d11-same/out
+          gh run download 40989026403 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3D9_FOUR_ORIGINAL_REAL_ROAD5_ROAD6_95S_240HZ_SOURCE_HOLD \
+            --dir test-results/r15s3d11-same/d9
+          gh run download 40996596408 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3D11_FOUR_REAL_ORIGINAL_240HZ_SIX_B51_HAZARD_VARIANT_HOLD \
+            --dir test-results/r15s3d11-same/d11
+          test -s test-results/r15s3d11-same/d9/R15S3D9_FOUR_95S_GENUINE_NATIVE_ROAD5_ROAD6.json
+          test -s test-results/r15s3d11-same/d11/R15S3D11_FOUR_GENUINE_240HZ_B51_ALTERNATIVES.json
+      - name: Compare real physical B51 OBB positions on EXACT same ball path and same 23s-plus 0.5s timestamps
+        run: |
+          node scripts/p101-r15s3d11-same-trace-matched-physical-b51-encounter.mjs \
+            --source test-results/r15s3d11-same/d11/R15S3D11_FOUR_GENUINE_240HZ_B51_ALTERNATIVES.json \
+            --d9 test-results/r15s3d11-same/d9/R15S3D9_FOUR_95S_GENUINE_NATIVE_ROAD5_ROAD6.json \
+            --out test-results/r15s3d11-same/out
+      - name: Independent 9 forged evidence assertions rejected
+        run: |
+          python3 scripts/p101-r15s3d11-independent-matched-post23-comparison.py \
+            --source test-results/r15s3d11-same/out/R15S3D11_POST23_SAME_BALL_TRACE_B51_COUNTERFACTUAL.json \
+            --out test-results/r15s3d11-same/out
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D11_MATCHED_ORIGINAL_23S_PLUS_B51_REAL_MOVING_28_QA_HOLD
+          path: test-results/r15s3d11-same/out/
+          retention-days: 7
+          if-no-files-found: warn

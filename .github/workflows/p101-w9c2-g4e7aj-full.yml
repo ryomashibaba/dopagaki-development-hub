@@ -1,0 +1,51 @@
+name: W9-C2 G4E-7AJ full 240Hz real 7 roads with reanchored first B51 (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7aj-full-native.mjs'
+      - 'tests/research/p101-w9c2-g4e7aj-full.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7aj-full.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  actual-full-course:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Physics original 7 B48 exact, 26 B51 unchanged
+        run: |
+          node --check scripts/p101-w9c2-g4e7aj-full-native.mjs
+          node --test tests/research/p101-w9c2-g4e7aj-full.test.mjs
+      - name: Original and moved B51 real 240Hz full 7 road end-to-end race
+        run: |
+          node scripts/p101-w9c2-g4e7aj-full-native.mjs g4e7aj-full-native.json
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const x=JSON.parse(fs.readFileSync("g4e7aj-full-native.json","utf8"));
+            if(x.hz!==240||!x.start00||x.startSpeedMps!==52||
+               x.realRoads!==7||x.originalMovingB51C!==28||
+               x.pairs.length!==2||x.formalSlope2Meters!==0||
+               x.publication!=="HOLD"||x.humanFairness!=="HOLD"||
+               x.pairs.some(p=>p.unchangedMovingObstacles!==26||
+                 p.fullRoadCut.certifiedSlope2Meters!==0||
+                 p.fullRoadIntact.certifiedSlope2Meters!==0))
+               throw Error("AJ original reanchored native proof invalid");
+            console.log("G4E7AJ_FULL_SEVEN "+JSON.stringify(x.pairs.map(p=>({
+              id:p.variant,original:p.fullRoadIntact.status,moved:p.fullRoadCut.status,
+              roads:p.fullRoadCut.visitedRoads,seconds:p.fullRoadCut.timeSeconds,
+              movingContacts:p.fullRoadCut.events.moving,reason:p.fullRoadCut.failure?.reason??null,
+              eligible:p.candidateForHumanReview}))));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7aj-7realRoads-two-B51-${{ github.run_id }}
+          path: g4e7aj-full-native.json
+          if-no-files-found: ignore
+          retention-days: 14

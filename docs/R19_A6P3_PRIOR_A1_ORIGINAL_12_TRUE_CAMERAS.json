@@ -1,0 +1,237 @@
+{
+  "schema": "dopagaki.r19a6p3-prior-a1-true-native-original-view/1",
+  "origin": {
+    "originalGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "artifactRun": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41133092902",
+    "artifactId": 13014316341,
+    "originalSourceJSON": "r19a1/R19_A1_TRUE_NATIVE_CAMERA_AND_B51_GATE.json",
+    "originalSourceJSONSHA256": "b5641a5298ec9f20fec48712f9e80dcc26f01a2b473b2a571fc61b07f9701ee0",
+    "sourceScene": "g5b=off",
+    "capture": "original real WebGL2 cameraEye/cameraFront fields, sampled after genuine native 240Hz replay",
+    "sourceCanvasWidth": 1013,
+    "sourceCanvasHeight": 698
+  },
+  "note": "Independently recovered archived A1 camera evidence; not a replacement for P3 full B51 actual OBB/GL raster visibility. Unit vector reconstruction preserves 6 decimal camera rounding.",
+  "frames": [
+    {
+      "mode": "ultra",
+      "tick": 265,
+      "eye": [
+        -1321.92177,
+        244.915886,
+        -788.653299
+      ],
+      "front": [
+        0.977127,
+        -0.173785,
+        0.12256
+      ],
+      "viewport": [
+        1013,
+        698
+      ]
+    },
+    {
+      "mode": "ultra",
+      "tick": 721,
+      "eye": [
+        -1203.962767,
+        218.354017,
+        -773.251134
+      ],
+      "front": [
+        0.983944,
+        -0.173785,
+        -0.040652
+      ],
+      "viewport": [
+        1013,
+        698
+      ]
+    },
+    {
+      "mode": "ultra",
+      "tick": 1057,
+      "eye": [
+        -1101.745227,
+        188.556245,
+        -774.267439
+      ],
+      "front": [
+        0.978114,
+        -0.173785,
+        -0.114417
+      ],
+      "viewport": [
+        1013,
+        698
+      ]
+    },
+    {
+      "mode": "ultra",
+      "tick": 1249,
+      "eye": [
+        -1036.35552,
+        169.354589,
+        -785.549576
+      ],
+      "front": [
+        0.960791,
+        -0.173785,
+        -0.216055
+      ],
+      "viewport": [
+        1013,
+        698
+      ]
+    },
+    {
+      "mode": "ultra",
+      "tick": 1921,
+      "eye": [
+        -774.84435,
+        132.547047,
+        -869.945056
+      ],
+      "front": [
+        0.928811,
+        -0.173785,
+        -0.327275
+      ],
+      "viewport": [
+        1013,
+        698
+      ]
+    },
+    {
+      "mode": "ultra",
+      "tick": 2761,
+      "eye": [
+        -399.099398,
+        125.399396,
+        -902.941986
+      ],
+      "front": [
+        0.938463,
+        -0.173785,
+        0.298473
+      ],
+      "viewport": [
+        1013,
+        698
+      ]
+    },
+    {
+      "mode": "control",
+      "tick": 265,
+      "eye": [
+        -1321.92177,
+        244.915886,
+        -788.653299
+      ],
+      "front": [
+        0.977127,
+        -0.173785,
+        0.12256
+      ],
+      "viewport": [
+        1013,
+        698
+      ]
+    },
+    {
+      "mode": "control",
+      "tick": 721,
+      "eye": [
+        -1203.960444,
+        218.353815,
+        -773.224863
+      ],
+      "front": [
+        0.983858,
+        -0.173785,
+        -0.042695
+      ],
+      "viewport": [
+        1013,
+        698
+      ]
+    },
+    {
+      "mode": "control",
+      "tick": 1057,
+      "eye": [
+        -1101.366123,
+        188.451442,
+        -774.432048
+      ],
+      "front": [
+        0.975688,
+        -0.173785,
+        -0.133537
+      ],
+      "viewport": [
+        1013,
+        698
+      ]
+    },
+    {
+      "mode": "control",
+      "tick": 1249,
+      "eye": [
+        -1035.509635,
+        169.144698,
+        -785.008276
+      ],
+      "front": [
+        0.956369,
+        -0.173785,
+        -0.234855
+      ],
+      "viewport": [
+        1013,
+        698
+      ]
+    },
+    {
+      "mode": "control",
+      "tick": 1921,
+      "eye": [
+        -771.790664,
+        132.517645,
+        -871.42851
+      ],
+      "front": [
+        0.928981,
+        -0.173785,
+        -0.326791
+      ],
+      "viewport": [
+        1013,
+        698
+      ]
+    },
+    {
+      "mode": "control",
+      "tick": 2761,
+      "eye": [
+        -391.870487,
+        125.130088,
+        -900.999893
+      ],
+      "front": [
+        0.932292,
+        -0.173785,
+        0.317221
+      ],
+      "viewport": [
+        1013,
+        698
+      ]
+    }
+  ],
+  "ART": "HOLD",
+  "B51PixelOcclusion": "NOT_MEASURED",
+  "GAMEPLAY": "HOLD",
+  "HUMAN": "HOLD"
+}

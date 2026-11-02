@@ -1,0 +1,57 @@
+name: P101 R15S3D7 original two-world 240Hz 34p5 road loss forensic HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d7-native-lower-support-loss-forensic.mjs
+      - scripts/p101-r15s3d7-independent-support-loss-honesty-qa.py
+      - .github/workflows/p101-r15s3d7-native-support-loss-forensic.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15s3d7-native-original-34p5-two-world-source-forensic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Assert protected original source and verify syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d7-native-lower-support-loss-forensic.mjs
+          python3 -m py_compile scripts/p101-r15s3d7-independent-support-loss-honesty-qa.py
+      - name: Retrieve archived source-native original prefix and R15S3D6R1 actual complete two-world traces
+        run: |
+          mkdir -p test-results/r15s3d7/ref-b16 test-results/r15s3d7/ref-r1 test-results/r15s3d7/out
+          gh run download 40866341059 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3B_12_NATIVE_240HZ_FROZEN_CROWN_TRAIL_AWARE_SCISSOR_MACRO_NO_ART_HOLD \
+            --dir test-results/r15s3d7/ref-b16
+          gh run download 40958849153 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3D6R1_TWO_REAL_ORIGINAL_B48_RUNOUT_NATIVE_SOURCE_HOLD \
+            --dir test-results/r15s3d7/ref-r1
+          test -s test-results/r15s3d7/ref-b16/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json
+          test -s test-results/r15s3d7/ref-r1/R15S3D6R1_TWO_GENUINE_NATIVE_B48_DOWNSTREAM_RUNOUT.json
+      - name: Replay both original Runner worlds from zero with every original frame and road boundary distances
+        run: |
+          node scripts/p101-r15s3d7-native-lower-support-loss-forensic.mjs \
+            --b16 test-results/r15s3d7/ref-b16/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json \
+            --r1 test-results/r15s3d7/ref-r1/R15S3D6R1_TWO_GENUINE_NATIVE_B48_DOWNSTREAM_RUNOUT.json \
+            --out test-results/r15s3d7/out
+      - name: Independently check original-source parity and reject fake physics and gameplay claims
+        run: |
+          python3 scripts/p101-r15s3d7-independent-support-loss-honesty-qa.py \
+            --source test-results/r15s3d7/out/R15S3D7_TWO_WORLD_NATIVE_SUPPORT_LOSS_FORENSIC.json \
+            --out test-results/r15s3d7/out
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D7_TWO_ORIGINAL_NATIVE_34P5_SUPPORT_EDGE_CAUSAL_HOLD
+          path: test-results/r15s3d7/out/
+          retention-days: 7
+          if-no-files-found: warn

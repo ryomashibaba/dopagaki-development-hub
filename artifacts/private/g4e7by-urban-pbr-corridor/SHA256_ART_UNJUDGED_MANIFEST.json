@@ -1,0 +1,53 @@
+{
+  "humanArt": "UNJUDGED",
+  "realGameCamera": "NOT_TESTED",
+  "publication": "FORBIDDEN",
+  "slope2CertifiedMeters": 0,
+  "files": [
+    {
+      "file": "G4E7BY_ARCHITECTURE_TRANSIT_EDITABLE.blend",
+      "bytes": 73171779,
+      "sha256": "861fe3966c21d8201fa6ad83b6ef9d65e7c8f33159ecce1f1e4111b0b614f53c"
+    },
+    {
+      "file": "G4E7BY_CITY_ART_ONLY.glb",
+      "bytes": 36983040,
+      "sha256": "2e387598a7c8cbeb0cc90c908c9c0e49f5c26cde5e0e8188267584ae1f056f4e"
+    },
+    {
+      "file": "G4E7BY_OBLIQUE_TRUE_CYCLES.png",
+      "bytes": 2074618,
+      "sha256": "adafd9f114b66c38bebb3777996cc5e625bf4526c1bb1369ed5085fe85050737"
+    },
+    {
+      "file": "G4E7BY_FRONT_TRUE_CYCLES.png",
+      "bytes": 2228127,
+      "sha256": "90ed9b167be8c57d509d98fe2340a33aa2b41000bef89455e9d587a7e35ac84f"
+    },
+    {
+      "file": "G4E7BY_SIDE_TRUE_CYCLES.png",
+      "bytes": 1803121,
+      "sha256": "c97f654f885ddb240cd8d0e757a655e026075d7934fdfabc1881027c73df3fd6"
+    },
+    {
+      "file": "G4E7BY_AERIAL_TRUE_CYCLES.png",
+      "bytes": 1911494,
+      "sha256": "1e565b594f7d10205ed9a793aed3e6c897b814dd413b8481d75e919c01a653d0"
+    },
+    {
+      "file": "G4E7BY_APPROACH_TRUE_CYCLES.png",
+      "bytes": 2411799,
+      "sha256": "d4d3ebf4807cb2b81de9a29b2d8687d1e8851426db02322168a612cd582fe06e"
+    },
+    {
+      "file": "G4E7BY_FORWARD_300_TRUE_CYCLES.png",
+      "bytes": 2185077,
+      "sha256": "c7790b9b527e75113425e4f3a6d381b035aec172168f4eea74b9b82813833f2d"
+    },
+    {
+      "file": "G4E7BY_FORWARD_700_TRUE_CYCLES.png",
+      "bytes": 1697427,
+      "sha256": "b8fc6ca80ebad4cbd7280056bb5008048af84ff74e43b759bfb40c6a9fdd2f1b"
+    }
+  ]
+}

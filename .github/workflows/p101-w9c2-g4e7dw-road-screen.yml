@@ -1,0 +1,60 @@
+name: G4E-7DW actual B48 roadside screen-pixel x CX+B48+B51 physical ray search (ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7du-exact-sightline.mjs'
+      - 'scripts/p101-w9c2-g4e7dw-screen-road-visibility.mjs'
+      - 'tests/p101-w9c2-g4e7dw-road-screen.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7dw-road-screen.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7dw-camera-screen-ray-geometry
+  cancel-in-progress: true
+jobs:
+  original-world-access-vs-screen-size-preflight:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 22
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Exact source preservation and screen/physics comparative search
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-w9c2-g4e7dw-screen-road-visibility.mjs
+          node --test tests/p101-w9c2-g4e7dw-road-screen.test.mjs
+          node scripts/p101-w9c2-g4e7dw-screen-road-visibility.mjs
+      - name: Fail on scope creep or claims of actual game access
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          files=glob.glob('test-results/g4e7dw-road-screen-selection/*.json')
+          assert len(files)==1,files
+          a=json.load(open(files[0]))
+          assert a['exactStaticTrianglesPerRoad']==56012
+          assert a['exactMovingOBBCountPerNativeFrame']==28
+          assert a['originalPhysics']['roads']==7 and a['originalPhysics']['roadGap52']
+          assert a['candidatesGenerated']>=400
+          assert a['fullGeometryEvaluated']<=72
+          assert a['noSourceRoadTouched'] and not a['gamePhysicsChanged']
+          assert a['gameColliderAdded']==0 and a['gameWebGL']=='NOT_RUN'
+          assert a['art']=='HOLD' and a['formalVisualArtAdoptionCount']==0
+          assert a['officialSlope2Meters']==0
+          assert all(x['realGameplayPathExists'] is False for x in a['candidates'])
+          assert all(len(x['checks'])==6 for x in a['candidates'])
+          print('DW_REAL_240HZ_SCREEN_AND_ORIGINAL_PHYSICS_CANDIDATES_AUDITED_UNADOPTED')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DW_NATIVE_CAMERA_REAL_ROAD_AND_OBB_SIGHTLINE_CHOICES_ART_HOLD
+          path: test-results/g4e7dw-road-screen-selection
+          if-no-files-found: error
+          retention-days: 7

@@ -63,6 +63,55 @@ jobs:
           node scripts/p100-native-sweep.mjs | tee p100-native-trial.jsonl
           echo '### P100 independent S-bend/crest physical candidate; human handling HOLD' >> "$GITHUB_STEP_SUMMARY"
           echo 'P100_NATIVE_* lines report every real 240Hz attempt; CI green is NOT full finish approval.' >> "$GITHUB_STEP_SUMMARY"
+      - name: P101 OVERDRIVE independent true 240Hz speed and steering native trials (HOLD)
+        run: |
+          set -o pipefail
+          node scripts/p101-native-probe.mjs | tee p101-native-hold.jsonl
+          echo '### P101 real B48 physical 4x / 4.8x / 6x lateral trial: HUMAN HANDLING AND FULL FINISH HOLD' >> "$GITHUB_STEP_SUMMARY"
+      - name: P101 B2 physical speed-envelope across all seven real roads (continuous acceleration, human HOLD)
+        run: |
+          set -o pipefail
+          node scripts/p101-speed-envelope.mjs | tee p101-speed-envelope.jsonl
+          echo '### P101 independent B2 speed versus curve stability (no pass inferred from any native script)' >> "$GITHUB_STEP_SUMMARY"
+      - name: P101 B3 gentle early course and real late-surging velocity trial (HOLD)
+        run: |
+          set -o pipefail
+          node scripts/p101-late-surge-probe.mjs | tee p101-late-surge.jsonl
+          echo '### P101 native curve-safe accelerating-only late surge: human fairness NOT certified' >> "$GITHUB_STEP_SUMMARY"
+      - name: P101 B4 real high-radius road 240Hz curve/physics comparative audit (PR/HOLD)
+        run: |
+          set -o pipefail
+          node scripts/p101-b4-road-proof.mjs | tee p101-b4-native.jsonl
+          echo '### P101 B4 physical high-radius seven-section 240Hz study; no human game approval' >> "$GITHUB_STEP_SUMMARY"
+      - name: P101 B4D isolate true II hairpin and late road physical geometry against P100
+        run: |
+          set -o pipefail
+          node scripts/p101-b4-isolation.mjs | tee p101-b4d-causal.jsonl
+          echo '### P101 B4D native 240Hz isolated surface causality, no human-play claim' >> "$GITHUB_STEP_SUMMARY"
+      - name: W9-C0 Slope DNA 40% read-only physical inventory
+        run: |
+          node scripts/p101-w9c0-slope-audit.mjs > w9c0-slope40-audit.json
+          node -e "const a=require('./w9c0-slope40-audit.json'); if(a.target.plannedMeters!==2910||a.measured.nativeMachines!==28||a.safety.productionPromoted) process.exit(1)"
+          echo '### W9-C0 40% Slope DNA audit (PLAN ONLY / no terrain construction)' >> "$GITHUB_STEP_SUMMARY"
+          echo '18 proposed zones total 2910/7280m; 3 ultra-narrow prototypes total 180m. See JSON artifact.' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p101-w9c0-slope40-inventory-${{ github.run_id }}
+          path: w9c0-slope40-audit.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: W9-C1 ABYSS 240Hz true B48 road candidate diagnostics (human HOLD)
+        run: |
+          set -o pipefail
+          node scripts/p101-w9c1-native-probe.mjs | tee w9c1-abyss-native.jsonl
+          echo '### W9-C1 28m vs 14m B48 native observations; NOT human fairness proof' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p101-w9c1-abyss-native-${{ github.run_id }}
+          path: w9c1-abyss-native.jsonl
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Reproduce all four stages deterministically
         run: npm run test:repro
       - name: Build exact public stage assets
@@ -77,7 +126,7 @@ jobs:
           npm run test:core
   browser:
     needs: qa
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
       DOPAGAKI_BUILD_DIR: dist-site
@@ -117,6 +166,52 @@ jobs:
           name: p100-terrain-pulse-real-frames-${{ github.run_id }}
           path: |
             test-results/**/p100-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p101-w9x-vs-w7f-actual-webgl-${{ github.run_id }}
+          path: |
+            test-results/**/w9x-*.png
+            test-results/**/w7f-lower-reversal-real-webgl.png
+            test-results/**/w9b3-visual-audit.json
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p101-w9c1-actual-webgl-${{ github.run_id }}
+          path: |
+            test-results/**/w9c1-*.png
+            test-results/**/w9c1-browser-physical-width-audit.json
+            test-results/**/w9c1-approach-browser-audit.json
+            test-results/**/w9c1-edge-visibility-audit.json
+            test-results/**/w9c1-g5b-visual-audit.json
+          if-no-files-found: ignore
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p101-a13-actual-webgl-playtest-images-${{ github.run_id }}
+          path: |
+            test-results/**/p101-a13-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p101-b5-actual-webgl-playtest-images-${{ github.run_id }}
+          path: |
+            test-results/**/p101-b5-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p101-b4-real-hairpin-comparison-${{ github.run_id }}
+          path: |
+            test-results/**/p101-b4-*.png
           if-no-files-found: ignore
           retention-days: 7
       - uses: actions/upload-artifact@v4

@@ -1,0 +1,112 @@
+name: P101 R15N actual original B48 native 3D bridge architectural trial two worlds x two forms (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15n-two-native-3d-bridge-and-void-structures.py
+      - scripts/p101-r15n-independent-real-bridge-source-veto.py
+      - .github/workflows/p101-r15n-real-3d-road-bridge-architectures.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15n-real-editable-3d-bridge-original-240hz-r1-two-roads-two-forms:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guard immutable original game SHA and genuine Blender 3D source study syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15n-two-native-3d-bridge-and-void-structures.py scripts/p101-r15n-independent-real-bridge-source-veto.py
+      - name: Retrieve actual R15M original 240Hz last B48 contact and original R1 editable Blender world/cameras
+        run: |
+          mkdir -p test-results/r15n/r15m test-results/r15n/r1 test-results/r15n/design
+          gh run download 40809307778 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15M2_LAST_REAL_B48_CONTACT_3D_BOUNDARY_RECONTACT_INDEPENDENT_SOURCE_HOLD \
+            --dir test-results/r15n/r15m
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/r15n/r1
+          test -s test-results/r15n/r15m/R15M_TRUE_SOURCE_240HZ_LAST_ROAD_SUPPORT_TO_REAL_B48_BORDER.json
+          test -s test-results/r15n/r1/source/true-pinch.json
+          test -s test-results/r15n/r1/source/pinch-switch.json
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Build source-real 64m lattice and 72m split-open civic spine, save four EDITABLE BLEND and four GLB, render eight actual R1 camera comparisons
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-r15n-two-native-3d-bridge-and-void-structures.py -- \
+            --source-true-pinch test-results/r15n/r1/result-true-pinch/R1_true-pinch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --source-pinch-switch test-results/r15n/r1/result-pinch-switch/R1_pinch-switch_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+            --native-true-pinch test-results/r15n/r1/source/true-pinch.json \
+            --native-pinch-switch test-results/r15n/r1/source/pinch-switch.json \
+            --r15m test-results/r15n/r15m/R15M_TRUE_SOURCE_240HZ_LAST_ROAD_SUPPORT_TO_REAL_B48_BORDER.json \
+            --out test-results/r15n/design
+      - name: Verify editable real 3D meshes, true original 240Hz camera views, GLB 2.0, real B48/CX/B51 source integrity and 12 anti-fake claims
+        run: |
+          python3 scripts/p101-r15n-independent-real-bridge-source-veto.py \
+            --dir test-results/r15n/design
+          python3 - <<'PY'
+          import json
+          f="test-results/r15n/design/R15N_INDEPENDENT_TWO_REAL_EDITABLE_BRIDGE_ARCHITECTURES_QA.json"
+          x=json.load(open(f))
+          assert len(x["fourActualSourceBlenderAndGLBIntegrityStudies"])==4
+          assert len(x["adversarialFalseArtAndGamePromotionsRejected"])==12
+          assert not x["actualHumanPlayOrArtApproved"]
+          assert x["officialArt"]==x["officialSlope2Meters"]==0
+          print("R15N_COMPLETED_ACTUAL_EDITABLE_3D_SOURCE_STUDY_ONLY",x,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15N_ORIGINAL_B48_SOURCE_TWIN_ARCH_64M_72M_EDITABLE_BLENDER_TRUE_R1_CAMERA_ART_HOLD
+          path: test-results/r15n/design/
+          if-no-files-found: warn
+          retention-days: 7
+
+  r15n-saved-four-true-original-editable-scenes-independent-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check immutable original game source and correct standard python3 input
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15n-independent-real-bridge-source-veto.py
+      - name: Recover actual FOUR saved 3D source B48 BLEND and GLB, eight R1 cameras, not regenerate original scenes
+        run: |
+          mkdir -p test-results/r15nqa/original
+          gh run download 40815153008 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15N_ORIGINAL_B48_SOURCE_TWIN_ARCH_64M_72M_EDITABLE_BLENDER_TRUE_R1_CAMERA_ART_HOLD \
+            --dir test-results/r15nqa/original
+          test -s test-results/r15nqa/original/R15N_TWO_REAL_ROADS_TWO_EDITABLE_OPEN_BRACE_DESIGNS_SOURCE_ART_HOLD.json
+      - name: Independent true BLEND, GLB 2.0 mesh count, original camera PNG, B48/CX/B51, supports and 12 forged approvals
+        run: |
+          python3 scripts/p101-r15n-independent-real-bridge-source-veto.py \
+            --dir test-results/r15nqa/original
+          python3 - <<'PY'
+          import json
+          path='test-results/r15nqa/original/R15N_INDEPENDENT_TWO_REAL_EDITABLE_BRIDGE_ARCHITECTURES_QA.json'
+          q=json.load(open(path))
+          assert len(q['fourActualSourceBlenderAndGLBIntegrityStudies'])==4
+          assert len(q['adversarialFalseArtAndGamePromotionsRejected'])==12
+          assert all(x['unknownOrUngroundedPiers']==5 for x in q['fourActualSourceBlenderAndGLBIntegrityStudies'].values())
+          assert all(x['sourceGroundedPierCount']==0 for x in q['fourActualSourceBlenderAndGLBIntegrityStudies'].values())
+          assert not q['actualHumanPlayOrArtApproved']
+          assert q['officialArt']==q['officialSlope2Meters']==0
+          print('R15N_ORIGINAL_3D_SOURCE_EDITABLE_ART_REJECT',q,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15N_REAL_EDITABLE_4_BLENDER_8_ORIGINAL_CAMERAS_INDEPENDENT_ART_HOLD_QA
+          path: test-results/r15nqa/original/R15N_INDEPENDENT_TWO_REAL_EDITABLE_BRIDGE_ARCHITECTURES_QA.json
+          retention-days: 7
+          if-no-files-found: warn

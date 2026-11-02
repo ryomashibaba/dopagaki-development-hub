@@ -1,0 +1,87 @@
+name: G4E-7DZ R6D-R14C independent common city site and cross-phase travel provenance
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r14c-independent-city-site-governance.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r14c-source-common-site-governance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r14c-independent-real-common-site-gate
+  cancel-in-progress: true
+jobs:
+  actual-original-source-two-road-real-city-site-cross-phase:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original code protected and provenance script syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r14c-independent-city-site-governance.py
+      - name: Download independently source-verified common-world two-road geometry and 13 native player/camera source
+        run: |
+          mkdir -p test-results/g4e7dz-r14c/r14a test-results/g4e7dz-r14c/r14b
+          gh run download 40692425178 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R14A_ORIGINAL_13_PLAYER_AND_SAME_CAMERA_SAFE_CITY_SITES_HOLD \
+            --dir test-results/g4e7dz-r14c/r14a
+          gh run download 40693102074 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R14B_BOTH_ORIGINAL_ROADS_IDENTICAL_WORLD_SAFE_VISIBLE_SITES_HOLD \
+            --dir test-results/g4e7dz-r14c/r14b
+      - name: Compare original same-world source geometry exact source candidate membership and realistic inter-district travel gaps
+        run: |
+          python3 scripts/p101-w9c2-g4e7dz-r6d-r14c-independent-city-site-governance.py \
+            --r14b test-results/g4e7dz-r14c/r14b/R14B_REAL_BOTH_ROADS_COMMON_SITE_AUDIT.json \
+            --r14a-true test-results/g4e7dz-r14c/r14a/result-true-pinch/R14A_true-pinch_TRUE_ORIGINAL_TIME_PLAYER_CAMERA_SITES.json \
+            --r14a-switch test-results/g4e7dz-r14c/r14a/result-pinch-switch/R14A_pinch-switch_TRUE_ORIGINAL_TIME_PLAYER_CAMERA_SITES.json \
+            --out test-results/g4e7dz-r14c/R14C_REAL_TWO_ROAD_COMMON_CITY_SITE_DECISION.json
+      - name: Independent no-fabricated-art and real two-road proofs check
+        run: |
+          python3 - <<'PY'
+          import json,importlib.util,copy
+          root='test-results/g4e7dz-r14c'
+          p=root+'/R14C_REAL_TWO_ROAD_COMMON_CITY_SITE_DECISION.json'
+          d=json.load(open(p))
+          assert d['schema']=='dopagaki.g4e7dz-r6d-r14c-independent-same-city-source-preart/1'
+          assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['bothOriginalSourceVariantIdenticalWorldCXB48B51Protected']
+          assert d['sourceCameraOriginal13FrameAndPlayerAligned']
+          assert d['phasesWithGenuinelySharedPhysicalAndSameCameraSites']==3
+          assert d['phaseCommonSourceCandidateCounts']=={'EARLY':4,'MIDDLE':5,'LATE':9}
+          assert len(d['originalThreeEraSiteProximityAudits'])==2
+          for x in d['originalThreeEraSiteProximityAudits']:
+           assert x['closestGenuinelyVerifiedCommonSiteWorld3DDistance']>10
+           assert not x['bothOriginalRoadsContinuousCXB48B51FullLinkTested']
+           assert not x['realSupportAndWalkabilityApproved']
+          assert d['decision']=='SOURCE_BOTH_ROADS_SAME_TIME_COMMON_CITY_SITES_PROVEN_BUT_NO_LINKS_OR_ART'
+          assert not d['twoRoadVariantsHaveActualContiguousCityFootpath']
+          assert not d['currentOriginalHumanEntranceAndStructuralLoadingCertified']
+          assert not d['originalGameWebGLArtEverRenderedThisPhase']
+          assert d['actualNewPrivateCityArtBlenderMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+          assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+          spec=importlib.util.spec_from_file_location('r14c','scripts/p101-w9c2-g4e7dz-r6d-r14c-independent-city-site-governance.py')
+          mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
+          a=json.load(open(root+'/r14a/result-true-pinch/R14A_true-pinch_TRUE_ORIGINAL_TIME_PLAYER_CAMERA_SITES.json'))
+          b=json.load(open(root+'/r14a/result-pinch-switch/R14A_pinch-switch_TRUE_ORIGINAL_TIME_PLAYER_CAMERA_SITES.json'))
+          x=json.load(open(root+'/r14b/R14B_REAL_BOTH_ROADS_COMMON_SITE_AUDIT.json'))
+          forged=copy.deepcopy(x)
+          forged['bothOriginalRoadSameCoordinatesConfirmedPerPhase']['EARLY']['topAllVerifiedRealSharedSites'][0]['sharedOriginal3DWorldXYZ']=[0,0,0]
+          try:
+           mod.verify(forged,a,b)
+           raise RuntimeError('R14C forged city geography accepted')
+          except AssertionError:
+           print('R14C_FAKE_COMMON_BUILDING_ORIGIN_NOT_ACCEPTED')
+          print('R14C_REAL_TWO_ROAD_COMMON_SITES_PROVEN_BUT_NOT_REAL_PLAYER_WALKWAY',d['phaseCommonSourceCandidateCounts'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R14C_REAL_TWO_ORIGINAL_ROAD_COMMON_SITES_SOURCE_NOT_CITY_ART
+          path: test-results/g4e7dz-r14c/R14C_REAL_TWO_ROAD_COMMON_CITY_SITE_DECISION.json
+          retention-days: 7
+          if-no-files-found: warn

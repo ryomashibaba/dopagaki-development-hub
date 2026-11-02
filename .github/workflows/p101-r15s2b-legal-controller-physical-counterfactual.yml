@@ -1,0 +1,53 @@
+name: P101 R15S2B real 240Hz P96-to-P94 legal input controller counterfactual source QA HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s2b-native-b48-legal-controller-counterfactual.mjs
+      - scripts/p101-r15s2b-independent-native-control-veto.py
+      - .github/workflows/p101-r15s2b-legal-controller-physical-counterfactual.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15s2b-original-240hz-legal-steer-controller-counterfactual:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original protected source, independent geometry and source syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s2b-native-b48-legal-controller-counterfactual.mjs
+          python3 -m py_compile scripts/p101-r15s2b-independent-native-control-veto.py
+      - name: Download R15Q authentic 8 original source trials for genuine preswitch parity and baseline outcome
+        run: |
+          mkdir -p test-results/r15s2b/reference test-results/r15s2b/out
+          gh run download 40833907561 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15Q_TRUE_ORIGINAL_B48_C1_CURVATURE_NARROW16_8_NATIVE_240HZ_SOURCE_HOLD \
+            --dir test-results/r15s2b/reference
+          test -s test-results/r15s2b/reference/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json
+      - name: Execute 12 original native 240Hz full-replays same source roads P96 until 21.5s then only legal bounded P94 centerline input
+        run: |
+          node scripts/p101-r15s2b-native-b48-legal-controller-counterfactual.mjs \
+            --r15q test-results/r15s2b/reference/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json \
+            --out test-results/r15s2b/out
+      - name: Independently review all genuine original Runner statuses and 13 forged official approvals
+        run: |
+          python3 scripts/p101-r15s2b-independent-native-control-veto.py \
+            --result test-results/r15s2b/out/R15S2B_12_SOURCE_NATIVE_LEGAL_CONTROLLER_21P5S_COUNTERFACTUAL.json \
+            --reference test-results/r15s2b/reference/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json \
+            --out test-results/r15s2b/out
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S2B_12_REAL_NATIVE_240HZ_SOURCE_P94_CONTROL_COUNTERFACTUAL_HOLD
+          path: test-results/r15s2b/out/
+          retention-days: 7
+          if-no-files-found: warn

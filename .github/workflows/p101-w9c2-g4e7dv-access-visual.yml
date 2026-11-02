@@ -1,0 +1,79 @@
+name: G4E-7DV authentic road contact lift and civic entry visual countercheck (ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dv-road-entrance-survey.mjs'
+      - 'scripts/p101-w9c2-g4e7dv-access-blender.py'
+      - 'tests/p101-w9c2-g4e7dv-road-entrance.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7dv-access-visual.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7dv-private-original-physical-access-visual
+  cancel-in-progress: true
+jobs:
+  original-240hz-access-model-not-a-playable-connection:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protect real source and compute exact original road top contact
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --test tests/p101-w9c2-g4e7dv-road-entrance.test.mjs
+          python3 -m py_compile scripts/p101-w9c2-g4e7dv-access-blender.py
+          node scripts/p101-w9c2-g4e7dv-road-entrance-survey.mjs
+          node scripts/p101-w9c2-g4e7do-master-export.mjs
+          node scripts/p101-w9c2-g4e7dr-physical-export.mjs
+      - name: Install actual headless Blender CPU Cycles
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender libegl1 libgl1 libx11-6
+      - name: Original DR 240Hz reference, 2 real contact-based NONPLAYABLE civic access concepts
+        run: |
+          for road in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dv-access-visual/do-$road" "test-results/g4e7dv-access-visual/dr-$road" "test-results/g4e7dv-access-visual/dv-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7do-master-blender.py -- --source "test-results/g4e7do-master-camera/$road.json" --out "test-results/g4e7dv-access-visual/do-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7dr-physical-blender.py -- --master "test-results/g4e7dv-access-visual/do-$road/G4E7DO_$road"_ORIGINAL_NATIVE_CAMERA_MASTER_ART_HOLD.blend --source "test-results/g4e7dr-physical-reference/data/$road.json" --binary "test-results/g4e7dr-physical-reference/data/$road.b48-f64.bin" --out "test-results/g4e7dv-access-visual/dr-$road"
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7dv-access-blender.py -- --source "test-results/g4e7dv-access-visual/dr-$road/G4E7DR_$road"_B48_B51_240HZ_EDITABLE_ART_HOLD.blend --survey "test-results/g4e7dv-road-entrance-survey/$road.json" --out "test-results/g4e7dv-access-visual/dv-$road"
+          done
+      - name: Audit nonphysical flag and genuine 26 Blender frames and 6 editable scenes
+        run: |
+          python3 - <<'PY'
+          import glob,json
+          root='test-results/g4e7dv-access-visual'
+          images=glob.glob(root+'/**/*.png',recursive=True)
+          scenes=glob.glob(root+'/**/*.blend',recursive=True)
+          audits=glob.glob(root+'/dv-*/*_ACCESS_VISUAL_AUDIT.json')
+          assert len(images)==26,(len(images),images)
+          assert len(scenes)==6,(len(scenes),scenes)
+          assert len(audits)==2,audits
+          for f in audits:
+           x=json.load(open(f))
+           assert x['realPhysicsB48SurfacesRetained']==7 and x['realPhysicsB51OBBsRetained']==28
+           assert x['originalCXRetained']==18 and x['originalCameraCount']==5
+           assert x['newVisualCityObjects']==14
+           assert x['newGameColliders']==0 and not x['sourceGameTrianglesEdited']
+           assert not x['realStationPhysicalAccessCertified'] and not x['newCityArtAdopted']
+           assert x['actualGameWebGL']=='NOT_RUN'
+           assert x['art']=='HOLD' and x['officialSlope2Meters']==0
+          print('DV_REAL_SOURCE_B48_ROAD_CONTACT_2_240HZ_BLENDER_ACCESS_SCENES_UNADOPTED')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DV_REAL_B48_ROAD_FOOTPOINT_CIVIC_LIFT_VISUAL_NOT_PLAYABLE
+          path: |
+            test-results/g4e7dv-access-visual
+            test-results/g4e7dv-road-entrance-survey
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 6

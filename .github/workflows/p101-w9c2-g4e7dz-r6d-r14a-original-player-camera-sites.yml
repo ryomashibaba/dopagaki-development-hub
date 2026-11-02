@@ -1,0 +1,92 @@
+name: G4E-7DZ R6D-R14A original same-time player/camera close real 3D city site
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r14a-player-camera-source-space.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r14a-original-player-camera-sites.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r14a-original-play-camera-physical-sites
+  cancel-in-progress: true
+jobs:
+  actual-original-game-play-camera-geometry-site:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 46
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify unchanged original native source git blob and script
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r14a-player-camera-source-space.py
+      - name: Reuse genuine original Blender R1 physical scene, R4 28 full movers and R13C camera/player discovery
+        run: |
+          mkdir -p test-results/g4e7dz-r14a/r1 test-results/g4e7dz-r14a/r4 test-results/g4e7dz-r14a/r13c
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r14a/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r14a/r4
+          gh run download 40691321448 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R13C_TRUE_32M_SOURCE_CITY_NO_REAL_FLOOR_OR_ART_APPROVAL \
+            --dir test-results/g4e7dz-r14a/r13c
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Actual 13 time-camera-original-player large vs medium city volumes, native source CX/B48/B51 on both real road variants
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r14a/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r14a-player-camera-source-space.py -- \
+              --scene "test-results/g4e7dz-r14a/r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r14a/r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r14a/r4/source/$r.json" \
+              --r13c "test-results/g4e7dz-r14a/r13c/R13C_$r"_SOURCE_CITY_READINESS.json \
+              --road "$r" --out "test-results/g4e7dz-r14a/result-$r"
+          done
+      - name: Independent provenance/phase/volume safety, zero automatic art approval
+        run: |
+          python3 - <<'PY'
+          import json,glob,math
+          files=glob.glob('test-results/g4e7dz-r14a/result-*/*_TRUE_ORIGINAL_TIME_PLAYER_CAMERA_SITES.json')
+          assert len(files)==2,files
+          for f in files:
+           x=json.load(open(f))
+           assert x['schema']=='dopagaki.g4e7dz-r6d-r14a-original-same-time-play-camera-source-volume/1'
+           assert x['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert x['originalCX18B48_7B51_28Cameras5Unchanged']
+           assert x['originalR1Native13CameraAndPlayerSourceFramesUsed'] and x['trueOriginalB51All28x721TickAABBUsed']
+           assert x['physicalResearchBoxesMetres']==[[32,36,36],[20,24,26]]
+           assert x['actualSitesFoundWithSameOriginalTimeCamera']>=0
+           assert set(x['threeOriginalTimePhasesActualCandidates'])=={'EARLY','MIDDLE','LATE'}
+           for era,details in x['threeOriginalTimePhasesActualCandidates'].items():
+            assert details['testedFound']>=details['sameTimePlayerAlignedFound']>=0
+            for entry in details['topFiveAlignedActualSiteCandidates']:
+             assert entry['originalCxB48ExactBVHIntersections']==entry['all28B51_721TickConservativeAabbIntersections']==0
+             assert entry['candidateTimeAndOriginalPlayerClosestTimeAlignedWithin0_5s']
+             assert entry['sameTimeVisibleUnoccludedInteriorProbePoints']>=2
+             assert abs(entry['time']-entry['originalPlayerClosestTimeSeconds'])<=.5
+           assert not x['sourceHumanPlayerWalkToCandidateProved']
+           assert not x['structuralFoundationProved']
+           assert not x['safeBuildingCityArtFullyModeled']
+           assert not x['originalSourcePlayPhysicsModified']
+           assert x['newBlenderCityMeshes']==x['newGameColliders']==x['officialArt']==x['officialSlope2Metres']==0
+           assert all(x[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R14A_REAL_SAME_TIME_ORIGINAL_SITE',x['road'],x['actualSitesFoundWithSameOriginalTimeCamera'],
+            {k:{n:d[n] for n in ('testedFound','sameTimePlayerAlignedFound','largeCandidateFound')} for k,d in x['threeOriginalTimePhasesActualCandidates'].items()})
+          print('R14A_GENUINE_SOURCE_PROXIMITY_VISIBILITY_RESEARCH_ONLY')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R14A_ORIGINAL_13_PLAYER_AND_SAME_CAMERA_SAFE_CITY_SITES_HOLD
+          path: test-results/g4e7dz-r14a/result-*/
+          retention-days: 7
+          if-no-files-found: warn

@@ -1,0 +1,76 @@
+name: P101 R15Q3 real original B48 editable Blender 3D + true native 240Hz trajectory 8 studies (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15q3-export-actual-b48-mesh-and-native-trails.mjs
+      - scripts/p101-r15q3-blender-true-original-source-road-and-native-trajectory.py
+      - scripts/p101-r15q3-independent-real-b48-source-3d-scene-veto.py
+      - .github/workflows/p101-r15q3-real-source-b48-blender-comparison.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15q3-actual-real-original-b48-source-physical-mesh-and-native-trail-blender:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Guard original game blob and source Blender scripts
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15q3-export-actual-b48-mesh-and-native-trails.mjs
+          python3 -m py_compile scripts/p101-r15q3-blender-true-original-source-road-and-native-trajectory.py scripts/p101-r15q3-independent-real-b48-source-3d-scene-veto.py
+      - name: Reuse authentic eight original P96 source native physics trials, not simulated/fabricated trajectory
+        run: |
+          mkdir -p test-results/r15q3/native test-results/r15q3/source test-results/r15q3/visual
+          gh run download 40833907561 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15Q_TRUE_ORIGINAL_B48_C1_CURVATURE_NARROW16_8_NATIVE_240HZ_SOURCE_HOLD \
+            --dir test-results/r15q3/native
+          test -s test-results/r15q3/native/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json
+      - name: Export real source B48 rideable collision mesh vertices and actual sampled native player XYZ for all eight paired studies
+        run: |
+          node scripts/p101-r15q3-export-actual-b48-mesh-and-native-trails.mjs \
+            --runs test-results/r15q3/native/R15Q_8_GENUINE_SOURCE_240HZ_C1_CURVE_AND_NARROW_ACTUAL_ROAD_TRIALS.json \
+            --out test-results/r15q3/source
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Create eight editable BLEND/GLB source-only ORIGINAL CROWN and SCISSOR real B48 physical meshes + native grounded/air sample trace technical 3D comparison
+        run: |
+          blender -b --factory-startup -t 2 --python-exit-code 5 \
+            --python scripts/p101-r15q3-blender-true-original-source-road-and-native-trajectory.py -- \
+            --source test-results/r15q3/source \
+            --out test-results/r15q3/visual
+      - name: Independently validate original real sources, two B48 playable meshes, native sample support, 8 Blender/GLB/PNG files and 10 false art/game claims
+        run: |
+          cp test-results/r15q3/source/R15Q3_SOURCE_EIGHT_REAL_MESH_SCENES_MANIFEST.json test-results/r15q3/visual/
+          for road in true-pinch pinch-switch; do
+            for mode in B16_ONLY_REFERENCE A_C1_SHIFT_24M_SOURCE_WIDTH B_C1_SHIFT_40M_SOURCE_WIDTH C_CURVE_SHIFT_30M_NARROW_16M; do
+              mkdir -p test-results/r15q3/visual/$road/$mode
+              cp test-results/r15q3/source/$road/$mode/R15Q3_SOURCE_ROAD_AND_TRUE_240HZ_SAMPLE_TRAIL.json test-results/r15q3/visual/$road/$mode/
+            done
+          done
+          python3 scripts/p101-r15q3-independent-real-b48-source-3d-scene-veto.py \
+            --dir test-results/r15q3/visual
+          python3 - <<'PY'
+          import json
+          p="test-results/r15q3/visual/R15Q3_INDEPENDENT_REAL_EDITABLE_B48_3D_STUDY_QA.json"
+          x=json.load(open(p))
+          assert len(x["genuineSourceRealEditableSceneQualityWitness"])==8
+          assert len(x["fakeGameOrWebGLOrHumanArtClaimsRejected"])==10
+          assert x["officialArt"]==x["officialSlope2Meters"]==0
+          print("R15Q3_SOURCE_REAL_ORIGINAL_B48_BLENDER_TECHNICAL_IMAGES_INDEPENDENT_PASS",x,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15Q3_TRUE_B48_ORIGINAL_GEOMETRY_8_BLENDER_GLB_NATIVE_TRAILS_REAL_TECHNICAL_IMAGES_HOLD
+          path: test-results/r15q3/visual/
+          retention-days: 7
+          if-no-files-found: warn

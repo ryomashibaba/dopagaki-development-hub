@@ -1,0 +1,69 @@
+name: P101 R15M3 genuine original 240Hz +0.35 steering outcome beyond20s (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15m3-right-from16p5-native-beyond20.mjs
+      - scripts/p101-r15m3-independent-post20-native-veto.py
+      - .github/workflows/p101-r15m3-right-steer-beyond20-source.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15m3-two-original-native-p96-right-only-extended-to-26:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen original game and new script syntax before physically running true original source
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15m3-right-from16p5-native-beyond20.mjs
+          python3 -m py_compile scripts/p101-r15m3-independent-post20-native-veto.py
+      - name: Download real native verified original reference and R15M 20s actual start00 right-only source evidence
+        run: |
+          mkdir -p test-results/r15m3/r15l test-results/r15m3/r15l2 test-results/r15m3/r15m test-results/r15m3/results
+          gh run download 40802904554 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15L_TRUE_NATIVE_ALL_PLAYABLE_TIME_CX18_B48_7_TWO_ROAD_B51_WIDE_RESEARCH_NO_ART \
+            --dir test-results/r15m3/r15l
+          gh run download 40803935993 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15L2_ACTUAL_RUNNER_TERMINAL_REASON_AND_17S_INPUT_VARIANTS_ORIGINAL_HOLD \
+            --dir test-results/r15m3/r15l2
+          gh run download 40809307778 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15M2_LAST_REAL_B48_CONTACT_3D_BOUNDARY_RECONTACT_INDEPENDENT_SOURCE_HOLD \
+            --dir test-results/r15m3/r15m
+      - name: TRUE original 240Hz B48 P96 drive, +0.35 analog from 16.5 to genuine fail/end or 26 seconds (never invented finish)
+        run: |
+          node scripts/p101-r15m3-right-from16p5-native-beyond20.mjs \
+            --true-pinch test-results/r15m3/r15l/native/true-pinch.json \
+            --pinch-switch test-results/r15m3/r15l/native/pinch-switch.json \
+            --l2 test-results/r15m3/r15l2/R15L2_TRUE_SOURCE_RUNNER_TERMINAL_REASON_AND_AFTER17_INPUT_SWEEP.json \
+            --r15m test-results/r15m3/r15m/R15M_ACTUAL_ORIGINAL_B48_240HZ_EXIT_TRAJECTORIES.json \
+            --out test-results/r15m3/results
+      - name: Independent true 20s prefix source parity and 26s horizon no false source game completion
+        run: |
+          python3 scripts/p101-r15m3-independent-post20-native-veto.py \
+            --current test-results/r15m3/results/R15M3_GENUINE_RIGHT_STEER_B48_CONTACT_AND_TERMINAL_BEYOND20.json \
+            --original test-results/r15m3/r15m/R15M_ACTUAL_ORIGINAL_B48_240HZ_EXIT_TRAJECTORIES.json \
+            --out test-results/r15m3/results
+          python3 - <<'PY'
+          import json
+          p="test-results/r15m3/results/"
+          x=json.load(open(p+"R15M3_INDEPENDENT_NATIVE_POST20_RIGHT_BIAS_QA.json"))
+          assert x['exactArchivedSource20sStateReconciled']
+          assert len(x['adversarialFakeHumanArtCompletionClaimsRejected'])==12
+          assert x['newGameColliders']==x['officialArt']==x['officialSlope2Meters']==0
+          print("R15M3_TRUE_NATIVE_20_PLUS_NO_FALSE_52S",x,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15M3_REAL_NATIVE_RIGHT_BIAS_16P5_20TO26_TERMINAL_NO_ART_HOLD
+          path: test-results/r15m3/results/
+          retention-days: 7
+          if-no-files-found: warn

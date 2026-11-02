@@ -1,0 +1,59 @@
+name: P101 R15S3D8R1 corrected road4 physical winding original 65s x2 HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d8r1-original-road4-continuous-physical-winding.mjs
+      - scripts/p101-r15s3d8r1-two-original-native-65s-road4-continuity.mjs
+      - scripts/p101-r15s3d8r1-independent-normal-and-65s-source-veto.py
+      - .github/workflows/p101-r15s3d8r1-continuous-winding-two-native-65s.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-r15s3d8r1-two-native-65s:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Source hash and native scripts syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d8r1-original-road4-continuous-physical-winding.mjs
+          node --check scripts/p101-r15s3d8r1-two-original-native-65s-road4-continuity.mjs
+          python3 -m py_compile scripts/p101-r15s3d8r1-independent-normal-and-65s-source-veto.py
+      - name: Download true source B16 original and R15S3D8 four-case evidence
+        run: |
+          mkdir -p test-results/r15s3d8r1/b16 test-results/r15s3d8r1/d8 test-results/r15s3d8r1/out
+          gh run download 40866341059 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3B_12_NATIVE_240HZ_FROZEN_CROWN_TRAIL_AWARE_SCISSOR_MACRO_NO_ART_HOLD \
+            --dir test-results/r15s3d8r1/b16
+          gh run download 40974883310 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3D8_TWO_REAL_B48_MACRO_FOUR_ORIGINAL_240HZ_HOLD \
+            --dir test-results/r15s3d8r1/d8
+          test -s test-results/r15s3d8r1/b16/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json
+          test -s test-results/r15s3d8r1/d8/R15S3D8_TWO_ROAD_MACRO_FOUR_GENUINE_240HZ.json
+      - name: Original physics 2 worlds 65s source 240Hz real road4 winding
+        run: |
+          node scripts/p101-r15s3d8r1-two-original-native-65s-road4-continuity.mjs \
+            --b16 test-results/r15s3d8r1/b16/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json \
+            --d8 test-results/r15s3d8r1/d8/R15S3D8_TWO_ROAD_MACRO_FOUR_GENUINE_240HZ.json \
+            --out test-results/r15s3d8r1/out
+      - name: Independent native 65s integrity and false certificate veto
+        run: |
+          python3 scripts/p101-r15s3d8r1-independent-normal-and-65s-source-veto.py \
+            --source test-results/r15s3d8r1/out/R15S3D8R1_TWO_SOURCE_NATIVE_65S_REAL_ROAD4.json \
+            --out test-results/r15s3d8r1/out
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D8R1_ROAD4_CONTINUOUS_NORMAL_TWO_NATIVE_65S_SOURCE_HOLD
+          path: test-results/r15s3d8r1/out/
+          retention-days: 7
+          if-no-files-found: warn

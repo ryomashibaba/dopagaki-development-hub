@@ -1,0 +1,111 @@
+name: G4E-7DZ R6D PRIVATE native 14-18.5s ten-frame and 240Hz B51-04 tick study ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-tenframe-source.mjs'
+      - 'scripts/p101-w9c2-g4e7dz-r6d-tenframe-blender.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-tenframe.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r6d-original-tenframe-private
+  cancel-in-progress: true
+jobs:
+  source-native-timeline-and-real-blender:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify source protections and emit real native 240Hz timeline
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-w9c2-g4e7dz-r6d-tenframe-source.mjs
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-tenframe-blender.py
+          node scripts/p101-w9c2-g4e7dz-r6d-tenframe-source.mjs
+      - name: Independent source report schema and safety-boundary checks
+        run: |
+          python3 - <<'PY'
+          import glob,json,math
+          paths=glob.glob('test-results/g4e7dz-r6d/source/*.json')
+          assert len(paths)==2,paths
+          assert {json.load(open(p))['road'] for p in paths}=={'true-pinch','pinch-switch'}
+          ids=['t1400','t1450','t1500','t1550','t1600','t1650','t1700','t1750','t1800','t1850']
+          for path in paths:
+           d=json.load(open(path))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-native-tenframe-timeline/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert (d['sourceB48'],d['sourceB51'],d['sourceOriginalBlenderCameras'])==(7,28,5)
+           assert d['sourcePhysicsHz']==240 and d['sourceGap52'] and d['originalSourceUnchanged']
+           assert [s['id'] for s in d['frames']]==ids
+           assert len(d['originalFive'])==5
+           assert all(len(s['sourceMoving'])==28 for s in d['frames'])
+           assert all(s['originalSource']=='ACTUAL_240HZ_START00_P96_FIXED_SCRIPT_NOT_HUMAN' for s in d['frames'])
+           ticks=d['sourceMachine04TickStudy']
+           assert ticks['sampleCount']==1081 and ticks['firstTick']==14*240 and ticks['lastTick']==int(18.5*240)
+           assert ticks['candidateCollisionCertification']=='NOT_TESTED'
+           assert d['dynamicCollisionSafety']=='NOT_CERTIFIED'
+           assert d['newCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+           assert all(d[x]=='HOLD' for x in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+          print('R6D_REAL_NATIVE_TIMELINE_GENUINE_240HZ_POINT_SAMPLES_NOT_SWEPT_SAFE')
+          PY
+      - name: Reuse ORIGINAL DR Blender worlds without modifying their sources
+        run: |
+          mkdir -p test-results/g4e7dz-r6d/DR-source
+          gh run download 40587470014 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DY_R1_ORIGINAL_B48_SKY_CIVIC_CITY_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r6d/DR-source
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Generate authentic extended 10-camera Blender images and source-safe editable models
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r6d/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-tenframe-blender.py -- \
+              --source "test-results/g4e7dz-r6d/DR-source/dr-$r/G4E7DR_$r"_B48_B51_240HZ_EDITABLE_ART_HOLD.blend \
+              --native "test-results/g4e7dz-r6d/source/$r.json" \
+              --road "$r" --out "test-results/g4e7dz-r6d/result-$r"
+          done
+      - name: Verify actual editable scenes, renders and non-certification
+        run: |
+          python3 - <<'PY'
+          import glob,json
+          root='test-results/g4e7dz-r6d'
+          audits=glob.glob(root+'/result-*/*_AUDIT.json')
+          blends=glob.glob(root+'/result-*/*.blend')
+          pngs=glob.glob(root+'/result-*/*.png')
+          assert len(audits)==2 and len(blends)==2 and len(pngs)==20,(audits,blends,len(pngs))
+          assert {json.load(open(p))['road'] for p in audits}=={'true-pinch','pinch-switch'}
+          for p in audits:
+           d=json.load(open(p))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-extended-original-blender/1'
+           assert (d['sourceCX'],d['sourceB48'],d['sourceB51'])==(18,7,28)
+           assert d['sourceIdentityPreserved'] and d['sourceGameChanged'] is False
+           assert d['originalUnchangedCameras']==5 and d['newExactNativeSampledCameras']==5
+           assert d['authenticNativeFrameCount']==len(d['renderedOriginalNativeBlenderFrames'])==10
+           assert d['cameraProjectionErrorNdcMax']<.0001
+           assert d['machine04TickSamples']==1081
+           assert d['machine04ContinuousTimeOccupancy']=='NOT_CERTIFIED'
+           assert d['fourBeatVisualLegibility']=='PENDING_HUMAN_IMAGE_REVIEW'
+           assert d['newCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+          print('R6D_20_REAL_BLENDER_IMAGES_AND_2_EDITABLE_SOURCE_SCENES_NO_NEW_CITY')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R6D_AUTHENTIC_10FRAME_B51_240HZ_PRIVATE_ART_HOLD
+          path: |
+            test-results/g4e7dz-r6d/source/
+            test-results/g4e7dz-r6d/result-*/
+          if-no-files-found: warn
+          retention-days: 7

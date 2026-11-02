@@ -1,0 +1,59 @@
+name: W9-C2 G4E-4 true physical skybridge landing (nonpublishing)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e4-skybridge-receiver.mjs'
+      - 'scripts/p101-w9c2-g4e4-native-landing-matrix.mjs'
+      - 'tests/p101-w9c2-g4e4-skybridge.test.mjs'
+      - 'tests/p101-w9c2-g4e4-collision-seam.test.mjs'
+      - 'private/reference_only/director/collision.js'
+      - '.github/workflows/p101-w9c2-g4e4-skybridge-native.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e4-landing-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  skybridge-native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify real receiver geometry and unsupported physical void
+        run: node --test tests/p101-w9c2-g4e4-skybridge.test.mjs tests/p101-w9c2-g4e4-collision-seam.test.mjs
+      - name: Compare actual 240Hz start00, no receiver vs 119/123/127m
+        run: |
+          node scripts/p101-w9c2-g4e4-native-landing-matrix.mjs > g4e4-raw.txt
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const raw=fs.readFileSync("g4e4-raw.txt","utf8");
+          const d=JSON.parse(raw.slice(raw.indexOf("{")));
+          if(d.results.length!==4||d.results.some(x=>x.actualHz!==240||
+           x.realMovingBodies!==28||x.originalGuideCount!==7||
+           !x.realStart00||!x.originalSevenRoadsIntact||x.realGapMeters<5))
+           throw Error("Native evidence integrity failure");
+          const baseline=d.results[0],low=d.results[1],mid=d.results[2],high=d.results[3];
+          if(baseline.realReceiverLanding||!baseline.realTakeoff||
+             !low.realTakeoff||!mid.realTakeoff||
+             !low.realReceiverLanding||!mid.realReceiverLanding||
+             low.receiverGroundedTicks<120||mid.receiverGroundedTicks<120||
+             high.realReceiverLanding||d.results.some(x=>x.finished))
+            throw Error("G4E4 native 119/123m landing regression or unreviewed finish");
+          fs.writeFileSync("g4e4-verdict.json",JSON.stringify({
+           schema:d.schema,verdict:d.verdict,human:"HOLD",release:"HOLD"},null,2));
+          console.log(JSON.stringify(d.verdict));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e4-real-skybridge-landing-${{ github.run_id }}
+          path: |
+            g4e4-raw.txt
+            g4e4-verdict.json
+          if-no-files-found: ignore
+          retention-days: 10

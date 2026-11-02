@@ -1,0 +1,54 @@
+name: P101 R15S3D2 true 240Hz real SCISSOR crest next-road connected grade + signed speed QA HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d2-scissor-and-next-real-longitudinal-physical-regrade.mjs
+      - scripts/p101-r15s3d2-four-real-240hz-speed-joined-road-trials.mjs
+      - scripts/p101-r15s3d2-independent-true-b48-join-veto.py
+      - .github/workflows/p101-r15s3d2-native-longitudinal-real-join.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15s3d2-4-real-240hz-longitudinal-connected-B48-native-trials:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protect original game and verify all source scripts syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d2-scissor-and-next-real-longitudinal-physical-regrade.mjs
+          node --check scripts/p101-r15s3d2-four-real-240hz-speed-joined-road-trials.mjs
+          python3 -m py_compile scripts/p101-r15s3d2-independent-true-b48-join-veto.py
+      - name: Fetch original E P94 0-34s truly native reference for prefix protection
+        run: |
+          mkdir -p test-results/r15s3d2/ref test-results/r15s3d2/out
+          gh run download 40866341059 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3B_12_NATIVE_240HZ_FROZEN_CROWN_TRAIL_AWARE_SCISSOR_MACRO_NO_ART_HOLD \
+            --dir test-results/r15s3d2/ref
+          test -s test-results/r15s3d2/ref/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json
+      - name: Run actual original native 240Hz 4 two-road continuous longitudinal B48 trials; signed speed, stall, reverse and real next road
+        run: |
+          node scripts/p101-r15s3d2-four-real-240hz-speed-joined-road-trials.mjs \
+            --r15s3b test-results/r15s3d2/ref/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json \
+            --out test-results/r15s3d2/out
+      - name: Independently check actual 4 native road support/velocity results and 13 forged certificates rejected
+        run: |
+          python3 scripts/p101-r15s3d2-independent-true-b48-join-veto.py \
+            --source test-results/r15s3d2/out/R15S3D2_4_REAL_240HZ_TWO_ROAD_GRADE_PROGRESS_STUDIES.json \
+            --out test-results/r15s3d2/out
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D2_4_NATIVE_240HZ_TWO_REAL_B48_CONNECTED_GRADE_SPEED_SUPPORT_HOLD
+          path: test-results/r15s3d2/out/
+          retention-days: 7
+          if-no-files-found: warn

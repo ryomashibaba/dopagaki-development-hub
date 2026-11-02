@@ -1,0 +1,93 @@
+name: G4E-7DZ R6D-R8E PRIVATE six-metre existing CX-to-early public corridor scan
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r8e-short-cx-bridge-audit.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r8e-short-cx.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r8e-real-existing-source-sixmetre-corridor
+  cancel-in-progress: true
+jobs:
+  original-sixmetre-corridor-falsifier:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify immutable original and syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r8e-short-cx-bridge-audit.py
+      - name: Retrieve authentic 4 referenced source studies with exact expected proven artifacts
+        run: |
+          mkdir -p test-results/g4e7dz-r8e/source-r1 test-results/g4e7dz-r8e/source-r8b test-results/g4e7dz-r8e/source-r8d test-results/g4e7dz-r8e/source-r4
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r8e/source-r1
+          gh run download 40678683173 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R8B_TIME_ORDERED_ROUTE_GRAPH_NO_ART_HOLD \
+            --dir test-results/g4e7dz-r8e/source-r8b
+          gh run download 40679407999 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R8D_EARLY_CX_REAL_SOURCE_FACE_ALTERNATIVES_ART_HOLD \
+            --dir test-results/g4e7dz-r8e/source-r8d
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r8e/source-r4
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Recheck alternative actual original floor, full six-metre strip and B51 envelope samples on both roads
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r8e/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r8e-short-cx-bridge-audit.py -- \
+              --blend "test-results/g4e7dz-r8e/source-r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r8e/source-r1/source/$r.json" \
+              --r8b "test-results/g4e7dz-r8e/source-r8b/R8B_$r"_TEMPORAL_GRADE_GRAPH.json \
+              --r8d "test-results/g4e7dz-r8e/source-r8d/result-$r/R8D_$r"_REAL_SOURCE_ALTERNATIVE_CX_FACE.json \
+              --hazards "test-results/g4e7dz-r8e/source-r4/source/$r.json" \
+              --road "$r" --out "test-results/g4e7dz-r8e/result-$r"
+          done
+      - name: Independent source floor and corridor evidence; no unsafe automatic acceptance
+        run: |
+          python3 - <<'PY'
+          import json,glob
+          reports=glob.glob('test-results/g4e7dz-r8e/result-*/*_CX_EARLY_SIX_METRE_SOURCE.json')
+          assert len(reports)==2,reports
+          for f in reports:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r8e-source-cx-early-6m-corridor/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['originalSourceCX18B48_7B51_28Unchanged']
+           assert d['sourceFaceNormalUp']>=.82 and d['sourceActualAreaMetresSquared']>=10
+           assert d['distancePlanMetres']<=150 and d['slopeMetresPerHorizontalMetre']<=.09
+           assert d['originalSources6mWidePer8mCorridorSamples']>0
+           assert len(d['allSamplesDownwardExistingFloor'])==d['originalSources6mWidePer8mCorridorSamples']
+           assert not d['supportsActuallyDesignedAndBuilt']
+           assert not d['publicPedestrianRouteBuilt']
+           assert d['originalCxSourceFaceIsLegitimateHumanEntrance']=='NOT_CERTIFIED'
+           assert d['continuousTimeSafety']=='NOT_CERTIFIED'
+           assert d['newBlenderCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R8E_GENUINE_EXISTING_SOURCE_STRIP',d['road'],
+             'horizontal',d['distancePlanMetres'],'grade',d['slopeMetresPerHorizontalMetre'],
+             'originalMeshCollisions',len(d['exactSourceTriangleCentreAndSideObstructionSamples']),
+             'all28B51sampleWarnings',len(d['all28OriginalMoving721TickSampledAabbWarnings']),
+             'supportUnder20m',d['samplesActualExistingFloorBelowWithin20m'],
+             'of',d['originalSources6mWidePer8mCorridorSamples'])
+          print('R8E_SUCCESS_IS_EVIDENCE_ONLY_NOT_WALKABILITY_OR_ART')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R8E_REAL_SOURCE_SHORT_CX_FLOOR_SIXMETRE_RESEARCH_HOLD
+          path: test-results/g4e7dz-r8e/result-*/
+          retention-days: 7
+          if-no-files-found: warn

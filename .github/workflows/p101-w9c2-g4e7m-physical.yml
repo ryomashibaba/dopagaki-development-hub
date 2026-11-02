@@ -1,0 +1,52 @@
+name: W9-C2 G4E-7M true 13-16m B48 physical widths, native 240Hz
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7m-physical-build.mjs'
+      - 'scripts/p101-w9c2-g4e7m-native-matrix.mjs'
+      - 'tests/p101-w9c2-g4e7m-physical.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7m-physical.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e7m-physical-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  true-narrow:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Real 31x5 B48 width 10-16m, two hills, unchanged moving obstacles and Gold
+        run: |
+          node --check scripts/p101-w9c2-g4e7m-native-matrix.mjs
+          node --check scripts/p101-w9c2-g4e7m-physical-build.mjs
+          node --test tests/p101-w9c2-g4e7m-physical.test.mjs tests/p101-w9c2-g4e7f-real-slope.test.mjs
+      - name: Four honest 240Hz start00 real B48 runs; record candidate failures
+        run: |
+          node scripts/p101-w9c2-g4e7m-native-matrix.mjs g4e7m-native-physical.json
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const d=JSON.parse(fs.readFileSync("g4e7m-native-physical.json","utf8"));
+          if(d.fullRuns.length!==4||d.candidates.length!==2||
+             !d.control.finished||!d.glideControl.finished||
+             d.control.roadCount!==7||d.glideControl.roadCount!==7||
+             d.fullRuns.some(r=>r.hz!==240||r.originalMovingCount!==28||
+               r.initialSpeedMps!==52||r.approvedSlopeDnaMeters!==0)||
+             d.candidates.some(c=>c.officiallyApprovedSlopeDnaMeters!==0)||
+             d.release!=="HOLD"||d.approvedSlopeDnaMeters!==0)
+            throw Error("G4E7M Gold, GLIDE or native audit evidence invalid");
+          console.log(JSON.stringify(d.candidates));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7m-real-physical-native-${{ github.run_id }}
+          path: g4e7m-native-physical.json
+          if-no-files-found: ignore
+          retention-days: 10

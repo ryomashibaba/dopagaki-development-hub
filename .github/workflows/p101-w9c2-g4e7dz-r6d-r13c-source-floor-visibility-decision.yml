@@ -1,0 +1,107 @@
+name: G4E-7DZ R6D-R13C true original-player proximity, floor and original-camera phase veto
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r13c-source-city-readiness-gate.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r13c-source-floor-visibility-decision.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r13c-authentic-city-floor-and-camera-gate
+  cancel-in-progress: true
+jobs:
+  independent-quality-gate-not-new-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm original source code protected and Python syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r13c-source-city-readiness-gate.py
+      - name: Reuse R13A/B true Blender authentic original 3D artifacts, R1 original player trajectory and R12C independent original-camera ART verdict
+        run: |
+          mkdir -p test-results/g4e7dz-r13c/r13a test-results/g4e7dz-r13c/r13b test-results/g4e7dz-r13c/r1 test-results/g4e7dz-r13c/r12c
+          gh run download 40690352681 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R13A_TRUE_SOURCE_8M_3D_CONNECTED_EARLY_MIDDLE_RESEARCH_HOLD \
+            --dir test-results/g4e7dz-r13c/r13a
+          gh run download 40690811555 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R13B_ORIGINAL_SOURCE_WIDE_VOXEL_REAL_14_CAMERA_DEBUG_ART_HOLD \
+            --dir test-results/g4e7dz-r13c/r13b
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r13c/r1
+          gh run download 40688475676 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R12C_REAL_ORIGINAL_CAMERA_3WAY_IMAGE_SOURCE_ART_REJECT \
+            --dir test-results/g4e7dz-r13c/r12c
+      - name: Independently classify 32m source volume, missing floor, real original camera exposure and grade constraints both roads
+        run: |
+          for r in true-pinch pinch-switch; do
+            python3 scripts/p101-w9c2-g4e7dz-r6d-r13c-source-city-readiness-gate.py \
+              --r13a "test-results/g4e7dz-r13c/r13a/result-$r/R13A_$r"_ORIGINAL_SOURCE_8M_VOXEL_CORRIDOR.json \
+              --r13b "test-results/g4e7dz-r13c/r13b/result-$r/R13B_$r"_ORIGINAL_3D_WIDTH_AND_FOOTINGS.json \
+              --native "test-results/g4e7dz-r13c/r1/source/$r.json" \
+              --r12c "test-results/g4e7dz-r13c/r12c/R12C_$r"_NATIVE_SOURCE_IMAGE_VERDICT.json \
+              --out "test-results/g4e7dz-r13c/R13C_$r"_SOURCE_CITY_READINESS.json
+          done
+      - name: Independent missing floor, research ramp, no fake art/safety claims and negative injected walkability
+        run: |
+          python3 - <<'PY'
+          import glob,json,copy,importlib.util
+          root='test-results/g4e7dz-r13c'
+          files=glob.glob(root+'/R13C_*_SOURCE_CITY_READINESS.json')
+          assert len(files)==2,files
+          for path in files:
+           d=json.load(open(path))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r13c-real-source-art-and-floor-governance/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['originalSourceCX18B48_7B51_28Cameras5Unchanged']
+           assert d['originalActual3DNodes']==10
+           assert d['nonExhaustiveSourceVolumesTested']==37
+           assert d['source32mWide20mHighOriginalPhysicalFreeProbes']==37
+           assert d['source32mWide20mHighAll37DiscreteProbesFree']
+           assert not d['completeContinuousTimeSweptVolumeCertified']
+           assert d['existingOriginalSourceFloorWithin12mSampleCount']==0
+           assert d['allOriginalSourceFloorSamples']==10
+           assert len(d['actualOriginalPlayerTrajectoryDistanceEvidence'])==13
+           assert .15<d['researchGradeActualOriginalPath']<.25
+           assert d['researchInternalTargetMaxGrade']==.09
+           assert d['requiredExtraHorizontalOverShortestAt9PctMetres']>50
+           assert not d['structuralOrGameFloorActualBuilt']
+           assert not d['originalIngressPathActualBuilt']
+           assert not d['originalB51ContinuousTimeSafetyCertified']
+           assert d['thisIsNotRealImageOfACompletedCity']
+           assert d['decision']=='SOURCE_32M_WIDE_37_SAMPLED_PROBES_CLEAR_NEEDS_NEW_LOAD_PATH_AND_NATIVE_ART_REFRAME'
+           assert not d['sourceGameChanged']
+           assert d['newCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R13C_ACTUAL_ORIGINAL_WORLD_FLOOR_VETO',d['road'],
+            '32m wide',d['source32mWide20mHighOriginalPhysicalFreeProbes'],
+            'of 37 probes','real floor',d['existingOriginalSourceFloorWithin12mSampleCount'],
+            'nearest actual source frame',d['closestPlayerPositionToVoidInNative13Frames']['frameId'])
+          spec=importlib.util.spec_from_file_location('r13c','scripts/p101-w9c2-g4e7dz-r6d-r13c-source-city-readiness-gate.py')
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          road='true-pinch'
+          a=json.load(open(f'{root}/r13a/result-{road}/R13A_{road}_ORIGINAL_SOURCE_8M_VOXEL_CORRIDOR.json'))
+          b=json.load(open(f'{root}/r13b/result-{road}/R13B_{road}_ORIGINAL_3D_WIDTH_AND_FOOTINGS.json'))
+          n=json.load(open(f'{root}/r1/source/{road}.json'))
+          old=json.load(open(f'{root}/r12c/R12C_{road}_NATIVE_SOURCE_IMAGE_VERDICT.json'))
+          fake=copy.deepcopy(b);fake['realPublicBridgeOrHumanWalkwayExists']=True
+          try:
+           m.decide(a,fake,n,old)
+           raise RuntimeError('FALSE PUBLIC BRIDGE CLAIM ACCEPTED')
+          except AssertionError:
+           print('R13C_FAKE_WALKABLE_SOURCE_BRIDGE_REJECTED')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R13C_TRUE_32M_SOURCE_CITY_NO_REAL_FLOOR_OR_ART_APPROVAL
+          path: test-results/g4e7dz-r13c/R13C_*_SOURCE_CITY_READINESS.json
+          retention-days: 7
+          if-no-files-found: warn

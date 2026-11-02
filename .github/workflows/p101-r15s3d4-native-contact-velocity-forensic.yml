@@ -1,0 +1,57 @@
+name: P101 R15S3D4 original R15S3D3 4-case 240Hz true-contact velocity forensic HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d4-original-four-case-contact-velocity-forensic.mjs
+      - scripts/p101-r15s3d4-independent-velocity-contact-honesty-qa.py
+      - .github/workflows/p101-r15s3d4-native-contact-velocity-forensic.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15s3d4-source-native-four-forensic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original source integrity and diagnostics syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d4-original-four-case-contact-velocity-forensic.mjs
+          python3 -m py_compile scripts/p101-r15s3d4-independent-velocity-contact-honesty-qa.py
+      - name: Retrieve genuine frozen B16 prefix and genuine R15S3D3 original outcomes
+        run: |
+          mkdir -p test-results/r15s3d4/ref-b16 test-results/r15s3d4/ref-d3 test-results/r15s3d4/out
+          gh run download 40866341059 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3B_12_NATIVE_240HZ_FROZEN_CROWN_TRAIL_AWARE_SCISSOR_MACRO_NO_ART_HOLD \
+            --dir test-results/r15s3d4/ref-b16
+          gh run download 40879559256 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15S3D3_4_NATIVE_REAL_B48_SUPPORT_RECONTACT_HOLD \
+            --dir test-results/r15s3d4/ref-d3
+          test -s test-results/r15s3d4/ref-b16/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json
+          test -s test-results/r15s3d4/ref-d3/R15S3D3_4_REAL_240HZ_SUPPORT_RECONTACT_TRIALS.json
+      - name: Four genuinely repeated original 0-second 240Hz runs, same physical B48
+        run: |
+          node scripts/p101-r15s3d4-original-four-case-contact-velocity-forensic.mjs \
+            --r15s3b test-results/r15s3d4/ref-b16/R15S3B_12_REAL_240HZ_SOURCE_TRAIL_AWARE_SCISSOR_RUNS.json \
+            --r15s3d3 test-results/r15s3d4/ref-d3/R15S3D3_4_REAL_240HZ_SUPPORT_RECONTACT_TRIALS.json \
+            --out test-results/r15s3d4/out
+      - name: Independent per-step consistency, false-claim veto, source integrity
+        run: |
+          python3 scripts/p101-r15s3d4-independent-velocity-contact-honesty-qa.py \
+            --source test-results/r15s3d4/out/R15S3D4_ORIGINAL_FOUR_CASE_SUPPORT_AND_VELOCITY_FORENSIC.json \
+            --out test-results/r15s3d4/out
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D4_ORIGINAL_FOUR_NATIVE_CONTACT_VELOCITY_FORENSIC_HOLD
+          path: test-results/r15s3d4/out/
+          retention-days: 7
+          if-no-files-found: warn

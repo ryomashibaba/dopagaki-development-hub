@@ -1,0 +1,56 @@
+name: W9-C2 G4E-7AK real 240Hz B51 lane pressure and fixed-key windows (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7ak-native-key-matrix.mjs'
+      - 'tests/research/p101-w9c2-g4e7ak-native-key.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ak-native.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  genuine-native-fixed-keys:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 29
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and immutable original B48/B51 source validation
+        run: |
+          node --check scripts/p101-w9c2-g4e7ak-native-key-matrix.mjs
+          node --test tests/research/p101-w9c2-g4e7ak-native-key.test.mjs
+      - name: Actual 240Hz P96 baseline vs fixed A/D input windows - no human claims
+        run: |
+          node scripts/p101-w9c2-g4e7ak-native-key-matrix.mjs g4e7ak-native-key-windows.json
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const x=JSON.parse(fs.readFileSync("g4e7ak-native-key-windows.json","utf8"));
+            if(x.physicsHz!==240||x.startSpeedMps!==52||
+              x.actualRoads!==7||x.actualMovers!==28||
+              x.results?.length!==2||x.certifiedSlope2Meters!==0||
+              x.humanPlayability!=="HOLD"||x.artQuality!=="HOLD"||
+              x.publication!=="HOLD"||x.productionPromotion!==false||
+              !x.limitation.includes("NOT_HUMAN")||
+              x.results.some(r=>r.probes?.length!==5||
+                r.probes.some(p=>!["running","finished","failed"].includes(p.status)||
+                  p.samples?.length<1||p.minimumSeparation?.length!==2||
+                  p.humanFairness!=="HOLD"||p.humanReadability!=="HOLD")))
+              throw Error("AK provenance, full outcomes, or HOLD gates invalid");
+            console.log("G4E7AK_NONHUMAN_REPORT_HOLD "+JSON.stringify(x.results.map(r=>({
+              road:r.road,probes:r.probes.map(p=>({
+                id:p.id,status:p.status,time:p.endedAtSeconds,
+                movingContacts:p.collisionEvents.length,
+                nearest:p.minimumSeparation
+              }))
+            }))));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ak-real-240hz-fixed-AD-${{ github.run_id }}
+          path: g4e7ak-native-key-windows.json
+          if-no-files-found: ignore
+          retention-days: 14

@@ -1,0 +1,54 @@
+name: G4E-7BS compare original Blender BR and BT genuine four-view images (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - '.github/workflows/p101-w9c2-g4e7bs-blender-review-export.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  independent-art-review-transport:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify both original native Blender sources and SHA-256 images
+        run: |
+          set -eu
+          for x in g4e7br-fractured-tide-citadel g4e7bt-inhabited-tidal-fold; do
+            d="artifacts/private/$x"
+            test -s "$d/SHA256_ART_HOLD_MANIFEST.json"
+            node --input-type=module - "$d" <<'JS'
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          import path from 'node:path';
+          const d=process.argv[2];
+          const manifest=JSON.parse(fs.readFileSync(path.join(d,'SHA256_ART_HOLD_MANIFEST.json')));
+          if(manifest.source!=='ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY' ||
+             manifest.humanArtApproval!=='HOLD' || manifest.publication!=='FORBIDDEN')
+             throw Error('An archive is not original native Blender ART HOLD: '+d);
+          for (const f of manifest.files){
+            const b=fs.readFileSync(path.join(d,f.file));
+            const digest=crypto.createHash('sha256').update(b).digest('hex');
+            if (f.bytes!==b.length || f.sha256!==digest)
+              throw Error('Corrupt original art archive '+path.join(d,f.file));
+          }
+          const p=d.includes('g4e7br')?'G4E7BR':'G4E7BT';
+          for(const camera of ['OBLIQUE','FRONT','SIDE','AERIAL']){
+            if(!fs.statSync(path.join(d,p+'_'+camera+'_REAL_BLENDER_RENDER.png')).size)
+              throw Error('Missing real native Cycles render '+camera);
+          }
+          console.log('INDEPENDENT_4_VIEW_REVIEW_ORIGINALS_VALIDATED_NOT_ART_PASS',d,manifest.files.length);
+          JS
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: g4e7br-vs-bt-eight-original-blender-views-ART-HOLD
+          path: |
+            artifacts/private/g4e7br-fractured-tide-citadel/G4E7BR_*_REAL_BLENDER_RENDER.png
+            artifacts/private/g4e7bt-inhabited-tidal-fold/G4E7BT_*_REAL_BLENDER_RENDER.png
+            artifacts/private/g4e7br-fractured-tide-citadel/SHA256_ART_HOLD_MANIFEST.json
+            artifacts/private/g4e7bt-inhabited-tidal-fold/SHA256_ART_HOLD_MANIFEST.json
+          if-no-files-found: error
+          retention-days: 14

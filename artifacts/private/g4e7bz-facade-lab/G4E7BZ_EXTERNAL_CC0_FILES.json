@@ -1,0 +1,18 @@
+[
+  {
+    "asset": "modular_urban_apartments_facade",
+    "license": "CC0 1.0",
+    "url": "https://polyhaven.com/a/modular_urban_apartments_facade",
+    "api": "https://api.polyhaven.com/files/modular_urban_apartments_facade",
+    "gltfSha256": "1a5a17dffd27fb9e1236dea7e51c4e0393a9d88ed0885a0621e67a37f80b27eb",
+    "dependentFiles": 13
+  },
+  {
+    "asset": "modular_factory_facade",
+    "license": "CC0 1.0",
+    "url": "https://polyhaven.com/a/modular_factory_facade",
+    "api": "https://api.polyhaven.com/files/modular_factory_facade",
+    "gltfSha256": "41ff58b722f9cb3e9db8bcacae3163946603ae99a1d42bb6f9045d7c4ec0f179",
+    "dependentFiles": 16
+  }
+]

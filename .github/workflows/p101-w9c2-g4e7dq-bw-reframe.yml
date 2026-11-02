@@ -1,0 +1,71 @@
+name: G4E-7DQ EXISTING detailed authored BW R3 real 240Hz Blender reframe (ART HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dq-native-site.mjs'
+      - 'scripts/p101-w9c2-g4e7dq-r3-reframe.py'
+      - 'tests/p101-w9c2-g4e7dq-site.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7dq-bw-reframe.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7dq-artist-asset-native-camera
+  cancel-in-progress: true
+jobs:
+  reframe-original-sculpted-architecture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 26
+    env:
+      DOPAGAKI_G4E7BE_VISUAL: '1'
+      DOPAGAKI_G4E7BG_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protected source + genuine native camera placement test
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-w9c2-g4e7dq-native-site.mjs
+          python3 -m py_compile scripts/p101-w9c2-g4e7dq-r3-reframe.py
+          node --test tests/p101-w9c2-g4e7dq-site.test.mjs
+          node scripts/p101-w9c2-g4e7do-master-export.mjs
+          node scripts/p101-w9c2-g4e7dq-native-site.mjs
+      - name: Install real Blender headless Cycles renderer
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender libegl1 libgl1 libx11-6
+      - name: Recover immutable real-camera DO reference stage then import genuine R3 Blender 3D
+        run: |
+          mkdir -p test-results/g4e7dq-bw-reframe
+          for road in true-pinch pinch-switch; do
+            mkdir -p test-results/g4e7dq-bw-reframe/reference-$road test-results/g4e7dq-bw-reframe/$road
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7do-master-blender.py -- --source test-results/g4e7do-master-camera/$road.json --out test-results/g4e7dq-bw-reframe/reference-$road
+            blender -b --factory-startup -t 2 --python-exit-code 4 --python scripts/p101-w9c2-g4e7dq-r3-reframe.py -- --reference test-results/g4e7dq-bw-reframe/reference-$road/G4E7DO_${road}_ORIGINAL_NATIVE_CAMERA_MASTER_ART_HOLD.blend --asset artifacts/private/g4e7bw-halocut-concourse-r3/G4E7BW_HALOCUT_CONCOURSE_SOURCE.blend --site test-results/g4e7dq-bw-reframe/sites/$road.json --out test-results/g4e7dq-bw-reframe/$road
+          done
+          python3 - <<'PY'
+          import glob,json
+          p='test-results/g4e7dq-bw-reframe'
+          candidates=glob.glob(p+'/*/G4E7DQ_*.blend')
+          images=glob.glob(p+'/*/G4E7DQ_*.png')
+          audits=glob.glob(p+'/*/G4E7DQ_*_AUDIT.json')
+          assert len(candidates)==2, candidates
+          assert len(images)==10, images
+          assert len(audits)==2, audits
+          for f in audits:
+           v=json.load(open(f))
+           assert v['originalBWObjects']>1000
+           assert v['genuineCameras']==5 and v['originalCXTriangles']==22920
+           assert not v['gamePhysicsChanged']
+           assert v['art']=='HOLD' and v['nativeWebGL']=='NOT_TESTED'
+          print('DQ_DETAIL_ASSET_TEN_REAL_BLENDER_REFERENCE_VIEWS_AWAIT_ART_REVIEW')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DQ_DETAILED_BW_R3_NATIVE_CAMERA_REAL_BLENDER_ART_HOLD
+          path: test-results/g4e7dq-bw-reframe
+          retention-days: 7
+          if-no-files-found: error

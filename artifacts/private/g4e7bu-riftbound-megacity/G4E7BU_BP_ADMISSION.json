@@ -1,0 +1,54 @@
+{
+  "schema": "dopagaki.g4e7bp-artist-glb-intake/1",
+  "assetId": "g4e7bu-riftbound-megacity-001",
+  "sha256": "5b33e7abfedc92aeb52f0278d05cdcc627cc6e179839f1e87044024400de1bf6",
+  "provenanceClaim": {
+    "author": "DOPAGAKI original scripted Blender 3D architectural research",
+    "sourceTool": "Blender bpy and original generated texture",
+    "sourceFile": "G4E7BU_RIFTBOUND_MEGACITY_SOURCE.blend",
+    "rights": "original-work",
+    "licenseName": null,
+    "licenseEvidence": null,
+    "verification": "SELF_DECLARED_NOT_INDEPENDENTLY_VERIFIED"
+  },
+  "glb": {
+    "bytes": 2893828,
+    "meshes": 668,
+    "nodes": 668,
+    "triangles": 38110,
+    "primitives": 741,
+    "vertexPositions": 76216,
+    "materials": 11,
+    "embeddedTextures": 1,
+    "textureRefs": 1,
+    "meshLocalAABB": {
+      "min": [
+        -904.85,
+        -150,
+        -950
+      ],
+      "max": [
+        904.85,
+        990.903,
+        950
+      ],
+      "span": [
+        1809.7,
+        1140.903,
+        1900
+      ]
+    },
+    "possibleNodeTransforms": true,
+    "facesWithMaterial": 741
+  },
+  "warnings": [
+    "NODE_TRANSFORMS: local mesh bounds are NOT world-space bounds; separate transform-baking/placement proof required"
+  ],
+  "realCameraWebGLProof": "NOT_YET_RUN",
+  "humanVisualReview": "HOLD",
+  "physicalRoadQA": "UNCHANGED_UNTESTED_BY_INTAKE",
+  "publicRelease": "FORBIDDEN",
+  "mergeApproval": "HOLD",
+  "officialSlope2CertifiedMeters": 0,
+  "admission": "METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS"
+}

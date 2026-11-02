@@ -1,0 +1,112 @@
+name: G4E-7DZ R6D-R8F PRIVATE 5-stage premodel evidence and structural stop gate
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r8f-premodel-support-gate.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r8f-gate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r8f-actual-art-structural-stop-gate
+  cancel-in-progress: true
+jobs:
+  grounded-fast-stop-not-new-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify immutable original and compile independent structural decision
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r8f-premodel-support-gate.py
+      - name: Download the five source-backed independent R8A-R8E CI artifacts without new modeling
+        run: |
+          mkdir -p test-results/g4e7dz-r8f/a test-results/g4e7dz-r8f/b test-results/g4e7dz-r8f/c test-results/g4e7dz-r8f/d test-results/g4e7dz-r8f/e
+          gh run download 40678460212 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R8A_TRUE_SOURCE_CAMERA_SITE_GRAPH_PREMODEL_HOLD \
+            --dir test-results/g4e7dz-r8f/a
+          gh run download 40678683173 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R8B_TIME_ORDERED_ROUTE_GRAPH_NO_ART_HOLD \
+            --dir test-results/g4e7dz-r8f/b
+          gh run download 40678958090 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R8C_REAL_ORIGINAL_ROUTE_SUPPORT_13_CAMERA_HOLD \
+            --dir test-results/g4e7dz-r8f/c
+          gh run download 40679407999 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R8D_EARLY_CX_REAL_SOURCE_FACE_ALTERNATIVES_ART_HOLD \
+            --dir test-results/g4e7dz-r8f/d
+          gh run download 40679711147 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R8E_REAL_SOURCE_SHORT_CX_FLOOR_SIXMETRE_RESEARCH_HOLD \
+            --dir test-results/g4e7dz-r8f/e
+      - name: Run actual independent stop gate for both unchanged original physical road variants
+        run: |
+          for r in true-pinch pinch-switch; do
+            python3 scripts/p101-w9c2-g4e7dz-r6d-r8f-premodel-support-gate.py \
+              --r8a "test-results/g4e7dz-r8f/a/result-$r/R8A_$r"_PREMODEL_SOURCE_GRAPH.json \
+              --r8b "test-results/g4e7dz-r8f/b/R8B_$r"_TEMPORAL_GRADE_GRAPH.json \
+              --r8c "test-results/g4e7dz-r8f/c/result-$r/R8C_$r"_SOURCE_ROUTE_CLEARANCE.json \
+              --r8d "test-results/g4e7dz-r8f/d/result-$r/R8D_$r"_REAL_SOURCE_ALTERNATIVE_CX_FACE.json \
+              --r8e "test-results/g4e7dz-r8f/e/result-$r/R8E_$r"_CX_EARLY_SIX_METRE_SOURCE.json \
+              --out "test-results/g4e7dz-r8f/R8F_$r"_REAL_EVIDENCE_STOP.json
+          done
+      - name: Require authentic technical progress without any false structural, gameplay or art approval
+        run: |
+          python3 - <<'PY'
+          import json,glob,copy,importlib.util
+          p='test-results/g4e7dz-r8f'
+          files=glob.glob(p+'/R8F_*_REAL_EVIDENCE_STOP.json')
+          assert len(files)==2,files
+          for f in files:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r8f-multistage-real-evidence-stop/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['originalCX18B48_7B51_28Unchanged']
+           assert d['R8ARealSourceCandidateCount']==144
+           assert len(d['R8BChronologicalSitesSelected'])==5
+           assert d['R8CActualOriginalSourceCameraVerificationPass']
+           assert d['R8E6mCorridorNoSampleOriginalMeshHitOrB51Warning']
+           assert d['R8EHorizontalDistanceMetres']<=150
+           assert d['R8ESourceHorizontalGrade']<=.09
+           assert d['R8EExistingUpwardOriginalFloorWithin20mSamples']<d['R8EAll12mOr8mSamples']
+           assert d['decision']=='STOP_BUILDING_3D_CITY_UNTIL_TRUE_LOAD_SUPPORT_AND_ACCESS_DESIGNED'
+           assert not d['structuralLoadPathCertified']
+           assert not d['actualPhysicalPedestrianRouteCertified']
+           assert not d['newUrbanArtAuthorized']
+           assert d['newCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+           assert all(d[k]=='HOLD' for k in ('ART','GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R8F_ACTUAL_GROUNDED_STOP_GATE',d['road'],
+             'short source route',d['R8EHorizontalDistanceMetres'],
+             'original foundation sites observed',d['R8EExistingUpwardOriginalFloorWithin20mSamples'],
+             'of',d['R8EAll12mOr8mSamples'])
+          spec=importlib.util.spec_from_file_location('r8f','scripts/p101-w9c2-g4e7dz-r6d-r8f-premodel-support-gate.py')
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          r='true-pinch'
+          paths=[p+'/a/result-'+r+'/R8A_'+r+'_PREMODEL_SOURCE_GRAPH.json',
+           p+'/b/R8B_'+r+'_TEMPORAL_GRADE_GRAPH.json',
+           p+'/c/result-'+r+'/R8C_'+r+'_SOURCE_ROUTE_CLEARANCE.json',
+           p+'/d/result-'+r+'/R8D_'+r+'_REAL_SOURCE_ALTERNATIVE_CX_FACE.json',
+           p+'/e/result-'+r+'/R8E_'+r+'_CX_EARLY_SIX_METRE_SOURCE.json']
+          a,b,c,d,e=[json.load(open(x)) for x in paths]
+          pretend=copy.deepcopy(e)
+          pretend['samplesActualExistingFloorBelowWithin20m']=pretend['originalSources6mWidePer8mCorridorSamples']
+          v=m.verdict(a,b,c,d,pretend)
+          assert v['decision']=='STOP_BUILDING_3D_CITY_UNTIL_TRUE_LOAD_SUPPORT_AND_ACCESS_DESIGNED'
+          assert not v['newUrbanArtAuthorized'] and not v['structuralLoadPathCertified']
+          broken=copy.deepcopy(e)
+          broken['exactSourceTriangleCentreAndSideObstructionSamples']=[{'syntheticCollision':True}]
+          q=m.verdict(a,b,c,d,broken)
+          assert not q['retainPromisingGeometricResearch']
+          assert not q['newUrbanArtAuthorized']
+          print('R8F_MUTATION_TEST_FALSE_STRUCTURAL_PROMOTION_AND_B48_COLLISION_FAIL_CLOSED')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R8F_FIVE_STAGE_ACTUAL_SUPPORT_STOP_GATE_ART_HOLD
+          path: test-results/g4e7dz-r8f/R8F_*_REAL_EVIDENCE_STOP.json
+          retention-days: 7
+          if-no-files-found: warn

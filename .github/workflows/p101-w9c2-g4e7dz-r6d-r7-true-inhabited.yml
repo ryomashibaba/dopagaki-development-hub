@@ -1,0 +1,94 @@
+name: G4E-7DZ R6D-R7 PRIVATE real inhabited court and original-camera geometric veto
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r7-inhabited-void-city.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r7-true-inhabited.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r6d-r7-actual-city-private
+  cancel-in-progress: true
+jobs:
+  real-inhabited-source-blender-and-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original CX blob and new script syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r7-inhabited-void-city.py
+      - name: Retrieve source R1 camera, R4 28 mover tick AABB, actual R5A existing city contact
+        run: |
+          mkdir -p test-results/g4e7dz-r6d-r7/source-r1 test-results/g4e7dz-r6d-r7/source-r4 test-results/g4e7dz-r6d-r7/source-r5a
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r6d-r7/source-r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r6d-r7/source-r4
+          gh run download 40635016206 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R5A_PRIVATE_SOURCE_CX_B48_CONNECTION_HOLD \
+            --dir test-results/g4e7dz-r6d-r7/source-r5a
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Build original-world human-scale interior court and render 7 true cameras on two roads
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r6d-r7/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r7-inhabited-void-city.py -- \
+              --source "test-results/g4e7dz-r6d-r7/source-r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r6d-r7/source-r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r6d-r7/source-r4/source/$r.json" \
+              --contact "test-results/g4e7dz-r6d-r7/source-r5a/result-$r/R5A_$r"_SOURCE_CONTACT.json \
+              --road "$r" --out "test-results/g4e7dz-r6d-r7/result-$r"
+          done
+      - name: Independent geometry/void/camera validity check; never auto-grant art
+        run: |
+          python3 - <<'PY'
+          import json,glob,os
+          root='test-results/g4e7dz-r6d-r7'
+          aud=glob.glob(root+'/result-*/*_AUDIT.json')
+          blends=glob.glob(root+'/result-*/*.blend')
+          png=glob.glob(root+'/result-*/*.png')
+          assert len(aud)==len(blends)==2 and len(png)==14,(aud,blends,len(png))
+          assert {json.load(open(a))['road'] for a in aud}=={'true-pinch','pinch-switch'}
+          for a in aud:
+           d=json.load(open(a))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r7-true-volume-court-city/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert (d['sourceCX'],d['sourceB48'],d['sourceB51'],d['sourceCameras'])==(18,7,28,5)
+           assert d['sourceProtected'] and d['gap52']
+           assert d['newEditableBlenderMeshes']>200
+           assert len(d['realSourceMeshSkyVoidRayChecks'])==6
+           assert all(x['realOpenSky85m'] and not x['upwardRayHits'] for x in d['realSourceMeshSkyVoidRayChecks'])
+           assert d['actual32SlopeSegments']==32 and d['maxSegmentVerticalGrade']<.11
+           assert len(d['newR7Actual13SourcePoseB51TriangleIntersections'])==13
+           assert len(d['sevenRealSourceCameraCoarseFirstHit'])==7
+           assert all(sum(x['firstHitGrid'].values())==187 for x in d['sevenRealSourceCameraCoarseFirstHit'].values())
+           assert d['continuousTimeCollisionSafety']=='NOT_CERTIFIED'
+           assert d['newGameColliders']==d['officialArt']==d['officialSlope2Meters']==0
+           assert d['sourceGameChanged'] is False and d['trueGameWebGL']=='NOT_RENDERED'
+           assert all(d[k]=='HOLD' for k in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R7_REAL_COURT_STRUCTURE',d['road'],'city meshes',d['newEditableBlenderMeshes'],
+            'genuine original B48 triangle intersections',len(d['newR7ExactB48TriangleIntersections']),
+            'actual R1 B51 frame intersections',sum(map(len,d['newR7Actual13SourcePoseB51TriangleIntersections'].values())),
+            '28 x 721 hazard envelope warnings',len(d['newR7All28B51_721TickConservativeAabbWarnings']),
+            'native 17s R7 first-hit visibility',d['sevenRealSourceCameraCoarseFirstHit']['t1700']['R7_fraction'])
+          print('R7_NATIVE_RENDER_AND_GEOMETRIC_PROVENANCE_ONLY_NO_ART_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R6D_R7_GENUINE_INHABITED_COURT_B48_B51_ART_HOLD
+          path: test-results/g4e7dz-r6d-r7/result-*/
+          if-no-files-found: warn
+          retention-days: 7

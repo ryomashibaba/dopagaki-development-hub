@@ -1,0 +1,103 @@
+name: G4E-7DZ R6D-R8A PRIVATE original-camera pre-model source graph no art
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r8a-source-site-graph.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r8a-premodel.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r8a-source-premodel-private
+  cancel-in-progress: true
+jobs:
+  actual-native-camera-graph-before-model:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify protected original source and Python syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r8a-source-site-graph.py
+      - name: Reuse authentic original cameras, 240Hz moving source and original CX contact
+        run: |
+          mkdir -p test-results/g4e7dz-r8a/source-r1 test-results/g4e7dz-r8a/source-r4 test-results/g4e7dz-r8a/source-r5a
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r8a/source-r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r8a/source-r4
+          gh run download 40635016206 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R5A_PRIVATE_SOURCE_CX_B48_CONNECTION_HOLD \
+            --dir test-results/g4e7dz-r8a/source-r5a
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Audit original camera and real scene, no new art meshes
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r8a/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r8a-source-site-graph.py -- \
+              --blend "test-results/g4e7dz-r8a/source-r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r8a/source-r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r8a/source-r4/source/$r.json" \
+              --contact "test-results/g4e7dz-r8a/source-r5a/result-$r/R5A_$r"_SOURCE_CONTACT.json \
+              --road "$r" --out "test-results/g4e7dz-r8a/result-$r"
+          done
+      - name: Independently audit original provenance, temporal visibility and graph endpoint identity
+        run: |
+          python3 - <<'PY'
+          import json,glob,math
+          root='test-results/g4e7dz-r8a'
+          reports=glob.glob(root+'/result-*/*_PREMODEL_SOURCE_GRAPH.json')
+          assert len(reports)==2,reports
+          assert {json.load(open(p))['road'] for p in reports}=={'true-pinch','pinch-switch'}
+          for path in reports:
+           d=json.load(open(path))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r8a-original-source-premodel-graph/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert (d['sourceCX'],d['sourceB48'],d['sourceB51'],d['originalCameras'])==(18,7,28,5)
+           assert d['gap52'] and d['sourceProtected'] and d['all28Moving721TickAabbsUsed']
+           assert d['candidateCount']==144
+           assert d['qualifiedSourceSites']<=d['candidateCount']
+           assert d['originalCxSourceFaceNearestResidualMetres']<.025
+           for role,site in d['selection'].items():
+            assert site['originalB48Nearest3dDistance']>=12
+            assert not site['full721tickB51SampledAabbMargin9mHits']
+            assert site['longestConsecutiveSourceFrames']>=2
+            assert len(site['all13NativeCameraResults'])==13
+            assert 0<=site['sourceFrames12_13_clear']<=3
+            assert 0<=site['sourceFrames15_17_clear']<=5
+           nodes=d['pedestrianGraphNodes'];edges=d['pedestrianGraphEdges']
+           assert len(nodes)==len(d['selection'])+1
+           assert len(edges)==len(d['selection'])
+           for i,e in enumerate(edges):
+            assert e['from']==nodes[i]['node'] and e['to']==nodes[i+1]['node']
+            assert e['segments']
+            assert all(x['lengthMetres']<=15.1 for x in e['segments'])
+            assert not e['pedestrianSupportingSurfacesBuilt']
+           assert d['realCityInteriorVolumePresent'] is False
+           assert d['fullPhysicalWalkingRouteCertified'] is False
+           assert d['newSupportingWalkSurfacesBuilt'] is False
+           assert d['newBlenderCityMeshes']==d['newGameColliders']==d['officialArt']==d['officialSlope2Metres']==0
+           assert d['sourceGameChanged'] is False
+           assert all(d[k]=='HOLD' for k in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R8A_RESEARCH_PREMODEL_NOT_ART',d['road'],'qualified',d['qualifiedSourceSites'],
+            'roles',d['siteRolesOrdered'],'segmentMeshBlocks',d['originalMeshSegmentBlockCount'],
+            'B51warnings',d['movingB51_721TickAabbSegmentWarningCount'])
+          print('R8A_NO_CITY_CREATED_AND_NO_GAME_CHANGE')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R8A_TRUE_SOURCE_CAMERA_SITE_GRAPH_PREMODEL_HOLD
+          path: test-results/g4e7dz-r8a/result-*/
+          retention-days: 7
+          if-no-files-found: warn

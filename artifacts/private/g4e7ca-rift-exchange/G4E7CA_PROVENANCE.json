@@ -1,0 +1,31 @@
+{
+  "schema": "g4e7ca-rift-exchange-native-studio-r2/1",
+  "author": "OpenAI SCRIPTED Blender architectural design, NOT hand-sculpted",
+  "licenseSources": [
+    "https://polyhaven.com/a/concrete_tile_facade",
+    "https://polyhaven.com/a/blue_metal_plate"
+  ],
+  "rights": "CC0 official Poly Haven licensed texture source",
+  "description": "Asymmetric 2-wing public building: glazed inhabited void, thick curved structurally landed exterior and actual transit transfer",
+  "geometry": {
+    "occupiedFloors": 10,
+    "supportedBridges": 3,
+    "publicEntrances": 1,
+    "transitAlignments": 1,
+    "realFacetedPanels": 88,
+    "physicalSupports": 59
+  },
+  "textureHashes": {
+    "concrete_tile_facade": "5ee9dbcaf3351b3d8193a5bd9e024adb484a078a60acf90eb240f7aaae1b53cd",
+    "blue_metal_plate": "a0162bffce47d4a35613a12af22571b28c18412dc5805cbb69eac343554ef750"
+  },
+  "geometryUsedStudioOnly": false,
+  "studioFloorExcludedFromGLB": true,
+  "realB48Camera": "NOT_RUN",
+  "actualPlayerGame": "NOT_RUN",
+  "humanPlay": "HOLD",
+  "artReview": "UNJUDGED",
+  "officialCertifiedSlope2Meters": 0,
+  "publication": "FORBIDDEN",
+  "workflow": "DRAFT_PR_ONLY"
+}

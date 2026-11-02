@@ -1,0 +1,59 @@
+name: W9-C2 G4E-3 exact-spline real-gap 240Hz QA (nonpublishing)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'private/reference_only/director/surface.js'
+      - 'scripts/p101-w9c2-g4e3-geometry-preserving-gap.mjs'
+      - 'scripts/p101-w9c2-g4e3-native-gap-matrix.mjs'
+      - 'tests/p101-w9c2-g4e3-real-gap.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e3-exact-spline-gap.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e3-exact-gap-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  exact-gap:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate missing physical mesh triangles and unchanged spline
+        run: node --test tests/p101-w9c2-g4e3-real-gap.test.mjs
+      - name: 240Hz actual start00 Gold and one/two/three-cell native runs
+        run: |
+          node scripts/p101-w9c2-g4e3-native-gap-matrix.mjs > g4e3-raw.txt
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const raw=fs.readFileSync("g4e3-raw.txt","utf8");
+          const m=JSON.parse(raw.slice(raw.indexOf("{")));
+          if(m.results.length!==4||m.results.some(r=>r.actualHz!==240||
+           r.realMovingBodies!==28||r.fullGuideSegments!==7||
+           !r.originalSplinePreserved||!r.realStart00))
+           throw Error("Native evidence integrity failure");
+          const verdict=m.results.slice(1).map(r=>({cells:r.cells,
+           fullRun:r.finished,realAir:r.realGapAirObserved,
+           realLanding:r.realGapLandingObserved,
+           gapMeters:r.realGapMeters,closestTakeoff:r.closestGroundedTakeoffMeters,
+           failure:r.failure}));
+          const result={schema:"dopagaki.w9c2.g4e3-verdict/1",
+           baselineFinished:m.controlFinish,verdict,
+           release:"HOLD",human:"NOT_TESTED",rawEvidence:"g4e3-raw.txt"};
+          fs.writeFileSync("g4e3-verdict.json",JSON.stringify(result,null,2));
+          console.log(JSON.stringify(result));
+          if(!m.controlFinish)throw Error("G4E3 native Gold baseline regressed");
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e3-exact-spline-true-gap-${{ github.run_id }}
+          path: |
+            g4e3-raw.txt
+            g4e3-verdict.json
+          if-no-files-found: ignore
+          retention-days: 10

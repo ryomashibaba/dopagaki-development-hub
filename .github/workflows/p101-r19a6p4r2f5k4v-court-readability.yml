@@ -1,0 +1,62 @@
+name: DOPAGAKI K4V true original-court screen semantics diagnostic ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4v-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4v-court-readability.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-k4v-original-screen-court
+  cancel-in-progress: true
+jobs:
+  actual-court-original-camera-no-new-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify immutable original gameplay and frozen market model
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-r19a6p4r2f5k4r-open-market.py)" = e653029771982b2c39ee2831ea19199f0704ddaa
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4v-real-court-readability.py
+      - name: Retrieve original K road anchors and genuine K4R K4U native WebGL2 artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/k4v-k /tmp/k4v-r /tmp/k4v-u
+          gh run download 41312758260 -n R2F5K_ORIGINAL_SOURCE_7ROAD_CAMERA_COVERAGE_ART_HOLD -D /tmp/k4v-k
+          gh run download 41351118263 -n R2F5K4R_ONE_NATIVE_MARKET_TRUE_ROAD0_16_WEBGL2_ART_HOLD -D /tmp/k4v-r
+          gh run download 41359514124 -n R2F5K4U_ONE_NATIVE_MARKET_TRUE_ROAD0_16_WEBGL2_ART_HOLD -D /tmp/k4v-u
+          (cd /tmp/k4v-k && zip -qr /tmp/k4v-k.zip .)
+          (cd /tmp/k4v-r && zip -qr /tmp/k4v-r.zip .)
+          (cd /tmp/k4v-u && zip -qr /tmp/k4v-u.zip .)
+          test -s /tmp/k4v-k.zip && test -s /tmp/k4v-r.zip && test -s /tmp/k4v-u.zip
+      - name: K4V read-only actual court projection and 24 native PNG source verification
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-numpy python3-pil
+          python3 scripts/p101-r19a6p4r2f5k4v-real-court-readability.py \
+            --kzip /tmp/k4v-k.zip --k4rzip /tmp/k4v-r.zip --k4uzip /tmp/k4v-u.zip \
+            --out r19-evidence/r19a6p4r2f5k4v
+          python3 - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('r19-evidence/r19a6p4r2f5k4v')
+          a=json.loads((p/'K4V_REAL_CAMERA_COURT_READABILITY_GEOMETRY_AND_PIXELS.json').read_text())
+          assert len(a['measurements'])==16
+          assert a['newGeometryModels']==a['newColliders']==a['officialARTAccepted']==0
+          assert a['slope2DNARecognizedMetres']==0 and a['merge']=='HOLD'
+          assert len(list(p.glob('K4V_*_REAL_WEBGL2_COURT_EXPLAINED.png')))==8
+          assert {r['site'] for r in a['measurements']}=={'K4R','K4U'}
+          print('K4V_NATIVE_SOURCES_24_SAME_FRAME_SHA_AND_COURT_DIAGNOSTIC_TECH_PASS_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4V_FROZEN_ROOFLESS_COURT_TRUE_8_SCREEN_VIEW_ANALYSIS_ART_HOLD
+          path: r19-evidence/r19a6p4r2f5k4v/
+          retention-days: 7
+          if-no-files-found: warn

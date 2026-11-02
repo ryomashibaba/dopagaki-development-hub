@@ -1,0 +1,64 @@
+name: W9-C2 G4E-7P private true narrow B48 road readability (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/p101-a13-road-art.mjs'
+      - 'web/drive3d.mjs'
+      - 'tests/p101-w9c2-g4e7p-narrow-quiet.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7p-narrow-quiet.spec.mjs'
+      - '.github/workflows/p101-w9c2-g4e7p-narrow-quiet.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e7p-narrow-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  private-actual-B48:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      DOPAGAKI_G4E7M_VISUAL: '1'
+      DOPAGAKI_BUILD_DIR: dist-private
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Unit tests and original road art/real road regressions
+        run: |
+          node --check web/drive3d.mjs
+          node --check web/p101-a13-road-art.mjs
+          node --test tests/p101-w9c2-g4e7p-narrow-quiet.test.mjs tests/p101-a13-road-art.test.mjs tests/p101-w9c2-g4e7m-physical.test.mjs
+      - name: Chromium setup
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Isolated local real-B48 candidates
+        run: |
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E7M_THREAD_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7M_PRECIPICE_LOCAL_TRIAL.json
+      - name: Actual WebGL screenshots on narrow-road physical positions
+        run: npx playwright test tests/browser/p101-w9c2-g4e7p-narrow-quiet.spec.mjs
+      - name: Public/published candidate isolation
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7M_THREAD_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7M_PRECIPICE_LOCAL_TRIAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7M_THREAD_LOCAL_TRIAL.json
+          test ! -e dist/generated/P101_A13_W9C2_G4E7M_PRECIPICE_LOCAL_TRIAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7p-private-real-B48-webgl-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7p-*.png
+            test-results/**/g4e7p-*.json
+            test-results/**/test-failed-*.png
+            test-results/**/error-context.md
+          if-no-files-found: ignore
+          retention-days: 10

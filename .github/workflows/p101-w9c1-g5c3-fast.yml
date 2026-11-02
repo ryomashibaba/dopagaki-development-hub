@@ -1,0 +1,61 @@
+name: W9-C1 G5-C3 single-launch manual QA (nonpublishing)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'web/p101-b5-manual-qa.mjs'
+      - 'web/drive3d.mjs'
+      - 'web/p101-w9c1-pair-qa.mjs'
+      - 'web/p101-w9c1-pair-session.html'
+      - 'web/p101-w9c1-pair-session.mjs'
+      - 'tests/p101-w9c1-g5c3-session.test.mjs'
+      - 'tests/browser/p101-w9c1-g5c3-session.spec.mjs'
+      - 'scripts/build.mjs'
+      - 'scripts/pack-p101-b5-review.mjs'
+      - '.github/workflows/p101-w9c1-g5c3-fast.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c1-g5c3-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  human-flow:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      DOPAGAKI_BUILD_DIR: dist-site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Truthful live-snapshot and legacy protected report regressions
+        run: node --test tests/p101-w9c1-g5c3-session.test.mjs tests/p101-w9c1-pair-qa.test.mjs tests/p101-b5-manual-qa.test.mjs tests/p101-rebound-recovery.test.mjs
+      - name: Install Chromium
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Build private PR-only stage QA
+        run: npm run build:site
+      - name: Real WebGL one-tab two-stage local manual acceptance
+        run: npx playwright test tests/browser/p101-w9c1-g5c3-session.spec.mjs
+      - name: Windows single-CMD review kit preflight
+        run: |
+          node scripts/pack-p101-b5-review.mjs
+          test -f b5-manual-review/RUN_W9C1_ONE_CLICK_PAIR.cmd
+          test -f b5-manual-review/w9c1-pair-session/index.html
+          test -f b5-manual-review/w9c1-pair-session/session.mjs
+          test -f b5-manual-review/w9c1-pair-qa/comparison.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w9c1-g5c3-oneclick-real-browser-${{ github.run_id }}
+          path: |
+            b5-manual-review/
+            test-results/**/w9c1-g5c3-*.png
+            test-results/**/test-failed-*.png
+            test-results/**/error-context.md
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 7

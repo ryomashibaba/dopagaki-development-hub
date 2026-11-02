@@ -36,7 +36,7 @@ function closestProgress(points,p){
  return {...best,total};
 }
 export function makeP96RoutePlan(doc,runner){
- if(!['VB-P95','VB-P99','VB-P100'].includes(doc?.stageForge?.id))throw Error('P96 audit applies to P95/P99/P100 physical candidates only');
+ if(!['VB-P95','VB-P99','VB-P100','VB-P101'].includes(doc?.stageForge?.id))throw Error('P96 audit applies to P95/P99/P100 physical candidates only');
  const guides=runner.guides;
  if(!Array.isArray(guides)||guides.length!==7)throw Error('Real seven authored physical guides required');
  let cumulative=0;

@@ -1,0 +1,67 @@
+name: DOPAGAKI K4W source-camera inverse void constraints no new models ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4w-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4w-original-camera-void-study.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-k4w-true-camera-inverse-void
+  cancel-in-progress: true
+jobs:
+  inverse-screen-study-no-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Frozen original physics, geometry and prior approved audit source
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-r19a6p4r2f5k4r-open-market.py)" = e653029771982b2c39ee2831ea19199f0704ddaa
+          test "$(git hash-object scripts/p101-r19a6p4r2f5k4v-real-court-readability.py)" = 1c6d2e232e71b225b9f2206c89beffe8f8ca2104
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4w-original-camera-void-constraint-study.py
+      - name: Recover genuine original K, K4R, K4U, K4V artifacts with read-only permissions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/k4w-k /tmp/k4w-r /tmp/k4w-u /tmp/k4w-v
+          gh run download 41312758260 -n R2F5K_ORIGINAL_SOURCE_7ROAD_CAMERA_COVERAGE_ART_HOLD -D /tmp/k4w-k
+          gh run download 41351118263 -n R2F5K4R_ONE_NATIVE_MARKET_TRUE_ROAD0_16_WEBGL2_ART_HOLD -D /tmp/k4w-r
+          gh run download 41359514124 -n R2F5K4U_ONE_NATIVE_MARKET_TRUE_ROAD0_16_WEBGL2_ART_HOLD -D /tmp/k4w-u
+          gh run download 41374785974 -n K4V_FROZEN_ROOFLESS_COURT_TRUE_8_SCREEN_VIEW_ANALYSIS_ART_HOLD -D /tmp/k4w-v
+          (cd /tmp/k4w-k && zip -qr /tmp/k4w-k.zip .)
+          (cd /tmp/k4w-r && zip -qr /tmp/k4w-r.zip .)
+          (cd /tmp/k4w-u && zip -qr /tmp/k4w-u.zip .)
+          (cd /tmp/k4w-v && zip -qr /tmp/k4w-v.zip .)
+          for src in /tmp/k4w-{k,r,u,v}.zip; do test -s "$src" || exit 11; done
+      - name: Original camera and historical image SHA audited inverse court projection
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-numpy python3-pil
+          python3 scripts/p101-r19a6p4r2f5k4w-original-camera-void-constraint-study.py \
+            --k /tmp/k4w-k.zip --k4r /tmp/k4w-r.zip --k4u /tmp/k4w-u.zip --k4v /tmp/k4w-v.zip \
+            --k4v-code scripts/p101-r19a6p4r2f5k4v-real-court-readability.py \
+            --output r19-evidence/r19a6p4r2f5k4w
+          python3 - <<'PY'
+          import pathlib,json
+          p=pathlib.Path('r19-evidence/r19a6p4r2f5k4w')
+          x=json.loads((p/'K4W_GENUINE_SOURCE_CAMERA_INVERSE_PUBLIC_VOID_CONSTRAINTS.json').read_text())
+          assert len(x['results'])==16
+          assert x['newGeometryModels']==x['newColliders']==x['officialARTAccepted']==x['slope2DNARecognizedMetres']==0
+          assert x['thresholdsAreHumanValidated'] is False and x['sampledFramesNotContinuousVideo'] is True
+          assert x['ART']==x['release']==x['merge']=='HOLD'
+          assert len(list(p.glob('K4W_*_SOURCE_WEBGL2_CAMERA_INVERSE_CONSTRAINTS.png')))==2
+          assert all(r['court24pxWithinUnchangedRoofGap'] is False for r in x['results'] if r['site']=='K4U')
+          print('K4W ORIGINAL WEBGL2 ANALYTICAL CAMERA GATE LIMITED PASS — NOT ART OR SAFETY')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4W_SOURCE_CAMERA_REAL_PNG_INVERSE_PUBLIC_VOID_RESEARCH_ONLY_ART_HOLD
+          path: r19-evidence/r19a6p4r2f5k4w/
+          retention-days: 7
+          if-no-files-found: warn

@@ -1,0 +1,36 @@
+name: P101 R15S3D8R2 road4-to-road5 true physical spatial geometry GATE HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d8r2-real-road4-to-original-road5-hermite.mjs
+      - scripts/p101-r15s3d8r2-spatial-fullwidth-continuity-gate.mjs
+      - .github/workflows/p101-r15s3d8r2-original-road5-static-geometry.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-road4-road5-real-geometry-static-no-gameplay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protected original game and source syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d8r2-real-road4-to-original-road5-hermite.mjs
+          node --check scripts/p101-r15s3d8r2-spatial-fullwidth-continuity-gate.mjs
+      - name: Actual original 7 B48 28 B51 full-width road5 seam and folded-normal static audit
+        run: |
+          node scripts/p101-r15s3d8r2-spatial-fullwidth-continuity-gate.mjs \
+            --out test-results/r15s3d8r2/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D8R2_ORIGINAL_ROAD5_REAL_B48_STATIC_SPATIAL_GATE_HOLD
+          path: test-results/r15s3d8r2/
+          retention-days: 7
+          if-no-files-found: warn

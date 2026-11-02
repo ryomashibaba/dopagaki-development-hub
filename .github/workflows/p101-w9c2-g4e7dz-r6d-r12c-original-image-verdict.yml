@@ -1,0 +1,96 @@
+name: G4E-7DZ R6D-R12C independent true R1-R11R1-R12B source image and art verdict
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r12c-real-image-and-art-verdict.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r12c-original-image-verdict.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r12c-true-image-art-no-game
+  cancel-in-progress: true
+jobs:
+  independent-real-original-camera-comparison:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify untouched CX git blob, source code syntax and image dependency
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r12c-real-image-and-art-verdict.py
+          python3 -m pip install --quiet Pillow
+      - name: Retrieve real R1 native 13 original frames plus prior R11-R1 and new R12B 14 genuine Blender frames
+        run: |
+          mkdir -p test-results/g4e7dz-r12c/r1 test-results/g4e7dz-r12c/r11r1 test-results/g4e7dz-r12c/r12b
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r12c/r1
+          gh run download 40686105227 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R11R1_TRUE_NATIVE_INHABITED_ESTUARY_REAL_14IMAGE_SOURCE_HOLD \
+            --dir test-results/g4e7dz-r12c/r11r1
+          gh run download 40688145741 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R12B_REAL_SAFE_INTERIOR_THREE_ERAS_14_NATIVE_VIEW_ART_HOLD \
+            --dir test-results/g4e7dz-r12c/r12b
+      - name: Audit same camera native source pixel differences and exact protected world physical intersections on two road variants
+        run: |
+          for r in true-pinch pinch-switch; do
+            python3 scripts/p101-w9c2-g4e7dz-r6d-r12c-real-image-and-art-verdict.py \
+              --r11r1 "test-results/g4e7dz-r12c/r11r1/result-$r/R11R1_$r"_ACTUAL_SOURCE_AUDIT.json \
+              --r12b "test-results/g4e7dz-r12c/r12b/result-$r/R12B_$r"_ACTUAL_SOURCE_AUDIT.json \
+              --r1images "test-results/g4e7dz-r12c/r1/result-$r" \
+              --r11images "test-results/g4e7dz-r12c/r11r1/result-$r" \
+              --r12images "test-results/g4e7dz-r12c/r12b/result-$r" \
+              --out "test-results/g4e7dz-r12c/R12C_$r"_NATIVE_SOURCE_IMAGE_VERDICT.json
+          done
+      - name: Independently require actual source-camera loss, safe-source geometry and zero official art, fake-summary negative
+        run: |
+          python3 - <<'PY'
+          import json,glob,copy,importlib.util
+          path='test-results/g4e7dz-r12c'
+          files=glob.glob(path+'/R12C_*_NATIVE_SOURCE_IMAGE_VERDICT.json')
+          assert len(files)==2,files
+          for f in files:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r12c-source-image-independent-art/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['originalSourceMeshesUnchanged']
+           assert (d['sourceCX18'],d['sourceB48'],d['sourceB51'])==(18,7,28)
+           assert len(d['R12BFramesBelow8PctRealNativeMeshFirstHit'])>=4
+           assert d['R12BMeanAllSeven']<d['R11R1MeanAllSeven']
+           assert d['R12BActualR1SourceExactRoadAndCXTrianglePairs']==0
+           assert d['R12BOriginalAll28B51_721TickConservativeBoxPairs']==0
+           assert d['R12BOriginalB51_13ActualPoseExactIntersectPairs']==0
+           assert len(d['actualOriginalRGBThreshold45Comparison'])==4
+           assert all(0<=x['r12bDifferentRGBPixels45Of255']<=1 for x in d['actualOriginalRGBThreshold45Comparison'])
+           assert d['verdict']=='ART_REJECT_REAL_IMAGE_TINY_DISCONNECTED_CITY'
+           assert not d['R12BArtAccepted'] and not d['originalGameChanged']
+           assert d['officialArt']==d['officialSlope2Metres']==d['newGameColliders']==0
+           assert d['ART']=='REJECT'
+           assert all(d[k]=='HOLD' for k in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R12C_GENUINE_R1_CAMERA_ART_REJECT',d['road'],d['R12BMeanAllSeven'],d['R11R1MeanAllSeven'])
+          spec=importlib.util.spec_from_file_location('source_art','scripts/p101-w9c2-g4e7dz-r6d-r12c-real-image-and-art-verdict.py')
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          road='true-pinch'
+          a=json.load(open(f'{path}/r11r1/result-{road}/R11R1_{road}_ACTUAL_SOURCE_AUDIT.json'))
+          b=json.load(open(f'{path}/r12b/result-{road}/R12B_{road}_ACTUAL_SOURCE_AUDIT.json'))
+          fake=copy.deepcopy(b)
+          fake['original7CamerasActualBVHFirstHit']['t1300']['newCityFirstHitFraction']=.99
+          try:
+           m.evaluate(a,fake,f'{path}/r1/result-{road}',f'{path}/r11r1/result-{road}',f'{path}/r12b/result-{road}')
+           raise RuntimeError('R12C fabricated visibility ratio was not blocked')
+          except AssertionError:
+           print('R12C_FALSE_VISIBILITY_METRIC_NEGATIVE_TEST_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R12C_REAL_ORIGINAL_CAMERA_3WAY_IMAGE_SOURCE_ART_REJECT
+          path: test-results/g4e7dz-r12c/R12C_*_NATIVE_SOURCE_IMAGE_VERDICT.json
+          retention-days: 7
+          if-no-files-found: warn

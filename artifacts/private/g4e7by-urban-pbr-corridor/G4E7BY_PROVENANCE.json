@@ -1,0 +1,93 @@
+{
+  "schema": "g4e7by-architecture-transit-original/1",
+  "claim": "ARTIST-STAGED-MODELS-AND-SCRIPTED-CITY-NOT-HAND-SCULPTED",
+  "thirdPartySources": [
+    {
+      "name": "modular_urban_apartments_facade",
+      "url": "https://polyhaven.com/a/modular_urban_apartments_facade",
+      "license": "CC0 1.0",
+      "sha256": "1a5a17dffd27fb9e1236dea7e51c4e0393a9d88ed0885a0621e67a37f80b27eb"
+    },
+    {
+      "name": "modular_factory_facade",
+      "url": "https://polyhaven.com/a/modular_factory_facade",
+      "license": "CC0 1.0",
+      "sha256": "41ff58b722f9cb3e9db8bcacae3163946603ae99a1d42bb6f9045d7c4ec0f179"
+    }
+  ],
+  "publicApiCredit": "Powered by Poly Haven",
+  "editedBlender": "G4E7BY_ARCHITECTURE_TRANSIT_EDITABLE.blend",
+  "views": [
+    "OBLIQUE",
+    "FRONT",
+    "SIDE",
+    "AERIAL",
+    "APPROACH",
+    "FORWARD_300",
+    "FORWARD_700"
+  ],
+  "actualNativeGameCamera": "NOT_TESTED",
+  "humanGameplay": "HOLD",
+  "urbanArtQuality": "UNJUDGED",
+  "publication": "FORBIDDEN",
+  "officialSlope2Meters": 0,
+  "studioOnlyNotCollidable": true,
+  "originalAssetInstances": [
+    {
+      "asset": "modular_urban_apartments_facade",
+      "placement": [
+        -105,
+        125,
+        14
+      ],
+      "bounds": [
+        51.53,
+        6.665,
+        17.0
+      ],
+      "meshes": 147
+    },
+    {
+      "asset": "modular_urban_apartments_facade",
+      "placement": [
+        106,
+        445,
+        16
+      ],
+      "bounds": [
+        51.53,
+        6.665,
+        17.0
+      ],
+      "meshes": 147
+    },
+    {
+      "asset": "modular_factory_facade",
+      "placement": [
+        108,
+        235,
+        7
+      ],
+      "bounds": [
+        53.33,
+        5.356,
+        29.0
+      ],
+      "meshes": 192
+    },
+    {
+      "asset": "modular_factory_facade",
+      "placement": [
+        -151,
+        733,
+        11
+      ],
+      "bounds": [
+        53.33,
+        5.356,
+        29.0
+      ],
+      "meshes": 192
+    }
+  ]
+}

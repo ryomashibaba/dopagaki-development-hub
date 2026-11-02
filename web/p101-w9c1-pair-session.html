@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>W9-C1 G5-C3 — 28m→14m 一画面試走</title>
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#eaf7ff;background:#07131f}
+*{box-sizing:border-box}body{margin:0;padding:14px 2.5vw}
+main{max-width:1430px;margin:auto}
+h1{font-size:clamp(20px,3vw,31px);margin:9px 0}
+p{color:#b1cfdd;line-height:1.55;margin:8px 0}
+small{color:#9ab8c7}
+.tag{font-size:12px;font-weight:700;letter-spacing:.12em;color:#81e5d9}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+ background:#122d3c;border:1px solid #3c6475;border-radius:12px;padding:12px 16px;margin-bottom:12px}
+button{font:inherit;font-weight:750;color:#05212a;background:#92e6dc;border:0;border-radius:9px;padding:12px 19px;cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.48}
+#game{display:block;width:100%;height:min(83vh,930px);border:1px solid #35627c;border-radius:13px;background:#081a2b}
+#summary{background:#10283a;border:1px solid #416879;padding:15px;border-radius:12px;margin-top:12px}
+#summary[hidden]{display:none}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px;border-bottom:1px solid #284859}
+#quality{color:#9fe8d5}#alert{color:#ffcfaf}#alert[hidden]{display:none}
+@media(max-width:700px){#game{height:72vh}.bar{align-items:stretch}.bar button{width:100%}}
+</style></head>
+<body><main>
+<div class="tag">G5-C3 / LOCAL · HUMAN PAIR REVIEW · DRAFT/HOLD</div>
+<h1>28m → 14m 比較試走</h1>
+<p>この1画面で2回走行します。最初は28m、次は14m。別のCMDを起動したり、途中でJSONを手動選択したりする必要はありません。</p>
+<div class="bar">
+ <div><strong id="phase">1 / 2 · CONTROL 28m</strong><p id="instruction">開始地点00・OVERDRIVEのまま操作。終了後、右のボタンで14mへ進みます。途中まででも記録できます。</p><small id="capture">このページを閉じると未保存の比較結果は消えます。記録の外部送信・自動保存なし。</small></div>
+ <button id="next" type="button" disabled>28mを記録して14mへ進む</button>
+ <button id="save" type="button" hidden disabled>比較JSONを保存</button>
+</div>
+<p id="alert" role="alert" hidden></p>
+<iframe id="game" title="W9-C1 実物理・手動走行" allow="fullscreen" referrerpolicy="no-referrer"></iframe>
+<section id="summary" hidden>
+<h2>2走行の比較（正式評価HOLD）</h2>
+<p id="quality"></p>
+<table aria-label="比較結果"><thead><tr><th>項目</th><th>28m</th><th>14m</th></tr></thead><tbody id="metrics"></tbody></table>
+<p>HUDの表示は視認・反応時間の証明ではありません。1回ずつの記録だけで優劣は決定しません。</p>
+</section>
+<p><small>非致死衝突からのG5-C1復帰調整、240Hz正規物理、G5-B3景観の既定OFFを保持。観戦・練習ではなく手動試走専用。途中確定時は「中断時点の記録」であり、失敗や完走を捏造しません。</small></p>
+</main><script type="module" src="./session.mjs"></script></body></html>

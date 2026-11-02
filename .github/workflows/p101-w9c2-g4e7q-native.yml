@@ -1,0 +1,50 @@
+name: W9-C2 G4E-7Q true physical B48 dive and leap native (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7q-dive-build.mjs'
+      - 'scripts/p101-w9c2-g4e7q-native-matrix.mjs'
+      - 'tests/p101-w9c2-g4e7q-dive.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e7q-native.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: g4e7q-native-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  true-B48-dive:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Real physical road, real open collider gap, no hidden rideable support
+        run: |
+          node --check scripts/p101-w9c2-g4e7q-dive-build.mjs
+          node --check scripts/p101-w9c2-g4e7q-native-matrix.mjs
+          node --test tests/p101-w9c2-g4e7q-dive.test.mjs tests/p101-w9c2-g4e7m-physical.test.mjs
+      - name: Honest native 240Hz start00 Gold/GLIDE/DROP/LEAP, failures retained
+        run: |
+          node scripts/p101-w9c2-g4e7q-native-matrix.mjs g4e7q-native.json
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const d=JSON.parse(fs.readFileSync("g4e7q-native.json","utf8"));
+          if(!d.control.gold.finished||!d.control.glide.finished||d.candidates.length!==2||
+           d.candidates.some(c=>c.hz!==240||c.initialSpeedMps!==52||c.sevenRoads!==7||
+            c.originalMovingCount!==28||c.approvedSlopeDnaMeters!==0)||
+           d.candidates[0].variant!=="drop"||d.candidates[1].variant!=="leap"||
+           d.release!=="HOLD"||d.human!=="NOT_RUN")throw Error("G4E-7Q invalid native evidence");
+          console.log("G4E-7Q honest candidates:",d.candidates.map(x=>({variant:x.variant,
+            status:x.status,finished:x.finished,seconds:x.timeSeconds,failure:x.failure?.reason})));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7q-real-physical-native-${{ github.run_id }}
+          path: g4e7q-native.json
+          if-no-files-found: ignore
+          retention-days: 10

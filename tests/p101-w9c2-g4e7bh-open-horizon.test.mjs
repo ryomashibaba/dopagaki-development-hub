@@ -1,0 +1,46 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {g4e7bhOpenHorizon,BH_ANCHORS} from '../web/p101-w9c2-g4e7bh-open-horizon.mjs';
+import {generateG4E7BC} from '../scripts/p101-w9c2-g4e7bc-bank-contour.mjs';
+import {generateG4E7AY} from '../scripts/p101-w9c2-g4e7ay-tangent-bridge.mjs';
+import {sample} from '../private/reference_only/director/surface.js';
+for(const road of ['true-pinch','pinch-switch'])
+ test('BH sparse positive architecture genuine B48 BC rollDeck '+road,()=>{
+  const doc=generateG4E7BC(road,'rollDeck'),frozen=JSON.stringify(doc);
+  const off=g4e7bhOpenHorizon(doc,sample);
+  assert.equal(off.active,false);
+  const x=g4e7bhOpenHorizon(doc,sample,{enabled:true});
+  assert.equal(x.active,true);
+  assert.equal(x.monuments,4);
+  assert.equal(x.openPortalSpans,8);
+  assert.equal(x.separateFloatingQuarters,16);
+  assert.equal(x.linkedUrbanTerraces,16);
+  assert.equal(x.continuousFacadeSegments,0);
+  assert.equal(x.forcedLaneCover,0);
+  assert.equal(x.newPhysicalRoads,0);
+  assert.equal(x.newHazards,0);
+  assert.equal(x.physicsUnchanged,true);
+  assert.equal(x.nominalShoulderClearanceM>=160,true);
+  assert.equal(x.triangles>1800,true);
+  assert.equal(x.vertices.length,18*x.triangles);
+  assert(x.vertices.every(Number.isFinite));
+  assert.equal(x.certifiedSlope2Meters,0);
+  assert.equal(x.aestheticApproval,'HOLD');
+  assert.equal(x.humanQA,'HOLD');
+  assert.equal(x.publish,'HOLD');
+  assert.equal(doc.surfaces.length,7);
+  assert.equal(doc.movingObstacles.length,28);
+  assert.deepEqual(doc.surfaces[0].voidLongitudinalCells,[52]);
+  assert.equal(JSON.stringify(doc),frozen);
+ });
+test('BH cannot use AY, BF or other illegal BC variant',()=>{
+ const ay=generateG4E7AY('true-pinch','bankedSweep');
+ assert.throws(()=>g4e7bhOpenHorizon(ay,sample,{enabled:true}),/EXACT private protected BC/);
+ const other=generateG4E7BC('true-pinch','skylineSaddle');
+ assert.throws(()=>g4e7bhOpenHorizon(other,sample,{enabled:true}),/EXACT private protected BC/);
+ const promoted=generateG4E7BC('pinch-switch','rollDeck');
+ promoted.stageForge.productionPromoted=true;
+ assert.throws(()=>g4e7bhOpenHorizon(promoted,sample,{enabled:true}),/EXACT private protected BC/);
+ assert.deepEqual(BH_ANCHORS.map(x=>x.road),[0,1,1,1]);
+ assert(BH_ANCHORS.every(x=>x.offset>=160));
+});

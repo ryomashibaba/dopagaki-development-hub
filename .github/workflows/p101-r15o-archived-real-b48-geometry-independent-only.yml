@@ -1,0 +1,58 @@
+name: P101 R15O isolated physical B48 actual 16 native 240Hz independent archived evidence QA
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15o-independent-16-real-road-geometry-veto.py
+      - .github/workflows/p101-r15o-archived-real-b48-geometry-independent-only.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15o-actual-native-16-real-trials-independent-no-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Immutable original production game and independent Python source audit
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r15o-independent-16-real-road-geometry-veto.py
+      - name: Download actual completed source original native 16 trials and independent original controls
+        run: |
+          mkdir -p test-results/r15oq/source test-results/r15oq/ref test-results/r15oq/n2 test-results/r15oq/results
+          gh run download 40830080170 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15O_GENUINE_ORIGINAL_240HZ_B48_REAL_3_GEOMETRY_CORRECTIONS_16_RUNS_ART_HOLD \
+            --dir test-results/r15oq/source
+          gh run download 40802904554 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15L_TRUE_NATIVE_ALL_PLAYABLE_TIME_CX18_B48_7_TWO_ROAD_B51_WIDE_RESEARCH_NO_ART \
+            --dir test-results/r15oq/ref
+          gh run download 40815591798 --repo ryomashibaba/dopagaki-development-hub \
+            --name P101_R15N2_ORIGINAL_REAL_240HZ_24_EARLIER_STEERING_CURVE_CONTACT_STUDY_HOLD \
+            --dir test-results/r15oq/n2
+      - name: True 16 real native original 240Hz/rideable B48 physical mesh and source camera QA; reject 12 false approvals
+        run: |
+          python3 scripts/p101-r15o-independent-16-real-road-geometry-veto.py \
+            --result test-results/r15oq/source/R15O_REAL_16_NATIVE_CROWN_PHYSICAL_RESHAPE_240HZ_DRIVING.json \
+            --native-true-pinch test-results/r15oq/ref/native/true-pinch.json \
+            --native-pinch-switch test-results/r15oq/ref/native/pinch-switch.json \
+            --r15n2 test-results/r15oq/n2/R15N2_24_GENUINE_ORIGINAL_NATIVE_B48_EARLIER_RIGHT_INPUT_TRIALS.json \
+            --out test-results/r15oq/results
+          python3 - <<'PY'
+          import json
+          p="test-results/r15oq/results/"
+          r=json.load(open(p+"R15O_INDEPENDENT_REAL_B48_16_NATIVE_GEOMETRY_CHANGE_QA.json"))
+          assert len(r["forgedSourceAndArtGameplayHumanPromotionRejected"])==12
+          assert sum(map(len,r["allSixteenSourceStudyCases"].values()))==16
+          assert r["officialArt"]==r["officialSlope2Meters"]==0
+          print("R15O_REAL_NATIVE_B48_ISOLATED_PHYSICAL_GEOMETRY_INDEPENDENT_PASS",r,flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15O_TRUE_NATIVE_PHYSICAL_B48_16_STUDIES_INDEPENDENT_SOURCE_QA_HOLD
+          path: test-results/r15oq/results/
+          retention-days: 7
+          if-no-files-found: warn

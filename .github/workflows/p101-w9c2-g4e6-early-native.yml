@@ -1,0 +1,55 @@
+name: W9-C2 G4E-6 early true-gap Gold 7-of-7 native QA (nonpublishing)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e6-early-gap-build.mjs'
+      - 'scripts/p101-w9c2-g4e6-native-matrix.mjs'
+      - 'tests/p101-w9c2-g4e6-early-gap.test.mjs'
+      - '.github/workflows/p101-w9c2-g4e6-early-native.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w9c2-g4e6-early-native-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  early-native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Real physical missing-floor and frozen 7-road/28-body Gold integrity
+        run: node --test tests/p101-w9c2-g4e6-early-gap.test.mjs
+      - name: 7 actual 240Hz native start00 52m/s runs; retain all failures
+        run: |
+          node scripts/p101-w9c2-g4e6-native-matrix.mjs > g4e6-native-raw.txt
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const t=fs.readFileSync("g4e6-native-raw.txt","utf8");
+          const d=JSON.parse(t.slice(t.indexOf("{")));
+          if(d.results.length!==7||d.results[0].id!=="GOLD"||
+             d.results.some(x=>x.hz!==240||x.originalRoads!==7||
+              x.originalGuideCount!==7||x.originalMovingBodies!==28||
+              !x.realStart00)||
+             d.results.slice(1).some(x=>!x.trueGap))
+           throw Error("G4E6 evidence integrity failure");
+          if(!d.controlGoldFinished||!d.results[0].visitedOriginalRoadsInOrder)
+           throw Error("Frozen W7F Gold native baseline regressed");
+          fs.writeFileSync("g4e6-native-verdict.json",JSON.stringify({
+           schema:d.schema,goldBaselinePassed:d.controlGoldFinished,
+           verdict:d.verdict,human:"HOLD",production:"HOLD"},null,2));
+          console.log(JSON.stringify(d.verdict));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e6-early-true-gap-native-${{ github.run_id }}
+          path: |
+            g4e6-native-raw.txt
+            g4e6-native-verdict.json
+          if-no-files-found: ignore
+          retention-days: 10

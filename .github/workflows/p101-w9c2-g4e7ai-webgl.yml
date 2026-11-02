@@ -1,0 +1,63 @@
+name: W9-C2 G4E-7AI real 11m narrow B48 native 240Hz Chromium WebGL (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7ai-native-frames.mjs'
+      - 'tests/research/p101-w9c2-g4e7ai-native.test.mjs'
+      - 'tests/browser/p101-w9c2-g4e7ai-webgl.spec.mjs'
+      - 'scripts/build.mjs'
+      - 'web/drive3d.mjs'
+      - '.github/workflows/p101-w9c2-g4e7ai-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium-real-b48:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      DOPAGAKI_BUILD_DIR: dist-private
+      DOPAGAKI_G4E7AI_VISUAL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Authentic native 240Hz frames and research-only build parser
+        run: |
+          node --check scripts/p101-w9c2-g4e7ai-native-frames.mjs
+          node --check scripts/build.mjs
+          node --check web/drive3d.mjs
+          node --test tests/research/p101-w9c2-g4e7ai-native.test.mjs
+      - name: Install Chromium and build private real physics track
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install chromium --only-shell
+          npm run build:private
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AI_R2_CONTROL_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AI_TRUE_PINCH_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AI_PINCH_SWITCH_LOCAL_TRIAL.json
+          test -f dist-private/generated/P101_A13_W9C2_G4E7AI_240HZ_FRAMES_LOCAL.json
+      - name: 15 genuine WebGL narrow-road frames and same-camera backdrop A/B
+        run: npx playwright test tests/browser/p101-w9c2-g4e7ai-webgl.spec.mjs
+      - name: Both public build modes exclude all AI research stage and proof JSON
+        run: |
+          npm run build:site
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AI_TRUE_PINCH_LOCAL_TRIAL.json
+          test ! -e dist-site/generated/P101_A13_W9C2_G4E7AI_240HZ_FRAMES_LOCAL.json
+          npm run build:public-safe
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AI_PINCH_SWITCH_LOCAL_TRIAL.json
+          test ! -e dist/generated/P101_A13_W9C2_G4E7AI_240HZ_FRAMES_LOCAL.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7ai-true-11m-native-15-WebGL-${{ github.run_id }}
+          path: |
+            test-results/**/g4e7ai-*.png
+            test-results/**/g4e7ai-*.json
+            test-results/**/test-failed*.png
+            test-results/**/error-context.md
+          if-no-files-found: ignore
+          retention-days: 14

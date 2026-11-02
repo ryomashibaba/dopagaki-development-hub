@@ -1,0 +1,72 @@
+name: DOPAGAKI K4R one native Blender Road0 market true original WebGL2 ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4r-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4r-native-road0-open-market.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: dopagaki-r2f5k4r-one-original-road0-market
+  cancel-in-progress: true
+jobs:
+  one-native-market-original-camera:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Strict original source and archived Blender builder integrity
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-r19a6p4r2f5b-native-support-hall.py)" = a6ee111319a81c7e83b1a85664d0b1c4da40bbcb
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4r-open-market.py scripts/p101-r19a6p4r2f5k4r-native-placement.py
+          node --check scripts/p101-r19a6p4r2f5k4r-private-pack.mjs
+          node --check scripts/p101-r19a6p4r2f5k4r-true-original-webgl2.mjs
+      - name: Build immutable source PRIVATE original camera and seven real road anchors
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a3-private-original-one-city-pack.mjs
+          node scripts/p101-r19a4-export-editable-source-city-glb.mjs
+          node scripts/p101-r19a6-private-pinned-glb-scene-pack.mjs
+          node scripts/p101-r19a6p2-real-road-spatial-anchors.mjs
+          test -s r19-evidence/r19a5/R19A5_ORIGINAL_W9C1_ultra_EDITABLE_CITY.glb
+          test -s r19-evidence/r19a6p2/P2_control_real_road_anchors.json
+      - name: Native Blender 4 actual Road0 open market ONE candidate x two widths
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil
+          mkdir -p r19-evidence/r19a6p4r2f5k4r
+          for mode in ultra control; do
+            blender -b --factory-startup --python-exit-code 3 --python scripts/p101-r19a6p4r2f5k4r-native-placement.py -- \
+              --source "r19-evidence/r19a5/R19A5_ORIGINAL_W9C1_${mode}_EDITABLE_CITY.glb" \
+              --output "r19-evidence/r19a6p4r2f5k4r/P4R2F5K4R_${mode}_edited.glb" \
+              --blend "r19-evidence/r19a6p4r2f5k4r/P4R2F5K4R_${mode}_editable.blend" \
+              --report "r19-evidence/r19a6p4r2f5k4r/P4R2F5K4R_${mode}_blender_report.json" \
+              --anchors "r19-evidence/r19a6p2/P2_${mode}_real_road_anchors.json" \
+              --cameras "docs/R19_A6P3_PRIOR_A1_ORIGINAL_12_TRUE_CAMERAS.json" \
+              --mode "$mode"
+            node scripts/p101-r19a6p1-read-blender-glb.mjs \
+              "r19-evidence/r19a6p4r2f5k4r/P4R2F5K4R_${mode}_edited.glb" \
+              "r19-evidence/r19a6p4r2f5k4r/P4R2F5K4R_${mode}_blender_report.json" \
+              "r19-evidence/r19a6p4r2f5k4r/P4R2F5K4R_${mode}_audited_gpu.bin"
+          done
+          node scripts/p101-r19a6p4r2f5k4r-private-pack.mjs
+      - name: Native 240Hz REAL WebGL2 original Road0 four ticks x two widths A B
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/p101-r19a6p4r2f5k4r-true-original-webgl2.mjs
+          test -s r19-evidence/r19a6p4r2f5k4r/K4R_REAL_ORIGINAL_WEBGL2_16_IMAGES.json
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: R2F5K4R_ONE_NATIVE_MARKET_TRUE_ROAD0_16_WEBGL2_ART_HOLD
+          path: r19-evidence/r19a6p4r2f5k4r/
+          retention-days: 7
+          if-no-files-found: warn

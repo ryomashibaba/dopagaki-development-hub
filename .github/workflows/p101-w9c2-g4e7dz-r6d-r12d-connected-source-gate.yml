@@ -1,0 +1,84 @@
+name: G4E-7DZ R6D-R12D independent actual 3-era safe-volume connectivity veto
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r12d-bridge-the-real-candidate-space.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r12d-connected-source-gate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r12d-source-volume-link-gap
+  cancel-in-progress: true
+jobs:
+  inspect-genuine-geometry-evidence-not-more-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect original geometry, script syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r12d-bridge-the-real-candidate-space.py
+      - name: Retrieve original full R12A candidate space, R12B genuine Blender trial and independently judged R12C images
+        run: |
+          mkdir -p test-results/g4e7dz-r12d/a test-results/g4e7dz-r12d/b test-results/g4e7dz-r12d/c
+          gh run download 40687143619 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R12A_ORIGINAL_13CAM_SAFE_VOLUME_ALL28_B51_HOLD \
+            --dir test-results/g4e7dz-r12d/a
+          gh run download 40688145741 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R12B_REAL_SAFE_INTERIOR_THREE_ERAS_14_NATIVE_VIEW_ART_HOLD \
+            --dir test-results/g4e7dz-r12d/b
+          gh run download 40688475676 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R12C_REAL_ORIGINAL_CAMERA_3WAY_IMAGE_SOURCE_ART_REJECT \
+            --dir test-results/g4e7dz-r12d/c
+      - name: Verify early-to-middle and middle-to-late source candidate gaps, not fake art-connected pixels
+        run: |
+          for r in true-pinch pinch-switch; do
+            python3 scripts/p101-w9c2-g4e7dz-r6d-r12d-bridge-the-real-candidate-space.py \
+              --r12a "test-results/g4e7dz-r12d/a/result-$r/R12A_$r"_SAFE_NATIVE_VOLUME_FIELD.json \
+              --r12b "test-results/g4e7dz-r12d/b/result-$r/R12B_$r"_ACTUAL_SOURCE_AUDIT.json \
+              --r12c "test-results/g4e7dz-r12d/c/R12C_$r"_NATIVE_SOURCE_IMAGE_VERDICT.json \
+              --out "test-results/g4e7dz-r12d/R12D_$r"_SOURCE_DISCONNECTION_GATE.json
+          done
+      - name: Independent source provenance, gap and invalid art eligibility negative validation
+        run: |
+          python3 - <<'PY'
+          import glob,json
+          files=glob.glob('test-results/g4e7dz-r12d/R12D_*_SOURCE_DISCONNECTION_GATE.json')
+          assert len(files)==2,files
+          for f in files:
+           d=json.load(open(f))
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r12d-disconnected-native-source-volume/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['candidateVolumesBothCxAndB48ExactTriangleClearAndB51All28AabbClear']
+           assert d['originalPreflightResearchCellMetres']==[26,30,36]
+           assert len(d['selectedBThreeModuleActualCentreGaps'])==2
+           assert len(d['minimalAllGenuineR12ACandidateCrossEraGaps'])==2
+           first,second=d['minimalAllGenuineR12ACandidateCrossEraGaps']
+           assert (first['from'],first['to'])==('EARLY','MIDDLE')
+           assert first['minimalOriginalSafeCandidateCentreDistanceMetres']>60
+           assert first['numberOfSourceCandidatePairsWithin32m']==0
+           assert second['numberOfSourceCandidatePairsWithin32m']>=1
+           assert d['R12BAllSevenOriginalCameraCityFirstHitMean']<.03
+           assert d['R12BAllSevenOriginalCameraCityFirstHitMean']<d['R11R1AllSevenOriginalCameraCityFirstHitMean']
+           assert d['decision']=='STOP_UNCONNECTED_SMALL_MODULE_CYCLE_REBUILD_GLOBAL_SOURCE_SAFE_CANYON'
+           assert d['currentRejectedGeometryCannotBeDecoratedIntoAdoption']
+           assert not d['originalSourceGameChanged']
+           assert d['officialArt']==d['officialSlope2Metres']==d['newGameColliders']==d['newMeshes']==0
+           assert d['ART']=='REJECT'
+           assert all(d[k]=='HOLD' for k in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R12D_PROVEN_EARLY_MIDDLE_REAL_SOURCE_GAP',d['road'],first['minimalOriginalSafeCandidateCentreDistanceMetres'],
+             'mid-late closest',second['minimalOriginalSafeCandidateCentreDistanceMetres'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R12D_TRUE_SOURCE_DISCONNECTED_CANDIDATES_R13_GATE_REJECT
+          path: test-results/g4e7dz-r12d/R12D_*_SOURCE_DISCONNECTION_GATE.json
+          retention-days: 7
+          if-no-files-found: warn

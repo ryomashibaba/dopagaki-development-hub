@@ -1,0 +1,54 @@
+{
+  "schema": "dopagaki.g4e7bp-artist-glb-intake/1",
+  "assetId": "g4e7bx-cc0-authored-forward-urban-depth",
+  "sha256": "e2657905aa7145fda87a2e8ab9d56575f6ae52bbe19d184c4a9dd282a864abea",
+  "provenanceClaim": {
+    "author": "Kenney original CC0 model art and DOPAGAKI source Blender architectural assembly",
+    "sourceTool": "Native Blender with imported real Kenney CC0 human-made glTF building models",
+    "sourceFile": "G4E7BX_FORWARD_CITY_EDITABLE.blend",
+    "rights": "appropriately-licensed-third-party",
+    "licenseName": "Creative Commons CC0 1.0 Universal",
+    "licenseEvidence": "https://kenney.nl/assets/city-kit-commercial and https://opengameart.org/content/city-kit-commercial",
+    "verification": "SELF_DECLARED_NOT_INDEPENDENTLY_VERIFIED"
+  },
+  "glb": {
+    "bytes": 3808972,
+    "meshes": 1505,
+    "nodes": 1527,
+    "triangles": 41360,
+    "primitives": 1660,
+    "vertexPositions": 76809,
+    "materials": 29,
+    "embeddedTextures": 2,
+    "textureRefs": 13,
+    "meshLocalAABB": {
+      "min": [
+        -257,
+        -91.567,
+        -321.186
+      ],
+      "max": [
+        265,
+        302.5,
+        217
+      ],
+      "span": [
+        522,
+        394.067,
+        538.186
+      ]
+    },
+    "possibleNodeTransforms": true,
+    "facesWithMaterial": 1660
+  },
+  "warnings": [
+    "NODE_TRANSFORMS: local mesh bounds are NOT world-space bounds; separate transform-baking/placement proof required"
+  ],
+  "realCameraWebGLProof": "NOT_YET_RUN",
+  "humanVisualReview": "HOLD",
+  "physicalRoadQA": "UNCHANGED_UNTESTED_BY_INTAKE",
+  "publicRelease": "FORBIDDEN",
+  "mergeApproval": "HOLD",
+  "officialSlope2CertifiedMeters": 0,
+  "admission": "METADATA_AND_BINARY_CONTRACT_ONLY_NOT_ART_PASS"
+}

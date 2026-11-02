@@ -1,0 +1,43 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {g4e7bfSkyFracture,BF_MASSES} from '../web/p101-w9c2-g4e7bf-sky-fracture.mjs';
+import {generateG4E7BC} from '../scripts/p101-w9c2-g4e7bc-bank-contour.mjs';
+import {generateG4E7AY} from '../scripts/p101-w9c2-g4e7ay-tangent-bridge.mjs';
+import {sample} from '../private/reference_only/director/surface.js';
+for(const road of ['true-pinch','pinch-switch'])
+ test('BF three unmistakably separate monumental sky apertures on actual BC B48 '+road,()=>{
+  const doc=generateG4E7BC(road,'rollDeck'),frozen=JSON.stringify(doc);
+  const plain=g4e7bfSkyFracture(doc,sample);
+  assert.equal(plain.active,false);
+  const art=g4e7bfSkyFracture(doc,sample,{enabled:true});
+  assert.equal(art.active,true);
+  assert.equal(art.masses,3);
+  assert.equal(art.inhabitedTerraces,9);
+  assert.equal(art.connectingRibs,9);
+  assert(art.openSkyBays>160);
+  assert(art.triangles>1000&&art.triangles<30000);
+  assert(art.highestRiseM>880);
+  assert(art.nominalOutboardMinimumM>=140);
+  assert.equal(art.vertices.length,art.triangles*18);
+  assert(art.vertices.every(Number.isFinite));
+  assert.equal(doc.surfaces.length,7);
+  assert.equal(doc.movingObstacles.length,28);
+  assert.deepEqual(doc.surfaces[0].voidLongitudinalCells,[52]);
+  assert.equal(doc.stageForge.productionPromoted,false);
+  assert.equal(art.noPhysicsMutation,true);
+  assert.equal(art.noAddedCollision,true);
+  assert.equal(art.officialSlope2Meters,0);
+  assert.equal(art.artQA,'HOLD');
+  assert.equal(art.humanQA,'HOLD');
+  assert.equal(art.publish,'HOLD');
+  assert.equal(JSON.stringify(doc),frozen);
+ });
+test('BF refuses unrelated AY/skylineSaddle and no unapproved variant promoted',()=>{
+ const ay=generateG4E7AY('true-pinch','bankedSweep');
+ assert.throws(()=>g4e7bfSkyFracture(ay,sample,{enabled:true}),/requires real PRIVATE BC/);
+ const saddle=generateG4E7BC('pinch-switch','skylineSaddle');
+ assert.throws(()=>g4e7bfSkyFracture(saddle,sample,{enabled:true}),/requires real PRIVATE BC/);
+ const p=generateG4E7BC('true-pinch','rollDeck');p.stageForge.productionPromoted=true;
+ assert.throws(()=>g4e7bfSkyFracture(p,sample,{enabled:true}),/requires real PRIVATE BC/);
+ assert(BF_MASSES.every(x=>x.span>.2&&x.setback>=140));
+});

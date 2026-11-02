@@ -1,0 +1,103 @@
+name: G4E-7DZ R6D-R14D PRIVATE true native one inhabited art court shared site 14 images
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r14d-one-real-inhabited-cut.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r14d-one-real-court-native.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r14d-private-one-real-art-court
+  cancel-in-progress: true
+jobs:
+  genuine-original-3d-source-city-and-real-camera-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 48
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure existing game source immutable and Blender test script compiles
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r14d-one-real-inhabited-cut.py
+      - name: Download actual original Blender R1, all moving hazard positions R4 and two road common site R14B
+        run: |
+          mkdir -p test-results/g4e7dz-r14d/r1 test-results/g4e7dz-r14d/r4 test-results/g4e7dz-r14d/r14b
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r14d/r1
+          gh run download 40671430779 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R4_28HAZARD_7VIEW_TRUE_SOURCE_WORLD_DIAG_HOLD \
+            --dir test-results/g4e7dz-r14d/r4
+          gh run download 40693102074 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R14B_BOTH_ORIGINAL_ROADS_IDENTICAL_WORLD_SAFE_VISIBLE_SITES_HOLD \
+            --dir test-results/g4e7dz-r14d/r14b
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Real asymmetric inhabited public court and 7 actual R1 240Hz camera Blender images for both physical road variants
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r14d/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r14d-one-real-inhabited-cut.py -- \
+              --source "test-results/g4e7dz-r14d/r1/result-$r/R1_$r"_11TO17_TRUE_NATIVE_EDITABLE_PRIVATE.blend \
+              --native "test-results/g4e7dz-r14d/r1/source/$r.json" \
+              --hazards "test-results/g4e7dz-r14d/r4/source/$r.json" \
+              --r14b test-results/g4e7dz-r14d/r14b/R14B_REAL_BOTH_ROADS_COMMON_SITE_AUDIT.json \
+              --road "$r" --out "test-results/g4e7dz-r14d/result-$r"
+          done
+      - name: Independent 14 PNG and exact original physics envelope/camera JSON inspection; ART stays HOLD before human visual review
+        run: |
+          python3 - <<'PY'
+          import glob,json,os
+          root='test-results/g4e7dz-r14d'
+          files=glob.glob(root+'/result-*/*_TRUE_SOURCE_CITY_COURT_AUDIT.json')
+          png=glob.glob(root+'/result-*/*.png')
+          blend=glob.glob(root+'/result-*/*.blend')
+          assert len(files)==2 and len(png)==14 and len(blend)==2,(files,len(png),blend)
+          by={}
+          for path in files:
+           d=json.load(open(path))
+           by[d['road']]=d
+           assert d['schema']=='dopagaki.g4e7dz-r6d-r14d-real-one-inhabited-court-source-images/1'
+           assert d['sourceCXBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+           assert d['genuineOriginalCX18B48_7B51_28Cameras5Unchanged']
+           assert d['siteProvenResearchBoxMetres']==[32,36,36]
+           assert d['actualNewBlenderArchitectureMeshes']>=55
+           assert len(d['originalSame7TimeNativeBlenderRenders'])==7
+           assert len(d['original13TimeNativeCameraCityFirstHit'])==13
+           assert len(d['original13TimeNativeCameraRealCourtyard3Heights'])==13
+           for k,x in d['original13TimeNativeCameraCityFirstHit'].items():
+            assert 0<=x['newCityFirstHitRaysOutOf228']<=228
+            assert abs(x['fraction']-x['newCityFirstHitRaysOutOf228']/228)<.0001
+           assert len(d['sourceGameB51_13OriginalFrameExactTriangleHits'])==13
+           assert not d['sourceGameB48ExactTriangleIntersections']
+           assert not d['sourceGameCXExactTriangleIntersections']
+           assert not d['sourceGameB51_28All721ConservativeAABBWarnings']
+           assert not any(d['sourceGameB51_13OriginalFrameExactTriangleHits'].values())
+           assert not d['humanCityQualityAlreadyApproved']
+           assert not d['actualIngamePlayerWalkwayBuilt']
+           assert not d['originalCityStructuralFoundationCertified']
+           assert d['officialArt']==d['officialSlope2Metres']==d['newGameColliders']==0
+           assert d['ART']=='HOLD_INDEPENDENT_IMAGE_JUDGMENT'
+           assert all(d[k]=='HOLD' for k in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+           print('R14D_ONE_REAL_INHABITED_PRIVATE_COURT',d['road'],
+            'actual editable objects',d['actualNewBlenderArchitectureMeshes'],
+            '13 source first-hits',[(k,v['fraction']) for k,v in d['original13TimeNativeCameraCityFirstHit'].items()],
+            'actual open 3D court counts',[(k,sum(x['unoccludedActualCityCourtyard'] for x in rows)) for k,rows in d['original13TimeNativeCameraRealCourtyard3Heights'].items()])
+          assert set(by)=={'true-pinch','pinch-switch'}
+          assert by['true-pinch']['trueBothOriginalRoadIdenticalPrevalidatedResearchSite']==by['pinch-switch']['trueBothOriginalRoadIdenticalPrevalidatedResearchSite']
+          print('R14D_REAL_NATIVE_IMAGES_NOT_ART_ACCEPTANCE')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R14D_TRUE_NATIVE_SHARED_14_IMAGE_EDITABLE_INHABITED_CITY_ART_HOLD
+          path: test-results/g4e7dz-r14d/result-*/
+          retention-days: 7
+          if-no-files-found: warn

@@ -1,0 +1,64 @@
+name: DOPAGAKI K4X genuine original 7-road camera negative-space research ART HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4x-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4x-seven-road-camera-space-study.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-k4x-real-seven-road-negative-space
+  cancel-in-progress: true
+jobs:
+  genuine-source-cameras-only-no-models:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect original 240Hz game, frozen candidate model, source scripts
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-r19a6p4r2f5k4r-open-market.py)" = e653029771982b2c39ee2831ea19199f0704ddaa
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4x-true-seven-road-negative-space.py
+      - name: Obtain genuine K and K3B WebGL2 source-capture artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/k4x-early /tmp/k4x-late
+          gh run download 41312758260 -n R2F5K_ORIGINAL_SOURCE_7ROAD_CAMERA_COVERAGE_ART_HOLD -D /tmp/k4x-early
+          gh run download 41315509252 -n R2F5K3B_GENUINE_ORIGINAL_ALL_SEVEN_ROAD_CAMERAS_ART_HOLD -D /tmp/k4x-late
+          (cd /tmp/k4x-early && zip -qr /tmp/k4x-k.zip .)
+          (cd /tmp/k4x-late && zip -qr /tmp/k4x-k3b.zip .)
+          test -s /tmp/k4x-k.zip && test -s /tmp/k4x-k3b.zip
+      - name: Check 58 original WebGL2 PNG SHA and 42 distinct genuine camera states, then create 7-road image audit
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-pil python3-numpy
+          python3 scripts/p101-r19a6p4r2f5k4x-true-seven-road-negative-space.py \
+            --kzip /tmp/k4x-k.zip --k3bzip /tmp/k4x-k3b.zip \
+            --output r19-evidence/r19a6p4r2f5k4x
+          python3 - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('r19-evidence/r19a6p4r2f5k4x')
+          x=json.loads((p/'K4X_SEVEN_ROAD_TRUE_SOURCE_CAMERAS_UNBUILT_NEGATIVE_SPACE.json').read_text())
+          assert x['actualWebGL2AllOriginalPNGVerified']==58
+          assert x['overlappingCaptureFrameSHAAgreements']==12
+          assert x['observedTrueRoadsInEachMode']==7
+          assert len(x['measurements'])==1764 and len(x['roadDiagnostics'])==14
+          assert x['notAContinuousSingleRun'] and x['thresholdsAreValidated'] is False
+          assert x['newGeometryModels']==x['newColliders']==x['officialARTAccepted']==x['slope2DNARecognizedMetres']==0
+          assert not x['realCityAndB48B51OcclusionTested'] and not x['humanComprehensionTested']
+          assert x['ART']==x['RELEASE']==x['MERGE']=='HOLD'
+          assert len(list(p.glob('K4X_*_SEVEN_TRUE_ORIGINAL_WEBGL2_CAMERAS_UNBUILT_SPACE_STUDY.png')))==2
+          print('K4X_58_AUTHENTIC_FRAMES_42_CAMERAS_1764_PROXIES_NO_ART_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4X_7ROAD_58_REAL_WEBGL2_42_SOURCE_CAMERAS_NEGATIVE_SPACE_ART_HOLD
+          path: r19-evidence/r19a6p4r2f5k4x/
+          retention-days: 7
+          if-no-files-found: warn

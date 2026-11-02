@@ -1,0 +1,121 @@
+name: G4E-7DZ R6D-R7B PRIVATE independent true-void sightline and ramp endpoint audit
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r6d-r7b-falsification.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r6d-r7b-falsification.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r7b-independent-audit-private
+  cancel-in-progress: true
+jobs:
+  independent-r7-evidence-no-new-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original protected CX hash and independent script syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r6d-r7b-falsification.py
+      - name: Retrieve actual R7 editable Blender objects and original R1 true cameras
+        run: |
+          mkdir -p test-results/g4e7dz-r7b/source-r7 test-results/g4e7dz-r7b/source-r1
+          gh run download 40676273915 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R7_GENUINE_INHABITED_COURT_B48_B51_ART_HOLD \
+            --dir test-results/g4e7dz-r7b/source-r7
+          gh run download 40666518657 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DZ_R6D_R1_EARLY_11_17_NATIVE_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r7b/source-r1
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: In original Blender scene, raycast visible sky courtyards and ramp terminations without changing art
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r7b/result-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 \
+              --python scripts/p101-w9c2-g4e7dz-r6d-r7b-falsification.py -- \
+              --blend "test-results/g4e7dz-r7b/source-r7/result-$r/R7_$r"_TRUE_HABITABLE_OPEN_COURTS_EDITABLE_UNADOPTED.blend \
+              --audit "test-results/g4e7dz-r7b/source-r7/result-$r/R7_$r"_AUDIT.json \
+              --native "test-results/g4e7dz-r7b/source-r1/source/$r.json" \
+              --road "$r" --out "test-results/g4e7dz-r7b/result-$r"
+          done
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independently compare all source images and temporal distribution in RGB
+        run: |
+          python -m pip install 'Pillow>=10,<13'
+          python - <<'PY'
+          import glob,json,os
+          from PIL import Image
+          root='test-results/g4e7dz-r7b'
+          times=('1100','1200','1300','1400','1500','1600','1700')
+          summary=[]
+          for road in ('true-pinch','pinch-switch'):
+           base=root+'/source-r1/result-'+road
+           trial=root+'/source-r7/result-'+road
+           a=json.load(open(root+'/result-'+road+'/R7B_'+road+'_FALSIFICATION.json'))
+           r7=json.load(open(trial+'/R7_'+road+'_AUDIT.json'))
+           assert a['schema']=='dopagaki.g4e7dz-r6d-r7b-independent-falsification/1'
+           assert a['testedVoidTargets']==126 and a['rampCount']==32
+           assert len(a['rampEndpointContactEvidence'])==32
+           assert a['sourceProtected'] and not a['originalCityAccessCertified']
+           assert r7['sourceProtected'] and r7['newGameColliders']==0
+           ratios={}
+           for t in times:
+            f=Image.open(base+'/R1_'+road+'_t'+t+'_TRUE_BLENDER_SOURCE_NOT_WEBGL.png').convert('RGB')
+            g=Image.open(trial+'/R7_'+road+'_t'+t+'_ACTUAL_GAME_CAMERA_BLENDER_NOT_WEBGL.png').convert('RGB')
+            assert f.size==g.size,(t,f.size,g.size)
+            n=sum(1 for x,y in zip(f.getdata(),g.getdata()) if max(abs(x[i]-y[i]) for i in range(3))>45)
+            ratios['t'+t]=round(n/(f.width*f.height),5)
+           deltaEarly=sum(ratios['t'+t] for t in times[:3])/3
+           deltaLate=sum(ratios['t'+t] for t in times[-3:])/3
+           summary.append({'road':road,'actualBlenderPerPixelChange45of255Fractions':ratios,
+             'early11to13Mean':round(deltaEarly,5),'late15to17Mean':round(deltaLate,5),
+             'visibleVoidTargetRayCount':a['unobstructedVoidTargetCount'],
+             'projectedVoidTargetCount':a['projectedVoidTargetCount'],
+             'rampsBothEndsNearSomeGallery25cm':a['rampsWithBothEndpointsWithin25cmOfSomeGallery'],
+             'ART':'NOT_CERTIFIED_BY_RGB_OR_3D_RAYS',
+             'SOURCE':'TRUE_ORIGINAL_GAME_CAMERA_BLENDER_NOT_TRUE_GAME_WEBGL'})
+           print('R7B_ACTUAL_PIXEL_TEMPORAL_EVIDENCE',road,ratios,
+             'voidUnobstructed',a['unobstructedVoidTargetCount'],
+             'rampBothContact',a['rampsWithBothEndpointsWithin25cmOfSomeGallery'])
+          path=root+'/R7B_SOURCE_VS_R7_PIXEL_EVIDENCE.json'
+          with open(path,'w') as o:json.dump({'schema':'dopagaki.g4e7dz-r6d-r7b-independent-source-image-parity/1',
+            'method':'native R1 7 Blender original-camera vs R7 true Blender paired RGB >45/255; visual quality not inferred',
+            'results':summary,'ART':'HOLD','officialArt':0,'gameplayWebGL':'NOT_RUN'},o,indent=2)
+          PY
+      - name: Ensure actual R7B independent result evidence and no automatic art promotion
+        run: |
+          python - <<'PY'
+          import json,glob
+          p='test-results/g4e7dz-r7b'
+          a=glob.glob(p+'/result-*/*.json')
+          assert len(a)==2,a
+          x=json.load(open(p+'/R7B_SOURCE_VS_R7_PIXEL_EVIDENCE.json'))
+          assert len(x['results'])==2
+          for fn in a:
+           y=json.load(open(fn))
+           assert y['sourceProtected'] and y['sourceArtUnadopted']
+           assert y['testedVoidTargets']==126
+           assert y['newGameColliders']==y['officialArt']==y['officialSlope2Meters']==0
+           assert all(y[k]=='HOLD' for k in ('GAMEPLAY','HUMAN','PERFORMANCE','INTEGRATION','RELEASE','MERGE'))
+          print('R7B_FALSIFICATION_COMPLETED_NO_ART_APPROVAL')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R7B_INDEPENDENT_VOID_RAMP_TRUE_CAMERA_PIXEL_REVIEW_HOLD
+          path: |
+            test-results/g4e7dz-r7b/result-*/R7B_*_FALSIFICATION.json
+            test-results/g4e7dz-r7b/R7B_SOURCE_VS_R7_PIXEL_EVIDENCE.json
+          retention-days: 7
+          if-no-files-found: warn

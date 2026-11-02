@@ -1,0 +1,83 @@
+name: G4E-7DZ R4 PRIVATE original-world Blender groundcity HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7dz-r4-groundcity.py'
+      - '.github/workflows/p101-w9c2-g4e7dz-r4-groundcity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: g4e7dz-r4-private-groundcity
+  cancel-in-progress: true
+jobs:
+  native-world-blender:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original game CX blob and Python static checks
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-w9c2-g4e7dz-r4-groundcity.py
+          node --test tests/p101-w9c2-g4e7dy-r1-approach-plan.test.mjs
+      - name: Fetch frozen actual DR original world
+        run: |
+          mkdir -p test-results/g4e7dz-r4/source
+          gh run download 40587470014 --repo ryomashibaba/dopagaki-development-hub \
+            --name G4E7DY_R1_ORIGINAL_B48_SKY_CIVIC_CITY_BLENDER_PRIVATE_ART_HOLD \
+            --dir test-results/g4e7dz-r4/source
+          python3 - <<'PY'
+          import json,os
+          p='test-results/g4e7dz-r4/source'
+          a=json.load(open(p+'/G4E7DY_R1_NATIVE_APPROACH_SPATIAL_DATA.json'))
+          assert a['originalB48']==7 and a['originalB51']==28 and a['newColliders']==0
+          for r in ('true-pinch','pinch-switch'):
+           assert os.path.isfile(p+'/dr-'+r+'/G4E7DR_'+r+'_B48_B51_240HZ_EDITABLE_ART_HOLD.blend')
+          PY
+      - uses: bradyajohnston/setup-blender@v5
+        with:
+          version: '4.2'
+      - name: Actual B48 camera Blender preview with no new game colliders
+        run: |
+          for r in true-pinch pinch-switch; do
+            mkdir -p "test-results/g4e7dz-r4/r4-$r"
+            blender -b --factory-startup -t 2 --python-exit-code 5 --python scripts/p101-w9c2-g4e7dz-r4-groundcity.py -- \
+              --source "test-results/g4e7dz-r4/source/dr-$r/G4E7DR_$r"_B48_B51_240HZ_EDITABLE_ART_HOLD.blend \
+              --site-report test-results/g4e7dz-r4/source/G4E7DY_R1_NATIVE_APPROACH_SPATIAL_DATA.json \
+              --road "$r" --out "test-results/g4e7dz-r4/r4-$r"
+          done
+      - name: Independent source-bound evidence limits
+        run: |
+          python3 - <<'PY'
+          import glob,json
+          p='test-results/g4e7dz-r4/r4-*'
+          imgs=glob.glob(p+'/*.png')
+          blends=glob.glob(p+'/*.blend')
+          audits=glob.glob(p+'/*ACTUAL_AUDIT.json')
+          assert len(imgs)==8 and len(blends)==2 and len(audits)==2,(len(imgs),len(blends),len(audits))
+          for f in audits:
+           a=json.load(open(f))
+           assert (a['sourceCX18'],a['originalB48'],a['originalB51'],a['originalCameras'])==(18,7,28,5)
+           assert a['gap52Preserved'] and a['gateMeshes']==0
+           assert a['gameNewColliders']==a['officialArt']==a['officialSlope2Meters']==0
+           assert not a['sourceGameChanged'] and not a['roadTriangleOverlap']
+           assert all(not v for v in a['B51SampledOBBOverlap'].values())
+           assert a['actualGameWebGL']=='NOT_RENDERED' and a['humanPlay']=='NOT_RUN'
+           assert a['art']==a['release']==a['merge']=='HOLD'
+          print('R4_TRUE_SOURCE_WORLD_BLENDER_TECH_ONLY_NO_ART_PROMOTION')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: G4E7DZ_R4_SOURCE_GROUND_CITY_TRUE_BLENDER_PRIVATE_HOLD
+          path: test-results/g4e7dz-r4/r4-*
+          retention-days: 7
+          if-no-files-found: warn

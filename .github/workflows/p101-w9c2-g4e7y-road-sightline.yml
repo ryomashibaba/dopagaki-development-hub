@@ -1,0 +1,36 @@
+name: W9-C2 G4E-7Y real 240Hz B48 gap eye ray occlusion (HOLD)
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-w9c2-g4e7y-road-sightline.mjs'
+      - '.github/workflows/p101-w9c2-g4e7y-road-sightline.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-ray:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          node --check scripts/p101-w9c2-g4e7y-road-sightline.mjs
+          node scripts/p101-w9c2-g4e7y-road-sightline.mjs g4e7y-true-b48-eye-ray.json
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const a=JSON.parse(fs.readFileSync("g4e7y-true-b48-eye-ray.json","utf8"));
+          if(a.physicsHz!==240||a.comparison.length!==10||a.nativeMovingMachines!==28||
+           a.officialSlope2Meters!==0||
+           a.comparison.some(x=>Object.keys(x.targets).length!==6))
+           throw Error("Cannot trust G4E-7Y road ray");
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g4e7y-native-real-B48-eye-occlusion-${{ github.run_id }}
+          path: g4e7y-true-b48-eye-ray.json
+          retention-days: 12

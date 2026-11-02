@@ -1,0 +1,44 @@
+name: P101 R15S3 authentic 240Hz 3 long span macro road geometries x 2 worlds x 2 legal inputs HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3-isolated-macro-two-road-physical-architectures.mjs
+      - scripts/p101-r15s3-twelve-real-240hz-macro-physical-playability-study.mjs
+      - scripts/p101-r15s3-independent-macro-native-road-veto.py
+      - .github/workflows/p101-r15s3-native-macro-geometry-real-road.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  r15s3-genuine-240hz-3-macro-two-road-x-2-worlds-x-2-inputs:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protected original game blob and isolated-source syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3-isolated-macro-two-road-physical-architectures.mjs
+          node --check scripts/p101-r15s3-twelve-real-240hz-macro-physical-playability-study.mjs
+          python3 -m py_compile scripts/p101-r15s3-independent-macro-native-road-veto.py
+      - name: Generate three original B48 long-span source collider candidates across CROWN and SCISSOR and run real 240Hz 12 conditions
+        run: |
+          mkdir -p test-results/r15s3/actual
+          node scripts/p101-r15s3-twelve-real-240hz-macro-physical-playability-study.mjs --out test-results/r15s3/actual
+      - name: Independent QA of true 12 Native conditions, real road changes, B51, no false art/game/human adoption
+        run: |
+          python3 scripts/p101-r15s3-independent-macro-native-road-veto.py \
+            --native test-results/r15s3/actual/R15S3_12_REAL_240HZ_MACRO_PHYSICAL_ROAD_AND_INPUT_TRIALS.json \
+            --out test-results/r15s3/actual
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3_12_GENUINE_NATIVE_240HZ_TWO_REAL_MACRO_ROADS_3_GEOMETRIES_NO_ART_HOLD
+          path: test-results/r15s3/actual/
+          retention-days: 7
+          if-no-files-found: warn

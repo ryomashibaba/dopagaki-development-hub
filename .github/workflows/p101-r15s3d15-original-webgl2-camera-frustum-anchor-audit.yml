@@ -1,0 +1,54 @@
+name: P101 R15S3D15 native WebGL2 camera projection and actual B48 landmark visibility gate
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - scripts/p101-r15s3d15-private-actual-raw-camera-probe-pack.mjs
+      - scripts/p101-r15s3d15-source-native-project-true-landmarks.mjs
+      - .github/workflows/p101-r15s3d15-original-webgl2-camera-frustum-anchor-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-camera-frustum-real-native-240hz:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protected original source and actual projected camera probe syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r15s3d15-private-actual-raw-camera-probe-pack.mjs
+          node --check scripts/p101-r15s3d15-source-native-project-true-landmarks.mjs
+      - name: Build original PRIVATE WebGL2 game with real source B48 and B51, and read-only raw camera eye
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-r15s3d11-private-genuine-webgl-hazard-pack.mjs
+          node scripts/p101-r15s3d14r1-private-real-habitat-city-webgl2-pack.mjs
+          node scripts/p101-r15s3d15-private-actual-raw-camera-probe-pack.mjs
+          node --check dist-private/r15s3d15/drive3d.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          ! grep -q 'r15s3d15ActualCameraEye' dist-private/drive3d/drive3d.mjs
+          ! grep -q 'r15s3d15ActualCameraEye' dist-private/r15s3d14r1/drive3d.mjs
+      - name: Actual software WebGL2 original Chromium and Japanese fonts
+        run: |
+          npx playwright install --only-shell chromium
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends fonts-ipafont-gothic
+          fc-cache -f
+          fc-list :lang=ja family | grep -q .
+      - name: Project real B48 stations and 3D sky landmark candidates into true original camera at 54-67s, both source worlds
+        run: |
+          node scripts/p101-r15s3d15-source-native-project-true-landmarks.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P101_R15S3D15_TWO_REAL_NATIVE_ORIGINAL_WEBGL2_RAW_CAMERA_B48_FRUSTUM_GATE
+          path: test-results/r15s3d15-real-camera-projection/
+          retention-days: 7
+          if-no-files-found: warn

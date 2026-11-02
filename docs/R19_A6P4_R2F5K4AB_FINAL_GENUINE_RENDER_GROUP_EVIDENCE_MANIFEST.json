@@ -1,0 +1,195 @@
+{
+  "schema": "dopagaki.K4AB.original-drawn-WebGL2-source-groups-final-independent-evidence/1",
+  "dateJST": "2026-11-02",
+  "repository": "ryomashibaba/dopagaki-development-hub",
+  "branch": "p101-velocity-overdrive-native-trial",
+  "pr": {
+    "number": 46,
+    "draft": true,
+    "merged": false
+  },
+  "sourceGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "sourceHz": 240,
+  "sourceB48Roads": 7,
+  "sourceB51MovingBodies": 28,
+  "originalSourceCamera": "ball-lock-unfiltered-heading",
+  "originalK4ZRunId": 41427816258,
+  "originalK4ZNative82PNGshasVerified": true,
+  "finalK4ABCI": {
+    "runId": 41448066954,
+    "runURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41448066954",
+    "testedHEAD": "e402ff7cd843b4337b70d79812a450243538a5d0",
+    "conclusion": "success",
+    "allJobsSuccessful": true,
+    "originalSourceProtection": "PASS",
+    "originalK4ZArtifact82PNGSha": "PASS",
+    "originalRoad5Native14FrameAnd12PrivateMaskCapture": "PASS",
+    "independentPixelAuditAndHUDNegativeTamperTests": "PASS",
+    "artifactId": 13144320278,
+    "artifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41448066954/artifacts/13144320278"
+  },
+  "downloadedOriginalArtifact": {
+    "zipBytes": 4461471,
+    "zipSha256": "78c0b3dec7ce2bac83a98d23332faad1e683ddaaaf4c1c9d0a3ef27995fa7baf",
+    "zipEntries": 33,
+    "allCRC": "PASS",
+    "files": {
+      "K4AB_TRUE_ORIGINAL_RENDERED_SOURCE_DRAW_PROVENANCE.json": {
+        "bytes": 188068,
+        "sha256": "5d735eaa5c7bdf3dcda505850108ad256aba831e613d00cfc4b0b6ceec72214e"
+      },
+      "K4AB_ACTUALLY_RENDERED_ORIGINAL_SOURCE_GROUPS_AND_PIXEL_DIFFS.json": {
+        "bytes": 40934,
+        "sha256": "2371282b9328c45df1d0deb935f6914cc84b7d6822f53fdb288c0420fa15348c"
+      },
+      "K4AB_RESEARCH_ONLY_LAYER_DIFFS.csv": {
+        "bytes": 2173,
+        "sha256": "83cd6f6867e89b82624ea70b8fa6181e05b996a150b5577ea63c42a9fbe1380b"
+      },
+      "K4AB_ultra_TRUE_11040_ORIGINAL_VS_PRIVATE_SOURCE_DRAW_GROUPS.png": {
+        "bytes": 852797,
+        "sha256": "b54100c5f1f8af9aed04fd5565b2acd89ef0e5e97fc45594362ff5883cdff567"
+      },
+      "K4AB_control_TRUE_11040_ORIGINAL_VS_PRIVATE_SOURCE_DRAW_GROUPS.png": {
+        "bytes": 832056,
+        "sha256": "f485153ccb9c6c5a8ca4466c5c50bc54c9087e2522d72483d99132e3c9a5d78f"
+      }
+    }
+  },
+  "sourceOriginalRoad5Frames14": {
+    "modes": [
+      "ultra_14m",
+      "control_28m"
+    ],
+    "ticks": [
+      10680,
+      10800,
+      10920,
+      11040,
+      11160,
+      11280,
+      11400
+    ],
+    "seconds": [
+      44.5,
+      45,
+      45.5,
+      46,
+      46.5,
+      47,
+      47.5
+    ],
+    "sourceFullPNGShaIdentical": 13,
+    "sourceFullPNGShaCompared": 14,
+    "onlyKnownFullScreenshotDifference": {
+      "mode": "control_28m",
+      "tick": 11280,
+      "seconds": 47,
+      "differencePixels": 79558,
+      "measuredBBoxInclusive": {
+        "xMin": 217,
+        "xMax": 796,
+        "yMin": 425,
+        "yMax": 576
+      },
+      "reason": "Original DOM .nearMissBurst CSS p74pop animation lasts 0.24 seconds; full element screenshot includes DOM HUD",
+      "rendered3DSourceScenePixelsOutsideCSSDiffering": 0
+    },
+    "cssAnimatedHudExcludedROI": {
+      "x0": 200,
+      "y0": 418,
+      "x1Exclusive": 810,
+      "y1Exclusive": 590
+    },
+    "nonAnimatedPixelCountPerFrame": 602154,
+    "sourceFrameOutsideHUDPixelExact": 14,
+    "sourceRestoredAfter12MasksOutsideHUDPixelExact": 2,
+    "negativeControl": "CI rejects any changed source screen pixel outside CSS ROI"
+  },
+  "sameNativeRoad5TickMasks": {
+    "tick": 11040,
+    "timeSeconds": 46,
+    "originalBallCameraRoadB51Unaffected": true,
+    "originalSourceDrawGroupComparisons": 12,
+    "imageRGBAnyChannelAbsoluteDeltaThreshold": 40,
+    "denominatorPixels": 602154,
+    "sharesByMode": {
+      "ultra_14m": {
+        "EPIC_SCENERY": {
+          "changedFraction": 0,
+          "status": "NOT_DRAWN"
+        },
+        "MEGASTRUCTURE_SCENERY": {
+          "changedFraction": 0.047305,
+          "status": "DRAWN"
+        },
+        "A13_MACHINE_FRAMES_AND_W9_HERO": {
+          "changedFraction": 0.021232,
+          "status": "DRAWN"
+        },
+        "B48_AND_FIXTURES_RENDER_SKIN": {
+          "changedFraction": 0.344736,
+          "status": "DRAWN"
+        },
+        "B51_BODY": {
+          "changedFraction": 0.0009,
+          "status": "DRAWN_28_PHYSICS_BODIES_NOT_MODIFIED"
+        },
+        "ROAD_OPTICS_GROUP": {
+          "changedFraction": 0.156226,
+          "status": "DRAWN"
+        }
+      },
+      "control_28m": {
+        "EPIC_SCENERY": {
+          "changedFraction": 0,
+          "status": "NOT_DRAWN"
+        },
+        "MEGASTRUCTURE_SCENERY": {
+          "changedFraction": 0.049152,
+          "status": "DRAWN"
+        },
+        "A13_MACHINE_FRAMES_AND_W9_HERO": {
+          "changedFraction": 0.02654,
+          "status": "DRAWN"
+        },
+        "B48_AND_FIXTURES_RENDER_SKIN": {
+          "changedFraction": 0.358628,
+          "status": "DRAWN"
+        },
+        "B51_BODY": {
+          "changedFraction": 0.001496,
+          "status": "DRAWN_28_PHYSICS_BODIES_NOT_MODIFIED"
+        },
+        "ROAD_OPTICS_GROUP": {
+          "changedFraction": 0.134419,
+          "status": "DRAWN"
+        }
+      }
+    },
+    "interpretationCaveats": [
+      "Each visual group is removed individually: differences cannot be summed into an occlusion share.",
+      "These are pixel contributions of source draw calls, NOT exact object-ID segmentation or hardware depth-buffer visibility.",
+      "The per-screen percentages cannot measure hazard danger, actual road safety, constructible empty space, or human recognition.",
+      "The one original full screenshot mismatch is retained as evidence, not silently called exact SHA success."
+    ]
+  },
+  "independentArt": "NOT_TESTED_HOLD",
+  "priorK4K4RK4UART": "REJECT",
+  "officialARTAccepted": 0,
+  "slope2DNARecognizedMeters": 0,
+  "newBuildingModels": 0,
+  "addedColliders": 0,
+  "gamePhysicsChanged": false,
+  "cameraChanged": false,
+  "mainChanged": false,
+  "productionDeployed": false,
+  "candidateB48SAT": "NOT_RUN",
+  "candidateB51CCD": "NOT_RUN",
+  "walkability": "NOT_RUN",
+  "human": "NOT_TESTED",
+  "FPS": "HOLD",
+  "release": "HOLD",
+  "merge": "HOLD",
+  "nextStage": "K4AC: inspect real rendered source-specific depth and foreground-object classification before assessing one actual architectural public-void candidate in high-speed native chase camera; no low-market-roof repeat"
+}

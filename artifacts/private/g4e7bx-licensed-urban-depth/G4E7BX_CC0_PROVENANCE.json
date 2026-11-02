@@ -1,0 +1,542 @@
+{
+  "schema": "g4e7bx-city-forward-cc0-intake-1",
+  "method": "Artist-made CC0 modular Blender asset staging, no new fake road",
+  "humanAuthoredThirdParty": "Kenney City Kit Commercial v2.1",
+  "license": "CC0 1.0 Universal",
+  "authorOriginalBW": "OpenAI scripted Blender authoring - no hand sculpt claim",
+  "artistAssetSource": "https://kenney.nl/assets/city-kit-commercial",
+  "sourceMirror": "https://opengameart.org/content/city-kit-commercial",
+  "originalPackSHA256": "f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b",
+  "modelSources": [
+    "building-skyscraper-a.glb",
+    "building-skyscraper-b.glb",
+    "building-skyscraper-c.glb",
+    "building-skyscraper-d.glb",
+    "building-skyscraper-e.glb",
+    "building-a.glb",
+    "building-b.glb",
+    "building-c.glb",
+    "building-d.glb",
+    "building-e.glb",
+    "building-f.glb",
+    "building-g.glb",
+    "building-h.glb"
+  ],
+  "placements": [
+    {
+      "source": "building-skyscraper-b.glb",
+      "position": [
+        -93.627,
+        286,
+        -12.0
+      ],
+      "heightMeters": 118,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.3599997758865356,
+        1.3599998950958252,
+        4.480000019073486
+      ]
+    },
+    {
+      "source": "building-skyscraper-e.glb",
+      "position": [
+        98.437,
+        327,
+        -12.0
+      ],
+      "heightMeters": 142,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.2949998378753662,
+        1.2420002222061157,
+        4.079999923706055
+      ]
+    },
+    {
+      "source": "building-c.glb",
+      "position": [
+        -164.526,
+        377,
+        -12.0
+      ],
+      "heightMeters": 174,
+      "row": 0,
+      "sourceMeshMeters": [
+        0.8835878968238831,
+        1.0900001525878906,
+        0.8930000066757202
+      ]
+    },
+    {
+      "source": "building-skyscraper-d.glb",
+      "position": [
+        100.797,
+        412,
+        -12.0
+      ],
+      "heightMeters": 212,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.2799997329711914,
+        1.3878912925720215,
+        5.469999313354492
+      ]
+    },
+    {
+      "source": "building-skyscraper-a.glb",
+      "position": [
+        -136.143,
+        493,
+        -12.0
+      ],
+      "heightMeters": 249,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.3599997758865356,
+        1.3600001335144043,
+        2.879999876022339
+      ]
+    },
+    {
+      "source": "building-b.glb",
+      "position": [
+        147.169,
+        517,
+        -12.0
+      ],
+      "heightMeters": 185,
+      "row": 0,
+      "sourceMeshMeters": [
+        0.9700000882148743,
+        0.9399999976158142,
+        1.2929999828338623
+      ]
+    },
+    {
+      "source": "building-skyscraper-c.glb",
+      "position": [
+        -121.984,
+        612,
+        -12.0
+      ],
+      "heightMeters": 288,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.2799997329711914,
+        1.3878912925720215,
+        4.079999923706055
+      ]
+    },
+    {
+      "source": "building-e.glb",
+      "position": [
+        324.251,
+        651,
+        -12.0
+      ],
+      "heightMeters": 261,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.6400001049041748,
+        1.0078915357589722,
+        0.8930000066757202
+      ]
+    },
+    {
+      "source": "building-d.glb",
+      "position": [
+        -187.494,
+        739,
+        -12.0
+      ],
+      "heightMeters": 333,
+      "row": 0,
+      "sourceMeshMeters": [
+        0.8400000333786011,
+        0.8999998569488525,
+        1.2929999828338623
+      ]
+    },
+    {
+      "source": "building-skyscraper-b.glb",
+      "position": [
+        122.515,
+        787,
+        -12.0
+      ],
+      "heightMeters": 301,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.3599997758865356,
+        1.3599998950958252,
+        4.480000019073486
+      ]
+    },
+    {
+      "source": "building-skyscraper-e.glb",
+      "position": [
+        -136.233,
+        871,
+        -12.0
+      ],
+      "heightMeters": 371,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.2949998378753662,
+        1.2420002222061157,
+        4.079999923706055
+      ]
+    },
+    {
+      "source": "building-skyscraper-d.glb",
+      "position": [
+        124.038,
+        934,
+        -12.0
+      ],
+      "heightMeters": 403,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.2799997329711914,
+        1.3878912925720215,
+        5.469999313354492
+      ]
+    },
+    {
+      "source": "building-skyscraper-c.glb",
+      "position": [
+        -143.681,
+        1035,
+        -12.0
+      ],
+      "heightMeters": 421,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.2799997329711914,
+        1.3878912925720215,
+        4.079999923706055
+      ]
+    },
+    {
+      "source": "building-skyscraper-a.glb",
+      "position": [
+        185.009,
+        1107,
+        -12.0
+      ],
+      "heightMeters": 448,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.3599997758865356,
+        1.3600001335144043,
+        2.879999876022339
+      ]
+    },
+    {
+      "source": "building-d.glb",
+      "position": [
+        -240.869,
+        1220,
+        -12.0
+      ],
+      "heightMeters": 491,
+      "row": 0,
+      "sourceMeshMeters": [
+        0.8400000333786011,
+        0.8999998569488525,
+        1.2929999828338623
+      ]
+    },
+    {
+      "source": "building-c.glb",
+      "position": [
+        315.795,
+        1259,
+        -12.0
+      ],
+      "heightMeters": 468,
+      "row": 0,
+      "sourceMeshMeters": [
+        0.8835878968238831,
+        1.0900001525878906,
+        0.8930000066757202
+      ]
+    },
+    {
+      "source": "building-skyscraper-e.glb",
+      "position": [
+        -160.825,
+        1383,
+        -12.0
+      ],
+      "heightMeters": 520,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.2949998378753662,
+        1.2420002222061157,
+        4.079999923706055
+      ]
+    },
+    {
+      "source": "building-skyscraper-b.glb",
+      "position": [
+        162.453,
+        1456,
+        -12.0
+      ],
+      "heightMeters": 554,
+      "row": 0,
+      "sourceMeshMeters": [
+        1.3599997758865356,
+        1.3599998950958252,
+        4.480000019073486
+      ]
+    },
+    {
+      "source": "building-f.glb",
+      "position": [
+        -235.249,
+        350,
+        -17.0
+      ],
+      "heightMeters": 156,
+      "row": 1,
+      "sourceMeshMeters": [
+        0.8400000333786011,
+        1.0300002098083496,
+        1.693000078201294
+      ]
+    },
+    {
+      "source": "building-a.glb",
+      "position": [
+        258.607,
+        379,
+        -17.0
+      ],
+      "heightMeters": 179,
+      "row": 1,
+      "sourceMeshMeters": [
+        0.8835878968238831,
+        0.9399999976158142,
+        1.2929999828338623
+      ]
+    },
+    {
+      "source": "building-b.glb",
+      "position": [
+        -270.289,
+        546,
+        -17.0
+      ],
+      "heightMeters": 193,
+      "row": 1,
+      "sourceMeshMeters": [
+        0.9700000882148743,
+        0.9399999976158142,
+        1.2929999828338623
+      ]
+    },
+    {
+      "source": "building-g.glb",
+      "position": [
+        266.504,
+        586,
+        -17.0
+      ],
+      "heightMeters": 240,
+      "row": 1,
+      "sourceMeshMeters": [
+        0.9700000286102295,
+        0.9220001697540283,
+        1.693000078201294
+      ]
+    },
+    {
+      "source": "building-skyscraper-d.glb",
+      "position": [
+        -231.748,
+        755,
+        -17.0
+      ],
+      "heightMeters": 302,
+      "row": 1,
+      "sourceMeshMeters": [
+        1.2799997329711914,
+        1.3878912925720215,
+        5.469999313354492
+      ]
+    },
+    {
+      "source": "building-skyscraper-a.glb",
+      "position": [
+        272.104,
+        848,
+        -17.0
+      ],
+      "heightMeters": 314,
+      "row": 1,
+      "sourceMeshMeters": [
+        1.3599997758865356,
+        1.3600001335144043,
+        2.879999876022339
+      ]
+    },
+    {
+      "source": "building-skyscraper-e.glb",
+      "position": [
+        -255.738,
+        964,
+        -17.0
+      ],
+      "heightMeters": 368,
+      "row": 1,
+      "sourceMeshMeters": [
+        1.2949998378753662,
+        1.2420002222061157,
+        4.079999923706055
+      ]
+    },
+    {
+      "source": "building-b.glb",
+      "position": [
+        326.464,
+        1050,
+        -17.0
+      ],
+      "heightMeters": 337,
+      "row": 1,
+      "sourceMeshMeters": [
+        0.9700000882148743,
+        0.9399999976158142,
+        1.2929999828338623
+      ]
+    },
+    {
+      "source": "building-skyscraper-c.glb",
+      "position": [
+        -261.723,
+        1217,
+        -17.0
+      ],
+      "heightMeters": 409,
+      "row": 1,
+      "sourceMeshMeters": [
+        1.2799997329711914,
+        1.3878912925720215,
+        4.079999923706055
+      ]
+    },
+    {
+      "source": "building-e.glb",
+      "position": [
+        600.868,
+        1338,
+        -17.0
+      ],
+      "heightMeters": 425,
+      "row": 1,
+      "sourceMeshMeters": [
+        1.6400001049041748,
+        1.0078915357589722,
+        0.8930000066757202
+      ]
+    },
+    {
+      "source": "building-f.glb",
+      "position": [
+        -325.808,
+        1547,
+        -17.0
+      ],
+      "heightMeters": 507,
+      "row": 1,
+      "sourceMeshMeters": [
+        0.8400000333786011,
+        1.0300002098083496,
+        1.693000078201294
+      ]
+    },
+    {
+      "source": "building-c.glb",
+      "position": [
+        442.998,
+        1614,
+        -17.0
+      ],
+      "heightMeters": 482,
+      "row": 1,
+      "sourceMeshMeters": [
+        0.8835878968238831,
+        1.0900001525878906,
+        0.8930000066757202
+      ]
+    },
+    {
+      "source": "building-e.glb",
+      "position": [
+        -516.501,
+        557,
+        -17.0
+      ],
+      "heightMeters": 211,
+      "row": 2,
+      "sourceMeshMeters": [
+        1.6400001049041748,
+        1.0078915357589722,
+        0.8930000066757202
+      ]
+    },
+    {
+      "source": "building-d.glb",
+      "position": [
+        410.941,
+        704,
+        -17.0
+      ],
+      "heightMeters": 284,
+      "row": 2,
+      "sourceMeshMeters": [
+        0.8400000333786011,
+        0.8999998569488525,
+        1.2929999828338623
+      ]
+    },
+    {
+      "source": "building-g.glb",
+      "position": [
+        -452.049,
+        1060,
+        -17.0
+      ],
+      "heightMeters": 460,
+      "row": 2,
+      "sourceMeshMeters": [
+        0.9700000286102295,
+        0.9220001697540283,
+        1.693000078201294
+      ]
+    },
+    {
+      "source": "building-a.glb",
+      "position": [
+        461.404,
+        1165,
+        -17.0
+      ],
+      "heightMeters": 412,
+      "row": 2,
+      "sourceMeshMeters": [
+        0.8835878968238831,
+        0.9399999976158142,
+        1.2929999828338623
+      ]
+    }
+  ],
+  "roadPhysics": "UNTOUCHED",
+  "studioViews": "ACTUAL_BLENDER_CYCLES_NOT_GAMEPLAY",
+  "humanApproval": "HOLD",
+  "officialSlope2Meters": 0,
+  "publicRelease": "FORBIDDEN"
+}

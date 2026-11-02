@@ -27,4 +27,17 @@ export function sweepTriangle(p,delta,r,t){if(len(delta)<1e-10)return null;let b
  for(const point of [t.a,t.b,t.c]){const d=sub(p,point);for(const time of roots(dot(delta,delta),2*dot(d,delta),dot(d,d)-r*r))if(time>=0&&time<=1)accept(time,norm(sub(add(p,mul(delta,time)),point)),point);}
  return best;
 }
-export function sweep(world,p,delta,r){let best=null;for(const t of candidates(world,p,add(p,delta),r+.001)){const hit=sweepTriangle(p,delta,r,t);if(hit&&(!best||hit.time<best.time))best=hit;}return best;}
+// Equal-time contact seams can be returned in different BVH traversal order
+// after adding a separate, distant-at-contact road. Prefer the authored
+// rideable top over a nonrideable edge ONLY for effectively identical TOI.
+// Distinct earlier edge hits still win and remain lethal.
+export function sweep(world,p,delta,r){
+ let best=null;
+ for(const t of candidates(world,p,add(p,delta),r+.001)){
+  const hit=sweepTriangle(p,delta,r,t);
+  if(hit&&(!best||hit.time<best.time-1e-9||
+    (Math.abs(hit.time-best.time)<=1e-9&&
+      hit.triangle.rideable&&!best.triangle.rideable)))best=hit;
+ }
+ return best;
+}

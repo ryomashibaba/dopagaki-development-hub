@@ -1,0 +1,117 @@
+{
+  "schema": "dopagaki.g4e7cc-attributed-hero-architecture-source-review/1",
+  "dateJST": "2026-10-25",
+  "subject": "Racing camera-readable inhabited futuristic CITY architecture (not independent spaceship, prop pack or giant box grid)",
+  "decision": "ONE_PREFERRED_SOURCE_IDENTIFIED_NO_AUTHENTIC_BINARY_YET",
+  "publicRelease": "FORBIDDEN",
+  "human": "HOLD",
+  "art": "NOT_TESTED",
+  "original240Hz": "UNCHANGED",
+  "formalSlope2Meters": 0,
+  "researchNotes": "Official creator listing metadata, not independent model geometry inspection; third-party marketplace requires an authorized login to download. Search/thumbnail presence does not confer an actual downloaded GLB or license compliance for embedded content.",
+  "preferred": "sketchfab-tomato3-futuristic-buildings",
+  "candidates": [
+    {
+      "id": "sketchfab-tomato3-futuristic-buildings",
+      "rank": 1,
+      "role": "FIRST_ACTUAL_ARCHITECTURAL_UNIT",
+      "name": "Futuristic Buildings",
+      "author": "tomato3",
+      "sourcePage": "https://sketchfab.com/3d-models/futuristic-buildings-adf97f38cda44e67a44994fff1cb4d58",
+      "uid": "adf97f38cda44e67a44994fff1cb4d58",
+      "listingLicense": "CC Attribution",
+      "trianglesListed": 121400,
+      "formatListed": "GLB",
+      "access": "AUTHENTICATED_SKETCHFAB_DOWNLOAD_REQUIRED",
+      "previewClaim": "Mixed-use urban street corner with several buildings, rooftop terrace, retail, illuminated signage, traffic lights, road entrance and environmental props",
+      "evidenceState": "CREATOR_LISTING_ONLY_BINARY_NOT_ACQUIRED",
+      "artState": "VISUAL_NOT_VERIFIED",
+      "licenseState": "PAGE_CC_ATTRIBUTION_VERSION_AND_EMBEDDED_CONTENT_NOT_INDEPENDENTLY_CHECKED",
+      "binarySha256": null,
+      "attributionRequired": true,
+      "risks": [
+        "Exact playable road direction/scale unknown",
+        "Need close-up facade, human use, traffic and PBR visual review",
+        "May still be stylized or not monumental after real review"
+      ]
+    },
+    {
+      "id": "sketchfab-akshita-cyberpunk-shop",
+      "rank": 2,
+      "role": "NEAR_ROAD_FRONTAGE_OPTION",
+      "name": "Cyberpunk Shop",
+      "author": "Akshita_eb Dhaka",
+      "sourcePage": "https://sketchfab.com/3d-models/cyberpunk-shop-4cfc925db2ec4634b6e31e550dabe17f",
+      "uid": "4cfc925db2ec4634b6e31e550dabe17f",
+      "listingLicense": "CC Attribution",
+      "trianglesListed": 32300,
+      "formatListed": "3D downloadable model, exact GLB variant to verify",
+      "access": "AUTHENTICATED_SKETCHFAB_DOWNLOAD_REQUIRED",
+      "previewClaim": "Creator describes Blender modeled storefront with geometry detail, vents, pipework, signs and PBR Substance Painter textures",
+      "evidenceState": "CREATOR_LISTING_ONLY_BINARY_NOT_ACQUIRED",
+      "artState": "VISUAL_NOT_VERIFIED",
+      "licenseState": "PAGE_CC_ATTRIBUTION_VERSION_AND_EMBEDDED_CONTENT_NOT_INDEPENDENTLY_CHECKED",
+      "binarySha256": null,
+      "attributionRequired": true,
+      "risks": [
+        "Too small to substitute for flagship megacity architecture",
+        "Exact glTF/GLB offering unknown",
+        "Need close-range wall/detail benchmark"
+      ]
+    },
+    {
+      "id": "sketchfab-nenkea-sci-fi-building-1",
+      "rank": 3,
+      "role": "SECONDARY_GLASS_BUILDING_OPTION",
+      "name": "Sci-Fi Building 1",
+      "author": "nenkea",
+      "sourcePage": "https://sketchfab.com/3d-models/sci-fi-building-1-da4d7f4c35be49baa287af0782c2171b",
+      "uid": "da4d7f4c35be49baa287af0782c2171b",
+      "listingLicense": "CC Attribution",
+      "trianglesListed": 35800,
+      "formatListed": "3D downloadable model, verify GLB archive",
+      "access": "AUTHENTICATED_SKETCHFAB_DOWNLOAD_REQUIRED",
+      "previewClaim": "Creator explicitly built a glass future building with elevator for a 3D racing game",
+      "evidenceState": "CREATOR_LISTING_ONLY_BINARY_NOT_ACQUIRED",
+      "artState": "VISUAL_NOT_VERIFIED",
+      "licenseState": "PAGE_CC_ATTRIBUTION_VERSION_AND_EMBEDDED_CONTENT_NOT_INDEPENDENTLY_CHECKED",
+      "binarySha256": null,
+      "attributionRequired": true,
+      "risks": [
+        "Residential building scale not entire futuristic city",
+        "Interior/public transport continuity unknown"
+      ]
+    }
+  ],
+  "doNotAdmit": [
+    {
+      "source": "3DHaupt futuristic building 2014",
+      "reason": "CC BY-NC (commercial-use restriction), not a safe candidate for paid game",
+      "url": "https://sketchfab.com/3d-models/futuristic-building-e73f9bb9981d469c8a8ccdc1f168faad"
+    },
+    {
+      "source": "Kenney City Kit / Quaternius / Grab3D Lightweight",
+      "reason": "Known low-poly, procedural or stylized assets; repeated BX/BY failures for hero architecture",
+      "url": "https://kenney.nl/assets/city-kit-commercial"
+    },
+    {
+      "source": "3DAssets.dev assembled orbital station",
+      "reason": "CC0 and directly downloadable but contributor-reported AI assembly is a spaceship, not an inhabited road-facing urban building; skip unnecessary download for main architecture",
+      "url": "https://3dassets.dev/assets/orbital-station-and-docking-bays-assembl-f8385c0e-starter-scene"
+    },
+    {
+      "source": "JG3D artist nine futuristic racing city buildings",
+      "reason": "Promising hand-authored Blender/PBR references but license and model download are not demonstrated; reference-only until a legitimate distribution path exists",
+      "url": "https://jg-3d.artstation.com/projects/XJJ0Vn"
+    }
+  ],
+  "hardGates": [
+    "one official authorized source binary and complete associated texture archive must be physically obtained; never use public preview cache or scrape private endpoints",
+    "license version, author and actual rights to embedded PBR textures checked; store credit info for publication",
+    "gltf/binary source hash and source file dimensions/LOD/complete geometry inspected",
+    "reuse CB 6 native 240Hz camera snapshots with explicit multiple safe placements; small screen footprint causes early rejection",
+    "only if the visual candidate is fit: compare actual PRIVATE game WebGL screenshots at identical camera, speed and course; independent art judgement",
+    "human play, READY, merger and both public sites remain HOLD until separately authorized"
+  ],
+  "lastResult": "SOURCE_RESEARCH_COMPLETED_BINARY_ACQUISITION_NOT_POSSIBLE_WITH_UNAUTHENTICATED_DOWNLOAD_NOT_A_NEW_3D_ART_PASS"
+}
