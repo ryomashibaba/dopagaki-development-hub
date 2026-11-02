@@ -1,4 +1,12 @@
-> **【GitHub自動引き継ぎ入口・操作最小化】** ZIP/長文貼付不要。新しいチャットは「DOPAGAKI SLOPEをGitHub正本から引き継いで次の工程へ。」だけで、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → Draft PR#46最新HEAD → 本LIVE HANDOFF最上節 → PROJECT_STATE → 最新Actions/Artifactを直接読む。**2026-11-02 K4V 真カメラ屋外中庭研究TECH限定PASS／独立ART REJECT継続。次K4Wは視認可能な公共空洞の構図条件研究、新建築量産STOP。公式ART0・Slope2 DNA0m／PR Draft未マージ、main/本番不変。**
+> **【DOPAGAKI GitHub永久再開入口／ZIP・長文貼付不要】** 新チャットでは「DOPAGAKI SLOPEをGitHub正本から引き継いで次工程へ。」の一文から、[DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md) → OPEN Draft PR#46現在HEAD → このLIVE HANDOFF最上節 → PROJECT_STATE → Actions原本を直接調査。**直近：K4V元真正24WebGL2技術限定PASS・独立ART REJECT。K4W（真カメラから中庭と人間スケールの必要寸法を逆算するモデル0研究）は解析コード・CI・独立数値をGitHub保存済み、専用Actions #41379909949最終成否HOLD。** 正式ART0件、Slope2 DNA0m、main/本番変更禁止、PR未マージ。
+
+## 【2026-11-02 K4W 原本カメラ逆算：独立数値予備PASS／CI結果未確定・美術REJECT維持】
+
+- [K4W解析コード](../scripts/p101-r19a6p4r2f5k4w-original-camera-void-constraint-study.py)、[専用CI](../.github/workflows/p101-r19a6p4r2f5k4w-original-camera-void-study.yml)、[Actions #41379909949](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41379909949)、[K4W日本語証拠契約と独立数値表](R19_A6P4_R2F5K4W_SOURCE_CAMERA_INVERSE_VOID_CONSTRAINTS_JA.md)。K4VのコードGit blob `1c6d2e232e71b225b9f2206c89beffe8f8ca2104`／元ゲーム blob `af076d67492a677d2235e4730aef8cdf4808e106`／凍結K4Rモデル blob `e653029771982b2c39ee2831ea19199f0704ddaa`を保護。K/K4R/K4U/K4Vの4つのArtifactから**元カメラ・球・原PNG SHA・屋根なし中庭の投影**を再演算。新モデル0／新collider0。
+- **独立ローカルでの逆算（K2近似射影1013×698、14m道路、真正元カメラ）：** K4U u=.85の1.7mの数学的定規はtick265/721/1057/1249で1.62/2.22/3.26/4.88px。この位置で**仮に8px**にするなら高さ8.36/6.13/4.17/2.78m相当、**中庭高さを仮に24px**にするなら中央コート幅の数学的等方倍率3.43/2.68/2.04/1.55倍。現凍結K4Rの屋根と中央コートのx方向の隙間では最大1.20倍。**24pxを真の美術合格境界と認定していない**。投影は元GPU行列でなくK2近似、未描画の比較用定規で実人物モデルは存在しない。28m側も概ね同結果。
+- **K4Wの独立CI判定は元Artifactおよび16K4V測定値の一致まで保留**。先行K4/K4R/K4Uは独立ART REJECT、K4V研究TECH限定PASS／ART REJECT維持、正式ART採用0/Slope2 DNA0m。B48×7/B51×28実衝突SAT/CCD／人間操作／地表支持／FPS／RELEASE／MERGE全HOLD。次はK4Wの実CIと根拠JSON・注釈画像2枚を照合してから「元カメラで負の空間の奥行きと用途が読み取れる構図条件」へ進む。屋根増築／小刻み移動による再量産禁止、Work事前許可、main/本番2URL不変更。
+
+---
 
 ## 【2026-11-02 K4V 本物のWebGL2カメラで空洞の判読困難を定量化：TECH限定PASS／ART REJECT・次K4W】
 
