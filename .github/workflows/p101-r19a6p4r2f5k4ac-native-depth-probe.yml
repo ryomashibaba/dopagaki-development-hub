@@ -78,6 +78,10 @@ jobs:
           a=json.load(open('r19-evidence/r19a6p4r2f5k4ac/K4AC_INDEPENDENT_DEPTH_AND_ORIGINAL_PIXEL_AUDIT.json'))
           assert a['genuineK4ZPNGRechecked']==14
           assert a['allOriginal3DPixelsOutsideNativeCssROIIdentical']
+          assert a['postDepthProbeSameTickSourcePNGAudited']==14
+          assert a['originalSourcePixelsRestoredAfterGLProbe']
+          assert len(a['modes'])==2
+          assert all(len(m['baselineOriginalWebGLFrames'])==7 for m in a['modes'])
           assert not a['perObjectDepthLabelsEstablished']
           assert not a['safeVacantBuildingSiteEstablished']
           assert not a['recognizablePublicVoidEstablished']
