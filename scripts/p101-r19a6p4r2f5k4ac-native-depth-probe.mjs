@@ -69,12 +69,17 @@ async function readDepth(page){
   const info={width:w,height:h,depthBits,stencilBits,stride:8};
   if(w<100||h<100||depthBits===0)
    return {...info,available:false,reason:'NO_DEFAULT_DEPTH_ATTACHMENT'};
+  // Capture BOTH the active texture binding and unit-zero binding. Mutating
+  // TEXTURE0 then restoring only the previously active unit is not safe.
   const saved={
    activeTexture:gl.getParameter(gl.ACTIVE_TEXTURE),
-   texture:gl.getParameter(gl.TEXTURE_BINDING_2D),
+   activeBinding:gl.getParameter(gl.TEXTURE_BINDING_2D),
    read:gl.getParameter(gl.READ_FRAMEBUFFER_BINDING),
    draw:gl.getParameter(gl.DRAW_FRAMEBUFFER_BINDING),
    pack:gl.getParameter(gl.PACK_ALIGNMENT)};
+  gl.activeTexture(gl.TEXTURE0);
+  saved.unitZeroBinding=gl.getParameter(gl.TEXTURE_BINDING_2D);
+  gl.activeTexture(saved.activeTexture);
   let texture=null,fbo=null,reason='DEPTH_READBACK_NOT_SUPPORTED';
   try{
    // Depth-only FBO: avoid touching displayed colour or enabling a new scene.
@@ -92,14 +97,17 @@ async function readDepth(page){
     gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
     gl.texImage2D(gl.TEXTURE_2D,0,internal,w,h,0,format,type,null);
-    gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER,fbo);
-    gl.framebufferTexture2D(gl.DRAW_FRAMEBUFFER,
+    gl.bindFramebuffer(gl.FRAMEBUFFER,fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER,
      internal===gl.DEPTH24_STENCIL8?gl.DEPTH_STENCIL_ATTACHMENT:gl.DEPTH_ATTACHMENT,
      gl.TEXTURE_2D,texture,0);
+    // READ_BUFFER belongs to the bound READ framebuffer, not the DRAW one.
+    // Never set gl.readBuffer(NONE) on the original default frame buffer.
     gl.drawBuffers([gl.NONE]);gl.readBuffer(gl.NONE);
-    const complete=gl.checkFramebufferStatus(gl.DRAW_FRAMEBUFFER);
+    const complete=gl.checkFramebufferStatus(gl.FRAMEBUFFER);
     if(complete!==gl.FRAMEBUFFER_COMPLETE){reason='INCOMPLETE_DEPTH_FBO_'+complete;continue;}
-    while(gl.getError()!==gl.NO_ERROR){}
+    // Never spin forever on CONTEXT_LOST_WEBGL.
+    for(let i=0;i<12;i++)if(gl.getError()===gl.NO_ERROR)break;
     gl.bindFramebuffer(gl.READ_FRAMEBUFFER,null);
     gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER,fbo);
     gl.blitFramebuffer(0,0,w,h,0,0,w,h,gl.DEPTH_BUFFER_BIT,gl.NEAREST);
@@ -133,9 +141,9 @@ async function readDepth(page){
    gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER,saved.draw);
    if(fbo)gl.deleteFramebuffer(fbo);if(texture)gl.deleteTexture(texture);
    gl.activeTexture(gl.TEXTURE0);
-   gl.bindTexture(gl.TEXTURE_2D,saved.activeTexture===gl.TEXTURE0?saved.texture:null);
+   gl.bindTexture(gl.TEXTURE_2D,saved.unitZeroBinding);
    gl.activeTexture(saved.activeTexture);
-   if(saved.activeTexture!==gl.TEXTURE0)gl.bindTexture(gl.TEXTURE_2D,saved.texture);
+   gl.bindTexture(gl.TEXTURE_2D,saved.activeBinding);
    gl.pixelStorei(gl.PACK_ALIGNMENT,saved.pack);
   }
  });
@@ -206,7 +214,16 @@ try{
      bytes:png.length,sha256:hash(png),originalK4ZSha:ref.sha256,
      exactFullPNG:hash(png)===ref.sha256 && png.length===ref.bytes};
     const depth=await readDepth(page);
-    one.road5.push({tick,seconds:tick/240,state,originalPNG:img,depth});
+    // The same source tick must remain visually unmodified AFTER the
+    // GL readback attempt. This catches leaked texture/FBO/readBuffer state.
+    const afterRaw=await page.locator('#view').screenshot({
+     path:path.join(DIR,'K4AC_'+mode+'_'+tick+'_AFTER_DEPTH_PROBE_SOURCE.png'),timeout:55000});
+    const after={file:'K4AC_'+mode+'_'+tick+'_AFTER_DEPTH_PROBE_SOURCE.png',
+     bytes:afterRaw.length,sha256:hash(afterRaw)};
+    const afterState=await cameraState(page);samePose(afterState,state);
+    assert.equal(afterState.mask,'none');
+    one.road5.push({tick,seconds:tick/240,state,originalPNG:img,
+     afterDepthProbeSourcePNG:after,depth});
     if(tick===11040){
      for(const mask of MASKS){
       await page.evaluate(m=>window.__k4abMask=m,mask);
