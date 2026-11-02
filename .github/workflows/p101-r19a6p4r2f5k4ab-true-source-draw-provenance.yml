@@ -125,6 +125,25 @@ jobs:
             assert original['baselineAllSevenK4ZCompared']
             assert original['baselineAllSevenK4ZShaMatches']==all(
              x['imageExactByteReproductionOfK4Z'] for x in original['shots'])
+          # Negative controls: no arbitrary original source 3D pixel can be
+          # masked as near-miss HUD; only pinned P74 CSS window is permitted.
+          from PIL import Image
+          import importlib.util
+          spec=importlib.util.spec_from_file_location('k4ab_audit',
+            'scripts/p101-r19a6p4r2f5k4ab-audit-native-source-layer-diffs.py')
+          mod=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(mod)
+          assert mod.P74_CSS_HUD_ROI==(200,418,810,590)
+          base=Image.new('RGB',(1013,698),(4,7,10))
+          forbidden=base.copy();forbidden.putpixel((100,300),(250,220,210))
+          try:mod.strict_source_outside_hud(base,forbidden)
+          except AssertionError:pass
+          else:raise AssertionError('K4AB source 3D region tampering NOT rejected')
+          animated=base.copy();animated.putpixel((217,488),(250,220,210))
+          assert mod.strict_source_outside_hud(base,animated)['differentPixelsOutsideP74CSSNearMissHUD']==0
+          # The accepted HUD exception is bounded and cannot eat the road.
+          assert mod.PIXELS_OUTSIDE_P74.sum()>600000
+          print('K4AB_P74_CSS_HUD_REGION_NEGATIVE_TAMPER_TESTS_PASS')
           print('K4AB_GENUINE_SOURCE_DRAW_GROUPS_TECH_LIMITED_PASS_ART_HOLD')
           PY
       - uses: actions/upload-artifact@v4
