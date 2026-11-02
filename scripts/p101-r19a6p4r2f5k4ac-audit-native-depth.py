@@ -64,7 +64,7 @@ def main():
     assert result["independentART"]=="NOT_TESTED_HOLD"
     assert result["perObjectID"]=="NOT_AVAILABLE"
     assert len(manifest["sessions"])==len(result["modes"])==2
-    checked=full_identical=readable=0
+    checked=full_identical=readable=postprobe_checked=0
     mode_results=[]
     for mode in MODES:
         old=next(s for s in manifest["sessions"] if s["mode"]==mode)
@@ -84,9 +84,21 @@ def main():
             full=raw_reference==raw_actual
             assert frame["originalPNG"]["exactFullPNG"] is full
             checks=pixel_audit(rgb_reference,rgb_actual)
-            checks.update({"mode":mode,"tick":frame["tick"],"fullPNGExact":full})
+            # WebGL state hygiene: source scene must remain pixel-identical
+            # after any depth FBO blit/readback (except P74 animated CSS ROI).
+            after=frame["afterDepthProbeSourcePNG"]
+            raw_after,rgb_after=image(candidate/after["file"])
+            assert len(raw_after)==after["bytes"] and sha(raw_after)==after["sha256"]
+            after_source=pixel_audit(rgb_reference,rgb_after)
+            after_before=pixel_audit(rgb_actual,rgb_after)
+            assert after_source["sourceOutsideCSSPixelsChanged"]==0
+            assert after_before["sourceOutsideCSSPixelsChanged"]==0
+            checks.update({"mode":mode,"tick":frame["tick"],"fullPNGExact":full,
+              "afterDepthProbeSourcePixelsEqual":True,
+              "afterDepthProbeSameTickOriginalPixelsEqual":True,
+              "postprobeAnimatedCssDifference":after_before["animatedCssRoiPixelsChanged"]})
             audits.append(checks)
-            full_identical+=int(full);checked+=1
+            full_identical+=int(full);checked+=1;postprobe_checked+=1
             s=frame["state"]
             assert s["tick"]==frame["tick"]==s["paused"]
             assert s["road"]==ref["state"]["road"]=="p93-PRISM_CREST-01"
@@ -131,6 +143,8 @@ def main():
     audit={
       "schema":"dopagaki.K4AC.independent-source-depth-capability-audit/1",
       "sourceBlob":SRC,"genuineK4ZPNGRechecked":checked,
+      "postDepthProbeSameTickSourcePNGAudited":postprobe_checked,
+      "originalSourcePixelsRestoredAfterGLProbe":postprobe_checked==14,
       "fullScreenshotPNGIdentical":full_identical,
       "allOriginal3DPixelsOutsideNativeCssROIIdentical":checked==14,
       "maskDepthReadbackCompared":readable,
@@ -145,7 +159,9 @@ def main():
     }
     target=candidate/"K4AC_INDEPENDENT_DEPTH_AND_ORIGINAL_PIXEL_AUDIT.json"
     target.write_text(json.dumps(audit,ensure_ascii=False,indent=2)+"\n")
-    print("K4AC_NATIVE_SOURCE_PIXEL_GATE_PASS",checked,"pixels validated outside P74 HUD")
+    assert postprobe_checked==14
+    print("K4AC_NATIVE_SOURCE_PIXEL_GATE_PASS",checked,
+          "native scenes unchanged before and after GL probe outside P74 HUD")
     print("K4AC_DEPTH_SAMPLE_STATUS",
       "READBACK_CAPABILITY_CANDIDATE" if audit["genuine3DDepthMeasurementsEstablished"]
       else "UNAVAILABLE_OR_UNVALIDATED_HOLD")
