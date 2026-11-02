@@ -27,6 +27,18 @@ jobs:
           test "$(git hash-object scripts/p101-r19a3-private-original-one-city-pack.mjs)" = "$(git rev-parse HEAD:scripts/p101-r19a3-private-original-one-city-pack.mjs)"
           python3 -m py_compile scripts/p101-r19a6p4r2f5k4aa-original-a5-true-road5-bvh.py
           python3 -m py_compile scripts/p101-r19a6p4r2f5k4aa-true-source-road5-ray-review.py
+          node - <<'JS'
+          const fs=require('node:fs'),assert=require('node:assert/strict');
+          const capture=fs.readFileSync('scripts/p101-r19a6p4r2f5k3b-seven-road-real-webgl2.mjs','utf8');
+          const sourcePack=fs.readFileSync('scripts/p101-r19a6p4r2f5k3b-private-camera-pack.mjs','utf8');
+          const a3=fs.readFileSync('scripts/p101-r19a3-private-original-one-city-pack.mjs','utf8');
+          assert(capture.includes("'/r19a6p4r2f5k3b/?r19a1=on&g5b=off&stage='"));
+          assert(!capture.includes('r19a3=on'));
+          assert(sourcePack.includes("const from=path.join(root,'dist-private/r19a1');"));
+          assert(!sourcePack.includes('r19a3-one-integrated-civic-basilica-source'));
+          assert(a3.includes("get('r19a3')==='on'"));
+          console.log('K4AA CRITICAL SCENE ALIGNMENT: K4Z source screenshot DOES NOT render A5 overlay. A5 BVH rays are COUNTERFACTUAL ONLY.');
+          JS
       - name: Retrieve pinned K4Z original native 82 PNG evidence, not a future-game building
         env:
           GH_TOKEN: ${{ github.token }}
@@ -93,6 +105,11 @@ jobs:
           assert r['officialARTAccepted']==r['slope2DNARecognizedMetres']==0
           assert r['newBuildingModels']==r['addedColliders']==0
           assert r['rayObjects']=='ONLY_ORIGINAL_A5_FIVE_STATIC_CITY_MESHES__NO_B48_B51_OR_OTHER'
+          assert r['K4ZSourceSceneRenderedA5'] is False
+          assert r['counterfactualA5GeometryUnderRealSourceCamera'] is True
+          assert r['actualK4ZScreenGeometryExplainedByThisBVH'] is False
+          assert q['A5OverlayNotEnabledInK4ZSourceCameraScene'] is True
+          assert q['rayStatisticsAreCounterfactualNotActualSourceScreenshotOcclusion'] is True
           assert r['sampledTimeNotContinuousVisibility']
           for sheet in q['reviewSheets']:
             assert (p/sheet).is_file()
