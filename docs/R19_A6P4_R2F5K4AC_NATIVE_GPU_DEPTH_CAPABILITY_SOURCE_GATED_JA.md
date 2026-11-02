@@ -1,3 +1,13 @@
+## 【K4AC追補：2026-11-02 GPU不要の再現可能なGL状態復元テスト6/6 PASS／実GPU未確認】
+
+- [実際のK4AC深度計測コード](../scripts/p101-r19a6p4r2f5k4ac-native-depth-probe.mjs)を動的に読み出して、その`page.evaluate`深度読出し部分自体を実行する[Mock WebGL2回帰テスト](../tests/k4ac-gl-state-restoration.mock.mjs)を追加した。別物の簡略化ロジックを試しただけではない。
+- **全6条件で独立実行PASS**：成功（通常active texture unit、TEXTURE0 active）、DEPTH blit GL error、depth readPixels GL error、FBO incomplete、元framebuffer depth missing。READ/DRAW FBO、両テクスチャバインド、active texture unit、PACK_ALIGNMENTの復元と、default framebufferへの不適切なreadBuffer操作0を照合した。成功模擬では8px刻み256モック深度サンプル（128×128）を回収。
+- **これは本物のWebGL2のGPU検証ではなく模擬エンジンの回帰テスト**。実ロード5の画素/深度、真の物体ID/見通しの計測、ART合格、FPS、人体通行・SAT/CCDの達成は主張しない。ローカル独立環境のChromiumで真WebGL2を起動できず、localhostブラウザ経路も制限されたため、実GPU段階はGitHub Actionsが唯一の検証経路。
+- この6件はK4AC専用Workflowの**最初のSource freeze / syntax step**へ組み込み済み。[新版 GitHub Actions #41453572178](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41453572178)を登録。旧#41452389126はconcurrencyでcancelled。現時点の新版はpending/未実行、実Artifactなし。**K4AC native depth=UNKNOWN/HOLD**、K4AB SOURCE TECH限定PASSは維持。
+- 機能上の保護：Source blob `af076d67492a677d2235e4730aef8cdf4808e106`、元球・240Hz/カメラ/B48 7/B51 28、main/本番2URL/Gold/P100/W9-X/B5無変更、候補新モデル/コライダー0、正式ART採用0・Slope2 DNA0m、候補SAT/CCD/歩行/HUMAN/FPS/RELEASE/MERGE HOLD、PR#46 Draft未マージ。
+
+---
+
 # DOPAGAKI SLOPE K4AC — 真正Road5 WebGL2深度読出し可否・原3D画素不変監査
 
 2026-11-02 JST。**研究コード実装済み／CI結果待ち。ART採用不可、SOURCE TECHの新規PASS未認定。**
