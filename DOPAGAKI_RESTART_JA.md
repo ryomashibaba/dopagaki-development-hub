@@ -1,3 +1,12 @@
+## 【最新版 2026-11-03 K4AF元Road5真正7時点×2幅×6群GPU遮蔽調査 — ART HOLD】
+
+- 継続入口：`research/k4af-road5-7tick-six-layer-native-gpu-depth-20261103` → [研究詳細](docs/R19_A6P4_R2F5K4AF_GENUINE_ALLTICK_GPU_MASK_VISIBILITY_JA.md) → [K4AF専用CI #41472149272](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41472149272)。このCIは研究登録後**実完走未確認**。Source/ARTをPASSと誤認しない。
+- 前段確定：[K4AD #41463872981](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41463872981) **SUCCESS（元K4Z82 PNG SHA/真正Road5 14元画像CSS外全3D画素一致/元GPU実draw RGBA24 depth14/14・同一46秒6群×2幅12/12マスク/元復元depth一致）**、[K4AE #41466857011](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41466857011) **SUCCESS（元真正ArtifactをSHA固定した7時点×2幅のGPU深度分布再解析）**。K4AE Artifact #13153921353 ZIP SHA `beba0b76ded60d7d7580cf8478dfc3dd452a7b0157edee28e8cc982a02f8a19b`、CRC全2。元K4AD GPU depth sourceにART認定は一切含まれない。
+- 今回K4AFでは既存K4AD private rendererを変更せず、44.5〜47.5秒の真7tick×2幅の元球/元カメラ姿勢を固定し、6個の本物のSource GPU draw群を**一群ずつ**一時除去。**真84 GPU depth masks、14元フレーム、14復元フレーム**を真正WebGL2で測り、独立Python監査でK4Z元82PNG SHA/元3D全画素一致/84masked元source GPU draw census/深度farther-only/14回のmask解除後元depth11,176点一致と元3D画素不変を要求。独立出力CSVと日本語MDは7時点で**本当に計測した**GPU深度差のみ。実人間の美的ART認識、物体ID、安全床、視認持続秒数は未測定。
+- 元継続ブランチ `p101-velocity-overdrive-native-trial` HEAD `19d3a32d525c0c2a67082cba646898fab8f2b60f`、Draft PR #46 OPEN Draft未マージ。元ゲームblob `af076d67492a677d2235e4730aef8cdf4808e106`、球、240Hz、Camera、B48道路7/B51動体28、Gold/P100/W9-X/B5/main/本番URL不変更。K4/K4R/K4U ART REJECT、正式ART採用0・Slope2 DNA0m、モデル/Collider新設0、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。Chat/GitHub中心、Work事前承認、PC/ZIP再提出不要。
+- **次にやること：** K4AF #41472149272の実run・job logs・Artifact SHA/CRC/サンプルを確認し、失敗なら根本原因を直す。全84 GPU mask/14復元の実PASSが確認されるまでART以前の技術判定もHOLD。データのない時点・視点を補間して合格にしない。
+
+---
 ## 【最新K4AE 2026-11-02 — GitHub固定Artifactから7時点×2幅を独立再計算／ART HOLD】
 
 - **再開対象研究ブランチ** `research/k4ae-verified-road5-depth-temporal-diagnostics-20261102`、[K4AE詳細正本](docs/R19_A6P4_R2F5K4AE_PINNED_GPU_DEPTH_SPATIOTEMPORAL_JA.md)、[元GPU深度分布監査コード](scripts/p101-r19a6p4r2f5k4ae-pinned-depth-temporal-audit.py)、修正版K4AE [Actions #41466857011](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41466857011)。このCIは実行待ちで**TECH診断判定未確定**。初回Actions #41466588681はFAIL（800万未満と24bit中点8,388,608未満の期待件数混用）。修正版では生Artifactの真サンプル3,556件/28行を厳密24bit中点として使用し、測定元JSONは改変なし。
