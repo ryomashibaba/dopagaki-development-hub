@@ -16,6 +16,14 @@ GitHub接続済みChatGPTが上の1文を受けたら、本人に過去ZIP・Mar
 4. 最新 [K4U移設原本・16真正WebGL2独立ART REJECT](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K4U_FROZEN_ART_ONLY_ROAD0_RELOCATION_TRUE_WEBGL2_JA.md) と、直前の [K4R設計・独立CI審査ゲート](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K4R_ROAD0_MARKET_NATIVE_REDESIGN_JA.md) と、直前の [K4審査正本](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K4_ROAD0_ONE_NATIVE_MARKET_16_TRUE_WEBGL2_TECH_PASS_ART_REJECT_JA.md) と直前 [K3/K3B正本](https://github.com/ryomashibaba/dopagaki-development-hub/blob/p101-velocity-overdrive-native-trial/docs/R19_A6P4_R2F5K3_K3B_ALL_SEVEN_TRUE_ORIGINAL_CAMERAS_ART_HOLD_K4_GATE_JA.md) を読む。必要に応じてK2、I/J、F/G2等の判定報告と原Actions・Artifactを照合する。
 5. **最新ブランチ・CIを起点として継続**し、ソース追加/QA/画像/SHA/アート判定/未検証事項/次工程をGitHubで保持する。チャットでは要点＋正本リンクのみ。新チャットを開始するたびに全資料を再生成しない。
 
+## 【最新2026-11-02 K4W真正Camera逆算・実GitHub CI全成功、独立ART REJECT／次K4X】
+
+- [K4W Actions #41379909949](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41379909949)全job**SUCCESS**。[Artifact #13113495400](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41379909949/artifacts/13113495400) ZIP **1,130,558B／SHA256 `1089f0eadd2eedce41095246ab618a2fc350b5dd90fc60811ec2fc9dd3c4d92f`／3ファイルCRC PASS**、証拠JSON SHA256 `2894ecddb21591fc62c6629792de29b4e2f8b87cc11df71ae44bfdad81fd5fea`。元K/K4R/K4U/K4V原Artifactと真元Camera/SHA、凍結モデルK4R原コード、K4Vの16測定値を全部再計算照合、両幅×4tickの真正元A5/K4U WebGL2を後から注釈した比較画像2枚を独立取得。新建築0、コライダー0。
+- K4U中庭床(20m×28m)はK2近似射影・元14m/28m真正Cameraでは、元4tickの14mで**縦6.93/8.87/11.68/15.38px**・1.7m定規**1.62/2.22/3.26/4.88px**。仮に8pxの垂直目印に必要な仮物理高さ**8.36/6.13/4.17/2.78m**、中庭縦24pxに必要な等方倍率**3.43/2.68/2.04/1.55倍**は、現凍結屋根x開口の上限1.20倍をすべて超える。**8/24pxは視認合格の実証済み基準ではなく研究比較値**。ゲームで人物や新建築を描画していない。K4/K4R/K4U独立ART REJECT、正式ART採用0・Slope2 DNA認定0m。
+- **次K4X**：[K4W完成判定](docs/R19_A6P4_R2F5K4W_SOURCE_CAMERA_INVERSE_VOID_CONSTRAINTS_JA.md) → [最新LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。元全7道路真正Cameraの都市空間の「負空間・公共用途・奥行き」が走行画面で読める構図条件を**新モデル0のART-FIRST研究**で整理する。屋根増築・モデル量産・微移設をやり直さない。B48/B51候補固有SAT/CCD/人間・歩行/FPS/RELEASE/MERGE全HOLD。main/本番/Gold/P100/W9-X/B5/元240Hz物理/カメラ変更禁止、PR#46 OPEN Draft未マージ。新チャットはGitHubを直接読み込み、長文・ZIP手動受渡しに戻らない。
+
+## 【履歴：K4W新コード実装とCI未確認だった段階】
+
 ## 【2026-11-02 最優先 K4W：「人間の大きさ／中庭」のスクリーン制約を原Cameraから逆算（CI待ち）】
 
 - [K4Wコード](scripts/p101-r19a6p4r2f5k4w-original-camera-void-constraint-study.py)・[専用Actions #41379909949](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41379909949)・[K4W日本語根拠報告](docs/R19_A6P4_R2F5K4W_SOURCE_CAMERA_INVERSE_VOID_CONSTRAINTS_JA.md)を追加。元7道路アンカー、K4R/K4U真正WebGL2原16画像、K4V元研究値16件と凍結旧コードを読み取り専用で検算する。**専用CIの最終SUCCESSは未確認のためTECH正式判定HOLD**。ユーザーのローカル操作不要。
