@@ -2,7 +2,10 @@
 
 NO proposed site, building, build mesh, road, obstacle, physics or camera edit.
 The exact original 240Hz source cameras are read from K4Z true WebGL2
-screenshot manifests. Only original A5 source GLBs are ray-cast.
+screenshot manifests. The A5 research overlay is NOT rendered in K4Z's
+private original r19a1 scene. This is a COUNTERFACTUAL geometry projection,
+not a measurement of structures actually displayed in the K4Z screenshot.
+Only the unchanged A5 research GLBs are ray-cast.
 The 1013x698 K2 inverse lens is an approximation; classification is NOT
 GPU depth, actual PNG segmentation, walkable ground, verified free space,
 human perception, continuous visibility or approval for a construction.
@@ -98,6 +101,10 @@ result={
  'sourceA5GLBsha256':CITY_SHA,
  'originalA5MeshCountPerWidth':5,'originalA5TrianglesPerWidth':10566,
  'geometrySourceOnly':True,'noNewBuildingModels':True,
+ 'K4ZSourceSceneRenderedA5':False,
+ 'counterfactualA5GeometryUnderRealSourceCamera':True,
+ 'actualK4ZScreenGeometryExplainedByThisBVH':False,
+ 'originalA5CityIsNotTheOriginalRoadAndHazardGeometry':True,
  'sourceCameraStates':14,'trueRoad5TickCountPerWidth':7,
  'raysPerTrueCamera':len(CELLS),'maxRayDistanceM':RAY_FAR,
  'nearOriginalA5HitClassMaxDistanceM':NEAR_RAY_DIST,
