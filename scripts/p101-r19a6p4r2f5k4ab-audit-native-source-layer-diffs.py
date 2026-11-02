@@ -21,7 +21,7 @@ ROIS={'LEFT':(.08,.33,.13,.70),'CENTER':(.33,.67,.13,.70),'RIGHT':(.67,.92,.13,.
 # Observed in true native control/tick11280 diff: solely original P74 nearMissBurst.
 # Source CSS .nearMissBurst{animation:p74pop .24s ease-out}.
 # ROI covers measured x229..784,y428..573 with conservative margins.
-P74_CSS_HUD_ROI=(218,418,800,590)
+P74_CSS_HUD_ROI=(200,418,810,590)
 def geometry_pixels_mask():
  keep=np.ones((H,W),dtype=bool)
  x0,y0,x1,y1=P74_CSS_HUD_ROI
