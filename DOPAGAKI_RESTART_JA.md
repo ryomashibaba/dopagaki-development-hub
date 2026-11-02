@@ -1,3 +1,9 @@
+## 【最新2026-11-02 K4AC 深度読出し実装・実CI監査待ち／ART HOLD】
+
+- [K4ACの独立実装とHOLD契約](docs/R19_A6P4_R2F5K4AC_NATIVE_GPU_DEPTH_CAPABILITY_SOURCE_GATED_JA.md) → [K4AC Actions #41450761768](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41450761768) → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。元K4AB SOURCE TECH限定PASSは維持。K4ACは元K4Z 82PNG SHAを原本に、元240Hz合法操舵Road5真正7時刻×14m/28mの14本物WebGL2画面、元GPU描画群6種×両幅の同一tick11040深度読出しを**別研究用コードで試す**。元CSS P74領域以外の原3D画素の完全一致・深度復元・負例検査をCIで独立実施。
+- **コード保存とCI実行登録は確認済みだが、WebGL2の深度読出し可否と実Artifactの最終検証は現段階UNKNOWN/HOLD。** 読出し不能を成功扱いしない。成功でも非線形深度サンプルは元オブジェクトID・人間用途・施工/衝突の安全を証明しない。
+- 元Source `af076d67492a677d2235e4730aef8cdf4808e106`/球/原カメラ/B48 7/B51 28/Gold/P100/W9-X/B5/main/本番2URL不変、新建築・新コライダー0。旧K4/K4R/K4U ART REJECT、正式ART採用0、Slope2 DNA0m、候補SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD、PR#46 Draft OPEN未マージ。新チャットでは再添付不要、GitHubからActions/Artifactを確認して次へ。
+
 ## 【最新2026-11-02 K4AB 実際のGPU描画構造の真再現SOURCE TECH限定PASS → 次K4AC】
 
 - **[最終K4AB GitHub Actions #41448066954](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41448066954) 全job SUCCESS**、[実Artifact #13144320278](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41448066954/artifacts/13144320278) ZIP **4,461,471B／SHA256 `78c0b3dec7ce2bac83a98d23332faad1e683ddaaaf4c1c9d0a3ef27995fa7baf`／33ファイルCRC全PASS**。[K4AB最終研究報告](docs/R19_A6P4_R2F5K4AB_NATIVE_RENDERED_WEBGL2_SOURCE_DRAW_PROVENANCE_JA.md)／[永続的なArtifact SHA＆反証マニフェスト](docs/R19_A6P4_R2F5K4AB_FINAL_GENUINE_RENDER_GROUP_EVIDENCE_MANIFEST.json)／[LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。
