@@ -91,7 +91,7 @@ patch(datasetAnchor,[datasetAnchor,
  "  for(const guide of guideMeshes)k4abRegister(guide.mesh,'B51_GUIDE_LINE');",
  "  for(const m of Object.values(energyMeshes))k4abRegister(m,'ENERGY_BALL_VISUAL');",
  ' }'].join('\n'));
-const drawAnchor='if(!m||!m.count)return;\n  gl.uniform3fv(locations.translation,center);';
+const drawAnchor='if(!m||!m.count)return;';
 patch(drawAnchor,[
  'if(!m||!m.count)return;',
  '  if(k4abAuditOn){',
@@ -102,7 +102,6 @@ patch(drawAnchor,[
  '    suppressedByResearchOnlyMask:suppressed});',
  '   if(suppressed)return;',
  '  }',
- '  gl.uniform3fv(locations.translation,center);'
 ].join('\n'));
 const clearAnchor='gl.viewport(0,0,w,h);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);';
 patch(clearAnchor,clearAnchor+'\n  if(k4abAuditOn)k4abDrawCalls=[];');
