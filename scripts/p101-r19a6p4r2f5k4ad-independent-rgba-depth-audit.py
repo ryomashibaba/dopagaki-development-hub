@@ -191,7 +191,33 @@ def main():
             mask_depth_uses+=int(kind['status']=='NONLINEAR_DEPTH_SAMPLES_CANDIDATE')
             ab=diff_depth(source_depth,m['synchronousDepth'])
             assert isinstance(m['sourceDrawCensus'],dict) and m['sourceDrawCensus']
-            compared.append(dict(mask=m['mask'],depth=kind,difference=ab))
+            # Independently verify that the RGBA depth replay contains exactly
+            # the draw calls actually rendered by the original WebGL2 source.
+            expected_suppressed={
+                'without-epic':0,'without-mega':1,'without-frames':1,
+                'without-B48-and-fixtures-visuals':1,
+                'without-B51-bodies':28,'without-road-optics':4
+            }[m['mask']]
+            suppressed=sum(x.get('suppressedDrawCalls',0)
+                           for x in m['sourceDrawCensus'].values())
+            assert suppressed==expected_suppressed,(
+                'ORIGINAL_MESH_MASK_CENSUS_MISMATCH',mode,m['mask'],suppressed)
+            assert source_depth['originalDraws']==72
+            assert m['synchronousDepth']['originalDraws']==72-suppressed,(
+                'RGBA_REPLAY_DRAW_COUNT_MISMATCH',mode,m['mask'])
+            if ab['status']!='DEPTH_UNAVAILABLE_HOLD':
+                # Removing geometry may reveal farther geometry but cannot
+                # add a nearer depth surface at a previously visible pixel.
+                assert ab['nearerOnMasked']==0,('REMOVAL_CREATED_NEARER_DEPTH',mode,m['mask'])
+                assert ab['fartherOnMasked']==ab['changed']
+                if expected_suppressed:
+                    assert ab['changed']>0,('MASKED_SOURCE_MESH_NOT_REFLECTED_IN_DEPTH',mode,m['mask'])
+                else:
+                    assert ab['changed']==0,('EPIC_WAS_NOT_DRAWN_BUT_DEPTH_CHANGED',mode)
+            compared.append(dict(mask=m['mask'],depth=kind,difference=ab,
+                genuineSourceDrawsSuppressed=suppressed,
+                genuineRGBAReplayDraws=m['synchronousDepth']['originalDraws'],
+                removalNeverCreatedNearerDepth=ab.get('nearerOnMasked',0)==0))
         assert data['restored']['proof']=='SAME_NATIVE_FRAME_REPLAY_ORIGINAL_GPU_MESHES_TO_RGBA8_FBO'
         restored=check_depth(data['restored']['depth'])
         restore_diff=diff_depth(source_depth,data['restored']['depth'])
