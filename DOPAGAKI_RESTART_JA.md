@@ -2,6 +2,12 @@
 
 **ここは短い入口であり、技術正本を複製・上書きしない。** 作業開始時に必ずGitHubから現在の値を取得する。古いHEAD・古いCI結果よりも最新PRと根拠付きの正本を優先。2026-11-01作成。
 
+## 【最新2026-11-02 K4AA Source Camera/A5反事実BVH限定PASS／実Road5視覚遮蔽・ART HOLD → K4AB】
+
+- **[K4AA改訂GitHub Actions #41433154678](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41433154678) 全job SUCCESS**、[Artifact #13134579869](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41433154678/artifacts/13134579869) 実ZIP**2,114,811B／SHA256 `109520e30874d2d432e0b15db168ff6145e9d2194a7bd45f675cc9557cbd3747`、4ファイルCRC全PASS**。真正元K4Z PNG82枚実バイトSHA一致、元A5 GLB原2幅×5メッシュ10,566三角形／K4S独立GLB SHA一致。Road5元真正7tick×14m/28mの14カメラから計**1,512本のA5だけのBVH幾何レイ**、A5へのヒット**0/1512**（1500mと3000m共通）。元Road5の0.5秒ごとカメラEyeの差97.4〜99.5m、カメラFrontの角度差2.0〜11.9°。
+- **【不可欠な反証】** 元K4Zは旧K3B `dist-private/r19a1` を使い、`r19a3=on` を有効にせず**A5研究都市5メッシュが真正元WebGL2の画面に描かれていない**。改訂CIが撮影URLとソース複製元・A3の表示ON条件を明示ASSERT。従って1,512本のA5レイは**同カメラに対する反事実の位置関係研究**であり、実画面に映る元道路・巨大ゲート・B51の3D遮蔽は未測定。**「A5に当たらない＝建築可能な空間」等の結論禁止**。K4AA計算SOURCE TECH限定PASS、**実視覚構図COMPOSITION_INCOMPLETE／ART NOT_TESTED・HOLD**。旧K4/K4R/K4U ART REJECT、正式ART採用0件・Slope2 DNA認定0mは全維持。
+- [K4AA最終原報告](docs/R19_A6P4_R2F5K4AA_SOURCE_ROAD5_ORIGINAL_A5_VISUAL_LAYER_ART_FIRST_JA.md) → [K4AA SHA/反証の恒久JSON](docs/R19_A6P4_R2F5K4AA_FINAL_COUNTERFACTUAL_A5_EVIDENCE_MANIFEST.json) → [LIVE HANDOFF](docs/DOPAGAKI_LIVE_HANDOFF.md)。**次K4ABは元ゲームが本当に描いているB48道路・巨大フレーム・B51動体等の由来と立体遮蔽を先に確認する**。新モデル量産・元ゲーム物理/カメラ/source・main・本番/Gold/P100/W9-X/B5改変禁止。候補固有全SAT/CCD・床/HUMAN/FPS/RELEASE/MERGE HOLD、Draft PR#46 OPEN未マージ、Work事前許可。新チャットではGitHubから直接読み、ZIP再送・長文貼付に戻らない。
+
 ## 【最新2026-11-02 K4Z 真元240Hz/合法操舵のRoad5高密度カメラ取得・SOURCE TECH限定PASS／次K4AA】
 
 - **K4Z [Actions #41427816258](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41427816258) 全job SUCCESS**。[Artifact #13133042206](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41427816258/artifacts/13133042206) ZIP9,152,549 bytes・SHA256 `2b6dc11228c561f07047253eb6a973d43ffa02e1b88894bf15c3e6abc6baf0e7`・83ファイルCRC全OK。元ゲーム真正WebGL2 **14m/28m×41時刻＝82PNG**を実独立照合。JSON109,457B・SHA256 `da69e5d9283f6a8fc5190cc9fefd4e8476114eedfb218fe2eb802bbecfcddb6c`、全82PNG SHA OK。**元K3Bとの共通14tick×両幅28原PNGがバイト完全一致**、K3 native元物理17tick×両幅34の球XYZ・速度・Road一致、元カメラ6tick×両幅一致。1撮影セッション/幅で合法元スクリプト操舵P96÷4.8→7680tickからP94corrective÷3、原物理/240Hz/B48 7/B51 28/カメラ変更0。
