@@ -1,0 +1,96 @@
+name: DOPAGAKI K4Y original 7-road ART review atlas source-only HOLD
+on:
+  push:
+    branches: [p101-velocity-overdrive-native-trial]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4y-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4y-real-source-review-atlas.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-k4y-source-only-independent-review
+  cancel-in-progress: true
+jobs:
+  build-reproducible-real-source-only-art-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect immutable original 240Hz / frozen K4R source and syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-r19a6p4r2f5k4r-open-market.py)" = e653029771982b2c39ee2831ea19199f0704ddaa
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4y-seven-road-native-source-art-review.py
+      - name: Get the existing original evidence (K, K3B, K4X) without re-rendering or creating buildings
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/k4y-K /tmp/k4y-K3B /tmp/k4y-K4X
+          gh run download 41312758260 -n R2F5K_ORIGINAL_SOURCE_7ROAD_CAMERA_COVERAGE_ART_HOLD -D /tmp/k4y-K
+          gh run download 41315509252 -n R2F5K3B_GENUINE_ORIGINAL_ALL_SEVEN_ROAD_CAMERAS_ART_HOLD -D /tmp/k4y-K3B
+          gh run download 41390354006 -n K4X_7ROAD_58_REAL_WEBGL2_42_SOURCE_CAMERAS_NEGATIVE_SPACE_ART_HOLD -D /tmp/k4y-K4X
+          (cd /tmp/k4y-K && zip -qr /tmp/k4y-K.zip .)
+          (cd /tmp/k4y-K3B && zip -qr /tmp/k4y-K3B.zip .)
+          (cd /tmp/k4y-K4X && zip -qr /tmp/k4y-K4X.zip .)
+          for input in /tmp/k4y-{K,K3B,K4X}.zip; do test -s "$input" || exit 11; done
+      - name: 58 genuine source screenshot SHA + K4X 1764 reference + full 7-road art-review atlas
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-pil fonts-dejavu-core
+          python3 scripts/p101-r19a6p4r2f5k4y-seven-road-native-source-art-review.py \
+            --kzip /tmp/k4y-K.zip --k3bzip /tmp/k4y-K3B.zip --k4xzip /tmp/k4y-K4X.zip \
+            --out r19-evidence/r19a6p4r2f5k4y
+          python3 - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('r19-evidence/r19a6p4r2f5k4y')
+          x=json.loads((p/'K4Y_7ROAD_NATIVE_SOURCE_ART_REVIEW_CONTRACT_EVIDENCE.json').read_text())
+          assert x['trueSourcePNGCountVerified']==58
+          assert x['independentOriginalCaptureStates']==42
+          assert x['overlappingKAndK3BFrameSHAEqual']==12
+          assert x['twoCaptureProtocolsNotAContinuousRun']
+          assert x['sourceK4X1764ProjectionRows']==1764
+          assert len(x['roadReviews'])==14 and len(x['sourceFrames'])==42
+          assert len(list(p.glob('K4Y_*_THREE_SOURCE_FRAMES_REVIEW.png')))==14
+          assert len(list(p.glob('K4Y_*_TRUE_ORIGINAL_ART_AUDIT_OVERVIEW.png')))==2
+          assert x['newBuildingModels']==x['newColliders']==x['fakePersonModels']==0
+          assert x['officialARTAccepted']==x['slope2DNARecognizedMetres']==0
+          assert x['K4YIndependentART']=='NOT_TESTED_HOLD'
+          assert x['K4RAndK4UIndependentART']=='REJECT'
+          assert not x['automaticSiteRanking'] and x['continuousVisibilitySeconds']=='UNKNOWN'
+          assert x['release']==x['merge']=='HOLD'
+          for s in x['sourceFrames']:
+            assert s['independentARTDecision']=='NOT_TESTED_HOLD'
+            assert s['realNativeCandidateImageSha']=='NOT_CREATED'
+            assert len(s['unknowns'])==5
+          for row in x['roadReviews']:
+            assert row['siteApproval']=='FORBIDDEN'
+            assert row['sourceCount']>=1
+            assert len(row['failedEvidenceGates'])==5
+          print('K4Y_NATIVELY_VERIFIED_SOURCE_ONLY_ART_REVIEW_SHEETS_TECH_LIMITED_PASS_ART_HOLD')
+          PY
+      - name: Independent negative tamper checks of source SHA and sparse frames
+        run: |
+          python3 - <<'PY'
+          import importlib.util,sys
+          spec=importlib.util.spec_from_file_location('k4y','scripts/p101-r19a6p4r2f5k4y-seven-road-native-source-art-review.py')
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          z,_=m.zipopen('/tmp/k4y-K.zip')
+          item=m.read(z,'R2F5K_REAL_ORIGINAL_EXTENDED_CAMERA_COVERAGE.json')['sessions'][0]['observed'][0]
+          modified=dict(item,sha256='0'*64)
+          try:m.checked_image(z,modified)
+          except AssertionError:pass
+          else:raise AssertionError('A tampered source SHA was incorrectly accepted')
+          assert m.positions([item])==[item,None,None]
+          assert m.positions([item,{**item,'tick':item['tick']+1}])[-1] is None
+          assert m.ROADS[0]=='p93-ABYSS_DIVE-01' and len(m.ROADS)==7
+          print('K4Y_SHA_TAMPER_REJECT_AND_MISSING_FRAME_TEST_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4Y_7ROAD_58_GENUINE_WEBGL2_SOURCE_ART_REVIEW_16_SHEETS_NOT_TESTED_HOLD
+          path: r19-evidence/r19a6p4r2f5k4y/
+          retention-days: 7
+          if-no-files-found: warn
