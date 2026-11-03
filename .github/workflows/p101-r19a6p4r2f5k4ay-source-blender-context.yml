@@ -1,0 +1,138 @@
+name: DOPAGAKI K4AY authentic B48 Road5 and B51 native OBBS in K4AX editable Blender ART HOLD
+on:
+  push:
+    branches:
+      - research/k4ay-road5-authentic-b48-blender-context-20261103
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4ay-*'
+      - 'tests/p101-r19a6p4r2f5k4ay-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4ay-source-blender-context.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-k4ay-real-source-b48-b51-dcc-only
+  cancel-in-progress: false
+jobs:
+  source-native-context-and-real-editable-blender:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - name: Source freeze and fail-closed independent source native verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r19a6p4r2f5k4ay-export-true-road5-b51.mjs
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4ay-overlay-native-context.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+          mkdir -p r19-evidence/k4ay
+          node scripts/p101-r19a6p4r2f5k4ay-export-true-road5-b51.mjs \
+            --cameras docs/K4AX_TRUE_SOURCE_ROAD5_CAMERA_REFERENCE_20261103.json \
+            --out r19-evidence/k4ay
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path('r19-evidence/k4ay')
+          d=json.loads((root/'K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert d['frozenOriginalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['originalPhysicsHz']==240 and d['originalB48Roads']==7 and d['originalB51MovingObstacles']==28
+          assert d['newGameColliders']==d['alteredGameRoads']==d['formalArtAccepted']==d['slope2DNAMetres']==0
+          assert d['gates']['ART']=='REJECT_HOLD'
+          for mode,ticks in {'control':[11259,11278,11307],'ultra':[11320,11341,11369]}.items():
+            r=d['modes'][mode]
+            assert r['roadID']=='p93-PRISM_CREST-01'
+            assert len(r['allB48SurfaceIDs'])==7
+            assert r['mesh']['degenerate']==0
+            assert len(r['mesh']['indices'])//3==r['trueSourceTriangleCount']
+            assert [x['tick'] for x in r['sourceTimeRecords']]==ticks
+            for x in r['sourceTimeRecords']:
+              assert x['sourceNativeSeconds']==x['tick']/240
+              assert len(x['B51CollisionOBBNotOriginalVisibleMesh'])==28
+          assert d['modes']['control']['allB51DescriptorsSHA256']==d['modes']['ultra']['allB51DescriptorsSHA256']
+          print('K4AY_SOURCE_NATIVE_B48_B51_REPLAY_STATIC_PASS_NOT_LIVE_WEBGL2')
+          PY
+      - name: Download genuine preserved K4AX editable DCC source (different branch previous Actions run)
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AX_EDITABLE_BLENDER_PUBLIC_CIVIC_HERO_THREE_SOURCE_POSES_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41607194912
+          github-token: ${{ github.token }}
+          path: r19-evidence/k4ax-original
+      - name: Verify downloaded K4AX native editability and pinned provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path('r19-evidence/k4ax-original')
+          m=json.loads((root/'K4AX_BLENDER_STUDIO_PROVENANCE.json').read_text())
+          assert m['sourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert m['originalB48CollisionMeshImported'] is False
+          assert m['originalB51MovingHazardsImported'] is False
+          assert m['formalArtAccepted']==0
+          for name,record in m['files'].items():
+            p=root/name
+            assert p.stat().st_size==record['bytes']
+            assert hashlib.sha256(p.read_bytes()).hexdigest()==record['sha256'],name
+          assert (root/'K4AX_TIDAL_EXCHANGE_EDITABLE.blend').stat().st_size>1000
+          print('K4AY_K4AX_GENUINE_PARENT_BLEND_AND_FILE_SHA_VERIFIED')
+          PY
+      - name: Install Blender and independent PNG examiner
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+          blender --version | head -3
+      - name: Import exact source B48 skin and source B51 collision OBBs into distinct editable reference collections
+        shell: bash
+        run: |
+          set -euo pipefail
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-r19a6p4r2f5k4ay-overlay-native-context.py -- \
+            --base r19-evidence/k4ax-original/K4AX_TIDAL_EXCHANGE_EDITABLE.blend \
+            --source r19-evidence/k4ay/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out r19-evidence/k4ay
+      - name: Independently verify all 6 numeric source camera DCC-only views and editable DCC integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageStat
+          root=Path('r19-evidence/k4ay')
+          m=json.loads((root/'K4AY_BLENDER_CONTEXT_PROVENANCE.json').read_text())
+          assert m['originalSourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert m['originalRoad5ImportedFromTrueSourceTessellate'] is True
+          assert m['B51SourceCollisionProxiesNotOriginalVisualMesh'] is True
+          assert m['trueSourceB51Boxes']==168 and m['renderedSourceCameras']==6
+          assert m['K4AXArchitectureStillEditable'] is True
+          assert m['DCCPreviewsAreRealWebGL2'] is False
+          assert m['formalArtAccepted']==m['slope2DNAMetres']==0
+          assert m['ART']=='REJECT_HOLD' and all(m[k]=='HOLD' for k in ['HUMAN','SAT','CCD','FPS','RELEASE','MERGE'])
+          assert len(m['sourcePoseDCCOnlyShots'])==6
+          for rec in m['sourcePoseDCCOnlyShots']:
+            assert rec['sourceB51CollisionProxies']==28
+            assert rec['roadArchitectureBVHIntersectionNotYetProven'] is True
+          for name,stamp in m['files'].items():
+            data=(root/name).read_bytes()
+            assert len(data)==stamp['bytes']
+            assert hashlib.sha256(data).hexdigest()==stamp['sha256']
+            if name.endswith('.png'):
+              im=Image.open(root/name).convert('RGB')
+              assert im.width>=700 and im.height>=500
+              assert sum(ImageStat.Stat(im).stddev)>12,('blank DCC preview',name)
+          assert (root/'K4AY_TIDAL_EXCHANGE_WITH_SOURCE_CONTEXT.glb').read_bytes()[:4]==b'glTF'
+          print('K4AY_BLENDER_EDITABLE_CONTEXT_AND_DCC_SHOTS_TECH_PASS_ART_REJECT_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          path: r19-evidence/k4ay/
+          retention-days: 14
+          if-no-files-found: warn
