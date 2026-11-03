@@ -86,7 +86,9 @@ const result={
  schema:'dopagaki.K4AJ.contiguous-native-240hz-original-B51-depth/1',
   originalGPUTrueMaskCountExpected:100,
   continuousDepthSamplingOnlyInDeclaredWindows:true,
-  sourceOriginalB51ID:'p95-hazard-12',
+  geometryStudyTargetB51ID:'p95-hazard-12',
+  actualGPUResearchMask:'B51_BODY_ALL_28',
+  perTickSingleObstacleGPUAttribution:'UNVERIFIED_EXCEPT_K4AG_TICK11280',
   ARTVisualReadability:'NOT_EVALUATED',
  researchBranch:'research/k4aj-native-b51-gpu-depth-contiguous-window-20261103',
  originalSourceBlob:SRC,Hz:240,B48:7,B51:28,
@@ -236,6 +238,7 @@ try{
      const recovered=await syncDepth(page,tick,'none');
      const stateRestored=await state(page);compare(stateRestored,source);
      session.restored.push({tick,depth:recovered.depth,proof:recovered.provenance,
+      seq:recovered.seq,sourceRoad:recovered.sourceRoad,
       screenshot:snapshot?await screenshot(page,'K4AJ_'+mode+'_'+tick+'_RESTORED_NATIVE.png'):null});
     }
    }
@@ -249,6 +252,15 @@ try{
    assert.deepEqual(anchor.synchronousRenderDepth.samples,priorFrame.synchronousRenderDepth.samples);
    assert.deepEqual(anchoredMask.synchronousDepth.samples,priorMasked.synchronousDepth.samples);
    assert.ok(anchor.originalPNG&&anchor.k4zTrueOriginal);
+   // Every native GPU capture must be a fresh render, not a stale FBO readback.
+   for(let i=0;i<ticks.length;i++){
+    const original=session.frames[i],masked=session.masks[i],restored=session.restored[i];
+    assert.equal(masked.proof.seq,original.captureProof.seq+1);
+    assert.equal(restored.seq,masked.proof.seq+1);
+    assert.equal(restored.tick,original.tick);
+    assert.equal(restored.sourceRoad,original.source.road);
+    assert.deepEqual(restored.depth.samples,original.synchronousRenderDepth.samples);
+   }
    assert.deepEqual(session.errors,[]);
    const capable=session.frames.every(f=>f.synchronousRenderDepth.available)&&
      session.masks.every(m=>m.synchronousDepth.available)&&
