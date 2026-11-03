@@ -30,7 +30,7 @@ jobs:
         run: |
           set -euo pipefail
           for attempt in $(seq 1 60); do
-            conclusion="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41629445676 --jq .conclusion)"
+            conclusion="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41631593534 --jq .conclusion)"
             if [ "$conclusion" = success ]; then exit 0; fi
             if [ "$conclusion" = failure ] || [ "$conclusion" = cancelled ]; then
               echo "Frozen K4BB DCC parent has not passed: $conclusion"
@@ -45,7 +45,7 @@ jobs:
         with:
           name: K4BB_TRUE_SOURCE_ROAD5_2K_PBR_INHABITED_CIVIC_BLENDER_ART_HOLD
           repository: ryomashibaba/dopagaki-development-hub
-          run-id: 41629445676
+          run-id: 41631593534
           github-token: ${{ github.token }}
           path: research/evidence/k4bb-bvh/edited
       - name: Download immutable source Road5 and original B51 28 each native time
