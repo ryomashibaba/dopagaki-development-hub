@@ -1,0 +1,245 @@
+{
+  "schema": "dopagaki.K4BH.source-camera-art-directed-civic-corridor/1",
+  "parentArtifact": 13274862071,
+  "parentBlenderSHA256": "b665c84a88d719c4615638cfeb95ab5fe92a84a3a07d3ebe096dd540dd749b2f",
+  "frozenOriginalSourceGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "B48Roads": 7,
+  "B51OriginalBodies": 28,
+  "sourcePhysicsHz": 240,
+  "originalBallRadiusM": 0.65,
+  "road5OriginalGeometryFingerprintBefore": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "road5OriginalGeometryFingerprintAfter": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "sourceRoad5PhysicalGeometryUnchanged": true,
+  "sourceCamerasNumericsUnchanged": true,
+  "sourceRoad5MaterialsDCCOnlyChanged": true,
+  "oldRoadMaterialNamesPreservedInReport": {
+    "control": [
+      "K4BD PBR 3K native source Road5 six-zone monumental constructed",
+      "K4BA | maritime basalt natural cliff"
+    ],
+    "ultra": [
+      "K4BD PBR 3K native source Road5 six-zone monumental constructed",
+      "K4BA | maritime basalt natural cliff"
+    ]
+  },
+  "oldRejectedArtCollectionsRetainedHidden": [
+    "K4BD 02 | road-exterior deep public waterfront terrace",
+    "K4BD 03 | under-road original-stage-distant coastal horizon ART",
+    "K4BE 01 | INTEGRATED GROUNDED PUBLIC PLINTHS",
+    "K4BG 01 | FACETED COAST GATE LOAD BEARING",
+    "K4BG 02 | OCCUPIED BRIDGE VOID",
+    "K4BG 03 | HUMAN CIVIC TERRACES",
+    "K4BG 04 | PRACTICAL LIGHTS",
+    "K4BG 05 | LONG CONTINUOUS CIVIC ESCARPMENT",
+    "K4BG 06 | DEEP OPERABLE GLAZING AND INTERIORS",
+    "K4BG 07 | HUMAN PUBLIC TERRACES AND RAIN GARDENS",
+    "K4BG 08 | EXPOSED THICK CANTILEVERED CIVIC ROOF",
+    "K4BG 09 | SINGULAR COASTAL LANDMARK"
+  ],
+  "editableDCCCandidateCount": 81,
+  "sourceCameraVisibilityProjections": {
+    "control": [
+      {
+        "worldSample": [
+          160,
+          -120,
+          90
+        ],
+        "uv": [
+          0.8429,
+          0.4931
+        ],
+        "inFront": true,
+        "inFrame": true
+      },
+      {
+        "worldSample": [
+          220,
+          120,
+          115
+        ],
+        "uv": [
+          0.2434,
+          0.6036
+        ],
+        "inFront": true,
+        "inFrame": true
+      },
+      {
+        "worldSample": [
+          460,
+          -140,
+          230
+        ],
+        "uv": [
+          0.6501,
+          0.793
+        ],
+        "inFront": true,
+        "inFrame": true
+      },
+      {
+        "worldSample": [
+          510,
+          80,
+          220
+        ],
+        "uv": [
+          0.4233,
+          0.7606
+        ],
+        "inFront": true,
+        "inFrame": true
+      },
+      {
+        "worldSample": [
+          800,
+          -75,
+          380
+        ],
+        "uv": [
+          0.547,
+          0.8592
+        ],
+        "inFront": true,
+        "inFrame": true
+      }
+    ],
+    "ultra": [
+      {
+        "worldSample": [
+          160,
+          -120,
+          90
+        ],
+        "uv": [
+          0.7861,
+          0.5206
+        ],
+        "inFront": true,
+        "inFrame": true
+      },
+      {
+        "worldSample": [
+          220,
+          120,
+          115
+        ],
+        "uv": [
+          0.2499,
+          0.6137
+        ],
+        "inFront": true,
+        "inFrame": true
+      },
+      {
+        "worldSample": [
+          460,
+          -140,
+          230
+        ],
+        "uv": [
+          0.6288,
+          0.7883
+        ],
+        "inFront": true,
+        "inFrame": true
+      },
+      {
+        "worldSample": [
+          510,
+          80,
+          220
+        ],
+        "uv": [
+          0.4129,
+          0.7595
+        ],
+        "inFront": true,
+        "inFrame": true
+      },
+      {
+        "worldSample": [
+          800,
+          -75,
+          380
+        ],
+        "uv": [
+          0.5322,
+          0.8548
+        ],
+        "inFront": true,
+        "inFrame": true
+      }
+    ]
+  },
+  "sourceCameraRenderedTwoOfSix": [
+    {
+      "mode": "control",
+      "tick": 11307,
+      "file": "K4BH_CONTROL_11307_SOURCE_DCC_ART_UNJUDGED.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "file": "K4BH_ULTRA_11341_SOURCE_DCC_ART_UNJUDGED.png"
+    }
+  ],
+  "nativeWebGL2Rendered": false,
+  "newPhysicalGameRoadOrCollider": false,
+  "realFullGameCCD": "HOLD",
+  "SAT": "HOLD",
+  "B48B51NewArchitectureBVH": "NOT_RUN",
+  "HUMAN": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "ART": "UNJUDGED_HOLD",
+  "formalArtAccepted": 0,
+  "slope2DNARecognizedMetres": 0,
+  "files": {
+    "K4BH_ART_DIRECTED_CIVIC_CORRIDOR_EDITABLE_ART_HOLD.blend": {
+      "bytes": 41587752,
+      "sha256": "d0168ea7d94cf2e953d273b015016006618e23f049f872397e72e82ed6fe74d5"
+    },
+    "K4BH_CONTROL_11307_SOURCE_DCC_ART_UNJUDGED.png": {
+      "bytes": 1256387,
+      "sha256": "df6e83638e4a1948ab369ab84d7093ba6091f08fe7fbe8e03ae3fdd88b2d891c"
+    },
+    "K4BH_ULTRA_11341_SOURCE_DCC_ART_UNJUDGED.png": {
+      "bytes": 1251270,
+      "sha256": "ee77ddd3998961162808f2633f2c8e0cb98f29f007fa3c87dbd3f40b04eea436"
+    }
+  },
+  "compare": {
+    "name": "K4BH_K4BG_VS_NEW_TRUE_SOURCE_CAMERA_ART_REVIEW.png",
+    "sha256": "6f7b06b1bcd69d498f85db067f965a0c0ec67c775d63df9a25bbd962e9eec3f1",
+    "bytes": 2509229,
+    "meanPixelDiff": [
+      {
+        "mode": "control",
+        "tick": 11307,
+        "meanAbsoluteRgbDifference": [
+          51.872,
+          50.528,
+          47.981
+        ]
+      },
+      {
+        "mode": "ultra",
+        "tick": 11341,
+        "meanAbsoluteRgbDifference": [
+          52.866,
+          51.377,
+          48.766
+        ]
+      }
+    ]
+  }
+}
