@@ -197,22 +197,22 @@ for sign,label,height in ((-1,"LIBRARY-FOUNDED WEST",173),(1,"MARITIME EAST",148
           [[W(d,side(s),z) for s,z in ((177,29),(220,29),(220,31),(177,31))]
            for d in (112,148)],green,public)
 # One unmistakable cross-city *inhabited bridge* with two wide public
-# vaulted windows instead of a thin suspended aquarium. Its lower contour
-# remains well above the old K4BE gallery geometry.
+# vaulted windows instead of a thin suspended aquarium. The camera-visible
+# occupied volume remains in K4BE 48-90m envelope, not offscreen sky.
 # 10m+ deep masonry bridge spine; interrupted by three open light voids.
 for bay,(s0,s1) in enumerate(((-118,-82),(-77,-27),(-22,27),(32,83),(88,119))):
     if bay==2:
         # The central 49m void keeps the roadway/horizon legible.
         continue
     q=(s0+s1)*.5
-    h=111+8*sin(pi*(q+115)/230)
-    block("SKY EXCHANGE true upper floor / "+str(bay),107,153,s0,s1,99,105,stone,gallery)
-    block("SKY EXCHANGE cantilever occupied rear wall / "+str(bay),145,153,s0,s1,105,h+10,dark,gallery)
+    h=78+8*sin(pi*(q+115)/230)
+    block("SKY EXCHANGE true upper floor / "+str(bay),107,153,s0,s1,49,55,stone,gallery)
+    block("SKY EXCHANGE cantilever occupied rear wall / "+str(bay),145,153,s0,s1,55,h+10,dark,gallery)
     block("SKY EXCHANGE deep stone spandrel with actual aperture / "+str(bay),
           106,112,s0,s1,h-4,h+14,stone,gallery)
     # A deeply recessed lit interior, not a full-front glass box.
     block("SKY EXCHANGE warmly lit room behind front / "+str(bay),
-          114,117,s0+4,s1-4,105,h+1,glass,gallery)
+          114,117,s0+4,s1-4,55,h+1,glass,gallery)
     block("SKY EXCHANGE ceiling under practical luminaire / "+str(bay),
           117,121,s0+8,s1-8,h-2,h-1,lamp,gallery)
 # Expressive folded *roof as a fully closed thick volume*, not paper canopy.
@@ -221,7 +221,7 @@ for left,right,name in ((-119,-22,"WEST WING"),(25,120,"EAST WING")):
     slices=[]
     for d in (103,114,129,145,162):
         fold=3.5*sin(pi*(d-103)/59)
-        heights=[125+fold+21*sin((s+119)/242*pi)+
+        heights=[96+fold+21*sin((s+119)/242*pi)+
                  (15 if s<0 else -5)*sin(pi*(d-103)/59)
                  for s in (left,(left+right)/2,right)]
         slices.append([
@@ -233,7 +233,7 @@ for left,right,name in ((-119,-22,"WEST WING"),(25,120,"EAST WING")):
 for side in (-1,1):
     for d in (106,147):
         block("SKY EXCHANGE west/east real pier "+str(side)+"/"+str(d),
-              d,d+10,side*121,side*143,-81,113,dark,mon)
+              d,d+10,side*121,side*143,-81,101,dark,mon)
 # Material light and sun, not emissive sky glow pretending to be structure.
 world=scene.world
 if world:
