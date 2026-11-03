@@ -263,11 +263,21 @@ try{
    assert.equal(continuous.meta.sourceCollisionChanged,false);
    assert.equal(continuous.meta.sourceCameraChanged,false);
    assert.equal(continuous.meta.sourceGPUChanged,false);
+   assert.ok(Array.isArray(continuous.meta.originalSourceSurfaceIds));
+   assert.equal(new Set(continuous.meta.originalSourceSurfaceIds).size,
+    continuous.meta.originalSourceSurfaceIds.length);
+   assert.ok(continuous.meta.originalSourceSurfaceIds.includes('p93-PRISM_CREST-01'));
+   const legalRoads=new Set(continuous.meta.originalSourceSurfaceIds);
    assert.equal(continuous.records.length,721);
    for(let k=0;k<721;k++){
     const t=10680+k,g=continuous.records[k];
     assert.equal(g.nativeTick,t);
-    assert.equal(g.originalRoad,'p93-PRISM_CREST-01');
+    // Native Runner.surface can be null between sparse Road5 anchors.
+    // Never forge a continuous road-contact classification.
+    assert.ok(g.originalRoad===null||legalRoads.has(g.originalRoad),
+     'K4AI_SOURCE_ROAD_ID_NOT_IN_ORIGINAL_COURSE');
+    assert.equal(g.sourceRoadUnassigned,g.originalRoad===null);
+    assert.equal(typeof g.originalSourceGrounded,'boolean');
     assert.equal(g.originalStatus,'running');
     assert.equal(g.originalB51Id,'p95-hazard-12');
     assert.ok(Math.abs(g.sourceSeconds-t/240)<1e-5);
