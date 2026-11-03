@@ -1,0 +1,82 @@
+{
+  "schema": "dopagaki.K4BH.authentic-two-source-camera-hero-art-pilot/1",
+  "parentK4BGSourceDCCBlendSha256": "b665c84a88d719c4615638cfeb95ab5fe92a84a3a07d3ebe096dd540dd749b2f",
+  "frozenOriginalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "road5SourceFingerprintPreserved": true,
+  "sourceCameraNumericsPreserved": true,
+  "original7B48And28B51PhysicsUnchanged": true,
+  "road5MaterialEditedInDCCOnly": true,
+  "newGameCollider": false,
+  "newPlayableRoad": false,
+  "editableAuthoredDCCObjects": 61,
+  "hiddenRejectedParentCollections": {
+    "K4BC V3 01 | authentic Road6 off-road bedrock foundations": 10,
+    "K4BC V3 02 | east library occupied city citadel": 56,
+    "K4BC V3 03 | west harbor exchange occupied citadel": 56,
+    "K4BC V3 04 | high clear public sky conservatory NOT original ro": 41,
+    "K4BC V3 05 | DCC architectural warm lighting": 0,
+    "K4BC V3 06 | AERIAL DESIGN ONLY NOT SOURCE CAMERA": 1,
+    "K4BD 01 | all source-sampled outer inlay PBR proposal NONCOLLIS": 52,
+    "K4BD 02 | road-exterior deep public waterfront terrace": 46,
+    "K4BD 03 | under-road original-stage-distant coastal horizon ART": 1,
+    "K4BD 04 | independent editorial Camera NOT ORIGINAL": 1,
+    "K4BE 01 | INTEGRATED GROUNDED PUBLIC PLINTHS": 10,
+    "K4BE 02 | WEST HALL OPEN COURT AND LIBRARY": 125,
+    "K4BE 03 | EAST COAST CONSERVATORY": 125,
+    "K4BE 04 | CROSS CITY INHABITED FORUM": 45,
+    "K4BE 05 | HUMAN SCALE ART AND WAYFINDING": 1,
+    "K4BE 06 | INTERIOR DAYLIGHT PHYSICALLY FIXTURED": 7,
+    "K4BE 07 | AUXILIARY DESIGN CAMERA ONLY": 1,
+    "K4BG 01 | FACETED COAST GATE LOAD BEARING": 0,
+    "K4BG 02 | OCCUPIED BRIDGE VOID": 0,
+    "K4BG 03 | HUMAN CIVIC TERRACES": 0,
+    "K4BG 04 | PRACTICAL LIGHTS": 1,
+    "K4BG 05 | LONG CONTINUOUS CIVIC ESCARPMENT": 6,
+    "K4BG 06 | DEEP OPERABLE GLAZING AND INTERIORS": 54,
+    "K4BG 07 | HUMAN PUBLIC TERRACES AND RAIN GARDENS": 23,
+    "K4BG 08 | EXPOSED THICK CANTILEVERED CIVIC ROOF": 4,
+    "K4BG 09 | SINGULAR COASTAL LANDMARK": 1
+  },
+  "screenshots": [
+    {
+      "mode": "control",
+      "tick": 11307,
+      "file": "K4BH_CONTROL_11307_ORIGINAL_CAMERA_DCC_ART_HOLD.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "file": "K4BH_ULTRA_11341_ORIGINAL_CAMERA_DCC_ART_HOLD.png"
+    }
+  ],
+  "fullOriginalWebGL2Frames": false,
+  "independentAll7BVH": "NOT_RUN_HOLD",
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "slope2DNAmetres": 0,
+  "HUMAN": "HOLD",
+  "CCD": "HOLD",
+  "SAT": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BH_SCULPTED_SEA_GATE_EDITABLE_HERO_ART_HOLD.blend": {
+      "bytes": 41487968,
+      "sha256": "9c43ad49de866467de13dd583e96e0ed46d6642086057121222a94ab4731313f"
+    },
+    "K4BH_CONTROL_11307_ORIGINAL_CAMERA_DCC_ART_HOLD.png": {
+      "bytes": 1214629,
+      "sha256": "e7b26b31ea718b32badac76030c46c43d9c07f4cc621d98f32e60a94f0699cf0"
+    },
+    "K4BH_ULTRA_11341_ORIGINAL_CAMERA_DCC_ART_HOLD.png": {
+      "bytes": 1197922,
+      "sha256": "8cd4eb585d9d5f2b528c850223bed8f91841d8ec80ce5c93ba2e5abb96e1fb88"
+    }
+  },
+  "trueCameraAB": {
+    "file": "K4BH_K4BG_TO_NEW_TWO_CAMERA_ART_REVIEW_NOT_GAME.png",
+    "sha256": "ae1cfa35992954fe4e215414c0a7a4656e3e647570409edc0f2dc0331c1419f1",
+    "bytes": 3394636
+  }
+}
