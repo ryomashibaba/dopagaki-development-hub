@@ -1,3 +1,10 @@
+## 【K4AH最終確定 2026-11-03 / 真正B51-12カメラ/球/OBB幾何 TECH PASS・ART HOLD】
+
+- GitHub研究継続先 `research/k4ah-original-b51-camera-obb-geometry-20261103`。[K4AH正式実測全文](docs/R19_A6P4_R2F5K4AH_NATIVE_B51_CAMERA_OBB_GEOMETRY_JA.md) → [真正Actions #41554878800](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41554878800) **completed/success** → [Artifact #13195125107](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41554878800/artifacts/13195125107)。ZIP 5,609,702 bytes、SHA `fe22a310a2a698a813abf0eaaa9f3b5e8d9a75af4d096a320be7e05261c29294`、CRC46/46 PASS。GitHub正本に14時点詳細表・RAW/監査/幾何JSON各SHAを保存。元K4Z82PNG SHA、K4AF真正GPU 14元depth+14個B51群マスク+14復元depth11,176点全一致、真正元Road5 14画面HUD外3D画素差0。元`movingObstaclePose`と`sphereBoxSeparation`の原描画時same native tick捕捉14/14、別Node原関数再計算14/14、偽装負例3/3拒否。
+- **元`p95-hazard-12`（piston/size8×3×7.5m/vertical stroke8m）の28m・47秒遮蔽原因が幾何学的に裏付けられた**：28mはカメラeyeから元OBB表面**+0.582953m**、球表面→OBB**+6.446514m**、カメラ→OBB中心3.52489m。14mはeye→OBB+46.525637m、球→OBB+33.541810m。両条件ともeyeと球はOBB**外側**。前段K4AGの28mだけ原B51-12を消すと元GPU depth5,972/11,176＝53.436%の大遮蔽が解除される事実と一致。球が障害物内にいるためではなく**追従カメラの強い近接前景**と整合する。とはいえ元CCD/衝突妥当性・意図した演出か・人間ARTは未測定。
+- **次工程K4AI**：元物理/カメラ変更せず47秒前後の真正240Hz連続時系列でeye→OBB最小距離・GPU遮蔽の持続時間を実測、演出と危険な視野遮断を区別する。7離散時点の観測値から継続秒数を推定しない。独立ART認定には人間審査。元Source blob `af076d67492a677d2235e4730aef8cdf4808e106`、球/240Hz/Camera/B48 7/B51 28/Gold/P100/W9-X/B5/main/本番2URL・継続`p101-velocity-overdrive-native-trial`のDraft PR #46 OPEN未マージ変更0。正式ART採用0件、Slope2 DNA0m、新モデル/Collider0、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。Chat/GitHub主体、Workは事前承認、PC/ZIP操作不要。
+
+---
 ## 【現行2026-11-03 K4AH：元B51障害物-12とカメラ/球の真正OBB幾何研究 — ART HOLD】
 
 - 研究再開の正本は`research/k4ah-original-b51-camera-obb-geometry-20261103` → [K4AH完全研究記録](docs/R19_A6P4_R2F5K4AH_NATIVE_B51_CAMERA_OBB_GEOMETRY_JA.md) → [本物のGitHub専用CI #41554878800](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41554878800)。このCIは**実結果未確認**、K4AH TECH/ARTの成功を先取りしない。
