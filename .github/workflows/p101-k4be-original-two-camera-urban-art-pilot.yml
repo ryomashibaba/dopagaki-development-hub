@@ -30,21 +30,21 @@ jobs:
           name: K4BD_3K_ORIGINAL_ROAD5_CIVIC_DECK_PBR_PILOT_EDITABLE_DCC_ART_HOLD
           repository: ryomashibaba/dopagaki-development-hub
           run-id: 41649107682
-          github-token: \${{ github.token }}
+          github-token: ${{ github.token }}
           path: research/evidence/k4be/parent
       - uses: actions/download-artifact@v4
         with:
           name: K4BC_V2_REAL_ALL_SEVEN_ORIGINAL_B48_EDITABLE_SOURCE_CAMERA_DCC_ART_HOLD
           repository: ryomashibaba/dopagaki-development-hub
           run-id: 41638891877
-          github-token: \${{ github.token }}
+          github-token: ${{ github.token }}
           path: research/evidence/k4be/all7
       - uses: actions/download-artifact@v4
         with:
           name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
           repository: ryomashibaba/dopagaki-development-hub
           run-id: 41612254866
-          github-token: \${{ github.token }}
+          github-token: ${{ github.token }}
           path: research/evidence/k4be/native
       - name: Source frozen SHA and parent ART HOLD exact file provenance
         run: |
