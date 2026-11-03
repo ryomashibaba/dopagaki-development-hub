@@ -83,6 +83,16 @@ for col in bpy.data.collections:
                             "K4BC V3 03 |","K4BC V3 04 |")):
         candidates +=[obj for obj in col.objects if obj.type in ("MESH","CURVE")]
 assert len(candidates)>=100
+# Verify the survey really includes V3, not only earlier K4BC architecture.
+old_sky=bpy.data.collections.get("K4BC 04 | monumental occupied skyline, NOT a driveable road")
+assert old_sky is not None and old_sky.hide_render and len(old_sky.objects)>0
+v3cols=[c for c in bpy.data.collections if c.name.startswith((
+    "K4BC V3 01 |","K4BC V3 02 |","K4BC V3 03 |","K4BC V3 04 |"))]
+assert len(v3cols)==4
+v3objects=[o for c in v3cols for o in c.objects if o.type in ("MESH","CURVE")]
+assert len(v3objects)>50
+assert any("SKY CIVIC MUSEUM" in ob.name for ob in v3objects)
+assert any("BEDROCK" in ob.name or "FOUNDATION" in ob.name for ob in v3objects)
 deps=bpy.context.evaluated_depsgraph_get()
 roadhits=[];b51hits=[]
 tested=0;facesCount=0
@@ -133,8 +143,9 @@ report={
  "originalGameArtAndPhysicsUnchanged":True,
  "DCCOnlyVisualRoadStoneSeamsExcluded":True,
  "oldRejectedK4BAK4BBPreservedButHiddenExcluded":True,
- "oldK4BCV1OffframeSkylineExcludedAndPreserved":True,
- "newV3PhysicalSkyMuseumAndCivicFoundationsIncluded":True,
+ "oldK4BCV1OffframeSkylineExcludedAndPreserved":bool(old_sky.hide_render and len(old_sky.objects)>0),
+ "newV3PhysicalSkyMuseumAndCivicFoundationsIncluded":len(v3objects)>50,
+  "newV3ObjectsIndependentlyIncluded":len(v3objects),
  "limitedStaticSourceTriangleIntersectionOnly":True,
  "wholeStageFutureTimeCCD":"NOT_TESTED_HOLD",
  "ballRadius065SafetyTest":"NOT_TESTED_HOLD",
