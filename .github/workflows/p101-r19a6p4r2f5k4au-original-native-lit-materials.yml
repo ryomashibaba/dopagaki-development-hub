@@ -1,0 +1,78 @@
+name: DOPAGAKI K4AU genuine original camera road and moving B51 material light ART HOLD
+on:
+  push:
+    branches:
+      - research/k4au-road5-genuine-material-lighting-20261103
+    paths:
+      - 'web/p101-k4au-*'
+      - 'scripts/p101-r19a6p4r2f5k4au-*'
+      - 'tests/p101-r19a6p4r2f5k4au-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4au-original-native-lit-materials.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: dopagaki-k4au-source-native-real-camera-lit-road-and-B51
+  cancel-in-progress: false
+jobs:
+  source-webgl2-native-road5-lit-12-raw-views:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 80
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen original source and independently defined shader test
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check web/p101-k4au-original-native-material-lighting.mjs
+          node --check scripts/p101-r19a6p4r2f5k4au-private-native-lit-road5-pack.mjs
+          node --check scripts/p101-r19a6p4r2f5k4au-genuine-native-material-ab.mjs
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4au-independent-native-material-audit.py
+          node --test tests/p101-r19a6p4r2f5k4au-genuine-material-lighting.test.mjs
+          node --test tests/p101-r19a6p4r2f5k4at-source-sculpted-canyon.test.mjs
+      - name: Original frozen 240 Hz source and opt-in K4AU private material clone
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a1-private-original-native-camera-pack.mjs
+          node scripts/p101-r19a6p4r2f5k3b-private-camera-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4ab-private-source-draw-provenance.mjs
+          node scripts/p101-r19a6p4r2f5k4ad-private-original-mesh-depth-replay.mjs
+          node scripts/p101-r19a6p4r2f5k4aq-private-road5-art-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4as-private-road5-material-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4at-private-source-civic-canyon-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4au-private-native-lit-road5-pack.mjs
+          node --check dist-private/r19a6p4r2f5k4au/drive3d.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Chromium source native 240 Hz real B48 and B51 shader on actual camera
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/p101-r19a6p4r2f5k4au-genuine-native-material-ab.mjs
+      - name: Independent 12 SHA256 and non-retouched native-camera reviewer sheet
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-pil
+          python3 scripts/p101-r19a6p4r2f5k4au-independent-native-material-audit.py --root r19-evidence/k4au
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('r19-evidence/k4au')
+          x=json.loads((root/'K4AU_INDEPENDENT_LIT_MATERIAL_REVIEW.json').read_text())
+          assert x['verdict']=='SOURCE_B48_B51_LIT_SCREEN_PIXEL_TECH_ONLY_ART_HOLD'
+          assert x['verifiedNativePNGs']==12 and len(x['perFrame'])==6
+          assert x['formalArtAccepted']==x['slope2DNAMetres']==0
+          assert x['ART']=='NOT_TESTED_HOLD'
+          assert x['HUMAN']==x['SAT']==x['CCD']==x['FPS']=='HOLD'
+          assert x['RELEASE']==x['MERGE']=='HOLD'
+          assert (root/'K4AU_GENUINE_CAMERA_12_LIT_AB_ATLAS.png').exists()
+          print('K4AU_TRUE_NATIVE_LIT_B48_B51_COLOR_SHADING_TECH_ONLY_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4AU_12_TRUE_NATIVE_SOURCE_LIT_ROAD_B51_ART_HOLD
+          path: r19-evidence/k4au/
+          retention-days: 14
+          if-no-files-found: warn
