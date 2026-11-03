@@ -1,3 +1,12 @@
+## 【現行2026-11-03 K4AH：元B51障害物-12とカメラ/球の真正OBB幾何研究 — ART HOLD】
+
+- 研究再開の正本は`research/k4ah-original-b51-camera-obb-geometry-20261103` → [K4AH完全研究記録](docs/R19_A6P4_R2F5K4AH_NATIVE_B51_CAMERA_OBB_GEOMETRY_JA.md) → [本物のGitHub専用CI #41554878800](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41554878800)。このCIは**実結果未確認**、K4AH TECH/ARTの成功を先取りしない。
+- **前工程K4AGは確定SUCCESS**：[Actions #41552778225](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41552778225)、ZIP Artifact #13192687645 SHA256 `86f27ab7310835c405932b29049ac180d7e69d0987f19be5059fe15099bcbd61` CRC68/68。元K4Z82PNG SHA/元K4AF84GPUマスク/Source ID28個×2幅=56個別GPU実測の独立監査PASS。28m・47秒の8px格子5,972/11,176=53.436%遮蔽は**実原Source ID `p95-hazard-12` 1体**。14mは53点=0.474%、残り27体寄与0。衝突バグ・ART不合格は未判断。
+- K4AHは元`movingObstaclePose` / `sphereBoxSeparation`を元rendererの**同一native 240Hz render callback内**でread-only再計算し、44.5〜47.5秒の7時点×2幅の原球/camera eye/front/元B51-12 OBB・球/眼の符号付距離を実測。K4Z元82PNG SHA、元K4AFの14 baseline+14 B51群mask GPU depth11,176点完全一致、元画面14本3D画素不変/14復元も監査。別Nodeから元source幾何関数を再実行して一致、3改ざん負例を拒否。元物理・B51配置・Collider・カメラは不変。
+- 元source blob `af076d67492a677d2235e4730aef8cdf4808e106`、球/240Hz/Camera/B48 7/B51 28、Gold/P100/W9-X/B5、main/本番2URL、継続`p101-velocity-overdrive-native-trial`/Draft PR #46 OPEN未マージ維持。旧K4/K4R/K4U ART REJECT、正式ART採用0件、Slope2 DNA0m、新モデル/Collider0、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。Work事前承認・Chat/GitHub主運用、PC/ZIP再提出不要。
+- 次工程は**K4AH Actions #41554878800の実ステップ・ログ・Artifact ZIP SHA/CRC・独立元関数での幾何数値照合**。技術ゲートPASSでも衝突/ゲーム体験や人間ART合格と同義ではない。
+
+---
 ## 【K4AG確定SUCCESS / 2026-11-03 / 次はK4AH幾何診断】
 
 - [K4AG実真正GPU CI #41552778225](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41552778225) **completed/success**。元B51 28個の実Source IDそれぞれを1個だけGPU描画から抑制し、14m+28mの56真正WebGL2 readback・K4AF元depth SHA固定比較・元K4Z PNG厳格照合と独立監査PASS。ZIP Artifact [#13192687645](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41552778225/artifacts/13192687645) 8,316,226B、SHA256 `86f27ab7310835c405932b29049ac180d7e69d0987f19be5059fe15099bcbd61`、CRC68/68 PASS。詳細は[K4AG確定正本](docs/R19_A6P4_R2F5K4AG_B51_SOURCE_ID_OCCLUSION_JA.md)。
