@@ -146,3 +146,9 @@ K4AJの実装：
 - 今後はGPU測定の反復ではなく、原画で見えるB51と公共空洞の関係を踏まえて未制作Road5《斜裂公共峡谷》の**本物のART-FIRST単一候補**を独立研究。候補の元source同poseカメラA/B・三層公共空洞・人間走行を審査するまで、ART正式0件／Slope2 DNA0m／HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。main・元source/Camera/240Hz球/B48×7/B51×28・本番URL・Draft PR#46不変更。Work事前承認。
 
 **検証の順序**：GitHub Actions K4AN/K4AK/K4AMの現在状態→K4AN生Artifact→元画像の独立目視とGitHub研究画像保存→K4AM元不足9RGBの独立監査→候補新造形の独立ART/SAFE/HUMANゲート。未測定はUNKNOWN、旧REJECTを勝手に覆さない。
+
+## K. 2026-11-03 K4AO：実元画像8tickの対話比較・ART-FIRST造形優先証拠
+
+- [K4AO独立研究報告](R19_A6P4_R2F5K4AO_REAL_SOURCE_CAMERA_ART_REVIEW_JA.md)と[15実測JSON](research-evidence/k4ao/K4AO_TRUE_GPU_DEPTH_15_ART_CAMERA_REVIEW_ANCHORS.json)、[ZIP固定オフラインビューア生成コード](../scripts/p101-r19a6p4r2f5k4ao-source-only-offline-art-review.py)を保存。元のK4AJ真正成功Artifact ZIP・PNG SHA/bytes・元/mask/復元のGPUサンプルを照合して8時点の元画像とB51全28体群除去画像のスライダー比較HTMLを生成。ローカル実測・構文はPASS。GitHub保存したPythonの専用Actions実行は未検証。
+- K4AK審査要求15tickに対し、元K4AJ画像あり6／K4AM不足9／余分な元画像2。高深度変化の造形画面審査優先6tickは14m: 11338/11341/11349、28m: 11277/11280/11284。**GPU group-mask深度格子変化率は人間の遮蔽率・秒数ではない**。元B51個体の原因帰属も11280以外はUNKNOWN。
+- 新ART候補0／正式ART採用0／Slope2 DNA正式認定0m／HUMAN・SAT・CCD・FPS・RELEASE・MERGE HOLD。K4AK/K4AM/K4ANは最新CIと生Artifactを別途照会し、成功時にのみART-FIRST Road5《斜裂公共峡谷》の元camera 3層公共空洞A/Bへ進める。元ゲーム・main・本番・PR#46保護、Work事前承認。
