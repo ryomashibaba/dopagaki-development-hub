@@ -1,0 +1,86 @@
+name: DOPAGAKI K4BC v2 pin REAL all-7-source-B48 camera evidence into research branch
+on:
+  push:
+    branches:
+      - research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
+    paths:
+      - '.github/workflows/p101-k4bc-v2-pin-seven-B48-camera-art-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: k4bc-v2-native-7-B48-camera-evidence-research-only
+  cancel-in-progress: false
+jobs:
+  preserve-seven-physical-roads-6-source-poses-not-webgl-or-art-certified:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Wait for exact all-seven original B48 source export and original Camera Blender success
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 70); do
+            c="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41638891877 --jq .conclusion)"
+            if [ "$c" = success ]; then exit 0; fi
+            if [ "$c" = failure ] || [ "$c" = cancelled ]; then echo "All-seven source parent failed: $c";exit 1; fi
+            sleep 12
+          done
+          echo "No source-native all-seven confirmed result";exit 1
+      - name: Download original 7x2 real source B48 DCC + original Camera six-shot evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BC_V2_REAL_ALL_SEVEN_ORIGINAL_B48_EDITABLE_SOURCE_CAMERA_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41638891877
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-native-v2
+      - name: Verify source 7 roads and same pose independently then save only user-review images and SHA
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 - <<'PY'
+          import hashlib,json,shutil
+          from pathlib import Path
+          p=Path('research/evidence/k4bc-native-v2')
+          r=json.loads((p/'rendered/K4BC_V2_TRUE_ALL7_B48_SOURCE_PROVENANCE.json').read_text())
+          s=json.loads((p/'original-all7/K4BC_ALL7_B48_ORIGINAL_SURFACE_SOURCE_AUDIT.json').read_text())
+          assert r['originalGameFrozenBlob']==s['sourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert r['originalB48Road5MeshFingerprintsBefore']==r['originalB48Road5MeshFingerprintsAfter']
+          assert r['trueOriginalOtherB48RoadsImported']==12
+          assert r['originalSourceB48Roads']==7
+          assert r['sourceOriginalB51CollisionOBBSnapshotInstances']==168
+          assert r['originalSixSourceCameraNumericUnchanged'] is True
+          assert r['originalNativeGameWebGL2Screenshots'] is False
+          assert r['ART']=='REJECT_HOLD' and r['formalArtAccepted']==0
+          for fn,v in r['files'].items():
+              data=(p/'rendered'/fn).read_bytes()
+              assert len(data)==v['bytes'] and hashlib.sha256(data).hexdigest()==v['sha256']
+          dst=Path('docs/research-evidence/k4bc-v2');dst.mkdir(parents=True,exist_ok=True)
+          for old,new in (
+            ('rendered/K4BC_V2_SIX_GENUINE_SOURCE_POSE_ONE_VS_SEVEN_B48_AB.png','K4BC_V2_TRUE_7_B48_SIX_ORIGINAL_CAMERA_AB_ART_REJECT.png'),
+            ('rendered/K4BC_V2_ALL_SEVEN_SOURCE_B48_AERIAL_STUDIO_DCC_NOT_GAME.png','K4BC_V2_TRUE_7_B48_AERIAL_DCC_NOT_GAME.png'),
+            ('rendered/K4BC_V2_TRUE_ALL7_B48_SOURCE_PROVENANCE.json','K4BC_V2_7_B48_SOURCE_DCC_SHA_ART_HOLD.json'),
+            ('original-all7/K4BC_ALL7_B48_ORIGINAL_SURFACE_SOURCE_AUDIT.json','K4BC_V2_ALL_ORIGINAL_ROAD_IDS_POINT_HASHES_AUDIT.json')
+          ):
+              raw=(p/old).read_bytes()
+              if new.endswith('.png'):assert raw[:8]==bytes((137,80,78,71,13,10,26,10))
+              shutil.copyfile(p/old,dst/new)
+          print('K4BC_V2_REAL_NATIVE_ALL7_SOURCE_CAMERA_GITHUB_PIN_READY_ART_HOLD')
+          PY
+      - name: Commit only on research branch, do not change official main/PR or production
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research-evidence/k4bc-v2/K4BC_V2_*
+          git diff --cached --quiet && exit 0
+          git commit -m "evidence(k4bc): preserve genuine all-seven B48 native camera DCC review and per-road hashes"
+          git fetch origin research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
+          git rebase origin/research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
+          git push origin HEAD:refs/heads/research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
