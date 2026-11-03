@@ -1,3 +1,11 @@
+## 【K4AG確定SUCCESS / 2026-11-03 / 次はK4AH幾何診断】
+
+- [K4AG実真正GPU CI #41552778225](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41552778225) **completed/success**。元B51 28個の実Source IDそれぞれを1個だけGPU描画から抑制し、14m+28mの56真正WebGL2 readback・K4AF元depth SHA固定比較・元K4Z PNG厳格照合と独立監査PASS。ZIP Artifact [#13192687645](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41552778225/artifacts/13192687645) 8,316,226B、SHA256 `86f27ab7310835c405932b29049ac180d7e69d0987f19be5059fe15099bcbd61`、CRC68/68 PASS。詳細は[K4AG確定正本](docs/R19_A6P4_R2F5K4AG_B51_SOURCE_ID_OCCLUSION_JA.md)。
+- **原因元Source B51 IDは `p95-hazard-12`**。28m・47.0秒（native tick11280）、1体だけの視覚除去でGPU深度11,176点中5,972点=53.436%が奥へ。全B51 28体除去と深度全点一致、他27個の単独除去では0点。14mでは同じ1体53点=0.474%。これは**視覚遮蔽**のTECH結論であり、元衝突判定異常・危険性・人間ART不合格とは断定しない。
+- 元設計 `web/p95-hazard-layout.mjs`でこのIDはroadIndex 5、u0.73、type=2 vertical piston、横+8m。元`scripts/p95-void-hazard-build.mjs`でsize=[8,3,7.5]m、piston stroke8m、collision `push`。設計パラメータのみで、実行47秒のカメラ・OBB分離は未測定。**次工程K4AH**はread-onlyで`movingObstaclePose`と`sphereBoxSeparation`をそのまま使い、元カメラeye・球・OBBの位置関係を2幅比較する。元B51の改造・無断置換は禁止。
+- 元Source Blob `af076d67492a677d2235e4730aef8cdf4808e106`・球/240Hz/カメラ/B48 7/B51 28、Gold/P100/W9-X/B5、main/本番2URL、PR#46 OPEN/Draft未マージ維持。新造形0/Collider0、正式ART採用0件、Slope2 DNA0m、K4/K4R/K4U旧ART REJECT継承、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。Chat/GitHub主体、Work事前承認、ユーザーPC操作不要。
+
+---
 ## 【最新2026-11-03 K4AG B51単体元IDのGPU遮蔽原因調査 — ART HOLD】
 
 - 再開先：研究ブランチ `research/k4ag-b51-individual-occlusion-20261103`。根拠：[K4AG研究正本](docs/R19_A6P4_R2F5K4AG_B51_SOURCE_ID_OCCLUSION_JA.md) → [K4AG元B51個別28×2幅＝56 GPUマスク実測Actions #41552778225](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41552778225)。現在GitHub Actionsで本物のChromium実行中、**全56条件と独立監査が終わるまでK4AG TECH未判定**。
