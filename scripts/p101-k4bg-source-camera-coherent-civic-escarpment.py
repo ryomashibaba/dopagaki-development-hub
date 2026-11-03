@@ -325,8 +325,17 @@ after={m:fp(o) for m,o in src.items()}
 assert before==after and len(authored)>=30
 assert all(tuple(x.name for x in src[m].data.materials)==road_material_ids_before[m] for m in ("control","ultra"))
 def show(mode):
-    for m,o in src.items():o.hide_render=(m!=mode)
+    # K4BE parent was saved after show("control"), so the ULTRA
+    # COLLECTION—not just its individual object—starts render-hidden.
+    # Restore the actual original source layer per mode. Never change
+    # original B48 mesh positions, materials or camera numerics.
+    for m,o in src.items():
+        c=bpy.data.collections.get("K4AY SOURCE B48 | "+m.upper()+" | TRUE TESSELLATED ROAD5")
+        assert c is not None and o.name in {x.name for x in c.objects}
+        c.hide_render=(m!=mode)
+        o.hide_render=False
     for m,c in other.items():c.hide_render=(m!=mode)
+    assert not bpy.data.collections["K4AY SOURCE B48 | "+mode.upper()+" | TRUE TESSELLATED ROAD5"].hide_render
     for c in bpy.data.collections:
         if "K4AY SOURCE B51 OBB PROXIES" in c.name:c.hide_render=True
     bpy.context.view_layer.update()
@@ -364,7 +373,8 @@ report={
  "nativeWebGL2GameRendered":False,
  "newGameDriveableRoadOrCollider":False,
  "independentAllSevenB48B51BVH":"NOT_RUN_HOLD",
- "originalRoad5MaterialBindingUnchanged":True,"ART":"UNJUDGED_HOLD","formalArtAccepted":0,"slope2DNAMetres":0,
+ "originalRoad5MaterialBindingUnchanged":True,
+ "restoredOriginalSourceCollectionVisibilityForEachMode":True,"ART":"UNJUDGED_HOLD","formalArtAccepted":0,"slope2DNAMetres":0,
  "CCD":"HOLD","HUMAN":"HOLD","SAT":"HOLD","FPS":"HOLD",
  "RELEASE":"HOLD","MERGE":"HOLD","files":hashes}
 with open(os.path.join(out,"K4BG_CAMERA_ART_PILOT_PROVENANCE.json"),"w") as f:
