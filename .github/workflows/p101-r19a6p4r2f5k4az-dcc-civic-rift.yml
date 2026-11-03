@@ -1,0 +1,134 @@
+name: DOPAGAKI K4AZ true B48/B51 ART-FIRST editable Blender civic rift recomposition
+on:
+  push:
+    branches:
+      - research/k4az-road5-civic-rift-dcc-recomposition-20261103
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4az-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4az-dcc-civic-rift.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-k4az-source-fixed-art-first-dcc
+  cancel-in-progress: false
+jobs:
+  k4az-genuine-source-bank-architecture-art-hold:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - name: Freeze original game source and isolated K4AZ authoring scripts
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4az-road5-civic-rift-blender.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download frozen successful real-source K4AY DCC parent
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: r19-evidence/k4az-parent-k4ay
+      - name: Validate parent source scene and source original SHA manifest
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path("r19-evidence/k4az-parent-k4ay")
+          j=json.loads((p/"K4AY_BLENDER_CONTEXT_PROVENANCE.json").read_text())
+          assert j["originalSourceBlob"]=="af076d67492a677d2235e4730aef8cdf4808e106"
+          assert j["trueSourceB51Boxes"]==168 and j["renderedSourceCameras"]==6
+          assert j["originalRoad5ImportedFromTrueSourceTessellate"] is True
+          assert j["formalArtAccepted"]==0 and j["ART"]=="REJECT_HOLD"
+          for file,proof in j["files"].items():
+            b=(p/file).read_bytes()
+            assert len(b)==proof["bytes"] and hashlib.sha256(b).hexdigest()==proof["sha256"]
+          a=json.loads((p/"K4AY_TRUE_SOURCE_B48_B51_READONLY.json").read_text())
+          assert a["frozenOriginalGameGitBlob"]==j["originalSourceBlob"]
+          assert a["modes"]["control"]["roadID"]=="p93-PRISM_CREST-01"
+          assert a["modes"]["control"]["originalRoadSourcePointsSHA256"]=="5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730"
+          for mode in ("control","ultra"):
+            assert len(a["modes"][mode]["sourceTimeRecords"])==3
+          print("K4AZ_AUTHENTIC_K4AY_EDITABLE_DCC_PARENT_PINNED_SOURCE_PASS_NOT_NEW_ART_PASS")
+          PY
+      - name: Install genuine Blender and PIL/numpy
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil
+          blender --version | head -3
+      - name: Create dramatically re-authored two-bank civic district, true B48/B51 reference unchanged
+        run: |
+          set -euo pipefail
+          mkdir -p r19-evidence/k4az
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-r19a6p4r2f5k4az-road5-civic-rift-blender.py -- \
+            --base r19-evidence/k4az-parent-k4ay/K4AY_TIDAL_EXCHANGE_WITH_TRUE_B48_B51_REFERENCE.blend \
+            --source r19-evidence/k4az-parent-k4ay/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out r19-evidence/k4az
+      - name: Independent exact-SHA editable art proof and real source pose A/B frame sheets
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageOps,ImageChops,ImageStat,ImageDraw
+          import json,hashlib
+          base=Path("r19-evidence/k4az-parent-k4ay")
+          root=Path("r19-evidence/k4az")
+          report=json.loads((root/"K4AZ_DCC_PROVENANCE_AND_GATE_REPORT.json").read_text())
+          assert report["gitSourceBlob"]=="af076d67492a677d2235e4730aef8cdf4808e106"
+          assert report["trueB48SourceRoadID"]=="p93-PRISM_CREST-01"
+          assert report["road5MeshFingerprintBefore"]==report["road5MeshFingerprintAfter"]
+          assert report["realRoad5MeshVerticesUnchanged"] is True
+          assert report["actualOriginalSourceB48Sections"]==7
+          assert report["actualB51MovingObstacles"]==28
+          assert report["sourceB51OBBInstancesStored"]==168
+          assert len(report["nativeCameraShots"])==6
+          assert report["originalWebGL2PhysicsRun"] is False
+          assert report["originalGameScreenshots"] is False
+          assert report["formalARTAccepted"]==report["Slope2DNAMetres"]==0
+          assert report["ART"]=="REJECT_HOLD"
+          assert all(report[x]=="HOLD" for x in ("HUMAN","SAT","CCD","FPS","RELEASE","MERGE"))
+          for name,proof in report["files"].items():
+            raw=(root/name).read_bytes()
+            assert len(raw)==proof["bytes"]
+            assert hashlib.sha256(raw).hexdigest()==proof["sha256"]
+          assert (root/"K4AZ_CIVIC_RIFT_DCC_GEOMETRY_ONLY.glb").read_bytes()[:4]==b'glTF'
+          sheet=Image.new("RGB",(1120,6*394+385),(23,25,29))
+          pen=ImageDraw.Draw(sheet)
+          changes=[]
+          for idx,shot in enumerate(report["nativeCameraShots"]):
+            mode,tick=shot["mode"],shot["tick"]
+            pre=Image.open(base/("K4AY_DCC_ONLY_"+mode.upper()+"_TICK_"+str(tick)+".png")).convert("RGB")
+            new=Image.open(root/shot["DCCshot"]).convert("RGB")
+            assert new.width>=700 and new.height>=500
+            assert sum(ImageStat.Stat(new).stddev)>15,"blank DCC camera preview"
+            before=pre.resize((538,370))
+            after=new.resize((538,370))
+            x=0;y=idx*394+24
+            pen.text((12,idx*394+5),f"K4AY prior DCC source pose {mode}/{tick}",fill="white")
+            pen.text((570,idx*394+5),f"K4AZ redesign DCC source pose {mode}/{tick}",fill="white")
+            sheet.paste(before,(x,y));sheet.paste(after,(560,y))
+            diff=ImageChops.difference(before,after)
+            fraction=sum(1 for p in diff.resize((107,74)).getdata() if max(p)>20)/(107*74)
+            changes.append({"mode":mode,"tick":tick,"differentPixelsFractionDCCOnly":round(fraction,5)})
+          artist=Image.open(root/"K4AZ_DCC_DESIGN_STUDIO_NOT_GAME.png").convert("RGB")
+          sheet.paste(artist.resize((538,370)),(560,6*394+15))
+          pen.text((12,6*394+5),"ART HOLD / ALL DISPLAYED IMAGES ARE BLENDER - NOT NATIVE WEBGL2",fill="white")
+          sheet.save(root/"K4AZ_SIX_TRUE_POSE_DCC_BEFORE_AFTER_CONTACT_SHEET.png")
+          report["ABRenderChangesNotQualityClaims"]=changes
+          report["jointContactSheet"]="K4AZ_SIX_TRUE_POSE_DCC_BEFORE_AFTER_CONTACT_SHEET.png"
+          (root/"K4AZ_DCC_PROVENANCE_AND_GATE_REPORT.json").write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          print("K4AZ_TRUE_B48_B51_DCC_EDITABLE_RENDERED_BUT_ART_REJECT",json.dumps(changes))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4AZ_CIVIC_RIFT_ARCHITECTURE_DCC_SOURCE_B48_B51_ART_REJECT
+          path: r19-evidence/k4az/
+          if-no-files-found: warn
+          retention-days: 14
