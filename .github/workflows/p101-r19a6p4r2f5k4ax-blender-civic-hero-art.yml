@@ -1,0 +1,89 @@
+name: DOPAGAKI K4AX editable Blender ART-FIRST single Road5 civic HERO source-camera previews
+on:
+  push:
+    branches:
+      - research/k4ax-road5-editable-blender-civic-exchange-20261103
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4ax-*'
+      - 'docs/K4AX_TRUE_SOURCE_ROAD5_CAMERA_REFERENCE_20261103.json'
+      - '.github/workflows/p101-r19a6p4r2f5k4ax-blender-civic-hero-art.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: dopagaki-k4ax-actual-blender-editable-art-first-native-pose
+  cancel-in-progress: false
+jobs:
+  editable-native-blender-source-and-three-source-posed-studio-renders:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protected source and pinned actual source camera evidence
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4ax-blender-editable-tidal-exchange.py
+          python3 - <<'PY'
+          import json
+          p='docs/K4AX_TRUE_SOURCE_ROAD5_CAMERA_REFERENCE_20261103.json'
+          d=json.load(open(p))
+          assert d['schema']=='dopagaki.K4AX.source-true-road5-camera-reference/1'
+          assert d['evidenceSource']['sourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['evidenceSource']['gamePhysicsHz']==240
+          assert d['evidenceSource']['originalB48Roads']==7
+          assert d['evidenceSource']['originalB51MovingObstacles']==28
+          assert [(x['mode'],x['tick']) for x in d['records']]==[
+            ('control',11259),('control',11278),('control',11307),
+            ('ultra',11320),('ultra',11341),('ultra',11369)]
+          PY
+      - name: Install actual Blender and genuine editable material renderer
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+          blender --version | head -3
+      - name: Author real Blender asset, save native editable scene and three source-posed art studio previews
+        run: |
+          mkdir -p r19-evidence/k4ax
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-r19a6p4r2f5k4ax-blender-editable-tidal-exchange.py -- \
+            --cameras docs/K4AX_TRUE_SOURCE_ROAD5_CAMERA_REFERENCE_20261103.json \
+            --output r19-evidence/k4ax
+          test -s r19-evidence/k4ax/K4AX_TIDAL_EXCHANGE_EDITABLE.blend
+          test -s r19-evidence/k4ax/K4AX_TIDAL_EXCHANGE_EDITABLE.glb
+      - name: Audit actual native Blender and source camera art provenance WITHOUT mislabeling as game screenshot
+        run: |
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageStat
+          root=Path('r19-evidence/k4ax')
+          j=json.loads((root/'K4AX_BLENDER_STUDIO_PROVENANCE.json').read_text())
+          assert j['sourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['actualOriginalCameraTicks']==[11259,11278,11307]
+          assert j['renderedFramesAreOriginalGameScreenshots'] is False
+          assert j['renderedFramesAreIndependentBlenderArtPreviews'] is True
+          assert j['originalB48CollisionMeshImported'] is False
+          assert j['originalB51MovingHazardsImported'] is False
+          assert j['sourceOriginalPhysicsOrCameraChanged'] is False
+          assert j['formalArtAccepted']==j['slope2DNAMetres']==0
+          assert j['ART']=='NOT_TESTED_HOLD' and all(j[x]=='HOLD' for x in
+                ('HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
+          assert j['editableBlenderSourceTrue'] and j['meshObjects']>30
+          assert j['physicalMaterialNodeSets']>=10 and j['cameras']==3
+          for name,stamp in j['files'].items():
+            raw=(root/name).read_bytes()
+            assert len(raw)==stamp['bytes'] and hashlib.sha256(raw).hexdigest()==stamp['sha256']
+            if name.endswith('.png'):
+              im=Image.open(root/name).convert('RGB')
+              assert im.width>=700 and im.height>=500
+              assert sum(ImageStat.Stat(im).stddev)>20,('empty camera preview',name)
+          assert (root/'K4AX_TIDAL_EXCHANGE_EDITABLE.glb').read_bytes()[:4]==b'glTF'
+          print('K4AX_REAL_BLEND_NATIVE_SOURCE_CREATED_STUDIO_ART_ONLY_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4AX_EDITABLE_BLENDER_PUBLIC_CIVIC_HERO_THREE_SOURCE_POSES_ART_HOLD
+          path: r19-evidence/k4ax/
+          retention-days: 14
+          if-no-files-found: warn
