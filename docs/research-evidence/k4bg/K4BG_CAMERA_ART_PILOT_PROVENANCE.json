@@ -40,6 +40,7 @@
   "newGameDriveableRoadOrCollider": false,
   "independentAllSevenB48B51BVH": "NOT_RUN_HOLD",
   "originalRoad5MaterialBindingUnchanged": true,
+  "restoredOriginalSourceCollectionVisibilityForEachMode": true,
   "ART": "UNJUDGED_HOLD",
   "formalArtAccepted": 0,
   "slope2DNAMetres": 0,
@@ -51,21 +52,21 @@
   "MERGE": "HOLD",
   "files": {
     "K4BG_CIVIC_ESCARPMENT_EDITABLE_DCC_ART_HOLD.blend": {
-      "sha256": "dbdfa7222e2cec907e92a03f8e0de41a9abd390a46bb9e041695d0abbdd0dd0c",
+      "sha256": "b665c84a88d719c4615638cfeb95ab5fe92a84a3a07d3ebe096dd540dd749b2f",
       "bytes": 40878540
     },
     "K4BG_CONTROL_11307_SOURCE_CAMERA_DCC_ART_UNJUDGED.png": {
-      "sha256": "888020f68f8e33a1d9af3ad12cf1bf87e6bd1ef204233c61e5be3a6b1d98beaf",
-      "bytes": 917767
+      "sha256": "2dedbf7604b25e5f72a5d6f4869838d40739e84ac27e6876bc021ead179207db",
+      "bytes": 917781
     },
     "K4BG_ULTRA_11341_SOURCE_CAMERA_DCC_ART_UNJUDGED.png": {
-      "sha256": "cdbd388f1f895258fbfcddbaae76de7f677d50e5e1b66020af1481c25d0b4af5",
-      "bytes": 982606
+      "sha256": "59939f6630d51a322383f4f95e916d861ada30cb08e7235e481c09c3f29567dd",
+      "bytes": 916402
     }
   },
   "trueSourceCameraComparison": {
     "file": "K4BG_TWO_ORIGINAL_CAMERA_K4BE_VS_NEW_ART_UNJUDGED.png",
-    "bytes": 1997325,
-    "sha256": "a86e0623a9a3f1f1d093f7cefe71c11309b60ace0c97bcad5842bbffef0daf93"
+    "bytes": 1943446,
+    "sha256": "9ee1e9e59dc9ffb6077bf99e6f7150cfa4ca208002fa7963285aa21871d5ecd0"
   }
 }
