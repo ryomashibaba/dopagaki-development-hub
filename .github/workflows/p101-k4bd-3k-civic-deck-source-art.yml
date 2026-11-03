@@ -12,11 +12,11 @@ permissions:
   actions: read
 concurrency:
   group: k4bd-original-road5-3k-source-deck-not-native-game
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   true-camera-real-road5-art-first-dcc:
     runs-on: ubuntu-24.04
-    timeout-minutes: 55
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - name: Frozen source code, Python Blender author syntax, original 7-B48 native source context test
@@ -76,12 +76,12 @@ jobs:
           assert x['modes']['control']['originalRoad5ControlPointsSHA256']==s['modes']['control']['originalRoadSourcePointsSHA256']
           print('K4BD_PINNED_REAL_SOURCE_ALL7_B48_SIX_B51_SHA_AND_ART_REJECT_PASS')
           PY
-      - name: Install Blender 4.0 EEVEE plus numpy PIL, no unsupported OpenImageDenoiser
+      - name: Install Blender 4.0 verified headless Cycles plus numpy PIL
         run: |
           sudo apt-get update -qq
           sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil
           blender -v | head -3
-      - name: Author true source Road5 3K PBR with civic pedestrian edge and 6 clean source Camera poses
+      - name: PILOT two true source-Camera poses and separate B51 original-collision debug
         run: |
           set -euo pipefail
           mkdir -p research/evidence/k4bd/render
@@ -90,7 +90,7 @@ jobs:
             --base research/evidence/k4bd/parent/K4BC_V3_ACTUAL_SOURCE_CAMERA_FRAMED_CITY_EDITABLE_ART_HOLD.blend \
             --original research/evidence/k4bd/native/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
             --all7 research/evidence/k4bd/all7/original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json \
-            --out research/evidence/k4bd/render
+            --out research/evidence/k4bd/render --pilot
       - name: Independently inspect actual 3K PBR PNG RGB, no zeros, true source mesh fingerprint and original camera A/B
         run: |
           set -euo pipefail
@@ -114,7 +114,10 @@ jobs:
           assert j['sourceGameSafetyPaintAndAllPhysicsFilesUnchanged']
           assert j['nativeWebGL2GameFramesRendered'] is False
           assert j['ART']=='REJECT_HOLD' and j['formalArtAccepted']==j['Slope2DNACertifiedMetres']==0
-          assert len(j['originalCameraSixTicks'])==6
+          assert len(j['originalCameraSixTicks'])==2
+          assert j['DCCPreviewOnlyTwoOfSixNativeSourceCameraTicks'] is True
+          assert j['allSixOriginalSourceCamerasRenderedForThisRevision'] is False
+          assert {(r['mode'],r['tick']) for r in j['originalCameraSixTicks']}=={('control',11307),('ultra',11341)}
           assert j['newEditableDccArchitectureObjects']>=90
           for file,stamp in j['files'].items():
               data=(root/file).read_bytes()
@@ -125,7 +128,7 @@ jobs:
               assert img.size==(3072,1536)
               std=sum(ImageStat.Stat(img).stddev)
               assert std>8,(channel,std)
-          page=Image.new('RGB',(1166,6*403+416),(16,19,23))
+          page=Image.new('RGB',(1166,2*403+416),(16,19,23))
           label=ImageDraw.Draw(page)
           for i,r in enumerate(j['originalCameraSixTicks']):
               mode=r['mode'];tick=r['tick'];yy=i*403
@@ -138,15 +141,15 @@ jobs:
               label.text((7,yy+4),f'K4BC v3: original source Camera {mode} {tick} (DCC, B51 cages)',fill='white')
               label.text((597,yy+4),f'K4BD 3K: SAME Camera edited art (DCC, physics cages hidden)',fill='white')
           arr=Image.open(root/'K4BD_CIVIC_DECK_CITY_EDITOR_AERIAL_DCC_NOT_GAME.png').convert('RGB')
-          page.paste(arr.resize((559,374)),(592,6*403+24))
-          label.text((7,6*403+4),'ALL PANELS ARE BLENDER DCC, NOT ORIGINAL WEBGL2 GAME; ART REJECT',fill='white')
-          page.save(root/'K4BD_SIX_TRUE_SOURCE_CAMERA_K4BC_V3_VS_3K_DECK_AB_ART_HOLD.png')
+          page.paste(arr.resize((559,374)),(592,2*403+24))
+          label.text((7,2*403+4),'ALL PANELS ARE BLENDER DCC, NOT ORIGINAL WEBGL2 GAME; ART REJECT',fill='white')
+          page.save(root/'K4BD_PILOT_TWO_TRUE_SOURCE_CAMERA_K4BC_V3_VS_3K_DECK_AB_ART_HOLD.png')
           print('K4BD_3K_PBR_SOURCE_ALL7_CAMERA_ART_DCC_SHA_REAL_PIXELS_TECH_PASS_NOT_ART')
           PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: K4BD_3K_ORIGINAL_ROAD5_CIVIC_DECK_PBR_EDITABLE_DCC_ART_HOLD
+          name: K4BD_3K_ORIGINAL_ROAD5_CIVIC_DECK_PBR_PILOT_EDITABLE_DCC_ART_HOLD
           path: research/evidence/k4bd/render/
           retention-days: 14
           if-no-files-found: warn
