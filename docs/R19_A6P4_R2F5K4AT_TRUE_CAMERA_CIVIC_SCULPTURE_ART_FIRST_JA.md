@@ -34,3 +34,13 @@ K4AT初回Actions [#41595951481](https://github.com/ryomashibaba/dopagaki-develo
 ## 5. 研究運用
 
 新CI実行中のworkflow対象ファイルへの無用なpush禁止。先に結果を読む。Chat＋GitHubで作業し、ZIP・PowerShell等のユーザー側操作を求めない。GitHub START_HEREが次の唯一の入口であり旧チャット長文を再貼り付けさせない。
+
+
+## 2026-11-03 K4AT実装後のソース詳細監査と厳格な修理記録
+
+K4AT初回[#41595951481](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41595951481)は unit 3/5 PASSでfailure。2件の実際の原因：
+- 真B48の全セルがvoidの時、架空の道路を描かない合法な「頂点0」のsourceを不正扱いしていた。no bridgeのまま0頂点に対応するよう変更。次の[#41596237031](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41596237031)では5件中4 PASS。
+- 本物の形状不変チェックのログ `K4AT INVALID_SCULPTURE_PROVENANCE` で、**208,278 floats／9,918 trianglesのうち840 nonfinite**が検出された。更にJSの元site/頂点の不正値を分析し、ねじれたニードルのブロンズ目地で第4頂点だけZ値未指定と確定。 `local(f,vb[0]-off,vb[1]-off)` → `local(f,vb[0]-off,vb[1]-off,vb[2])` に修正（commit `33712f019985699cc5c73e712bf905e8e429ddd9`）。修正後の同じ合成sourcedoc／sampleを使った独立V8関数実行では、**9,918tri／208,278 floats 全有限／B48路面908tri／source doc不変更**。これはゲーム実画面CIのPASSとは別の単体確認。
+- 隔離本命修正後CIは [#41596692908](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41596692908)。最後のAPI確認時**QUEUED**、実RGB／原物理同pose・画面印象・ART判定は未確認。古い失敗runは成功と見なさない。
+
+元source B48／B51／GPU描画の保護、main／本番／PR#46不変更。巨大曲面がscreenに映っても美術合格ではない。**真正AB画像を実際に見る**のが次の最優先。SOURCE TECH可視性が成立しただけなら ART HOLD、低品質ならART REJECT。元K4ASと同じ薄い色替え・単なる巨大な箱の位置交換は禁止。
