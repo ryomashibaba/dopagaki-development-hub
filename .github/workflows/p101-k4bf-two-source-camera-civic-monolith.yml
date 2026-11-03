@@ -12,7 +12,7 @@ permissions:
   actions: read
 concurrency:
   group: dopagaki-k4bf-camera-ground-art-pilot
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   real-camera-editable-art-pilot:
     runs-on: ubuntu-24.04
