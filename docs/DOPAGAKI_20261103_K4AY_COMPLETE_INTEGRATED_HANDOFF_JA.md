@@ -111,3 +111,12 @@ K4AV 6原Camera時点: CONTROL tick11259/11278/11307、ULTRA tick11320/11341/113
 この文書を先頭から読んで**上位方針として固定**し、GitHubのK4AY最新HEAD、PR#46、main以外の参照枝、最新CIを再照合。K4AXの成功Artifact中身を基準にし、K4AY工程（Road5本物のB48/B51をBlender原本へ取り込む）を**本当にコード実装→テスト→GitHub保存**まで進める。成功報告にアートの質とsource TECHの合否を分け、次にユーザーが手動操作しなければならない状況を極力避ける。Workは事前許可まで使わない。
 
 **最後の確定状態**：K4AW SOURCE GPU layer TECH PASS／K4AX Blender DCC GENERATED（CI SUCCESS）だが美術不採用／K4AYブランチ作成済・実装未着手／formal ART=0／Slope2 certified=0m／main・本番・PR#46・元物理未変更。
+
+
+---
+
+## 2026-11-03 K4AY 実コード着手記録（必ずActionsで最終判定）
+
+[実装・テスト・保護契約と次作業の技術正本](docs/R19_A6P4_R2F5K4AY_AUTHENTIC_B48_B51_BLENDER_SOURCE_CONTEXT_JA.md)
+
+研究ブランチでB48 Road5の本物の`sample/frame/tessellate`抽出、control/ultra 6tick×B51 28体source collision OBBの時刻別再現、元K4AX `.blend`の別collectionへ非破壊挿入、6元Camera DCC-only画像生成と独立検証を行うコード・専用CIを追加した。**コードのGitHub保存は完了したが、K4AY Actions #41610821799の実成功／Artifactsは現時点では未確定**。確証のない Blender/ART PASS を絶対に書かない。SRC静的テストのPASSとDCC完成、美術品質を区別する。初回K4AY CI run はworkflow対象外の文書追記でキャンセルしない。正式ART=0・Slope2 DNA=0m・ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD、main・公式継続branch・本番・PR#46・凍結blobは引き続き保護。次はCI実ログ確認と実6DCC画像の厳格な美術評価、必要な抜本造形改修。
