@@ -1,0 +1,38 @@
+{
+  "schema": "dopagaki.K4BD.pinned-two-source-Camera ART-REJECT/1",
+  "trueNativeCameraShots": 2,
+  "remainingFourCameraShots": "NOT_RENDERED_HOLD",
+  "originalWebGL2GameScreenshot": false,
+  "sourcePhysicsUnchanged": true,
+  "ART": "REJECT_HOLD",
+  "images": {
+    "K4BD_PILOT_TWO_SOURCE_CAMERA_AB_ART_REJECT.png": {
+      "sha256": "828f8ceca5354e0921b987259ce99d68b7631452eea34c189ab4a9897e986e85",
+      "bytes": 1522506
+    },
+    "K4BD_REAL_CONTROL_11307_CLEAN_DCC_ART_REJECT.png": {
+      "sha256": "4a50c750fae795c063679b98b0c19e20f3a0f7bf38b43f1a1bf5dd6e88435678",
+      "bytes": 883456
+    },
+    "K4BD_REAL_ULTRA_11341_CLEAN_DCC_ART_REJECT.png": {
+      "sha256": "f60218b2b8071861ff20b2d30ce4e4adde2a606fa6754347b697f8f2125cfd5f",
+      "bytes": 879397
+    },
+    "K4BD_AUTHOR_AERIAL_DCC_NOT_GAME.png": {
+      "sha256": "33879e5d5a5c617cf78b49790f589a822d0e2eb5d9399181e19ce8470ec8c4cf",
+      "bytes": 753310
+    },
+    "K4BD_TRUE_B51_28_BODIES_DEBUG_ULTRA_11341.png": {
+      "sha256": "1ea23ad3b2faf80b4a18751bfda78ec29a8e1fff735b25cb713f9b50dfd80afe",
+      "bytes": 920823
+    },
+    "K4BD_3K_TRUE_ROAD5_PBR_ALBEDO_DCC_ONLY.png": {
+      "sha256": "c98ac0756cd3f33b83edaac36458cf4d92aaab66e6ea3107bd043adb943cef2e",
+      "bytes": 5508749
+    },
+    "K4BD_3K_PBR_SOURCE_SHA_ART_REJECT_PROVENANCE.json": {
+      "sha256": "55159f9694cd7815f7022d9bb657bde53fda9d07b03b9cc73c2debc67f267da6",
+      "bytes": 4195
+    }
+  }
+}

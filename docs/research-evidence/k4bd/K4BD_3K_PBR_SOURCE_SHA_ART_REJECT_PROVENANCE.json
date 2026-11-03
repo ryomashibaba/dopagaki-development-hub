@@ -1,0 +1,104 @@
+{
+  "schema": "dopagaki.K4BD.art-first-full-frame-source-road5-civic-deck/1",
+  "originalFrozenWebGL2GameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "sourceB48OriginalRoadCount": 7,
+  "sourceB51MovingObstacleCount": 28,
+  "sourcePhysicsHz": 240,
+  "sourceRadiusMetres": 0.65,
+  "originalCameraNumericsUnchanged": true,
+  "originalCameraSixTicks": [
+    {
+      "mode": "control",
+      "tick": 11307,
+      "nativeSourceTime": 47.1125,
+      "sourceOriginalWebGL2ScreenshotSHA": "ffb85461e76f15d96831bdb8f89c5bd2fe18817b435ce2f1cf854807709b1558",
+      "originalB51ProxyVisibleInArt": false,
+      "DCCImage": "K4BD_TRUE_SOURCE_CAMERA_CLEAN_EDITORIAL_CONTROL_11307.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "nativeSourceTime": 47.25416666666667,
+      "sourceOriginalWebGL2ScreenshotSHA": "fe22062d3bf0abd764448d9b6b8d52a55f24ff84e7ee79b6fe04f674427861dc",
+      "originalB51ProxyVisibleInArt": false,
+      "DCCImage": "K4BD_TRUE_SOURCE_CAMERA_CLEAN_EDITORIAL_ULTRA_11341.png"
+    }
+  ],
+  "DCCPreviewOnlyTwoOfSixNativeSourceCameraTicks": true,
+  "allSixOriginalSourceCamerasRenderedForThisRevision": false,
+  "originalRoad5TrueSourceTriangleCount": 4728,
+  "originalRoad5GeometryBefore": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "originalRoad5GeometryAfter": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "realB48Road5GeometryPreserved": true,
+  "originalOtherSixB48RoadsPerModePreserved": true,
+  "originalSourceB51SixTimes28PhysicsProxyPreserved": true,
+  "DCCArtRendersWithoutNonvisualB51Cages": true,
+  "DCCOneSeparateDebugImageWithSourceB51Cages": true,
+  "sourceRoad5PBR3K": [
+    3072,
+    1536
+  ],
+  "PBRImagesThreeNonzero": true,
+  "roadstonePBRAlbedoAndRoughnessAreBlenderOnly": true,
+  "newVisualNonCollisionRoadInlayCount": 52,
+  "offroadPedestrianContinuousTerraces": 2,
+  "newEditableDccArchitectureObjects": 99,
+  "deepSeaBelowAllSourceRoadsZ": -140,
+  "noNewGameDriveableRoadOrGameColliders": true,
+  "sourceGameSafetyPaintAndAllPhysicsFilesUnchanged": true,
+  "nativeWebGL2GameFramesRendered": false,
+  "independentFull7B48B51CollisionBVH": "NOT_YET_TESTED_HOLD",
+  "ART": "REJECT_HOLD",
+  "formalArtAccepted": 0,
+  "Slope2DNACertifiedMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BD_SOURCE_ROAD5_3K_PBR_PEDESTRIAN_ARRIVAL_EDITABLE_ART_HOLD.blend": {
+      "bytes": 43325348,
+      "sha256": "2ca43300c3cb897e9895319dc940022d9f4accaeeebe7a09a21c14b7321bc9eb"
+    },
+    "K4BD_ORIGINAL_ALL7_CIVIC_DECK_ART_STUDY_NOT_GAME.glb": {
+      "bytes": 28254748,
+      "sha256": "8494357c3fd9d347aed06bf3aca1f3b0a4f8beb34f10f5c73cfd10652c75f81e"
+    },
+    "K4BD_ORIGINAL_SOURCE_B51_28_OBB_EDITOR_DEBUG_ULTRA_11341.png": {
+      "bytes": 920823,
+      "sha256": "1ea23ad3b2faf80b4a18751bfda78ec29a8e1fff735b25cb713f9b50dfd80afe"
+    },
+    "K4BD_CIVIC_DECK_CITY_EDITOR_AERIAL_DCC_NOT_GAME.png": {
+      "bytes": 753310,
+      "sha256": "33879e5d5a5c617cf78b49790f589a822d0e2eb5d9399181e19ce8470ec8c4cf"
+    },
+    "K4BD_TRUE_SOURCE_CAMERA_CLEAN_EDITORIAL_CONTROL_11307.png": {
+      "bytes": 883456,
+      "sha256": "4a50c750fae795c063679b98b0c19e20f3a0f7bf38b43f1a1bf5dd6e88435678"
+    },
+    "K4BD_TRUE_SOURCE_CAMERA_CLEAN_EDITORIAL_ULTRA_11341.png": {
+      "bytes": 879397,
+      "sha256": "f60218b2b8071861ff20b2d30ce4e4adde2a606fa6754347b697f8f2125cfd5f"
+    },
+    "K4BD_3K_REAL_SOURCE_ROAD5_CIVIC_BASALT_ALBEDO.png": {
+      "bytes": 5508749,
+      "sha256": "c98ac0756cd3f33b83edaac36458cf4d92aaab66e6ea3107bd043adb943cef2e"
+    },
+    "K4BD_3K_REAL_SOURCE_ROAD5_CIVIC_BASALT_ROUGHNESS.png": {
+      "bytes": 3336889,
+      "sha256": "62dcd9375430ce0793f85015332439af62a556773ede78cbb3bcb203585c2daf"
+    },
+    "K4BD_3K_REAL_SOURCE_ROAD5_CIVIC_BASALT_HEIGHT.png": {
+      "bytes": 2166028,
+      "sha256": "defebaa9fb156e5fdd972211c11a0fa8959275b2c214ec2b4ecfc6097e5c1e15"
+    }
+  }
+}
