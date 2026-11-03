@@ -228,11 +228,15 @@ export function buildK4ATCivicCanyon(doc,sample,{enabled=false}={}){
    side:site.side});
  }
  const triangles=v.length/21;
+ const firstBad=v.findIndex(x=>!Number.isFinite(x));
  if(!Number.isInteger(triangles)||triangles<1000||triangles>90000||
     v.some(x=>!Number.isFinite(x))||JSON.stringify(doc)!==unchanged)
   throw Error('K4AT INVALID_SCULPTURE_PROVENANCE '+JSON.stringify({
    length:v.length,triangles,integer:Number.isInteger(triangles),
    nonfinite:v.filter(x=>!Number.isFinite(x)).length,
+   firstBad,firstBadValue:firstBad<0?null:String(v[firstBad]),
+   firstBadTriangle:Math.floor(firstBad/21),
+   firstBadSite:programs.filter(p=>p.roadU!==undefined).map(p=>({u:p.roadU,side:p.side,triangles:p.triangles})),
    mutated:JSON.stringify(doc)!==unchanged}));
  return {active:true,vertices:v,triangles,programs,
    anchorU:target.u,anchorRoadXYDistance:target.distance,
