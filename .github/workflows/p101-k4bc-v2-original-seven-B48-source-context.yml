@@ -1,0 +1,165 @@
+name: DOPAGAKI K4BC v2 exact all-seven original B48 source roads contextual DCC review
+on:
+  push:
+    branches:
+      - research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
+    paths:
+      - 'scripts/p101-k4bc-export-all-seven-original-B48-source-readonly.mjs'
+      - 'scripts/p101-k4bc-all-seven-real-B48-Blender-context.py'
+      - '.github/workflows/p101-k4bc-v2-original-seven-B48-source-context.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4bc-original-B48-seven-roads-no-fabricated-road
+  cancel-in-progress: false
+jobs:
+  all-seven-original-source-only-native-tessellation-and-camera:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - name: Freeze original game blob and validate two new authoring source scripts
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-k4bc-export-all-seven-original-B48-source-readonly.mjs
+          python3 -m py_compile scripts/p101-k4bc-all-seven-real-B48-Blender-context.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download proven K4BC editable art with only Road5 source physics referenced
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BC_EDITABLE_SOURCE_B48_B51_ORIGINAL_CAMERA_MONUMENTAL_CIVIC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41636914845
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-v2/art-parent
+      - name: Download exact K4AY original Road5 and six true source B51 collision ticks
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-v2/source
+      - name: Confirm parent SHA and true native Road5 mesh unchanged
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path('research/evidence/k4bc-v2/art-parent')
+          j=json.loads((p/'K4BC_TRUE_SOURCE_CIVIC_ART_HOLD_PROVENANCE.json').read_text())
+          assert j['originalFrozenWebGLBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalB48GeometryUnchanged']
+          assert j['trueOriginalB48MeshGeometryBefore']==j['trueOriginalB48MeshGeometryAfter']
+          assert j['sourceCameraNumericsUntouched']
+          assert j['exactNativeB51PhysicalCollisionOBBFrames']==168
+          assert j['sourceB48Road5Triangles']==4728
+          assert j['ART']=='REJECT_HOLD' and j['formalARTAccepted']==0
+          for fn,v in j['files'].items():
+              raw=(p/fn).read_bytes()
+              assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+          print('K4BC_V2_PARENT_SOURCE_CAMERA_SHA_6_SHOTS_VERIFIED')
+          PY
+      - name: Generate read-only ALL SEVEN true control + ultra native B48 mesh arrays from unchanged source stage
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bc-v2/original-all7
+          node scripts/p101-k4bc-export-all-seven-original-B48-source-readonly.mjs \
+            --k4ay research/evidence/k4bc-v2/source/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out research/evidence/k4bc-v2/original-all7
+      - name: Verify original native road IDs and Road5 exact SHA, all 7 stages source
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('research/evidence/k4bc-v2/original-all7')
+          x=json.loads((p/'K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json').read_text())
+          y=json.loads((p/'K4BC_ALL7_B48_ORIGINAL_SURFACE_SOURCE_AUDIT.json').read_text())
+          assert x['frozenOriginalGameGitBlob']==y['sourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert x['B48SurfaceCount']==7 and x['sourcePhysicsHz']==240
+          assert x['originalB51MovingBodies']==28
+          assert x['sourcePhysicsOrCollisionChanged'] is False
+          assert x['readonlyNoNativeGameWrites']
+          ids=['p93-ABYSS_DIVE-01','p93-CROWN_REVERSAL-01',
+               'p93-SCISSOR_RISE-01','p93-LOWER_REVERSAL-01',
+               'p93-VOID_SURGE-01','p93-PRISM_CREST-01','p93-FINISH_RIDGE-01']
+          for mode in ('control','ultra'):
+              m=x['modes'][mode]
+              assert m['allSourceSurfaceIDs']==ids
+              assert len(m['B48SourceRoads'])==7
+              assert m['originalRoad5Triangles']==4728
+              assert m['originalRoad5ControlPointsSHA256']=='5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730'
+              assert all(v['trueTriangles']>0 and v['trueVertices']>0 for v in m['B48SourceRoads'])
+              assert all(v['trianglesComeFromNativeTessellate'] for v in m['B48SourceRoads'])
+              assert all(v['originalTriangleIndexSHA256'] for v in m['B48SourceRoads'])
+          print('K4BC_V2_ALL_SEVEN_EXACT_NATIVE_ORIGINAL_B48_SOURCE_MESHES_READONLY_PASS')
+          PY
+      - name: Install Blender original physics source DCC and image compare dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil
+      - name: Render six native Camera poses with REAL all-seven B48 source roads, not fake Road6
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bc-v2/rendered
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bc-all-seven-real-B48-Blender-context.py -- \
+            --base research/evidence/k4bc-v2/art-parent/K4BC_SOURCE_CAMERA_CIVIC_RECOMPOSITION_EDITABLE_ART_REJECT_HOLD.blend \
+            --original research/evidence/k4bc-v2/source/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --all7 research/evidence/k4bc-v2/original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json \
+            --out research/evidence/k4bc-v2/rendered
+      - name: SHA / exact source 7 roads / true B48 Road5 4728 triangles and camera A/B
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageStat
+          import json,hashlib
+          base=Path('research/evidence/k4bc-v2/art-parent')
+          out=Path('research/evidence/k4bc-v2/rendered')
+          j=json.loads((out/'K4BC_V2_TRUE_ALL7_B48_SOURCE_PROVENANCE.json').read_text())
+          assert j['originalGameFrozenBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalSourceB48Roads']==7 and j['originalSourceB51MovingObstacles']==28
+          assert j['originalB48Road5MeshFingerprintsBefore']==j['originalB48Road5MeshFingerprintsAfter']
+          assert j['trueOriginalOtherB48RoadsImported']==12
+          assert [x for x in j['originalB48RoadIDs'] if 'PRISM_CREST' in x]==['p93-PRISM_CREST-01']
+          assert j['sourceOriginalB51CollisionOBBSnapshotInstances']==168
+          assert j['originalSixSourceCameraNumericUnchanged'] is True
+          assert j['originalNativeGameWebGL2Screenshots'] is False
+          assert j['sourceTrueRoadGeometryManufacturedOrModified'] is False
+          assert j['newOriginalGameColliders']==0
+          assert j['ART']=='REJECT_HOLD' and j['formalArtAccepted']==j['Slope2DNACertifiedMetres']==0
+          assert len(j['sourceOtherRoadsAndMeshes'])==12 and len(j['trueSourceCameraDCCImages'])==6
+          for name,v in j['files'].items():
+              raw=(out/name).read_bytes()
+              assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+          assert (out/'K4BC_V2_ORIGINAL_ALL_SEVEN_B48_DCC_ONLY_NOT_GAME.glb').read_bytes()[:4]==b'glTF'
+          sheet=Image.new('RGB',(1186,6*411+420),(17,19,25))
+          draw=ImageDraw.Draw(sheet)
+          for i,x in enumerate(j['trueSourceCameraDCCImages']):
+              mode=x['mode'];tick=x['sourceNativeTick'];yy=i*411
+              a=Image.open(base/f'K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_{mode.upper()}_{tick}.png').convert('RGB')
+              b=Image.open(out/x['DCCimage']).convert('RGB')
+              assert b.width>=700 and b.height>=500 and sum(ImageStat.Stat(b).stddev)>12
+              sheet.paste(a.resize((561,379)),(0,yy+24))
+              sheet.paste(b.resize((561,379)),(600,yy+24))
+              draw.text((8,yy+5),f'K4BC v1: ONLY SOURCE ROAD5 / {mode} {tick}',fill='white')
+              draw.text((605,yy+5),f'K4BC v2: ACTUAL ALL SEVEN SOURCE B48 / {mode} {tick}',fill='white')
+          ar=Image.open(out/'K4BC_V2_ALL_SEVEN_SOURCE_B48_AERIAL_STUDIO_DCC_NOT_GAME.png').convert('RGB')
+          sheet.paste(ar.resize((561,379)),(600,6*411+24))
+          draw.text((8,6*411+5),'REAL B48 MESHES, DCC RENDERS ONLY; NOT ORIGINAL WEBGL2 OR ART PASS',fill='white')
+          sheet.save(out/'K4BC_V2_SIX_GENUINE_SOURCE_POSE_ONE_VS_SEVEN_B48_AB.png')
+          print('K4BC_V2_TRUE_SOURCE_SEVEN_B48_GEOMETRY_AND_SIX_CAMERA_DCC_TECH_PASS_ART_STILL_REJECT')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BC_V2_REAL_ALL_SEVEN_ORIGINAL_B48_EDITABLE_SOURCE_CAMERA_DCC_ART_HOLD
+          path: |
+            research/evidence/k4bc-v2/rendered/
+            research/evidence/k4bc-v2/original-all7/
+          retention-days: 14
+          if-no-files-found: warn
