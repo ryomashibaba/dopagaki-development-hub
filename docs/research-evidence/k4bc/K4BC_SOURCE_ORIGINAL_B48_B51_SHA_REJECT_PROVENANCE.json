@@ -1,0 +1,140 @@
+{
+  "schema": "dopagaki.K4BC.authentic-source-numeric-camera-section-architecture/1",
+  "originalFrozenWebGLBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalB48RoadCount": 7,
+  "originalB51Movers": 28,
+  "originalPhysicalRoad5ID": "p93-PRISM_CREST-01",
+  "sourceB48Road5Triangles": 4728,
+  "sourceRoad5ControlPointsSHA": "5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730",
+  "trueOriginalB48MeshGeometryBefore": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "trueOriginalB48MeshGeometryAfter": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "originalB48GeometryUnchanged": true,
+  "sourceCameraNumericsUntouched": true,
+  "exactNativeB51PhysicalCollisionOBBFrames": 168,
+  "baseK4BBRoadMaterialPBR_UV_Preserved": true,
+  "oldRejectionBlenderCollectionsEditableHidden": [
+    "K4BA 01 | GEOGRAPHY and off-road landforms",
+    "K4BA 02 | CITY roof shells and civic section",
+    "K4BA 03 | PUBLIC galleries and real open rooms",
+    "K4BA 04 | TIDAL MERIDIAN observatory and skyline",
+    "K4BA 05 | public gardens water humans",
+    "K4BA 06 | noncollision ROAD MATERIAL STUDY ONLY",
+    "K4BA 07 | physically authored lights",
+    "K4BB 01 | Deep inhabited civic interiors - editable rooms",
+    "K4BB 02 | True civic service atria and supports",
+    "K4BB 03 | Function and human-scale furnishings",
+    "K4BB 04 | Inhabited light and facade hierarchy",
+    "K4BB 05 | Studio only human-eye architectural review"
+  ],
+  "newArchitectureMeshAndBeamCount": 415,
+  "roadSeamsAreNoncollisionDccOnly": true,
+  "noInventedDrivableRoadBeyondRealSourceEnd": true,
+  "sourceCameraDccRenders": [
+    {
+      "mode": "control",
+      "sourceTick": 11259,
+      "nativeSourceSeconds": 46.9125,
+      "sourceScreenshotSHA": "6269eb803a2cb46c9c18a9a4b510aeb121d6c8daa7e8074776a2442199d65891",
+      "exactSourceB51OBBCount": 28,
+      "DCCimage": "K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_CONTROL_11259.png"
+    },
+    {
+      "mode": "control",
+      "sourceTick": 11278,
+      "nativeSourceSeconds": 46.99166666666667,
+      "sourceScreenshotSHA": "8075dceb4e656cf36aed98aa1ce3e50fbebd5781e6a0ee114f14c889db8b9cb3",
+      "exactSourceB51OBBCount": 28,
+      "DCCimage": "K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_CONTROL_11278.png"
+    },
+    {
+      "mode": "control",
+      "sourceTick": 11307,
+      "nativeSourceSeconds": 47.1125,
+      "sourceScreenshotSHA": "ffb85461e76f15d96831bdb8f89c5bd2fe18817b435ce2f1cf854807709b1558",
+      "exactSourceB51OBBCount": 28,
+      "DCCimage": "K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_CONTROL_11307.png"
+    },
+    {
+      "mode": "ultra",
+      "sourceTick": 11320,
+      "nativeSourceSeconds": 47.166666666666664,
+      "sourceScreenshotSHA": "d1719df89cee4c1af300187c874de6fdf365203d20d8869e06a52205755ea9ed",
+      "exactSourceB51OBBCount": 28,
+      "DCCimage": "K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_ULTRA_11320.png"
+    },
+    {
+      "mode": "ultra",
+      "sourceTick": 11341,
+      "nativeSourceSeconds": 47.25416666666667,
+      "sourceScreenshotSHA": "fe22062d3bf0abd764448d9b6b8d52a55f24ff84e7ee79b6fe04f674427861dc",
+      "exactSourceB51OBBCount": 28,
+      "DCCimage": "K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_ULTRA_11341.png"
+    },
+    {
+      "mode": "ultra",
+      "sourceTick": 11369,
+      "nativeSourceSeconds": 47.37083333333333,
+      "sourceScreenshotSHA": "fd5895bff1142e24dbfb3df84bf3f5dc9c6fff43db8cc508ffc1c985e73a5471",
+      "exactSourceB51OBBCount": 28,
+      "DCCimage": "K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_ULTRA_11369.png"
+    }
+  ],
+  "nativeWebGL2GameScreenshot": false,
+  "originalGamePhysicsActuallyRun": false,
+  "independentNewArchitectureB48B51BVH": "NOT_YET_TESTED_HOLD",
+  "wholeGameOtherRoadCollisionClearance": "NOT_TESTED_HOLD",
+  "newSourceGameColliders": false,
+  "formalARTAccepted": 0,
+  "Slope2DNACertifiedMetres": 0,
+  "ART": "REJECT_HOLD",
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BC_SOURCE_CAMERA_CIVIC_RECOMPOSITION_EDITABLE_ART_REJECT_HOLD.blend": {
+      "bytes": 26368564,
+      "sha256": "9d5bda7f68b6035391c76429fa5e528a61a8037c0b3e8a3676ec17fdf7424625"
+    },
+    "K4BC_ARCHITECTURE_NOT_GAME_DCC_VISUAL_RESEARCH.glb": {
+      "bytes": 17057812,
+      "sha256": "3739b7bccb9bc9536b0b594323ccc18fe45d022aacf595f62b07558fdd59c7c3"
+    },
+    "K4BC_INHABITED_CIVIC_QUARTER_AERIAL_DCC_NOT_GAME.png": {
+      "bytes": 894689,
+      "sha256": "ce19a2d77418943e7bd4b6dad05af4e49ab14219c644661a7f55e8ac9ae5bf15"
+    },
+    "K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_CONTROL_11259.png": {
+      "bytes": 1272148,
+      "sha256": "100746c67630a4d60d6554710798e6e4da3c8558cd796ea5912655890fd13a82"
+    },
+    "K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_CONTROL_11278.png": {
+      "bytes": 1186614,
+      "sha256": "96ade8d744091ffe2d05ec9f925d75876a1da54ecade5bb4814160eb58a1bc82"
+    },
+    "K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_CONTROL_11307.png": {
+      "bytes": 1246869,
+      "sha256": "7dabe8d32b6c484aa86cd30c6bcde0b2cdbceea7e92d706bfb4f77eebbf48cdb"
+    },
+    "K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_ULTRA_11320.png": {
+      "bytes": 1278229,
+      "sha256": "55f868abb5c4d10bff19e3477e7b5cf561381abd67968617ecd72f5e37f7ce07"
+    },
+    "K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_ULTRA_11341.png": {
+      "bytes": 1282769,
+      "sha256": "17b4db74ff9878121e9fdb7fd8d61bd9d39803e958a0a942496f4599146eb76b"
+    },
+    "K4BC_AUTHENTIC_SOURCE_NUMERIC_DCC_ULTRA_11369.png": {
+      "bytes": 1246885,
+      "sha256": "b5649004146d41736d7f8e03d2d1395f121840ade0eb46a68cb38f559584fac7"
+    }
+  }
+}
