@@ -285,12 +285,15 @@ def show(mode,tick,debug=False):
     for m,c in other.items():c.hide_render=m!=mode
     for (m,t),c in proxy.items():c.hide_render=not(debug and (m,t)==(mode,tick))
     bpy.context.view_layer.update()
-scene.render.engine="BLENDER_EEVEE" # supported by Ubuntu Blender 4.0.2
-try:scene.eevee.taa_render_samples=192
-except Exception:pass
+# Headless GitHub Ubuntu Blender lacks libEGL.so.1; EEVEE aborts (exit 134).
+# Use verified CPU Cycles and higher truthful samples. Never call a failed EEVEE
+# test a successful beauty render or silently lower art gate.
+scene.render.engine="CYCLES"
+scene.cycles.samples=112
+scene.cycles.use_denoising=False
 scene.render.resolution_x=1013
 scene.render.resolution_y=698
-scene.render.resolution_percentage=90
+scene.render.resolution_percentage=88
 scene.render.image_settings.file_format="PNG"
 scene.view_settings.exposure=-.45
 try:scene.view_settings.view_transform="Filmic"
