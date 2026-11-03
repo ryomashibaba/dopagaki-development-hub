@@ -1,3 +1,16 @@
+# 【最新 2026-11-03 K4BB 継続入口】Road5本物のUV-PBR路面・居住性のある公共建築内部
+
+**旧K4BA/K4AZ/K4AYの「最新」は歴史資料。最優先は以下のK4BB現研究枝と[完全方針・実装正本](docs/R19_A6P4_R2F5K4BB_TRUE_B48_ROAD_PBR_INHABITED_CIVIC_JA.md)。**
+
+- 最新研究枝 `research/k4bb-road5-pbr-civic-interiors-20261103`、K4BA最終HEAD `bb7ea19ec05bc05ddad54a51faeb69f302656f0e`から派生。main・production・`p101-velocity-overdrive-native-trial`・Draft PR #46不変更。
+- K4BA v2編集可能source DCC [Actions #41625837609](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41625837609) SUCCESS、K4BA v2独立Road5/B51静的BVH [#41626249550](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41626249550) SUCCESS（限定範囲のみ）、**美術は正式ART REJECT**。現在の本物の6Camera新旧比較は [K4BA画像](docs/research-evidence/k4ba/K4BA_V2_SIX_TRUE_NUMERIC_SOURCE_CAMERA_K4AZ_AB_ART_REJECT.png)。
+- **K4BB真正次工程**：元Road5の本当のB48 physical meshesを絶対に動かさずに、2K Albedo/Roughness/Height 3map、格子91x13に対応するBlender UV、編集可能な4種の用途別公共室を新コレクションに実制作。元本物のSourceCamera control11259/11278/11307、ultra11320/11341/11369で6 DCC画像＋artist aerial＋人間視点を作り、前工程同poseと厳格比較する。Road5源7道路28 B51 240Hzはすべて不変。Blender DCCは真正WebGL2ではない。
+- 実コード [K4BB制作器](scripts/p101-k4bb-source-road5-pbr-civic-interiors.py)／[Blender Actions](.github/workflows/p101-k4bb-source-pbr-civic-rooms.yml)／[K4BB追加室の独立BVH](research/k4bb/independent_new_interiors_native_b48_b51_bvh.py)。**まだ完成CI結果を確認するまではK4BBの結果をSUCCESSと断言しないこと**。新画像、SHA、実BVHログを真の証拠で検証してから正本更新。新たな原source衝突判定は何も認証しない。
+- 最優先は世界水準の**全画面美術品質**。路面画像の色が変わるだけ／細い線が増える／CI GREENだけではART不合格。Source画面の本物のP100/B5安全表示の色を勝手に無断変更しない。元凍結blob `af076d67492a677d2235e4730aef8cdf4808e106`、元球半径0.65m、camera/240Hz/B48七/B51二十八/衝突/操作厳守。
+- 正式ART 0件、Slope2 DNA 0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。Work事前承認／ユーザーPC操作ゼロを優先。
+
+---
+
 # 【最新・2026-11-03 K4BA 継続入口】Tidal Commons 真Road5全画面美術
 
 **この上段を過去の旧「最新」より優先し、[K4BA正本](docs/R19_A6P4_R2F5K4BA_TIDAL_COMMONS_WHOLE_SCREEN_ART_REBUILD_JA.md)から引き継ぐ。**
