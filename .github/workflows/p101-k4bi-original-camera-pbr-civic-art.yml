@@ -1,0 +1,130 @@
+name: DOPAGAKI K4BI original-camera premium road and civic facade DCC ART HOLD
+on:
+  push:
+    branches:
+      - research/k4bi-road-surface-facade-craft-20261104
+    paths:
+      - scripts/p101-k4bi-road-surface-civic-facade-craft.py
+      - .github/workflows/p101-k4bi-original-camera-pbr-civic-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bi-two-source-camera-art
+  cancel-in-progress: true
+jobs:
+  genuine-source-camera-editable-dcc:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect main and frozen source before source DCC study
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "research/k4bi-road-surface-facade-craft-20261104"
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bi-road-surface-civic-facade-craft.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Get exact parent K4BH source camera original editable DCC artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BH_TRUE_SOURCE_CAMERA_EDITABLE_CINEMATIC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41732617047
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bi/parent
+      - name: Verify parent K4BH provenances all exact source hashes
+        run: |
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path('research/evidence/k4bi/parent')
+          j=json.loads((p/'K4BH_SOURCE_CAMERA_PROVENANCE.json').read_text())
+          assert j['frozenOriginalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['road5SourceFingerprintPreserved'] and j['sourceCameraNumericsPreserved']
+          assert j['original7B48And28B51PhysicsUnchanged']
+          assert j['formalARTAccepted']==0 and j['slope2DNAmetres']==0
+          for fn,entry in j['files'].items():
+              data=(p/fn).read_bytes()
+              assert len(data)==entry['bytes']
+              assert hashlib.sha256(data).hexdigest()==entry['sha256'],fn
+          assert j['files']['K4BH_SCULPTED_SEA_GATE_EDITABLE_HERO_ART_HOLD.blend']['sha256']=='6e1251b08c37d67b6c87d450d616afd2485572aa94d1491e8395599c8c042796'
+          print('K4BI_K4BH_PARENT_BYTES_SOURCE_PASS_NOT_ART_PASS')
+          PY
+      - name: Native Blender and Pillow required for actual source-camera render
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+      - name: Physically craft DCC shader and deep civic facade; render 2 true poses
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bi/render
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bi-road-surface-civic-facade-craft.py -- \
+            --base research/evidence/k4bi/parent/K4BH_SCULPTED_SEA_GATE_EDITABLE_HERO_ART_HOLD.blend \
+            --out research/evidence/k4bi/render
+      - name: Independently verify output .blend, images, frozen poses and comparison
+        run: |
+          /usr/bin/python3 - <<'PY'
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          from pathlib import Path
+          import json,hashlib
+          d=Path('research/evidence/k4bi/render')
+          p=Path('research/evidence/k4bi/parent')
+          j=json.loads((d/'K4BI_ORIGINAL_SOURCE_CAMERA_DCC_PROVENANCE.json').read_text())
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusMetres']==.65
+          assert j['originalB48Roads']==7 and j['originalB51Movers']==28
+          assert j['originalRoad5VertexPolygonFingerprintUnchanged'] and j['sourceCameraNumericsUnchanged']
+          assert j['newPlayableColliders']==0 and j['roadShaderArtOnlyNotPhysicalRoad']
+          assert j['ART']=='UNJUDGED_HOLD' and j['formalARTAccepted']==0 and j['slope2DNAmetres']==0
+          assert not j['webglFrames'] and j['SAT']=='HOLD'
+          for fn,meta in j['files'].items():
+              raw=(d/fn).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],fn
+          canvas=Image.new('RGB',(2048,1420),(16,18,21))
+          pen=ImageDraw.Draw(canvas)
+          shots=j['twoOriginalSourceCameraDCCScreenshots']
+          assert len(shots)==2
+          for i,v in enumerate(shots):
+              m=v['mode'];tick=v['tick']
+              a=Image.open(p/f'K4BH_{m.upper()}_{tick}_ORIGINAL_CAMERA_DCC_ART_HOLD.png').convert('RGB').resize((990,660))
+              b=Image.open(d/v['file']).convert('RGB').resize((990,660))
+              assert sum(ImageStat.Stat(b).stddev)>15
+              assert ImageChops.difference(a,b).getbbox() is not None
+              canvas.paste(a,(24,36+i*708))
+              canvas.paste(b,(1035,36+i*708))
+              pen.text((24,12+i*708),f'K4BH REJECTED SOURCE DCC / {m} {tick}',fill=(255,255,255))
+              pen.text((1035,12+i*708),f'K4BI CANDIDATE SOURCE DCC / {m} {tick} NOT WEBGL',fill=(255,255,255))
+          fn='K4BI_ORIGINAL_CAMERA_K4BH_VS_NEW_ART_REVIEW_NOT_GAME.png'
+          canvas.save(d/fn)
+          raw=(d/fn).read_bytes()
+          j['independentAB']={'file':fn,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+          (d/'K4BI_ORIGINAL_SOURCE_CAMERA_DCC_PROVENANCE.json').write_text(json.dumps(j,indent=2))
+          print('K4BI_REAL_TWO_CAMERA_RGB_AND_NATIVE_BLEND_HASH_PASS_NOT_ART_PASS')
+          PY
+      - name: Research-branch-only image proof saved on GitHub
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bi-road-surface-facade-craft-20261104
+          mkdir -p docs/research-evidence/k4bi
+          cp research/evidence/k4bi/render/K4BI_*_ORIGINAL_CAMERA_ART_UNJUDGED.png docs/research-evidence/k4bi/
+          cp research/evidence/k4bi/render/K4BI_ORIGINAL_CAMERA_K4BH_VS_NEW_ART_REVIEW_NOT_GAME.png docs/research-evidence/k4bi/
+          cp research/evidence/k4bi/render/K4BI_ORIGINAL_SOURCE_CAMERA_DCC_PROVENANCE.json docs/research-evidence/k4bi/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4bi
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bi): native Blender source-camera 2-frame ART UNJUDGED audit"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bi-road-surface-facade-craft-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BI_GENUINE_SOURCE_CAMERA_EDITABLE_PBR_FACADE_ART_HOLD
+          path: research/evidence/k4bi/render/
+          retention-days: 14
+          if-no-files-found: warn
