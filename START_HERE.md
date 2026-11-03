@@ -133,3 +133,12 @@ main・本番・元source blob af076d67492a677d2235e4730aef8cdf4808e106・元Cam
 K4AUは街区の量産を一旦やめ、**元の実物B48道路と元B51実動体28の原VBO/姿勢を変えず**、同じ原Camera WebGL2に面法線によるライティング・金属表面ノイズ・石材/アスファルト微細質感・パネル目地・実警告の赤/琥珀/紫を実装する。独立起動 `k4aq=on&k4as=materials&k4at=on&k4au=on` のみ、元ART候補とのnative 6時点×2=12真正source PNGを比較。試験はsource改変拒否／元球/camera/B48/B51検証／実GPUコンパイルと独立PNG画素監査。最初の専用 [CI #41598855479](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41598855479) は作成時QUEUED。**実際の新GPU成功/ART改善は未検証、次担当が最新run/jobs/Artifactを読む**。失敗ならログ原因を最小修正、成功なら本物の12画像を目視して美術の結果を厳しく判定する。
 
 不変：元物理240Hz／0.65m球／実B48七章/B51 28／元カメラ・当たり判定／source blob af076d67492a677d2235e4730aef8cdf4808e106、main・本番・Draft PR #46変更禁止、Work事前承認、正式ART/Slope2 DNA0件、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。
+
+
+## K4AU 完了審査と次のART-FIRST出口（2026-11-03 JST）
+
+旧入口のK4AU #41598855479 は**completed/SUCCESS**になった。旧QUEUED記述は履歴であり現在状態ではない。真正Chromium source-native 12PNG+独立SHA監査 [Artifact #13213758069](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41598855479/artifacts/13213758069)。真元カメラ6tickで元B48路面/元B51実28動体を変えず GPU材質陰影効果を実測し、RGB差は 280,890～592,547px/707,400px。**SOURCE SCREEN MATERIAL TECH限定PASS**だが、実画像目視で「路面がやや実材質らしくなった」「B51機械の面陰影が出た」に留まり、大規模に単調な路面、黒空、左右長大梁、繰返しの建築ファサード、巨大B51の視界妨害は残存。**K4AUも正式ART REJECT。正式採用0件、Slope2 DNA0m、全HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。** 正本：[K4AU完成レビューと次工程](docs/R19_A6P4_R2F5K4AU_TRUE_SOURCE_MATERIAL_LIGHTING_ART_REVIEW_JA.md)。
+
+**次の正当な工程**：最終画面の美術レベルを先に変える大改修を別研究枝に一候補だけ制作。暗空の広い背景＋同型直方体ファサード・斜め梁を繰り返すという既往の根本問題へ直接対応。高い意匠を持つ本当に利用される公共空洞・可読な超未来都市・光/大気/遠景・人間スケールの層を構築し、元native 6tickの真画面A/Bで品質を判定。小さい色替え、技術ゲートの追加、単調な箱/輪の増築の繰り返しをしない。元B51の危険シーンを美術だけで隠したり物理を改変したりしない。
+
+研究のGitHubのみ作業。main・本番・Draft PR #46、元source blob af076d67492a677d2235e4730aef8cdf4808e106、元Camera/球/240Hz/B48実7・B51実28不変更。Workはユーザーの事前承認制。ユーザー側ローカル操作不要。
