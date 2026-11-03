@@ -68,3 +68,29 @@ K4BA制作器を既存のK4AZ .blendから再生成する方式のまま改修�
 v2 CI [#41625837609](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41625837609) の結果が実証されるまで**SOURCE/DCC成否未確定、ART正式採用0**を維持する。成功時は6元Camera＋航空の本物画像を再度必ず開き、さらにK4BA固有の独立source B48/B51 BVHを実行する。
 
 初版が美術的に足りないのに小物を追加して合格扱いにするのは禁止。
+
+
+## K4BA v2 最終真正証拠／美術判定／次の方針（2026-11-03 JST）
+
+### v2実成果
+
+- **GitHub Actions** [#41625837609](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41625837609) **completed SUCCESS**。元game blob固定、K4AZ元.blend+K4AY true B48/B51のSHA照合、Blender real CPU編集可能原本とGLB、元Camera6時点＋artist1時点の合計7 PNG、完全SHAマニフェスト、K4AZ v3との真正同pose6比較が成功。
+- **Artifact** [#13224834813](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41625837609/artifacts/13224834813) 22,026,147 bytes、ZIP SHA256 `b7863131f8b56d172c548e7781eb76f0034aa59a1c9fd3e9ed0962d8ef086add`。v2で**711個の新規編集可能オブジェクト**。source B48 Road5本物4,728三角の元頂点/face fingerprint改変無し。source Camera/元時刻B51 collision OBB計168を維持。原K4AZ/K4AX編集可能比較コレクションは新.blendに保管。
+- **別実装の独立BVH** [#41626249550](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41626249550) **completed SUCCESS**、[Artifact #13226211434](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41626249550/artifacts/13226211434) 764 bytes、ZIP SHA256 `31ccb12768263570c87b876a6ecb7f992f21e5054935ee5eac280fc90e0c6199`。K4BA v2の新建築**743評価済みメッシュ/曲線、163,068評価面**に対し、original Road5 B48 4,728三角形と、6tick×28体=168 元B51物理OBBの**独立三角形BVH表面交差数0・0**。これは**Road5静止断面＋元6tickにおける限定検査**。Road0-4,6、全走行時刻・球半径0.65mの真CCD、FPS、人間評価、安全・公開に拡張認定しない。
+
+### 6×元Camera実画像と航空実画像を確認した、独立ART判定
+
+**ART REJECT維持**。道路の奥に観望施設が明確に出現し、旧K4AZの空白の正面に「見える主役」ができた点は実画像で確認できる。v2は以前の浮いた白い帆を厚い屋根＋支持構造へ変更し、岩盤・基壇・海面を追加した。しかし、
+
+1. 高速走行Cameraでは大半が広い単色・直線帯の道路で、シーンとして完成していない。建物が左右にあるだけという印象は依然残る。元B51物理OBBは紫ワイヤでしかなく、元ゲームの障害物美術の完成を示さない。
+2. 前方の環状展望施設にはデザインの核があるが、現画面では巨大な2本の水平アーケード＋塔と認識され、公共施設の実スケール/利用方法・入口・構造の説得力がまだ足りない。
+3. 航空アート画像では新しい接地柱・港湾基壇が見えるが、全景が世界的都市レベルではない。暗い空白、水景・地形・都市構造の接続不足、実建築の機能/素材完成度の欠落がある。**ただの彫刻に見える**批判の本質は解決していない。
+4. 元source Road5終端以遠の美術構造と、元originalの次道路との完全な空間関係は未確定。完璧な安全性を主張しない。元Road5が終わった先へ**偽りの走行可能地形を新たに伸ばしていない**点は保護。
+
+**正式ART承認0件／Slope2 DNA認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGEすべてHOLD。**
+
+### 次の担当が必ず守る判断
+
+作業量やBlenderオブジェクトの数、DCCの成功、元Cameraと同じ撮影座標、物理参照との限定0交差、画像差の%を美術品質と混同しない。**さらに小さな飾りを増やすのではなく、ゲームの「画面全体」が建築密度・ディテール・道路の意匠・公共機能・景観として成立する必要がある**。
+
+次はK4BAの研究原本を保護した上で、同じ元Road5元Cameraに映る「真正の現代ゲーム級の美術」を狙い、**単純面の路面を全面的なPBR・サーフェス処理として根本改善**し、建築内部に用途/人間スケール、道路と都市の関係が伝わるランドマーク、遠近の地形関係をより大胆に研究する。他B48七道路と次の原路面/危険物も考慮する。元ゲームのsource renderと見分けがつかないと主張してはならない。
