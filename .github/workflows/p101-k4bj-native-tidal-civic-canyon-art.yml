@@ -1,0 +1,133 @@
+name: DOPAGAKI K4BJ hand-authored native civic canyon source-camera ART HOLD
+on:
+  push:
+    branches: [research/k4bj-hand-authored-hero-civic-canyon-20261104]
+    paths:
+      - scripts/p101-k4bj-hand-authored-tidal-civic-canyon.py
+      - .github/workflows/p101-k4bj-native-tidal-civic-canyon-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bj-original-camera-hand-authored-art
+  cancel-in-progress: true
+jobs:
+  native-original-source-camera:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect frozen game and validate source tests
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bj-hand-authored-hero-civic-canyon-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bj-hand-authored-tidal-civic-canyon.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Retrieve K4BI real editable Blender parent and same original source camera poses
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BI_GENUINE_SOURCE_CAMERA_EDITABLE_PBR_FACADE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41740606366
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bj/parent
+      - name: Independently pin K4BI original source DCC and SHA data
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('research/evidence/k4bj/parent')
+          j=json.loads((p/'K4BI_ORIGINAL_SOURCE_CAMERA_DCC_PROVENANCE.json').read_text())
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalB48Roads']==7 and j['originalB51Movers']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusMetres']==.65
+          assert j['originalRoad5VertexPolygonFingerprintUnchanged']
+          assert j['sourceCameraNumericsUnchanged']
+          assert j['formalARTAccepted']==0 and j['slope2DNAmetres']==0
+          for n,d in j['files'].items():
+              data=(p/n).read_bytes()
+              assert len(data)==d['bytes'] and hashlib.sha256(data).hexdigest()==d['sha256'],n
+          assert j['files']['K4BI_ROAD_MATERIAL_ARCHITECTURAL_DETAIL_EDITABLE_DCC_HOLD.blend']['sha256']=='93526d4adff8f1061081109123f7619de9bb6a0b835b15af6baf9bf6bb3ba086'
+          print('K4BJ_REAL_PARENT_INDEPENDENT_BYTES_PASS_ART_UNJUDGED')
+          PY
+      - name: Install native Blender and Pillow (no unavailable OIDN dependency)
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+      - name: Author unique sculptural gallery, habitable city and non-colliding roadside in native Blender
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bj/render
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bj-hand-authored-tidal-civic-canyon.py -- \
+            --base research/evidence/k4bj/parent/K4BI_ROAD_MATERIAL_ARCHITECTURAL_DETAIL_EDITABLE_DCC_HOLD.blend \
+            --out research/evidence/k4bj/render
+      - name: Independently verify source camera, exact output hashes and neutral same-tick A/B
+        run: |
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          import hashlib,json
+          p=Path('research/evidence/k4bj/parent')
+          d=Path('research/evidence/k4bj/render')
+          j=json.loads((d/'K4BJ_SOURCE_ART_PROVENANCE.json').read_text())
+          assert j['frozenOriginalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5VertexFaceFingerprintUnchanged']
+          assert j['originalSourceCameraNumericsUnchanged']
+          assert j['original7B48RoadsAnd28B51MovingHazardsUnchanged']
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusM']==.65
+          assert not j['originalWebGL2GameFrames'] and not j['gameCodeEdited']
+          assert j['newNativeCollisionSurfaces']==0 and j['roadMaterialArtOnly']
+          assert j['ART']=='UNJUDGED_HOLD'
+          assert j['formalArtAccepted']==0 and j['slope2DNAAcceptedMetres']==0
+          assert len(j['originalSourceCameraImages'])==2
+          for fn,m in j['files'].items():
+              raw=(d/fn).read_bytes()
+              assert len(raw)==m['bytes'] and hashlib.sha256(raw).hexdigest()==m['sha256'],fn
+          canvas=Image.new('RGB',(2060,1450),(12,16,20))
+          draw=ImageDraw.Draw(canvas)
+          for i,x in enumerate(j['originalSourceCameraImages']):
+              mode=x['mode'];t=x['tick']
+              older=p/f'K4BI_{mode.upper()}_{t}_ORIGINAL_CAMERA_ART_UNJUDGED.png'
+              current=d/x['file']
+              a=Image.open(older).convert('RGB').resize((990,660))
+              b=Image.open(current).convert('RGB').resize((990,660))
+              assert sum(ImageStat.Stat(b).stddev)>14
+              assert ImageChops.difference(a,b).getbbox() is not None
+              canvas.paste(a,(20,35+i*710))
+              canvas.paste(b,(1050,35+i*710))
+              draw.text((20,10+i*710),f'K4BI REJECTED SOURCE CAMERA / {mode} tick {t}',fill='white')
+              draw.text((1050,10+i*710),f'K4BJ UNJUDGED NATIVE DCC / {mode} tick {t} / NOT GAME',fill='white')
+          filename='K4BJ_K4BI_VS_AUTHORED_NATIVECAMERA_DCC_NOT_GAME.png'
+          canvas.save(d/filename)
+          raw=(d/filename).read_bytes()
+          j['verifiedAB']={'file':filename,'sha256':hashlib.sha256(raw).hexdigest(),'bytes':len(raw)}
+          (d/'K4BJ_SOURCE_ART_PROVENANCE.json').write_text(json.dumps(j,indent=2))
+          print('K4BJ_B48_AND_TWO_ORIGINAL_CAMERAS_PROVENANCE_PASS_NO_ART_APPROVAL')
+          PY
+      - name: Save genuine image evidence ONLY to isolation branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bj-hand-authored-hero-civic-canyon-20261104
+          mkdir -p docs/research-evidence/k4bj
+          cp research/evidence/k4bj/render/K4BJ_*_NATIVE_SOURCE_CAMERA_ART_UNJUDGED.png docs/research-evidence/k4bj/
+          cp research/evidence/k4bj/render/K4BJ_K4BI_VS_AUTHORED_NATIVECAMERA_DCC_NOT_GAME.png docs/research-evidence/k4bj/
+          cp research/evidence/k4bj/render/K4BJ_SOURCE_ART_PROVENANCE.json docs/research-evidence/k4bj/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4bj
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bj): authentic two source-camera Blender images, artist candidate ART HOLD"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bj-hand-authored-hero-civic-canyon-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BJ_HAND_AUTHORED_NATIVE_SOURCE_CAMERA_ART_UNJUDGED_HOLD
+          path: research/evidence/k4bj/render/
+          retention-days: 14
+          if-no-files-found: warn
