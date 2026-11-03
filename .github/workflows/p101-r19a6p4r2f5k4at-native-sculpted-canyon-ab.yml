@@ -1,0 +1,77 @@
+name: DOPAGAKI K4AT genuine original Road5 sculpted civic canyon 12 RGB ART HOLD
+on:
+  push:
+    branches:
+      - research/k4at-road5-civic-canyon-sculpted-architecture-20261103
+    paths:
+      - 'web/p101-k4at-*'
+      - 'scripts/p101-r19a6p4r2f5k4at-*'
+      - 'tests/p101-r19a6p4r2f5k4at-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4at-native-sculpted-canyon-ab.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: dopagaki-k4at-source-real-camera-sculptural-civic-canyon
+  cancel-in-progress: false
+jobs:
+  true-source-12-camera-sculpture-and-collider-guard:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original native source and sculpted geometry strictly protected
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check web/p101-k4at-road5-sculpted-civic-canyon.mjs
+          node --check scripts/p101-r19a6p4r2f5k4at-private-source-civic-canyon-pack.mjs
+          node --check scripts/p101-r19a6p4r2f5k4at-genuine-native-sculpture-ab.mjs
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4at-independent-true-camera-art-audit.py
+          node --test tests/p101-r19a6p4r2f5k4at-source-sculpted-canyon.test.mjs
+          node --test tests/p101-r19a6p4r2f5k4as-original-screen-material.test.mjs
+      - name: Build ONLY private immutable physical source clone plus K4AT visual geometry
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a1-private-original-native-camera-pack.mjs
+          node scripts/p101-r19a6p4r2f5k3b-private-camera-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4ab-private-source-draw-provenance.mjs
+          node scripts/p101-r19a6p4r2f5k4ad-private-original-mesh-depth-replay.mjs
+          node scripts/p101-r19a6p4r2f5k4aq-private-road5-art-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4as-private-road5-material-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4at-private-source-civic-canyon-pack.mjs
+          node --check dist-private/r19a6p4r2f5k4at/drive3d.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Six true Chromium native Road5 camera poses for source K4AS-vs-K4AT
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/p101-r19a6p4r2f5k4at-genuine-native-sculpture-ab.mjs
+      - name: Independently validate native shot SHA and raw 12-frame reviewer atlas
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-pil
+          python3 scripts/p101-r19a6p4r2f5k4at-independent-true-camera-art-audit.py --root r19-evidence/k4at
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          r=Path('r19-evidence/k4at')
+          x=json.loads((r/'K4AT_INDEPENDENT_SOURCE_ART_REVIEW.json').read_text())
+          assert x['verdict']=='SOURCE_SCREEN_ART_PIXELS_MEASURED_ART_HOLD'
+          assert x['nativeCameraAB']==6 and x['verifiedNativePNGs']==12
+          assert x['sourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert x['ART']=='NOT_TESTED_HOLD'
+          assert x['formalArtAccepted']==x['slope2DNAMetres']==0
+          assert x['RELEASE']==x['MERGE']=='HOLD'
+          assert (r/'K4AT_GENUINE_CAMERA_12_AB_ATLAS.png').exists()
+          print('K4AT_TRUE_CAMERA_PHYSICAL_SOURCE_SAFE_ART_REVIEW_NOT_PROMOTED')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4AT_12_ACTUAL_CAMERA_SCULPTURAL_ROAD5_ART_HOLD
+          path: r19-evidence/k4at/
+          retention-days: 14
+          if-no-files-found: warn
