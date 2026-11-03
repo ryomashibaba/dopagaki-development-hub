@@ -30,7 +30,7 @@ jobs:
         run: |
           set -euo pipefail
           for count in $(seq 1 85); do
-            status="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41657612279 --jq .conclusion)"
+            status="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41659005101 --jq .conclusion)"
             if [ "$status" = success ]; then exit 0; fi
             if [ "$status" = failure ] || [ "$status" = cancelled ]; then echo "parent failed; no BVH pass"; exit 1; fi
             sleep 13
@@ -39,9 +39,9 @@ jobs:
           exit 1
       - uses: actions/download-artifact@v4
         with:
-          name: K4BE_ALL7_SOURCE_TWO_CAMERA_INTEGRATED_TIDAL_FORUM_ART_HOLD
+          name: K4BE_SALVAGED_TWO_REAL_CAMERA_EDITABLE_SOURCE_DCC_ART_REJECT
           repository: ryomashibaba/dopagaki-development-hub
-          run-id: 41657612279
+          run-id: 41659005101
           github-token: ${{ github.token }}
           path: research/evidence/k4be-audit/edited
       - uses: actions/download-artifact@v4
@@ -64,12 +64,12 @@ jobs:
           import json,hashlib
           from pathlib import Path
           p=Path('research/evidence/k4be-audit')
-          j=json.loads((p/'edited/K4BE_SOURCE_CAMERA_CIVIC_FORUM_PROVENANCE.json').read_text())
+          j=json.loads((p/'edited/K4BE_AUTHENTIC_TWO_CAMERA_SALVAGED_SHA_ART_REJECT.json').read_text())
           assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
-          assert j['sourceRoad5GeometryBefore']==j['sourceRoad5GeometryAfter']
-          assert j['otherSixRoadSourceMeshAndCameraPreserved']
-          assert len(j['originalCameraPilotFrames'])==2
-          assert j['ART']=='REJECT_HOLD' and j['formalArtAccepted']==0
+          assert j['road5FingerprintStillParentK4BD']['control']==j['road5FingerprintStillParentK4BD']['ultra']
+          assert j['sourceOriginalSixNumericCamerasPreserved']
+          assert j['nativeCameraPhotosProduced']==2
+          assert j['ART']=='REJECT_HOLD' and j['formalARTApproved']==0
           for f,v in j['files'].items():
             d=(p/'edited'/f).read_bytes()
             assert len(d)==v['bytes'] and hashlib.sha256(d).hexdigest()==v['sha256']
@@ -108,7 +108,7 @@ jobs:
           assert d['roadContacts']==[] and d['originalNativeB51Contacts']==[]
           assert d['wholeStageFutureTimeCCD']=='NOT_TESTED_HOLD'
           assert d['ballRadius065SafetyTest']=='NOT_TESTED_HOLD'
-          assert d['formalArtAccepted']==d['Slope2DNACertifiedMetres']==0
+          assert d['formalARTApproved']==d['Slope2DNACertifiedMetres']==0
           assert d['ART']=='REJECT_HOLD'
           print('K4BE_INDEPENDENT_ALL7_B48_B51_STATIC_NO_TRIANGLE_OVERLAP_NOT_SAFETY_PASS')
           PY
