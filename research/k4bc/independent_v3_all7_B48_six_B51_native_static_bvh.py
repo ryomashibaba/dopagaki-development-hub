@@ -133,6 +133,8 @@ report={
  "originalGameArtAndPhysicsUnchanged":True,
  "DCCOnlyVisualRoadStoneSeamsExcluded":True,
  "oldRejectedK4BAK4BBPreservedButHiddenExcluded":True,
+ "oldK4BCV1OffframeSkylineExcludedAndPreserved":True,
+ "newV3PhysicalSkyMuseumAndCivicFoundationsIncluded":True,
  "limitedStaticSourceTriangleIntersectionOnly":True,
  "wholeStageFutureTimeCCD":"NOT_TESTED_HOLD",
  "ballRadius065SafetyTest":"NOT_TESTED_HOLD",
