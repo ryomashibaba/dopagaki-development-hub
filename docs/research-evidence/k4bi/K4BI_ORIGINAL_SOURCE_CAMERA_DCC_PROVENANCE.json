@@ -10,7 +10,7 @@
   "sourceCameraNumericsUnchanged": true,
   "roadShaderArtOnlyNotPhysicalRoad": true,
   "newPlayableColliders": 0,
-  "newDCCArtObjects": 282,
+  "newDCCArtObjects": 286,
   "twoOriginalSourceCameraDCCScreenshots": [
     {
       "mode": "control",
@@ -37,21 +37,21 @@
   "MERGE": "HOLD",
   "files": {
     "K4BI_ROAD_MATERIAL_ARCHITECTURAL_DETAIL_EDITABLE_DCC_HOLD.blend": {
-      "bytes": 32740992,
-      "sha256": "9480b84a99f73fb6a9d69ac05339a332a1f087ee0b6789a61696eb9c77f12e45"
+      "bytes": 32904464,
+      "sha256": "93526d4adff8f1061081109123f7619de9bb6a0b835b15af6baf9bf6bb3ba086"
     },
     "K4BI_CONTROL_11307_ORIGINAL_CAMERA_ART_UNJUDGED.png": {
-      "bytes": 1822940,
-      "sha256": "de66495bb7730c8ec221453e1a67c8bf6c1a3b4de4fc6b7724676550d30f3834"
+      "bytes": 1772230,
+      "sha256": "e1cd4c79e75b08ad72aa92684d9c9dd02b5ab96bf7e72ed7ff9bc0963827db12"
     },
     "K4BI_ULTRA_11341_ORIGINAL_CAMERA_ART_UNJUDGED.png": {
-      "bytes": 1822805,
-      "sha256": "497d3de11703387dc2e1edca15b1ef3e3ebe4774b4250842a6055587d6d49f22"
+      "bytes": 1769893,
+      "sha256": "4724ced7326261536e623286a807bf57dd3b9a9c361aed3a07432e174ad31889"
     }
   },
   "independentAB": {
     "file": "K4BI_ORIGINAL_CAMERA_K4BH_VS_NEW_ART_REVIEW_NOT_GAME.png",
-    "bytes": 4296747,
-    "sha256": "df090e16dffe0607c3eec6ebbdd66ff97ba78e2746f34c8d286894be756d1756"
+    "bytes": 4208477,
+    "sha256": "04f9327d6cc123544742e2d6a34aa8ce5d706ddb47cad27b9f5063db1d90365b"
   }
 }
