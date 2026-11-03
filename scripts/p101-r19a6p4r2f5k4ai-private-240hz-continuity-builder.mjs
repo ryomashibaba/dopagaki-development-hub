@@ -44,7 +44,7 @@ patch('const k4ahEnabled=r19a1OptIn&&',prologue+'\nconst k4ahEnabled=r19a1OptIn&
 const sourceTickAnchor='canvas.dataset.r19a1B51=String(doc.movingObstacles.length);';
 const tickLogic=[
  "if(k4aiEnabled&&r19a1Ticks>=k4aiNativeTickStart&&r19a1Ticks<=k4aiNativeTickEnd){",
- " if(comparisonMode!=='ball-lock-unfiltered-heading')",
+ " if(comparisonMode!=='raw')",
  "  throw Error('K4AI_ORIGINAL_CAMERA_MODE_WAS_CHANGED');",
  " const targets=doc.movingObstacles.filter(x=>x.id==='p95-hazard-12');",
  " if(targets.length!==1||doc.movingObstacles.length!==28)",
