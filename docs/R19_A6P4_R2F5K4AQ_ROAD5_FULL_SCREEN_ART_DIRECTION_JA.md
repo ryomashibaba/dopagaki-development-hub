@@ -8,7 +8,7 @@
 ## 既存根拠と凍結保護
 - 元source blob SHA-1 `af076d67492a677d2235e4730aef8cdf4808e106`。
 - K4AJ真正source GPU #41566784540 SUCCESS、Artifact #13201661563 ZIP SHA256 `60aab331d8881b5f8f456539c00566837a2b061a96ab0725ce7c17ea91ed8efb`。SOURCE TECH限定PASS。
-- K4AK #41568787273 SUCCESSは合成監査成功であり新ARTの合格ではない。K4AM/K4ANは確認時点QUEUED。
+- K4AK #41568787273 SUCCESSは合成監査成功であり新ARTの合格ではない。K4AMは最初の照会時QUEUEDだったが、再照会で **#41571299893 completed/success**、Artifact **#13204282955** を取得し、ZIP内29ファイル・9時点の真正source RGB・27 PNG・独立監査TECH限定候補・ART 0件を確認。K4AN #41572736850は最新再照会時もQUEUED。
 - 元240Hz物理／球半径0.65m／B48 7道路／B51 28動体／元カメラ／元操作／元ゲーム進行の変更禁止。Gold/P100/W9-X/B5不変。
 - main・本番URL・Draft PR #46と元研究ブランチは変更しない。Work事前承認制。
 
