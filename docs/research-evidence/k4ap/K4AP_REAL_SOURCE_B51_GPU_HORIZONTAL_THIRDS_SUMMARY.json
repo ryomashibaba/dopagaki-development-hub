@@ -1,0 +1,151 @@
+{
+  "schema": "dopagaki.K4AP.recomputed-source-B51-horizontal-thirds-summary/1",
+  "generatedFrom": {
+    "githubRunId": 41566784540,
+    "artifactId": 13201661563,
+    "artifactZipSHA256": "60aab331d8881b5f8f456539c00566837a2b061a96ab0725ce7c17ea91ed8efb",
+    "originalSourceGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "sampling": "Native same-frame 24-bit nonlinear WebGL2 RGBA8 FBO readback, 8px stride, width 1013 height 698",
+    "sampleGrid": {
+      "width": 127,
+      "height": 88,
+      "samples": 11176
+    },
+    "sampleOrder": "for (y=0;y<height;y+=8) for (x=0;x<width;x+=8) (original OpenGL readPixels bottom-up)"
+  },
+  "horizontalThirdsColumns": {
+    "left": [
+      0,
+      41
+    ],
+    "center": [
+      42,
+      84
+    ],
+    "right": [
+      85,
+      126
+    ]
+  },
+  "meaning": "B51_BODY_ALL_28 drawing suppression changes ORIGINAL SAMPLED GPU DEPTH; not human visibility, art quality, or collision",
+  "windows": {
+    "ultra": {
+      "nativeTicks": [
+        11320,
+        11369
+      ],
+      "consecutiveNativeTicks": 50,
+      "acrossWindow": {
+        "left": {
+          "changed": 43379,
+          "total": 184800,
+          "fraction": 0.234735
+        },
+        "center": {
+          "changed": 65085,
+          "total": 189200,
+          "fraction": 0.344001
+        },
+        "right": {
+          "changed": 58923,
+          "total": 184800,
+          "fraction": 0.318847
+        }
+      },
+      "completeGroupDepthCoverageAtTicks": [
+        11339,
+        11340,
+        11341
+      ],
+      "evidenceSampledTick11339": {
+        "left": 1,
+        "center": 1,
+        "right": 1
+      },
+      "evidenceSampledTick11341": {
+        "left": 1,
+        "center": 1,
+        "right": 1
+      },
+      "zeroGroupDepthChangeTicksContinuous": [
+        11351,
+        11361
+      ],
+      "highGroupDepthChangeTicksAtLeast35Percent": [
+        11334,
+        11349
+      ],
+      "originalRGBExistsAt": [
+        11280,
+        11320,
+        11341,
+        11369
+      ],
+      "designHypothesis": "original source camera approach before heavy group depth contribution, and recover/reveal after heavy group depth contribution"
+    },
+    "control": {
+      "nativeTicks": [
+        11259,
+        11307
+      ],
+      "consecutiveNativeTicks": 49,
+      "acrossWindow": {
+        "left": {
+          "changed": 17449,
+          "total": 181104,
+          "fraction": 0.096348
+        },
+        "center": {
+          "changed": 37838,
+          "total": 185416,
+          "fraction": 0.204071
+        },
+        "right": {
+          "changed": 29172,
+          "total": 181104,
+          "fraction": 0.161079
+        }
+      },
+      "zeroGroupDepthChangeTicksContinuous": [
+        11289,
+        11299
+      ],
+      "highGroupDepthChangeTicksAtLeast35Percent": [
+        11274,
+        11284
+      ],
+      "originalRGBExistsAt": [
+        11259,
+        11278,
+        11280,
+        11307
+      ],
+      "designHypothesis": "retain central native obstacle and road directional cues, put city-space exposition before/after central obstruction"
+    }
+  },
+  "artDirection": {
+    "optionCount": 1,
+    "name": "ROAD5_INHABITED_CIVIC_RIFT_TWO_BEAT",
+    "beat1": "BEFORE B51 hazard: legible large urban canyon mouth and entrance cues independent of obstacle",
+    "beat2": "AFTER B51 hazard: reveal public intermediate inhabited terrace and distant civic destination",
+    "dangerPreservation": "NO new decorative obstruction in central B51 original hazard-heavy interval",
+    "publicConnectivity": "floor/entry true Blender geometry and SAT/CCD/HUMAN not verified",
+    "k4OldRejectedDesigns": "K4/K4R/K4U remain ART_REJECT",
+    "avoid": "small sheds/roof tweak/double isolated towers/monolithic wall/flat faux plaza/duplicate repetitive gates",
+    "humanLegibilityInNativeMovingVideo": "NOT_MEASURED",
+    "projectedGeometryClearance": "NOT_MEASURED",
+    "candidateGLB": "NOT_CREATED",
+    "candidateCameraAB": "NOT_CAPTURED",
+    "ART": "NOT_TESTED_HOLD"
+  },
+  "officialARTAccepted": 0,
+  "slope2DNAMetres": 0,
+  "newModels": 0,
+  "newColliders": 0,
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "HUMAN": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD"
+}
