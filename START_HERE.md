@@ -124,3 +124,12 @@ main・本番・元source blob af076d67492a677d2235e4730aef8cdf4808e106・元Cam
 **最初の新CI #41595951481 failure**：形状テスト5件中2件FAIL。voidLongitudinalCellsの全閉鎖路面は、架空の支え床を作る代わりに0描画を合法化して修正。**2本目 #41596237031 failure**：5件中残る1件、9,918 trianglesのうち840成分が非有限。真ログから更に診断し、ねじれた塔のブロンズ継ぎ目の4頂点目でz指定を欠いていた一箇所 `local(f,vb[0]-off,vb[1]-off)` を `local(f,vb[0]-off,vb[1]-off,vb[2])` に修正。関数を独立V8合成スタブで再評価して9,918 triangles / 208,278数値/有限PASS、元doc不変。GitHub真正CIの検証とは別物なので混同しない。
 
 **K4AT更新後専用 [#41596692908](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41596692908)** は最終確認時QUEUED、12真正新RGB/ART判断は未実測。新Runの実Status/jobs/Artifactを必ず確認。次は真正6視点のコンタクトシートを開いて、今回の曲面建築が本当に画面に映り、単純な雑造形を脱したか厳しく評価。届かなければART REJECTのまま設計再検討。元モデルblob af076d67492a677d2235e4730aef8cdf4808e106／240Hz／Camera／B48 7／B51 28／main／本番／Draft PR#46 unchanged、Work事前承認、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。
+
+
+## K4AU （2026-11-03）現在の唯一の次工程／引き継ぎ入口
+
+**最新隔離美術研究枝**：research/k4au-road5-genuine-material-lighting-20261103。まず[K4AU正本](docs/R19_A6P4_R2F5K4AU_TRUE_SOURCE_MATERIAL_LIGHTING_ART_REVIEW_JA.md)へ。従前K4AT GitHub [#41596692908](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41596692908) は**完了SUCCESS**、本物12画像+元データSHA監査実成功、Artifact #13212149720を取得。K4ATの元cam画像を直接見た結果、両側斜めの巨大梁・レトロで反復的な立面と、現状ほぼ黒いB51機械箱と色面だけの道路・黒い空・大きな空虚部が目立ち、品質目標には未達のため**ART REJECT**。ART正式採用は0件。
+
+K4AUは街区の量産を一旦やめ、**元の実物B48道路と元B51実動体28の原VBO/姿勢を変えず**、同じ原Camera WebGL2に面法線によるライティング・金属表面ノイズ・石材/アスファルト微細質感・パネル目地・実警告の赤/琥珀/紫を実装する。独立起動 `k4aq=on&k4as=materials&k4at=on&k4au=on` のみ、元ART候補とのnative 6時点×2=12真正source PNGを比較。試験はsource改変拒否／元球/camera/B48/B51検証／実GPUコンパイルと独立PNG画素監査。最初の専用 [CI #41598855479](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41598855479) は作成時QUEUED。**実際の新GPU成功/ART改善は未検証、次担当が最新run/jobs/Artifactを読む**。失敗ならログ原因を最小修正、成功なら本物の12画像を目視して美術の結果を厳しく判定する。
+
+不変：元物理240Hz／0.65m球／実B48七章/B51 28／元カメラ・当たり判定／source blob af076d67492a677d2235e4730aef8cdf4808e106、main・本番・Draft PR #46変更禁止、Work事前承認、正式ART/Slope2 DNA0件、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。
