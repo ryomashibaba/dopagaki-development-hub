@@ -85,7 +85,7 @@ jobs:
       - name: Install Blender and independent PNG examiner
         run: |
           sudo apt-get update -qq
-          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil python3-numpy
           blender --version | head -3
       - name: Import exact source B48 skin and source B51 collision OBBs into distinct editable reference collections
         shell: bash
