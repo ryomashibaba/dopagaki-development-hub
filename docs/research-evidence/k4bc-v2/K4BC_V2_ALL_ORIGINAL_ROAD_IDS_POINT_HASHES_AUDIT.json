@@ -1,0 +1,322 @@
+{
+  "schema": "dopagaki.K4BC.original-all-seven-B48-export-SHA/1",
+  "sourceBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "sourceB48Count": 7,
+  "sourceB51Count": 28,
+  "modes": {
+    "control": {
+      "originalStageId": "VB-P101-A13-W9C1-CONTROL",
+      "sourceNativeCameraTicks": [
+        11259,
+        11278,
+        11307
+      ],
+      "roads": [
+        {
+          "index": 0,
+          "id": "p93-ABYSS_DIVE-01",
+          "sourcePointsSHA256": "909df8ad2048b532bddfcd442bd7397cd455269386cec4ac410f706a26c12d90",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              -1408.5749194197183,
+              123.00006557992323,
+              -912.4186891544703
+            ],
+            "max": [
+              -793.6741708056687,
+              245,
+              -731.894542069768
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        },
+        {
+          "index": 1,
+          "id": "p93-CROWN_REVERSAL-01",
+          "sourcePointsSHA256": "f2a9f42a625fb17ba00f2727d45f12e08ab1d66b4ed0e10b577ca251b844a644",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              -835.2114454898394,
+              80.83445717980761,
+              -982.4852422456548
+            ],
+            "max": [
+              -104.53192943466202,
+              127.16960227718768,
+              -103.17688358793137
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        },
+        {
+          "index": 2,
+          "id": "p93-SCISSOR_RISE-01",
+          "sourcePointsSHA256": "a1e57009c32343bbb8eed1c0f6dab526ecd56ebc7436d3969c9183b24ca50091",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              -1016.5701189729027,
+              82.77543275232901,
+              -215.92053125783494
+            ],
+            "max": [
+              -540.1163788377377,
+              195.2246893114281,
+              586.6840879154988
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        },
+        {
+          "index": 3,
+          "id": "p93-LOWER_REVERSAL-01",
+          "sourcePointsSHA256": "099089fc69cfee85a96734299178b325eb58c8b5574682c0ab5933c7b6f6564a",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              -971.5216041522094,
+              37.40475025247876,
+              268.7864211294007
+            ],
+            "max": [
+              43.789340760718574,
+              195.5955331518705,
+              1137.6347391767251
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        },
+        {
+          "index": 4,
+          "id": "p93-VOID_SURGE-01",
+          "sourcePointsSHA256": "cbfbb4e4ae315d2b5d7d9140ec44c1e96f0146e44c21c68f1325c1d779dece62",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              -192.67667995743292,
+              25.858087088845117,
+              -352.8972366343396
+            ],
+            "max": [
+              406.9754725509555,
+              42.14691425479438,
+              308.284978091948
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        },
+        {
+          "index": 5,
+          "id": "p93-PRISM_CREST-01",
+          "sourcePointsSHA256": "5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              385.2690436051741,
+              27.812765963120484,
+              -493.45451855860574
+            ],
+            "max": [
+              1118.0118898899818,
+              125.18734018755345,
+              -200.84953372071593
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        },
+        {
+          "index": 6,
+          "id": "p93-FINISH_RIDGE-01",
+          "sourcePointsSHA256": "2b203f83283dc4702a990faa2626789db063543ff275ce464310679d1154aacc",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              1048.3551400190292,
+              92.59248168855808,
+              -719.7227450116607
+            ],
+            "max": [
+              1711.2002446382432,
+              125.4077306059906,
+              -410.8515623318809
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        }
+      ]
+    },
+    "ultra": {
+      "originalStageId": "VB-P101-A13-W9C1-ULTRA",
+      "sourceNativeCameraTicks": [
+        11320,
+        11341,
+        11369
+      ],
+      "roads": [
+        {
+          "index": 0,
+          "id": "p93-ABYSS_DIVE-01",
+          "sourcePointsSHA256": "cd27c8e8b2a6345c081f878cba957b439e8f55bc8e16c92e102dc192a3f81402",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              -1408.5749194197183,
+              123.00006557992323,
+              -912.4186891544703
+            ],
+            "max": [
+              -793.6741708056687,
+              245,
+              -731.8406612829384
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        },
+        {
+          "index": 1,
+          "id": "p93-CROWN_REVERSAL-01",
+          "sourcePointsSHA256": "f2a9f42a625fb17ba00f2727d45f12e08ab1d66b4ed0e10b577ca251b844a644",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              -835.2114454898394,
+              80.83445717980761,
+              -982.4852422456548
+            ],
+            "max": [
+              -104.53192943466202,
+              127.16960227718768,
+              -103.17688358793137
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        },
+        {
+          "index": 2,
+          "id": "p93-SCISSOR_RISE-01",
+          "sourcePointsSHA256": "a1e57009c32343bbb8eed1c0f6dab526ecd56ebc7436d3969c9183b24ca50091",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              -1016.5701189729027,
+              82.77543275232901,
+              -215.92053125783494
+            ],
+            "max": [
+              -540.1163788377377,
+              195.2246893114281,
+              586.6840879154988
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        },
+        {
+          "index": 3,
+          "id": "p93-LOWER_REVERSAL-01",
+          "sourcePointsSHA256": "099089fc69cfee85a96734299178b325eb58c8b5574682c0ab5933c7b6f6564a",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              -971.5216041522094,
+              37.40475025247876,
+              268.7864211294007
+            ],
+            "max": [
+              43.789340760718574,
+              195.5955331518705,
+              1137.6347391767251
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        },
+        {
+          "index": 4,
+          "id": "p93-VOID_SURGE-01",
+          "sourcePointsSHA256": "cbfbb4e4ae315d2b5d7d9140ec44c1e96f0146e44c21c68f1325c1d779dece62",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              -192.67667995743292,
+              25.858087088845117,
+              -352.8972366343396
+            ],
+            "max": [
+              406.9754725509555,
+              42.14691425479438,
+              308.284978091948
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        },
+        {
+          "index": 5,
+          "id": "p93-PRISM_CREST-01",
+          "sourcePointsSHA256": "5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              385.2690436051741,
+              27.812765963120484,
+              -493.45451855860574
+            ],
+            "max": [
+              1118.0118898899818,
+              125.18734018755345,
+              -200.84953372071593
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        },
+        {
+          "index": 6,
+          "id": "p93-FINISH_RIDGE-01",
+          "sourcePointsSHA256": "2b203f83283dc4702a990faa2626789db063543ff275ce464310679d1154aacc",
+          "triangles": 4728,
+          "sourceBounds": {
+            "min": [
+              1048.3551400190292,
+              92.59248168855808,
+              -719.7227450116607
+            ],
+            "max": [
+              1711.2002446382432,
+              125.4077306059906,
+              -410.8515623318809
+            ]
+          },
+          "originalCollidable": true,
+          "originalRideable": true,
+          "voidCount": 0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,389 @@
+{
+  "schema": "dopagaki.K4BC.v2.all-seven-exact-native-B48-full-context-DCC/1",
+  "originalGameFrozenBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "sourceStageGenerator": "generateP101W9C1AbyssCandidate",
+  "sourceGeometryTessellator": "tessellate",
+  "originalSourceB48Roads": 7,
+  "originalSourceB51MovingObstacles": 28,
+  "originalSourcePhysicsHz": 240,
+  "originalB48Road5MeshFingerprintsBefore": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "originalB48Road5MeshFingerprintsAfter": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "originalSourceRoad5MeshUnmodified": true,
+  "road5ControlPointsSHA": "5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730",
+  "trueOriginalOtherB48RoadsImported": 12,
+  "originalB48RoadIDs": [
+    "p93-ABYSS_DIVE-01",
+    "p93-CROWN_REVERSAL-01",
+    "p93-SCISSOR_RISE-01",
+    "p93-LOWER_REVERSAL-01",
+    "p93-VOID_SURGE-01",
+    "p93-PRISM_CREST-01",
+    "p93-FINISH_RIDGE-01"
+  ],
+  "sourceOtherRoadsAndMeshes": [
+    {
+      "mode": "control",
+      "index": 0,
+      "sourceID": "p93-ABYSS_DIVE-01",
+      "trueSourceTriangles": 4728,
+      "nativePointSHA256": "909df8ad2048b532bddfcd442bd7397cd455269386cec4ac410f706a26c12d90",
+      "trueOriginalVoidCells": [],
+      "sourceBounds": {
+        "min": [
+          -1408.5749194197183,
+          123.00006557992323,
+          -912.4186891544703
+        ],
+        "max": [
+          -793.6741708056687,
+          245,
+          -731.894542069768
+        ]
+      },
+      "originalRideable": true
+    },
+    {
+      "mode": "control",
+      "index": 1,
+      "sourceID": "p93-CROWN_REVERSAL-01",
+      "trueSourceTriangles": 4728,
+      "nativePointSHA256": "f2a9f42a625fb17ba00f2727d45f12e08ab1d66b4ed0e10b577ca251b844a644",
+      "trueOriginalVoidCells": [],
+      "sourceBounds": {
+        "min": [
+          -835.2114454898394,
+          80.83445717980761,
+          -982.4852422456548
+        ],
+        "max": [
+          -104.53192943466202,
+          127.16960227718768,
+          -103.17688358793137
+        ]
+      },
+      "originalRideable": true
+    },
+    {
+      "mode": "control",
+      "index": 2,
+      "sourceID": "p93-SCISSOR_RISE-01",
+      "trueSourceTriangles": 4728,
+      "nativePointSHA256": "a1e57009c32343bbb8eed1c0f6dab526ecd56ebc7436d3969c9183b24ca50091",
+      "trueOriginalVoidCells": [],
+      "sourceBounds": {
+        "min": [
+          -1016.5701189729027,
+          82.77543275232901,
+          -215.92053125783494
+        ],
+        "max": [
+          -540.1163788377377,
+          195.2246893114281,
+          586.6840879154988
+        ]
+      },
+      "originalRideable": true
+    },
+    {
+      "mode": "control",
+      "index": 3,
+      "sourceID": "p93-LOWER_REVERSAL-01",
+      "trueSourceTriangles": 4728,
+      "nativePointSHA256": "099089fc69cfee85a96734299178b325eb58c8b5574682c0ab5933c7b6f6564a",
+      "trueOriginalVoidCells": [],
+      "sourceBounds": {
+        "min": [
+          -971.5216041522094,
+          37.40475025247876,
+          268.7864211294007
+        ],
+        "max": [
+          43.789340760718574,
+          195.5955331518705,
+          1137.6347391767251
+        ]
+      },
+      "originalRideable": true
+    },
+    {
+      "mode": "control",
+      "index": 4,
+      "sourceID": "p93-VOID_SURGE-01",
+      "trueSourceTriangles": 4728,
+      "nativePointSHA256": "cbfbb4e4ae315d2b5d7d9140ec44c1e96f0146e44c21c68f1325c1d779dece62",
+      "trueOriginalVoidCells": [],
+      "sourceBounds": {
+        "min": [
+          -192.67667995743292,
+          25.858087088845117,
+          -352.8972366343396
+        ],
+        "max": [
+          406.9754725509555,
+          42.14691425479438,
+          308.284978091948
+        ]
+      },
+      "originalRideable": true
+    },
+    {
+      "mode": "control",
+      "index": 6,
+      "sourceID": "p93-FINISH_RIDGE-01",
+      "trueSourceTriangles": 4728,
+      "nativePointSHA256": "2b203f83283dc4702a990faa2626789db063543ff275ce464310679d1154aacc",
+      "trueOriginalVoidCells": [],
+      "sourceBounds": {
+        "min": [
+          1048.3551400190292,
+          92.59248168855808,
+          -719.7227450116607
+        ],
+        "max": [
+          1711.2002446382432,
+          125.4077306059906,
+          -410.8515623318809
+        ]
+      },
+      "originalRideable": true
+    },
+    {
+      "mode": "ultra",
+      "index": 0,
+      "sourceID": "p93-ABYSS_DIVE-01",
+      "trueSourceTriangles": 4728,
+      "nativePointSHA256": "cd27c8e8b2a6345c081f878cba957b439e8f55bc8e16c92e102dc192a3f81402",
+      "trueOriginalVoidCells": [],
+      "sourceBounds": {
+        "min": [
+          -1408.5749194197183,
+          123.00006557992323,
+          -912.4186891544703
+        ],
+        "max": [
+          -793.6741708056687,
+          245,
+          -731.8406612829384
+        ]
+      },
+      "originalRideable": true
+    },
+    {
+      "mode": "ultra",
+      "index": 1,
+      "sourceID": "p93-CROWN_REVERSAL-01",
+      "trueSourceTriangles": 4728,
+      "nativePointSHA256": "f2a9f42a625fb17ba00f2727d45f12e08ab1d66b4ed0e10b577ca251b844a644",
+      "trueOriginalVoidCells": [],
+      "sourceBounds": {
+        "min": [
+          -835.2114454898394,
+          80.83445717980761,
+          -982.4852422456548
+        ],
+        "max": [
+          -104.53192943466202,
+          127.16960227718768,
+          -103.17688358793137
+        ]
+      },
+      "originalRideable": true
+    },
+    {
+      "mode": "ultra",
+      "index": 2,
+      "sourceID": "p93-SCISSOR_RISE-01",
+      "trueSourceTriangles": 4728,
+      "nativePointSHA256": "a1e57009c32343bbb8eed1c0f6dab526ecd56ebc7436d3969c9183b24ca50091",
+      "trueOriginalVoidCells": [],
+      "sourceBounds": {
+        "min": [
+          -1016.5701189729027,
+          82.77543275232901,
+          -215.92053125783494
+        ],
+        "max": [
+          -540.1163788377377,
+          195.2246893114281,
+          586.6840879154988
+        ]
+      },
+      "originalRideable": true
+    },
+    {
+      "mode": "ultra",
+      "index": 3,
+      "sourceID": "p93-LOWER_REVERSAL-01",
+      "trueSourceTriangles": 4728,
+      "nativePointSHA256": "099089fc69cfee85a96734299178b325eb58c8b5574682c0ab5933c7b6f6564a",
+      "trueOriginalVoidCells": [],
+      "sourceBounds": {
+        "min": [
+          -971.5216041522094,
+          37.40475025247876,
+          268.7864211294007
+        ],
+        "max": [
+          43.789340760718574,
+          195.5955331518705,
+          1137.6347391767251
+        ]
+      },
+      "originalRideable": true
+    },
+    {
+      "mode": "ultra",
+      "index": 4,
+      "sourceID": "p93-VOID_SURGE-01",
+      "trueSourceTriangles": 4728,
+      "nativePointSHA256": "cbfbb4e4ae315d2b5d7d9140ec44c1e96f0146e44c21c68f1325c1d779dece62",
+      "trueOriginalVoidCells": [],
+      "sourceBounds": {
+        "min": [
+          -192.67667995743292,
+          25.858087088845117,
+          -352.8972366343396
+        ],
+        "max": [
+          406.9754725509555,
+          42.14691425479438,
+          308.284978091948
+        ]
+      },
+      "originalRideable": true
+    },
+    {
+      "mode": "ultra",
+      "index": 6,
+      "sourceID": "p93-FINISH_RIDGE-01",
+      "trueSourceTriangles": 4728,
+      "nativePointSHA256": "2b203f83283dc4702a990faa2626789db063543ff275ce464310679d1154aacc",
+      "trueOriginalVoidCells": [],
+      "sourceBounds": {
+        "min": [
+          1048.3551400190292,
+          92.59248168855808,
+          -719.7227450116607
+        ],
+        "max": [
+          1711.2002446382432,
+          125.4077306059906,
+          -410.8515623318809
+        ]
+      },
+      "originalRideable": true
+    }
+  ],
+  "sourceOriginalB51CollisionOBBSnapshotInstances": 168,
+  "originalSixSourceCameraNumericUnchanged": true,
+  "trueSourceCameraDCCImages": [
+    {
+      "mode": "control",
+      "sourceNativeTick": 11259,
+      "sourceNativeTimeSeconds": 46.9125,
+      "originalNativeCameraScreenshotSHA256": "6269eb803a2cb46c9c18a9a4b510aeb121d6c8daa7e8074776a2442199d65891",
+      "originalNativeB51CollisionOBBCount": 28,
+      "DCCimage": "K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_CONTROL_11259.png"
+    },
+    {
+      "mode": "control",
+      "sourceNativeTick": 11278,
+      "sourceNativeTimeSeconds": 46.99166666666667,
+      "originalNativeCameraScreenshotSHA256": "8075dceb4e656cf36aed98aa1ce3e50fbebd5781e6a0ee114f14c889db8b9cb3",
+      "originalNativeB51CollisionOBBCount": 28,
+      "DCCimage": "K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_CONTROL_11278.png"
+    },
+    {
+      "mode": "control",
+      "sourceNativeTick": 11307,
+      "sourceNativeTimeSeconds": 47.1125,
+      "originalNativeCameraScreenshotSHA256": "ffb85461e76f15d96831bdb8f89c5bd2fe18817b435ce2f1cf854807709b1558",
+      "originalNativeB51CollisionOBBCount": 28,
+      "DCCimage": "K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_CONTROL_11307.png"
+    },
+    {
+      "mode": "ultra",
+      "sourceNativeTick": 11320,
+      "sourceNativeTimeSeconds": 47.166666666666664,
+      "originalNativeCameraScreenshotSHA256": "d1719df89cee4c1af300187c874de6fdf365203d20d8869e06a52205755ea9ed",
+      "originalNativeB51CollisionOBBCount": 28,
+      "DCCimage": "K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_ULTRA_11320.png"
+    },
+    {
+      "mode": "ultra",
+      "sourceNativeTick": 11341,
+      "sourceNativeTimeSeconds": 47.25416666666667,
+      "originalNativeCameraScreenshotSHA256": "fe22062d3bf0abd764448d9b6b8d52a55f24ff84e7ee79b6fe04f674427861dc",
+      "originalNativeB51CollisionOBBCount": 28,
+      "DCCimage": "K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_ULTRA_11341.png"
+    },
+    {
+      "mode": "ultra",
+      "sourceNativeTick": 11369,
+      "sourceNativeTimeSeconds": 47.37083333333333,
+      "originalNativeCameraScreenshotSHA256": "fd5895bff1142e24dbfb3df84bf3f5dc9c6fff43db8cc508ffc1c985e73a5471",
+      "originalNativeB51CollisionOBBCount": 28,
+      "DCCimage": "K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_ULTRA_11369.png"
+    }
+  ],
+  "otherSixRoadMaterialsAreDCCClayPreviewNotOriginalGame": true,
+  "originalNativeGameWebGL2Screenshots": false,
+  "sourceTrueRoadGeometryManufacturedOrModified": false,
+  "newOriginalGameColliders": 0,
+  "sourceAllSevenB48ArchitectureStaticBVH": "NOT_YET_TESTED_HOLD",
+  "nativeGameFullTrajectoryCCD": "NOT_TESTED_HOLD",
+  "humanArtReview": "NOT_TESTED_HOLD",
+  "formalArtAccepted": 0,
+  "Slope2DNACertifiedMetres": 0,
+  "ART": "REJECT_HOLD",
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BC_V2_ORIGINAL_ALL_SEVEN_B48_FULL_CONTEXT_EDITABLE_ART_HOLD.blend": {
+      "bytes": 29557924,
+      "sha256": "ccd98242a705b4a74cd217b8e374240196dfc34845051f3dcef638dc1b0d0ed0"
+    },
+    "K4BC_V2_ORIGINAL_ALL_SEVEN_B48_DCC_ONLY_NOT_GAME.glb": {
+      "bytes": 21325552,
+      "sha256": "c4dde15359072193ea978e3fdb8d3da9ec59ec5f135f202ab30ee3e1e9334498"
+    },
+    "K4BC_V2_ALL_SEVEN_SOURCE_B48_AERIAL_STUDIO_DCC_NOT_GAME.png": {
+      "bytes": 912665,
+      "sha256": "538d06ffdbc3949e260e656e63cb872dda7e8af9222bc9da9e3c3f8d72c370e6"
+    },
+    "K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_CONTROL_11259.png": {
+      "bytes": 1271007,
+      "sha256": "b2f5b7e455c278404dbf081ad5aa1594463fb0cbd963f0d9dc8652f5fa4c9651"
+    },
+    "K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_CONTROL_11278.png": {
+      "bytes": 1184733,
+      "sha256": "8285a88fa23442f3bd8059b8a9adfe34e47dafd19f2a70158334c54a335a198d"
+    },
+    "K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_CONTROL_11307.png": {
+      "bytes": 1244518,
+      "sha256": "69724685694f72b447bb4f1ec2aa399c9f2d23374c1f50a91f2df25753362b65"
+    },
+    "K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_ULTRA_11320.png": {
+      "bytes": 1276586,
+      "sha256": "00bbf3018814d172323d3fdff33e5877d27d3d99784039089a6e29b8da636393"
+    },
+    "K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_ULTRA_11341.png": {
+      "bytes": 1281571,
+      "sha256": "a76f5cd16502a3be4fda39af97949757bb51a566e10be0aab2699e0d26a2ba96"
+    },
+    "K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_ULTRA_11369.png": {
+      "bytes": 1244819,
+      "sha256": "da68697a279c2bac6e28b1241704f3371f3280a91f519f830b34910062acf152"
+    }
+  }
+}
