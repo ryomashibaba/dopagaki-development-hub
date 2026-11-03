@@ -1,0 +1,141 @@
+name: DOPAGAKI K4BA real Road5 whole-screen Tidal Commons cinematic DCC art rebuild
+on:
+  push:
+    branches:
+      - research/k4ba-road5-tidal-city-cinematic-art-rebuild-20261103
+    paths:
+      - 'scripts/p101-k4ba-*'
+      - '.github/workflows/p101-k4ba-real-road5-tidal-cinematic-city.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4ba-source-real-road5-whole-screen-cinematic-dcc
+  cancel-in-progress: false
+jobs:
+  isolated-k4ba-city-scenography-no-art-or-game-certification:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - name: Freeze original source and validate actual Python authoring syntax
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4ba-authentic-b48-tidal-commons-cinematic-city.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download verified previous K4AZ v3 Blender-native editable scene
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AZ_CIVIC_RIFT_ARCHITECTURE_DCC_SOURCE_B48_B51_ART_REJECT
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41616880506
+          github-token: ${{ github.token }}
+          path: research/evidence/k4ba/k4az-parent
+      - name: Download unchanged physical source Road5 tessellation and all native B51 snapshots from K4AY
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: research/evidence/k4ba/k4ay-source
+      - name: Independently pin editable parent bytes and frozen source reference
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          z=Path('research/evidence/k4ba/k4az-parent')
+          p=json.loads((z/'K4AZ_DCC_PROVENANCE_AND_GATE_REPORT.json').read_text())
+          assert p['gitSourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert p['road5MeshFingerprintBefore']==p['road5MeshFingerprintAfter']
+          assert p['ART']=='REJECT_HOLD' and p['formalARTAccepted']==0
+          for name,v in p['files'].items():
+            data=(z/name).read_bytes()
+            assert len(data)==v['bytes'] and hashlib.sha256(data).hexdigest()==v['sha256']
+          q=Path('research/evidence/k4ba/k4ay-source')
+          j=json.loads((q/'K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert j['frozenOriginalGameGitBlob']==p['gitSourceBlob']
+          assert j['modes']['control']['roadID']=='p93-PRISM_CREST-01'
+          assert j['modes']['control']['trueSourceTriangleCount']==4728
+          assert j['modes']['control']['originalRoadSourcePointsSHA256']=='5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730'
+          for mode in ('control','ultra'):
+            assert len(j['modes'][mode]['sourceTimeRecords'])==3
+            assert all(len(r['B51CollisionOBBNotOriginalVisibleMesh'])==28 for r in j['modes'][mode]['sourceTimeRecords'])
+          print('K4BA_PINNED_SOURCE_AUTHENTIC_PREVIOUS_ART_HOLD_VALIDATED')
+          PY
+      - name: Install Blender, CPU rendering and image/JSON inspectors
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil
+          blender -v | head -3
+      - name: Author full-screen city with terminal landmark and six genuine numeric source-camera DCC reviews
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4ba/output
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4ba-authentic-b48-tidal-commons-cinematic-city.py -- \
+            --base research/evidence/k4ba/k4az-parent/K4AZ_CIVIC_RIFT_EDITABLE_ART_REJECT_HOLD.blend \
+            --source research/evidence/k4ba/k4ay-source/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out research/evidence/k4ba/output
+      - name: Verify SHA, original geometry immutability and create six pose K4AZ versus K4BA image evidence
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          from PIL import Image,ImageDraw,ImageOps,ImageChops,ImageStat
+          from pathlib import Path
+          import json,hashlib
+          parent=Path('research/evidence/k4ba/k4az-parent')
+          out=Path('research/evidence/k4ba/output')
+          d=json.loads((out/'K4BA_SOURCE_DCC_ART_PROVENANCE.json').read_text())
+          assert d['sourceFrozenBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['originalB48RoadCount']==7 and d['originalB51MovingCount']==28
+          assert d['trueRoadTriangles']==4728
+          assert d['roadGeometryUnmodified'] is True
+          assert d['trueSourceRoadFingerprintBefore']==d['trueSourceRoadFingerprintAfter']
+          assert d['sourceB51OBBProxySnapshots']==168
+          assert d['actualGameWebGL2Frames'] is False
+          assert d['formalArtApproved']==d['Slope2DNACertifiedMetres']==0
+          assert d['ART']=='REJECT_HOLD'
+          assert len(d['sourceNumericCameraDccRenders'])==6
+          assert len(d['oldK4AZResearchArtPreservedButNotRendered'])>=11
+          for name,stamp in d['files'].items():
+            data=(out/name).read_bytes()
+            assert len(data)==stamp['bytes'] and hashlib.sha256(data).hexdigest()==stamp['sha256']
+          assert (out/'K4BA_TIDAL_COMMONS_DCC_MESHES_NOT_GAME.glb').read_bytes()[:4]==b'glTF'
+          sheet=Image.new('RGB',(1170,6*416+420),(17,19,24))
+          draw=ImageDraw.Draw(sheet)
+          differences=[]
+          for index,shot in enumerate(d['sourceNumericCameraDccRenders']):
+            mode=shot['mode'];tick=shot['nativeTick']
+            before=Image.open(parent/('K4AZ_SOURCE_POSE_DCC_'+mode.upper()+'_'+str(tick)+'.png')).convert('RGB')
+            after=Image.open(out/shot['dccScreenshot']).convert('RGB')
+            assert after.width>=700 and after.height>=500
+            assert sum(ImageStat.Stat(after).stddev)>10,'blank or nearly blank authored artwork'
+            a=before.resize((563,383));b=after.resize((563,383))
+            y=index*416
+            sheet.paste(a,(0,y+24));sheet.paste(b,(594,y+24))
+            draw.text((14,y+6),'K4AZ previous DCC ORIGINAL numeric source pose '+mode+'/'+str(tick),fill='white')
+            draw.text((602,y+6),'K4BA new 3D city DCC same source pose '+mode+'/'+str(tick),fill='white')
+            delta=ImageChops.difference(a,b)
+            measure=delta.resize((127,85))
+            changed=sum(1 for p in measure.getdata() if max(p)>24)/(127*85)
+            differences.append({'mode':mode,'tick':tick,'changedPixelFractionDCCNotArtQuality':round(changed,5)})
+          aerial=Image.open(out/'K4BA_ARTIST_CITY_AERIAL_DCC_NOT_GAME.png').convert('RGB')
+          sheet.paste(aerial.resize((563,383)),(594,6*416+24))
+          draw.text((14,6*416+6),'ALL FRAMES: BLENDER DCC / NOT ORIGINAL GAME WEBGL2 / ART REJECT',fill='white')
+          sheet.save(out/'K4BA_SIX_SOURCE_CAMERA_K4AZ_VS_K4BA_ART_AUDIT.png')
+          d['sixSourceCameraK4AZComparison']=differences
+          d['jointImage']='K4BA_SIX_SOURCE_CAMERA_K4AZ_VS_K4BA_ART_AUDIT.png'
+          (out/'K4BA_SOURCE_DCC_ART_PROVENANCE.json').write_text(json.dumps(d,indent=2))
+          print('K4BA_WHOLE_SCENE_REAL_SOURCE_DCC_SHA_PASS_NOT_ART_CERTIFIED',json.dumps(differences))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BA_FULL_SCREEN_TRUE_B48_B51_TIDAL_CITY_BLENDER_DCC_ART_REJECT
+          path: research/evidence/k4ba/output/
+          retention-days: 14
+          if-no-files-found: warn
