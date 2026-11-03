@@ -206,6 +206,31 @@ const FRAG=[
  'col=col/(col+vec3(.18));col=pow(col,vec3(0.95));',
  'outColor=vec4(clamp(col,0.0,1.0),1.0);}'
 ].join('\n');
+
+/** Research-only atmospheric sky replaces original black void, never geometry. */
+const SKYVERT=[
+ '#version 300 es','precision highp float;',
+ 'out vec2 uv;',
+ 'void main(){',
+ 'vec2 p=vec2(float((gl_VertexID << 1)&2),float(gl_VertexID&2));',
+ 'uv=p;gl_Position=vec4(p*2.0-1.0,1.0,1.0);}'
+].join('\n');
+const SKYFRAG=[
+ '#version 300 es','precision highp float;',
+ 'in vec2 uv;out vec4 outColor;',
+ 'void main(){',
+ 'vec2 p=uv;',
+ 'vec3 upper=vec3(.016,.044,.079);',
+ 'vec3 horizon=vec3(.097,.168,.192);',
+ 'float height=smoothstep(.12,1.05,p.y);',
+ 'vec3 c=mix(horizon,upper,height);',
+ 'float haze=exp(-pow((p.y-.31)*9.0,2.0));',
+ 'c+=vec3(.028,.043,.048)*haze;',
+ 'float faintGlow=exp(-length((p-vec2(.73,.36))*vec2(2.6,4.4))*4.2);',
+ 'c+=vec3(.092,.055,.034)*faintGlow;',
+ 'outColor=vec4(c,1.0);}'
+].join('\n');
+
 function compile(gl,type,text){
  const x=gl.createShader(type);gl.shaderSource(x,text);gl.compileShader(x);
  if(!gl.getShaderParameter(x,gl.COMPILE_STATUS)){const e=gl.getShaderInfoLog(x);gl.deleteShader(x);throw Error('K4AQ shader: '+e);}
@@ -217,16 +242,25 @@ export function createK4AQScene(gl,art){
  const program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);
  gl.linkProgram(program);gl.deleteShader(vs);gl.deleteShader(fs);
  if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('K4AQ link: '+gl.getProgramInfoLog(program));
+ const sv=compile(gl,gl.VERTEX_SHADER,SKYVERT),sf=compile(gl,gl.FRAGMENT_SHADER,SKYFRAG);
+ const skyProgram=gl.createProgram();gl.attachShader(skyProgram,sv);gl.attachShader(skyProgram,sf);
+ gl.linkProgram(skyProgram);gl.deleteShader(sv);gl.deleteShader(sf);
+ if(!gl.getProgramParameter(skyProgram,gl.LINK_STATUS))throw Error('K4AQ sky link: '+gl.getProgramInfoLog(skyProgram));
  const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(art.vertices),gl.STATIC_DRAW);
  const uni={};
  for(const n of ['eye','camRight','camUp','camFront','aspect','albedo[0]','surface[0]','fogStrength'])
   uni[n]=gl.getUniformLocation(program,n);
- return {...art,buffer,count:art.vertices.length/7,program,uni};
+ return {...art,buffer,count:art.vertices.length/7,program,skyProgram,uni};
 }
 export function renderK4AQScene(gl,scene,view,aspect,{fogStrength=1}={}){
  if(!scene)return;
  const prev=gl.getParameter(gl.CURRENT_PROGRAM);
+ // Atmospheric sky only in opted-in K4AQ; painted before original live B51.
+ const depth=gl.isEnabled(gl.DEPTH_TEST),mask=gl.getParameter(gl.DEPTH_WRITEMASK);
+ gl.depthMask(false);gl.disable(gl.DEPTH_TEST);gl.useProgram(scene.skyProgram);
+ gl.drawArrays(gl.TRIANGLES,0,3);
+ gl.depthMask(mask);if(depth)gl.enable(gl.DEPTH_TEST);
  gl.useProgram(scene.program);
  const u=scene.uni;
  for(const [n,val] of [['eye',view.eye],['camRight',view.right],['camUp',view.up],['camFront',view.front]])
@@ -246,4 +280,5 @@ export function renderK4AQScene(gl,scene,view,aspect,{fogStrength=1}={}){
 export function releaseK4AQScene(gl,scene){
  if(scene?.buffer)gl.deleteBuffer(scene.buffer);
  if(scene?.program)gl.deleteProgram(scene.program);
+ if(scene?.skyProgram)gl.deleteProgram(scene.skyProgram);
 }
