@@ -1,3 +1,13 @@
+## 【暫定実測：14mの真正721tickは旧FAIL Artifact内で保存済み】
+
+- [K4AI第1修正版CI #41558189309](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41558189309) は結果として`failure`。Artifact #13196385604（ZIP SHA256 `3bec6818b9bdb6435cc4e333010f253e1e1b9c5545015e21a54ca95e54204cc3`、43メンバーCRC全PASS）を実ダウンロードし、`K4AI_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json` SHA `fca34f8d3972690e9b952dd0da64786e34062ffb3b463d53c48b00f09a6be218` を計算。**ultra=14mの7真正元PNG/7元GPU mask/7深度復元/721/721元物理tickの原生JSONは保存成功、control=28mでsource road nullに対する研究用assert誤りによって中断**。
+- その真14m生記録から、最短**符号付きカメラeye→元p95-hazard-12のOBB距離 −0.9748613671m（native tick11341、時刻47.2541667秒）**。元幾何関数が`eyeInsideOBB=true`とした連続tickは **11340〜11349の10tick=10/240秒≈0.041667秒**。眼→OBB表面1m以内のtickは11338〜11351の14tick。元`runner.surface`は全721tickで`p93-PRISM_CREST-01`、statusは全721tick`running`。同じ7基準tickのeye座標と元`signedEyePointToOBBMeters`は、SHA固定されたK4AH真正元描画生JSONと**ローカル独立Pythonの7/7数値差1e-8以内**で一致。
+- これらは**保存された生source値の暫定事実**であり、まだ全1,442件の独立関数再実行とcontrol幅監査が通っていない。K4AI SOURCE TECH全体PASSには昇格させない。`eyeInsideOBB`の連続10tickは**元カメラと元箱の幾何学的重なり**であり、実GPUの遮蔽秒数・プレイヤーの接触・物理バグ・人間ARTのいずれとも同義ではない。
+- 7時点スナップショットだけでは、14mの47.0秒（眼→OBB +46.526m）と47.5秒（+39.766m）の**中間で一時的に眼がOBB内に入る**事象を見逃すことが実証された。連続240Hz測定が必要である理由を示す一方、本番修正・衝突変更の許可ではない。
+- 次の正規CIは [#41559179613](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41559179613)。source`Runner.surface`の元路面ID/NULLとgrounded状態も正しく記録する。**完走/Artifact独立検証までは確定せずART HOLD**。
+
+---
+
 ## 【第2修正版CI：原Runner.surfaceのnull時間帯を正しく保存 2026-11-03】
 
 - [K4AI第1修正版CI #41558189309](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41558189309) はSOURCE SHA/元K4Z82PNG/元K4AF84GPU/元K4AH14画像幾何/隔離rendererビルドPASS後、真Chromiumの`ultra`幅**全7元画面+7元B51 mask+7元深度復元+721/721 source-native tick capture成功**。しかし`control`幅の連続tickの一部で原`Runner.surface===null`だったため、K4AI研究用ランナーに書いた「721tick全部に`p93-PRISM_CREST-01`路面IDが必須」という**不当な仮定**がassert FAIL。これは元ゲームの描画不良・物理不正ではない。失敗Artifact #13196385604 ZIP SHA256 `3bec6818b9bdb6435cc4e333010f253e1e1b9c5545015e21a54ca95e54204cc3`、CRC43/43確認。制御幅の実sourceがnullであった事実を隠さない。
