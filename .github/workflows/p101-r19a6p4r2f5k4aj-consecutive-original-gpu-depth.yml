@@ -1,0 +1,127 @@
+name: DOPAGAKI K4AJ genuine B51 GPU depth at 99 contiguous native ticks ART HOLD
+on:
+  push:
+    branches: [research/k4aj-native-b51-gpu-depth-contiguous-window-20261103]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4aj-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4aj-consecutive-original-gpu-depth.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-k4aj-pinned-consecutive-B51-source-GPU
+  cancel-in-progress: true
+jobs:
+  true-original-gpu-source-b51-critical-windows:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Pin protected native source and validate research syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-r19a6p4r2f5k3b-private-camera-pack.mjs)" = 3096e5556189221d8411205a6cf96a1f5f5137bd
+          node --check scripts/p101-r19a6p4r2f5k4aj-consecutive-native-gpu-b51.mjs
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4aj-independent-consecutive-b51-depth-audit.py
+          node tests/k4ac-gl-state-restoration.mock.mjs
+      - name: Download exact K4Z, K4AF and K4AI true source evidence (SHA required)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p r19-evidence/r19a6p4r2f5k4z-source r19-evidence/r19a6p4r2f5k4af-pinned r19-evidence/r19a6p4r2f5k4ai-pinned
+          gh run download 41427816258 \
+            -n K4Z_2WIDTH_TRUE_240HZ_ORIGINAL_SOURCE_DENSE_ROAD5_AND_OTHERS_ART_HOLD \
+            -D r19-evidence/r19a6p4r2f5k4z-source
+          gh run download 41472149272 \
+            -n K4AF_ORIGINAL_ROAD5_14_TRUE_FRAMES_84_GPU_MASKS_14_RESTORATIONS_ART_HOLD \
+            -D r19-evidence/r19a6p4r2f5k4af-pinned
+          gh run download 41559179613 \
+            -n K4AI_GENUINE_1442_240HZ_CAMERA_B51_OBB_GEOMETRY_ART_HOLD \
+            -D r19-evidence/r19a6p4r2f5k4ai-pinned
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          z=Path('r19-evidence/r19a6p4r2f5k4z-source')
+          af=Path('r19-evidence/r19a6p4r2f5k4af-pinned')
+          ai=Path('r19-evidence/r19a6p4r2f5k4ai-pinned')
+          checks={
+            z/'K4Z_ORIGINAL_SOURCE_DENSE_7ROAD_CAMERA.json':'da69e5d9283f6a8fc5190cc9fefd4e8476114eedfb218fe2eb802bbecfcddb6c',
+            af/'K4AF_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json':'016c28bf4fafa50748d8083496a81a5d66732540c0c3b50e863a7c39cfaddf26',
+            af/'K4AF_INDEPENDENT_GENUINE_SOURCE_GPU_AUDIT.json':'028f72fa8b40b450cb106e1484be488467c7dbcc4b9e69769cb2fa88a9aeec24',
+            ai/'K4AI_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json':'e04c9990ebc2573467e8d95cd3e497a7a6059a9f12384f46507c3c1dfdc0eb60',
+            ai/'K4AI_INDEPENDENT_SOURCE_GPU_GEOMETRY_AUDIT.json':'a39adcaf8b71068e4a37ce5421a7927a6159e6a9fcd52aedcd4f4e6d8ef3143d'
+          }
+          for f,expect in checks.items():
+            actual=hashlib.sha256(f.read_bytes()).hexdigest()
+            assert actual==expect,('PINNED_ACTUAL_SOURCE_SHA_CHANGED',str(f),actual)
+          k4z=json.loads((z/'K4Z_ORIGINAL_SOURCE_DENSE_7ROAD_CAMERA.json').read_text())
+          assert sum(len(s['frames']) for s in k4z['sessions'])==82
+          for s in k4z['sessions']:
+            for frame in s['frames']:
+              p=z/frame['file']
+              assert p.stat().st_size==frame['bytes']
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==frame['sha256']
+          k4ai=json.loads((ai/'K4AI_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json').read_text())
+          assert k4ai['originalSourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert k4ai['errors']==[] and len(k4ai['sessions'])==2
+          for s in k4ai['sessions']:
+            records=s['continuousNative240Hz']['records']
+            assert len(records)==721
+            assert [r['nativeTick'] for r in records]==list(range(10680,11401))
+          print('K4AJ_PINNED_K4Z82_K4AF84_AND_TRUE_K4AI1442_SOURCE_EVIDENCE_PASS')
+          PY
+      - name: Build unchanged original WebGL2 source private depth-replay renderer
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a1-private-original-native-camera-pack.mjs
+          node scripts/p101-r19a6p4r2f5k3b-private-camera-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4ab-private-source-draw-provenance.mjs
+          node scripts/p101-r19a6p4r2f5k4ad-private-original-mesh-depth-replay.mjs
+          node --check dist-private/r19a6p4r2f5k4ad/drive3d.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Chromium genuine original B51 99 contiguous native 240Hz ticks plus K4AF true reference
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/p101-r19a6p4r2f5k4aj-consecutive-native-gpu-b51.mjs
+          test -s r19-evidence/r19a6p4r2f5k4aj/K4AJ_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json
+      - name: Independent 100 original GPU source baselines and B51 masks and 100 exact restorations
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-numpy python3-pil
+          python3 scripts/p101-r19a6p4r2f5k4aj-independent-consecutive-b51-depth-audit.py \
+            --k4z r19-evidence/r19a6p4r2f5k4z-source \
+            --k4ai r19-evidence/r19a6p4r2f5k4ai-pinned \
+            --k4af r19-evidence/r19a6p4r2f5k4af-pinned \
+            --k4aj r19-evidence/r19a6p4r2f5k4aj
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,csv
+          p=Path('r19-evidence/r19a6p4r2f5k4aj')
+          report=json.loads((p/'K4AJ_INDEPENDENT_99_CONTIGUOUS_SOURCE_GPU_MASK_AUDIT.json').read_text())
+          assert report['decision']=='GENUINE_CONTIGUOUS_SOURCE_GPU_B51_DEPTH_99_TICKS_TECH_CANDIDATE_ART_HOLD'
+          assert report['genuineSourceB51Masks']==100
+          assert report['trueOriginalGPUFrames']==report['originalDepthRestorations']==100
+          assert report['nativeSourceConsecutiveWindowTicks']==99
+          assert report['genuineK4AF11280Anchors']==2
+          assert report['humanVisualObstructionSeconds']=='NOT_MEASURED'
+          assert report['officialARTAccepted']==report['slope2DNAMetres']==0
+          assert report['newModels']==report['newColliders']==0
+          assert report['ART']=='NOT_TESTED_HOLD' and report['RELEASE']==report['MERGE']=='HOLD'
+          rows=list(csv.DictReader((p/'K4AJ_100_REAL_SOURCE_GPU_DEPTH_MASKS.csv').open()))
+          assert len(rows)==100 and len({(x['mode'],x['tick']) for x in rows})==100
+          assert sum(x['dense']=='True' for x in rows)==99
+          assert all(int(x['sampledPixels'])==11176 for x in rows)
+          print('K4AJ_GENUINE_99_NATIVE_TICK_CONTIGUOUS_B51_GPU_SAMPLES_TECH_PASS_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4AJ_99_CONTIGUOUS_NATIVE_GPU_B51_MASKS_100_SOURCE_PROOFS_ART_HOLD
+          path: r19-evidence/r19a6p4r2f5k4aj/
+          retention-days: 7
+          if-no-files-found: warn
