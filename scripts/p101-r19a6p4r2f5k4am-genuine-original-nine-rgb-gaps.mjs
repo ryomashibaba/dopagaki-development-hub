@@ -87,7 +87,7 @@ async function png(page,file){
 function depthSummary(d){
  return {method:d.method,nonlinearDepth:d.nonlinearDepth,
   sampleCount:d.samples.length,originalDraws:d.originalDraws,
-  sha256:sha(Buffer.from(JSON.stringify(d.samples)))};
+  sha256:sha(Buffer.from(JSON.stringify(d.samples))),samples:d.samples};
 }
 const result={
  schema:'dopagaki.K4AM.original-webgl2-source-RGB-nine-gaps/1',
