@@ -1,0 +1,145 @@
+name: DOPAGAKI K4BB authentic Road5 UV PBR and inhabited civic rooms DCC
+on:
+  push:
+    branches:
+      - research/k4bb-road5-pbr-civic-interiors-20261103
+    paths:
+      - 'scripts/p101-k4bb-*'
+      - '.github/workflows/p101-k4bb-source-pbr-civic-rooms.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4bb-source-B48-no-geometry-change-pbr-and-inhabited-civic
+  cancel-in-progress: false
+jobs:
+  art-first-pbr-road5-authentic-camera:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate untouched frozen source, real source tests, Python syntax
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bb-source-road5-pbr-civic-interiors.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Fetch verified v2 K4BA source geometry and editable .blend only
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BA_FULL_SCREEN_TRUE_B48_B51_TIDAL_CITY_BLENDER_DCC_ART_REJECT
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41625837609
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bb/source-k4ba
+      - name: Fetch genuine B48 Road5 and all source time B51 from pinned K4AY
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bb/source-k4ay
+      - name: Verify full source SHA and never accept earlier ART for this new candidate
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('research/evidence/k4bb/source-k4ba')
+          d=json.loads((p/'K4BA_SOURCE_DCC_ART_PROVENANCE.json').read_text())
+          assert d['sourceFrozenBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['roadGeometryUnmodified'] is True
+          assert d['trueSourceRoadFingerprintAfter']==d['trueSourceRoadFingerprintBefore']
+          assert d['sourceB51OBBProxySnapshots']==168
+          assert d['originalB48RoadCount']==7 and d['originalB51MovingCount']==28
+          assert d['formalArtApproved']==d['Slope2DNACertifiedMetres']==0
+          for fn,v in d['files'].items():
+            raw=(p/fn).read_bytes()
+            assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+          source=Path('research/evidence/k4bb/source-k4ay')
+          q=json.loads((source/'K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert q['frozenOriginalGameGitBlob']==d['sourceFrozenBlob']
+          assert q['modes']['control']['originalRoadSourcePointsSHA256']==d['trueRoadControlPointsSHA256']
+          assert q['modes']['control']['trueSourceTriangleCount']==4728
+          assert q['modes']['control']['roadID']=='p93-PRISM_CREST-01'
+          for m in ('control','ultra'):
+            assert len(q['modes'][m]['sourceTimeRecords'])==3
+            assert all(len(r['B51CollisionOBBNotOriginalVisibleMesh'])==28 for r in q['modes'][m]['sourceTimeRecords'])
+          print('K4BB_SOURCE_B48_SOURCE_B51_K4BA_NATIVE_DCC_SHA_SUCCESS')
+          PY
+      - name: Install real Blender, numpy/Pillow for 2K road albedo roughness height atlases
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil
+          blender -v | head -3
+      - name: Create actual UV PBR and inhabited public interiors on saved source scene
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bb/rendered
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bb-source-road5-pbr-civic-interiors.py -- \
+            --base research/evidence/k4bb/source-k4ba/K4BA_TIDAL_COMMONS_EDITABLE_ART_REJECT_HOLD.blend \
+            --source research/evidence/k4bb/source-k4ay/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out research/evidence/k4bb/rendered
+      - name: Verify all outputs, original geometry immutability and six same-camera DCC comparisons
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          from pathlib import Path
+          import hashlib,json
+          base=Path('research/evidence/k4bb/source-k4ba')
+          out=Path('research/evidence/k4bb/rendered')
+          d=json.loads((out/'K4BB_SOURCE_PBR_CIVIC_PROVENANCE.json').read_text())
+          assert d['originalFrozenGameSourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['sourceRoad5Triangles']==4728
+          assert d['originalB48PhysicalRoads']==7 and d['originalB51PhysicalMovers']==28
+          assert d['sourceB48VerticesAndTopologyUnchanged'] is True
+          assert d['originalSourceRoadGeometryBefore']==d['originalSourceRoadGeometryAfter']
+          assert d['originalCameraNumericsUnchanged'] is True
+          assert d['sourceB51OriginalOBBSnapshotInstances']==168
+          assert d['PBRAtlasPixels']==[2048,1024]
+          assert d['UVRealTopGridResolution']==[91,13]
+          assert d['roadSourceGameplaySafetyPaintUpdated'] is False
+          assert d['nativeGameWebGL2Rendered'] is False
+          assert d['formalARTApproved']==d['Slope2DNACertifiedMetres']==0
+          assert d['ART']=='REJECT_HOLD'
+          assert len(d['sourceNumericDCCShots'])==6
+          assert d['editableNewPublicObjects']>100
+          for filename,proof in d['allFiles'].items():
+            dat=(out/filename).read_bytes()
+            assert len(dat)==proof['bytes'] and hashlib.sha256(dat).hexdigest()==proof['sha256']
+          assert (out/'K4BB_SOURCE_ROAD5_VISUAL_STUDY_DCC_NOT_GAME.glb').read_bytes()[:4]==b'glTF'
+          for layer in ('ALBEDO','ROUGHNESS','HEIGHT'):
+            f=out/('K4BB_2K_ORIGINAL_ROAD_MATERIAL_CANDIDATE_'+layer+'.png')
+            im=Image.open(f)
+            assert im.size==(2048,1024)
+            assert sum(ImageStat.Stat(im.convert('RGB')).stddev)>4,'texture must contain authored spatial variation'
+          canvas=Image.new('RGB',(1170,6*416+425),(16,20,26))
+          pen=ImageDraw.Draw(canvas)
+          for i,shot in enumerate(d['sourceNumericDCCShots']):
+            mode,tick=shot['mode'],shot['tick']
+            old=Image.open(base/('K4BA_TRUE_POSE_DCC_'+mode.upper()+'_'+str(tick)+'.png')).convert('RGB')
+            new=Image.open(out/shot['dccPNG']).convert('RGB')
+            assert new.width>=700 and new.height>=500
+            assert sum(ImageStat.Stat(new).stddev)>15,'blank road artwork'
+            old=old.resize((560,384));new=new.resize((560,384))
+            yy=i*416
+            canvas.paste(old,(0,yy+24));canvas.paste(new,(596,yy+24))
+            pen.text((10,yy+4),f'K4BA genuine numeric camera DCC {mode} {tick}',fill='white')
+            pen.text((602,yy+4),f'K4BB new authored UV/PBR + occupied interior DCC {mode} {tick}',fill='white')
+          a=Image.open(out/'K4BB_CIVIC_INTERIOR_HUMAN_EYE_DCC_NOT_GAME.png').convert('RGB')
+          canvas.paste(a.resize((560,384)),(596,6*416+24))
+          pen.text((10,6*416+4),'ALL PANELS BLENDER DCC, NOT ORIGINAL WEBGL2. ART REJECT.',fill='white')
+          canvas.save(out/'K4BB_SIX_NATIVE_POSE_K4BA_V2_VS_UV_PBR_CIVIC_AB.png')
+          print('K4BB_SOURCE_TRUE_UV_PBR_ROAD_AND_EDITABLE_CIVIC_ROOMS_DCC_TECH_PASS_NOT_ART')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BB_TRUE_SOURCE_ROAD5_2K_PBR_INHABITED_CIVIC_BLENDER_ART_HOLD
+          path: research/evidence/k4bb/rendered/
+          if-no-files-found: warn
+          retention-days: 14
