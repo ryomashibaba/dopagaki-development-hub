@@ -5,9 +5,9 @@
 ## 1. 本物の元ゲームからレビュー可能な画面を作る
 
 - 真正K4AJ [成功Actions #41566784540](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41566784540)・Artifact #13201661563 の生ZIP **11,959,523 bytes、SHA-256 `60aab331d8881b5f8f456539c00566837a2b061a96ab0725ce7c17ea91ed8efb`、CRC28件PASS**。
-- [K4AO再生成Pythonコード](../../scripts/p101-r19a6p4r2f5k4ao-source-only-offline-art-review.py) は元ZIPのSHAを固定し、8組×元WebGL2 PNG／B51群除去PNG／元復元PNGの実SHA・bytes・解像度、100行CSV、元・group mask・復元GPU 11,176点、近い深度を生む不正を拒否。**ネットワーク不要のHTML比較ビューア**を生成する。正しい相対パスは下記参照。
+- [K4AO再生成Pythonコード](../scripts/p101-r19a6p4r2f5k4ao-source-only-offline-art-review.py) は元ZIPのSHAを固定し、8組×元WebGL2 PNG／B51群除去PNG／元復元PNGの実SHA・bytes・解像度、100行CSV、元・group mask・復元GPU 11,176点、近い深度を生む不正を拒否。**ネットワーク不要のHTML比較ビューア**を生成する。正しい相対パスは下記参照。
 - 手元の同等の生成器を使った真正Artifactテスト：**元RGB・mask・復元PNG8組×3、元/復元GPU全配列、ZIP SHA/CRC、CSV突合 PASS**。独立のローカルHTML/JavaScript構文チェックPASS、結果HTMLのSHA256検証PASS。GitHub保存したK4AO Python自体のCIはまだ実行していないため、同コードのGitHub Actions PASSとは記載しない。
-- [再生成コード](../../scripts/p101-r19a6p4r2f5k4ao-source-only-offline-art-review.py) から `python3 scripts/p101-r19a6p4r2f5k4ao-source-only-offline-art-review.py --zip /path/to/K4AJ_99_CONTIGUOUS_20261103.zip --out /tmp/K4AO_TRUE_SOURCE_REVIEW.html`。UIは「14m／28mの8元RGBとB51群のみ研究用非表示」をスライダーで比較する。**作られた新ARTとの比較ではない。**
+- [再生成コード](../scripts/p101-r19a6p4r2f5k4ao-source-only-offline-art-review.py) から `python3 scripts/p101-r19a6p4r2f5k4ao-source-only-offline-art-review.py --zip /path/to/K4AJ_99_CONTIGUOUS_20261103.zip --out /tmp/K4AO_TRUE_SOURCE_REVIEW.html`。UIは「14m／28mの8元RGBとB51群のみ研究用非表示」をスライダーで比較する。**作られた新ARTとの比較ではない。**
 - [実測15カメラ審査時点JSON](research-evidence/k4ao/K4AO_TRUE_GPU_DEPTH_15_ART_CAMERA_REVIEW_ANCHORS.json)：K4AK要求をすべて本物のK4AJ 100ケースCSVの測定値で固定。RGB存在は6／15、残り9は未撮影、元画像に追加2。K4AMが真にSUCCESSしない限り15元RGB揃ったとはしない。
 
 ## 2. 元カメラでのART-FIRST優先観測時点
