@@ -1,0 +1,126 @@
+name: DOPAGAKI K4BH two-source-camera Blender hero art pilot ART HOLD
+on:
+  push:
+    branches: [research/k4bh-true-camera-complete-hero-composition-20261104]
+    paths:
+      - 'scripts/p101-k4bh-sculpted-sea-gate-hero-art.py'
+      - '.github/workflows/p101-k4bh-true-camera-hero-art.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bh-hero-art
+  cancel-in-progress: true
+jobs:
+  true-camera-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify frozen source and Python syntax
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bh-true-camera-complete-hero-composition-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bh-sculpted-sea-gate-hero-art.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download authentic K4BG native editable Blender
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BG_COHERENT_CIVIC_ESCARPMENT_EDITABLE_DCC_ART_UNJUDGED_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41726814278
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bh/parent
+      - name: Independently pin K4BG bytes and original camera provenance
+        run: |
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          d=Path('research/evidence/k4bh/parent')
+          j=json.loads((d/'K4BG_CAMERA_ART_PILOT_PROVENANCE.json').read_text())
+          assert j['frozenOriginalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalB48Roads']==7 and j['originalB51Bodies']==28
+          assert j['sourcePhysicsHz']==240 and j['ballRadiusMetres']==.65
+          assert j['sourceRoad5GeometryUnchanged'] and j['restoredOriginalSourceCollectionVisibilityForEachMode']
+          assert j['formalArtAccepted']==0
+          for name,record in j['files'].items():
+              buf=(d/name).read_bytes()
+              assert hashlib.sha256(buf).hexdigest()==record['sha256'] and len(buf)==record['bytes']
+          assert j['files']['K4BG_CIVIC_ESCARPMENT_EDITABLE_DCC_ART_HOLD.blend']['sha256']=='b665c84a88d719c4615638cfeb95ab5fe92a84a3a07d3ebe096dd540dd749b2f'
+          print('K4BH_PARENT_INDEPENDENT_HASH_PASS_NOT_ART_PASS')
+          PY
+      - name: Install known-working native Blender and Pillow
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+      - name: Render genuine immutable camera pose scenic pilot
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bh/render
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bh-sculpted-sea-gate-hero-art.py -- \
+            --base research/evidence/k4bh/parent/K4BG_CIVIC_ESCARPMENT_EDITABLE_DCC_ART_HOLD.blend \
+            --out research/evidence/k4bh/render
+      - name: Inspect images and produce neutral K4BG-versus-K4BH contact sheet
+        run: |
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          from pathlib import Path
+          d=Path('research/evidence/k4bh/render')
+          p=Path('research/evidence/k4bh/parent')
+          j=json.loads((d/'K4BH_SOURCE_CAMERA_PROVENANCE.json').read_text())
+          assert j['frozenOriginalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['road5SourceFingerprintPreserved'] and j['sourceCameraNumericsPreserved']
+          assert j['road5MaterialEditedInDCCOnly'] and not j['newGameCollider'] and not j['newPlayableRoad']
+          assert j['formalARTAccepted']==0 and j['slope2DNAmetres']==0
+          assert j['ART']=='UNJUDGED_HOLD' and not j['fullOriginalWebGL2Frames']
+          assert len(j['screenshots'])==2
+          for fn,m in j['files'].items():
+              data=(d/fn).read_bytes()
+              assert hashlib.sha256(data).hexdigest()==m['sha256'] and len(data)==m['bytes']
+          canvas=Image.new('RGB',(1860,1300),(19,21,24))
+          draw=ImageDraw.Draw(canvas)
+          for i,v in enumerate(j['screenshots']):
+              mode=v['mode'];tick=v['tick']
+              a=Image.open(p/f'K4BG_{mode.upper()}_{tick}_SOURCE_CAMERA_DCC_ART_UNJUDGED.png').convert('RGB').resize((900,600))
+              b=Image.open(d/v['file']).convert('RGB').resize((900,600))
+              assert sum(ImageStat.Stat(b).stddev)>12
+              assert ImageChops.difference(a,b).getbbox() is not None
+              canvas.paste(a,(20,35+i*640))
+              canvas.paste(b,(940,35+i*640))
+              draw.text((20,12+i*640),f'K4BG {mode} {tick}: REJECTED SOURCE DCC',fill='white')
+              draw.text((940,12+i*640),f'K4BH {mode} {tick}: UNJUDGED SOURCE DCC / NOT GAME',fill='white')
+          fn='K4BH_K4BG_TO_NEW_TWO_CAMERA_ART_REVIEW_NOT_GAME.png'
+          canvas.save(d/fn)
+          raw=(d/fn).read_bytes()
+          j['trueCameraAB']={'file':fn,'sha256':hashlib.sha256(raw).hexdigest(),'bytes':len(raw)}
+          (d/'K4BH_SOURCE_CAMERA_PROVENANCE.json').write_text(json.dumps(j,indent=2))
+          print('K4BH_INDEPENDENT_SOURCE_CAMERA_RGB_PASS_NOT_ART_PASS')
+          PY
+      - name: Store result on isolated research branch only
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bh-true-camera-complete-hero-composition-20261104
+          mkdir -p docs/research-evidence/k4bh
+          cp research/evidence/k4bh/render/K4BH_*_ORIGINAL_CAMERA_DCC_ART_HOLD.png docs/research-evidence/k4bh/
+          cp research/evidence/k4bh/render/K4BH_K4BG_TO_NEW_TWO_CAMERA_ART_REVIEW_NOT_GAME.png docs/research-evidence/k4bh/
+          cp research/evidence/k4bh/render/K4BH_SOURCE_CAMERA_PROVENANCE.json docs/research-evidence/k4bh/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4bh
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bh): two original camera DCC images, ART UNJUDGED"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bh-true-camera-complete-hero-composition-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BH_TRUE_SOURCE_CAMERA_EDITABLE_CINEMATIC_ART_HOLD
+          path: research/evidence/k4bh/render/
+          retention-days: 14
+          if-no-files-found: warn
