@@ -7,7 +7,9 @@
 - **新Blender-native建築初版**: K4AZ #41614997838 成功。再調整した明るい路面・屋上横断公共ギャラリー等のv2は #41615762837 成功（Artifact #13221930364）。旧K4AX建築は破壊せず隠して残し、Road5 original B48頂点ハッシュ不変、source camera6点とartist viewを出力。
 - **独立幾何SOURCE限定成果**: #41616623231 SUCCESS、K4AZ v2建築評価対象290メッシュ/カーブ、59,120面と原Road5 B48 / 6tick×28体物理OBBの**三角形交差0件**。連続走行CCD・他の6道路の完全非干渉、HUMAN/FPSは未検証。v3に横滑り認定禁止。
 - **現在のART判定**: v2の真正source-numeric Camera DCC画像は、まだ巨大な路面空白、切れる架空横断アーチ、建築用途の不足があるため**ART REJECT**。画像は元のWebGL2ゲーム画面ではない。
-- **次の実行**: v3 source Camera射影に基づく前方横断橋・ランドマーク位置変更の[Actions #41616880506](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41616880506)の実結果/Artifactを照会→7画像目視、元Cameraでの美術質を厳格判定→K4AZ v3について独立静的B48/B51監査→引き続き世界水準に到達するための建築・地形の制作。元source 240Hz/球半径0.65m/Camera/B48七道路・B51二十八体/操作/衝突/加速は改変禁止。
+- **v3最終CI/実画像**: [#41616880506](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41616880506) **SUCCESS**、Artifact #13221369011。元Cameraで横断アーチがフレーム内へ入ったものの、**世界水準の品質不足でART REJECT**。6元Camera DCC A/Bとアーティスト画像は [GitHubに永続保存](docs/research-evidence/k4az/K4AZ_V3_SIX_SOURCE_NUMERIC_CAMERA_AB_DCC_ART_REJECT.png)。真正ゲームWebGL2ではない。
+- **v3静的干渉も独立実証**: [#41617855388](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41617855388) **SUCCESS**。290 source DCC建築mesh/curve、58,544面 vs Road5 source B48 4,728 triangle とB51 168 native snapshot OBBの**交差0件**。CCD/HUMAN/FPS/他6道路は未認定。
+- **次の実行**: [K4AZ v3完全審査正本](docs/R19_A6P4_R2F5K4AZ_CIVIC_RIFT_BLENDER_ARCHITECTURAL_RECOMPOSITION_JA.md)の末尾を先に読み、安易な細部追加ではなく**画面全体の建築・地形・実路面・遠景の美術品質の抜本再制作**を続ける。元source 240Hz/球半径0.65m/Camera/B48七道路・B51二十八体/操作/衝突/加速は改変禁止。
 - **固定HOLD**：正式ART採用0件、Slope2 DNA認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD、main・公式継続 `p101-velocity-overdrive-native-trial`・本番・Draft PR #46無変更。Workは必ず事前承認、ユーザー側PC手動ZIP不要。
 
 ---
