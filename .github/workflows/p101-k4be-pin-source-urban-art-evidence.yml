@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Stop unless original two-camera native source Blender completed correctly
         env:
-          GH_TOKEN: \${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           for attempt in $(seq 1 95); do
@@ -36,7 +36,7 @@ jobs:
           name: K4BE_ALL7_SOURCE_TWO_CAMERA_INTEGRATED_TIDAL_FORUM_ART_HOLD
           repository: ryomashibaba/dopagaki-development-hub
           run-id: 41656920221
-          github-token: \${{ github.token }}
+          github-token: ${{ github.token }}
           path: research/evidence/k4be-pin
       - name: Verify SHA provenance before committing immutable DCC ART HOLD examples
         run: |
