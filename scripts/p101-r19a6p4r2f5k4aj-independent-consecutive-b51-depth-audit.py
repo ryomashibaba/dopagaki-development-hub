@@ -60,7 +60,9 @@ def main():
     assert current["ART"]=="NOT_TESTED_HOLD" and current["RELEASE"]==current["MERGE"]=="HOLD"
     assert current["errors"]==[] and len(current["sessions"])==2
     assert current["continuousDepthSamplingOnlyInDeclaredWindows"] is True
-    assert current["sourceOriginalB51ID"]=="p95-hazard-12"
+    assert current["geometryStudyTargetB51ID"]=="p95-hazard-12"
+    assert current["actualGPUResearchMask"]=="B51_BODY_ALL_28"
+    assert current["perTickSingleObstacleGPUAttribution"]=="UNVERIFIED_EXCEPT_K4AG_TICK11280"
     helper=runpy.run_path("scripts/p101-r19a6p4r2f5k4ad-independent-rgba-depth-audit.py")
     img=helper["img"];pngdiff=helper["source_png_equals_outside_css"]
     assert sum(len(x["frames"]) for x in k4z["sessions"])==82
@@ -68,7 +70,7 @@ def main():
         for frame in s["frames"]:
             b=(z/frame["file"]).read_bytes()
             assert len(b)==frame["bytes"] and hashlib.sha256(b).hexdigest()==frame["sha256"]
-    rows=[];windows={};snapshot_count=0
+    rows=[];windows={};snapshot_count=0;last_seq=0
     for mode in ("ultra","control"):
         one=next(s for s in current["sessions"] if s["mode"]==mode)
         ref=next(s for s in k4z["sessions"] if s["mode"]==mode)
@@ -97,6 +99,16 @@ def main():
             assert source["audit"]["originalSceneA5R19A3OverlayRendered"] is False
             assert m["mask"]=="without-B51-bodies"
             assert m["sourceSameBallCameraAnd240HzTick"] is True
+            # Monotonic unique GPU readback requests, 3 for every source tick,
+            # across BOTH widths and through the genuine K4AF anchor.
+            assert f["captureProof"]["seq"]==last_seq+1,(
+                "K4AJ_BASELINE_GPU_CAPTURE_NOT_NEXT",mode,t)
+            assert m["proof"]["seq"]==last_seq+2,(
+                "K4AJ_MASK_GPU_CAPTURE_NOT_NEXT",mode,t)
+            assert rest["seq"]==last_seq+3,(
+                "K4AJ_RESTORE_GPU_CAPTURE_NOT_NEXT",mode,t)
+            assert rest["sourceRoad"]==source["road"]
+            last_seq=rest["seq"]
             assert f["k4aiPinnedOriginalTick"] is True
             diff=lambda x,y:max(abs(a-b) for a,b in zip(x,y))
             assert diff(source["xyz"],true["originalSourceBallCenter"])<0.0015
@@ -137,7 +149,11 @@ def main():
                 assert pngdiff(original,recovered,f["chapterHUD"])["native3DOrNonHUDPixelsChanged"]==0
                 snapshot_count+=1
             datum={"mode":mode,"tick":t,"seconds":t/240,"dense":lo<=t<=hi,
-                "originalSourceB51Id":"p95-hazard-12",
+                "geometryTargetB51Id":"p95-hazard-12",
+                "actualRemovedVisualLayer":"B51_BODY_ALL_28",
+                "singleObstacleGPUAttributionAtThisTick":
+                    "K4AG_VERIFIED_P95_HAZARD_12" if t==11280 else "NOT_MEASURED_UNKNOWN",
+                "freshGPURequestSequence":rest["seq"],
                 "actualSourceGPUDraws":72,"withoutAllB51GPUdraws":44,
                 "maskedFartherDepthSamples":farther,"sampledPixels":N,
                 "fractionOfSampledGPUdepthChanged":farther/N,
@@ -155,17 +171,23 @@ def main():
             "sampling":"every_1_over_240_native_source_tick_in_this_window_not_live_240fps_playback"
         }
     assert len(rows)==100
+    assert last_seq==300,("K4AJ_MISSING_OR_DUPLICATE_GPU_READBACK",last_seq)
     assert sum(x["dense"] for x in rows)==99
+    assert sum(x["singleObstacleGPUAttributionAtThisTick"]==
+       "K4AG_VERIFIED_P95_HAZARD_12" for x in rows)==2
+    assert all(x["singleObstacleGPUAttributionAtThisTick"]=="NOT_MEASURED_UNKNOWN"
+       for x in rows if x["tick"]!=11280)
     assert snapshot_count==8  # 4 snapshots each mode, includes 11280.
     # Negative controls reject altered/invalid source-depth interpretation.
-    good=[1,2,3]
     def monotonic(a,b):assert len(a)==len(b) and not any(y<x for x,y in zip(a,b))
+    def seq_next(a,b,c):assert b==a+1 and c==b+1
     rejected=0
     for foo in (lambda:monotonic([3],[2]),lambda:monotonic([3,0],[4,0,1]),
-                lambda:assert_unique_bad_tick(),lambda:assert_aggregate_wrong()):
+                lambda:assert_unique_bad_tick(),lambda:assert_aggregate_wrong(),
+                lambda:seq_next(1,1,3)):
         try:foo()
         except (AssertionError,TypeError):rejected+=1
-    assert rejected==4
+    assert rejected==5
     with (aj/"K4AJ_100_REAL_SOURCE_GPU_DEPTH_MASKS.csv").open("w",newline="",encoding="utf8") as file:
         writer=csv.DictWriter(file,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
     report={"schema":"dopagaki.K4AJ.original-GPU-depth-source-100-snapshots/1",
@@ -174,6 +196,10 @@ def main():
        "trueOriginalK4ZPNGVerified":82,"trueOriginalGPUFrames":100,
        "genuineSourceB51Masks":100,"originalDepthRestorations":100,
        "nativeSourceConsecutiveWindowTicks":99,"genuineK4AF11280Anchors":2,
+       "originalSourceGPUReadbackRequestCount":300,
+       "independentNegativeControls":5,
+       "actualGPUResearchMask":"B51_BODY_ALL_28",
+       "perTickObjectAttribution":"UNKNOWN_EXCEPT_K4AG_VERIFIED_11280",
        "observedNativeTickWindows":windows,"physicalCollisionVerified":False,
        "humanVisualObstructionSeconds":"NOT_MEASURED",
        "nativelySampledGPUdepthDurationOnly":True,
@@ -183,13 +209,14 @@ def main():
     (aj/"K4AJ_INDEPENDENT_99_CONTIGUOUS_SOURCE_GPU_MASK_AUDIT.json").write_text(json.dumps(report,indent=2,ensure_ascii=False)+"\n",encoding="utf8")
     out=["# K4AJ — 元240Hz時点に対応した真正GPUのB51深度遮蔽連続計測","",
        "**SOURCE GPU DEPTH TECH候補／ART HOLD、正式採用0件、Slope2 DNA0m。**","",
-       "元GPU 8px格子11,176点/フレームにおいて、B51群を私用rendererで一時描画除去した場合にGPU深度が遠くなったサンプルを同一元物理tickで比較。native tick連続観測であり、ブラウザの240fps再生ではない。","",
+       "元GPU 8px格子11,176点/フレームにおいて、B51群を私用rendererで一時描画除去した場合にGPU深度が遠くなったサンプルを同一元物理tickで比較。元描画→群抑制→元復元の全300 readback要求は連番を監査。native tick連続観測であり、ブラウザの240fps再生ではない。","",
        "|幅|測定tick|B51寄与が1点以上のtick|継続tick秒数|最大片数|最大寄与率|",
        "|---|---|---:|---:|---:|---:|"]
     for mode in ("ultra","control"):
         w=windows[mode];win=w["anyB51GPUDepthContribution"];mx=w["maximumB51DepthContribution"]
         out.append(f'|{mode}|{w["nativeWindow"][0]}–{w["nativeWindow"][1]}|{win["observedTicks"]}|{win["sampledTickDurationSeconds"]:.6f}|{mx["maskedFartherDepthSamples"]:,}|{100*mx["fractionOfSampledGPUdepthChanged"]:.3f}%|')
-    out+=["","**注意**：観測窓の外のGPU状態は不明。各group maskのGPU深度差の有無は、人が認識した映像遮蔽時間・ART合格・物理衝突・画面内物体IDと同義ではない。元GPU深度は非線形24bitであり、m単位へ変換していない。",
+    out+=["","**個体別の原因帰属はK4AGで独立検証されたtick11280だけ確定**。そのほか98 GPU時点はB51の28体のどれが寄与したか未測定。K4AIの幾何追跡対象IDを全時点の視覚遮蔽源と誤認しない。",
+          "**注意**：観測窓の外のGPU状態は不明。各group maskのGPU深度差の有無は、人が認識した映像遮蔽時間・ART合格・物理衝突・画面内物体IDと同義ではない。元GPU深度は非線形24bitであり、m単位へ変換していない。",
           "元ゲーム/main/本番/PR#46/Camera/240Hz/B48/B51/球/Gold変更なし。新モデル/Collider0。ART/RELEASE/MERGE HOLD。",""]
     (aj/"K4AJ_NATIVE_240HZ_B51_GPU_MASK_WINDOWS_JA.md").write_text("\n".join(out),encoding="utf8")
     print("K4AJ_99_CONSECUTIVE_TRUE_GPU_B51_DEPTH_MASKS_PLUS_TWO_K4AF_ANCHORS_PASS")
