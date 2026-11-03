@@ -11,6 +11,7 @@ import {server} from './serve.mjs';
 const OUT=path.resolve('r19-evidence/r19a6p4r2f5k4aj');
 fs.mkdirSync(OUT,{recursive:true});
 const SRC='af076d67492a677d2235e4730aef8cdf4808e106';
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const ground=JSON.parse(fs.readFileSync(
  'r19-evidence/r19a6p4r2f5k4z-source/K4Z_ORIGINAL_SOURCE_DENSE_7ROAD_CAMERA.json','utf8'));
 const windows={ultra:[11320,11369],control:[11259,11307]};
@@ -22,7 +23,7 @@ assert.equal(sha(fs.readFileSync('r19-evidence/r19a6p4r2f5k4ai-pinned/K4AI_GENUI
 assert.equal(sha(fs.readFileSync('r19-evidence/r19a6p4r2f5k4af-pinned/K4AF_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json')),
  '016c28bf4fafa50748d8083496a81a5d66732540c0c3b50e863a7c39cfaddf26');
 assert.equal(K4AI.originalSourceBlob,SRC);assert.equal(K4AF.originalSourceBlob,SRC);
-const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+
 assert.equal(ground.sourceBlob,SRC);
 assert.equal(ground.Hz,240);
 assert.equal(ground.sourceB48,7);
@@ -210,7 +211,7 @@ try{
        provenance:sync.provenance,seq:sync.seq,tick:sync.tick,
        mask:sync.mask,sourceRoad:sync.sourceRoad}};
     session.frames.push(record);
-    // K4AF: independently sample all 7 ORIGINAL native ticks, not only 46.0s.
+    // K4AJ: independently sample EACH original native tick in the critical window.
     // Each mask is private WebGL draw suppression on the exact paused source pose.
     {
      for(const mask of masks){
