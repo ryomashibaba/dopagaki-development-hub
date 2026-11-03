@@ -1,0 +1,100 @@
+name: DOPAGAKI K4AZ independent original B48/B51 static DCC geometry overlap audit
+on:
+  push:
+    branches:
+      - research/k4az-road5-civic-rift-dcc-recomposition-20261103
+    paths:
+      - 'research/k4az/independent_native_spatial_audit.py'
+      - '.github/workflows/p101-k4az-independent-original-source-spatial-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-k4az-independent-static-geometry-not-gameplay
+  cancel-in-progress: false
+jobs:
+  read-only-source-static-bvh-overlap:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect actual original source and audit syntax
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile research/k4az/independent_native_spatial_audit.py
+      - name: Download K4AZ successful seven-view editable DCC authored model
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AZ_CIVIC_RIFT_ARCHITECTURE_DCC_SOURCE_B48_B51_ART_REJECT
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41615762837
+          github-token: ${{ github.token }}
+          path: r19-evidence/k4az-spatial-parent
+      - name: Download true source six native B51 frames from K4AY original parent
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: r19-evidence/k4ay-spatial-true-source
+      - name: Verify source DCC provenance before expensive independent geometry audit
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          d=Path('r19-evidence/k4az-spatial-parent')
+          r=json.loads((d/'K4AZ_DCC_PROVENANCE_AND_GATE_REPORT.json').read_text())
+          assert r['gitSourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert r['road5MeshFingerprintBefore']==r['road5MeshFingerprintAfter']
+          assert r['sourceB51OBBInstancesStored']==168
+          assert r['actualB51MovingObstacles']==28
+          assert r['ART']=='REJECT_HOLD' and r['formalARTAccepted']==0
+          for f,v in r['files'].items():
+            b=(d/f).read_bytes()
+            assert len(b)==v['bytes'] and hashlib.sha256(b).hexdigest()==v['sha256']
+          original=Path('r19-evidence/k4ay-spatial-true-source')
+          j=json.loads((original/'K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert j['modes']['control']['roadID']=='p93-PRISM_CREST-01'
+          assert j['modes']['control']['trueSourceTriangleCount']==4728
+          assert len(j['modes']['control']['sourceTimeRecords'])==3
+          assert len(j['modes']['ultra']['sourceTimeRecords'])==3
+          print('K4AZ_PARENT_DCC_TRUE_ROAD_AND_B51_SHA_PIN_PASS')
+          PY
+      - name: Install genuine Blender for exact mesh/OBB BVH intersection survey
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender
+      - name: Independently test all new off-road architecture against B48 and six-times-28 B51 source snapshots
+        run: |
+          mkdir -p r19-evidence/k4az-independent-audit
+          blender -b --factory-startup --python-exit-code 3 \
+            --python research/k4az/independent_native_spatial_audit.py -- \
+            --blend r19-evidence/k4az-spatial-parent/K4AZ_CIVIC_RIFT_EDITABLE_ART_REJECT_HOLD.blend \
+            --source r19-evidence/k4ay-spatial-true-source/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out r19-evidence/k4az-independent-audit
+      - name: Independently verify audit provenance and never promote ART/CCD/HUMAN
+        run: |
+          python3 - <<'PY'
+          import json
+          d=json.load(open('r19-evidence/k4az-independent-audit/K4AZ_INDEPENDENT_STATIC_B48_B51_GEOMETRY_AUDIT.json'))
+          assert d['sourceRoadTriangles']==4728
+          assert d['originalCameraNativeTickSourceOBBSnapshots']==168
+          assert d['candidateArchitectureMeshOrCurveObjects']>=116
+          assert d['sourceRoadContactMeshes']==[]
+          assert d['nativeB51ContactMeshes']==[]
+          assert d['ART']=='REJECT_HOLD'
+          assert d['wholeTrajectorySourceCCD']=='NOT_TESTED_HOLD'
+          assert d['formalArtAccepted']==d['slope2DNAMetres']==0
+          print('K4AZ_STATIC_SOURCE_MESH_NONINTERSECT_PASS_NARROW_ONLY_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4AZ_INDEPENDENT_TRUE_SOURCE_B48_B51_STATIC_BVH_ART_HOLD
+          path: r19-evidence/k4az-independent-audit/
+          retention-days: 14
+          if-no-files-found: warn
