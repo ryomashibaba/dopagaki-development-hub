@@ -98,6 +98,16 @@ def material(name,color,metal=0,rough=.6,glass=0,emit=None):
         p.inputs["Emission Strength"].default_value=emit[3]
     return m
 basalt=material("K4AZ | Wet dark basalt construction and road",(.035,.055,.065),.18,.80)
+# Actual 3D procedural roughness for premium aggregate, not an RGB noise overlay.
+p=basalt.node_tree.nodes.get("Principled BSDF")
+noise=basalt.node_tree.nodes.new("ShaderNodeTexNoise")
+noise.inputs["Scale"].default_value=48
+noise.inputs["Detail"].default_value=3.2
+bump=basalt.node_tree.nodes.new("ShaderNodeBump")
+bump.inputs["Strength"].default_value=.12
+bump.inputs["Distance"].default_value=.018
+basalt.node_tree.links.new(noise.outputs["Fac"],bump.inputs["Height"])
+basalt.node_tree.links.new(bump.outputs["Normal"],p.inputs["Normal"])
 edge_stone=material("K4AZ | Copper-black structural stone",(.105,.135,.145),.12,.72)
 concrete=material("K4AZ | Warm quartz concrete / open public decks",(.52,.44,.35),.10,.72)
 patina=material("K4AZ | Brushed oxidized architectural copper",(.34,.32,.25),.62,.37)
@@ -375,6 +385,74 @@ def sculpt_tower(name,u,side,d,height,baseR,nrings,nedges):
 sculpt_tower("RIGHT / CRESCENT CIVIC LIGHTHOUSE",.94,1,208,166,32,36,14)
 sculpt_tower("LEFT / BASALT CULTURAL CHIMNEY",.97,-1,231,111,28,28,11)
 
+# True-source-geometry longitudinal civic connector across the FULL real road.
+# This is one designed inhabitable elevated pedestrian connection, NOT a gate
+# obstacle, NOT a new collider, never a gameplay-camera or safety certification.
+def crossing(u,q,h):
+    if q<0:return bankpoint(u,-1,-q*(sample(u,1)-sample(u,0)).length,h)
+    if q>1:return bankpoint(u,1,(q-1)*(sample(u,1)-sample(u,0)).length,h)
+    return sample(u,q)+Vector((0,0,h))
+bridge_u=.925
+# Floating deck is high above actual B48/B51 occupied collision band.
+cross_rows=[]
+for u in (bridge_u-.005,bridge_u,bridge_u+.005):
+    cross_rows.append([crossing(u,-.10+1.20*i/64,
+                   40+4.5*sin(pi*max(0,min(1,-.10+1.20*i/64))))
+                   for i in range(65)])
+strip("HERO FOCAL EVENT / HIGH PUBLIC SKY TRANSIT GALLERY - TRUE ROAD CLEAR",
+      cross_rows,concrete,market,solid=2.1)
+for u in (bridge_u-.005,bridge_u+.005):
+    for h in (43.0,49.0):
+        polyline("FAR SKY TRANSIT PEDESTRIAN PARAPET "+str(u)+str(h),
+                 [crossing(u,-.1+1.2*i/70,
+                    h+4*sin(pi*max(0,min(1,-.1+1.2*i/70)))) for i in range(71)],
+                 .22,bronze,market)
+for u in (bridge_u-.012,bridge_u+.015):
+    polyline("TRANSIT FOCAL / OPEN IMPRESSIVE SEGMENTED ARCH "+str(u),
+             [crossing(u,-.10+1.20*i/70,
+                  52+24*sin(pi*max(0,min(1,-.1+1.2*i/70)))**1.18)
+               for i in range(71)],1.12,patina,market)
+# A tangible station head anchors each end, safely OUTSIDE the physical road.
+for side in (-1,1):
+    u=bridge_u
+    for offset in (16,30,43):
+        polyline("SKY GALLERY BANK SUPPORT / "+str(side)+str(offset),
+          [bankpoint(u,side,offset,0),
+           bankpoint(u,side,offset,20),
+           bankpoint(u,side,offset+2.5,40)],
+          .86,edge_stone,civic if side<0 else market)
+    strip("PEDESTRIAN TRANSIT CONCOURSE ENTRANCE / "+str(side),
+         [[bankpoint(u-.018,side,13+44*i/10,26+15*(i/10))
+            for i in range(11)],
+          [bankpoint(u+.018,side,13+44*i/10,26+15*(i/10))
+            for i in range(11)]],
+         patina,civic if side<0 else market,solid=1.7)
+
+# ROAD ART IS A NON-COLLIDING MATERIAL STUDY ONLY. WIDE TRUE-SOURCE
+# tiled grip bands articulate the enormous 90-106m authentic road width.
+road_band=material("K4AZ | Fine ribbed basalt center longitudinal grip",
+                   (.064,.09,.102),.28,.85)
+for start,end in ((.19,.29),(.365,.425),(.575,.635),(.71,.81)):
+    rows=[]
+    for i in range(141):
+        u=.657+.343*i/140
+        rows.append([sample(u,start+(end-start)*j/7)+Vector((0,0,.026))
+                     for j in range(8)])
+    mesh("DCC NONCOLLISION / highway full-depth relief material band "+str(start),
+         [p for row in rows for p in row],
+         [(i*8+j,(i+1)*8+j,(i+1)*8+j+1,i*8+j+1)
+           for i in range(140) for j in range(7)],
+         road_band,roadsurf,"VISUAL_ONLY_PROPOSAL_NOT_SOURCE_MARKING")
+# Human-scale road-to-bank threshold pavers at genuine B48 edges.
+for side,v in ((-1,.008),(1,.992)):
+    for i in range(27):
+        u=.665+.33*i/26
+        polyline("DCC ONLY / true source skin integrated road-shoulder sawcut "+
+                  str(side)+str(i),
+            [sample(u,v)+Vector((0,0,.06)),
+             sample(u,v+(-.025 if side>0 else .025))+Vector((0,0,.06))],
+            .047,bronze,roadsurf)
+
 # Inlaid 3D ART material proposals directly sampled from original B48, no fake mesh.
 # This collection is separately toggleable and explicitly NOT original gameplay cues.
 for v in (.075,.265,.735,.925):
@@ -415,8 +493,19 @@ for side in (-1,1):
 # Studio light, sky, filmic tonemapping are ONLY non-game survey directions.
 world=bpy.data.worlds.new("K4AZ STUDIO atmosphere / NOT original game")
 scene.world=world;world.use_nodes=True
-world.node_tree.nodes["Background"].inputs["Color"].default_value=(.24,.34,.4,1)
-world.node_tree.nodes["Background"].inputs["Strength"].default_value=.68
+world.node_tree.nodes["Background"].inputs["Color"].default_value=(.48,.56,.63,1)
+try:
+    sky=world.node_tree.nodes.new("ShaderNodeTexSky")
+    sky.sky_type="NISHITA"
+    sky.sun_elevation=math.radians(17)
+    sky.sun_rotation=math.radians(125)
+    sky.air_density=2.2
+    sky.dust_density=2.9
+    world.node_tree.links.new(sky.outputs["Color"],
+                              world.node_tree.nodes["Background"].inputs["Color"])
+except Exception:
+    pass
+world.node_tree.nodes["Background"].inputs["Strength"].default_value=.63
 light=bpy.data.lights.new("K4AZ diffuse warm sun / studio only","SUN")
 light.energy=1.55;light.angle=.085
 sun=bpy.data.objects.new("K4AZ studio sun",light);lights.objects.link(sun)
@@ -431,7 +520,7 @@ try:scene.view_settings.view_transform="AgX"
 except Exception:scene.view_settings.view_transform="Filmic"
 try:scene.view_settings.look="Medium High Contrast"
 except Exception:pass
-scene.view_settings.exposure=-.65
+scene.view_settings.exposure=-.20
 scene.view_settings.gamma=1
 
 # Scene remains editable and original camera numeric. Every time frame switches
