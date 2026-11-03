@@ -16,7 +16,7 @@ K4BEの実source control11307とultra11341画像を確認した。前景路面�
 - まず真正sourceカメラ2枚のパイロットだけを実制作。画像評価不合格なら残り4sourceカメラを描画しない。
 
 ## CI・成果証拠（この文書時点では未完了）
-Actions #41721461540: https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41721461540
+Actions #41722243986: https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41722243986
 Workflow: .github/workflows/p101-k4bf-two-source-camera-civic-monolith.yml
 親artifactはCI #41659005101 / #13240733042。親.blendのSHA/元source/元カメラとゲームblobを再照合。Blender Cyclesで編集可能blend・真正2sourceカメラPNG・provenance SHA生成。Pillowで画像比較作成、成功時のみ研究ブランチ docs/research-evidence/k4bf/に画像とSHAを保存。
 **PNGの存在、Pillowの正常画像、CI successはART PASSではない。** 真正source Camera画像をレビューし不十分ならART REJECTとする。
