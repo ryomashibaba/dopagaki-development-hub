@@ -1,0 +1,152 @@
+name: DOPAGAKI K4BD real Road5 3K PBR civic deck and native camera editorial Blender
+on:
+  push:
+    branches:
+      - research/k4bd-source-road5-civic-deck-material-architecture-20261103
+    paths:
+      - 'scripts/p101-k4bd-true-source-road5-3k-deck-civic-architecture.py'
+      - '.github/workflows/p101-k4bd-3k-civic-deck-source-art.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4bd-original-road5-3k-source-deck-not-native-game
+  cancel-in-progress: false
+jobs:
+  true-camera-real-road5-art-first-dcc:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - name: Frozen source code, Python Blender author syntax, original 7-B48 native source context test
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bd-true-source-road5-3k-deck-civic-architecture.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Fetch confirmed K4BC v3 immutable 7 B48 editorial source original blend
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BC_V3_CAMERA_FRAMED_TRUE_ALL7_ROADS_EDITABLE_CIVIC_SKY_MUSEUM_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41640544530
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bd/parent
+      - name: Fetch genuine complete 7 roads native generator source arrays, no fabricated roadway
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BC_V2_REAL_ALL_SEVEN_ORIGINAL_B48_EDITABLE_SOURCE_CAMERA_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41638891877
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bd/all7
+      - name: Fetch exact original Road5 B48 and six 28-mover B51 collision OBB tick records
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bd/native
+      - name: Verify parent editable .blend and all source SHA, formal art still rejected
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          p=Path('research/evidence/k4bd/parent')
+          j=json.loads((p/'K4BC_V3_TRUE_SOURCE_CAMERA_CIVIC_COMPOSITION_PROVENANCE.json').read_text())
+          assert j['originalFrozenGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalSourceRoadCount']==7 and j['originalB51Movers']==28
+          assert j['exactSourceRoad5Before']==j['exactSourceRoad5After']
+          assert j['originalOtherB48NativeModeCollectionsMaintained']==12
+          assert j['originalCameraNumericsUnchanged'] and j['originalB51SourceOBBInstances']==168
+          assert j['nativeWebGL2Screenshots'] is False
+          assert j['ART']=='REJECT_HOLD' and j['formalArtAccepted']==0
+          for fn,v in j['files'].items():
+            raw=(p/fn).read_bytes()
+            assert v['bytes']==len(raw) and v['sha256']==hashlib.sha256(raw).hexdigest()
+          x=json.loads((Path('research/evidence/k4bd/all7/original-all7')/'K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json').read_text())
+          s=json.loads((Path('research/evidence/k4bd/native')/'K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert s['frozenOriginalGameGitBlob']==x['frozenOriginalGameGitBlob']==j['originalFrozenGameBlob']
+          assert s['originalB48Roads']==x['B48SurfaceCount']==7
+          assert s['originalB51MovingObstacles']==x['originalB51MovingBodies']==28
+          assert x['modes']['control']['originalRoad5Triangles']==4728
+          assert x['modes']['control']['originalRoad5ControlPointsSHA256']==s['modes']['control']['originalRoadSourcePointsSHA256']
+          print('K4BD_PINNED_REAL_SOURCE_ALL7_B48_SIX_B51_SHA_AND_ART_REJECT_PASS')
+          PY
+      - name: Install Blender 4.0 EEVEE plus numpy PIL, no unsupported OpenImageDenoiser
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil
+          blender -v | head -3
+      - name: Author true source Road5 3K PBR with civic pedestrian edge and 6 clean source Camera poses
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bd/render
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bd-true-source-road5-3k-deck-civic-architecture.py -- \
+            --base research/evidence/k4bd/parent/K4BC_V3_ACTUAL_SOURCE_CAMERA_FRAMED_CITY_EDITABLE_ART_HOLD.blend \
+            --original research/evidence/k4bd/native/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --all7 research/evidence/k4bd/all7/original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json \
+            --out research/evidence/k4bd/render
+      - name: Independently inspect actual 3K PBR PNG RGB, no zeros, true source mesh fingerprint and original camera A/B
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageStat
+          root=Path('research/evidence/k4bd/render')
+          prev=Path('research/evidence/k4bd/parent')
+          j=json.loads((root/'K4BD_TRUE_SOURCE_CIVIC_DECK_ART_REJECT_PROVENANCE.json').read_text())
+          assert j['originalFrozenWebGL2GameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['sourceB48OriginalRoadCount']==7 and j['sourceB51MovingObstacleCount']==28
+          assert j['sourcePhysicsHz']==240 and j['sourceRadiusMetres']==.65
+          assert j['realB48Road5GeometryPreserved'] and j['originalRoad5GeometryBefore']==j['originalRoad5GeometryAfter']
+          assert j['originalOtherSixB48RoadsPerModePreserved']
+          assert j['originalCameraNumericsUnchanged']
+          assert j['sourceRoad5PBR3K']==[3072,1536]
+          assert j['DCCOneSeparateDebugImageWithSourceB51Cages']
+          assert j['DCCArtRendersWithoutNonvisualB51Cages']
+          assert j['noNewGameDriveableRoadOrGameColliders']
+          assert j['sourceGameSafetyPaintAndAllPhysicsFilesUnchanged']
+          assert j['nativeWebGL2GameFramesRendered'] is False
+          assert j['ART']=='REJECT_HOLD' and j['formalArtAccepted']==j['Slope2DNACertifiedMetres']==0
+          assert len(j['originalCameraSixTicks'])==6
+          assert j['newEditableDccArchitectureObjects']>=90
+          for file,stamp in j['files'].items():
+              data=(root/file).read_bytes()
+              assert stamp['bytes']==len(data) and stamp['sha256']==hashlib.sha256(data).hexdigest()
+          assert (root/'K4BD_ORIGINAL_ALL7_CIVIC_DECK_ART_STUDY_NOT_GAME.glb').read_bytes()[:4]==b'glTF'
+          for channel in ('ALBEDO','ROUGHNESS','HEIGHT'):
+              img=Image.open(root/f'K4BD_3K_REAL_SOURCE_ROAD5_CIVIC_BASALT_{channel}.png').convert('RGB')
+              assert img.size==(3072,1536)
+              std=sum(ImageStat.Stat(img).stddev)
+              assert std>8,(channel,std)
+          page=Image.new('RGB',(1166,6*403+416),(16,19,23))
+          label=ImageDraw.Draw(page)
+          for i,r in enumerate(j['originalCameraSixTicks']):
+              mode=r['mode'];tick=r['tick'];yy=i*403
+              old=Image.open(prev/f'K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_{mode.upper()}_{tick}.png').convert('RGB')
+              new=Image.open(root/r['DCCImage']).convert('RGB')
+              assert new.width>=700 and new.height>=500
+              assert sum(ImageStat.Stat(new).stddev)>22
+              page.paste(old.resize((559,374)),(0,yy+24))
+              page.paste(new.resize((559,374)),(592,yy+24))
+              label.text((7,yy+4),f'K4BC v3: original source Camera {mode} {tick} (DCC, B51 cages)',fill='white')
+              label.text((597,yy+4),f'K4BD 3K: SAME Camera edited art (DCC, physics cages hidden)',fill='white')
+          arr=Image.open(root/'K4BD_CIVIC_DECK_CITY_EDITOR_AERIAL_DCC_NOT_GAME.png').convert('RGB')
+          page.paste(arr.resize((559,374)),(592,6*403+24))
+          label.text((7,6*403+4),'ALL PANELS ARE BLENDER DCC, NOT ORIGINAL WEBGL2 GAME; ART REJECT',fill='white')
+          page.save(root/'K4BD_SIX_TRUE_SOURCE_CAMERA_K4BC_V3_VS_3K_DECK_AB_ART_HOLD.png')
+          print('K4BD_3K_PBR_SOURCE_ALL7_CAMERA_ART_DCC_SHA_REAL_PIXELS_TECH_PASS_NOT_ART')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BD_3K_ORIGINAL_ROAD5_CIVIC_DECK_PBR_EDITABLE_DCC_ART_HOLD
+          path: research/evidence/k4bd/render/
+          retention-days: 14
+          if-no-files-found: warn
