@@ -37,8 +37,9 @@ const NEW=Object.freeze({
  coolStone:[.69,.74,.70],brass:[.78,.585,.33],
  blueMetal:[.42,.62,.66],warmPearl:[.75,.705,.62]
 });
-function recolor(v, fn){
- if(!Array.isArray(v)||v.length%18||v.length<18||outOfRange(v))
+function recolor(v, fn,{primitive='triangles'}={}){
+ const stride=primitive==='lines'?12:primitive==='triangles'?18:0;
+ if(!stride||!Array.isArray(v)||v.length%stride||v.length<stride||outOfRange(v))
   throw Error('K4AS INVALID ORIGINAL TRIANGLE VERTEX BUFFER');
  const result=v.slice(),used={};
  for(let k=0;k<v.length;k+=6){
@@ -90,7 +91,7 @@ export function k4asEdgeWayfinding(original){
   if(rgbClose(c,originalRGB.edge))return NEW.edge;
   if(rgbClose(c,originalRGB.route))return NEW.route;
   return c;
- });
+ },{primitive:'lines'});
 }
 const sem=Object.freeze({
  fail:{name:'red-impact',steel:[.12,.17,.19],edge:[.38,.24,.26],
@@ -105,10 +106,21 @@ const originalSem=Object.freeze({
  bounce:{steel:[.18,.19,.22],edge:[.58,.48,.25],glow:[1,.77,.27]},
  push:{steel:[.18,.16,.26],edge:[.43,.26,.64],glow:[.71,.38,1]}
 });
+const originalLegacy=Object.freeze({
+ fail:{body:[.36,.055,.12],light:[1,.15,.23],edge:[1,.49,.22]},
+ bounce:{body:[.35,.23,.075],light:[1,.83,.21],edge:[1,.99,.56]},
+ push:{body:[.24,.11,.43],light:[.79,.39,1],edge:[.38,.93,1]}
+});
 export function k4asMachineryMaterial(original,mode){
  if(!(mode in sem))throw Error('K4AS INVALID REAL B51 COLLISION MODE');
  const v=sem[mode],old=originalSem[mode];
  return {...recolor(original,c=>{
+  const legacy=originalLegacy[mode];
+  if(rgbClose(c,legacy.body,.0001))return v.steel;
+  if(rgbClose(c,legacy.body.map(x=>x*.54),.0001))
+   return v.steel.map(x=>clamp(x*.66));
+  if(rgbClose(c,legacy.edge,.0001))return v.edge;
+  if(rgbClose(c,legacy.light,.0001))return v.glow;
   if(rgbClose(c,old.steel,.0001))return v.steel;
   if(rgbClose(c,old.edge,.0001))return v.edge;
   // Keep distinct actual fail/red, bounce/amber, push/violet encoding.
