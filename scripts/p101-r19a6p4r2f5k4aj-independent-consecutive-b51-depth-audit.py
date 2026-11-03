@@ -178,16 +178,52 @@ def main():
     assert all(x["singleObstacleGPUAttributionAtThisTick"]=="NOT_MEASURED_UNKNOWN"
        for x in rows if x["tick"]!=11280)
     assert snapshot_count==8  # 4 snapshots each mode, includes 11280.
-    # Negative controls reject altered/invalid source-depth interpretation.
-    def monotonic(a,b):assert len(a)==len(b) and not any(y<x for x,y in zip(a,b))
-    def seq_next(a,b,c):assert b==a+1 and c==b+1
+    # Mutate ACTUAL observed GPU evidence: all five altered samples must be
+    # rejected by the same validators applied to real source data.
+    first_mode=current["sessions"][0]
+    real_frame=first_mode["frames"][0]
+    real_mask=first_mode["masks"][0]
+    real_restore=first_mode["restored"][0]
+    real_orig=gpu(real_frame["synchronousRenderDepth"])
+    real_masked=gpu(real_mask["synchronousDepth"])
+    def monotonic(a,b):
+        assert len(a)==len(b)==N
+        assert not any(y<x for x,y in zip(a,b))
+    def valid_ticks(data):
+        assert len({(q["mode"],q["tick"]) for q in data})==len(data)
+    def valid_aggregate(row,expected):
+        assert row["maskedFartherDepthSamples"]==expected
+    def valid_seq(original,masked,restored):
+        assert masked["proof"]["seq"]==original["captureProof"]["seq"]+1
+        assert restored["seq"]==masked["proof"]["seq"]+1
+    monotonic(real_orig,real_masked)
+    valid_ticks(rows)
+    actual_farther,actual_nearer=delta(real_orig,real_masked)
+    assert actual_nearer==0
+    valid_aggregate(rows[0],actual_farther)
+    valid_seq(real_frame,real_mask,real_restore)
+    bad_mask=real_masked.copy()
+    eligible=next((i for i,v in enumerate(real_orig) if v>0),None)
+    assert eligible is not None, "K4AJ_NEGATIVE_CONTROL_REQUIRES_NONZERO_SOURCE_DEPTH"
+    bad_mask[eligible]=real_orig[eligible]-1
+    bad_ticks=[dict(q) for q in rows]
+    bad_ticks[1]["tick"]=bad_ticks[0]["tick"]
+    bad_aggregate=dict(rows[0])
+    bad_aggregate["maskedFartherDepthSamples"]+=1
+    bad_seq=dict(real_mask)
+    bad_seq["proof"]={**real_mask["proof"],
+                     "seq":real_frame["captureProof"]["seq"]}
     rejected=0
-    for foo in (lambda:monotonic([3],[2]),lambda:monotonic([3,0],[4,0,1]),
-                lambda:assert_unique_bad_tick(),lambda:assert_aggregate_wrong(),
-                lambda:seq_next(1,1,3)):
-        try:foo()
-        except (AssertionError,TypeError):rejected+=1
-    assert rejected==5
+    for test in (
+        lambda:monotonic(real_orig,bad_mask),
+        lambda:monotonic(real_orig,real_masked[:-1]),
+        lambda:valid_ticks(bad_ticks),
+        lambda:valid_aggregate(bad_aggregate,actual_farther),
+        lambda:valid_seq(real_frame,bad_seq,real_restore)
+    ):
+        try:test()
+        except AssertionError:rejected+=1
+    assert rejected==5,("K4AJ_ACTUAL_GPU_EVIDENCE_TAMPER_WAS_ACCEPTED",rejected)
     with (aj/"K4AJ_100_REAL_SOURCE_GPU_DEPTH_MASKS.csv").open("w",newline="",encoding="utf8") as file:
         writer=csv.DictWriter(file,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
     report={"schema":"dopagaki.K4AJ.original-GPU-depth-source-100-snapshots/1",
@@ -222,9 +258,4 @@ def main():
     print("K4AJ_99_CONSECUTIVE_TRUE_GPU_B51_DEPTH_MASKS_PLUS_TWO_K4AF_ANCHORS_PASS")
     print("K4AJ_100_ORIGINAL_GPU_RESTORATIONS_AND_SAME_SOURCE_POSE_PASS")
     print("K4AJ_ART_HUMAN_VISUAL_COLLISION_RELEASE_HOLD")
-def assert_unique_bad_tick():
-    arr=[11259,11260,11260]
-    assert len(set(arr))==len(arr)
-def assert_aggregate_wrong():
-    assert sum(range(99))==99
 if __name__=="__main__":main()
