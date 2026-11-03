@@ -42,3 +42,12 @@ K4BHの真正画像では道路が視野の大半を占め、暗い無地の巨�
 [2回目Actions #41740364212](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41740364212)は **completed/FAILURE**。元sourceと親SHA検査までPASSしたが、Blender 4.0.2 Ubuntuの`RuntimeError: Error: Build without OpenImageDenoiser`でレンダリングに入る直前に停止。成功・出力PNG・ART PASS扱いは禁止。初回ART REJECT・初回SOURCE/DCC技術PASSの保全は有効。
 
 CIとBlenderの能力不足を事実として受け取り、`sc.cycles.use_denoising=False` と `view_layer.cycles.use_denoising=False` の両方を明示して保護。96の無デノイズ実サンプル、露出修正、シアン細帯の追加を固定。修正commit `4186c3daadeafd92bb3d32de07a5856a8911bcdf`、[3回目Actions #41740606366](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41740606366)の独立結果を待って確定させる。旧アートREJECTは変更しない。
+
+
+## 【K4BI確定・2026-11-04】真の最終CI／ART判定／次工程
+
+- **真の最終CI**：[Actions #41740606366](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41740606366) は **completed/SUCCESS**。中間 #41740364212 は OpenImageDenoiserなしビルドで **FAILURE**、修正版`4186c3daadeafd92bb3d32de07a5856a8911bcdf`で無デノイズ96samples、source SHA・親.blend SHA・2真Source Camera描画・独立PNG画像照合・GitHub画像保存が成功。ユーザーにローカル操作要求なし。
+- **真正最終Artifact**：[Artifact #13281034575](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41740606366/artifacts/13281034575)、ZIP SHA256 `03ecbc210290d030884e42b5e09efa2f01aac8e7210bb2d19bf2c832e0621539`。ZIP CRCに異常なし。内容：編集可能`K4BI_ROAD_MATERIAL_ARCHITECTURAL_DETAIL_EDITABLE_DCC_HOLD.blend` 32,904,464 B、control11307 PNG、ultra11341 PNG、旧K4BHと同source pose2視点の並列比較PNG、独立sha JSON。全ファイルの真SHAをアーカイブ解凍後に再計算しJSONと一致。新DCCアセット286（数は美術評価の根拠にならない）。
+- **画像を直接観察した結果**：元の単調な灰色路面は白金色のセンター線等によって進行方向が読めるようになり、左右には実体窓、柱、庇・室内、海色の細い縁が追加された。K4BHより全画面構図が機能しているのは視覚的に確認できる。しかし**全体はまだART REJECT**。縞模様は幅広く人工的、奥行きのある舗装や高級な表面仕上がりに届かず、道路がフレーム面積の過半を占めたまま。左右の建物はリズムが同じ窓で都市として薄く、遠方には孤立したアーチ・尖塔以外の魅力的な景観が乏しい。ライト・近中景・地形・環境ストーリー・色彩差は不十分。96samples無デノイズでも粗粒のレンダーノイズが残る。**これを世界水準の完成と報告しない**。
+- **保護確認**：Road5実物頂点・面 fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`全く不変、元Camera control/ultra数値不変、元Game blob `af076d67492a677d2235e4730aef8cdf4808e106`不変。物理7道路／28動体／240Hz／0.65mに変更なし。新Collider0。WebGL2ゲーム画面や実プレイを撮影したものではない。**正式ART採用0件／Slope2 DNA認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全部HOLD**。
+- **次の正しい制作方針**：車線・窓の反復を数で増やす小幅工程はやめ、道路近景の精密な意匠／高品質な実UV-PBRと舗装の立体細工、左右で異なる中近景の居住・交通空間、豊かな都市遠景／地形、道路の曲率とカメラから本当に成立する立体構図を、ひとつのHeroフレームの**人間の美術審査で見事と認めるレベル**まで根本制作。評価前の他6道路の大量展開・元ゲームへの移植禁止。ユーザーへのWindows操作要求なし。main/公式p101/PR#46/本番2サイト保護。
