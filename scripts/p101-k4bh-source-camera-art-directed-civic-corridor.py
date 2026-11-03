@@ -61,7 +61,10 @@ for c in bpy.data.collections:
         c.hide_render=True
         hide_names.append(c.name)
 assert len(hide_names)>9
-assert all(not bpy.data.collections[n].hide_render for n in source_collections)
+# The authentic parent BLEND intentionally has ULTRA source collection hidden
+# when saved on CONTROL. show(mode) below restores it per frame.
+assert not bpy.data.collections["K4AY SOURCE B48 | CONTROL | TRUE TESSELLATED ROAD5"].hide_render
+assert all(n in bpy.data.collections for n in source_collections)
 
 def coll(name):
     c=bpy.data.collections.new("K4BH | "+name)
