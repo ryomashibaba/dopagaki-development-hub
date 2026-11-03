@@ -309,6 +309,16 @@ for sign,label in [(-1,'WEST'),(1,'EAST')]:
                 box(label+' amber casework slot '+str(i)+'/'+str(j)+'/'+str(k),
                    a+2,b-2,sign*168,sign*172,z+2+4.2*k,z+2.7+4.2*k,
                    lampmat,glassarea,'VISIBLE_INTERIOR_DISPLAY')
+# Final facade identity is expressed through a continuous, physically
+# placed mineral-cyan wayfinding inlay and a contrasting warmer under-soffit
+# band. These are independent native meshes, not HUD billboards.
+for sign,label in [(-1,'west'),(1,'east')]:
+    tubing(label+' uninterrupted tidal-cyan public-facade wayfinding',
+           [(dd,sign*153.0,77.0+3.2*sin(dd*.012)) for dd in range(44,410,5)],
+           .65,cyan,details,'ARCHITECTURAL_WAYFINDING_NOT_GAME')
+    tubing(label+' hand-finished under-window warm glazing reveal',
+           [(dd,sign*154.5,-3.2+1.5*sin(dd*.016)) for dd in range(44,400,5)],
+           .50,bronze,details,'FACADE_REAL_SCALE')
 # Spatial lighting: reinstate an intentional late-day lighting direction;
 # all prior K4BH lighting remains, except add practical area illumination
 # centered inside newly modelled facades.
@@ -322,7 +332,9 @@ for sign in [-1,1]:
         lamps.objects.link(ob)
         ob.location=p(d0,sign*157,63)
         # downward facing area lights: normal from local -Z
-sc.cycles.samples=64
+sc.cycles.samples=96
+try:sc.cycles.use_denoising=True
+except Exception:pass
 try:bpy.context.view_layer.cycles.use_denoising=True
 except Exception:pass
 sc.render.engine='CYCLES'
@@ -332,7 +344,7 @@ sc.render.resolution_percentage=100
 sc.render.image_settings.file_format='PNG'
 try:sc.view_settings.look='Medium High Contrast'
 except Exception:pass
-sc.view_settings.exposure=-.05
+sc.view_settings.exposure=-.26
 # Preserve the genuine original source instead of hiding the other 6 roads
 # or the fixed camera poses. DCC source Road5 gets shader only.
 assert fp0=={m:fingerprint(o) for m,o in roads.items()}
