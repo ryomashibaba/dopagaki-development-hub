@@ -25,3 +25,14 @@ K4BHの真正画像では道路が視野の大半を占め、暗い無地の巨�
 
 ## 必須の次ゲート
 実画像を目視して、路面の素材・車線・近景構図・公共内部の読解・街区の豊かさ・遠景・速度感を評価。不十分なら新アセットを正式採用せず、外観作者工程を更新。ART承認前の他6Road横展開、実ゲームへの変更、本番公開はしない。
+
+## K4BI初回実結果（2026-11-04）
+
+- [初回真正CI #41739572392](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41739572392) は **completed/SUCCESS**。元の真正K4BH.blendのSHA、凍結原Game Blob、Node元sourceテスト、Blender真正Camera数値control11307/ultra11341、本来のRoad5 tessellation SHA、独立画像サイズ・SHA・RGB差分、研究ブランチPNG保存がすべてPASS。これは **SOURCE/DCC技術だけのPASS**。
+- 真正 [初回Artifact #13280952631](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41739572392/artifacts/13280952631)、ZIP SHA256 `282798b50eda66567754e818e32d435fc88415149cc043cd203ab2e6a1e3ade6`。ZIP CRCエラー0。.blend 32,740,992 B、元Camera 2画像、K4BH同時刻比較PNG、検証JSONあり、JSONファイル SHAすべて独立一致。新Blender DCC objects 282、しかし物量を美術合格の根拠にしない。
+- **実画像でのART判定：REJECT。** K4BH比で走行路面に規則的な線が可視化され、建築が単なる壁から柱・窓・庇・室内に変わった部分改善は確認。ただし画面の60%以上は無地の灰色の路面、既視感のある同一窓反復、距離の見せ場は細い二重アーチのみ、遠方都市／歩行者の機能／強い素材差／速度感／演出／地形の層は不足。粒状ノイズが強く、世界水準の画として不合格。正式採用ART0件、Slope2 DNA0m。
+- この技術PASSを足場に、唯一の改善として新render試験：Cycles samples 96、denoise有効、全体露出を0.21段下げ、海色の細い連続外装inlayと暖色の手仕上げ帯を同じsource Cameraに追加。修正commit `0cc5bc5981599add685266c226ba5a18e365f6da`。再[Actions #41740364212](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41740364212)で真正画像と変更源の再検証が必要。**初回ART REJECTは撤回せず、再render完成前のアート評価を捏造しない。**
+- 何らかのART認定前のGame WebGL移植、他Road複製、B51/HUMAN/SAT/CCD/FPS、main/p101/PR、本番公開は禁止・未実施。
+
+## 次の本質的な絵作り
+単純な規則的窓と直線白線は画面の改善の入口にすぎない。意匠の一部としてしか認めない。真の課題は、コース走行視点で道路自体が魅力的な素材・ディテール・立体環境として読み取れ、左右に機能する都市公共空間と遠方の豊かな地理・景観、主役の圧倒的な固有意匠が揃うこと。美術の合格を自称する代わりに、ひとつのフレームを現実の高級レーシングゲーム画面として再構成するための手制作優先の工程へ移行する。単なるDCCオブジェクト数量とテクニカルゲートを増やすことは避ける。
