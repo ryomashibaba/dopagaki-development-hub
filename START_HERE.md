@@ -1,16 +1,18 @@
-# 【K4BE最新・2026-11-03】元Cameraで都市機能が読める巨大公共ホールへの継続
+# 【最新・2026-11-03 K4BE完了】DOPAGAKI SLOPE：ART-FIRST全画面研究
 
-**最優先の正本：** [K4BE設計・SOURCE保護・実作業正本](docs/R19_A6P4_R2F5K4BE_SOURCE_CAMERA_COHERENT_TIDAL_FORUM_JA.md) と [K4BD完全統合引継](docs/continuity/HANDOFF_20261103_K4BD_TO_NEW_CHAT_COMPLETE_JA.md)。旧K4BD/K4BC/K4BBの「最新」は過去時点の見出しであり本上段を優先。
+**ここを最優先**：[K4BEの完成証拠・拒否理由・次工程](docs/R19_A6P4_R2F5K4BE_SOURCE_CAMERA_COHERENT_TIDAL_FORUM_JA.md)、[K4BDからの完全統合引継](docs/continuity/HANDOFF_20261103_K4BD_TO_NEW_CHAT_COMPLETE_JA.md)。過去に「最新」と書かれた以下のK4BD/K4BC/K4BB見出しは歴史資料。
 
-- 現研究枝は research/k4be-camera-first-integrated-urban-civic-hall-20261103。K4BD最新完成HEAD 702805d4b58d7ff8f6bf99157dd25a02d3fc83e9 から隔離分岐。元ゲームmain／本番URL／公式継続枝 p101-velocity-overdrive-native-trial／Draft PR #46を変更禁止。
-- 元Road5本物91×13・4,728面／全7元B48×control/ultra＝14meshes/66,192triangles／元B51六元時刻×28=168collision OBB／240Hz・球半径0.65m・元source Camera6t・操作・安全表示・元WebGL2凍結blob af076d67492a677d2235e4730aef8cdf4808e106 を絶対保持。真正WebGL2ゲームフレームとDCCを混同禁止。
-- K4BD実ARTはREJECT。2元Camera画像から、Road5が画面の大半を占め、橋上の薄い屋根/単純な都市模型、地形・公共用途の説得力不足と判断。別の路面PBR・細棒/box/アーチの量産による反復を禁止。
-- K4BE制作器 [Blender実コード](scripts/p101-k4be-source-camera-integrated-tidal-forum.py)を新規実装。元K4BD編集可能原本を保持した上で旧模型的4コレクションを削除せず表示OFF、真Road5/6に位置合わせした左右の連続した大規模公共図書室・海岸科学温室・中央Tidal Forumを実床/壁/入口/階段広場/湾曲屋根/支持/室内照明まで作り直し。源game colliderやdriveable-roadは追加しない。
-- **検証の正当な順番**：実元Camera control11307／ultra11341の低コスト2枚pilot→実画像のART厳格レビュー→本当に良い場合のみ4視点追加→元全7道路/B51の独立限定BVH→GitHub原本/SHA/画像永続保存。Blender-only画像が完成してもART未合格はREJECT。劇的に見栄えが変わらない場合は不採用。
-- 現行2Camera CI [Actions #41657612279](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41657612279)、独立全7 B48/B51監査 [Actions #41657700442](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41657700442)、直接画像保存 [Actions #41657709190](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41657709190)。**CI完了・実PNG・元source SHA・監査JSONを確認する前にSUCCESSと書かない**。初回 #41656920221 はartifact tokenのバックスラッシュ誤りでFAIL、元SOURCEテストのみ通過した履歴を保存。
-- 恒久HOLD：正式ART採用0件・Slope2 DNA認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。Work事前承認制、Chat＋GitHub中心、ユーザーPCローカル操作不要。
+- **研究枝** research/k4be-camera-first-integrated-urban-civic-hall-20261103。元はK4BD確定HEAD 702805d4b58d7ff8f6bf99157dd25a02d3fc83e9。main・公式継続p101-velocity-overdrive-native-trial・本番2サイト・Draft PR #46（OPEN/DRAFT/UNMERGED）・元game source/blobは変更禁止。Work事前承認、Chat＋GitHub主体、ユーザーPC操作最小。
+- **K4BE実装済**：[真正source camera2枚用Blender建築器](scripts/p101-k4be-source-camera-integrated-tidal-forum.py)で元K4BD編集可能原本を開き、旧模型的建築を削除せず表示OFF、真Road5 bank/元Road6に整合した公共ホール/海岸温室/中央Tidal ForumをBlender mesh/curveで305編集可能オブジェクトとして研究制作。元全7 B48／28 B51／6元Camera／240Hz／球0.65m／元sourceゲームのオリジナル危険表示・CCD・操作は不変。追加の偽game road/colliderは0。
+- **正式な画像制作**：control11307・ultra11341の2つの本物source数値Camera画像＋非game航空DCCを実作成（残り4つのsourceカメラは未描画）。元レンダーrun #41657612279は画像とblendを保存したがGLB exporter NumPy不足で最終FAIL。失敗をSUCCESSと偽装しない。[元画像とblendを再利用する**再描画なし救済Actions #41659005101**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41659005101) **completed SUCCESS**、Artifact #13240733042。ZIP40,927,628bytes/全7ファイルCRC0/SHA全一致、原Road5 4,728三角の幾何fingerprint不変、GLB別出力成功。実ゲームのWebGL2フレームではない。
+- **独立元source静的BVH**：[Actions #41659267726](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41659267726) **completed SUCCESS**、Artifact #13240119880。真の全7 B48 road control＋ultra=14mesh／66,192三角＋元B51の6×28=168 source collision OBBを、K4BE新建築305件を含む全826建築・151,796評価面と独立照合。**源B48表面交差0、B51表面交差0**。これは有限の静的面交差であって、原球半径0.65mの余裕、B51全時間、原ゲームCCD/SAT/HUMAN/FPSは未証明。K4BDのDCC路面inlay52個／深海面は非衝突なので監査対象から除外。
+- **GitHubで即確認**：[元Camera2視点のK4BD/K4BE同pose A/B](docs/research-evidence/k4be/K4BE_TWO_ORIGINAL_CAMERA_K4BD_VS_CITY_ART_REJECT.png)、[control11307](docs/research-evidence/k4be/K4BE_CONTROL_11307_TRUE_SOURCE_CAMERA_ART_REJECT.png)、[ultra11341](docs/research-evidence/k4be/K4BE_ULTRA_11341_TRUE_SOURCE_CAMERA_ART_REJECT.png)、[航空DCC](docs/research-evidence/k4be/K4BE_INTEGRATED_CIVIC_HALL_AERIAL_DCC_NOT_GAME.png)、[SHA原本](docs/research-evidence/k4be/K4BE_ORIGINAL_SOURCE_B48_B51_SHA_ART_REJECT.json)。[保存CI #41659255835](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41659255835) SUCCESS。ZIPダウンロードやユーザーPCでのスクリーン撮影は不要。
+- **重要：ART REJECT継続**。Road5の単調な大面積路面はそのまま、中央Tidal Forumは高速Cameraから小さく文字も部分隠れ、周辺都市は厚みの足りない屋根・棒・単純な透明箱の模型のまま。Blender原本/CIのSOURCE技術PASSを見栄えの合格と呼ばない。正式ART採用0件、Slope2 DNA認定0m。
+- **次工程K4BFへの確定した反省**：大量procedural shell/box/柱の繰返し、配色替え、ブラインド高コスト6カメラを禁止。まず**元source Cameraの本物の画面**で路面占有・視野・建築/公共施設が認識できる実範囲を測り、元roadやCameraを変えずに、画面に入るシグネチャー建築を独立の手作業系DCC造形・実世界に根付く公共空間として詳細設計。2元Cameraのpilotで実画像を審査し、不十分ならART REJECTで止める。
+- **絶対不変**：凍結元ゲーム Git Blob af076d67492a677d2235e4730aef8cdf4808e106、元7 B48/28 B51、240Hz、球0.65m、元Camera6 tick、操作/速度/安全HUD/衝突は保持。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGEすべてHOLD。main/本番/元Slope/公式継続研究/Draft PR #46に書き込み・マージ禁止。
 
 ---
+
 
 # 【最新版 2026-11-03 K4BD 完了／新チャットからの入口】DOPAGAKI SLOPE
 
