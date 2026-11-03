@@ -1,3 +1,13 @@
+# 【2026-11-04 K4BF制作開始 / ART未判定】DOPAGAKI SLOPE — 正本最新入口
+
+**最優先**：[K4BF本物のSource Camera/路面PBR/公共モノリス実制作](docs/R19_A6P4_R2F5K4BF_SOURCE_CAMERA_GROUND_MONOLITH_ART_FIRST_JA.md)、[K4BF専用Actions #41721461540](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41721461540)、[K4BE終盤の保護条件とART REJECT](docs/R19_A6P4_R2F5K4BE_SOURCE_CAMERA_COHERENT_TIDAL_FORUM_JA.md)。旧K4BE見出しは歴史資料として残す。
+
+- 最新隔離研究枝：research/k4bf-true-camera-ground-and-civic-monolith-20261104（K4BE確定HEAD 8529b78fb04a30714137a5fb6cfd013f746726c9から派生）。旧main/本番/公式p101/Draft PR #46変更禁止。
+- **今回実装**：元Blender編集原本から Road5の視認されるPBR質感を実材質化、中央の旧模型的Tidal Forumのみrender OFF保持、厚い非対称公共モノリスと地盤接続・居室・開口の大断面を新規実Blender meshesで制作。original 7 B48/28 B51/6 true Camera/240Hz/0.65m/凍結 WebGL2 Git blob af076d67492a677d2235e4730aef8cdf4808e106保持。
+- **現時点の正直な状態**：新CIのレンダー/編集可能Blender/save/API成否は実際の run #41721461540 を照合する。保存済みコードだけでBlender PASSや美術改善を宣言してはいけない。成功時の元Camera2画像も実際に開いてART審査する。
+- **全ゲートHOLD**：K4BF独立全7 B48/B51有限静的BVHと真0.65m距離/全B51時間/SAT/CCD/HUMAN/FPS/実WebGL2描画は未検証。ART UNJUDGEDからは実画像審査を要する。正式ART採用0件・Slope2 DNA 0m・RELEASE/MERGE禁止。
+
+---
 # 【最新・2026-11-03 K4BE完了】DOPAGAKI SLOPE：ART-FIRST全画面研究
 
 **ここを最優先**：[K4BEの完成証拠・拒否理由・次工程](docs/R19_A6P4_R2F5K4BE_SOURCE_CAMERA_COHERENT_TIDAL_FORUM_JA.md)、[K4BDからの完全統合引継](docs/continuity/HANDOFF_20261103_K4BD_TO_NEW_CHAT_COMPLETE_JA.md)。過去に「最新」と書かれた以下のK4BD/K4BC/K4BB見出しは歴史資料。
