@@ -1,0 +1,100 @@
+name: DOPAGAKI K4BD source exact 3K two-Camera ART REJECT evidence permanent GitHub
+on:
+  push:
+    branches:
+      - research/k4bd-source-road5-civic-deck-material-architecture-20261103
+    paths:
+      - '.github/workflows/p101-k4bd-pin-source-camera-art-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: k4bd-pilot-2-source-camera-image-evidence-only
+  cancel-in-progress: false
+jobs:
+  pin-true-source-camera-pilot-and-3k-pbr-art-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Fail closed unless original native source K4BD TWO Camera pilot completed SUCCESS
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          c="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41649107682 --jq .conclusion)"
+          test "$c" = success
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Fetch exact pinned source PBR road5 material, two source Cameras and extra B51 debug
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BD_3K_ORIGINAL_ROAD5_CIVIC_DECK_PBR_PILOT_EDITABLE_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41649107682
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bd-review
+      - name: Verify authored source hashes, explicit two-camera scope and visually inspectable raster bytes
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib,shutil
+          p=Path('research/evidence/k4bd-review')
+          j=json.loads((p/'K4BD_TRUE_SOURCE_CIVIC_DECK_ART_REJECT_PROVENANCE.json').read_text())
+          assert j['originalFrozenWebGL2GameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['sourceB48OriginalRoadCount']==7 and j['sourceB51MovingObstacleCount']==28
+          assert j['originalRoad5GeometryBefore']==j['originalRoad5GeometryAfter']
+          assert j['realB48Road5GeometryPreserved']
+          assert j['originalOtherSixB48RoadsPerModePreserved']
+          assert j['originalSourceB51SixTimes28PhysicsProxyPreserved']
+          assert j['originalCameraNumericsUnchanged']
+          assert j['sourceRoad5PBR3K']==[3072,1536]
+          assert j['DCCPreviewOnlyTwoOfSixNativeSourceCameraTicks']
+          assert not j['allSixOriginalSourceCamerasRenderedForThisRevision']
+          assert {(x['mode'],x['tick']) for x in j['originalCameraSixTicks']}=={('control',11307),('ultra',11341)}
+          assert j['DCCArtRendersWithoutNonvisualB51Cages']
+          assert j['DCCOneSeparateDebugImageWithSourceB51Cages']
+          assert not j['nativeWebGL2GameFramesRendered']
+          assert j['ART']=='REJECT_HOLD' and j['formalArtAccepted']==0
+          assert not j['independentFull7B48B51CollisionBVH']=='PASS'
+          for fn,v in j['files'].items():
+              data=(p/fn).read_bytes()
+              assert len(data)==v['bytes'] and hashlib.sha256(data).hexdigest()==v['sha256']
+          dst=Path('docs/research-evidence/k4bd');dst.mkdir(parents=True,exist_ok=True)
+          files={
+            'K4BD_PILOT_TWO_TRUE_SOURCE_CAMERA_K4BC_V3_VS_3K_DECK_AB_ART_HOLD.png':'K4BD_PILOT_TWO_SOURCE_CAMERA_AB_ART_REJECT.png',
+            'K4BD_TRUE_SOURCE_CAMERA_CLEAN_EDITORIAL_CONTROL_11307.png':'K4BD_REAL_CONTROL_11307_CLEAN_DCC_ART_REJECT.png',
+            'K4BD_TRUE_SOURCE_CAMERA_CLEAN_EDITORIAL_ULTRA_11341.png':'K4BD_REAL_ULTRA_11341_CLEAN_DCC_ART_REJECT.png',
+            'K4BD_CIVIC_DECK_CITY_EDITOR_AERIAL_DCC_NOT_GAME.png':'K4BD_AUTHOR_AERIAL_DCC_NOT_GAME.png',
+            'K4BD_ORIGINAL_SOURCE_B51_28_OBB_EDITOR_DEBUG_ULTRA_11341.png':'K4BD_TRUE_B51_28_BODIES_DEBUG_ULTRA_11341.png',
+            'K4BD_3K_REAL_SOURCE_ROAD5_CIVIC_BASALT_ALBEDO.png':'K4BD_3K_TRUE_ROAD5_PBR_ALBEDO_DCC_ONLY.png',
+            'K4BD_TRUE_SOURCE_CIVIC_DECK_ART_REJECT_PROVENANCE.json':'K4BD_3K_PBR_SOURCE_SHA_ART_REJECT_PROVENANCE.json'
+          }
+          manifest={}
+          for src,name in files.items():
+              blob=(p/src).read_bytes()
+              if name.endswith('.png'):
+                  assert blob[:8]==bytes((137,80,78,71,13,10,26,10))
+              (dst/name).write_bytes(blob)
+              manifest[name]={'sha256':hashlib.sha256(blob).hexdigest(),'bytes':len(blob)}
+          (dst/'K4BD_GITHUB_PINNED_PILOT_IMAGE_MANIFEST.json').write_text(
+              json.dumps({'schema':'dopagaki.K4BD.pinned-two-source-Camera ART-REJECT/1',
+                'trueNativeCameraShots':2,'remainingFourCameraShots':'NOT_RENDERED_HOLD',
+                'originalWebGL2GameScreenshot':False,'sourcePhysicsUnchanged':True,
+                'ART':'REJECT_HOLD','images':manifest},indent=2)+'\n')
+          print('K4BD_PILOT_TWO_TRUE_SOURCE_CAMERAS_3K_AND_B51_DEBUG_SHA_PIN_READY_ART_REJECT')
+          PY
+      - name: Commit research-only ART REJECT actual file evidence, never main or official PR
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research-evidence/k4bd/K4BD_*
+          git diff --cached --quiet && exit 0
+          git commit -m "evidence(k4bd): permanently pin two true-source DCC previews and 3K road PBR ART reject"
+          git fetch origin research/k4bd-source-road5-civic-deck-material-architecture-20261103
+          git rebase origin/research/k4bd-source-road5-civic-deck-material-architecture-20261103
+          git push origin HEAD:refs/heads/research/k4bd-source-road5-civic-deck-material-architecture-20261103
