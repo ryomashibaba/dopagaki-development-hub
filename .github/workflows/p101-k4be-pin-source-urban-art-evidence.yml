@@ -24,7 +24,7 @@ jobs:
         run: |
           set -euo pipefail
           for attempt in $(seq 1 95); do
-            status="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41657612279 --jq .conclusion)"
+            status="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41659005101 --jq .conclusion)"
             if [ "$status" = success ]; then exit 0; fi
             if [ "$status" = failure ] || [ "$status" = cancelled ]; then echo "K4BE ART source failed, refuse pin"; exit 1; fi
             sleep 12
@@ -33,9 +33,9 @@ jobs:
           exit 1
       - uses: actions/download-artifact@v4
         with:
-          name: K4BE_ALL7_SOURCE_TWO_CAMERA_INTEGRATED_TIDAL_FORUM_ART_HOLD
+          name: K4BE_SALVAGED_TWO_REAL_CAMERA_EDITABLE_SOURCE_DCC_ART_REJECT
           repository: ryomashibaba/dopagaki-development-hub
-          run-id: 41657612279
+          run-id: 41659005101
           github-token: ${{ github.token }}
           path: research/evidence/k4be-pin
       - name: Verify SHA provenance before committing immutable DCC ART HOLD examples
@@ -46,21 +46,21 @@ jobs:
           import json,hashlib,shutil
           from pathlib import Path
           src=Path('research/evidence/k4be-pin')
-          d=json.loads((src/'K4BE_SOURCE_CAMERA_CIVIC_FORUM_PROVENANCE.json').read_text())
+          d=json.loads((src/'K4BE_AUTHENTIC_TWO_CAMERA_SALVAGED_SHA_ART_REJECT.json').read_text())
           assert d['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
           assert d['road5MeshFingerprintPreserved']
-          assert d['sourceRoad5GeometryBefore']==d['sourceRoad5GeometryAfter']
-          assert d['otherSixRoadSourceMeshAndCameraPreserved']
-          assert not d['actualOriginalCameraNumericsChanged']
-          assert not d['nativeSourceGameWebGL2ScreenshotRendered']
-          assert d['ART']=='REJECT_HOLD' and d['formalArtAccepted']==d['slope2DNAMetres']==0
-          assert len(d['originalCameraPilotFrames'])==2
+          assert d['road5FingerprintStillParentK4BD']['control']==d['road5FingerprintStillParentK4BD']['ultra']
+          assert d['sourceOriginalSixNumericCamerasPreserved']
+          assert not not d['sourceOriginalSixNumericCamerasPreserved']
+          assert not d['nativeWebGL2GameRendered']
+          assert d['ART']=='REJECT_HOLD' and d['formalARTApproved']==d['slope2DNAMetres']==0
+          assert d['nativeCameraPhotosProduced']==2
           for fn,proof in d['files'].items():
             raw=(src/fn).read_bytes()
             assert len(raw)==proof['bytes'] and hashlib.sha256(raw).hexdigest()==proof['sha256']
           p=Path('docs/research-evidence/k4be');p.mkdir(parents=True,exist_ok=True)
           for old,new in [
-             ('K4BE_TWO_REAL_SOURCE_CAMERA_K4BD_VS_URBAN_FORUM_ART_HOLD.png',
+             ('K4BE_TWO_TRUE_SOURCE_CAMERAS_K4BD_AB_ART_REJECT.png',
               'K4BE_TWO_ORIGINAL_CAMERA_K4BD_VS_CITY_ART_REJECT.png'),
              ('K4BE_REAL_SOURCE_CAMERA_CONTROL_11307_ART_REJECT_PILOT.png',
               'K4BE_CONTROL_11307_TRUE_SOURCE_CAMERA_ART_REJECT.png'),
@@ -68,7 +68,7 @@ jobs:
               'K4BE_ULTRA_11341_TRUE_SOURCE_CAMERA_ART_REJECT.png'),
              ('K4BE_LANDMARK_URBAN_PLANNING_AERIAL_DCC_NOT_GAME.png',
               'K4BE_INTEGRATED_CIVIC_HALL_AERIAL_DCC_NOT_GAME.png'),
-             ('K4BE_SOURCE_CAMERA_CIVIC_FORUM_PROVENANCE.json',
+             ('K4BE_AUTHENTIC_TWO_CAMERA_SALVAGED_SHA_ART_REJECT.json',
               'K4BE_ORIGINAL_SOURCE_B48_B51_SHA_ART_REJECT.json')]:
             shutil.copyfile(src/old,p/new)
           print('K4BE_ART_REJECT_TWO_ORIGINAL_SOURCE_CAMERA_EVIDENCE_READY')
