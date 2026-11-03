@@ -1,0 +1,144 @@
+name: DOPAGAKI K4BC source-camera civic monument and true B48 full-frame Blender DCC
+on:
+  push:
+    branches:
+      - research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
+    paths:
+      - 'scripts/p101-k4bc-original-b48-source-camera-civic-recomposition.py'
+      - '.github/workflows/p101-k4bc-true-camera-civic-visual-rebuild.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4bc-inhabited-original-source-road5-civic-art-only
+  cancel-in-progress: false
+jobs:
+  author-true-source-camera-art-not-physics-or-art-certified:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - name: Frozen source SHA, source Camera/physics contract and Python syntax
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bc-original-b48-source-camera-civic-recomposition.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download proven K4BB original source Road5 editable .blend with packed 2K PBR
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BB_TRUE_SOURCE_ROAD5_2K_PBR_INHABITED_CIVIC_BLENDER_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41631593534
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc/k4bb-parent
+      - name: Download exact K4AY immutable B48 Road5 tessellation and six original B51 times
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc/k4ay-source
+      - name: SHA validate previous editable source, all files and protected original physics before authoring
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('research/evidence/k4bc/k4bb-parent')
+          d=json.loads((p/'K4BB_SOURCE_PBR_CIVIC_PROVENANCE.json').read_text())
+          assert d['originalFrozenGameSourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['sourceB48VerticesAndTopologyUnchanged']
+          assert d['originalSourceRoadGeometryBefore']==d['originalSourceRoadGeometryAfter']
+          assert d['originalB48PhysicalRoads']==7 and d['originalB51PhysicalMovers']==28
+          assert d['sourceB51OriginalOBBSnapshotInstances']==168
+          assert d['PBRAtlasPixels']==[2048,1024]
+          assert d['ART']=='REJECT_HOLD' and d['formalARTApproved']==d['Slope2DNACertifiedMetres']==0
+          assert len(d['sourceNumericDCCShots'])==6
+          for name,stamp in d['allFiles'].items():
+              b=(p/name).read_bytes()
+              assert len(b)==stamp['bytes'] and hashlib.sha256(b).hexdigest()==stamp['sha256']
+          src=Path('research/evidence/k4bc/k4ay-source')
+          s=json.loads((src/'K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert s['frozenOriginalGameGitBlob']==d['originalFrozenGameSourceBlob']
+          assert s['originalPhysicsHz']==240 and s['originalB48Roads']==7
+          assert s['originalB51MovingObstacles']==28
+          assert s['modes']['control']['roadID']=='p93-PRISM_CREST-01'
+          assert s['modes']['control']['trueSourceTriangleCount']==4728
+          assert s['modes']['control']['originalRoadSourcePointsSHA256']=='5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730'
+          for mode in ('control','ultra'):
+              assert len(s['modes'][mode]['sourceTimeRecords'])==3
+              assert all(len(r['B51CollisionOBBNotOriginalVisibleMesh'])==28 for r in s['modes'][mode]['sourceTimeRecords'])
+          print('K4BC_K4BB_EDITABLE_PARENT_SOURCE_SHA_VERIFIED_REJECTED_ART_PRESERVED')
+          PY
+      - name: Install exact CI Blender 4.0 and image reviewer
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil
+          blender --version | head -3
+      - name: Recompose monumental public architecture in native Blender and render six true source Camera numeric poses
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bc/output
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bc-original-b48-source-camera-civic-recomposition.py -- \
+            --base research/evidence/k4bc/k4bb-parent/K4BB_SOURCE_ROAD5_PBR_CIVIC_INTERIORS_EDITABLE_ART_HOLD.blend \
+            --source research/evidence/k4bc/k4ay-source/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out research/evidence/k4bc/output
+      - name: Verify actual SHA/geometry and 6-pose K4BB versus K4BC contact sheet
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageStat
+          import json,hashlib
+          src=Path('research/evidence/k4bc/k4bb-parent')
+          out=Path('research/evidence/k4bc/output')
+          j=json.loads((out/'K4BC_TRUE_SOURCE_CIVIC_ART_HOLD_PROVENANCE.json').read_text())
+          assert j['originalFrozenWebGLBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalB48RoadCount']==7 and j['originalB51Movers']==28
+          assert j['sourceB48Road5Triangles']==4728
+          assert j['sourceRoad5ControlPointsSHA']=='5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730'
+          assert j['trueOriginalB48MeshGeometryBefore']==j['trueOriginalB48MeshGeometryAfter']
+          assert j['originalB48GeometryUnchanged'] and j['sourceCameraNumericsUntouched']
+          assert j['exactNativeB51PhysicalCollisionOBBFrames']==168
+          assert j['roadSeamsAreNoncollisionDccOnly'] is True
+          assert j['baseK4BBRoadMaterialPBR_UV_Preserved'] is True
+          assert j['noInventedDrivableRoadBeyondRealSourceEnd'] is True
+          assert j['nativeWebGL2GameScreenshot'] is False
+          assert j['ART']=='REJECT_HOLD' and j['formalARTAccepted']==j['Slope2DNACertifiedMetres']==0
+          assert len(j['sourceCameraDccRenders'])==6
+          assert j['newArchitectureMeshAndBeamCount']>100
+          assert len(j['oldRejectionBlenderCollectionsEditableHidden'])>=11
+          for fn,v in j['files'].items():
+              data=(out/fn).read_bytes()
+              assert len(data)==v['bytes'] and hashlib.sha256(data).hexdigest()==v['sha256']
+          assert (out/'K4BC_ARCHITECTURE_NOT_GAME_DCC_VISUAL_RESEARCH.glb').read_bytes()[:4]==b'glTF'
+          sheet=Image.new('RGB',(1190,6*414+420),(16,18,22))
+          g=ImageDraw.Draw(sheet)
+          for i,item in enumerate(j['sourceCameraDccRenders']):
+              mode=item['mode'];t=item['sourceTick']
+              a=Image.open(src/f'K4BB_SOURCE_NUMERIC_DCC_{mode.upper()}_{t}.png').convert('RGB')
+              b=Image.open(out/item['DCCimage']).convert('RGB')
+              assert b.width>=700 and b.height>=500
+              assert sum(ImageStat.Stat(b).stddev)>15
+              a=a.resize((568,382));b=b.resize((568,382))
+              y=i*414
+              sheet.paste(a,(0,y+25));sheet.paste(b,(605,y+25))
+              g.text((10,y+5),f'K4BB genuine same original Camera {mode}:{t} DCC',fill='white')
+              g.text((611,y+5),f'K4BC sculpted civic space actual original Camera {mode}:{t} DCC',fill='white')
+          ar=Image.open(out/'K4BC_INHABITED_CIVIC_QUARTER_AERIAL_DCC_NOT_GAME.png').convert('RGB')
+          sheet.paste(ar.resize((568,382)),(605,6*414+25))
+          g.text((10,6*414+5),'ALL RENDERS: BLENDER DCC ONLY, NEVER ORIGINAL GAME WEBGL2. ART REJECT.',fill='white')
+          sheet.save(out/'K4BC_SIX_TRUE_SOURCE_CAMERA_K4BB_VS_K4BC_ART_REJECT_SHEET.png')
+          print('K4BC_SOURCE_CAMERA_PHYSICAL_IMMUTABILITY_DCC_SHA_AND_AB_PASS_NOT_ART_CERTIFIED')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BC_EDITABLE_SOURCE_B48_B51_ORIGINAL_CAMERA_MONUMENTAL_CIVIC_ART_HOLD
+          path: research/evidence/k4bc/output/
+          retention-days: 14
+          if-no-files-found: warn
