@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BH現在入口】DOPAGAKI SLOPE — 真正Cameraによる全画面ART-FIRST研究
+
+**現在の継続研究枝**：`research/k4bh-source-camera-art-directed-civic-corridor-20261104`。K4BG確定HEAD `7e047eb73b0fb41e379776c509b239e20b05167b` からの隔離ブランチ。[K4BH正本](docs/R19_A6P4_R2F5K4BH_REAL_CAMERA_WHOLE_FRAME_ART_FIRST_JA.md)、[K4BH実Blender制作コード](scripts/p101-k4bh-source-camera-art-directed-civic-corridor.py)、[専用本物のSource Camera CI](https://github.com/ryomashibaba/dopagaki-development-hub/actions/workflows/p101-k4bh-source-camera-civic-corridor-art.yml)を最優先。
+
+- K4BG真正原本はActions #41726814278 / Artifact #13274862071、編集可能blend SHA `b665c84a88d719c4615638cfeb95ab5fe92a84a3a07d3ebe096dd540dd749b2f`。K4BG **SOURCE/DCC TECH PASS / ART REJECT**、正式採用0件。
+- **K4BH実装はコミット済み**。旧K4BG不合格アートの重ね合わせを避け、Road5 sourceの実頂点から路端・元Camera方向を抽出。道路大面積の研究用鉱物PBR、連続建築、内部奥行き、ランドスケープ、前景と遠景の立体シルエット、自然光をBlender-native編集可能シーンに制作する。**物理道路や元カメラを変更しない**。
+- **GitHub Actionsの本当の実結果と真正PNG目視判定をこれから照合する**。成功予測を実成功と呼ばず、SOURCE/DCC技術PASSとART採用を混同しない。CI成功でも見栄えが弱ければART REJECTのまま。
+- 元ゲーム Git blob `af076d67492a677d2235e4730aef8cdf4808e106`／球0.65m／240Hz／原B48道路7／B51実28動体／原Camera6／安全表示／main／公式P101／本番2サイト／Draft PR#46は保護。正式ART採用0件、Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。Workは事前承認。ユーザー操作不要。
+
+---
+
 # 【2026-11-04 K4BG最終判定・次チャットの第一入口】真正Blender DCC 技術PASS／美術REJECT
 
 **現在の研究継続枝**：`research/k4bg-civic-escarpment-true-camera-art-20261104`。必読：[K4BG最終美術判定・全方針・元ソース不変契約](docs/R19_A6P4_R2F5K4BG_SOURCE_CAMERA_COHERENT_CIVIC_ESCARPMENT_JA.md)。
