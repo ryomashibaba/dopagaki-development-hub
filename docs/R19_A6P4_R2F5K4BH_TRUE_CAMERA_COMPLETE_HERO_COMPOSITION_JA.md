@@ -27,3 +27,9 @@
 - 実画像では道路素材に差、遠方に二重の巨大ゲートを表示できたが、旧K4BGで見えていた上部の模型的な橋/左右の反復構造が依然残っており、**ARTはREJECT**。道路前景の大面積単調さ、都市奥行き、詳細も未完成。
 - 独立検査したBlender `.blend`の既存collection名から、初版K4BH非表示対象外だった**K4AZ、K4BA、K4BB、K4BC無印**の旧ARTコレクションを確認。これらは実Source B48/Cameraではない。旧ARTを削除せず render OFF し、source `K4BC v2 | TRUE ORIGINAL SOURCE OTHER SIX B48` (小文字v)、`K4AY SOURCE B48`、カメラは無変更。
 - 修正版 `15c98c3b6b1e33e406a14c5fa32403976802565f` の[第二CI #41732218172](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41732218172)を再検証。**第二CI未確認のままART成功と断定しない。** 旧のART REJECTと正式0件/Slope2 DNA0m/全HOLDを維持する。
+
+## 旧ART非表示第2回の初回失敗とソース保護（2026-11-04）
+
+[CI #41732218172](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41732218172)は**completed/FAILURE**。Blender起動直後、明示的な`assert c not in OTHERS.values()`が失敗。理由：単純な`startswith('K4BC ')`には旧不採用ARTだけでなく、本物の`K4BC v2 | TRUE ORIGINAL SOURCE OTHER SIX B48`も含まれる。保護assertによりデータ変更前に停止。レンダー0、Artifact実画像0。前CIの成功と混同しない。
+
+修正`0edf7e44a2aa37f685bbef10fe0ae204777c706e`は、描画非表示処理前に元K4BC v2の6道路・元K4AY source・本物のカメラRigを明示除外する。新[CI #41732617047](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41732617047)の実結果が出るまで新ART評価禁止、ART採用0件／Slope2 DNA 0m／全HOLD維持。
