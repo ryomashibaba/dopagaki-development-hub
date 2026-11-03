@@ -253,7 +253,7 @@ export function createK4AQScene(gl,art){
   uni[n]=gl.getUniformLocation(program,n);
  return {...art,buffer,count:art.vertices.length/7,program,skyProgram,uni};
 }
-export function renderK4AQScene(gl,scene,view,aspect,{fogStrength=1}={}){
+export function renderK4AQScene(gl,scene,view,aspect,{fogStrength=1,architecture=true}={}){
  if(!scene)return;
  const prev=gl.getParameter(gl.CURRENT_PROGRAM);
  // Atmospheric sky only in opted-in K4AQ; painted before original live B51.
@@ -261,6 +261,10 @@ export function renderK4AQScene(gl,scene,view,aspect,{fogStrength=1}={}){
  gl.depthMask(false);gl.disable(gl.DEPTH_TEST);gl.useProgram(scene.skyProgram);
  gl.drawArrays(gl.TRIANGLES,0,3);
  gl.depthMask(mask);if(depth)gl.enable(gl.DEPTH_TEST);
+ // The sky-only control is a genuine WebGL2 frame with EXACTLY the same sky,
+ // B48/B51 native render and camera, but no new K4AQ authored triangles.
+ // This is evidence isolation, not a gameplay or art quality pass.
+ if(!architecture){gl.useProgram(prev);return;}
  gl.useProgram(scene.program);
  const u=scene.uni;
  for(const [n,val] of [['eye',view.eye],['camRight',view.right],['camUp',view.up],['camFront',view.front]])
