@@ -10,6 +10,31 @@
   "newPlayableRoad": false,
   "editableAuthoredDCCObjects": 61,
   "hiddenRejectedParentCollections": {
+    "K4AZ 01 | TRUE BANK GEOLOGY + terraced canyon": 8,
+    "K4AZ 02 | LEFT civic agora, sectioned vaults and open ground ro": 146,
+    "K4AZ 03 | RIGHT inhabited arcades, bridges and gardens": 104,
+    "K4AZ 04 | FIGURATIVE skyline anchors, not repeating towers": 32,
+    "K4AZ 05 | authored civic interior lighting": 9,
+    "K4AZ 06 | DCC-only noncollision surface pattern proposals": 68,
+    "K4BA 01 | GEOGRAPHY and off-road landforms": 72,
+    "K4BA 02 | CITY roof shells and civic section": 201,
+    "K4BA 03 | PUBLIC galleries and real open rooms": 80,
+    "K4BA 04 | TIDAL MERIDIAN observatory and skyline": 282,
+    "K4BA 05 | public gardens water humans": 108,
+    "K4BA 06 | noncollision ROAD MATERIAL STUDY ONLY": 28,
+    "K4BA 07 | physically authored lights": 12,
+    "K4BB 01 | Deep inhabited civic interiors - editable rooms": 60,
+    "K4BB 02 | True civic service atria and supports": 42,
+    "K4BB 03 | Function and human-scale furnishings": 65,
+    "K4BB 04 | Inhabited light and facade hierarchy": 9,
+    "K4BB 05 | Studio only human-eye architectural review": 1,
+    "K4BC 01 | tectonic cliffs and founded public banks": 84,
+    "K4BC 02 | West exchange and East civic library - sectional mass": 138,
+    "K4BC 03 | oversized legible entrances and public courtyards": 90,
+    "K4BC 04 | monumental occupied skyline, NOT a driveable road": 81,
+    "K4BC 05 | NONCOLLISION Road5 shoulder civic stone seam study": 22,
+    "K4BC 06 | studio architectural and public-space lighting": 9,
+    "K4BC 07 | additional artist camera, NOT original game": 1,
     "K4BC V3 01 | authentic Road6 off-road bedrock foundations": 10,
     "K4BC V3 02 | east library occupied city citadel": 56,
     "K4BC V3 03 | west harbor exchange occupied citadel": 56,
@@ -63,20 +88,20 @@
   "files": {
     "K4BH_SCULPTED_SEA_GATE_EDITABLE_HERO_ART_HOLD.blend": {
       "bytes": 41487968,
-      "sha256": "9c43ad49de866467de13dd583e96e0ed46d6642086057121222a94ab4731313f"
+      "sha256": "6e1251b08c37d67b6c87d450d616afd2485572aa94d1491e8395599c8c042796"
     },
     "K4BH_CONTROL_11307_ORIGINAL_CAMERA_DCC_ART_HOLD.png": {
-      "bytes": 1214629,
-      "sha256": "e7b26b31ea718b32badac76030c46c43d9c07f4cc621d98f32e60a94f0699cf0"
+      "bytes": 1090780,
+      "sha256": "e91fe3d927fd577e595dd217f3c44245655d5e30bcd4ee76a59e549dce2ef0e8"
     },
     "K4BH_ULTRA_11341_ORIGINAL_CAMERA_DCC_ART_HOLD.png": {
-      "bytes": 1197922,
-      "sha256": "8cd4eb585d9d5f2b528c850223bed8f91841d8ec80ce5c93ba2e5abb96e1fb88"
+      "bytes": 1089760,
+      "sha256": "bea47ddc8146245cd7603647be1f7096941a7bcfcb377a58be424cd0484ed4fe"
     }
   },
   "trueCameraAB": {
     "file": "K4BH_K4BG_TO_NEW_TWO_CAMERA_ART_REVIEW_NOT_GAME.png",
-    "sha256": "ae1cfa35992954fe4e215414c0a7a4656e3e647570409edc0f2dc0331c1419f1",
-    "bytes": 3394636
+    "sha256": "3dcf6fcb09012665f9c1af726c8788b0058c90a0fc77bc4eb818ebc438db5020",
+    "bytes": 3238786
   }
 }
