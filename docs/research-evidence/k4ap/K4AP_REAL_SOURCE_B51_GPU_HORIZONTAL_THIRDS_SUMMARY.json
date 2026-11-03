@@ -55,7 +55,13 @@
       "completeGroupDepthCoverageAtTicks": [
         11339,
         11340,
-        11341
+        11341,
+        11342,
+        11343,
+        11344,
+        11345,
+        11346,
+        11347
       ],
       "evidenceSampledTick11339": {
         "left": 1,
@@ -81,7 +87,10 @@
         11341,
         11369
       ],
-      "designHypothesis": "original source camera approach before heavy group depth contribution, and recover/reveal after heavy group depth contribution"
+      "designHypothesis": "original source camera approach before heavy group depth contribution, and recover/reveal after heavy group depth contribution",
+      "completeGroupDepthCoverageTicksCount": 9,
+      "completeGroupDepthCoverageNativeDurationFromSampleCountSeconds": 0.0375,
+      "completeGroupDepthCoverageMeaning": "Nine successive source GPU sample instants all changed by B51-group mask; NOT human full-field occlusion duration"
     },
     "control": {
       "nativeTicks": [
