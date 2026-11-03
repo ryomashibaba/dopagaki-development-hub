@@ -89,3 +89,16 @@ K4AJ本命の[Actions #41566784540](https://github.com/ryomashibaba/dopagaki-dev
 K4AN [#41572736850](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41572736850) は2026-11-03にSOURCE RGBレビューCI SUCCESS、旧研究枝に比較PNG保存済み。新美術の実画面とは異なる。PR#46はOPEN/Draft/未マージ。main／本番／元source blob af076d67492a677d2235e4730aef8cdf4808e106／元物理・Camera・B48道路7・B51動体28は変更せず、Work事前承認制を守る。
 
 **未変化判定**：ART正式0件、Slope2 DNA0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
+
+## 2026-11-03 K4AS — 現在の継続入口（全画面の道路・B51素材美術）
+
+**現在作業を継続する研究枝**：research/k4as-road5-native-screen-material-rescue-20261103。K4ARの真正3群比較を継承した美術改善実装。詳細：[K4AS元画面美術改善正本](docs/R19_A6P4_R2F5K4AS_ROAD5_NATIVE_SCREEN_MATERIAL_RESCUE_JA.md)。
+
+K4AJの真正元Road5画像で確認した画面全体の彩度・単純色面問題に対し、**元のsource 240Hz／Camera／B48×7／B51×28のXYZ・当たり判定は変えず**、Road5元sourceカメラが実際にRoad5を描く場合だけ、研究用B48マット路面、A13元路面装飾の統一パレット、B51赤失敗／黄反発／紫押出しを保持した暗色装甲を描画する。K4AQの天空・建築もそのまま比較可能。元の他6道路／Gold／P100／W9-X／B5とmain／本番／PR#46は無変更。
+
+**新実装**：web/p101-k4as-road5-original-screen-material-system.mjs、private-road5-material-pack、unit tests、24枚の元WebGL2同camera（original／sky-only／city／city+materials）撮影、独立画像SHA／画素監査＋比較シート、独立CI [#41589057566](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41589057566)。
+
+**最新実測値はGitHubで再照合**：作成直後K4AS CIはqueuedで真正新画像0、K4AQ #41580058193はpending、K4AR #41585003708はqueued。K4ARに実コードのレポート出力名不整合があるので、そのCI成功を推定しない。**K4ASも新造形/世界水準のART品質は未検証で正式採用0、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD**。ロード素材の色変更を美術合格と混同しない。次は実24PNGの画面審査、問題が残ればロード形状・建物・照明・公共空洞を本物の世界水準へ再設計。
+
+Workは事前許可なしに使用しない。ユーザーのローカル操作不要。旧K4/K4R/K4U ART REJECTを覆さない。
