@@ -67,7 +67,8 @@ for pre in hideprefixes:
     c.hide_render=True
 # Do not hide the original source roads/verified native camera/proxy collections.
 for col in list(source.values())+list(others.values())+list(obb.values()):
-    assert not col.hide_render
+    assert col is not None
+    assert not any(col.name.startswith(p) for p in hideprefixes)
 def col(name):
     assert len(name)<60
     c=bpy.data.collections.new(name)
