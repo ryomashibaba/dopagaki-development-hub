@@ -1,0 +1,71 @@
+{
+  "schema": "dopagaki.K4BG.one-coherent-civic-escarpment-two-authentic-source-cameras/1",
+  "sourceParent": "K4BE salvaged authentic editable DCC",
+  "frozenOriginalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FingerprintBefore": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "originalRoad5FingerprintAfter": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "sourceRoad5GeometryUnchanged": true,
+  "originalB48Roads": 7,
+  "originalB51Bodies": 28,
+  "sourcePhysicsHz": 240,
+  "ballRadiusMetres": 0.65,
+  "sourceCameraNumericsModified": false,
+  "renderedTwoOfSixSourceCameraTicks": [
+    {
+      "mode": "control",
+      "tick": 11307,
+      "file": "K4BG_CONTROL_11307_SOURCE_CAMERA_DCC_ART_UNJUDGED.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "file": "K4BG_ULTRA_11341_SOURCE_CAMERA_DCC_ART_UNJUDGED.png"
+    }
+  ],
+  "newDCCOnlyEditableObjects": 88,
+  "oldRejectedCentralForumRetainedHidden": {
+    "K4BE 02 | WEST HALL OPEN COURT AND LIBRARY": 125,
+    "K4BE 03 | EAST COAST CONSERVATORY": 125,
+    "K4BE 04 | CROSS CITY INHABITED FORUM": 45,
+    "K4BE 05 | HUMAN SCALE ART AND WAYFINDING": 1,
+    "K4BE 06 | INTERIOR DAYLIGHT PHYSICALLY FIXTURED": 7
+  },
+  "nativeWebGL2GameRendered": false,
+  "newGameDriveableRoadOrCollider": false,
+  "independentAllSevenB48B51BVH": "NOT_RUN_HOLD",
+  "originalRoad5MaterialBindingUnchanged": true,
+  "ART": "UNJUDGED_HOLD",
+  "formalArtAccepted": 0,
+  "slope2DNAMetres": 0,
+  "CCD": "HOLD",
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BG_CIVIC_ESCARPMENT_EDITABLE_DCC_ART_HOLD.blend": {
+      "sha256": "dbdfa7222e2cec907e92a03f8e0de41a9abd390a46bb9e041695d0abbdd0dd0c",
+      "bytes": 40878540
+    },
+    "K4BG_CONTROL_11307_SOURCE_CAMERA_DCC_ART_UNJUDGED.png": {
+      "sha256": "888020f68f8e33a1d9af3ad12cf1bf87e6bd1ef204233c61e5be3a6b1d98beaf",
+      "bytes": 917767
+    },
+    "K4BG_ULTRA_11341_SOURCE_CAMERA_DCC_ART_UNJUDGED.png": {
+      "sha256": "cdbd388f1f895258fbfcddbaae76de7f677d50e5e1b66020af1481c25d0b4af5",
+      "bytes": 982606
+    }
+  },
+  "trueSourceCameraComparison": {
+    "file": "K4BG_TWO_ORIGINAL_CAMERA_K4BE_VS_NEW_ART_UNJUDGED.png",
+    "bytes": 1997325,
+    "sha256": "a86e0623a9a3f1f1d093f7cefe71c11309b60ace0c97bcad5842bbffef0daf93"
+  }
+}
