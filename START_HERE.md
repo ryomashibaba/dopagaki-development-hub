@@ -62,3 +62,11 @@ K4AJ本命の[Actions #41566784540](https://github.com/ryomashibaba/dopagaki-dev
 - [K4AO詳細正本](docs/R19_A6P4_R2F5K4AO_REAL_SOURCE_CAMERA_ART_REVIEW_JA.md)、[再現用Python](scripts/p101-r19a6p4r2f5k4ao-source-only-offline-art-review.py)、[K4AK要求15tickの実測ピン留めJSON](docs/research-evidence/k4ao/K4AO_TRUE_GPU_DEPTH_15_ART_CAMERA_REVIEW_ANCHORS.json)を隔離研究ブランチに保存。K4AJ真ZIP ID 13201661563／SHA-256 `60aab331d8881b5f8f456539c00566837a2b061a96ab0725ce7c17ea91ed8efb` から本物の8元source RGBとB51全28体群mask RGBを比較する完全オフラインHTMLをローカル生成、真PNG SHA/元復元GPU11,176点/100-case CSV突合・JS構文検証PASS。**元B51描画除去は研究用比較のみで元ゲームを改変しない**。
 - 重点真正カメラtick：14m **11338（93.951%）／11341（100%）／11349（47.423%）**、28m **11277（57.230%）／11280（53.436%）／11284（37.938%）**。数値は11,176点の**B51群GPU深度サンプル変化**であり肉眼の遮蔽率ではない。実元RGBは要求15中6tick、残り9はK4AM真CI実測待ち。K4AOの新モデル0、ART正式採用0件、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。
 - 次はK4AK #41568787273、K4AM #41571299893、K4AN #41572736850を実照合。CI未完了を成功とせず、K4ANの本物の審査アトラス＋K4AM不足9tick真正RGBを収束させた後、Road5《斜裂公共峡谷》の**一候補の真正同源Camera RGB A/B**を初めて制作・ART審査する。旧K4/K4R/K4U ART REJECTを再採用せず、main／原source／Camera／球240Hz／B48×7／B51×28／本番／PR#46を変更しない。Work事前承認。
+
+## 2026-11-03 K4AP：真GPU画面三区分が覆した「高遮蔽tickで都市を読ませる」仮説
+
+[K4AP ART-FIRST二段構成の報告](docs/R19_A6P4_R2F5K4AP_ART_FIRST_TWO_BEAT_TRUE_SOURCE_CAMERA_JA.md)／[真ZIP読取・127×88深度格子三区分解析器](scripts/p101-r19a6p4r2f5k4ap-real-b51-gpu-camera-beats.py)／[GitHub永続保存された検算サマリー](docs/research-evidence/k4ap/K4AP_REAL_SOURCE_B51_GPU_HORIZONTAL_THIRDS_SUMMARY.json)を研究ブランチへ追加。K4AJ真Artifact #13201661563のSHA固定ZIPをローカル独立再計算：14m 50tickのB51群除去GPU深度格子サンプル変化率は**左23.474%／中34.400%／右31.885%**、28m 49tickでは**左9.635%／中20.407%／右16.108%**（元11,176サンプル・各native tick集計）。14m **tick11339–11347の9連続tickで全三区分の11,176点すべて変化**。逆に14m 11351–11361、28m 11289–11299の各11tickは同group maskの変化検出0。これは**人間の全画面遮蔽、空き地、衝突安全、建築可読性を意味しない**。
+
+**新しい正当なART-FIRST判断**：既決定のRoad5《斜裂公共峡谷》を**危険前の都市峡谷入口／危険後の中段公共テラスと遠方広場**という「二段の視覚構成」で1方向だけ検討し、真正B51の中心危険時点に巨大建築を重ねて都市の見栄えを稼ぐ案はやめる。K4AOの高遮蔽重点tickは**B51可読性を保護する審査点**であり、新都市が同じ画面で読める合格点ではない。真の人間視認時間はUNKNOWN。旧K4/R/U ART REJECT、正式ART0、Slope2 DNA0m、新候補モデル0、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLDを厳守。
+
+**次は**K4AM #41571299893の不足9枚真RGB・K4AN #41572736850の実Artレビュー画像をまず照合、成功時だけ真正元Cam同poseのBlender-native一案A/B制作に進む。K4AK #41568787273は合成QA SUCCESS済み。main／本番／PR#46／凍結source／B48 7／B51 28／元物理・カメラ不変更、Workは事前承認。新CIを増やさない。
