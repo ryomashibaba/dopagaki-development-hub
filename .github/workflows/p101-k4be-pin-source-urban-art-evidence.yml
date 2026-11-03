@@ -1,0 +1,86 @@
+name: DOPAGAKI K4BE pin REAL source two-camera art review images on GitHub
+on:
+  push:
+    branches:
+      - research/k4be-camera-first-integrated-urban-civic-hall-20261103
+    paths:
+      - '.github/workflows/p101-k4be-pin-source-urban-art-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: k4be-persist-only-rejected-native-camera-art-images
+  cancel-in-progress: false
+jobs:
+  save-human-review-evidence-after-real-source-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stop unless original two-camera native source Blender completed correctly
+        env:
+          GH_TOKEN: \${{ github.token }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 95); do
+            status="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41656920221 --jq .conclusion)"
+            if [ "$status" = success ]; then exit 0; fi
+            if [ "$status" = failure ] || [ "$status" = cancelled ]; then echo "K4BE ART source failed, refuse pin"; exit 1; fi
+            sleep 12
+          done
+          echo "K4BE two source camera CI not proved: HOLD"
+          exit 1
+      - uses: actions/download-artifact@v4
+        with:
+          name: K4BE_ALL7_SOURCE_TWO_CAMERA_INTEGRATED_TIDAL_FORUM_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41656920221
+          github-token: \${{ github.token }}
+          path: research/evidence/k4be-pin
+      - name: Verify SHA provenance before committing immutable DCC ART HOLD examples
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 - <<'PY'
+          import json,hashlib,shutil
+          from pathlib import Path
+          src=Path('research/evidence/k4be-pin')
+          d=json.loads((src/'K4BE_SOURCE_CAMERA_CIVIC_FORUM_PROVENANCE.json').read_text())
+          assert d['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['road5MeshFingerprintPreserved']
+          assert d['sourceRoad5GeometryBefore']==d['sourceRoad5GeometryAfter']
+          assert d['otherSixRoadSourceMeshAndCameraPreserved']
+          assert not d['actualOriginalCameraNumericsChanged']
+          assert not d['nativeSourceGameWebGL2ScreenshotRendered']
+          assert d['ART']=='REJECT_HOLD' and d['formalArtAccepted']==d['slope2DNAMetres']==0
+          assert len(d['originalCameraPilotFrames'])==2
+          for fn,proof in d['files'].items():
+            raw=(src/fn).read_bytes()
+            assert len(raw)==proof['bytes'] and hashlib.sha256(raw).hexdigest()==proof['sha256']
+          p=Path('docs/research-evidence/k4be');p.mkdir(parents=True,exist_ok=True)
+          for old,new in [
+             ('K4BE_TWO_REAL_SOURCE_CAMERA_K4BD_VS_URBAN_FORUM_ART_HOLD.png',
+              'K4BE_TWO_ORIGINAL_CAMERA_K4BD_VS_CITY_ART_REJECT.png'),
+             ('K4BE_REAL_SOURCE_CAMERA_CONTROL_11307_ART_REJECT_PILOT.png',
+              'K4BE_CONTROL_11307_TRUE_SOURCE_CAMERA_ART_REJECT.png'),
+             ('K4BE_REAL_SOURCE_CAMERA_ULTRA_11341_ART_REJECT_PILOT.png',
+              'K4BE_ULTRA_11341_TRUE_SOURCE_CAMERA_ART_REJECT.png'),
+             ('K4BE_LANDMARK_URBAN_PLANNING_AERIAL_DCC_NOT_GAME.png',
+              'K4BE_INTEGRATED_CIVIC_HALL_AERIAL_DCC_NOT_GAME.png'),
+             ('K4BE_SOURCE_CAMERA_CIVIC_FORUM_PROVENANCE.json',
+              'K4BE_ORIGINAL_SOURCE_B48_B51_SHA_ART_REJECT.json')]:
+            shutil.copyfile(src/old,p/new)
+          print('K4BE_ART_REJECT_TWO_ORIGINAL_SOURCE_CAMERA_EVIDENCE_READY')
+          PY
+      - name: Research branch only, commit proof without changing main or official PR
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research-evidence/k4be/K4BE_*
+          git diff --cached --quiet && exit 0
+          git commit -m "evidence(k4be): real two-source-camera art rejection images and verified source SHA"
+          git fetch origin research/k4be-camera-first-integrated-urban-civic-hall-20261103
+          git rebase origin/research/k4be-camera-first-integrated-urban-civic-hall-20261103
+          git push origin HEAD:refs/heads/research/k4be-camera-first-integrated-urban-civic-hall-20261103
