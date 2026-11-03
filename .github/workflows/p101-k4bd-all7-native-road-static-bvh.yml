@@ -1,0 +1,124 @@
+name: DOPAGAKI K4BD independent ALL seven original B48 and B51 road-exterior static BVH
+on:
+  push:
+    branches:
+      - research/k4bd-source-road5-civic-deck-material-architecture-20261103
+    paths:
+      - '.github/workflows/p101-k4bd-all7-native-road-static-bvh.yml'
+      - 'research/k4bd/independent_all7_native_B48_B51_offroad_terrace_static.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4bd-source-road5-3k-pedestrian-structural-audit
+  cancel-in-progress: false
+jobs:
+  source-exact-seven-road-exterior-architecture-static-survey:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+      - name: Freeze original game and check independent BVH syntax
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile research/k4bd/independent_all7_native_B48_B51_offroad_terrace_static.py
+      - name: Require actual SOURCE 3K PBR DCC completed SUCCESS or fail closed immediately
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          result="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41646724681 --jq '.conclusion')"
+          if [ "$result" != success ]; then echo "K4BD source DCC not completed success: $result";exit 1;fi
+      - name: Fetch exact K4BD original Road5 3K PBR with EDITABLE civic terrazzo and terrace architecture
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BD_3K_ORIGINAL_ROAD5_CIVIC_DECK_PBR_EDITABLE_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41646724681
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bd-static/art
+      - name: Fetch source-exact all 7 B48 physical roads control/ultra, no new roads
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BC_V2_REAL_ALL_SEVEN_ORIGINAL_B48_EDITABLE_SOURCE_CAMERA_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41638891877
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bd-static/all7
+      - name: Fetch native exact six-tick x 28 B51 source physical collision OBBs
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bd-static/native
+      - name: Verify each DCC deliverable SHA and all original physical source constraints
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path('research/evidence/k4bd-static/art')
+          m=json.loads((p/'K4BD_TRUE_SOURCE_CIVIC_DECK_ART_REJECT_PROVENANCE.json').read_text())
+          assert m['originalFrozenWebGL2GameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert m['sourceB48OriginalRoadCount']==7 and m['sourceB51MovingObstacleCount']==28
+          assert m['sourcePhysicsHz']==240 and m['sourceRadiusMetres']==.65
+          assert m['realB48Road5GeometryPreserved'] and m['originalRoad5GeometryBefore']==m['originalRoad5GeometryAfter']
+          assert m['sourceRoad5PBR3K']==[3072,1536]
+          assert m['newVisualNonCollisionRoadInlayCount']==52
+          assert m['originalOtherSixB48RoadsPerModePreserved']
+          assert m['originalSourceB51SixTimes28PhysicsProxyPreserved']
+          assert m['nativeWebGL2GameFramesRendered'] is False
+          assert m['noNewGameDriveableRoadOrGameColliders']
+          assert m['ART']=='REJECT_HOLD' and m['formalArtAccepted']==0
+          for filename,stamp in m['files'].items():
+              raw=(p/filename).read_bytes()
+              assert len(raw)==stamp['bytes'] and hashlib.sha256(raw).hexdigest()==stamp['sha256']
+          a=json.loads((Path('research/evidence/k4bd-static/all7/original-all7')/'K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json').read_text())
+          b=json.loads((Path('research/evidence/k4bd-static/native')/'K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert a['frozenOriginalGameGitBlob']==b['frozenOriginalGameGitBlob']==m['originalFrozenWebGL2GameGitBlob']
+          assert a['B48SurfaceCount']==7 and b['originalB51MovingObstacles']==28
+          print('K4BD_B48_ALL7_ORIGINAL_ROAD5_PBR_SOURCE_SHA_CONFIRMED_UNCHANGED')
+          PY
+      - name: Install real Blender independent BVH survey
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender
+      - name: Separate only offroad new K4BD civic architecture from new noncolliding road visual skin and deep sea
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bd-static/report
+          blender -b --factory-startup --python-exit-code 3 \
+            --python research/k4bd/independent_all7_native_B48_B51_offroad_terrace_static.py -- \
+            --blend research/evidence/k4bd-static/art/K4BD_SOURCE_ROAD5_3K_PBR_PEDESTRIAN_ARRIVAL_EDITABLE_ART_HOLD.blend \
+            --all7 research/evidence/k4bd-static/all7/original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json \
+            --original research/evidence/k4bd-static/native/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out research/evidence/k4bd-static/report
+      - name: Demand genuine all-seven physical road and B51 six-tick static nonintersection, not CCD or ART pass
+        run: |
+          python3 - <<'PY'
+          import json
+          m=json.load(open('research/evidence/k4bd-static/report/K4BD_EXACT_SEVEN_SOURCE_B48_B51_STATIC_AUDIT.json'))
+          assert m['independentSourceB48PhysicalMeshesEvaluated']==14
+          assert m['independentSourceB48PhysicalTrianglesEvaluated']==66192
+          assert m['numberSourceB51OriginalTickCollisionOBBs']==168
+          assert m['newK4BDPedestrianArchitecturalObjectsIncluded']>=40
+          assert m['newK4BDPBRVisualSkinObjectsExplicitlyExcluded']==52
+          assert m['newK4BDDeepSeaBelowEveryNativeRoadExcluded']
+          assert m['roadContacts']==[] and m['originalNativeB51Contacts']==[]
+          assert m['wholeStageFutureTimeCCD']=='NOT_TESTED_HOLD'
+          assert m['ballRadius065SafetyTest']=='NOT_TESTED_HOLD'
+          assert m['formalArtAccepted']==m['Slope2DNACertifiedMetres']==0
+          assert m['ART']=='REJECT_HOLD'
+          print('K4BD_NATIVE_ALL7_ROADS_B51_NEW_OFFROAD_ARCH_STATIC_TRIANGLE_CONTACT_ZERO_ONLY')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BD_INDEPENDENT_ORIGINAL_ALL7_B48_168_B51_OFFROAD_STATIC_ART_HOLD
+          path: research/evidence/k4bd-static/report/
+          retention-days: 14
+          if-no-files-found: warn
