@@ -34,7 +34,7 @@ def changes(a,b,threshold=9):
 
 
 def audit(root):
-    record=json.loads((root/"K4AU_TRUE_NATIVE_ART_AB.json").read_text())
+    record=json.loads((root/"K4AU_TRUE_NATIVE_MATERIAL_AB.json").read_text())
     check(record["schema"]=="dopagaki.K4AU.genuine-original-Road5-lit-material-AB/1","SCHEMA")
     check(record["sourceBlob"]==SRC and record["originalPhysicsHz"]==240,"SOURCE_NATIVE")
     check(record["realRoadCount"]==7 and record["originalB51"]==28,"SOURCE_ROAD_HAZARD")
