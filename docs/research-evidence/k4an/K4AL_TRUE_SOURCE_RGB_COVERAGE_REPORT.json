@@ -1,0 +1,361 @@
+{
+  "schema": "dopagaki.K4AL.original-RGB-source-coverage/1",
+  "interpretation": "K4AJ_SOURCE_IMAGE_SHA_ONLY_NOT_ART_OR_HUMAN_VISIBILITY_PROOF",
+  "observedSourceRGBSnapshots": 8,
+  "artFirstRequestedTicks": 15,
+  "requestedAlreadyCapturedOriginalRGB": 6,
+  "requestedMissingOriginalRGB": 9,
+  "capturedUnrequestedOriginalRGB": 2,
+  "reviewRequests": [
+    {
+      "mode": "ultra",
+      "tick": 11320,
+      "originalRGB": "AVAILABLE_SHA_VERIFIED",
+      "sourceRGB": {
+        "original": {
+          "file": "K4AJ_ultra_11320_ORIGINAL_WEBGL2_AFTER_IN_RENDER_READBACK.png",
+          "bytes": 89072,
+          "sha256": "50b9648918549353b99182975621da0574882e5819b15c9fbaaca77e9eb61d21",
+          "width": 1013,
+          "height": 698
+        },
+        "b51GroupHidden": {
+          "file": "K4AJ_ultra_11320_without-B51-bodies_SOURCE_MASK.png",
+          "bytes": 92290,
+          "sha256": "04447443bbe4d88fd95c8d8de8de8a2063170930d80a310af1877adbcce4627c",
+          "width": 1013,
+          "height": 698
+        },
+        "restored": {
+          "file": "K4AJ_ultra_11320_RESTORED_NATIVE.png",
+          "bytes": 89072,
+          "sha256": "50b9648918549353b99182975621da0574882e5819b15c9fbaaca77e9eb61d21",
+          "width": 1013,
+          "height": 698
+        },
+        "sampledDepthChanged": 391,
+        "sampledDepthTotal": 11176
+      },
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11326,
+      "originalRGB": "NOT_CAPTURED",
+      "sourceRGB": null,
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11338,
+      "originalRGB": "NOT_CAPTURED",
+      "sourceRGB": null,
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "originalRGB": "AVAILABLE_SHA_VERIFIED",
+      "sourceRGB": {
+        "original": {
+          "file": "K4AJ_ultra_11341_ORIGINAL_WEBGL2_AFTER_IN_RENDER_READBACK.png",
+          "bytes": 50713,
+          "sha256": "a9b61464f5399ae65e1b79068c03d0e8bde6934b554431acf4c58c64021db76b",
+          "width": 1013,
+          "height": 698
+        },
+        "b51GroupHidden": {
+          "file": "K4AJ_ultra_11341_without-B51-bodies_SOURCE_MASK.png",
+          "bytes": 94445,
+          "sha256": "21cff52edb1a49a76a534f650bc3f140324d404c37ecda0149369d2ec699667c",
+          "width": 1013,
+          "height": 698
+        },
+        "restored": {
+          "file": "K4AJ_ultra_11341_RESTORED_NATIVE.png",
+          "bytes": 50713,
+          "sha256": "a9b61464f5399ae65e1b79068c03d0e8bde6934b554431acf4c58c64021db76b",
+          "width": 1013,
+          "height": 698
+        },
+        "sampledDepthChanged": 11176,
+        "sampledDepthTotal": 11176
+      },
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11349,
+      "originalRGB": "NOT_CAPTURED",
+      "sourceRGB": null,
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11351,
+      "originalRGB": "NOT_CAPTURED",
+      "sourceRGB": null,
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11363,
+      "originalRGB": "NOT_CAPTURED",
+      "sourceRGB": null,
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11369,
+      "originalRGB": "AVAILABLE_SHA_VERIFIED",
+      "sourceRGB": {
+        "original": {
+          "file": "K4AJ_ultra_11369_ORIGINAL_WEBGL2_AFTER_IN_RENDER_READBACK.png",
+          "bytes": 91832,
+          "sha256": "87c05419caa1f8d3e267d9730dbde65198303f14f79b42c9eebfed6fd2b50900",
+          "width": 1013,
+          "height": 698
+        },
+        "b51GroupHidden": {
+          "file": "K4AJ_ultra_11369_without-B51-bodies_SOURCE_MASK.png",
+          "bytes": 91764,
+          "sha256": "8823bdf98692237d8a2c0707eac3efdb64b37061574b4a26f402fca2c4261f8f",
+          "width": 1013,
+          "height": 698
+        },
+        "restored": {
+          "file": "K4AJ_ultra_11369_RESTORED_NATIVE.png",
+          "bytes": 91832,
+          "sha256": "87c05419caa1f8d3e267d9730dbde65198303f14f79b42c9eebfed6fd2b50900",
+          "width": 1013,
+          "height": 698
+        },
+        "sampledDepthChanged": 1,
+        "sampledDepthTotal": 11176
+      },
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "control",
+      "tick": 11259,
+      "originalRGB": "AVAILABLE_SHA_VERIFIED",
+      "sourceRGB": {
+        "original": {
+          "file": "K4AJ_control_11259_ORIGINAL_WEBGL2_AFTER_IN_RENDER_READBACK.png",
+          "bytes": 91239,
+          "sha256": "c4b05e7909038175dd91666ad8d60d54d4e078a9425a6e0427eb68115b88398d",
+          "width": 1013,
+          "height": 698
+        },
+        "b51GroupHidden": {
+          "file": "K4AJ_control_11259_without-B51-bodies_SOURCE_MASK.png",
+          "bytes": 93138,
+          "sha256": "5b176ad05b7299c99b724c9827905692e7d2f420e1247d51c01967a04b680a57",
+          "width": 1013,
+          "height": 698
+        },
+        "restored": {
+          "file": "K4AJ_control_11259_RESTORED_NATIVE.png",
+          "bytes": 91239,
+          "sha256": "c4b05e7909038175dd91666ad8d60d54d4e078a9425a6e0427eb68115b88398d",
+          "width": 1013,
+          "height": 698
+        },
+        "sampledDepthChanged": 365,
+        "sampledDepthTotal": 11176
+      },
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "control",
+      "tick": 11265,
+      "originalRGB": "NOT_CAPTURED",
+      "sourceRGB": null,
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "control",
+      "tick": 11277,
+      "originalRGB": "NOT_CAPTURED",
+      "sourceRGB": null,
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "control",
+      "tick": 11280,
+      "originalRGB": "AVAILABLE_SHA_VERIFIED",
+      "sourceRGB": {
+        "original": {
+          "file": "K4AJ_control_11280_ORIGINAL_WEBGL2_AFTER_IN_RENDER_READBACK.png",
+          "bytes": 108898,
+          "sha256": "9b5216d41ce7c4ce22c4982e7b3059693533d8b3d94394dcea15c3f82b135fbe",
+          "width": 1013,
+          "height": 698
+        },
+        "b51GroupHidden": {
+          "file": "K4AJ_control_11280_without-B51-bodies_SOURCE_MASK.png",
+          "bytes": 125447,
+          "sha256": "fab8608f7eb857fe843f1e5fc23f5fcf3be3b89a7b010551d8dbca433a93da65",
+          "width": 1013,
+          "height": 698
+        },
+        "restored": {
+          "file": "K4AJ_control_11280_RESTORED_NATIVE.png",
+          "bytes": 108898,
+          "sha256": "9b5216d41ce7c4ce22c4982e7b3059693533d8b3d94394dcea15c3f82b135fbe",
+          "width": 1013,
+          "height": 698
+        },
+        "sampledDepthChanged": 5972,
+        "sampledDepthTotal": 11176
+      },
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "control",
+      "tick": 11284,
+      "originalRGB": "NOT_CAPTURED",
+      "sourceRGB": null,
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "control",
+      "tick": 11301,
+      "originalRGB": "NOT_CAPTURED",
+      "sourceRGB": null,
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    },
+    {
+      "mode": "control",
+      "tick": 11307,
+      "originalRGB": "AVAILABLE_SHA_VERIFIED",
+      "sourceRGB": {
+        "original": {
+          "file": "K4AJ_control_11307_ORIGINAL_WEBGL2_AFTER_IN_RENDER_READBACK.png",
+          "bytes": 121628,
+          "sha256": "0252476267efefe29a04ee1240c272b25616811c101d168d63fe077cea485948",
+          "width": 1013,
+          "height": 698
+        },
+        "b51GroupHidden": {
+          "file": "K4AJ_control_11307_without-B51-bodies_SOURCE_MASK.png",
+          "bytes": 121566,
+          "sha256": "210673d0037d605ad06c20fd8bc3d399e85cf44bb01ccd5d22204bdcdced5875",
+          "width": 1013,
+          "height": 698
+        },
+        "restored": {
+          "file": "K4AJ_control_11307_RESTORED_NATIVE.png",
+          "bytes": 121628,
+          "sha256": "0252476267efefe29a04ee1240c272b25616811c101d168d63fe077cea485948",
+          "width": 1013,
+          "height": 698
+        },
+        "sampledDepthChanged": 2,
+        "sampledDepthTotal": 11176
+      },
+      "candidateSamePoseRGB": "NOT_CREATED",
+      "humanLegibility": "NOT_TESTED",
+      "ART": "HOLD"
+    }
+  ],
+  "additionalCapturedSnapshots": [
+    {
+      "mode": "control",
+      "tick": 11278,
+      "sourceRGB": {
+        "original": {
+          "file": "K4AJ_control_11278_ORIGINAL_WEBGL2_AFTER_IN_RENDER_READBACK.png",
+          "bytes": 108543,
+          "sha256": "48a8f4a688b2ae601ba84ce48576b1c6f5ba06a64ad098f8cff45612bc97f724",
+          "width": 1013,
+          "height": 698
+        },
+        "b51GroupHidden": {
+          "file": "K4AJ_control_11278_without-B51-bodies_SOURCE_MASK.png",
+          "bytes": 123590,
+          "sha256": "e3f7d1940e0f0d3ab9685e389996726e2a531ab6c37c71f9847032dc3c2e6403",
+          "width": 1013,
+          "height": 698
+        },
+        "restored": {
+          "file": "K4AJ_control_11278_RESTORED_NATIVE.png",
+          "bytes": 108543,
+          "sha256": "48a8f4a688b2ae601ba84ce48576b1c6f5ba06a64ad098f8cff45612bc97f724",
+          "width": 1013,
+          "height": 698
+        },
+        "sampledDepthChanged": 6379,
+        "sampledDepthTotal": 11176
+      }
+    },
+    {
+      "mode": "ultra",
+      "tick": 11280,
+      "sourceRGB": {
+        "original": {
+          "file": "K4AJ_ultra_11280_ORIGINAL_WEBGL2_AFTER_IN_RENDER_READBACK.png",
+          "bytes": 94001,
+          "sha256": "22d425073c0a804a89c44b578d882b9fec159c1ead87d359ed7d6f1641f0cbe5",
+          "width": 1013,
+          "height": 698
+        },
+        "b51GroupHidden": {
+          "file": "K4AJ_ultra_11280_without-B51-bodies_SOURCE_MASK.png",
+          "bytes": 93652,
+          "sha256": "06719aa857ee69150e3c70f56906f2feee87373e59e3ff22dd42b2d31424493d",
+          "width": 1013,
+          "height": 698
+        },
+        "restored": {
+          "file": "K4AJ_ultra_11280_RESTORED_NATIVE.png",
+          "bytes": 94001,
+          "sha256": "22d425073c0a804a89c44b578d882b9fec159c1ead87d359ed7d6f1641f0cbe5",
+          "width": 1013,
+          "height": 698
+        },
+        "sampledDepthChanged": 53,
+        "sampledDepthTotal": 11176
+      }
+    }
+  ],
+  "originalSourceBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "officialARTAccepted": 0,
+  "slope2DNAMetres": 0,
+  "candidateModels": 0,
+  "HUMAN": "HOLD",
+  "ART": "NOT_TESTED_HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD"
+}
