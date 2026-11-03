@@ -36,3 +36,9 @@ K4BHの真正画像では道路が視野の大半を占め、暗い無地の巨�
 
 ## 次の本質的な絵作り
 単純な規則的窓と直線白線は画面の改善の入口にすぎない。意匠の一部としてしか認めない。真の課題は、コース走行視点で道路自体が魅力的な素材・ディテール・立体環境として読み取れ、左右に機能する都市公共空間と遠方の豊かな地理・景観、主役の圧倒的な固有意匠が揃うこと。美術の合格を自称する代わりに、ひとつのフレームを現実の高級レーシングゲーム画面として再構成するための手制作優先の工程へ移行する。単なるDCCオブジェクト数量とテクニカルゲートを増やすことは避ける。
+
+## Blender denoiser実機制約と安全な復旧
+
+[2回目Actions #41740364212](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41740364212)は **completed/FAILURE**。元sourceと親SHA検査までPASSしたが、Blender 4.0.2 Ubuntuの`RuntimeError: Error: Build without OpenImageDenoiser`でレンダリングに入る直前に停止。成功・出力PNG・ART PASS扱いは禁止。初回ART REJECT・初回SOURCE/DCC技術PASSの保全は有効。
+
+CIとBlenderの能力不足を事実として受け取り、`sc.cycles.use_denoising=False` と `view_layer.cycles.use_denoising=False` の両方を明示して保護。96の無デノイズ実サンプル、露出修正、シアン細帯の追加を固定。修正commit `4186c3daadeafd92bb3d32de07a5856a8911bcdf`、[3回目Actions #41740606366](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41740606366)の独立結果を待って確定させる。旧アートREJECTは変更しない。
