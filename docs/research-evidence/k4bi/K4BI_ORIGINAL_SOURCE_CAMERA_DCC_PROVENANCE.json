@@ -1,0 +1,57 @@
+{
+  "schema": "dopagaki.K4BI.source-road-material-and-inhabited-architecture-native-DCC/1",
+  "parentK4BHBlendSHA256": "6e1251b08c37d67b6c87d450d616afd2485572aa94d1491e8395599c8c042796",
+  "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalPhysicsHz": 240,
+  "originalB48Roads": 7,
+  "originalB51Movers": 28,
+  "originalBallRadiusMetres": 0.65,
+  "originalRoad5VertexPolygonFingerprintUnchanged": true,
+  "sourceCameraNumericsUnchanged": true,
+  "roadShaderArtOnlyNotPhysicalRoad": true,
+  "newPlayableColliders": 0,
+  "newDCCArtObjects": 282,
+  "twoOriginalSourceCameraDCCScreenshots": [
+    {
+      "mode": "control",
+      "tick": 11307,
+      "file": "K4BI_CONTROL_11307_ORIGINAL_CAMERA_ART_UNJUDGED.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "file": "K4BI_ULTRA_11341_ORIGINAL_CAMERA_ART_UNJUDGED.png"
+    }
+  ],
+  "webglFrames": false,
+  "fullB51Clearance": "NOT_TESTED",
+  "humanVisualQuality": "NOT_APPROVED",
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "slope2DNAmetres": 0,
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "HUMAN": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BI_ROAD_MATERIAL_ARCHITECTURAL_DETAIL_EDITABLE_DCC_HOLD.blend": {
+      "bytes": 32740992,
+      "sha256": "9480b84a99f73fb6a9d69ac05339a332a1f087ee0b6789a61696eb9c77f12e45"
+    },
+    "K4BI_CONTROL_11307_ORIGINAL_CAMERA_ART_UNJUDGED.png": {
+      "bytes": 1822940,
+      "sha256": "de66495bb7730c8ec221453e1a67c8bf6c1a3b4de4fc6b7724676550d30f3834"
+    },
+    "K4BI_ULTRA_11341_ORIGINAL_CAMERA_ART_UNJUDGED.png": {
+      "bytes": 1822805,
+      "sha256": "497d3de11703387dc2e1edca15b1ef3e3ebe4774b4250842a6055587d6d49f22"
+    }
+  },
+  "independentAB": {
+    "file": "K4BI_ORIGINAL_CAMERA_K4BH_VS_NEW_ART_REVIEW_NOT_GAME.png",
+    "bytes": 4296747,
+    "sha256": "df090e16dffe0607c3eec6ebbdd66ff97ba78e2746f34c8d286894be756d1756"
+  }
+}
