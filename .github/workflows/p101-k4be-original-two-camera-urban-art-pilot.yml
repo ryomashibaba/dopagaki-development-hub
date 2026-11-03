@@ -1,0 +1,138 @@
+name: DOPAGAKI K4BE two genuine Camera pilot city art-source protected
+on:
+  push:
+    branches:
+      - research/k4be-camera-first-integrated-urban-civic-hall-20261103
+    paths:
+      - 'scripts/p101-k4be-source-camera-integrated-tidal-forum.py'
+      - '.github/workflows/p101-k4be-original-two-camera-urban-art-pilot.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4be-original-seven-road-two-source-camera-review
+  cancel-in-progress: false
+jobs:
+  two-camera-authentic-stage-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect native WebGL2 original blob and source context
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4be-source-camera-integrated-tidal-forum.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - uses: actions/download-artifact@v4
+        with:
+          name: K4BD_3K_ORIGINAL_ROAD5_CIVIC_DECK_PBR_PILOT_EDITABLE_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41649107682
+          github-token: \${{ github.token }}
+          path: research/evidence/k4be/parent
+      - uses: actions/download-artifact@v4
+        with:
+          name: K4BC_V2_REAL_ALL_SEVEN_ORIGINAL_B48_EDITABLE_SOURCE_CAMERA_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41638891877
+          github-token: \${{ github.token }}
+          path: research/evidence/k4be/all7
+      - uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: \${{ github.token }}
+          path: research/evidence/k4be/native
+      - name: Source frozen SHA and parent ART HOLD exact file provenance
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('research/evidence/k4be')
+          j=json.loads((p/'parent/K4BD_TRUE_SOURCE_CIVIC_DECK_ART_REJECT_PROVENANCE.json').read_text())
+          assert j['originalFrozenWebGL2GameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['sourceB48OriginalRoadCount']==7 and j['sourceB51MovingObstacleCount']==28
+          assert j['sourcePhysicsHz']==240 and j['sourceRadiusMetres']==.65
+          assert j['originalRoad5GeometryBefore']==j['originalRoad5GeometryAfter']
+          assert j['originalCameraNumericsUnchanged'] and j['nativeWebGL2GameFramesRendered'] is False
+          assert j['ART']=='REJECT_HOLD' and j['formalArtAccepted']==0
+          assert len(j['originalCameraSixTicks'])==2
+          for f,z in j['files'].items():
+              b=(p/'parent'/f).read_bytes()
+              assert len(b)==z['bytes'] and hashlib.sha256(b).hexdigest()==z['sha256']
+          x=json.loads((p/'all7/original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json').read_text())
+          s=json.loads((p/'native/K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert x['frozenOriginalGameGitBlob']==s['frozenOriginalGameGitBlob']==j['originalFrozenWebGL2GameGitBlob']
+          assert x['B48SurfaceCount']==7 and x['originalB51MovingBodies']==28
+          assert x['modes']['control']['originalRoad5Triangles']==4728
+          assert x['modes']['control']['originalRoad5ControlPointsSHA256']==s['modes']['control']['originalRoadSourcePointsSHA256']
+          print('K4BE_REAL_K4BD_K4BC_K4AY_ALL7_SOURCE_SHA_VERIFIED')
+          PY
+      - name: Install Blender CPU Cycles known-good headless dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+      - name: Author real Blender editable civic halls plus native two-camera pilot
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4be/render
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4be-source-camera-integrated-tidal-forum.py -- \
+            --base research/evidence/k4be/parent/K4BD_SOURCE_ROAD5_3K_PBR_PEDESTRIAN_ARRIVAL_EDITABLE_ART_HOLD.blend \
+            --source research/evidence/k4be/native/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --all7 research/evidence/k4be/all7/original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json \
+            --out research/evidence/k4be/render
+      - name: Independently inspect SHA and generate two-source-camera A/B art evidence
+        run: |
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          from PIL import Image,ImageStat,ImageDraw
+          r=Path('research/evidence/k4be/render')
+          prev=Path('research/evidence/k4be/parent')
+          j=json.loads((r/'K4BE_SOURCE_CAMERA_CIVIC_FORUM_PROVENANCE.json').read_text())
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalB48Roads']==7 and j['originalB51Movers']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusMetres']==.65
+          assert j['originalAllSevenModeSourceMeshes']==14 and j['originalB51TickCollisionOBBSixTimes28']==168
+          assert j['sourceRoad5GeometryBefore']==j['sourceRoad5GeometryAfter']
+          assert j['road5MeshFingerprintPreserved'] and j['otherSixRoadSourceMeshAndCameraPreserved']
+          assert not j['actualOriginalCameraNumericsChanged']
+          assert not j['originalGamePhysicsCollisionOrSafetyMarkupChanged']
+          assert not j['nativeSourceGameWebGL2ScreenshotRendered']
+          assert j['ART']=='REJECT_HOLD' and j['formalArtAccepted']==0 and j['slope2DNAMetres']==0
+          assert j['newFullScaleEditableCityArchitectureObjects']>95
+          assert len(j['originalCameraPilotFrames'])==2
+          assert {(x['mode'],x['tick']) for x in j['originalCameraPilotFrames']}=={('control',11307),('ultra',11341)}
+          for f,v in j['files'].items():
+              b=(r/f).read_bytes()
+              assert v['bytes']==len(b) and v['sha256']==hashlib.sha256(b).hexdigest()
+          assert (r/'K4BE_TIDAL_FORUM_CIVIC_ARCHITECTURAL_DCC_NOT_GAME.glb').read_bytes()[:4]==b'glTF'
+          page=Image.new('RGB',(1174,2*400+420),(18,20,25))
+          draw=ImageDraw.Draw(page)
+          for i,t in enumerate(j['originalCameraPilotFrames']):
+              y=i*400;mode=t['mode'];tick=t['tick']
+              old=Image.open(prev/f'K4BD_TRUE_SOURCE_CAMERA_CLEAN_EDITORIAL_{mode.upper()}_{tick}.png').convert('RGB')
+              new=Image.open(r/t['file']).convert('RGB')
+              assert new.width>=700 and new.height>=500
+              assert sum(ImageStat.Stat(new).stddev)>20
+              page.paste(old.resize((560,371)),(0,y+25))
+              page.paste(new.resize((560,371)),(594,y+25))
+              draw.text((8,y+4),f'K4BD source {mode} tick {tick} DCC',fill='white')
+              draw.text((600,y+4),f'K4BE same source camera {mode} tick {tick} DCC',fill='white')
+          art=Image.open(r/'K4BE_LANDMARK_URBAN_PLANNING_AERIAL_DCC_NOT_GAME.png').convert('RGB')
+          page.paste(art.resize((560,371)),(594,2*400+25))
+          draw.text((8,2*400+4),'BLENDER SOURCE-REFERENCED DCC ONLY; ART REJECT',fill='white')
+          page.save(r/'K4BE_TWO_REAL_SOURCE_CAMERA_K4BD_VS_URBAN_FORUM_ART_HOLD.png')
+          print('K4BE_REAL_SOURCE_CAMERA_DCC_TECH_PASS_NOT_GAME_ART_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BE_ALL7_SOURCE_TWO_CAMERA_INTEGRATED_TIDAL_FORUM_ART_HOLD
+          path: research/evidence/k4be/render/
+          retention-days: 14
+          if-no-files-found: warn
