@@ -106,7 +106,7 @@ assert len(k4be_objects)>95
 assert all(o in candidates for o in k4be_objects)
 # Verify new offroad K4BE real public terrace objects are included, while
 # visual-only Road5 stone inlays and deep sea are not falsely collision-tested.
-k4bd_ped=bpy.data.collections.get("K4BE 02 | road-exterior deep public waterfront terrace")
+k4bd_ped=bpy.data.collections.get("K4BD 02 | road-exterior deep public waterfront terrace")
 assert k4bd_ped is not None
 k4bd_objects=[o for o in k4bd_ped.objects if o.type in ("MESH","CURVE")]
 assert len(k4bd_objects)>=40
@@ -118,8 +118,8 @@ def exactly_one_collection(prefix):
     matches=[c for c in bpy.data.collections if c.name.startswith(prefix)]
     assert len(matches)==1,(prefix,[c.name for c in matches])
     return matches[0]
-k4bd_inlay=exactly_one_collection("K4BE 01 |")
-k4bd_water=exactly_one_collection("K4BE 03 |")
+k4bd_inlay=exactly_one_collection("K4BD 01 |")
+k4bd_water=exactly_one_collection("K4BD 03 |")
 assert len(k4bd_inlay.objects)==52,(k4bd_inlay.name,len(k4bd_inlay.objects))
 assert len(k4bd_water.objects)==1,(k4bd_water.name,len(k4bd_water.objects))
 assert not any(o in candidates for o in k4bd_inlay.objects)
@@ -168,6 +168,7 @@ report={
  "candidateK4BEPlusEarlierCivicArchitectureMeshesOrCurves":tested,
   "K4BEFullScaleNewOffroadArchitectureScopeIncluded":True,
   "K4BEAll7OldPriorBuildingsAndNewOffroadArchitectureSurvey":True,
+  "newK4BEArchitecturalObjectsInAudit":len(k4be_objects),
  "candidateK4BEPlusEarlierCivicArchitectureEvaluatedFaces":facesCount,
  "roadContacts":roadhits,
  "originalNativeB51Contacts":b51hits,
@@ -179,9 +180,10 @@ report={
  "oldK4BCV1OffframeSkylineExcludedAndPreserved":bool(old_sky.hide_render and len(old_sky.objects)>0),
  "newV3PhysicalSkyMuseumAndCivicFoundationsIncluded":len(v3objects)>50,
   "newV3ObjectsIndependentlyIncluded":len(v3objects),
- "newK4BEPedestrianArchitecturalObjectsIncluded":len(k4bd_objects),
- "newK4BEPBRVisualSkinObjectsExplicitlyExcluded":len(k4bd_inlay.objects),
- "newK4BEDeepSeaBelowEveryNativeRoadExcluded":True,
+ "oldK4BDPedestrianArchitecturalObjectsIncluded":len(k4bd_objects),
+  "newK4BECivicIntegratedArchitectureObjectsIncluded":len(k4be_objects),
+ "oldK4BDPBRVisualSkinObjectsExplicitlyExcluded":len(k4bd_inlay.objects),
+ "oldK4BDDeepSeaBelowEveryNativeRoadExcluded":True,
  "limitedStaticSourceTriangleIntersectionOnly":True,
  "wholeStageFutureTimeCCD":"NOT_TESTED_HOLD",
  "ballRadius065SafetyTest":"NOT_TESTED_HOLD",
