@@ -1,0 +1,133 @@
+name: DOPAGAKI K4BH original B48 source-camera sculpted civic corridor ART HOLD
+on:
+  push:
+    branches: [research/k4bh-source-camera-art-directed-civic-corridor-20261104]
+    paths:
+      - scripts/p101-k4bh-source-camera-art-directed-civic-corridor.py
+      - .github/workflows/p101-k4bh-source-camera-civic-corridor-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bh-source-camera-art
+  cancel-in-progress: true
+jobs:
+  source-dcc-art-pilot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Original game SHA and original physics-source tests
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bh-source-camera-art-directed-civic-corridor-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bh-source-camera-art-directed-civic-corridor.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download last actual K4BG source-camera edit scene
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BG_COHERENT_CIVIC_ESCARPMENT_EDITABLE_DCC_ART_UNJUDGED_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41726814278
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bh/parent
+      - name: Independent source parent manifest and file SHA audit
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('research/evidence/k4bh/parent')
+          j=json.loads((p/'K4BG_CAMERA_ART_PILOT_PROVENANCE.json').read_text())
+          assert j['frozenOriginalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalB48Roads']==7 and j['originalB51Bodies']==28
+          assert j['originalBallRadiusMetres']==.65 and j['sourcePhysicsHz']==240
+          assert j['sourceRoad5GeometryUnchanged'] and j['sourceCameraNumericsModified']==False
+          assert j['formalArtAccepted']==0
+          for name,record in j['files'].items():
+              b=(p/name).read_bytes()
+              assert len(b)==record['bytes']
+              assert hashlib.sha256(b).hexdigest()==record['sha256'],name
+          assert j['files']['K4BG_CIVIC_ESCARPMENT_EDITABLE_DCC_ART_HOLD.blend']['sha256']=='b665c84a88d719c4615638cfeb95ab5fe92a84a3a07d3ebe096dd540dd749b2f'
+          print('K4BG FROZEN SOURCE DCC PARENT SHA VERIFIED / ART REJECT')
+          PY
+      - name: Install CPU Blender and Python Pillow
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+      - name: Real source-pose Blender art creation
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bh/render
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bh-source-camera-art-directed-civic-corridor.py -- \
+            --base research/evidence/k4bh/parent/K4BG_CIVIC_ESCARPMENT_EDITABLE_DCC_ART_HOLD.blend \
+            --out research/evidence/k4bh/render
+      - name: Independently verify real source-camera PNG, Blender SHA and save same-pose comparison
+        run: |
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageChops,ImageStat
+          import json,hashlib
+          p=Path('research/evidence/k4bh/parent')
+          d=Path('research/evidence/k4bh/render')
+          j=json.loads((d/'K4BH_SOURCE_CAMERA_ART_PROVENANCE.json').read_text())
+          assert j['frozenOriginalSourceGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['sourceRoad5PhysicalGeometryUnchanged'] and j['sourceCamerasNumericsUnchanged']
+          assert j['B48Roads']==7 and j['B51OriginalBodies']==28
+          assert j['sourcePhysicsHz']==240 and j['originalBallRadiusM']==.65
+          assert not j['nativeWebGL2Rendered'] and not j['newPhysicalGameRoadOrCollider']
+          assert j['ART']=='UNJUDGED_HOLD' and j['formalArtAccepted']==0
+          assert len(j['sourceCameraRenderedTwoOfSix'])==2
+          for name,record in j['files'].items():
+              data=(d/name).read_bytes()
+              assert len(data)==record['bytes'] and hashlib.sha256(data).hexdigest()==record['sha256']
+          canvas=Image.new('RGB',(1520,1190),(20,25,29))
+          draw=ImageDraw.Draw(canvas)
+          changes=[]
+          for i,t in enumerate(j['sourceCameraRenderedTwoOfSix']):
+              mode,tick=t['mode'],t['tick']
+              old=Image.open(p/f'K4BG_{mode.upper()}_{tick}_SOURCE_CAMERA_DCC_ART_UNJUDGED.png').convert('RGB')
+              new=Image.open(d/t['file']).convert('RGB')
+              assert old.size==new.size and new.width>700 and new.height>500
+              assert sum(ImageStat.Stat(new).stddev)>20
+              diff=ImageChops.difference(old,new)
+              changes.append({'mode':mode,'tick':tick,'meanAbsoluteRgbDifference':[round(v,3) for v in ImageStat.Stat(diff).mean]})
+              canvas.paste(old.resize((750,515)),(0,i*595+55))
+              canvas.paste(new.resize((750,515)),(770,i*595+55))
+              draw.text((8,i*595+15),f'K4BG {mode} {tick} : ART REJECT',fill='white')
+              draw.text((780,i*595+15),f'K4BH {mode} {tick}: DCC ART UNJUDGED, NOT ORIGINAL GAME',fill='white')
+          outfile=d/'K4BH_K4BG_VS_NEW_TRUE_SOURCE_CAMERA_ART_REVIEW.png'
+          canvas.save(outfile)
+          data=outfile.read_bytes()
+          j['compare']={'name':outfile.name,'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data),'meanPixelDiff':changes}
+          (d/'K4BH_SOURCE_CAMERA_ART_PROVENANCE.json').write_text(json.dumps(j,ensure_ascii=False,indent=2))
+          print('TRUE SOURCE-CAMERA DCC RGB INDEPENDENT SHA PASS / ART STILL UNJUDGED')
+          PY
+      - name: Save only genuine research frames (never main)
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bh-source-camera-art-directed-civic-corridor-20261104
+          mkdir -p docs/research-evidence/k4bh
+          cp research/evidence/k4bh/render/K4BH_*_SOURCE_DCC_ART_UNJUDGED.png docs/research-evidence/k4bh/
+          cp research/evidence/k4bh/render/K4BH_K4BG_VS_NEW_TRUE_SOURCE_CAMERA_ART_REVIEW.png docs/research-evidence/k4bh/
+          cp research/evidence/k4bh/render/K4BH_SOURCE_CAMERA_ART_PROVENANCE.json docs/research-evidence/k4bh/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4bh/
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bh): genuine source DCC views and ART review pending"
+            git fetch --no-tags origin refs/heads/research/k4bh-source-camera-art-directed-civic-corridor-20261104
+            git rebase origin/research/k4bh-source-camera-art-directed-civic-corridor-20261104
+            git push origin HEAD:refs/heads/research/k4bh-source-camera-art-directed-civic-corridor-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BH_TRUE_SOURCE_CAMERA_EDITABLE_DCC_HERO_ART_HOLD
+          path: research/evidence/k4bh/render
+          retention-days: 14
+          if-no-files-found: warn
