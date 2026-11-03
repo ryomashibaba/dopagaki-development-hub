@@ -70,7 +70,7 @@ DOPAGAKI SLOPE — HYPER RUSH。原作Slope系の高速重力走行、カメラ�
 - 元all7 B48道路14メッシュの実source三角形と、B51元6tick 28体=168 source collision OBBを**描画Blender由来ではなく独立source JSONから再構築**。対象はK4BC現行可視建築＋K4BD新路外テラス等。元路面に密着する52枚の**非衝突PBR inlay**と遠方の**非衝突海面**は対象から除外することを明記。
 - [初期監査 #41650118941](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41650118941) は**FAIL**。Blender 4.0が長いコレクション名を63バイトで切り詰め、スクリプト内`bpy.data.collections.get(fullname)`が見つからず、`assert k4bd_inlay and len(...objects)==52`で停止した。**幾何交差を計算して0件になったのではない**。先にあった旧監査 #41647360346 も元アート親CIの失敗をfail-closedして停止。
 - **修正コード commit `da284af7645cfe0528d2d396652767216e78d68f`**：意図の判る安定接頭辞 `K4BD 01 |`、`K4BD 03 |`で候補を取得し、一意性・52/1オブジェクト数を厳格に検査。条件を緩めず、単なるBlender IDの長さ制限を解消。
-- **修正後Actions #41653236842**：本書の作成中は実行中。**結果を確認するまでK4BD BVHをSUCCESS/接触0件と断言しないこと**。1件以上の本物road/B51交差を発見した場合は対象名・源道路/時刻ID・交差数を正直に記録し、美術候補を安全ゲートでHOLDする。BVH0件でも本物CCD/safetyはHOLD。
+- **最終修正版Actions [#41653236842](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41653236842)：completed SUCCESS**。Artifact #13238079202／ZIP SHA-256 `8b82be8ddc935ceb4d5626b697e72ff1fddaf66b61d9fde754edfa2f35c0ac45`。実JSONをダウンロードして確認：元全7道路×control/ultra=**14 source B48メッシュ、66,192三角形**、元B51 **6tick×28=168源collision OBB**、K4BC＋K4BD路外可視建築**521オブジェクト／120,992評価面**を静的BVHで評価し、**源Road0件、B51 0件**。K4BD新規公共テラス46オブジェクトを明示的に含めた。一方、DCC-only道路インレイ52枚と海水面は非衝突visual proposalとして除外。これは**有限の静的三角形交差0件のみ**であり、全source時刻の移動/B51・球半径0.65m clearance・連続CCD/FPS/HUMAN/SAT/ART/RELEASEの保証ではない。
 
 ## 7. 失敗・反省と再発防止の義務
 
@@ -92,7 +92,7 @@ DOPAGAKI SLOPE — HYPER RUSH。原作Slope系の高速重力走行、カメラ�
 
 1. GitHubの**最新**研究枝 `research/k4bd-source-road5-civic-deck-material-architecture-20261103` を現在のHEADで取得し、ルート `START_HERE.md`→**本書**→K4BD正本→K4BC v3正本を実際に読む。固定憲章とこれまでのユーザー拒否理由をすべて継承。
 2. Draft PR #46がOPEN/DRAFT/UNMERGEDであること、main・本番・公式開発枝を触らないこと、凍結blob `af076...` が一致することを確認。
-3. 最新の **K4BD全7道路独立BVH Actions #41653236842** と最新ログを調べる。まだ未完成・FAILなら理由を正確に特定して**安全な小修正→本当のCI成功まで検証**。もしsource physical road/B51と接触したら合格扱いせず保持。**ユーザーへローカル操作を要求しない**。
+3. **K4BD独立BVH Actions #41653236842 completed SUCCESS**、元道路66,192三角形／168元B51／K4BD新路外公共テラスを含む521候補の静的交差0件は実JSON確認済み。**再開時は最新版GitHubで実行結果・SHA・研究HEADを再確認**。将来の改変案が新たな物理接触を起こす場合はfail-closed、HOLDを維持。**ユーザーへローカル操作を要求しない**。
 4. K4BDの元source Camera2枚＋航空＋3K atlasのGitHub永続画像を**実際に開き**、K4BC v3と比較する。路面の大半は単調、モデル建築の造形が雑、どこにも使い道・高密度都市が感じられないなら**ART REJECTは維持**。
 5. ここから先は**K4BE候補**。色替えや造形物の数だけ増やすことは禁止。Road5の実視界、公共空間の地盤・大断面、元Cameraから見た都市の全画面密度/個別素材/設計意図、人が使える建物の空間構成を**Art-first DCC-native**で再設計。独立のartist aerialはあくまで補助、元control/ultra高速source-cameraの印象を最優先。
 6. 高負荷制作は**2元Camera pilot → 厳格ARTレビュー → 合格見込みがあるときだけ全6source Camera検査 → 別の全7道路/B51限定静的監査 → GitHub image/manifest永久保存**。正式ART合格なしに元ゲームWebGL2統合・本番公開・PRマージはしない。
@@ -114,4 +114,4 @@ DOPAGAKI SLOPE — HYPER RUSH。原作Slope系の高速重力走行、カメラ�
 
 ---
 
-*注意：本書の監査Run欄に実行中と書かれたものは、書いた瞬間の状態に過ぎない。再開時は必ず最新API/Actionsで成功・失敗・最新HEADを再確認し、未確認を合格として継承しない。*
+*注意：2026年11月3日、K4BD制作 #41649107682、画像保存 #41650256585、元全7道路独立BVH #41653236842の3件はすべてSUCCESSをAPIと実証で確認済み。再開時も必ず最新API/Actionsで状態・最新HEADを再確認し、未確認を合格として継承しない。K4BDは2Camera pilotのみでART REJECT/HOLDである。*
