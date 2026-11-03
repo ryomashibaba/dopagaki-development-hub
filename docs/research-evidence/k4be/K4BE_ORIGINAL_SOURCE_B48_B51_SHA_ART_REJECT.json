@@ -1,0 +1,65 @@
+{
+  "schema": "dopagaki.K4BE.salvage-previous-real-blender-no-camera-rerender-source-verification/1",
+  "salvagedFromOriginallyFailedCI": 41657612279,
+  "originalCIWasNotSuccess": true,
+  "firstFailureReason": "numpy missing in runner, GLB exporter; original two Camera and editable blend did complete",
+  "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalB48Roads": 7,
+  "sourceB48RoadGeometryMeshed2Modes": 14,
+  "trueOriginalSourceRoad5TrianglesEachMode": 4728,
+  "originalB51Movers": 28,
+  "originalB51SixNativeTicks": 168,
+  "originalPhysicsHz": 240,
+  "originalBallRadiusMetres": 0.65,
+  "road5FingerprintStillParentK4BD": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "sourceOriginalSixNumericCamerasPreserved": true,
+  "nativeCameraPhotosProduced": 2,
+  "nativeCameraTicksRendered": [
+    11307,
+    11341
+  ],
+  "noFurtherFourNativeCamerasRendered": true,
+  "additionalArtistAerialNativeGame": false,
+  "newIntegratedUrbanEditables": 305,
+  "oldRejectedArchitectureRetainedHidden": true,
+  "noGameCollisionOrRoadAdded": true,
+  "originalSourceGameFileChanged": false,
+  "nativeWebGL2GameRendered": false,
+  "independentSevenB48AndB51BVH": "NOT_YET_REVIEWED_HOLD",
+  "ART": "REJECT_HOLD",
+  "formalARTApproved": 0,
+  "slope2DNAMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BE_TRUE_B48_ALL7_SOURCE_CAMERA_INHABITED_TIDAL_FORUM_ART_HOLD.blend": {
+      "bytes": 40166912,
+      "sha256": "7b4487ffff9f4c2eee4455c8e5ddeff5e6e387e7df9e4a61b25a8995ce382ab7"
+    },
+    "K4BE_REAL_SOURCE_CAMERA_CONTROL_11307_ART_REJECT_PILOT.png": {
+      "bytes": 895084,
+      "sha256": "ac1d20b3f487586d9e4ba0900376eaf9011c823d41f0a66c0efceb96b6cc1b02"
+    },
+    "K4BE_REAL_SOURCE_CAMERA_ULTRA_11341_ART_REJECT_PILOT.png": {
+      "bytes": 890441,
+      "sha256": "81df0d5237c3d85490a4d81803b489f898bac4fd98a2503dba8a65d08b70f942"
+    },
+    "K4BE_LANDMARK_URBAN_PLANNING_AERIAL_DCC_NOT_GAME.png": {
+      "bytes": 782850,
+      "sha256": "0c27ff84f72c1c81ca377d79978a920c5015bc22579970594f8bbbd11c43e583"
+    },
+    "K4BE_SALVAGED_BLENDER_SOURCE_INTEGRATED_CIVIC_DCC_ART_REJECT.glb": {
+      "bytes": 29342392,
+      "sha256": "f9e6e83078c508acf56df04608f7acda12466eaf5a39fbcd579313fe50e499a0"
+    }
+  },
+  "ABImageFile": "K4BE_TWO_TRUE_SOURCE_CAMERAS_K4BD_AB_ART_REJECT.png",
+  "ABImageSHA256": "5f00abc14bc58368bceb6862530c9414c8506d9ca4b36a53faf9d45f39ef66b9"
+}
