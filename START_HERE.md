@@ -193,3 +193,20 @@ K4AUは街区の量産を一旦やめ、**元の実物B48道路と元B51実動�
 最新K4AX GitHub Actionsの**本当の** status/jobs/Artifactを先に再照合。レンダ成功なら真实`.blend`/GLBとDCC PNGを開いて厳しくART審査。酷いならART REJECTしアート原本を本格改修、単なるカラーノイズやBOX増築を繰り返さない。候補が審査に値した時のみ、元B48真正曲面＋B51実動体との空間クリアランスを新たに計測し、source PRIVATE WebGL2へ導入、本当の元ゲーム画面／元240Hz本走行で再審査。P100/B5等の安全な代替表示は別課題として保持。
 
 **絶対禁止**：元source blob `af076d67492a677d2235e4730aef8cdf4808e106`、240Hz物理・球半径0.65m、元Camera・B48 7/B51 28、Gold/P100/W9-X/B5、main、本番、Draft PR#46の変更。Work事前承認、ユーザーにローカルZIP等操作要求禁止。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD、正式採用0件。
+
+
+---
+
+## 【最優先・2026-11-03最終】K4AY完全統合引き継ぎ／ART-FIRST・DCC-FIRST継続
+
+**新しいチャットはこの項目のリンク先が最新の引き継ぎ正本。** 過去節の「QUEUED」「次はK4AV/K4AW/K4AX」の記述は当時の履歴。最新判断は必ずこの節から辿る。
+
+### [2026-11-03 K4AY 完全統合引き継ぎ正本（方針・過去の失敗・最新CI・制作着手点）](docs/DOPAGAKI_20261103_K4AY_COMPLETE_INTEGRATED_HANDOFF_JA.md)
+
+**現在の継続研究枝**：\`research/k4ay-road5-authentic-b48-blender-context-20261103\`。K4AXのHEAD \`8be964ea841e505f03bbce0a15b0d95785edf400\` を基点に作成し、まだRoad5真正B48/B51のBlender統合コードは**未実装**（引き継ぎ正本のみ保存済）。本当に実装済みのように報告禁止。
+
+**直前の事実**：K4AW元Road5 16 PNG source-layer監査 Actions #41604593198 SUCCESS。ピンク色の主要描画元はP100路面視認マーカーとB5演出（control側それぞれピンク−2,491/−1,185px）、水色は源路端/案内とB51危険ガイドの寄与が大きい可能性。安全表示を勝手に消さない。K4AX編集可能Blender \`.blend\`＋\`.glb\`＋3 source-pose DCC画像＋1 artist-camera画像 Actions #41607194912 SUCCESSだが、実Road5 B48物理サーフェス・B51実動体がBlender内に未収録で、建築構図の黒空白・連続性欠如等の美術問題が残る。**正式ART採用0、Slope2 DNA0m、K4AXアート未採用**。Blenderプレビューは元の240Hz WebGL2走行画面ではない。
+
+**次工程**：実source \`private/reference_only/director/surface.js\` の \`sample/frame/tessellate\` と本物のRoad5 stage、\`private/reference_only/director/moving/moving-obstacles.mjs\` の \`movingObstaclePose\` により、原道路B48と元時刻B51 OBBのSOURCE READ ONLY Blender 3D参照を作成。既存K4AX \`.blend\`原本＋真正カメラ数値6時点で道路と建築の構図/クリアランスをART-FIRST監査。正しい出自と不変元物理/元カメラ/Git blob SHA \`af076d67492a677d2235e4730aef8cdf4808e106\`を守り、実装・テスト・GitHubに結果保存。**細かい色替えや同じ反復箱のJS追加は禁止**。本番・main・Draft PR #46不変更、Work事前承認、ユーザー側ローカル操作不要。
+
+正式ゲート：ART / HUMAN / SAT / CCD / FPS / RELEASE / MERGE すべてHOLD。他6Roadへ複製・ゲーム公開は禁止。
