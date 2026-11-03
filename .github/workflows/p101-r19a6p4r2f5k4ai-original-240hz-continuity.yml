@@ -124,7 +124,7 @@ jobs:
           const fs=require('node:fs'),p='r19-evidence/r19a6p4r2f5k4ai/';
           const d=JSON.parse(fs.readFileSync(p+'K4AI_240HZ_GEOMETRIC_WINDOWS.json'));
           if(d.decision!=='GEOMETRY_1442_NATIVE_TICKS_SOURCE_TECH_PASS_VISUAL_DURATION_ART_HOLD')process.exit(2);
-          if(d.originalPhysicsTicks!==1442||d.independentTamperControls!==8)process.exit(3);
+          if(d.originalPhysicsTicks!==1442||d.independentTamperControls!==10)process.exit(3);
           if(d.trueGPUVerifiedGeometryAnchorCount!==14||d.continuousGPUVisualMaskCount!==0)process.exit(4);
           if(d.actualVisualObstructionDuration!=='UNKNOWN_NOT_MEASURED')process.exit(5);
           if(d.modes.length!==2||d.modes.some(x=>x.nativeTicksValidated!==721))process.exit(6);
