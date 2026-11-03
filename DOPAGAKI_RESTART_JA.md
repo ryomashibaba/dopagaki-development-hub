@@ -1,3 +1,12 @@
+## 【最新2026-11-03 K4AG B51単体元IDのGPU遮蔽原因調査 — ART HOLD】
+
+- 再開先：研究ブランチ `research/k4ag-b51-individual-occlusion-20261103`。根拠：[K4AG研究正本](docs/R19_A6P4_R2F5K4AG_B51_SOURCE_ID_OCCLUSION_JA.md) → [K4AG元B51個別28×2幅＝56 GPUマスク実測Actions #41552778225](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41552778225)。現在GitHub Actionsで本物のChromium実行中、**全56条件と独立監査が終わるまでK4AG TECH未判定**。
+- **確定済K4AF**：[CI #41472149272](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41472149272) completed/success、Artifact #13156257422 ZIP 14,439,425 bytes SHA `fbeb9d8b3555f49b963800f2447378902fc4295e8a84e5636c2e13e4eca2348b` CRC116/116 PASS。元K4Z82 PNG SHA、Road5真正14画面HUD以外3D全画素一致、原GPU実depth 7tick×2幅×6mask＝**84/84 PASS**、元表示復元14/14、真元Source drawsとfarther-onlyを独立監査。全84行CSV/日本語報告。
+- **重要視認問題の元データ**：47.0秒、28mだけ本物の`B51_BODY`移動障害物群を除くとGPU深度11,176点のうち5,972点（53.436%）が奥へ、14mは53点（0.474%）。28m他6tickは最大1.333%。28m元画像の下側に巨大な紫前景が映り、B51群非表示で道路が見える。遮蔽は単一連続成分5,972点、画面左下原点y0〜49。**この段階では個別ID、衝突バグ、ART不合格は確定していない**。
+- K4AGは元`doc.movingObstacles` ID28件を私用K4AD rendererの視覚body drawだけ1個ずつ抑制して、**2幅×28=56**真正WebGL2 depthを検証。K4AF元7tickのsource GPUを完全固定し、元球/カメラ/240Hz/tick11280/元K4Z元PNG不変、個別71draw/元72draw/全群44draw、depth単体差分がgroup差分以下、復元前後のdepthと元画素一致を独立必須化。真IDの現場ログを照合するまでは推測IDで報告しない。
+- 絶対固定：元source blob `af076d67492a677d2235e4730aef8cdf4808e106`、Gold/P100/W9-X/B5、main/本番URL/元球/240Hz/カメラ/B48 7/B51 28、PR#46 OPEN Draft `19d3a32d`未マージ維持。ART-FIRST、K4/K4R/K4U ART REJECT、正式採用ART0件、Slope2 DNA0m、新モデル/Collider0、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。Work無断起動禁止、ユーザーPC/ZIP操作不要。
+
+---
 ## 【最新版 2026-11-03 K4AF元Road5真正7時点×2幅×6群GPU遮蔽調査 — ART HOLD】
 
 - 継続入口：`research/k4af-road5-7tick-six-layer-native-gpu-depth-20261103` → [研究詳細](docs/R19_A6P4_R2F5K4AF_GENUINE_ALLTICK_GPU_MASK_VISIBILITY_JA.md) → [K4AF専用CI #41472149272](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41472149272)。このCIは研究登録後**実完走未確認**。Source/ARTをPASSと誤認しない。
