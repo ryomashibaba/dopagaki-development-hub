@@ -132,17 +132,31 @@ rough=np.clip(.72+.10*aggregate+.07*vein+.10*mortar-.13*center_inset,.25,1)
 height=(vein*.038+aggregate*.04-.14*mortar).astype("float32")
 # Image writes are explicit RGBA for reproducible image SHA and packed .blend.
 def img(name,array,noncolor=False):
+    # Avoid Blender 4.0 .save() + preselected Non-Color zeroing the grayscale
+    # roughness/height channels (caught by the first CI inspector: both all zero).
+    # Write an independently valid 8-bit RGBA PNG directly from NumPy, then
+    # load and pack it into the editable .blend. Never weaken texture tests.
+    import zlib
     ar=np.clip(array,0,1).astype("float32")
-    if ar.ndim==2:
-        ar=np.stack((ar,ar,ar),axis=-1)
+    if ar.ndim==2:ar=np.stack((ar,ar,ar),axis=-1)
+    assert ar.shape==(H,W,3)
+    assert float(ar.max()-ar.min())>.03, "PBR author must supply a real, varied texture"
     rgba=np.concatenate((ar,np.ones((H,W,1),dtype="float32")),axis=2)
-    image=bpy.data.images.new(name,width=W,height=H,alpha=True,float_buffer=False)
-    image.pixels.foreach_set(rgba.ravel())
-    if noncolor:
-        try:image.colorspace_settings.name="Non-Color"
-        except Exception:pass
-    image.filepath_raw=os.path.join(out,name+".png")
-    image.file_format="PNG";image.save()
+    rgba=(rgba*255.0+0.5).astype("uint8")
+    assert int(rgba[:,:,:3].max())-int(rgba[:,:,:3].min())>=8
+    def chunk(typ,data):
+        return (struct.pack(">I",len(data))+typ+data+
+                struct.pack(">I",zlib.crc32(typ+data)&0xffffffff))
+    header=b"\\x89PNG\\r\\n\\x1a\\n"
+    IHDR=struct.pack(">IIBBBBB",W,H,8,6,0,0,0)
+    scan=b"".join(b"\\x00"+rgba[y].tobytes() for y in range(H))
+    binary=(header+chunk(b"IHDR",IHDR)+chunk(b"IDAT",zlib.compress(scan,6))+
+            chunk(b"IEND",b""))
+    filepath=os.path.join(out,name+".png")
+    with open(filepath,"wb") as file:file.write(binary)
+    assert os.path.getsize(filepath)>2048
+    image=bpy.data.images.load(filepath,check_existing=False)
+    if noncolor:image.colorspace_settings.name="Non-Color"
     image.pack()
     return image
 albedo_img=img("K4BB_2K_ORIGINAL_ROAD_MATERIAL_CANDIDATE_ALBEDO",basis)
@@ -356,8 +370,8 @@ for side,u,d,level in ((-1,.746,83,53),(1,.824,88,55)):
 # interiors for nighttime city continuity, never replacement for native scene.
 world=scene.world
 assert world and world.use_nodes
-scene.cycles.samples=40
-scene.cycles.use_denoising=False
+scene.cycles.samples=48
+scene.cycles.use_denoising=True
 scene.render.resolution_x=1013
 scene.render.resolution_y=698
 scene.render.resolution_percentage=88
@@ -388,9 +402,13 @@ camdata=bpy.data.cameras.new("K4BB interior / human eye non-game")
 camdata.lens=27
 camera=bpy.data.objects.new("K4BB DESIGN ONLY / civic atrium human-eye",camdata)
 art.objects.link(camera)
-camera.location=edge(.835,1,51,15)
-aim=edge(.833,1,91,20)
+camera.location=edge(.805,1,93,16)
+aim=edge(.841,1,105,18)
 camera.rotation_euler=(aim-camera.location).normalized().to_track_quat("-Z","Y").to_euler()
+# Illuminate the actual reading-room volume from INSIDE so the research
+# camera cannot turn into an opaque green-black silhouette without warning.
+lamp("K4BB interior human-eye readable ambient",
+     edge(.825,1,98,25),3400,(1.0,.80,.62),19)
 render("K4BB_CIVIC_INTERIOR_HUMAN_EYE_DCC_NOT_GAME.png",camera)
 # Preserve prior K4BA artist camera, but it is marked studio not original.
 artist=[obj for obj in rig.objects if obj.type=="CAMERA" and "city aerial" in obj.name.lower()]
