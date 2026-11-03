@@ -87,3 +87,24 @@
 - 新v3でも**human visual/art world quality**は元の6高速Cameraを実際に開いて判定。物理技術PASSはART PASSではない。
 
 **ここまでK4BC正式ART採用0件/Slope2 DNA認定0m**、源main・本番・公式継続・Draft PR #46変更無し。次工程はv3真CIとsource-v3 BVHの結果、7視点の画像を確認してから採否を決める。
+
+
+## K4BC v3 最終検証済み結果（2026年11月3日・JST）
+
+**K4BC v3の制作・限定静的source監査は完了。美術はART REJECT継続。**
+
+### 実行と原本
+
+- **Blender元6Camera CI** [#41640544530](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41640544530) **completed SUCCESS**。モデルは元7 B48・B51 168時刻別OBBのsource sceneを保持し、元Road5の頂点/face fingerprint before/after不変。元Camera数値6時点、Blender編集可能.blend、GLB、Blender native true-camera DCC6 PNG、artist aerial PNG、K4BC v2との1:1比較、SHA provenanceを生成した。
+- **Artifact #13232364254**（[Actionsから参照](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41640544530)）、37,842,862 bytes、ZIP SHA-256 `e7e9b240ac6b796f1edfd582687e80f7b0c440d24e25dbb22c976f716e4a86cc`。新規編集可能v3 source artwork163オブジェクト。旧K4BC v1の遠景ART REJECT造形は削除せず非表示保護。実7B48道路元メッシュは変更無し。
+- **独立元全7 B48＋B51時刻BVH** [#41642883010](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41642883010) **completed SUCCESS**。Artifact #13233801620（ZIP SHA256 `15d8d05b1f514d32c975a08e756d94895bb51e307f70ba1481eef22c7c314679`）。独立報告 `K4BC_V3_EXACT_SEVEN_SOURCE_B48_B51_STATIC_AUDIT.json`を実取得・展開確認：元**7×2=14 B48実ソースメッシュ／66,192三角形**、元**6時点×B51 28体=168物理OBB**、新v3および既存K4BC可視建築**475評価オブジェクト／114,064評価面**、**静的三角形表面交差はRoad0件、B51 0件**。見た目の判断や原球半径0.65mを考慮した接近余裕を証明しない。連続CCD、全source時刻、SAT、本物のWebGL2人間操作・FPSはHOLD。
+- **監査の前段の失敗理由と修正履歴**：#41641384526では実BVH計算自体はすでに0/0で成功していたが、報告書に検査対象範囲のフラグ2点がなく後段CIがKeyErrorで失敗。報告フラグを正しく追加、旧CIを破棄し、最終 #41642883010で本当に全工程SUCCESSを確認。計算失敗や衝突を隠したものではない。
+- **GitHub直接閲覧用の実画像は永続保存済み** [#41642553268](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41642553268) **completed SUCCESS**： [元6Camera K4BCv2/v3比較](research-evidence/k4bc-v3/K4BC_V3_REAL_SOURCE_ALL7_SIX_CAMERA_V2_AB_ART_REJECT.png)、[control11307真正source Camera DCC](research-evidence/k4bc-v3/K4BC_V3_REAL_CONTROL_11307_DCC_ART_REJECT.png)、[artist aerial DCC](research-evidence/k4bc-v3/K4BC_V3_DESIGN_AERIAL_NOT_GAME_ART_REJECT.png)、[source SHA provenance](research-evidence/k4bc-v3/K4BC_V3_ORIGINAL_ROADS_CAMERA_SHA_HOLD.json)。
+
+### 厳格ART審査と次工程
+
+6元Camera対応DCCを実際に開いて確認したところ、K4BC v2の遠景空白とは異なり、**K4BC v3では中央に厚いガラスの空中公共施設が実際に映った**。元Road6幅とsource-cameraアングルから位置決めをしており、**前景遮蔽・フレーム外の主役という構図問題は部分的に改善**。ただし、道路がなお広く単調で、都市の建物は接合・階層・用途・細部が不足、繰り返し建築・植栽が簡素、航空アーティスト視点も都市ではなく未完成なProcedural modelと評価。ユーザーの世界的ゲーム品質要求に対して**正式ART REJECT、採用0件、Slope2 DNA 0m**。画像はBlender DCC研究であり元WebGL2ゲーム画面ではない。
+
+**次の適切な美術工程**：K4BC v3 source真7B48/Camera非衝突原本を保護し、単純な梁・箱・色替えを増やすのではなく、走行画面の大半を占める**道路舗装の大面積の構造的デザインと材質の物理表現**、左右施設の実際の居住密度・入口・公共用途の実物らしさ、背景の街区の一体性を再構成する。真Camera全6と航空アートで採否判断し、元ゲームのコース・物理・安全表示・本番サイト・PRは一切触れない。
+
+**SOURCE/DCC限定TECH成功 ≠ ART PASS、SAT/CCD/HUMAN/FPS/RELEASE/MERGEはすべてHOLD。**
