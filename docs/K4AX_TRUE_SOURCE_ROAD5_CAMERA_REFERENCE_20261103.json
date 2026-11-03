@@ -1,0 +1,148 @@
+{
+  "schema": "dopagaki.K4AX.source-true-road5-camera-reference/1",
+  "evidenceSource": {
+    "githubActionsRun": 41601799002,
+    "githubArtifact": 13214568215,
+    "sourceBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalB48Roads": 7,
+    "originalB51MovingObstacles": 28,
+    "gamePhysicsHz": 240,
+    "sourceCamera": "ball-lock-unfiltered-heading",
+    "imageWidth": 1013,
+    "imageHeight": 698,
+    "webglVerticalPerspectiveMultiplier": 1.35
+  },
+  "records": [
+    {
+      "mode": "control",
+      "tick": 11259,
+      "eye": [
+        910.436555,
+        114.363054,
+        -314.013423
+      ],
+      "front": [
+        0.847386,
+        -0.173785,
+        -0.501732
+      ],
+      "ball": [
+        922.4832738,
+        107.3630539,
+        -321.1462033
+      ],
+      "sourceImageSHA256": "6269eb803a2cb46c9c18a9a4b510aeb121d6c8daa7e8074776a2442199d65891"
+    },
+    {
+      "mode": "control",
+      "tick": 11278,
+      "eye": [
+        923.407042,
+        116.648568,
+        -322.133027
+      ],
+      "front": [
+        0.836647,
+        -0.173785,
+        -0.519442
+      ],
+      "ball": [
+        935.3010902,
+        109.648568,
+        -329.5175788
+      ],
+      "sourceImageSHA256": "8075dceb4e656cf36aed98aa1ce3e50fbebd5781e6a0ee114f14c889db8b9cb3"
+    },
+    {
+      "mode": "control",
+      "tick": 11307,
+      "eye": [
+        942.878384,
+        119.934374,
+        -335.063675
+      ],
+      "front": [
+        0.821798,
+        -0.173785,
+        -0.542629
+      ],
+      "ball": [
+        954.5613304,
+        112.9343738,
+        -342.7778673
+      ],
+      "sourceImageSHA256": "ffb85461e76f15d96831bdb8f89c5bd2fe18817b435ce2f1cf854807709b1558"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11320,
+      "eye": [
+        910.347475,
+        114.334331,
+        -313.872228
+      ],
+      "front": [
+        0.847249,
+        -0.173785,
+        -0.501965
+      ],
+      "ball": [
+        922.3922334,
+        107.3343308,
+        -321.0083181
+      ],
+      "sourceImageSHA256": "d1719df89cee4c1af300187c874de6fdf365203d20d8869e06a52205755ea9ed"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "eye": [
+        924.636974,
+        116.856122,
+        -322.857617
+      ],
+      "front": [
+        0.835973,
+        -0.173785,
+        -0.520526
+      ],
+      "ball": [
+        936.52144,
+        109.8561217,
+        -330.2575817
+      ],
+      "sourceImageSHA256": "fe22062d3bf0abd764448d9b6b8d52a55f24ff84e7ee79b6fe04f674427861dc"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11369,
+      "eye": [
+        943.386028,
+        120.007655,
+        -335.341767
+      ],
+      "front": [
+        0.821425,
+        -0.173785,
+        -0.543194
+      ],
+      "ball": [
+        955.0636671,
+        113.0076551,
+        -343.0639911
+      ],
+      "sourceImageSHA256": "fd5895bff1142e24dbfb3df84bf3f5dc9c6fff43db8cc508ffc1c985e73a5471"
+    }
+  ],
+  "conversion": {
+    "web_xyz_to_blender_xyz": "(web_x,-web_z,web_y)",
+    "status": "REFERENCE_POSE_ONLY_NOT_SAFE_SURFACE_SURVEY"
+  },
+  "requiredGates": {
+    "physicalRoadGeometry": "UNMODIFIED",
+    "sourceB51Clearance": "NOT_TESTED",
+    "architectureART": "NOT_TESTED_HOLD",
+    "genuineInGameIntegration": "NOT_TESTED",
+    "userHumanReadability": "HOLD"
+  }
+}
