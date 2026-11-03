@@ -1,0 +1,122 @@
+name: DOPAGAKI K4BE no-rerender true two-camera source DCC salvage SHA ART REJECT
+on:
+  push:
+    branches:
+      - research/k4be-camera-first-integrated-urban-civic-hall-20261103
+    paths:
+      - 'scripts/p101-k4be-salvage-native-camera-dcc-no-rerender.py'
+      - '.github/workflows/p101-k4be-real-source-salvage-no-rerender.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4be-salvage-two-truly-rendered-camera-source-blend-only
+  cancel-in-progress: false
+jobs:
+  salvage-real-source-pilot-without-rerendering:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exact original Git blob and independent code syntax
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4be-salvage-native-camera-dcc-no-rerender.py
+      - name: Explicitly download partial genuine source 2Camera artifact from failed GLB build
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BE_ALL7_SOURCE_TWO_CAMERA_INTEGRATED_TIDAL_FORUM_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41657612279
+          github-token: ${{ github.token }}
+          path: research/evidence/k4be-salvage/render
+      - name: Download certified K4BD source parent provenance
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BD_3K_ORIGINAL_ROAD5_CIVIC_DECK_PBR_PILOT_EDITABLE_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41649107682
+          github-token: ${{ github.token }}
+          path: research/evidence/k4be-salvage/k4bd
+      - name: Download native full-seven read-only source files
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BC_V2_REAL_ALL_SEVEN_ORIGINAL_B48_EDITABLE_SOURCE_CAMERA_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41638891877
+          github-token: ${{ github.token }}
+          path: research/evidence/k4be-salvage/all7
+      - name: Download original B51 collision OBBs and exact Road5 B48
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: research/evidence/k4be-salvage/native
+      - name: Install compatible Blender glTF Python dependencies without rerendering
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil
+      - name: Verify saved editing scene against native original and export GLB with verified numpy
+        run: |
+          set -euo pipefail
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4be-salvage-native-camera-dcc-no-rerender.py -- \
+            --base research/evidence/k4be-salvage/render/K4BE_TRUE_B48_ALL7_SOURCE_CAMERA_INHABITED_TIDAL_FORUM_ART_HOLD.blend \
+            --source research/evidence/k4be-salvage/native/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --all7 research/evidence/k4be-salvage/all7/original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json \
+            --parent research/evidence/k4be-salvage/k4bd/K4BD_TRUE_SOURCE_CIVIC_DECK_ART_REJECT_PROVENANCE.json \
+            --out research/evidence/k4be-salvage/render
+      - name: Independent Pillow check of original 2 frames and 1 studio view, save A/B
+        run: |
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from PIL import Image,ImageStat,ImageDraw
+          from pathlib import Path
+          root=Path('research/evidence/k4be-salvage')
+          r=root/'render';prev=root/'k4bd'
+          j=json.loads((r/'K4BE_AUTHENTIC_TWO_CAMERA_SALVAGED_SHA_ART_REJECT.json').read_text())
+          assert j['originalCIWasNotSuccess'] is True and j['salvagedFromOriginallyFailedCI']==41657612279
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalB48Roads']==7 and j['sourceB48RoadGeometryMeshed2Modes']==14
+          assert j['trueOriginalSourceRoad5TrianglesEachMode']==4728
+          assert j['originalB51Movers']==28 and j['originalB51SixNativeTicks']==168
+          assert j['sourceOriginalSixNumericCamerasPreserved']
+          assert j['nativeCameraPhotosProduced']==2 and j['noFurtherFourNativeCamerasRendered']
+          assert j['newIntegratedUrbanEditables']>95
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusMetres']==.65
+          assert j['ART']=='REJECT_HOLD' and j['formalARTApproved']==j['slope2DNAMetres']==0
+          for fn,stamp in j['files'].items():
+              dat=(r/fn).read_bytes()
+              assert len(dat)==stamp['bytes'] and hashlib.sha256(dat).hexdigest()==stamp['sha256']
+          p=Image.new('RGB',(1176,2*400+420),(18,22,29));draw=ImageDraw.Draw(p)
+          for i,(mode,tick) in enumerate((('control',11307),('ultra',11341))):
+              yy=i*400
+              older=Image.open(prev/f'K4BD_TRUE_SOURCE_CAMERA_CLEAN_EDITORIAL_{mode.upper()}_{tick}.png').convert('RGB')
+              newer=Image.open(r/f'K4BE_REAL_SOURCE_CAMERA_{mode.upper()}_{tick}_ART_REJECT_PILOT.png').convert('RGB')
+              assert newer.width>=700 and newer.height>=500
+              assert sum(ImageStat.Stat(newer).stddev)>20
+              p.paste(older.resize((560,371)),(0,yy+25))
+              p.paste(newer.resize((560,371)),(594,yy+25))
+              draw.text((5,yy+5),f'K4BD exact native {mode} {tick} DCC',fill='white')
+              draw.text((600,yy+5),f'K4BE same exact source camera {mode} {tick} DCC',fill='white')
+          studio=Image.open(r/'K4BE_LANDMARK_URBAN_PLANNING_AERIAL_DCC_NOT_GAME.png')
+          p.paste(studio.convert('RGB').resize((560,371)),(594,2*400+25))
+          draw.text((5,2*400+5),'ART REJECT — DCC ONLY, NOT NATIVE WEBGL2 GAME',fill='white')
+          p.save(r/'K4BE_TWO_TRUE_SOURCE_CAMERAS_K4BD_AB_ART_REJECT.png')
+          j['ABImageFile']='K4BE_TWO_TRUE_SOURCE_CAMERAS_K4BD_AB_ART_REJECT.png'
+          b=(r/j['ABImageFile']).read_bytes()
+          j['ABImageSHA256']=hashlib.sha256(b).hexdigest()
+          (r/'K4BE_AUTHENTIC_TWO_CAMERA_SALVAGED_SHA_ART_REJECT.json').write_text(json.dumps(j,indent=2))
+          print('K4BE_NO_RERENDER_ORIGINAL_SOURCE_PROVENANCE_SHA_AND_PIL_PASS_ART_REJECT')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BE_SALVAGED_TWO_REAL_CAMERA_EDITABLE_SOURCE_DCC_ART_REJECT
+          path: research/evidence/k4be-salvage/render/
+          retention-days: 14
+          if-no-files-found: warn
