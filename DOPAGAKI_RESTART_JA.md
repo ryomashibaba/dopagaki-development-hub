@@ -1,3 +1,13 @@
+## 【最新 2026-11-03 K4AJ：真正source 240Hz時点のB51 GPU遮蔽連続窓／ART HOLD】
+
+- **次の開発工程・研究正本**：ブランチ`research/k4aj-native-b51-gpu-depth-contiguous-window-20261103`、[K4AJ詳細契約](docs/R19_A6P4_R2F5K4AJ_ORIGINAL_NATIVE_B51_GPU_OCCLUSION_WINDOWS_JA.md) → [K4AJ真正GPU専用CI #41562897854](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41562897854)。**現状pending/実行未完、100 GPUマスクのSOURCE TECH PASSは未確認**。旧K4AJ #41562685069は参照元をK4AI失敗runから成功runへ切替えたためキャンセルされ、正式成功ではない。
+- **前段K4AIは二経路とも正式SOURCE GEOMETRY TECH限定PASS**：[Chromium 1,442 native tick + GPU 14 anchor CI #41560614512](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41560614512) SUCCESS、[SHA固定生Artifactから別独立再監査 CI #41561002955](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41561002955) SUCCESS。元K4Z82PNG SHA、K4AFの14真正GPU元/14B51群mask/14復元、K4AH元カメラ/OBB14再計算、721連続tick×2幅=1,442独立元source関数・10改ざん負例全件PASS。成功生Artifact #13198040646 ZIP6,142,170 bytes SHA256 `ea03e1b20484e5ad5761670c46ebec986df72216d7dd1d7bed8e03e9b3c8bd2f`、50CRC PASS、生JSON SHA256 `e04c9990ebc2573467e8d95cd3e497a7a6059a9f12384f46507c3c1dfdc0eb60`。元Sourceは保護。
+- **K4AI確定幾何**：14m眼→`p95-hazard-12`のOBB最短−0.9748613671m tick11341=47.254秒、眼OBB内10ticks（11340〜11349）、眼1m以内14ticks（11338〜11351）。28m眼→OBB最短+0.4478183666m tick11278=46.992秒、眼内部0ticks、眼1m以内8ticks（11277〜11284）、路面未検出/非接地31ticks。これは**元240Hz物理の幾何的近接**であり、GPU遮蔽秒数ではない。
+- **今工程K4AJ**は本物の元WebGL2 renderer/K4AD FBOを再利用し、14mではtick11320〜11369 **50連続tick**、28mではtick11259〜11307 **49連続tick**の合計99個の「元画像GPU→B51全群28体のみGPU描画抑制→元GPU完全復元」を1/240秒ずつ実測。14mは別参照tick11280も追加し、計**100元GPU/100真B51 mask/100復元**。両幅のtick11280はK4AF真正GPUサンプルと11,176点すべて照合。各tickのball/eye/frontはK4AI真生データに照合、欠けた物理時点や窓外の遮蔽は推論しない。独立PythonによるB51群28draw差、近距離新生0、元復元完全一致、8px格子でのGPU深度差連続tick数を記録する。実Chromium成功までSOURCE TECH未判定。
+- 原source Blob `af076d67492a677d2235e4730aef8cdf4808e106`、球半径0.65/240Hz/カメラ/B48道路7/B51障害物28、Gold/P100/W9-X/B5、main/本番URL/元`p101-velocity-overdrive-native-trial`、Draft PR #46 OPEN/unmerged全不変。K4/K4R/K4U旧ART REJECT、正式ART採用0、Slope2 DNA認定0m、新モデル/Collider0、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD、Work事前承認、PC/ZIP操作不要。
+- **次工程**：K4AJ #41562897854の実run・job logs・Artifact ZIP SHA/CRC/JSON/CSVと深度差の存在する正確な連続tickを監査。TECH PASSでも美的ART合格、視認の人間評価、衝突判定問題を確定させない。
+
+---
 ## 【K4AI 2026-11-03 10:33+ JST 監査再実行 — 真1,442native tick取得済み、合格未確定／ART HOLD】
 
 - **最優先再開**：[K4AI研究正本](docs/R19_A6P4_R2F5K4AI_REAL_240HZ_SOURCE_CAMERA_B51_CONTINUITY_JA.md) → [再監査専用CI #41561002955](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41561002955) と[全Chromium再実行CI #41560614512](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41560614512)。いずれも現時点では**GitHub Actions queued、完走は未確認**。前段 #41559179613 は`failure`のまま記録し、偽PASS禁止。
