@@ -1,3 +1,17 @@
+# 【最新 2026-11-03 K4BD 着手／完了審査前】真Road5の3K路面＋公共建築連続デッキ
+
+**旧K4BC等の「最新」は歴史資料。最優先は新規研究枝`research/k4bd-source-road5-civic-deck-material-architecture-20261103` と [K4BD正式研究正本](docs/R19_A6P4_R2F5K4BD_TRUE_SOURCE_PBR_CIVIC_DECK_ART_FIRST_JA.md)。**
+
+- 出発点はK4BC v3確定HEAD `6b06a76e6a467e0533b2ae49c7f01201e80a7474`。元全7 B48 source道路/元B51 28移動体×6tick=168物理OBB/元6Camera数値/240Hz/球半径0.65m不変。旧K4BC v3 DCC [CI #41640544530](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41640544530)／真全7 B48+源B51独立静的BVH [#41642883010](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41642883010) いずれもSUCCESS。ただし正式ART REJECT。
+- **今回の大幅美術新規実装**：[K4BD Blender制作器](scripts/p101-k4bd-true-source-road5-3k-deck-civic-architecture.py)。Road5 source実91x13 top UVへ3,072×1,536のALBEDO/ROUGHNESS/HEIGHTを3枚書き、道路の約14m施工目地、中央basalt/左右石材・金属の実construction bandsを採用し、元B48メッシュ頂点/triは不変。源曲面に沿う52枚のnon-collision road inlay、元Road5の両外側に2つの連続公共歩行者デッキ、都市の海港とつながる低高度海面（全7source道路より低いBlender z=-140）を別編集可能レイヤーで作る。架空の走行可能路面も新ゲームcolliderも0。
+- 真正source六Cameraで「source B51元物理ワイヤを除いた純美術preview」を6枚、`ultra11341`の物理B51 28個を映した別DEBUG1枚、デザイン航空1枚、.blend・GLB・3K素材3枚と全SHAを出す。物理ワイヤを編集可能原本から削除しない。これは真正WebGL2ゲーム画面と称さない。
+- **初回制作CI #41646724681 FAIL**：GitHub Ubuntu Blenderに`libEGL.so.1`が存在せず、ヘッドレスEEVEEがexit134で停止。実3K素材PNG3枚は生成済みで全黒ではないが美術画像／.blendが無く初回は完全不採用。新source自身が悪いと推測しない。**修正版はCPU Cycles 112samples**で正式制作CI [#41647603988](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41647603988) を起動。**実完成結果はまだ未確認**。
+- **全sourceを用いた独立安全ゲート**：[K4BD追加公共デッキの独立BVH](research/k4bd/independent_all7_native_B48_B51_offroad_terrace_static.py)、[全7道路＋168源B51監査Actions](.github/workflows/p101-k4bd-all7-native-road-static-bvh.yml)。K4BD 02 (実際の路外建築) と旧K4BC残存の可視建築のみをBVH候補に含め、DCC非衝突路面inlay52枚・低海水面は除外。旧K4BCのlimited source静的交差0件を元ゲーム全時刻球0.65mCCD/HUMAN/FPSへ拡張するのは禁止。
+- **恒久の固定ゲート**：ART正式0件、Slope2 DNA認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。本番・main・公式継続`p101-velocity-overdrive-native-trial`・Draft PR #46未変更、Workは事前承認、Chat＋GitHub中心、ユーザーPC操作不要。
+- **次の検証**：Cycles v2 CIの最終実ログ→SHA・3K PNG distribution→元6 source Camera同pose画像実目視→静的source全7/B51独立BVH→GitHub画像の永続保存。未確認の結果や期待ART品質を事前にPASSと書かない。完成画面が粗ければ何度でもART REJECT。
+
+---
+
 # 【2026-11-03 最新・K4BC v3完了／次工程へ】DOPAGAKI SLOPE 継続入口
 
 **この先頭を旧K4BC初版、K4BB、K4BA、K4AZの「最新」より優先すること。固定ART HOLDは変更しない。**
