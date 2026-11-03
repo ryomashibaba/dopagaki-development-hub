@@ -230,7 +230,10 @@ export function buildK4ATCivicCanyon(doc,sample,{enabled=false}={}){
  const triangles=v.length/21;
  if(!Number.isInteger(triangles)||triangles<1000||triangles>90000||
     v.some(x=>!Number.isFinite(x))||JSON.stringify(doc)!==unchanged)
-  throw Error('K4AT NOT FINITE OR SOURCE MUTATED');
+  throw Error('K4AT INVALID_SCULPTURE_PROVENANCE '+JSON.stringify({
+   length:v.length,triangles,integer:Number.isInteger(triangles),
+   nonfinite:v.filter(x=>!Number.isFinite(x)).length,
+   mutated:JSON.stringify(doc)!==unchanged}));
  return {active:true,vertices:v,triangles,programs,
    anchorU:target.u,anchorRoadXYDistance:target.distance,
    groundedInSourceRoad:true,sourceRoad:road.id,nonCollision:true,
@@ -275,8 +278,9 @@ export function buildK4ATInlaidRoad(doc,sample,frame,{enabled=false}={}){
   // Thick panel joints at phase cadence, deliberately matte and consistent.
   if(i%5===0)stripe(u0,u0+.0015,.27,.73,[.19,.28,.30]);
  }
- if(!verts.length||verts.length%18||verts.some(x=>!Number.isFinite(x))||
+ if(verts.length%18||verts.some(x=>!Number.isFinite(x))||
    JSON.stringify(doc)!==unchanged)throw Error('K4AT INLAID ORIGINAL ROAD INVALID');
+ // Fully void source road means no overlay, NEVER a fake support bridge.
  return {vertices:verts,triangles:verts.length/18,sourceRoad:road.id,
    nonColliding:true,newColliders:0,changedPhysics:false,ART:'NOT_TESTED_HOLD'};
 }
