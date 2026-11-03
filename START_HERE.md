@@ -76,3 +76,16 @@ K4AJ本命の[Actions #41566784540](https://github.com/ryomashibaba/dopagaki-dev
 新しいユーザー指摘では、既存の画面は単に「都市でない」のではなく、**画面全体の色彩・素材・造形・ライティング・密度が雑で、評価できる美術がほとんどない**ことが最重要。技術計測の反復を主目的とすることは禁止。今回の **研究ブランチ `research/k4aq-road5-art-direction-rebuild-20261103`** でRoad5《斜裂公共峡谷》の美術制作を実際に開始。詳報：[K4AQ画面美術再設計と実装・真正カメラ審査契約](docs/R19_A6P4_R2F5K4AQ_ROAD5_FULL_SCREEN_ART_DIRECTION_JA.md)。
 
 実装：`web/p101-k4aq-road5-civic-rift-material-art.mjs` に非対称の多層居住・公共都市構造、8素材マテリアル、独立WebGL2法線照明を作成。既存K4AD元sourceを完全隔離複製し、元240Hz／Camera／B48×7／B51×28／元source blobを触らず、真正原カメラ6tick×旧新計12 PNGの取得コードと専用CIを追加。既存K4AM/K4ANは独立runとして保持。新候補の真WebGL2スクリーンショットを実際に見て厳しく審査するまで**ART NOT_TESTED/HOLD、正式ART0件、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD**。main・本番・PR #46は変更しない。次は新CI／Artifactsを照合し、真正画像で美術的に改善したか評価する。資料中の旧「最新HEAD」は必ずAPIで再取得すること。
+
+
+## 2026-11-03 K4AR — 建築が本当に映ったかを空から分離する最新継続入口
+
+**現継続研究ブランチ**：research/k4ar-road5-massing-and-true-mesh-evidence-20261103。今回の引き継ぎ・固定方針・問題点・次工程は [K4AR詳細正本](docs/R19_A6P4_R2F5K4AR_TRUE_CAMERA_THREE_WAY_ARCHITECTURE_PIXEL_GATE_JA.md) を読む。
+
+**決定的な穴**：K4AQの元/新A/BのRGB差は空色変化だけでも成立し、新建築が映っている証明にならない。K4ARに、元source同native tick 6×（original／sky-only／sky+architecture）=18真正WebGL2 PNG・元Camera/B48/B51保護・独立PNG SHA/画素監査を実装。専用Actions #41585003708は作成直後queuedであり、ARTや画素検証はまだPASSではない。
+
+次回はまず旧K4AQ [#41580058193](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41580058193) と新K4AR [#41585003708](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41585003708) の**現在**のstatus/jobs/Artifactを実照合。成功なら本物の18画像を開いて美術を厳しく審査。まだqueued/runningなら無用なworkflow対象pushやCIキャンセルをしない。新しい建築が画面に出ても、箱形11棟と繰返し配色が悪ければART REJECTとして一方向を再設計。単なる画素数や三角形数で認定しない。
+
+K4AN [#41572736850](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41572736850) は2026-11-03にSOURCE RGBレビューCI SUCCESS、旧研究枝に比較PNG保存済み。新美術の実画面とは異なる。PR#46はOPEN/Draft/未マージ。main／本番／元source blob af076d67492a677d2235e4730aef8cdf4808e106／元物理・Camera・B48道路7・B51動体28は変更せず、Work事前承認制を守る。
+
+**未変化判定**：ART正式0件、Slope2 DNA0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
