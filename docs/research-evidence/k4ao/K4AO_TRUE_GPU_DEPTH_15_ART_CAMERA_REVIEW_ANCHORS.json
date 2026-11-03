@@ -1,0 +1,189 @@
+{
+  "schema": "dopagaki.K4AO.genuine-K4AJ-source-camera-art-priority/1",
+  "measurement": "B51_BODY_ALL_28 GROUP MASK / NONLINEAR ORIGINAL GPU DEPTH SAMPLED 11176",
+  "origin": {
+    "runId": 41566784540,
+    "runConclusion": "success",
+    "artifactId": 13201661563,
+    "zipBytes": 11959523,
+    "zipSha256": "60aab331d8881b5f8f456539c00566837a2b061a96ab0725ce7c17ea91ed8efb",
+    "sourceGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106"
+  },
+  "constraints": {
+    "physicsHz": 240,
+    "officialARTAccepted": 0,
+    "slope2DNAMetres": 0,
+    "newArtCandidates": 0,
+    "newColliders": 0,
+    "ART": "NOT_TESTED_HOLD",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "humanObstructionSeconds": "NOT_MEASURED",
+    "perTickSingleObstacleAttribution": "UNKNOWN_EXCEPT_K4AG_TICK11280"
+  },
+  "reviewLogic": {
+    "sourceRGBTotalExisting": 8,
+    "artRequestTicks": 15,
+    "sourceRGBAlreadyMatching6": 6,
+    "sourceRGBMissing9": 9,
+    "sourceRGBExistingExtra2": 2,
+    "priorityRule": "HEURISTIC_FOR_WHICH_NATIVE_FRAMES_TO_REVIEW_FIRST_NOT_ART_VERDICT",
+    "highPriorityWhenSampledDepthChangedPercentAtLeast": 35
+  },
+  "ticks": [
+    {
+      "mode": "ultra",
+      "nativeTick": 11320,
+      "nativeSeconds": 47.166667,
+      "b51GroupMaskFartherDepthSamples": 391,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 3.499,
+      "sourceOriginalRGBInK4AJArtifact": true,
+      "reviewPriority": "NORMAL_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "ultra",
+      "nativeTick": 11326,
+      "nativeSeconds": 47.191667,
+      "b51GroupMaskFartherDepthSamples": 730,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 6.532,
+      "sourceOriginalRGBInK4AJArtifact": false,
+      "reviewPriority": "NORMAL_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "ultra",
+      "nativeTick": 11338,
+      "nativeSeconds": 47.241667,
+      "b51GroupMaskFartherDepthSamples": 10500,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 93.951,
+      "sourceOriginalRGBInK4AJArtifact": false,
+      "reviewPriority": "HIGH_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "ultra",
+      "nativeTick": 11341,
+      "nativeSeconds": 47.254167,
+      "b51GroupMaskFartherDepthSamples": 11176,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 100,
+      "sourceOriginalRGBInK4AJArtifact": true,
+      "reviewPriority": "HIGH_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "ultra",
+      "nativeTick": 11349,
+      "nativeSeconds": 47.2875,
+      "b51GroupMaskFartherDepthSamples": 5300,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 47.423,
+      "sourceOriginalRGBInK4AJArtifact": false,
+      "reviewPriority": "HIGH_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "ultra",
+      "nativeTick": 11351,
+      "nativeSeconds": 47.295833,
+      "b51GroupMaskFartherDepthSamples": 0,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 0,
+      "sourceOriginalRGBInK4AJArtifact": false,
+      "reviewPriority": "NORMAL_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "ultra",
+      "nativeTick": 11363,
+      "nativeSeconds": 47.345833,
+      "b51GroupMaskFartherDepthSamples": 1,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 0.009,
+      "sourceOriginalRGBInK4AJArtifact": false,
+      "reviewPriority": "NORMAL_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "ultra",
+      "nativeTick": 11369,
+      "nativeSeconds": 47.370833,
+      "b51GroupMaskFartherDepthSamples": 1,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 0.009,
+      "sourceOriginalRGBInK4AJArtifact": true,
+      "reviewPriority": "NORMAL_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "control",
+      "nativeTick": 11259,
+      "nativeSeconds": 46.9125,
+      "b51GroupMaskFartherDepthSamples": 365,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 3.266,
+      "sourceOriginalRGBInK4AJArtifact": true,
+      "reviewPriority": "NORMAL_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "control",
+      "nativeTick": 11265,
+      "nativeSeconds": 46.9375,
+      "b51GroupMaskFartherDepthSamples": 687,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 6.147,
+      "sourceOriginalRGBInK4AJArtifact": false,
+      "reviewPriority": "NORMAL_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "control",
+      "nativeTick": 11277,
+      "nativeSeconds": 46.9875,
+      "b51GroupMaskFartherDepthSamples": 6396,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 57.23,
+      "sourceOriginalRGBInK4AJArtifact": false,
+      "reviewPriority": "HIGH_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "control",
+      "nativeTick": 11280,
+      "nativeSeconds": 47,
+      "b51GroupMaskFartherDepthSamples": 5972,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 53.436,
+      "sourceOriginalRGBInK4AJArtifact": true,
+      "reviewPriority": "HIGH_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "control",
+      "nativeTick": 11284,
+      "nativeSeconds": 47.016667,
+      "b51GroupMaskFartherDepthSamples": 4240,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 37.938,
+      "sourceOriginalRGBInK4AJArtifact": false,
+      "reviewPriority": "HIGH_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "control",
+      "nativeTick": 11301,
+      "nativeSeconds": 47.0875,
+      "b51GroupMaskFartherDepthSamples": 2,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 0.018,
+      "sourceOriginalRGBInK4AJArtifact": false,
+      "reviewPriority": "NORMAL_SOURCE_CAMERA_REVIEW"
+    },
+    {
+      "mode": "control",
+      "nativeTick": 11307,
+      "nativeSeconds": 47.1125,
+      "b51GroupMaskFartherDepthSamples": 2,
+      "depthSampleTotal": 11176,
+      "depthSampledChangedPct": 0.018,
+      "sourceOriginalRGBInK4AJArtifact": true,
+      "reviewPriority": "NORMAL_SOURCE_CAMERA_REVIEW"
+    }
+  ]
+}
