@@ -66,3 +66,24 @@
 - これでも**元sourceゲームの連続CCD/球半径0.65、FPS/HUMAN、他全時間のB51変化、ネイティブWebGL2画面そのものを証明しない**。ART正式採用0件・Slope2 DNA0mを維持。元の本番URL/main/公式継続branch/PR#46は変更禁止。
 
 **次の実作業**：CIの実ステップ、7×2 sourceメッシュSHA、K4BC v1 vs v2の元Camera6画像、全7道路とK4BC建築の独立静的交差を検証する。誤ってそのままART採用/公開してはならない。ARTは画像を見て初めて評価する。
+
+
+## K4BC v2の確定結果と、真正Cameraに映る都市構造の再配置方針
+
+**K4BC v2 source・DCC全7道路成功**。Actions [#41638891877](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41638891877) completed **SUCCESS**。Artifact #13231892367、37,166,570 bytes、ZIP SHA-256 `b42b1f84195caf1fc4a76d7a54ae63e97c18c88a9ede3a138b8bcfa38e2572e9`。全7実B48道路×control/ultra source配列を`generateP101W9C1AbyssCandidate`と元`tessellate`からread-only出力し、Road5 4,728 trianglesのpoints/indices/vertexを以前のK4AYと**厳密に同一**と確認。各道路を実source形状で他6本×2モード=12メッシュ追加、6真正source Camera DCC＋独立航空の計7画像・編集可能Blender・GLB・元道路source hash JSONを出力。追加道路の新たなゲーム当たり判定は**0**。
+
+**独立source全7接触監査成功**。Actions [#41639263986](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41639263986) completed **SUCCESS**。Artifact #13232770761、ZIP SHA256 `a8998937eb02ada59b1df335a7155b70404cdcd58d916a19e7e5cbf51664574d`。**本物の7道路×2モード=14 original B48メッシュ／計66,192三角形、元6tick×B51 28=168 collision OBB**と、K4BC新建築393件・91,888評価面の独立静的表面接触数は**道路0件/B51 0件**。元ゲーム全時間/球0.65/CCD・原WebGL2/HUMANを認定してはいけない。
+
+**美術はART REJECT**。ユーザーの視点の `CONTROL_11307` を開いてK4BC v1とv2を実画像比較すると、全7実道路を描いたのに正面の大きな空白はほとんど変化しない。独立PIL pixel比較：各RGBチャネルの平均絶対差1.135/255、3ch画素差最大24を超えた画素の比率約1.88%（これは**美術品質の定量スコアではない**）。元物理のRoad6 `p93-FINISH_RIDGE-01` は実際Road5終端から連続しているが、Cameraは手前の実Road5登り勾配・視線によって遠景道路をほぼ映していない。**「Road6が存在しないことだけが正面空白の原因」ではない。** 追加の色変更・テクスチャや架空road surfaceで埋めるのは禁止。
+
+### K4BC v3：Camera方向と道路6の真の幅を使った再構成
+
+元all7 sourceのcontrol Road6中心線（Road5終点基準、実source接線F/L座標）は深さ150m時点で**横方向約-18.8m**、物理原Road6の両端は同深さ周辺で**-66.7〜+29.1m**。だから道路の中央/側方の安全性を推測だけで判断せず、**左の基壇を横-110m、右を+95mを基本位置**として源原B48外側に収める設計を始めた。
+
+[`scripts/p101-k4bc-v3-real-road6-camera-framed-sky-museum.py`](../scripts/p101-k4bc-v3-real-road6-camera-framed-sky-museum.py) は、編集可能なK4BC v2 .blendの旧K4BC 04遠くに逃げた都市造形のみを非表示にして保護し、**源Road6の実幅と元Camera6視点の方向を基準に**正面の左右の実基礎付き市民施設と、Road6本物の上空に**実床・実屋根・ガラス外壁・荷重柱のある大きな公共ミュージアム**を制作する。元Road6上に架空の走行面を追加しない。真正Cameraごとのアングルを`atan2()`で数値化したJSON証拠を出し、単なる「見えるはず」という主観による位置決めを避ける。
+
+- 制作CI [#41640544530](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41640544530) — **まだ最終SUCCESS未確定**。元ソースall7/B51/Cameraは凍結、6真正Camera DCC＋独立航空・編集可能原本とGLB・源不変SHAを出力予定。
+- [v3全7道路独立BVHソース](../research/k4bc/independent_v3_all7_B48_six_B51_native_static_bvh.py)／[専用Actions](../.github/workflows/p101-k4bc-v3-all-seven-native-B48-B51-audit.yml)：旧前景K4BC 01〜03＋新v3基壇・ミュージアムのみ対元7×2道路66,192三角と168 B51 source OBBを独立照合。接触が1件でもあればfail-closed、ART/SAT/HUMAN/HOLD維持。
+- 新v3でも**human visual/art world quality**は元の6高速Cameraを実際に開いて判定。物理技術PASSはART PASSではない。
+
+**ここまでK4BC正式ART採用0件/Slope2 DNA認定0m**、源main・本番・公式継続・Draft PR #46変更無し。次工程はv3真CIとsource-v3 BVHの結果、7視点の画像を確認してから採否を決める。
