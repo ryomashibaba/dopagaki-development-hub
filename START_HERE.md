@@ -7,7 +7,11 @@
 - **K4BA設計の根本差分**：広く単調な路面と奥に何もない空を克服するため、元Road5上面の実データサンプルへ植え付けたDCC-only路面PBR候補、両側の複数階の公共建築、公共用途のある大きな屋上連絡回廊、**元Road5物理終端の先の芸術専用海港展望施設と都市遠景**をBlenderで全面再制作。美術専用の物理終端以遠の風景は原ゲームに無い走行可能な道ではなく、衝突も生まない。元K4AZは比較用に編集可能保持・表示のみOFF。
 - **絶対固定**: 元game Git Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元source 240Hz/球0.65m、B48 7道路、B51 28、原Camera6 tick、操作、速度、衝突。Source DCC/CI PASSを真正WebGL2やART PASSと混同禁止。
 - 今回着手コード: [K4BA Blender制作器](scripts/p101-k4ba-authentic-b48-tidal-commons-cinematic-city.py)、[K4BA専用CI](.github/workflows/p101-k4ba-real-road5-tidal-cinematic-city.yml)、[K4BA独立B48/B51接触検査](research/k4ba/independent_b48_b51_native_spatial_audit.py)。
-- **次工程**：K4BA初回CIの真status/jobs/artifactを確認し、失敗したらログを根拠に修正→真正6元Camera DCC＋1artist PNGを直接目視してK4AZ画像と比較→**不足していればART REJECTのまま大幅再制作**→個別BVHと本物のWebGL2はゲートを分ける。**この文書を書いた時点ではK4BAのレンダリング成功・ART評価は未確定**。
+- **K4BA v2 真正DCC制作完了**： [Actions #41625837609](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41625837609) **completed/SUCCESS**、Artifact #13224834813、編集可能 .blend/GLB、真source-camera 6DCC PNG＋1 studio画像＋K4AZ v3とのA/B。旧アート保存、源Road5全頂点/face fingerprint不変。v1 #41624877761 SUCCESS後、初版の浮いた彫刻問題から海岸地形/基壇/公共屋根のv2へ本当に再制作。技術成功と美術品質は別。
+- **K4BA v2独立BVH**： [Actions #41626249550](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41626249550) **SUCCESS**。新建築743評価済オブジェクト163,068面 vs 原Road5本物B48 4,728三角＋元6tick×B51 28=168時刻OBBの**静的表面交差0件/0件**。他6B48道路／全走行時刻／人間操作・CCD・FPS・HUDは未検証。
+- **K4BAの実画像はなお正式ART REJECT**。全画面建築と正面の施設が出現したが、広い路面の素材がまだ単調、建築用途・地形の接続・都市遠景の完成度が世界的レベルに達していない。紫の物理OBBはゲームのB51ビジュアルではない。オブジェクト数や色替え、pixel差でART通過させない。
+- **GitHub内の直接見られる永続画像**： [6×真正source-camera同pose新旧比較](docs/research-evidence/k4ba/K4BA_V2_SIX_TRUE_NUMERIC_SOURCE_CAMERA_K4AZ_AB_ART_REJECT.png)、[航空アート審査](docs/research-evidence/k4ba/K4BA_V2_AERIAL_CITY_SUPPORT_SECTION_DCC_ART_REJECT.png)、[完全SHA](docs/research-evidence/k4ba/K4BA_V2_TRUE_SOURCE_BLENDER_SHA_ART_REJECT.json)。[Actions #41626584149](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41626584149)成功で本研究ブランチへ確実に永続保存。
+- **次工程**： [K4BAの最終正本](docs/R19_A6P4_R2F5K4BA_TIDAL_COMMONS_WHOLE_SCREEN_ART_REBUILD_JA.md)末尾のART REJECTを尊重し、小物追加ではなく路面・建築内部・公共空間・遠景を真の元Cameraで満足できるよう全面的にデザイン再検討。他のB48原道路/安全表示の扱いは源データに基づくこと。Blender DCCは本物WebGL2ゲーム画面ではない。
 - **恒久HOLD**：正式ART採用0件、Slope2 DNA0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。Work事前承認、Chat＋GitHub中心、ユーザーのローカル操作最小化。
 
 ---
