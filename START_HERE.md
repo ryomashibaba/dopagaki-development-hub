@@ -1,3 +1,15 @@
+# 【2026-11-04 K4BG最終判定・次チャットの第一入口】真正Blender DCC 技術PASS／美術REJECT
+
+**現在の研究継続枝**：`research/k4bg-civic-escarpment-true-camera-art-20261104`。必読：[K4BG最終美術判定・全方針・元ソース不変契約](docs/R19_A6P4_R2F5K4BG_SOURCE_CAMERA_COHERENT_CIVIC_ESCARPMENT_JA.md)。
+
+- **修正版の確定CI**：[Actions #41726814278](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41726814278) は **completed/SUCCESS**。元K4BE SHA検証・真正Blender編集可能原本・元Camera control11307 / ultra11341のDCC PNG・独立manifest SHA・GitHubブランチ内画像保存・Artifactアップロードが実成功。真正[Artifact #13274862071](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41726814278/artifacts/13274862071)、ZIP SHA256 `12421de4f43d2aad1df744aed9d9bf450727dded08151eb7fab300334d9e787b`。
+- **元Road5のULTRA画面欠落は表示設定修正で解消**。親Blender原本のsource Road5 ULTRA collection `hide_render` をmode別に戻し、元Road5メッシュ・材質割当・カメラ数値・元ゲームソースは変えていない。
+- しかし**K4BG ART REJECT、正式ART採用0件・Slope2 DNA正式認定0m**。大面積の単調な前景路面、浅い・模型的な両側都市意匠と中央構造、都市奥行き/使われる公共空間/照明/人間スケールの未完成が残る。88新Blenderオブジェクト、PNG生成、SOURCE/DCC PASSをART合格へ読み替えない。**Blender Source Camera DCC画像は元WebGL2実ゲーム画像ではない**。
+- **次工程**：まずこのDCCの不合格を固定し、実カメラの画面全体を大きく変える高精度アート（道路前景の自然な設計質感、左右の継続街区、用途のある内部、街区遠景・大気・光、強い構図）に制作方法を切り替える。単なる箱や曲面パーツの量産は中止。ART認定前の他6Road横展開・ゲーム統合/リリース不可。新候補の本物の元カメラ画像を目視審査。
+- **保護契約**：main、`p101-velocity-overdrive-native-trial`、Draft PR #46、本番2サイト、元source blob `af076d67492a677d2235e4730aef8cdf4808e106`、240Hz/半径0.65m、元Camera全6、B48実7道路、B51実28動体、原安全表示不変。Work事前承認／ユーザーのWindows操作要求なし。HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。CI/HEADは次回GitHubで再照合する。
+
+---
+
 # 【K4BG 修正版の最優先注意 2026-11-04】
 
 初回K4BG CI #41725702409はSOURCE/DCC技術SUCCESSだが、初回ultra source Camera画像では実B48 Road5が欠けた状態。親K4BE .blend保存時のULTRA **collection hide_render** を、子の object hide_render 変更では解除できないことが原因とコード上で確定。**修正版 commit e1f5354** では元ROAD5 Collectionをmode別に切替。再CI [#41726814278](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41726814278) の実状況・真2画像を必ず再照合。最新ART認定は依然0、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。詳細は [K4BG正本](docs/R19_A6P4_R2F5K4BG_SOURCE_CAMERA_COHERENT_CIVIC_ESCARPMENT_JA.md)。
