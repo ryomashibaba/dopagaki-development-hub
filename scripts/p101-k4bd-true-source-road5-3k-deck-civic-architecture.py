@@ -289,7 +289,8 @@ def show(mode,tick,debug=False):
 # Use verified CPU Cycles and higher truthful samples. Never call a failed EEVEE
 # test a successful beauty render or silently lower art gate.
 scene.render.engine="CYCLES"
-scene.cycles.samples=112
+pilot=("--pilot" in args)
+scene.cycles.samples=56 if pilot else 112
 scene.cycles.use_denoising=False
 scene.render.resolution_x=1013
 scene.render.resolution_y=698
@@ -320,13 +321,15 @@ def render(fn,cam):
 shots=[]
 for mode in ("control","ultra"):
     for rec in S["modes"][mode]["sourceTimeRecords"]:
-        t=rec["tick"];show(mode,t,False)
+        t=rec["tick"]
+        if pilot and (mode,t) not in (("control",11307),("ultra",11341)):continue
+        show(mode,t,False)
         fn="K4BD_TRUE_SOURCE_CAMERA_CLEAN_EDITORIAL_"+mode.upper()+"_"+str(t)+".png"
         render(fn,cams[mode,t])
         shots.append({"mode":mode,"tick":t,"nativeSourceTime":rec["sourceNativeSeconds"],
                      "sourceOriginalWebGL2ScreenshotSHA":rec["sourceImageSHA256"],
                      "originalB51ProxyVisibleInArt":False,"DCCImage":fn})
-assert len(shots)==6
+assert len(shots)==(2 if pilot else 6)
 show("ultra",11341,True)
 render("K4BD_ORIGINAL_SOURCE_B51_28_OBB_EDITOR_DEBUG_ULTRA_11341.png",cams["ultra",11341])
 show("control",11278,False)
@@ -359,6 +362,8 @@ audit={
  "sourceB48OriginalRoadCount":7,"sourceB51MovingObstacleCount":28,
  "sourcePhysicsHz":240,"sourceRadiusMetres":.65,
  "originalCameraNumericsUnchanged":True,"originalCameraSixTicks":shots,
+ "DCCPreviewOnlyTwoOfSixNativeSourceCameraTicks":bool(pilot),
+ "allSixOriginalSourceCamerasRenderedForThisRevision":not pilot,
  "originalRoad5TrueSourceTriangleCount":4728,
  "originalRoad5GeometryBefore":before,"originalRoad5GeometryAfter":after,
  "realB48Road5GeometryPreserved":True,
@@ -383,4 +388,4 @@ audit={
 with open(os.path.join(out,"K4BD_TRUE_SOURCE_CIVIC_DECK_ART_REJECT_PROVENANCE.json"),"w") as f:json.dump(audit,f,indent=2)
 print("K4BD_ORIGINAL_SOURCE_3K_ARCHITECTURAL_DECK_PBR_AND_7_CAMERA_EDITORIAL_DCC_ART_HOLD",
       json.dumps({"newObjects":len(created),"sourceRoad5FingerprintUnchanged":before==after,
-                   "trueCameraRenders":len(shots),"PBR":[W,H],"ART":audit["ART"]}))
+                   "trueCameraRenders":len(shots),"pilot":pilot,"PBR":[W,H],"ART":audit["ART"]}))
