@@ -46,3 +46,15 @@
 
 - CI3 [#41611613661](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41611613661) はCI2のNumPy不足を `python3-numpy` 導入で修正して再実行。最終statusはAPIで照合が必要。
 - 次は元データを使ったDCC参照の実road露出、B51 proxyの誤解のない枠表示、**大胆な都市造形再設計**。表面的な色替えや単純BOX追加は引き続き禁止。
+
+
+---
+
+## 2026-11-03 K4AY 最終監査結果 — 実B48/B51 DCC統合 SOURCE/DCC TECH PASS・ART REJECT
+
+- **最新の成功したK4AY Github Actions**: [#41612254866](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41612254866) **completed / SUCCESS**。全工程（保護source hash、Node独立tests、K4AX正本Artifact SHA、Blender取込み、6元Camera+1artist DCC描画、別名.blend/GLB、生成物ファイルSHA独立検証）がSUCCESS。
+- **真正Artifact**: [#13218659517](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41612254866/artifacts/13218659517)、7,304,277 bytes、ZIP SHA256 `c206c8de97a7741d40e19676523e79e9e5e4a1cb3d8ae0b18349336c273cc713`。Blenderの独立した新原本 `K4AY_TIDAL_EXCHANGE_WITH_TRUE_B48_B51_REFERENCE.blend`、参照GLB、6 source Camera PNG、1 artist camera PNG、source data/manifest/provenanceがある。
+- 実B48 source Road5は物理surface **index 5、ID `p93-PRISM_CREST-01`**、真 `tessellate()` メッシュ **4,728三角形 (top 2,160)**。control/ultraのRoad5原制御点SHA-256 `5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730` は一致。Road5 longitudinal void cellsなし。7 physical B48 surfacesと28 B51本体を元docから確認、元sourceは読み取り専用。
+- Source B51 collision OBB参照は各tick 28体×6tick=**168個**、元Camera ticks control 11259/11278/11307、ultra 11320/11341/11369。元物理 `movingObstaclePose(descriptor,tick/240)` を使用。これらの**衝突OBBはゲームのB51美術メッシュではない**。K4AYでは誤認を避けるためOBBを線枠で表示。元K4AXの**架空・非物理背景地形のみ**をDCCレンダリングから隠してB48実道路を露出、編集可能な原本から削除はしていない。
+- **ART REJECT継続**。7枚の実DCCを目視審査したが、走行画面は大部分が淡い単純な道路/空間、左の建物は途切れ・右の塔は孤立、公共機能・人間スケール・街区連続性・空間密度に説得力が不足する。アーティストカメラは構造/屋根形状を示すが、元ゲーム画面の美術合格にはならない。**単なる色替え・道路捏造・JS box建築量産禁止**。次はこの実B48/B51原本に位置合わせした公共空間/ランドスケープ/建築の大胆なBlender-native再設計、元Camera正確な構図とクリアランス検証。
+- **不変のHOLD**: 正式ART採用0件、Slope2 DNA認定0m、ART REJECT、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。Blender画像は元WebGL2ゲーム画像ではない。建築vs真B48/B51の詳細BVH干渉・元ゲームCCD/HUMAN/FPS/安全は**未検証**。main/継続公式branch/本番/Draft PR #46/原source blob・240Hz・球半径0.65m・元Camera/衝突条件の変更なし。Work事前承認のまま。
