@@ -1,3 +1,12 @@
+## 【K4AJ研究QA改訂 2026-11-03：GPU実測完了前の独立監査を強化】
+
+- **現行実行CI**：[GitHub Actions #41565679177](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41565679177)（この更新時点は`pending / queued`）。元CI #41562897854は、真のGPU完走より前に研究監査強化の新pushで**cancelled**。結果が無い旧CIをPASSと呼ばない。**100元GPU mask + 100元復元 / SHA/CRCは現時点では未検証**。
+- **真実性の修正**：GPU maskは元`B51_BODY`全28体をまとめて無効化して深度比較するもの。幾何の追跡対象`p95-hazard-12`と、その時点のGPU寄与原因を混同してはならない。`p95-hazard-12`単体の遮蔽が確定したのはK4AGで真正GPU別検証した**tick11280×2幅**だけ。残りの測定tickは**個体別帰属UNVERIFIED**とJSON・CSV・独立監査へ明示した。別の99tick全体の単体ID判定を装わない。
+- **新GPU証拠ゲート**：元ソースの`72` draw、B51 BODY全群除去の`44` draw、復元`72` draw、元深度とのサンプル11,176点全一致に加え、元→B51群抑制→復元という**3回×100時点=300件の本物の連続GPU取得要求seqを欠番・重複なしに監査**。両幅にまたがる番号の巻き戻りも拒否。独立負例5件（遠いはずのmasked depthが手前に出た偽サンプル、配列長欠損、native tick重複、集計の不整合、GPU seq重複）を必ず拒否。元Source・camera・物理・collision判定・ART閾値は変更していない。
+- 本物の連続GPUが取得されても、その観測可能性は「指定した窓において`B51_BODY`一括抑制で非線形GPU深度サンプルが奥に変わったtick数・区間」に限定する。人間の認知で『映像が遮られて見えた時間』やプレイ安全性・ART採用とは**別検証/HOLD**。
+
+---
+
 ## 【最新 2026-11-03 K4AJ：真正source 240Hz時点のB51 GPU遮蔽連続窓／ART HOLD】
 
 - **次の開発工程・研究正本**：ブランチ`research/k4aj-native-b51-gpu-depth-contiguous-window-20261103`、[K4AJ詳細契約](docs/R19_A6P4_R2F5K4AJ_ORIGINAL_NATIVE_B51_GPU_OCCLUSION_WINDOWS_JA.md) → [K4AJ真正GPU専用CI #41562897854](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41562897854)。**現状pending/実行未完、100 GPUマスクのSOURCE TECH PASSは未確認**。旧K4AJ #41562685069は参照元をK4AI失敗runから成功runへ切替えたためキャンセルされ、正式成功ではない。
