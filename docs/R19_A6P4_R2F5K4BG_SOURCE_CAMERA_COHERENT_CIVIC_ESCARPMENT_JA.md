@@ -22,3 +22,14 @@ K4BF [CI #41722243986](https://github.com/ryomashibaba/dopagaki-development-hub/
 
 ## 本物の最新状態は必ず検証
 この文書の記述はコードの設計契約であり、GitHub Actionsの実際の成否・画像の人間目視・美術評価を代替しない。
+
+## 実際のCI結果と真正ART審査（2026-11-04追記）
+
+初回[K4BG Actions #41725702409](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41725702409) は completed/SUCCESS。真K4BE親SHA・元source blob・Python・Blender・2 PNG+1 .blend・独立SHA・研究ブランチへ画像保存は技術的成功。Artifact #13273816812（ZIP SHA-256 `18a5f5d0e23c6bfedf13b660beb3933380118aa2739d2ffe0cb7a5d6afb241e6`）、新規88編集mesh等を作成。
+
+しかし2画面の実画像審査ではcontrolも前景が単調で、中央の空洞の構成が弱い。さらにultraではRoad5が大きく欠けたように見えた。**初回のARTはREJECT／正式0件**。比較PNGが生成されたことだけでARTを認定しない。
+
+**コードにある原因を独立追跡した**：K4BE原本は保存時にRoad5 CONTROL collectionだけを可視、ULTRA collectionを`hide_render=True`として保存していた。K4BG初版の`show(mode)`は各Road5 *object*.hide_renderだけを切り替え、親の*collection*.hide_renderを切り替えなかったため、ultra原Road5が描画されない。元B48のメッシュ・物理・材質・元カメラの改変は不要。
+
+修正コミット `e1f5354f0738c34cce63a698a580e77c6bb69fb7`：`show(mode)`を真のsource B48 Road5コレクション可視切替へ修正、材質・頂点・ソースカメラは維持。修正版[CI #41726814278](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41726814278)を再実行。**その画像を実際に照合するまでK4BG改訂ARTは未判定**。初回成功は修正後の真正ultra画面を保証しない。
+
