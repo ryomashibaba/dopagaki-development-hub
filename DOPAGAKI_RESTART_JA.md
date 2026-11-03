@@ -1,3 +1,11 @@
+## 【現行K4AJ研究の正本 2026-11-03／ART HOLD】
+
+- 研究再開先`research/k4aj-native-b51-gpu-depth-contiguous-window-20261103`、詳細[GPU連続遮蔽99tickのK4AJ正本](docs/R19_A6P4_R2F5K4AJ_ORIGINAL_NATIVE_B51_GPU_OCCLUSION_WINDOWS_JA.md)。現在の実測CIは **[#41566784540](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41566784540)**（未完/queued、結果未確定）。旧 #41565679177 は次の独立監査強化でキャンセル、SUCCESSに数えない。
+- 元K4AI幾何SOURCE TECHは元source 1442tick真正Chromium CI #41560614512と元Artifact独立再監査CI #41561002955で二重PASS。その成果をSHA固定し、14mの真native50連続tick、28m49連続tickのGPU深度に対して、元source再描画→B51 BODY 28群のみ抑制→元描画復元の**100組・計300件**fresh GPU captureを監査。独立負例5件は本物のcaptureサンプルを改ざんして拒否する方式。K4AGから単体IDに帰属できるのはtick11280のみ、その他98個の物体個別帰属は不明。GPU 8px格子の深度差継続tick数は、人間の視覚遮蔽時間でない。
+- 元ゲーム本番・main・PR46 OPEN Draft未マージは未変更。公式ART採用0件、Slope2 DNA0m、新モデル・Collider0、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD、Work事前承認。**次は #41566784540 の実log/Artifactの検証**であり、事前にTECH PASSや遮蔽秒数を断定しない。
+
+---
+
 ## 【K4AJ研究QA改訂 2026-11-03：GPU実測完了前の独立監査を強化】
 
 - **現行実行CI**：[GitHub Actions #41565679177](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41565679177)（この更新時点は`pending / queued`）。元CI #41562897854は、真のGPU完走より前に研究監査強化の新pushで**cancelled**。結果が無い旧CIをPASSと呼ばない。**100元GPU mask + 100元復元 / SHA/CRCは現時点では未検証**。
