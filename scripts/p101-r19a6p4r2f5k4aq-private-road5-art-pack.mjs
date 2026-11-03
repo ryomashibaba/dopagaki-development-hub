@@ -28,7 +28,7 @@ const importLine="import {g4e7ciIntegratedStreetscape,g4e7cqTracePixels,g4e7crHi
 patch(importLine,importLine+"\nimport {buildK4AQRoad5Art,createK4AQScene,renderK4AQScene,releaseK4AQScene} from './p101-k4aq-road5-civic-rift-material-art.mjs';");
 patch('let g4e7bgShot=null,g4e7bgShots=null,g4e7ciMesh=null,g4e7cqArt=null;',
  "let g4e7bgShot=null,g4e7bgShots=null,g4e7ciMesh=null,g4e7cqArt=null;\n"+
- "const k4aqEnabled=r19a1OptIn&&g4e6LocalHost&&new URLSearchParams(location.search).get('k4aq')==='on';\n"+
+ "const k4aqEnabled=g4e6LocalHost&&new URLSearchParams(location.search).get('r19a1')==='on'&&new URLSearchParams(location.search).get('k4aq')==='on';\n"+
  "let k4aqScene=null;\nconst k4aqSkyOnly=k4aqEnabled&&new URLSearchParams(location.search).get('k4aqMesh')==='off';");
 patch('function buildVisual(stage){',
  "function buildVisual(stage){\n"+
