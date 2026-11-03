@@ -5,7 +5,7 @@ on:
       - research/k4bg-civic-escarpment-true-camera-art-20261104
     paths:
       - 'scripts/p101-k4bg-source-camera-coherent-civic-escarpment.py'
-      - '.github/workflows/p101-k4bg-two-source-camera-civic-monolith.yml'
+      - '.github/workflows/p101-k4bg-two-source-camera-civic-escarpment.yml'
   workflow_dispatch:
 permissions:
   contents: write
