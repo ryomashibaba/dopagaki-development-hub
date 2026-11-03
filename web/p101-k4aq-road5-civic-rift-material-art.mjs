@@ -224,7 +224,7 @@ const SKYFRAG=[
  'vec3 horizon=vec3(.097,.168,.192);',
  'float height=smoothstep(.12,1.05,p.y);',
  'vec3 c=mix(horizon,upper,height);',
- 'float haze=exp(-pow((p.y-.31)*9.0,2.0));',
+ 'float h=(p.y-.31)*9.0;float haze=exp(-(h*h));',
  'c+=vec3(.028,.043,.048)*haze;',
  'float faintGlow=exp(-length((p-vec2(.73,.36))*vec2(2.6,4.4))*4.2);',
  'c+=vec3(.092,.055,.034)*faintGlow;',
