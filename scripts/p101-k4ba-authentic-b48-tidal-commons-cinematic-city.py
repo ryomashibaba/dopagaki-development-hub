@@ -397,7 +397,7 @@ def mixed_tower(name,depth,side,height,baseR,phase,material):
     surface(name+" / non-drivable roof",
             [rows[-1],[
              center+Vector(((baseR*.57)*cos(2*pi*j/n+phase),
-                            (baseR*.44)*sin(2*pi*j/n+phase),height+3)
+                            (baseR*.44)*sin(2*pi*j/n+phase),height+3))
              for j in range(n)]],
             material,skyline,1)
 for idx,(d,side,h,r,turn) in enumerate((
