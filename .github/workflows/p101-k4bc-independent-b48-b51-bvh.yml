@@ -1,0 +1,117 @@
+name: DOPAGAKI K4BC independent original B48 Road5 and six-tick B51 static BVH
+on:
+  push:
+    branches:
+      - research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
+    paths:
+      - '.github/workflows/p101-k4bc-independent-b48-b51-bvh.yml'
+      - 'research/k4bc/independent_original_road5_and_B51_static_bvh.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4bc-source-b48-b51-independent-static-only
+  cancel-in-progress: false
+jobs:
+  exact-source-static-geometry-bvh-audit-not-ccd:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Freeze game source and independent validator syntax
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile research/k4bc/independent_original_road5_and_B51_static_bvh.py
+      - name: Fail closed until exact K4BC original source art .blend genuinely succeeds
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 50); do
+            c="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41636914845 --jq .conclusion)"
+            if [ "$c" = success ]; then exit 0; fi
+            if [ "$c" = failure ] || [ "$c" = cancelled ]; then echo "K4BC parent failed: $c"; exit 1; fi
+            sleep 16
+          done
+          echo "K4BC parent not yet proven: HOLD"
+          exit 1
+      - name: Download only the pinned K4BC original-camera editable model
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BC_EDITABLE_SOURCE_B48_B51_ORIGINAL_CAMERA_MONUMENTAL_CIVIC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41636914845
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-bvh/editable
+      - name: Download K4AY immutable exact B48 and six native B51 source times
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-bvh/original
+      - name: Independently verify exact SHA source/Blender and no native physics mutation
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path('research/evidence/k4bc-bvh/editable')
+          j=json.loads((p/'K4BC_TRUE_SOURCE_CIVIC_ART_HOLD_PROVENANCE.json').read_text())
+          assert j['originalFrozenWebGLBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalB48RoadCount']==7 and j['originalB51Movers']==28
+          assert j['sourceB48Road5Triangles']==4728
+          assert j['originalB48GeometryUnchanged'] is True
+          assert j['trueOriginalB48MeshGeometryBefore']==j['trueOriginalB48MeshGeometryAfter']
+          assert j['sourceCameraNumericsUntouched'] is True
+          assert j['exactNativeB51PhysicalCollisionOBBFrames']==168
+          assert j['nativeWebGL2GameScreenshot'] is False
+          assert j['ART']=='REJECT_HOLD' and j['formalARTAccepted']==0
+          assert j['newArchitectureMeshAndBeamCount']>100
+          for fn,v in j['files'].items():
+              raw=(p/fn).read_bytes()
+              assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+          q=json.loads((Path('research/evidence/k4bc-bvh/original')/'K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert q['frozenOriginalGameGitBlob']==j['originalFrozenWebGLBlob']
+          assert q['modes']['control']['trueSourceTriangleCount']==4728
+          assert q['modes']['control']['originalRoadSourcePointsSHA256']==j['sourceRoad5ControlPointsSHA']
+          print('K4BC_INDEPENDENT_DCC_SHA_SOURCE_ORIGINAL_PHYSICS_UNCHANGED')
+          PY
+      - name: Install Blender mesh BVH library
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender
+      - name: Check K4BC new off-road architectural meshes against actual original source physical B48/B51
+        run: |
+          mkdir -p research/evidence/k4bc-bvh/result
+          blender -b --factory-startup --python-exit-code 3 \
+            --python research/k4bc/independent_original_road5_and_B51_static_bvh.py -- \
+            --blend research/evidence/k4bc-bvh/editable/K4BC_SOURCE_CAMERA_CIVIC_RECOMPOSITION_EDITABLE_ART_REJECT_HOLD.blend \
+            --source research/evidence/k4bc-bvh/original/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out research/evidence/k4bc-bvh/result
+      - name: Verify explicit no-intersection limited survey, never pass native game CCD
+        run: |
+          python3 - <<'PY'
+          import json
+          j=json.load(open('research/evidence/k4bc-bvh/result/K4BC_INDEPENDENT_STATIC_B48_B51_GEOMETRY_AUDIT.json'))
+          assert j['sourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['sourceRoadTriangles']==4728
+          assert j['originalCameraNativeTickSourceOBBSnapshots']==168
+          assert j['onlyVisibleNewK4BCOffroadArchitecturalCollections'] is True
+          assert j['candidateArchitectureMeshOrCurveObjects']>=100
+          assert j['sourceRoadContactMeshes']==[] and j['nativeB51ContactMeshes']==[]
+          assert j['wholeTrajectorySourceCCD']=='NOT_TESTED_HOLD'
+          assert j['ART']=='REJECT_HOLD'
+          assert j['formalArtAccepted']==j['slope2DNAMetres']==0
+          print('K4BC_SOURCE_6_NATIVE_SNAPSHOT_STATIC_BVH_PASS_NOT_GAME_SAFETY_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BC_ORIGINAL_4728_B48_TRIANGLES_168_B51_STATIC_DCC_BVH_ART_HOLD
+          path: research/evidence/k4bc-bvh/result/
+          retention-days: 14
+          if-no-files-found: warn
