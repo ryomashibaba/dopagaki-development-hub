@@ -126,3 +126,12 @@ K4AJの実装：
 - 真K4AJ #41566784540とK4AK #41568787273は本記述以前の実照会で `queued`。**現在値は毎回GitHubで再照会**し、実完了までPASSと呼ばない。新K4ALは既存CIをキャンセルしないパスに隔離、新workflowは増やしていない。
 - 以後の順番は K4AJ true GPU Artifact ZIP/SHA/CRC・独立生depth audit → K4AK実Artifactレビュー要求 → K4AL RGBのSHAつき画像在庫と不足9時点の確認 → 本物の元カメラA/B・独立ART審査。旧K4/K4R/K4UのART REJECTは変更しない。
 - 正式ART採用0件、Slope2 DNA認定0m、候補新モデル0、元240Hz/球/Camera/B48×7/B51×28/source blob固定、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD、main・原ゲーム・本番・Draft PR#46無変更、Work事前承認。
+
+## I. 2026-11-03 K4AM：欠測9元RGBへの独立真正Chromium回収工程
+
+- K4AJ 100 native GPU masked/recovered casesと、K4AK ART要求15時点のRGBを混同しない。K4ALの真元RGB撮影計画8tick中6tickがK4AK審査要求と重複し、9tick不足。
+- [K4AMの新研究コード・専用CI・独立監査](R19_A6P4_R2F5K4AM_NINE_MISSING_ORIGINAL_RGB_TRUE_WEBGL2_JA.md)をGitHubの隔離ブランチに追加。元K4AI生SHA固定、真正元source WebGL2画像とそのB51 BODY全28体群非表示／元復元＝9tick×3 PNG／同期GPU27回、元球・Camera・元native tickの厳密一致。独立Pythonが生GPU整数配列とPNGの実SHAを検証。候補新モデル0。
+- [合成9tick E2E＋9改ざん負例](../tests/p101-r19a6p4r2f5k4am-independent-native-rgb-depth.test.py)はテストコードを保存した段階であり、専用CIと生Artifactの結果は必ず実GitHub照会して判断する。新CI concurrencyはK4AJ/K4AKと別、`cancel-in-progress:false`。既存2本の長い待機を新pushでキャンセルしない。
+- 真CI完走後も「元source RGBの15/15要求時点が揃うこと」と「候補同一pose RGB・三層公共空洞の人間ART認知・安全」は**別**。K4AJの成果＋K4AMの元画面を機械的に合算して美術品質を宣言しない。
+- 旧K4/K4R/K4UはART REJECT、正式採用0件、Slope2 DNA正式認定0m。元source・240Hz物理・球・Camera・B48 7・B51 28・main/元ゲーム/本番/PR#46・Gold/P100/W9-X/B5固定。HUMAN/SAT/CCD/FPS/ART/RELEASE/MERGE全HOLD。
+
