@@ -41,3 +41,28 @@
 - **CI green / B48元meshハッシュ不変 / 限定BVH静的ゼロ / source Camera画像の変化量だけでART認定しない。** 実画像を必ず開き、世界的な競争レベルの美術としてまだ薄い、用途が分からない、空間が雑な場合は**ART REJECT**を維持する。
 
 **この正本の初版時点ではK4BC DCC描画結果／独立BVH結果は未確定。** 完了runのログ、源画像・SHA・モデルを別途照合するまで成果の成功を事前宣言しない。
+
+
+## K4BC v2：Road5だけでなく元ゲームB48の全7道路を真正DCCへ持ち込む（2026-11-03）
+
+### 初版の実画像と新たに特定した根本欠落
+
+初版元Camera DCC [#41636914845](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41636914845) **completed SUCCESS**、元編集可能.blend／GLB、真Camera6画像、K4BB同pose比較、元Road5の頂点+faceハッシュ不変。静的独立BVH [#41637181443](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41637181443) **SUCCESS**（元Road5＋6tick×28元B51限定）。初版画像を見ると大きな左右の公共建築・段状基壇が描かれたものの、**正面の遠景が依然空白でART REJECT**。アーティスト航空視点でも、施設の背面が海港の一体都市ではなく孤立した塊に見える。
+
+本当の新発見：**過去K4AY／K4AZ／K4BA／K4BB／K4BC v1のBlender source referenceはB48 7道路のうち index5 = Road5 のみを真正tessellateしていた。** カメラがRoad5終端近くを見るため、**元の他道路、特に終端方向のindex6 FINISH_RIDGEを未描画**のまま美術評価していた。正面の空白を架空の継続道路や新規当たり判定で埋めるのは永久禁止。
+
+### 本物の全7道路のread-only source出力
+
+- [K4BC v2全7原本出力器](../scripts/p101-k4bc-export-all-seven-original-B48-source-readonly.mjs)：原物理元と同じ `generateP101W9C1AbyssCandidate(mode)` ＋ `tessellate()` をcontrol/ultra各モードに対して**ソースから本当に実行**。一切の原ゲームファイル変更・新道路生成やcollider追加をしない。以前のK4AY sourceモデルとはRoad5 points SHA・vertices・trianglesを厳密照合する。
+- 実sourceの順序（正本）：index0 `p93-ABYSS_DIVE-01`、1 `p93-CROWN_REVERSAL-01`、2 `p93-SCISSOR_RISE-01`、3 `p93-LOWER_REVERSAL-01`、4 `p93-VOID_SURGE-01`、5 `p93-PRISM_CREST-01`、6 `p93-FINISH_RIDGE-01`。元stage 7本すべて。元B51 28体は移動OBB 6時刻×28=168を維持。
+- 全7道路の元幾何 `positions, indices, topIndexCount, bottomIndexCount, sideIndexCount, nativeVoidLongitudinalCells, sourceMaterials, collidable, rideable, pointSHA, indexSHA, worldBounds` をread-only JSONと監査マニフェストに保存。**clay-previewの材質を「元ゲームの舗装表現」と称さない**。
+- [Blender編集可能な真正全7 B48取込/描画](../scripts/p101-k4bc-all-seven-real-B48-Blender-context.py)：K4BC v1原本を開き、control/ultraのsource Road5は**絶対に上書きせず**、他の本物6本×2モード=12本だけを新しいSourceコレクションに別々のBlender-native meshとして追加。元sourceCamera6数値、元B51六時刻と正確に結びつける。今回追加したsource referenceは**元当たり判定を再実装せず新しいコライダーでもない**。
+
+### Source-first独立安全／可視性ゲート
+
+- 真正CI：[K4BC v2 all7 DCC #41638891877](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41638891877)。元source blob `af076d67492a677d2235e4730aef8cdf4808e106`、実source発生器、元Road5 SHA、元Camera 6tick、B51 28x6を実照合し、Blender編集可能原本＋GLB＋6原Camera A/B画像を保存。**この文章作成時点では最終runのSUCCESS未確認。**
+- **過去より強い独立BVH**：[全7道路＋B51原時刻BVH](../research/k4bc/independent_full_7_B48_six_B51_native_static_bvh.py)、[CI](../.github/workflows/p101-k4bc-v2-independent-all-seven-B48-B51-static-audit.yml)。描画結果のメッシュを信じず、元stageから出力したsource JSON全7本×control/ultra=14原メッシュの三角形と、B51元6時刻168 OBBを**独立に生成**、K4BC新建築コレクション（01〜04）との静的表面三角形交差を検査。Road5-onlyの限定0交差を他道路の安全性に拡張してはいけない。源全B48接触を確認したら**ART/SAT HOLD、交差の対象を報告して修正**。
+- [v2真正6元Camera A/Bとsource SHAをGitHubへ永久保存するCI](../.github/workflows/p101-k4bc-v2-pin-seven-B48-camera-art-evidence.yml)。ユーザー側PCや手動ZIP不要。
+- これでも**元sourceゲームの連続CCD/球半径0.65、FPS/HUMAN、他全時間のB51変化、ネイティブWebGL2画面そのものを証明しない**。ART正式採用0件・Slope2 DNA0mを維持。元の本番URL/main/公式継続branch/PR#46は変更禁止。
+
+**次の実作業**：CIの実ステップ、7×2 sourceメッシュSHA、K4BC v1 vs v2の元Camera6画像、全7道路とK4BC建築の独立静的交差を検証する。誤ってそのままART採用/公開してはならない。ARTは画像を見て初めて評価する。
