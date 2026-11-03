@@ -1,3 +1,16 @@
+# 【2026-11-04 K4BH最終監査・現継続入口】Source-DCC TECH PASS／ART REJECT
+
+研究ブランチ `research/k4bh-true-camera-complete-hero-composition-20261104`。最優先で[確定K4BH全文・美術評価・保護契約](docs/R19_A6P4_R2F5K4BH_TRUE_CAMERA_COMPLETE_HERO_COMPOSITION_JA.md)を読む。
+
+[修正版CI #41732617047](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41732617047) **completed/SUCCESS**、Blender編集可能原本＋元control11307 / ultra11341数値を使った真正2 PNG・旧K4BG比較PNG・SHA監査が成立。[Artifact #13276364672](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41732617047/artifacts/13276364672)、ZIP SHA256 `3c1cc2c6534a1e290a091e4484f1ce537895a8a12dcff90289efc6c7a834ecb0`。**DCC技術限定PASS**であり、美術品質ではない。
+
+- 結果：旧上部の模型的な橋を非表示にした一方、画面の大半が単調な路面と粗い平板壁、薄い二重アーチと小さな尖塔。**K4BH ART REJECT**。正式採用0件、Slope2 DNA認定0m。K4BGもART REJECTのまま。
+- 第2 CI #41732218172は旧ART非表示処理が元K4BC v2のSource6道路に衝突し保護assertで停止、**FAILURE**。修正後第三CI #41732617047のみを最新SOURCE/DCC PASSとして扱う。元B48全7・B51元28・240Hz・球0.65m・元Camera/元安全描画不変更。
+- 次はより多くの粗い箱・弧・塔の自動生成ではなく、元カメラの近景道路・都市中景・遠景の**一枚の本当に高品質な完成画面**をBlenderの実編集/マテリアル・UV/照明・公共内部として作り込む工程。ARTが認められるまでゲーム移植、他6Road展開は不可。DCC画像は実WebGL2ゲーム画面ではない。HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。
+- 元ゲームGit blob `af076d67492a677d2235e4730aef8cdf4808e106`、main、p101公式枝、Draft PR #46、本番2サイトは保護。Work事前承認制、ユーザーWindows操作不要。
+
+---
+
 # 【2026-11-04 K4BH 最新継続入口】DOPAGAKI SLOPE美術制作
 
 **最新の隔離研究枝**：`research/k4bh-true-camera-complete-hero-composition-20261104`。前K4BGは実Blender技術PASS／ART REJECT。今回の新美術制作者は [K4BH正本](docs/R19_A6P4_R2F5K4BH_TRUE_CAMERA_COMPLETE_HERO_COMPOSITION_JA.md) で再開。K4BGなど旧「最新」記述は履歴とみなす。
