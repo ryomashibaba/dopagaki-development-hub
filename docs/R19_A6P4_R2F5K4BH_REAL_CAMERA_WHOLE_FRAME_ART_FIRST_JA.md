@@ -19,3 +19,13 @@
 3. 2視点のスクリーン全体が十分高水準になるまで他4 source ticks／他6 B48道路へ自動拡大しない。真正WebGL2ゲームの画面差、球の実走行、全B51 collision時間/SAT/CCD/HUMAN/FPS/RELEASE/MERGEは**全部HOLD**。
 
 **現在**：実コードとCI定義の保存は実施。最新run/jobs/Artifactの状況と本当に生成した画像の判定は必ず最新GitHubで照合する。CI成功の見込み等を成功と報告しない。
+
+## 2026-11-04 最終工程結果：Blender技術PASS／美術REJECT
+
+- 初回CI #41730211757 **FAILURE**：元K4BG manifestで`originalBallRadiusMetres`を誤参照。実JSONは`ballRadiusMetres`。修正後CI #41730412423 **SUCCESS**。実Blender 81個の新規候補編集オブジェクト、2 Source Camera PNG、独立SHA、GitHub画像・.blend取得まで完了。ただし元Source DCC画面は白飛びと細粒のノイズが強く、旧研究ブランチの建築が重なった画面で、美術**REJECT**。
+- 第2版の初回CI #41731700195 **FAILURE**：親K4BG `.blend` 保存時にULTRA source Road5 collectionが`hide_render`であった事実に反するassert。**source Road5そのものが消えたのではない**。元モデルはそのまま維持し、`show(mode)`だけが各モードで切り替える契約へ修正。
+- 修正後の正式 **[K4BH Actions #41731969086](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41731969086) completed/SUCCESS**。真のArtifact **[#13276661753](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41731969086/artifacts/13276661753)**、ZIP **21,828,128 bytes**、SHA-256 **`286753dd6b6e4c51220cfc4d2de1e8e39b83417317befac424898cef2c7e5b97`**。ZIP CRCの独立検査PASS、manifest内のBlender `.blend`とcontrol11307 / ultra11341 真2PNGはそれぞれbytes/SHA完全一致。GitHub branch内 `docs/research-evidence/k4bh/` にも真PNG 2枚＋A/B比較＋manifest永続保存。これは実Source Camera数値を使うDCCレンダであり、元ゲームWebGL2ではない。
+- 第2版は親の真Road5 B48物理geometry fingerprint不変、カメラ数値不変、元道路PBR材質割当も維持。DCC-onlyのK4BH建築を81件、旧ART REJECTの残留描画コレクションを明示的に非表示とし、遠景塔を縮小、光量調整、道路が白くノイズ化する旧材質試行を撤回。構造を物理ゲームに導入していない。
+- **実PNGを目視した最終美術判断：K4BH ART REJECT**。良くなった箇所は旧橋・旧箱が重なり合った混雑を取り除き、左右の大型曲面シルエットと道路のパネル表現を整理できたこと。一方、道路が画面の大部分を占めて単調、中央から遠景は灰色の空と少数の奇妙な柱しか読めず、都市機能/生活感/建築内部/密度/材料の精度が世界水準には届かない。どれほどRGB差が大きくても、正式採用0件・Slope2 DNA認定0mのまま。**旧案を増築しない・この画面をゲームに持ち込まない**。
+- この実証で、従前の単なるJS自動box量産だけでなく、**数式によるBlender巨大曲面の反復生成だけでもART達成できない**と判明。次工程はSource Camera画面の構図を背景に固定し、明確な公共用途・周辺都市の連続性・本物の材質ディテール・適切なライティング・リアルな遠景を持つ **1枚のアートディレクションで完成画をまず成立させる**こと。自動生成の形状数やTECH gate数を合格基準としない。実DCCの手動作者編集ルートはユーザーのWork事前許可が必要な場合がある。勝手に使わない。
+- 未実証のゲートは **HUMAN/SAT/CCD/全B48全B51 BVH/FPS/ゲームWebGL2実装/RELEASE/MERGEすべてHOLD**。main、公式p101、Draft PR#46、本番2サイト、元Frozen blob`af076d67492a677d2235e4730aef8cdf4808e106`、球半径0.65m/240Hz/CAMERA6/B48実7/B51実28は未変更。次作業は他6道路へ横展開せず、この一つのHero区間の**実画面美術**を完成させる方法選定と、編集可能原本の本格制作用の改善から開始。
