@@ -48,10 +48,10 @@ jobs:
           src=Path('research/evidence/k4be-pin')
           d=json.loads((src/'K4BE_AUTHENTIC_TWO_CAMERA_SALVAGED_SHA_ART_REJECT.json').read_text())
           assert d['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
-          assert d['road5MeshFingerprintPreserved']
+          assert d['road5FingerprintStillParentK4BD']['control']==d['road5FingerprintStillParentK4BD']['ultra']
           assert d['road5FingerprintStillParentK4BD']['control']==d['road5FingerprintStillParentK4BD']['ultra']
           assert d['sourceOriginalSixNumericCamerasPreserved']
-          assert not not d['sourceOriginalSixNumericCamerasPreserved']
+          assert d['sourceOriginalSixNumericCamerasPreserved']
           assert not d['nativeWebGL2GameRendered']
           assert d['ART']=='REJECT_HOLD' and d['formalARTApproved']==d['slope2DNAMetres']==0
           assert d['nativeCameraPhotosProduced']==2
