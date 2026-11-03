@@ -1,3 +1,14 @@
+## 【確定 2026-11-03 09:29 JST — K4AG真正56条件の独立監査成功】
+
+- [K4AG GitHub Actions #41552778225](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41552778225) **completed / success**。K4Z元82PNG SHA、K4AF真正84-masks生JSON SHA固定、K4ADの元Source GPU mesh描画ビルド・元Source Blob、元球/カメラ/tick11280/240Hz固定、2幅×28 ID=56個別WebGL2 GPU depth成功、独立監査成功。元描画72、個別除去71、全B51除去44、非表示前後の元深度完全復元、すべての個別depthが元深度以上かつ全B51除去深度以下、nearer depth創出0。
+- [K4AG真正Artifact #13192687645](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41552778225/artifacts/13192687645)：ZIP 8,316,226 bytes、SHA-256 `86f27ab7310835c405932b29049ac180d7e69d0987f19be5059fe15099bcbd61`、独立CRC **68ファイル全PASS**。生データJSON SHA `7671c488ea4209e02d2214cb398c9e3edf8b37d312188d0f201529bbb5ba347a`、独立監査JSON SHA `92b88857c05720153599df0d1ffae80a875ad0e5b41ef9de5cccc6416eddf9cb`、56行CSV SHA `f96f8ab3eec039b9d33c471daf205091d78dcab036ab204c95dfea0abd36b48c`。真正Source IDを推測せずに実描画から取得。
+- **原因個体を同定：`p95-hazard-12`**。28m・47.0秒の元Source深度からこの**1体**だけのB51視覚ボディを除去すると、**5,972/11,176（53.436%）**が奥へ移動し、元B51全群28体を除去した場合と**全11,176深度サンプルの差分一致**。14mではこの個体の寄与53/11,176（0.474%）。他の27体（P95ほか11・A13 16）個別除去時の該当深度差は**0/11,176**。これはtick11280の同一2幅だけの事実であり、常時問題や碰撞の異常を断言しない。
+- Source design contract: [`web/p95-hazard-layout.mjs`](../web/p95-hazard-layout.mjs)の12番目は`[roadIndex=5,u=.73,typeIndex=2,lateralOffset=+8m]`。[生成器 `scripts/p95-void-hazard-build.mjs`](../scripts/p95-void-hazard-build.mjs)のtype 2は**piston / VERTICAL PRESS**、size=[8,3,7.5]m、position=road5のu=.73で右方向+8mの位置から上に+6.4m、vertical stroke=8m、collision mode=`push`。これらは**元source設計記述**であり、47秒の正確な実OBB座標・cameraとの分離距離・接触判定は**まだ計測していない**。
+- **次の正しい工程K4AH**：元B51の`movingObstaclePose`を元ドキュメントで直接評価し、47.0秒の2幅の元Eye/Frontとp95-hazard-12のOBB center, size, yaw、ball-to-boxとeye-to-boxの分離距離を**read-only**で実測。元にある`sphereBoxSeparation`関数を使い、映る前景面積とcamera / OBB最短距離の関係を検証。collisionの正当性、プレイヤーの避けやすさ、ART採用は人間による別試験で審査。B51元データの無断再配置・縮小や新Collider、元ゲーム変更は禁止。
+- 固定HOLD：元球/元240Hz/カメラ/B48 7/B51 28/Gold/P100/W9-X/B5/main/本番URL/PR #46不変更。正式ART0件、Slope2 DNA0m、人体/SAT/CCD/FPS/RELEASE/MERGE HOLD。K4AGは**SOURCE TECH限定PASS**、ARTはHOLD。
+
+---
+
 # DOPAGAKI SLOPE — K4AG 元B51障害物28個の単体GPU遮蔽原因特定（ART HOLD）
 
 2026-11-03 JST。**ART-FIRST、独立審査、元ゲーム保護・main変更禁止。**
