@@ -33,3 +33,16 @@
 4. 認定候補が初めて現れた場合のみprivate WebGL2 A/B→元240Hz走行→安全/HUMAN/FPSを全て別審査。ART合格前に本番・PR#46・mainへ移植しない。
 
 *作業権限：Chat＋GitHub、Work事前承認。ローカルPCでユーザーにZIPを求めない。*
+
+## 実測更新：K4AY CI2の真source抽出PASS、実DCC画像のART REJECT
+
+- [#41611172565](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41611172565) は**workflow全体FAIL**（Blender 4.0.2 のGLB輸出時 `ModuleNotFoundError: numpy`）。ただしsource Nodeテスト3/3 PASS、K4AX編集可能原本の真正SHA照合PASS、Blenderソース画像6PNGの保存と`.blend`別名保存まではCIログで確認。
+- 調査Artifact [#13219306598](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41611172565/artifacts/13219306598) は**失敗中の部分成果でありDCC統合完成PASSではない**。これを独立ダウンロードして画像6枚を直接目視した。
+- source Road5 = **B48 index5、ID `p93-PRISM_CREST-01`**。CONTROL/ULTRA両方、制御点SHA256は`5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730`、source `tessellate()`結果4,728三角形（top 2,160）、longitudinal void cellsは空。両stageでは**Road5同形状**である。
+- K4AX参照画像の6原Cameraの近接物理道路候補は全時点Road5 index5、sample grid近似距離はcontrol 1.716/5.184/1.364m、ultra 1.825/3.771/1.212m。これはgrid上の最近傍サンプル距離であって球の安全クリアランスではない。
+- 時刻別B51 6tick×28=168個、K4AIに照合済みのsource seconds=tick/240、CONTROL/ULTRA source B51 descriptor hash一致をCIで確認。衝突OBBを元ゲームの視覚メッシュと誤認しない。
+
+**実際の6 DCC写真を直接審査した結果**：ART REJECT。非常に広い白い平面がフレームを占め、公共ホール屋根が左上で切れ、塔が右に孤立し、道路沿いの都市空間や用途、人間スケール、建築連続性・地形密度が読み取れない。紫色の巨大ボックスはあくまでB51 source COLLISION OBB参照でゲーム美術ではない。さらにK4AXの「NONPHYSICAL LANDSCAPE backdrop」が元Road5実道路を覆っている可能性があるため、後続のsource geometry視覚審査では**偽の地形を描画から明示的に外し、B51 COLLISION OBBは透視可能な線枠に変える**。どちらも元ゲームのsourceを削除・変更する行為ではなく、DCC調査目的だけ。
+
+- CI3 [#41611613661](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41611613661) はCI2のNumPy不足を `python3-numpy` 導入で修正して再実行。最終statusはAPIで照合が必要。
+- 次は元データを使ったDCC参照の実road露出、B51 proxyの誤解のない枠表示、**大胆な都市造形再設計**。表面的な色替えや単純BOX追加は引き続き禁止。
