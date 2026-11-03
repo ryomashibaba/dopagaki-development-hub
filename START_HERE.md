@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BI最終確定・次回第一入口】真正Blender TECH PASS／美術REJECT
+
+**継続最新研究枝**：`research/k4bi-road-surface-facade-craft-20261104`。必ず[K4BI最終実行報告・美術評価](docs/R19_A6P4_R2F5K4BI_ORIGINAL_CAMERA_ROAD_PBR_CIVIC_FACADE_JA.md)を先に読む。
+
+- [最終Source DCC CI #41740606366](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41740606366) **completed/SUCCESS**。元B48 Road5頂点・面fingerprint、真正元control11307/ultra11341のカメラ数値、凍結元ゲームBlob、Blender親原本SHAを確認し、編集可能Blender + 2元Camera PNG + K4BH同フレーム比較PNG + SHA JSONができた。真正[Artifact #13281034575](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41740606366/artifacts/13281034575)、ZIP SHA256 `03ecbc210290d030884e42b5e09efa2f01aac8e7210bb2d19bf2c832e0621539`。見た目がよくなるよう路面マーカー、深い外装、室内窓、細い海色の縁を新たに制作者したが、**依然フラットで反復的な都市、寂しい奥行き、広く単調な路面、粒状ノイズが残りART REJECT**。
+- 中間[CI #41740364212](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41740364212)はBlenderのOpenImageDenoiser非対応によりFAILURE。修正後96samples無デノイズで成功、最終成果物を独立再検査。再発防止としてOIDN依存は使わない。
+- **正式ART採用0件・Slope2 DNA正式認定0m**。これは元WebGL2画面ではなく真正Source Camera数値からのBlender DCC研究。HUMAN/SAT/CCD/FPS/ART/RELEASE/MERGE全HOLD。主目的は世界水準のレーシングゲームの**全コース美術**、ただしRoad5のHero ART合格までは他6Road展開・ゲーム本体への統合不可。箱・細線・同じ窓を増やす作業は停止し、一画面の独自の高級な本物の美術制作へ優先度を上げる。
+- 元source `af076d67492a677d2235e4730aef8cdf4808e106`、240Hz/0.65m／元B48全7・B51全28・元Camera6・安全表示、main/公式p101/Draft PR#46/本番2サイト不変更。Work事前承認、ユーザーWindows操作不要。
+
+---
+
 # 【2026-11-04 K4BI 現在の第一入口】DOPAGAKI SLOPE 真正ロードPBR・建築外装
 
 **最新継続研究枝**：`research/k4bi-road-surface-facade-craft-20261104`、前K4BH `3718a6a39288dfc51a3d28abcdb0371d06202010` から隔離。まず[新K4BIの固定美術課題・研究原本](docs/R19_A6P4_R2F5K4BI_ORIGINAL_CAMERA_ROAD_PBR_CIVIC_FACADE_JA.md)を読む。旧K4BHはSOURCE/DCC技術PASS／**ART REJECT**、正式ART採用0件、Slope2 DNA 0m。
