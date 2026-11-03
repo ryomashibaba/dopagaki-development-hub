@@ -26,7 +26,7 @@ jobs:
           python3 -m py_compile research/k4be/independent_all7_B48_168_B51_new_urban_forum_bvh.py
       - name: Require successful exact K4BE two-camera source editing run
         env:
-          GH_TOKEN: \${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           for count in $(seq 1 85); do
@@ -42,21 +42,21 @@ jobs:
           name: K4BE_ALL7_SOURCE_TWO_CAMERA_INTEGRATED_TIDAL_FORUM_ART_HOLD
           repository: ryomashibaba/dopagaki-development-hub
           run-id: 41656920221
-          github-token: \${{ github.token }}
+          github-token: ${{ github.token }}
           path: research/evidence/k4be-audit/edited
       - uses: actions/download-artifact@v4
         with:
           name: K4BC_V2_REAL_ALL_SEVEN_ORIGINAL_B48_EDITABLE_SOURCE_CAMERA_DCC_ART_HOLD
           repository: ryomashibaba/dopagaki-development-hub
           run-id: 41638891877
-          github-token: \${{ github.token }}
+          github-token: ${{ github.token }}
           path: research/evidence/k4be-audit/all7
       - uses: actions/download-artifact@v4
         with:
           name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
           repository: ryomashibaba/dopagaki-development-hub
           run-id: 41612254866
-          github-token: \${{ github.token }}
+          github-token: ${{ github.token }}
           path: research/evidence/k4be-audit/native
       - name: Independently validate source SHA and scope before accepting limited survey
         run: |
