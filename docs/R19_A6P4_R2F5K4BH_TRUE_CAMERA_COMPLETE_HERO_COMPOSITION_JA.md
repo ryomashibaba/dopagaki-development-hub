@@ -33,3 +33,13 @@
 [CI #41732218172](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41732218172)は**completed/FAILURE**。Blender起動直後、明示的な`assert c not in OTHERS.values()`が失敗。理由：単純な`startswith('K4BC ')`には旧不採用ARTだけでなく、本物の`K4BC v2 | TRUE ORIGINAL SOURCE OTHER SIX B48`も含まれる。保護assertによりデータ変更前に停止。レンダー0、Artifact実画像0。前CIの成功と混同しない。
 
 修正`0edf7e44a2aa37f685bbef10fe0ae204777c706e`は、描画非表示処理前に元K4BC v2の6道路・元K4AY source・本物のカメラRigを明示除外する。新[CI #41732617047](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41732617047)の実結果が出るまで新ART評価禁止、ART採用0件／Slope2 DNA 0m／全HOLD維持。
+
+
+## 【2026-11-04 K4BH最終：SOURCE/DCC TECH PASS、ART REJECT】真実の結果と次工程
+
+1. [修正後の真正CI #41732617047](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41732617047) は **completed/SUCCESS**。初回CI #41731470838もSOURCE/DCC技術SUCCESS。中間 #41732218172 は古いARTを隠す条件が元`K4BC v2`源6Roadまで含み、Fail-closedで停止したため明確に**FAILURE**。修正`0edf7e44a2aa37f685bbef10fe0ae204777c706e`は真正Source road6を例外処理で保護し、旧不採用ARTのみ描画OFF。
+2. 修正版の真正 [Artifact #13276364672](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41732617047/artifacts/13276364672)、ZIP SHA256 `3c1cc2c6534a1e290a091e4484f1ce537895a8a12dcff90289efc6c7a834ecb0`。ZIP CRC0件／.blend・control11307/ultra11341真正Source Camera DCC二PNG・旧K4BG同pose比較PNG・SHA JSON全検証。Blender編集可能新DCCオブジェクト61。旧不採用render OFFコレクション51、削除0。
+3. Source完全性：ゲーム凍結blob `af076d67492a677d2235e4730aef8cdf4808e106`。本物のRoad5の頂点/面fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元control/ultra camera数値変更なし、元7 B48／28 B51／240Hz／球0.65m／操作・当たり判定に変更なし。DCC研究内のRoad5**見た目の材質のみ変更**。本物のゲーム画面として認定しない。
+4. **美術は明確にART REJECT**。比較PNGを直接目視した結果、旧模型状の巨大橋を消すと左右に平板な大断面壁が現れ、依然として前景路面が画面の広範囲を占め、粗いメタリックな一様質感・単調な反射とノイズ・遠方の細い2重アーチ・小さな尖塔だけが読める。公共用途、道路ディテール、素材の高級感、近中遠景の密度、速度の迫力が不十分。従来より画像の混線は減ったが、**美術完成度が高まったとは認定しない**。
+5. 次工程の決定的な方針：この方法のまま箱、金属弧、遠景塔をプログラムで増殖させることを停止。まずフルフレームの近景が上質なレーシング路面に見える固有の造形・PBR/UV・路面端の施工精度、近中距離の高密度都市階層・大空洞の内部・ランドスケープとライティングを、単一の**完成画面**に達するようBlender編集可能原本で丁寧に作者制作する。正式ART合格後のみ本物のWebGL2同source cameraへ反映し、B51前後や走行安全性を独立検査する。こちらのDCC用Source Camera画像は現実のゲームB51見え方を再現していない。
+6. **最終ゲート**：ART正式採用0件／Slope2 DNA正式認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。新しい美術を他6Roadへ横展開、実ゲームに統合、main/本番/公式p101/PR#46へ反映することは不可。Work事前許可・ユーザー操作最小の方針を継続。K4BH TECH PASSをART PASSと混同しない。
