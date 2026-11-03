@@ -1,0 +1,253 @@
+{
+  "schema": "dopagaki.K4BC.v3.true-original-camera-framed-offroad-civic-sky-museum/1",
+  "originalFrozenGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalSourceRoadCount": 7,
+  "originalB51Movers": 28,
+  "sourcePhysicsHz": 240,
+  "exactSourceRoad5Before": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "exactSourceRoad5After": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "originalSourceB48Road5Unmodified": true,
+  "originalOtherB48NativeModeCollectionsMaintained": 12,
+  "trueOriginalSourceB48RoadIDs": [
+    "p93-ABYSS_DIVE-01",
+    "p93-CROWN_REVERSAL-01",
+    "p93-SCISSOR_RISE-01",
+    "p93-LOWER_REVERSAL-01",
+    "p93-VOID_SURGE-01",
+    "p93-PRISM_CREST-01",
+    "p93-FINISH_RIDGE-01"
+  ],
+  "originalB51SourceOBBInstances": 168,
+  "originalCameraNumericsUnchanged": true,
+  "newEditableOffroadMassAndPublicSkyMuseumObjects": 163,
+  "oldRejectedK4BCSkylinePreservedButHidden": true,
+  "sourceActualRoad6CentrelineWasMeasuredNotInvented": true,
+  "sourceCameraAngularLayoutDegreesMeasuredNotViewportPixels": {
+    "control": [
+      {
+        "tick": 11259,
+        "westCivicBaseAngles": [
+          -22.5902,
+          5.4052
+        ],
+        "eastCivicBaseAngles": [
+          10.6332,
+          5.4071
+        ],
+        "museumLowerCentralAngles": [
+          -5.4857,
+          19.1382
+        ],
+        "museumRoofCentralAngles": [
+          -5.5926,
+          24.9363
+        ]
+      },
+      {
+        "tick": 11278,
+        "westCivicBaseAngles": [
+          -22.2439,
+          4.8348
+        ],
+        "eastCivicBaseAngles": [
+          12.3692,
+          4.7684
+        ],
+        "museumLowerCentralAngles": [
+          -4.415,
+          19.1519
+        ],
+        "museumRoofCentralAngles": [
+          -4.5052,
+          25.2055
+        ]
+      },
+      {
+        "tick": 11307,
+        "westCivicBaseAngles": [
+          -21.9977,
+          3.8991
+        ],
+        "eastCivicBaseAngles": [
+          14.9829,
+          3.6977
+        ],
+        "museumLowerCentralAngles": [
+          -2.9412,
+          19.2237
+        ],
+        "museumRoofCentralAngles": [
+          -3.0061,
+          25.7187
+        ]
+      }
+    ],
+    "ultra": [
+      {
+        "tick": 11320,
+        "westCivicBaseAngles": [
+          -22.577,
+          5.4125
+        ],
+        "eastCivicBaseAngles": [
+          10.6322,
+          5.4137
+        ],
+        "museumLowerCentralAngles": [
+          -5.4801,
+          19.1387
+        ],
+        "museumRoofCentralAngles": [
+          -5.5869,
+          24.9342
+        ]
+      },
+      {
+        "tick": 11341,
+        "westCivicBaseAngles": [
+          -22.259,
+          4.7788
+        ],
+        "eastCivicBaseAngles": [
+          12.4887,
+          4.7072
+        ],
+        "museumLowerCentralAngles": [
+          -4.3629,
+          19.1549
+        ],
+        "museumRoofCentralAngles": [
+          -4.4524,
+          25.2338
+        ]
+      },
+      {
+        "tick": 11369,
+        "westCivicBaseAngles": [
+          -22.0019,
+          3.8759
+        ],
+        "eastCivicBaseAngles": [
+          15.0402,
+          3.6704
+        ],
+        "museumLowerCentralAngles": [
+          -2.9151,
+          19.2272
+        ],
+        "museumRoofCentralAngles": [
+          -2.9796,
+          25.7338
+        ]
+      }
+    ]
+  },
+  "noNewDriveableGameRoad": true,
+  "noNativeGameCollisionOrPhysicsChanges": true,
+  "nativeWebGL2Screenshots": false,
+  "sourceOriginalPhysicsRun": false,
+  "newAll7SourceStaticBVH": "NOT_YET_TESTED_HOLD",
+  "ART": "REJECT_HOLD",
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "formalArtAccepted": 0,
+  "Slope2DNACertifiedMetres": 0,
+  "sourceOriginalCameraSixDCCShots": [
+    {
+      "mode": "control",
+      "sourceTick": 11259,
+      "sourceSeconds": 46.9125,
+      "trueSourceCameraImageSHA256": "6269eb803a2cb46c9c18a9a4b510aeb121d6c8daa7e8074776a2442199d65891",
+      "nativeB51SourceOBBCount": 28,
+      "dccPNG": "K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_CONTROL_11259.png"
+    },
+    {
+      "mode": "control",
+      "sourceTick": 11278,
+      "sourceSeconds": 46.99166666666667,
+      "trueSourceCameraImageSHA256": "8075dceb4e656cf36aed98aa1ce3e50fbebd5781e6a0ee114f14c889db8b9cb3",
+      "nativeB51SourceOBBCount": 28,
+      "dccPNG": "K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_CONTROL_11278.png"
+    },
+    {
+      "mode": "control",
+      "sourceTick": 11307,
+      "sourceSeconds": 47.1125,
+      "trueSourceCameraImageSHA256": "ffb85461e76f15d96831bdb8f89c5bd2fe18817b435ce2f1cf854807709b1558",
+      "nativeB51SourceOBBCount": 28,
+      "dccPNG": "K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_CONTROL_11307.png"
+    },
+    {
+      "mode": "ultra",
+      "sourceTick": 11320,
+      "sourceSeconds": 47.166666666666664,
+      "trueSourceCameraImageSHA256": "d1719df89cee4c1af300187c874de6fdf365203d20d8869e06a52205755ea9ed",
+      "nativeB51SourceOBBCount": 28,
+      "dccPNG": "K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_ULTRA_11320.png"
+    },
+    {
+      "mode": "ultra",
+      "sourceTick": 11341,
+      "sourceSeconds": 47.25416666666667,
+      "trueSourceCameraImageSHA256": "fe22062d3bf0abd764448d9b6b8d52a55f24ff84e7ee79b6fe04f674427861dc",
+      "nativeB51SourceOBBCount": 28,
+      "dccPNG": "K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_ULTRA_11341.png"
+    },
+    {
+      "mode": "ultra",
+      "sourceTick": 11369,
+      "sourceSeconds": 47.37083333333333,
+      "trueSourceCameraImageSHA256": "fd5895bff1142e24dbfb3df84bf3f5dc9c6fff43db8cc508ffc1c985e73a5471",
+      "nativeB51SourceOBBCount": 28,
+      "dccPNG": "K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_ULTRA_11369.png"
+    }
+  ],
+  "files": {
+    "K4BC_V3_ACTUAL_SOURCE_CAMERA_FRAMED_CITY_EDITABLE_ART_HOLD.blend": {
+      "bytes": 31337468,
+      "sha256": "6d341ac3ee1625e491f72efa49775074ed48738fad7f4ef74f3ee49e0c3611e4"
+    },
+    "K4BC_V3_ALL7_SOURCE_CIVIC_COMPOSITION_DCC_NOT_GAME.glb": {
+      "bytes": 21906364,
+      "sha256": "efda98912cffa7413b1ed04df770551680121bad5bb8ece11721003c7e371481"
+    },
+    "K4BC_V3_CIVIC_MUSEUM_AND_NATIVE_ROAD6_AERIAL_NOT_GAME.png": {
+      "bytes": 875446,
+      "sha256": "dc8374052279043f9a201e01b4af98e8ac500016ce96512dab58061113bde37a"
+    },
+    "K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_CONTROL_11259.png": {
+      "bytes": 1281607,
+      "sha256": "9dec67f1017a2f44285cd9d5b27db8d6b4c9e1ced1ab32ed9dc5acc059fa5507"
+    },
+    "K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_CONTROL_11278.png": {
+      "bytes": 1205953,
+      "sha256": "d1ef245f9e8587917afeb26ea97bc9eed4826948a150f81b60d98009e608071d"
+    },
+    "K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_CONTROL_11307.png": {
+      "bytes": 1282919,
+      "sha256": "df8a4137f00149fe06f6f1715e2d5fa7a7b69367a0a325f0021506b06a98df35"
+    },
+    "K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_ULTRA_11320.png": {
+      "bytes": 1283028,
+      "sha256": "e492fe8ba30864216855338db122a91be2c162c95dfa8e95a210857041f1d1ef"
+    },
+    "K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_ULTRA_11341.png": {
+      "bytes": 1297017,
+      "sha256": "1acd71b47657079a35b74b89274bba773fb677eb1173453c03d78b3d4fec866c"
+    },
+    "K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_ULTRA_11369.png": {
+      "bytes": 1283644,
+      "sha256": "d12a1d4c2a7f106d5aaa00bdfa384b44a61c4e8a723948371c2c5257beb8b5e7"
+    }
+  }
+}
