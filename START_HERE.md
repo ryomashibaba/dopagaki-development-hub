@@ -1,3 +1,13 @@
+# 【2026-11-04 K4BI 現在の第一入口】DOPAGAKI SLOPE 真正ロードPBR・建築外装
+
+**最新継続研究枝**：`research/k4bi-road-surface-facade-craft-20261104`、前K4BH `3718a6a39288dfc51a3d28abcdb0371d06202010` から隔離。まず[新K4BIの固定美術課題・研究原本](docs/R19_A6P4_R2F5K4BI_ORIGINAL_CAMERA_ROAD_PBR_CIVIC_FACADE_JA.md)を読む。旧K4BHはSOURCE/DCC技術PASS／**ART REJECT**、正式ART採用0件、Slope2 DNA 0m。
+
+**今回の実制作**：`scripts/p101-k4bi-road-surface-civic-facade-craft.py` で、元Blender編集可能K4BH原本・元Road5形状とCameraをハッシュ固定したまま、原メッシュ上の物理PBR塗装レイヤ・深い建築窓・庇・室内照明・道路端の安全色彩と公共インテリアを実DCC制作。これは**新しいカメラを作ったコンセプト画像ではなく**、固定された元control11307/ultra11341の編集可能3D study。実ゲームWebGL2画面でも合格ARTでもない。 [GitHub Actions #41739572392](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41739572392) の**completed/conclusion・真正画像・独立SHAを再照合すること**。結果未確認でSUCCESS/美術合格とは書かない。
+
+元ゲームsource blob `af076d67492a677d2235e4730aef8cdf4808e106`、B48元7道路/B51元28/240Hz/球0.65m/元6Camera、main、公式p101、Draft PR #46、本番サイトを保護。元ゲームの新規Collider・安全な施工・SAT/CCD/HUMAN/FPS/RELEASE/MERGEは未証明/HOLD。Work事前承認。ユーザーWindows操作要求無し。続行は最新研究ブランチのみ、ART合格までゲーム移植と他Road横展開をしない。
+
+---
+
 # 【2026-11-04 K4BH最終監査・現継続入口】Source-DCC TECH PASS／ART REJECT
 
 研究ブランチ `research/k4bh-true-camera-complete-hero-composition-20261104`。最優先で[確定K4BH全文・美術評価・保護契約](docs/R19_A6P4_R2F5K4BH_TRUE_CAMERA_COMPLETE_HERO_COMPOSITION_JA.md)を読む。
