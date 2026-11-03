@@ -1,3 +1,17 @@
+# 【K4BE最新・2026-11-03】元Cameraで都市機能が読める巨大公共ホールへの継続
+
+**最優先の正本：** [K4BE設計・SOURCE保護・実作業正本](docs/R19_A6P4_R2F5K4BE_SOURCE_CAMERA_COHERENT_TIDAL_FORUM_JA.md) と [K4BD完全統合引継](docs/continuity/HANDOFF_20261103_K4BD_TO_NEW_CHAT_COMPLETE_JA.md)。旧K4BD/K4BC/K4BBの「最新」は過去時点の見出しであり本上段を優先。
+
+- 現研究枝は research/k4be-camera-first-integrated-urban-civic-hall-20261103。K4BD最新完成HEAD 702805d4b58d7ff8f6bf99157dd25a02d3fc83e9 から隔離分岐。元ゲームmain／本番URL／公式継続枝 p101-velocity-overdrive-native-trial／Draft PR #46を変更禁止。
+- 元Road5本物91×13・4,728面／全7元B48×control/ultra＝14meshes/66,192triangles／元B51六元時刻×28=168collision OBB／240Hz・球半径0.65m・元source Camera6t・操作・安全表示・元WebGL2凍結blob af076d67492a677d2235e4730aef8cdf4808e106 を絶対保持。真正WebGL2ゲームフレームとDCCを混同禁止。
+- K4BD実ARTはREJECT。2元Camera画像から、Road5が画面の大半を占め、橋上の薄い屋根/単純な都市模型、地形・公共用途の説得力不足と判断。別の路面PBR・細棒/box/アーチの量産による反復を禁止。
+- K4BE制作器 [Blender実コード](scripts/p101-k4be-source-camera-integrated-tidal-forum.py)を新規実装。元K4BD編集可能原本を保持した上で旧模型的4コレクションを削除せず表示OFF、真Road5/6に位置合わせした左右の連続した大規模公共図書室・海岸科学温室・中央Tidal Forumを実床/壁/入口/階段広場/湾曲屋根/支持/室内照明まで作り直し。源game colliderやdriveable-roadは追加しない。
+- **検証の正当な順番**：実元Camera control11307／ultra11341の低コスト2枚pilot→実画像のART厳格レビュー→本当に良い場合のみ4視点追加→元全7道路/B51の独立限定BVH→GitHub原本/SHA/画像永続保存。Blender-only画像が完成してもART未合格はREJECT。劇的に見栄えが変わらない場合は不採用。
+- 現行2Camera CI [Actions #41657612279](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41657612279)、独立全7 B48/B51監査 [Actions #41657700442](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41657700442)、直接画像保存 [Actions #41657709190](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41657709190)。**CI完了・実PNG・元source SHA・監査JSONを確認する前にSUCCESSと書かない**。初回 #41656920221 はartifact tokenのバックスラッシュ誤りでFAIL、元SOURCEテストのみ通過した履歴を保存。
+- 恒久HOLD：正式ART採用0件・Slope2 DNA認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。Work事前承認制、Chat＋GitHub中心、ユーザーPCローカル操作不要。
+
+---
+
 # 【最新版 2026-11-03 K4BD 完了／新チャットからの入口】DOPAGAKI SLOPE
 
 **最初に[完全統合K4BD→新チャット引き継ぎ正本](docs/continuity/HANDOFF_20261103_K4BD_TO_NEW_CHAT_COMPLETE_JA.md)を読むこと。** 最新研究枝 `research/k4bd-source-road5-civic-deck-material-architecture-20261103`。下の古いK4BC/K4BD進行中記録より、**この先頭・引き継ぎ正本・現在のGitHub Actions実結果**を優先。ユーザーの過去決定・反省を蒸し返さず継承。
