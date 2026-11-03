@@ -1,3 +1,13 @@
+## 【2026-11-03 更新：元1,442時点の実測取得済み／独立再監査実行中】
+
+- [通常run #41559179613](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41559179613) は最終の独立Node監査でFAIL。真のChromium 2幅×721tickの全データ取得、元K4Z82PNG SHA・元K4AFの14 original+14 B51 group mask GPU depth+14復元、および元K4AHの14幾何関数再実行はすべてPASS。最後のコードだけ`a.geometry.signedEyePointToOBBMeters`という**存在しない項目名**を読み、`undefined`比較でFAIL。正しくは`a.geometry.signedCameraEyePointToOBBMeters`。元実測データや許容幅は一切修正していない。
+- [元真実Artifact #13196762115](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41559179613/artifacts/13196762115)：ZIP実ダウンロードSHA256 `213fd11a78d4785683081fd1d6ee617b01c8ecaaab2227afff4280d80ff6c502`、**46ファイルCRC全一致**。`K4AI_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json` SHA256 `e04c9990ebc2573467e8d95cd3e497a7a6059a9f12384f46507c3c1dfdc0eb60`、`K4AI_INDEPENDENT_SOURCE_GPU_GEOMETRY_AUDIT.json` SHA256 `a39adcaf8b71068e4a37ce5421a7927a6159e6a9fcd52aedcd4f4e6d8ef3143d`。真正14画面/深度を継承する根拠。
+- **再計算した生値（監査の残り条件は未合格）**：14m=最短camera-OBB `−0.9748613671m`/tick11341（47.2542秒）、eyeInsideOBB 10tick、眼距離≤1m 14tick、source`runner.surface`null 0tick。28m=最短camera-OBB `+0.4478183666m`/tick11278（46.9917秒）、eyeInsideOBB 0tick、眼距離≤1m 8tick、source`runner.surface`nullと`grounded=false`31tick。2幅とも原`runner.status`全721tick`running`。**元カメラ・障害物の幾何記録**であり、衝突不具合・視界遮蔽の秒数・ART合否を意味しない。
+- 静的型名の修正後、元Chromiumを全面再実行する[通常CI #41560614512](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41560614512)に加え、真生データのSHAを固定して元K4Z/K4AF/K4AH参照を独立に再ダウンロードする**高速再監査専用CI [#41561002955](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41561002955)**も追加。後者は元Chromiumを再起動せずに1,442tick元関数再実行・14元GPUアンカー・10改ざん負例を監査する。**現時点でどちらも未成功なので、K4AI TECH正式PASSはHOLD**。
+- GitHub研究ブランチのみ改修。main/本番/PR#46/Gold/元球/240Hz/Camera/B48 7/B51 28/元Source blob全不変、正式ART0件・Slope2 DNA0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。
+
+---
+
 ## 【暫定実測：14mの真正721tickは旧FAIL Artifact内で保存済み】
 
 - [K4AI第1修正版CI #41558189309](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41558189309) は結果として`failure`。Artifact #13196385604（ZIP SHA256 `3bec6818b9bdb6435cc4e333010f253e1e1b9c5545015e21a54ca95e54204cc3`、43メンバーCRC全PASS）を実ダウンロードし、`K4AI_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json` SHA `fca34f8d3972690e9b952dd0da64786e34062ffb3b463d53c48b00f09a6be218` を計算。**ultra=14mの7真正元PNG/7元GPU mask/7深度復元/721/721元物理tickの原生JSONは保存成功、control=28mでsource road nullに対する研究用assert誤りによって中断**。
