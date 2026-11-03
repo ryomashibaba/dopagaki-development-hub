@@ -1,3 +1,17 @@
+# 【2026-11-03 最新・K4BC v3完了／次工程へ】DOPAGAKI SLOPE 継続入口
+
+**この先頭を旧K4BC初版、K4BB、K4BA、K4AZの「最新」より優先すること。固定ART HOLDは変更しない。**
+
+- 研究ブランチ：`research/k4bc-road5-source-camera-civic-monument-recomposition-20261103`。完全な正本：[K4BC全工程とv3実証](docs/R19_A6P4_R2F5K4BC_SOURCE_CAMERA_READABLE_CIVIC_DISTRICT_JA.md)。前K4BBの正式HEAD `9800d65b71f719347f9d467ef90199791925b511`から派生。
+- **元B48全7道路を真ソースで導入**：元の`generateP101W9C1AbyssCandidate`＋`tessellate()`をread-only実行、control＋ultraの7×2＝14原メッシュ66,192三角形をDCC source sceneへ導入（Road5元物理mesh 4,728 triangles / source points SHA維持）。原B51 28体×source6Camera tick=168実物理OBB。元球半径0.65m／240Hz／camera/操作/衝突/ロード安全表示を変更しない。
+- **v3実装と実証**：Blenderの元6source Cameraの方位から正面都市の構図を再計算。真Road6の実幅を計測し、路外の左右公共施設とRoad6上空の幅広い非衝突DCC専用公共ミュージアムを編集可能Blender/GLBで造形。**v3 DCC/同Camera画像のCI [#41640544530](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41640544530) completed SUCCESS**、Artifact #13232364254。主役が真正Cameraの中央に実際に入るようになったが、都市・路面・屋内の美術レベルが不十分で**ART REJECT**。
+- **v3独立・全7道路の静的BVH**：[Actions #41642883010](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41642883010) **completed SUCCESS**、Artifact #13233801620。K4BC v3含む475件／114,064評価面 vs 本物B48全7×control/ultra=14メッシュ・66,192面＋B51実時刻OBB168件の静的三角形交差**0件/0件**。**元ゲーム連続CCD、球半径0.65mを考慮した接近クリアランス、全元時刻、人間操作、FPSやARTは未認定**。
+- **実6Camera画像をZIP無しでGitHub閲覧**：[v3とv2全6Camera A/B](docs/research-evidence/k4bc-v3/K4BC_V3_REAL_SOURCE_ALL7_SIX_CAMERA_V2_AB_ART_REJECT.png)、[v3 control11307 DCC](docs/research-evidence/k4bc-v3/K4BC_V3_REAL_CONTROL_11307_DCC_ART_REJECT.png)、[v3航空DCC](docs/research-evidence/k4bc-v3/K4BC_V3_DESIGN_AERIAL_NOT_GAME_ART_REJECT.png)、[SHA/原source provenance](docs/research-evidence/k4bc-v3/K4BC_V3_ORIGINAL_ROADS_CAMERA_SHA_HOLD.json)。保存CI #41642553268 **SUCCESS**。Blender DCC画像は元のWebGL2ゲーム画面ではない。
+- **次工程：全画面美術をさらに根本改善**。巨大で単調な前景道路の構造意匠・リアルな舗装質感、左右の公共用途が走行Cameraで読める建築断面、外観の構造/階層/人のスケール、都市の周辺街区を、編集可能DCC原本から完成品質へ再制作。雑なbox/棒/アーチの追加、軽微な色替えやCI greenだけでの美術採用は禁止。
+- **恒久契約**：正式ART採用0件、Slope2 DNA認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。元game frozen blob `af076d67492a677d2235e4730aef8cdf4808e106`。main・production・公式継続`p101-velocity-overdrive-native-trial`・Draft PR #46未変更/未マージ。Chat＋GitHub中心、Workは必ず事前承認、ユーザーPCローカル操作不要。
+
+---
+
 # 【最優先・2026-11-03 K4BC 再開】DOPAGAKI SLOPE — 真のB48全7道路とCameraフレーム美術
 
 **旧K4BB/K4BA/K4AZの「最新」は過去記録。最新研究枝は`research/k4bc-road5-source-camera-civic-monument-recomposition-20261103`で、正本は[`docs/R19_A6P4_R2F5K4BC_SOURCE_CAMERA_READABLE_CIVIC_DISTRICT_JA.md`](docs/R19_A6P4_R2F5K4BC_SOURCE_CAMERA_READABLE_CIVIC_DISTRICT_JA.md)。K4BB HEAD `9800d65b71f719347f9d467ef90199791925b511`から独立。**
