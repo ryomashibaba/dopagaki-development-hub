@@ -1,3 +1,11 @@
+## 【修正版専用CI 2026-11-03：内部camera設定名の不一致を修正】
+
+- 初回K4AI [#41557465698](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41557465698) は元source/K4Z82/K4AF84/K4AH14 SHAと隔離ビルドを通過し、真正Chromium実行で停止した時点で研究者が元`web/drive3d.mjs`を再照合。**根本の静的な誤り**：元内部`comparisonMode`は`'raw'`、DOMに出る`canvas.dataset.cameraMode`だけが`'ball-lock-unfiltered-heading'`。K4AI private telemetryのguardが内部変数をDOM表示名と比較していたため、元物理が進むとthrowされる設計だった。
+- この誤りは**研究用ガードだけ**であり、元Camera計算・元球/速度/OBB/B51や元sourceプログラムは変更しない。`comparisonMode==='raw'`へ修正。DOM/後段の`cameraModeRequired==='ball-lock-unfiltered-heading'`検査はそのまま。
+- 新しい正規修正版CI [#41558189309](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41558189309)。**修正版の全工程とArtifact独立監査が終わるまでK4AI連続240Hzの最終PASS・最小距離を宣言しない。** 旧初回CIが中断・FAILになっても成功として扱わない。ARTと公開HOLD維持。
+
+---
+
 # DOPAGAKI SLOPE — K4AI 元ゲーム240Hz連続カメラ・B51-12幾何計測
 
 2026年11月3日（日本時間）。**SOURCE TECHとARTは分離。合格前に最終結果を先取りしない。**
