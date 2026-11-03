@@ -1,0 +1,133 @@
+name: DOPAGAKI K4BC v3 actual source-camera framed city above true Road6
+on:
+  push:
+    branches:
+      - research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
+    paths:
+      - 'scripts/p101-k4bc-v3-real-road6-camera-framed-sky-museum.py'
+      - '.github/workflows/p101-k4bc-v3-original-camera-framed-civic-sky-museum.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4bc-v3-source-camera-framed-sky-museum-all7
+  cancel-in-progress: false
+jobs:
+  actual-source-cinematic-dcc-art-hold-not-gameplay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - name: Frozen source tests and actual Blender Python source syntax
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bc-v3-real-road6-camera-framed-sky-museum.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download SHA-verified full seven original B48 source geometry and K4BC v2 editor scene
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BC_V2_REAL_ALL_SEVEN_ORIGINAL_B48_EDITABLE_SOURCE_CAMERA_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41638891877
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-v3/parent
+      - name: Download unmodified K4AY exact source cameras, B48 and six B51 native OBBs
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-v3/original
+      - name: Independently verify source seven-road meshes and parent Blender original Camera frames SHA
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          p=Path('research/evidence/k4bc-v3/parent')
+          a=json.loads((p/'rendered/K4BC_V2_TRUE_ALL7_B48_SOURCE_PROVENANCE.json').read_text())
+          d=json.loads((p/'original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json').read_text())
+          assert a['originalGameFrozenBlob']==d['frozenOriginalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalSourceB48Roads']==7 and a['originalSourceB51MovingObstacles']==28
+          assert a['trueOriginalOtherB48RoadsImported']==12
+          assert a['originalB48Road5MeshFingerprintsBefore']==a['originalB48Road5MeshFingerprintsAfter']
+          assert a['sourceOriginalB51CollisionOBBSnapshotInstances']==168
+          assert len(a['trueSourceCameraDCCImages'])==6
+          assert a['ART']=='REJECT_HOLD'
+          for fn,entry in a['files'].items():
+              raw=(p/'rendered'/fn).read_bytes()
+              assert entry['bytes']==len(raw) and entry['sha256']==hashlib.sha256(raw).hexdigest()
+          for m in ('control','ultra'):
+              assert d['modes'][m]['allSourceSurfaceIDs'][6]=='p93-FINISH_RIDGE-01'
+              assert d['modes'][m]['originalRoad5Triangles']==4728
+          print('K4BC_V3_SEVEN_SOURCE_TRUE_ROADS_PARENT_SHA_IMMUTABLE_PASS')
+          PY
+      - name: Install Blender source-camera DCC and image verification
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil
+      - name: Render camera-framed monumental two-sided inhabited city around actual source Road6
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bc-v3/output
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bc-v3-real-road6-camera-framed-sky-museum.py -- \
+            --base research/evidence/k4bc-v3/parent/rendered/K4BC_V2_ORIGINAL_ALL_SEVEN_B48_FULL_CONTEXT_EDITABLE_ART_HOLD.blend \
+            --original research/evidence/k4bc-v3/original/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --all7 research/evidence/k4bc-v3/parent/original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json \
+            --out research/evidence/k4bc-v3/output
+      - name: Verify all true B48/B51 signatures, six original camera poses, materiality and artist imagery
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          from PIL import Image,ImageDraw,ImageStat
+          from pathlib import Path
+          import json,hashlib
+          src=Path('research/evidence/k4bc-v3/parent/rendered')
+          out=Path('research/evidence/k4bc-v3/output')
+          j=json.loads((out/'K4BC_V3_TRUE_SOURCE_CAMERA_CIVIC_COMPOSITION_PROVENANCE.json').read_text())
+          assert j['originalFrozenGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalSourceRoadCount']==7 and j['originalB51Movers']==28
+          assert j['originalOtherB48NativeModeCollectionsMaintained']==12
+          assert j['sourcePhysicsHz']==240 and j['originalB51SourceOBBInstances']==168
+          assert j['exactSourceRoad5Before']==j['exactSourceRoad5After']
+          assert j['originalSourceB48Road5Unmodified']
+          assert j['originalCameraNumericsUnchanged']
+          assert j['oldRejectedK4BCSkylinePreservedButHidden']
+          assert j['newEditableOffroadMassAndPublicSkyMuseumObjects']>=100
+          assert j['noNewDriveableGameRoad'] and j['noNativeGameCollisionOrPhysicsChanges']
+          assert j['nativeWebGL2Screenshots'] is False
+          assert j['formalArtAccepted']==j['Slope2DNACertifiedMetres']==0 and j['ART']=='REJECT_HOLD'
+          assert len(j['sourceOriginalCameraSixDCCShots'])==6
+          assert set(j['sourceCameraAngularLayoutDegreesMeasuredNotViewportPixels'])=={'control','ultra'}
+          for name,x in j['files'].items():
+              data=(out/name).read_bytes()
+              assert len(data)==x['bytes'] and hashlib.sha256(data).hexdigest()==x['sha256']
+          assert (out/'K4BC_V3_ALL7_SOURCE_CIVIC_COMPOSITION_DCC_NOT_GAME.glb').read_bytes()[:4]==b'glTF'
+          page=Image.new('RGB',(1188,6*410+425),(19,21,25));p=ImageDraw.Draw(page)
+          for i,s in enumerate(j['sourceOriginalCameraSixDCCShots']):
+              mode=s['mode'];t=s['sourceTick']
+              old=Image.open(src/f'K4BC_V2_ALL_SEVEN_SOURCE_B48_DCC_{mode.upper()}_{t}.png').convert('RGB')
+              new=Image.open(out/s['dccPNG']).convert('RGB')
+              assert new.width>=700 and new.height>=500 and sum(ImageStat.Stat(new).stddev)>15
+              y=410*i
+              page.paste(old.resize((561,379)),(0,y+24))
+              page.paste(new.resize((561,379)),(602,y+24))
+              p.text((9,y+4),f'K4BC V2 original B48 seven road-only geometry {mode} {t}',fill='white')
+              p.text((605,y+4),f'K4BC V3 CAMERA-FRAMED actual-7-roads DCC {mode} {t}',fill='white')
+          arr=Image.open(out/'K4BC_V3_CIVIC_MUSEUM_AND_NATIVE_ROAD6_AERIAL_NOT_GAME.png').convert('RGB')
+          page.paste(arr.resize((561,379)),(602,6*410+25))
+          p.text((9,6*410+4),'ALL BLENDER DCC; NOT WEBGL2. ART REJECT until human visual pass.',fill='white')
+          page.save(out/'K4BC_V3_SIX_GENUINE_ORIGINAL_CAMERA_V2_VS_V3_ART_HOLD.png')
+          print('K4BC_V3_TRUE_SOURCE_7_ROAD_CAMERA_FRAMING_DCC_SHA_PASS_NOT_ART_CERTIFIED')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BC_V3_CAMERA_FRAMED_TRUE_ALL7_ROADS_EDITABLE_CIVIC_SKY_MUSEUM_ART_HOLD
+          path: research/evidence/k4bc-v3/output/
+          retention-days: 14
+          if-no-files-found: warn
