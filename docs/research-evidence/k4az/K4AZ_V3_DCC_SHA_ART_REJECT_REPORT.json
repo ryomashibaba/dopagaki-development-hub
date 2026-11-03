@@ -1,0 +1,167 @@
+{
+  "schema": "dopagaki.K4AZ.true-b48-b51-native-scenography-dcc-first/1",
+  "gitSourceBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "parentK4AYActions": 41612254866,
+  "parentK4AYArtifact": 13218659517,
+  "trueB48SourceRoadID": "p93-PRISM_CREST-01",
+  "road5SourceControlPointsSHA256": "5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730",
+  "road5MeshFingerprintBefore": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "road5MeshFingerprintAfter": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "realRoad5MeshVerticesUnchanged": true,
+  "actualOriginalSourceB48Sections": 7,
+  "actualB51MovingObstacles": 28,
+  "sourceB51OBBInstancesStored": 168,
+  "nativeCameraShots": [
+    {
+      "mode": "control",
+      "tick": 11259,
+      "sourceCameraPNG_SHA256": "6269eb803a2cb46c9c18a9a4b510aeb121d6c8daa7e8074776a2442199d65891",
+      "actualSourceTickSeconds": 46.9125,
+      "B51ActualSourceCollisionProxyCount": 28,
+      "DCCshot": "K4AZ_SOURCE_POSE_DCC_CONTROL_11259.png"
+    },
+    {
+      "mode": "control",
+      "tick": 11278,
+      "sourceCameraPNG_SHA256": "8075dceb4e656cf36aed98aa1ce3e50fbebd5781e6a0ee114f14c889db8b9cb3",
+      "actualSourceTickSeconds": 46.99166666666667,
+      "B51ActualSourceCollisionProxyCount": 28,
+      "DCCshot": "K4AZ_SOURCE_POSE_DCC_CONTROL_11278.png"
+    },
+    {
+      "mode": "control",
+      "tick": 11307,
+      "sourceCameraPNG_SHA256": "ffb85461e76f15d96831bdb8f89c5bd2fe18817b435ce2f1cf854807709b1558",
+      "actualSourceTickSeconds": 47.1125,
+      "B51ActualSourceCollisionProxyCount": 28,
+      "DCCshot": "K4AZ_SOURCE_POSE_DCC_CONTROL_11307.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11320,
+      "sourceCameraPNG_SHA256": "d1719df89cee4c1af300187c874de6fdf365203d20d8869e06a52205755ea9ed",
+      "actualSourceTickSeconds": 47.166666666666664,
+      "B51ActualSourceCollisionProxyCount": 28,
+      "DCCshot": "K4AZ_SOURCE_POSE_DCC_ULTRA_11320.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "sourceCameraPNG_SHA256": "fe22062d3bf0abd764448d9b6b8d52a55f24ff84e7ee79b6fe04f674427861dc",
+      "actualSourceTickSeconds": 47.25416666666667,
+      "B51ActualSourceCollisionProxyCount": 28,
+      "DCCshot": "K4AZ_SOURCE_POSE_DCC_ULTRA_11341.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11369,
+      "sourceCameraPNG_SHA256": "fd5895bff1142e24dbfb3df84bf3f5dc9c6fff43db8cc508ffc1c985e73a5471",
+      "actualSourceTickSeconds": 47.37083333333333,
+      "B51ActualSourceCollisionProxyCount": 28,
+      "DCCshot": "K4AZ_SOURCE_POSE_DCC_ULTRA_11369.png"
+    }
+  ],
+  "sourceB51OBBCollisionProxyNOTGameArt": true,
+  "sourceCameraNumericsUnchanged": true,
+  "newEditableArchitectureMeshCount": 119,
+  "originalK4AXArchitecturePreservedButNotRendered": [
+    "01_HERO | Tidal Exchange Hall - editable architecture",
+    "02_SITE | Source-camera context, NOT original collision",
+    "03_DETAIL | Human-scale public uses",
+    "04_DISTANT | Distinctive single skyline anchor",
+    "06_LIGHT | Physically authored studio lighting"
+  ],
+  "sourceRoadInlaysAreNonCollisionDesignProposalsOnly": true,
+  "noNewGameColliders": true,
+  "originalGameScreenshots": false,
+  "originalWebGL2PhysicsRun": false,
+  "roadArchitectureBVHContact": "NOT_TESTED_HOLD",
+  "sourceB51VsArchitectureExactIntersection": "NOT_TESTED_HOLD",
+  "humanReadableArt": "NOT_TESTED_HOLD",
+  "formalARTAccepted": 0,
+  "Slope2DNAMetres": 0,
+  "ART": "REJECT_HOLD",
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4AZ_CIVIC_RIFT_EDITABLE_ART_REJECT_HOLD.blend": {
+      "bytes": 7464408,
+      "sha256": "8994ce069df1dd5528a5b838c1abdee80fab14e8e22046fcb294ba7a95ca5f95"
+    },
+    "K4AZ_CIVIC_RIFT_DCC_GEOMETRY_ONLY.glb": {
+      "bytes": 3476488,
+      "sha256": "f11893d843dae113cc3876b5d3d3a30d179f4b330e597ba484639f488a354479"
+    },
+    "K4AZ_DCC_DESIGN_STUDIO_NOT_GAME.png": {
+      "bytes": 868898,
+      "sha256": "0ea16b71492257905d145c32497d1aa0ed43dab09f62de9c740173a6ebfc4f4e"
+    },
+    "K4AZ_SOURCE_POSE_DCC_CONTROL_11259.png": {
+      "bytes": 1255993,
+      "sha256": "1bb0d152b0e08aa7a3d0573bfcefeea2393d8df6b516e9bf04541514209a9967"
+    },
+    "K4AZ_SOURCE_POSE_DCC_CONTROL_11278.png": {
+      "bytes": 1273516,
+      "sha256": "d1b7c6f4cd74a4ef1a1daf62e6bc6b0e2837cd3b61dc9fd7c6cce72e280ce967"
+    },
+    "K4AZ_SOURCE_POSE_DCC_CONTROL_11307.png": {
+      "bytes": 1231754,
+      "sha256": "26e62e516d96ffddab2aac99951d86d690c19994e266f487bd37b491bac75d1b"
+    },
+    "K4AZ_SOURCE_POSE_DCC_ULTRA_11320.png": {
+      "bytes": 1255129,
+      "sha256": "0352e437337628a1883a25fd29f5abd70484ff9600ba0a07bbfef8dcbf79b26a"
+    },
+    "K4AZ_SOURCE_POSE_DCC_ULTRA_11341.png": {
+      "bytes": 1274036,
+      "sha256": "c55f9d50d5f1eb755c455ede0169173e5a6f8a52f7c69a78e36c05560b1a62ba"
+    },
+    "K4AZ_SOURCE_POSE_DCC_ULTRA_11369.png": {
+      "bytes": 1231999,
+      "sha256": "aae1611b301acebbfaa3e2b8ae57053bfd8edfa1455f94710d152b8a05cdf308"
+    }
+  },
+  "ABRenderChangesNotQualityClaims": [
+    {
+      "mode": "control",
+      "tick": 11259,
+      "differentPixelsFractionDCCOnly": 0.94241
+    },
+    {
+      "mode": "control",
+      "tick": 11278,
+      "differentPixelsFractionDCCOnly": 0.64764
+    },
+    {
+      "mode": "control",
+      "tick": 11307,
+      "differentPixelsFractionDCCOnly": 0.95289
+    },
+    {
+      "mode": "ultra",
+      "tick": 11320,
+      "differentPixelsFractionDCCOnly": 0.94304
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "differentPixelsFractionDCCOnly": 0.90932
+    },
+    {
+      "mode": "ultra",
+      "tick": 11369,
+      "differentPixelsFractionDCCOnly": 0.95352
+    }
+  ],
+  "jointContactSheet": "K4AZ_SIX_TRUE_POSE_DCC_BEFORE_AFTER_CONTACT_SHEET.png"
+}
