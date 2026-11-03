@@ -46,3 +46,36 @@ K4AY 7視点の真正Camera数値DCC画像は、道路が広い明色平面に�
 - 別の完全独立したsource DCC幾何検査 [#41616623231](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41616623231) は**SUCCESS**、Artifact #13221502733。B48 Road5 4,728三角形と、元Camera 6tick×B51 28 =168時刻物理OBBに対し、K4AZ v2の**290個の評価済み建築メッシュ・カーブ／59,120面**について、Blender BVHを独立作成してメッシュ三角形干渉0件、OBB干渉0件と確認。**これはv2静的snapshotに限る**。元ゲームの連続走行・CCD/HUMAN/FPS/速度や他6道路の安全合格ではない。
 - 次のK4AZ v3は、真正6Cameraの路面/構造物の画面投影から位置を計算し、公共連絡回廊をRoad5前方にずらし低く配置、左右の都市アンカーも可視フレームに移動している。**K4AZ v3 GitHub Actions #41616880506 の現行statusを照合し、v2の独立幾何合格をv3へ流用しないこと**。
 - ART正式採用0、Slope2 DNA正式認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。源source Blob、原カメラ/物理/道路/B51/操作・元公式ブランチ・PR#46・main・本番・Work許可境界不変。
+
+
+## K4AZ v3 最終実証／最終ART評価（2026-11-03 JST）
+
+**制作・画像成功と美術採用を分離する。**
+
+### 1. v3実ファイルとCI
+
+- 原Camera投影計算によって横断公共回廊の位置と高さを調整（従来は天頂にクリップ、v3は画面中央上に入り、人間が視認できる構図に近づいた）。左右の塔も道路近傍の原Camera可視範囲へ調整し、元道路/動体を動かさなかった。
+- [K4AZ v3 Actions #41616880506](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41616880506) **COMPLETED SUCCESS**（入力研究commit `d4e7e7f092b8fea0022edb7bfec3f53023b908b2`）。
+- Artifact [#13221369011](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41616880506/artifacts/13221369011) **15,491,222 bytes**、ZIP SHA-256 `859f2b5d5254ff6b347791e0eeb1dba5025e293b4fbb764e595ca8ee9fa47d7f`。編集可能 `K4AZ_CIVIC_RIFT_EDITABLE_ART_REJECT_HOLD.blend`、GLB、元Camera同pose 6枚＋artist camera DCC 1枚、元K4AYとのA/B比較画像を生成し独立SHA検査PASS。これは**元ゲームの真正WebGL2画像ではない**。
+- [研究ブランチ永続A/B画像](research-evidence/k4az/K4AZ_V3_SIX_SOURCE_NUMERIC_CAMERA_AB_DCC_ART_REJECT.png)、[スタジオ視点](research-evidence/k4az/K4AZ_V3_ARTIST_DCC_NOT_GAME.png)、[画像SHA報告](research-evidence/k4az/K4AZ_V3_DCC_SHA_ART_REJECT_REPORT.json) を別のActions [#41617932533](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41617932533) **SUCCESS**によって本研究ブランチへ直接永続保存。ユーザー側ZIP解凍不要。
+
+### 2. v3 source物理の独立幾何検査
+
+- [独立Blender BVH Actions #41617855388](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41617855388) **SUCCESS**。Artifact #13222625593（ZIP SHA-256 `b89c81bd1a1b0d3aaa935a75010148cd6dca4b4394990a0094fc081b1a63feaf`）。
+- 対象は**v3の実Blender原本**。新建築**290評価済みメッシュ/カーブ、58,544評価面** vs 本物のRoad5 B48 **4,728三角形**と元native 6時点×28B51=**168物理OBB**のBVH表面交差。結果は**Road5 B48との交差0件・B51 OBBとの交差0件**。
+- これはSource DCCでの**6時点・対象Road5の静的メッシュ交差なしという限定事実**。地形側の非評価物体・元ゲームの全時刻CCD・球半径0.65mの走行クリアランス、人間、他6道路、真正WebGL2 FPSなどの合否には使えない。
+- Road5真正source control-points hash `5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730`、元ゲーム凍結blob `af076d67492a677d2235e4730aef8cdf4808e106`、カメラ・B48 7・B51 28・元240Hz/球0.65・速度・操作・衝突は全保存。
+
+### 3. 実画像を観察した美術判定
+
+**ART REJECT / WORLD-CLASS NOT ACHIEVED**。v3はv2よりアーチが中央上の視界に入り、左右の建築+road skinも源カメラから見えるが、いまだに：
+- 道路が広い帯状・均質な面で画面を大きく占有し、世界水準のレーシングゲームとしての路面素材・シーンディテールに至らない。
+- 横断公共回廊は2本の細い弧に見え、歩行可能な連絡施設の厚み、荷重構造、用途の視認性が弱い。
+- 左右の駅・公共建築の細部や奥行きは高速走行視野では読みにくく、広い遠景は抽象的な灰色大気・空白が残る。
+- B51描画は**物理衝突OBBの紫ワイヤー**であり、実ゲームの危険物ビジュアルではない。元P100/B5の進路・危険表示の安全な色変更の代わりにしない。
+
+**固定最終**：正式ART採用0件、Slope2 DNA0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD、K4AZは隔離研究のみ。元source、main、継続公式branch、本番、Draft PR #46無変更。Workの事前承認を守る。
+
+### 4. 次工程の正しい狙い
+
+K4AZのスキン・細部だけを膨らませるのではなく、真の元Cameraで成立する「路面の完全な視覚情報設計」「意味と構造を持つ一体的な公共建築」「視線を奥へ導く世界規模の都市遠景」「身体的に納得できるランドスケープ」を**画面全体で**再設計する。美術の独立審査に通るまでPrivate WebGL2移植・他道路展開・制作リリースはしない。
