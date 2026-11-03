@@ -32,8 +32,8 @@ for material in list(bpy.data.materials):
     bpy.data.materials.remove(material)
 scene=bpy.context.scene
 scene.render.engine="CYCLES"
-scene.cycles.samples=18
-scene.cycles.use_denoising=True
+scene.cycles.samples=24
+scene.cycles.use_denoising=False # Ubuntu Blender build lacks OpenImageDenoiser
 scene.render.resolution_x=1013
 scene.render.resolution_y=698
 scene.render.resolution_percentage=88
@@ -116,6 +116,7 @@ def mesh(name,points,faces,mat,col=hero):
     col.objects.link(obj)
     if mat:obj.data.materials.append(mat)
     for face in obj.data.polygons:face.use_smooth=True
+    if hasattr(obj.data,'use_auto_smooth'):obj.data.use_auto_smooth=True
     return obj
 def cuboid(name,s,l,h,ds,dl,dh,mat,col=detail,bevel=0.0):
     u,v,w=ds*.5,dl*.5,dh*.5
