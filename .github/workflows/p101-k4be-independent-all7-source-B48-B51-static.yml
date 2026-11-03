@@ -108,7 +108,7 @@ jobs:
           assert d['roadContacts']==[] and d['originalNativeB51Contacts']==[]
           assert d['wholeStageFutureTimeCCD']=='NOT_TESTED_HOLD'
           assert d['ballRadius065SafetyTest']=='NOT_TESTED_HOLD'
-          assert d['formalARTApproved']==d['Slope2DNACertifiedMetres']==0
+          assert d['formalArtAccepted']==d['Slope2DNACertifiedMetres']==0
           assert d['ART']=='REJECT_HOLD'
           print('K4BE_INDEPENDENT_ALL7_B48_B51_STATIC_NO_TRIANGLE_OVERLAP_NOT_SAFETY_PASS')
           PY
