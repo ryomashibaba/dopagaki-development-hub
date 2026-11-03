@@ -170,3 +170,26 @@ K4AUは街区の量産を一旦やめ、**元の実物B48道路と元B51実動�
 **新しい継続工程はロードのArt-First/DCC-first立て直し**。元WebGL2/source Cameraで残存する色付き図形の本当の描画レイヤーと安全意味を監査→Blender等の編集可能な立体原本・PBR/UV/ライト/建築内部・地形/都市遠景をRoad5の一つのHero短区間に手を入れてアート先行制作→原Camera代表3構図で厳格ART審査→合格したものだけ実WebGL2移植/元source 240Hz高速走行審査。**道路パレットの微調整・箱の数/三角形数/TECH PASSの増加で見栄え改善と主張する手法を停止**。本番/PR#46/mainや元物理を変更しない。Work事前許可、ユーザーのローカル操作なし。
 
 次の担当は新しい研究ブランチやCIを先に乱発せず、元画面のアート作法と実描画レイヤーを把握して「今までと根本的に違う完成度のHero区間」を最優先に実制作する。原画像上で現代的なプロゲームのアート品質と明確に認められないなら採用しない。
+
+
+## 2026-11-03 K4AW→K4AX　最新の唯一の継続入口：真の路面塗装発生源→編集可能Blender原本
+
+**過去のK4AV/旧K4AS-K4AUの「描画TECH成功」を美術成功と誤認しない。** ユーザー評価は「まだコースのビジュアルが酷い」。正式ART採用0件・Slope2 DNA正式認定0m。旧不採用を上書きしない。K4AX以降もART-FIRST/DCC-FIRSTへ制作方法を切替え、ただの箱追加・色替え・TECHゲートの積上げは禁止。
+
+### 最新GitHubブランチ
+`research/k4ax-road5-editable-blender-civic-exchange-20261103`。最新の[**原因確定資料／Blender工程の統合正本**](docs/R19_A6P4_R2F5K4AW_K4AX_SOURCE_COLORS_AND_BLENDER_ART_FIRST_JA.md)を最優先で読む。元K4AV正本は履歴として維持。
+
+### K4AW：ピンク・シアンが消えなかった理由が本物の元カメラで確定
+[Actions #41604593198](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41604593198) completed/SUCCESS、[原Artifact #13216820565](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41604593198/artifacts/13216820565) で**元native Road5真正WebGL2×2時点×8描画群＝16PNG・独立SHA/色閾値監査**が成立。元物理/B48七/B51二十八/元カメラ完全不変。元色面はK4AVで既にOFFのA13ではなく、**P100道路視認マーカー（control明るいピンク−2,491px）とB5道路演出（同−1,185px）から強く出ている**。元道路端表示・B51警告からシアンも生じる。W9C1は元GPU draw呼出1ながら、この2時点の描画画素差0。個別寄与は重なりがあり足し算不可。**P100/B5/路端/B51の安全表示は実ゲームから無断削除不可。** 研究用マスクは安全性が検証されていない非プレイ画面。
+
+### K4AX：3Dオブジェクトを自動box量産する方式を停止し、実Blender原本へ
+[元sourceカメラ6時点のSHA固定JSON](docs/K4AX_TRUE_SOURCE_ROAD5_CAMERA_REFERENCE_20261103.json)、`scripts/p101-r19a6p4r2f5k4ax-blender-editable-tidal-exchange.py`、[Blender CI](https://github.com/ryomashibaba/dopagaki-development-hub/actions?query=branch%3Aresearch%2Fk4ax-road5-editable-blender-civic-exchange-20261103)。真Blenderで**単一の研究Hero区間「Tidal Exchange」**（二重曲率の厚いセラミック屋根・開いた市民広場／水盤・入口の奥まったガラス・木製家具・植栽・穏やかな暖色内装／1本の遠景ねじり塔）を編集可能なネイティブ`.blend`と`.glb`として生成、元Camera数値control11259/11278/11307から3枚のDCCプレビューをレンダリングするコードを作成済み。
+
+**注意：DCCの3画像は「元Cameraの数値を利用したBlender独立プレビュー」であって、「元のWebGL2ゲームを描画した正規映像」ではない**。元B48/実B51/元HUD/衝突をスタジオへ統合していないので**源道路・危険物との干渉、安全な公共床、HUMAN/FPS、ARTはまだ何も保証されない**。Blender正本をゲームへ許可なく取り込まない。
+
+初回DCC CIはPython構文でFAIL、改訂RunはUbuntu版BlenderでOpenImageDenoiser未ビルドのためレンダリングFAIL（ただし.editable .blend原本の生成までは到達）。修正では元物理に触れずデノイザ不使用・Cycles 24 samplesで再実行。**成功・真PNG目視・素材品質・クリアランスPASS等は最新CIと実Artifactを現時点で再確認するまで未認定**。
+
+### 次担当の実行順序
+最新K4AX GitHub Actionsの**本当の** status/jobs/Artifactを先に再照合。レンダ成功なら真实`.blend`/GLBとDCC PNGを開いて厳しくART審査。酷いならART REJECTしアート原本を本格改修、単なるカラーノイズやBOX増築を繰り返さない。候補が審査に値した時のみ、元B48真正曲面＋B51実動体との空間クリアランスを新たに計測し、source PRIVATE WebGL2へ導入、本当の元ゲーム画面／元240Hz本走行で再審査。P100/B5等の安全な代替表示は別課題として保持。
+
+**絶対禁止**：元source blob `af076d67492a677d2235e4730aef8cdf4808e106`、240Hz物理・球半径0.65m、元Camera・B48 7/B51 28、Gold/P100/W9-X/B5、main、本番、Draft PR#46の変更。Work事前承認、ユーザーにローカルZIP等操作要求禁止。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD、正式採用0件。
