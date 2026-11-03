@@ -158,3 +158,11 @@ K4AJの実装：
 - [K4AP正本](R19_A6P4_R2F5K4AP_ART_FIRST_TWO_BEAT_TRUE_SOURCE_CAMERA_JA.md)、[原K4AJ真ZIP限定データ再解析コード](../scripts/p101-r19a6p4r2f5k4ap-real-b51-gpu-camera-beats.py)、[全三区分の実測JSON](research-evidence/k4ap/K4AP_REAL_SOURCE_B51_GPU_HORIZONTAL_THIRDS_SUMMARY.json)。K4AJ元ZIP SHA `60aab331d8881b5f8f456539c00566837a2b061a96ab0725ce7c17ea91ed8efb` の本物の元/mask/復元11,176サンプル×99連続tickを独立ローカルで再計算。14m B51 group-depth change 左23.474%・中34.400%・右31.885%、28m 左9.635%・中20.407%・右16.108%。14m tick11339–11347の9tickは**横三区分すべてのサンプルがB51 BODY全群GPU深度マスクで変化**。これは人間視界の100%遮断・秒数とは断定不可。
 - 真ART-FIRSTの新しい狭い仮説：同じRoad5一案《斜裂公共峡谷》で、危険通過前に公共空洞への大入口を、元B51危険域を保護した後に中段テラス／奥の都市広場を読ませる**二段の原カメラ構成**。元危険区間の深度遮蔽率を美術可読率として誤用する旧仮説を禁止。K4AOの6高寄与tickは危険視認性保護ゲート。新モデル・コライダー0、旧K4/R/U REJECT、ART正式0、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。
 - K4AK専用合成CIは成功。K4AM真正元RGB欠測9時点、K4AN真正K4AJ→K4AK/K4ALアトラスはGitHub CIの実結果を再照会する。SOURCE 240Hzと実動作240fpsは別、遮蔽を見た人間の時間はUNKNOWN。元ゲームとmain/本番/PR#46固定、Work事前承認。
+
+
+## K4AQ — ユーザーによる画面全体の美術品質批判を最上位要件として追加（2026-11-03 JST）
+新たな最重要指摘は「道路の都市らしさ」「公共空間」以上に、**見える画面のあらゆる部分が雑な色塗り・配色・造形・素材不足・単調な背景であり、ゲーム全体が美術作品として低水準**というもの。もはや小さな建築追加・元構図の微調整・GPU計測増加では改善できない。既定ART-FIRSTを強化し、世界観、マテリアル、造形言語、光、情報密度を抜本的に作り直す。詳細：[K4AQ正本](R19_A6P4_R2F5K4AQ_ROAD5_FULL_SCREEN_ART_DIRECTION_JA.md)。
+
+凍結物理と元sourceを分離して、一方向のRoad5《斜裂公共峡谷》美術研究のコード、独立マテリアルシェーダー、元Road5 B48沿い非対称都市、旧sourceと同Camera/同球位置で比較する真正WebGL2撮影、静的非改変テストを専用ブランチ `research/k4aq-road5-art-direction-rebuild-20261103` に追加。K4AQ CI [Actions](https://github.com/ryomashibaba/dopagaki-development-hub/actions/workflows/p101-r19a6p4r2f5k4aq-road5-art-camera-ab.yml) は **結果を必ず実照合**。コードコミットだけで美術完成としない。画像が未生成・未審査なら**ART NOT_TESTED/HOLD**。既存K4AM/K4ANのrunをキャンセルさせない。main/元source/Cam/240Hz/B48×7/B51×28/本番/Draft PR #46不変更。正式ART0件、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。
+
+ユーザーが「次の工程」と指示したら、まずK4AQ画像Artifactをレビューして色彩・造形・素材感・空間密度の不足を批判的に見直し、**技術だけでなく美術そのものを実際に改善する**。Road5一候補で検証し他6道路への無断展開をしない。途中報告で美術の改善を誇張しない。
