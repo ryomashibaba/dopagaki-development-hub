@@ -165,7 +165,7 @@ function spiralNeedle(out,f,{cx=255,cz=205,height=265,hand=1}={}){
     quad(out,local(f,va[0]-off,va[1]-off,va[2]),
      local(f,va[0]+off,va[1]+off,va[2]),
      local(f,vb[0]+off,vb[1]+off,vb[2]),
-     local(f,vb[0]-off,vb[1]-off),4);
+     local(f,vb[0]-off,vb[1]-off,vb[2]),4);
    }
   }
  }
