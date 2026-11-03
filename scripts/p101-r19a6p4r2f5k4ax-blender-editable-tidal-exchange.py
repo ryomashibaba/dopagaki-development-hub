@@ -167,7 +167,7 @@ def leaf_sculpture(name,s,l,height,radius,mat,col=detail):
             points.append(P(s+rr*cos(a)+2.5*t*t,l+rr*sin(a),z))
     for j in range(rings):
         for i in range(edges):
-            k=j*edges+i,n=j*edges+(i+1)%edges
+            k=j*edges+i; n=j*edges+(i+1)%edges
             faces.append((k,n,n+edges,k+edges))
     return mesh(name,points,faces,mat,col)
 def annular_deck(name,s,l,z,outerS,outerL,innerS,innerL,mat):
