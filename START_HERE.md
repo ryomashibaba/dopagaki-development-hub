@@ -1,3 +1,13 @@
+# 【2026-11-04 K4BH 最新継続入口】DOPAGAKI SLOPE美術制作
+
+**最新の隔離研究枝**：`research/k4bh-true-camera-complete-hero-composition-20261104`。前K4BGは実Blender技術PASS／ART REJECT。今回の新美術制作者は [K4BH正本](docs/R19_A6P4_R2F5K4BH_TRUE_CAMERA_COMPLETE_HERO_COMPOSITION_JA.md) で再開。K4BGなど旧「最新」記述は履歴とみなす。
+
+K4BHでは真Blenderネイティブのロード表面シェーダー、左右で連続する岩盤公共建築と内装、遠方シンボルの大型構造と都市・地形、天空・日照を、一体の実source Camera構図として実装済み。元source Road5メッシュ・元6Camera数値・240Hz物理/球0.65m・B48全7/B51全28・凍結原blob `af076d67492a677d2235e4730aef8cdf4808e106`・本番・main・公式p101・Draft PR #46を保護。
+
+[実K4BH Actions #41731470838](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41731470838) で元K4BG真正.blendからcontrol11307/ultra11341の2枚と新.blendを制作・GitHub保存する。**結果は必ずrunの実状態と生Artifactを再検証すること。CIのTECH成功だけでART PASSとしない。** 不合格なら正式採用0件、Slope2 DNA0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD継続。実ゲームのWebGL2画面、人間プレイ、全B51クリアランスは未測定。Work事前承認。ユーザー操作不要。
+
+---
+
 # 【2026-11-04 K4BG最終判定・次チャットの第一入口】真正Blender DCC 技術PASS／美術REJECT
 
 **現在の研究継続枝**：`research/k4bg-civic-escarpment-true-camera-art-20261104`。必読：[K4BG最終美術判定・全方針・元ソース不変契約](docs/R19_A6P4_R2F5K4BG_SOURCE_CAMERA_COHERENT_CIVIC_ESCARPMENT_JA.md)。
