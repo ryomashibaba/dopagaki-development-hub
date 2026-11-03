@@ -34,3 +34,21 @@ K4AJの真元スクリーンショットでは、Road5中央の広い青緑の�
 **新たに認識したK4AR既存コードの出力不一致**：K4AR撮影コードの保存名は実コードでは K4AQ_TRUE_CAMERA_ART_AB_REPORT.json のまま、一方独立監査が期待するのは K4AR_TRUE_CAMERA_ART_AB_REPORT.json。これが未修正のK4AR CI失敗原因になる可能性が高い（他の失敗は実ログ未確認）。K4ARの元実行中の枝には無断で変更を加えず、K4ASの新しい専用コードでは**K4AS_ORIGINAL_NATIVE_FOUR_WAY_ART_REPORT.json**へ修正して独立検証する。
 
 次はK4AQ/AR/ASの最新CIと真Artifact/PNG取得→生CRC/SHA/画素比較→本当に綺麗になったか美術審査。道路配色の調和だけでは薄っぺらい元メッシュを救えなければ**ART REJECTとして形態・公共空間・遠景密度・素材レンダリングを設計し直す**。元B51危険中に新建築を重ねて視界をごまかさない。
+
+
+## 2026-11-03 16:04 JST以降：K4AQ/AR/AS同根障害の実Artifactによる解析と修理
+
+3本の元CIはすべて実際に completed/failure：
+- K4AQ [#41580058193](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41580058193)：Art A/B撮影step failure、Artifact #13210192736（807 bytes）。
+- K4AR [#41585003708](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41585003708)：3群撮影step failure、Artifact #13211070846（844 bytes）。
+- K4AS [#41589057566](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41589057566)：4群撮影step failure、Artifact #13210604056（890 bytes）。
+
+3本の「失敗」Artifact ZIPを実ダウンロードし、JSON runs[0].errorsを読んだところ、いずれも最初の原本画面の初期化時に **Cannot access 'r19a1OptIn' before initialization** が出ていた。続く 120000ms Playwright waitForFunction Timeoutは**二次症状**。原因はK4AQのプライベートpackが「let g4e7bgShot...」の直後、元R19A1による `const r19a1OptIn` 宣言より前に `const k4aqEnabled=r19a1OptIn&&...` を挿入してJavaScript TDZを発生させたこと。3本全部で原稿画面・新候補画面が起動しないので、**実証された新ART RGBは0枚／正式ART採用0件**。従前のK4AQ/AR/AS静的PASSは真正視覚PASSに昇格できない。
+
+**修理**（K4AS隔離枝だけで行う；古い枝・本番／PR#46不変更）：
+- `scripts/p101-r19a6p4r2f5k4aq-private-road5-art-pack.mjs` の起動条件を `g4e6LocalHost&&URLSearchParams('r19a1')==='on'&&URLSearchParams('k4aq')==='on'` の等価な直接URL+localhostガードへ変更。宣言前のr19a1OptIn読み取りだけを除去。元R19A1の機能フラグ自体、240Hzやカメラは変更しない。修正コミット `c4671d6774dac2c93383577a009531f7605a0a9a`。
+- `scripts/p101-r19a6p4r2f5k4as-original-source-four-way-art.mjs` にbrowser `pageerror` の高速検出、起動stage情報の真diagnostic、起動時の無意味な2分待機の改善を追加。修正コミット `9870798aae52977c46f24acc763fcb151ff2a995`。
+- K4AS独立再実行 [#41594250729](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41594250729) は作成時**QUEUED**。新WebGL2の成功は未確認。新候補の実RGBと独立画素差を偽造・先取りしない。
+- CIコスト削減のためK4AQ/K4ARを3本全部再実行するのでなく、元画面／天空単独／天空＋都市／天空＋都市＋素材を含む**K4AS一つの4群比較**をまず優先する。再実行中のworkflow対象連続pushは避ける。
+
+**次の正当な工程**：K4AS #41594250729 の現在のjob/log/Artifactを照合する。成功時だけ本物の24PNG＋独立SHA検証・アトラスの実画像確認を行い、画面品質が低ければART REJECTとして本当の形態・質感・光・密度を改修。失敗時は最初の失敗stepと真Artifact内pageerrorを読んで修正。正式ART0、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。main・本番・元ソースblob・Draft PR #46に変更なし。
