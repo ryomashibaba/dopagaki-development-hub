@@ -157,3 +157,16 @@ K4AUは街区の量産を一旦やめ、**元の実物B48道路と元B51実動�
 **不変**：凍結source blob af076d67492a677d2235e4730aef8cdf4808e106、240Hz／球半径0.65m／実B48七道路・実B51二十八動体／元カメラ/衝突、main・本番・Draft PR #46変更禁止。Work事前承認。ユーザーに手動ZIP・ローカル実行を要求しない。
 
 今後は前回のように「色が少し変わった」「線が増えた」だけで進展と宣言しない。ゲームの画面全体が世界的なゲームの美術として成立するかを先に評価する。
+
+
+## 2026-11-03 K4AV の真正画像審査による開発方針転換【これが最新・上位判断】
+
+**重要：K4AVも正式ART REJECT。** 過去にこのSTART_HERE内で「K4AV実装／ART HOLD／CI検証待ち」と書かれていても、いまは最終実測で更新済み。この判断を優先する。
+
+[K4AV詳細ART REJECT/次工程正本](docs/R19_A6P4_R2F5K4AV_FULL_SCREEN_ART_RESET_CHARTER_JA.md) を最初に読む。K4AV [Actions #41601799002](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41601799002) **completed/SUCCESS**、18枚本物の元Road5 source native Camera + independent SHA監査 [Artifact #13214568215](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41601799002/artifacts/13214568215)。source B48 7/B51 28/240Hz/Camera等不変。6フレーム中5フレームは新都市描画のpixel差が9.1〜12.6%、超巨大なB51で完全視界遮断されるultra11341は0%。これらは**技術的に描画された証拠のみ**。
+
+実画像の品質は依然として酷い。空色/斜め梁だけは少し改善したが、コースは巨大な灰色平面にピンク/水色線が残り、都市も繰返しの水平帯箱ファサード。元B51が正面視野を奪う問題も変わらない。ART REJECT・正式ART採用0件・Slope2 DNA認定0m。**K4AS/K4AT/K4AU/K4AVのソースTECH成果をART成果扱いせず、同型のJS自動生成の再発は禁止。**
+
+**新しい継続工程はロードのArt-First/DCC-first立て直し**。元WebGL2/source Cameraで残存する色付き図形の本当の描画レイヤーと安全意味を監査→Blender等の編集可能な立体原本・PBR/UV/ライト/建築内部・地形/都市遠景をRoad5の一つのHero短区間に手を入れてアート先行制作→原Camera代表3構図で厳格ART審査→合格したものだけ実WebGL2移植/元source 240Hz高速走行審査。**道路パレットの微調整・箱の数/三角形数/TECH PASSの増加で見栄え改善と主張する手法を停止**。本番/PR#46/mainや元物理を変更しない。Work事前許可、ユーザーのローカル操作なし。
+
+次の担当は新しい研究ブランチやCIを先に乱発せず、元画面のアート作法と実描画レイヤーを把握して「今までと根本的に違う完成度のHero区間」を最優先に実制作する。原画像上で現代的なプロゲームのアート品質と明確に認められないなら採用しない。
