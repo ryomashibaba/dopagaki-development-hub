@@ -48,3 +48,26 @@
 4. K4BB修正版 `scripts/p101-k4bb-source-road5-pbr-civic-interiors.py` は、RGB/Roughness/Height 2048×1024 を**NumPyで確定しzlib/structで標準PNGを直接書き込み、実ファイルをBlenderで読込・pack**する方式へ改修。Non-ColorはPNG保存後のshader読込にのみ適用。0/0の自動検出基準を緩めない。室内カメラを実閲覧室奥へ移動し、室内可視用の実光源追加。Ubuntu Blenderビルドで使えないdenoiserはOFF、Cycles 64 samplesへ。
 5. 現状の本命修正実行は [#41631593534](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41631593534)。これの**完了SUCCESSを確認するまではK4BBのSOURCE/DCCをPASSと言わない**。独立BVHは [#41631656710](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41631656710)、GitHubに画像を直接保存するCIは [#41631663301](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41631663301)。ともに本命修正版の成功を待つ設計。
 6. これまでの失敗を成功・採用として読み替えない。**K4BB未認定／全体ART REJECT HOLD**。次は現行CIの結果、PBR画像のRGB分布・Python画像真正検査、元6カメラと実内観の目視、別BVHを確認して更新。
+
+
+## K4BB 最終的に確認した制作・数値・ART判定（2026-11-03 JST）
+
+**最終技術は成功。美術はART REJECT**。途中の失敗ビルドを合格扱いにしない。
+
+- **正式な制作実行**：[K4BB Blender Actions #41631593534](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41631593534) **completed SUCCESS**（制作器commit `861a3d48ccd0366f5a118eb873abf44d70a40cb0`）。成果 [Artifact #13229226496](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41631593534/artifacts/13229226496)、ZIP 40,285,863 bytes、SHA-256 `137c8e1e88a46ff2cff16b419ce00d51955f607365eb7c9b205a911642debd0c`。内容：編集可能Blender原本、GLB、K4BB 2K PBR ALBEDO/ROUGHNESS/HEIGHT PNG、6 source numeric Camera DCC＋2独立artist DCC、6元CameraごとのK4BA v2とのA/B比較PNG、全source mesh SHA情報。
+- **実ファイルから再抽出してPIL独立検査**：ZIP 15ファイル CRCエラー0。2K RGBA色層のRGB標準偏差合計：ALBEDO **31.657**、ROUGHNESS **49.132**、HEIGHT **20.650**。以前のROUGHNESS 0 / HEIGHT 0の全黒欠陥は解消。粗さ平均175.71/255、法線高さ画像平均125.59/255（PNGの保存値、物理単位ではない）。3素材のピクセル濃淡が非ゼロかつ独立して実証された。全原本内のSHA manifest照合0不一致。
+- 元source Road5 B48 4,728三角形の**頂点・ポリゴン fingerprint before/after一致**、本物B48 7道路、B51 28×6時刻=168 collision OBB、元Camera数値変更無し。追加の実3D公共用途編集対象 **167オブジェクト**。UV＋2K PBRはBlender-only、source gameplay paint/物理未変更。
+- **独立新規B48/B51空間監査**：[Actions #41631656710](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41631656710) **completed SUCCESS**。Artifact #13228844158（ZIP SHA `b7f6a75d3aa921333ed3d6eb3096fc7744a0690aa0b2cbafdeb26e8363b0650f`）。**K4BBで新しく作った公共室167評価済メッシュ/カーブ・5,630評価面**と元Road5 B48 4,728面＋元6tick×28 B51 native source collision OBB=168体の独立三角形BVH交差**0件/0件**。これは**新K4BB建築だけ**の有限静的限定検査。K4BA既存建築は本監査で再検証しておらず、元ゲーム他6道路、CCD/HUMAN/SAT/FPS/全時刻の安全合格は未認定。
+- **GitHubのZIP不要・永続的実画像**：[Actions #41631663301](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41631663301) **completed SUCCESS**。研究ブランチ下の [6×same-pose DCC A/B](research-evidence/k4bb/K4BB_SIX_SOURCE_NUMERIC_CAMERA_PBR_INTERIORS_ART_HOLD.png)、[真DCC人間視点インテリア](research-evidence/k4bb/K4BB_INTERIOR_DESIGN_EYE_NOT_GAME.png)、[DCC航空](research-evidence/k4bb/K4BB_HARBOR_AERIAL_DCC_NOT_GAME.png)、[道路ALBEDO実PNG](research-evidence/k4bb/K4BB_ROAD_PBR_2K_ALBEDO_STUDY_ONLY.png)、[SHA manifest](research-evidence/k4bb/K4BB_EDITABLE_SOURCE_SHA_ART_HOLD.json)。
+
+### 本物の7+1視点とA/Bを開いた上での厳格ART審査
+
+**ART REJECT / 未採用維持**。K4BA v2（左）とK4BB（右）を元Camera 6時点で並べると、Road5の素材反射の不具合は直り、以前の鏡面のような路面が均質な石造り床に変わった。この点は実測で前進。しかし、道路は依然として広大な均一な帯状領域を大きく占有、石材テクスチャのmicro-detailが低解像に見え、全体は完成された世界的レーシングゲームのレベルデザインとは言えない。新しい4公共用途の室内は、6枚の真正高速Cameraでは**認識できない**。ゲームカメラで読めなければ公共用途をいくら内蔵してもARTの「公的施設が見える」という目的を達成できない。
+
+追加した「人間目線の閲覧室」DCC画像は、改善前の全暗闇よりは構造が出たが、壁や丸棒が高密度な造形として見えるだけで**用途を伝える読書室の家具、入口、通路、陰影の美術構成が成立していない**。空撮でも単純な塔・孤立した観測リング・大きな屋根に見え、都市全景のデザイン完成度が足りない。これを単なる配色・素材修正・box増築で済ませることは禁止。
+
+### 次の正当な美術工程（K4BC候補）
+
+**「ロード5の真正高速6Cameraで機能と風景が読める画面設計」から再着手**。小部屋167個をさらに増やす・材質の色をいじるのは優先しない。前景路面を走行速度/カメラFoVに合わせた大規模な構造的意匠、側方に大きな開口と階段・公共広場の奥行きを持つ一体施設、明確な導線と人のスケール、現在の正面の巨大観望施設と海港風景を強い建築的物語にまとめ、元Camera 6視点と人間目線で初めて**用途が読み取れる**かを本物のBlender原本から目視判定する。source原道路・危険物は編集禁止、私的WebGL2への移植もARTが本当に合格するまで停止。元物理/本番/PRは変更しない。
+
+**恒久評価**：正式ART採用0件・Slope2 DNA認定0m・ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。今回のDCC/GitHub/SHA/BVH成功をARTや元ゲーム安全のPASSへ昇格させない。
