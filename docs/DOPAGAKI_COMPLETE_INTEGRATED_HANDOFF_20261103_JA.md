@@ -117,3 +117,12 @@ K4AJの実装：
 3. 過去の決定/変更の裏づけが必要なとき [DOPAGAKI_RESTART_JA.md](../DOPAGAKI_RESTART_JA.md)、[LIVE HANDOFF](DOPAGAKI_LIVE_HANDOFF.md)、[PROJECT_STATE.md](../PROJECT_STATE.md)・PR #46を参照。これらは**数万字〜数十万字に渡る履歴**で、古い「最新」は今の最新状態を意味しない。最初から全体を再要約する必要はない。
 
 **新チャットの基本命令**：「GitHubの `ryomashibaba/dopagaki-development-hub` の研究ブランチ `research/k4aj-native-b51-gpu-depth-contiguous-window-20261103` の `START_HERE.md` を読み、リンク先の統合正本を継承。CI #41566784540と最新HEAD/PR#46を実確認し、固定方針を守って次の正当な開発工程を**実装・検証・GitHub保存**まで進めて。main・本番公開・Work無断利用は禁止。」
+
+## H. 2026-11-03 K4AL 新工程：RGB真正画像証拠の静的カバレッジを確認
+
+- [K4AL独立報告](R19_A6P4_R2F5K4AL_ORIGINAL_RGB_EVIDENCE_COVERAGE_AND_ART_FIRST_JA.md)／[本体コード](../scripts/p101-r19a6p4r2f5k4al-true-rgb-coverage-audit.py)／[100合成ケースE2Eの5負例テスト](../tests/p101-r19a6p4r2f5k4al-rgb-coverage.test.py)を隔離研究ブランチに保存。本体とテストのGit blobはローカル検証版と一致。
+- **静的に裏付けられた不足**：K4AJの真正RGB撮影予定は8時点、K4AK ART-FIRSTレビュー要求15時点、重複6／要求側未撮影9／追加撮影2。100個の元GPU深度比較は100個の元RGB画面画像の取得を意味しない。
+- ローカルPython構文・合成100ケースE2E・5改ざん負例はPASS。ただし**真正K4AJ生Artifact・PNGの実SHA監査は未実施／HOLD**。K4AKとK4ALへの実データ入力も未実施。
+- 真K4AJ #41566784540とK4AK #41568787273は本記述以前の実照会で `queued`。**現在値は毎回GitHubで再照会**し、実完了までPASSと呼ばない。新K4ALは既存CIをキャンセルしないパスに隔離、新workflowは増やしていない。
+- 以後の順番は K4AJ true GPU Artifact ZIP/SHA/CRC・独立生depth audit → K4AK実Artifactレビュー要求 → K4AL RGBのSHAつき画像在庫と不足9時点の確認 → 本物の元カメラA/B・独立ART審査。旧K4/K4R/K4UのART REJECTは変更しない。
+- 正式ART採用0件、Slope2 DNA認定0m、候補新モデル0、元240Hz/球/Camera/B48×7/B51×28/source blob固定、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD、main・原ゲーム・本番・Draft PR#46無変更、Work事前承認。
