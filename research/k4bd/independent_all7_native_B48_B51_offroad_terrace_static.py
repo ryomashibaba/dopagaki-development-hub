@@ -100,10 +100,18 @@ k4bd_ped=bpy.data.collections.get("K4BD 02 | road-exterior deep public waterfron
 assert k4bd_ped is not None
 k4bd_objects=[o for o in k4bd_ped.objects if o.type in ("MESH","CURVE")]
 assert len(k4bd_objects)>=40
-k4bd_inlay=bpy.data.collections.get("K4BD 01 | all source-sampled outer inlay PBR proposal NONCOLLISION")
-k4bd_water=bpy.data.collections.get("K4BD 03 | under-road original-stage-distant coastal horizon ART ONLY")
-assert k4bd_inlay and len(k4bd_inlay.objects)==52
-assert k4bd_water and len(k4bd_water.objects)==1
+# Blender ID names are limited to 63 bytes in 4.0.2; both original
+# long K4BD collection names (66 and 68 chars) are silently truncated.
+# Match stable, unambiguous prefixes and fail closed on ambiguity, not
+# on a harmless Blender name truncation.
+def exactly_one_collection(prefix):
+    matches=[c for c in bpy.data.collections if c.name.startswith(prefix)]
+    assert len(matches)==1,(prefix,[c.name for c in matches])
+    return matches[0]
+k4bd_inlay=exactly_one_collection("K4BD 01 |")
+k4bd_water=exactly_one_collection("K4BD 03 |")
+assert len(k4bd_inlay.objects)==52,(k4bd_inlay.name,len(k4bd_inlay.objects))
+assert len(k4bd_water.objects)==1,(k4bd_water.name,len(k4bd_water.objects))
 assert not any(o in candidates for o in k4bd_inlay.objects)
 assert not any(o in candidates for o in k4bd_water.objects)
 deps=bpy.context.evaluated_depsgraph_get()
