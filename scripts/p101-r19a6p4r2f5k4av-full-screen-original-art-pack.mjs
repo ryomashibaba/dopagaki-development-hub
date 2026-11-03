@@ -25,15 +25,15 @@ patch(imp,imp+
 const flag="const k4auEnabled=k4atEnabled&&new URLSearchParams(location.search).get('k4au')==='on';";
 patch(flag,flag+
  "\nconst k4avEnabled=k4auEnabled&&new URLSearchParams(location.search).get('k4av')==='on';"+
- "\nlet k4avWorld=null,k4avSky=null;");
+ "\nconst k4avCityEnabled=k4avEnabled&&new URLSearchParams(location.search).get('k4avArt')!=='off';\nlet k4avWorld=null,k4avSky=null;");
 patch("function buildVisual(stage){",
  "function buildVisual(stage){\n"+
  " if(k4avWorld)releaseK4AQScene(gl,k4avWorld);\n"+
  " if(k4avSky)releaseK4AVAtmosphere(gl,k4avSky);\n"+
- " const k4avArt=buildK4AVRoad5Environment(stage,sample,{enabled:k4avEnabled});\n"+
+ " const k4avArt=buildK4AVRoad5Environment(stage,sample,{enabled:k4avCityEnabled});\n"+
  " k4avWorld=k4avArt.active?createK4AQScene(gl,k4avArt):null;\n"+
- " k4avSky=k4avArt.active?createK4AVAtmosphere(gl):null;\n"+
- " canvas.dataset.k4avMode=k4avEnabled?'PRIVATE_FULL_SCREEN_CIVIC_RESET_HOLD':'OFF';\n"+
+ " k4avSky=k4avEnabled?createK4AVAtmosphere(gl):null;\n"+
+ " canvas.dataset.k4avMode=k4avEnabled?'PRIVATE_FULL_SCREEN_CIVIC_RESET_HOLD':'OFF';\n canvas.dataset.k4avCityEnabled=k4avCityEnabled?'true':'false';\n"+
  " canvas.dataset.k4avRoad5U=String(k4avArt.originalRoad5U||0);\n"+
  " canvas.dataset.k4avTriangles=String(k4avArt.triangles||0);\n"+
  " canvas.dataset.k4avEdgeSegments=String(k4avArt.visibleEdgeSegments||0);\n"+
@@ -44,7 +44,7 @@ patch(prevRender,
  "if(k4atEnabled&&!k4avEnabled)renderK4AQScene(gl,k4atCivicScene,view,w/h,{fogStrength:visibilityFx?1:0});\n"+
  " if(k4avEnabled){\n"+
  "  renderK4AVAtmosphere(gl,k4avSky,view,w/h);\n"+
- "  renderK4AQScene(gl,k4avWorld,view,w/h,{fogStrength:visibilityFx?1:0});\n"+
+ "  if(k4avCityEnabled)renderK4AQScene(gl,k4avWorld,view,w/h,{fogStrength:visibilityFx?1:0});\n"+
  " }");
 const pArt="draw(k4asRoad5Active?k4asRoadArtMesh:(g4e7pQuietMesh||(g4e7kUi?.quiet&&g4e7kQuietMesh?g4e7kQuietMesh:a13RoadArtMesh)));";
 patch(pArt,
