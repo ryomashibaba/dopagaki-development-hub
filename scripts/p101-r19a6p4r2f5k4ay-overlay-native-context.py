@@ -128,7 +128,7 @@ assert len(cams)==6
 def visibility(mode,tick):
     for m,c in rcols.items():c.hide_render=(m!=mode)
     for key,c in boxes.items():c.hide_render=(key!=(mode,tick))
-    scene.view_layers.update()
+    bpy.context.view_layer.update()
 reports=[]
 for mode in ("control","ultra"):
     for frame in doc["modes"][mode]["sourceTimeRecords"]:
