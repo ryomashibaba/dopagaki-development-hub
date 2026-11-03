@@ -24,7 +24,7 @@ jobs:
         run: |
           set -euo pipefail
           for attempt in $(seq 1 95); do
-            status="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41656920221 --jq .conclusion)"
+            status="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41657612279 --jq .conclusion)"
             if [ "$status" = success ]; then exit 0; fi
             if [ "$status" = failure ] || [ "$status" = cancelled ]; then echo "K4BE ART source failed, refuse pin"; exit 1; fi
             sleep 12
@@ -35,7 +35,7 @@ jobs:
         with:
           name: K4BE_ALL7_SOURCE_TWO_CAMERA_INTEGRATED_TIDAL_FORUM_ART_HOLD
           repository: ryomashibaba/dopagaki-development-hub
-          run-id: 41656920221
+          run-id: 41657612279
           github-token: ${{ github.token }}
           path: research/evidence/k4be-pin
       - name: Verify SHA provenance before committing immutable DCC ART HOLD examples
