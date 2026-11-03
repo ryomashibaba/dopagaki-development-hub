@@ -1,3 +1,17 @@
+# 【最新・2026-11-03 K4BA 継続入口】Tidal Commons 真Road5全画面美術
+
+**この上段を過去の旧「最新」より優先し、[K4BA正本](docs/R19_A6P4_R2F5K4BA_TIDAL_COMMONS_WHOLE_SCREEN_ART_REBUILD_JA.md)から引き継ぐ。**
+
+- 現研究枝: `research/k4ba-road5-tidal-city-cinematic-art-rebuild-20261103`。K4AZの確定HEAD `a09b4b2f0548640e43c948b4ce8695b8c2a39f0a`から派生。main、本番、PR#46、公式継続ブランチは変更禁止。
+- 直前までの実績: K4AZ v3の編集可能本物source Road5 DCC Actions #41616880506 **SUCCESS**、同v3の独立静的B48(4,728三角)×B51(168時刻OBB)非交差 Actions #41617855388 **SUCCESS**。それでも**正式ART REJECT**で、正式採用0、Slope2 DNA認定0m。
+- **K4BA設計の根本差分**：広く単調な路面と奥に何もない空を克服するため、元Road5上面の実データサンプルへ植え付けたDCC-only路面PBR候補、両側の複数階の公共建築、公共用途のある大きな屋上連絡回廊、**元Road5物理終端の先の芸術専用海港展望施設と都市遠景**をBlenderで全面再制作。美術専用の物理終端以遠の風景は原ゲームに無い走行可能な道ではなく、衝突も生まない。元K4AZは比較用に編集可能保持・表示のみOFF。
+- **絶対固定**: 元game Git Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元source 240Hz/球0.65m、B48 7道路、B51 28、原Camera6 tick、操作、速度、衝突。Source DCC/CI PASSを真正WebGL2やART PASSと混同禁止。
+- 今回着手コード: [K4BA Blender制作器](scripts/p101-k4ba-authentic-b48-tidal-commons-cinematic-city.py)、[K4BA専用CI](.github/workflows/p101-k4ba-real-road5-tidal-cinematic-city.yml)、[K4BA独立B48/B51接触検査](research/k4ba/independent_b48_b51_native_spatial_audit.py)。
+- **次工程**：K4BA初回CIの真status/jobs/artifactを確認し、失敗したらログを根拠に修正→真正6元Camera DCC＋1artist PNGを直接目視してK4AZ画像と比較→**不足していればART REJECTのまま大幅再制作**→個別BVHと本物のWebGL2はゲートを分ける。**この文書を書いた時点ではK4BAのレンダリング成功・ART評価は未確定**。
+- **恒久HOLD**：正式ART採用0件、Slope2 DNA0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。Work事前承認、Chat＋GitHub中心、ユーザーのローカル操作最小化。
+
+---
+
 # 【2026-11-03 最新・K4AZから再開】DOPAGAKI SLOPE 継続入口
 
 **この上段を旧「最新」記述より優先。** 目標は元240Hz高速物理と一体の**世界水準の全画面美術**。技術CI成功や画像差だけでART合格を主張しない。
