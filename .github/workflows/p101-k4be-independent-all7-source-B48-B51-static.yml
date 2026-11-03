@@ -1,0 +1,121 @@
+name: DOPAGAKI K4BE independent genuine all7 B48 and six-time 28 B51 civic BVH
+on:
+  push:
+    branches:
+      - research/k4be-camera-first-integrated-urban-civic-hall-20261103
+    paths:
+      - '.github/workflows/p101-k4be-independent-all7-source-B48-B51-static.yml'
+      - 'research/k4be/independent_all7_B48_168_B51_new_urban_forum_bvh.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4be-independent-native-all7-B48-168-B51-static-not-ccd
+  cancel-in-progress: false
+jobs:
+  independent-real-source-static:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Frozen game immutable SHA and independent audit code syntax
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile research/k4be/independent_all7_B48_168_B51_new_urban_forum_bvh.py
+      - name: Require successful exact K4BE two-camera source editing run
+        env:
+          GH_TOKEN: \${{ github.token }}
+        run: |
+          set -euo pipefail
+          for count in $(seq 1 85); do
+            status="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41656920221 --jq .conclusion)"
+            if [ "$status" = success ]; then exit 0; fi
+            if [ "$status" = failure ] || [ "$status" = cancelled ]; then echo "parent failed; no BVH pass"; exit 1; fi
+            sleep 13
+          done
+          echo 'K4BE source-parent not finished: HOLD'
+          exit 1
+      - uses: actions/download-artifact@v4
+        with:
+          name: K4BE_ALL7_SOURCE_TWO_CAMERA_INTEGRATED_TIDAL_FORUM_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41656920221
+          github-token: \${{ github.token }}
+          path: research/evidence/k4be-audit/edited
+      - uses: actions/download-artifact@v4
+        with:
+          name: K4BC_V2_REAL_ALL_SEVEN_ORIGINAL_B48_EDITABLE_SOURCE_CAMERA_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41638891877
+          github-token: \${{ github.token }}
+          path: research/evidence/k4be-audit/all7
+      - uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: \${{ github.token }}
+          path: research/evidence/k4be-audit/native
+      - name: Independently validate source SHA and scope before accepting limited survey
+        run: |
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path('research/evidence/k4be-audit')
+          j=json.loads((p/'edited/K4BE_SOURCE_CAMERA_CIVIC_FORUM_PROVENANCE.json').read_text())
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['sourceRoad5GeometryBefore']==j['sourceRoad5GeometryAfter']
+          assert j['otherSixRoadSourceMeshAndCameraPreserved']
+          assert len(j['originalCameraPilotFrames'])==2
+          assert j['ART']=='REJECT_HOLD' and j['formalArtAccepted']==0
+          for f,v in j['files'].items():
+            d=(p/'edited'/f).read_bytes()
+            assert len(d)==v['bytes'] and hashlib.sha256(d).hexdigest()==v['sha256']
+          x=json.loads((p/'all7/original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json').read_text())
+          o=json.loads((p/'native/K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert x['frozenOriginalGameGitBlob']==o['frozenOriginalGameGitBlob']==j['originalGameBlob']
+          assert x['B48SurfaceCount']==7 and x['sourcePhysicsHz']==240
+          assert o['originalB51MovingObstacles']==28
+          print('K4BE_INDEPENDENT_BVH_ALL7_SHA_PROVENANCE_PASS')
+          PY
+      - name: Install genuine Blender for real source triangles/OBB BVH
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender
+      - name: Evaluate all 14 physical source meshes and 168 original tick collision OBBs
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4be-audit/report
+          blender -b --factory-startup --python-exit-code 3 \
+            --python research/k4be/independent_all7_B48_168_B51_new_urban_forum_bvh.py -- \
+            --blend research/evidence/k4be-audit/edited/K4BE_TRUE_B48_ALL7_SOURCE_CAMERA_INHABITED_TIDAL_FORUM_ART_HOLD.blend \
+            --all7 research/evidence/k4be-audit/all7/original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json \
+            --original research/evidence/k4be-audit/native/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out research/evidence/k4be-audit/report
+      - name: Fail closed if any source triangle intersection or missing K4BE rooms
+        run: |
+          python3 - <<'PY'
+          import json
+          d=json.load(open('research/evidence/k4be-audit/report/K4BE_EXACT_ALL_SEVEN_SOURCE_B48_B51_STATIC_AUDIT.json'))
+          assert d['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['independentSourceB48PhysicalMeshesEvaluated']==14
+          assert d['independentSourceB48PhysicalTrianglesEvaluated']==66192
+          assert d['numberSourceB51OriginalTickCollisionOBBs']==168
+          assert d['newK4BECivicIntegratedArchitectureObjectsIncluded']>95
+          assert d['candidateK4BEPlusEarlierCivicArchitectureMeshesOrCurves']>200
+          assert d['roadContacts']==[] and d['originalNativeB51Contacts']==[]
+          assert d['wholeStageFutureTimeCCD']=='NOT_TESTED_HOLD'
+          assert d['ballRadius065SafetyTest']=='NOT_TESTED_HOLD'
+          assert d['formalArtAccepted']==d['Slope2DNACertifiedMetres']==0
+          assert d['ART']=='REJECT_HOLD'
+          print('K4BE_INDEPENDENT_ALL7_B48_B51_STATIC_NO_TRIANGLE_OVERLAP_NOT_SAFETY_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BE_INDEPENDENT_ALL7_B48_168_B51_STATIC_SURVEY_ART_HOLD
+          path: research/evidence/k4be-audit/report/
+          retention-days: 14
+          if-no-files-found: warn
