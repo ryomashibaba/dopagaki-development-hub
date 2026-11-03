@@ -40,8 +40,20 @@ try{
       '/r19a6p4r2f5k4as/?r19a1=on&k4ab=on&k4ad=on&g5b=off&stage='+
       stage+'&k4aq='+(candidate?'on':'off')+(visual==='sky-only'?'&k4aqMesh=off':'')+(visual==='material'?'&k4as=materials':'');
     await page.goto(url,{waitUntil:'domcontentloaded',timeout:90000});
-    await page.waitForFunction(s=>document.querySelector('#stage')?.value===s&&
-       document.querySelector('#view')?.dataset.w9c1Isolated==='true',stage,{timeout:120000});
+    // Boot can fail BEFORE source stage readiness (K4AQ/AR/AS original runs all
+    // hit r19a1OptIn TDZ). Fail immediately on captured real browser errors.
+    await page.waitForTimeout(250);
+    if(run.errors.length)throw Error('K4AS_BROWSER_BOOT_ERROR: '+run.errors.join(' | '));
+    try{
+      await page.waitForFunction(s=>document.querySelector('#stage')?.value===s&&
+       document.querySelector('#view')?.dataset.w9c1Isolated==='true',stage,{timeout:90000});
+    }catch(error){
+      const boot=await page.evaluate(()=>({stage:document.querySelector('#stage')?.value,
+       w9c1Isolated:document.querySelector('#view')?.dataset.w9c1Isolated,
+       readyState:document.readyState,appStatus:document.querySelector('#appStatus')?.textContent?.slice(0,300)}));
+      throw Error('K4AS_BOOT_NOT_READY: '+JSON.stringify({boot,pageErrors:run.errors})+'; '+String(error));
+    }
+    if(run.errors.length)throw Error('K4AS_BROWSER_BOOT_ERROR_AFTER_STAGE: '+run.errors.join(' | '));
     const gl=await page.evaluate(()=>{
       const c=document.querySelector('#view'),g=c.getContext('webgl2');
       return {webgl2:g instanceof WebGL2RenderingContext,
