@@ -1,5 +1,5 @@
 {
-  "schema": "dopagaki.K4BH.source-camera-art-directed-civic-corridor/1",
+  "schema": "dopagaki.K4BH.source-camera-art-directed-civic-corridor-v2/1",
   "parentArtifact": 13274862071,
   "parentBlenderSHA256": "b665c84a88d719c4615638cfeb95ab5fe92a84a3a07d3ebe096dd540dd749b2f",
   "frozenOriginalSourceGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
@@ -17,7 +17,7 @@
   },
   "sourceRoad5PhysicalGeometryUnchanged": true,
   "sourceCamerasNumericsUnchanged": true,
-  "sourceRoad5MaterialsDCCOnlyChanged": true,
+  "sourceRoad5MaterialsDCCOnlyChanged": false,
   "oldRoadMaterialNamesPreservedInReport": {
     "control": [
       "K4BD PBR 3K native source Road5 six-zone monumental constructed",
@@ -29,9 +29,60 @@
     ]
   },
   "oldRejectedArtCollectionsRetainedHidden": [
+    "01_HERO | Tidal Exchange Hall - editable architecture",
+    "02_SITE | Source-camera context, NOT original collision",
+    "03_DETAIL | Human-scale public uses",
+    "04_DISTANT | Distinctive single skyline anchor",
+    "06_LIGHT | Physically authored studio lighting",
+    "Collection",
+    "K4AY SOURCE B51 OBB PROXIES | CONTROL | TICK 11259",
+    "K4AY SOURCE B51 OBB PROXIES | CONTROL | TICK 11278",
+    "K4AY SOURCE B51 OBB PROXIES | CONTROL | TICK 11307",
+    "K4AY SOURCE B51 OBB PROXIES | ULTRA | TICK 11320",
+    "K4AY SOURCE B51 OBB PROXIES | ULTRA | TICK 11341",
+    "K4AY SOURCE B51 OBB PROXIES | ULTRA | TICK 11369",
+    "K4AZ 01 | TRUE BANK GEOLOGY + terraced canyon",
+    "K4AZ 02 | LEFT civic agora, sectioned vaults and open ground ro",
+    "K4AZ 03 | RIGHT inhabited arcades, bridges and gardens",
+    "K4AZ 04 | FIGURATIVE skyline anchors, not repeating towers",
+    "K4AZ 05 | authored civic interior lighting",
+    "K4AZ 06 | DCC-only noncollision surface pattern proposals",
+    "K4BA 01 | GEOGRAPHY and off-road landforms",
+    "K4BA 02 | CITY roof shells and civic section",
+    "K4BA 03 | PUBLIC galleries and real open rooms",
+    "K4BA 04 | TIDAL MERIDIAN observatory and skyline",
+    "K4BA 05 | public gardens water humans",
+    "K4BA 06 | noncollision ROAD MATERIAL STUDY ONLY",
+    "K4BA 07 | physically authored lights",
+    "K4BB 01 | Deep inhabited civic interiors - editable rooms",
+    "K4BB 02 | True civic service atria and supports",
+    "K4BB 03 | Function and human-scale furnishings",
+    "K4BB 04 | Inhabited light and facade hierarchy",
+    "K4BB 05 | Studio only human-eye architectural review",
+    "K4BC 01 | tectonic cliffs and founded public banks",
+    "K4BC 02 | West exchange and East civic library - sectional mass",
+    "K4BC 03 | oversized legible entrances and public courtyards",
+    "K4BC 04 | monumental occupied skyline, NOT a driveable road",
+    "K4BC 05 | NONCOLLISION Road5 shoulder civic stone seam study",
+    "K4BC 06 | studio architectural and public-space lighting",
+    "K4BC 07 | additional artist camera, NOT original game",
+    "K4BC V3 01 | authentic Road6 off-road bedrock foundations",
+    "K4BC V3 02 | east library occupied city citadel",
+    "K4BC V3 03 | west harbor exchange occupied citadel",
+    "K4BC V3 04 | high clear public sky conservatory NOT original ro",
+    "K4BC V3 05 | DCC architectural warm lighting",
+    "K4BC V3 06 | AERIAL DESIGN ONLY NOT SOURCE CAMERA",
+    "K4BD 01 | all source-sampled outer inlay PBR proposal NONCOLLIS",
     "K4BD 02 | road-exterior deep public waterfront terrace",
     "K4BD 03 | under-road original-stage-distant coastal horizon ART",
+    "K4BD 04 | independent editorial Camera NOT ORIGINAL",
     "K4BE 01 | INTEGRATED GROUNDED PUBLIC PLINTHS",
+    "K4BE 02 | WEST HALL OPEN COURT AND LIBRARY",
+    "K4BE 03 | EAST COAST CONSERVATORY",
+    "K4BE 04 | CROSS CITY INHABITED FORUM",
+    "K4BE 05 | HUMAN SCALE ART AND WAYFINDING",
+    "K4BE 06 | INTERIOR DAYLIGHT PHYSICALLY FIXTURED",
+    "K4BE 07 | AUXILIARY DESIGN CAMERA ONLY",
     "K4BG 01 | FACETED COAST GATE LOAD BEARING",
     "K4BG 02 | OCCUPIED BRIDGE VOID",
     "K4BG 03 | HUMAN CIVIC TERRACES",
@@ -205,39 +256,39 @@
   "slope2DNARecognizedMetres": 0,
   "files": {
     "K4BH_ART_DIRECTED_CIVIC_CORRIDOR_EDITABLE_ART_HOLD.blend": {
-      "bytes": 41587752,
-      "sha256": "d0168ea7d94cf2e953d273b015016006618e23f049f872397e72e82ed6fe74d5"
+      "bytes": 41595944,
+      "sha256": "62491e0e3d332223e6d9c433cf13dda6d71dec1010c5d91fc9acfcd46e8779aa"
     },
     "K4BH_CONTROL_11307_SOURCE_DCC_ART_UNJUDGED.png": {
-      "bytes": 1256387,
-      "sha256": "df6e83638e4a1948ab369ab84d7093ba6091f08fe7fbe8e03ae3fdd88b2d891c"
+      "bytes": 1048361,
+      "sha256": "09be1657658e545704a0e824a56e1dd80afb6e3e5df40a7180052dd6e03a3293"
     },
     "K4BH_ULTRA_11341_SOURCE_DCC_ART_UNJUDGED.png": {
-      "bytes": 1251270,
-      "sha256": "ee77ddd3998961162808f2633f2c8e0cb98f29f007fa3c87dbd3f40b04eea436"
+      "bytes": 1053074,
+      "sha256": "e47c857d3c1bba1a219d193629ccc614a669051b4486d131c293bc6017fa0744"
     }
   },
   "compare": {
     "name": "K4BH_K4BG_VS_NEW_TRUE_SOURCE_CAMERA_ART_REVIEW.png",
-    "sha256": "6f7b06b1bcd69d498f85db067f965a0c0ec67c775d63df9a25bbd962e9eec3f1",
-    "bytes": 2509229,
+    "sha256": "5a2a3a07ce9ff8d36a0070157dede2b6dcb3e4c76307ef20d029385d102c353c",
+    "bytes": 2208522,
     "meanPixelDiff": [
       {
         "mode": "control",
         "tick": 11307,
         "meanAbsoluteRgbDifference": [
-          51.872,
-          50.528,
-          47.981
+          37.546,
+          38.177,
+          37.931
         ]
       },
       {
         "mode": "ultra",
         "tick": 11341,
         "meanAbsoluteRgbDifference": [
-          52.866,
-          51.377,
-          48.766
+          36.995,
+          37.487,
+          37.395
         ]
       }
     ]
