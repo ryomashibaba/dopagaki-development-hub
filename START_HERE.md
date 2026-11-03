@@ -1,3 +1,13 @@
+# 【2026-11-04 K4BG／新チャット最優先入口】DOPAGAKI SLOPE — ART-FIRST研究
+
+- **現在の継続研究枝**：`research/k4bg-civic-escarpment-true-camera-art-20261104`。親K4BF `f8d291d7c4436e739843bd3bb6fdf2b95c85feb0` から隔離。main／公式p101／Draft PR #46／本番2サイトは変更禁止。
+- [K4BGの本当の一体型Blender美術制作コード・目的・不変条件・検証](docs/R19_A6P4_R2F5K4BG_SOURCE_CAMERA_COHERENT_CIVIC_ESCARPMENT_JA.md)を最初に読む。[K4BG Source-Camera制作CI #41725702409](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41725702409)は2026-11-04 06:52 JST頃起動。**最新statusを再照会**し、成功やART合格を推定しない。
+- K4BF #41722243986は**completed FAILURE**（Blender .blend/2 source Camera PNG/独立SHA検査までは成功、最後のGit保存がnon-fast-forward）。実Artifact #13271498531、ZIP SHA `9adc33e93f72b053a20d264b480aea165c3ef43daeb8007df5b313242f7e49f3`、control/ultra真DCC比較を目視して**K4BF ART REJECT**。ultraでは道路が前景に無いように見える大空間、controlも模型感が残存。元ゲームのRoad5が実際に欠損した証拠ではない。
+- K4BGは旧K4BE材質と真正道路メッシュの非改変を保証して、旧反復都市建築をDCC render OFF、連続する両側都市峡谷・大断面公共屋根・深い居室・雨庭・遠景ランドマークをBlender-nativeで一方向再制作。2 source Camera画面のARTを厳格審査するまで、**正式ART採用0／Slope2 DNA0m／HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD**。DCC PNGと実WebGL2ゲーム画面を絶対に混同しない。
+- 元source blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Camera6・球0.65m・物理240Hz・B48道路7/B51実動体28、衝突/安全表示は不変更。Workは事前許可制、ユーザーWindows操作要求なし。K4BGのART不合格なら**次の道路全体展開は禁止**。
+
+---
+
 # 【2026-11-04 K4BF制作開始 / ART未判定】DOPAGAKI SLOPE — 正本最新入口
 
 **最優先**：[K4BF本物のSource Camera/路面PBR/公共モノリス実制作](docs/R19_A6P4_R2F5K4BF_SOURCE_CAMERA_GROUND_MONOLITH_ART_FIRST_JA.md)、[K4BF専用Actions #41722243986](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41722243986)、[K4BE終盤の保護条件とART REJECT](docs/R19_A6P4_R2F5K4BE_SOURCE_CAMERA_COHERENT_TIDAL_FORUM_JA.md)。旧K4BE見出しは歴史資料として残す。
