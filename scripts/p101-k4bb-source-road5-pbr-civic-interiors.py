@@ -147,9 +147,9 @@ def img(name,array,noncolor=False):
     def chunk(typ,data):
         return (struct.pack(">I",len(data))+typ+data+
                 struct.pack(">I",zlib.crc32(typ+data)&0xffffffff))
-    header=b"\\x89PNG\\r\\n\\x1a\\n"
+    header=bytes((137,80,78,71,13,10,26,10))
     IHDR=struct.pack(">IIBBBBB",W,H,8,6,0,0,0)
-    scan=b"".join(b"\\x00"+rgba[y].tobytes() for y in range(H))
+    scan=b"".join(bytes((0,))+rgba[y].tobytes() for y in range(H))
     binary=(header+chunk(b"IHDR",IHDR)+chunk(b"IDAT",zlib.compress(scan,6))+
             chunk(b"IEND",b""))
     filepath=os.path.join(out,name+".png")
