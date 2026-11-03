@@ -333,9 +333,9 @@ for sign in [-1,1]:
         ob.location=p(d0,sign*157,63)
         # downward facing area lights: normal from local -Z
 sc.cycles.samples=96
-try:sc.cycles.use_denoising=True
+try:sc.cycles.use_denoising=False
 except Exception:pass
-try:bpy.context.view_layer.cycles.use_denoising=True
+try:bpy.context.view_layer.cycles.use_denoising=False
 except Exception:pass
 sc.render.engine='CYCLES'
 sc.render.resolution_x=1152
