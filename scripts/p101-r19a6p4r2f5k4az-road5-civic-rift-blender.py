@@ -382,8 +382,8 @@ def sculpt_tower(name,u,side,d,height,baseR,nrings,nedges):
         polyline(name+" / spandrel structural fin "+str(k),
                  [row[k] for row in rows],.42,bronze,silhouette)
     return center
-sculpt_tower("RIGHT / CRESCENT CIVIC LIGHTHOUSE",.94,1,208,166,32,36,14)
-sculpt_tower("LEFT / BASALT CULTURAL CHIMNEY",.97,-1,231,111,28,28,11)
+sculpt_tower("RIGHT / CRESCENT CIVIC LIGHTHOUSE",.986,1,83,74,24,30,14)
+sculpt_tower("LEFT / BASALT CULTURAL CHIMNEY",.995,-1,78,59,25,28,11)
 
 # True-source-geometry longitudinal civic connector across the FULL real road.
 # This is one designed inhabitable elevated pedestrian connection, NOT a gate
@@ -392,25 +392,25 @@ def crossing(u,q,h):
     if q<0:return bankpoint(u,-1,-q*(sample(u,1)-sample(u,0)).length,h)
     if q>1:return bankpoint(u,1,(q-1)*(sample(u,1)-sample(u,0)).length,h)
     return sample(u,q)+Vector((0,0,h))
-bridge_u=.925
+bridge_u=.982
 # Floating deck is high above actual B48/B51 occupied collision band.
 cross_rows=[]
 for u in (bridge_u-.005,bridge_u,bridge_u+.005):
     cross_rows.append([crossing(u,-.10+1.20*i/64,
-                   40+4.5*sin(pi*max(0,min(1,-.10+1.20*i/64))))
+                   27+2.5*sin(pi*max(0,min(1,-.10+1.20*i/64))))
                    for i in range(65)])
 strip("HERO FOCAL EVENT / HIGH PUBLIC SKY TRANSIT GALLERY - TRUE ROAD CLEAR",
       cross_rows,concrete,market,solid=2.1)
 for u in (bridge_u-.005,bridge_u+.005):
-    for h in (43.0,49.0):
+    for h in (30.0,34.0):
         polyline("FAR SKY TRANSIT PEDESTRIAN PARAPET "+str(u)+str(h),
                  [crossing(u,-.1+1.2*i/70,
-                    h+4*sin(pi*max(0,min(1,-.1+1.2*i/70)))) for i in range(71)],
+                    h+2.5*sin(pi*max(0,min(1,-.1+1.2*i/70)))) for i in range(71)],
                  .22,bronze,market)
 for u in (bridge_u-.012,bridge_u+.015):
     polyline("TRANSIT FOCAL / OPEN IMPRESSIVE SEGMENTED ARCH "+str(u),
              [crossing(u,-.10+1.20*i/70,
-                  52+24*sin(pi*max(0,min(1,-.1+1.2*i/70)))**1.18)
+                  35+18*sin(pi*max(0,min(1,-.1+1.2*i/70)))**1.18)
                for i in range(71)],1.12,patina,market)
 # A tangible station head anchors each end, safely OUTSIDE the physical road.
 for side in (-1,1):
@@ -418,11 +418,11 @@ for side in (-1,1):
     for offset in (16,30,43):
         polyline("SKY GALLERY BANK SUPPORT / "+str(side)+str(offset),
           [bankpoint(u,side,offset,0),
-           bankpoint(u,side,offset,20),
-           bankpoint(u,side,offset+2.5,40)],
+           bankpoint(u,side,offset,16),
+           bankpoint(u,side,offset+2.5,29)],
           .86,edge_stone,civic if side<0 else market)
     strip("PEDESTRIAN TRANSIT CONCOURSE ENTRANCE / "+str(side),
-         [[bankpoint(u-.018,side,13+44*i/10,26+15*(i/10))
+         [[bankpoint(u-.018,side,13+44*i/10,16+12*(i/10))
             for i in range(11)],
           [bankpoint(u+.018,side,13+44*i/10,26+15*(i/10))
             for i in range(11)]],
