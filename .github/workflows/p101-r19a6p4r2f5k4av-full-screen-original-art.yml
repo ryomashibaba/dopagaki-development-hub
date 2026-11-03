@@ -1,0 +1,83 @@
+name: DOPAGAKI K4AV source-native full screen civic art reset original/sky/city 18 PNG HOLD
+on:
+  push:
+    branches:
+      - research/k4av-road5-full-screen-art-reset-20261103
+    paths:
+      - 'web/p101-k4av-*'
+      - 'web/p101-k4aq-road5-civic-rift-material-art.mjs'
+      - 'scripts/p101-r19a6p4r2f5k4av-*'
+      - 'tests/p101-r19a6p4r2f5k4av-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4av-full-screen-original-art.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: dopagaki-k4av-source-native-18-screen-civic-district-art-reset
+  cancel-in-progress: false
+jobs:
+  genuine-road5-original-fullscreen-atmosphere-civic-world:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen source physical contract, new architectural world and sky tests
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check web/p101-k4av-road5-full-screen-civic-environment.mjs
+          node --check web/p101-k4av-civic-basin-atmosphere.mjs
+          node --check web/p101-k4aq-road5-civic-rift-material-art.mjs
+          node --check scripts/p101-r19a6p4r2f5k4av-full-screen-original-art-pack.mjs
+          node --check scripts/p101-r19a6p4r2f5k4av-genuine-native-full-frame-triad.mjs
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4av-independent-18-source-camera-audit.py
+          node --test tests/p101-r19a6p4r2f5k4av-full-frame-art-reset.test.mjs
+          node --test tests/p101-r19a6p4r2f5k4au-genuine-material-lighting.test.mjs
+      - name: Build PRIVATE actual original 240Hz source renderer and K4AV art reset
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a1-private-original-native-camera-pack.mjs
+          node scripts/p101-r19a6p4r2f5k3b-private-camera-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4ab-private-source-draw-provenance.mjs
+          node scripts/p101-r19a6p4r2f5k4ad-private-original-mesh-depth-replay.mjs
+          node scripts/p101-r19a6p4r2f5k4aq-private-road5-art-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4as-private-road5-material-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4at-private-source-civic-canyon-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4au-private-native-lit-road5-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4av-full-screen-original-art-pack.mjs
+          node --check dist-private/r19a6p4r2f5k4av/drive3d.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: TRUE Chromium source-native 240Hz 18 images original sky only city art
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/p101-r19a6p4r2f5k4av-genuine-native-full-frame-triad.mjs
+      - name: Independent 18 PNG SHA and genuine Road5 city-visible reviewer atlas
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-pil
+          python3 scripts/p101-r19a6p4r2f5k4av-independent-18-source-camera-audit.py --root r19-evidence/k4av
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('r19-evidence/k4av')
+          x=json.loads((root/'K4AV_INDEPENDENT_REAL_SCREEN_PIXEL_AUDIT.json').read_text())
+          assert x['verifiedRealPNGs']==18 and x['cameraTriplets']==6
+          assert x['technicalResult']=='SOURCE_B48_B51_NATIVE_RGB_AND_ART_PIXEL_DIFFERENCE_ONLY'
+          assert x['originalBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert x['formalArtAccepted']==x['slope2DNAMetres']==0
+          assert x['ART']=='NOT_TESTED_HOLD'
+          assert x['HUMAN']==x['SAT']==x['CCD']==x['FPS']=='HOLD'
+          assert x['RELEASE']==x['MERGE']=='HOLD'
+          assert (root/'K4AV_AUTHENTIC_NATIVE_18_THREE_WAY_ATLAS.png').exists()
+          print('K4AV_SOURCE_NATIVE_CIVIC_ART_VISIBLE_TECH_ONLY_FORMAL_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4AV_18_NATIVE_SOURCE_FULL_SCREEN_CIVIC_ART_HOLD
+          path: r19-evidence/k4av/
+          retention-days: 14
+          if-no-files-found: warn
