@@ -47,7 +47,7 @@ function recolor(v, fn){
   if(!Array.isArray(next)||next.length!==3||outOfRange(next)||
    next.some(x=>x<0||x>1))throw Error('K4AS INVALID PALETTE COLOR');
   if(!rgbClose(src,next,1e-9)){
-   result.splice(k+3,3,...next);
+   result[k+3]=next[0];result[k+4]=next[1];result[k+5]=next[2];
    const label=next.map(x=>Math.round(x*100)).join('-');
    used[label]=(used[label]||0)+1;
   }
