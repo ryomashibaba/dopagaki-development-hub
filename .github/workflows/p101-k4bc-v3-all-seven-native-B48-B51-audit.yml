@@ -1,0 +1,122 @@
+name: DOPAGAKI K4BC v3 independent all 7 true B48 and 168 B51 static architectural BVH
+on:
+  push:
+    branches:
+      - research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
+    paths:
+      - '.github/workflows/p101-k4bc-v3-all-seven-native-B48-B51-audit.yml'
+      - 'research/k4bc/independent_v3_all7_B48_six_B51_native_static_bvh.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4bc-v3-original-stage-all7-static-source-intersection
+  cancel-in-progress: false
+jobs:
+  independent-full-source-static-not-real-gameplay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Freeze source and syntax of independent seven-source physical roads BVH
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile research/k4bc/independent_v3_all7_B48_six_B51_native_static_bvh.py
+      - name: Wait for exact v3 native source-Camera authored result to finish successfully
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 62); do
+            c="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41640544530 --jq .conclusion)"
+            if [ "$c" = success ]; then exit 0; fi
+            if [ "$c" = failure ] || [ "$c" = cancelled ]; then echo "V3 real-source Blender failed: $c";exit 1; fi
+            sleep 14
+          done
+          echo "No successful v3 original source-Camera evidence";exit 1
+      - name: Download exact K4BC v3 real original seven-B48 .blend without any new game collision
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BC_V3_CAMERA_FRAMED_TRUE_ALL7_ROADS_EDITABLE_CIVIC_SKY_MUSEUM_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41640544530
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-v3-static/model
+      - name: Download true original 7 B48 physical source coordinates, independent of art generator
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BC_V2_REAL_ALL_SEVEN_ORIGINAL_B48_EDITABLE_SOURCE_CAMERA_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41638891877
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-v3-static/source
+      - name: Download original native B51 6 tick physical OBB snapshots, not visible mesh
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-v3-static/b51
+      - name: Before BVH verify all source and new .blend immutable provenance hashes
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          m=Path('research/evidence/k4bc-v3-static/model')
+          r=json.loads((m/'K4BC_V3_TRUE_SOURCE_CAMERA_CIVIC_COMPOSITION_PROVENANCE.json').read_text())
+          assert r['originalFrozenGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert r['originalSourceRoadCount']==7 and r['originalB51Movers']==28
+          assert r['originalSourceB48Road5Unmodified']
+          assert r['exactSourceRoad5Before']==r['exactSourceRoad5After']
+          assert r['originalOtherB48NativeModeCollectionsMaintained']==12
+          assert r['originalB51SourceOBBInstances']==168
+          assert r['nativeWebGL2Screenshots'] is False
+          assert r['ART']=='REJECT_HOLD' and r['formalArtAccepted']==0
+          for fn,v in r['files'].items():
+              raw=(m/fn).read_bytes()
+              assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+          src=json.loads((Path('research/evidence/k4bc-v3-static/source/original-all7')/'K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json').read_text())
+          b51=json.loads((Path('research/evidence/k4bc-v3-static/b51')/'K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert src['frozenOriginalGameGitBlob']==b51['frozenOriginalGameGitBlob']==r['originalFrozenGameBlob']
+          assert src['B48SurfaceCount']==7 and b51['originalB51MovingObstacles']==28
+          print('K4BC_V3_INDEPENDENT_SOURCE_7x2_B48_PLUS_168_B51_SHA_VERIFIED')
+          PY
+      - name: Install real Blender independent exact triangle BVH
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender
+      - name: Independently compare full native source 14 B48 meshes plus 168 original B51 vs v3 new plus existing city
+        run: |
+          mkdir -p research/evidence/k4bc-v3-static/results
+          blender -b --factory-startup --python-exit-code 3 \
+            --python research/k4bc/independent_v3_all7_B48_six_B51_native_static_bvh.py -- \
+            --blend research/evidence/k4bc-v3-static/model/K4BC_V3_ACTUAL_SOURCE_CAMERA_FRAMED_CITY_EDITABLE_ART_HOLD.blend \
+            --all7 research/evidence/k4bc-v3-static/source/original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json \
+            --original research/evidence/k4bc-v3-static/b51/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out research/evidence/k4bc-v3-static/results
+      - name: Fail-closed if ANY static original road or B51 source physical triangle intersects authored new buildings
+        run: |
+          python3 - <<'PY'
+          import json
+          j=json.load(open('research/evidence/k4bc-v3-static/results/K4BC_V3_EXACT_SEVEN_SOURCE_B48_B51_STATIC_AUDIT.json'))
+          assert j['independentSourceB48PhysicalMeshesEvaluated']==14
+          assert j['numberSourceB51OriginalTickCollisionOBBs']==168
+          assert j['candidateK4BCNewArchitectureMeshesOrCurves']>100
+          assert j['oldK4BCV1OffframeSkylineExcludedAndPreserved']
+          assert j['newV3PhysicalSkyMuseumAndCivicFoundationsIncluded']
+          assert j['roadContacts']==[] and j['originalNativeB51Contacts']==[]
+          assert j['limitedStaticSourceTriangleIntersectionOnly']
+          assert j['wholeStageFutureTimeCCD']=='NOT_TESTED_HOLD'
+          assert j['ART']=='REJECT_HOLD' and j['formalArtAccepted']==0
+          print('K4BC_V3_TRUE_SOURCE_ALL7_B48_AND_B51_STATIC_NONINTERSECTION_0_ONLY_NOT_GAME_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BC_V3_INDEPENDENT_TRUE_7_B48_168_B51_STATIC_CONTACT_ART_HOLD
+          path: research/evidence/k4bc-v3-static/results/
+          retention-days: 14
+          if-no-files-found: warn
