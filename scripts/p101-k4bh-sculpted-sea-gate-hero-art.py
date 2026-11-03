@@ -50,10 +50,11 @@ for c in bpy.data.collections:
     # NEVER hide authentic source camera, seven B48 source surfaces or
     # clock-sampled B51 reference collections. The source layer names below
     # use "K4BC v2" (lowercase v), distinct from rejected "K4BC V3".
-    if old:
-        assert not c.name.startswith('K4AY SOURCE')
-        assert c not in OTHERS.values()
-        assert c != rig
+    # This explicit exemption MUST run before hiding: the original six
+    # source-road collections are named "K4BC v2 | ...", so they also match
+    # the broad "K4BC " artwork prefix. They are NOT artwork.
+    if c in OTHERS.values() or c == rig or c.name.startswith('K4AY SOURCE'):
+        old=False
     if old:
         c.hide_render=True
         hidden[c.name]=len(c.objects)
