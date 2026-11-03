@@ -1,0 +1,73 @@
+name: DOPAGAKI K4BA permanently pin genuine camera DCC review to research branch
+on:
+  push:
+    branches:
+      - research/k4ba-road5-tidal-city-cinematic-art-rebuild-20261103
+    paths:
+      - '.github/workflows/p101-k4ba-permanent-art-review-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: k4ba-research-only-art-evidence-save
+  cancel-in-progress: false
+jobs:
+  research-only-source-camera-art-reject-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Fetch PINNED successful v2 real source camera DCC screenshots
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BA_FULL_SCREEN_TRUE_B48_B51_TIDAL_CITY_BLENDER_DCC_ART_REJECT
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41625837609
+          github-token: ${{ github.token }}
+          path: research/evidence/k4ba-pinned
+      - name: Independently verify every reference SHA, never certify true game WebGL2
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json,shutil
+          p=Path('research/evidence/k4ba-pinned')
+          j=json.loads((p/'K4BA_SOURCE_DCC_ART_PROVENANCE.json').read_text())
+          assert j['sourceFrozenBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['roadGeometryUnmodified'] is True
+          assert j['trueSourceRoadFingerprintAfter']==j['trueSourceRoadFingerprintBefore']
+          assert j['originalB48RoadCount']==7 and j['originalB51MovingCount']==28
+          assert j['sourceB51OBBProxySnapshots']==168
+          assert len(j['sourceNumericCameraDccRenders'])==6
+          assert j['ART']=='REJECT_HOLD' and j['formalArtApproved']==0
+          assert j['actualGameWebGL2Frames'] is False
+          for fn,st in j['files'].items():
+            raw=(p/fn).read_bytes()
+            assert st['bytes']==len(raw) and st['sha256']==hashlib.sha256(raw).hexdigest()
+          dst=Path('docs/research-evidence/k4ba');dst.mkdir(parents=True,exist_ok=True)
+          for source,target in (
+            ('K4BA_SIX_SOURCE_CAMERA_K4AZ_VS_K4BA_ART_AUDIT.png',
+             'K4BA_V2_SIX_TRUE_NUMERIC_SOURCE_CAMERA_K4AZ_AB_ART_REJECT.png'),
+            ('K4BA_ARTIST_CITY_AERIAL_DCC_NOT_GAME.png',
+             'K4BA_V2_AERIAL_CITY_SUPPORT_SECTION_DCC_ART_REJECT.png'),
+            ('K4BA_SOURCE_DCC_ART_PROVENANCE.json',
+             'K4BA_V2_TRUE_SOURCE_BLENDER_SHA_ART_REJECT.json')
+          ):
+            shutil.copyfile(p/source,dst/target)
+          print('K4BA_V2_ORIGINAL_CAMERA_DCC_6FRAME_AND_AERIAL_SOURCE_SHA_VERIFIED_NO_ART_PASS')
+          PY
+      - name: Commit review-only binary evidence to isolated K4BA branch, never main
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research-evidence/k4ba/K4BA_V2_*
+          git diff --cached --quiet && exit 0
+          git commit -m "evidence(k4ba): preserve rejected v2 true-source camera six-frame A/B and editable DCC provenance"
+          git fetch origin research/k4ba-road5-tidal-city-cinematic-art-rebuild-20261103
+          git rebase origin/research/k4ba-road5-tidal-city-cinematic-art-rebuild-20261103
+          git push origin HEAD:refs/heads/research/k4ba-road5-tidal-city-cinematic-art-rebuild-20261103
