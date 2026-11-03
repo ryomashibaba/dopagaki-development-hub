@@ -108,6 +108,10 @@ jobs:
           assert report['trueOriginalGPUFrames']==report['originalDepthRestorations']==100
           assert report['nativeSourceConsecutiveWindowTicks']==99
           assert report['genuineK4AF11280Anchors']==2
+          assert report['originalSourceGPUReadbackRequestCount']==300
+          assert report['independentNegativeControls']==5
+          assert report['actualGPUResearchMask']=='B51_BODY_ALL_28'
+          assert report['perTickObjectAttribution']=='UNKNOWN_EXCEPT_K4AG_VERIFIED_11280'
           assert report['humanVisualObstructionSeconds']=='NOT_MEASURED'
           assert report['officialARTAccepted']==report['slope2DNAMetres']==0
           assert report['newModels']==report['newColliders']==0
@@ -116,6 +120,10 @@ jobs:
           assert len(rows)==100 and len({(x['mode'],x['tick']) for x in rows})==100
           assert sum(x['dense']=='True' for x in rows)==99
           assert all(int(x['sampledPixels'])==11176 for x in rows)
+          assert {int(x['freshGPURequestSequence']) for x in rows}==set(range(3,301,3))
+          assert all(x['actualRemovedVisualLayer']=='B51_BODY_ALL_28' for x in rows)
+          assert sum(x['singleObstacleGPUAttributionAtThisTick']=='K4AG_VERIFIED_P95_HAZARD_12' for x in rows)==2
+          assert all(x['singleObstacleGPUAttributionAtThisTick']=='NOT_MEASURED_UNKNOWN' for x in rows if x['tick']!='11280')
           print('K4AJ_GENUINE_99_NATIVE_TICK_CONTIGUOUS_B51_GPU_SAMPLES_TECH_PASS_ART_HOLD')
           PY
       - uses: actions/upload-artifact@v4
