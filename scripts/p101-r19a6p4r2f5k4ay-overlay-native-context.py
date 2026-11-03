@@ -28,6 +28,11 @@ rig=bpy.data.collections.get("05_CAMERA | Authentic original source poses")
 assert rig is not None, "Missing K4AX original editable camera collection"
 hero=bpy.data.collections.get("01_HERO | Tidal Exchange Hall - editable architecture")
 assert hero is not None and len(hero.objects)>30, "K4AX design unexpectedly missing"
+# The K4AX studio backdrop is INVENTED landscape and can cover real B48.
+# Keep it editable in the saved file but never let it fake a physical road.
+invented_site=bpy.data.collections.get("02_SITE | Source-camera context, NOT original collision")
+assert invented_site is not None
+invented_site.hide_render=True
 # Geometry is stored in source-world XYZ, converted as (x,-z,y).
 def B(p):return (p[0],-p[2],p[1])
 def collection(name):
@@ -101,6 +106,12 @@ for mode,source_mode in doc["modes"].items():
             obj.rotation_euler[2]=pose["yawRadians"]
             obj.show_wire=True
             obj.show_all_edges=True
+            if pose["enabled"]:
+                outline=obj.modifiers.new("SOURCE COLLISION OBB wire cage - NOT VISUAL ART","WIREFRAME")
+                outline.thickness=.22
+                outline.use_replace=True
+            else:
+                obj.hide_render=True
             obj["SOURCE_NATIVE_TICK"]=tick
             obj["SOURCE_NATIVE_SECONDS"]=frame["sourceNativeSeconds"]
             obj["COLLISION_PROXY_NOT_GAME_VISUAL"]=True
@@ -155,6 +166,16 @@ for mode in ("control","ultra"):
             "sourceB51PhysicalOBBIsRealGameVisibleMesh":False,
             "exactVisualOcclusionNotClaimed":True,
             "roadArchitectureBVHIntersectionNotYetProven":True})
+# The source 6-pose set is the reference. Artist view is an EXTRA DCC shot,
+# expressly not mislabeled as any actual game camera.
+visibility("control",11259)
+artist=[o for o in rig.objects if o.type=="CAMERA" and
+        o.name=="K4AX ARCHITECTURAL STUDIO VIEW - NOT GAME"]
+assert len(artist)==1
+scene.camera=artist[0]
+artist_filename="K4AY_DCC_ONLY_ARTIST_VIEW_NOT_GAME.png"
+scene.render.filepath=os.path.join(output,artist_filename)
+bpy.ops.render.render(write_still=True)
 # Make first reference shot the default visible editable scene, still retain all 6.
 visibility("control",11259)
 scene.camera=cams[("control",11259)]
@@ -163,7 +184,7 @@ bpy.ops.wm.save_as_mainfile(filepath=blend)
 glb=os.path.join(output,"K4AY_TIDAL_EXCHANGE_WITH_SOURCE_CONTEXT.glb")
 bpy.ops.export_scene.gltf(filepath=glb,export_format="GLB",
                           export_cameras=False,export_lights=False)
-files=[os.path.basename(blend),os.path.basename(glb)]+[x["DCCPreviewFile"] for x in reports]
+files=[os.path.basename(blend),os.path.basename(glb),artist_filename]+[x["DCCPreviewFile"] for x in reports]
 hashes={}
 for file in files:
     p=os.path.join(output,file)
@@ -179,6 +200,9 @@ report={"schema":"dopagaki.K4AY.original-Blender-road5-B51-native-context/1",
   "B51SourceCollisionProxiesNotOriginalVisualMesh":True,
   "trueSourceB51Boxes":168,"roadStageVariants":["control","ultra"],
   "K4AXArchitectureStillEditable":True,"renderedSourceCameras":6,
+  "inventedK4AXStudioLandscapeRenderHiddenToExposeOriginalB48":True,
+  "sourceB51CollisionOBBDisplayedAsVisibleWireCagesNotOpaqueHazardArt":True,
+  "extraStudioArtistCameraNotGameScreenshot":artist_filename,
   "originalGameBlenderStageGeometryIsGameRelease":False,
   "B48VsArchitectureDetailedGeometricIntersection":"NOT_TESTED_HOLD",
   "humanScaleAndReadability":"NOT_TESTED_HOLD",
