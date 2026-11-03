@@ -1,0 +1,34 @@
+name: DOPAGAKI K4AK ART-FIRST readonly review guard self-test (no source gameplay changes)
+on:
+  push:
+    branches: [research/k4aj-native-b51-gpu-depth-contiguous-window-20261103]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4ak-art-first-review-packet.py'
+      - '.github/workflows/p101-r19a6p4r2f5k4ak-art-first-readonly-guard.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: dopagaki-k4ak-art-first-review-guard
+  cancel-in-progress: false
+jobs:
+  standalone-art-review-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm original gameplay source stays pinned
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Python syntax and seven genuinely mutated synthetic negative controls
+        run: |
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4ak-art-first-review-packet.py
+          python3 scripts/p101-r19a6p4r2f5k4ak-art-first-review-packet.py --self-test
+      - name: Reject requests without actual K4AJ JSON and CSV
+        run: |
+          if python3 scripts/p101-r19a6p4r2f5k4ak-art-first-review-packet.py >/tmp/k4ak-empty-input.log 2>&1; then
+            echo "ERROR: K4AK accepted missing genuine K4AJ evidence"
+            exit 1
+          fi
+          grep -q 'K4AK_REJECT_NEED_GENUINE_AUDIT_CSV_OUTPUT' /tmp/k4ak-empty-input.log
+          echo "K4AK_MISSING_GENUINE_ARTIFACT_REJECTED"
