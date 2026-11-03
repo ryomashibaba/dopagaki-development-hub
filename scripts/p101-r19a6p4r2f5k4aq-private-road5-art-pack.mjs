@@ -29,13 +29,13 @@ patch(importLine,importLine+"\nimport {buildK4AQRoad5Art,createK4AQScene,renderK
 patch('let g4e7bgShot=null,g4e7bgShots=null,g4e7ciMesh=null,g4e7cqArt=null;',
  "let g4e7bgShot=null,g4e7bgShots=null,g4e7ciMesh=null,g4e7cqArt=null;\n"+
  "const k4aqEnabled=r19a1OptIn&&g4e6LocalHost&&new URLSearchParams(location.search).get('k4aq')==='on';\n"+
- "let k4aqScene=null;");
+ "let k4aqScene=null;\nconst k4aqSkyOnly=k4aqEnabled&&new URLSearchParams(location.search).get('k4aqMesh')==='off';");
 patch('function buildVisual(stage){',
  "function buildVisual(stage){\n"+
  " if(k4aqScene)releaseK4AQScene(gl,k4aqScene);\n"+
  " const k4aqCandidate=buildK4AQRoad5Art(stage,sample,{enabled:k4aqEnabled});\n"+
  " k4aqScene=k4aqCandidate.active?createK4AQScene(gl,k4aqCandidate):null;\n"+
- " canvas.dataset.k4aqMode=k4aqEnabled?'PRIVATE_ART_CANDIDATE_HOLD':'ORIGINAL_SOURCE';\n"+
+ " canvas.dataset.k4aqMode=k4aqEnabled?'PRIVATE_ART_CANDIDATE_HOLD':'ORIGINAL_SOURCE';\n canvas.dataset.k4aqSkyOnly=k4aqSkyOnly?'TRUE_SKY_ONLY_CONTROL':'false';\n"+
  " canvas.dataset.k4aqTriangles=String(k4aqCandidate.triangles||0);\n"+
  " canvas.dataset.k4aqSourceRoad=k4aqCandidate.sourceRoad||'off';\n"+
  " canvas.dataset.k4aqPhysicsChanged=String(Boolean(k4aqCandidate.changedPhysics));\n"+
@@ -45,7 +45,7 @@ patch("if((g4e7aiOptIn&&g4e7aiBackdrop==='quiet')||(g4e7akOptIn&&g4e7akBackdrop=
  "if(k4aqEnabled){\n"+
  "  // ONLY the old unapproved scenery is replaced. Original visual roads,\n"+
  "  // collision surfaces, native B51 draw order, ball, camera remain below.\n"+
- "  renderK4AQScene(gl,k4aqScene,view,w/h,{fogStrength:visibilityFx?1:0});\n"+
+ "  renderK4AQScene(gl,k4aqScene,view,w/h,{fogStrength:visibilityFx?1:0,architecture:!k4aqSkyOnly});\n"+
  " }else if((g4e7aiOptIn&&g4e7aiBackdrop==='quiet')||(g4e7akOptIn&&g4e7akBackdrop==='quiet')){");
 assert.equal(patchCount,4);
 fs.rmSync(to,{recursive:true,force:true});
