@@ -20,3 +20,10 @@
 新専用[Actions #41731470838](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41731470838)を起動済み。この文書を書いた時点で実レンダリングの結果・CI SUCCESS・真正画像・Art合格は未判定。毎回現在のstateとArtifactをGitHubで確認する。成功しても `SOURCE/DCC TECH PASS` と `ART判定` を別記する。
 
 静的B48/B51交差検査・0.65mのクリアランス・全B51時刻・SAT/CCD/HUMAN/FPS・実WebGL2走行画面は**実行していない**。危険に当たらないことを推定しない。全体ART/SAT/CCD/FPS/HUMAN/RELEASE/MERGE HOLD、正式採用0件／Slope2 DNA 0m。旧ART REJECTは撤回しない。
+
+## 2026-11-04 K4BH 第一回真正画像・残置旧ARTの修正
+
+- [第一回実CI #41731470838](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41731470838)は **completed/SUCCESS**。真正K4BG親Blender SHA・元source blob・Nodeテスト・Blender source Camera control11307/ultra11341の2枚・編集可能Blender/SHAの独立検査・研究GitHubへの画像保存は通過。真正 [Artifact #13278131186](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41731470838/artifacts/13278131186)、ZIP SHA256 `8ad9449b85859e02268886e5b9e18217277da5747c6bac072650dbc7b4642313`、ZIP CRC OK。新DCC編集可能61件、ゲームソース・元Camera・Road5 mesh不変。SOURCE/DCC **技術限定PASS**。
+- 実画像では道路素材に差、遠方に二重の巨大ゲートを表示できたが、旧K4BGで見えていた上部の模型的な橋/左右の反復構造が依然残っており、**ARTはREJECT**。道路前景の大面積単調さ、都市奥行き、詳細も未完成。
+- 独立検査したBlender `.blend`の既存collection名から、初版K4BH非表示対象外だった**K4AZ、K4BA、K4BB、K4BC無印**の旧ARTコレクションを確認。これらは実Source B48/Cameraではない。旧ARTを削除せず render OFF し、source `K4BC v2 | TRUE ORIGINAL SOURCE OTHER SIX B48` (小文字v)、`K4AY SOURCE B48`、カメラは無変更。
+- 修正版 `15c98c3b6b1e33e406a14c5fa32403976802565f` の[第二CI #41732218172](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41732218172)を再検証。**第二CI未確認のままART成功と断定しない。** 旧のART REJECTと正式0件/Slope2 DNA0m/全HOLDを維持する。
