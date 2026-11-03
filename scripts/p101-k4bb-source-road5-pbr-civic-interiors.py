@@ -370,8 +370,8 @@ for side,u,d,level in ((-1,.746,83,53),(1,.824,88,55)):
 # interiors for nighttime city continuity, never replacement for native scene.
 world=scene.world
 assert world and world.use_nodes
-scene.cycles.samples=48
-scene.cycles.use_denoising=True
+scene.cycles.samples=64
+scene.cycles.use_denoising=False # Ubuntu apt Blender 4.0 build lacks OIDN; source-faithful samples only
 scene.render.resolution_x=1013
 scene.render.resolution_y=698
 scene.render.resolution_percentage=88
