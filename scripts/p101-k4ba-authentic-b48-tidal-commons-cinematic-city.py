@@ -323,29 +323,45 @@ for side in (-1,1):
              [edge(.936,side,j+13,13),edge(.956,side,j+13,29),
               edge(.978,side,j+13,34)],gold,front,.40)
 
-# Monumental focal terminus visible in actual original source camera:
-# TWO sculpted inhabited civic crescents around an actually OPEN 105m atrium.
-# All entirely beyond physical Road5, not a fabricated drivable continuation.
-for segment,dep in enumerate((58,96,132)):
+# Monumental terminal institution is in SIDE DOCKS, not the physical
+# trajectory through source Road5/Road6. No invented drivable continuation.
+# V1 had floating thin sail-ribbons: REJECTED by real aerial DCC inspection.
+# V2 is a pair of structurally supported inhabited public harbor roof rooms.
+for segment,dep in enumerate((62,171)):
     for side in (-1,1):
         rows=[]
-        for j in range(38):
-            t=j/37
-            # curved wings with a deliberate central skyline void
-            horizontal=side*(63+64*t)
-            vertical=12+85*sin(pi*t)**.80+14*t
-            row=[far(dep+12*math.sin(pi*t)*sign,horizontal,vertical+dh)
-                 for sign,dh in ((-1,-5),(1,5))]
+        for i in range(29):
+            d=dep-31+62*i/28
+            row=[]
+            for j in range(38):
+                t=j/37
+                lateral=side*(106+133*t)
+                h=35+16*sin(pi*t)**.85+9*sin(pi*i/28)**1.4
+                row.append(far(d,lateral,h))
             rows.append(row)
-        surface("TERMINUS LARGE TECTONIC 3D SAIL / "+str(segment)+str(side),
-                rows,stone if segment!=1 else copper,skyline,4.2)
-        for t in (0,.25,.50,.75,1):
-            j=int(t*37)
-            line("TERMINUS structural folded seam "+str(segment)+str(side)+str(t),
-                 [far(dep+d,side*(63+64*t),
-                      12+85*sin(pi*t)**.8+14*t+dh)
-                   for d,dh in ((-16,-6),(0,0),(16,6))],
-                 gold,skyline,.56)
+        surface("DOCKSIDE PAVILION / continuous occupiable folded shell "+
+                str(segment)+str(side),rows,stone if segment==0 else copper,
+                skyline,3.8)
+        # Continuous fascia and bays make this readable as a real cultural hall.
+        for t in (.04,.35,.7,.96):
+            lateral=side*(106+133*t)
+            line("STRUCTURED CIVIC PAVILION roof ridge "+str(segment)+str(side)+str(t),
+                 [far(dep-31+62*i/39,lateral,
+                      35+16*sin(pi*t)**.85+9*sin(pi*i/39)**1.4)
+                  for i in range(40)],gold,skyline,.55)
+        for i in (3,10,18,26):
+            d=dep-31+62*i/28
+            for t in (.12,.68,.95):
+                lateral=side*(106+133*t)
+                h=35+16*sin(pi*t)**.85+9*sin(pi*i/28)**1.4
+                line("VISIBLE LOGICAL LOAD-BEARING COLUMN "+
+                     str(segment)+str(side)+str(i)+str(t),
+                     [far(d,lateral,1),far(d,lateral,17),
+                      far(d,lateral,h-3)],copper,skyline,1.12)
+                line("ENCLOSED CULTURAL GALLERY / warm indoor occupation "+
+                     str(segment)+str(side)+str(i)+str(t),
+                     [far(d-3,lateral,9),far(d+3,lateral,9)],
+                     interior,skyline,.52)
 # A strong true architecturally continuous inhabited observation ring in the
 # inner skyline; suspended by four spatial masts, not skinny empty arches.
 center=far(84,0,96)
@@ -366,7 +382,7 @@ for k in range(0,N,4):
          [p+Vector((0,0,-1)),p+Vector((0,0,11))],gold,skyline,.26)
 for side in (-1,1):
     for d in (-34,34):
-        foot=far(84,side*100+d,0)
+        foot=far(84,side*160+d,0)
         line("MERIDIAN OPEN OBSERVATORY / four major real pylons "+str(side)+str(d),
              [foot,foot+Vector((0,0,48)),
               center+Vector((side*27,d*.45,0))],copper,skyline,3.4)
@@ -421,6 +437,59 @@ for side in (-1,1):
             rows.append(row)
         surface("TIDAL LANDSCAPE / ocean-facing rock terraces "+
                 str(side)+str(band),rows,slate if band%2 else sand,site,2.0)
+# V2: full side harbor landmass and real plinth foundations.
+# Prior aerial proved that civic architecture was visually FLOATING over a
+# black void. Two load-bearing natural banks and split water are now authored.
+# The original stage may have further B48 sections and B51 beyond Road5;
+# hence the central original-trajectory corridor is deliberately LEFT EMPTY.
+# These are visual-only contextual rocks; NO driveable road extension is made.
+for side in (-1,1):
+    # Distinct sculpted rock-cut shelf with 3D thickness down to ocean level.
+    for section in range(3):
+        rows=[]
+        for i in range(65):
+            depth=15+(680*i/64)
+            cross=[]
+            for j in range(27):
+                t=j/26
+                lateral=side*(115+section*135+135*t)
+                base=5-section*27-(t**1.8)*35
+                relief=7*sin(3*pi*i/64+section)*sin(pi*t)
+                cross.append(far(depth,lateral,base+relief))
+            rows.append(cross)
+        shell=surface("HARBOR FOUNDATION / true split coast natural strata "+
+               str(side)+str(section),rows,
+               slate if section%2 else sand,site,5.5)
+        # Back-lit cut face gives the island a real below-ground mass.
+        for height in (0,-26,-61,-105):
+            line("CUT-ROCK structural coastal retaining elevation "+
+                 str(side)+str(section)+str(height),
+                 [far(15+680*i/60,side*(115+section*135),height+
+                      1.1*sin(3*pi*i/60)) for i in range(61)],
+                 slate,site,.85)
+    # No ocean through the route! Split pools are outside source corridor.
+    rows=[]
+    for i in range(44):
+        depth=16+820*i/43
+        rows.append([far(depth,side*(510+600*j/20),-142)
+                     for j in range(21)])
+    surface("HARBOR OPEN SEA WATER / side "+str(side)+" / NOT ROAD",
+            rows,water,site,.20)
+    # Side-dock plinths are thick, aligned with logical pavilion columns.
+    for station in (62,171):
+        rows=[]
+        for i in range(13):
+            depth=station-38+76*i/12
+            rows.append([far(depth,side*(104+190*j/14),4)
+                         for j in range(15)])
+        surface("STRUCTURAL PUBLIC FOUNDATION DOCK / side "+
+                str(side)+" / station "+str(station),rows,
+                stone if station==62 else copper,site,6)
+        for lateral in (side*128,side*213):
+            for depth in (station-34,station+34):
+                line("TRUE GROUND TIED DOCK PIER / "+str(side)+str(station)+str(lateral)+str(depth),
+                     [far(depth,lateral,-96),far(depth,lateral,-34),
+                      far(depth,lateral,4)],slate,site,3.3)
 # Far view above the true terminus has distinct massive stand-off sea cliffs.
 for side in (-1,1):
     rows=[]
@@ -495,7 +564,7 @@ scene.render.resolution_percentage=88
 scene.render.image_settings.file_format="PNG"
 try:scene.view_settings.view_transform="AgX"
 except Exception:scene.view_settings.view_transform="Filmic"
-scene.view_settings.exposure=-.18
+scene.view_settings.exposure=-.27
 scene.view_settings.gamma=1.0
 def show(mode,tick):
     for k,c in roadcols.items():c.hide_render=k!=mode
