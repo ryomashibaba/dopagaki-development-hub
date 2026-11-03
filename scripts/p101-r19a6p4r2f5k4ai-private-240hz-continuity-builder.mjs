@@ -67,6 +67,7 @@ const tickLogic=[
  "  originalB51DescriptorJSON:JSON.stringify(ob),",
  "  sourceStageRecordId:doc.stageForge.recordStageId,",
  "  originalSourceBallCenter:[...currentPose.position],",
+ "  originalSourceBallForward:[...currentPose.forward],",
  "  originalSourceBallRadius:RADIUS,",
  "  originalSourceCameraEye:[...liveView.eye],",
  "  originalSourceCameraFront:[...liveView.front],",
