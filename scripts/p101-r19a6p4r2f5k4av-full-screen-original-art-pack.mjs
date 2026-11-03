@@ -44,7 +44,7 @@ patch(prevRender,
  "if(k4atEnabled&&!k4avEnabled)renderK4AQScene(gl,k4atCivicScene,view,w/h,{fogStrength:visibilityFx?1:0});\n"+
  " if(k4avEnabled){\n"+
  "  renderK4AVAtmosphere(gl,k4avSky,view,w/h);\n"+
- "  if(k4avCityEnabled)renderK4AQScene(gl,k4avWorld,view,w/h,{fogStrength:visibilityFx?1:0});\n"+
+ "  if(k4avCityEnabled)renderK4AQScene(gl,k4avWorld,view,w/h,{fogStrength:visibilityFx?1:0,sky:false});\n"+
  " }");
 const pArt="draw(k4asRoad5Active?k4asRoadArtMesh:(g4e7pQuietMesh||(g4e7kUi?.quiet&&g4e7kQuietMesh?g4e7kQuietMesh:a13RoadArtMesh)));";
 patch(pArt,
