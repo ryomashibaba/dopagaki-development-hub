@@ -33,3 +33,12 @@ K4BF [CI #41722243986](https://github.com/ryomashibaba/dopagaki-development-hub/
 
 修正コミット `e1f5354f0738c34cce63a698a580e77c6bb69fb7`：`show(mode)`を真のsource B48 Road5コレクション可視切替へ修正、材質・頂点・ソースカメラは維持。修正版[CI #41726814278](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41726814278)を再実行。**その画像を実際に照合するまでK4BG改訂ARTは未判定**。初回成功は修正後の真正ultra画面を保証しない。
 
+
+## 【最終事実認定 2026-11-04】修正後の本物の2CameraレンダとART判定
+
+- 修正版 [GitHub Actions #41726814278](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41726814278) は **completed/SUCCESS**。すべてのjob steps（元ゲームGit blob・静的Node/py_compile・親K4BE artifact SHA・Blender・2画像独立SHA・研究ブランチGit保存・Artifact）が成功。正式採用の意味ではない。
+- 真成果 [Artifact #13274862071](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41726814278/artifacts/13274862071)、ZIP SHA-256 `12421de4f43d2aad1df744aed9d9bf450727dded08151eb7fab300334d9e787b`。ZIP内容：編集可能 `K4BG_CIVIC_ESCARPMENT_EDITABLE_DCC_ART_HOLD.blend`、control11307/ultra11341各1PNG、K4BE旧vs K4BG新の2組比較PNG、SHA/provenance JSON。独立コンテナでZIP CRC・すべてのmanifest SHA・PNG読込を再検証済み。
+- **以前のultra道路欠落は修正版DCC画面で解消**。発生源は元道路meshやマテリアルではなく、Blender原本で保存されたULTRA Road5 *collection* の `hide_render` を子が適切に切り替えなかったこと。元source Road5メッシュfingerprint control/ultra `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2` 不変、材質割当も不変。
+- Blender-native新規編集可能建築は**88件**。ただし実カメラ2視点を人間目視すると、前景が依然ほぼ単調な広い路面、左右建築は粗い連続面と反復リブ、中央構造も薄い橋/空洞、奥行き・公共用途・人間尺度・遠景都市・ライティングにまだ実用美術としての説得力なし。**K4BGもART REJECT、正式採用0件、Slope2 DNA0m**。K4BE/K4BF/K4BGどれも正式ART採用禁止。新しい形状数や技術成功は世界水準の品質評価ではない。
+- **次の正当な工程**：このK4BGをゲームへ移植したり他6Roadへ複製するのではなく、本物の元Cameraの画面で面積の大きい道路・近距離両側の連続街区・都市の奥行き・材質・昼夜照明を、一枚の完成画として組み直す。自動box/単純curve増築や検証ゲートの量産で成果を水増ししない。必要に応じてBlender GUIでの実アートディレクションを事前承認の範囲内で検討、最終受入は元WebGL2で別判定。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGEすべてHOLD。
+- 今回の正本記録時点の研究HEAD：`207272291b3784970008459cecc084392f989c9f`（後続のドキュメントcommitで変動するため、次回はGitHub再取得）。main、公式p101、PR #46、本番2サイト、元source blobに変更なし。PR #46は OPEN/DRAFT/未merge。Work未使用。
