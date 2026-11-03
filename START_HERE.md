@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BH最新：実DCC結果・最終ART REJECT・次工程入口】
+
+**現在の隔離研究ブランチ**：`research/k4bh-source-camera-art-directed-civic-corridor-20261104`。[K4BH厳密な最終結果とART判断](docs/R19_A6P4_R2F5K4BH_REAL_CAMERA_WHOLE_FRAME_ART_FIRST_JA.md) を最初に読む。過去の各節にある「pending」「実行中」は履歴。
+
+- [K4BH修正版CI #41731969086](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41731969086) **completed/SUCCESS**、[真正Artifact #13276661753](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41731969086/artifacts/13276661753) ZIP SHA256 `286753dd6b6e4c51220cfc4d2de1e8e39b83417317befac424898cef2c7e5b97`。編集可能Blender原本、実Source Camera DCC/control11307+ultra11341、K4BG同pose対比、独立SHA検証、GitHub PNG保存済み。
+- **Source/DCC技術PASS、最重要のARTはREJECT**。旧建築重複削除／道路材質を旧方式に復元／光量調整は成立したが、前景の道路が面積大で単調、都市が片寄り、遠景は孤立の柱状造形で、画面全体の美術は依然低品質。K4BHを本番に反映しない、次の他6道路へ複製しない。
+- **正式ART採用0件／Slope2 DNA認定0m／HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。元source blob `af076d67492a677d2235e4730aef8cdf4808e106`、実B48道路7／B51動体28、元Camera6、240Hz、球0.65m、元P100/B5安全表示、main、公式p101、Draft PR#46、本番2サイトに変更なし。Workは事前承認。
+- **次の正当な制作方法**：この数式中心のBlender造形を継続で増築するのではなく、本物のSource Camera画面の完成画を先に美術ディレクションし、道路・用途のある公共内部・都市街区・ランドスケープ・細部素材・大気/照明を人間視点の強い構図として仕上げる。定量TECH指標をART合格に代用しない。
+
+---
+
 # 【2026-11-04 K4BH現在入口】DOPAGAKI SLOPE — 真正Cameraによる全画面ART-FIRST研究
 
 **現在の継続研究枝**：`research/k4bh-source-camera-art-directed-civic-corridor-20261104`。K4BG確定HEAD `7e047eb73b0fb41e379776c509b239e20b05167b` からの隔離ブランチ。[K4BH正本](docs/R19_A6P4_R2F5K4BH_REAL_CAMERA_WHOLE_FRAME_ART_FIRST_JA.md)、[K4BH実Blender制作コード](scripts/p101-k4bh-source-camera-art-directed-civic-corridor.py)、[専用本物のSource Camera CI](https://github.com/ryomashibaba/dopagaki-development-hub/actions/workflows/p101-k4bh-source-camera-civic-corridor-art.yml)を最優先。
