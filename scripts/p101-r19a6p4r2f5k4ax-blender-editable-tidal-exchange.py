@@ -41,8 +41,8 @@ scene.render.image_settings.file_format="PNG"
 scene.render.film_transparent=False
 try:scene.view_settings.view_transform="AgX"
 except Exception:scene.view_settings.view_transform="Filmic"
-scene.view_settings.look="Medium High Contrast" if "Medium High Contrast" in [
- e.identifier for e in scene.view_settings.bl_rna.properties["look"].enum_items] else "Medium High Contrast"
+try: scene.view_settings.look="Medium High Contrast"
+except Exception: pass
 scene.render.image_settings.color_mode='RGBA'
 
 def collection(name):
@@ -292,8 +292,7 @@ for j in range(segments+1):
         h=20+tower_H*t
         level.append(P(s,l,h))
     tower.append(level)
-building=mesh("ONE urban landmark | truly tapered rotating triangular-plan civic tower",
- tower[0]+tower[-1],[],dark,city) # keep editable named survey reference
+# The tower consists only of real loft facade strips, no empty/fake render mesh.
 # Actual original detailed facade: loft sides in separate identified material bays.
 for i in range(edges):
     strips=[[tower[j][i],tower[j][(i+1)%edges]]
