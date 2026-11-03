@@ -1,0 +1,68 @@
+name: DOPAGAKI K4AZ pin true-source DCC review evidence into isolated research branch
+on:
+  push:
+    branches:
+      - research/k4az-road5-civic-rift-dcc-recomposition-20261103
+    paths:
+      - '.github/workflows/p101-k4az-pin-dcc-review-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4az-research-only-permanent-review-art-evidence
+  cancel-in-progress: false
+jobs:
+  preserve-rejected-research-art-dcc-proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Fetch pinned K4AZ v3 original-source-numeric DCC evidence (never game WebGL)
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AZ_CIVIC_RIFT_ARCHITECTURE_DCC_SOURCE_B48_B51_ART_REJECT
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41616880506
+          github-token: ${{ github.token }}
+          path: r19-evidence/k4az-pin-v3
+      - name: Fail closed if source, camera, or ART status mismatches, then save only research evidence
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 - <<'PY'
+          import json,hashlib,shutil
+          from pathlib import Path
+          root=Path('r19-evidence/k4az-pin-v3')
+          d=json.loads((root/'K4AZ_DCC_PROVENANCE_AND_GATE_REPORT.json').read_text())
+          assert d['gitSourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['realRoad5MeshVerticesUnchanged'] is True
+          assert d['nativeCameraShots'] and len(d['nativeCameraShots'])==6
+          assert d['formalARTAccepted']==d['Slope2DNAMetres']==0
+          assert d['ART']=='REJECT_HOLD' and d['originalGameScreenshots'] is False
+          assert d['sourceB51OBBInstancesStored']==168
+          for file,stamp in d['files'].items():
+            b=(root/file).read_bytes()
+            assert len(b)==stamp['bytes'] and hashlib.sha256(b).hexdigest()==stamp['sha256']
+          dest=Path('docs/research-evidence/k4az');dest.mkdir(parents=True,exist_ok=True)
+          for source,target in [
+            ('K4AZ_SIX_TRUE_POSE_DCC_BEFORE_AFTER_CONTACT_SHEET.png','K4AZ_V3_SIX_SOURCE_NUMERIC_CAMERA_AB_DCC_ART_REJECT.png'),
+            ('K4AZ_DCC_DESIGN_STUDIO_NOT_GAME.png','K4AZ_V3_ARTIST_DCC_NOT_GAME.png'),
+            ('K4AZ_DCC_PROVENANCE_AND_GATE_REPORT.json','K4AZ_V3_DCC_SHA_ART_REJECT_REPORT.json')
+          ]:
+            shutil.copyfile(root/source,dest/target)
+          print('K4AZ_RESEARCH_ONLY_IMAGES_PINNED_FOR_GITHUB_REVIEW_NOT_ART_PASS')
+          PY
+      - name: Commit only research images and manifest; never main/official PR/production
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research-evidence/k4az/K4AZ_V3_*
+          git diff --cached --quiet && exit 0
+          git commit -m "evidence(k4az): permanently preserve rejected v3 DCC camera A/B and source SHA"
+          git fetch origin research/k4az-road5-civic-rift-dcc-recomposition-20261103
+          git rebase origin/research/k4az-road5-civic-rift-dcc-recomposition-20261103
+          git push origin HEAD:refs/heads/research/k4az-road5-civic-rift-dcc-recomposition-20261103
