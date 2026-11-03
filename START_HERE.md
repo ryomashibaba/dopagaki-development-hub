@@ -70,3 +70,9 @@ K4AJ本命の[Actions #41566784540](https://github.com/ryomashibaba/dopagaki-dev
 **新しい正当なART-FIRST判断**：既決定のRoad5《斜裂公共峡谷》を**危険前の都市峡谷入口／危険後の中段公共テラスと遠方広場**という「二段の視覚構成」で1方向だけ検討し、真正B51の中心危険時点に巨大建築を重ねて都市の見栄えを稼ぐ案はやめる。K4AOの高遮蔽重点tickは**B51可読性を保護する審査点**であり、新都市が同じ画面で読める合格点ではない。真の人間視認時間はUNKNOWN。旧K4/R/U ART REJECT、正式ART0、Slope2 DNA0m、新候補モデル0、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLDを厳守。
 
 **次は**K4AM #41571299893の不足9枚真RGB・K4AN #41572736850の実Artレビュー画像をまず照合、成功時だけ真正元Cam同poseのBlender-native一案A/B制作に進む。K4AK #41568787273は合成QA SUCCESS済み。main／本番／PR#46／凍結source／B48 7／B51 28／元物理・カメラ不変更、Workは事前承認。新CIを増やさない。
+
+
+## 2026-11-03 K4AQ — ART-FIRST画面全体の抜本再設計（新隔離研究ブランチ）
+新しいユーザー指摘では、既存の画面は単に「都市でない」のではなく、**画面全体の色彩・素材・造形・ライティング・密度が雑で、評価できる美術がほとんどない**ことが最重要。技術計測の反復を主目的とすることは禁止。今回の **研究ブランチ `research/k4aq-road5-art-direction-rebuild-20261103`** でRoad5《斜裂公共峡谷》の美術制作を実際に開始。詳報：[K4AQ画面美術再設計と実装・真正カメラ審査契約](docs/R19_A6P4_R2F5K4AQ_ROAD5_FULL_SCREEN_ART_DIRECTION_JA.md)。
+
+実装：`web/p101-k4aq-road5-civic-rift-material-art.mjs` に非対称の多層居住・公共都市構造、8素材マテリアル、独立WebGL2法線照明を作成。既存K4AD元sourceを完全隔離複製し、元240Hz／Camera／B48×7／B51×28／元source blobを触らず、真正原カメラ6tick×旧新計12 PNGの取得コードと専用CIを追加。既存K4AM/K4ANは独立runとして保持。新候補の真WebGL2スクリーンショットを実際に見て厳しく審査するまで**ART NOT_TESTED/HOLD、正式ART0件、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD**。main・本番・PR #46は変更しない。次は新CI／Artifactsを照合し、真正画像で美術的に改善したか評価する。資料中の旧「最新HEAD」は必ずAPIで再取得すること。
