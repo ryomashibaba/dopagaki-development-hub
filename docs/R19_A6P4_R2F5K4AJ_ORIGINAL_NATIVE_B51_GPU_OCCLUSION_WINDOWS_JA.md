@@ -1,3 +1,12 @@
+## 【2026-11-03 現行GPU真実CI — #41566784540】
+
+- [現行K4AJ真正GPU CI #41566784540](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41566784540)：**現在 queued / K4AJ SOURCE GPU TECH未判定**。旧 #41565679177 は研究用独立監査を更新したpushにより**cancelled**、成功と記録しない。既存CIは見かけ上の正常起動だけではGPU深度の真実性を証明しないため、全100元source GPU frame+100B51群mask+100復元/100×11,176 samples/2真K4AF anchor/PNGを必須にする。
+- **監査の健全性改善**：独立Pythonの5件のnegative controlsを架空の失敗を起こすだけの無関係な式から、**測定済みの本物のGPU元配列、mask配列、tickリスト、集計行、取得seqを1つずつ破損させ、元監査と同じ検証関数が必ず拒否する方式**へ置換。破損内容は(1)mask深度を元より近くする、(2)サンプル数11,176から1点欠けさせる、(3)実tick重複、(4)実depth変更サンプル集計値を+1偽造、(5)元→mask→復元の実seq連番を重複させる。実証後の結果だけPASS。
+- 各source GPU時点の元描画→**B51全28体group**だけ除去→元描画復元は連続して3回GPU描画し、総計300回すべての`seq`が欠番・重複なし、同一元native tickであることを監査。元GPU個別B51 IDが確定したのはK4AG tick11280だけ。残98時点の物体別帰属と人間が認知した遮蔽時間は**不明**。
+- 元Source/球/Camera/240Hz/B48 7/B51 28/衝突判定/本番/main/PR #46不変更、正式ART0件・Slope2 DNA0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。今後は余計なresearch scriptの再pushによるCIキャンセルを避け、現行CIのログ・実Artifact SHA/CRC・独立監査結果を優先する。
+
+---
+
 ## 【K4AJ研究QA改訂 2026-11-03：GPU実測完了前の独立監査を強化】
 
 - **現行実行CI**：[GitHub Actions #41565679177](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41565679177)（この更新時点は`pending / queued`）。元CI #41562897854は、真のGPU完走より前に研究監査強化の新pushで**cancelled**。結果が無い旧CIをPASSと呼ばない。**100元GPU mask + 100元復元 / SHA/CRCは現時点では未検証**。
