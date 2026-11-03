@@ -1,0 +1,122 @@
+name: DOPAGAKI K4BA independent original B48/B51 static architectural BVH
+on:
+  push:
+    branches:
+      - research/k4ba-road5-tidal-city-cinematic-art-rebuild-20261103
+    paths:
+      - '.github/workflows/p101-k4ba-independent-native-bvh-survey.yml'
+      - 'research/k4ba/independent_b48_b51_native_spatial_audit.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4ba-bvh-native-source-true-road-and-six-b51-snapshots
+  cancel-in-progress: false
+jobs:
+  independently-audit-dcc-static-noncollision-not-source-game-safety:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Freeze source and independent Python syntax
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile research/k4ba/independent_b48_b51_native_spatial_audit.py
+      - name: Wait for exact K4BA v2 source DCC success before treating any generated file as evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 24); do
+            conclusion="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41625837609 --jq .conclusion)"
+            if [ "$conclusion" = "success" ]; then
+              echo "K4BA parent source DCC truly successful"
+              exit 0
+            fi
+            if [ "$conclusion" = "failure" ] || [ "$conclusion" = "cancelled" ]; then
+              echo "K4BA parent is not successful: $conclusion"
+              exit 1
+            fi
+            sleep 20
+          done
+          echo "Original K4BA DCC not yet evidenced: HOLD"
+          exit 1
+      - name: Download only pinned K4BA v2 edited Blender parent
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BA_FULL_SCREEN_TRUE_B48_B51_TIDAL_CITY_BLENDER_DCC_ART_REJECT
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41625837609
+          github-token: ${{ github.token }}
+          path: research/evidence/k4ba-audit/parent
+      - name: Download exact original K4AY source Road5 and six actual B51 OBB snapshots
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: research/evidence/k4ba-audit/source
+      - name: Independently verify source identity and editable model before BVH
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('research/evidence/k4ba-audit/parent')
+          m=json.loads((p/'K4BA_SOURCE_DCC_ART_PROVENANCE.json').read_text())
+          assert m['sourceFrozenBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert m['roadGeometryUnmodified'] is True
+          assert m['trueSourceRoadFingerprintBefore']==m['trueSourceRoadFingerprintAfter']
+          assert m['originalB48RoadCount']==7
+          assert m['originalB51MovingCount']==28
+          assert m['sourceB51OBBProxySnapshots']==168
+          assert m['ART']=='REJECT_HOLD' and m['formalArtApproved']==0
+          assert len(m['sourceNumericCameraDccRenders'])==6
+          for fn,stamp in m['files'].items():
+              raw=(p/fn).read_bytes()
+              assert len(raw)==stamp['bytes'] and hashlib.sha256(raw).hexdigest()==stamp['sha256']
+          original=Path('research/evidence/k4ba-audit/source')
+          j=json.loads((original/'K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert j['frozenOriginalGameGitBlob']==m['sourceFrozenBlob']
+          assert j['modes']['control']['originalRoadSourcePointsSHA256']==m['trueRoadControlPointsSHA256']
+          assert j['modes']['control']['trueSourceTriangleCount']==4728
+          print('K4BA_REAL_ORIGINAL_ROAD_AND_K4BA_V2_SHA_PINNED_SURVEY_SOURCE_PASS')
+          PY
+      - name: Install Blender native mesh BVH evaluator
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender
+      - name: Independent original B48 and 6x28 B51 physical collision OBB versus K4BA architecture
+        run: |
+          mkdir -p research/evidence/k4ba-audit/results
+          blender -b --factory-startup --python-exit-code 3 \
+            --python research/k4ba/independent_b48_b51_native_spatial_audit.py -- \
+            --blend research/evidence/k4ba-audit/parent/K4BA_TIDAL_COMMONS_EDITABLE_ART_REJECT_HOLD.blend \
+            --source research/evidence/k4ba-audit/source/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out research/evidence/k4ba-audit/results
+      - name: Independent report sanity and still no ART or original game CCD
+        run: |
+          python3 - <<'PY'
+          import json
+          p='research/evidence/k4ba-audit/results/K4BA_INDEPENDENT_STATIC_B48_B51_GEOMETRY_AUDIT.json'
+          j=json.load(open(p))
+          assert j['sourceRoadTriangles']==4728
+          assert j['originalCameraNativeTickSourceOBBSnapshots']==168
+          assert j['candidateArchitectureMeshOrCurveObjects']>100
+          assert j['sourceRoadContactMeshes']==[]
+          assert j['nativeB51ContactMeshes']==[]
+          assert j['wholeTrajectorySourceCCD']=='NOT_TESTED_HOLD'
+          assert j['formalArtAccepted']==j['slope2DNAMetres']==0
+          assert j['ART']=='REJECT_HOLD'
+          print('K4BA_LIMITED_SOURCE_STATIC_BVH_PASS_NOT_HUMAN_CCD_OR_GAMEPLAY_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BA_INDEPENDENT_B48_B51_STATIC_BVH_DCC_ART_REJECT
+          path: research/evidence/k4ba-audit/results/
+          retention-days: 14
+          if-no-files-found: warn
