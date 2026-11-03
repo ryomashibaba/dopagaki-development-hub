@@ -92,7 +92,7 @@ export function buildK4AY(cameras){
       trueSourceTopTriangleCount:m.topIndexCount/3,
       nativeTimeMatchedSourceRecords:records
     };
-    all.push(...poses);
+    all.push(...poses.flatMap(r=>r.B51CollisionOBBNotOriginalVisibleMesh));
     modes[mode].sourceTimeRecords=poses;
   }
   assert.equal(all.length,168);
