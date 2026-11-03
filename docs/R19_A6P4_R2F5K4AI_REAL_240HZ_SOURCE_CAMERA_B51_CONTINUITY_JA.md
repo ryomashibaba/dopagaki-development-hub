@@ -1,3 +1,11 @@
+## 【第2修正版CI：原Runner.surfaceのnull時間帯を正しく保存 2026-11-03】
+
+- [K4AI第1修正版CI #41558189309](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41558189309) はSOURCE SHA/元K4Z82PNG/元K4AF84GPU/元K4AH14画像幾何/隔離rendererビルドPASS後、真Chromiumの`ultra`幅**全7元画面+7元B51 mask+7元深度復元+721/721 source-native tick capture成功**。しかし`control`幅の連続tickの一部で原`Runner.surface===null`だったため、K4AI研究用ランナーに書いた「721tick全部に`p93-PRISM_CREST-01`路面IDが必須」という**不当な仮定**がassert FAIL。これは元ゲームの描画不良・物理不正ではない。失敗Artifact #13196385604 ZIP SHA256 `3bec6818b9bdb6435cc4e333010f253e1e1b9c5545015e21a54ca95e54204cc3`、CRC43/43確認。制御幅の実sourceがnullであった事実を隠さない。
+- 第2修正は元物理に一切介入せず、元ドキュメント`doc.surfaces[].id`の**実ソース路面ID全件**をtick10680で保存し、各tickの`runner.surface`は（1）その元IDのどれか、または（2）`null`に限り許容。元`runner.grounded`の真偽も同時記録し、`null`や`grounded=false`となる**区間と合計tick数**を独立レポートに出力する。存在しない路面IDを投入した負例を2幅で拒否するよう独立テストを4→5件/幅、計**10負例**へ増強。これは元データの偽造を許す「緩和」ではなく、元Runnerの実際の状態遷移を正しいスキーマで受容し、未検証の路面滞在を主張しないための修正。
+- 現在の正規Actions：[**#41559179613**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41559179613)。本CIの全14 GPUアンカー・1442本original tick・独立関数・Artifactが実成功するまで**K4AI TECH PASS未確定**。古いCIの「SUCCESSを装う」ことは禁止、旧二本はcancelled/FAILのまま保管。遮蔽の秒数と人間ARTは別ゲートHOLD。
+
+---
+
 ## 【修正版専用CI 2026-11-03：内部camera設定名の不一致を修正】
 
 - 初回K4AI [#41557465698](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41557465698) は元source/K4Z82/K4AF84/K4AH14 SHAと隔離ビルドを通過し、真正Chromium実行で停止した時点で研究者が元`web/drive3d.mjs`を再照合。**根本の静的な誤り**：元内部`comparisonMode`は`'raw'`、DOMに出る`canvas.dataset.cameraMode`だけが`'ball-lock-unfiltered-heading'`。K4AI private telemetryのguardが内部変数をDOM表示名と比較していたため、元物理が進むとthrowされる設計だった。
