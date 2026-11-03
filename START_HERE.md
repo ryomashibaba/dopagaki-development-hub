@@ -1,3 +1,18 @@
+# 【最優先・2026-11-03 K4BC 再開】DOPAGAKI SLOPE — 真のB48全7道路とCameraフレーム美術
+
+**旧K4BB/K4BA/K4AZの「最新」は過去記録。最新研究枝は`research/k4bc-road5-source-camera-civic-monument-recomposition-20261103`で、正本は[`docs/R19_A6P4_R2F5K4BC_SOURCE_CAMERA_READABLE_CIVIC_DISTRICT_JA.md`](docs/R19_A6P4_R2F5K4BC_SOURCE_CAMERA_READABLE_CIVIC_DISTRICT_JA.md)。K4BB HEAD `9800d65b71f719347f9d467ef90199791925b511`から独立。**
+
+- 最優先の美術目標は**元ゲームの真正240Hz高速Cameraに映る全面の視覚品質**。Blender技術成功、単色帯、棒/箱/繰り返す薄いアーチ、source同Cameraのピクセル差だけでART合格としない。正式ART採用0件／Slope2 DNA認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。
+- **v1実施済**：元Road5だけを物理参照として左右の大きな公共建築・街区を編集可能Blenderで再制作。制作CI [#41636914845](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41636914845) SUCCESS、Road5+B51六時刻の独立限定静的BVH [#41637181443](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41637181443) SUCCESS（新造形393評価対象91,888面のRoad5/B51交差0）。**実Camera画像は正面空白・単調路面などでART REJECT**。
+- **v2実施済 — 重大なsource盲点を修正**：今までDCCでRoad5のみだったため、真の元ゲーム生成器 `generateP101W9C1AbyssCandidate`＋元 `tessellate` から**7本全部の元B48ソース**をcontrol/ultraで正確抽出。元index0〜6：ABYSS_DIVE / CROWN_REVERSAL / SCISSOR_RISE / LOWER_REVERSAL / VOID_SURGE / PRISM_CREST / FINISH_RIDGE。Road5元4,728三角の原point/index/vertexハッシュ不変。他6道路×2モード=12本をBlender preview原本へ追加、物理collider0追加。制作CI [#41638891877](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41638891877) **SUCCESS**、実7道路同pose A/B。
+- **v2のより広い独立source静的BVH**：[Actions #41639263986](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41639263986) **SUCCESS**。全7道路×2モード＝**14原メッシュ・66,192三角**、原6tick×B51 28体=168物理OBBと、K4BC新建築393評価対象91,888面の**静的三角形表面交差0件/0件**。ただし元球0.65m、全時刻、真CCD/FPS/HUMAN、元WebGL2レンダリングは**未検証**。
+- **v2も正式ART REJECT**。実Camera画像のRoad5しかない旧版との差は非常に小さく、`control_11307`の独立画像比較はRGB平均絶対差約1.135/255、画像最大チャネル差24超の画素約1.88%。元Road6は実在するが、上り勾配の元Road5に遮られてほぼ見えない。実道路の追加だけで正面の大空白は解消されない。**偽の走行可能路面で空白を埋めることは禁止**。
+- **v3次工程、実装・CI起動済**：[K4BC v3制作器](scripts/p101-k4bc-v3-real-road6-camera-framed-sky-museum.py)は原Road6の中心線/実幅を元sourceから数値取得し、カメラ方向も測定して、元Road6実道路上空に非衝突DCCの広い公共建築と左右の基壇を再配置。旧画面外の不採用塔はBlender編集可能原本に残して表示OFF。元ゲーム物理や走行道路は増やさない。制作CI [#41640544530](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41640544530)、全7道路／B51独立静的BVH [#41640727947](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41640727947)。**この記述時点でv3 CI成功／画像／交差評価はまだ未確定。実ログ確認前のPASS禁止**。
+- **元source完全保護契約**：凍結元game GitBlob `af076d67492a677d2235e4730aef8cdf4808e106`、本物のsource B48七道路／B51二十八体／240Hz／球半径0.65m／元Camera6時刻／衝突・操作・スピード・危険表示改変禁止。編集先は隔離研究枝のみ。main、本番URL、公式継続`p101-velocity-overdrive-native-trial`、Draft PR #46を変更・マージ禁止。
+- **ユーザーPC操作を要求しない**。Chat＋GitHub中心、Work必ず事前承認。既存K4BC v2の6×真正source-camera A/B、航空DCC、元Road source SHAは[研究ブランチの永続画像](docs/research-evidence/k4bc-v2/K4BC_V2_TRUE_7_B48_SIX_ORIGINAL_CAMERA_AB_ART_REJECT.png)から直接閲覧可。新v3の元Camera画像と全source静的BVHの結果を確認して次の採否を決める。
+
+---
+
 # 【最新 2026-11-03 K4BB 継続入口】Road5本物のUV-PBR路面・居住性のある公共建築内部
 
 **旧K4BA/K4AZ/K4AYの「最新」は歴史資料。最優先は以下のK4BB現研究枝と[完全方針・実装正本](docs/R19_A6P4_R2F5K4BB_TRUE_B48_ROAD_PBR_INHABITED_CIVIC_JA.md)。**
