@@ -1,3 +1,13 @@
+## 【2026-11-03 最新 K4AI — 真正元物理240HzのカメラとB51障害物の連続距離／ART HOLD】
+
+- 次の継続研究ブランチ `research/k4ai-original-240hz-camera-obb-continuity-20261103`。必読：[K4AI研究正本](docs/R19_A6P4_R2F5K4AI_REAL_240HZ_SOURCE_CAMERA_B51_CONTINUITY_JA.md) → [K4AI専用Actions #41557465698](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41557465698)。本時点では実測ブラウザ継続実行中で**K4AI全工程の合否未確定**。
+- 既にSUCCESSの[K4AH #41554878800](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41554878800)：Source真WebGL2原PNG14、元GPU B51 14 mask+14復元、独立元source OBB geometry 14。Artifact #13195125107 ZIP SHA `fe22a310a2a698a813abf0eaaa9f3b5e8d9a75af4d096a320be7e05261c29294` CRC46/46。元幾何Source生JSON SHA `84b4a185fb1c3c37454213b334c3c5db2a8fc6871500dca33d2255ec8a85beb0`、元関数再計算SHA `683287e4c5b9dee60cff344f067e115c02964a40366cb62c8ee487de83d4a8e6`。
+- 原B51 ID `p95-hazard-12` はK4AGで28m・47秒のGPU深度53.436%遮蔽源と確定。K4AHの眼→障害物OBB表面は28m `0.5829530325m`、14m `46.52563704m`、ボール表面→OBBは28m `6.44651438m`。衝突不具合・ARTの合否は未判定。
+- 今回K4AIは元Runnerのnative`1/240`tick 10680〜11400（44.5〜47.5秒）両端含め721本×2幅=**1,442本**をインラインread-onlyで収集し、元カメラ`viewForPose`/元piston `movingObstaclePose`/元`sphereBoxSeparation`を別Nodeから全件再実行し、K4AH実GPU14アンカーで一致検証。距離閾値は0/1/2/5/10/20/50/100mの幾何的近接tick数と区間のみを記録。**実GPUがB51で覆われていた秒数を補間・捏造しない**（K4AFは7時点しか本物GPU maskなし）。視覚遮蔽時間は次の別連続GPU工程の対象。
+- 元Source Blob `af076d67492a677d2235e4730aef8cdf4808e106`・元球/240Hz/カメラ/B48道路7/B51実体28・Gold/P100/W9-X/B5・main/本番URL不変。Draft PR #46元HEAD `19d3a32d525c0c2a67082cba646898fab8f2b60f` OPEN/Draft未マージ。K4/K4R/K4U旧ART REJECT、正式ART採用0件、Slope2 DNA0m、新モデル/Collider0、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。Chat/GitHub主体、Work事前承認、ユーザーPC/ZIP不要。
+- 次はActions #41557465698の全step・Artifact SHA/CRC・1442値を独立照合。不合格なら厳格な元関数と真正PNGを緩めず原因を直す。
+
+---
 ## 【K4AH最終確定 2026-11-03 / 真正B51-12カメラ/球/OBB幾何 TECH PASS・ART HOLD】
 
 - GitHub研究継続先 `research/k4ah-original-b51-camera-obb-geometry-20261103`。[K4AH正式実測全文](docs/R19_A6P4_R2F5K4AH_NATIVE_B51_CAMERA_OBB_GEOMETRY_JA.md) → [真正Actions #41554878800](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41554878800) **completed/success** → [Artifact #13195125107](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41554878800/artifacts/13195125107)。ZIP 5,609,702 bytes、SHA `fe22a310a2a698a813abf0eaaa9f3b5e8d9a75af4d096a320be7e05261c29294`、CRC46/46 PASS。GitHub正本に14時点詳細表・RAW/監査/幾何JSON各SHAを保存。元K4Z82PNG SHA、K4AF真正GPU 14元depth+14個B51群マスク+14復元depth11,176点全一致、真正元Road5 14画面HUD外3D画素差0。元`movingObstaclePose`と`sphereBoxSeparation`の原描画時same native tick捕捉14/14、別Node原関数再計算14/14、偽装負例3/3拒否。
