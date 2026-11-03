@@ -1,0 +1,113 @@
+name: DOPAGAKI K4AG original B51 individual 56 source GPU visual masks ART HOLD
+on:
+  push:
+    branches: [research/k4ag-b51-individual-occlusion-20261103]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4ag-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4ag-b51-per-id.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: dopagaki-k4ag-native-b51-individual
+  cancel-in-progress: true
+jobs:
+  genuine-original-b51-identification:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Pin protected original source and verify standalone syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-r19a6p4r2f5k4ag-b51-individual-private-builder.mjs
+          node --check scripts/p101-r19a6p4r2f5k4ag-b51-individual-native-11280.mjs
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4ag-independent-b51-per-id-audit.py
+      - name: Retrieve K4Z original source SHA82 and audited K4AF true GPU baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p r19-evidence/r19a6p4r2f5k4z-source
+          mkdir -p r19-evidence/r19a6p4r2f5k4af-parent
+          gh run download 41427816258 \
+            -n K4Z_2WIDTH_TRUE_240HZ_ORIGINAL_SOURCE_DENSE_ROAD5_AND_OTHERS_ART_HOLD \
+            -D r19-evidence/r19a6p4r2f5k4z-source
+          gh run download 41472149272 \
+            -n K4AF_ORIGINAL_ROAD5_14_TRUE_FRAMES_84_GPU_MASKS_14_RESTORATIONS_ART_HOLD \
+            -D r19-evidence/r19a6p4r2f5k4af-parent
+          python3 - <<'PY'
+          import pathlib,hashlib,json
+          old=pathlib.Path('r19-evidence/r19a6p4r2f5k4z-source')
+          parent=pathlib.Path('r19-evidence/r19a6p4r2f5k4af-parent')
+          raw=(old/'K4Z_ORIGINAL_SOURCE_DENSE_7ROAD_CAMERA.json').read_bytes()
+          assert hashlib.sha256(raw).hexdigest()=='da69e5d9283f6a8fc5190cc9fefd4e8476114eedfb218fe2eb802bbecfcddb6c'
+          s=json.loads(raw)
+          assert s['sourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          count=0
+          for sess in s['sessions']:
+            assert len(sess['frames'])==41
+            for p in sess['frames']:
+              buf=(old/p['file']).read_bytes()
+              assert len(buf)==p['bytes'] and hashlib.sha256(buf).hexdigest()==p['sha256']
+              count+=1
+          assert count==82
+          other=(parent/'K4AF_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json').read_bytes()
+          assert hashlib.sha256(other).hexdigest()=='016c28bf4fafa50748d8083496a81a5d66732540c0c3b50e863a7c39cfaddf26'
+          audit=(parent/'K4AF_INDEPENDENT_GENUINE_SOURCE_GPU_AUDIT.json').read_bytes()
+          assert hashlib.sha256(audit).hexdigest()=='028f72fa8b40b450cb106e1484be488467c7dbcc4b9e69769cb2fa88a9aeec24'
+          j=json.loads(audit)
+          assert j['synchronousInRenderDepthMasksAvailable']==84
+          assert j['sourceGPUrestorationCount']==14
+          assert j['ART']=='NOT_TESTED_HOLD'
+          print('K4AG_EXACT_SOURCE_82_PNG_AND_PARENT_84_GPU_MASK_SHA_PASS')
+          PY
+      - name: Build exact original native private renderer and K4AG display-only ID selector
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r19a1-private-original-native-camera-pack.mjs
+          node scripts/p101-r19a6p4r2f5k3b-private-camera-pack.mjs
+          node scripts/p101-r19a6p4r2f5k4ab-private-source-draw-provenance.mjs
+          node scripts/p101-r19a6p4r2f5k4ad-private-original-mesh-depth-replay.mjs
+          node scripts/p101-r19a6p4r2f5k4ag-b51-individual-private-builder.mjs
+          cmp -s dist-private/r19a6p4r2f5k4ad/index.html dist-private/r19a6p4r2f5k4ag/index.html
+          node --check dist-private/r19a6p4r2f5k4ag/drive3d.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Real Chromium 28 B51 source IDs one-at-a-time for both widths at genuine 47.0sec
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/p101-r19a6p4r2f5k4ag-b51-individual-native-11280.mjs
+          test -s r19-evidence/r19a6p4r2f5k4ag/K4AG_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json
+      - name: Independently compare 56 source IDs with frozen K4AF and K4Z originals
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-numpy python3-pil
+          python3 scripts/p101-r19a6p4r2f5k4ag-independent-b51-per-id-audit.py \
+            --k4z r19-evidence/r19a6p4r2f5k4z-source \
+            --k4af r19-evidence/r19a6p4r2f5k4af-parent \
+            --k4ag r19-evidence/r19a6p4r2f5k4ag
+          python3 - <<'PY'
+          import json,csv,pathlib
+          p=pathlib.Path('r19-evidence/r19a6p4r2f5k4ag')
+          j=json.loads((p/'K4AG_B51_SOURCE_ID_AUDIT.json').read_text())
+          rows=list(csv.DictReader((p/'K4AG_B51_56_SOURCE_IDS.csv').open()))
+          assert len(rows)==56 and len({(x['mode'],x['sourceB51Id']) for x in rows})==56
+          assert j['genuineSourceSingleBodyMasks']==56
+          assert j['sourceB51ObstaclesPerWidth']==28
+          assert j['controlGroupOcclusionSamples']==5972
+          assert j['ultraGroupOcclusionSamples']==53
+          assert j['officialARTAccepted']==j['slope2DNAMetres']==j['newModels']==j['newColliders']==0
+          assert j['ART']=='NOT_TESTED_HOLD' and j['RELEASE']==j['MERGE']=='HOLD'
+          print('K4AG_REAL_ORIGINAL_B51_56_ID_MASKS_SOURCE_TECH_CANDIDATE_ONLY')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4AG_56_ORIGINAL_B51_PER_ID_2WIDTH_REAL_GPU_ART_HOLD
+          path: r19-evidence/r19a6p4r2f5k4ag/
+          retention-days: 7
+          if-no-files-found: warn
