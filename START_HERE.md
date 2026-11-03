@@ -1,3 +1,9 @@
+# 【K4BG 修正版の最優先注意 2026-11-04】
+
+初回K4BG CI #41725702409はSOURCE/DCC技術SUCCESSだが、初回ultra source Camera画像では実B48 Road5が欠けた状態。親K4BE .blend保存時のULTRA **collection hide_render** を、子の object hide_render 変更では解除できないことが原因とコード上で確定。**修正版 commit e1f5354** では元ROAD5 Collectionをmode別に切替。再CI [#41726814278](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41726814278) の実状況・真2画像を必ず再照合。最新ART認定は依然0、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。詳細は [K4BG正本](docs/R19_A6P4_R2F5K4BG_SOURCE_CAMERA_COHERENT_CIVIC_ESCARPMENT_JA.md)。
+
+---
+
 # 【2026-11-04 K4BG／新チャット最優先入口】DOPAGAKI SLOPE — ART-FIRST研究
 
 - **現在の継続研究枝**：`research/k4bg-civic-escarpment-true-camera-art-20261104`。親K4BF `f8d291d7c4436e739843bd3bb6fdf2b95c85feb0` から隔離。main／公式p101／Draft PR #46／本番2サイトは変更禁止。
