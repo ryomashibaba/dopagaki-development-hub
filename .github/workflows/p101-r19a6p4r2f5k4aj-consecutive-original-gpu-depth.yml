@@ -39,7 +39,7 @@ jobs:
           gh run download 41472149272 \
             -n K4AF_ORIGINAL_ROAD5_14_TRUE_FRAMES_84_GPU_MASKS_14_RESTORATIONS_ART_HOLD \
             -D r19-evidence/r19a6p4r2f5k4af-pinned
-          gh run download 41559179613 \
+          gh run download 41560614512 \
             -n K4AI_GENUINE_1442_240HZ_CAMERA_B51_OBB_GEOMETRY_ART_HOLD \
             -D r19-evidence/r19a6p4r2f5k4ai-pinned
           python3 - <<'PY'
