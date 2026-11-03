@@ -1,3 +1,7 @@
+> **【新チャット引き継ぎの最優先入口／2026-11-03 JST】** この巨大な`DOPAGAKI_RESTART_JA.md`は**過去の最新時点を含む時系列履歴**であり、以下の古い「queued」「最新」を現在値と誤認しない。今後はまず **[START_HERE.md](START_HERE.md) → [完全統合引き継ぎ正本](docs/DOPAGAKI_COMPLETE_INTEGRATED_HANDOFF_20261103_JA.md) → [K4AJ現研究契約](docs/R19_A6P4_R2F5K4AJ_ORIGINAL_NATIVE_B51_GPU_OCCLUSION_WINDOWS_JA.md)** の順で読む。そのうえでGitHubの実CI #41566784540と最新のより新しいrun、研究HEAD、Draft PR#46をリアルタイム照合。2026-11-03 11:36 JST時点K4AJはqueued/Artifact0・K4AIだけ二重TECH PASS、ART採用0・Slope2 DNA0m・本番/マージHOLD。歴史的証拠は以下に保存し続けるが、初回から膨大な履歴を貼り直さない。main/元ゲーム/本番/PR46/Workの無断変更禁止。
+
+---
+
 ## 【現行K4AJ研究の正本 2026-11-03／ART HOLD】
 
 - 研究再開先`research/k4aj-native-b51-gpu-depth-contiguous-window-20261103`、詳細[GPU連続遮蔽99tickのK4AJ正本](docs/R19_A6P4_R2F5K4AJ_ORIGINAL_NATIVE_B51_GPU_OCCLUSION_WINDOWS_JA.md)。現在の実測CIは **[#41566784540](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41566784540)**（未完/queued、結果未確定）。旧 #41565679177 は次の独立監査強化でキャンセル、SUCCESSに数えない。
