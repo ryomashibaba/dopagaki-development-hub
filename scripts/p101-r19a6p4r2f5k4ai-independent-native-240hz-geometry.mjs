@@ -129,7 +129,7 @@ for(const mode of ['ultra','control']){
   same3(q.originalSourceOBBCenter,base.geometry.originalMovingObstaclePose.center);
   near(q.signedEyePointToOBBMeters,base.geometry.signedCameraEyePointToOBBMeters);
   near(q.signedBallSurfaceToOBBMeters,base.geometry.signedBallSurfaceToOBBMeters);
-  near(a.geometry.signedEyePointToOBBMeters,base.geometry.signedCameraEyePointToOBBMeters);
+  near(a.geometry.signedCameraEyePointToOBBMeters,base.geometry.signedCameraEyePointToOBBMeters);
   near(a.geometry.signedBallSurfaceToOBBMeters,base.geometry.signedBallSurfaceToOBBMeters);
  }
  // Four independent negative controls per width.
