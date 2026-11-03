@@ -31,13 +31,16 @@ const near=(x,y,tol=1e-8)=>{assert.ok(Number.isFinite(x)&&Number.isFinite(y)&&Ma
  'SOURCE_VALUE_MISMATCH '+x+' != '+y);};
 const same3=(x,y)=>{assert.equal(x.length,3);assert.equal(y.length,3);for(let i=0;i<3;i++)near(x[i],y[i]);};
 const dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0);
-function validate(t,desc,mode){
+function validate(t,desc,mode,legalRoads){
  assert.ok(Number.isSafeInteger(t.nativeTick)&&t.nativeTick>=START&&t.nativeTick<=END);
  near(t.sourceSeconds,t.nativeTick/240,1e-5);
  near(t.originalDisplayPoseTime,t.nativeTick/240,1e-5);
  assert.equal(t.originalB51Id,'p95-hazard-12');
  assert.equal(t.originalB51Type,'piston');
- assert.equal(t.originalRoad,'p93-PRISM_CREST-01');
+ assert.ok(t.originalRoad===null||legalRoads.has(t.originalRoad),
+  'NATIVE_SOURCE_ROAD_NOT_IN_ORIGINAL_COURSE');
+ assert.equal(t.sourceRoadUnassigned,t.originalRoad===null);
+ assert.equal(typeof t.originalSourceGrounded,'boolean');
  assert.equal(t.originalStatus,'running');
  assert.equal(t.sourceStageRecordId,'VB-P101-A13-W9C1-'+mode.toUpperCase());
  assert.equal(t.sourceCollisionResultNOT_MEASURED,true);
@@ -64,6 +67,8 @@ function validate(t,desc,mode){
   near(dot(delta,axis),t.projectionMeters[name]);
  return {
   mode,tick:t.nativeTick,seconds:t.nativeTick/240,
+  sourceRoad:t.originalRoad,sourceRoadUnassigned:t.sourceRoadUnassigned,
+  sourceGrounded:t.originalSourceGrounded,
   signedEyeOBBMeters:eye.separation+.001,signedBallOBBMeters:ball.separation,
   eyeInsideOBB:eye.inside,ballInsideOBB:ball.inside,
   eyeToCenterMeters:Math.hypot(...delta),
@@ -105,7 +110,14 @@ for(const mode of ['ultra','control']){
  assert.equal(desc.type,'piston');assert.deepEqual(desc.size,[8,3,7.5]);
  assert.equal(desc.motion.stroke,8);assert.equal(desc.collision.mode,'push');
  assert.deepEqual(desc,old.frames[0].geometry.obstacleDescriptor);
- const points=t.records.map((q,i)=>{assert.equal(q.nativeTick,START+i);return validate(q,desc,mode);});
+ const sourceRoadIDs=t.meta.originalSourceSurfaceIds;
+ assert.ok(Array.isArray(sourceRoadIDs)&&sourceRoadIDs.includes('p93-PRISM_CREST-01'));
+ assert.equal(new Set(sourceRoadIDs).size,sourceRoadIDs.length);
+ const legalRoads=new Set(sourceRoadIDs);
+ const points=t.records.map((q,i)=>{
+  assert.equal(q.nativeTick,START+i);
+  return validate(q,desc,mode,legalRoads);
+ });
  flat.push(...points);
  // Prove the tick-recorder exactly reproduces every previously audited
  // genuine source WebGL + K4AH geometry anchor (not a new simulated path).
@@ -125,10 +137,11 @@ for(const mode of ['ultra','control']){
   x=>x.sourceSeconds+=1/60,
   x=>x.originalSourceCameraEye[1]+=.02,
   x=>x.originalSourceOBBCenter[1]+=1,
-  x=>x.originalB51DescriptorJSON=JSON.stringify({...desc,size:[8,30,7.5]})
+  x=>x.originalB51DescriptorJSON=JSON.stringify({...desc,size:[8,30,7.5]}),
+  x=>x.originalRoad='FAKE_NONEXISTENT_SOURCE_SURFACE'
  ]){
   const altered=structuredClone(t.records[0]);mutation(altered);
-  let failed=false;try{validate(altered,desc,mode);}catch{failed=true;}
+  let failed=false;try{validate(altered,desc,mode,legalRoads);}catch{failed=true;}
   assert.ok(failed,'K4AI_TAMPERED_GEOMETRY_NOT_REJECTED');negatives++;
  }
  const thresholds={};
@@ -136,24 +149,29 @@ for(const mode of ['ultra','control']){
   thresholds['signedEyeDistanceAtMost'+d+'m']=intervals(points,x=>x.signedEyeOBBMeters<=d);
  thresholds.eyeInsideOBB=intervals(points,x=>x.eyeInsideOBB);
  thresholds.ballOverlapsOBB=intervals(points,x=>x.signedBallOBBMeters<0);
+ thresholds.sourceRoadUnassigned=intervals(points,x=>x.sourceRoadUnassigned);
+ thresholds.sourceUngrounded=intervals(points,x=>!x.sourceGrounded);
  const minEye=points.reduce((a,x)=>x.signedEyeOBBMeters<a.signedEyeOBBMeters?x:a);
  const minBall=points.reduce((a,x)=>x.signedBallOBBMeters<a.signedBallOBBMeters?x:a);
  outModes.push({mode,nativeTicksValidated:N,
   sourceOriginalCameraRecomputed:N,sourceOriginalOBBRecomputed:N,
   originalK4AHRealGPUReferenceAnchorsMatched:7,
+  originalCourseSurfaceIDsVerified:sourceRoadIDs,
+  originalSourceRoadUnassignedSamples:thresholds.sourceRoadUnassigned.sampleCount,
+  originalSourceUngroundedSamples:thresholds.sourceUngrounded.sampleCount,
   minCameraSeparation:minEye,minBallSeparation:minBall,
   geometricProximityWindows:thresholds,
   continuousGPUVisibilityDuration:'NOT_MEASURED_UNKNOWN',
   observedTrueNativeTicks:points});
 }
-assert.equal(flat.length,1442);assert.equal(negatives,8);
+assert.equal(flat.length,1442);assert.equal(negatives,10);
 const summary={
  schema:'dopagaki.K4AI.native-240hz-source-camera-B51-geometry-only/1',
  decision:'GEOMETRY_1442_NATIVE_TICKS_SOURCE_TECH_PASS_VISUAL_DURATION_ART_HOLD',
  originalSourceBlob:SRC,pinnedK4AHRawSHA256:PARENT_SHA,
  originalHz:240,measuredNativeWindow:[START,END],
  originalPhysicsTicks:1442,originalCameraReexecutions:1442,originalOBBReexecutions:1442,
- trueGPUVerifiedGeometryAnchorCount:14,independentTamperControls:8,
+ trueGPUVerifiedGeometryAnchorCount:14,independentTamperControls:10,
  continuousGPUVisualMaskCount:0,actualVisualObstructionDuration:'UNKNOWN_NOT_MEASURED',
  originalPhysicsOrCollisionModified:false,
  originalCameraModified:false,newModels:0,newColliders:0,
@@ -166,7 +184,7 @@ fs.mkdirSync(outDir,{recursive:true});
 fs.writeFileSync(path.join(outDir,'K4AI_240HZ_GEOMETRIC_WINDOWS.json'),JSON.stringify(summary,null,2)+'\n');
 fs.writeFileSync(path.join(outDir,'K4AI_1442_VERIFIED_NATIVE_SOURCE_TICKS.json'),
  JSON.stringify({...summary,modes:outModes},null,2)+'\n');
-const cols=['mode','tick','seconds','signedEyeOBBMeters','signedBallOBBMeters','eyeInsideOBB',
+const cols=['mode','tick','seconds','sourceRoad','sourceRoadUnassigned','sourceGrounded','signedEyeOBBMeters','signedBallOBBMeters','eyeInsideOBB',
  'ballInsideOBB','eyeToCenterMeters','viewForwardCenterMeters'];
 fs.writeFileSync(path.join(outDir,'K4AI_ORIGINAL_NATIVE_1442_TICKS.csv'),
  cols.join(',')+'\n'+flat.map(q=>cols.map(k=>String(q[k])).join(',')).join('\n')+'\n');
@@ -175,7 +193,7 @@ const note=[
  '',
  '**SOURCE幾何1442点TECH限定PASS。実GPU視界遮蔽が続いた秒数・ART・安全性は未測定／HOLD。**',
  '',
- 'K4AHの14真正GPU/原画像アンカーと同じ物理経路で、元Runnerの240Hz固定ステップ721点×2幅を測定し、元カメラ/障害物関数を独立再実行。4改ざん負例×2幅を拒否。',
+ 'K4AHの14真正GPU/原画像アンカーと同じ物理経路で、元Runnerの240Hz固定ステップ721点×2幅を測定し、元カメラ/障害物関数を独立再実行。5改ざん負例×2幅を拒否。元のRunner.surfaceは一時nullとなり得るため、ステージ原本のsurface ID集合とnullを独立照合して件数も報告。',
  '',
  '距離閾値の継続秒数は「条件を満たした元物理tick数÷240」。これは**画面遮蔽の時間**やART可視性とは別の幾何学的近接時間。',
  '',
@@ -188,7 +206,9 @@ const metrics=[
  ['眼が障害物内部にあった物理tick数',x=>x.geometricProximityWindows.eyeInsideOBB.sampleCount],
  ['眼と障害物が1m以内の物理tick数',x=>x.geometricProximityWindows.signedEyeDistanceAtMost1m.sampleCount],
  ['眼と障害物が5m以内の物理tick数',x=>x.geometricProximityWindows.signedEyeDistanceAtMost5m.sampleCount],
- ['眼と障害物が10m以内の物理tick数',x=>x.geometricProximityWindows.signedEyeDistanceAtMost10m.sampleCount]
+ ['眼と障害物が10m以内の物理tick数',x=>x.geometricProximityWindows.signedEyeDistanceAtMost10m.sampleCount],
+ ['元Runner.surfaceがnullの物理tick数',x=>x.geometricProximityWindows.sourceRoadUnassigned.sampleCount],
+ ['元Runner.groundedがfalseの物理tick数',x=>x.geometricProximityWindows.sourceUngrounded.sampleCount]
 ];
 for(const [name,get] of metrics){
  const v=outModes.map(get);note.push('|'+name+'|'+v.map(x=>Number.isInteger(x)?String(x):x.toFixed(6)).join('|')+'|');
@@ -201,7 +221,7 @@ fs.writeFileSync(path.join(outDir,'K4AI_NATIVE_240HZ_GEOMETRY_FINDINGS_JA.md'),n
 console.log('K4AI_PINNED_K4AH_RAW_SHA_PASS');
 console.log('K4AI_1442_ORIGINAL_CAMERA_AND_OBB_SOURCE_FUNCTION_PASS');
 console.log('K4AI_14_GENUINE_K4AH_GPU_ANCHOR_POSES_MATCH');
-console.log('K4AI_8_GEOMETRY_TAMPER_NEGATIVE_CONTROLS_PASS');
+console.log('K4AI_10_GEOMETRY_AND_SOURCE_ROAD_TAMPER_NEGATIVE_CONTROLS_PASS');
 console.log('K4AI_28M_MIN_EYE_OBB_M',outModes[1].minCameraSeparation.signedEyeOBBMeters);
 console.log('K4AI_28M_EYE_INSIDE_OBB_TICKS',outModes[1].geometricProximityWindows.eyeInsideOBB.sampleCount);
 console.log('K4AI_VISUAL_OCCLUSION_DURATION_NOT_MEASURED_ART_HOLD');
