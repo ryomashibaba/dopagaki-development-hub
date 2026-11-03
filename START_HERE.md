@@ -210,3 +210,12 @@ K4AUは街区の量産を一旦やめ、**元の実物B48道路と元B51実動�
 **次工程**：実source \`private/reference_only/director/surface.js\` の \`sample/frame/tessellate\` と本物のRoad5 stage、\`private/reference_only/director/moving/moving-obstacles.mjs\` の \`movingObstaclePose\` により、原道路B48と元時刻B51 OBBのSOURCE READ ONLY Blender 3D参照を作成。既存K4AX \`.blend\`原本＋真正カメラ数値6時点で道路と建築の構図/クリアランスをART-FIRST監査。正しい出自と不変元物理/元カメラ/Git blob SHA \`af076d67492a677d2235e4730aef8cdf4808e106\`を守り、実装・テスト・GitHubに結果保存。**細かい色替えや同じ反復箱のJS追加は禁止**。本番・main・Draft PR #46不変更、Work事前承認、ユーザー側ローカル操作不要。
 
 正式ゲート：ART / HUMAN / SAT / CCD / FPS / RELEASE / MERGE すべてHOLD。他6Roadへ複製・ゲーム公開は禁止。
+
+
+---
+
+## 2026-11-03 K4AY 実コード着手記録（必ずActionsで最終判定）
+
+[実装・テスト・保護契約と次作業の技術正本](docs/R19_A6P4_R2F5K4AY_AUTHENTIC_B48_B51_BLENDER_SOURCE_CONTEXT_JA.md)
+
+研究ブランチでB48 Road5の本物の`sample/frame/tessellate`抽出、control/ultra 6tick×B51 28体source collision OBBの時刻別再現、元K4AX `.blend`の別collectionへ非破壊挿入、6元Camera DCC-only画像生成と独立検証を行うコード・専用CIを追加した。**コードのGitHub保存は完了したが、K4AY Actions #41610821799の実成功／Artifactsは現時点では未確定**。確証のない Blender/ART PASS を絶対に書かない。SRC静的テストのPASSとDCC完成、美術品質を区別する。初回K4AY CI run はworkflow対象外の文書追記でキャンセルしない。正式ART=0・Slope2 DNA=0m・ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD、main・公式継続branch・本番・PR#46・凍結blobは引き続き保護。次はCI実ログ確認と実6DCC画像の厳格な美術評価、必要な抜本造形改修。
