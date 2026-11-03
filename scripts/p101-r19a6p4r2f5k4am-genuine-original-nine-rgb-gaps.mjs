@@ -154,6 +154,17 @@ try{
     pinned(s,native,tick);
     const original=await syncDepth(page,tick,'none');
     same(await state(page),s);
+    const chapterHUD=await page.evaluate(()=>{
+     const canvas=document.querySelector('#view'),hud=document.querySelector('#chapterHud');
+     const a=canvas.getBoundingClientRect(),h=hud.getBoundingClientRect();
+     const style=getComputedStyle(hud);
+     return {id:hud.id,className:hud.className,text:hud.textContent.trim(),
+       position:style.position,pointerEvents:style.pointerEvents,
+       rect:[h.left-a.left,h.top-a.top,h.right-a.left,h.bottom-a.top]
+         .map(x=>Math.round(x*1000)/1000)};
+    });
+    assert.equal(chapterHUD.id,'chapterHud');
+    assert.ok(chapterHUD.text.includes('PRISM SKY CREST'));
     const sourcePNG=await png(page,`K4AM_${mode}_${tick}_ORIGINAL_SOURCE.png`);
     await page.evaluate(()=>{window.__k4abMask='without-B51-bodies';});
     await page.waitForFunction(t=>{
@@ -178,7 +189,8 @@ try{
     assert.equal(masked.seq,original.seq+1);assert.equal(recovered.seq,masked.seq+1);
     session.frames.push({
      tick,nativePhysicsSeconds:tick/240,
-     k4aiNativeTickPoseMatch:true,source:s,
+     k4aiNativeTickPoseMatch:true,source:s,chapterHUD,
+     gpuReadbackSeq:[original.seq,masked.seq,recovered.seq],
      sourcePNG,groupHiddenPNG:groupPNG,restoredPNG,
      nativeGPU:{original:depthSummary(original.depth),
        allB51GroupHidden:depthSummary(masked.depth),
