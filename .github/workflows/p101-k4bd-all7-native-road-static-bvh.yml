@@ -29,14 +29,14 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          result="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41646724681 --jq '.conclusion')"
+          result="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41649107682 --jq '.conclusion')"
           if [ "$result" != success ]; then echo "K4BD source DCC not completed success: $result";exit 1;fi
       - name: Fetch exact K4BD original Road5 3K PBR with EDITABLE civic terrazzo and terrace architecture
         uses: actions/download-artifact@v4
         with:
-          name: K4BD_3K_ORIGINAL_ROAD5_CIVIC_DECK_PBR_EDITABLE_DCC_ART_HOLD
+          name: K4BD_3K_ORIGINAL_ROAD5_CIVIC_DECK_PBR_PILOT_EDITABLE_DCC_ART_HOLD
           repository: ryomashibaba/dopagaki-development-hub
-          run-id: 41646724681
+          run-id: 41649107682
           github-token: ${{ github.token }}
           path: research/evidence/k4bd-static/art
       - name: Fetch source-exact all 7 B48 physical roads control/ultra, no new roads
@@ -68,6 +68,9 @@ jobs:
           assert m['sourcePhysicsHz']==240 and m['sourceRadiusMetres']==.65
           assert m['realB48Road5GeometryPreserved'] and m['originalRoad5GeometryBefore']==m['originalRoad5GeometryAfter']
           assert m['sourceRoad5PBR3K']==[3072,1536]
+          assert m['DCCPreviewOnlyTwoOfSixNativeSourceCameraTicks'] is True
+          assert m['allSixOriginalSourceCamerasRenderedForThisRevision'] is False
+          assert len(m['originalCameraSixTicks'])==2
           assert m['newVisualNonCollisionRoadInlayCount']==52
           assert m['originalOtherSixB48RoadsPerModePreserved']
           assert m['originalSourceB51SixTimes28PhysicsProxyPreserved']
