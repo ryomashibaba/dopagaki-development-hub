@@ -29,7 +29,7 @@ jobs:
         with:
           name: K4AZ_CIVIC_RIFT_ARCHITECTURE_DCC_SOURCE_B48_B51_ART_REJECT
           repository: ryomashibaba/dopagaki-development-hub
-          run-id: 41615762837
+          run-id: 41616880506
           github-token: ${{ github.token }}
           path: r19-evidence/k4az-spatial-parent
       - name: Download true source six native B51 frames from K4AY original parent
