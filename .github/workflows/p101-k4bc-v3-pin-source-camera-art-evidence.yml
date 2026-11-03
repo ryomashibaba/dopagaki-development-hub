@@ -1,0 +1,87 @@
+name: DOPAGAKI K4BC v3 persist actual source-Camera civic composition art evidence
+on:
+  push:
+    branches:
+      - research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
+    paths:
+      - '.github/workflows/p101-k4bc-v3-pin-source-camera-art-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: k4bc-v3-source-cinematic-art-image-pin-branch-only
+  cancel-in-progress: false
+jobs:
+  pin-six-real-camera-art-review-in-github:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Demand confirmed exact real source-Camera Blender v3 completed SUCCESS
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          c="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41640544530 --jq .conclusion)"
+          test "$c" = success
+          echo 'K4BC_V3_ORIGINAL_SOURCE_CAMERA_ARTIFACT_COMPLETED_SUCCESS'
+      - name: Download actual v3 source-Camera DCC images and source immutable provenance
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BC_V3_CAMERA_FRAMED_TRUE_ALL7_ROADS_EDITABLE_CIVIC_SKY_MUSEUM_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41640544530
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-v3-final
+      - name: Verify all six exact source cameras and SHA before preserving rejected art
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 - <<'PY'
+          import json,hashlib,shutil
+          from pathlib import Path
+          p=Path('research/evidence/k4bc-v3-final')
+          j=json.loads((p/'K4BC_V3_TRUE_SOURCE_CAMERA_CIVIC_COMPOSITION_PROVENANCE.json').read_text())
+          assert j['originalFrozenGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalSourceRoadCount']==7 and j['originalB51Movers']==28
+          assert j['exactSourceRoad5Before']==j['exactSourceRoad5After']
+          assert j['originalSourceB48Road5Unmodified']
+          assert j['originalOtherB48NativeModeCollectionsMaintained']==12
+          assert j['originalCameraNumericsUnchanged']
+          assert j['originalB51SourceOBBInstances']==168
+          assert j['nativeWebGL2Screenshots'] is False
+          assert j['ART']=='REJECT_HOLD' and j['formalArtAccepted']==0
+          assert len(j['sourceOriginalCameraSixDCCShots'])==6
+          for fn,stamp in j['files'].items():
+            raw=(p/fn).read_bytes()
+            assert stamp['bytes']==len(raw) and stamp['sha256']==hashlib.sha256(raw).hexdigest()
+          dst=Path('docs/research-evidence/k4bc-v3');dst.mkdir(parents=True,exist_ok=True)
+          for name,new in (
+             ('K4BC_V3_SIX_GENUINE_ORIGINAL_CAMERA_V2_VS_V3_ART_HOLD.png',
+              'K4BC_V3_REAL_SOURCE_ALL7_SIX_CAMERA_V2_AB_ART_REJECT.png'),
+             ('K4BC_V3_FRAMED_TRUE_ALL7_SOURCE_DCC_CONTROL_11307.png',
+              'K4BC_V3_REAL_CONTROL_11307_DCC_ART_REJECT.png'),
+             ('K4BC_V3_CIVIC_MUSEUM_AND_NATIVE_ROAD6_AERIAL_NOT_GAME.png',
+              'K4BC_V3_DESIGN_AERIAL_NOT_GAME_ART_REJECT.png'),
+             ('K4BC_V3_TRUE_SOURCE_CAMERA_CIVIC_COMPOSITION_PROVENANCE.json',
+              'K4BC_V3_ORIGINAL_ROADS_CAMERA_SHA_HOLD.json')
+          ):
+            data=(p/name).read_bytes()
+            if new.endswith('.png'):assert data[:8]==bytes((137,80,78,71,13,10,26,10))
+            shutil.copyfile(p/name,dst/new)
+          print('K4BC_V3_EXACT_NATIVE_CAMERA_6_SHA_ART_REJECT_GITHUB_PERMANENT_PIN')
+          PY
+      - name: Persist only visual research evidence in isolated branch, never original game
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research-evidence/k4bc-v3/K4BC_V3_*
+          git diff --cached --quiet && exit 0
+          git commit -m "evidence(k4bc): pin six true original-Camera v3 ART rejected screenshots and source SHA"
+          git fetch origin research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
+          git rebase origin/research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
+          git push origin HEAD:refs/heads/research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
