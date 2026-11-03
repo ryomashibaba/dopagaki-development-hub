@@ -1,0 +1,154 @@
+{
+  "schema": "dopagaki.K4BB.original-B48-UV-PBR-inhabited-public-DCC-only/1",
+  "originalFrozenGameSourceBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "sourceRoadID": "p93-PRISM_CREST-01",
+  "sourceRoad5Triangles": 4728,
+  "sourceRoad5SourcePointsSHA": "5eb731e25bc9eb1a3cf1080e7b239f5e2e8043bfbc80e5d37e0b069a5a08a730",
+  "originalB48PhysicalRoads": 7,
+  "originalB51PhysicalMovers": 28,
+  "originalPhysicsHz": 240,
+  "originalSourceRoadGeometryBefore": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "originalSourceRoadGeometryAfter": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "sourceB48VerticesAndTopologyUnchanged": true,
+  "roadUVAndPBRAreDCCOnlyNotPhysicalSource": true,
+  "UVRealTopGridResolution": [
+    91,
+    13
+  ],
+  "PBRAtlasPixels": [
+    2048,
+    1024
+  ],
+  "sourceB51OriginalOBBSnapshotInstances": 168,
+  "originalCameraNumericsUnchanged": true,
+  "sourceNumericDCCShots": [
+    {
+      "mode": "control",
+      "tick": 11259,
+      "sourceNativeSeconds": 46.9125,
+      "originalSourceScreenshotSHA": "6269eb803a2cb46c9c18a9a4b510aeb121d6c8daa7e8074776a2442199d65891",
+      "nativeB51PhysicalOBBCount": 28,
+      "dccPNG": "K4BB_SOURCE_NUMERIC_DCC_CONTROL_11259.png"
+    },
+    {
+      "mode": "control",
+      "tick": 11278,
+      "sourceNativeSeconds": 46.99166666666667,
+      "originalSourceScreenshotSHA": "8075dceb4e656cf36aed98aa1ce3e50fbebd5781e6a0ee114f14c889db8b9cb3",
+      "nativeB51PhysicalOBBCount": 28,
+      "dccPNG": "K4BB_SOURCE_NUMERIC_DCC_CONTROL_11278.png"
+    },
+    {
+      "mode": "control",
+      "tick": 11307,
+      "sourceNativeSeconds": 47.1125,
+      "originalSourceScreenshotSHA": "ffb85461e76f15d96831bdb8f89c5bd2fe18817b435ce2f1cf854807709b1558",
+      "nativeB51PhysicalOBBCount": 28,
+      "dccPNG": "K4BB_SOURCE_NUMERIC_DCC_CONTROL_11307.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11320,
+      "sourceNativeSeconds": 47.166666666666664,
+      "originalSourceScreenshotSHA": "d1719df89cee4c1af300187c874de6fdf365203d20d8869e06a52205755ea9ed",
+      "nativeB51PhysicalOBBCount": 28,
+      "dccPNG": "K4BB_SOURCE_NUMERIC_DCC_ULTRA_11320.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "sourceNativeSeconds": 47.25416666666667,
+      "originalSourceScreenshotSHA": "fe22062d3bf0abd764448d9b6b8d52a55f24ff84e7ee79b6fe04f674427861dc",
+      "nativeB51PhysicalOBBCount": 28,
+      "dccPNG": "K4BB_SOURCE_NUMERIC_DCC_ULTRA_11341.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11369,
+      "sourceNativeSeconds": 47.37083333333333,
+      "originalSourceScreenshotSHA": "fd5895bff1142e24dbfb3df84bf3f5dc9c6fff43db8cc508ffc1c985e73a5471",
+      "nativeB51PhysicalOBBCount": 28,
+      "dccPNG": "K4BB_SOURCE_NUMERIC_DCC_ULTRA_11369.png"
+    }
+  ],
+  "editableNewPublicObjects": 167,
+  "revisedNewProgrammeNames": [
+    "MARITIME FOOD HALL",
+    "READING EXCHANGE",
+    "PUBLIC MOBILITY GALLERY",
+    "BOTANICAL WATER GARDEN"
+  ],
+  "roadSourceGameplaySafetyPaintUpdated": false,
+  "nativeGameWebGL2Rendered": false,
+  "otherSixB48RoadCollisionClearance": "NOT_TESTED_HOLD",
+  "sourceB51VsArchitectureBVH": "NOT_TESTED_HOLD",
+  "CCD": "HOLD",
+  "HUMAN": "HOLD",
+  "FPS": "HOLD",
+  "SAT": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "ART": "REJECT_HOLD",
+  "formalARTApproved": 0,
+  "Slope2DNACertifiedMetres": 0,
+  "allFiles": {
+    "K4BB_SOURCE_ROAD5_PBR_CIVIC_INTERIORS_EDITABLE_ART_HOLD.blend": {
+      "bytes": 22019024,
+      "sha256": "58e20e97006856e187f04d06848182e28b8a65d3a6504d443765c3e4772b8c4b"
+    },
+    "K4BB_SOURCE_ROAD5_VISUAL_STUDY_DCC_NOT_GAME.glb": {
+      "bytes": 14902068,
+      "sha256": "49594f2d56ca5b369430c27aaf974b73be0700ce7bf44102d04d0ffbaa941509"
+    },
+    "K4BB_CIVIC_INTERIOR_HUMAN_EYE_DCC_NOT_GAME.png": {
+      "bytes": 1455475,
+      "sha256": "b5e7f71e92b80f641b1112998682d0a595021c0b1fea62aa8f23df171f3f9943"
+    },
+    "K4BB_CIVIC_HARBOR_AERIAL_DCC_NOT_GAME.png": {
+      "bytes": 915079,
+      "sha256": "ea36be04bc4a8ba06dc01200ec1b511fe19eb950d492cc13f1879df440c6f08f"
+    },
+    "K4BB_SOURCE_NUMERIC_DCC_CONTROL_11259.png": {
+      "bytes": 1279352,
+      "sha256": "6aeafeb891bf24ef9a480da3ca17111714a877bd6b84b9af1a22af0ab20e072b"
+    },
+    "K4BB_SOURCE_NUMERIC_DCC_CONTROL_11278.png": {
+      "bytes": 1222296,
+      "sha256": "0956502b7dbde795728fb94b9585938fdd3dfb2165265868bdcbfb00dc22f168"
+    },
+    "K4BB_SOURCE_NUMERIC_DCC_CONTROL_11307.png": {
+      "bytes": 1277880,
+      "sha256": "00651631e56a66758e5c72152ec49466df465fffa5234ad06f6bfb0cafdde787"
+    },
+    "K4BB_SOURCE_NUMERIC_DCC_ULTRA_11320.png": {
+      "bytes": 1279492,
+      "sha256": "09f6a87f6d20700f3a9c5fd7e43e538d88c32f35f883ceb52e76df8eaa13b7c1"
+    },
+    "K4BB_SOURCE_NUMERIC_DCC_ULTRA_11341.png": {
+      "bytes": 1295048,
+      "sha256": "298426cdfbafe437ca90cd62036245e00b814309bacab5e86c311b6ffec067c4"
+    },
+    "K4BB_SOURCE_NUMERIC_DCC_ULTRA_11369.png": {
+      "bytes": 1278779,
+      "sha256": "38c6f05a48a89d07b2c79809f84688431447324fc79a7de0347880dddc725bb2"
+    },
+    "K4BB_2K_ORIGINAL_ROAD_MATERIAL_CANDIDATE_ALBEDO.png": {
+      "bytes": 3106538,
+      "sha256": "4b2de22d704542374047e189e778163d12e6398cbaf6dfb90e8d0181433b2230"
+    },
+    "K4BB_2K_ORIGINAL_ROAD_MATERIAL_CANDIDATE_ROUGHNESS.png": {
+      "bytes": 1425920,
+      "sha256": "3d6b92f9b3d73c9ad3d26bcb73941fe6faa4bb3ffb54c28f4b8100d520682ae8"
+    },
+    "K4BB_2K_ORIGINAL_ROAD_MATERIAL_CANDIDATE_HEIGHT.png": {
+      "bytes": 1111495,
+      "sha256": "bfcac3ab8f0c794653245fa0e4ef801c268880fdbfde5cd2862610d7c12774b2"
+    }
+  }
+}
