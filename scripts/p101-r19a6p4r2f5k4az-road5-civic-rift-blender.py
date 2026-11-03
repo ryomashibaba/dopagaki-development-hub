@@ -431,7 +431,6 @@ try:scene.view_settings.view_transform="AgX"
 except Exception:scene.view_settings.view_transform="Filmic"
 try:scene.view_settings.look="Medium High Contrast"
 except Exception:pass
-scene.view_settings.view_settings='' if False else scene.view_settings.view_transform if False else scene.view_settings.view_transform
 scene.view_settings.exposure=-.65
 scene.view_settings.gamma=1
 
