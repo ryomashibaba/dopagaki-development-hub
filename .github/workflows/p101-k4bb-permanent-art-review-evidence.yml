@@ -25,7 +25,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           for attempt in $(seq 1 85); do
-            c="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41629445676 --jq .conclusion)"
+            c="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41631593534 --jq .conclusion)"
             if [ "$c" = success ]; then exit 0; fi
             if [ "$c" = failure ] || [ "$c" = cancelled ]; then echo "K4BB DCC failed, refusing to pin"; exit 1; fi
             sleep 12
@@ -37,7 +37,7 @@ jobs:
         with:
           name: K4BB_TRUE_SOURCE_ROAD5_2K_PBR_INHABITED_CIVIC_BLENDER_ART_HOLD
           repository: ryomashibaba/dopagaki-development-hub
-          run-id: 41629445676
+          run-id: 41631593534
           github-token: ${{ github.token }}
           path: research/evidence/k4bb-pin
       - name: Verify image/content SHA and preserve only review artwork, not official game files
