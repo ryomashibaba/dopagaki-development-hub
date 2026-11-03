@@ -1,0 +1,85 @@
+name: DOPAGAKI K4BB preserve real-source 6-camera ART evidence and 2K PBR on GitHub
+on:
+  push:
+    branches:
+      - research/k4bb-road5-pbr-civic-interiors-20261103
+    paths:
+      - '.github/workflows/p101-k4bb-permanent-art-review-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: k4bb-research-only-permanent-image-source-evidence
+  cancel-in-progress: false
+jobs:
+  pin-review-only-art-hold-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 23
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Do not claim success until the exact K4BB original-source Blender build finishes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for attempt in $(seq 1 85); do
+            c="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41629445676 --jq .conclusion)"
+            if [ "$c" = success ]; then exit 0; fi
+            if [ "$c" = failure ] || [ "$c" = cancelled ]; then echo "K4BB DCC failed, refusing to pin"; exit 1; fi
+            sleep 12
+          done
+          echo 'K4BB original-source Blender status not independently proven: HOLD'
+          exit 1
+      - name: Download authentic six-camera UV-PBR edited source art only
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BB_TRUE_SOURCE_ROAD5_2K_PBR_INHABITED_CIVIC_BLENDER_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41629445676
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bb-pin
+      - name: Verify image/content SHA and preserve only review artwork, not official game files
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 - <<'PY'
+          import json,hashlib,shutil
+          from pathlib import Path
+          src=Path('research/evidence/k4bb-pin')
+          d=json.loads((src/'K4BB_SOURCE_PBR_CIVIC_PROVENANCE.json').read_text())
+          assert d['originalFrozenGameSourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert d['sourceB48VerticesAndTopologyUnchanged'] is True
+          assert d['originalSourceRoadGeometryBefore']==d['originalSourceRoadGeometryAfter']
+          assert d['roadSourceGameplaySafetyPaintUpdated'] is False
+          assert d['nativeGameWebGL2Rendered'] is False
+          assert d['sourceB51OriginalOBBSnapshotInstances']==168
+          assert d['PBRAtlasPixels']==[2048,1024]
+          assert len(d['sourceNumericDCCShots'])==6
+          assert d['formalARTApproved']==0 and d['ART']=='REJECT_HOLD'
+          for name,stamp in d['allFiles'].items():
+            data=(src/name).read_bytes()
+            assert stamp['bytes']==len(data)
+            assert hashlib.sha256(data).hexdigest()==stamp['sha256']
+          dst=Path('docs/research-evidence/k4bb');dst.mkdir(parents=True,exist_ok=True)
+          for file,new in (
+              ('K4BB_SIX_NATIVE_POSE_K4BA_V2_VS_UV_PBR_CIVIC_AB.png','K4BB_SIX_SOURCE_NUMERIC_CAMERA_PBR_INTERIORS_ART_HOLD.png'),
+              ('K4BB_CIVIC_INTERIOR_HUMAN_EYE_DCC_NOT_GAME.png','K4BB_INTERIOR_DESIGN_EYE_NOT_GAME.png'),
+              ('K4BB_CIVIC_HARBOR_AERIAL_DCC_NOT_GAME.png','K4BB_HARBOR_AERIAL_DCC_NOT_GAME.png'),
+              ('K4BB_2K_ORIGINAL_ROAD_MATERIAL_CANDIDATE_ALBEDO.png','K4BB_ROAD_PBR_2K_ALBEDO_STUDY_ONLY.png'),
+              ('K4BB_SOURCE_PBR_CIVIC_PROVENANCE.json','K4BB_EDITABLE_SOURCE_SHA_ART_HOLD.json')):
+            shutil.copyfile(src/file,dst/new)
+          print('K4BB_SOURCE_CAMERA_DCC_ART_HOLD_PIN_READY')
+          PY
+      - name: Commit only research artifacts on this research branch, never main
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research-evidence/k4bb/K4BB_*
+          git diff --cached --quiet && exit 0
+          git commit -m "evidence(k4bb): pin rejected source-camera UV PBR and civic room images with SHA"
+          git fetch origin research/k4bb-road5-pbr-civic-interiors-20261103
+          git rebase origin/research/k4bb-road5-pbr-civic-interiors-20261103
+          git push origin HEAD:refs/heads/research/k4bb-road5-pbr-civic-interiors-20261103
