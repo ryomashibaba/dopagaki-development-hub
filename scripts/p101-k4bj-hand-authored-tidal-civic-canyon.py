@@ -337,9 +337,9 @@ def sampled_ground(d,s):
     inv=ob.matrix_world.inverted()
     origin=inv@world_origin
     direct=(inv.to_3x3()@Vector((0,0,-1))).normalized()
-    hit,normal,face=ob.ray_cast(origin,direct,distance=1400)
-    if not hit:return None
-    return ob.matrix_world@hit
+    found,location,normal,face=ob.ray_cast(origin,direct,distance=1400)
+    if not found:return None
+    return ob.matrix_world@location
 hitcounts={}
 for side,label in ((-1,"west"),(1,"east")):
     groups=[];current=[];total=0;hits=0
