@@ -32,7 +32,7 @@ for material in list(bpy.data.materials):
     bpy.data.materials.remove(material)
 scene=bpy.context.scene
 scene.render.engine="CYCLES"
-scene.cycles.samples=24
+scene.cycles.samples=27
 scene.cycles.use_denoising=False # Ubuntu Blender build lacks OpenImageDenoiser
 scene.render.resolution_x=1013
 scene.render.resolution_y=698
@@ -186,7 +186,7 @@ def annular_deck(name,s,l,z,outerS,outerL,innerS,innerL,mat):
     return obj
 
 # One huge but OPEN civic room at the shoulder; false "floor contact" is not certified.
-central_s,central_l=185,-115
+central_s,central_l=185,-105
 annular_deck("PUBLIC COURT | one actual open-hole stone floor",
              central_s,central_l,23.8,79,50,31,19,travertine)
 annular_deck("BASIN | water instead of fake black atrium",
@@ -195,9 +195,9 @@ annular_deck("BASIN | water instead of fake black atrium",
 N,M=72,28
 def roof(su,sv):
     s=96+167*su
-    l=-63-106*sv+4.0*sin(2*pi*su)*sin(pi*sv)
-    h=51+0.13*s+20*(sin(pi*su)**.75)*(1-.27*sv)
-    h+=11*sin(pi*sv)*(0.45+.55*su)+3.8*sin(3*pi*su)*sin(pi*sv)
+    l=-52-99*sv+4.0*sin(2*pi*su)*sin(pi*sv)
+    h=33+0.104*s+15*(sin(pi*su)**.75)*(1-.27*sv)
+    h+=7*sin(pi*sv)*(0.45+.55*su)+2.5*sin(3*pi*su)*sin(pi*sv)
     return P(s,l,h)
 rows=[[roof(i/N,j/M) for j in range(M+1)] for i in range(N+1)]
 roof_obj=face_strip("HERO | one authored double-curved floating ceramic hall roof",
@@ -210,8 +210,8 @@ for v in (.0,1.0):
     polyline("Copper continuous eave | side "+str(v),
              [roof(i/92,v)+Vector((0,0,-.25)) for i in range(93)],
              .70,copper)
-for i in range(1,22):
-    u=i/22
+for i in range(1,11):
+    u=i/11
     polyline("Individual underside timber/bronze crossrib %02d"%i,
              [roof(u,j/22)-Vector((0,0,3.2)) for j in range(23)],
              .29,copper)
@@ -219,21 +219,21 @@ for i in range(1,22):
 for u in (.10,.24,.38,.52,.69,.84,.94):
     for v in (.08,.90):
         s=96+167*u
-        l=-63-106*v
+        l=-52-99*v
         upper=roof(u,v)-Vector((0,0,3.0))
-        lower=P(s,l,18+.12*s)
-        bend=P(s+3*sin(2*pi*u),l+(7 if v<.5 else -7),38+.1*s)
+        lower=P(s,l,16+.1*s)
+        bend=P(s+3*sin(2*pi*u),l+(6 if v<.5 else -6),24+.1*s)
         polyline("Flared civic hall column %.2f %.2f"%(u,v),
              [lower,bend,upper],1.22,dark,hero)
-        cuboid("Stone heel under support",s,l,17+.12*s,5.2,5.2,3.2,
+        cuboid("Stone heel under support",s,l,15+.1*s,5.2,5.2,3.2,
                travertine,hero,bevel=.35)
 # Transparent human scale glazing set back under the sculpture, and real doors.
 for i in range(27):
     u0=i/27;u1=(i+1)/27
     s0=112+134*u0;s1=112+134*u1
-    l=-139+10*sin(pi*u0)
-    low=26+.13*s0
-    height=20+4*sin(pi*u0)
+    l=-133+10*sin(pi*u0)
+    low=17+.10*s0
+    height=16+3*sin(pi*u0)
     if i in (6,7,18,19):continue # accessible architectural door void, NOT GAME WALK PASS
     row0=[P(s0,l,low),P(s0,l,low+height)]
     row1=[P(s1,l+1.4*sin(2*pi*u1),low),P(s1,l+1.4*sin(2*pi*u1),low+height)]
@@ -248,7 +248,7 @@ for i in range(2):
     # Distinctly located vestibules, visible as actual deep glass volumes.
     s=148+57*i
     cuboid("Deep open restaurant vestibule %d"%i,
-       s,-144,32+.13*s,16,11,12,glass,detail,bevel=.9)
+       s,-136,24+.10*s,16,11,12,glass,detail,bevel=.9)
 # Function: usable-scale benches, planter foliage and light pools around the OPEN courtyard.
 for i in range(14):
     a=(i+.25)*2*pi/14
@@ -265,9 +265,9 @@ for i in range(14):
                 [P(s+4,l-2,h+1),P(s+4,l-2,h+5.4)],.22,wood)
 # Pedestrian scale embedded warm lighting under the roof, not a giant neon stripe.
 for i in range(12):
-    s=118+i*10.8;l=-155+9*sin(i*.43)
+    s=118+i*10.8;l=-142+9*sin(i*.43)
     cuboid("Warm concealed lighting recess %02d"%i,
-        s,l,46+.13*s,4.4,.55,.9,lightmat,detail,bevel=.08)
+        s,l,36+.10*s,4.4,.55,.9,lightmat,detail,bevel=.08)
 # Right shoulder: one lower civic garden, asymmetrical skyline counterpart.
 annular_deck("RIGHT BANK | lifted public botanical terrace",237,108,
              19+.11*237,49,37,19,14,travertine)
@@ -277,7 +277,7 @@ for j in range(11):
     leaf_sculpture("Human scale west-bank planting %02d"%j,
        s,l,7.2,3.3,green,detail)
 # ONE distant twisting faceted landmark; the rest of the skyline stays open.
-tower_s,tower_l,tower_H=308,171,242
+tower_s,tower_l,tower_H=416,141,183
 segments,edges=40,13
 tower=[]
 for j in range(segments+1):
@@ -300,14 +300,23 @@ for i in range(edges):
         for j in range(segments+1)]
     face_strip("Civic landmark curved glass facet %02d"%i,strips,
       glass if i%4 else copper,city,solid=.55)
-# Broken rather than repetitive facade: internal floors every 4 rings, real thickness.
-for k in (4,9,15,22,30,37):
-    level=k/segments
-    s=tower_s+16*level*level
-    l=tower_l-12*level*level
-    radius=23*(1-.38*level)
-    annular_deck("Skygarden separated floor %02d"%k,s,l,
-       20+tower_H*level,radius,radius*.79,7,5,travertine)
+# Facade-integrated vertical bronze fins, not levitating oversize UFO floors.
+for k in range(0,edges,3):
+    polyline("Tower single quiet bronze vertical load fin %02d"%k,
+      [tower[j][k] for j in range(0,segments+1,2)],.32,copper,city)
+# Support genuinely elevated terrace slabs with visible sculptural foundations.
+for i in range(8):
+    a=2*pi*i/8
+    s=central_s+68*cos(a);l=central_l+42*sin(a)
+    bottom=-16+.085*s;top=23.8
+    cuboid("Civic podium support / physically visible studio geometry %02d"%i,
+        s,l,(bottom+top)/2,4.8,4.8,top-bottom,travertine,hero,bevel=.36)
+for i in range(6):
+    a=2*pi*i/6
+    s=237+39*cos(a);l=108+28*sin(a)
+    bottom=-20+.08*s;top=19+.11*237
+    cuboid("Botanical deck support / not a source B48 collider %02d"%i,
+        s,l,(bottom+top)/2,4.3,4.3,top-bottom,dark,hero,bevel=.33)
 # Terrain is deliberately BACKGROUND STUDIO geometry, not an invented road collider.
 for sign in (-1,1):
     verts=[];faces=[]
@@ -336,7 +345,17 @@ for record in data["records"]:
 world=bpy.data.worlds.new("DCC studio daylight / not original game sky")
 scene.world=world;world.use_nodes=True
 world.node_tree.nodes["Background"].inputs["Color"].default_value=(.46,.56,.65,1)
-world.node_tree.nodes["Background"].inputs["Strength"].default_value=.72
+world.node_tree.nodes["Background"].inputs["Strength"].default_value=.60
+# A physically varying studio sky for architectural review, NOT a game sky proof.
+try:
+    sky=world.node_tree.nodes.new("ShaderNodeTexSky")
+    sky.sky_type="NISHITA"
+    sky.sun_elevation=math.radians(13)
+    sky.sun_rotation=math.radians(36)
+    sky.air_density=1.30
+    world.node_tree.links.new(sky.outputs["Color"],
+        world.node_tree.nodes["Background"].inputs["Color"])
+except Exception:pass
 def lamp(name,light_type,location,energy,color,size=None):
     d=bpy.data.lights.new(name,light_type)
     d.energy=energy;d.color=color
@@ -356,7 +375,7 @@ for i in range(4):
        P(130+32*i,-113,104),2200,(1.,.77,.57),size=60)
 for i in range(4):
     lamp("Real gallery area light %d"%i,'AREA',
-       P(138+24*i,-154,53+22),1250,(1.,.80,.64),size=28)
+       P(138+24*i,-149,66),1250,(1.,.80,.64),size=28)
 cameras=[]
 fov=2*math.atan(1./data["evidenceSource"]["webglVerticalPerspectiveMultiplier"])
 for item in shots:
@@ -374,6 +393,19 @@ for tick,cam in cameras:
     scene.camera=cam
     scene.render.filepath=os.path.join(out,"K4AX_DCC_ONLY_SOURCE_POSE_"+str(tick)+".png")
     bpy.ops.render.render(write_still=True)
+# The fourth image is deliberately an ARTIST CAMERA, NOT the true game camera.
+# It reveals materials, facade depth and the public hall floor independently.
+artist_cam=bpy.data.cameras.new("DESIGN-STUDIO CAMERA / NOT SOURCE")
+artist_cam.lens=36
+artist_cam.sensor_fit="VERTICAL"
+artist_cam.sensor_height=32
+artist_obj=bpy.data.objects.new("K4AX ARCHITECTURAL STUDIO VIEW - NOT GAME",artist_cam)
+rig.objects.link(artist_obj)
+artist_obj.location=P(83,-250,87)
+artist_obj.rotation_euler=(P(185,-100,49)-artist_obj.location).normalized().to_track_quat('-Z','Y').to_euler()
+scene.camera=artist_obj
+scene.render.filepath=os.path.join(out,"K4AX_DCC_ONLY_ARTIST_DETAIL_NOT_GAME.png")
+bpy.ops.render.render(write_still=True)
 # Return first camera when reopening the editable Blender project.
 scene.camera=cameras[0][1]
 bpy.ops.wm.save_as_mainfile(filepath=os.path.join(out,"K4AX_TIDAL_EXCHANGE_EDITABLE.blend"))
@@ -382,7 +414,8 @@ bpy.ops.export_scene.gltf(filepath=os.path.join(out,"K4AX_TIDAL_EXCHANGE_EDITABL
 files=[
  "K4AX_TIDAL_EXCHANGE_EDITABLE.blend",
  "K4AX_TIDAL_EXCHANGE_EDITABLE.glb",
-]+["K4AX_DCC_ONLY_SOURCE_POSE_"+str(t)+".png" for t,_ in cameras]
+]+["K4AX_DCC_ONLY_SOURCE_POSE_"+str(t)+".png" for t,_ in cameras]+[
+ "K4AX_DCC_ONLY_ARTIST_DETAIL_NOT_GAME.png"]
 for f in files:
     p=os.path.join(out,f)
     assert os.path.isfile(p) and os.path.getsize(p)>2000,(f,'not generated')
@@ -394,6 +427,8 @@ report={
  "cameraIsOriginalNumericPose":True,
  "renderedFramesAreOriginalGameScreenshots":False,
  "renderedFramesAreIndependentBlenderArtPreviews":True,
+ "studioDetailIsOriginalGameCamera":False,
+ "sourcePoseArtFramingWasRevised":True,
  "originalB48CollisionMeshImported":False,
  "originalB51MovingHazardsImported":False,
  "roadCenterlineFromThreeBallSamplesNotSourceSurface":"NOT_USED_TO_CERTIFY_CLEARANCE",

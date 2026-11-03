@@ -39,7 +39,7 @@ jobs:
       - name: Install actual Blender and genuine editable material renderer
         run: |
           sudo apt-get update -qq
-          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil python3-numpy
           blender --version | head -3
       - name: Author real Blender asset, save native editable scene and three source-posed art studio previews
         run: |
@@ -70,6 +70,7 @@ jobs:
                 ('HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
           assert j['editableBlenderSourceTrue'] and j['meshObjects']>30
           assert j['physicalMaterialNodeSets']>=10 and j['cameras']==3
+          assert j['studioDetailIsOriginalGameCamera'] is False
           for name,stamp in j['files'].items():
             raw=(root/name).read_bytes()
             assert len(raw)==stamp['bytes'] and hashlib.sha256(raw).hexdigest()==stamp['sha256']
