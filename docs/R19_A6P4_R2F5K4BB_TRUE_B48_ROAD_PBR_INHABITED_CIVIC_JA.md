@@ -38,3 +38,13 @@
 | 使用環境 | Chat＋GitHub、ユーザーPC操作最小、Workは事前許可が必要 |
 
 **この文書を作成した時点でK4BBのActionsの最終成功・画像品質・独立BVH PASSは未確定。** 後続の検証結果を正本へ追記する前に本物のログとPNGを取得すること。
+
+
+## 11月3日・K4BB初期実行の発見と対応（不採用履歴の保護）
+
+1. [最初のCI #41629247606](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41629247606)：4公共用途の展開時に関数名とループ変数 `programme` が衝突、`TypeError: 'tuple' object is not callable`。実コードの展開変数を独立名称へ変更。元sourceは不変。
+2. [初回の全画像生成CI #41629445676](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41629445676)：真正6Camera＋室内＋航空のDCC画像、Blender原本、GLB、2K PBR3画像を生成。ただし最後のPBR画像品質検査でFAIL。Artifact #13228505958（失敗途中物もHOLD管理）。実ファイルを独立PILで開いて測定したところ **ALBEDO stddev合計31.657、ROUGHNESS stddev0かつRGB全画素0、HEIGHT stddev0かつRGB全画素0**。BlenderがNon-Color設定済画像の保存時にグレースケール2画像を全黒化。これは**画素差が増えても本物PBRとして不合格**。実Control11307は路面が不自然に鏡面反射しており、ヒト視点の内観は暗い青緑で室内読取不能。ART REJECT。
+3. [次のCI #41631369640](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41631369640)：Blender環境にOpenImageDenoiserがなく `RuntimeError: Build without OpenImageDenoiser`。ウブントゥの実Blender DCCにノイズ除去を要求しないよう変更。
+4. K4BB修正版 `scripts/p101-k4bb-source-road5-pbr-civic-interiors.py` は、RGB/Roughness/Height 2048×1024 を**NumPyで確定しzlib/structで標準PNGを直接書き込み、実ファイルをBlenderで読込・pack**する方式へ改修。Non-ColorはPNG保存後のshader読込にのみ適用。0/0の自動検出基準を緩めない。室内カメラを実閲覧室奥へ移動し、室内可視用の実光源追加。Ubuntu Blenderビルドで使えないdenoiserはOFF、Cycles 64 samplesへ。
+5. 現状の本命修正実行は [#41631593534](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41631593534)。これの**完了SUCCESSを確認するまではK4BBのSOURCE/DCCをPASSと言わない**。独立BVHは [#41631656710](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41631656710)、GitHubに画像を直接保存するCIは [#41631663301](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41631663301)。ともに本命修正版の成功を待つ設計。
+6. これまでの失敗を成功・採用として読み替えない。**K4BB未認定／全体ART REJECT HOLD**。次は現行CIの結果、PBR画像のRGB分布・Python画像真正検査、元6カメラと実内観の目視、別BVHを確認して更新。
