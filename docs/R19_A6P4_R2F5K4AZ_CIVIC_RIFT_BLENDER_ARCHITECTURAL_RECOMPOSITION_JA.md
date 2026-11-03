@@ -36,3 +36,13 @@ K4AY 7視点の真正Camera数値DCC画像は、道路が広い明色平面に�
 3. アートが世界水準の厳しい審査に値する場合だけprivate WebGL2真正camera/240Hz/A/B移植を検討する。元原作の危険・進路案内表示は代替評価なしに消さない。
 
 **固定方針**：正式ART採用0件／Slope2 DNA認定0m／ART REJECT、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。元球半径0.65m、元240Hz、B48七道路、B51二十八基、元Camera/当たり判定/速度/操作、source blob、main、`p101-velocity-overdrive-native-trial`、本番、Draft PR #46無変更。Workは事前承認制。ユーザーのPC操作ゼロ。
+
+
+## 実証更新：K4AZ v2真正DCCと独立静的空間検証
+
+- 新建築K4AZ v2 CI [#41615762837](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41615762837) **completed SUCCESS**、Artifact #13221930364 15,416,297 bytes、ZIP SHA-256 `73efb0a6a829ecc7e6a55594e9b8d10f4ff2c891e0ac578658a3d60ab1b186fb`。
+- 新候補Blender原本`K4AZ_CIVIC_RIFT_EDITABLE_ART_REJECT_HOLD.blend`、GLB、6 source-numeric camera DCC画像＋1 studio image、前工程K4AYとの6×A/B comparison sheetを真正CIで生成。119件以上の編集可能Blender-native建築メッシュ、元source road topology fingerprint before/after一致。
+- 6枚の**実DCC目視判定**：屋根・公共アーケード・路面素材は前回より構造の情報量が増えたが、**暗く無表情な道路、前方に何も見えない視線、横断回廊の天井近くで切れる細い弧**は世界的レベルの高速レーサーに遠い。**ART REJECT維持**。「99.9%画素差」を美術改善の客観証拠とは扱わない。
+- 別の完全独立したsource DCC幾何検査 [#41616623231](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41616623231) は**SUCCESS**、Artifact #13221502733。B48 Road5 4,728三角形と、元Camera 6tick×B51 28 =168時刻物理OBBに対し、K4AZ v2の**290個の評価済み建築メッシュ・カーブ／59,120面**について、Blender BVHを独立作成してメッシュ三角形干渉0件、OBB干渉0件と確認。**これはv2静的snapshotに限る**。元ゲームの連続走行・CCD/HUMAN/FPS/速度や他6道路の安全合格ではない。
+- 次のK4AZ v3は、真正6Cameraの路面/構造物の画面投影から位置を計算し、公共連絡回廊をRoad5前方にずらし低く配置、左右の都市アンカーも可視フレームに移動している。**K4AZ v3 GitHub Actions #41616880506 の現行statusを照合し、v2の独立幾何合格をv3へ流用しないこと**。
+- ART正式採用0、Slope2 DNA正式認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。源source Blob、原カメラ/物理/道路/B51/操作・元公式ブランチ・PR#46・main・本番・Work許可境界不変。
