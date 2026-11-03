@@ -234,10 +234,10 @@ def lamp(name,pos,power,color,size):
 # MAKERS' MARKET, READING HALL, CIVIC TRANSIT and BOTANICAL EXCHANGE.
 # Existing roof is retained, each composition is on actual B48 bank geometry.
 programmes=[
-  ("MARITIME FOOD HALL",-.86,-1,.726,.794,68,bronze),
-  ("READING EXCHANGE",.73,1,.782,.859,69,wood),
-  ("PUBLIC MOBILITY GALLERY",.56,-1,.855,.925,70,copper),
-  ("BOTANICAL WATER GARDEN",-.41,1,.908,.982,72,green),
+  ("MARITIME FOOD HALL",-1,.726,.794,68,bronze,"MARITIME FOOD HALL"),
+  ("READING EXCHANGE",1,.782,.859,69,wood,"READING EXCHANGE"),
+  ("PUBLIC MOBILITY GALLERY",-1,.855,.925,70,copper,"PUBLIC MOBILITY GALLERY"),
+  ("BOTANICAL WATER GARDEN",1,.908,.982,72,green,"BOTANICAL WATER GARDEN"),
 ]
 def programme(name,side,u0,u1,d,feature,design):
     # Outer cavern retains an open front facing the road, not a glazed solid box.
@@ -356,7 +356,7 @@ for side,u,d,level in ((-1,.746,83,53),(1,.824,88,55)):
 # interiors for nighttime city continuity, never replacement for native scene.
 world=scene.world
 assert world and world.use_nodes
-scene.cycles.samples=56
+scene.cycles.samples=40
 scene.cycles.use_denoising=False
 scene.render.resolution_x=1013
 scene.render.resolution_y=698
