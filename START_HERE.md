@@ -102,3 +102,14 @@ K4AJの真正元Road5画像で確認した画面全体の彩度・単純色面�
 **最新実測値はGitHubで再照合**：作成直後K4AS CIはqueuedで真正新画像0、K4AQ #41580058193はpending、K4AR #41585003708はqueued。K4ARに実コードのレポート出力名不整合があるので、そのCI成功を推定しない。**K4ASも新造形/世界水準のART品質は未検証で正式採用0、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD**。ロード素材の色変更を美術合格と混同しない。次は実24PNGの画面審査、問題が残ればロード形状・建物・照明・公共空洞を本物の世界水準へ再設計。
 
 Workは事前許可なしに使用しない。ユーザーのローカル操作不要。旧K4/K4R/K4U ART REJECTを覆さない。
+
+
+## K4AS修正引き継ぎ（2026-11-03 16:04 JST以降）
+
+**最優先入口**：[K4AS正本の真Artifact解析追記](docs/R19_A6P4_R2F5K4AS_ROAD5_NATIVE_SCREEN_MATERIAL_RESCUE_JA.md)。
+
+K4AQ #41580058193／K4AR #41585003708／K4AS #41589057566は**全てcompleted/failure**。3本の本物のArtifact JSONで、初期化JavaScript **Cannot access 'r19a1OptIn' before initialization** を確認（120s timeoutは二次症状）。旧版の「待機」「成功見込み」を現在値に使わない。これまでの真正新候補PNG取得は0枚、ART正式0件。
+
+K4AS隔離枝のみでK4AQのprivate pack内のr19a1OptIn先読みをlocalhost+明示URL条件直接照合に修正、再度の診断用pageerror fail-fastを追加。専用[修正後Actions #41594250729](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41594250729)は起動直後queued。**CI success／新ART画像や実FPSは未確認**。次担当はそのrunの本当のstatus/jobs/log/Artifactを最優先照合。元K4AQ/AR研究枝を重複実行せず、K4ASの真正元cam 6tick×original/sky/city/material=24画像と独立SHA＋コンタクトシートを取得・目視、未達なら本物の失敗症状を修正。
+
+main・本番・元source blob af076d67492a677d2235e4730aef8cdf4808e106・元Camera/240Hz/B48×7/B51×28・Draft PR#46無変更、Work事前承認、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
