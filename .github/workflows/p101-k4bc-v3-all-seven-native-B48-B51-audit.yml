@@ -12,7 +12,7 @@ permissions:
   actions: read
 concurrency:
   group: k4bc-v3-original-stage-all7-static-source-intersection
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   independent-full-source-static-not-real-gameplay:
     runs-on: ubuntu-24.04
@@ -24,18 +24,17 @@ jobs:
           set -euo pipefail
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           python3 -m py_compile research/k4bc/independent_v3_all7_B48_six_B51_native_static_bvh.py
-      - name: Wait for exact v3 native source-Camera authored result to finish successfully
+      - name: Require completed v3 Blender immediately rather than occupying runner while waiting
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          for attempt in $(seq 1 62); do
-            c="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41640544530 --jq .conclusion)"
-            if [ "$c" = success ]; then exit 0; fi
-            if [ "$c" = failure ] || [ "$c" = cancelled ]; then echo "V3 real-source Blender failed: $c";exit 1; fi
-            sleep 14
-          done
-          echo "No successful v3 original source-Camera evidence";exit 1
+          c="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41640544530 --jq .conclusion)"
+          if [ "$c" != success ]; then
+            echo "PARENT_NOT_FINISHED_OR_FAILED: $c. Fail closed without taking a runner waiting for source DCC."
+            exit 1
+          fi
+          echo 'K4BC_V3_PARENT_ACTUAL_COMPLETED_SOURCE_DCC_SUCCESS'
       - name: Download exact K4BC v3 real original seven-B48 .blend without any new game collision
         uses: actions/download-artifact@v4
         with:
