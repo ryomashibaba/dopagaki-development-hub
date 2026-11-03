@@ -28,9 +28,9 @@ def compare_samples(a,b):
     return a["samples"]
 def main():
     ap=argparse.ArgumentParser()
-    for k in ("k4z","k4af","k4ah"):ap.add_argument("--"+k,required=True)
+    for k in ("k4z","k4af","k4ai"):ap.add_argument("--"+k,required=True)
     x=ap.parse_args()
-    z=Path(x.k4z);parent=Path(x.k4af);new=Path(x.k4ah)
+    z=Path(x.k4z);parent=Path(x.k4af);new=Path(x.k4ai)
     reference=read_exact(z/"K4Z_ORIGINAL_SOURCE_DENSE_7ROAD_CAMERA.json",K4Z_SHA)
     old=read_exact(parent/"K4AF_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json",K4AF_RAW_SHA)
     verified=read_exact(parent/"K4AF_INDEPENDENT_GENUINE_SOURCE_GPU_AUDIT.json",K4AF_AUDIT_SHA)
