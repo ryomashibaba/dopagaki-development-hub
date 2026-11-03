@@ -1,0 +1,115 @@
+name: DOPAGAKI K4BC v2 independent FULL seven B48 and 168 native B51 static BVH
+on:
+  push:
+    branches:
+      - research/k4bc-road5-source-camera-civic-monument-recomposition-20261103
+    paths:
+      - '.github/workflows/p101-k4bc-v2-independent-all-seven-B48-B51-static-audit.yml'
+      - 'research/k4bc/independent_full_7_B48_six_B51_native_static_bvh.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: k4bc-v2-independent-all-seven-physical-road-static-contact
+  cancel-in-progress: false
+jobs:
+  full-real-original-stage-static-bvh-fail-closed:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 42
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pin original game blob and independent BVH syntax
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile research/k4bc/independent_full_7_B48_six_B51_native_static_bvh.py
+      - name: Wait for exact K4BC v2 original 7-road source geometry and DCC render success
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 65); do
+            c="$(gh api repos/ryomashibaba/dopagaki-development-hub/actions/runs/41638891877 --jq .conclusion)"
+            if [ "$c" = success ]; then exit 0; fi
+            if [ "$c" = failure ] || [ "$c" = cancelled ]; then echo "K4BC native seven roads build failed: $c"; exit 1; fi
+            sleep 13
+          done
+          echo "No completed source-native all-seven evidence";exit 1
+      - name: Fetch original exact all seven roads and newly rendered K4BC native DCC model
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BC_V2_REAL_ALL_SEVEN_ORIGINAL_B48_EDITABLE_SOURCE_CAMERA_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41638891877
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-all7-audit/stage
+      - name: Fetch independent true original B51 6 tick moving collider data (not visual models)
+        uses: actions/download-artifact@v4
+        with:
+          name: K4AY_TRUE_B48_B51_SOURCE_BLENDER_DCC_ART_REJECT_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41612254866
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bc-all7-audit/physics
+      - name: Validate source identity and all new K4BC v2 edited file SHA before auditing
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path('research/evidence/k4bc-all7-audit/stage')
+          r=json.loads((root/'rendered/K4BC_V2_TRUE_ALL7_B48_SOURCE_PROVENANCE.json').read_text())
+          s=json.loads((root/'original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json').read_text())
+          assert r['originalGameFrozenBlob']==s['frozenOriginalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert s['sourcePhysicsHz']==240 and s['B48SurfaceCount']==7
+          assert s['originalB51MovingBodies']==28
+          assert r['originalSourceB48Roads']==7 and r['trueOriginalOtherB48RoadsImported']==12
+          assert r['originalB48Road5MeshFingerprintsBefore']==r['originalB48Road5MeshFingerprintsAfter']
+          assert r['originalSourceRoad5MeshUnmodified'] is True
+          assert r['sourceOriginalB51CollisionOBBSnapshotInstances']==168
+          assert r['originalNativeGameWebGL2Screenshots'] is False
+          assert r['formalArtAccepted']==0 and r['ART']=='REJECT_HOLD'
+          for fn,v in r['files'].items():
+              content=(root/'rendered'/fn).read_bytes()
+              assert v['bytes']==len(content) and hashlib.sha256(content).hexdigest()==v['sha256']
+          physics=json.loads((Path('research/evidence/k4bc-all7-audit/physics')/'K4AY_TRUE_SOURCE_B48_B51_READONLY.json').read_text())
+          assert physics['frozenOriginalGameGitBlob']==r['originalGameFrozenBlob']
+          assert s['modes']['control']['originalRoad5ControlPointsSHA256']==physics['modes']['control']['originalRoadSourcePointsSHA256']
+          print('K4BC_V2_ORIGINAL_ALL7_SHA_AND_NATIVE_B51_PINNED_STATIC_AUDIT')
+          PY
+      - name: Install Blender native independent mesh evaluation
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender
+      - name: Independent full physical source B48 7 roads x2 modes plus 168 B51 obstacle OBBs vs NEW K4BC built art
+        run: |
+          mkdir -p research/evidence/k4bc-all7-audit/result
+          blender -b --factory-startup --python-exit-code 3 \
+            --python research/k4bc/independent_full_7_B48_six_B51_native_static_bvh.py -- \
+            --blend research/evidence/k4bc-all7-audit/stage/rendered/K4BC_V2_ORIGINAL_ALL_SEVEN_B48_FULL_CONTEXT_EDITABLE_ART_HOLD.blend \
+            --all7 research/evidence/k4bc-all7-audit/stage/original-all7/K4BC_ALL7_TRUE_ORIGINAL_SOURCE_B48_ROADS_READONLY.json \
+            --original research/evidence/k4bc-all7-audit/physics/K4AY_TRUE_SOURCE_B48_B51_READONLY.json \
+            --out research/evidence/k4bc-all7-audit/result
+      - name: Preserve all-seven scope and prove no potential static intersection before claiming limited geometric clearance
+        run: |
+          python3 - <<'PY'
+          import json
+          p='research/evidence/k4bc-all7-audit/result/K4BC_V2_EXACT_SEVEN_SOURCE_B48_B51_STATIC_AUDIT.json'
+          a=json.load(open(p))
+          assert a['independentSourceB48PhysicalMeshesEvaluated']==14
+          assert a['numberSourceB51OriginalTickCollisionOBBs']==168
+          assert a['candidateK4BCNewArchitectureMeshesOrCurves']>=100
+          assert a['roadContacts']==[] and a['originalNativeB51Contacts']==[]
+          assert a['otherSixOriginalRoadsIncludedUnlikePriorK4BCV1']
+          assert a['wholeStageFutureTimeCCD']=='NOT_TESTED_HOLD'
+          assert a['ART']=='REJECT_HOLD'
+          print('K4BC_V2_LIMITED_ALL7_NATIVE_SOURCE_B48_B51_STATIC_CLEARANCE_ONLY')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BC_V2_INDEPENDENT_REAL_ALL7_ORIGINAL_B48_NATIVE_B51_STATIC_BVH_ART_HOLD
+          path: research/evidence/k4bc-all7-audit/result/
+          retention-days: 14
+          if-no-files-found: warn
