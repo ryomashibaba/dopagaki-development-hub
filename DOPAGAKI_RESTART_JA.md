@@ -1,3 +1,5 @@
+> **【K4AI修正版CI 2026-11-03・ART HOLD】** 元内部カメラモード値は`'raw'`、表示DOM文字列は`'ball-lock-unfiltered-heading'`。K4AIの初回CI [#41557465698](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41557465698) は研究コードが内部変数を表示名と比較するミスを含むため、中止された（**SOURCE TECH PASSと呼ばない**）。該当private-only guardを元`comparisonMode==='raw'`へ訂正し、**現在の正規CI**は [#41558189309](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41558189309)。元物理・camera・GPU・main・PR#46・本番は一切変えていない。K4AIの721tick×2幅・14 K4AH真正GPUアンカー・元82 PNG・元K4AF深度一致の実結果をこの新CIで判定。連続GPUの遮蔽秒数と人間ARTは依然**未測定/HOLD**。必読 [K4AI研究正本](docs/R19_A6P4_R2F5K4AI_REAL_240HZ_SOURCE_CAMERA_B51_CONTINUITY_JA.md)。
+
 ## 【2026-11-03 最新 K4AI — 真正元物理240HzのカメラとB51障害物の連続距離／ART HOLD】
 
 - 次の継続研究ブランチ `research/k4ai-original-240hz-camera-obb-continuity-20261103`。必読：[K4AI研究正本](docs/R19_A6P4_R2F5K4AI_REAL_240HZ_SOURCE_CAMERA_B51_CONTINUITY_JA.md) → [K4AI専用Actions #41557465698](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41557465698)。本時点では実測ブラウザ継続実行中で**K4AI全工程の合否未確定**。
