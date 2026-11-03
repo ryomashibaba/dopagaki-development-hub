@@ -226,8 +226,8 @@ for side,name in [(-1,"LEFT"),(1,"RIGHT")]:
             points=[]
             for j in range(10):
                 off=lo+(hi-lo)*j/9
-                h=-8-9*tier+(off-lo)*(-.10)+
-                  3.5*sin(phase+.4*tier)*sin(pi*j/9)
+                h=(-8-9*tier+(off-lo)*(-.10)+
+                   3.5*sin(phase+.4*tier)*sin(pi*j/9))
                 points.append(bankpoint(u,side,off,h))
             rows.append(points)
         strip("GEOLOGICAL TERRACES / "+name+" / stratum "+str(tier),
@@ -259,8 +259,8 @@ for piece,(u0,u1) in enumerate(((.735,.798),(.812,.893),(.904,.985))):
         for j in range(20):
             v=j/19
             d=28+73*v+5.5*sin(pi*(u-u0)/(u1-u0))*sin(pi*v)
-            lift=33+18*sin(pi*v)+8*sin(pi*(u-u0)/(u1-u0))+
-                 7*sin(2*pi*v)*sin(pi*(u-u0)/(u1-u0))+.03*(u-.75)*100
+            lift=(33+18*sin(pi*v)+8*sin(pi*(u-u0)/(u1-u0))+
+                  7*sin(2*pi*v)*sin(pi*(u-u0)/(u1-u0))+.03*(u-.75)*100)
             row.append(bankpoint(u,-1,d,lift))
         rows.append(row)
     strip("LEFT CIVIC VAULT / TRUE ARCHITECTURAL ROOF "+str(piece),
