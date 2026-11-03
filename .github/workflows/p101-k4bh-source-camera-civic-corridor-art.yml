@@ -44,7 +44,7 @@ jobs:
           j=json.loads((p/'K4BG_CAMERA_ART_PILOT_PROVENANCE.json').read_text())
           assert j['frozenOriginalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
           assert j['originalB48Roads']==7 and j['originalB51Bodies']==28
-          assert j['originalBallRadiusMetres']==.65 and j['sourcePhysicsHz']==240
+          assert j['ballRadiusMetres']==.65 and j['sourcePhysicsHz']==240
           assert j['sourceRoad5GeometryUnchanged'] and j['sourceCameraNumericsModified']==False
           assert j['formalArtAccepted']==0
           for name,record in j['files'].items():
