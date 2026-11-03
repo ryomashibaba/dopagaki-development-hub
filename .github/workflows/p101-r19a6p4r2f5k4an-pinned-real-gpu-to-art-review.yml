@@ -1,0 +1,116 @@
+name: DOPAGAKI K4AN pinned K4AJ real ART-FIRST source image atlas
+on:
+  push:
+    branches: [research/k4aj-native-b51-gpu-depth-contiguous-window-20261103]
+    paths:
+      - 'scripts/p101-r19a6p4r2f5k4an-*'
+      - '.github/workflows/p101-r19a6p4r2f5k4an-pinned-real-gpu-to-art-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4an-pinned-source-review-atlas
+  cancel-in-progress: false
+jobs:
+  independent-native-source-art-review-atlas:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enforce isolated research branch, pinned source and Python syntax
+        run: |
+          test "$GITHUB_REF_NAME" = research/k4aj-native-b51-gpu-depth-contiguous-window-20261103
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4an-original-rgb-review-sheets.py
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4ak-art-first-review-packet.py
+          python3 -m py_compile scripts/p101-r19a6p4r2f5k4al-true-rgb-coverage-audit.py
+      - name: Retrieve and byte-pin actual successful K4AJ 28-member ZIP, no invented GPU data
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p r19-evidence/r19a6p4r2f5k4aj r19-evidence/r19a6p4r2f5k4ak r19-evidence/r19a6p4r2f5k4al r19-evidence/r19a6p4r2f5k4an
+          curl --fail --silent --show-error --location --retry 2 --max-time 180 \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H 'Accept: application/vnd.github+json' \
+            'https://api.github.com/repos/ryomashibaba/dopagaki-development-hub/actions/artifacts/13201661563/zip' \
+            -o /tmp/K4AJ_PINNED_REAL_ARTIFACT.zip
+          echo '60aab331d8881b5f8f456539c00566837a2b061a96ab0725ce7c17ea91ed8efb  /tmp/K4AJ_PINNED_REAL_ARTIFACT.zip' | sha256sum --check
+          unzip -tq /tmp/K4AJ_PINNED_REAL_ARTIFACT.zip
+          unzip -q /tmp/K4AJ_PINNED_REAL_ARTIFACT.zip -d r19-evidence/r19a6p4r2f5k4aj
+          python3 - <<'PY'
+          from pathlib import Path
+          import zipfile,json
+          z=zipfile.ZipFile('/tmp/K4AJ_PINNED_REAL_ARTIFACT.zip')
+          assert len(z.infolist())==28 and z.testzip() is None
+          root=Path('r19-evidence/r19a6p4r2f5k4aj')
+          x=json.loads((root/'K4AJ_INDEPENDENT_99_CONTIGUOUS_SOURCE_GPU_MASK_AUDIT.json').read_text())
+          assert x['decision']=='GENUINE_CONTIGUOUS_SOURCE_GPU_B51_DEPTH_99_TICKS_TECH_CANDIDATE_ART_HOLD'
+          assert x['trueOriginalGPUFrames']==x['genuineSourceB51Masks']==x['originalDepthRestorations']==100
+          assert x['originalSourceGPUReadbackRequestCount']==300
+          assert x['officialARTAccepted']==x['slope2DNAMetres']==0
+          print('K4AN_28_MEMBER_ZIP_SHA256_AND_CRC_PINNED_PASS')
+          PY
+      - name: Run independent exact 100-case K4AK review and K4AL original RGB-coverage guard
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-numpy python3-pil
+          python3 scripts/p101-r19a6p4r2f5k4ak-art-first-review-packet.py \
+            --audit r19-evidence/r19a6p4r2f5k4aj/K4AJ_INDEPENDENT_99_CONTIGUOUS_SOURCE_GPU_MASK_AUDIT.json \
+            --csv r19-evidence/r19a6p4r2f5k4aj/K4AJ_100_REAL_SOURCE_GPU_DEPTH_MASKS.csv \
+            --out r19-evidence/r19a6p4r2f5k4ak/K4AK_ART_FIRST_REVIEW_PACKET.json
+          python3 scripts/p101-r19a6p4r2f5k4al-true-rgb-coverage-audit.py \
+            --raw r19-evidence/r19a6p4r2f5k4aj/K4AJ_GENUINE_NATIVE_IN_RENDER_DEPTH_REPORT.json \
+            --packet r19-evidence/r19a6p4r2f5k4ak/K4AK_ART_FIRST_REVIEW_PACKET.json \
+            --root r19-evidence/r19a6p4r2f5k4aj \
+            --out r19-evidence/r19a6p4r2f5k4al/K4AL_TRUE_SOURCE_RGB_COVERAGE_REPORT.json
+      - name: Build 8 genuine original WebGL2 RGB vs B51 group mask source review atlas
+        run: |
+          python3 scripts/p101-r19a6p4r2f5k4an-original-rgb-review-sheets.py \
+            --k4aj r19-evidence/r19a6p4r2f5k4aj \
+            --k4ak r19-evidence/r19a6p4r2f5k4ak/K4AK_ART_FIRST_REVIEW_PACKET.json \
+            --k4al r19-evidence/r19a6p4r2f5k4al/K4AL_TRUE_SOURCE_RGB_COVERAGE_REPORT.json \
+            --out r19-evidence/r19a6p4r2f5k4an
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('r19-evidence/r19a6p4r2f5k4an/K4AN_REAL_SOURCE_RGB_ART_FIRST_REVIEW_INDEX.json')
+          x=json.loads(p.read_text())
+          assert x['originalScreenshotsChecked']==x['sourceB51MaskedScreenshotsChecked']==x['restoredScreenshotsChecked']==8
+          assert x['artRequestTicks']==15 and x['alreadyCoveredOriginalRGB']==6 and x['stillMissingOriginalRGB']==9
+          assert x['officialARTAccepted']==x['slope2DNAMetres']==x['candidateModels']==x['newColliders']==0
+          assert x['ART']=='NOT_TESTED_HOLD' and x['RELEASE']==x['MERGE']=='HOLD'
+          print('K4AN_TRUE_SOURCE_RGB_8X3_SHA_ATLAS_TECH_PASS_ART_HOLD')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4AN_PINNED_K4AJ_SOURCE_RGB_ART_FIRST_8_FRAME_REVIEW_HOLD
+          path: |
+            r19-evidence/r19a6p4r2f5k4ak/K4AK_ART_FIRST_REVIEW_PACKET.json
+            r19-evidence/r19a6p4r2f5k4al/K4AL_TRUE_SOURCE_RGB_COVERAGE_REPORT.json
+            r19-evidence/r19a6p4r2f5k4an/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Publish verified source-only review PNG to this research branch (never main)
+        if: success()
+        run: |
+          test "$GITHUB_REF_NAME" = research/k4aj-native-b51-gpu-depth-contiguous-window-20261103
+          test -s r19-evidence/r19a6p4r2f5k4an/K4AN_REAL_SOURCE_RGB_ART_FIRST_REVIEW_INDEX.json
+          git fetch origin "$GITHUB_REF_NAME"
+          git pull --ff-only origin "$GITHUB_REF_NAME"
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4an
+          cp r19-evidence/r19a6p4r2f5k4an/K4AN_*png docs/research-evidence/k4an/
+          cp r19-evidence/r19a6p4r2f5k4an/K4AN_REAL_SOURCE_RGB_ART_FIRST_REVIEW_INDEX.json docs/research-evidence/k4an/
+          cp r19-evidence/r19a6p4r2f5k4ak/K4AK_ART_FIRST_REVIEW_PACKET.json docs/research-evidence/k4an/
+          cp r19-evidence/r19a6p4r2f5k4al/K4AL_TRUE_SOURCE_RGB_COVERAGE_REPORT.json docs/research-evidence/k4an/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4an/
+          git diff --cached --name-only | grep -v '^docs/research-evidence/k4an/' && exit 1 || true
+          if ! git diff --cached --quiet; then
+            git commit -m 'evidence(k4an): persist original RGB source-only review sheets (ART HOLD)'
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
+          echo 'K4AN_ONLY_RESEARCH_BRANCH_SOURCE_IMAGES_STORED_ART_HOLD'
