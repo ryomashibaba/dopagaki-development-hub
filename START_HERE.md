@@ -113,3 +113,14 @@ K4AQ #41580058193／K4AR #41585003708／K4AS #41589057566は**全てcompleted/fa
 K4AS隔離枝のみでK4AQのprivate pack内のr19a1OptIn先読みをlocalhost+明示URL条件直接照合に修正、再度の診断用pageerror fail-fastを追加。専用[修正後Actions #41594250729](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41594250729)は起動直後queued。**CI success／新ART画像や実FPSは未確認**。次担当はそのrunの本当のstatus/jobs/log/Artifactを最優先照合。元K4AQ/AR研究枝を重複実行せず、K4ASの真正元cam 6tick×original/sky/city/material=24画像と独立SHA＋コンタクトシートを取得・目視、未達なら本物の失敗症状を修正。
 
 main・本番・元source blob af076d67492a677d2235e4730aef8cdf4808e106・元Camera/240Hz/B48×7/B51×28・Draft PR#46無変更、Work事前承認、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
+
+## 2026-11-03 K4AT — 最新の継続入口：本物の元カメラ画像に基づく造形改善
+
+**継続研究ブランチ**：research/k4at-road5-civic-canyon-sculpted-architecture-20261103。前K4ASの[TRUE native 24画像artifact #13211991425](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41594250729/artifacts/13211991425)の**生RGB全24枚**を独立確認。SOURCE SCREEN MATERIAL TECH限定PASS。しかし視覚的には広い単調な道路・残留多色線・ほぼ黒い空・右側だけの繰返し箱建築・公共奥行きの不足で、K4ASは**ART REJECT**（正式ART採用0）。素材変更だけでは世界水準にならない。
+
+新K4AT一方向は[美術/固定契約](docs/R19_A6P4_R2F5K4AT_TRUE_CAMERA_CIVIC_SCULPTURE_ART_FIRST_JA.md)に従い、Road5の実B48座標に固定した**巨大非対称曲面シェル・抜けのあるアトリウム・奥まった暖色ガラス公共テラス5層・回転テーパー塔2棟**、元曲線バンク路面上の非衝突細分目地を研究制作。旧K4AQの反復箱街区を置換し（重ねない）、元Road5 B48/B51/CAMERA/物理は触らず、元WebGL2画面6時点×K4AS/K4AT=12枚で真評価する。元B51がCameraを塞ぐultra tick11341では建築可視を無理に通さない。
+
+**最初の新CI #41595951481 failure**：形状テスト5件中2件FAIL。voidLongitudinalCellsの全閉鎖路面は、架空の支え床を作る代わりに0描画を合法化して修正。**2本目 #41596237031 failure**：5件中残る1件、9,918 trianglesのうち840成分が非有限。真ログから更に診断し、ねじれた塔のブロンズ継ぎ目の4頂点目でz指定を欠いていた一箇所 `local(f,vb[0]-off,vb[1]-off)` を `local(f,vb[0]-off,vb[1]-off,vb[2])` に修正。関数を独立V8合成スタブで再評価して9,918 triangles / 208,278数値/有限PASS、元doc不変。GitHub真正CIの検証とは別物なので混同しない。
+
+**K4AT更新後専用 [#41596692908](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41596692908)** は最終確認時QUEUED、12真正新RGB/ART判断は未実測。新Runの実Status/jobs/Artifactを必ず確認。次は真正6視点のコンタクトシートを開いて、今回の曲面建築が本当に画面に映り、単純な雑造形を脱したか厳しく評価。届かなければART REJECTのまま設計再検討。元モデルblob af076d67492a677d2235e4730aef8cdf4808e106／240Hz／Camera／B48 7／B51 28／main／本番／Draft PR#46 unchanged、Work事前承認、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。
