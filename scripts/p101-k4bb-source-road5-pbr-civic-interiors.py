@@ -329,7 +329,7 @@ def programme(name,side,u0,u1,d,feature,design):
         lamp(name+" / indoor light "+str(u),
              edge(u,side,d+34,28),1250,(1,.75,.50),14)
     return name
-for programme in programmes:programme(*programme)
+for entry in programmes:programme(*entry)
 # Separate nonrepeating high visibility architectural moments: giant
 # book-lined atrium vs coastal trade hall, not 50 identical prefab shop units.
 for side,u,d,level in ((-1,.746,83,53),(1,.824,88,55)):
