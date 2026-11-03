@@ -1,3 +1,17 @@
+# 【2026-11-03 最新・K4AZから再開】DOPAGAKI SLOPE 継続入口
+
+**この上段を旧「最新」記述より優先。** 目標は元240Hz高速物理と一体の**世界水準の全画面美術**。技術CI成功や画像差だけでART合格を主張しない。
+
+- **現研究ブランチ**: `research/k4az-road5-civic-rift-dcc-recomposition-20261103`。正本：[`docs/R19_A6P4_R2F5K4AZ_CIVIC_RIFT_BLENDER_ARCHITECTURAL_RECOMPOSITION_JA.md`](docs/R19_A6P4_R2F5K4AZ_CIVIC_RIFT_BLENDER_ARCHITECTURAL_RECOMPOSITION_JA.md)。
+- **元物理の正確な参照**: K4AY 成功 #41612254866、元B48 Road5 source index5 `p93-PRISM_CREST-01` = 4,728 triangles、源B51 28体×6 native ticks=168 collision OBB、Blender editable原本。凍結blob `af076d67492a677d2235e4730aef8cdf4808e106`。
+- **新Blender-native建築初版**: K4AZ #41614997838 成功。再調整した明るい路面・屋上横断公共ギャラリー等のv2は #41615762837 成功（Artifact #13221930364）。旧K4AX建築は破壊せず隠して残し、Road5 original B48頂点ハッシュ不変、source camera6点とartist viewを出力。
+- **独立幾何SOURCE限定成果**: #41616623231 SUCCESS、K4AZ v2建築評価対象290メッシュ/カーブ、59,120面と原Road5 B48 / 6tick×28体物理OBBの**三角形交差0件**。連続走行CCD・他の6道路の完全非干渉、HUMAN/FPSは未検証。v3に横滑り認定禁止。
+- **現在のART判定**: v2の真正source-numeric Camera DCC画像は、まだ巨大な路面空白、切れる架空横断アーチ、建築用途の不足があるため**ART REJECT**。画像は元のWebGL2ゲーム画面ではない。
+- **次の実行**: v3 source Camera射影に基づく前方横断橋・ランドマーク位置変更の[Actions #41616880506](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41616880506)の実結果/Artifactを照会→7画像目視、元Cameraでの美術質を厳格判定→K4AZ v3について独立静的B48/B51監査→引き続き世界水準に到達するための建築・地形の制作。元source 240Hz/球半径0.65m/Camera/B48七道路・B51二十八体/操作/衝突/加速は改変禁止。
+- **固定HOLD**：正式ART採用0件、Slope2 DNA認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD、main・公式継続 `p101-velocity-overdrive-native-trial`・本番・Draft PR #46無変更。Workは必ず事前承認、ユーザー側PC手動ZIP不要。
+
+---
+
 # DOPAGAKI SLOPE — START HERE（新チャットの唯一の短い入口）
 
 **更新：2026-11-03 11:36 JST**。このファイルは`research/k4aj-native-b51-gpu-depth-contiguous-window-20261103`研究ブランチの入口です。**最新CIとHEADは必ずその場でGitHub照合**すること。古い引き継ぎメモの「最新」「queued」を現在値として再利用しない。
