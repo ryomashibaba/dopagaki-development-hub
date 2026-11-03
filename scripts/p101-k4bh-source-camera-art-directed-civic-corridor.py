@@ -43,17 +43,25 @@ assert set(original_fp.values())=={FINGERPRINT}
 original_cameras={m:(tuple(cams[m].location),tuple(cams[m].rotation_euler),cams[m].data.lens) for m in cams}
 old_road_materials={m:tuple(x.name for x in o.data.materials) for m,o in src.items()}
 assert all(old_road_materials.values())
-# Previous rejected object collections are retained in the saved .blend, but
-# NOT stacked into the K4BH images. Keep authentic B48/B51/source-camera refs.
+# ART correction: an old K4BC/K4AX/K4BE bridge and repeated facades survived
+# earlier prefix-only render masks, and obscured genuine new art. In this DCC
+# comparison, render ONLY original physics B48 sources, the numeric Camera rig,
+# and explicitly the new K4BH collections. Retain every old collection in the
+# editable .blend and NEVER remove original source vertices or game markup.
 hide_names=[]
+source_collections={
+    "05_CAMERA | Authentic original source poses",
+    "K4AY SOURCE B48 | CONTROL | TRUE TESSELLATED ROAD5",
+    "K4AY SOURCE B48 | ULTRA | TRUE TESSELLATED ROAD5",
+    "K4BC v2 | TRUE ORIGINAL SOURCE OTHER SIX B48 | CONTROL",
+    "K4BC v2 | TRUE ORIGINAL SOURCE OTHER SIX B48 | ULTRA",
+}
 for c in bpy.data.collections:
-    if c.name.startswith(("K4BE 01 |","K4BD 02 |","K4BD 03 |")) or \
-       c.name.startswith("K4BG "):
+    if c.name not in source_collections:
         c.hide_render=True
         hide_names.append(c.name)
-assert len([x for x in hide_names if x.startswith("K4BG ")])>=9
-# Parent K4BE 02-06 remain hidden; other K4BC old rejected frontage was
-# already hidden in K4BE. No underlying source-road mesh is hidden here.
+assert len(hide_names)>9
+assert all(not bpy.data.collections[n].hide_render for n in source_collections)
 
 def coll(name):
     c=bpy.data.collections.new("K4BH | "+name)
@@ -128,54 +136,13 @@ glass=material("dark mirror blue-green facade",(.035,.13,.16),metal=.32,rough=.2
 lamp=material("inhabited warm gallery light",(.98,.47,.18),rough=.35,emit=2)
 leaf=material("salt-tolerant habitat vegetation",(.095,.21,.14),rough=.91)
 
-# Road PBR affects DCC look ONLY. Original physical triangles remain unchanged.
-# Five material scales: broad tonal variation, 3D flaked aggregate,
-# fine dust, moisture/polish roughness and centimeter-scale bump.
-roadmat=material("wet basalt and engineered mineral aggregate | source geometry untouched",
-                 (.16,.19,.19),metal=.14,rough=.78)
-nodes=roadmat.node_tree.nodes; links=roadmat.node_tree.links
-bsdf=nodes.get("Principled BSDF")
-pos=nodes.new("ShaderNodeNewGeometry")
-broad=nodes.new("ShaderNodeTexNoise")
-broad.inputs["Scale"].default_value=.022
-broad.inputs["Detail"].default_value=4.5
-grain=nodes.new("ShaderNodeTexNoise")
-grain.inputs["Scale"].default_value=.68
-grain.inputs["Detail"].default_value=3.5
-fine=nodes.new("ShaderNodeTexNoise")
-fine.inputs["Scale"].default_value=17.0
-fine.inputs["Detail"].default_value=2.0
-for n in (broad,grain,fine):links.new(pos.outputs["Position"],n.inputs["Vector"])
-mix=nodes.new("ShaderNodeMixRGB")
-mix.blend_type="MULTIPLY"
-mix.inputs[0].default_value=.22
-links.new(broad.outputs["Fac"],mix.inputs[1])
-links.new(grain.outputs["Fac"],mix.inputs[2])
-ramp=nodes.new("ShaderNodeValToRGB")
-ramp.color_ramp.elements.remove(ramp.color_ramp.elements[1])
-ramp.color_ramp.elements[0].position=.1
-ramp.color_ramp.elements[0].color=(.043,.058,.064,1)
-for x,rgba in [(.35,(.085,.105,.11,1)),(.54,(.16,.18,.178,1)),(.72,(.21,.23,.22,1)),(.88,(.26,.262,.24,1))]:
-    e=ramp.color_ramp.elements.new(x);e.color=rgba
-links.new(mix.outputs["Color"],ramp.inputs["Fac"])
-links.new(ramp.outputs["Color"],bsdf.inputs["Base Color"])
-bump=nodes.new("ShaderNodeBump")
-bump.inputs["Strength"].default_value=.13
-bump.inputs["Distance"].default_value=.008
-links.new(fine.outputs["Fac"],bump.inputs["Height"])
-links.new(bump.outputs["Normal"],bsdf.inputs["Normal"])
-rough=nodes.new("ShaderNodeMapRange")
-rough.inputs["From Min"].default_value=0
-rough.inputs["From Max"].default_value=1
-rough.inputs["To Min"].default_value=.48
-rough.inputs["To Max"].default_value=.88
-links.new(grain.outputs["Fac"],rough.inputs["Value"])
-links.new(rough.outputs["Result"],bsdf.inputs["Roughness"])
-for o in src.values():
-    o.data.materials.clear()
-    o.data.materials.append(roadmat)
-# IMPORTANT: material change is explicitly DCC-only and NOT a change to
-# any web/physics/road marking source. Make the exact difference auditable.
+# Preserve the parent source-B48 material along with immutable source geometry.
+# K4BH first experiment replaced the panelized K4BG road with an excessively
+# white/speckled aggregate. That genuinely rendered image is ART REJECT.
+# The revised DCC uses the superior existing source-road appearance, and
+# transfers all visual effort to coherent new large-scale architecture.
+assert all(tuple(m.name for m in src[k].data.materials)==old_road_materials[k]
+           for k in ("control","ultra"))
 
 # World coordinates derived from actual original source camera pose; altitude
 # and offroad edge dynamically surveyed using the ORIGINAL source B48 vertices.
@@ -294,9 +261,9 @@ def tapered_tower(name,d,s,ground,height,base_radius,material,twist):
     fs.append(tuple((layers-1)*N+i for i in range(N)))
     return mesh(name,vs,fs,material,horizon,smooth=True)
 for i,(d,s,height,radius,twist) in enumerate([
-    (460,-140,310,60,1.3),(510,80,390,50,-.9),
-    (620,-260,280,49,.7),(690,210,355,60,1.05),
-    (800,-75,480,84,-1.2)
+    (460,-140,185,34,1.3),(535,95,220,30,-.9),
+    (640,-235,190,36,.7),(735,205,225,33,1.05),
+    (840,-55,235,46,-1.2)
 ]):
     # Skyline ground grounded against a source road reference; no new roads.
     z=road_top_at(min(d,350))-120
@@ -310,17 +277,17 @@ wn=world.node_tree.nodes;wl=world.node_tree.links
 bg=wn.get("Background")
 sky=wn.new("ShaderNodeTexSky")
 sky.sky_type="NISHITA"
-sky.sun_elevation=math.radians(14)
+sky.sun_elevation=math.radians(10)
 sky.sun_rotation=math.radians(130)
 sky.air_density=1.3;sky.dust_density=1.5;sky.ozone_density=1.0
 wl.new(sky.outputs["Color"],bg.inputs["Color"])
-bg.inputs["Strength"].default_value=.62
+bg.inputs["Strength"].default_value=.37
 sun=bpy.data.lights.new("K4BH low-angle architectural daylight","SUN")
-sun.energy=2.3;sun.angle=math.radians(9)
+sun.energy=1.2;sun.angle=math.radians(12)
 lampob=bpy.data.objects.new("K4BH sun",sun);fixtures.objects.link(lampob)
 lampob.rotation_euler=(math.radians(28),math.radians(-24),math.radians(155))
 scene.render.engine="CYCLES"
-scene.cycles.samples=48
+scene.cycles.samples=80
 scene.cycles.use_denoising=False
 scene.render.resolution_x=1013
 scene.render.resolution_y=698
@@ -328,7 +295,7 @@ scene.render.resolution_percentage=88
 scene.render.image_settings.file_format="PNG"
 try:scene.view_settings.view_transform="AgX"
 except Exception:pass
-scene.view_settings.exposure=-.02
+scene.view_settings.exposure=-.46
 
 # Never confuse source CAMERA values with original WebGL2 game frames.
 def show(mode):
@@ -377,7 +344,7 @@ for fn in [blend]+[s["file"] for s in shots]:
     assert len(data)>4096
     hashes[fn]={"bytes":len(data),"sha256":hashlib.sha256(data).hexdigest()}
 report={
-    "schema":"dopagaki.K4BH.source-camera-art-directed-civic-corridor/1",
+    "schema":"dopagaki.K4BH.source-camera-art-directed-civic-corridor-v2/1",
     "parentArtifact":13274862071,
     "parentBlenderSHA256":"b665c84a88d719c4615638cfeb95ab5fe92a84a3a07d3ebe096dd540dd749b2f",
     "frozenOriginalSourceGameGitBlob":ORIGINAL,
@@ -387,7 +354,7 @@ report={
     "road5OriginalGeometryFingerprintAfter":after_fp,
     "sourceRoad5PhysicalGeometryUnchanged":original_fp==after_fp,
     "sourceCamerasNumericsUnchanged":True,
-    "sourceRoad5MaterialsDCCOnlyChanged":True,
+    "sourceRoad5MaterialsDCCOnlyChanged":False,
     "oldRoadMaterialNamesPreservedInReport":old_road_materials,
     "oldRejectedArtCollectionsRetainedHidden":hide_names,
     "editableDCCCandidateCount":len(candidate),
