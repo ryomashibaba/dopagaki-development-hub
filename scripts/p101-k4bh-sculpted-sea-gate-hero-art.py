@@ -43,7 +43,17 @@ camera_snapshot={m:(tuple(o.location),tuple(o.rotation_euler),o.data.lens) for m
 # delete, merge, alter, or hide the authentic source road/camera collections.
 hidden={}
 for c in bpy.data.collections:
-    old = c.name.startswith(('K4BG ','K4BE ','K4BD ','K4BC V3 ','K4BC V2 ART ','K4AX ','K4AT ','K4AU ','K4AV '))
+    old = c.name.startswith((
+        'K4AZ ','K4BA ','K4BB ','K4BC ','K4BC V3 ',
+        'K4BG ','K4BE ','K4BD ','K4AX ','K4AT ','K4AU ','K4AV '
+    ))
+    # NEVER hide authentic source camera, seven B48 source surfaces or
+    # clock-sampled B51 reference collections. The source layer names below
+    # use "K4BC v2" (lowercase v), distinct from rejected "K4BC V3".
+    if old:
+        assert not c.name.startswith('K4AY SOURCE')
+        assert c not in OTHERS.values()
+        assert c != rig
     if old:
         c.hide_render=True
         hidden[c.name]=len(c.objects)
