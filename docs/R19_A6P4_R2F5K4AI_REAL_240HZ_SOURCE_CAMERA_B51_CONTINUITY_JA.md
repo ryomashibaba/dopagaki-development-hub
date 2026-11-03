@@ -1,0 +1,30 @@
+# DOPAGAKI SLOPE — K4AI 元ゲーム240Hz連続カメラ・B51-12幾何計測
+
+2026年11月3日（日本時間）。**SOURCE TECHとARTは分離。合格前に最終結果を先取りしない。**
+
+## 採用済み証拠と制約
+
+- 正本repo：`ryomashibaba/dopagaki-development-hub`、開発の元継続ブランチ `p101-velocity-overdrive-native-trial` Draft PR #46（未マージ）。本研究ブランチは `research/k4ai-original-240hz-camera-obb-continuity-20261103`、親コミット `6b3e6d1de48a1997b9884a00079069044c462c34`。**main・PR#46・本番・Gold/P100/W9-X/B5変更なし**。
+- 前段K4AF [CI #41472149272](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41472149272) SUCCESS：元K4Z82PNG SHA、Road5 7tick×2幅×6元描画群84真正GPUマスク、14復元、ART HOLD。
+- K4AG [CI #41552778225](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41552778225) SUCCESS：元B51実ID28個×2幅=56真GPUマスク。28m・47秒の遮蔽は`p95-hazard-12`1体が原因。8px格子5,972/11,176点=53.436%、14mでは53点=0.474%。この数値は人間の見えやすさではない。
+- 前段K4AH [CI #41554878800](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41554878800) SUCCESS：元元関数`movingObstaclePose`/`sphereBoxSeparation`を同じsource描画内で測定、別Nodeで14点全件再計算、原K4Z82PNG+K4AF真GPU深度14元/14マスク/14復元一致。Artifact [#13195125107](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41554878800/artifacts/13195125107) ZIP SHA `fe22a310a2a698a813abf0eaaa9f3b5e8d9a75af4d096a320be7e05261c29294`、CRC46/46 PASS。固定の真正K4AH生JSON SHA `84b4a185fb1c3c37454213b334c3c5db2a8fc6871500dca33d2255ec8a85beb0`、独立元画像/深度監査 `ba557d0ae2dba320e120a3386086d521fc2249cd3f91813d4e0024305ebaf84b`、元幾何独立再計算 `683287e4c5b9dee60cff344f067e115c02964a40366cb62c8ee487de83d4a8e6`。
+- K4AH 47.0秒 28m：camera eye→B51-12 OBB表面符号距離`+0.5829530325m`、ball表面→OBB `+6.4465143846m`。14m：camera `+46.5256370402m`、ball `+33.5418099186m`。どちらも計測時点ではOBB外側、**衝突バグや人間ART結論ではない**。
+
+## K4AIの計測範囲（今回実装）
+
+- **本物の元Runnerが240Hzで1ステップ更新するたびに**、44.5〜47.5秒（native ticks 10680〜11400の両端含む721点）を実際に計測。2幅で計**1,442元物理tick**、欠けた秒を補間しない。
+- [隔離K4AIビルダー](../scripts/p101-r19a6p4r2f5k4ai-private-240hz-continuity-builder.mjs)は、検証済みK4AH私用レンダラーのコピーだけに`currentPose=capturePose(runner)`直後の元native tickサンプラーを追加。原 source ball headingに対する`viewForPose(currentPose,createCameraState(currentPose.forward))`が、元unfiltered camera表示と一致する契約。元B51 `doc.movingObstacles[].id`/descriptorは全721ステップのID・JSON完全一致を監査。元`movingObstaclePose`と`sphereBoxSeparation`を同じsource tickでread-only再利用。
+- [真正Chromium再走行](../scripts/p101-r19a6p4r2f5k4ai-original-240hz-two-widths.mjs)：元球/240Hz/元カメラ姿勢を動かさず、既存K4AHと同じ7tick真正GPU・PNG・元B51群maskを再測定。7つの元描画フレームのOBB/ball/eyeと、そのtickの新240Hz記録を数値差`1e-8`以内で照合。元K4Z82PNG SHA/元3D画素差0・元GPUと深度復元14画面一致も独立監査に残す。
+- [本物のSource独立関数監査](../scripts/p101-r19a6p4r2f5k4ai-independent-native-240hz-geometry.mjs)：別Nodeプロセスで元`private/reference_only/director/physics.js`の`DT=1/240`と`RADIUS=0.65`、元`web/drive3d-camera.mjs`と元`moving-obstacles.mjs`をそのままimportし、記録1,442件すべてのcamera eye/front/right/up、OBB、signed eye/ball distances、camera座標投影を**独立に再計算**。7点×2幅はSHA固定K4AHの真GPU元frameと数値一致を必須化。時間+1/60、カメラeye+0.02m、OBB中心+1m、source descriptorのサイズ改変を2幅とも拒否（8負例）。Source physics/collision/camera/GPU変更0。
+- 出力は1,442点CSV、生監査JSON、近接区間サマリーJSON、日本語報告。距離閾値（0/1/2/5/10/20/50/100m）は**近接を数えるためだけの幾何診断指標**であり、合格閾値ではない。連続区間はその条件を満たす本物の元tick数×`1/240s`として出す。
+
+## 「遮蔽継続時間」との厳格な違い
+
+- 元GPU`gl_FragCoord.z`が遮蔽された割合を取得済みなのは、K4AFの**7tick×2幅の離散GPUマスク**のみ。これらの間にある714tickのGPUマスクは**未測定**。`eye-to-OBB`距離0〜100mやOBB内側滞在は、**カメラと障害物の近接・重なりの継続tick数**であり、「画面が何秒間遮られたか」ではない。元眼がOBBの外でも遮蔽は大きくなり得る。
+- GPU遮蔽率の秒間補間、物体ID逆推定、接触の正当性、B51の無断縮小/位置変更、カメラ変更、ART合格、公開は禁止。
+- 元source blob `af076d67492a677d2235e4730aef8cdf4808e106`、元ゲーム/球/240Hz/Camera/B48 7/B51 28/Gold/P100/W9-X/B5/main/本番2URL不変、K4/K4R/K4U独立ART REJECT、正式採用ART0件、Slope2 DNA0m、モデル/Collider新規0、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。Work事前承認制、PC操作不要。
+
+## CIと次工程
+
+- 専用Actions：[K4AI #41557465698](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41557465698)。元K4Z82PNG/K4AF84真GPU/K4AH14幾何のSHAを完全固定して、真正Chromiumの1,442 native tick・厳格14元画像/深度/元B51 mask/復元と独立1,442 source関数再実行を行う。**実CI完了・Artifact独立SHA/CRC検証前はK4AI全体PASS判定をHOLD**。
+- CI成功なら「幾何学的最接近距離・その時刻・近接tick区間」を確定値として報告。その後別工程K4AJで**実GPUの同一240Hz連続時刻での元B51単体マスク**を測定できる方法を設計し、初めて実画面遮蔽時間を調べる。ART-FIRSTの人間評価は別ゲート。
