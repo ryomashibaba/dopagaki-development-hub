@@ -152,3 +152,9 @@ K4AJの実装：
 - [K4AO独立研究報告](R19_A6P4_R2F5K4AO_REAL_SOURCE_CAMERA_ART_REVIEW_JA.md)と[15実測JSON](research-evidence/k4ao/K4AO_TRUE_GPU_DEPTH_15_ART_CAMERA_REVIEW_ANCHORS.json)、[ZIP固定オフラインビューア生成コード](../scripts/p101-r19a6p4r2f5k4ao-source-only-offline-art-review.py)を保存。元のK4AJ真正成功Artifact ZIP・PNG SHA/bytes・元/mask/復元のGPUサンプルを照合して8時点の元画像とB51全28体群除去画像のスライダー比較HTMLを生成。ローカル実測・構文はPASS。GitHub保存したPythonの専用Actions実行は未検証。
 - K4AK審査要求15tickに対し、元K4AJ画像あり6／K4AM不足9／余分な元画像2。高深度変化の造形画面審査優先6tickは14m: 11338/11341/11349、28m: 11277/11280/11284。**GPU group-mask深度格子変化率は人間の遮蔽率・秒数ではない**。元B51個体の原因帰属も11280以外はUNKNOWN。
 - 新ART候補0／正式ART採用0／Slope2 DNA正式認定0m／HUMAN・SAT・CCD・FPS・RELEASE・MERGE HOLD。K4AK/K4AM/K4ANは最新CIと生Artifactを別途照会し、成功時にのみART-FIRST Road5《斜裂公共峡谷》の元camera 3層公共空洞A/Bへ進める。元ゲーム・main・本番・PR#46保護、Work事前承認。
+
+## L. 2026-11-03 K4AP 真正GPU横三区分によるART-FIRST二段構成
+
+- [K4AP正本](R19_A6P4_R2F5K4AP_ART_FIRST_TWO_BEAT_TRUE_SOURCE_CAMERA_JA.md)、[原K4AJ真ZIP限定データ再解析コード](../scripts/p101-r19a6p4r2f5k4ap-real-b51-gpu-camera-beats.py)、[全三区分の実測JSON](research-evidence/k4ap/K4AP_REAL_SOURCE_B51_GPU_HORIZONTAL_THIRDS_SUMMARY.json)。K4AJ元ZIP SHA `60aab331d8881b5f8f456539c00566837a2b061a96ab0725ce7c17ea91ed8efb` の本物の元/mask/復元11,176サンプル×99連続tickを独立ローカルで再計算。14m B51 group-depth change 左23.474%・中34.400%・右31.885%、28m 左9.635%・中20.407%・右16.108%。14m tick11339–11347の9tickは**横三区分すべてのサンプルがB51 BODY全群GPU深度マスクで変化**。これは人間視界の100%遮断・秒数とは断定不可。
+- 真ART-FIRSTの新しい狭い仮説：同じRoad5一案《斜裂公共峡谷》で、危険通過前に公共空洞への大入口を、元B51危険域を保護した後に中段テラス／奥の都市広場を読ませる**二段の原カメラ構成**。元危険区間の深度遮蔽率を美術可読率として誤用する旧仮説を禁止。K4AOの6高寄与tickは危険視認性保護ゲート。新モデル・コライダー0、旧K4/R/U REJECT、ART正式0、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。
+- K4AK専用合成CIは成功。K4AM真正元RGB欠測9時点、K4AN真正K4AJ→K4AK/K4ALアトラスはGitHub CIの実結果を再照会する。SOURCE 240Hzと実動作240fpsは別、遮蔽を見た人間の時間はUNKNOWN。元ゲームとmain/本番/PR#46固定、Work事前承認。
