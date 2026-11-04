@@ -1,0 +1,105 @@
+{
+  "schema": "dopagaki.K4BU.one-real-native-upright-pine-source-immutable-art-hold/1",
+  "sourceK4BSBlendSHA256": "156e56ce373b731f1f0c8f96278a11977ac93d491973c2e8ef796ec1ea7795de",
+  "sourceK4BTProjectionJSON_SHA256": "be10737fdda4bd263d5c40304d734a6ed04fef2a965d6d83109f37c05b8a6749",
+  "sourceGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "sourceB48Road5Fingerprint": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCamerasUnchanged": true,
+  "frozenChaseCameraUnchanged": true,
+  "originalSevenOtherTreesTransformUnchanged": true,
+  "realNativeTreeTriangles": 398144,
+  "nativeSourceMeshCount": 3,
+  "originalResearchTreeCount": 8,
+  "sourceNativeMasterExtentsXYZ_M": [
+    2.6421,
+    0.7703,
+    1.299
+  ],
+  "oneNativeSourceAxisReorientedXToZ": true,
+  "originalHeroProjectedEnvelope": {
+    "rawBBoxPx": [
+      1778.031,
+      810.507,
+      2342.203,
+      1311.585
+    ],
+    "clippedBBoxPx": [
+      1280,
+      800,
+      1280,
+      800
+    ],
+    "widthPx": 0,
+    "heightPx": 0,
+    "centreXFrac": 1.0,
+    "bottomYFrac": 1.0,
+    "envelopePct": 0.0
+  },
+  "repositionedUprightHeroProjectedEnvelope": {
+    "rawBBoxPx": [
+      954.752,
+      366.905,
+      987.379,
+      472.982
+    ],
+    "clippedBBoxPx": [
+      954.752,
+      366.905,
+      987.379,
+      472.982
+    ],
+    "widthPx": 32.627,
+    "heightPx": 106.078,
+    "centreXFrac": 0.75864,
+    "bottomYFrac": 0.59123,
+    "envelopePct": 0.337983
+  },
+  "chosenPosition": {
+    "dRoadM": 66,
+    "sSideM": -26,
+    "heightM": 8.2,
+    "actualBoundingFootClearanceM": 0.15,
+    "footRootedAtTerrainInsteadOfBuriedCentre": true,
+    "candidatesEvaluated": 12,
+    "score": 0.669475
+  },
+  "researchRenderActualBlenderEevee": true,
+  "researchRenderedPixelSize": [
+    768,
+    480
+  ],
+  "isOriginalResearchChaseNotWebGL2Game": true,
+  "visualActualPineReadable": "UNJUDGED_REQUIRES_IMAGE_REVIEW",
+  "ART": "UNJUDGED_HOLD",
+  "formalArtAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "sourceB48RoadCount": 7,
+  "sourceB51MoverCount": 28,
+  "sourcePhysicsHz": 240,
+  "sourceBallRadiusM": 0.65,
+  "newGameColliders": 0,
+  "sourceGameEdited": false,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BU_ONE_REPOSITIONED_UPRIGHT_GENUINE_CC0_PINE_EDITABLE_RESEARCH_ART_HOLD.blend": {
+      "bytes": 136869749,
+      "sha256": "2536375f40e6a20e0061b80aba100c2469cfeacde814f4c127ff194201ba3064"
+    },
+    "K4BU_ONE_FRAME_NATIVE_UPRIGHT_PINE_CHASE_768x480_ART_HOLD_NOT_GAME.png": {
+      "bytes": 465009,
+      "sha256": "57972945e3ddeea0ebb78364059fb47c8782cd738cbe6557c151e5255ecbbcf9"
+    }
+  },
+  "sameCameraNativeReview": {
+    "file": "K4BU_VS_K4BS_SAME_CHASE_ONE_NATIVE_UPRIGHT_PINE_ART_REVIEW_NOT_GAME.png",
+    "bytes": 697434,
+    "sha256": "ef89bc98eddffe8b82ce367de88831db768711d94e85a18f20a691183b7ed898",
+    "baselineResampledForComparison": true,
+    "isArtPassMetric": false
+  }
+}
