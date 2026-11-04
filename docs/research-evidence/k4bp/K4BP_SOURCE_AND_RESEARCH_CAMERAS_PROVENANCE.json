@@ -1,5 +1,5 @@
 {
-  "schema": "dopagaki.K4BP.separate-camera-vs-alternative-road-source-protected-study/1",
+  "schema": "dopagaki.K4BP.controlled-2x2-camera-and-road-factorial/2",
   "verifiedParentK4BOBlendSHA256": "b546174d5ae5186015981f2d6b5ee40f823cb7a4f2f9ba33f07c2bbda84264e6",
   "frozenOriginalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
   "originalRoad5VertexFaceFingerprintUnchanged": true,
@@ -578,6 +578,114 @@
       ],
       "sourceRoadCenterlineScreenYSpread70to170": 0.031957,
       "sourceRoadInFrameCount": 12
+    },
+    "CHASE_NARROW": {
+      "cameraPos": [
+        933.9983520507812,
+        333.9935607910156,
+        122.734375
+      ],
+      "cameraEuler": [
+        1.5628976821899414,
+        3.71588946279644e-08,
+        -1.0371763706207275
+      ],
+      "lensMm": 38.0,
+      "samples": [
+        {
+          "d": 5,
+          "screenX": 0.687053,
+          "screenYBottomUp": -0.536155,
+          "depth": 13.2755,
+          "inFrame": false
+        },
+        {
+          "d": 10,
+          "screenX": 0.625817,
+          "screenYBottomUp": -0.206283,
+          "depth": 18.2637,
+          "inFrame": false
+        },
+        {
+          "d": 15,
+          "screenX": 0.590855,
+          "screenYBottomUp": -0.018687,
+          "depth": 23.2521,
+          "inFrame": false
+        },
+        {
+          "d": 20,
+          "screenX": 0.568244,
+          "screenYBottomUp": 0.101918,
+          "depth": 28.2406,
+          "inFrame": true
+        },
+        {
+          "d": 30,
+          "screenX": 0.540731,
+          "screenYBottomUp": 0.247411,
+          "depth": 38.2178,
+          "inFrame": true
+        },
+        {
+          "d": 40,
+          "screenX": 0.524608,
+          "screenYBottomUp": 0.331178,
+          "depth": 48.1955,
+          "inFrame": true
+        },
+        {
+          "d": 55,
+          "screenX": 0.509975,
+          "screenYBottomUp": 0.404927,
+          "depth": 63.1631,
+          "inFrame": true
+        },
+        {
+          "d": 70,
+          "screenX": 0.500948,
+          "screenYBottomUp": 0.448209,
+          "depth": 78.1319,
+          "inFrame": true
+        },
+        {
+          "d": 90,
+          "screenX": 0.493199,
+          "screenYBottomUp": 0.48248,
+          "depth": 98.092,
+          "inFrame": true
+        },
+        {
+          "d": 110,
+          "screenX": 0.48807,
+          "screenYBottomUp": 0.502413,
+          "depth": 118.0544,
+          "inFrame": true
+        },
+        {
+          "d": 130,
+          "screenX": 0.484425,
+          "screenYBottomUp": 0.513921,
+          "depth": 138.0192,
+          "inFrame": true
+        },
+        {
+          "d": 150,
+          "screenX": 0.481702,
+          "screenYBottomUp": 0.5203,
+          "depth": 157.9863,
+          "inFrame": true
+        },
+        {
+          "d": 170,
+          "screenX": 0.479589,
+          "screenYBottomUp": 0.522833,
+          "depth": 177.9562,
+          "inFrame": true
+        }
+      ],
+      "sourceRoadCenterlineScreenYSpread70to170": 0.074624,
+      "sourceRoadInFrameCount": 10
     }
   },
   "researchScenarios": [
@@ -601,6 +709,13 @@
       "originalRoad5Rendered": false,
       "alternativeRoadVisualOnly": true,
       "file": "K4BP_NARROW_FIXED_ORIGINAL_POSE_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png"
+    },
+    {
+      "scenario": "CHASE_NARROW",
+      "cameraIsOriginal": false,
+      "originalRoad5Rendered": false,
+      "alternativeRoadVisualOnly": true,
+      "file": "K4BP_CHASE_NARROW_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png"
     }
   ],
   "narrowResearchTrackHalfWidthMetres": 13.1,
@@ -620,31 +735,46 @@
   "MERGE": "HOLD",
   "files": {
     "K4BP_CONTROLLED_CAMERA_AND_ALTERNATE_ROAD_EDITABLE_RESEARCH_HOLD.blend": {
-      "bytes": 42142252,
-      "sha256": "0fd170b64880815e46112a557e0966726f1231fb282ecab2b23429c087f7bc68"
+      "bytes": 42147492,
+      "sha256": "93c3583655eeb48fa06d61239646bb470419c72bf84cd97235be2288240d26aa"
     },
     "K4BP_CHASE_OBLIQUE_LOW_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png": {
       "bytes": 1691974,
-      "sha256": "261be564cc15fb908f0747a3afbca08032ea57fe8fb54c9994c2ba9445e1fb78"
+      "sha256": "9edd1c736e676ea22c511442b709ce711142f9c8b782037c272e61383b4fe718"
     },
     "K4BP_HARBOR_3QUARTER_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png": {
-      "bytes": 1688497,
-      "sha256": "6ffb42781007054434b99f1cf4fd7d2195d22147a5629b74a043681b5b2ac446"
+      "bytes": 1688378,
+      "sha256": "55b93f01f8bc7dfa148699c6265aa6bcdb10df24f6d193578cc9811dc48948ac"
     },
     "K4BP_NARROW_FIXED_ORIGINAL_POSE_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png": {
-      "bytes": 1585561,
-      "sha256": "303c6961c142cad200e25fd06f142a98a177b56b4a0448c815ff6669ac3f1d24"
+      "bytes": 1585539,
+      "sha256": "bf72b0e800fa7ceb4ec61e8733caaca9dc45d0e2252b29a3eef21ba3c69c8bc4"
+    },
+    "K4BP_CHASE_NARROW_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png": {
+      "bytes": 1570326,
+      "sha256": "aafb4a5057a547ade16589c5cefcc1742a1c310261c789c93f0276e354f5d7b5"
     }
   },
   "independentFourFrameComparison": {
     "file": "K4BP_ORIGINAL_VS_TWO_ALT_CAMERAS_VS_INDEPENDENT_ROAD_ART_STUDY.png",
-    "bytes": 2442429,
-    "sha256": "20c4f3f2e3db4e905d47160ab7e42369a96a24043dfce43f8b36fbf6eec4361d",
+    "bytes": 2442430,
+    "sha256": "f4f4452d12bd7c35b927821187b8c485eeb0c51e6a1fdfa5998f6961546ff90e",
     "labels": [
       "ORIGINAL B48 / ORIGINAL SOURCE CAMERA (prior K4BO)",
       "CHASE_OBLIQUE_LOW / RESEARCH ONLY / NOT B48 GAME",
       "HARBOR_3QUARTER / RESEARCH ONLY / NOT B48 GAME",
       "NARROW_FIXED_ORIGINAL_POSE / RESEARCH ONLY / NOT B48 GAME"
+    ]
+  },
+  "independentCameraXRoadFactorial": {
+    "file": "K4BP_FACTORIAL_SOURCE_CAMERA_X_SOURCE_ROAD_VS_CHASE_X_NARROW_NON_GAME.png",
+    "bytes": 2418694,
+    "sha256": "1e2cb4995738c89b1097cee794710159f3db20a1e843fffb68bb2bb89652dd2b",
+    "labels": [
+      "A. SOURCE CAMERA + ORIGINAL B48 ROAD",
+      "B. CHASE CAMERA + ORIGINAL B48 ROAD",
+      "C. SOURCE-POSE CLONE + ART-ONLY NARROW ROAD",
+      "D. CHASE CLONE + ART-ONLY NARROW ROAD"
     ]
   }
 }
