@@ -1,0 +1,122 @@
+{
+  "schema": "dopagaki.K4BR.official-CC0-phototexture-and-native-photogrammetry-in-editable-blender/1",
+  "parentK4BQVerifiedSHA256": "5fe3ed2569b807af0b04c46cd1672f83a1c93863a19e958c468369985bd60252",
+  "officialCC0Vendor": "Poly Haven",
+  "liveAPIUserAgent": "DOPAGAKI-SLOPE-K4BR-OpenResearch/1.0 (GitHub native Blender source-audit; credit Poly Haven)",
+  "officialCC0LicensePage": "https://polyhaven.com/license",
+  "credit": "Powered by Poly Haven",
+  "actualVendorAssetBytesVerifiedMD5AndSHA256": true,
+  "assetReceiptsJSON": "K4BR_CC0_LIVE_ASSET_RECEIPTS.json",
+  "assetReceiptSHA256": "b1589199e22d7f815833853e1d50911cdc0896b708cd221b23d76dbdd09ed344",
+  "actualPBRPhotoMapsInEditableBlendPacked": {
+    "asphalt_01": {
+      "diffuse": true,
+      "rough": true,
+      "nor_gl": true
+    },
+    "rock_ground_02": {
+      "diffuse": true,
+      "rough": true,
+      "nor_gl": true
+    }
+  },
+  "replacedPriorOnlyProceduralMaterialInstances": {
+    "K4BQ | actual rugged layered green-grey coastal schist": 4,
+    "K4BQ | salt weathered slate path stone": 7,
+    "K4BQ | hand-spec asphalt crushed basalt/damp tirepatina": 1
+  },
+  "actualGLTFScannedModelInstances": [
+    {
+      "site": "coastal west cliff road close approach",
+      "sourceRoadD": 38,
+      "sourceRoadLateralS": -30,
+      "importedMeshObjects": 1,
+      "importedTriangles": 20174,
+      "modelWorldDiameterBeforeScaleM": 4.9535,
+      "chosenApparentLongestDimensionM": 9.5,
+      "vendorSourceAsset": "https://polyhaven.com/a/rock_face_01"
+    },
+    {
+      "site": "weathered east entrance natural ledge",
+      "sourceRoadD": 84,
+      "sourceRoadLateralS": 34,
+      "importedMeshObjects": 1,
+      "importedTriangles": 20174,
+      "modelWorldDiameterBeforeScaleM": 4.9535,
+      "chosenApparentLongestDimensionM": 8.5,
+      "vendorSourceAsset": "https://polyhaven.com/a/rock_face_01"
+    },
+    {
+      "site": "actual public coastal headland section",
+      "sourceRoadD": 137,
+      "sourceRoadLateralS": -42,
+      "importedMeshObjects": 1,
+      "importedTriangles": 20174,
+      "modelWorldDiameterBeforeScaleM": 4.9535,
+      "chosenApparentLongestDimensionM": 13.0,
+      "vendorSourceAsset": "https://polyhaven.com/a/rock_face_01"
+    }
+  ],
+  "rejectedOldProceduralRockFieldHiddenNotDeleted": [
+    "K4BQ / EAST natural fractured rock field / instanced geological",
+    "K4BQ / WEST natural fractured rock field / instanced geological"
+  ],
+  "originalSourceGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalSourceRoad5VertexFaceUnchanged": true,
+  "allSixOriginalSourceCameraNumericPosesUnchanged": true,
+  "bothResearchCameraNumericPosesUnchanged": true,
+  "sourceB48Roads": 7,
+  "sourceB51Movers": 28,
+  "sourceHz": 240,
+  "sourceBallRadiusM": 0.65,
+  "newGameColliders": 0,
+  "originalGameSourceEdited": false,
+  "realWebGL2GameScreenshot": false,
+  "researchOnlyAlternativeRoadWidthM": 26.3,
+  "formalArtAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "ART": "UNJUDGED_HOLD",
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "screens": [
+    {
+      "researchCamera": "CHASE_NARROW",
+      "actualSourceCamera": false,
+      "sourceB48RoadRendered": false,
+      "isGameWebGLScreenshot": false,
+      "file": "K4BR_CHASE_NARROW_REAL_CC0_PBR_AND_PHOTOSCAN_NATIVE_DCC_UNJUDGED.png"
+    },
+    {
+      "researchCamera": "NARROW_FIXED_ORIGINAL_POSE",
+      "actualSourceCamera": false,
+      "sourceB48RoadRendered": false,
+      "isGameWebGLScreenshot": false,
+      "file": "K4BR_NARROW_FIXED_ORIGINAL_POSE_REAL_CC0_PBR_AND_PHOTOSCAN_NATIVE_DCC_UNJUDGED.png"
+    }
+  ],
+  "files": {
+    "K4BR_ACTUAL_CC0_PHOTOSCAN_ROCKS_EDITABLE_NATIVE_DCC_ART_HOLD.blend": {
+      "bytes": 74454543,
+      "sha256": "7f229b9fbc0d736c056e1494f64192e64b7915f768a6fb38f05c87901229fa69"
+    },
+    "K4BR_CHASE_NARROW_REAL_CC0_PBR_AND_PHOTOSCAN_NATIVE_DCC_UNJUDGED.png": {
+      "bytes": 1860386,
+      "sha256": "3c98b22ba9f8fa7d2540d646e260eeac3595e6863e46e849627ab569b88e3049"
+    },
+    "K4BR_NARROW_FIXED_ORIGINAL_POSE_REAL_CC0_PBR_AND_PHOTOSCAN_NATIVE_DCC_UNJUDGED.png": {
+      "bytes": 1894149,
+      "sha256": "4394ee5ec041e8cc61cab994146fbcf9f94d843b6f0145bb21f3c3262b1c4b63"
+    }
+  },
+  "sameCameraImageDifference": {
+    "file": "K4BR_K4BQ_SAME_CHASE_CAMERA_ACTUAL_CC0_MATERIAL_AB_NOT_GAME.png",
+    "bytes": 2091894,
+    "sha256": "d4e5b816707818fb18fd0667139125bc4fb6a5ab8e0ef6c4121ae796e12405f9",
+    "meanRGBDifference": 9.5449,
+    "qualityJudgement": "UNJUDGED_HOLD_NOT_A_PROXY_FOR_ART"
+  }
+}

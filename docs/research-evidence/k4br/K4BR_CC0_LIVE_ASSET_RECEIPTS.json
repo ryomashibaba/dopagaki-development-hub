@@ -1,0 +1,174 @@
+{
+  "schema": "dopagaki.K4BR.independently-downloaded-CC0-PBR/1",
+  "licenseEvidence": "https://polyhaven.com/license",
+  "attribution": "Powered by Poly Haven (public API live use requirement)",
+  "license": "CC0 1.0",
+  "userAgent": "DOPAGAKI-SLOPE-K4BR-OpenResearch/1.0 (GitHub native Blender source-audit; credit Poly Haven)",
+  "downloadUTC": "2026-11-04T07:12:45Z",
+  "additionalPaidAPI": false,
+  "photoscannedAssetsActuallyDownloaded": {
+    "asphalt_01": {
+      "name": "Asphalt 01",
+      "assetUrl": "https://polyhaven.com/a/asphalt_01",
+      "infoApi": "https://api.polyhaven.com/info/asphalt_01",
+      "filesApi": "https://api.polyhaven.com/files/asphalt_01",
+      "authors": {
+        "Dario Barresi": "Processing ",
+        "Charlotte Baglioni": "Photography"
+      },
+      "dimensionsMm": [
+        2079.9994468688965,
+        2079.9996852874756
+      ],
+      "maps": {
+        "diffuse": {
+          "vendorOriginalMap": "Diffuse",
+          "vendorResolution": "2k",
+          "vendorFormat": "jpg",
+          "vendorDeclaredSize": 3118607,
+          "vendorMD5": "1a982193e0137381402a60cbd5892474",
+          "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/asphalt_01/asphalt_01_diff_2k.jpg",
+          "localFile": "asphalt_01_diffuse_2k.jpg",
+          "actualBytes": 3118607,
+          "sha256": "10fe1dafe34fec51397dbe9011f798c68c4e3fc16abfd4d7aea0123122db8993",
+          "independentMD5Verified": true
+        },
+        "nor_gl": {
+          "vendorOriginalMap": "nor_gl",
+          "vendorResolution": "2k",
+          "vendorFormat": "jpg",
+          "vendorDeclaredSize": 4845665,
+          "vendorMD5": "8b513a75b434f95ca268436265742638",
+          "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/asphalt_01/asphalt_01_nor_gl_2k.jpg",
+          "localFile": "asphalt_01_nor_gl_2k.jpg",
+          "actualBytes": 4845665,
+          "sha256": "60fd6af2aae30bb3fd2231227ecbe52d0ced2c761d53a64f50dea59d173307cd",
+          "independentMD5Verified": true
+        },
+        "rough": {
+          "vendorOriginalMap": "Rough",
+          "vendorResolution": "2k",
+          "vendorFormat": "jpg",
+          "vendorDeclaredSize": 1599661,
+          "vendorMD5": "ee92528bdb30f4f1656a5a665e2c6225",
+          "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/asphalt_01/asphalt_01_rough_2k.jpg",
+          "localFile": "asphalt_01_rough_2k.jpg",
+          "actualBytes": 1599661,
+          "sha256": "c6962037eb41c6f0feafba22353e315d37ae8c8ea472dfd7d4fe28136904ceb5",
+          "independentMD5Verified": true
+        }
+      }
+    },
+    "rock_ground_02": {
+      "name": "Rock Ground 02",
+      "assetUrl": "https://polyhaven.com/a/rock_ground_02",
+      "infoApi": "https://api.polyhaven.com/info/rock_ground_02",
+      "filesApi": "https://api.polyhaven.com/files/rock_ground_02",
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "dimensionsMm": [
+        3000,
+        3000
+      ],
+      "maps": {
+        "diffuse": {
+          "vendorOriginalMap": "Diffuse",
+          "vendorResolution": "2k",
+          "vendorFormat": "jpg",
+          "vendorDeclaredSize": 3469687,
+          "vendorMD5": "f36c1afc75b856f80d85732c2ba03da1",
+          "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rock_ground_02/rock_ground_02_diff_2k.jpg",
+          "localFile": "rock_ground_02_diffuse_2k.jpg",
+          "actualBytes": 3469687,
+          "sha256": "c8d35e03a2d2b2dfb39d686e44e45b9ceff3bdc5e9ed9e82393997b1d2a48880",
+          "independentMD5Verified": true
+        },
+        "nor_gl": {
+          "vendorOriginalMap": "nor_gl",
+          "vendorResolution": "2k",
+          "vendorFormat": "jpg",
+          "vendorDeclaredSize": 5566160,
+          "vendorMD5": "b13cc1a4096902d10c173b4302abd1dc",
+          "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rock_ground_02/rock_ground_02_nor_gl_2k.jpg",
+          "localFile": "rock_ground_02_nor_gl_2k.jpg",
+          "actualBytes": 5566160,
+          "sha256": "661b107c1abcd82c7447f8c49238b504f02e8d12aa0406c029410f8073f12ba5",
+          "independentMD5Verified": true
+        },
+        "rough": {
+          "vendorOriginalMap": "Rough",
+          "vendorResolution": "2k",
+          "vendorFormat": "jpg",
+          "vendorDeclaredSize": 2107834,
+          "vendorMD5": "f4f0b587df9090a8df75f0166806d2eb",
+          "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rock_ground_02/rock_ground_02_rough_2k.jpg",
+          "localFile": "rock_ground_02_rough_2k.jpg",
+          "actualBytes": 2107834,
+          "sha256": "c664d5b3f0050609fb8e0947853abad250dced99a15cd27beb15e074d102912f",
+          "independentMD5Verified": true
+        }
+      }
+    }
+  },
+  "sourceGameEdited": false,
+  "verifiedCC0NativePhotogrammetryModel": {
+    "id": "rock_face_01",
+    "name": "Rock Face 01",
+    "assetUrl": "https://polyhaven.com/a/rock_face_01",
+    "infoApi": "https://api.polyhaven.com/info/rock_face_01",
+    "filesApi": "https://api.polyhaven.com/files/rock_face_01",
+    "authors": {
+      "Dario Barresi": "All"
+    },
+    "nativeGLTFResolution": "1k",
+    "nativeGLTFRelativeFile": "model/rock_face_01/rock_face_01.gltf",
+    "declaredDimensionsMm": [
+      7108.232021331787,
+      5624.304533004761,
+      4980.4371148347855
+    ],
+    "files": {
+      "rock_face_01.gltf": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/rock_face_01/rock_face_01_1k.gltf",
+        "vendorMD5": "b4855bc7e841a17a94332561a9b301c0",
+        "vendorDeclaredBytes": 2793,
+        "sha256": "96c332c01d173a2431115f3bac29be101fba341e5500e2a08e384f4edd17299e",
+        "actualBytes": 2793,
+        "localFile": "model/rock_face_01/rock_face_01.gltf"
+      },
+      "textures/rock_face_01_arm_1k.jpg": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/rock_face_01/rock_face_01_arm_1k.jpg",
+        "vendorMD5": "5799e7f5546350576b87bf67c34fb49f",
+        "vendorDeclaredBytes": 693610,
+        "sha256": "59128c79d207a50a69a38002986135ade3b19642d26158cec141eca41578c9ca",
+        "actualBytes": 693610,
+        "localFile": "model/rock_face_01/textures/rock_face_01_arm_1k.jpg"
+      },
+      "textures/rock_face_01_nor_gl_1k.jpg": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/rock_face_01/rock_face_01_nor_gl_1k.jpg",
+        "vendorMD5": "46e01f5c3b8ac4463aeef2b4c61d1cd4",
+        "vendorDeclaredBytes": 1023400,
+        "sha256": "9a9d85b9a01f4e24fc9ceec8baf96c019f552bca69591ff544c7a725e28b1d97",
+        "actualBytes": 1023400,
+        "localFile": "model/rock_face_01/textures/rock_face_01_nor_gl_1k.jpg"
+      },
+      "textures/rock_face_01_diff_1k.jpg": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/rock_face_01/rock_face_01_diff_1k.jpg",
+        "vendorMD5": "98ee9f024a6383d7e6cab44ed41e1f15",
+        "vendorDeclaredBytes": 853749,
+        "sha256": "41bd26ed2db1332b1ebb4b1326fd8af4d21f0f0eb57b8ea385033115c722cfdb",
+        "actualBytes": 853749,
+        "localFile": "model/rock_face_01/textures/rock_face_01_diff_1k.jpg"
+      },
+      "rock_face_01.bin": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/rock_face_01/rock_face_01.bin",
+        "vendorMD5": "06caed23e725af568b64f8cbee210c1c",
+        "vendorDeclaredBytes": 476436,
+        "sha256": "873eac0319333e92bc96ddeedf8ebf69dc3c68ff1dfe32d8c14ddc165cdb20ac",
+        "actualBytes": 476436,
+        "localFile": "model/rock_face_01/rock_face_01.bin"
+      }
+    }
+  }
+}
