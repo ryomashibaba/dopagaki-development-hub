@@ -1,0 +1,372 @@
+{
+  "schema": "dopagaki.K4BT.native-K4BS-pine-screen-space-projection-audit/1",
+  "originK4BSNativeBlendSHA256": "156e56ce373b731f1f0c8f96278a11977ac93d491973c2e8ef796ec1ea7795de",
+  "originK4BSAuditSHA256": "6023fa8b34bb2ade115fbb74f664401be2bb049e7423d18a599e13ba13698f3a",
+  "sourceGameImmutableBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "sourceB48Road5VertexFacePreserved": true,
+  "originalSixCameraPosesUnchanged": true,
+  "sameFrozenResearchChasePoseUnchanged": true,
+  "camera": "K4BP | EXPERIMENT CAMERA | CHASE_NARROW | UNAPPROVED",
+  "imageSizePixels": [
+    1280,
+    800
+  ],
+  "thisIsOriginalK4BSResearchCameraNotWebGLGame": true,
+  "renderPerformed": false,
+  "blendFileWritten": false,
+  "geometryProjectionIsNotActualVisiblePixelMask": true,
+  "treeInstances": [
+    {
+      "object": "K4BS | genuine CC0 scanned pine tree 00",
+      "sourceRoadStationM": 14,
+      "geometryPartsInEvaluatedDepsgraph": 3,
+      "sourceTriangleCountPerTree": 398144,
+      "worldBoundsM": {
+        "min": [
+          965.74414,
+          315.18866,
+          105.31907
+        ],
+        "max": [
+          977.54126,
+          318.62836,
+          111.11906
+        ]
+      },
+      "actualWorldBoundingHeightM": 5.8,
+      "allBoundingCornersBehindCamera": false,
+      "anyBoundingCornerInFront": true,
+      "someBoundingCornersBehind": false,
+      "rawProjectedEnvelopePixels": [
+        1778.03,
+        810.51,
+        2342.2,
+        1311.58
+      ],
+      "clippedProjectedEnvelopePixels": [
+        1280,
+        800,
+        1280,
+        800
+      ],
+      "clippedEnvelopeWidthPx": 0,
+      "clippedEnvelopeHeightPx": 0,
+      "clippedEnvelopeAreaPercentOfFrame": 0.0,
+      "intersectsFrameByBoundingEnvelope": false,
+      "instancerHiddenFromRender": false,
+      "templateCollectionHiddenFromRender": false,
+      "notes": "Projection envelope only: does not prove leaves actually render, alpha, occlusion or visibility."
+    },
+    {
+      "object": "K4BS | genuine CC0 scanned pine tree 01",
+      "sourceRoadStationM": 43,
+      "geometryPartsInEvaluatedDepsgraph": 3,
+      "sourceTriangleCountPerTree": 398144,
+      "worldBoundsM": {
+        "min": [
+          1004.69769,
+          309.49139,
+          105.31779
+        ],
+        "max": [
+          1009.53992,
+          321.22916,
+          110.91779
+        ]
+      },
+      "actualWorldBoundingHeightM": 5.6,
+      "allBoundingCornersBehindCamera": false,
+      "anyBoundingCornerInFront": true,
+      "someBoundingCornersBehind": false,
+      "rawProjectedEnvelopePixels": [
+        1448.88,
+        602.71,
+        1740.64,
+        731.23
+      ],
+      "clippedProjectedEnvelopePixels": [
+        1280,
+        602.71,
+        1280,
+        731.23
+      ],
+      "clippedEnvelopeWidthPx": 0,
+      "clippedEnvelopeHeightPx": 128.52,
+      "clippedEnvelopeAreaPercentOfFrame": 0.0,
+      "intersectsFrameByBoundingEnvelope": false,
+      "instancerHiddenFromRender": false,
+      "templateCollectionHiddenFromRender": false,
+      "notes": "Projection envelope only: does not prove leaves actually render, alpha, occlusion or visibility."
+    },
+    {
+      "object": "K4BS | genuine CC0 scanned pine tree 02",
+      "sourceRoadStationM": 73,
+      "geometryPartsInEvaluatedDepsgraph": 3,
+      "sourceTriangleCountPerTree": 398144,
+      "worldBoundsM": {
+        "min": [
+          1027.47144,
+          320.47717,
+          104.98241
+        ],
+        "max": [
+          1045.16028,
+          330.78,
+          113.48241
+        ]
+      },
+      "actualWorldBoundingHeightM": 8.5,
+      "allBoundingCornersBehindCamera": false,
+      "anyBoundingCornerInFront": true,
+      "someBoundingCornersBehind": false,
+      "rawProjectedEnvelopePixels": [
+        1244.5,
+        488.93,
+        1371.5,
+        609.68
+      ],
+      "clippedProjectedEnvelopePixels": [
+        1244.5,
+        488.93,
+        1280,
+        609.68
+      ],
+      "clippedEnvelopeWidthPx": 35.5,
+      "clippedEnvelopeHeightPx": 120.75,
+      "clippedEnvelopeAreaPercentOfFrame": 0.41858,
+      "intersectsFrameByBoundingEnvelope": true,
+      "instancerHiddenFromRender": false,
+      "templateCollectionHiddenFromRender": false,
+      "notes": "Projection envelope only: does not prove leaves actually render, alpha, occlusion or visibility."
+    },
+    {
+      "object": "K4BS | genuine CC0 scanned pine tree 03",
+      "sourceRoadStationM": 118,
+      "geometryPartsInEvaluatedDepsgraph": 3,
+      "sourceTriangleCountPerTree": 398144,
+      "worldBoundsM": {
+        "min": [
+          1064.2124,
+          347.01575,
+          110.35761
+        ],
+        "max": [
+          1077.69556,
+          364.72314,
+          119.25761
+        ]
+      },
+      "actualWorldBoundingHeightM": 8.9,
+      "allBoundingCornersBehindCamera": false,
+      "anyBoundingCornerInFront": true,
+      "someBoundingCornersBehind": false,
+      "rawProjectedEnvelopePixels": [
+        951.26,
+        416.43,
+        1082.94,
+        489.66
+      ],
+      "clippedProjectedEnvelopePixels": [
+        951.26,
+        416.43,
+        1082.94,
+        489.66
+      ],
+      "clippedEnvelopeWidthPx": 131.68,
+      "clippedEnvelopeHeightPx": 73.23,
+      "clippedEnvelopeAreaPercentOfFrame": 0.94169,
+      "intersectsFrameByBoundingEnvelope": true,
+      "instancerHiddenFromRender": false,
+      "templateCollectionHiddenFromRender": false,
+      "notes": "Projection envelope only: does not prove leaves actually render, alpha, occlusion or visibility."
+    },
+    {
+      "object": "K4BS | genuine CC0 scanned pine tree 04",
+      "sourceRoadStationM": 18,
+      "geometryPartsInEvaluatedDepsgraph": 3,
+      "sourceTriangleCountPerTree": 398144,
+      "worldBoundsM": {
+        "min": [
+          933.86023,
+          368.46887,
+          113.31247
+        ],
+        "max": [
+          944.44543,
+          378.68945,
+          119.11246
+        ]
+      },
+      "actualWorldBoundingHeightM": 5.8,
+      "allBoundingCornersBehindCamera": false,
+      "anyBoundingCornerInFront": true,
+      "someBoundingCornersBehind": false,
+      "rawProjectedEnvelopePixels": [
+        -977.94,
+        527.32,
+        -255.55,
+        808.8
+      ],
+      "clippedProjectedEnvelopePixels": [
+        0,
+        527.32,
+        0,
+        800
+      ],
+      "clippedEnvelopeWidthPx": 0,
+      "clippedEnvelopeHeightPx": 272.68,
+      "clippedEnvelopeAreaPercentOfFrame": 0.0,
+      "intersectsFrameByBoundingEnvelope": false,
+      "instancerHiddenFromRender": false,
+      "templateCollectionHiddenFromRender": false,
+      "notes": "Projection envelope only: does not prove leaves actually render, alpha, occlusion or visibility."
+    },
+    {
+      "object": "K4BS | genuine CC0 scanned pine tree 05",
+      "sourceRoadStationM": 63,
+      "geometryPartsInEvaluatedDepsgraph": 3,
+      "sourceTriangleCountPerTree": 398144,
+      "worldBoundsM": {
+        "min": [
+          963.73431,
+          401.81573,
+          119.37275
+        ],
+        "max": [
+          977.15216,
+          412.81027,
+          126.27275
+        ]
+      },
+      "actualWorldBoundingHeightM": 6.9,
+      "allBoundingCornersBehindCamera": false,
+      "anyBoundingCornerInFront": true,
+      "someBoundingCornersBehind": false,
+      "rawProjectedEnvelopePixels": [
+        -68.39,
+        338.0,
+        93.19,
+        444.23
+      ],
+      "clippedProjectedEnvelopePixels": [
+        0,
+        338.0,
+        93.19,
+        444.23
+      ],
+      "clippedEnvelopeWidthPx": 93.19,
+      "clippedEnvelopeHeightPx": 106.23,
+      "clippedEnvelopeAreaPercentOfFrame": 0.96678,
+      "intersectsFrameByBoundingEnvelope": true,
+      "instancerHiddenFromRender": false,
+      "templateCollectionHiddenFromRender": false,
+      "notes": "Projection envelope only: does not prove leaves actually render, alpha, occlusion or visibility."
+    },
+    {
+      "object": "K4BS | genuine CC0 scanned pine tree 06",
+      "sourceRoadStationM": 110,
+      "geometryPartsInEvaluatedDepsgraph": 3,
+      "sourceTriangleCountPerTree": 398144,
+      "worldBoundsM": {
+        "min": [
+          1001.76947,
+          430.46689,
+          125.67287
+        ],
+        "max": [
+          1011.41345,
+          445.67841,
+          133.07286
+        ]
+      },
+      "actualWorldBoundingHeightM": 7.39999,
+      "allBoundingCornersBehindCamera": false,
+      "anyBoundingCornerInFront": true,
+      "someBoundingCornersBehind": false,
+      "rawProjectedEnvelopePixels": [
+        137.38,
+        305.1,
+        272.12,
+        368.65
+      ],
+      "clippedProjectedEnvelopePixels": [
+        137.38,
+        305.1,
+        272.12,
+        368.65
+      ],
+      "clippedEnvelopeWidthPx": 134.75,
+      "clippedEnvelopeHeightPx": 63.55,
+      "clippedEnvelopeAreaPercentOfFrame": 0.83628,
+      "intersectsFrameByBoundingEnvelope": true,
+      "instancerHiddenFromRender": false,
+      "templateCollectionHiddenFromRender": false,
+      "notes": "Projection envelope only: does not prove leaves actually render, alpha, occlusion or visibility."
+    },
+    {
+      "object": "K4BS | genuine CC0 scanned pine tree 07",
+      "sourceRoadStationM": 157,
+      "geometryPartsInEvaluatedDepsgraph": 3,
+      "sourceTriangleCountPerTree": 398144,
+      "worldBoundsM": {
+        "min": [
+          1043.69006,
+          454.43417,
+          125.73448
+        ],
+        "max": [
+          1056.86377,
+          460.5148,
+          132.03448
+        ]
+      },
+      "actualWorldBoundingHeightM": 6.3,
+      "allBoundingCornersBehindCamera": false,
+      "anyBoundingCornerInFront": true,
+      "someBoundingCornersBehind": false,
+      "rawProjectedEnvelopePixels": [
+        335.94,
+        338.84,
+        394.68,
+        375.67
+      ],
+      "clippedProjectedEnvelopePixels": [
+        335.94,
+        338.84,
+        394.68,
+        375.67
+      ],
+      "clippedEnvelopeWidthPx": 58.75,
+      "clippedEnvelopeHeightPx": 36.83,
+      "clippedEnvelopeAreaPercentOfFrame": 0.21131,
+      "intersectsFrameByBoundingEnvelope": true,
+      "instancerHiddenFromRender": false,
+      "templateCollectionHiddenFromRender": false,
+      "notes": "Projection envelope only: does not prove leaves actually render, alpha, occlusion or visibility."
+    }
+  ],
+  "summary": {
+    "trees": 8,
+    "trianglesPerTree": 398144,
+    "inFrameEnvelopes": 5,
+    "fullyBehind": 0,
+    "outOfFrame": 3,
+    "pixelEnvelopeDoesNotProveSilhouette": true,
+    "alphaAndOcclusionNotMeasured": true
+  },
+  "ART": "REJECT_UNCHANGED",
+  "formalArtAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "realGameCollidersAdded": 0,
+  "realGameSourceChanged": false,
+  "sourcePhysicsHz": 240,
+  "sourceBallRadiusM": 0.65,
+  "sourceB48RoadCount": 7,
+  "sourceB51MoverCount": 28,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD"
+}
