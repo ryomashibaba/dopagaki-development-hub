@@ -9,7 +9,9 @@
   "originalEightK4BSPineTransformsUnchanged": true,
   "originalRealK4BVCanopyTreeUnchanged": true,
   "nativeTrueCC0CanopyPreservedNotCloned": true,
-  "authorStudyElements": 143,
+  "authorStudyElements": 141,
+  "leftRidgeExperimentSavedButRenderHiddenAfterA1ArtReject": true,
+  "fakeStraightWheelMarkStudyRemovedAfterA1ArtReject": true,
   "artAuthorship": "one shell-roof maritime public visitor and boat service building with glazed occupied frontage, tidal quay terraced public walk, continuous left natural ridge, noncolliding road patina and safety guides",
   "harborChoice": {
     "d": 83,
@@ -74,20 +76,24 @@
   "MERGE": "HOLD",
   "files": {
     "K4BW_ONE_COHERENT_COASTAL_CIVIC_ROAD_EDITABLE_NATIVE_ART_HOLD.blend": {
-      "bytes": 260324776,
-      "sha256": "d3ab3b468628233e908de6019ed419b05cb426bb2e4e0f014dfa0e0e712ab20a"
+      "bytes": 260267928,
+      "sha256": "62c2990e6687ea092a8151339b37fdb0cb8ad156b5dffac1a593218b2c517c02"
     },
     "K4BW_SAME_CHASE_ONE_COHERENT_COASTAL_CIVIC_ROAD_ART_HOLD_NOT_GAME.png": {
-      "bytes": 480600,
-      "sha256": "0647c958ebbcda8152f3260fbf6f4b93e3eccd96b25a4716297a9c8da58f166e"
+      "bytes": 477182,
+      "sha256": "542c765f92c5bc0007c7883dd407b72467e889504cf02c56b9cc5bc726710372"
     }
   },
-  "sameCameraReview": {
-    "file": "K4BW_VS_K4BV_REAL_CHASE_ONE_COHERENT_HARBOR_ART_REVIEW_NOT_GAME.png",
-    "bytes": 493628,
-    "sha256": "f15df86007d7eaa0c42ade82ea08d4f241f5624bef65df7765ab9178431615ef",
-    "meanRGBDifferenceNOTArtScore": 2.9087,
-    "equalResolution": true,
-    "frozenCamera": true
+  "a2ArtReview": {
+    "file": "K4BW_A2_VS_K4BV_SAME_CHASE_REAL_ART_REVIEW_NOT_GAME.png",
+    "bytes": 475716,
+    "sha256": "baae72b8837c89576815f6756993033172617d8bd546bb5839b4d8bbd4eb1955",
+    "reusedExactRun": 41818853277,
+    "noRerender": true,
+    "sameCameraAndResolution": true,
+    "meanRGBDifferenceNOTQuality": 1.664456,
+    "changeConfirmed": true,
+    "originalRunFailureWasArbitraryDifferenceThreshold": true,
+    "ART": "UNJUDGED_HOLD"
   }
 }
