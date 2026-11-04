@@ -1,0 +1,171 @@
+name: DOPAGAKI K4BS real CC0 pine + continuous organic ground Blender art research
+on:
+  push:
+    branches: [research/k4bs-photo-vegetation-art-direction-20261104]
+    paths:
+      - scripts/p101-k4bs-fetch-cc0-vegetation.py
+      - scripts/p101-k4bs-organic-cc0-ground-and-pine-art.py
+      - .github/workflows/p101-k4bs-organic-real-pine-native-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bs-locked-source-cc0-native
+  cancel-in-progress: true
+jobs:
+  actual-poly-haven-vegetation-research:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - name: Freeze original game source + Python syntax and source tests
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bs-photo-vegetation-art-direction-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bs-fetch-cc0-vegetation.py scripts/p101-k4bs-organic-cc0-ground-and-pine-art.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Retrieve exact SHA-locked K4BR actual editable Blender original parent
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BR_REAL_CC0_PBR_PHOTOSCAN_NATIVE_BLENDER_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41790588687
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bs/parent
+      - name: Independently validate K4BR source and all immutable native parent bytes
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('research/evidence/k4bs/parent')
+          j=json.loads((p/'K4BR_NATIVE_SCANNED_ASSET_AUDIT.json').read_text())
+          assert j['originalSourceGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalSourceRoad5VertexFaceUnchanged']
+          assert j['allSixOriginalSourceCameraNumericPosesUnchanged']
+          assert j['bothResearchCameraNumericPosesUnchanged']
+          assert j['sourceB48Roads']==7 and j['sourceB51Movers']==28
+          assert j['sourceHz']==240 and j['sourceBallRadiusM']==.65
+          assert j['formalArtAccepted']==0 and j['formalSlope2DNAMetres']==0
+          assert j['ART']=='UNJUDGED_HOLD'
+          for name,meta in j['files'].items():
+           raw=(p/name).read_bytes()
+           assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert j['files']['K4BR_ACTUAL_CC0_PHOTOSCAN_ROCKS_EDITABLE_NATIVE_DCC_ART_HOLD.blend']['sha256']=='7f229b9fbc0d736c056e1494f64192e64b7915f768a6fb38f05c87901229fa69'
+          print('K4BS_ACTUAL_K4BR_PARENT_NATIVE_SOURCE_ALL_HASH_PASS')
+          PY
+      - name: Install native Blender EEVEE + Python numpy for real GLTF and PIL inspection
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: Download ACTUAL official CC0 Sparse Grass 2K + Pine Sapling Small 1K GLTF (bounded size)
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bs/assets research/evidence/k4bs/render
+          python3 scripts/p101-k4bs-fetch-cc0-vegetation.py --out research/evidence/k4bs/assets
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          a=Path('research/evidence/k4bs/assets')
+          j=json.loads((a/'K4BS_CC0_LIVE_ASSET_RECEIPTS.json').read_text())
+          assert j['license']=='CC0 1.0' and 'Poly Haven' in j['attribution']
+          assert set(j['photoscannedAssetsActuallyDownloaded'])=={'sparse_grass'}
+          assert set(j['photoscannedAssetsActuallyDownloaded']['sparse_grass']['maps'])=={'diffuse','nor_gl','rough'}
+          assert j['verifiedCC0NativeTreeModel']['id']=='pine_sapling_small'
+          for v in j['photoscannedAssetsActuallyDownloaded']['sparse_grass']['maps'].values():
+           data=(a/v['localFile']).read_bytes()
+           assert len(data)==v['actualBytes'] and hashlib.sha256(data).hexdigest()==v['sha256']
+          for v in j['verifiedCC0NativeTreeModel']['files'].values():
+           data=(a/v['localFile']).read_bytes()
+           assert len(data)==v['actualBytes'] and hashlib.sha256(data).hexdigest()==v['sha256']
+          print('K4BS_OFFICIAL_LIVE_CC0_GRASS_AND_GENUINE_TREE_VENDOR_MD5_PLUS_INDEPENDENT_SHA_OK')
+          PY
+      - name: Actual native Blender pack 3 photographic maps and real 3D tree, same research camera render
+        run: |
+          set -euo pipefail
+          xvfb-run -a -s '-screen 0 1920x1200x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4bs-organic-cc0-ground-and-pine-art.py -- \
+              --base research/evidence/k4bs/parent/K4BR_ACTUAL_CC0_PHOTOSCAN_ROCKS_EDITABLE_NATIVE_DCC_ART_HOLD.blend \
+              --assets research/evidence/k4bs/assets \
+              --out research/evidence/k4bs/render
+      - name: Prove source geometry poses original tree triangles continuous terrain and visual difference
+        run: |
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          import json,hashlib
+          p=Path('research/evidence/k4bs/parent')
+          d=Path('research/evidence/k4bs/render')
+          a=Path('research/evidence/k4bs/assets')
+          j=json.loads((d/'K4BS_REAL_ORGANIC_RESEARCH_NATIVE_AUDIT.json').read_text())
+          assert j['parentEditableK4BR_SHA256']=='7f229b9fbc0d736c056e1494f64192e64b7915f768a6fb38f05c87901229fa69'
+          assert j['sourceGameImmutableBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['sourceB48Road5VertexFacePreserved'] and j['originalSixSourceCamerasNumericallyUnchanged']
+          assert j['bothResearchCamerasNumericallyUnchanged']
+          assert j['sourceB48RoadCount']==7 and j['sourceB51MoverCount']==28
+          assert j['sourcePhysicsHz']==240 and j['sourceBallRadiusM']==.65
+          assert j['realGameNewColliders']==0 and j['gameSourceModified'] is False
+          assert j['isWebGL2GameScreenshot'] is False
+          assert j['realGameFpsAndLODProof']=='HOLD'
+          assert j['ART']=='UNJUDGED_HOLD' and j['formalArtAccepted']==0 and j['formalSlope2DNAMetres']==0
+          assert set(j['actualPolyHavenSparseGrassMapsPacked'])=={'diffuse','rough','nor_gl'}
+          assert all(j['actualPolyHavenSparseGrassMapsPacked'].values())
+          assert j['actualImportedRealPineGLTFTriangles']>=20000
+          assert j['researchTreeSharedGeometryInstances']==14
+          assert len(j['actualTerrainPerPolygonCheckerPatternRemoved'])==2
+          assert all(v['oldPerFaceBlocks'][1]>0 and v['polygons']>200 for v in j['actualTerrainPerPolygonCheckerPatternRemoved'].values())
+          assert hashlib.sha256((a/'K4BS_CC0_LIVE_ASSET_RECEIPTS.json').read_bytes()).hexdigest()==j['vendorCC0ManifestSHA256']
+          for name,meta in j['files'].items():
+           raw=(d/name).read_bytes()
+           assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert len(j['screens'])==2
+          orig=Image.open(p/'K4BR_CHASE_NARROW_REAL_CC0_PBR_AND_PHOTOSCAN_NATIVE_DCC_UNJUDGED.png').convert('RGB')
+          new=Image.open(d/'K4BS_CHASE_NARROW_CONTINUOUS_CC0_GROUND_REAL_PINE_ART_HOLD.png').convert('RGB')
+          assert orig.size==new.size==(1520,950)
+          assert sum(ImageStat.Stat(new).stddev)>13
+          diff=ImageChops.difference(orig,new)
+          avg=round(sum(ImageStat.Stat(diff).mean)/3,4)
+          assert diff.getbbox() is not None and avg>3,avg
+          compare=Image.new('RGB',(3100,1050),(16,20,24))
+          pen=ImageDraw.Draw(compare)
+          compare.paste(orig,(15,62));compare.paste(new,(1565,62))
+          pen.text((15,20),'K4BR true research CHASE camera / ART REJECT',fill='white')
+          pen.text((1565,20),'K4BS SAME RESEARCH CHASE camera / REAL CC0 PINE AND ORGANIC MASK / NOT GAME',fill='white')
+          name='K4BS_VS_K4BR_SAME_CHASE_CC0_PINE_AND_ORGANIC_GROUND_ART_REVIEW_NOT_GAME.png'
+          compare.save(d/name)
+          raw=(d/name).read_bytes()
+          j['sameCameraReview']={'file':name,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),
+                                 'meanRGBDifferenceNotQualityMetric':avg}
+          (d/'K4BS_REAL_ORGANIC_RESEARCH_NATIVE_AUDIT.json').write_text(json.dumps(j,ensure_ascii=False,indent=2))
+          print('K4BS_TRUE_CC0_NATIVE_TERRAIN_PINE_SOURCE_TECH_PASS',avg)
+          PY
+      - name: Only commit authentic verified evidence to new research branch, not main
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bs-photo-vegetation-art-direction-20261104
+          mkdir -p docs/research-evidence/k4bs
+          cp research/evidence/k4bs/render/K4BS_*_ART_HOLD.png docs/research-evidence/k4bs/
+          cp research/evidence/k4bs/render/K4BS_VS_K4BR_SAME_CHASE_CC0_PINE_AND_ORGANIC_GROUND_ART_REVIEW_NOT_GAME.png docs/research-evidence/k4bs/
+          cp research/evidence/k4bs/render/K4BS_REAL_ORGANIC_RESEARCH_NATIVE_AUDIT.json docs/research-evidence/k4bs/
+          cp research/evidence/k4bs/assets/K4BS_CC0_LIVE_ASSET_RECEIPTS.json docs/research-evidence/k4bs/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4bs
+          if ! git diff --cached --quiet; then
+           git commit -m "evidence(k4bs): native CC0 pine model and continuous photo-ground camera A/B with original B48/Camera SHA unchanged"
+           git fetch --no-tags origin "$GITHUB_REF_NAME"
+           git rebase FETCH_HEAD
+           git push origin HEAD:refs/heads/research/k4bs-photo-vegetation-art-direction-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BS_SOURCE_PROTECTED_REAL_PINE_GRASS_EDITABLE_NATIVE_ART_HOLD
+          path: |
+            research/evidence/k4bs/render/
+            research/evidence/k4bs/assets/K4BS_CC0_LIVE_ASSET_RECEIPTS.json
+          if-no-files-found: warn
+          retention-days: 21
