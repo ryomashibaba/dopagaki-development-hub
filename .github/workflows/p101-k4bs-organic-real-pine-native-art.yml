@@ -40,7 +40,7 @@ jobs:
           from pathlib import Path
           import json,hashlib
           p=Path('research/evidence/k4bs/parent')
-          j=json.loads((p/'K4BR_NATIVE_SCANNED_ASSET_AUDIT.json').read_text())
+          j=json.loads((p/'render'/'K4BR_NATIVE_SCANNED_ASSET_AUDIT.json').read_text())
           assert j['originalSourceGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
           assert j['originalSourceRoad5VertexFaceUnchanged']
           assert j['allSixOriginalSourceCameraNumericPosesUnchanged']
@@ -50,7 +50,7 @@ jobs:
           assert j['formalArtAccepted']==0 and j['formalSlope2DNAMetres']==0
           assert j['ART']=='UNJUDGED_HOLD'
           for name,meta in j['files'].items():
-           raw=(p/name).read_bytes()
+           raw=(p/'render'/name).read_bytes()
            assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
           assert j['files']['K4BR_ACTUAL_CC0_PHOTOSCAN_ROCKS_EDITABLE_NATIVE_DCC_ART_HOLD.blend']['sha256']=='7f229b9fbc0d736c056e1494f64192e64b7915f768a6fb38f05c87901229fa69'
           print('K4BS_ACTUAL_K4BR_PARENT_NATIVE_SOURCE_ALL_HASH_PASS')
@@ -88,7 +88,7 @@ jobs:
             env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
             blender -b --factory-startup --python-exit-code 3 \
               --python scripts/p101-k4bs-organic-cc0-ground-and-pine-art.py -- \
-              --base research/evidence/k4bs/parent/K4BR_ACTUAL_CC0_PHOTOSCAN_ROCKS_EDITABLE_NATIVE_DCC_ART_HOLD.blend \
+              --base research/evidence/k4bs/parent/render/K4BR_ACTUAL_CC0_PHOTOSCAN_ROCKS_EDITABLE_NATIVE_DCC_ART_HOLD.blend \
               --assets research/evidence/k4bs/assets \
               --out research/evidence/k4bs/render
       - name: Prove source geometry poses original tree triangles continuous terrain and visual difference
@@ -122,7 +122,7 @@ jobs:
            raw=(d/name).read_bytes()
            assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
           assert len(j['screens'])==2
-          orig=Image.open(p/'K4BR_CHASE_NARROW_REAL_CC0_PBR_AND_PHOTOSCAN_NATIVE_DCC_UNJUDGED.png').convert('RGB')
+          orig=Image.open(p/'render'/'K4BR_CHASE_NARROW_REAL_CC0_PBR_AND_PHOTOSCAN_NATIVE_DCC_UNJUDGED.png').convert('RGB')
           new=Image.open(d/'K4BS_CHASE_NARROW_CONTINUOUS_CC0_GROUND_REAL_PINE_ART_HOLD.png').convert('RGB')
           assert orig.size==new.size==(1520,950)
           assert sum(ImageStat.Stat(new).stddev)>13
