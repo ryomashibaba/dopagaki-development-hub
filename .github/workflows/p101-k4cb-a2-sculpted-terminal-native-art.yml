@@ -1,0 +1,144 @@
+name: DOPAGAKI K4CB A2 real Blender sculpted ferry terminal CHASE ART HOLD
+on:
+  push:
+    branches: [research/k4cb-a2-sculpted-ferry-terminal-chase-20261105]
+    paths:
+      - scripts/p101-k4cb-a2-sculpted-terminal-source-locked.py
+      - .github/workflows/p101-k4cb-a2-sculpted-terminal-native-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4cb-a2-native-ferry-terminal
+  cancel-in-progress: true
+jobs:
+  protected-authentic-native-a2:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preflight source Game, Blender author syntax and real Road5 lineage
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cb-a2-sculpted-ferry-terminal-chase-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4cb-a2-sculpted-terminal-source-locked.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Fetch pinned last successful A1 true editable Blender and true CHASE frame
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CB_A1_GENUINE_A2_PARENT_MARITIME_EXCHANGE_NATIVE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41859091126
+          github-token: ${{ github.token }}
+          path: research/evidence/k4cb-a2/parent
+      - name: Read actual A1 audit, check true Blender and PNG bytes; stop on parent mismatch
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          d=Path('research/evidence/k4cb-a2/parent')
+          a=json.loads((d/'K4CB_SOURCE_LOCKED_TRUE_MARITIME_EXCHANGE_AUDIT.json').read_text())
+          assert a['parentA2SHA256']=='299f1972e3383a7fc0047409a0f58581da3884988749dff6842a80cdf49a3ffa'
+          assert a['frozenOriginalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['frozenOriginalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert a['K4BZProvenBadResearchRoadHidden'] and a['sourceCHASEUnchanged']
+          assert a['oldNineTreesAndNewTwoCC0InstancesUnchanged']
+          assert a['newGameColliders']==a['formalArtAccepted']==a['formalSlope2DNAMetres']==0
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          name='K4CB_TRUE_MARITIME_EXCHANGE_ARCADES_EDITABLE_ART_HOLD.blend'
+          assert a['files'][name]['sha256']=='9df956acf164d7a0f4d861585644e15f87faa5d85683f2e8ae79bb438c03333d',('PARENT_SHA_CHANGED',a['files'][name])
+          print('K4CB_A2_TRUE_A1_PARENT_AND_SOURCE_INTEGRITY_PASS')
+          PY
+      - name: Install actual Blender EEVEE, Python image verification and protect K4BZ black seam
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+          /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
+      - name: Run real editable native A2 ferry terminal authoring and same CHASE render
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4cb-a2/render
+          xvfb-run -a -s '-screen 0 1280x900x24' env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4cb-a2-sculpted-terminal-source-locked.py -- \
+            --base research/evidence/k4cb-a2/parent/K4CB_TRUE_MARITIME_EXCHANGE_ARCADES_EDITABLE_ART_HOLD.blend \
+            --out research/evidence/k4cb-a2/render 2>&1 | tee research/evidence/k4cb-a2/render/K4CB_A2_NATIVE_BLENDER.log
+      - name: Independently hash true native artifacts, compare same-camera frame and check original black wedge
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          from PIL import Image,ImageChops,ImageDraw
+          d=Path('research/evidence/k4cb-a2/render')
+          a=json.loads((d/'K4CB_A2_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CB_A1_exact_sha256']=='9df956acf164d7a0f4d861585644e15f87faa5d85683f2e8ae79bb438c03333d'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged','originalElevenTreeTransformsUnchanged','originalLightsUnchanged','K4BZ_bad_duplicate_road_hidden','allOriginalObjectVisibilityUnchanged','originalRoofAndPiersUnmodified','noExtraRoadSurfaceAdded'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0 and a['ART']=='UNJUDGED_HOLD'
+          assert a['renderEngine']=='BLENDER_EEVEE'
+          for name,m in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==m['bytes'] and hashlib.sha256(raw).hexdigest()==m['sha256'],name
+          prev=Image.open('research/evidence/k4cb-a2/parent/K4CB_TRUE_SAME_CHASE_MARITIME_EXCHANGE_NOT_GAME.png').convert('RGB')
+          new=Image.open(d/'K4CB_A2_TRUE_SAME_CHASE_SCULPTED_TERMINAL_NOT_GAME.png').convert('RGB')
+          assert prev.size==new.size==(768,480)
+          region=ImageChops.difference(prev,new).crop((500,100,768,430))
+          n=sum(max(px)>15 for px in region.getdata())
+          assert n>600,('TERMINAL_CHANGE_TOO_SMALL_IN_REAL_CHASE',n)
+          pairs=[((292,300),(317,300)),((280,330),(310,330)),((267,360),(310,360)),((250,400),(295,400)),((235,440),(280,440)),((225,470),(270,470))]
+          wedge=[]
+          for dark,normal in pairs:
+              before=(sum(prev.getpixel(normal))-sum(prev.getpixel(dark)))/3
+              after=(sum(new.getpixel(normal))-sum(new.getpixel(dark)))/3
+              assert abs(after-before)<12,('K4BZ_PROVEN_BLACK_WEDGE_REGRESSION',dark,before,after)
+              wedge.append({'dark':dark,'normal':normal,'before':round(before,3),'after':round(after,3)})
+          canvas=Image.new('RGB',(1560,552),(15,19,22))
+          canvas.paste(prev,(12,50))
+          canvas.paste(new,(780,50))
+          draw=ImageDraw.Draw(canvas)
+          draw.text((12,18),'K4CB A1 REAL Blender CHASE / ART REJECT',fill='white')
+          draw.text((780,18),'K4CB A2 REAL Blender CHASE / ART UNJUDGED',fill='white')
+          draw.text((12,536),'Research-only editable DCC. Not WebGL game, not FPS, not ART acceptance.',fill='white')
+          comparison='K4CB_A2_VS_A1_TRUE_SAME_CHASE_SCULPTED_TERMINAL_ART_REVIEW_NOT_GAME.png'
+          canvas.save(d/comparison)
+          a['imageIndependentQA']={
+              'changedRightPortPixelsNotArtScore':n,'originalWedgePairs':wedge,
+              'comparisonName':comparison,'comparisonSHA256':hashlib.sha256((d/comparison).read_bytes()).hexdigest(),
+              'ART':'UNJUDGED_HOLD'}
+          (d/'K4CB_A2_REAL_NATIVE_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n')
+          print('K4CB_A2_REAL_NATIVE_SOURCE_SHA_FRAME_QA_PASS',n)
+          PY
+      - name: Commit only actual research evidence and never merge original source
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cb-a2-sculpted-ferry-terminal-chase-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4cb-a2
+          cp research/evidence/k4cb-a2/render/*.png docs/research-evidence/k4cb-a2/
+          cp research/evidence/k4cb-a2/render/*.json docs/research-evidence/k4cb-a2/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4cb-a2
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4cb-a2): actual Blender source-protected sculpted terminal same-CHASE study, ART HOLD"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4cb-a2-sculpted-ferry-terminal-chase-20261105
+          fi
+      - name: Archive true editable source, actual frame, logs, hash audit, even if technical hold
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CB_A2_TRUE_SCULPTED_TERMINAL_EDITABLE_CHASE_ART_HOLD
+          path: research/evidence/k4cb-a2/render/
+          if-no-files-found: warn
+          retention-days: 21
