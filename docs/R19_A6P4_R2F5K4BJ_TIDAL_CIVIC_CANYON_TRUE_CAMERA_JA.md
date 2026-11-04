@@ -54,3 +54,16 @@ K4BI [Actions #41740606366](https://github.com/ryomashibaba/dopagaki-development
 ### 次の実測の優先順位
 
 現状の道幅・スケールに根ざさないまま新しい壁や塔を追加すると、同じ失敗を繰り返す。`scripts/p101-k4bj-readonly-source-road-camera-survey.py` と[専用Actions #41744748256](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41744748256)を投入し、真正K4BI元BlenderからCamera基準横方向距離とRoad5の三角メッシュ分布、異なる縦方向地点の鉛直レイ交差を**読み取り専用で計測**する。出力が検証できたら、以降の建築幅・位置・安全な道路脇候補を測定根拠で再設計する。これは地物位置測定であって、B51実衝突安全やART合格の証明ではない。
+
+
+## 【K4BJ実測による重大な設計誤差の確定】2026-11-04
+
+[Road5実測CI #41744748256](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41744748256)は **completed/SUCCESS**。元K4BI真正Blender原本、元GameBlobをSHAで照合し、**BlenderのRoad5実物2366頂点・4728ポリゴン**とカメラ固定数値を使い、世界空間からカメラ前後・左右・高さ軸へ正しく変換、11箇所×34横オフセットの鉛直Raycastを実施した。原本を書き出さず、元Road5頂点・面Fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2` を前後検証。真正 [Artifact #13283665361](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41744748256/artifacts/13283665361)、[実測JSON全文](../research-evidence/k4bj/K4BJ_REAL_SOURCE_ROAD_CAMERA_SCALE_SURVEY.json)。**この検証は幾何学の計測であって、完成美術、安全な走行幅、動体B51の検査ではない**。
+
+- 実Road5 source-control Cameraから測った**前後方向の頂点配置**：−525.804m〜＋188.774m。**前方200m以遠では、このRoad5上の頂点はこの測定範囲で0件**（他の6Roadまで空白と断言するものではない）。
+- カメラから前方0〜25mのRoad5本物の頂点横位置は `s = −39.162m〜＋53.261m`。前方25〜50mでは `−39.465〜＋55.780m`、前方100〜150mでは `−38.821〜＋69.255m`。これは**Road5メッシュの頂点分布**であり、センターライン・道路有効路幅／安全通行幅ではない。
+- 検査した左側`s=−30m`と右側`s=+40m`は前方0m/20m/50m/100m/150mでSource Road5と鉛直交差あり。右側`s=+60m`は前方100m・150mで鉛直交差あり、0m/20m/50mでは交差なし。旧試験`s=±157m`は全試験で交差なし。Raycast上の交差が乗車安全を意味することはない。
+- K4BJ以前の設計では左右の建築や道路端を物理道路から `s≈±160〜360m` に置き、中央の主構造をカメラ前方 `d≈550m` に置いていた。**これではRoad5近辺に正しく接するはずがない**というスケール／座標設計の不整合を実測で説明できる。よってK4BJの巨大な模型感と画面下の道路の単調さの一因は、意匠だけでなく**カメラの実道路配置に合っていない空間配置**にあると判断する。ただし品質問題の全部がこの誤差で説明できるとは断言しない。
+- **次工程K4BK以降の不可逆に固定する制作条件**：まずRoad5メッシュの前後方向の実範囲と左右の実Road5座標を使って、カメラ画面内の実寸マスタープランを手動定義する。B48実Road5に地物を配置したい場合、具体的なd地点で実メッシュのRaycastにより地面高さを調べたうえでクリアランス、B51/SAT/CCD等の安全試験を別途する。高密度の建築・オフロード公共空間はその測量範囲に隣接させつつ、元ゲームコリジョンとは混同しない。素材/外装よりも**実寸構図の正当性**を最初の美術ゲートとする。
+- 美術候補K4BJは改めて **ART REJECT**。正式採用ART0、Slope2 DNA認定0m。旧K4BIもART REJECT。新しい街区の横展開、元ゲーム統合、公開、main/公式p101/PR#46変更は禁止。これは研究ブランチにのみ保存した元Source Geometry測定結果。
+
