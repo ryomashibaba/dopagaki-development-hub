@@ -1,3 +1,9 @@
+# 【2026-11-05 K4CB A2実装・真正Blender試験起動／結果確認前はTECH/ART HOLD】
+
+**現行隔離研究枝** `research/k4cb-a2-sculpted-ferry-terminal-chase-20261105`。最優先で [K4CB A2真フェリーターミナル作者造形・保護・未判定記録](docs/R19_A6P4_R2F5K4CB_A2_SCULPTED_NATIVE_TERMINAL_ART_HOLD_JA.md) と [実Actions #41914127494](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41914127494) を照合。元K4CB A1は **真正画像 TECH PASS／全画面ART REJECT** であり、下段のSTART_HERE A1記載は引き継ぎ履歴。新A2は元A1真正.blendの固定SHA照合→既存公共建築につながる大きな実曲面屋根・構造柱・乗降フロア制作→元CHASE 768×480真正レンダー→同画面A/B・独立SHA／K4BZ黒筋回帰を試行する。**試験結果の確認前に成功を宣言しない。** 元Game・元Road5・元6 Camera／CHASE・旧樹11本・光源・元の非表示K4BZ研究舗装、main、公式P101、Draft PR #46、本番は保護。正式ART採用0件、Slope2 DNA0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。Work/Computer Use事前承認、追加有料APIなし。
+
+---
+
 # 【2026-11-05 K4CB A1 真正Blender画像・GitHub研究保存確認／ART REJECT → 次K4CB作者造形改善】
 
 **現行隔離研究枝** `research/k4cb-maritime-exchange-true-chase-20261105`。最初に[**K4CB A1 真同CHASE実レンダー・直接目視ART REJECT・原因と次工程**](docs/R19_A6P4_R2F5K4CB_A1_NATIVE_CHASE_ART_REJECT_JA.md)と[実監査JSON](docs/research-evidence/k4cb/K4CB_SOURCE_LOCKED_TRUE_MARITIME_EXCHANGE_AUDIT.json)を開く。歴史的な下段の「未確認」「次K4CB」は以前の時点であり、今の状況を上書きしない。
