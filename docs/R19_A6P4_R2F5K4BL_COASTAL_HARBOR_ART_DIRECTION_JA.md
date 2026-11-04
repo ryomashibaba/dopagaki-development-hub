@@ -38,3 +38,12 @@ DOPAGAKI SLOPE — HYPER RUSHは世界水準の超高速3Dレースゲームと�
 - 修正 `6706372e3ad56d211efa31fad92e9770c4fb46de`：Blender制作スクリプトに描画エンジン明示引数`--renderer eevee|cycles`を加え、Cycles 72sample（OIDN OFF）を安全な退避経路として組み込む。次のCI #41749843377 は新CIへの移行で**cancelled**、最終成果ではない。
 - 修正 `f9951e528c828cb2c23ac22f1aeb12cb84f28d95`：専用workflowに`xvfb`, `libegl1`, Mesa系の必要なLinuxソフトウェア・グラフィックスライブラリを導入し、`LIBGL_ALWAYS_SOFTWARE`/XvfbでEEVEEにチャレンジ。GPU/GL環境により失敗した場合は出力残骸を消去し、確立済みのCPU Cyclesで**その場で再レンダリング**、依然ダメなら正しいFAILURE。成功前に前回の失敗をなかったことにしない。
 - [最新再試験CI #41749970400](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41749970400) は状態、各画像、元B48 geometry/Camera fingerprints、ベンダ由来renderer事実、Artifactを実照合する。**まだTECH・ARTの最終成功宣言はできない**。
+
+
+## K4BL初回の本物のネイティブ画像と美術評価（2026-11-04）
+
+- 正式な初回成功CIは [Actions #41749970400](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41749970400)：**completed/SUCCESS**。Linuxの`libEGL.so.1`欠落により失敗した #41749501857 を修正し、Xvfb + Mesa ソフトウェアGLで**BLENDER_EEVEEの真レンダリング**に成功。CPU Cyclesへのフォールバックは今回は使われていない。真正Camera control11307 / ultra11341の2枚と本物.blend、同Camera K4BK比較PNG、独立SHA照合、GitHub研究ブランチへ証拠保存すべてPASS。
+- 真正[Artifact #13285667559](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41749970400/artifacts/13285667559)、ZIP SHA256 `5ba02d3a3d1a302492eae4679e1a6f8fb880166bed6aaed904a0d4bd978b0e09`。ZIPのCRC異常0。実編集可能`K4BL_HARBOR_ART_DIRECTED_EDITABLE_NATIVE_BLENDER_HOLD.blend` 36,300,976B（SHA256 `0529f15d2a3fb37580ded413d426dfe53b6f12d9c94b905bd68a66859c8afece`）、control画像1,358,760B、ultra画像1,346,853B、同カメラ比較画像3,110,947B、元source SHAのJSON。原Blenderと画像ハッシュ独立再計算がすべて一致。9地点の本物のB48 Road5 Raycast再測量を同Artifactで証明。これは**SOURCE・DCC技術限定PASS**。
+- 初回実画像のART審査は **REJECT**。旧K4BKの巨大な道路跨ぎ梁を外して視野が開き、路面が落ち着いた暗色となり、ノイズの少ない原Blender EEVEE画面は明確な技術品質改善。ただし左の緑がかった大きな屋根、右の白い巨大屋根、水平線に見える単純なアイボリーの円筒塔、道路の過半占有は単純な模型的景観で、港の機能や生活感、海景観・都市の密度・遠近のレイヤーが未完成。**世界水準のビジュアル達成を絶対に宣言しない。正式ART採用0件、Slope2 DNA0m**。
+- 第2修正 `f2f93507e1648c8d1e5a156f7e0132e4e51a400b`：初回の実画像観察に基づき、両公共建築の屋根の高さ／遠方への投影面積を大幅縮小。簡素な遠景円筒塔を現実用途のある中低層の公共建築／立体的金属骨格／実屋上通路・大きな切り込みがある窓へ再設計。物理的に編集可能な港湾ターミナルサインと港湾船体を遠景に加え、真正Road5道路最奥の背後へ海面を上げて港としての地理を見せる。設計の品質は**未確定**。[修正版CI #41750596888](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41750596888)で実画像・元mesh SHA・BLEND・Artifactの独立再検証が必須。
+- いずれも本物のWebGL2ゲーム画面ではない。新ゲームCollider0。SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD。元main/公式p101/Draft PR #46/本番、B48全7/B51全28/240Hz/球0.65m/Camera6不変更。追加課金/Work禁止継承。
