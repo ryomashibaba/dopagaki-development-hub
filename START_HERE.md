@@ -1,3 +1,15 @@
+# 【2026-11-04 K4BO最終確定・K4BPへの第一入口】Source Camera 実測による構図の制約発見／TECH PASS・ART REJECT
+
+**現行最終研究ブランチ** `research/k4bo-camera-frustum-track-art-20261104`。まず[**K4BO真正DCC・Source Camera数値実測・最終美術REJECTと次工程条件**](docs/R19_A6P4_R2F5K4BO_CAMERA_FRUSTUM_RACING_ART_JA.md)を読む。従来のK4BN以下「最新」はすべて履歴。
+
+- [最終CI #41779198031](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41779198031) **completed/SUCCESS**。[本物のNative editable.blend、元Camera control11307/ultra11341 2PNG、旧K4BNと同Camera二視点A/B、RGBA塗装と真元Camera screen投影JSON Artifact #13298312331](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41779198031/artifacts/13298312331) を全SHA/ZIP CRC独立再検証。ZIP sha `e834e6c0254a5da12994d74ed9fbd6383ce23ce56e9d7857600878ef7fc8b472`、真Blender SHA `b546174d5ae5186015981f2d6b5ee40f823cb7a4f2f9ba33f07c2bbda84264e6`。
+- 初の**実Blender source Camera画面投影**：Camera前方のRoad5中線d=10mが画面最下から0.120、d20mが0.393、d40mが0.543、d70mが0.607、d170mが0.639（Y=0最下、1最上）。**d70m〜170mの約100mの遠近が画面高さのわずか0.032に詰まる**。路面の大面積、港が見えない原因の一部を数値で確定。lower-roadの真画像RGB差分平均はcontrol7.3327、ultra3.4632→描画可視性PASS、ただし芸術性の証明ではない。
+- **実画像ART REJECT**：大きいレース塗装と低いアートフィンは表示できたが、路面が巨大、建築は長い人工壁、遠景船/港のシルエットは薄く、高速ゲームの世界級アートにならない。**正式ART採用0件／Slope2 DNA認定0m**。Blender DCCの絵であってゲームWebGL2の画像ではない。
+- **K4BPの開発固定条件**：これ以上窓・箱・線・文字を増殖しない。現状のSource CameraとRoad5の構図制約が大きいため、**元Cameraのデータは一切変更せず**研究用に別カメラや別Road案を独立生成し、元Camera/元Road条件と別カメラ/別美術仮説の画像を正しく区別して比較する。「変更した研究カメラの良い画像」を元CameraのART PASSと偽装せず、公式ゲームの採用・merge前に美術/SAT/CCD/FPSを個別認証。依然として既存元Camera/道路の本番値は変更禁止。
+- **強制保護**：元ゲームgit blob `af076d67492a677d2235e4730aef8cdf4808e106`／元Source Road5頂点面fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`／B48元7道路／B51元28動体／240Hz／球半径0.65m／元全6Camera／安全UI、main／公式`p101-velocity-overdrive-native-trial`／Draft PR #46／本番2URL不変。Work/Computer Useはユーザーの事前許可、Windows作業要求なし。HUMAN/SAT/CCD/FPS/ART/RELEASE/MERGE全HOLD。
+
+---
+
 # 【2026-11-04 K4BO最新実作業】元Road5の画面投影実測・視認されるレース路面意匠
 
 **現行隔離研究枝**：`research/k4bo-camera-frustum-track-art-20261104`。[K4BO元Camera実測・オリジナル道路ペイントと保存条件](docs/R19_A6P4_R2F5K4BO_CAMERA_FRUSTUM_RACING_ART_JA.md)が最新の企画と検証入口。以前のK4BN以下の「最新」は履歴。
