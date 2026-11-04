@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BN最終確定】実Source Camera／Blender SOURCE TECH PASS・ART REJECT
+
+最終隔離研究ブランチ`research/k4bn-track-surface-harbor-silhouette-20261104`。次工程は[K4BNの実技術結果と目視美術REJECT、K4BO制作原則](docs/R19_A6P4_R2F5K4BN_RACE_TRACK_AND_WORKING_HARBOR_ART_JA.md)を最優先。以前の「最新」は履歴。
+
+- [最終CI #41771580365](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41771580365) **completed/SUCCESS**、[完全Blender artifact #13295356720](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41771580365/artifacts/13295356720)、真正Blend sha`fb98af8bccb84c9a6eaf18cabc8444135c5df99df267a5a7562c99c1fbe96a37`、元Road5/Cameras/source不変、2枚の元Camera EEVEE画像とRGBA道路ペイントを生成、実ZIP/全Sha独立再検証。
+- **ART REJECT**：レース塗装と荷役クレーンの小型シルエットは見えたが、路面画面占有が巨大、背景船体は道路の陰、左右の大建築は模型的。正式ART採用0件、Slope2 DNA正式認定0m。実Blender DCCはゲームWebGL2実画面ではない。
+- **K4BO**：d=-65m以遠にほとんど模様がなかったという真の路面視野位置問題を調べ、カメラに見える前景面と港湾シルエットの作者制作へ切り替える。元Cameraをこっそり動かした虚偽合格は禁止、ゲーム改修・他6Road展開は禁止。
+- 元ゲームGit blob`af076d67492a677d2235e4730aef8cdf4808e106`、Road5`f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元B48実7/B51実28/240Hz/球半径0.65m/元全Camera、main/公式p101/Draft PR#46/本番2URL不変。Work事前承認、ユーザーWindows操作なし。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
+---
+
 # 【2026-11-04 K4BN 現行研究の正本入口】Road5舗装画像のオリジナルレース意匠＋実船港シルエット／元Camera固定
 
 最新隔離研究ブランチ：`research/k4bn-track-surface-harbor-silhouette-20261104`。従来K4BMの美術REJECTを必ず継承し、[K4BNの元Road5正本保護と一画面作者美術・真正画像評価](docs/R19_A6P4_R2F5K4BN_RACE_TRACK_AND_WORKING_HARBOR_ART_JA.md)を最優先で読む。旧K4BM以下の「最新」見出しは履歴。
