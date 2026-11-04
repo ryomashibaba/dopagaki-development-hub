@@ -77,12 +77,26 @@ def actual_ray(px,py):
  v=Vector((x0+(x1-x0)*nx,y0+(y1-y0)*ny,z))
  origin=cam.matrix_world.translation.copy()
  direction=(cam.matrix_world.to_quaternion()@v).normalized()
- hit,loc,normal,index,ob,matrix=sc.ray_cast(bpy.context.evaluated_depsgraph_get(),origin,direction,distance=1600)
- if not hit:return None
- return {"screen":[px,py],"object":ob,"point":loc.copy(),"normal":normal.copy(),
-         "face":int(index),"material":ob.data.materials[0].name if ob.type=="MESH" and ob.data.materials else None}
+ # Blender Scene.ray_cast includes hidden-in-render original meshes.
+ # Trace through them, as required by the existing K4BZ R1 proof.
+ # Never paint terrain that was never actually visible in the PNG.
+ cursor=origin.copy()
+ for layer in range(22):
+  hit,loc,normal,index,ob,matrix=sc.ray_cast(bpy.context.evaluated_depsgraph_get(),cursor,direction,distance=1600)
+  if not hit:return None
+  if ob.type=="MESH" and not ob.hide_render:
+   return {"screen":[px,py],"object":ob,"point":loc.copy(),"normal":normal.copy(),
+           "face":int(index),"material":ob.data.materials[0].name if ob.data.materials else None,
+           "traversedHiddenGeometryCount":layer}
+  cursor=loc+direction*.11
+ return None
 left_pixels=[(67,265),(113,255),(151,254),(202,274),(87,325),(156,333)]
 samples=[x for x in (actual_ray(*pt) for pt in left_pixels) if x]
+print("K4CA_TRUE_VISIBLE_LEFT_TERRAIN_PIXEL_RAYS",
+ json.dumps([{"px":x["screen"],"object":x["object"].name,
+              "normalZ":round(float(x["normal"].z),4),
+              "traversedHidden":x["traversedHiddenGeometryCount"]}
+             for x in samples],ensure_ascii=False),flush=True)
 assert len(samples)>=5,("K4CA_HOLD_CANNOT_SAMPLE_TRUE_LEFT_LAND",samples)
 for v in samples:
  name=v["object"].name
