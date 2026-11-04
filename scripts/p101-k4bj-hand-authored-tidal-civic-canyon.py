@@ -169,9 +169,9 @@ Wstations=[
 ribbon("ARCHIVE huge single chalk ceramic structural flying roof",Wstations,chalk,west,"LIVING_PUBLIC_LIBRARY_ROOF")
 # Deep recessed continuous volumetric facade, not flat front elevation.
 westwalls=[]
-for d,inn,out,basez,top in Wstations:
-    westwalls.append([P(d,inn,-143),P(d,out,-149),
-        P(d,out,top-36),P(d,inn-12,top-53)])
+for d,inn,outer,basez,top in Wstations:
+    westwalls.append([P(d,inn,-143),P(d,outer,-149),
+        P(d,outer,top-36),P(d,inn-12,top-53)])
 loft("ARCHIVE monolithic excavated basalt retaining wall",westwalls,basalt,west,"COASTAL_CLIFF_BUILDING")
 # Four very differently sized real atria. Each opening is a physically
 # layered interior: dark void -> setback glass -> amber illuminated program.
