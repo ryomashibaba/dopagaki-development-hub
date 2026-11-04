@@ -178,7 +178,10 @@ for i in range(len(left_ds)-1):
  for j in range(len(left_ss)-1):
   k=i*len(left_ss)+j
   faces.append((k,k+len(left_ss),k+len(left_ss)+1,k+1))
-mesh("wind eroded continuous left limestone heath ridge",vertices,faces,terrain_mat,"REAL_TERRAIN_STUDY_NO_COLLIDER",True)
+left_ridge=mesh("wind eroded continuous left limestone heath ridge",vertices,faces,terrain_mat,"REAL_TERRAIN_STUDY_NO_COLLIDER",True)
+# A1 frame showed an artificial dark join with the immutable old terrain.
+# Keep the genuine editable study geometry, but do not show a bad seam as art.
+left_ridge.hide_render=True
 
 # Position the waterfront interpretation / water safety station where
 # it is likely to register in the original near-chase frame. The station
@@ -308,18 +311,9 @@ for side in (-16.6,16.6):
  for i in range(len(points)-1):
   bar("route optical guide rail %g %03d"%(side,i),points[i],points[i+1],.062,steel,"NO_COLLIDER_RACE_VISUAL")
 
-# Two narrow irregular seam lines on the source-locked road are material
-# variations, not fake road width/physics and not repetitive checkerboard.
-dark=palette("subtle road longitudinal wheel polish",(.09,.097,.105),(.155,.158,.164),.48,.77)
-for side in (-3.5,3.5):
- vs=[]
- for d in range(20,166,5):
-  for s in (side-.17,side+.17):
-   z=road_z(d,s)
-   assert z is not None
-   vs.append(P(d,s,z-C.z+.032))
- fs=[(i*2,(i+1)*2,(i+1)*2+1,i*2+1) for i in range(len(vs)//2-1)]
- mesh("low contrast wheel path %g"%side,vs,fs,dark,"ROAD_SURFACE_ONLY_NO_PHYSICS")
+# A1 genuine visual review found the thin wheel-path stripes looked like
+# fake bright straight painted ribbons. Reject them rather than repeating
+# unconvincing decoration; physically original Road5 remains untouched.
 
 assert original_poses()==poses,"source camera mutation"
 assert (tuple(cam.location),tuple(cam.rotation_euler),float(cam.data.lens))==cam_pose,"CHASE camera mutation"
@@ -367,6 +361,8 @@ audit={
  "originalRealK4BVCanopyTreeUnchanged":True,
  "nativeTrueCC0CanopyPreservedNotCloned":True,
  "authorStudyElements":len(object_names),
+ "leftRidgeExperimentSavedButRenderHiddenAfterA1ArtReject":True,
+ "fakeStraightWheelMarkStudyRemovedAfterA1ArtReject":True,
  "artAuthorship":"one shell-roof maritime public visitor and boat service building with glazed occupied frontage, tidal quay terraced public walk, continuous left natural ridge, noncolliding road patina and safety guides",
  "harborChoice":{"d":hub_d,"s":hub_s,"cameraX":round(hub_x,4),"cameraY":round(hub_y,4)},
  "frameProjections":projections,"sourceB48Roads":7,"sourceB51Movers":28,
