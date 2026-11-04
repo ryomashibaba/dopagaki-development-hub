@@ -1,0 +1,151 @@
+name: DOPAGAKI K4BP controlled-source camera vs independent road research ART HOLD
+on:
+  push:
+    branches: [research/k4bp-camera-and-road-composition-study-20261104]
+    paths:
+      - scripts/p101-k4bp-authentic-camera-composition-study.py
+      - .github/workflows/p101-k4bp-controlled-camera-road-study.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bp-authentic-camera-contrast
+  cancel-in-progress: true
+jobs:
+  native-research-3d-contrasts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enforce research branch, frozen game, source tests, syntax
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bp-camera-and-road-composition-study-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bp-authentic-camera-composition-study.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download exact verified original native Blender source-camera parent
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BO_NATIVE_FIXED_CAMERA_FOREGROUND_RACE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41779198031
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bp/parent
+      - name: Independently verify all frozen actual K4BO parent source DCC bytes
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          p=Path('research/evidence/k4bp/parent')
+          j=json.loads((p/'K4BO_SOURCE_FRAME_AND_RACING_ART_PROVENANCE.json').read_text())
+          assert j['frozenOriginalGameSourceGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['road5OriginalGeometryPreserved'] and j['sourceCameraNumericalPosesPreserved']
+          assert j['sourceB48Roads']==7 and j['sourceB51Movers']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusMetres']==.65
+          assert j['formallyAdoptedArt']==0 and j['formalSlope2DNAMetres']==0
+          for name,meta in j['files'].items():
+            data=(p/name).read_bytes()
+            assert len(data)==meta['bytes'] and hashlib.sha256(data).hexdigest()==meta['sha256'],name
+          assert j['files']['K4BO_EDITABLE_GROUND_TRUTHED_VELOCITY_DCC_HOLD.blend']['sha256']=='b546174d5ae5186015981f2d6b5ee40f823cb7a4f2f9ba33f07c2bbda84264e6'
+          print('K4BP_ORIGINAL_CAMERA_SOURCE_ALL_PARENT_BYTES_VERIFIED')
+          PY
+      - name: Install tested Blender 4 EEVEE headless OpenGL and image review
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil fonts-dejavu-core xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: Real Blender three independent camera/geometry compositions
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bp/render
+          xvfb-run -a -s '-screen 0 1920x1200x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4bp-authentic-camera-composition-study.py -- \
+              --base research/evidence/k4bp/parent/K4BO_EDITABLE_GROUND_TRUTHED_VELOCITY_DCC_HOLD.blend \
+              --out research/evidence/k4bp/render
+      - name: Independently audit the editable .blend, original camera invariants, all four distinct screenshots
+        run: |
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          p=Path('research/evidence/k4bp/parent')
+          d=Path('research/evidence/k4bp/render')
+          j=json.loads((d/'K4BP_SOURCE_AND_RESEARCH_CAMERAS_PROVENANCE.json').read_text())
+          assert j['frozenOriginalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5VertexFaceFingerprintUnchanged']
+          assert j['allSixOriginalSourceCameraPosesLensUnchanged']
+          assert j['originalB48RoadCount']==7 and j['originalB51MoverCount']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusMetres']==.65
+          assert j['newGameCollisionCount']==0 and j['gameSourceEdited'] is False
+          assert j['trueWebGL2GameScreenshot'] is False
+          assert j['ART']=='UNJUDGED_HOLD' and j['formalArtAcceptedCount']==0
+          assert j['formalSlope2DNAMetres']==0
+          assert j['narrowRoadIsNewIndependentNonGameVisualMesh']
+          assert abs(j['narrowResearchTrackHalfWidthMetres']-13.1)<1e-6
+          assert len(j['researchScenarios'])==3
+          baseline=j['originalSourceAndThreeResearchCameraMetrics']['ORIGINAL_CONTROL_11307']
+          assert 0.025<baseline['sourceRoadCenterlineScreenYSpread70to170']<0.05
+          assert all(x in j['originalSourceAndThreeResearchCameraMetrics'] for x in
+                    ['CHASE_OBLIQUE_LOW','HARBOR_3QUARTER','NARROW_FIXED_ORIGINAL_POSE'])
+          unchanged=j['originalSourceAndThreeResearchCameraMetrics']['NARROW_FIXED_ORIGINAL_POSE']
+          assert unchanged['lensMm']==baseline['lensMm']
+          assert unchanged['cameraPos']==baseline['cameraPos']
+          assert unchanged['cameraEuler']==baseline['cameraEuler']
+          for name,meta in j['files'].items():
+            raw=(d/name).read_bytes()
+            assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          imgs=[('ORIGINAL B48 / ORIGINAL SOURCE CAMERA (prior K4BO)',
+                 p/'K4BO_CONTROL_11307_TRUE_SOURCE_CAMERA_ART_UNJUDGED.png')]
+          imgs += [
+              (x['scenario']+' / RESEARCH ONLY / NOT B48 GAME',
+               d/x['file']) for x in j['researchScenarios']]
+          canvas=Image.new('RGB',(1980,1310),(16,18,22))
+          pen=ImageDraw.Draw(canvas)
+          for i,(text,img) in enumerate(imgs):
+             a=Image.open(img).convert('RGB')
+             assert a.size==(1440,900)
+             assert sum(ImageStat.Stat(a).stddev)>9
+             xy=(10+(i%2)*990,35+(i//2)*655)
+             canvas.paste(a.resize((955,596)),xy)
+             pen.text((xy[0],xy[1]-22),text,fill=(240,237,224))
+          for i in range(1,4):
+             orig=Image.open(imgs[0][1]).convert('RGB').resize((955,596))
+             cand=Image.open(imgs[i][1]).convert('RGB').resize((955,596))
+             assert ImageChops.difference(orig,cand).getbbox() is not None
+          name='K4BP_ORIGINAL_VS_TWO_ALT_CAMERAS_VS_INDEPENDENT_ROAD_ART_STUDY.png'
+          canvas.save(d/name)
+          raw=(d/name).read_bytes()
+          j['independentFourFrameComparison']={
+             'file':name,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),
+             'labels':[x[0] for x in imgs]}
+          (d/'K4BP_SOURCE_AND_RESEARCH_CAMERAS_PROVENANCE.json').write_text(
+             json.dumps(j,ensure_ascii=False,indent=2))
+          print('K4BP_NATIVELY_RENDERED_4_FRAME_SOURCE_PROTECTED_RESEARCH_TECH_ONLY')
+          PY
+      - name: Only save genuine source/candidate comparison and independent provenance into research branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bp-camera-and-road-composition-study-20261104
+          mkdir -p docs/research-evidence/k4bp
+          cp research/evidence/k4bp/render/K4BP_*_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png docs/research-evidence/k4bp/
+          cp research/evidence/k4bp/render/K4BP_ORIGINAL_VS_TWO_ALT_CAMERAS_VS_INDEPENDENT_ROAD_ART_STUDY.png docs/research-evidence/k4bp/
+          cp research/evidence/k4bp/render/K4BP_SOURCE_AND_RESEARCH_CAMERAS_PROVENANCE.json docs/research-evidence/k4bp/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4bp
+          if ! git diff --cached --quiet; then
+           git commit -m "evidence(k4bp): true source B48 vs separate camera and non-game road art directions"
+           git fetch --no-tags origin "$GITHUB_REF_NAME"
+           git rebase FETCH_HEAD
+           git push origin HEAD:refs/heads/research/k4bp-camera-and-road-composition-study-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BP_SOURCE_PROTECTED_CAMERA_VS_ALTERNATE_ROAD_EDITABLE_DCC_ART_HOLD
+          path: research/evidence/k4bp/render/
+          retention-days: 21
+          if-no-files-found: warn
