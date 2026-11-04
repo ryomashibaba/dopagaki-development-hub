@@ -1,3 +1,9 @@
-# K4BW A2 final status
+# K4BW A2 最終真正監査 — TECH PASS／ART REJECT
 
-TECH PASS (existing native artifact independently replayed in Actions #41819493849). ART REJECT. Formal art accepted: 0. Slope2 DNA: 0 m. Next: K4BX overall composition design.
+2026-11-04 JST。研究隔離枝 `research/k4bw-coastal-viaduct-harbor-composition-20261104`。
+
+- A1 [Actions #41818181545](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41818181545) SUCCESS：元K4BV編集可能Blender原本から、海辺の案内・船舶サービス施設、観覧デッキ、護岸、研究路面、左斜面を真正BLENDに作者実装。しかし実画像は左斜面に不自然な継ぎ目、路面に白青の長い筋が生じ、**ART REJECT**。
+- A2修正 `ad0f77659502f8e06cf10956c4100c42a344eade`：不自然な左斜面研究メッシュは削除せずRender OFF、別の不自然な線形タイヤ筋は除去。元Game/Road5/Camera/元真木不変。[Actions #41818853277](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41818853277) は真.blendとPNG作成済みだが**「平均RGB差分>2」の不適切な閾値でFAILURE**。
+- 真のA2 Artifact #13315569257を再レンダリングせず再利用し、[独立Replay #41819493849](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41819493849) SUCCESS。ZIP 112,323,131 bytes／SHA256 `a6b68efc7bbf39a019209133dc0a69d99f2cf6758ba9cfcdf2743b73fab40188`、独立CRC PASS。編集可能.blend 260,267,928 bytes／SHA256 `62c2990e6687ea092a8151339b37fdb0cb8ad156b5dffac1a593218b2c517c02`。実CHASE 768×480 PNG 477,182 bytes／SHA256 `542c765f92c5bc0007c7883dd407b72467e889504cf02c56b9cc5bc726710372`。[本物の同CHASE比較画像](K4BW_A2_VS_K4BV_SAME_CHASE_REAL_ART_REVIEW_NOT_GAME.png) SHA256 `baae72b8837c89576815f6756993033172617d8bd546bb5839b4d8bbd4eb1955`。RGB差分1.664456は**変更がある証拠であって美術品質の数値ではない**。元CIの恣意的閾値もcommit `410f79f41c1b8bcdb6039775e3ad1eefb619f811`で除去。
+- **実画像ART REJECT**：右に施設の構造・手すりが追加されたが、巨大な灰色直線道路が画面を支配。屋根が薄く、海岸と街区の生活感・遠景の奥行き・地形の質感が不足し、路面筋も残る。正式ART採用0件、Slope2 DNA0m。研究作成要素数141は品質指標でない。
+- 次K4BX：単純な箱・柵・量産植生ではなく、**道路を含む全画面の視線誘導・海岸の立体地形・港湾の生業と街区・遠景を一体の作者アートで再構成**する。元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元B48 Road5指紋 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元6Camera、B48 7Road/B51 28Mover/240Hz/球0.65m、main/公式P101/Draft PR#46/本番保護。SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD。Work事前承認、追加有料APIなし。
