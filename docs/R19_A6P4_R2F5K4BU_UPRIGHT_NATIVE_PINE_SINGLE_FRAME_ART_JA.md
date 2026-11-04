@@ -10,7 +10,7 @@
 
 ## K4BU実装の範囲
 
-`scripts/p101-k4bu-upright-pine-one-frame.py`：元K4BS.blend SHAロック読込→ K4BT投影JSONの実数値を継承 → 元GLTF 3メッシュの実ワールド/Model bboxを再構成してK4BTの木0真Boundsと比較 → **元GLTF長軸Xが鉛直Zより1.35倍以上長い場合だけ**、オフスクリーンの木0の**元モデル座標をX→上方向Zへ回す**研究変換を試す。元の最大長から8.2mという研究上の樹高へ一様スケールを組み直す。元Blender/Cameras/Road5/B51/ゲームファイルと残り7本のTransformを変更しない。
+`scripts/p101-k4bu-upright-pine-one-frame.py`：元K4BS.blend SHAロック読込→ K4BT投影JSONの実数値を継承 → 元GLTF 3メッシュの実ワールド/Model bboxを再構成してK4BTの木0真Boundsと比較 → **元GLTF長軸Xが鉛直Zより1.35倍以上長い場合だけ**、オフスクリーンの木0の**元モデル座標をX→上方向Zへ回す**研究変換を試す。元の最大長から8.2mという研究上の樹高へ一様スケールを組み直す。**K4BSはモデル外接形状の中心を地表高-0.25mへ置いたため、木の下半分が地中側に入る配置だった。K4BUは回転・スケール後の実Bounding Footを地表+0.15mへ置き、下端を浮かせすぎず地中へ埋めずに可視化する。**元Blender/Cameras/Road5/B51/ゲームファイルと残り7本のTransformを変更しない。
 
 研究用CHASEのカメラ空間に真meshの候補を投影し、`d=55〜154m、s=-26〜-62m`の既存地形の道路外側から**画面内で明確に読める可能性の高い候補を一つだけ採用**。木が実画面に見えるか確かめるため、**本物のBlender EEVEE 768×480px、同CHASE研究Camera、1枚のみ**を描画する。研究専用の編集可能な.blend（Artifact）と旧K4BS同研究Cameraの比較PNG・SHA監査JSONを保存する。新しい外部アセットの取得なし、実ゲームWebGL2ではなく、Art合格やFPS合格ではない。
 
