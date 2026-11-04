@@ -155,6 +155,10 @@ for i in range(len(ds)-1):
   p=i*len(ss)+j
   faces.append((p,p+len(ss),p+len(ss)+1,p+1))
 headland=mesh("continuous inland headland hills and natural erosion",verts,faces,rock,"COASTAL_ROCK_HEADLAND_NOT_COLLIDER",True)
+# A1 real image revealed a black triangular cliff and a bright artificial
+# seam against the real K4BW terrain. Preserve geometry for diagnosis,
+# but explicitly REJECT its render; no attempt to call that art progress.
+headland.hide_render=True
 # A second connected darker spine behind for atmospheric depth, fully
 # 3D swept land rather than flat backdrop geometry.
 ridges=[]
@@ -168,7 +172,39 @@ nr=4;count=len(ridges)//nr
 for i in range(count-1):
  for j in range(nr-1):
   p=i*nr+j;ridgefaces.append((p,p+nr,p+nr+1,p+1))
-mesh("distant actual layered coastal mountain landform",ridges,ridgefaces,distant,"DISTANT_ATMOSPHERIC_RIDGE",True)
+farhill=mesh("distant actual layered coastal mountain landform",ridges,ridgefaces,distant,"DISTANT_ATMOSPHERIC_RIDGE",True)
+farhill.hide_render=True
+
+# A2 authoring: continuous low limestone ridges BEHIND the source road
+# crest, not a black sharp diagonal or flat painted background. Their
+# bottom flank is behind the original foreground (source meshes intact).
+low_ds=list(range(190,455,10))
+low_ss=(31,44,58,74,92,114,141,172)
+low_verts=[]
+for dd in low_ds:
+ for ss0 in low_ss:
+  u=(ss0-31)/141
+  erosion=(1.1*sin(dd*.040+ss0*.025)+1.7*cos(dd*.079-ss0*.035))
+  z=-4.2+(7.5+15.0*u**.85)+5.0*sin(dd*.022+.4)**2*u+erosion*u
+  z-=(dd-190)*.008
+  low_verts.append(put(dd,ss0,z))
+low_faces=[]
+for i in range(len(low_ds)-1):
+ for k in range(len(low_ss)-1):
+  n=i*len(low_ss)+k
+  low_faces.append((n,n+len(low_ss),n+len(low_ss)+1,n+1))
+new_cliff=mesh("low naturally eroded hillside beyond the original crest A2",low_verts,low_faces,rocklight,"SOURCE_PROTECTED_PALE_HEADLAND",True)
+# Variation in more distant terrain: broad, low, lighter silhouette.
+h_ds=list(range(290,560,15))
+h_ss=(100,144,187,246)
+h_verts=[put(dd,ss0,9+(ss0-100)*.11+3.5*sin(dd*.026+ss0*.009))
+         for dd in h_ds for ss0 in h_ss]
+h_faces=[]
+for i in range(len(h_ds)-1):
+ for k in range(len(h_ss)-1):
+  n=i*len(h_ss)+k
+  h_faces.append((n,n+len(h_ss),n+len(h_ss)+1,n+1))
+mesh("subtle distant muted maritime headland A2",h_verts,h_faces,distant,"SOURCE_PROTECTED_FAR_GEOLOGY",True)
 
 # 2) A broad true waterfront district on the RIGHT behind the crest.
 # Its sloped rock shelf, ferry quay and boat basin are a coherent 3D
@@ -268,14 +304,14 @@ def find_site(targetx,targety,basez,roofheight,ds,ss):
 # Port skyline screened to the frozen actual camera. The two principal
 # occupied halls are deliberately spaced and asymmetric, each serving
 # a concrete destination/use on the right hillside.
-site1=find_site(.76,.39,-10.3,21.0,range(185,296,12),range(-114,-28,8))
-site2=find_site(.90,.43,-12.1,16.0,range(193,302,13),range(-154,-54,10))
+site1=find_site(.75,.61,-10.3,24.0,range(126,218,9),range(-105,-35,7))
+site2=find_site(.88,.605,-12.1,21.0,range(144,239,9),range(-129,-49,8))
 _,d1,s1,q1=site1
 _,d2,s2,q2=site2
 hall1=roofed_hall("working fish auction and cold chain sorting hall",
-                  d1,s1,26,14,-10.3,15.8,5.2,plaster,slate)
+                  d1,s1,32,16,-10.3,18.3,5.7,plaster,slate)
 hall2=roofed_hall("regional island ferry arrivals and weather refuge",
-                  d2,s2,20,11,-12.1,12.5,3.5,ochre,rocklight)
+                  d2,s2,25,13,-12.1,16.9,4.1,ochre,rocklight)
 
 # Port-operations VTS attached to the fish sorting building, not a
 # free-standing false lighthouse: glazed watch-room and a small signal.
@@ -295,7 +331,7 @@ strut("VTS radio equipment antenna",mast+Vector((0,0,15)),mast+Vector((0,0,20)),
 
 # Working quayside crane: finite diagonal truss and actual suspended hook.
 # Just one distinctive machine, not a repeated skyline of poles.
-crane_site=find_site(.68,.345,-9.0,37.0,range(197,304,12),range(-128,-48,10))
+crane_site=find_site(.685,.635,-9.0,37.0,range(150,245,10),range(-110,-40,10))
 _,cd,cs,cq=crane_site
 foot=put(cd,cs,-9)
 apex=foot+Vector((0,0,30))
@@ -380,9 +416,10 @@ for i,dd in enumerate((218,278,342)):
   (dd-18,ss0-14,16),(dd+16,ss0-11,18),
   (dd+22,ss0+18,33),(dd-21,ss0+19,34)):
   outline.append(put(d,s,h))
- mesh("stratified headland visible real bedrock layer "+str(i),outline,
+ rejected_strata=mesh("stratified headland visible real bedrock layer "+str(i),outline,
  [(0,1,2,3),(4,5,6,7),(0,1,5,4),(1,2,6,5),(2,3,7,6),(3,0,4,7)],
  rocklight,"TRUE_GEOLOGICAL_LIMESTONE_STRATA")
+ rejected_strata.hide_render=True
 
 # Keep natural old geology; no new flat stripe over the real source asphalt.
 assert original_poses()==poses
@@ -440,6 +477,9 @@ audit={
  "sites":{"fish":site1[:3],"ferry":site2[:3],"crane":crane_site[:3],"boat":boatcentre[:3],"village":village},
  "cameraSpaceAnchors":anchors,
  "researchMaterialAsphaltStudyChangedNotSourceRoad":True,
+ "a1BlackTriangularCliffRejectedAndRenderHidden":True,
+ "a1StrataEdgeDefectsRejectedAndRenderHidden":True,
+ "a2PaleGeologicalBackdropBuiltBehindRoad":True,
  "realNativeRender":True,"imageSizePx":[768,480],
  "actualColorSilhouettes":"NOT_MEASURED_BY_WORLD_BOUNDS",
  "ART":"UNJUDGED_HOLD","formalArtAccepted":0,"formalSlope2DNAMetres":0,
