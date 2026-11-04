@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CD最新工程：真正K4CC親原本を保持した港湾フェリー・海面研究／実装GitHub保存／CI要確認】
+
+研究ブランチ：`research/k4cd-real-ferry-waterfront-hero-20261105`。**最初に[この工程の完全根拠・失敗ログ・正本保護・最新CI状態](docs/R19_A6P4_R2F5K4CD_TRUE_MARINE_FERRY_ART_HOLD_JA.md)を読む**。下段「現行」「最新」は履歴。次に[Actions #41929801390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41929801390)の**現時点の最新結論／Artifact**を必ず調べ、成功やレンダーを先取りしない。
+
+- 旧K4CC修正版 [#41922703441](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41922703441) completed/SUCCESS、元K4CC真編集可能Blender SHA256 `4fcd20db998696c270df95f624fed1a229ae2703322c180de1f3bfbc15abd6da`／元CHASE PNG SHA256 `210ef2464b2f2d23f8de17a9a71dfc7f6ef764d6065be04b535e86df87acad71`、原本Artifact ZIP全CRC/独立SHA検証済。**TECH PASS／ART REJECT**。左地形の接続は改善、道路が画面を支配し右港の機能が読めない。
+- K4CDは独立する真の作者工程。元A3にある乗船スロープを実幾何学的に参照し、**帆布や箱の量産ではなく実メッシュの海上旅客船体（船首・チャイン・キール）、乗船デッキ・旅客キャビン・船窓・曲面屋根・広い波面**を新しい編集可能Blenderに構築するコード＋真正CIをGitHub研究枝に実装済み。船体係留候補の画面投影x>0.505等の保護を保持。原Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`／元Road5全頂点面 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`／元Camera6＋CHASE／樹木11／照明／既存全オブジェクトの表示・行列／K4BZ悪い重複道路非表示を維持。
+- 初回真正Actions [#41929001183](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41929001183)は**FAILURE、安全停止**。A3元スロープ端が元CHASE x=0.53046に投影され、元29m船を係留しようとすると道路保護の安全視界と両立せず、`NO_WATERSIDE_FERRY_LOCATION_WITHOUT_CAMERA_OR_ROAD_INTRUSION`。新船のレンダー／TECH PASSは成立せず。
+- 修正commit `4eea4776156f56cb7a4e1ac027fb01632062af2a` は**カメラも安全閾値も緩めず**実船サイズ19.7〜29m／係留場所の探索範囲のみ広げた。修正後[Actions #41929801390](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41929801390)は、この文書記録時点でBlender導入ステップの**in_progress**。現在の最終結果を再取得し、元Blenderバイト/PNG/CRC／本物の画像直接評価に進むこと。run中なら未達を認め、合格と偽称しない。
+- **正式ART採用0件／Slope2 DNA正式認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD**。元Slope・main・公式P101・Draft PR#46・本番2サイト、原作道路・物理・Camera、元10+樹・旧研究DCCを保護。新ゲームCollider追加0、追加有料API原則0円、Work/Computer Use個別事前承認、ユーザー操作最小。ART合格まで他6道路展開・公開・merge禁止。
+
+---
+
 # 【2026-11-05 K4CC実制作／初回真正Blender TECH PASS・ART REJECT／最新修正版CI確認中】
 
 現在の唯一の研究引き継ぎ入口：`research/k4cc-coastal-relief-fullframe-art-20261105`。最初に[**K4CC真正3D左斜面＋右港画面回復・Native全SHA・初回ART REJECT・修正版の安全な状況**](docs/R19_A6P4_R2F5K4CC_NATIVE_COASTAL_RELIEF_ART_JA.md)を全文読み、[A3とK4CC真同CHASE比較画像](docs/research-evidence/k4cc/K4CC_A3_VS_TRUE_COASTAL_RELIEF_ART_REVIEW_NOT_GAME.png)、[真正監査JSON](docs/research-evidence/k4cc/K4CC_REAL_NATIVE_AUDIT.json)を確認。下の「最新」は旧時点の履歴。
