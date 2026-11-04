@@ -1,0 +1,13 @@
+{
+  "schema": "dopagaki.original_road_5_shade_only/1",
+  "atlas": "K4BN_ORIGINAL_TRACK_MARKING_ATLAS_RGBA.png",
+  "width": 2048,
+  "height": 4096,
+  "source_camera_mapping": {
+    "u": "(lateral_s_metres+60)/150",
+    "v": "(forward_d_metres+65)/275"
+  },
+  "game_source_modified": false,
+  "native_road_collision_modified": false,
+  "sha256": "8faedfa11c8b3c3ee5e0e8614206230103ada994074646e853422fc8d1e813cb"
+}

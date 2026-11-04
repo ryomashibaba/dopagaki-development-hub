@@ -1,0 +1,169 @@
+{
+  "schema": "dopagaki.K4BN.track-painted-livery-and-functioning-harbor/1",
+  "parentK4BMNativeBlenderSHA256": "7297b0ea17ffacb7f2c84cecf901947ce11de4e0a91ff4c93703f43cbe7b4a80",
+  "originalRacePaintAtlasSHA256": "8faedfa11c8b3c3ee5e0e8614206230103ada994074646e853422fc8d1e813cb",
+  "paintAtlasPackedInNativeBlender": true,
+  "obsoleteK4BMDistantCityHiddenNotDeleted": true,
+  "frozenSourceGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5VertexAndFaceFingerprintPreserved": true,
+  "sourceCameraNumericPosesAndLensUnchanged": true,
+  "realRoad5SectionsMeasured": [
+    {
+      "d": -25,
+      "left": -36,
+      "right": 50,
+      "lz": -15.312423706054688,
+      "rz": -10.281661987304688,
+      "count": 44
+    },
+    {
+      "d": 0,
+      "left": -38,
+      "right": 50,
+      "lz": -11.693161010742188,
+      "rz": -6.6999359130859375,
+      "count": 45
+    },
+    {
+      "d": 25,
+      "left": -38,
+      "right": 52,
+      "lz": -8.234176635742188,
+      "rz": -3.4489593505859375,
+      "count": 46
+    },
+    {
+      "d": 50,
+      "left": -38,
+      "right": 56,
+      "lz": -5.0966033935546875,
+      "rz": -0.5796356201171875,
+      "count": 48
+    },
+    {
+      "d": 75,
+      "left": -38,
+      "right": 58,
+      "lz": -2.3112030029296875,
+      "rz": 1.6639556884765625,
+      "count": 49
+    },
+    {
+      "d": 100,
+      "left": -38,
+      "right": 62,
+      "lz": 0.0910186767578125,
+      "rz": 3.4417266845703125,
+      "count": 51
+    },
+    {
+      "d": 125,
+      "left": -36,
+      "right": 66,
+      "lz": 2.1435089111328125,
+      "rz": 4.6220245361328125,
+      "count": 52
+    },
+    {
+      "d": 150,
+      "left": -34,
+      "right": 70,
+      "lz": 3.7089996337890625,
+      "rz": 5.1790313720703125,
+      "count": 53
+    },
+    {
+      "d": 170,
+      "left": -34,
+      "right": 72,
+      "lz": 4.5409698486328125,
+      "rz": 5.1279449462890625,
+      "count": 54
+    }
+  ],
+  "originalB48Roads": 7,
+  "originalB51Movers": 28,
+  "originalPhysicsHz": 240,
+  "originalBallRadiusM": 0.65,
+  "retainedPriorUnapprovedArtHiddenNotDeleted": [
+    "K4BH | 01 CROSS-RIVER MONUMENTAL GATE",
+    "K4BH | 02 LANDSCAPED INHABITED STREET WALLS",
+    "K4BH | 03 INNER LIBRARY AND CONSERVATORY",
+    "K4BH | 04 FAR URBAN DEPTH AND LANDMARKS",
+    "K4BH | 05 TERRACES AND SEA CLIFF",
+    "K4BH | 06 PRACTICAL LUMINAIRES",
+    "K4BI | 01 ROAD TEXTURE RACING ART DCC ONLY",
+    "K4BI | 02 VARYING PUBLIC FACADE AND STRUCTURE",
+    "K4BI | 03 LIT LIBRARY AND TIDAL CONSERVATORY RECESSES",
+    "K4BI | 04 ARCHITECTURAL DETAILS NOT COLLIDERS",
+    "K4BI | 05 CIVIC PORTICO ARTICULATED NEGATIVE SPACE",
+    "K4BI | 06 PRACTICAL WARM LIGHT IN ROOMS",
+    "K4BJ | 01 WEST CARVED LIBRARY | author surface",
+    "K4BJ | 02 EAST TERRACED MARINE STATION | author surface",
+    "K4BJ | 03 THE TIDAL LENS | split keel landmark",
+    "K4BJ | 04 BACKGROUND LIVING COASTAL SKYLINE",
+    "K4BJ | 05 OFFROAD HANDCRAFTED BARRIERS",
+    "K4BJ | 06 PRACTICAL LIGHTING",
+    "K4BK | 01 WEST CERAMIC EXCHANGE | real B48 scale",
+    "K4BK | 02 EAST HARBOR TERMINAL | real B48 scale",
+    "K4BK | 03 NATIVE B48 EDGE + STONE LANDSCAPE",
+    "K4BK | 04 SPANNING TIDAL ATRIUM | real d=145m",
+    "K4BK | 05 DISTANT SCALED CITY + TERRACE",
+    "K4BK | 06 DAYLIGHT + OCCUPIED ROOMS",
+    "K4BL | 01 calibrated coastal road margins",
+    "K4BL | 02 WEST quarry-terraced reading institute",
+    "K4BL | 03 EAST offshore passenger terminal",
+    "K4BL | 04 inhabited harbor skyline and quays",
+    "K4BL | 05 tidal geology water and maritime pines",
+    "K4BL | 06 original-camera legible wayfinding",
+    "K4BL | 07 practical and natural lights",
+    "K4BM | 05 distant functioning dock structures"
+  ],
+  "independentEditableResearchObjects": 122,
+  "nativeUVEditedResearchMeshes": 122,
+  "originalFixedSourceCameraDCCImages": [
+    {
+      "mode": "control",
+      "tick": 11307,
+      "file": "K4BN_CONTROL_11307_ACTUAL_SOURCE_CAMERA_UVPBR_ART_HOLD.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "file": "K4BN_ULTRA_11341_ACTUAL_SOURCE_CAMERA_UVPBR_ART_HOLD.png"
+    }
+  ],
+  "nativeRenderEngine": "BLENDER_EEVEE",
+  "newPlayableGameCollisionMeshes": 0,
+  "gameSourceModified": false,
+  "isGameWebGLFrame": false,
+  "ART": "UNJUDGED_HOLD",
+  "formalArtAccepted": 0,
+  "formalSlope2DNAacceptedMetres": 0,
+  "B51_CLEARANCE": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "HUMAN": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BN_UV_PBR_AUTHOR_SCULPTED_EDITABLE_DCC_ART_HOLD.blend": {
+      "bytes": 41360892,
+      "sha256": "41f72017d74fa5a09d33cb5773d52f2e7b487ab9e6e446618de79ac3df6bb386"
+    },
+    "K4BN_CONTROL_11307_ACTUAL_SOURCE_CAMERA_UVPBR_ART_HOLD.png": {
+      "bytes": 1656625,
+      "sha256": "b187766786c5a33625700da10837115873cc14deb63bd33ca6e7a1e73688aefd"
+    },
+    "K4BN_ULTRA_11341_ACTUAL_SOURCE_CAMERA_UVPBR_ART_HOLD.png": {
+      "bytes": 1632686,
+      "sha256": "8660776d4c1de81f7e4d6763659118ab35805b80b3d7274d90372cfe5958086a"
+    }
+  },
+  "independentlyVerifiedSameCameraAB": {
+    "file": "K4BN_VS_K4BM_SAME_TRUE_SOURCE_CAMERA_ART_REVIEW_NOT_GAME.png",
+    "bytes": 1727357,
+    "sha256": "d951c8f74b04dfa8d7f200659f14cfd2e4304b18124171774e13580e3ee72588"
+  }
+}
