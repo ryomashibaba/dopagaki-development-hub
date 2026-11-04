@@ -102,6 +102,11 @@ jobs:
           left=sum(max(px)>15 for px in diff.crop((5,200,245,400)).getdata())
           assert right>650,('FERRY_AND_SEA_NOT_VISIBLE_ENOUGH_IN_TRUE_CHASE',right)
           assert left<60,('LEFT_GEOLOGY_CHANGED_DESPITE_FREEZE',left)
+          control=Image.open(d/'K4CD_WATER_ONLY_NO_FERRY_TRUE_CHASE_NOT_GAME.png').convert('RGB')
+          assert control.size==(768,480)
+          ferry_diff=ImageChops.difference(control,new)
+          ferry_visible=sum(max(px)>18 for px in ferry_diff.crop((488,105,768,470)).getdata())
+          assert ferry_visible>350,('FERRY_TECH_NOT_ACTUALLY_VISIBLE_OVER_HARBOR',ferry_visible)
           roadpts=[(390,270),(400,320),(380,380),(420,440),(470,465)]
           for pt in roadpts:
               p=prev.getpixel(pt);q=new.getpixel(pt)
@@ -124,6 +129,7 @@ jobs:
           cmp='K4CD_K4CC_VS_TRUE_HARBOR_FERRY_SAME_CHASE_ART_REVIEW_NOT_GAME.png'
           canvas.save(d/cmp)
           a['imageIndependentQA']={'rightPixelsChangedNotArtScore':right,
+              'ferryPixelsVisibleAgainstRealWaterOnlyNotArtScore':ferry_visible,
               'leftTerrainPixelsChangedNotArtScore':left,'roadOriginalPixels':roadpts,
               'K4BZOriginalWedgePairs':wedge,'comparisonName':cmp,
               'comparisonSHA256':hashlib.sha256((d/cmp).read_bytes()).hexdigest(),
