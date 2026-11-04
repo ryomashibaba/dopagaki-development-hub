@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BU最終確定・次K4BVへ】本物のBlender針葉樹1本の位置/植え込み修正TECH PASS・ART REJECT
+
+**最終隔離研究枝** `research/k4bu-upright-pine-single-frame-art-study-20261104`。[**K4BU最終実Blender原本/全SHA・同CHASE実画像の美術REJECT・K4BVの作者方針**](docs/R19_A6P4_R2F5K4BU_UPRIGHT_NATIVE_PINE_SINGLE_FRAME_ART_JA.md)を先に読む。以下の「最新」「未確認」はすべて履歴。
+
+- 真正[最終Actions #41801261499](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41801261499) は **completed/SUCCESS**。初回 #41800959567 はK4BSの木が半分地面に埋まる問題を修正したため**CANCELLED**。元真正K4BS Blender SHA256 `156e56ce373b731f1f0c8f96278a11977ac93d491973c2e8ef796ec1ea7795de` の実アセットを読み、元Game/Road/Camera変更0、元実木398,144tri×共有8本。実木0のGLTF主軸を鉛直に補正、道路前方 d=66m／Road横 s=-26m、実BBox下端地表+0.15m。**旧画像外→画面内BBox幅32.627px×高さ106.078px（旧1280×800換算）**、真正Eevee同CHASE768×480研究PNG1枚を取得。ただしBBoxは葉の実可視面積の証拠ではない。
+- [Artifact #13307768050](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41801261499/artifacts/13307768050) ZIP SHA256 `77a333b09e975836bb5e17117b42067b390dff0d8f001fd79a108bb6ae7f1df0`、全CRC PASS、編集可能`.blend` SHA256 `2536375f40e6a20e0061b80aba100c2469cfeacde814f4c127ff194201ba3064`、元CHASE PNG SHA256 `57972945e3ddeea0ebb78364059fb47c8782cd738cbe6557c151e5255ecbbcf9`、[同CHASE旧新比較画像](docs/research-evidence/k4bu/K4BU_VS_K4BS_SAME_CHASE_ONE_NATIVE_UPRIGHT_PINE_ART_REVIEW_NOT_GAME.png)。すべて独立コンテナでZIP実バイトのSHA検証合格。
+- **本物の画像美術ART REJECT**。木の細い姿は画面右に現れたが、疎な枝・弱いシルエットで自然な成木の樹冠には見えない。道路は依然広大な灰色の上り直線、港湾と自然と公共空間は空白が多く世界水準から遠い。**正式ART採用0件／Slope2 DNA0m**。技術PASSは美術合格の証明ではない。
+- **次K4BV**：元`pine_sapling_small`を8本に機械複製・2枚高負荷レンダリングしない。真正自然樹冠のアセット/作者配置/最低限の実見た目検証→同CHASE1画面の高品質港湾・海岸の実作者設計。1画面ART合格まで他6道路展開なし。元Game Git Blob `af076d67492a677d2235e4730aef8cdf4808e106`、B48 Road5 fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、7実Road/B51 28体/240Hz/球0.65m/元6Camera厳守。main、公式P101、Draft PR#46、本番2サイト変更禁止。HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。追加課金0円、Work/Computer Use事前承認、Windows操作0。
+
+---
+
 # 【2026-11-04 K4BU実制作・K4BT真正投影から1本だけ向きと位置を実Blender低負荷検証】
 
 最新の独立研究枝 `research/k4bu-upright-pine-single-frame-art-study-20261104`。[**K4BU真正CC0松の長軸/画面外配置を修正する最小1画像美術試験**](docs/R19_A6P4_R2F5K4BU_UPRIGHT_NATIVE_PINE_SINGLE_FRAME_ART_JA.md)を第一に読み、次に[K4BT真正Screen投影診断](docs/R19_A6P4_R2F5K4BT_NATIVE_PINE_CAMERA_PROJECTION_DIAGNOSIS_JA.md)、K4BS写真地表と木の正本を参照。下の旧「最新」は履歴。
