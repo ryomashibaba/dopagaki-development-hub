@@ -1,0 +1,37 @@
+name: DOPAGAKI K4CA real source-locked coastal frame and black-wedge regression
+on:
+  push:
+    branches: [research/k4ca-authentic-coastal-terrain-photo-canopy-one-frame-20261104]
+    paths:
+      - tests/p101-k4ca-protected-coastal-frame-regression.py
+      - .github/workflows/p101-k4ca-native-frame-region-regression.yml
+      - docs/research-evidence/k4ca/K4CA_SAME_CHASE_TWO_REAL_CC0_COASTAL_TREES_WEATHERED_HILLSIDE_NOT_GAME.png
+      - docs/research-evidence/k4ca/K4CA_TRUE_NATIVE_SLOPE_CC0_CANOPY_AUDIT.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  immutable-real-frame-no-fake-pass:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Keep main game SHA immutable and run Python syntax tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4ca-authentic-coastal-terrain-photo-canopy-one-frame-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile tests/p101-k4ca-protected-coastal-frame-regression.py
+      - name: Install PIL only, no Blender model download or rerender
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-pil
+      - name: Assert actual original K4BZ CHASE black seam remains absent after K4CA A2
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+          /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
