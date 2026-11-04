@@ -74,7 +74,7 @@ jobs:
             blender -b --factory-startup --python-exit-code 3 \
             --python scripts/p101-k4cb-source-locked-maritime-exchange.py -- \
             --base research/evidence/k4cb/parent/K4CA_COASTAL_SLOPE_PHOTO_CANOPY_EDITABLE_NATIVE_ART_HOLD.blend \
-            --out research/evidence/k4cb/render
+            --out research/evidence/k4cb/render 2>&1 | tee research/evidence/k4cb/render/K4CB_NATIVE_BLENDER_RUN.log
       - name: Independent full native SHA, same-camera genuine image and black-wedge 6-pair QA
         shell: bash
         run: |
@@ -137,6 +137,39 @@ jobs:
           git add docs/research-evidence/k4cb
           if ! git diff --cached --quiet; then
            git commit -m "evidence(k4cb): authentic source-locked harbor arcade same-CHASE art study, no formal acceptance"
+           git fetch --no-tags origin "$GITHUB_REF_NAME"
+           git rebase FETCH_HEAD
+           git push origin HEAD:refs/heads/research/k4cb-maritime-exchange-true-chase-20261105
+          fi
+      - name: Persist failure-only remote diagnostic for autonomous research repair
+        if: failure()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cb-maritime-exchange-true-chase-20261105
+          mkdir -p docs/research-evidence/k4cb
+          python3 - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          p=Path('research/evidence/k4cb/render/K4CB_NATIVE_BLENDER_RUN.log')
+          log=p.read_text(errors='replace') if p.exists() else ''
+          d={'schema':'dopagaki.k4cb.native-technical-hold/1',
+             'status':'TECH_HOLD_NOT_ART_PASS',
+             'workflowRunId':os.environ['GITHUB_RUN_ID'],
+             'workflowHeadSha':os.environ['GITHUB_SHA'],
+             'failedNativeStepLogAvailable':p.exists(),
+             'nativeLogTail':log[-12000:],
+             'nativeLogSHA256':hashlib.sha256(log.encode()).hexdigest() if log else None,
+             'formalArtAccepted':0,'formalSlope2DNAMetres':0,
+             'originalGameChanged':False,'productionOrMainPublished':False}
+          Path('docs/research-evidence/k4cb/K4CB_A1_LIVE_TECH_HOLD.json').write_text(
+              json.dumps(d,indent=2,ensure_ascii=False)+'\\n',encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4cb/K4CB_A1_LIVE_TECH_HOLD.json
+          if ! git diff --cached --quiet; then
+           git commit -m "evidence(k4cb): retain failed native diagnostic, no technical or ART acceptance"
            git fetch --no-tags origin "$GITHUB_REF_NAME"
            git rebase FETCH_HEAD
            git push origin HEAD:refs/heads/research/k4cb-maritime-exchange-true-chase-20261105
