@@ -1,3 +1,17 @@
+# 【2026-11-04 K4BL 現在の作業入口】Road5実寸の港湾景観ART-FIRST全面改修
+
+**継続研究ブランチ**：`research/k4bl-harbor-atmosphere-art-reconstruction-20261104`。[今回の上位方針・実制作コード・厳密な美術受入・真正CI実行記録](docs/R19_A6P4_R2F5K4BL_COASTAL_HARBOR_ART_DIRECTION_JA.md)を最初に読む。
+
+直前K4BKは本物のsource Road5測量9断面とBlenderネイティブDCC技術PASS・**ART REJECT**。正式採用0件／Slope2 DNA0m。薄い橋や前景の巨大壁、単調な灰色道路と水平線が主な問題。単純な箱増殖を繰り返すな。
+
+K4BLでは旧K4BK/BJ/BI/BH不採用美術レイヤを保持したまま描画のみOFF。真Road5をBlender内でRaycastしたCamera相対d,s,zで近景を低い海岸路側と植生・中景を公共図書館とフェリーターミナル・遠景を港湾都市、観測塔、船用クレーン、海と崖の地形として制作した。目標は**画面全体のビジュアル**であり、モデル数やマテリアル数は合格根拠でない。旧画面の構図から根本的に変更。**真元source Camera control11307/ultra11341の数値は不変**、本物のBlender原本と両画像、前K4BKと同視点比較、独立SHAが必須。
+
+[Actions #41749501857](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41749501857) は実CI状態とArtifactを必ず確認すること。**まだ美術合格を宣言していない**。元ゲームのWebGL2画像ではない。DCCレンダリング成功=美術PASSではない。世界品質に届かないならART REJECTと正式採用0件／DNA0mを維持。
+
+元ゲームGit blob `af076d67492a677d2235e4730aef8cdf4808e106`／Road5 source mesh fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、240Hz・球半径0.65m・B48実7・B51実28・元6Camera数値・安全案内不変、main／公式p101／Draft PR#46／本番2サイト保護。Work事前承認、ユーザーのWindows操作最小。SAT/CCD/HUMAN/FPS/RELEASE/MERGE/ART全HOLD。ART審査前の実ゲーム統合・他6道路への展開禁止。
+
+---
+
 # 【2026-11-04 K4BK最終引継ぎ入口】本物B48 Road5測量・Blender DCC技術PASS／ART REJECT
 
 最新研究隔離枝：`research/k4bk-ground-truthed-civic-roadside-20261104`。次のチャットは[実物道路9地点の測量、真Source Camera画像の美術評価、全実行・失敗反省をまとめたK4BK正本](docs/R19_A6P4_R2F5K4BK_ROAD_CALIBRATED_CIVIC_ART_JA.md)を最初に読む。旧K4BJ・K4BI以前の「最新」表記は履歴。
