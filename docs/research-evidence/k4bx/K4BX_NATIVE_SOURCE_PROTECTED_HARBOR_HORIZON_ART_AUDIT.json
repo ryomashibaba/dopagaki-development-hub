@@ -16,25 +16,25 @@
   "gameCollidersAdded": 0,
   "realK4BVCC0CanopyPreservedWithoutCopies": true,
   "authorIntent": "continuous eroded left headland + real distant foothill, right functional ferry/fish market and port navigation, lifting crane, tidal quay, moored vessel; fixed CHASE and physically unchanged source race road",
-  "newResearchObjects": 96,
+  "newResearchObjects": 98,
   "researchBuildings": 6,
   "researchWorkingBoats": 1,
   "researchCranes": 1,
   "sites": {
     "fish": [
-      0.026320000000000093,
-      180,
-      -70
+      0.04210999999999982,
+      196,
+      -82
     ],
     "ferry": [
-      0.07751000000000009,
-      153,
-      -89
+      0.11788000000000014,
+      202,
+      -118
     ],
     "crane": [
-      0.05939999999999992,
-      240,
-      -70
+      0.15027999999999997,
+      264,
+      -75
     ],
     "boat": [
       0.2581599999999999,
@@ -115,6 +115,12 @@
       "inFront": true,
       "inFrame": false
     },
+    "a3ActualHeadlandVisibleAnchor": {
+      "x": 0.285,
+      "y": 0.6,
+      "inFront": true,
+      "inFrame": true
+    },
     "distantHill": {
       "x": -0.19941,
       "y": 0.7905,
@@ -122,20 +128,20 @@
       "inFrame": false
     },
     "fishSortingAndVTS": {
-      "x": 0.75027,
-      "y": 0.60452,
+      "x": 0.77022,
+      "y": 0.57979,
       "inFront": true,
       "inFrame": true
     },
     "ferryTerminal": {
-      "x": 0.88082,
-      "y": 0.58499,
+      "x": 0.88303,
+      "y": 0.5398,
       "inFront": true,
       "inFrame": true
     },
     "craneJib": {
-      "x": 0.76679,
-      "y": 0.6233,
+      "x": 0.75382,
+      "y": 0.61348,
       "inFront": true,
       "inFrame": true
     },
@@ -156,6 +162,9 @@
   "a1BlackTriangularCliffRejectedAndRenderHidden": true,
   "a1StrataEdgeDefectsRejectedAndRenderHidden": true,
   "a2PaleGeologicalBackdropBuiltBehindRoad": true,
+  "a3PreviousLandmassArtifactsRejectedRenderHidden": true,
+  "a3NewPhysicalWorldDepthHill": true,
+  "a3OldFloatingVTSObjectsKeptButRenderHidden": 3,
   "realNativeRender": true,
   "imageSizePx": [
     768,
@@ -173,21 +182,21 @@
   "MERGE": "HOLD",
   "files": {
     "K4BX_HEADLAND_WORKING_SEAPORT_CINEMATIC_EDITABLE_NATIVE_ART_HOLD.blend": {
-      "bytes": 261294756,
-      "sha256": "56a5db02c7763757b0d2fb55e2533657d87761b627e75ca48d53395bd8acf487"
+      "bytes": 261313352,
+      "sha256": "1cdf3233d3b2b91b1e10b6f7b2212ef9ec74331667ca4129a4e96ce43b4c2179"
     },
     "K4BX_SAME_CHASE_HEADLAND_WORKING_SEAPORT_ART_HOLD_NOT_GAME.png": {
-      "bytes": 481099,
-      "sha256": "8db9e787aa5f05ffb306aac4cb7b092ab4c2d3a0424e8f199c6582e118805bd4"
+      "bytes": 479937,
+      "sha256": "4f6cb003a57fedefaed44ff39662398f44e3e00f30b5395fd4c0c8b8a2dc80ee"
     }
   },
   "sameChaseIndependentReview": {
     "file": "K4BX_VS_K4BW_A2_SAME_CHASE_TRUE_HARBOR_HEADLAND_ART_REVIEW_NOT_GAME.png",
-    "bytes": 403720,
-    "sha256": "4ce0eee76829ec5196cbd3a87af0ce62b09134dd6b5dca7035b93c00fbf96320",
+    "bytes": 400022,
+    "sha256": "241f30b06ee7f23342fd23399a08ae46ca74aa872834b57392583c1bc0ca24fc",
     "baseline": "authentic K4BW A2 GitHub SHA-verified PNG",
     "sameCameraAndResolution": true,
-    "rgbDifferenceNotArtScore": 1.90757,
+    "rgbDifferenceNotArtScore": 1.6971,
     "ART": "UNJUDGED_HOLD"
   }
 }
