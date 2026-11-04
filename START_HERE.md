@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BJ最終引継ぎ・最重要発見】モデルを量産する前にRoad5実寸尺度を是正する
+
+**現研究正本**：`research/k4bj-hand-authored-hero-civic-canyon-20261104`。最優先で[K4BJ真正画像・品質不合格・実Road5幾何測量を統合した正本](docs/R19_A6P4_R2F5K4BJ_TIDAL_CIVIC_CANYON_TRUE_CAMERA_JA.md)を読む。古いK4BI以下の「最新」表記はすべて履歴。
+
+- 新K4BJ[真Source Camera DCC CI #41743823084](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41743823084) **completed/SUCCESS**、[実編集Blender原本／control11307とultra11341の真正PNG・比較PNG・SHA証拠Artifact #13282722868](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41743823084/artifacts/13282722868)、ZIP SHA256 `7b85ebe4c3ef60053c9e5dfdc18e55d9c779714afa8b4319ac3370561b4948b3`。元Road5 mesh／元Camera値／ゲーム原blobは不変。しかし左右の巨大で無地な壁、中央模型的構造、広大で単調な前景路面のため**K4BJ ART REJECT**。正式採用0件／Slope2 DNA0m。
+- **次工程を変える決定的な実測**：[Source Road5 geometry survey CI #41744748256](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41744748256) **completed/SUCCESS**、[実測生JSON](docs/research-evidence/k4bj/K4BJ_REAL_SOURCE_ROAD_CAMERA_SCALE_SURVEY.json)、[真Artifact #13283665361](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41744748256/artifacts/13283665361)。元Camera controlの前方`d=0〜25m` では元Road5 mesh頂点のカメラ横位置 `s=-39.162m〜+53.261m`、`d=100〜150m` では `-38.821m〜+69.255m`。元Road5 mesh全体のCamera前方最大 `d=+188.774m`。これまでの建築`s≈±160〜360m`や中央造形`d≈550m`はRoad5基準の実寸とずれていた。旧路側測定`s=±157m`は左右42点ずつ路面交差0。**安全な可走幅・B51とのクリアランスは依然未測定**。
+- **K4BK次工程**：旧来の推定大尺度を捨て、元Camera／元Road5の実測d,s,z座標から、建物・植栽・側壁・中央遠景・道路の関係をカメラ平面上で計画してから高品質な3Dを作者制作する。実路面への接触・景観造形には地点別Source Raycastと、必要ならB51や実SAT/CCD/ゲーム統合後の安全証拠が必要。元ゲームは不変。単なる箱・弧・窓増殖、汎用リング再利用は禁止。
+- 不変契約：ゲームBlob `af076d67492a677d2235e4730aef8cdf4808e106`、240Hz/球半径0.65m／元B48全7・B51全28・元6カメラ値・安全表示、main・公式p101・Draft PR #46・本番2URL保護。Work事前承認・ユーザーのローカルWindows操作不要。**ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD**。美術合格前の他6Road展開、実WebGL2ゲームへの移植不可。
+
+---
+
 # 【2026-11-04 K4BJ 最新継続入口】手描き指定の非対称都市キャニオン・Blender真正元カメラ審査
 
 **研究継続ブランチ**：`research/k4bj-hand-authored-hero-civic-canyon-20261104`。まず[K4BJ工程の制作意図・原本不変契約・厳密合否](docs/R19_A6P4_R2F5K4BJ_TIDAL_CIVIC_CANYON_TRUE_CAMERA_JA.md)を読む。
