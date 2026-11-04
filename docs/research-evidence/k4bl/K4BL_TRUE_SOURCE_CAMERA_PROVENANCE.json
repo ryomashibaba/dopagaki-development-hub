@@ -1,0 +1,157 @@
+{
+  "schema": "dopagaki.K4BL.native-art-directed-coastal-harbor/1",
+  "parentK4BKVerifiedEditableBlendSha256": "8874f09c868218879bcc6a346303819b17f38ffda11177c44555e022167a1c9c",
+  "frozenGameSourceGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5TessellationUnchanged": true,
+  "originalSourceCameraNumericsUnchanged": true,
+  "originalRoad5SurveySections": [
+    {
+      "d": -25,
+      "left": -36,
+      "right": 50,
+      "leftZ": -15.312515258789062,
+      "rightZ": -10.281723022460938,
+      "hits": 44
+    },
+    {
+      "d": 0,
+      "left": -38,
+      "right": 50,
+      "leftZ": -11.693191528320312,
+      "rightZ": -6.6998748779296875,
+      "hits": 45
+    },
+    {
+      "d": 25,
+      "left": -38,
+      "right": 52,
+      "leftZ": -8.234146118164062,
+      "rightZ": -3.4489593505859375,
+      "hits": 46
+    },
+    {
+      "d": 50,
+      "left": -38,
+      "right": 56,
+      "leftZ": -5.0966339111328125,
+      "rightZ": -0.5796051025390625,
+      "hits": 48
+    },
+    {
+      "d": 75,
+      "left": -38,
+      "right": 58,
+      "leftZ": -2.3112030029296875,
+      "rightZ": 1.6638946533203125,
+      "hits": 49
+    },
+    {
+      "d": 100,
+      "left": -38,
+      "right": 62,
+      "leftZ": 0.0909881591796875,
+      "rightZ": 3.4416961669921875,
+      "hits": 51
+    },
+    {
+      "d": 125,
+      "left": -36,
+      "right": 66,
+      "leftZ": 2.1436004638671875,
+      "rightZ": 4.6220550537109375,
+      "hits": 52
+    },
+    {
+      "d": 150,
+      "left": -34,
+      "right": 70,
+      "leftZ": 3.7089996337890625,
+      "rightZ": 5.1790313720703125,
+      "hits": 53
+    },
+    {
+      "d": 170,
+      "left": -34,
+      "right": 72,
+      "leftZ": 4.5410308837890625,
+      "rightZ": 5.1278839111328125,
+      "hits": 54
+    }
+  ],
+  "originalB48Roads": 7,
+  "originalB51Movers": 28,
+  "originalPhysicsHz": 240,
+  "originalBallRadiusM": 0.65,
+  "oldRejectedArtCollectionsHiddenNotDeleted": [
+    "K4BH | 01 CROSS-RIVER MONUMENTAL GATE",
+    "K4BH | 02 LANDSCAPED INHABITED STREET WALLS",
+    "K4BH | 03 INNER LIBRARY AND CONSERVATORY",
+    "K4BH | 04 FAR URBAN DEPTH AND LANDMARKS",
+    "K4BH | 05 TERRACES AND SEA CLIFF",
+    "K4BH | 06 PRACTICAL LUMINAIRES",
+    "K4BI | 01 ROAD TEXTURE RACING ART DCC ONLY",
+    "K4BI | 02 VARYING PUBLIC FACADE AND STRUCTURE",
+    "K4BI | 03 LIT LIBRARY AND TIDAL CONSERVATORY RECESSES",
+    "K4BI | 04 ARCHITECTURAL DETAILS NOT COLLIDERS",
+    "K4BI | 05 CIVIC PORTICO ARTICULATED NEGATIVE SPACE",
+    "K4BI | 06 PRACTICAL WARM LIGHT IN ROOMS",
+    "K4BJ | 01 WEST CARVED LIBRARY | author surface",
+    "K4BJ | 02 EAST TERRACED MARINE STATION | author surface",
+    "K4BJ | 03 THE TIDAL LENS | split keel landmark",
+    "K4BJ | 04 BACKGROUND LIVING COASTAL SKYLINE",
+    "K4BJ | 05 OFFROAD HANDCRAFTED BARRIERS",
+    "K4BJ | 06 PRACTICAL LIGHTING",
+    "K4BK | 01 WEST CERAMIC EXCHANGE | real B48 scale",
+    "K4BK | 02 EAST HARBOR TERMINAL | real B48 scale",
+    "K4BK | 03 NATIVE B48 EDGE + STONE LANDSCAPE",
+    "K4BK | 04 SPANNING TIDAL ATRIUM | real d=145m",
+    "K4BK | 05 DISTANT SCALED CITY + TERRACE",
+    "K4BK | 06 DAYLIGHT + OCCUPIED ROOMS"
+  ],
+  "newIndependentEditableArtObjects": 114,
+  "originalCameraDCCScreenshots": [
+    {
+      "mode": "control",
+      "tick": 11307,
+      "file": "K4BL_CONTROL_11307_GENUINE_SOURCE_CAMERA_HARBOR_ART_HOLD.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "file": "K4BL_ULTRA_11341_GENUINE_SOURCE_CAMERA_HARBOR_ART_HOLD.png"
+    }
+  ],
+  "renderer": "eevee",
+  "isOriginalWebGL2GameFrame": false,
+  "gameFileEdited": false,
+  "newGameColliders": 0,
+  "formalArtAccepted": 0,
+  "slope2DNAAcceptedMetres": 0,
+  "ART": "UNJUDGED_HOLD",
+  "B51_clearance": "NOT_TESTED_HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "HUMAN": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BL_HARBOR_ART_DIRECTED_EDITABLE_NATIVE_BLENDER_HOLD.blend": {
+      "bytes": 36300976,
+      "sha256": "0529f15d2a3fb37580ded413d426dfe53b6f12d9c94b905bd68a66859c8afece"
+    },
+    "K4BL_CONTROL_11307_GENUINE_SOURCE_CAMERA_HARBOR_ART_HOLD.png": {
+      "bytes": 1358760,
+      "sha256": "4660151896293c0b96c5bdb1fc0788f0badf2f33da595592e2ea530cc84a63e5"
+    },
+    "K4BL_ULTRA_11341_GENUINE_SOURCE_CAMERA_HARBOR_ART_HOLD.png": {
+      "bytes": 1346853,
+      "sha256": "51cc2a36b0c8ce246c9101414fd006d29d8e03771fbdca572216508c31282c7c"
+    }
+  },
+  "independentSamePoseAB": {
+    "file": "K4BL_K4BK_VS_HARBOR_ORIGINAL_CAMERA_ART_REVIEW_NOT_GAME.png",
+    "sha256": "8179d891b7bd6de0cb81e36ee39f4bc534a6dcdef489fd4c28d3b2c507611a37",
+    "bytes": 3110947
+  }
+}
