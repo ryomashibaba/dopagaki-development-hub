@@ -89,8 +89,55 @@ for asset in ASSET_NAMES:
   'authors':info.get('authors',{}),'dimensionsMm':info.get('dimensions'),
   'maps':files
  }
+
+# Photogrammetry/retopology-based real scanned cliff rock mesh, no more
+# low-poly hand-coded duplicate rock props. This can be ~20K triangles.
+# Download exact 1K glTF vendor manifest and all referenced dependencies.
+model_id='rock_face_01'
+model_info=get_json('/info/'+model_id)
+model_tree=get_json('/files/'+model_id)
+assert model_info.get('type')==2,(model_id,model_info.get('type'))
+assert isinstance(model_tree.get('gltf'),dict),{'asset':model_id,'keys':list(model_tree)}
+formats=model_tree['gltf']
+resolution=next((x for x in ('1k','2k','4k') if x in formats),None)
+assert resolution,{'gltf_resolutions':list(formats)}
+variant=formats[resolution]
+assert isinstance(variant,dict) and 'gltf' in variant,variant
+gltf=variant['gltf']
+assert all(x in gltf for x in ('url','md5','size','include')),gltf
+def fetch_verified_file(meta,relname):
+ path=Path(relname)
+ assert not path.is_absolute() and '..' not in path.parts and len(path.parts)<=4,path
+ assert path.suffix.lower() in ('.gltf','.bin','.png','.jpg','.jpeg','.webp'),path
+ b=get_bytes(meta['url'],maximum=50*1024*1024)
+ assert int(meta['size'])==len(b),(relname,len(b),meta['size'])
+ assert hashlib.md5(b).hexdigest().lower()==str(meta['md5']).lower(),relname
+ to=OUT/'model'/'rock_face_01'/path
+ to.parent.mkdir(parents=True,exist_ok=True)
+ to.write_bytes(b)
+ return {'sourceURL':meta['url'],'vendorMD5':meta['md5'],
+         'vendorDeclaredBytes':meta['size'],
+         'sha256':sha(b),'actualBytes':len(b),
+         'localFile':str(to.relative_to(OUT))}
+srcname=model_id+'.gltf'
+model_files={srcname:fetch_verified_file(gltf,srcname)}
+for path,meta in gltf['include'].items():
+ model_files[path]=fetch_verified_file(meta,path)
+# The glTF external dependencies are placed exactly as the vendor declares;
+# Blender loads the model only if every file passes independent MD5.
+receipt['verifiedCC0NativePhotogrammetryModel']={
+ 'id':model_id,'name':model_info.get('name'),'assetUrl':'https://polyhaven.com/a/'+model_id,
+ 'infoApi':BASE+'/info/'+model_id,'filesApi':BASE+'/files/'+model_id,
+ 'authors':model_info.get('authors',{}),
+ 'nativeGLTFResolution':resolution,'nativeGLTFRelativeFile':model_files[srcname]['localFile'],
+ 'declaredDimensionsMm':model_info.get('dimensions'),
+ 'files':model_files
+}
+print('K4BR_REAL_POLYHAVEN_GLTF_AND_ALL_DEPENDENCIES_VERIFIED',model_id,len(model_files))
+
 path=OUT/'K4BR_CC0_LIVE_ASSET_RECEIPTS.json'
 path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2))
 assert len(receipt['photoscannedAssetsActuallyDownloaded'])==2
+assert len(receipt['verifiedCC0NativePhotogrammetryModel']['files'])>=1
 assert all(len(a['maps'])==3 for a in receipt['photoscannedAssetsActuallyDownloaded'].values())
 print('K4BR_REAL_CC0_PBR_INDEPENDENT_BYTES_SHA256_AND_VENDOR_MD5_PASS')
