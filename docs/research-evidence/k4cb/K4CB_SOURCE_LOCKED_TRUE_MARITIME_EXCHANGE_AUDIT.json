@@ -59,16 +59,16 @@
   "files": {
     "K4CB_TRUE_MARITIME_EXCHANGE_ARCADES_EDITABLE_ART_HOLD.blend": {
       "bytes": 271929100,
-      "sha256": "9df956acf164d7a0f4d861585644e15f87faa5d85683f2e8ae79bb438c03333d"
+      "sha256": "ea0cadc1db9dde9b01faac17d1cddc7b81c4d6c011eae2ea3c8bf68e90ec5b5d"
     },
     "K4CB_TRUE_SAME_CHASE_MARITIME_EXCHANGE_NOT_GAME.png": {
-      "bytes": 476075,
-      "sha256": "0aa667522b327e2ace253c3e5acff56b77ff05139024e7aaab517c8ef70d99b7"
+      "bytes": 476068,
+      "sha256": "7850c65bf627b1a2cd5dc10f7be1feea3d50f11d9a7e814edcf9fd117b5337fd"
     }
   },
   "independentRealImageStudy": {
     "comparisonName": "K4CB_VS_K4CA_TRUE_SAME_CHASE_MARITIME_EXCHANGE_ART_REVIEW_NOT_GAME.png",
-    "sha256": "ab908c1b15aaee1f397fd1a67253dcee64a5036e39634aa48cd1282fb95089fd",
+    "sha256": "04fadde73c55681302ab191754e9ac1013ce43ef13afdb659a152748bf247a68",
     "actualChangedPortPixelsNotArtScore": 2083,
     "originalWedgeProtected": [
       {
