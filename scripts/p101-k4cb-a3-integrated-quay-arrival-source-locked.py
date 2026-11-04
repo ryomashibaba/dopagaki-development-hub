@@ -246,10 +246,10 @@ def coast_shelf():
     verts=[]
     for i in range(nx+1):
         u=i/nx
-        along=-30.0+65.0*u
+        along=-16.0+49.0*u
         for j in range(ny+1):
             v=j/ny
-            side=s_front+sgn*(17.8+17.5*v
+            side=s_front+sgn*(17.8+11.5*v
                  +.75*math.sin(u*14.1)+.55*math.sin(u*29.4+v*3))
             h=-.5-4.8*v+(.36*math.sin(18*u+2*v)+
                        .22*math.sin(41*u-5*v))*math.sin(math.pi*v)
@@ -268,8 +268,9 @@ coast=coast_shelf()
 projected_new=[project(o.matrix_world@v.co) for o in created for v in o.data.vertices]
 projected_visible=[p for p in projected_new if p["visible"]]
 assert len(projected_visible)>35,("A3_NO_REAL_CHASE_VISIBILITY",len(projected_visible))
+projected_extents={o.name:min((p["x"] for p in (project(o.matrix_world@v.co) for v in o.data.vertices) if p["visible"]),default=1.0) for o in created}
 assert all(p["x"]>.49 for p in projected_visible),("A3_RACING_VIEW_OBSTRUCTED",
-    min(p["x"] for p in projected_visible))
+    sorted(projected_extents.items(),key=lambda item:item[1])[:5])
 assert {o.name:(tuple(tuple(row) for row in o.matrix_world),len(o.data.vertices))
         for o in a2 if o.type=="MESH"}==a2_identity
 # True original CHASE camera visibility audit; if the architecture is not
