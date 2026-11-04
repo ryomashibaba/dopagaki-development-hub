@@ -1,0 +1,151 @@
+name: DOPAGAKI K4CB A1 genuine Blender CHASE maritime exchange visual study
+on:
+  push:
+    branches: [research/k4cb-maritime-exchange-true-chase-20261105]
+    paths:
+      - scripts/p101-k4cb-source-locked-maritime-exchange.py
+      - .github/workflows/p101-k4cb-native-maritime-exchange-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4cb-native-maritime-exchange
+  cancel-in-progress: true
+jobs:
+  one-true-source-protected-native-image:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check immutable Game SHA and compile genuine Blender author code
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cb-maritime-exchange-true-chase-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4cb-source-locked-maritime-exchange.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download exact genuine K4CA A2 271 MB editable parent and original real image
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CA_TRUE_COASTAL_TERRAIN_TWO_REAL_CC0_NATIVE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41849818268
+          github-token: ${{ github.token }}
+          path: research/evidence/k4cb/parent
+      - name: Independent A2 immutable parent blob, CC0 and native fingerprint check
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          p=Path('research/evidence/k4cb/parent')
+          a=json.loads((p/'K4CA_TRUE_NATIVE_SLOPE_CC0_CANOPY_AUDIT.json').read_text())
+          assert a['canonicalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['trueOriginalRoad5VertexFaceFingerprint']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert a['fixedOriginalSixSourceCameraPoses'] and a['fixedExperimentChase'] and a['fixedNineOriginalTreesTransforms']
+          assert a['K4BZProvenBlackWedgeOverlayRemainsHidden']
+          assert a['newCC0FullCollectionTreeInstances']==2
+          assert a['addedGameColliders']==a['formalArtAccepted']==a['formalSlope2DNAMetres']==0
+          for name,meta in a['files'].items():
+           b=(p/name).read_bytes()
+           assert len(b)==meta['bytes'] and hashlib.sha256(b).hexdigest()==meta['sha256'],name
+          assert a['files']['K4CA_COASTAL_SLOPE_PHOTO_CANOPY_EDITABLE_NATIVE_ART_HOLD.blend']['sha256']=='299f1972e3383a7fc0047409a0f58581da3884988749dff6842a80cdf49a3ffa'
+          assert a['files']['K4CA_SAME_CHASE_TWO_REAL_CC0_COASTAL_TREES_WEATHERED_HILLSIDE_NOT_GAME.png']['sha256']=='e864aa1cdcc7707370c47e0542580cd6963f8e2fb9deada8cf0a9752dd8f84d6'
+          print('K4CB_TRUE_PARENT_SHA_SOURCE_GUARDS_PASS')
+          PY
+      - name: Install real headless Blender EEVEE and PIL; keep prior regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+          /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
+      - name: Actually author three structural port arcades in isolated editable A2 and render original CHASE
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4cb/render
+          xvfb-run -a -s '-screen 0 1280x900x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4cb-source-locked-maritime-exchange.py -- \
+            --base research/evidence/k4cb/parent/K4CA_COASTAL_SLOPE_PHOTO_CANOPY_EDITABLE_NATIVE_ART_HOLD.blend \
+            --out research/evidence/k4cb/render
+      - name: Independent full native SHA, same-camera genuine image and black-wedge 6-pair QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageChops
+          d=Path('research/evidence/k4cb/render')
+          a=json.loads((d/'K4CB_SOURCE_LOCKED_TRUE_MARITIME_EXCHANGE_AUDIT.json').read_text())
+          assert a['parentA2SHA256']=='299f1972e3383a7fc0047409a0f58581da3884988749dff6842a80cdf49a3ffa'
+          assert a['frozenOriginalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['frozenOriginalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ['sourceSixCameraUnchanged','sourceCHASEUnchanged','oldNineTreesAndNewTwoCC0InstancesUnchanged','lightsUnchanged','K4BZProvenBadResearchRoadHidden','noExistingObjectVisibilityChanged','existingRoadAndResearchSkinNotCopied','originalCivicRoofGeometryUnchanged','originalCivicPiersUnchanged']:
+           assert a[k],k
+          assert a['newGameColliders']==0 and not a['sourceGameEdited'] and not a['gamePhysicsEdited']
+          assert a['formalArtAccepted']==a['formalSlope2DNAMetres']==0 and a['ART']=='UNJUDGED_HOLD'
+          assert all(a[k]=='HOLD' for k in ('SAT','CCD','HUMAN','FPS','RELEASE','MERGE'))
+          for name,m in a['files'].items():
+           raw=(d/name).read_bytes()
+           assert len(raw)==m['bytes'] and hashlib.sha256(raw).hexdigest()==m['sha256']
+          old=Image.open('research/evidence/k4cb/parent/K4CA_SAME_CHASE_TWO_REAL_CC0_COASTAL_TREES_WEATHERED_HILLSIDE_NOT_GAME.png').convert('RGB')
+          new=Image.open(d/'K4CB_TRUE_SAME_CHASE_MARITIME_EXCHANGE_NOT_GAME.png').convert('RGB')
+          assert old.size==new.size==(768,480)
+          region=ImageChops.difference(old,new).crop((500,220,767,400))
+          n=sum(max(pixel)>15 for pixel in region.getdata())
+          assert n>400,('NEW_HARBOR_ARCH_NOT_VISIBLE',n)
+          pairs=[((292,300),(317,300)),((280,330),(310,330)),((267,360),(310,360)),((250,400),(295,400)),((235,440),(280,440)),((225,470),(270,470))]
+          wedge=[]
+          for dark,normal in pairs:
+           before=(sum(old.getpixel(normal))-sum(old.getpixel(dark)))/3
+           after=(sum(new.getpixel(normal))-sum(new.getpixel(dark)))/3
+           assert abs(after-before)<12,('K4BZ_WEDGE_REGRESSED',dark,before,after)
+           wedge.append({'dark':list(dark),'control':list(normal),'beforeContrast':round(before,3),'afterContrast':round(after,3)})
+          canvas=Image.new('RGB',(1560,552),(15,19,22))
+          canvas.paste(old,(12,50));canvas.paste(new,(780,50))
+          p=ImageDraw.Draw(canvas)
+          p.text((12,18),'K4CA A2 real CHASE / ART REJECT',fill='white')
+          p.text((780,18),'K4CB real CHASE / new maritime architecture / ART UNJUDGED',fill='white')
+          p.text((12,536),'True Blender research only, not game. Original Road5, camera, physics unchanged.',fill='white')
+          name='K4CB_VS_K4CA_TRUE_SAME_CHASE_MARITIME_EXCHANGE_ART_REVIEW_NOT_GAME.png'
+          canvas.save(d/name)
+          blob=(d/name).read_bytes()
+          a['independentRealImageStudy']={'comparisonName':name,'sha256':hashlib.sha256(blob).hexdigest(),
+            'actualChangedPortPixelsNotArtScore':n,'originalWedgeProtected':wedge,'ART':'UNJUDGED_HOLD'}
+          (d/'K4CB_SOURCE_LOCKED_TRUE_MARITIME_EXCHANGE_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2))
+          print('K4CB_REAL_CHASE_INDEPENDENT_SOURCE_SHA_AND_FRAME_PASS',n)
+          PY
+      - name: Save only research evidence; do not touch original game, PR or main
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cb-maritime-exchange-true-chase-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4cb
+          cp research/evidence/k4cb/render/*.png docs/research-evidence/k4cb/
+          cp research/evidence/k4cb/render/*.json docs/research-evidence/k4cb/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4cb
+          if ! git diff --cached --quiet; then
+           git commit -m "evidence(k4cb): authentic source-locked harbor arcade same-CHASE art study, no formal acceptance"
+           git fetch --no-tags origin "$GITHUB_REF_NAME"
+           git rebase FETCH_HEAD
+           git push origin HEAD:refs/heads/research/k4cb-maritime-exchange-true-chase-20261105
+          fi
+      - name: Archive actual full editable .blend and real CHASE image even on technical failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CB_A1_GENUINE_A2_PARENT_MARITIME_EXCHANGE_NATIVE_ART_HOLD
+          path: research/evidence/k4cb/render/
+          if-no-files-found: warn
+          retention-days: 21
