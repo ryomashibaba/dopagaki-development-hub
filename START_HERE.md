@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BV実制作・真正海岸樹1本のネイティブ検証】
+
+**現行の研究隔離枝** `research/k4bv-real-coastal-canopy-native-art-20261104`。[**K4BV実在CC0海岸樹・本物のモデル取得とCHASE 1フレーム美術試験**](docs/R19_A6P4_R2F5K4BV_REAL_CC0_COASTAL_CANOPY_ART_JA.md) を先に読み、次にK4BU最終正本、K4BT投影診断、K4BS地表正本へ遡ること。以下の「最新」は過去の履歴。
+
+- 元K4BU [Actions #41801261499](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41801261499)は**TECH PASS／同CHASE画像ART REJECT**、小型苗木の枝葉は依然疎。正式ART0件、Slope2 DNA 0m。
+- K4BVは公式Poly Haven CC0 **Island Tree 02**（松とは断定しない）の1K glTFと依存をサイズ制限内で実取得・MD5/SHA証明し、元K4BU Blender原本を固定読込、元8本の松を研究画像だけ非表示、風に耐える横広がりの海岸樹1本を同CHASEへ安全配置。本当のBlender EEVEE 768×480 1枚・編集可能Native.blend・SHA・同Camera旧新比較で評価。追加モデルの大量導入／高価な2枚レンダリングを繰り返さない。
+- [**K4BV実行CI #41803574543**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41803574543)は**結果未確認、PASS宣言禁止**。NativeImportが成功しても実画像を見てARTが不合格なら正式採用0件を維持。
+- 元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、B48 Road5 fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元6Camera、実B48 7本/B51 28体/240Hz/球0.65m/本番保護。main、公式P101、Draft PR#46、本番2サイト不変更。Work/Computer Useは事前承認、追加課金0円、ユーザーWindows操作0。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
+---
+
 # 【2026-11-04 K4BU最終確定・次K4BVへ】本物のBlender針葉樹1本の位置/植え込み修正TECH PASS・ART REJECT
 
 **最終隔離研究枝** `research/k4bu-upright-pine-single-frame-art-study-20261104`。[**K4BU最終実Blender原本/全SHA・同CHASE実画像の美術REJECT・K4BVの作者方針**](docs/R19_A6P4_R2F5K4BU_UPRIGHT_NATIVE_PINE_SINGLE_FRAME_ART_JA.md)を先に読む。以下の「最新」「未確認」はすべて履歴。
