@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BY A3最終確定 → 次K4BZ】真2K CC0路面と既存港湾建築TECH PASS／真正画像ART REJECT
+
+**最新の研究隔離枝** `research/k4by-photoreal-road-occupied-harbor-art-20261104`。[**K4BY公式PBR路面・港湾建築改修、A1/A2/A3の実画像失敗原因と独立SHA、K4BZのピクセル原因識別**](docs/R19_A6P4_R2F5K4BY_TRUE_CC0_ROAD_OCCUPIED_HARBOR_JA.md)を第一に読む。以下の「最新」「CI実行中」は過去の履歴。
+
+- K4BY初回 [CI #41828751760](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41828751760) は建築屋根の名前省略への検索不具合でFAILURE。A1 [#41829344849](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41829344849) はTECH PASS／路面の黒筋でART REJECT。A2 [#41830277784](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41830277784) はTECH PASS／路肩が黒い大ポリゴンとなりART REJECT。A3 [#41831182680](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41831182680) は**completed/SUCCESS**、真Road5に1m間隔で実Raycastした研究用PBR舗装3,978頂点/3,800面、旧原因候補の道路スキンはRender OFF。巨大な暗路肩は消えたが左車線内部の暗三角筋残存。**A3最終TECH PASS／目視ART REJECT**。
+- 公式 Poly Haven `asphalt_track` 2K Diffuse/Rough/OpenGL Normal**3枚、総9,656,072B**のVendor MD5/Bytesと独立SHA256照合、真正Blender原本へのPacked SHA PASS。元K4BX A3原本 SHA256 `1cdf3233d3b2b91b1e10b6f7b2212ef9ec74331667ca4129a4e96ce43b4c2179` を固定。真K4BY A3編集可能.blend SHA256 `f0d3d7a27e5fbf599447b0e784b71684ff634b071d283f8b59bdaf06a179d4e4`、[同CHASE PNG](docs/research-evidence/k4by/K4BY_ONE_SAME_CHASE_TRUE_PBR_RACE_ROAD_CIVIC_HARBOR_NOT_GAME.png) SHA256 `ad46b5377fd9d144c7ab94b428df52d5f97cb7675fe44c3d14389b7858c925f7`、[旧新同カメラ比較](docs/research-evidence/k4by/K4BY_VS_K4BX_A3_SAME_CHASE_TRUE_CC0_ROAD_HARBOR_ART_REVIEW_NOT_GAME.png) SHA256 `366abfe88efd89518d0e7fcf59c2d6c00863fbc09d76edc861c0ad7c368427c0`、[GitHub Artifact #13321649653](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41831182680/artifacts/13321649653) ZIP CRC PASS/SHA `357c55b9bd115ee6d02a87a1a58c1e833fcbc76a3cb29c1347c9f169f8db6bf6`。
+- **次K4BZ**：もう目視だけで舗装を推測修正しない。固定CHASEの異常ピクセルから何のオブジェクト／面／材質／遮蔽で黒三角が生まれたかを**非破壊Blender Ray Castや識別パスで真正同定**してから最小限の美術改修。屋根/玄関は現研究DCCで厚みがありながら見た目未合格。世界水準の1画面ART合格まで他6Roadや本番Gameへ拡大禁止。
+- 不変：元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元B48 Road5指紋 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元Rig6 Camera/CHASE、元真木9本、B48 7 Road/B51 28 Mover/240Hz/球半径0.65m。main/公式P101/Draft PR#46/本番2サイト不変更。正式ART採用0件／Slope2 DNA0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD。Work事前承認、追加課金0円、ユーザー操作0。
+
+---
+
 # 【2026-11-04 K4BY制作】実CC0路面写真PBR・既存海辺公共施設の構造修正
 
 現行**隔離研究ブランチ** `research/k4by-photoreal-road-occupied-harbor-art-20261104`。[**K4BY公式Asphalt Track PBR／本物の既存公共施設の屋根厚・玄関・石壁の修正／元Road5保護**](docs/R19_A6P4_R2F5K4BY_TRUE_CC0_ROAD_OCCUPIED_HARBOR_JA.md)を最初に読む。そのあとK4BX A3→K4BW→K4BV→K4BU→K4BTの永続正本を遡る。以下の「最新」は過去の履歴。
