@@ -28,3 +28,13 @@
 ## 4. 反省：なぜK4BNは従来の繰り返しと違うか
 
 K4BH〜K4BMの試行でわかったことは、道路を前方から見ているSource Cameraを変えずに遠景に建物だけ増やしても**画面の大半はなお単調なロード**となり、高品質のゲーム背景にはならないこと。本工程では道路自身の画面設計の語彙（ブランド・走行方向・摩擦感・色と形のバランス）と、道路の向こう側の働く船港・海岸線が実Cameraから明瞭に区別できるかを第一審査軸にする。たとえ技術CIが緑でも、美術が完成したとは認めない。
+
+
+## K4BN初回真正Blender画像の確定評価と不具合修復（2026-11-04）
+
+- 初回[Actions #41770726727](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41770726727)はクレーンの関数外インデントによる`height_m`の`NameError`で**completed/FAILURE**。実元カメラ画像・.blendなし。明示的に失敗の履歴として保持。研究コード修正commit `a0404e60a6ec69717f7701f74bd91d21441079ee`。
+- **初回実技術成功**：[CI #41770899381](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41770899381) completed/SUCCESS。親K4BM真正.blend SHA/元Game blob/Node source/元B48 Road5指紋・元Control11307・Ultra11341カメラの座標回転レンズ、Blender EEVEE、RGBAアトラス、真DCC編集原本と2PNGの独立SHA、旧K4BM同元カメラAB、研究枝GitHub保存全PASS。[真正Artifact #13294469287](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41770899381/artifacts/13294469287)、ZIP SHA256 `4b739a171b7b92a2678709b5323be7f395814c69b163ec031ab752ebf5caf8ce`、CRC PASS。編集原本41,360,892B SHA `41f72017d74fa5a09d33cb5773d52f2e7b487ab9e6e446618de79ac3df6bb386`、control画像SHA `b187766786c5a33625700da10837115873cc14deb63bd33ca6e7a1e73688aefd`、ultra画像SHA `8660776d4c1de81f7e4d6763659118ab35805b80b3d7274d90372cfe5958086a`、本物アトラスSHA `8faedfa11c8b3c3ee5e0e8614206230103ada994074646e853422fc8d1e813cb`、比較PNG SHA `d951c8f74b04dfa8d7f200659f14cfd2e4304b18124171774e13580e3ee72588`。ZIP CRC全件と各原ファイルの完全ハッシュを独立照合。
+- **初回の美術判定：ART REJECT**。元Camera二画像を直接見た結果、実道路に複数の独創的レース記号、沿道の低いシアン発光、船・実クレーンがレンダーされたことは真実。しかし肝心の`HYPER / RUSH / SECTOR05`の字面が真Cameraで**左右反転**し、controlではレース文字が大きすぎ画面下端に切れ、ultraでも読めない。また真正B48 Road5の起伏で船の船体が隠れ、空間全体では従来の模型感・単調な道・薄い遠景が残り、世界級の美術品質に到底届かない。
+- この真のレンダーの失敗を基に、[オリジナル塗装修正commit `8663ab200a17652e5b52afa91d95cd7e75e48302`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/8663ab200a17652e5b52afa91d95cd7e75e48302)：**路面全体を反転するのではなく、文字グリフだけ左右反転**してSource Camera投影で正しく読めるようにし、真Cameraで破綻した大きさを約半分、前方位置も見える場所へ変更。`HYPER / RUSH / SECTOR05`の文字表示の正しさは真の次回レンダリングを見てから認定。
+- [船港構図修正commit `fae793a2fb3d2f6401a874917ece2f3d63a3181e`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/fae793a2fb3d2f6401a874917ece2f3d63a3181e)：船が見えない原因は海面が本Road5の見上げる丘状の形状より相当下に位置することだったため、船・海面を**元Road5原メッシュに交差しないd≥196m以遠の非ゲームDCC背景**で+9m引き上げ、船体幅を広げ、荷役クレーンも元カメラ真正画像で見える中央寄りの港側へ移設。元Cameraとロード不変、可走の当たり判定確認なし。
+- 最終再試験[Actions #41771580365](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41771580365)は**結果確認前**。途中の試験 #41771544907 は次修正によりcancelledの場合あり。成功の推測禁止。実画像による美術判定が不十分なら**ART REJECT・正式ART採用0件・DNA0m**維持。
