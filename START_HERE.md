@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CB A2真正Blender・同CHASE・独立QA成功／ART REJECT → 次は港湾・地形の統合作家工程】
+
+**現行隔離研究枝** `research/k4cb-a2-sculpted-ferry-terminal-chase-20261105`。最初に[**A2真の画像・Blender／ART REJECT／SHAと改善課題**](docs/R19_A6P4_R2F5K4CB_A2_TRUE_NATIVE_ART_REJECT_JA.md)と[真同CHASE A1対A2比較画像](docs/research-evidence/k4cb-a2/K4CB_A2_VS_A1_TRUE_SAME_CHASE_SCULPTED_TERMINAL_ART_REVIEW_NOT_GAME.png)、[正式独立監査JSON](docs/research-evidence/k4cb-a2/K4CB_A2_REAL_NATIVE_AUDIT.json)を確認。下の「A2結果未確認」「次K4CB」は過去の記録。
+
+- [A2正式真正Actions #41914599116](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41914599116) **completed/SUCCESS／TECHのみ**。初回 #41914127494 はA1記録SHAと真Artifactの不一致で安全停止。真Artifactの実バイト検査と内部監査一致後、原本SHA `ea0cadc1db9dde9b01faac17d1cddc7b81c4d6c011eae2ea3c8bf68e90ec5b5d` に固定し再成功（検証を緩めず修正）。
+- A2 **真正編集可能.blend 272,243,520 B／SHA256 `5f57d64654ff8df6b6ecd852699432cda50f1afc1af3723779170ccb4cbed5b1`**。同CHASE PNG `dc633bc0a89a14cdd85b7de48c18c115bfad0a4c374eb6471196cd98cd8496d1`。[真正Native Artifact #13363873298](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41914599116/artifacts/13363873298)。GitHub保存・比較画面直接目視完了、ZIP独立再DL/CRCは本会話では未実施。
+- 元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、Road5全頂点面 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、6 Camera＋CHASE、旧樹11本、照明、K4BZで消した黒筋、既存元屋根・柱・全表示不変を真正技術検査。原Game編集0、追加Collider0、main／公式P101／Draft PR #46／本番2サイト保護。
+- **ART REJECT**：A1に比べて右港の真の大きな曲面屋根は視認できるが、金属シェル的・接続感不足。ほかの港は模型、左地形は平坦、広大な道路が画面を支配。TECH合格・10,277画素差≠世界水準ART。正式ART採用0件／Slope2 DNA認定0m。SAT/CCD/FPS/HUMAN/RELEASE/MERGE HOLD。
+- **次**：同様のシェル／箱の量産・色替え禁止。右港の公共用途・建築断面・厚い屋根・出入口・岸壁の地形接続と、左自然地形・画面全体のスケールを統合した作者工程。元Road5物理をいじらず、再び真の同CHASEの編集可能DCC・比較画像でART判定。Work/Computer Use事前承認・追加有料API原則0円・ユーザー操作最小。
+
+---
+
 # 【2026-11-05 K4CB A2実装・真正Blender試験起動／結果確認前はTECH/ART HOLD】
 
 **現行隔離研究枝** `research/k4cb-a2-sculpted-ferry-terminal-chase-20261105`。最優先で [K4CB A2真フェリーターミナル作者造形・保護・未判定記録](docs/R19_A6P4_R2F5K4CB_A2_SCULPTED_NATIVE_TERMINAL_ART_HOLD_JA.md) と [実Actions #41914127494](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41914127494) を照合。元K4CB A1は **真正画像 TECH PASS／全画面ART REJECT** であり、下段のSTART_HERE A1記載は引き継ぎ履歴。新A2は元A1真正.blendの固定SHA照合→既存公共建築につながる大きな実曲面屋根・構造柱・乗降フロア制作→元CHASE 768×480真正レンダー→同画面A/B・独立SHA／K4BZ黒筋回帰を試行する。**試験結果の確認前に成功を宣言しない。** 元Game・元Road5・元6 Camera／CHASE・旧樹11本・光源・元の非表示K4BZ研究舗装、main、公式P101、Draft PR #46、本番は保護。正式ART採用0件、Slope2 DNA0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。Work/Computer Use事前承認、追加有料APIなし。
