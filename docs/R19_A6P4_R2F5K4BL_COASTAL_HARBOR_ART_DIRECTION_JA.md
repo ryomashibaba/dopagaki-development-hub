@@ -30,3 +30,11 @@ DOPAGAKI SLOPE — HYPER RUSHは世界水準の超高速3Dレースゲームと�
 ## 実行ログ
 - K4BLの独立研究ブランチ作成、Blender制作ソース保存、[実GitHub Actions #41749501857](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41749501857) 起動済み。
 - この文書執筆時点では CI最後の結果・原本の実生成・画像審査は**未確認**。成功や美術合格を捏造しない。ログ／Artifact／RGBは後段に追記する。
+
+
+## EEVEE初回CI実機制約と復旧処理（2026-11-04）
+
+- 最初の[CI #41749501857](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41749501857)は **completed/FAILURE**。元Game SHA、Node sourceテスト、Blender親K4BK.blend SHAはPASSだが、ヘッドレスUbuntuの`libEGL.so.1`が見つからずBlender起動時にcore dumped（exit134）。Eevee画像、.blend、比較PNG、ART合格は**一切出ていない**。ゲーム元原本は未変更。
+- 修正 `6706372e3ad56d211efa31fad92e9770c4fb46de`：Blender制作スクリプトに描画エンジン明示引数`--renderer eevee|cycles`を加え、Cycles 72sample（OIDN OFF）を安全な退避経路として組み込む。次のCI #41749843377 は新CIへの移行で**cancelled**、最終成果ではない。
+- 修正 `f9951e528c828cb2c23ac22f1aeb12cb84f28d95`：専用workflowに`xvfb`, `libegl1`, Mesa系の必要なLinuxソフトウェア・グラフィックスライブラリを導入し、`LIBGL_ALWAYS_SOFTWARE`/XvfbでEEVEEにチャレンジ。GPU/GL環境により失敗した場合は出力残骸を消去し、確立済みのCPU Cyclesで**その場で再レンダリング**、依然ダメなら正しいFAILURE。成功前に前回の失敗をなかったことにしない。
+- [最新再試験CI #41749970400](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41749970400) は状態、各画像、元B48 geometry/Camera fingerprints、ベンダ由来renderer事実、Artifactを実照合する。**まだTECH・ARTの最終成功宣言はできない**。
