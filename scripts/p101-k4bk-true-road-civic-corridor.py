@@ -303,10 +303,10 @@ leftstations=[(-38,43,71,11),(4,44,81,16),(31,47,92,34),
               (55,46,102,48),(88,45,109,39),(114,46,106,46),
               (145,46,110,43),(168,48,103,24)]
 loft("WEST single sweeping basalt-and-ceramic station roof",
-    [[P(d,-inner,hleft(d)-17),P(d,-outer,hleft(d)-21),
-      P(d,-outer,hleft(d)+height+15),
-      P(d,-(inner+21),hleft(d)+height+23),
-      P(d,-inner,hleft(d)+height+5)]
+    [[P(d,-inner,hleft(d)+height+1),P(d,-outer,hleft(d)+height+3),
+      P(d,-outer,hleft(d)+height+11),
+      P(d,-(inner+21),hleft(d)+height+18),
+      P(d,-inner,hleft(d)+height+12)]
      for d,inner,outer,height in leftstations],
      chalk,west,"FUNCTIONAL_CIVIC_LIBRARY_AND_TRANSIT_ROOF")
 # Interior / large sculpted deep negative space with no wall of boxes
@@ -362,11 +362,11 @@ for i,(a,b,low,top) in enumerate(righthalls):
         edge_s=road_r(d)+8
         basez=hright(d)
         topz=basez+top+13+12*sin(pi*t)
-        rows.append([P(d,edge_s,basez+low-7),
-                     P(d,edge_s+44,basez+low-11),
-                     P(d,edge_s+55,topz-11),
-                     P(d,edge_s+24,topz+12),
-                     P(d,edge_s-2,topz)])
+        rows.append([P(d,edge_s,topz-19),
+                     P(d,edge_s+44,topz-17),
+                     P(d,edge_s+55,topz-7),
+                     P(d,edge_s+24,topz+8),
+                     P(d,edge_s-2,topz+4)])
     loft("EAST unique patinated-copper unfolded canopy "+str(i),
          rows,green,east,"PUBLIC_MARINE_STATION_SAIL_ROOF")
     box_a=a+4;box_b=b-4
@@ -379,37 +379,37 @@ for i,(a,b,low,top) in enumerate(righthalls):
 # --- Road-scale landmark: one asymmetric aerial transit station physically
 # situated on visible source road at d ~124-157m.  The high transverse
 # open-span is set above source road (not safety cleared), not at d=550m.
-d0,d1=132,157
-floor_z=max(road_height(145,0),road_height(145,32))+30
+d0,d1=152,169
+floor_z=max(road_height(156,0),road_height(156,32))+20
 # visually strong but not a monochrome solid: a suspended transparent public
 # sky concourse that shades the road, with asymmetrical load structures.
 skyrows=[]
-for dd in (d0,d0+7,d0+15,d1):
+for dd in (d0,d0+5,d0+11,d1):
     t=(dd-d0)/(d1-d0)
     z=floor_z+5*sin(pi*t)
     sl=road_l(dd)-8
     sr=road_r(dd)+11
     skyrows.append([P(dd,sl,z),P(dd,sr,z-1),
-                    P(dd,sr+2,z+14),
-                    P(dd,sl-4,z+22)])
+                    P(dd,sr+2,z+4),
+                    P(dd,sl-4,z+7)])
 loft("CENTER occupied blue-glass elevated skybridge not a hollow arch",
      skyrows,glass,canopy,"DISTINCTIVE_HARBOR_SKY_TRANSIT")
 pipe("CENTER left machined champagne upper roof spar",
-     [P(dd,road_l(dd)-12,floor_z+26+3*sin(pi*(dd-d0)/(d1-d0)))
+     [P(dd,road_l(dd)-12,floor_z+9+3*sin(pi*(dd-d0)/(d1-d0)))
       for dd in range(d0,d1+1,3)],1.55,chalk,canopy,"SCULPTURAL_CIVIC_ROOF_SPAR")
 pipe("CENTER right contrasting bronze upper roof spar",
-     [P(dd,road_r(dd)+14,floor_z+19+4*sin(pi*(dd-d0)/(d1-d0)))
+     [P(dd,road_r(dd)+14,floor_z+6+3*sin(pi*(dd-d0)/(d1-d0)))
       for dd in range(d0,d1+1,3)],1.65,bronze,canopy,"SCULPTURAL_CIVIC_ROOF_SPAR")
 # NOT source road on which collision could happen—visible only in DCC.
 for side,nm in ((-1,"WEST"),(1,"EAST")):
-    dd=140
+    dd=160
     base_s=road_l(dd)-17 if side<0 else road_r(dd)+19
     hbase=hleft(dd) if side<0 else hright(dd)
     pipe("CENTER "+nm+" external asymmetrical leg outside Road5",
          [P(dd-22,base_s+side*5,hbase-14),
           P(dd-15,base_s+side*6,hbase+19),
-          P(dd-4,base_s+side*2,floor_z+1),
-          P(dd+9,base_s+side*8,floor_z+17)],
+          P(dd-4,base_s+side*2,floor_z-4),
+          P(dd+9,base_s+side*8,floor_z+3)],
          3.7,chalk if side<0 else bronze,canopy,
          "NOT_SAFE_FOR_GAME_COLLISION_ARCHITECTURE")
 # Publicly legible tall vertical beacon behind main bridge, not a thin needle
@@ -432,6 +432,61 @@ for i,(a,b,s0) in enumerate([(160,186,115),(180,214,-125)]):
     solid("FAR translucent occupied public observatory "+str(i),
           a+5,b-5,s0,s0+(18 if s0>0 else -18),z-10,z+19,
           glass,far,"INHABITED_CITY_FARFIELD")
+
+# Camera-facing crafted civic facades. These are genuinely separated dark
+# gallery apertures on the SURVEYED off-road boundary, not walls or billboard
+# cards generated at arbitrary +/-170m. They expose the interior and use
+# independent editable glass / structural elements.
+for side,name,col,mat_struct in [
+    (-1,"WEST READING ARCADES",west,bronze),
+    (1,"EAST TRANSIT CONCOURSE",east,steel)]:
+    bays=(
+      [(-16,18,14,32),(25,68,9,39),(79,119,13,36),(125,165,7,33)]
+      if side<0 else
+      [(-7,30,10,35),(40,90,8,43),(102,146,12,37)]
+    )
+    for i,(start,end,zlower,ztop) in enumerate(bays):
+        mid=(start+end)/2
+        grounded=hleft(mid) if side<0 else hright(mid)
+        inner=road_l(mid)-8 if side<0 else road_r(mid)+8
+        outer=inner+side*8
+        z0=grounded+zlower
+        z1=grounded+ztop
+        # The dark recessed void reads against brighter ceramic shell
+        solid(name+" deep occupied foyer cavity "+str(i),start,end,
+              inner,inner+side*1.4,z0,z1,black,col,"ACTUAL_CIVIC_RECESSED_FACADE")
+        solid(name+" dark reflective curved glass face "+str(i),start+1,end-1,
+              inner+side*1.8,inner+side*2.5,z0+2,z1-2,glass,col,
+              "VISUALLY_LEGIBLE_GLAZED_PUBLIC_SPACE")
+        solid(name+" distant warmer human room "+str(i),start+3,end-3,
+              outer,outer+side*.9,z0+4,z1-4,warm,col,
+              "OCCUPIED_INTERIOR_NOT_DUMMY_WINDOW")
+        # Diagonal 3-D framing, deep-overhang and human-scale mullions
+        pipe(name+" irregular continuous entrance canopy "+str(i),
+             [P(start-1,inner-side*2,z1+4),
+              P(mid,inner-side*3,z1+6+(4 if i%2 else 0)),
+              P(end+2,inner+side*1,z1+3)],
+             1.05,mat_struct,col,"SHADOW_CASTER_FACADE_DETAIL")
+        for t in (.26,.72):
+            dd=start+(end-start)*t
+            pipe(name+" bronze and ceramic structural post "+str(i)+"/"+str(t),
+                 [P(dd,inner-side*1,z0-3),P(dd,inner-side*1,z1+7)],
+                 .59,mat_struct,col,"HUMAN_READABLE_STRUCTURE")
+        if i in (0,2):
+            # sheltered doorway and occupancy have real proportions
+            solid(name+" exterior canopied visitor entrance "+str(i),
+                  start+5,start+12,inner-side*1.7,inner+side*.4,
+                  z0-5,z0+12,black,col,"FULL_HEIGHT_PUBLIC_ENTRANCE")
+# Realistic parallax and human-scale material cadence along actual road line:
+# NOT the existing oversized toy guardrails from the rejected previous study.
+for side,name in [(-1,"WEST"),(1,"EAST")]:
+    for d0 in (0,34,67,96,125,150):
+        ss=(road_l(d0)-7 if side<0 else road_r(d0)+7)
+        zz=(hleft(d0) if side<0 else hright(d0))
+        solid(name+" machined coastal paving bracket "+str(d0),
+              d0-1,d0+1,ss,ss+side*2,zz+.25,zz+1.5,
+              charcoal,corridor,"GROUNDED_ARCHITECTURAL_DETAIL_NO_COLLIDER")
+
 # Real-world-ish atmospheric lighting; no fake pictorial background.
 world=scene.world
 world.use_nodes=True
@@ -473,7 +528,7 @@ try:scene.view_settings.view_transform="Filmic"
 except Exception:pass
 try:scene.view_settings.look="Medium High Contrast"
 except Exception:pass
-scene.view_settings.exposure=-.2
+scene.view_settings.exposure=-.56
 
 assert geometry_before=={m:fingerprint(x) for m,x in road.items()}
 assert cameras_before=={m:(tuple(x.location),tuple(x.rotation_euler),float(x.data.lens)) for m,x in cams.items()}
