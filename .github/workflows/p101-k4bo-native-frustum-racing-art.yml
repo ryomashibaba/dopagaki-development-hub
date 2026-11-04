@@ -1,0 +1,159 @@
+name: DOPAGAKI K4BO true-source frustum foreground racing art TECH HOLD
+on:
+  push:
+    branches: [research/k4bo-camera-frustum-track-art-20261104]
+    paths:
+      - scripts/p101-k4bo-author-velocity-atlas.py
+      - scripts/p101-k4bo-source-camera-racing-art.py
+      - .github/workflows/p101-k4bo-native-frustum-racing-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bo-road5-camera-art
+  cancel-in-progress: true
+jobs:
+  source-camera-native-racing-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit frozen original game and source Python syntax
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bo-camera-frustum-track-art-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bo-author-velocity-atlas.py scripts/p101-k4bo-source-camera-racing-art.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download exact actual K4BN full editable native parent
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BN_SOURCE_CAMERA_EDITABLE_RACING_SURFACE_AND_HARBOR_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41771580365
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bo/parent
+      - name: Independently audit SHA of every native K4BN source artifact
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          p=Path('research/evidence/k4bo/parent')
+          j=json.loads((p/'K4BN_ORIGINAL_CAMERA_UVPBR_PROVENANCE.json').read_text())
+          assert j['frozenSourceGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5VertexAndFaceFingerprintPreserved']
+          assert j['sourceCameraNumericPosesAndLensUnchanged']
+          assert j['originalB48Roads']==7 and j['originalB51Movers']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusM']==.65
+          assert j['formalArtAccepted']==0 and j['formalSlope2DNAacceptedMetres']==0
+          for name,meta in j['files'].items():
+            raw=(p/name).read_bytes()
+            assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert j['files']['K4BN_UV_PBR_AUTHOR_SCULPTED_EDITABLE_DCC_ART_HOLD.blend']['sha256']=='fb98af8bccb84c9a6eaf18cabc8444135c5df99df267a5a7562c99c1fbe96a37'
+          print('K4BO_ACTUAL_PARENT_NATIVE_SOURCE_CAMERA_AND_GAME_BYTES_PASS')
+          PY
+      - name: Install native Blender EEVEE Xvfb and Pillow
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil fonts-dejavu-core xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: Create original foreground-first race graphic atlas
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bo/render
+          /usr/bin/python3 scripts/p101-k4bo-author-velocity-atlas.py --out research/evidence/k4bo/render
+          /usr/bin/python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          import json,hashlib
+          d=Path('research/evidence/k4bo/render')
+          j=json.loads((d/'K4BO_ORIGINAL_ATLAS_METADATA.json').read_text())
+          data=(d/j['image']).read_bytes()
+          assert hashlib.sha256(data).hexdigest()==j['sha256']
+          assert Image.open(d/j['image']).size==(2048,4096)
+          assert j['originalSourceCameraMustStayUnchanged']
+          assert j['sourceGameUnchanged'] and j['nativeRoad5GeometryUnchanged']
+          print('K4BO_ORIGINAL_RACING_ATLAS_VERIFIED')
+          PY
+      - name: Original camera frustum verify and native Blender two-image render
+        run: |
+          set -euo pipefail
+          xvfb-run -a -s '-screen 0 1920x1200x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4bo-source-camera-racing-art.py -- \
+              --base research/evidence/k4bo/parent/K4BN_UV_PBR_AUTHOR_SCULPTED_EDITABLE_DCC_ART_HOLD.blend \
+              --atlas research/evidence/k4bo/render/K4BO_ORIGINAL_NEAR_CAMERA_VELOCITY_ATLAS_RGBA.png \
+              --out research/evidence/k4bo/render
+      - name: Validate exact original mesh/camera, editable blend and A/B lower-road visibility
+        run: |
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          p=Path('research/evidence/k4bo/parent')
+          d=Path('research/evidence/k4bo/render')
+          j=json.loads((d/'K4BO_SOURCE_FRAME_AND_RACING_ART_PROVENANCE.json').read_text())
+          assert j['frozenOriginalGameSourceGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['road5OriginalGeometryPreserved'] and j['sourceCameraNumericalPosesPreserved']
+          assert j['sourceB48Roads']==7 and j['sourceB51Movers']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusMetres']==.65
+          assert len(j['sourceRoadSamples'])>=13 and len(j['cameraProjectionTrueOriginalPose'])>=27
+          assert j['raceGraphicRGBAatlasPacked']
+          assert hashlib.sha256((d/'K4BO_ORIGINAL_NEAR_CAMERA_VELOCITY_ATLAS_RGBA.png').read_bytes()).hexdigest()==j['raceGraphicSHA256']
+          assert j['newPlayableColliders']==0 and j['gameSourceEdited'] is False
+          assert j['actualWebGL2GameCapture'] is False
+          assert j['artJudgement']=='UNJUDGED_HOLD'
+          assert j['formallyAdoptedArt']==0 and j['formalSlope2DNAMetres']==0
+          for name,meta in j['files'].items():
+            raw=(d/name).read_bytes()
+            assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert len(j['originalSourceCameraDCCImages'])==2
+          canvas=Image.new('RGB',(2080,1450),(17,20,24))
+          dr=ImageDraw.Draw(canvas)
+          differences=[]
+          for i,x in enumerate(j['originalSourceCameraDCCImages']):
+            mode=x['mode'];tick=x['tick']
+            a=Image.open(p/f'K4BN_{mode.upper()}_{tick}_ACTUAL_SOURCE_CAMERA_UVPBR_ART_HOLD.png').convert('RGB').resize((998,670))
+            b=Image.open(d/x['file']).convert('RGB').resize((998,670))
+            diff=ImageChops.difference(a,b)
+            assert diff.getbbox() is not None
+            delta=sum(ImageStat.Stat(diff.crop((0,260,998,670))).mean)/3
+            differences.append({'mode':mode,'lowerRoadPixelMeanRGBDelta':round(delta,4)})
+            assert delta>=1.5, f'Road foreground not materially changed in source camera {mode}: {delta}'
+            canvas.paste(a,(18,36+710*i));canvas.paste(b,(1050,36+710*i))
+            dr.text((18,12+710*i),f'K4BN authentic B48 source {mode} {tick} - ART rejected',fill='white')
+            dr.text((1050,12+710*i),f'K4BO foreground graphic art {mode} {tick} - NOT GAME - ART UNJUDGED',fill='white')
+          name='K4BO_VS_K4BN_TRUE_SOURCE_CAMERA_FOREGROUND_ART_REVIEW_NOT_GAME.png'
+          canvas.save(d/name)
+          raw=(d/name).read_bytes()
+          j['fullCameraAB']={'name':name,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),
+                             'roadVisibilityMeasurements':differences}
+          (d/'K4BO_SOURCE_FRAME_AND_RACING_ART_PROVENANCE.json').write_text(json.dumps(j,indent=2))
+          print('K4BO_REAL_SOURCE_CAMERA_EDITABLE_DCC_VISIBILITY_TECH_ONLY',differences)
+          PY
+      - name: GitHub isolate genuine source-camera art and measurements
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bo-camera-frustum-track-art-20261104
+          mkdir -p docs/research-evidence/k4bo
+          cp research/evidence/k4bo/render/K4BO_*_TRUE_SOURCE_CAMERA_ART_UNJUDGED.png docs/research-evidence/k4bo/
+          cp research/evidence/k4bo/render/K4BO_VS_K4BN_TRUE_SOURCE_CAMERA_FOREGROUND_ART_REVIEW_NOT_GAME.png docs/research-evidence/k4bo/
+          cp research/evidence/k4bo/render/K4BO_SOURCE_FRAME_AND_RACING_ART_PROVENANCE.json docs/research-evidence/k4bo/
+          cp research/evidence/k4bo/render/K4BO_ORIGINAL_ATLAS_METADATA.json docs/research-evidence/k4bo/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4bo
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bo): measured real source-camera on-screen forward metres and native art comparison"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bo-camera-frustum-track-art-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BO_NATIVE_FIXED_CAMERA_FOREGROUND_RACE_ART_HOLD
+          path: research/evidence/k4bo/render/
+          retention-days: 14
+          if-no-files-found: warn
