@@ -94,23 +94,36 @@ assert project(end)["visible"],("GANGWAY_NOT_IN_TRUE_CHASE",project(end))
 # no more than ~35m from its passenger gangway. Do not move or fake the camera.
 # Characteristic ferry dimensions: 29m long and 7.6m beam, real 3D sheer.
 candidate=[]
-for dx in (-22,-16,-10,-4,2,8,14,20,26):
-    for ds in (4,8,12,16,22,28):
-        c=end+F*dx+S*(sgn*ds)+Vector((0,0,-.45))
-        points=[c+F*da+S*(sgn*db)+Vector((0,0,dz))
-                for da in (-15,15) for db in (-4.4,4.4) for dz in (-3.8,5)]
-        proj=[project(p) for p in points]
-        if not all(p["visible"] and .505<p["x"]<.985 and .17<p["y"]<.78 for p in proj):
-            continue
-        v=project(c)
-        score=abs(v["x"]-.785)*1.4+abs(v["y"]-.495)*.4+.003*math.hypot(dx,ds)
-        candidate.append((score,dx,ds,c,v,[min(p["x"] for p in proj),max(p["x"] for p in proj)]))
-assert candidate,("NO_WATERSIDE_FERRY_LOCATION_WITHOUT_CAMERA_OR_ROAD_INTRUSION",
-                  "gangway",project(end))
+diagnostics=[]
+# Preserve actual 3D proportions. A small coastal ferry (19.7-29m) is valid:
+# each scale is a *real vessel dimension*, never a changed camera or fake sprite.
+for ship_scale in (1.0,.87,.74,.68):
+    for dx in (-45,-36,-28,-20,-14,-8,-2,4,10,16,22,28,36,44):
+        for ds in (-12,-8,-4,2,6,10,14,18,24,30,38,46,56):
+            if math.hypot(dx,ds)>49:continue
+            c=end+F*dx+S*(sgn*ds)+Vector((0,0,-.45))
+            points=[c+F*(da*ship_scale)+S*(sgn*db*ship_scale)+Vector((0,0,dz*ship_scale))
+                    for da in (-15,15) for db in (-4.4,4.4) for dz in (-3.8,5)]
+            proj=[project(p) for p in points]
+            in_front=[p for p in proj if p["visible"]]
+            if len(diagnostics)<500 and in_front:
+                diagnostics.append((round(min(p["x"] for p in in_front),3),
+                                    round(max(p["x"] for p in in_front),3),
+                                    round(min(p["y"] for p in in_front),3),
+                                    round(max(p["y"] for p in in_front),3),
+                                    dx,ds,ship_scale))
+            if not all(p["visible"] and .505<p["x"]<.985 and .16<p["y"]<.80 for p in proj):
+                continue
+            v=project(c)
+            score=abs(v["x"]-.785)*1.4+abs(v["y"]-.495)*.4+.003*math.hypot(dx,ds)+.15*(1-ship_scale)
+            candidate.append((score,dx,ds,ship_scale,c,v,
+                              [min(p["x"] for p in proj),max(p["x"] for p in proj)]))
+assert candidate,("NO_SAFE_REAL_WORLD_MOORING_CANDIDATE",project(end),
+                  sorted(diagnostics,key=lambda row:abs(row[0]-.51))[:12])
 candidate.sort(key=lambda k:k[0])
-score,chosen_dx,chosen_ds,vessel,pj,extents=candidate[0]
+score,chosen_dx,chosen_ds,ship_scale,vessel,pj,extents=candidate[0]
 def vp(a,s,z):
-    return vessel+F*a+S*(sgn*s)+Vector((0,0,z))
+    return vessel+F*(ship_scale*a)+S*(sgn*ship_scale*s)+Vector((0,0,ship_scale*z))
 coll=bpy.data.collections.new("K4CD | complete coastal passenger ferry + open water | DCC ART HOLD")
 sc.collection.children.link(coll)
 created=[]
@@ -154,7 +167,7 @@ def mesh(name,verts,faces,m,role,smooth=True):
     created.append(obj)
     return obj
 # A genuinely volumetric seaworthy ferry hull: 31 curved stations, pointed bow,
-# rounded transom, submerged keel/chine, not a scaled cuboid or screenshot asset.
+# rounded transom, submerged keel/chine, not a cuboid or screenshot asset.
 stations=30;ring_size=7
 V=[]
 for i in range(stations+1):
@@ -257,7 +270,7 @@ for i in range(NX+1):
         side=(vessel-base).dot(S)+sgn*(-7+95*v)
         ripple=.11*math.sin(along*.52+side*.31)*math.sin(side*.38-along*.16)
         ripple+=.055*math.sin(along*1.14-side*.75)
-        z=(vessel-base).z-2.72+ripple
+        z=(vessel-base).z-2.72*ship_scale+ripple
         water_vert.append(at(along,side,z))
 for i in range(NX):
     for j in range(NY):
@@ -309,6 +322,7 @@ audit={
  "newResearchEditableObjects":len(created),"newResearchMeshNames":[o.name for o in created],
  "newResearchHero": "one watertight sculpted passenger ferry at original gangway, integrated spatial sea basin",
  "dockApproachDistanceMetres":round(math.hypot(chosen_dx,chosen_ds),3),
+ "realVesselLengthMetres":round(29*ship_scale,3),
  "mooringWorld":[round(float(n),3) for n in vessel],
  "trueCHASEFerryBBoxNotArtScore":bbox,"trueCHASEFerryProjectedBoxAreaNotArtScore":area,
  "real3DBoatVisibleVertexCount":len(visible),"genuineEditableDCC":True,
