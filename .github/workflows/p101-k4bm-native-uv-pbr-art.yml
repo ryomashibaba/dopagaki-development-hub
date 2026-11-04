@@ -1,0 +1,135 @@
+name: DOPAGAKI K4BM source-camera UV-PBR authored coastal hero art HOLD
+on:
+  push:
+    branches: [research/k4bm-uv-pbr-authored-hero-20261104]
+    paths:
+      - scripts/p101-k4bm-authored-uv-pbr-coastal-hero.py
+      - .github/workflows/p101-k4bm-native-uv-pbr-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bm-authored-uv-pbr-road5
+  cancel-in-progress: true
+jobs:
+  actual-native-blender-original-cameras:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect frozen original game and check source/author script
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "research/k4bm-uv-pbr-authored-hero-20261104"
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bm-authored-uv-pbr-coastal-hero.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download exact K4BL final native Blender source art original
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BL_TRUE_SOURCE_CAMERA_EDITABLE_HARBOR_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41751060525
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bm/parent
+      - name: Independently hash verify entire pinned Blender parent and source
+        run: |
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          folder=Path('research/evidence/k4bm/parent')
+          j=json.loads((folder/'K4BL_TRUE_SOURCE_CAMERA_PROVENANCE.json').read_text())
+          assert j['frozenGameSourceGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5TessellationUnchanged'] and j['originalSourceCameraNumericsUnchanged']
+          assert j['originalB48Roads']==7 and j['originalB51Movers']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusM']==.65
+          assert j['formalArtAccepted']==0 and j['slope2DNAAcceptedMetres']==0
+          for name,meta in j['files'].items():
+              raw=(folder/name).read_bytes()
+              assert len(raw)==meta['bytes']
+              assert hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert j['files']['K4BL_HARBOR_ART_DIRECTED_EDITABLE_NATIVE_BLENDER_HOLD.blend']['sha256']=='220855d6500a74697e41b9bad36cb5c20654ea77d8c8a4be48d5ebf9a4ab2488'
+          print('K4BM_PINNED_K4BL_NATIVE_BYTES_AND_GAME_SOURCE_PASS')
+          PY
+      - name: Install Blender 4 EEVEE via CPU software graphics and Pillow
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: Author real UV meshes / physically detailed materials and render 2 true source cameras
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bm/render
+          xvfb-run -a -s '-screen 0 1920x1200x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4bm-authored-uv-pbr-coastal-hero.py -- \
+              --base research/evidence/k4bm/parent/K4BL_HARBOR_ART_DIRECTED_EDITABLE_NATIVE_BLENDER_HOLD.blend \
+              --out research/evidence/k4bm/render
+      - name: Validate genuine native 3D material UV and source-image review
+        run: |
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          import json,hashlib
+          p=Path('research/evidence/k4bm/parent')
+          d=Path('research/evidence/k4bm/render')
+          j=json.loads((d/'K4BM_ORIGINAL_CAMERA_UVPBR_PROVENANCE.json').read_text())
+          assert j['frozenSourceGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5VertexAndFaceFingerprintPreserved']
+          assert j['sourceCameraNumericPosesAndLensUnchanged']
+          assert j['originalB48Roads']==7 and j['originalB51Movers']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusM']==.65
+          assert len(j['realRoad5SectionsMeasured'])==9
+          assert j['nativeUVEditedResearchMeshes']>=35
+          assert j['newPlayableGameCollisionMeshes']==0 and j['gameSourceModified'] is False
+          assert j['isGameWebGLFrame'] is False
+          assert j['ART']=='UNJUDGED_HOLD'
+          assert j['formalArtAccepted']==0 and j['formalSlope2DNAacceptedMetres']==0
+          for name,meta in j['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert len(j['originalFixedSourceCameraDCCImages'])==2
+          canvas=Image.new('RGB',(2080,1450),(16,20,24))
+          pen=ImageDraw.Draw(canvas)
+          for i,x in enumerate(j['originalFixedSourceCameraDCCImages']):
+              mode=x['mode'];tick=x['tick']
+              a=Image.open(p/f'K4BL_{mode.upper()}_{tick}_GENUINE_SOURCE_CAMERA_HARBOR_ART_HOLD.png').convert('RGB').resize((998,670))
+              b=Image.open(d/x['file']).convert('RGB').resize((998,670))
+              assert sum(ImageStat.Stat(b).stddev)>11
+              assert ImageChops.difference(a,b).getbbox() is not None
+              canvas.paste(a,(18,36+710*i))
+              canvas.paste(b,(1050,36+710*i))
+              pen.text((18,12+710*i),f'K4BL rejected native original camera {mode} {tick}',fill=(255,255,255))
+              pen.text((1050,12+710*i),f'K4BM editable UV/PBR research candidate {mode} {tick} NOT GAME',fill=(255,255,255))
+          compare='K4BM_K4BL_VS_UVPBR_SAME_SOURCE_CAMERA_ART_REVIEW_NOT_GAME.png'
+          canvas.save(d/compare)
+          raw=(d/compare).read_bytes()
+          j['verifiedSameSourceCameraAB']={'file':compare,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+          (d/'K4BM_ORIGINAL_CAMERA_UVPBR_PROVENANCE.json').write_text(json.dumps(j,indent=2))
+          print('K4BM_REAL_NATIVE_EDITABLE_UV_MESH_AND_2_SOURCE_CAMERA_RGB_PASS_NOT_ART_APPROVAL')
+          PY
+      - name: Save genuine art review PNG and provenance on isolated research branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bm-uv-pbr-authored-hero-20261104
+          mkdir -p docs/research-evidence/k4bm
+          cp research/evidence/k4bm/render/K4BM_*_ACTUAL_SOURCE_CAMERA_UVPBR_ART_HOLD.png docs/research-evidence/k4bm/
+          cp research/evidence/k4bm/render/K4BM_K4BL_VS_UVPBR_SAME_SOURCE_CAMERA_ART_REVIEW_NOT_GAME.png docs/research-evidence/k4bm/
+          cp research/evidence/k4bm/render/K4BM_ORIGINAL_CAMERA_UVPBR_PROVENANCE.json docs/research-evidence/k4bm/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4bm
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bm): native authored UV+PBR and exact source camera imagery ART HOLD"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bm-uv-pbr-authored-hero-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BM_TRUE_SOURCE_CAMERA_UVPBR_EDITABLE_DCC_ART_HOLD
+          path: research/evidence/k4bm/render/
+          retention-days: 14
+          if-no-files-found: warn
