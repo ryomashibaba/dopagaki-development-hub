@@ -1,3 +1,15 @@
+# 【2026-11-04 K4BS実制作・最新研究正本】CC0実松と連続写真地表の自動取得・真正Blender画像検証
+
+最新隔離研究枝：`research/k4bs-photo-vegetation-art-direction-20261104`。詳細設計・不変更保護は[**K4BS原本と本物の植生/地表素材を使った制作条件**](docs/R19_A6P4_R2F5K4BS_PINE_PHOTO_VEGETATION_ART_JA.md)を最優先。以前の「最新」は履歴。
+
+- **直前K4BR**：[確定GitHub Actions #41790588687](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41790588687) completed/SUCCESS、本物のPoly Haven CC0写真材質と約20,174tri岩壁のBlender組込TECH PASS、真同研究CHASE画像は**ART REJECT**。編集可能親原本`K4BR_ACTUAL_CC0_PHOTOSCAN_ROCKS_EDITABLE_NATIVE_DCC_ART_HOLD.blend` SHA256 `7f229b9fbc0d736c056e1494f64192e64b7915f768a6fb38f05c87901229fa69`をロック。正式ART採用0件／Slope2 DNA0m。
+- **K4BS真の作業**：Poly Haven公式CC0 `sparse_grass`の2K実Diffuse/OpenGL Normal/Roughと`pine_sapling_small` 1K実glTF+全依存を、ソース公式URL/MD5/実サイズ/SHA256照合で取得する（容量制限モデル総175MiB、単ファイル100MiB）。Blenderの元K4BR真正BLENDをロック読込し、左右K4BQ研究斜面の**各矩形ポリゴン単位の草/岩切替えを解除、自然な傾斜+3D noise連続マスクの写真PBRブレンド**に置き換える。元の低ポリ三角木と画面の上下を占める公共建築模型・灯台は削除せず本研究レンダーだけOFF。実松を高詳細のまま読み込めた場合だけ共有ジオメトリの最大14本研究配置。**元CHASE_NARROW複製研究カメラと前K4BRを全く同じ数値で旧新比較**し、元Camera複製のもう1画像と全SHA、実Blender原本を保存。High-poly木のLOD/FPSはHOLD、ゲームに統合不可。
+- 初回[CI #41793014896](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793014896) **FAILURE**：前親Artifact内の`render/`階層を見落とし、原本監査JSONのFileNotFoundで停止。源テストPASS、素材未取得。検証経路修正commit `a9ca4b5bb993ca6dd8ec704d5ff34881b42490d0`、修正版[CI #41793241061](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793241061) は結果検査中。成功するまで外部素材や美術を導入済みと宣言禁止。
+- **最上位目標**：世界水準の高速3Dレーシングゲーム全コース美術であり、単にPBR枚数/模型本数を増やすことではない。現在ART REJECT、正式ART0件／Slope2DNA0m。実BLENDの研究図はゲームWebGL2画面でも実安全な本番Road5でもない。
+- **元ソース全保護**：本物のGame Git Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Source B48 Road5全頂点面fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48 7Road/B51 28Mover/240Hz/ball radius 0.65m/元Rig6Camera値と安全UI、main、公式`p101-velocity-overdrive-native-trial`、Draft PR #46、本番2サイト不変更。Work/Computer Useは事前承認、追加課金なし、ユーザーWindows操作不要。新ゲームCollider0、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
+---
+
 # 【2026-11-04 K4BR最終確定・K4BSへの制作入口】実CC0 PBR/3D岩壁モデルの真正取得→Blender実装TECH PASS／美術ART REJECT
 
 **現行最終隔離枝**：`research/k4br-cc0-phototexture-source-verified-20261104`。次の作業は[**K4BR実配布素材・全MD5+SHA・本物のBlender原本・比較画像・美術評価・K4BS制作原則**](docs/R19_A6P4_R2F5K4BR_CC0_SCAN_REAL_ASSET_ART_JA.md)を最優先で読む。それ以前の「最新」記事は履歴。
