@@ -126,7 +126,8 @@ sculpt.name="K4CC | TRUE_EDITABLE_NATIVE_ROCK_RELIEF | NO_GAME_COLLIDER"
 coll.objects.link(sculpt)
 sculpt["DCC_RESEARCH_ONLY"]=True;sculpt["NOT_GAME_COLLIDER"]=True
 sculpt["SOURCE_TERRAIN_FINGERPRINT"]=slope_before
-slope.hide_render=True
+slope.hide_render=False
+# Keep the untouched source terrain as continuous backing below the sculpted research relief.
 bm=bmesh.new();bm.from_mesh(sculpt.data)
 # The incoming study slope is relatively coarse: actual subdivided mesh
 # before per-vertex geological sculpting, never a parallax/fake image.
@@ -147,7 +148,11 @@ for vertex in sculpt.data.vertices:
     rise=max(0.,min(1.,(y-.29)/.105))
     recede=max(0.,min(1.,(.77-y)/.115))
     coverage=edge_in*edge_out*rise*recede
-    if coverage<=.001:continue
+    # A small constant elevation keeps the duplicate above the unchanged original terrain,
+    # which remains visible as a seam-free backing at the shoulder.
+    if coverage<=.001:
+        vertex.co=inv@(p+Vector((0.,0.,.055)))
+        continue
     ridge1=3.75*math.exp(-((x-.139)/.081)**2-((y-.535)/.092)**2)
     ridge2=2.65*math.exp(-((x-.267)/.066)**2-((y-.525)/.082)**2)
     gully=2.25*math.exp(-((x-.211)/.026)**2-((y-.520)/.12)**2)
@@ -155,7 +160,7 @@ for vertex in sculpt.data.vertices:
     # adds relief at driving speed without random point-by-point spikes.
     bedding=(.56*math.sin(p.x*.31+p.y*.14)+
              .24*math.sin(p.x*.59-p.y*.37))
-    dz=coverage*(ridge1+ridge2-gully+bedding)
+    dz=.055+coverage*max(0.,ridge1+ridge2-gully+bedding)
     if abs(dz)<.012:continue
     vertex.co=inv@(p+Vector((0.,0.,dz)))
     modified+=1;max_delta=max(max_delta,abs(dz))
@@ -206,9 +211,9 @@ assert {o.name:(bool(o.hide_render),float(o.data.energy)) for o in bpy.data.obje
 assert {o.name:(len(o.data.vertices),len(o.data.polygons),tuple(tuple(row) for row in o.matrix_world)) for o in research_a3}==a3_geometry
 assert bad.hide_render and not good.hide_render
 assert all((bool(bpy.data.objects[n].hide_render),bool(bpy.data.objects[n].hide_viewport))==v
-           for n,v in preexisting.items() if n not in set(suppressed+[slope.name]))
+           for n,v in preexisting.items() if n not in set(suppressed))
 assert all(bpy.data.objects[n].hide_render for n in suppressed)
-assert slope.hide_render and not sculpt.hide_render
+assert not slope.hide_render and not sculpt.hide_render
 assert sha(parent)==PARENT_SHA
 scene.camera=cam;scene.render.engine="BLENDER_EEVEE"
 scene.render.resolution_x=768;scene.render.resolution_y=480;scene.render.resolution_percentage=100
@@ -229,7 +234,8 @@ audit={
  "originalElevenTreeTransformsUnchanged":True,"originalLightsUnchanged":True,
  "K4BZ_bad_duplicate_road_hidden":True,"originalResearchA3MeshesUnedited":True,
  "sourceGameEdited":False,"sourcePhysicsEdited":False,"newGameColliders":0,
- "noExtraRoadSurfaceAdded":True,"researchOnlyVisibilityChanges":suppressed+[slope.name],
+ "noExtraRoadSurfaceAdded":True,"researchOnlyVisibilityChanges":suppressed,
+ "sourceTerrainRenderedBehindRaisedSculpt":True,
  "newResearchTerrainMesh":sculpt.name,"terrainSourceObject":slope.name,
  "sourceTerrainMeshFingerprint":slope_before,
  "sourceTerrainMaterialNames":origin_materials,
