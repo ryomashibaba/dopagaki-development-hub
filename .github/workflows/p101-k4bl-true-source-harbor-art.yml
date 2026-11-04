@@ -1,0 +1,129 @@
+name: DOPAGAKI K4BL true Road5 source-camera cinematic harbor art review HOLD
+on:
+  push:
+    branches: [research/k4bl-harbor-atmosphere-art-reconstruction-20261104]
+    paths:
+      - 'scripts/p101-k4bl-authored-harbor-cinematic-roadscape.py'
+      - '.github/workflows/p101-k4bl-true-source-harbor-art.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bl-true-camera-harbor-art
+  cancel-in-progress: true
+jobs:
+  exact-camera-native-blender-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read-only preflight for frozen game & syntax
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bl-harbor-atmosphere-art-reconstruction-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bl-authored-harbor-cinematic-roadscape.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download pinned K4BK genuine native Blender DCC parent
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BK_TRUE_ROAD5_GROUND_TRUTHED_EDITABLE_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41747761082
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bl/parent
+      - name: Check exact original parent SHA and immutable six-camera/road provenance
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          d=Path('research/evidence/k4bl/parent')
+          j=json.loads((d/'K4BK_GROUND_TRUTHED_SOURCE_CAMERA_PROVENANCE.json').read_text())
+          assert j['frozenOriginalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalB48Roads']==7 and j['originalB51Movers']==28
+          assert j['physicsHz']==240 and j['ballRadiusMetres']==.65
+          assert j['sourceRoad5FingerprintPreserved'] and j['originalSourceCameraNumericsPreserved']
+          assert j['formalARTAccepted']==0 and j['slope2DNAacceptedMetres']==0
+          for name,details in j['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==details['bytes'] and hashlib.sha256(raw).hexdigest()==details['sha256'],name
+          assert j['files']['K4BK_GROUND_TRUTHED_CIVIC_ROADSIDE_EDITABLE_ART_HOLD.blend']['sha256']=='8874f09c868218879bcc6a346303819b17f38ffda11177c44555e022167a1c9c'
+          print('K4BL_AUTHENTIC_SOURCE_ART_PARENT_HASH_PASS')
+          PY
+      - name: Install headless native Blender + Pillow (no unavailable OIDN)
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+      - name: Actual native Blender 3D harbor model and two immutable source-camera images
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bl/render
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bl-authored-harbor-cinematic-roadscape.py -- \
+            --base research/evidence/k4bl/parent/K4BK_GROUND_TRUTHED_CIVIC_ROADSIDE_EDITABLE_ART_HOLD.blend \
+            --out research/evidence/k4bl/render
+      - name: Independently validate full output bytes, reference camera and side-by-side visuals
+        run: |
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          import hashlib,json
+          p=Path('research/evidence/k4bl/parent')
+          d=Path('research/evidence/k4bl/render')
+          j=json.loads((d/'K4BL_TRUE_SOURCE_CAMERA_PROVENANCE.json').read_text())
+          assert j['frozenGameSourceGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5TessellationUnchanged'] and j['originalSourceCameraNumericsUnchanged']
+          assert j['originalB48Roads']==7 and j['originalB51Movers']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusM']==.65
+          assert len(j['originalRoad5SurveySections'])==9
+          assert j['gameFileEdited'] is False and j['newGameColliders']==0
+          assert j['isOriginalWebGL2GameFrame'] is False
+          assert j['formalArtAccepted']==0 and j['slope2DNAAcceptedMetres']==0
+          assert j['ART']=='UNJUDGED_HOLD' and j['SAT']=='HOLD'
+          for name,details in j['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==details['bytes'] and hashlib.sha256(raw).hexdigest()==details['sha256'],name
+          canvas=Image.new('RGB',(2060,1450),(16,19,21))
+          dr=ImageDraw.Draw(canvas)
+          assert len(j['originalCameraDCCScreenshots'])==2
+          for i,shot in enumerate(j['originalCameraDCCScreenshots']):
+              m=shot['mode'];t=shot['tick']
+              a=Image.open(p/f'K4BK_{m.upper()}_{t}_SOURCE_CAMERA_GROUND_TRUTH_ART_UNJUDGED.png').convert('RGB').resize((990,660))
+              b=Image.open(d/shot['file']).convert('RGB').resize((990,660))
+              assert sum(ImageStat.Stat(b).stddev)>12
+              assert ImageChops.difference(a,b).getbbox() is not None
+              canvas.paste(a,(20,35+i*710)); canvas.paste(b,(1050,35+i*710))
+              dr.text((20,10+i*710),f'K4BK REJECTED / source camera {m} {t}',fill='white')
+              dr.text((1050,10+i*710),f'K4BL HARBOR DCC ART UNJUDGED / source camera {m} {t} / NOT GAME',fill='white')
+          name='K4BL_K4BK_VS_HARBOR_ORIGINAL_CAMERA_ART_REVIEW_NOT_GAME.png'
+          canvas.save(d/name)
+          raw=(d/name).read_bytes()
+          j['independentSamePoseAB']={'file':name,'sha256':hashlib.sha256(raw).hexdigest(),'bytes':len(raw)}
+          (d/'K4BL_TRUE_SOURCE_CAMERA_PROVENANCE.json').write_text(json.dumps(j,indent=2))
+          print('K4BL_ACTUAL_SOURCE_2_RGB_AND_NATIVE_EDITABLE_BYTES_PASS_NOT_ART_PASS')
+          PY
+      - name: Preserve real images and JSON in isolation research branch only
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bl-harbor-atmosphere-art-reconstruction-20261104
+          mkdir -p docs/research-evidence/k4bl
+          cp research/evidence/k4bl/render/K4BL_*_GENUINE_SOURCE_CAMERA_HARBOR_ART_HOLD.png docs/research-evidence/k4bl/
+          cp research/evidence/k4bl/render/K4BL_K4BK_VS_HARBOR_ORIGINAL_CAMERA_ART_REVIEW_NOT_GAME.png docs/research-evidence/k4bl/
+          cp research/evidence/k4bl/render/K4BL_TRUE_SOURCE_CAMERA_PROVENANCE.json docs/research-evidence/k4bl/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4bl
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bl): actual source camera true native Blender harbor art; ART UNJUDGED"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bl-harbor-atmosphere-art-reconstruction-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BL_TRUE_SOURCE_CAMERA_EDITABLE_HARBOR_ART_HOLD
+          path: research/evidence/k4bl/render/
+          retention-days: 14
+          if-no-files-found: warn
