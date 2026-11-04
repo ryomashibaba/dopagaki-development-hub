@@ -20,6 +20,8 @@
     "K4BS | Continuously masked REAL CC0 green-to-rock coastal erosi"
   ],
   "newTerrainPBRMaterial": "K4CA | coastal wind-weathered calcareous sandstone scrub natura",
+  "A1ArtReview": "REJECT_WASHED_OUT_CHALKY_WHITE_SLOPE",
+  "A2Correction": "warmer lower-luminance weathered sandstone preserves original terrain silhouette and original K4BZ black-wedge fix",
   "leftActualVisibleSurfaceRaycastSamples": [
     {
       "pixel": [
@@ -140,19 +142,19 @@
   "files": {
     "K4CA_COASTAL_SLOPE_PHOTO_CANOPY_EDITABLE_NATIVE_ART_HOLD.blend": {
       "bytes": 271620488,
-      "sha256": "7b879e56bc04f2db5b3a8607e2da798f728fd9cfe9b5cbbba1bb0ba9d9375a3e"
+      "sha256": "299f1972e3383a7fc0047409a0f58581da3884988749dff6842a80cdf49a3ffa"
     },
     "K4CA_SAME_CHASE_TWO_REAL_CC0_COASTAL_TREES_WEATHERED_HILLSIDE_NOT_GAME.png": {
-      "bytes": 477109,
-      "sha256": "e51daeda02ce3e216f797b3dbaf3f7a0e7d93123ee64849d77ea95fd00cfd49a"
+      "bytes": 476441,
+      "sha256": "e864aa1cdcc7707370c47e0542580cd6963f8e2fb9deada8cf0a9752dd8f84d6"
     }
   },
   "independentSameCameraReview": {
     "image": "K4CA_VS_K4BZ_TRUE_SAME_CHASE_COASTAL_SLOPE_PHOTO_CANOPY_ART_REVIEW_NOT_GAME.png",
-    "bytes": 483386,
-    "sha256": "bf6d11ac49c7f49bfcaf3284f710caa788a1b3ddfbb1ffca1ad15559d09cddfc",
+    "bytes": 430170,
+    "sha256": "a7843378e17a113e07d6d6a9b3ea4e090b55458fb49a4c1bd389db4b31b3b1f9",
     "sameTrueChaseFixed768x480": true,
-    "averageRGBDifferenceIsNotArtQuality": 6.23592,
+    "averageRGBDifferenceIsNotArtQuality": 2.97192,
     "ART": "UNJUDGED_HOLD"
   }
 }
