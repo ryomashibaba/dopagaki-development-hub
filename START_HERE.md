@@ -1,3 +1,16 @@
+# 【2026-11-05 K4CB A3最終正本：実装→真正Blender→直接ART REJECT→独立ZIP/SHA→GitHub研究保存完了】
+
+**現在の隔離研究ブランチ** `research/k4cb-a3-integrated-quay-arrival-art-20261105`。まず[**K4CB A3完成技術証拠・実画像直接ART REJECT・失敗/保護・次工程固定方針**](docs/R19_A6P4_R2F5K4CB_A3_TRUE_NATIVE_QUAY_ART_REVIEW_JA.md)を全文確認し、[実同CHASE A2対A3画像](docs/research-evidence/k4cb-a3/K4CB_A3_VS_A2_TRUE_SAME_CHASE_QUAY_ARRIVAL_ART_REVIEW_NOT_GAME.png)、[A3独立監査JSON](docs/research-evidence/k4cb-a3/K4CB_A3_REAL_NATIVE_AUDIT.json)を照合する。下段の「現行」「最新」は当時の履歴でありA3より優先しない。
+
+- **真の制作と検証：SOURCE/DCC/RENDER TECH PASSのみ。** 元K4CB A2（研究Blender親SHA256 `5f57d64654ff8df6b6ecd852699432cda50f1afc1af3723779170ccb4cbed5b1`）を真正Artifactから厳格再読込。A3作者スクリプトで港湾の単一大開口、入港側の壁・奥に退いた待合空間、乗船前広場・スロープ・岩棚を**真正Blender独立新10メッシュ**として制作。原ゲーム編集なし・ゲームCollider追加0。元Road5やCHASE、全6 Source Camera、木11本・光源、K4BZ悪い研究舗装hide_render、元A2オブジェクトは不変。
+- **最終真正[Actions #41918497448](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41918497448) completed/SUCCESS**。真Blender 4.0.2 EEVEE 768×480同CHASE実画像の生成、編集可能.blend保存、独立ゲーム/Camera/道路指紋/SHA/黒筋6対回帰、研究枝証拠commitの全手順SUCCESS。真編集可能.blend **272,525,680 B／SHA256 `0b581f45de4d4e215515e8dbef9a4038c7f1b9bdb0e1935943c4445529193e6c`**、真CHASE PNG SHA256 `94d349036731ab47ed62677e6e7fdc50f80b9ac96060533bd32ae65d7721b6ae`。[本物の編集可能原本＋画像＋ログ Artifact #13365996340](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41918497448/artifacts/13365996340)。
+- **別途独立したZIP原バイト再取得・全CRC/SHA照合PASS**：ZIP 122,766,266 B／SHA256 `2935d7c51562a544491027d66a2abf37dcb2ddb26bff85740aae25e47b08624e`、比較PNG SHA256 `f2b1cd01b1c848a2710467289af45bcb23296ab4171ea75397af81dcc64a489b`。この会話内では独立Blender再オープンはしておらず、実レンダーの裏付けはGitHub Actions Blenderステップと真正原本/PNG実ハッシュ。
+- **画像を直接開いて全画面ART REJECT**。右港に入口・壁面は増えたが、画面では広いベージュ壁が空間を隠して港の機能がさらに読みにくい。大きく平坦な灰色道路と単調な左側の山・遠景がそのまま。右港4,777画素差は美術点数ではない。**正式ART採用0件／Slope2 DNA認定0m**、SAT/CCD/FPS/HUMAN/RELEASE/MERGE全HOLD、他6 Road展開禁止。新Blender画像はゲームWebGL2実画面／人間プレイではない。
+- **実失敗と反省を引き継ぐ**：[#41917691456](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41917691456)は修正によりCANCELLED、[#41917833226](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41917833226)・[#41918198305](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41918198305)は新研究海岸/乗船スロープがCHASEのレーシング視認保護X>0.49に抵触してFAIL。**安全閾値を緩めず実立体を調整**して最終PASS。これ以上モデル数・箱・屋根・線を増殖しない。全画面が良くなる**真の美術作者による統合造形**（岸壁・左自然地形・海と道路の関係、見える機能）を次工程の唯一の方向とする。単純な微修正CI反復や基盤整備を目的化しない。
+- **強制保護**：原Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元B48 Road5頂点面SHA256 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48本物7／B51本物28／240Hz／球0.65m／元6Camera＋CHASE、main、公式`p101-velocity-overdrive-native-trial`、Draft PR #46、原作Slope／W7F Gold／本番2サイト不変更。追加課金原則0円、Work/Computer Useは個別事前承認、ユーザーPC操作0。
+
+---
+
 # 【2026-11-05 K4CB A2真正Blender・同CHASE・独立QA成功／ART REJECT → 次は港湾・地形の統合作家工程】
 
 **現行隔離研究枝** `research/k4cb-a2-sculpted-ferry-terminal-chase-20261105`。最初に[**A2真の画像・Blender／ART REJECT／SHAと改善課題**](docs/R19_A6P4_R2F5K4CB_A2_TRUE_NATIVE_ART_REJECT_JA.md)と[真同CHASE A1対A2比較画像](docs/research-evidence/k4cb-a2/K4CB_A2_VS_A1_TRUE_SAME_CHASE_SCULPTED_TERMINAL_ART_REVIEW_NOT_GAME.png)、[正式独立監査JSON](docs/research-evidence/k4cb-a2/K4CB_A2_REAL_NATIVE_AUDIT.json)を確認。下の「A2結果未確認」「次K4CB」は過去の記録。
