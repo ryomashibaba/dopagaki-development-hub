@@ -40,3 +40,28 @@
 - **初回の真正control11307/ultra11341実画像を直接観察：ART REJECT**。旧K4BLより左右のガラス・日射遮蔽・岩肌・ロード骨材の素材と近景設計が洗練された一方、中央に黒茶の高い2本の柱状建築が並び景観を不自然に支配し、道路も画面の大半が灰色で平板、人物が使う港や海、都市の地理の関係が読み取りにくい。良い部分を確認しても**世界水準のビジュアル完成には程遠い**。正式ART採用0件、Slope2 DNA0m。
 - この実見に基づき修正commit `15512af0c61b16f404e72817d17310198a61474e`。画面中央の巨大で単調な2本のシリンダータワーを遠方・低い小構造へ移し、**低く展開する複雑なUV石材／実室内ガラスの公共埠頭2棟と、開放的な荷役用金属骨格の灯台**に転換。単純な高い柱を繰り返さず、実寸ロードの最終頂点d=188.774mのさらに奥の非走行背景にだけ置く。
 - [追加再描画 CI #41757027430](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41757027430) は**実完了未確認**。真正元カメラPNGとBlender原本・ソースShaが揃うまで2回目の美術評価を捏造しない。最終が失敗したら前回技術PASS成果を保護、ARTはREJECTのまま。
+
+
+## 【K4BM最終監査 2026-11-04】実UV Blender作者工程 TECH PASS / ART REJECT
+
+### 技術の真偽・完全な原本検証
+- [最終CI #41757027430](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41757027430) **completed/SUCCESS**。K4BL親.blend 正SHA、凍結ゲーム元blob、B48元7／B51元28／240Hz／球半径0.65m、Source Nodeテスト、9地点の真Road5 Raycast、元Road5 vertex/face fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元Camera control11307／ultra11341の位置・回転・レンズ数値不変、Ubuntu 24.04 Blender 4 EEVEE実レンダリング、2枚の真元Camera画像・独立RGB差分/sha・研究ブランチへのPNG保存にPASS。実WebGL2ゲーム画面ではない。
+- **真正最終Artifact** [#13288142972](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41757027430/artifacts/13288142972)、ZIP SHA256 `1a394c2649f109dc4f360f1fb52539cfca5731555fc0f3d63666c4b2d30aed21`。ZIP CRCエラーなし。編集可能`K4BM_UV_PBR_AUTHOR_SCULPTED_EDITABLE_DCC_ART_HOLD.blend` 39,880,852B／sha `7297b0ea17ffacb7f2c84cecf901947ce11de4e0a91ff4c93703f43cbe7b4a80`、control11307 PNG 1,650,501B／sha `edc72ddabbe7a7b6ea1fd4cd22234eb81f43a57b2f217681a03eec81576abd70`、ultra11341 PNG 1,631,799B／sha `c0e73889f8729befb80cd147c563f6e6daeb098a3368c62bd37311702aff631a`。旧K4BLとの同Camera二視点比較PNG 2,545,323B／sha `04c71afcabb8a9262cb406db5a158542b93ba548df9e8628fce2da325bcc9827`、真provenance JSON。ZIPファイル本体・全個別Blender/PNG・ABはGitHub結果とは別にコンテナ内で独立SHA計算して一致。
+- 真K4BM用 Blender研究シーンは作者メッシュの実UVレイヤが付いたメッシュ **296件**、研究用の独立編集可能オブジェクト **298件**（本数は評価の根拠ではない）。UVは3D世界座標から設計した展開＋Blender Noise/Voronoi/Normal Bump等の**手作りの手続き的材質**。実スキャンPBRテクスチャ写真や物理BRDF測定を用いたわけではない。高品質・実ゲーム実績を偽装しない。
+- 元source Game blob `af076d67492a677d2235e4730aef8cdf4808e106`不変、Road5真Mesh・元Camera値不変。未許可ゲーム新Collision0、ゲーム統合0、B51動的clearance/SAT/CCD/HUMAN/FPS未実証。元main/公式p101/Draft PR #46/本番2サイト変更なし、Work/Computer Use起動なし。
+
+### 実画像の最終ART判定：**REJECT**
+
+- **改善を認める部分**：前K4BLより真Road5路面の粗さ・素材の斑、左右の実ガラスと奥行きのある開口／細い金属フィン、手続き材質の陶板・銅・風化岩の差が実Cameraから一部確認できる。初回K4BM版を支配していた黒茶の巨大な2本の単純な柱状塔を第2修正で除外し、低い埠頭型公共施設に切り替えた。実ソフトウェアGLのEEVEE画像に粗いCyclesノイズがない。
+- **重大な不合格理由**：2枚とも広大で変化に乏しいRoad5灰色路面がフレームの大部分を占め、背景は建築の数と輪郭が増えても広い空白と明るすぎる遠方地平線が残る。画面は依然「実在感の薄い人工的な建物と道路の模型」に見え、海面・港の利用者・交通機能・質感の高級感・速度感や読みやすいコース固有の地理がない。右の矩形、左の縦格子が反復的で、UV材質のディテールも実元Cameraで近距離から十分に読めない。道路の横幅・撮影姿勢そのものの制約も重要。**全コースの世界水準美術とは認定できない**。
+- **今回も正式ART採用0件、Slope2 DNA認定0m**。技術SOURCE_PASS／NativeBlender_UV_TECH_PASS／ART_REJECT。HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
+### K4BN（次）の制作上の正しいゲート
+
+K4BMは「本物の編集可能UVと物理的質感のある原本を作れる」ことを技術的に証明したにとどまり、世界級の画が出るとは確認できなかった。**単純な屋根・柱・建物の数を増やす方法は今後の主経路に戻さない**。次は「元Cameraでどの程度画面に映るか」を1:1で検証しつつ、ユーザーが納得する実画面を作るため、
+1. Road5の主役である**路面の実材質と側道の形、車線意匠、近景オブジェクトの高級感**を一画面で完成させる。道路フレーム占有を見越したデザインを行う。
+2. 遠景で見える港/海岸を構図・地形と透視に合わせて設計し、港での用途・作業・交通の物語が**実元カメラ画像**で明確に読み取れるまで工夫。白い空白を大きい物で覆うだけにしない。
+3. Blenderネイティブ研究の外観試験と、**実ゲームWebGL2の同タイミングSource Camera画像**を別々に取得して、元ゲームの状況との乖離を監査する。後者に安全な作業経路がある場合でもmain、公式PR、本番を触らない。移植・Collider・他6Roadへの展開はART承認前禁止。
+4. リアルなディテールのある局所作者メッシュ・高解像度マテリアルや完成シーンを、可編集BLEND＋2元Camera画像＋SHAで持続保存。顔や人物の本物/車両コリジョンを捏造しない。
+
+依然としてユーザーWindows操作不要、Work開始に事前承認、追加課金なし。見た目が悪いなら良くなったと報告しない。K4BM実作品は研究候補として保存し、公式採用しない。
