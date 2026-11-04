@@ -1,3 +1,17 @@
+# 【2026-11-04 K4BS 最新の実作業正本】実CC0草・松を取得、連続地表＋実モデルを実装・Blender負荷検証中
+
+研究枝 `research/k4bs-photo-vegetation-art-direction-20261104`。[K4BS実CC0素材・地表遷移・松モデル・失敗と安全ゲートの記録](docs/R19_A6P4_R2F5K4BS_PINE_PHOTO_VEGETATION_ART_JA.md)を最優先。過去章の「最新」は履歴。
+
+**取得・Source検証まで実PASS**：Poly Haven公式CC0`sparse_grass` 2K diffuse/normalGL/rough（メーカーMD5・実サイズ・独立SHA）、本物の1K`pine_sapling_small` native glTF＋全依存8ファイル（同じ独立ハッシュ照合）、追加API課金なし、公式ライブAPI利用表記あり。元Game git blob `af076d67492a677d2235e4730aef8cdf4808e106`、真Road5メッシュfingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元Rig6/7本B48/28Mover B51/240Hz/球半径0.65m全保護。親K4BR編集可能原本SHa`7f229b9fbc0d736c056e1494f64192e64b7915f768a6fb38f05c87901229fa69`に変更なし。
+
+**研究実装（技術ARTは未認定）**：`scripts/p101-k4bs-organic-cc0-ground-and-pine-art.py`、`scripts/p101-k4bs-fetch-cc0-vegetation.py`と専用Workflowに、左右の地表の矩形塗り分けを解除して実PBR写真岩/草を傾斜・連続ノイズで混ぜること、旧低ポリの木/巨大建物/塔を研究レンダーだけ非表示にし、CC0詳細3D松を共有メッシュの少数インスタンスで使うこと、同CHASE研究カメラで旧K4BRとのA/Bを取ること、元Camera値/元Road5指紋を真Blenderで確認することを実装。**ゲーム本体には統合なし、Blender画像は実ゲームではない**。
+
+**実行結果を捏造しない**：[初回 #41793014896](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793014896) は親Artifactの`render/`ディレクトリ誤認でFAIL、第2回[#41793241061](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793241061)は素材実取得MD5/SHA PASS後にBlenderのマテリアルID短縮を見落としてFAIL、第3回[#41793514129](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793514129)は研究地形IDの文字数切詰めを見落としてFAIL。修正版第4回[#41793831862](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793831862)は14本高密度松のソフトウェアGL処理が長く、合理的な描画コストの範囲での本研究評価へ変更するためCANCELLED。さらに中間 #41795019967 もCANCELLED。**最新実行中 [CI #41795056558](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41795056558)** は樹木を左右各4本の実モデル共有インスタンス（8本）＋1280×800の2視点に抑えた改訂。現時点ではBlenderの実画像・ネイティブ原本の保存検証はまだ未完了、完了やART合格を断定禁止。
+
+**次の事実確認**：最新CIがcompleted/SUCCESSかFAILか確定し、成功なら本Artifactの`.blend`、同CHASE写真比較PNG、実草材質連続マスクと実木モデルの三角数、元道路/Camera不変のSHA、ZIP CRCを独立確認。品質が悪ければ**ART REJECT**。正式ART0件・Slope2DNA0m維持。今後は旧い巨大な箱や追加の低ポリ木を大量生成しない。元B48/Cameraの正式改造、main/公式`p101-velocity-overdrive-native-trial`、Draft PR #46、本番2サイトは変更禁止。Work/Computer Useは事前承認、ユーザーWindows操作不要、実ゲームCollider0、ART/SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD。
+
+---
+
 # 【2026-11-04 K4BS実制作・最新研究正本】CC0実松と連続写真地表の自動取得・真正Blender画像検証
 
 最新隔離研究枝：`research/k4bs-photo-vegetation-art-direction-20261104`。詳細設計・不変更保護は[**K4BS原本と本物の植生/地表素材を使った制作条件**](docs/R19_A6P4_R2F5K4BS_PINE_PHOTO_VEGETATION_ART_JA.md)を最優先。以前の「最新」は履歴。
