@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CD最新：真正Blender船あり/なし2画像・船2,816px実可視TECH PASS／ART REJECT】
+
+**現行隔離研究枝**：`research/k4cd-harbor-water-ferry-true-chase-20261105`。最初に[**K4CD実コード・実Blender・直接画像ART REJECT・独立ZIP/SHA・全保護条件・次工程**](docs/R19_A6P4_R2F5K4CD_REAL_FERRY_VISIBLE_ART_REJECT_JA.md)を読み、[**K4CCとK4CDの真同CHASE比較画像**](docs/research-evidence/k4cd/K4CD_K4CC_VS_TRUE_HARBOR_FERRY_SAME_CHASE_ART_REVIEW_NOT_GAME.png)、[**研究真正監査JSON**](docs/research-evidence/k4cd/K4CD_REAL_NATIVE_AUDIT.json)を直接照合。下の「最新」「実行中」は過去時点の履歴でありこの先頭記録より優先しない。
+
+- **正式[Actions #41926752717](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41926752717) completed/SUCCESS／SOURCE-DCC-RENDER TECH PASSのみ**。元K4CC真正.blendを実ハッシュ `4fcd20db998696c270df95f624fed1a229ae2703322c180de1f3bfbc15abd6da`で固定後、研究DCCだけに1枚の立体海面、船首から船尾までフレームを持つ真の船体、甲板、曲面客室、厚屋根、アクセス橋の6メッシュを制作。Blender4.0.2／EEVEE／本物のCHASE 768×480実レンダー、source SHA・Road5・元6Camera・木11本・光源・左岩肌・黒筋6対・描画不変の検証とGitHub研究証拠commitが全SUCCESS。
+- **船の存在確認を投影点数で偽装しない。** 初回 [#41925637297](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41925637297) は実海面の道路視野侵入でFAIL、安全閾値緩和なしで港側に修正。[#41926040646](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41926040646) TECH PASSだが船が実画像でほぼ隠れたためART REJECT。最終では港の手前へ移し、**水のみ／船ありの二つの本物Blender画像を実生成**。同じCHASEで船のみの可視変化**2,816画素**を独立検証してTECH PASS。ただし画面右端で船が切れ、全景に占める比率が小さいため**ART REJECT**。中間 #41926723134 CANCELLEDは正式合格としない。
+- **実Artifact独立再DL完全照合PASS**：[Artifact #13369741975](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41926752717/artifacts/13369741975) ZIP123,796,338 B／SHA256 `3b7b3c72a2d47fc355f375cf19dc98f40b3f8e1b461a9c6233c61db63e32efce`、ZIP全CRC成功。真正編集可能Blender `273,958,272 B`／SHA256 `c81111664d4703ec044aeaaeee1e7b659d95343dbf762ebf9892c6636a7d5a0a`、船あり真正CHASE PNG SHA256 `e74ebe0766fbb7a9169c6561e113549bddb395dca03958849e2ef9e335904069`、水だけPNGと比較PNGもZIP内の個別SHA一致。**Blender編集可能DCCと真正レンダリングは成立、独立Blender GUI再読込と実ゲームWebGL2／人間プレイは未実証**。
+- **次は背景アイテムをさらに小さく量産しない。** 港全体の「道路／左岩肌／右公共ターミナル／乗船動線／海面と船」が走行カメラ一枚で読める統合作者美術を優先。右端で切れる船、道路が大半の画面、模型的港、薄い遠景が未解決。単純にモデル・技術テストを増殖してART PASSとみなさない。従来の単一Hero区間ART-FIRST方針を継続。
+- **保護・ゲート**：元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5全vertex-face SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`。元B48 7真路面/B51 28Mover、240Hz、0.65m球、6Camera＋CHASE、元樹木11本・光源不変更。main、公式P101研究枝、Draft PR#46（Open/Draft/未merge）、元Slope原本、凍結Gold、本番2サイト保護。正式ART採用**0件**／Slope2 DNA認定**0m**、SAT/CCD/FPS/HUMAN/RELEASE/MERGE全HOLD。Work/Computer Use個別事前承認、追加有料API0円、ユーザーWindows操作0。
+
+---
+
 # 【2026-11-05 K4CC実制作／初回真正Blender TECH PASS・ART REJECT／最新修正版CI確認中】
 
 現在の唯一の研究引き継ぎ入口：`research/k4cc-coastal-relief-fullframe-art-20261105`。最初に[**K4CC真正3D左斜面＋右港画面回復・Native全SHA・初回ART REJECT・修正版の安全な状況**](docs/R19_A6P4_R2F5K4CC_NATIVE_COASTAL_RELIEF_ART_JA.md)を全文読み、[A3とK4CC真同CHASE比較画像](docs/research-evidence/k4cc/K4CC_A3_VS_TRUE_COASTAL_RELIEF_ART_REVIEW_NOT_GAME.png)、[真正監査JSON](docs/research-evidence/k4cc/K4CC_REAL_NATIVE_AUDIT.json)を確認。下の「最新」は旧時点の履歴。
