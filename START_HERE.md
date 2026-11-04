@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BV最終確定 → K4BW制作入口】実海岸樹Native TECH PASS／画面ART REJECT
+
+現行隔離研究枝 `research/k4bv-real-coastal-canopy-native-art-20261104`。[**K4BV最終実Blender／全画像・SHA独立検査／同CHASE目視ART REJECT／K4BWへの反省と次工程**](docs/R19_A6P4_R2F5K4BV_REAL_CC0_COASTAL_CANOPY_ART_JA.md)を第一に読む。以下の「最新」「結果未確認」「未完成」は過去の履歴。
+
+- [最終Actions #41813863791](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41813863791) は **completed/SUCCESS**。それ以前 #41803574543 / #41803979687 / #41813263091 / #41813606092 はすべて **FAILURE**、正式技術成功に含めない。最終は公式Poly Haven `island_tree_02` 1K GlTF＋全依存11ファイル（46,172,406 bytes）の元Vendor MD5／独立SHA確認後、実 **1,072,212 triangles** のNative Blenderメッシュ、9画像Packed、同CHASE 768×480研究画像1枚を生成・保存した。元の実K4BU Blender SHA256 `2536375f40e6a20e0061b80aba100c2469cfeacde814f4c127ff194201ba3064` に変更なし。
+- [真正Artifact #13313382664](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41813863791/artifacts/13313382664) ZIP SHA256 `bb46f9ae2cc801046957f685408e08b7e109c9f980cb86618116cbd81d9cca7e`、CRC PASS、編集可能原本 `K4BV_ONE_GENUINE_COASTAL_CANOPY_EDITABLE_NATIVE_ART_HOLD.blend` SHA256 `7c28000ad1a75afb7f64958a6d48ec5ff205849c37d5a2878f17bdd1d2d4e1c4`、元CHASE画像SHA256 `390a2ca19cd98eba204f697c1f70532ca86ee77e504e4692c62d8a6c5244d665`、[本物の同Camera旧K4BU比較画像](docs/research-evidence/k4bv/K4BV_VS_K4BU_SAME_CHASE_TRUE_COASTAL_CANOPY_ART_REVIEW_NOT_GAME.png) SHA256 `ac5db3dfe01701ab48d15351841e4cf47c505bd2599c76718f582b7d2756a232`。ZIP原バイト独立再計算PASS。
+- **実画像の作者ART判定はREJECT**。右の海岸樹は小型苗木より自然になったが画面全体の低品質は残存。中央を占める巨大灰色Road、ほぼ空白の海岸・空、生活感のない港、速度感不足。新木を大量増殖するより元CHASE1画面の港湾・自然地形・公共空間・遠景ランドマークの**統一された作者構図**が次K4BW最優先。低ポリ円錐や巨大な箱・灯台単体へ回帰禁止。
+- 元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`／元B48 Road5 fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`／B48実7道路・B51実28動体・240Hz・0.65m球・元6Cameraを保護。main、公式P101、Draft PR #46、本番2サイト保護。元真正Blender研究CameraはゲームWebGL2ではない。**正式ART採用0件、Slope2 DNA0m**。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。追加課金0円、Work/Computer Use事前承認、ユーザーWindows操作0。
+
+---
+
 # 【K4BV最終実行記録・2026-11-04】公式実CC0海岸樹46.17MB取得検証PASS／Blender材質画像ロードHOLD
 
 研究隔離枝 `research/k4bv-real-coastal-canopy-native-art-20261104`。[**K4BV真正素材ハッシュ・CI二度の失敗・未完成箇所・次工程**](docs/R19_A6P4_R2F5K4BV_REAL_CC0_COASTAL_CANOPY_ART_JA.md)を最優先。以下の「最新」「実行中」は履歴。
