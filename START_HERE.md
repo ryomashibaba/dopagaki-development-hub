@@ -1,3 +1,15 @@
+# 【2026-11-04 K4BN 現行研究の正本入口】Road5舗装画像のオリジナルレース意匠＋実船港シルエット／元Camera固定
+
+最新隔離研究ブランチ：`research/k4bn-track-surface-harbor-silhouette-20261104`。従来K4BMの美術REJECTを必ず継承し、[K4BNの元Road5正本保護と一画面作者美術・真正画像評価](docs/R19_A6P4_R2F5K4BN_RACE_TRACK_AND_WORKING_HARBOR_ART_JA.md)を最優先で読む。旧K4BM以下の「最新」見出しは履歴。
+
+- **従来の最大問題**：control11307／ultra11341の元走行カメラでは、画面の下半分以上が巨大な単調路面、遠景は港の存在を読めない模型。K4BMは真UV付きBlenderの技術PASSでも**ART REJECT**。正式ART採用0件、Slope2 DNA0m。
+- **K4BN実制作**：研究専用Pillowオリジナル`HYPER RUSH／QUAY05／SECTOR05`の2048×4096透明走行塗装アトラスを元Camera相対実道路座標へ投影し、既存Road5の手続き的マテリアルと合成。道路原メッシュ、実ゲームShader/当たり判定不変更。さらに元Road5のd=188.774mの向こうに、編集可能な実船体・操舵室・艤装、荷役トラスクレーン2基、現実的な海岸線とサイドの低いレース誘導を作者制作。旧K4BM採用不可の遠景だけRenderOFF、元の研究原本は保存。
+- 初回[CI #41770726727](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41770726727)は**completed/FAILURE**。元ゲーム/親K4BM.blendのSHA、Source Nodeテストとオリジナル塗装アトラス作成はPASSしたが、Blenderのオリジナルクレーン関数内で1つの物体生成がスコープ外になった`NameError(height_m)`で停止。研究コードのみ修正commit `a0404e60a6ec69717f7701f74bd91d21441079ee`、[再試験CI #41770899381](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41770899381)を実行中。新画像と編集可能.blendのSHAと実CI結果は厳密照合後に報告し、失敗を成功と呼ばない。
+- **引き続き保護**：元Git game blob `af076d67492a677d2235e4730aef8cdf4808e106`、真正Road5 vertex/face fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48元7／B51元28／240Hz／球0.65m／元Camera全6数値／元操作・安全UI完全不変。main、公式`p101-velocity-overdrive-native-trial`、Draft PR #46、本番2URL保護。Work/Computer Useは事前承認、ユーザーWindows操作不要。
+- **ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGEは全HOLD**、正式ART0件／Slope2DNA0m。実DCC画像はWebGL2の本ゲーム画像ではなく、真正の走行の安全性、28実動体クリアランス、プレー性能を証明しない。見栄えの悪いものはART REJECTを維持し、他6Roadへ展開／本番反映／main merge不可。
+
+---
+
 # 【2026-11-04 K4BM 最終正本】本物の作者UV・材質研究TECH PASS／ART REJECT
 
 **最新研究継続枝**：`research/k4bm-uv-pbr-authored-hero-20261104`。K4BM実行・検証・目視美術判定・今後の制作条件は[**K4BM全監査文書**](docs/R19_A6P4_R2F5K4BM_NATIVE_UV_PBR_ART_JA.md)を最優先。過去K4BL以下に「最新」と書かれていても履歴。
