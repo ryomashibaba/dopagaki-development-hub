@@ -224,8 +224,8 @@ def gangway():
     for k in range(n+1):
         t=k/n
         along=12.5+5.0*t+1.4*math.sin(math.pi*t)
-        side=s_front+sgn*(17.25+19.0*t)
-        h=-.16-1.55*t
+        side=s_front+sgn*(17.25+9.0*t)
+        h=-.16-.65*t
         half=2.15-.35*t
         for zoff in (0,-.30):
             for dx in (-half,half):
