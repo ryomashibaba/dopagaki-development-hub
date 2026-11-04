@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BQ 現在の研究正本】同CHASE研究Cameraで灰色斜面→実地形・海・生活する港の作者美術作り直し
+
+新規隔離研究ブランチ `research/k4bq-geological-harbor-art-direction-20261104`。まず[**K4BQ真のBlender地形・建築・港湾・保護条件の制作正本**](docs/R19_A6P4_R2F5K4BQ_GEOLOGICAL_COASTAL_HARBOR_ART_JA.md)を優先。過去K4BP以下の「最新」は履歴。
+
+- **親K4BP**：[最終Actions #41781600578](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41781600578) completed/SUCCESS。真編集可能.blend SHA `93c3583655eeb48fa06d61239646bb470419c72bf84cd97235be2288240d26aa`、4条件のカメラ×道路幅の実3D研究画像・JSON、元B48/元カメラ6不変更。美術は全4条件**ART REJECT**。相対的に改善したのはD（CHASE研究Cameraと独立新規幅26.2m研究道路）の1画面だが採用ではない。
+- **K4BQ実制作**：上記K4BP editable.blendから、Dと**同一CHASE_NARROW研究Camera数値を一切変更せず**、左右の無地法面を細部の地層・細かな落石・草・ボリュームのある松・本物の港湾用小船2隻／杭のある公共港デッキ・ガラス展示室と銅屋根の海辺文化施設・灯台・沿岸遠景に作り直す。ロードも研究専用の細かなアスファルトと落ち着いた細い路線を作者仕様に変更。巨大で意味不明な橋や白い単調な壁を増殖しない。**すべて独立した編集可能なBlenderメッシュであり、ゲーム本体ではない**。真ImageGenの雰囲気画像で実ソース合格と偽装しない。
+- [K4BQ BlenderネイティブCI #41783578592](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41783578592) 実行。実生成.blend、CHASE_NARROW実PNG、元Sourceカメラ数値同ポーズの研究別カメラ実PNGとK4BP DとのA/B、各SHAを検証し、研究ブランチにだけ保存。検証前のART PASS宣言禁止。
+- **元全て保護**：Game Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、真正B48 Road5メッシュ fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48実7／B51実28/240Hz/半径0.65m/元全Camera6、安全UI、main、公式`p101-velocity-overdrive-native-trial`、Draft PR#46、本番2URLは不変。Work/Computer Use事前承認・ユーザーWindows操作不要。正式ART0件／Slope2 DNA0m。ART/SAT/CCD/FPS/HUMAN/RELEASE/MERGE全HOLD。新研究26.3m道路を元ゲームの安全なB48と混同禁止。
+
+---
+
 # 【2026-11-04 K4BP最終引き継ぎ／K4BQ制作入口】本物B48保護・Camera×道路幅の4条件研究PASS／美術ART REJECT
 
 **最終研究隔離ブランチ**：`research/k4bp-camera-and-road-composition-study-20261104`。まず[**K4BP真正Blender 2×2比較・全GitHub実行・実画像美術判定・K4BQ制作条件**](docs/R19_A6P4_R2F5K4BP_CONTROLLED_CAMERA_ROAD_COMPOSITION_STUDY_JA.md)を読む。過去の「最新」はすべて履歴。
