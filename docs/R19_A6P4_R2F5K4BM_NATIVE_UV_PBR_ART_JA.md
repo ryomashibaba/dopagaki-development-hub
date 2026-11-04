@@ -32,3 +32,11 @@
 
 - [K4BM初回Actions #41756146305](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41756146305) は **completed/FAILURE**。親K4BL真正原本.blend全バイトSHA、元Game git blob、B48 Source Node testsとBlender依存ソフトのインストールはPASS。ただし植栽用の独立Blenderメッシュを生成中に、Camera横方向ベクトル`S`を未定義の`R`と誤参照したため`NameError`、レンダリング前に停止。**初回画像、新BLEND、Artifactは生成されていない**。元ゲーム/元B48は未変更。
 - 隔離研究Pythonのみ修正commit `3841be073af6edfad77912974fa03c255d5fde0e`、変数`S`へ統一。再[GitHub Actions #41756329982](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41756329982)の画像・原Blender・実UVとSHAを再検証するまでSUCCESS/ART合格の主張は禁止。K4BL ART REJECT、正式ART0件・Slope2 DNA0m維持。
+
+## 第1回実Blender／独立SHA／美術の中間判定
+
+- [修正済みK4BM CI #41756329982](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41756329982) **completed/SUCCESS**、親原本`K4BL_HARBOR_ART_DIRECTED_EDITABLE_NATIVE_BLENDER_HOLD.blend`（SHA `220855d6500a74697e41b9bad36cb5c20654ea77d8c8a4be48d5ebf9a4ab2488`）、元Source Road5実メッシュFingerprint、元真Camera位置/回転/レンズ、元ゲームBlob、NodeテストPASS。編集可能.Blend・両元カメラNative EEVEE 2PNG・旧K4BL同Camera A/B・JSONを生成し研究枝に保存。
+- 真[初回成功Artifact #13288132119](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41756329982/artifacts/13288132119)、ZIP SHA256 `27bf17c11c85d2bf5b4760d26312ec9fa5275edc9d75dc9cffd5b8449387e3df`、ZIP CRC PASS。編集可能Blender 39,685,172B／SHA `6ee9e0fcd6a76b29b6b68ef6dbddcf730f567d90ae37182df486f6a4c3208b8d`、control/ultra PNGそれぞれ1,653,553/1,634,023B、比較画像2,546,027B、各ファイルSHA実バイト独立一致。**本物のUVレイヤが付いた編集可能DCCメッシュ272件**、独立オブジェクト274件。技術的な新しい進歩を認めるが物量を美術品質にカウントしない。
+- **初回の真正control11307/ultra11341実画像を直接観察：ART REJECT**。旧K4BLより左右のガラス・日射遮蔽・岩肌・ロード骨材の素材と近景設計が洗練された一方、中央に黒茶の高い2本の柱状建築が並び景観を不自然に支配し、道路も画面の大半が灰色で平板、人物が使う港や海、都市の地理の関係が読み取りにくい。良い部分を確認しても**世界水準のビジュアル完成には程遠い**。正式ART採用0件、Slope2 DNA0m。
+- この実見に基づき修正commit `15512af0c61b16f404e72817d17310198a61474e`。画面中央の巨大で単調な2本のシリンダータワーを遠方・低い小構造へ移し、**低く展開する複雑なUV石材／実室内ガラスの公共埠頭2棟と、開放的な荷役用金属骨格の灯台**に転換。単純な高い柱を繰り返さず、実寸ロードの最終頂点d=188.774mのさらに奥の非走行背景にだけ置く。
+- [追加再描画 CI #41757027430](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41757027430) は**実完了未確認**。真正元カメラPNGとBlender原本・ソースShaが揃うまで2回目の美術評価を捏造しない。最終が失敗したら前回技術PASS成果を保護、ARTはREJECTのまま。
