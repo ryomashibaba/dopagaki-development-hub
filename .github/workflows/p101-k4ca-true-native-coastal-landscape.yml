@@ -26,7 +26,6 @@ jobs:
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           python3 -m py_compile scripts/p101-k4ca-source-protected-coastal-terrain-canopy.py
           node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
-          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
       - name: Download only genuine source K4BZ R2 editable repaired Blender parent
         uses: actions/download-artifact@v4
         with:
@@ -64,6 +63,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
       - name: Actually author inland existing hillside shader and two native vendor PBR canopy instances, same CHASE one render
         shell: bash
         run: |
