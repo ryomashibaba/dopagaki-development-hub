@@ -141,6 +141,8 @@ coating.name='K4BY | genuine Road5 topology photo pavement proxy | NO GAME COLLI
 coll.objects.link(coating)
 coating.matrix_world=parent_road.matrix_world.copy()
 coating.matrix_world.translation.z+=.027
+coating.hide_render=False
+coating.hide_viewport=False
 coating['NOT_GAME_COLLIDER']=True
 coating['RESEARCH_DCC_ONLY']=True
 coating['AUTHENTIC_SOURCE_ROAD5_GEOMETRY_SHA256']=ROAD_SHA
