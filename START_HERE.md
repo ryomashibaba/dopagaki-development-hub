@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BY制作】実CC0路面写真PBR・既存海辺公共施設の構造修正
+
+現行**隔離研究ブランチ** `research/k4by-photoreal-road-occupied-harbor-art-20261104`。[**K4BY公式Asphalt Track PBR／本物の既存公共施設の屋根厚・玄関・石壁の修正／元Road5保護**](docs/R19_A6P4_R2F5K4BY_TRUE_CC0_ROAD_OCCUPIED_HARBOR_JA.md)を最初に読む。そのあとK4BX A3→K4BW→K4BV→K4BU→K4BTの永続正本を遡る。以下の「最新」は過去の履歴。
+
+- 元K4BX A3 [Actions #41824656344](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41824656344)真正 Native.blend SHA256 `1cdf3233d3b2b91b1e10b6f7b2212ef9ec74331667ca4129a4e96ce43b4c2179` を固定・再読込。前画像は巨大灰色道路・模型のような薄い港の施設が課題で**TECH PASS／ART REJECT**。
+- K4BYでは正式物理Road5は編集せず、既存研究用道路スキンに**公式CC0 Asphalt Track 2KのDiff/Rough/NormalをVendor MD5と独立SHA256で確認し**実世界2m UVの本物のPBR素材を適用。既存海辺の公共施設の屋根に実厚0.28m、入口ガラス1面に開閉可能な研究用玄関表現、石壁と亜鉛金属の仕舞を作者再構成。同Camera 768×480の**真正Blender実画像1枚**で採否を判定。素材が本当に読み込めなければHOLD、見た目が悪ければART REJECT。
+- [K4BY初回Actions #41828751760](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41828751760)は記述時点で**結果未確定**。実画像・編集可能.blend・元ゲーム保護・独立SHAを検証するまでは技術成功も美術成功も主張しない。
+- 元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元B48 Road5 Vertex/Face指紋 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元6Camera、研究CHASE、9本の木、B48 7実道路・B51 28動体・240Hz・0.65m球、main、公式P101、Draft PR#46、本番2サイトは絶対保護。**正式ART採用0件／Slope2 DNA0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD**。追加有料API0円、Work/Computer Use事前承認、ユーザーWindows操作0。
+
+---
+
 # 【2026-11-04 K4BX A3最終確定 → 次K4BY】真正3D岬と港湾 TECH PASS／同CHASE画面 ART REJECT
 
 **研究隔離枝** `research/k4bx-source-locked-harbor-horizon-composition-20261104`。[**K4BX A1～A3 真正Blender原本・SHA256・最終目視ART REJECT・次K4BY品質優先方針**](docs/R19_A6P4_R2F5K4BX_TRUE_HEADLAND_WORKING_HARBOR_JA.md)を最初に読む。以下の古い「最新」「A3実行中」は履歴。
