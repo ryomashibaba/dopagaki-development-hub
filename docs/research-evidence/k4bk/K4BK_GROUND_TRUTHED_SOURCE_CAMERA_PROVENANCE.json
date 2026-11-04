@@ -1,0 +1,159 @@
+{
+  "schema": "dopagaki.K4BK.true-source-road-calibrated-civic-art/1",
+  "parentK4BJNativeBlenderSHA256": "36d6508d431cb10c2f085707658af556a8a311fd12506567d0276bff8769081a",
+  "frozenOriginalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "sourceRoad5FingerprintPreserved": true,
+  "originalSourceCameraNumericsPreserved": true,
+  "originalB48Roads": 7,
+  "originalB51Movers": 28,
+  "physicsHz": 240,
+  "ballRadiusMetres": 0.65,
+  "trueOriginalRoad5MeasuredSections": [
+    {
+      "d": -25,
+      "roadLeft": -37.0,
+      "roadRight": 49.0,
+      "roadCenterHeight": -13.260665893554688,
+      "roadLeftHeight": -15.312545776367188,
+      "roadRightHeight": -10.414230346679688,
+      "rayHits": 44
+    },
+    {
+      "d": 0,
+      "roadLeft": -37.0,
+      "roadRight": 51.0,
+      "roadCenterHeight": -9.577865600585938,
+      "roadLeftHeight": -11.564865112304688,
+      "roadRightHeight": -6.6998748779296875,
+      "rayHits": 45
+    },
+    {
+      "d": 25,
+      "roadLeft": -39.0,
+      "roadRight": 53.0,
+      "roadCenterHeight": -6.2469329833984375,
+      "roadLeftHeight": -8.234176635742188,
+      "roadRightHeight": -3.4489593505859375,
+      "rayHits": 47
+    },
+    {
+      "d": 50,
+      "roadLeft": -39.0,
+      "roadRight": 55.0,
+      "roadCenterHeight": -3.2936248779296875,
+      "roadLeftHeight": -5.0965423583984375,
+      "roadRightHeight": -0.6833953857421875,
+      "rayHits": 48
+    },
+    {
+      "d": 75,
+      "roadLeft": -39.0,
+      "roadRight": 59.0,
+      "roadCenterHeight": -0.7426605224609375,
+      "roadLeftHeight": -2.3112640380859375,
+      "roadRightHeight": 1.6639556884765625,
+      "rayHits": 50
+    },
+    {
+      "d": 100,
+      "roadLeft": -37.0,
+      "roadRight": 63.0,
+      "roadCenterHeight": 1.3824005126953125,
+      "roadLeftHeight": 0.1703033447265625,
+      "roadRightHeight": 3.4416656494140625,
+      "rayHits": 51
+    },
+    {
+      "d": 125,
+      "roadLeft": -37.0,
+      "roadRight": 65.0,
+      "roadCenterHeight": 3.0565948486328125,
+      "roadLeftHeight": 2.1435699462890625,
+      "roadRightHeight": 4.5749053955078125,
+      "rayHits": 52
+    },
+    {
+      "d": 150,
+      "roadLeft": -35.0,
+      "roadRight": 69.0,
+      "roadCenterHeight": 4.2528839111328125,
+      "roadLeftHeight": 3.7090606689453125,
+      "roadRightHeight": 5.1572418212890625,
+      "rayHits": 53
+    },
+    {
+      "d": 170,
+      "roadLeft": -33.0,
+      "roadRight": 71.0,
+      "roadCenterHeight": 4.8159942626953125,
+      "roadLeftHeight": 4.5667266845703125,
+      "roadRightHeight": 5.1225128173828125,
+      "rayHits": 53
+    }
+  ],
+  "legacyUnacceptedDCCCollectionsHiddenNotDeleted": [
+    "K4BH | 01 CROSS-RIVER MONUMENTAL GATE",
+    "K4BH | 02 LANDSCAPED INHABITED STREET WALLS",
+    "K4BH | 03 INNER LIBRARY AND CONSERVATORY",
+    "K4BH | 04 FAR URBAN DEPTH AND LANDMARKS",
+    "K4BH | 05 TERRACES AND SEA CLIFF",
+    "K4BH | 06 PRACTICAL LUMINAIRES",
+    "K4BI | 01 ROAD TEXTURE RACING ART DCC ONLY",
+    "K4BI | 02 VARYING PUBLIC FACADE AND STRUCTURE",
+    "K4BI | 03 LIT LIBRARY AND TIDAL CONSERVATORY RECESSES",
+    "K4BI | 04 ARCHITECTURAL DETAILS NOT COLLIDERS",
+    "K4BI | 05 CIVIC PORTICO ARTICULATED NEGATIVE SPACE",
+    "K4BI | 06 PRACTICAL WARM LIGHT IN ROOMS",
+    "K4BJ | 01 WEST CARVED LIBRARY | author surface",
+    "K4BJ | 02 EAST TERRACED MARINE STATION | author surface",
+    "K4BJ | 03 THE TIDAL LENS | split keel landmark",
+    "K4BJ | 04 BACKGROUND LIVING COASTAL SKYLINE",
+    "K4BJ | 05 OFFROAD HANDCRAFTED BARRIERS",
+    "K4BJ | 06 PRACTICAL LIGHTING"
+  ],
+  "newIndependentlyEditableBlenderObjects": 70,
+  "originalSourceCameraNativeBlenderImages": [
+    {
+      "mode": "control",
+      "tick": 11307,
+      "file": "K4BK_CONTROL_11307_SOURCE_CAMERA_GROUND_TRUTH_ART_UNJUDGED.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "file": "K4BK_ULTRA_11341_SOURCE_CAMERA_GROUND_TRUTH_ART_UNJUDGED.png"
+    }
+  ],
+  "actualWebGL2GameplayCapture": false,
+  "gameCodeEdited": false,
+  "newNativeColliderCount": 0,
+  "B51Clearance": "NOT_TESTED_HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "slope2DNAacceptedMetres": 0,
+  "HUMAN": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BK_GROUND_TRUTHED_CIVIC_ROADSIDE_EDITABLE_ART_HOLD.blend": {
+      "sha256": "a9a8f7ad82c8b3edf63212d0dc88fd9d083cdab2ccbd9c22c70a6d868c0948af",
+      "bytes": 34602396
+    },
+    "K4BK_CONTROL_11307_SOURCE_CAMERA_GROUND_TRUTH_ART_UNJUDGED.png": {
+      "sha256": "1ddb71a42bac44aed107f1ceeeab5162f64d15aec159ae2a7576e07f3f8f8dc7",
+      "bytes": 1820268
+    },
+    "K4BK_ULTRA_11341_SOURCE_CAMERA_GROUND_TRUTH_ART_UNJUDGED.png": {
+      "sha256": "e9f7f9ccd92f8ba6438d96a78a8f94fec90e8d5e389b90dbd623482d7634b18c",
+      "bytes": 1789717
+    }
+  },
+  "verifiedA_B": {
+    "file": "K4BK_ACTUAL_SOURCE_CAMERA_K4BJ_VS_NEW_DCC_NOT_GAME.png",
+    "sha256": "408a34eeac4d916f9b26f91be84abc1c8962f1aa7dfc4ec0532f7d26234d1205",
+    "bytes": 3887659
+  }
+}
