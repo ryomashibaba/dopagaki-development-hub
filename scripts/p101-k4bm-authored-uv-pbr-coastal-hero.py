@@ -441,10 +441,12 @@ tube('EAST harbor walking promenade human-scale edge',
 # giant identical cylinders, they share a faceted structural set of authored
 # profiles with terrace cuts and translucent public activities.
 buildings=[
- ('tide observatory',202,-72,32,75,9),
- ('civic interchange tower',227,42,35,111,8),
- ('seafarers archive',257,-144,45,92,7),
- ('marine operations',301,114,39,89,10)]
+ # Deliberate smaller civic accents *behind* a readable horizontal port-city.
+ # No two 100m monotone columns blocking the entire game-road horizon.
+ ('tide observatory',306,-116,24,41,9),
+ ('civic interchange tower',329,127,22,55,8),
+ ('seafarers archive',359,-198,29,49,7),
+ ('marine operations',405,213,26,44,10)]
 for name,d0,s0,r,h,n in buildings:
  floor=height(170,1)-8
  rows=[]
@@ -481,6 +483,70 @@ for name,d0,s0,r,h,n in buildings:
          s0+r*.5*sin(2*pi*j/20),floor+h+2)
        for j in range(21)],
       .60,brass,city,'SCULPTED_CIVIC_CROWN')
+# Four genuinely section-authored inhabited QUAY TERRACES replace the two
+# badly reading giant column props. Continuously varying cross-section:
+# shadowed portico / deep museum glazing / satin ceramic roof / real quay
+# walkway. This is a singular coastal ensemble, not many rectangular boxes.
+def public_quay(name,dds,side,low,high):
+    # Based beyond actual Road5 d_max=188.8: scenic only, not a fake B48
+    # continuation or collidable architecture.
+    base=height(170,side)-4
+    rooms=[];screen=[];roof=[]
+    for k,dd in enumerate(dds):
+        t=k/(len(dds)-1)
+        center=(side*(38+13*sin(t*pi))) + (side*8*sin(t*pi*1.4))
+        span=(58+10*sin(t*pi))*side
+        top=base+low+(high-low)*(1-.10*cos(2*pi*t))
+        rooms.append([P(dd,center,base-15),
+                      P(dd,center+span,base-20),
+                      P(dd,center+span,top-8),
+                      P(dd,center,top-8)])
+        screen.append([P(dd,center-side*1,base+4),
+                       P(dd,center+side*3,base+4),
+                       P(dd,center+side*3,top-11),
+                       P(dd,center-side*1,top-11)])
+        roof.append([P(dd,center-side*12,top+4),
+                     P(dd,center+span+side*18,top+8+6*sin(t*pi)),
+                     P(dd,center+span+side*16,top+12+6*sin(t*pi)),
+                     P(dd,center-side*13,top+6)])
+    loft('QUAY '+name+' planted terrazzo structural sculpted strata',
+         rooms,rock,city,'REAL_WATERFRONT_ARTICULATED_CIVIC_HALL')
+    loft('QUAY '+name+' full-depth transparent occupied lobby',
+         screen,glass,city,'PHYSICAL_PUBLIC_INTERIOR_COURTYARD')
+    loft('QUAY '+name+' single coastal sail ceramic eave',
+         roof,ceramic,city,'PUBLIC_PROTECTED_WATERFRONT')
+    for i,dd in enumerate(dds[1:-1]):
+        top=base+low+(high-low)*(1-.10*cos(2*pi*(i+1)/(len(dds)-1)))
+        ss=side*(39+13*sin(pi*(i+1)/(len(dds)-1)))
+        # Individual angled structural legs and warm gallery strips make
+        # real architectural detail visible at original fixed camera.
+        tube('QUAY '+name+' structurally angled bronze gallery spine '+str(i),
+             [P(dd-2,ss,base-13),P(dd,ss-side*5,base+7),
+              P(dd+4,ss-side*7,top+8)],
+             .58,brass,city,'LOAD_BEARING_FACADE_ARCHITECTURE')
+        tube('QUAY '+name+' inhabited level horizontal lantern '+str(i),
+             [P(dd-4,ss-side*2,base+16),P(dd+6,ss-side*2,base+16)],
+             .47,lit,city,'USED_MARITIME_PUBLIC_FLOOR')
+
+public_quay('western tidal research library',[191,201,214,228,244],-1,29,36)
+public_quay('eastern ferry transfer concourse',[195,210,226,243,258],1,26,40)
+# Behind the low ferry roof, isolated handsome beacon: architectonic
+# ship communication tower made of lattice instead of a featureless column.
+dd=275;ss=71;base=height(170,1)-8
+for sign in (-1,1):
+    tube('LIGHTHOUSE distanced angular slender maritime exoskeleton '+str(sign),
+         [P(dd-12,ss+sign*12,base-4),
+          P(dd-8,ss+sign*9,base+17),
+          P(dd-2,ss+sign*6,base+35),
+          P(dd+4,ss+sign*4,base+58)],
+         1.12,steel,city,'PUBLIC_NAUTICAL_BEACON')
+for lev in (12,28,44,58):
+    tube('LIGHTHOUSE deep visitor platform structural ring '+str(lev),
+         [P(dd-9,ss-9,base+lev),P(dd,ss-12,base+lev),
+          P(dd+7,ss+5,base+lev),P(dd-3,ss+10,base+lev),
+          P(dd-9,ss-9,base+lev)],
+         .65,brass,city,'MARITIME_PUBLIC_VIEWING_PLATFORM')
+
 # Aerial harbor portal: deliberately functional loading architecture,
 # farther beyond the Road5 end. This is BACKGROUND not new driveable route.
 for dd,ss,h in ((210,132,52),(252,194,67)):
