@@ -1,0 +1,165 @@
+name: DOPAGAKI K4BY verified real asphalt PBR and occupied harbor true native one CHASE
+on:
+  push:
+    branches: [research/k4by-photoreal-road-occupied-harbor-art-20261104]
+    paths:
+      - scripts/p101-k4by-verify-polyhaven-asphalt-track.py
+      - scripts/p101-k4by-native-road-harbor-detail.py
+      - .github/workflows/p101-k4by-one-authentic-pbr-road-harbor.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4by-exact-sha-pbr-road
+  cancel-in-progress: true
+jobs:
+  authentic-native-road-civic-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 37
+    steps:
+      - uses: actions/checkout@v4
+      - name: Freeze actual game main source SHA and author scripts syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4by-photoreal-road-occupied-harbor-art-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4by-verify-polyhaven-asphalt-track.py scripts/p101-k4by-native-road-harbor-detail.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Retrieve ONLY single immutable A3 K4BX native source
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BX_TRUE_3D_WORKING_HARBOR_HEADLAND_EDITABLE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41824656344
+          github-token: ${{ github.token }}
+          path: research/evidence/k4by/parent
+      - name: Independently verify original full A3 Blender and previous frame by SHA, preserve ART REJECT
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          p=Path('research/evidence/k4by/parent')
+          j=json.loads((p/'K4BX_NATIVE_SOURCE_PROTECTED_HARBOR_HORIZON_ART_AUDIT.json').read_text())
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5FullVertexFaceFingerprint']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert j['originalSixCamerasNumericallyUnchanged'] and j['frozenChaseCameraNumericallyUnchanged']
+          assert j['sourceRoad5VertexFaceUnchanged'] and j['protectedOriginalNineTreesTransformUnchanged']
+          assert j['formalArtAccepted']==0 and j['formalSlope2DNAMetres']==0
+          assert j['a3NewPhysicalWorldDepthHill'] is True and j['a3OldFloatingVTSObjectsKeptButRenderHidden']==3
+          for name,meta in j['files'].items():
+           z=p/name;raw=z.read_bytes()
+           assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert j['files']['K4BX_HEADLAND_WORKING_SEAPORT_CINEMATIC_EDITABLE_NATIVE_ART_HOLD.blend']['sha256']=='1cdf3233d3b2b91b1e10b6f7b2212ef9ec74331667ca4129a4e96ce43b4c2179'
+          print('K4BY_TRUE_K4BX_A3_IMMUTABLE_DCC_SOURCE_VERIFIED')
+          PY
+      - name: Fetch precisely three 2K official Poly Haven CC0 road map files and verify source bytes and MD5/SHA
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4by/assets
+          python3 scripts/p101-k4by-verify-polyhaven-asphalt-track.py --out research/evidence/k4by/assets
+      - name: Install actual Blender EEVEE after authentic source and photo maps passed
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: Apply actual verified road phototexture and repair harbor hall in SHA-locked Blender parent, render one same CHASE
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4by/render
+          xvfb-run -a -s '-screen 0 1280x900x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4by-native-road-harbor-detail.py -- \
+              --base research/evidence/k4by/parent/K4BX_HEADLAND_WORKING_SEAPORT_CINEMATIC_EDITABLE_NATIVE_ART_HOLD.blend \
+              --assets research/evidence/k4by/assets \
+              --out research/evidence/k4by/render
+      - name: Independently verify true original Road5/6 cameras/9 trees and photographic packed SHA, compare same CHASE frames
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          d=Path('research/evidence/k4by/render')
+          j=json.loads((d/'K4BY_GENUINE_PBR_HARBOR_NATIVE_ART_AUDIT.json').read_text())
+          assert j['originalK4BXA3NativeSHA256']=='1cdf3233d3b2b91b1e10b6f7b2212ef9ec74331667ca4129a4e96ce43b4c2179'
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5FullVertexFaceFingerprint']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert j['sourceRoad5VertexFacesUnchanged'] and j['sourceSixCameraPoseUnchanged'] and j['frozenResearchChaseUnchanged']
+          assert j['sourceTreesNinePositionsUnchanged']
+          assert j['originalGameRoad5MaterialAndGeometryUnmodified']
+          assert j['newGameColliders']==0 and j['originalSourceGameEdited'] is False
+          assert j['sourceB48Roads']==7 and j['sourceB51Movers']==28 and j['sourcePhysicsHz']==240 and j['sourceBallRadiusM']==.65
+          assert j['nativeImagesPackedAndShaVerified']==3
+          assert j['primaryHarborCanopyRoofThicknessM']>=.2
+          assert j['primaryHallFrontScreen']['inFrame']
+          assert j['ART']=='UNJUDGED_HOLD' and j['formalArtAccepted']==j['formalSlope2DNAMetres']==0
+          assert all(j[k]=='HOLD' for k in ('HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
+          m=Path('research/evidence/k4by/assets/K4BY_ASPHALT_TRACK_OFFICIAL_PBR_VERIFIED.json')
+          assert hashlib.sha256(m.read_bytes()).hexdigest()==j['vendorReceiptSHA256']
+          receipt=json.loads(m.read_text())
+          assert receipt['assetId']=='asphalt_track' and receipt['license']=='CC0' and len(receipt['maps'])==3
+          for kind,meta in receipt['maps'].items():
+           p=m.parent/meta['localName'];raw=p.read_bytes()
+           assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256']
+           assert j['vendor2kPBRMaps'][kind]==meta['sha256']
+          for name,meta in j['files'].items():
+           raw=(d/name).read_bytes()
+           assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          old=Image.open('docs/research-evidence/k4bx/K4BX_SAME_CHASE_HEADLAND_WORKING_SEAPORT_ART_HOLD_NOT_GAME.png').convert('RGB')
+          new=Image.open(d/'K4BY_ONE_SAME_CHASE_TRUE_PBR_RACE_ROAD_CIVIC_HARBOR_NOT_GAME.png').convert('RGB')
+          assert old.size==new.size==(768,480)
+          assert sum(ImageStat.Stat(new).stddev)>8
+          delta=ImageChops.difference(old,new)
+          assert delta.getbbox() is not None
+          mean=round(sum(ImageStat.Stat(delta).mean)/3,5)
+          assert mean>0
+          canvas=Image.new('RGB',(1560,552),(15,19,22))
+          canvas.paste(old,(12,50));canvas.paste(new,(780,50))
+          pen=ImageDraw.Draw(canvas)
+          pen.text((12,18),'K4BX A3 genuine CHASE / authored but flat surface / ART REJECT',fill='white')
+          pen.text((780,18),'K4BY SAME CHASE / vendor PBR road + occupied civic harbor / ART UNJUDGED',fill='white')
+          pen.text((12,536),'REAL Blender research. Game Road5 immutable. Pixel difference is not aesthetic quality.',fill='white')
+          nm='K4BY_VS_K4BX_A3_SAME_CHASE_TRUE_CC0_ROAD_HARBOR_ART_REVIEW_NOT_GAME.png'
+          canvas.save(d/nm);b=(d/nm).read_bytes()
+          j['sameCameraCompare']={'file':nm,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest(),
+             'actualSame768x480AndFrozenCamera':True,'meanRGBDifferenceNOTArtQuality':mean,
+             'ART':'UNJUDGED_HOLD'}
+          (d/'K4BY_GENUINE_PBR_HARBOR_NATIVE_ART_AUDIT.json').write_text(json.dumps(j,ensure_ascii=False,indent=2))
+          print('K4BY_AUTHENTIC_NATIVE_TECH_EVIDENCE_PASS_NOT_ART_PASS',j['primaryHallFrontScreen'],mean)
+          PY
+      - name: Store only small verifiable real images+JSON in isolated research branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4by-photoreal-road-occupied-harbor-art-20261104
+          mkdir -p docs/research-evidence/k4by
+          cp research/evidence/k4by/render/*.png docs/research-evidence/k4by/
+          cp research/evidence/k4by/render/*.json docs/research-evidence/k4by/
+          cp research/evidence/k4by/assets/K4BY_ASPHALT_TRACK_OFFICIAL_PBR_VERIFIED.json docs/research-evidence/k4by/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4by
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4by): true vendor CC0 packed PBR asphalt and occupied harbor frame, ART HOLD"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4by-photoreal-road-occupied-harbor-art-20261104
+          fi
+      - name: Preserve actual editable native Blender, true PNG, official MD5/SHA receipt even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4BY_TRUE_CC0_PHOTO_ROAD_OCCUPIED_HARBOR_EDITABLE_ART_HOLD
+          path: |
+            research/evidence/k4by/render/
+            research/evidence/k4by/assets/K4BY_ASPHALT_TRACK_OFFICIAL_PBR_VERIFIED.json
+          if-no-files-found: warn
+          retention-days: 21
