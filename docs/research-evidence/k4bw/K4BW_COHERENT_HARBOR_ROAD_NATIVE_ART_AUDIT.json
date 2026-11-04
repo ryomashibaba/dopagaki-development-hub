@@ -1,0 +1,93 @@
+{
+  "schema": "dopagaki.K4BW.authored-harbor-road-foreshore-one-frame-art-hold/1",
+  "originalK4BVNativeSHA256": "7c28000ad1a75afb7f64958a6d48ec5ff205849c37d5a2878f17bdd1d2d4e1c4",
+  "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalB48Road5Fingerprint": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCamerasNumericallyUnchanged": true,
+  "originalResearchChaseUnchanged": true,
+  "originalRoad5VertexFaceUnchanged": true,
+  "originalEightK4BSPineTransformsUnchanged": true,
+  "originalRealK4BVCanopyTreeUnchanged": true,
+  "nativeTrueCC0CanopyPreservedNotCloned": true,
+  "authorStudyElements": 143,
+  "artAuthorship": "one shell-roof maritime public visitor and boat service building with glazed occupied frontage, tidal quay terraced public walk, continuous left natural ridge, noncolliding road patina and safety guides",
+  "harborChoice": {
+    "d": 83,
+    "s": -38,
+    "cameraX": 0.7985,
+    "cameraY": 0.4765
+  },
+  "frameProjections": {
+    "functional-harbor-visitor-hall": {
+      "x": 0.79854,
+      "y": 0.50144,
+      "inFront": true,
+      "insideFrame": true
+    },
+    "harbor-deck": {
+      "x": 0.79538,
+      "y": 0.53824,
+      "inFront": true,
+      "insideFrame": true
+    },
+    "left-natural-landform": {
+      "x": 0.04537,
+      "y": 0.60574,
+      "inFront": true,
+      "insideFrame": true
+    },
+    "right-wind-shaped-real-tree": {
+      "x": 0.74211,
+      "y": 0.40217,
+      "inFront": true,
+      "insideFrame": true
+    },
+    "road-control-center": {
+      "x": 0.50355,
+      "y": 0.43602,
+      "inFront": true,
+      "insideFrame": true
+    }
+  },
+  "sourceB48Roads": 7,
+  "sourceB51Movers": 28,
+  "sourcePhysicsHz": 240,
+  "sourceBallRadiusM": 0.65,
+  "newGameColliders": 0,
+  "gameSourceChanged": false,
+  "newResearchRoadNotVerifiedGameCollider": true,
+  "researchNativeSingleFrame": true,
+  "imageSize": [
+    768,
+    480
+  ],
+  "notRealWebGL2Game": true,
+  "fpsAndLOD": "HOLD",
+  "ART": "UNJUDGED_HOLD",
+  "formalArtAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "HUMAN": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BW_ONE_COHERENT_COASTAL_CIVIC_ROAD_EDITABLE_NATIVE_ART_HOLD.blend": {
+      "bytes": 260324776,
+      "sha256": "d3ab3b468628233e908de6019ed419b05cb426bb2e4e0f014dfa0e0e712ab20a"
+    },
+    "K4BW_SAME_CHASE_ONE_COHERENT_COASTAL_CIVIC_ROAD_ART_HOLD_NOT_GAME.png": {
+      "bytes": 480600,
+      "sha256": "0647c958ebbcda8152f3260fbf6f4b93e3eccd96b25a4716297a9c8da58f166e"
+    }
+  },
+  "sameCameraReview": {
+    "file": "K4BW_VS_K4BV_REAL_CHASE_ONE_COHERENT_HARBOR_ART_REVIEW_NOT_GAME.png",
+    "bytes": 493628,
+    "sha256": "f15df86007d7eaa0c42ade82ea08d4f241f5624bef65df7765ab9178431615ef",
+    "meanRGBDifferenceNOTArtScore": 2.9087,
+    "equalResolution": true,
+    "frozenCamera": true
+  }
+}
