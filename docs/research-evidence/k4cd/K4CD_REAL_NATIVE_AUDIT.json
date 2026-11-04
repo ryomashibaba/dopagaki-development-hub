@@ -26,48 +26,48 @@
       ]
     },
     "K4CD | curved seaworthy ferry hull transverse frames": {
-      "visibleVertices": 492,
+      "visibleVertices": 460,
       "bbox": [
-        0.69496089220047,
-        0.3879123032093048,
-        0.8228579759597778,
-        0.4549645781517029
+        0.8135074973106384,
+        0.34556710720062256,
+        0.9999972581863403,
+        0.44191890954971313
       ]
     },
     "K4CD | continuous practical boarding deck": {
-      "visibleVertices": 8,
+      "visibleVertices": 6,
       "bbox": [
-        0.6929247975349426,
-        0.4367738962173462,
-        0.8208023905754089,
-        0.45695164799690247
+        0.8074433207511902,
+        0.4117561876773834,
+        0.9522400498390198,
+        0.44427767395973206
       ]
     },
     "K4CD | single occupiable curved ferry passenger saloon": {
       "visibleVertices": 319,
       "bbox": [
-        0.712179958820343,
-        0.44732582569122314,
-        0.7904087901115417,
-        0.49296632409095764
+        0.8394652009010315,
+        0.42774108052253723,
+        0.969546914100647,
+        0.4887181222438812
       ]
     },
     "K4CD | single thick formed marine passenger roof": {
       "visibleVertices": 638,
       "bbox": [
-        0.7081582546234131,
-        0.48681774735450745,
-        0.7958037257194519,
-        0.5009464025497437
+        0.8335420489311218,
+        0.47962790727615356,
+        0.9782915115356445,
+        0.49858492612838745
       ]
     },
     "K4CD | short side boarding access bridge": {
       "visibleVertices": 8,
       "bbox": [
-        0.6729156970977783,
-        0.44868534803390503,
-        0.7203666567802429,
-        0.4526779353618622
+        0.7629808783531189,
+        0.4315568506717682,
+        0.8593552708625793,
+        0.437416672706604
       ]
     }
   },
@@ -88,15 +88,20 @@
   "files": {
     "K4CD_TRUE_MARITIME_HARBOR_FERRY_EDITABLE_NATIVE_ART_HOLD.blend": {
       "bytes": 273958272,
-      "sha256": "7845e8d94fb99e6a4f44816fe3639692a6fc0548f52c4020440c69e14dd746ec"
+      "sha256": "c81111664d4703ec044aeaaeee1e7b659d95343dbf762ebf9892c6636a7d5a0a"
     },
     "K4CD_TRUE_SAME_CHASE_MARITIME_FERRY_NOT_GAME.png": {
-      "bytes": 484048,
-      "sha256": "1932908b5928c896f4b53c72f3b3d71bb5a9b47e71c969661aa432ea2584698d"
+      "bytes": 485376,
+      "sha256": "e74ebe0766fbb7a9169c6561e113549bddb395dca03958849e2ef9e335904069"
+    },
+    "K4CD_WATER_ONLY_NO_FERRY_TRUE_CHASE_NOT_GAME.png": {
+      "bytes": 484140,
+      "sha256": "65f5a1019039307a7e2888b1d58f70d7750428409cbab917ec4162e564ddb5c7"
     }
   },
   "imageIndependentQA": {
-    "rightPixelsChangedNotArtScore": 2999,
+    "rightPixelsChangedNotArtScore": 4945,
+    "ferryPixelsVisibleAgainstRealWaterOnlyNotArtScore": 2816,
     "leftTerrainPixelsChangedNotArtScore": 0,
     "roadOriginalPixels": [
       [
@@ -195,7 +200,7 @@
       }
     ],
     "comparisonName": "K4CD_K4CC_VS_TRUE_HARBOR_FERRY_SAME_CHASE_ART_REVIEW_NOT_GAME.png",
-    "comparisonSHA256": "9993eab342c8ca79aca91101e4cae6fc9658b4176d13133bdad33ccf3dfe1c83",
+    "comparisonSHA256": "1534be8c800d8b2d03834774216076c9a5b62e5ad73bfa8924d3866bfd5f12b7",
     "ART": "UNJUDGED_HOLD"
   }
 }
