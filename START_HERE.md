@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BP 実構図比較の新正本】元B48／元カメラを保持し3つの独立仮説を実Blender比較
+
+**最新研究隔離枝**：`research/k4bp-camera-and-road-composition-study-20261104`。まず[**K4BP全体方針・4画面の条件と安全境界**](docs/R19_A6P4_R2F5K4BP_CONTROLLED_CAMERA_ROAD_COMPOSITION_STUDY_JA.md)を読む。過去K4BO以下の「最新」は履歴。
+
+- これまでのK4BOで**本物のSource Camera Control11307とSource Road5の遠近圧縮**（d70〜170mが画面高さの約3.2%）を実測。真Blender DCCはTECH PASSだが**ART REJECT**。正式ART採用0件・Slope2 DNA0m。箱・屋根・リングの増殖を主経路にしない。
+- K4BPでは元真正K4BO原本`K4BO_EDITABLE_GROUND_TRUTHED_VELOCITY_DCC_HOLD.blend` SHA256 `b546174d5ae5186015981f2d6b5ee40f823cb7a4f2f9ba33f07c2bbda84264e6`を厳密取得し、`scripts/p101-k4bp-authentic-camera-composition-study.py`にて3つの独立研究：**A／元Road5での低い追従カメラ複製、B／元Road5での港側からの斜め俯瞰カメラ複製、C／元Control Cameraの数値が完全に同じ複製と、新規純研究用幅26.2m（＋両肩）の別Road美術**。純研究Road Cでは元B48 Road5を**その画面に限って非表示**、元メッシュは削除も編集もしない。4条件の比較（元Source ControlのK4BO原画＋3条件）と元Road5カメラ投影数値をGitHubに保存する。別カメラ・別Roadの成功は元ゲームの成功と絶対に呼ばない。
+- [実GitHub Actions #41780866652](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41780866652) の各ステップ、真画像、編集可能BlenderとSHAを確認後にTECHおよび美術評価を更新。**初回の最新状況は実検証中**、ART合格未認定。
+- **固定保護**：source Game git blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5 mesh fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48原7本／B51実28体／240Hz／球半径0.65m／元Source Camera 6とそのポーズ・全ゲーム操作・安全UI、main、公式`p101-velocity-overdrive-native-trial`、Draft PR#46、本番2サイト変更なし。Work/Computer Use事前承認、ユーザーWindows操作不要。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。正式ART0／DNA0m。
+
+---
+
 # 【2026-11-04 K4BO最終確定・K4BPへの第一入口】Source Camera 実測による構図の制約発見／TECH PASS・ART REJECT
 
 **現行最終研究ブランチ** `research/k4bo-camera-frustum-track-art-20261104`。まず[**K4BO真正DCC・Source Camera数値実測・最終美術REJECTと次工程条件**](docs/R19_A6P4_R2F5K4BO_CAMERA_FRUSTUM_RACING_ART_JA.md)を読む。従来のK4BN以下「最新」はすべて履歴。
