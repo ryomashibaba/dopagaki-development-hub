@@ -1,3 +1,13 @@
+# 【K4BW 2026-11-04 海辺の港湾・地形・路面を一体で作者設計する工程】
+
+**新しい隔離研究枝** `research/k4bw-coastal-viaduct-harbor-composition-20261104`。[K4BW作者海岸港湾・路面構図、元SOURCE厳守、真正Camera1枚検証](docs/R19_A6P4_R2F5K4BW_COHERENT_COASTAL_HARBOR_ART_JA.md)を第一に読み、以下のK4BV真正高密度木・K4BU木配置・K4BT投影診断を継承する。下の「最新」は履歴。
+
+- 元K4BV Native画像は右岸の実在樹木だけが改善し、**高速ゲームとしての画面全体ART REJECT**。元ゲームBlob `af076d67492a677d2235e4730aef8cdf4808e106`、B48 Road5 fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元B48 7実道路/B51 28動体/240Hz/0.65m球/元Rig6Camera、元研究CHASE全保護。
+- K4BWは元K4BV編集可能.blend SHA256 `7c28000ad1a75afb7f64958a6d48ec5ff205849c37d5a2878f17bdd1d2d4e1c4` を読み、元Road5の物理を**一切書き換えず**、研究用表面の道路摩耗、左連続斜面、右の明確な海辺の公共施設（木の構造屋根・ガラス面・岸壁・港湾歩道・観覧テラス）を作者配置、同研究CHASE元カメラの**768×480 Native実画像1枚**で真の視認性を評価。見た目が悪ければTECH PASSでも**ART REJECT**、採用禁止。
+- [K4BW初回 Actions #41818181545](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41818181545) は記述時点で結果未確認。実証結果を後で差分追記するまではブレンダー画像成功を宣言しない。元物理Collider0/ゲーム編集0、正式ART0件/Slope2 DNA0m、SAT/CCD/FPS/HUMAN/RELEASE/MERGE HOLD、main/公式P101/Draft PR #46/本番2サイト不変更。追加有料API0円、Work/Computer Use事前承認、Windows操作不要。
+
+---
+
 # 【2026-11-04 K4BV最終確定 → K4BW制作入口】実海岸樹Native TECH PASS／画面ART REJECT
 
 現行隔離研究枝 `research/k4bv-real-coastal-canopy-native-art-20261104`。[**K4BV最終実Blender／全画像・SHA独立検査／同CHASE目視ART REJECT／K4BWへの反省と次工程**](docs/R19_A6P4_R2F5K4BV_REAL_CC0_COASTAL_CANOPY_ART_JA.md)を第一に読む。以下の「最新」「結果未確認」「未完成」は過去の履歴。
