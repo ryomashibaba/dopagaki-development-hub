@@ -99,11 +99,18 @@ slope=bpy.data.objects[slope_name]
 assert slope not in roads and slope!=bad and slope!=good
 assert slope.type=="MESH" and not slope.hide_render
 old_slope_materials=[m.name for m in slope.data.materials]
-old_slope_geometry=facehash(slope)
+def terrain_fingerprint(o):
+ h=hashlib.sha256()
+ for v in o.data.vertices:h.update(struct.pack("<3d",*[float(x) for x in v.co]))
+ for p in o.data.polygons:
+  h.update(struct.pack("<I",len(p.vertices)))
+  for vid in p.vertices:h.update(struct.pack("<I",int(vid)))
+ return h.hexdigest()
+old_slope_geometry=terrain_fingerprint(slope)
 # Do NOT change any mesh vertex/face or source game geometry. If the
 # selected slope shares a Blender Mesh datablock, isolate it first.
 slope.data=slope.data.copy()
-assert facehash(slope)==old_slope_geometry
+assert terrain_fingerprint(slope)==old_slope_geometry
 # Create a genuinely broad-scale weathered maritime lithology shader
 # directly on the EXISTING terrain surface. Do not use camera-aligned
 # polygon billboards, extra cliffs, giant boxes, stripes or rows.
@@ -141,7 +148,7 @@ links.new(detail.outputs["Fac"],rough_bump.inputs["Height"])
 links.new(rough_bump.outputs["Normal"],pr.inputs["Normal"])
 links.new(ramp.outputs["Color"],pr.inputs["Base Color"])
 slope.data.materials.clear();slope.data.materials.append(rock)
-assert facehash(slope)==old_slope_geometry
+assert terrain_fingerprint(slope)==old_slope_geometry
 # This does not certify physical geology. It is an authored research
 # natural-surface treatment checked by one true native camera render.
 
@@ -159,7 +166,7 @@ plant_scale=(.97,.77)
 placements=[]
 for k,(px,py) in enumerate(plant_pixels):
  hit=actual_ray(px,py)
- assert hit and hit["object"]==slope,(k,px,py,hit["object"].name if hit else "NO_HIT",slope_name)
+ assert hit and hit["object"].name==slope_name,(k,px,py,hit["object"].name if hit else "NO_HIT",slope_name)
  assert hit["normal"].z>.53,(k,"too steep for a tree",tuple(hit["normal"]))
  f=plant_scale[k];theta=plant_yaws[k]
  base=hit["point"]+Vector((0,0,.10-f*old_base_offset))
@@ -190,7 +197,7 @@ assert {facehash(x) for x in roads}=={ROAD_SHA}
 assert all(tuple(tuple(row) for row in o.matrix_world)==oldmat[o.name] for o in pine+old_canopy)
 assert bad.hide_render and good.hide_render is False
 assert {o.name:(bool(o.hide_render),float(o.data.energy)) for o in bpy.data.objects if o.type=="LIGHT"}==lights
-assert facehash(slope)==old_slope_geometry
+assert terrain_fingerprint(slope)==old_slope_geometry
 assert sha(BASE)==BASE_SHA
 
 sc.camera=cam;sc.render.engine="BLENDER_EEVEE"
