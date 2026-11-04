@@ -124,9 +124,9 @@ def make(name,verts,faces,mat,role,smooth=False):
 U=64;V=26
 verts=[]
 for i in range(U+1):
- u=-52.+128*i/U
+ u=-44.+122*i/U
  for j in range(V+1):
-  t=24.5+48*j/V
+  t=-27.0+25.0*j/V
   h=-1.85+ .10*math.sin(u*.28+t*.19)+.052*math.cos(u*.44-t*.37)
   verts.append(point(u,t,h))
 faces=[]
@@ -139,7 +139,7 @@ water=make("single coherent physical tidal water inlet",verts,faces,sea,"CONTINU
 # Hull cross-sections taper to a rounded bow; 6 vertical rings and 42
 # transverse slices form curved surfaces, not a stack of cuboid props.
 L=40;K=6
-boat_u=18.0;boat_t=29.2
+boat_u=18.0;boat_t=-6.5
 def hullpoint(i,k):
  x=2*i/L-1
  bow=max(0,(x-.69)/.31)
@@ -215,7 +215,7 @@ roof=make("single thick formed marine passenger roof",roofverts,rfaces,metal,
 # An open starboard boarding gate aligned to the source gangway.
 # Keep deck as a real continuous plane, never a game road collider.
 gangwaygate=cuboid("short side boarding access bridge",boat_u+2,boat_u+5,
-                   boat_t-5.2,boat_t-3.55,-.13,.09,deckmat,
+                   boat_t+3.55,boat_t+10.0,-.13,.09,deckmat,
                    "FERRY_GANGWAY_PHYSICAL_ACCESS")
 # Visibility check: the vessel and water must actually appear in CHASE
 # at scale, without covering the camera's protected racing focal center.
@@ -230,6 +230,7 @@ nonsea=[o for o in new if o is not water]
 assert len(nonsea)>=4 and sum(screen[o.name]["visibleVertices"] for o in nonsea)>120,("WORKING_FERRY_NOT_RENDERED",screen)
 assert screen[water.name]["visibleVertices"]>30,("SEA_NOT_PRESENT_IN_TRUE_CHASE",screen[water.name])
 visible_x=[screen[o.name]["bbox"][0] for o in new if screen[o.name]["bbox"]]
+print('K4CD_TRUE_CAMERA_SAFE_HARBOR_PROJECTIONS',json.dumps(screen),flush=True)
 assert min(visible_x)>.475,("ACTUAL_RACING_FOCUS_OBSTRUCTED",screen)
 assert camera_poses()==orig_poses
 assert (tuple(cam.location),tuple(cam.rotation_euler),float(cam.data.lens))==chasepose
