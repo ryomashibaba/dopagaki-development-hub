@@ -1,0 +1,149 @@
+{
+  "schema": "dopagaki.K4CB.authentic-editable-maritime-exchange-art-hold/1",
+  "parentA2SHA256": "299f1972e3383a7fc0047409a0f58581da3884988749dff6842a80cdf49a3ffa",
+  "frozenOriginalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "frozenOriginalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "sourceSixCameraUnchanged": true,
+  "sourceCHASEUnchanged": true,
+  "oldNineTreesAndNewTwoCC0InstancesUnchanged": true,
+  "lightsUnchanged": true,
+  "K4BZProvenBadResearchRoadHidden": true,
+  "noExistingObjectVisibilityChanged": true,
+  "existingRoadAndResearchSkinNotCopied": true,
+  "sourceGameEdited": false,
+  "gamePhysicsEdited": false,
+  "newGameColliders": 0,
+  "originalCivicRoofGeometryUnchanged": true,
+  "originalCivicPiersUnchanged": true,
+  "sourceParentIsRealEditableBlender": true,
+  "newResearchDCCMeshCount": 24,
+  "authorConcept": "three deep structural stone arch vaults with clear real entrance, recessed occupied glazing, physical piers, shaded roof load paths and one accessible quay connection integrated with the inherited public hall",
+  "primaryBuilding": "K4BW | folded coastal museum and boat service canopy shell",
+  "sourcePierCount": 12,
+  "archedPortalScreensActualCHASE": [
+    {
+      "x": 0.7704,
+      "y": 0.52967,
+      "inFront": true,
+      "inFrame": true
+    },
+    {
+      "x": 0.74055,
+      "y": 0.5277,
+      "inFront": true,
+      "inFrame": true
+    },
+    {
+      "x": 0.71598,
+      "y": 0.52608,
+      "inFront": true,
+      "inFrame": true
+    }
+  ],
+  "vaultHeightM": 7.05,
+  "vendorNote": "No new external assets; all new stones/glazing/wood are original research procedural materials, not claimed photographic scans",
+  "authenticEEVEESameCHASE": [
+    768,
+    480
+  ],
+  "notNativeWebGL2Game": true,
+  "ART": "UNJUDGED_HOLD",
+  "formalArtAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "HUMAN": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CB_TRUE_MARITIME_EXCHANGE_ARCADES_EDITABLE_ART_HOLD.blend": {
+      "bytes": 271929100,
+      "sha256": "9df956acf164d7a0f4d861585644e15f87faa5d85683f2e8ae79bb438c03333d"
+    },
+    "K4CB_TRUE_SAME_CHASE_MARITIME_EXCHANGE_NOT_GAME.png": {
+      "bytes": 476075,
+      "sha256": "0aa667522b327e2ace253c3e5acff56b77ff05139024e7aaab517c8ef70d99b7"
+    }
+  },
+  "independentRealImageStudy": {
+    "comparisonName": "K4CB_VS_K4CA_TRUE_SAME_CHASE_MARITIME_EXCHANGE_ART_REVIEW_NOT_GAME.png",
+    "sha256": "ab908c1b15aaee1f397fd1a67253dcee64a5036e39634aa48cd1282fb95089fd",
+    "actualChangedPortPixelsNotArtScore": 2083,
+    "originalWedgeProtected": [
+      {
+        "dark": [
+          292,
+          300
+        ],
+        "control": [
+          317,
+          300
+        ],
+        "beforeContrast": 2.667,
+        "afterContrast": 2.667
+      },
+      {
+        "dark": [
+          280,
+          330
+        ],
+        "control": [
+          310,
+          330
+        ],
+        "beforeContrast": -0.333,
+        "afterContrast": -0.333
+      },
+      {
+        "dark": [
+          267,
+          360
+        ],
+        "control": [
+          310,
+          360
+        ],
+        "beforeContrast": -0.333,
+        "afterContrast": 0.0
+      },
+      {
+        "dark": [
+          250,
+          400
+        ],
+        "control": [
+          295,
+          400
+        ],
+        "beforeContrast": 2.333,
+        "afterContrast": 2.333
+      },
+      {
+        "dark": [
+          235,
+          440
+        ],
+        "control": [
+          280,
+          440
+        ],
+        "beforeContrast": -1.333,
+        "afterContrast": -1.333
+      },
+      {
+        "dark": [
+          225,
+          470
+        ],
+        "control": [
+          270,
+          470
+        ],
+        "beforeContrast": 0.333,
+        "afterContrast": 0.333
+      }
+    ],
+    "ART": "UNJUDGED_HOLD"
+  }
+}
