@@ -54,3 +54,24 @@ DOPAGAKI SLOPE — HYPER RUSHは世界水準の超高速3Dレースゲームと�
 - [修正版初回CI #41750596888](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41750596888) は **completed/FAILURE**。元Source、親Blender SHA、Blender実行環境の検査は通過。ただし実レンダー開始前に、追加した実船体の材質を未定義の`charcoal`で参照してしまい、`NameError`が発生。**修正版の画像・.blend・新Art合格は一切成立していない**。前回の技術PASS成果物を保持。
 - 研究ブランチのコード `37d3bbf39991590ccc2750dea4194d576ba3c6f7` で存在する`basalt`材質を正しく指定。変更はK4BL研究用Blender作者コードのみ。
 - [再実行CI #41751060525](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41751060525)の**実状態、真正Sourceカメラ2画像と.Artifact、SHAが得られるまで成功と判定しない**。これは1つの美術候補の試行であり、元B48を移植した結果ではない。
+
+
+## 【2026-11-04 K4BL最終監査】本物のネイティブ美術候補完成・ART REJECT
+
+### 技術的な最終結果と独立ファイル検証
+
+- 初回成功の[Actions #41749970400](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41749970400)はSOURCE/DCC技術PASS。しかし美術は本画像に基づきREJECT。
+- 中間[CI #41750596888](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41750596888)は未定義`charcoal`材質による`NameError`が原因で**completed/FAILURE**。修正 `37d3bbf39991590ccc2750dea4194d576ba3c6f7` で`basalt`に変更。
+- **最終修正版CI**：[Actions #41751060525](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41751060525)は**completed/SUCCESS**。Blender 4.0.2で`BLENDER_EEVEE`実レンダー（ソフトウェアGL/Xvfb）、元Source Camera control tick11307 + ultra tick11341の二枚、真正編集可能`.blend`、比較PNG、Source JSON、全SHA照合、研究隔離ブランチへ画像保存が成功。これは**BlenderネイティブDCCの技術的成功**だけである。
+- **真正最終Artifact**：[Artifact #13286275694](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41751060525/artifacts/13286275694) 、ZIP SHA256 `cdcd49068a837e68d155b01824c720f216edeb3c50abe17919e90bc4c9b41b12`。ZIP CRC PASS、検証JSONの全元ファイルSHA256との独立再ハッシュもPASS。内容：編集可能`K4BL_HARBOR_ART_DIRECTED_EDITABLE_NATIVE_BLENDER_HOLD.blend` 36,684,824B／SHA256 `220855d6500a74697e41b9bad36cb5c20654ea77d8c8a4be48d5ebf9a4ab2488`、control11307 PNG 1,369,951B、ultra11341 PNG 1,359,190B、前K4BK同Source pose A/B PNG 3,119,792B、元Road5/Camera provenance JSON。**新独立DCC編集可能アセット158件だが、数は美術合格の根拠ではない**。
+- 元ゲーム Source Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5本物のvertex/face fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元Source Control/Ultra Cameraの位置・回転・レンズ数値不変。SOURCEの9断面Raycast成立。B48元7／B51元28／240Hz／球半径0.65m、ゲーム本体の原コード・元カメラ全6・物理挙動／元UI・main・公式枝・PR #46／本番サイトは編集していない。新ゲームCollider0。SAT/CCD/FPS/HUMAN/B51実クリアランス未実証。
+
+### 真の両画面レビュー：修正版もART REJECT
+
+- 初回K4BLからの変化：前景道路の塗装と陰影は単調な白から引き締まった寒色系へ変わり、フレーム上端を埋めていた旧巨大な壁を減らし、遠景のアイボリー円筒塔を中低層の港湾施設群へ置換。用途を示す3D実サイン・屋上・海側の乗船場を追加。新EEVEE実画面は旧Cyclesにあった粒状ノイズを大きく減らせた。
+- しかし実control11307／ultra11341両画面を見ると、道路が依然画像の大半を占め、左右の2つの張り出し屋根が薄いプリミティブのパネルに見え、中央の遠景は黒青色の円筒状建築・大きな空白と不自然な直線的な水平線。3Dサインも建築に一部隠れて読みにくい。港の海面、生活、景観、レイヤーは画面から読み取りにくい。**ビジュアル全域の質は到底世界級に及ばず、正式ART REJECT**。新しい「装飾と窓」追加のみでこれを覆い隠さない。
+- これは実ゲーム`WebGL2`同時刻の画面ではない。ゲーム本体の見た目とFPS/衝突安全/操作性が改善したとは断言しない。正式ART採用**0件**、Slope2 DNA正式認定**0m**、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全**HOLD**。
+
+### 次工程K4BMの決定的な制作転換
+
+**調査と実装を伴う本物の作者制作へ移り、幾何的に大きな箱・長い波型屋根・低多角柱・差し色だけで美術を成立させる方法を中止する。** 測量済みRoad5の真Cameraと元Sourceを正本に、最初に画面構図・建築用途・素材と照明の美術設計（白い空虚な水平線をなくす遠中近景構成）を仕上げる。一本のHeroビューポイントで実編集可能な手作りメッシュ・まともなUV／PBR／地形・実船港施設・看板の視認性を同時に審査し、不合格ならゲームへ載せない。ART合格前の他6Road展開・元ゲーム移植・main/公式/PR本番変更は禁止。ユーザーのWindows操作無し、Work開始はユーザーの明示承認制。
