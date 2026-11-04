@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BO最新実作業】元Road5の画面投影実測・視認されるレース路面意匠
+
+**現行隔離研究枝**：`research/k4bo-camera-frustum-track-art-20261104`。[K4BO元Camera実測・オリジナル道路ペイントと保存条件](docs/R19_A6P4_R2F5K4BO_CAMERA_FRUSTUM_RACING_ART_JA.md)が最新の企画と検証入口。以前のK4BN以下の「最新」は履歴。
+
+- **前工程確定**：K4BN [CI #41771580365](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41771580365) completed/SUCCESS、真正Blender元カメラ画像と全sha再検証。**ART REJECT**：元Cameraが広いRoad5前景を写すのに、塗装の主役が先に小さく、港の船も隠れる。正式ART採用0件、Slope2 DNA0m。
+- **K4BO実実装**：真Blender元Road5の道路中心/左右端d=-20〜+170mを`world_to_camera_view`で各元control11307 Source Camera画面座標へ投影して、塗装が本当に見える位置へ原作者の扇形速度意匠・セクターガイド・マリンシアン/琥珀のペイントを2048×4096元PNGとして配置。真正K4BN親編集可能.blendをSHA256 `fb98af8bccb84c9a6eaf18cabc8444135c5df99df267a5a7562c99c1fbe96a37`で開き、元Road5の**shaderだけ**にpacked original image重ね塗り。近景の本道路端に実Raycastした細い鋼材・光ガイド研究オブジェクトを左右7本ずつ生成。以前の巨大柱/橋/箱を追加しない。ゲームCollider・Road5頂点/面・元Camera値は変更しない。
+- [K4BO初回CI #41779198031](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41779198031) を実行。状態・Artifact・真Blender・2画像・独立SHAを確認してからSOURCE/DCC技術PASSを認定。**実画像の美術評価は未確定**。TECHはARTではなく、悪ければART REJECT。
+- 不変：ゲームgit blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5 fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48実7道路／B51実28体／240Hz／球半径0.65m／元6Camera数値、安全表示、main・公式p101・Draft PR #46・本番2URL。Work事前承認、ユーザーWindows操作要求なし。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。他6Road横展開とゲーム統合は禁止。
+
+---
+
 # 【2026-11-04 K4BN最終確定】実Source Camera／Blender SOURCE TECH PASS・ART REJECT
 
 最終隔離研究ブランチ`research/k4bn-track-surface-harbor-silhouette-20261104`。次工程は[K4BNの実技術結果と目視美術REJECT、K4BO制作原則](docs/R19_A6P4_R2F5K4BN_RACE_TRACK_AND_WORKING_HARBOR_ART_JA.md)を最優先。以前の「最新」は履歴。
