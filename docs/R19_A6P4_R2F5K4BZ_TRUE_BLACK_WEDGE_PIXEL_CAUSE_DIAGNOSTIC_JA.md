@@ -37,3 +37,11 @@
 ### 次K4CAへの条件
 
 ゲーム原本の表面に新たな別舗装を重複させず、証拠のある唯一の修正（K4BYの研究用問題表層非表示）を保護。**写真材質の継ぎ目を憶測で修正する反復は終了**。次は同CHASE全画面で本物の沿岸都市の建築・地形・画面構図の美術品質を上げる工程へ戻る。ただし新Game Road5/6Camera/COLLIDER/MAIN/PR #46/本番への変更・採用は禁止。元Game blob af076d67492a677d2235e4730aef8cdf4808e106、元Road5 SHA f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2 を保護。
+
+## 【K4BZ R3最終確定】軽量回帰試験 SUCCESS・黒筋を消した修正を保護
+
+[GitHub Actions #41840882396](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41840882396) **completed/SUCCESS**。Blenderなし・新レンダリングなし・追加モデルDLなしで、tests/p101-k4bz-proven-dark-wedge-regression.py を実行。元K4BY A3正式研究画像とK4BZ R2修正研究画像の固定SHA256を検証し、6組12地点の実RGBが監査JSONとすべて一致すること、黒い筋の6画素が正常側の路面へ近づいたこと、正常側6画素が不変であること、元ゲームソースBlob・元Road5 SHA・6カメラ・9木・全照明・唯一の非ゲーム用非表示オブジェクトを区別できることを確認した。
+
+**最終K4BZ：R1真レイ原因切り分けTECH PASS、R2真同CHASE 1オブジェクト除去TECH FIX PASS、R3軽量再発防止TECH PASS。** 正式ARTはREJECT、正式採用0件、Slope2 DNA0m。これはゲームでの最終走行品質の検証ではなく、真正Blender研究画像内の1つの局所欠陥の修正・保護である。元Game・Road5・公式P101・main・Draft PR #46・本番2サイトに一切変更なし。
+
+**次K4CA**：K4BZで証明した黒筋の修正を動かさず、真の同CHASE画面の低品質が残る道路の広さ、左側の地形・海岸接続、港の建築・生活感の作者美術を改善する。物理・カメラ・既存原本は引き続き固定、正式ART合格0件を維持し、作品全体の美術検証ができるまでは現ゲームへ反映しない。
