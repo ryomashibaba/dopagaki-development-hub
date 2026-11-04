@@ -29,10 +29,20 @@ font_regular='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
 def stencil(d,s,name,hm,col,bold=True):
  size=max(12,round(hm/275*H))
  font=ImageFont.truetype(font_bold if bold else font_regular,size)
- draw.text(pt(d,s),name,fill=col,font=font,anchor='lt')
-stencil(27,-20,'HYPER',8.2,(225,227,207,174))
-stencil(17,-20,'RUSH',8.0,(234,232,216,173))
-stencil(7,-21,'S E C T O R   0 5',2.0,(77,190,174,158),False)
+ # The fixed authentic source camera views camera-lateral S from the
+ # opposite image direction. Flip GLYPHS locally (not entire atlas/lanes),
+ # so the game-course typography reads correctly without camera editing.
+ bbox=draw.textbbox((0,0),name,font=font,anchor='lt')
+ width=max(2,bbox[2]-bbox[0]+2)
+ height=max(2,bbox[3]-bbox[1]+2)
+ word=Image.new('RGBA',(width,height),(0,0,0,0))
+ label_draw=ImageDraw.Draw(word)
+ label_draw.text((-bbox[0],-bbox[1]),name,fill=col,font=font)
+ x,y=pt(d,s)
+ im.alpha_composite(word.transpose(Image.Transpose.FLIP_LEFT_RIGHT),(x,y))
+stencil(50,-20,'HYPER',4.6,(225,227,207,174))
+stencil(41,-20,'RUSH',4.3,(234,232,216,173))
+stencil(35,-21,'S E C T O R   0 5',1.5,(77,190,174,158),False)
 stencil(77,-16,'QUAY 05',5.3,(237,224,186,126))
 stencil(108,-12,'01 / COASTLINE',2.0,(191,217,212,131),False)
 for side in (-1,1):
