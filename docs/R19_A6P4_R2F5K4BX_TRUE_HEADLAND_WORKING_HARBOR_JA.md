@@ -21,3 +21,10 @@
 ## 次K4BYへの分岐
 
 真正1画面を目視し、遠景岬が道路の水平線に接続するか、港の生業が機能ある輪郭として分かるか、都市建築が模型の箱の集積に見えないか、路面が不自然にならないかを判定。低品質なら既存試作を盲目的に量産しない。必要ならカメラを固定したまま本物の遮蔽関係・自然地形・建築細部を1つずつ根拠に直す。**ART REJECTのままほか6RoadやGameへ展開しない。**
+
+## K4BX A1/A2真正画像評価・A3設計への固定教訓
+
+- A1 [#41823102768](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41823102768) **completed/SUCCESS**。K4BW A2 Native originalがSHA256で一致、Game/Road5/Camera/9本の木を保護。真.blend SHA256 `3fd25a7cf38123f6f034c414a61127b26a1db2aed090f2a8a8e0bba8ac7d1f6f`、768×480画像SHA256 `14c29ac81d3c2df7fab7d5f3625e61ef58e3f503fdd04a8f854459cbc46806d4`。同CHASE画像を目視すると、左の岬は**黒く鋭い三角形になり白い不自然な境界線を生じたためART REJECT**。右の港も小さく薄い。三角の地形は原本に残し描画OFFにすることにした。
+- A2 [#41823924403](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41823924403) **completed/SUCCESS**。黒い岬は研究原本に保存・Render OFF。より低い暖色系丘陵を制作、魚市場とフェリーの屋根を視界に寄せる。A2真正編集可能Native 261,294,756 B／SHA256 `56a5db02c7763757b0d2fb55e2533657d87761b627e75ca48d53395bd8acf487`、真正研究CHASE PNG 481,099 B／SHA256 `8db9e787aa5f05ffb306aac4cb7b092ab4c2d3a0424e8f199c6582e118805bd4`。Artifact #13319010201 ZIP 112,828,054 B／SHA256 `2ac95c00a619b80452737896e364437c43f7c895b52dba11dcd02aa0a585334e`、独立CRC全PASS。**目視ART REJECT**：左の黒い不自然な岬は解消したが、遠景は依然ほぼ空白。右の建築が大きい屋根板・浮いた監視室に見え、港に生業・密度・奥行きが足りない。RGB差分1.90757は美術指標ではない。
+- A3変更commit `6121a73b8ea5aa7f201ae8dd6d21d4e3d6786b03`：A2で効果が薄かった地形オーバーレイは編集可能原本に残して研究レンダーOFF。**固定元CHASE Cameraの射影位置から世界の側方距離・高さを逆算し、奥行き265～700mの実際の地形メッシュで岬と遠方島を作る**。偽画像・2D平面ではなく距離分離した連続3D。右の建築屋根を縮小し、浮いた港務所展望窓・マストは原本保持Render OFF。正式Game未改変。 [A3 Actions #41824656344](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41824656344) の結果と実画像評価は本記録時点で未確認。事実確認後も美術不合格なら正式採用禁止。
+- **全体契約は維持**：source Road5全頂点面、Game、6Camera、研究CHASE、9木Transform、main/公式P101/PR#46/本番不変。正式ART採用0件／Slope2 DNA0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD。BlenderのTECH PASSでゲームのFPSやARTを保証しない。
