@@ -1,0 +1,142 @@
+name: DOPAGAKI K4BQ native geological harbor full art prototype (research ART HOLD)
+on:
+  push:
+    branches: [research/k4bq-geological-harbor-art-direction-20261104]
+    paths:
+      - scripts/p101-k4bq-native-geological-harbor-art.py
+      - .github/workflows/p101-k4bq-geological-harbor-native-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bq-original-road-protected-art
+  cancel-in-progress: true
+jobs:
+  true-native-blender-full-scene-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify immutable game git blob and Python Blender source
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bq-geological-harbor-art-direction-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bq-native-geological-harbor-art.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download pinned K4BP native unapproved 4-condition compositional research
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BP_SOURCE_PROTECTED_CAMERA_VS_ALTERNATE_ROAD_EDITABLE_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41781600578
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bq/parent
+      - name: Independent SHA and source-fingerprint proof for parent
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          p=Path('research/evidence/k4bq/parent')
+          j=json.loads((p/'K4BP_SOURCE_AND_RESEARCH_CAMERAS_PROVENANCE.json').read_text())
+          assert j['frozenOriginalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5VertexFaceFingerprintUnchanged']
+          assert j['allSixOriginalSourceCameraPosesLensUnchanged']
+          assert j['originalB48RoadCount']==7 and j['originalB51MoverCount']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusMetres']==.65
+          assert j['formalArtAcceptedCount']==0 and j['formalSlope2DNAMetres']==0
+          for name,meta in j['files'].items():
+            data=(p/name).read_bytes()
+            assert len(data)==meta['bytes']
+            assert hashlib.sha256(data).hexdigest()==meta['sha256'],name
+          assert j['files']['K4BP_CONTROLLED_CAMERA_AND_ALTERNATE_ROAD_EDITABLE_RESEARCH_HOLD.blend']['sha256']=='93c3583655eeb48fa06d61239646bb470419c72bf84cd97235be2288240d26aa'
+          print('K4BQ_EXACT_K4BP_NATIVE_DCC_SOURCE_PROTECTED_PARENT_PASS')
+          PY
+      - name: Install native Blender EEVEE headless graphics and PIL for independent review
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: Author full editable harbor with geology, grasses, trees and real camera output
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bq/render
+          xvfb-run -a -s '-screen 0 1920x1200x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4bq-native-geological-harbor-art.py -- \
+              --base research/evidence/k4bq/parent/K4BP_CONTROLLED_CAMERA_AND_ALTERNATE_ROAD_EDITABLE_RESEARCH_HOLD.blend \
+              --out research/evidence/k4bq/render
+      - name: Independent bytes / same camera A-B visual review with preserved source
+        run: |
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageStat,ImageChops
+          import hashlib,json
+          p=Path('research/evidence/k4bq/parent')
+          d=Path('research/evidence/k4bq/render')
+          j=json.loads((d/'K4BQ_ACTUAL_NATIVE_AUTHOR_PROVENANCE.json').read_text())
+          assert j['frozenOriginalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['unchangedSourceRoad5Geometry'] and j['unchangedSourceCameraPoses']
+          assert j['unchangedResearchCameraPoses']
+          assert j['sourceB48RoadCount']==7 and j['sourceB51MoverCount']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusM']==.65
+          assert j['researchOnlyAlternativeRoadWidthM']==26.3
+          assert j['researchOnlyChaseCamera']
+          assert j['isRealGameWebGLScreenshot'] is False and j['newGameColliders']==0
+          assert j['sourceGameEdited'] is False
+          assert j['formalArtAccepted']==0 and j['formalSlope2DNAAcceptedM']==0
+          assert j['ART']=='UNJUDGED_HOLD'
+          assert j['fullAuthorCreatedResearchObjects']>=12
+          assert len(j['sourceRoad5ActualGroundSamples'])>65
+          assert len(j['screens'])==2
+          for name,meta in j['files'].items():
+            raw=(d/name).read_bytes()
+            assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          before=Image.open(p/'K4BP_CHASE_NARROW_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png').convert('RGB')
+          a=Image.open(d/'K4BQ_CHASE_NARROW_NEW_AUTHORED_RESEARCH_DCC_ART_UNJUDGED.png').convert('RGB')
+          c=Image.open(d/'K4BQ_NARROW_FIXED_ORIGINAL_POSE_NEW_AUTHORED_RESEARCH_DCC_ART_UNJUDGED.png').convert('RGB')
+          assert before.size==(1440,900) and a.size==c.size==(1520,950)
+          assert sum(ImageStat.Stat(a).stddev)>15
+          assert sum(ImageStat.Stat(c).stddev)>15
+          diff=ImageChops.difference(before,a.resize((1440,900)))
+          assert diff.getbbox() is not None
+          assert sum(ImageStat.Stat(diff).mean)/3>7
+          canvas=Image.new('RGB',(3000,1050),(13,19,23))
+          pen=ImageDraw.Draw(canvas)
+          canvas.paste(before.resize((1450,906)),(20,73))
+          canvas.paste(a.resize((1450,906)),(1530,73))
+          pen.text((20,26),'K4BP D (REJECTED) - CHASE + NON-GAME NARROW ROAD',fill='white')
+          pen.text((1530,26),'K4BQ NEW RESEARCH SCENE - SAME CHASE AND ROAD CONCEPT - ART UNJUDGED',fill='white')
+          compare='K4BQ_VS_K4BP_D_SAME_CHASE_NON_GAME_ROAD_TRUE_BLENDER_COMPARISON.png'
+          canvas.save(d/compare)
+          raw=(d/compare).read_bytes()
+          j['sameCameraArtReview']={'file':compare,'sha256':hashlib.sha256(raw).hexdigest(),
+                                    'bytes':len(raw)}
+          (d/'K4BQ_ACTUAL_NATIVE_AUTHOR_PROVENANCE.json').write_text(json.dumps(j,ensure_ascii=False,indent=2))
+          print('K4BQ_NATIVE_EDITABLE_ART_AND_ORIGINAL_SOURCE_PROTECTED_TECH_PASS_NOT_ART_PASS')
+          PY
+      - name: Save only source-verified images to isolated research branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bq-geological-harbor-art-direction-20261104
+          mkdir -p docs/research-evidence/k4bq
+          cp research/evidence/k4bq/render/K4BQ_*_NEW_AUTHORED_RESEARCH_DCC_ART_UNJUDGED.png docs/research-evidence/k4bq/
+          cp research/evidence/k4bq/render/K4BQ_VS_K4BP_D_SAME_CHASE_NON_GAME_ROAD_TRUE_BLENDER_COMPARISON.png docs/research-evidence/k4bq/
+          cp research/evidence/k4bq/render/K4BQ_ACTUAL_NATIVE_AUTHOR_PROVENANCE.json docs/research-evidence/k4bq/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4bq
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bq): real editable Blender coastal terrain, same research camera and SHA provenance"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bq-geological-harbor-art-direction-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BQ_NATIVE_REAL_COASTAL_SCENE_EDITABLE_DCC_ART_HOLD
+          path: research/evidence/k4bq/render/
+          retention-days: 21
+          if-no-files-found: warn
