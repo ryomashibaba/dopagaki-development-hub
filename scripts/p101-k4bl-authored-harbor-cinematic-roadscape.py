@@ -491,13 +491,25 @@ for desc,dd,side,z in [('library',104,-1,18),('terminal',125,1,18),
                   ground(min(dd,170),side)+z)
 # Render two original immutable source cameras. EEVEE to avoid unavailable
 # OIDN and coarse Monte-Carlo noise from prior Cycles GPU-less builds.
-scene.render.engine='BLENDER_EEVEE'
-if hasattr(scene,'eevee'):
-    scene.eevee.taa_render_samples=128
-    scene.eevee.use_gtao=True
-    scene.eevee.gtao_distance=3
-    scene.eevee.gtao_factor=1.15
-    scene.eevee.use_soft_shadows=True
+render_mode=args[args.index('--renderer')+1] if '--renderer' in args else 'cycles'
+assert render_mode in ('eevee','cycles'),render_mode
+if render_mode=='eevee':
+    scene.render.engine='BLENDER_EEVEE'
+    if hasattr(scene,'eevee'):
+        scene.eevee.taa_render_samples=96
+        for key,value in (('use_gtao',True),('gtao_distance',3.0),
+                          ('gtao_factor',1.15),('use_soft_shadows',True)):
+            if hasattr(scene.eevee,key):
+                setattr(scene.eevee,key,value)
+else:
+    # Real Blender CPU renderer previously verified in K4BK Actions.
+    # This fallback is not the unavailable OpenImageDenoiser.
+    scene.render.engine='CYCLES'
+    scene.cycles.samples=72
+    try: scene.cycles.use_denoising=False
+    except Exception: pass
+    try: bpy.context.view_layer.cycles.use_denoising=False
+    except Exception: pass
 scene.render.resolution_x=1400
 scene.render.resolution_y=900
 scene.render.resolution_percentage=100
@@ -546,7 +558,7 @@ provenance={
   'oldRejectedArtCollectionsHiddenNotDeleted':hidden,
   'newIndependentEditableArtObjects':len(made),
   'originalCameraDCCScreenshots':shots,
-  'renderer':'BLENDER_EEVEE',
+  'renderer':render_mode,
   'isOriginalWebGL2GameFrame':False,
   'gameFileEdited':False,'newGameColliders':0,
   'formalArtAccepted':0,'slope2DNAAcceptedMetres':0,
