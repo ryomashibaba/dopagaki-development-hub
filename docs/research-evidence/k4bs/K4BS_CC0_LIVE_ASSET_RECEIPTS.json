@@ -1,0 +1,147 @@
+{
+  "schema": "dopagaki.K4BS.independently-downloaded-CC0-PBR/1",
+  "licenseEvidence": "https://polyhaven.com/license",
+  "attribution": "Powered by Poly Haven (public API live use requirement)",
+  "license": "CC0 1.0",
+  "userAgent": "DOPAGAKI-SLOPE-K4BS-OpenResearch/1.0 (GitHub native Blender source-audit; credit Poly Haven)",
+  "downloadUTC": "2026-11-04T07:51:30Z",
+  "additionalPaidAPI": false,
+  "photoscannedAssetsActuallyDownloaded": {
+    "sparse_grass": {
+      "name": "Sparse Grass",
+      "assetUrl": "https://polyhaven.com/a/sparse_grass",
+      "infoApi": "https://api.polyhaven.com/info/sparse_grass",
+      "filesApi": "https://api.polyhaven.com/files/sparse_grass",
+      "authors": {
+        "Amal Kumar": "All"
+      },
+      "dimensionsMm": [
+        2000,
+        2000
+      ],
+      "maps": {
+        "diffuse": {
+          "vendorOriginalMap": "Diffuse",
+          "vendorResolution": "2k",
+          "vendorFormat": "jpg",
+          "vendorDeclaredSize": 3733797,
+          "vendorMD5": "b181e9c61bae87c1bb9b14eecd767d65",
+          "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/sparse_grass/sparse_grass_diff_2k.jpg",
+          "localFile": "sparse_grass_diffuse_2k.jpg",
+          "actualBytes": 3733797,
+          "sha256": "3b655de96161164bf2324e136b3409ad8417c9f94750bc008e9c93ee507c2fac",
+          "independentMD5Verified": true
+        },
+        "nor_gl": {
+          "vendorOriginalMap": "nor_gl",
+          "vendorResolution": "2k",
+          "vendorFormat": "jpg",
+          "vendorDeclaredSize": 5892473,
+          "vendorMD5": "8ec54ff3b639e6e044ea83792d7c49b0",
+          "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/sparse_grass/sparse_grass_nor_gl_2k.jpg",
+          "localFile": "sparse_grass_nor_gl_2k.jpg",
+          "actualBytes": 5892473,
+          "sha256": "5539a5913653a106a4e8a699a1d288f0b41907775b5fb36156ef5be2e937718b",
+          "independentMD5Verified": true
+        },
+        "rough": {
+          "vendorOriginalMap": "Rough",
+          "vendorResolution": "2k",
+          "vendorFormat": "jpg",
+          "vendorDeclaredSize": 1729786,
+          "vendorMD5": "446cbe6254b1b210de44ef7c53da6204",
+          "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/sparse_grass/sparse_grass_rough_2k.jpg",
+          "localFile": "sparse_grass_rough_2k.jpg",
+          "actualBytes": 1729786,
+          "sha256": "b023f187999956449b5f25df19f4eaae1c891f474e0a599b23d986118fe706d7",
+          "independentMD5Verified": true
+        }
+      }
+    }
+  },
+  "sourceGameEdited": false,
+  "verifiedCC0NativeTreeModel": {
+    "id": "pine_sapling_small",
+    "name": "Pine Sapling Small",
+    "assetUrl": "https://polyhaven.com/a/pine_sapling_small",
+    "infoApi": "https://api.polyhaven.com/info/pine_sapling_small",
+    "filesApi": "https://api.polyhaven.com/files/pine_sapling_small",
+    "authors": {
+      "Rob Tuytel": "photography",
+      "Rico Cilliers": "modeling"
+    },
+    "nativeGLTFResolution": "1k",
+    "nativeGLTFRelativeFile": "model/pine_sapling_small/pine_sapling_small.gltf",
+    "declaredDimensionsMm": [
+      2642.0599818229675,
+      770.349532365799,
+      1298.9574084058404
+    ],
+    "files": {
+      "pine_sapling_small.gltf": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/pine_sapling_small/pine_sapling_small_1k.gltf",
+        "vendorMD5": "237a7672645631550ae571743aa9f55b",
+        "vendorDeclaredBytes": 11442,
+        "sha256": "f358c01926861dd082f32dba60f7c9fba232b585a985cf38c0d2229eecf4bc48",
+        "actualBytes": 11442,
+        "localFile": "model/pine_sapling_small/pine_sapling_small.gltf"
+      },
+      "textures/pine_sapling_small_twig_arm_1k.jpg": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/pine_sapling_small/pine_sapling_small_twig_arm_1k.jpg",
+        "vendorMD5": "b5062030fc42ec7bd12eb3f052054104",
+        "vendorDeclaredBytes": 394056,
+        "sha256": "2eb0aa44124b5a4ae9401e00b23b3c916f4c3f421616ce1bb932f248fc061288",
+        "actualBytes": 394056,
+        "localFile": "model/pine_sapling_small/textures/pine_sapling_small_twig_arm_1k.jpg"
+      },
+      "textures/pine_sapling_small_twig_diff_1k.jpg": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/pine_sapling_small/pine_sapling_small_twig_diff_1k.jpg",
+        "vendorMD5": "dacc918bb421968e9ccc1956d78a2dbe",
+        "vendorDeclaredBytes": 477942,
+        "sha256": "54af7d6fb664b5a38bcb118b557bc50e01e86ec54d6f1a573c3e32c649a53362",
+        "actualBytes": 477942,
+        "localFile": "model/pine_sapling_small/textures/pine_sapling_small_twig_diff_1k.jpg"
+      },
+      "textures/pine_sapling_small_bark_nor_gl_1k.jpg": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/pine_sapling_small/pine_sapling_small_bark_nor_gl_1k.jpg",
+        "vendorMD5": "bb6e3a6eea777d992cef48fabfdc538c",
+        "vendorDeclaredBytes": 1016849,
+        "sha256": "05c46455531781b6cf18cae0648cf627f60ee942adaa8bcbfd1592fc2506a9e0",
+        "actualBytes": 1016849,
+        "localFile": "model/pine_sapling_small/textures/pine_sapling_small_bark_nor_gl_1k.jpg"
+      },
+      "pine_sapling_small.bin": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/pine_sapling_small/pine_sapling_small.bin",
+        "vendorMD5": "76dd1802d8de128c812f2e124a258b35",
+        "vendorDeclaredBytes": 17771796,
+        "sha256": "b4d2fc73d53f1d8717eb5ef9a2c66957d2a53152787e543aace88fcd6fca94ef",
+        "actualBytes": 17771796,
+        "localFile": "model/pine_sapling_small/pine_sapling_small.bin"
+      },
+      "textures/pine_sapling_small_bark_diff_1k.jpg": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/pine_sapling_small/pine_sapling_small_bark_diff_1k.jpg",
+        "vendorMD5": "7d3a558ed614c7e75594c7be3bf80311",
+        "vendorDeclaredBytes": 725265,
+        "sha256": "5c76836b01c3536fa0e24207b67bf4f3315b53ebe2b4ecc6f08dfcf3f8d74929",
+        "actualBytes": 725265,
+        "localFile": "model/pine_sapling_small/textures/pine_sapling_small_bark_diff_1k.jpg"
+      },
+      "textures/pine_sapling_small_bark_arm_1k.jpg": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/pine_sapling_small/pine_sapling_small_bark_arm_1k.jpg",
+        "vendorMD5": "21d1abd15e40951825a4f3da110b20ea",
+        "vendorDeclaredBytes": 801278,
+        "sha256": "336a4680cd571b6076b67afee2310b290b8900d9d126eb39ec1ae92e95be2ea9",
+        "actualBytes": 801278,
+        "localFile": "model/pine_sapling_small/textures/pine_sapling_small_bark_arm_1k.jpg"
+      },
+      "textures/pine_sapling_small_twig_nor_gl_1k.jpg": {
+        "sourceURL": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/pine_sapling_small/pine_sapling_small_twig_nor_gl_1k.jpg",
+        "vendorMD5": "eebc5a81f8f6231d8e18ec4ad7292798",
+        "vendorDeclaredBytes": 692711,
+        "sha256": "76af87821d7ff00e25768d5d97a449394fe64a21ae55d099da7f5ed46d9098c8",
+        "actualBytes": 692711,
+        "localFile": "model/pine_sapling_small/textures/pine_sapling_small_twig_nor_gl_1k.jpg"
+      }
+    }
+  }
+}

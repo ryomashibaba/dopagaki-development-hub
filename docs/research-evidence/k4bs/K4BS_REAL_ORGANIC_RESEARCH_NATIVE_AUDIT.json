@@ -1,0 +1,169 @@
+{
+  "schema": "dopagaki.K4BS.real-CC0-pine-with-organic-photo-ground-source-protected/1",
+  "parentEditableK4BR_SHA256": "7f229b9fbc0d736c056e1494f64192e64b7915f768a6fb38f05c87901229fa69",
+  "vendorCC0ManifestSHA256": "0cfd81f860a3b2ca541b8a4c503965cb1193732986fccfa6830740b3fb307e4a",
+  "sourceGameImmutableBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "sourceB48Road5VertexFacePreserved": true,
+  "originalSixSourceCamerasNumericallyUnchanged": true,
+  "bothResearchCamerasNumericallyUnchanged": true,
+  "sourceB48RoadCount": 7,
+  "sourceB51MoverCount": 28,
+  "sourcePhysicsHz": 240,
+  "sourceBallRadiusM": 0.65,
+  "actualPolyHavenSparseGrassMapsPacked": {
+    "diffuse": true,
+    "nor_gl": true,
+    "rough": true
+  },
+  "actualImportedRealPineGLTFTriangles": 398144,
+  "actualImportedMeshCount": 3,
+  "researchTreeSharedGeometryInstances": 8,
+  "treePlacements": [
+    {
+      "d": 14,
+      "s": -31,
+      "heightM": 5.8
+    },
+    {
+      "d": 43,
+      "s": -52,
+      "heightM": 5.6
+    },
+    {
+      "d": 73,
+      "s": -59,
+      "heightM": 8.5
+    },
+    {
+      "d": 118,
+      "s": -53,
+      "heightM": 8.9
+    },
+    {
+      "d": 18,
+      "s": 34,
+      "heightM": 5.8
+    },
+    {
+      "d": 63,
+      "s": 45,
+      "heightM": 6.9
+    },
+    {
+      "d": 110,
+      "s": 51,
+      "heightM": 7.4
+    },
+    {
+      "d": 157,
+      "s": 43,
+      "heightM": 6.3
+    }
+  ],
+  "renderHiddenPriorToyTreesAndUnrealisticStructures": [
+    "K4BQ / EAST actual exposed timber rib hand-shaped 0",
+    "K4BQ / EAST actual exposed timber rib hand-shaped 1",
+    "K4BQ / EAST actual exposed timber rib hand-shaped 10",
+    "K4BQ / EAST actual exposed timber rib hand-shaped 11",
+    "K4BQ / EAST actual exposed timber rib hand-shaped 12",
+    "K4BQ / EAST actual exposed timber rib hand-shaped 2",
+    "K4BQ / EAST actual exposed timber rib hand-shaped 3",
+    "K4BQ / EAST actual exposed timber rib hand-shaped 4",
+    "K4BQ / EAST actual exposed timber rib hand-shaped 5",
+    "K4BQ / EAST actual exposed timber rib hand-shaped 6",
+    "K4BQ / EAST actual exposed timber rib hand-shaped 7",
+    "K4BQ / EAST actual exposed timber rib hand-shaped 8",
+    "K4BQ / EAST actual exposed timber rib hand-shaped 9",
+    "K4BQ / EAST heritage maritime interpretive gallery occupied str",
+    "K4BQ / EAST modelled volumetric blue-green needle crowns",
+    "K4BQ / EAST occupied linear exhibition amber light 0",
+    "K4BQ / EAST occupied linear exhibition amber light 1",
+    "K4BQ / EAST occupied linear exhibition amber light 10",
+    "K4BQ / EAST occupied linear exhibition amber light 11",
+    "K4BQ / EAST occupied linear exhibition amber light 12",
+    "K4BQ / EAST occupied linear exhibition amber light 2",
+    "K4BQ / EAST occupied linear exhibition amber light 3",
+    "K4BQ / EAST occupied linear exhibition amber light 4",
+    "K4BQ / EAST occupied linear exhibition amber light 5",
+    "K4BQ / EAST occupied linear exhibition amber light 6",
+    "K4BQ / EAST occupied linear exhibition amber light 7",
+    "K4BQ / EAST occupied linear exhibition amber light 8",
+    "K4BQ / EAST occupied linear exhibition amber light 9",
+    "K4BQ / EAST original densely varied dune grass micro geometry",
+    "K4BQ / EAST physically recessed glazed atrium and reading terra",
+    "K4BQ / EAST real windworn native maritime pine trunks and branc",
+    "K4BQ / EAST singular UV patinated folded coastal civic roof",
+    "K4BQ / WEST lighthouse panoramic working lantern rooms",
+    "K4BQ / WEST lighthouse superstructure golden lightning rod",
+    "K4BQ / WEST lighthouse true faceted tapered stone shaft",
+    "K4BQ / WEST modelled volumetric blue-green needle crowns",
+    "K4BQ / WEST original densely varied dune grass micro geometry",
+    "K4BQ / WEST real windworn native maritime pine trunks and branc",
+    "K4BQ | 05 curved human-scaled maritime interpretation pavilion"
+  ],
+  "actualTerrainPerPolygonCheckerPatternRemoved": {
+    "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ": {
+      "polygons": 1456,
+      "oldPerFaceBlocks": [
+        718,
+        738
+      ],
+      "newUnifiedContinuousMaterial": "K4BS | Continuously masked REAL CC0 green-to-rock coastal erosi"
+    },
+    "K4BQ / WEST_OPEN_HARBOR authored subdivided eroded native coast": {
+      "polygons": 1456,
+      "oldPerFaceBlocks": [
+        718,
+        738
+      ],
+      "newUnifiedContinuousMaterial": "K4BS | Continuously masked REAL CC0 green-to-rock coastal erosi"
+    }
+  },
+  "realGameNewColliders": 0,
+  "gameSourceModified": false,
+  "isWebGL2GameScreenshot": false,
+  "realGameFpsAndLODProof": "HOLD",
+  "ART": "UNJUDGED_HOLD",
+  "formalArtAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "HUMAN": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "screens": [
+    {
+      "camera": "CHASE_NARROW",
+      "sourceCamera": false,
+      "roadOriginalB48": false,
+      "file": "K4BS_CHASE_NARROW_CONTINUOUS_CC0_GROUND_REAL_PINE_ART_HOLD.png"
+    },
+    {
+      "camera": "NARROW_FIXED_ORIGINAL_POSE",
+      "sourceCamera": false,
+      "roadOriginalB48": false,
+      "file": "K4BS_NARROW_FIXED_ORIGINAL_POSE_CONTINUOUS_CC0_GROUND_REAL_PINE_ART_HOLD.png"
+    }
+  ],
+  "files": {
+    "K4BS_REAL_PINE_AND_ORGANIC_PHOTO_GROUND_EDITABLE_DCC_ART_HOLD.blend": {
+      "bytes": 136868853,
+      "sha256": "156e56ce373b731f1f0c8f96278a11977ac93d491973c2e8ef796ec1ea7795de"
+    },
+    "K4BS_CHASE_NARROW_CONTINUOUS_CC0_GROUND_REAL_PINE_ART_HOLD.png": {
+      "bytes": 1239495,
+      "sha256": "be95187ce5fba724547a0333bcca261b8c300ee0bb9316edd23cfc18ca85ba3f"
+    },
+    "K4BS_NARROW_FIXED_ORIGINAL_POSE_CONTINUOUS_CC0_GROUND_REAL_PINE_ART_HOLD.png": {
+      "bytes": 1254969,
+      "sha256": "4b4d899b1792023590e60ce923cf6bf8154f3e415a466e35d9608f79fc5ef61a"
+    }
+  },
+  "sameCameraReview": {
+    "file": "K4BS_VS_K4BR_SAME_CHASE_CC0_PINE_AND_ORGANIC_GROUND_ART_REVIEW_NOT_GAME.png",
+    "bytes": 1944018,
+    "sha256": "bc7086de33aa9588fd73463f03332d3c235f9912cec26e77825e8ab14ce7ffeb",
+    "meanRGBDifferenceNotQualityMetric": 10.0967
+  }
+}
