@@ -1,0 +1,29 @@
+{
+  "schema": "dopagaki.k4bo.source-road-original-velocity-atlas/1",
+  "image": "K4BO_ORIGINAL_NEAR_CAMERA_VELOCITY_ATLAS_RGBA.png",
+  "size": [
+    2048,
+    4096
+  ],
+  "sha256": "4d2903e545dfc90f1290d5a6fcd5bebc0b46de78b1d47cdec47ed1f2189ad762",
+  "coordinateMap": {
+    "u": "(camera_lateral_s+75)/180",
+    "v": "(camera_forward_d+60)/265"
+  },
+  "authoredVisibleForwardRangeM": [
+    -22,
+    200
+  ],
+  "frameNearGraphicDistanceM": [
+    3,
+    19,
+    34,
+    49,
+    65,
+    83,
+    104
+  ],
+  "originalSourceCameraMustStayUnchanged": true,
+  "sourceGameUnchanged": true,
+  "nativeRoad5GeometryUnchanged": true
+}

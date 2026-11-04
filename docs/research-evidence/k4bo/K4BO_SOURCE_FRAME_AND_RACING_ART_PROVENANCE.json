@@ -1,0 +1,607 @@
+{
+  "schema": "dopagaki.K4BO.true-source-frustum-grounded-racing-art/1",
+  "parentK4BNNativeEditableBlendSHA256": "fb98af8bccb84c9a6eaf18cabc8444135c5df99df267a5a7562c99c1fbe96a37",
+  "raceGraphicRGBAatlasPacked": true,
+  "raceGraphicSHA256": "4d2903e545dfc90f1290d5a6fcd5bebc0b46de78b1d47cdec47ed1f2189ad762",
+  "frozenOriginalGameSourceGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "road5OriginalGeometryPreserved": true,
+  "sourceCameraNumericalPosesPreserved": true,
+  "sourceRoadSamples": [
+    {
+      "d": -20,
+      "roadLeft": -37,
+      "roadRight": 51,
+      "rayHits": 45
+    },
+    {
+      "d": 0,
+      "roadLeft": -37,
+      "roadRight": 51,
+      "rayHits": 45
+    },
+    {
+      "d": 5,
+      "roadLeft": -37,
+      "roadRight": 51,
+      "rayHits": 45
+    },
+    {
+      "d": 10,
+      "roadLeft": -39,
+      "roadRight": 51,
+      "rayHits": 46
+    },
+    {
+      "d": 15,
+      "roadLeft": -39,
+      "roadRight": 51,
+      "rayHits": 46
+    },
+    {
+      "d": 20,
+      "roadLeft": -39,
+      "roadRight": 51,
+      "rayHits": 46
+    },
+    {
+      "d": 30,
+      "roadLeft": -39,
+      "roadRight": 53,
+      "rayHits": 47
+    },
+    {
+      "d": 40,
+      "roadLeft": -39,
+      "roadRight": 53,
+      "rayHits": 47
+    },
+    {
+      "d": 55,
+      "roadLeft": -39,
+      "roadRight": 55,
+      "rayHits": 48
+    },
+    {
+      "d": 70,
+      "roadLeft": -39,
+      "roadRight": 57,
+      "rayHits": 49
+    },
+    {
+      "d": 90,
+      "roadLeft": -39,
+      "roadRight": 61,
+      "rayHits": 51
+    },
+    {
+      "d": 110,
+      "roadLeft": -37,
+      "roadRight": 63,
+      "rayHits": 51
+    },
+    {
+      "d": 130,
+      "roadLeft": -37,
+      "roadRight": 67,
+      "rayHits": 53
+    },
+    {
+      "d": 150,
+      "roadLeft": -35,
+      "roadRight": 69,
+      "rayHits": 53
+    },
+    {
+      "d": 170,
+      "roadLeft": -33,
+      "roadRight": 71,
+      "rayHits": 53
+    }
+  ],
+  "cameraProjectionTrueOriginalPose": [
+    {
+      "d": -20,
+      "s": -33,
+      "screenX": -0.31199,
+      "screenYBottomUp": 1.20581,
+      "depth": -17.145,
+      "withinFrame": false
+    },
+    {
+      "d": -20,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 1.10813,
+      "depth": -17.523,
+      "withinFrame": false
+    },
+    {
+      "d": -20,
+      "s": 47,
+      "screenX": 1.59781,
+      "screenYBottomUp": 0.97595,
+      "depth": -18.062,
+      "withinFrame": false
+    },
+    {
+      "d": 0,
+      "s": -33,
+      "screenX": 7.35094,
+      "screenYBottomUp": -3.32499,
+      "depth": 2.032,
+      "withinFrame": false
+    },
+    {
+      "d": 0,
+      "s": 0,
+      "screenX": 0.49999,
+      "screenYBottomUp": -3.32509,
+      "depth": 1.664,
+      "withinFrame": false
+    },
+    {
+      "d": 0,
+      "s": 47,
+      "screenX": -16.85961,
+      "screenYBottomUp": -3.32498,
+      "depth": 1.142,
+      "withinFrame": false
+    },
+    {
+      "d": 5,
+      "s": -33,
+      "screenX": 2.53767,
+      "screenYBottomUp": -0.48251,
+      "depth": 6.832,
+      "withinFrame": false
+    },
+    {
+      "d": 5,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": -0.3227,
+      "depth": 6.469,
+      "withinFrame": false
+    },
+    {
+      "d": 5,
+      "s": 47,
+      "screenX": -2.83148,
+      "screenYBottomUp": -0.06203,
+      "depth": 5.952,
+      "withinFrame": false
+    },
+    {
+      "d": 10,
+      "s": -35,
+      "screenX": 1.76687,
+      "screenYBottomUp": 0.00751,
+      "depth": 11.655,
+      "withinFrame": false
+    },
+    {
+      "d": 10,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 0.12018,
+      "depth": 11.274,
+      "withinFrame": true
+    },
+    {
+      "d": 10,
+      "s": 47,
+      "screenX": -1.34208,
+      "screenYBottomUp": 0.28341,
+      "depth": 10.764,
+      "withinFrame": false
+    },
+    {
+      "d": 15,
+      "s": -35,
+      "screenX": 1.39711,
+      "screenYBottomUp": 0.21477,
+      "depth": 16.459,
+      "withinFrame": false
+    },
+    {
+      "d": 15,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 0.29778,
+      "depth": 16.082,
+      "withinFrame": true
+    },
+    {
+      "d": 15,
+      "s": 47,
+      "screenX": -0.77279,
+      "screenYBottomUp": 0.41487,
+      "depth": 15.579,
+      "withinFrame": false
+    },
+    {
+      "d": 20,
+      "s": -35,
+      "screenX": 1.19438,
+      "screenYBottomUp": 0.32816,
+      "depth": 21.264,
+      "withinFrame": false
+    },
+    {
+      "d": 20,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 0.39309,
+      "depth": 20.893,
+      "withinFrame": true
+    },
+    {
+      "d": 20,
+      "s": 47,
+      "screenX": -0.47208,
+      "screenYBottomUp": 0.48337,
+      "depth": 20.398,
+      "withinFrame": false
+    },
+    {
+      "d": 30,
+      "s": -35,
+      "screenX": 0.97813,
+      "screenYBottomUp": 0.44817,
+      "depth": 30.882,
+      "withinFrame": true
+    },
+    {
+      "d": 30,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 0.49267,
+      "depth": 30.522,
+      "withinFrame": true
+    },
+    {
+      "d": 30,
+      "s": 49,
+      "screenX": -0.18852,
+      "screenYBottomUp": 0.55603,
+      "depth": 30.024,
+      "withinFrame": false
+    },
+    {
+      "d": 40,
+      "s": -35,
+      "screenX": 0.8645,
+      "screenYBottomUp": 0.51033,
+      "depth": 40.509,
+      "withinFrame": true
+    },
+    {
+      "d": 40,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 0.54347,
+      "depth": 40.162,
+      "withinFrame": true
+    },
+    {
+      "d": 40,
+      "s": 49,
+      "screenX": -0.02091,
+      "screenYBottomUp": 0.59004,
+      "depth": 39.684,
+      "withinFrame": false
+    },
+    {
+      "d": 55,
+      "s": -35,
+      "screenX": 0.76863,
+      "screenYBottomUp": 0.56152,
+      "depth": 54.966,
+      "withinFrame": true
+    },
+    {
+      "d": 55,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 0.58455,
+      "depth": 54.642,
+      "withinFrame": true
+    },
+    {
+      "d": 55,
+      "s": 51,
+      "screenX": 0.10289,
+      "screenYBottomUp": 0.6178,
+      "depth": 54.181,
+      "withinFrame": true
+    },
+    {
+      "d": 70,
+      "s": -35,
+      "screenX": 0.71262,
+      "screenYBottomUp": 0.59015,
+      "depth": 69.445,
+      "withinFrame": true
+    },
+    {
+      "d": 70,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 0.60698,
+      "depth": 69.148,
+      "withinFrame": true
+    },
+    {
+      "d": 70,
+      "s": 53,
+      "screenX": 0.1746,
+      "screenYBottomUp": 0.63187,
+      "depth": 68.713,
+      "withinFrame": true
+    },
+    {
+      "d": 90,
+      "s": -35,
+      "screenX": 0.6663,
+      "screenYBottomUp": 0.61209,
+      "depth": 88.789,
+      "withinFrame": true
+    },
+    {
+      "d": 90,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 0.62359,
+      "depth": 88.53,
+      "withinFrame": true
+    },
+    {
+      "d": 90,
+      "s": 57,
+      "screenX": 0.22715,
+      "screenYBottomUp": 0.64136,
+      "depth": 88.134,
+      "withinFrame": true
+    },
+    {
+      "d": 110,
+      "s": -33,
+      "screenX": 0.62871,
+      "screenYBottomUp": 0.62507,
+      "depth": 108.163,
+      "withinFrame": true
+    },
+    {
+      "d": 110,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 0.6325,
+      "depth": 107.96,
+      "withinFrame": true
+    },
+    {
+      "d": 110,
+      "s": 59,
+      "screenX": 0.26874,
+      "screenYBottomUp": 0.6446,
+      "depth": 107.631,
+      "withinFrame": true
+    },
+    {
+      "d": 130,
+      "s": -33,
+      "screenX": 0.60911,
+      "screenYBottomUp": 0.63219,
+      "depth": 127.599,
+      "withinFrame": true
+    },
+    {
+      "d": 130,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 0.63702,
+      "depth": 127.444,
+      "withinFrame": true
+    },
+    {
+      "d": 130,
+      "s": 63,
+      "screenX": 0.29103,
+      "screenYBottomUp": 0.64503,
+      "depth": 127.186,
+      "withinFrame": true
+    },
+    {
+      "d": 150,
+      "s": -31,
+      "screenX": 0.58892,
+      "screenYBottomUp": 0.63621,
+      "depth": 147.08,
+      "withinFrame": true
+    },
+    {
+      "d": 150,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 0.63895,
+      "depth": 146.978,
+      "withinFrame": true
+    },
+    {
+      "d": 150,
+      "s": 65,
+      "screenX": 0.31322,
+      "screenYBottomUp": 0.6433,
+      "depth": 146.817,
+      "withinFrame": true
+    },
+    {
+      "d": 170,
+      "s": -29,
+      "screenX": 0.57342,
+      "screenYBottomUp": 0.6378,
+      "depth": 166.624,
+      "withinFrame": true
+    },
+    {
+      "d": 170,
+      "s": 0,
+      "screenX": 0.5,
+      "screenYBottomUp": 0.63893,
+      "depth": 166.576,
+      "withinFrame": true
+    },
+    {
+      "d": 170,
+      "s": 67,
+      "screenX": 0.33026,
+      "screenYBottomUp": 0.64022,
+      "depth": 166.522,
+      "withinFrame": true
+    }
+  ],
+  "sourceB48Roads": 7,
+  "sourceB51Movers": 28,
+  "originalPhysicsHz": 240,
+  "originalBallRadiusMetres": 0.65,
+  "newDCCOnlyAerofoilGuideCount": 30,
+  "pylonSurvey": [
+    {
+      "side": "WEST",
+      "d": 10,
+      "worldLateral": -46,
+      "groundHeight": -10.3998
+    },
+    {
+      "side": "WEST",
+      "d": 32,
+      "worldLateral": -46,
+      "groundHeight": -7.4432
+    },
+    {
+      "side": "WEST",
+      "d": 56,
+      "worldLateral": -46,
+      "groundHeight": -4.504
+    },
+    {
+      "side": "WEST",
+      "d": 82,
+      "worldLateral": -46,
+      "groundHeight": -1.6927
+    },
+    {
+      "side": "WEST",
+      "d": 110,
+      "worldLateral": -44,
+      "groundHeight": 0.9388
+    },
+    {
+      "side": "WEST",
+      "d": 140,
+      "worldLateral": -44,
+      "groundHeight": 3.0658
+    },
+    {
+      "side": "WEST",
+      "d": 164,
+      "worldLateral": -40,
+      "groundHeight": 4.3436
+    },
+    {
+      "side": "EAST",
+      "d": 10,
+      "worldLateral": 58,
+      "groundHeight": -5.272
+    },
+    {
+      "side": "EAST",
+      "d": 32,
+      "worldLateral": 60,
+      "groundHeight": -2.54
+    },
+    {
+      "side": "EAST",
+      "d": 56,
+      "worldLateral": 62,
+      "groundHeight": -0.0133
+    },
+    {
+      "side": "EAST",
+      "d": 82,
+      "worldLateral": 68,
+      "groundHeight": 2.3377
+    },
+    {
+      "side": "EAST",
+      "d": 110,
+      "worldLateral": 70,
+      "groundHeight": 4.0012
+    },
+    {
+      "side": "EAST",
+      "d": 140,
+      "worldLateral": 74,
+      "groundHeight": 5.0246
+    },
+    {
+      "side": "EAST",
+      "d": 164,
+      "worldLateral": 78,
+      "groundHeight": 5.174
+    }
+  ],
+  "newPlayableColliders": 0,
+  "gameSourceEdited": false,
+  "actualWebGL2GameCapture": false,
+  "artJudgement": "UNJUDGED_HOLD",
+  "formallyAdoptedArt": 0,
+  "formalSlope2DNAMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "originalSourceCameraDCCImages": [
+    {
+      "mode": "control",
+      "tick": 11307,
+      "file": "K4BO_CONTROL_11307_TRUE_SOURCE_CAMERA_ART_UNJUDGED.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "file": "K4BO_ULTRA_11341_TRUE_SOURCE_CAMERA_ART_UNJUDGED.png"
+    }
+  ],
+  "files": {
+    "K4BO_EDITABLE_GROUND_TRUTHED_VELOCITY_DCC_HOLD.blend": {
+      "bytes": 41838860,
+      "sha256": "b546174d5ae5186015981f2d6b5ee40f823cb7a4f2f9ba33f07c2bbda84264e6"
+    },
+    "K4BO_CONTROL_11307_TRUE_SOURCE_CAMERA_ART_UNJUDGED.png": {
+      "bytes": 1700050,
+      "sha256": "02079b390eb9135c68cabe872af13bae12c3a2a5a524d4765dbab6401a0837be"
+    },
+    "K4BO_ULTRA_11341_TRUE_SOURCE_CAMERA_ART_UNJUDGED.png": {
+      "bytes": 1673174,
+      "sha256": "0106a50a93db52ec64f9c2e815ec165c7636507b7d1c0fabd68ef48296d3d8eb"
+    }
+  },
+  "fullCameraAB": {
+    "name": "K4BO_VS_K4BN_TRUE_SOURCE_CAMERA_FOREGROUND_ART_REVIEW_NOT_GAME.png",
+    "bytes": 2808268,
+    "sha256": "919d7bc8841d37cf18a4c203cb6548e5db19b56fb95c24ad7414eb6190eede21",
+    "roadVisibilityMeasurements": [
+      {
+        "mode": "control",
+        "lowerRoadPixelMeanRGBDelta": 7.3327
+      },
+      {
+        "mode": "ultra",
+        "lowerRoadPixelMeanRGBDelta": 3.4632
+      }
+    ]
+  }
+}
