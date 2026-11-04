@@ -1,0 +1,153 @@
+name: DOPAGAKI K4BU one visible upright CC0 pine native single-frame art study
+on:
+  push:
+    branches: [research/k4bu-upright-pine-single-frame-art-study-20261104]
+    paths:
+      - scripts/p101-k4bu-upright-pine-one-frame.py
+      - .github/workflows/p101-k4bu-one-upright-real-pine-native-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bu-one-real-tree-single-frame
+  cancel-in-progress: true
+jobs:
+  one-native-single-frame:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect game original and verify Python
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bu-upright-pine-single-frame-art-study-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bu-upright-pine-one-frame.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download immutable successful K4BS native base, no new models
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BS_SOURCE_PROTECTED_REAL_PINE_GRASS_EDITABLE_NATIVE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41795056558
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bu/parent
+      - name: Verify exact native original and measured K4BT projection inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          p=Path("research/evidence/k4bu/parent/render")
+          blend=p/"K4BS_REAL_PINE_AND_ORGANIC_PHOTO_GROUND_EDITABLE_DCC_ART_HOLD.blend"
+          assert hashlib.sha256(blend.read_bytes()).hexdigest()=="156e56ce373b731f1f0c8f96278a11977ac93d491973c2e8ef796ec1ea7795de"
+          audit=json.loads((p/"K4BS_REAL_ORGANIC_RESEARCH_NATIVE_AUDIT.json").read_text())
+          assert audit["formalArtAccepted"]==audit["formalSlope2DNAMetres"]==0
+          assert audit["sourceGameImmutableBlob"]=="af076d67492a677d2235e4730aef8cdf4808e106"
+          assert audit["sourceB48Road5VertexFacePreserved"]
+          assert audit["originalSixSourceCamerasNumericallyUnchanged"]
+          assert audit["bothResearchCamerasNumericallyUnchanged"]
+          for name,metadata in audit["files"].items():
+              b=(p/name).read_bytes()
+              assert hashlib.sha256(b).hexdigest()==metadata["sha256"]
+          j=json.loads(Path("docs/research-evidence/k4bt/K4BT_NATIVE_PINE_PROJECTION_RESEARCH_ONLY.json").read_text())
+          assert j["summary"]["trees"]==8 and j["summary"]["outOfFrame"]==3
+          assert j["summary"]["inFrameEnvelopes"]==5
+          assert j["summary"]["trianglesPerTree"]==398144
+          assert j["formalArtAccepted"]==j["formalSlope2DNAMetres"]==0
+          print("K4BU_ORIGINAL_NATIVE_K4BT_MEASURED_PROJECTION_SHA_PASS")
+          PY
+      - name: Install bounded real Blender renderer and image comparison
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: One actual native real-pine reorientation and CHASE 768x480 research render
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bu/result
+          xvfb-run -a -s '-screen 0 1280x900x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4bu-upright-pine-one-frame.py -- \
+              --base research/evidence/k4bu/parent/render/K4BS_REAL_PINE_AND_ORGANIC_PHOTO_GROUND_EDITABLE_DCC_ART_HOLD.blend \
+              --projection-audit docs/research-evidence/k4bt/K4BT_NATIVE_PINE_PROJECTION_RESEARCH_ONLY.json \
+              --out research/evidence/k4bu/result
+      - name: Independently validate real native output, protect ART gate, and compare same research camera
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          from PIL import Image,ImageDraw,ImageStat,ImageChops
+          from pathlib import Path
+          import hashlib,json
+          d=Path("research/evidence/k4bu/result")
+          p=Path("research/evidence/k4bu/parent/render")
+          j=json.loads((d/"K4BU_NATIVE_SINGLE_HERO_TREE_ART_HOLD_AUDIT.json").read_text())
+          assert j["sourceK4BSBlendSHA256"]=="156e56ce373b731f1f0c8f96278a11977ac93d491973c2e8ef796ec1ea7795de"
+          assert j["sourceGameBlob"]=="af076d67492a677d2235e4730aef8cdf4808e106"
+          assert j["sourceB48Road5Fingerprint"]=="f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+          assert j["originalSixCamerasUnchanged"] and j["frozenChaseCameraUnchanged"]
+          assert j["originalSevenOtherTreesTransformUnchanged"]
+          assert j["realNativeTreeTriangles"]==398144 and j["originalResearchTreeCount"]==8
+          assert j["realGameSourceChanged"] is False if "realGameSourceChanged" in j else j["sourceGameEdited"] is False
+          assert j["newGameColliders"]==0 and j["ART"]=="UNJUDGED_HOLD"
+          assert j["formalArtAccepted"]==j["formalSlope2DNAMetres"]==0
+          assert j["RELEASE"]==j["MERGE"]=="HOLD"
+          assert j["repositionedUprightHeroProjectedEnvelope"]["widthPx"]>=30
+          assert j["repositionedUprightHeroProjectedEnvelope"]["heightPx"]>=50
+          for name,meta in j["files"].items():
+              f=d/name
+              assert f.stat().st_size==meta["bytes"],name
+              assert hashlib.sha256(f.read_bytes()).hexdigest()==meta["sha256"],name
+          before=Image.open(p/"K4BS_CHASE_NARROW_CONTINUOUS_CC0_GROUND_REAL_PINE_ART_HOLD.png").convert("RGB")
+          after=Image.open(d/"K4BU_ONE_FRAME_NATIVE_UPRIGHT_PINE_CHASE_768x480_ART_HOLD_NOT_GAME.png").convert("RGB")
+          assert before.size==(1280,800) and after.size==(768,480)
+          before=before.resize((768,480))
+          assert sum(ImageStat.Stat(after).stddev)>10
+          diff=ImageChops.difference(before,after)
+          assert diff.getbbox() is not None
+          canvas=Image.new("RGB",(1560,552),(17,18,24))
+          pen=ImageDraw.Draw(canvas)
+          canvas.paste(before,(12,50))
+          canvas.paste(after,(780,50))
+          pen.text((12,18),"K4BS original CHASE / downsampled baseline / ART REJECT",fill="white")
+          pen.text((780,18),"K4BU same CHASE / one UPRIGHT CC0 pine / ART UNJUDGED",fill="white")
+          pen.text((12,536),"Native Blender research camera, not WebGL game; comparison not ART PASS",fill="white")
+          fname="K4BU_VS_K4BS_SAME_CHASE_ONE_NATIVE_UPRIGHT_PINE_ART_REVIEW_NOT_GAME.png"
+          canvas.save(d/fname)
+          b=(d/fname).read_bytes()
+          j["sameCameraNativeReview"]={"file":fname,"bytes":len(b),"sha256":hashlib.sha256(b).hexdigest(),
+               "baselineResampledForComparison":True,"isArtPassMetric":False}
+          (d/"K4BU_NATIVE_SINGLE_HERO_TREE_ART_HOLD_AUDIT.json").write_text(json.dumps(j,ensure_ascii=False,indent=2))
+          print("K4BU_NATIVE_ONE_REAL_PINE_ARTIFACT_PROOF_COMPLETE_NOT_ART_PASS",j["chosenPosition"])
+          PY
+      - name: Commit small real PNG and JSON evidence on K4BU isolation only
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bu-upright-pine-single-frame-art-study-20261104
+          mkdir -p docs/research-evidence/k4bu
+          cp research/evidence/k4bu/result/*.png docs/research-evidence/k4bu/
+          cp research/evidence/k4bu/result/*.json docs/research-evidence/k4bu/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4bu
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bu): real native one-upright-pine CHASE low-res image, source protected and ART pending"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bu-upright-pine-single-frame-art-study-20261104
+          fi
+      - name: Preserve editable Native Blender + one research PNG as inspectable workflow artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4BU_ONE_REAL_NATIVE_UPRIGHT_PINE_EDITABLE_DCC_ART_HOLD
+          path: research/evidence/k4bu/result/
+          if-no-files-found: warn
+          retention-days: 21
