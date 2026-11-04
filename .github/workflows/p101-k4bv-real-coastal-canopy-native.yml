@@ -1,0 +1,140 @@
+name: DOPAGAKI K4BV source-verified coastal tree true native one-frame art
+on:
+  push:
+    branches: [research/k4bv-real-coastal-canopy-native-art-20261104]
+    paths:
+      - scripts/p101-k4bv-fetch-official-coastal-canopy.py
+      - scripts/p101-k4bv-one-genuine-coastal-canopy-native.py
+      - .github/workflows/p101-k4bv-real-coastal-canopy-native.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bv-true-cc0-native-coast
+  cancel-in-progress: true
+jobs:
+  genuine-cc0-coastal-native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect original game source, Python syntax and authentic geometry tests
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bv-real-coastal-canopy-native-art-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bv-fetch-official-coastal-canopy.py scripts/p101-k4bv-one-genuine-coastal-canopy-native.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Retrieve genuine source K4BU locked native Blender artifact, do not regenerate
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BU_ONE_REAL_NATIVE_UPRIGHT_PINE_EDITABLE_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41801261499
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bv/parent
+      - name: Independently verify full genuine editable K4BU immutable source
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          p=Path('research/evidence/k4bv/parent')
+          j=json.loads((p/'K4BU_NATIVE_SINGLE_HERO_TREE_ART_HOLD_AUDIT.json').read_text())
+          assert j['sourceGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['sourceB48Road5Fingerprint']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert j['originalSixCamerasUnchanged'] and j['frozenChaseCameraUnchanged']
+          assert j['formalArtAccepted']==0 and j['formalSlope2DNAMetres']==0
+          for name,meta in j['files'].items():
+           z=p/name;assert z.stat().st_size==meta['bytes'] and hashlib.sha256(z.read_bytes()).hexdigest()==meta['sha256'],name
+          assert j['files']['K4BU_ONE_REPOSITIONED_UPRIGHT_GENUINE_CC0_PINE_EDITABLE_RESEARCH_ART_HOLD.blend']['sha256']=='2536375f40e6a20e0061b80aba100c2469cfeacde814f4c127ff194201ba3064'
+          print('K4BV_GENUINE_K4BU_PARENT_SHA_VERIFIED')
+          PY
+      - name: Fetch ONLY official 1K Island Tree 02 with declared size bounds, vendor MD5 and independent SHA
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bv/assets research/evidence/k4bv/render
+          python3 scripts/p101-k4bv-fetch-official-coastal-canopy.py --out research/evidence/k4bv/assets
+      - name: Install actual Blender EEVEE after validated licensed source, not beforehand
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: Import genuine one native coastal tree and render one 768x480 same CHASE research frame
+        run: |
+          set -euo pipefail
+          xvfb-run -a -s '-screen 0 1280x900x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4bv-one-genuine-coastal-canopy-native.py -- \
+              --base research/evidence/k4bv/parent/K4BU_ONE_REPOSITIONED_UPRIGHT_GENUINE_CC0_PINE_EDITABLE_RESEARCH_ART_HOLD.blend \
+              --assets research/evidence/k4bv/assets \
+              --out research/evidence/k4bv/render
+      - name: Independently verify authentic native and vendor receipts, build same-camera comparison
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageChops
+          import json,hashlib
+          d=Path('research/evidence/k4bv/render');p=Path('research/evidence/k4bv/parent')
+          j=json.loads((d/'K4BV_REAL_CC0_COASTAL_TREE_NATIVE_ART_HOLD_AUDIT.json').read_text())
+          assert j['parentK4BURealNativeSHA256']=='2536375f40e6a20e0061b80aba100c2469cfeacde814f4c127ff194201ba3064'
+          assert j['originalSourceGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalSourceRoad5Fingerprint']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert j['sourceB48RoadCount']==7 and j['sourceB51MoverCount']==28 and j['sourcePhysicsHz']==240
+          assert j['unchangedOriginalSixCameras'] and j['unchangedResearchChaseCamera'] and j['unchangedAuthenticOriginalRoad5']
+          assert j['genuineImportedNativeTriangles']>50000 and j['genuineVendorImagesPackedCount']>=2
+          assert j['realGameNewColliders']==0 and not j['realGameSourceEdited']
+          assert j['ART']=='UNJUDGED_HOLD' and j['formalArtAccepted']==j['formalSlope2DNAMetres']==0
+          assert all(j[k]=='HOLD' for k in ('HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
+          r=Path('research/evidence/k4bv/assets/K4BV_CC0_VENDOR_VERIFIED_RECEIPT.json')
+          assert hashlib.sha256(r.read_bytes()).hexdigest()==j['vendorOfficialVerifiedReceiptSHA256']
+          receipt=json.loads(r.read_text());assert receipt['license']=='CC0 1.0' and receipt['assetId']=='island_tree_02'
+          for meta in receipt['files'].values():
+           z=Path('research/evidence/k4bv/assets')/meta['localFile']
+           assert z.stat().st_size==meta['actualBytes'] and hashlib.sha256(z.read_bytes()).hexdigest()==meta['sha256']
+          for name,meta in j['files'].items():
+           z=d/name;assert z.stat().st_size==meta['bytes'] and hashlib.sha256(z.read_bytes()).hexdigest()==meta['sha256']
+          a=Image.open(p/'K4BU_ONE_FRAME_NATIVE_UPRIGHT_PINE_CHASE_768x480_ART_HOLD_NOT_GAME.png').convert('RGB')
+          b=Image.open(d/'K4BV_ONE_COASTAL_TREE_SAME_CHASE_NATIVE_768x480_ART_HOLD_NOT_GAME.png').convert('RGB')
+          assert a.size==b.size==(768,480)
+          assert ImageChops.difference(a,b).getbbox() is not None
+          c=Image.new('RGB',(1560,552),(16,20,24));c.paste(a,(12,50));c.paste(b,(780,50))
+          pen=ImageDraw.Draw(c)
+          pen.text((12,18),'K4BU true native CHASE / sparse pine / ART REJECT',fill='white')
+          pen.text((780,18),'K4BV SAME CHASE / one real CC0 coastal canopy / ART UNJUDGED',fill='white')
+          pen.text((12,536),'Native Blender research only; image change != ART PASS or real WebGL2 gameplay.',fill='white')
+          name='K4BV_VS_K4BU_SAME_CHASE_TRUE_COASTAL_CANOPY_ART_REVIEW_NOT_GAME.png'
+          c.save(d/name);raw=(d/name).read_bytes()
+          j['comparison']={'file':name,'sha256':hashlib.sha256(raw).hexdigest(),'bytes':len(raw),'trueSameCamera':True,'sameResolution':True,'isArtPassMetric':False}
+          (d/'K4BV_REAL_CC0_COASTAL_TREE_NATIVE_ART_HOLD_AUDIT.json').write_text(json.dumps(j,ensure_ascii=False,indent=2))
+          print('K4BV_TRUE_COASTAL_NATIVE_TECH_EVIDENCE_PASS_ART_NOT_JUDGED',j['placement'])
+          PY
+      - name: Save small true visual and vendor evidence on research isolation ONLY
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bv-real-coastal-canopy-native-art-20261104
+          mkdir -p docs/research-evidence/k4bv
+          cp research/evidence/k4bv/render/*.png docs/research-evidence/k4bv/
+          cp research/evidence/k4bv/render/*.json docs/research-evidence/k4bv/
+          cp research/evidence/k4bv/assets/K4BV_CC0_VENDOR_VERIFIED_RECEIPT.json docs/research-evidence/k4bv/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4bv
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bv): genuine licensed native coastal canopy CHASE research image, ART HOLD"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bv-real-coastal-canopy-native-art-20261104
+          fi
+      - name: Preserve true editable Blender and source manifest, including failure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4BV_REAL_CC0_ONE_COASTAL_CANOPY_EDITABLE_NATIVE_ART_HOLD
+          path: |
+            research/evidence/k4bv/render/
+            research/evidence/k4bv/assets/K4BV_CC0_VENDOR_VERIFIED_RECEIPT.json
+            research/evidence/k4bv/assets/K4BV_SOURCE_BOUNDED_PREFLIGHT.json
+          if-no-files-found: warn
+          retention-days: 21
