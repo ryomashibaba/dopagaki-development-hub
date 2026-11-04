@@ -1,0 +1,257 @@
+{
+  "schema": "dopagaki.k4bz.single-object-research-only-shading-ablation/1",
+  "canonicalParentBlenderSHA256": "f0d3d7a27e5fbf599447b0e784b71684ff634b071d283f8b59bdaf06a179d4e4",
+  "canonicalOriginalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "canonicalRoad5VertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "sourceRigSixCameraUnchanged": true,
+  "researchChaseUnchanged": true,
+  "originalNineTreesMatricesUnchanged": true,
+  "allLightsIdentical": true,
+  "onlyRenderVisibilityEdited": [
+    "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER"
+  ],
+  "originalK4BYRoadRibbonHiddenRenderOnly": true,
+  "existingPhotographicAlternateRoadRemainsVisible": true,
+  "physicalOriginalRoad5Unchanged": true,
+  "newGameColliders": 0,
+  "gameSourceEdited": false,
+  "formalArtAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "realFixedCameraBlenderRerender": true,
+  "ART": "UNJUDGED_HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "HUMAN": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BZ_ONE_OBJECT_DISABLED_PROVEN_ROAD_CROSSFADE_EDITABLE_DCC_HOLD.blend": {
+      "bytes": 271569072,
+      "sha256": "162a7baaf7594b36a134457bee817bd7dcf0ef1b3e581419d6561efa92e45382"
+    },
+    "K4BZ_SAME_CHASE_SINGLE_RAYCAST_PROXY_HIDDEN_REAL_AB_NOT_GAME.png": {
+      "bytes": 478137,
+      "sha256": "d82a367f49623a8ed2a75a4540ba8a6de07f976a51d49f4dbb20673243576df7"
+    }
+  },
+  "pixelControlledExperiment": {
+    "sourceOriginalPNG_SHA256": "ad46b5377fd9d144c7ab94b428df52d5f97cb7675fe44c3d14389b7858c925f7",
+    "imageSameCameraSame768x480": true,
+    "targetPixelContrasts": [
+      {
+        "darkPixel": [
+          292,
+          300
+        ],
+        "controlPixel": [
+          317,
+          300
+        ],
+        "oldDarkRGB": [
+          74,
+          77,
+          82
+        ],
+        "afterHideDarkRGB": [
+          112,
+          111,
+          109
+        ],
+        "oldControlRGB": [
+          115,
+          113,
+          112
+        ],
+        "afterHideControlRGB": [
+          115,
+          113,
+          112
+        ],
+        "oldContrast": 35.667,
+        "afterHideContrast": 2.667,
+        "contrastDropNotArtScore": 33.0,
+        "darkBrightnessChange": 33.0
+      },
+      {
+        "darkPixel": [
+          280,
+          330
+        ],
+        "controlPixel": [
+          310,
+          330
+        ],
+        "oldDarkRGB": [
+          70,
+          73,
+          78
+        ],
+        "afterHideDarkRGB": [
+          109,
+          107,
+          106
+        ],
+        "oldControlRGB": [
+          108,
+          107,
+          106
+        ],
+        "afterHideControlRGB": [
+          108,
+          107,
+          106
+        ],
+        "oldContrast": 33.333,
+        "afterHideContrast": -0.333,
+        "contrastDropNotArtScore": 33.667,
+        "darkBrightnessChange": 33.667
+      },
+      {
+        "darkPixel": [
+          267,
+          360
+        ],
+        "controlPixel": [
+          310,
+          360
+        ],
+        "oldDarkRGB": [
+          69,
+          72,
+          77
+        ],
+        "afterHideDarkRGB": [
+          107,
+          104,
+          102
+        ],
+        "oldControlRGB": [
+          107,
+          104,
+          102
+        ],
+        "afterHideControlRGB": [
+          106,
+          104,
+          102
+        ],
+        "oldContrast": 31.667,
+        "afterHideContrast": -0.333,
+        "contrastDropNotArtScore": 32.0,
+        "darkBrightnessChange": 31.667
+      },
+      {
+        "darkPixel": [
+          250,
+          400
+        ],
+        "controlPixel": [
+          295,
+          400
+        ],
+        "oldDarkRGB": [
+          65,
+          68,
+          73
+        ],
+        "afterHideDarkRGB": [
+          103,
+          101,
+          99
+        ],
+        "oldControlRGB": [
+          105,
+          103,
+          102
+        ],
+        "afterHideControlRGB": [
+          105,
+          103,
+          102
+        ],
+        "oldContrast": 34.667,
+        "afterHideContrast": 2.333,
+        "contrastDropNotArtScore": 32.333,
+        "darkBrightnessChange": 32.333
+      },
+      {
+        "darkPixel": [
+          235,
+          440
+        ],
+        "controlPixel": [
+          280,
+          440
+        ],
+        "oldDarkRGB": [
+          64,
+          66,
+          71
+        ],
+        "afterHideDarkRGB": [
+          101,
+          98,
+          96
+        ],
+        "oldControlRGB": [
+          99,
+          97,
+          95
+        ],
+        "afterHideControlRGB": [
+          99,
+          97,
+          95
+        ],
+        "oldContrast": 30.0,
+        "afterHideContrast": -1.333,
+        "contrastDropNotArtScore": 31.333,
+        "darkBrightnessChange": 31.333
+      },
+      {
+        "darkPixel": [
+          225,
+          470
+        ],
+        "controlPixel": [
+          270,
+          470
+        ],
+        "oldDarkRGB": [
+          63,
+          65,
+          70
+        ],
+        "afterHideDarkRGB": [
+          98,
+          96,
+          93
+        ],
+        "oldControlRGB": [
+          99,
+          96,
+          93
+        ],
+        "afterHideControlRGB": [
+          99,
+          96,
+          93
+        ],
+        "oldContrast": 30.0,
+        "afterHideContrast": 0.333,
+        "contrastDropNotArtScore": 29.667,
+        "darkBrightnessChange": 29.667
+      }
+    ],
+    "averageContrastDropNotArtScore": 32.0,
+    "averageDarkBrightnessChangeNotArtScore": 31.945,
+    "meanRGBFullFrameDifferenceNotQuality": 0.36144,
+    "comparison": {
+      "file": "K4BZ_SINGLE_OBJECT_HIDDEN_VS_CANONICAL_CHASE_TRUE_RENDER_AB.png",
+      "bytes": 459078,
+      "sha256": "2b6430801b8b3a75c6e0eeee66f42007e8ebcce83b22a7281a5d41eb04799627"
+    },
+    "interpretation": "Single object removal effects must be inspected; pixel differences do not certify ART PASS"
+  }
+}
