@@ -1,0 +1,518 @@
+{
+  "schema": "dopagaki.K4BJ.original-camera-hand-authored-civic-canyon/1",
+  "previousSourceK4BIBlendSha256": "93526d4adff8f1061081109123f7619de9bb6a0b835b15af6baf9bf6bb3ba086",
+  "frozenOriginalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5VertexFaceFingerprintUnchanged": true,
+  "originalSourceCameraNumericsUnchanged": true,
+  "original7B48RoadsAnd28B51MovingHazardsUnchanged": true,
+  "originalPhysicsHz": 240,
+  "originalBallRadiusM": 0.65,
+  "legacyArtCollectionsHiddenNotDeleted": [
+    "K4BH | 01 CROSS-RIVER MONUMENTAL GATE",
+    "K4BH | 02 LANDSCAPED INHABITED STREET WALLS",
+    "K4BH | 03 INNER LIBRARY AND CONSERVATORY",
+    "K4BH | 04 FAR URBAN DEPTH AND LANDMARKS",
+    "K4BH | 05 TERRACES AND SEA CLIFF",
+    "K4BH | 06 PRACTICAL LUMINAIRES",
+    "K4BI | 01 ROAD TEXTURE RACING ART DCC ONLY",
+    "K4BI | 02 VARYING PUBLIC FACADE AND STRUCTURE",
+    "K4BI | 03 LIT LIBRARY AND TIDAL CONSERVATORY RECESSES",
+    "K4BI | 04 ARCHITECTURAL DETAILS NOT COLLIDERS",
+    "K4BI | 05 CIVIC PORTICO ARTICULATED NEGATIVE SPACE",
+    "K4BI | 06 PRACTICAL WARM LIGHT IN ROOMS"
+  ],
+  "nativeDCCNewObjects": 87,
+  "nativeDCCMeshStats": [
+    [
+      "ARCHIVE huge single chalk ceramic structural flying roof",
+      40,
+      37
+    ],
+    [
+      "ARCHIVE monolithic excavated basalt retaining wall",
+      32,
+      30
+    ],
+    [
+      "ARCHIVE void | 0",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE inset deep glass | 0",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE populated warm interior | 0",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE overhanging lintel | 0",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE terrace slab | 0",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE hanging garden | 0",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE void | 1",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE inset deep glass | 1",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE populated warm interior | 1",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE overhanging lintel | 1",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE terrace slab | 1",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE hanging garden | 1",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE void | 2",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE inset deep glass | 2",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE populated warm interior | 2",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE overhanging lintel | 2",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE terrace slab | 2",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE hanging garden | 2",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE void | 3",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE inset deep glass | 3",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE populated warm interior | 3",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE overhanging lintel | 3",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE terrace slab | 3",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE hanging garden | 3",
+      8,
+      6
+    ],
+    [
+      "ARCHIVE load arch cantilever /0",
+      24,
+      18
+    ],
+    [
+      "ARCHIVE load arch cantilever /1",
+      24,
+      18
+    ],
+    [
+      "ARCHIVE load arch cantilever /2",
+      24,
+      18
+    ],
+    [
+      "ARCHIVE load arch cantilever /3",
+      24,
+      18
+    ],
+    [
+      "ARCHIVE segmented roof glazing /0",
+      16,
+      14
+    ],
+    [
+      "ARCHIVE segmented roof glazing /1",
+      16,
+      14
+    ],
+    [
+      "ARCHIVE segmented roof glazing /2",
+      16,
+      14
+    ],
+    [
+      "MARINE one asymmetric weather-beaten sea-copper vaulted canopy",
+      35,
+      32
+    ],
+    [
+      "MARINE lower stratified coastal public exchange terraces",
+      49,
+      44
+    ],
+    [
+      "MARINE shadowed deep functional exchange /0",
+      8,
+      6
+    ],
+    [
+      "MARINE petrol-reflective glulam glazed main wall /0",
+      8,
+      6
+    ],
+    [
+      "MARINE view-through warm exhibits /0",
+      8,
+      6
+    ],
+    [
+      "MARINE exposed roof terrace /0",
+      8,
+      6
+    ],
+    [
+      "MARINE hand-formed sloped overhang /0",
+      32,
+      26
+    ],
+    [
+      "MARINE spanning oblique coastal pier /0",
+      32,
+      26
+    ],
+    [
+      "MARINE shadowed deep functional exchange /1",
+      8,
+      6
+    ],
+    [
+      "MARINE petrol-reflective glulam glazed main wall /1",
+      8,
+      6
+    ],
+    [
+      "MARINE view-through warm exhibits /1",
+      8,
+      6
+    ],
+    [
+      "MARINE exposed roof terrace /1",
+      8,
+      6
+    ],
+    [
+      "MARINE hand-formed sloped overhang /1",
+      32,
+      26
+    ],
+    [
+      "MARINE shadowed deep functional exchange /2",
+      8,
+      6
+    ],
+    [
+      "MARINE petrol-reflective glulam glazed main wall /2",
+      8,
+      6
+    ],
+    [
+      "MARINE view-through warm exhibits /2",
+      8,
+      6
+    ],
+    [
+      "MARINE exposed roof terrace /2",
+      8,
+      6
+    ],
+    [
+      "MARINE hand-formed sloped overhang /2",
+      32,
+      26
+    ],
+    [
+      "MARINE spanning oblique coastal pier /2",
+      32,
+      26
+    ],
+    [
+      "MARINE shadowed deep functional exchange /3",
+      8,
+      6
+    ],
+    [
+      "MARINE petrol-reflective glulam glazed main wall /3",
+      8,
+      6
+    ],
+    [
+      "MARINE view-through warm exhibits /3",
+      8,
+      6
+    ],
+    [
+      "MARINE exposed roof terrace /3",
+      8,
+      6
+    ],
+    [
+      "MARINE hand-formed sloped overhang /3",
+      32,
+      26
+    ],
+    [
+      "MARINE spanning oblique coastal pier /3",
+      32,
+      26
+    ],
+    [
+      "MARINE continuous coastal viewing balustrade",
+      496,
+      490
+    ],
+    [
+      "SEAGATE WEST asymmetrical bent cut-stone keel",
+      54,
+      47
+    ],
+    [
+      "SEAGATE EAST bronze twisted gravity keel",
+      54,
+      47
+    ],
+    [
+      "SEAGATE single asymmetric flying lens structural canopy",
+      20,
+      18
+    ],
+    [
+      "SEAGATE actually enclosed sky-view glazing",
+      20,
+      18
+    ],
+    [
+      "SEAGATE one long understated human-scale amber luminous spine",
+      80,
+      74
+    ],
+    [
+      "LIVING CITY Archive observatory continuous faceted curtainwall",
+      98,
+      93
+    ],
+    [
+      "Archive observatory wide public atrium glazing floor 0.26",
+      14,
+      9
+    ],
+    [
+      "Archive observatory wide public atrium glazing floor 0.48",
+      14,
+      9
+    ],
+    [
+      "Archive observatory wide public atrium glazing floor 0.7",
+      14,
+      9
+    ],
+    [
+      "Archive observatory terrace crown luminaire",
+      152,
+      146
+    ],
+    [
+      "LIVING CITY Western tidal docks continuous faceted curtainwall",
+      126,
+      119
+    ],
+    [
+      "Western tidal docks wide public atrium glazing floor 0.26",
+      18,
+      11
+    ],
+    [
+      "Western tidal docks wide public atrium glazing floor 0.48",
+      18,
+      11
+    ],
+    [
+      "Western tidal docks wide public atrium glazing floor 0.7",
+      18,
+      11
+    ],
+    [
+      "LIVING CITY Marine research crescent continuous faceted curtainwall",
+      154,
+      145
+    ],
+    [
+      "Marine research crescent wide public atrium glazing floor 0.26",
+      22,
+      13
+    ],
+    [
+      "Marine research crescent wide public atrium glazing floor 0.48",
+      22,
+      13
+    ],
+    [
+      "Marine research crescent wide public atrium glazing floor 0.7",
+      22,
+      13
+    ],
+    [
+      "Marine research crescent terrace crown luminaire",
+      152,
+      146
+    ],
+    [
+      "LIVING CITY Central seaward tower continuous faceted curtainwall",
+      140,
+      132
+    ],
+    [
+      "Central seaward tower wide public atrium glazing floor 0.26",
+      20,
+      12
+    ],
+    [
+      "Central seaward tower wide public atrium glazing floor 0.48",
+      20,
+      12
+    ],
+    [
+      "Central seaward tower wide public atrium glazing floor 0.7",
+      20,
+      12
+    ],
+    [
+      "Central seaward tower terrace crown luminaire",
+      152,
+      146
+    ],
+    [
+      "LIVING CITY Far eastern habitable stack continuous faceted curtainwall",
+      112,
+      106
+    ],
+    [
+      "Far eastern habitable stack wide public atrium glazing floor 0.26",
+      16,
+      10
+    ],
+    [
+      "Far eastern habitable stack wide public atrium glazing floor 0.48",
+      16,
+      10
+    ],
+    [
+      "Far eastern habitable stack wide public atrium glazing floor 0.7",
+      16,
+      10
+    ]
+  ],
+  "realRoadEdgeRaycastCounts": {
+    "west": {
+      "samples": 42,
+      "hits": 0,
+      "groups": 0
+    },
+    "east": {
+      "samples": 42,
+      "hits": 0,
+      "groups": 0
+    }
+  },
+  "originalSourceCameraImages": [
+    {
+      "mode": "control",
+      "tick": 11307,
+      "file": "K4BJ_CONTROL_11307_NATIVE_SOURCE_CAMERA_ART_UNJUDGED.png"
+    },
+    {
+      "mode": "ultra",
+      "tick": 11341,
+      "file": "K4BJ_ULTRA_11341_NATIVE_SOURCE_CAMERA_ART_UNJUDGED.png"
+    }
+  ],
+  "originalWebGL2GameFrames": false,
+  "gameCodeEdited": false,
+  "newNativeCollisionSurfaces": 0,
+  "roadMaterialArtOnly": true,
+  "ART": "UNJUDGED_HOLD",
+  "formalArtAccepted": 0,
+  "slope2DNAAcceptedMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BJ_HAND_AUTHORED_CIVIC_CANYON_EDITABLE_DCC_ART_HOLD.blend": {
+      "bytes": 33859968,
+      "sha256": "36d6508d431cb10c2f085707658af556a8a311fd12506567d0276bff8769081a"
+    },
+    "K4BJ_CONTROL_11307_NATIVE_SOURCE_CAMERA_ART_UNJUDGED.png": {
+      "bytes": 1933613,
+      "sha256": "8934ee2217ccf919b014d9017e3055c0c4c56d9c5e49c3220fb2694559e07503"
+    },
+    "K4BJ_ULTRA_11341_NATIVE_SOURCE_CAMERA_ART_UNJUDGED.png": {
+      "bytes": 1918310,
+      "sha256": "f77f090da07b5d5c44290effaabbc53db352f25f3c0437d497c8939ef5b2b221"
+    }
+  },
+  "verifiedAB": {
+    "file": "K4BJ_K4BI_VS_AUTHORED_NATIVECAMERA_DCC_NOT_GAME.png",
+    "sha256": "7d6e4de9d7572e5d971243934d5d74b7c93e8a60881fce288f1d82a93db1ff1d",
+    "bytes": 4123651
+  }
+}
