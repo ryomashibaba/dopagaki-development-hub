@@ -56,7 +56,7 @@ jobs:
       - name: Install genuine Blender 4 EEVEE Xvfb and PIL
         run: |
           sudo apt-get update -qq
-          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
       - name: Actually download 2 CC0 photogrammetry textures and 1 real 3D glTF model
         run: |
           set -euo pipefail
