@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CE最終：真正Blender同CHASE構図改善TECH PASS／画像直接ART REJECT・独立ZIP/SHA完全照合】
+
+**現行研究正本** `research/k4ce-coherent-berth-ferry-foreground-20261105`。真の最終結論は[**K4CE独立レンダリング・失敗/修正・直接ART REJECT・保護・下一工程**](docs/R19_A6P4_R2F5K4CE_BERTH_FERRY_COMPOSITION_ART_HOLD_JA.md)。[K4CD対K4CE本物の同CHASE比較画像](docs/research-evidence/k4ce/K4CE_K4CD_TRUE_SAME_CHASE_FOREGROUND_BERTH_ART_REVIEW_NOT_GAME.png)と[GitHub研究証拠監査JSON](docs/research-evidence/k4ce/K4CE_REAL_NATIVE_AUDIT.json)を開く。以下「K4CE実行中」は当時の履歴。
+
+- **真の最終[Actions #41935099728](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41935099728) completed/SUCCESS、編集可能DCC・真CHASE 768×480二画像・独立QA・研究GitHub証拠保存まで完了**。真K4CD原本 SHA256 `c81111664d4703ec044aeaaeee1e7b659d95343dbf762ebf9892c6636a7d5a0a` を厳格に読み込み、K4CEの船形状を変更せず元フェリー4研究メッシュを係留位置へ一体移動。元研究乗船橋を保護非表示、新たに既存岸壁に実3Dで接続する乗船橋を制作。原SOURCE、元Road5、元6Camera/CHASE、木11本、灯光、岩肌・水面、黒筋を技術保護。新ゲームCollider0。
+- **初回[Actions #41934329234](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41934329234)はFAIL**。船が画面内に投影されても港建築にほぼ隠れた（実Blender船あり/なし差262px）。2D投影だけでART可視とみなす失敗を繰り返さず、可視船体の真正レイ検査を54係留候補へ実装して改善。最終 x .7295〜.9383に船を完全表示し、**船＋新橋の真可視差分4,528px**（前K4CD船のみ2,816px）を独立PNGで実測。これはART点数ではない。
+- **GitHub真正Artifact [#13374375359](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41935099728/artifacts/13374375359)** ZIP123,802,865B／SHA256 `d8e57ca4af3b3de9c6ceb7830ff85d66a7b0dde8a9c24360cf6eb9d7c8cf989a`。本会話で別途原ZIPを取得、ZIP全CRC／全内ファイルbytes・SHAを独立照合PASS。Blender `.blend` 273,964,752B／SHA256 `3f0bc2f048dec39bc263151e2117b374d40b7422478c7e9b49583865c836d63e`。研究データであり実WebGL2ではない。
+- **本物の比較画像を直接目視し全画面ART REJECT**：右港の船は右端切れなく、多少読み取りやすくなったが、船・海・ターミナル全体が依然模型、中心の広い平坦な道路と弱い左斜面／遠景が主な美術未完成。**正式ART採用0件／Slope2 DNA正式認定0m**を維持。HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。今後は微細な船・装飾量産を止め、道路／左地形／右港／水平線の全画面作者品質に集中する。
+- main、公式P101 `p101-velocity-overdrive-native-trial`、Draft PR#46、原作Slope、凍結Gold、本番2サイトは完全保護。追加有料API0円、Work/Computer Useは個別事前承認、ユーザーPC操作0。既存Road5やCamera/物理を動かして偽の映えを作ることは禁止。
+
+---
+
 # 【2026-11-05 K4CE最新・実ゲーム保護：真正K4CDフェリー再構図＋岸壁動線研究／ARTゲート別】
 
 **研究最新正本はこのページ先頭。現在の新研究枝**：`research/k4ce-coherent-berth-ferry-foreground-20261105`。
