@@ -35,3 +35,7 @@
 ## 次K4CBの論点：色だけの改善では不足
 
 写真レベルの自然な地質マテリアル、岩層と走行路肩の接地、生活感のある右港の施設と街路、速度感のある全画面構図が未解決。K4CAの樹木2本+材質トーン補正を過大評価して正式採用へ進めず、**次は低品質な単純3Dの追加よりも実材質と元建築の造形の根本改善**へ集中する。元Game Road5/6Camera/物理/B48/B51/公式PR/main/本番保護とART REJECTは継承。
+
+## A2画像保護の軽量CI最終検証
+
+[Actions #41850910734](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41850910734) **completed/SUCCESS**。Blender再レンダリングなし。元K4BZ R2とK4CA A2真正PNGの固定SHA、K4BZで除去した黒筋6対の画素維持、中央道路・右港湾の指定8地点のRGB完全一致、左斜面の指定5地点の実画像変化、元Road5/6Camera/9木/照明/元Game保護を監査。既知の問題が再発していないことは技術上確認済み。**美術は依然ART REJECT**。
