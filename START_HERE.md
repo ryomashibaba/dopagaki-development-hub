@@ -1,3 +1,13 @@
+# 【2026-11-04 K4BX実制作】本物の連続3D岬・港湾生業・遠景を同CHASE研究で確認
+
+現行隔離研究枝 `research/k4bx-source-locked-harbor-horizon-composition-20261104`。[K4BX真正3D海岸岬・働く港・源Game不変の制作方針](docs/R19_A6P4_R2F5K4BX_TRUE_HEADLAND_WORKING_HARBOR_JA.md)を第一に読み、[K4BW A2最終ART REJECT](docs/research-evidence/k4bw/K4BW_A2_FINAL_STATUS.md)からK4BV→K4BU→K4BTと過去正本を継承する。以下の「最新」「結果」は履歴。
+
+- K4BW A2真正.blend SHA256 `62c2990e6687ea092a8151339b37fdb0cb8ad156b5dffac1a593218b2c517c02`を固定原本とし、**元Road5頂点面/元6 Camera/研究CHASE/旧CC0真木9本のTransform、元Gameソースをすべて変更なし**で研究3D岬、港の魚市場・フェリー発着所・港務所・実荷役クレーン・作業船・丘陵住宅と岸壁を作者制作。同研究CHASE **768×480 1枚**だけで投影と目視ARTを判定。追加有料素材なし。
+- [初回真正CI #41823102768](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41823102768) は記述時点**実行中／成果未確認**。実Native.Blend、PNG/Blob/SHA、元カメラ保護と実画像を確認するまで成功・美術合格を主張禁止。
+- 元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元B48 Road5指紋`f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元B48実7Road/B51 28Mover/240Hz/0.65m球/元6Camera/安全UI、本番、main、正式P101、Draft PR #46保護。**ART採用0件／Slope2DNA0m、SAT/CCD/FPS/HUMAN/RELEASE/MERGE全HOLD**。Work/Computer Use事前承認、追加課金0円、ユーザー操作0。
+
+---
+
 # 【2026-11-04 K4BW A2最終・次K4BX】Native技術PASS／真正研究画像ART REJECT
 
 最新研究枝 `research/k4bw-coastal-viaduct-harbor-composition-20261104`。まず[K4BW A2最終判定](docs/research-evidence/k4bw/K4BW_A2_FINAL_STATUS.md)、次に[K4BW作者Blender工程](docs/R19_A6P4_R2F5K4BW_COHERENT_COASTAL_HARBOR_ART_JA.md)とK4BV→K4BU→K4BTの正本を参照。以下の「最新」「実行中」は履歴。
