@@ -86,7 +86,7 @@ jobs:
               assert a[k],k
           assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
           assert a['ART']=='UNJUDGED_HOLD' and a['renderEngine']=='BLENDER_EEVEE'
-          assert len(a['researchOnlyVisibilityChanges'])==6
+          assert len(a['researchOnlyVisibilityChanges'])==5 and a['sourceTerrainRenderedBehindRaisedSculpt']
           assert a['sculptedVertexCount']>=80 and a['maximumTrueRockVerticalReliefMetres']>=1.0
           assert a['sculptedRealTerrainNewVertexCount']>a['subdividedRealTerrainOldVertexCount']
           for name,meta in a['files'].items():
