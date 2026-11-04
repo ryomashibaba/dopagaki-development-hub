@@ -24,3 +24,16 @@
 - [本物のレイ識別JSON](research-evidence/k4bz/K4BZ_REAL_CHASE_BLACK_WEDGE_PER_PIXEL_GEOMETRY_SHADOW_CANDIDATES.json)、[元画像上の12地点診断マーカー](research-evidence/k4bz/K4BZ_SOURCE_IMAGE_12_REAL_PIXEL_GEOMETRY_AUDIT_MARKERS_NOT_GAME.png)をGitHub研究枝に保存。診断 PNG SHA256 `41bb46e319409f4918dea90c5edb7cc553aac6f5e10b1837d8bfc13ea5c670b3`。元ゲーム/ソース/カメラ原本に一切書き込みなし。
 - **原因候補最有力**：K4BYの高密度レイキャスト舗装と、既存K4BQの別写真路面が互いに前後し、異なるPBRの境界が斜めの筋に見えること。色差・前後の交差とSunレイはこれを支持するが、この時点では**「描画上の因果関係は未証明」**。公式のバグ修正と呼ぶ前に同じカメラで**1オブジェクトだけを非表示**にする限定的なA/Bを実施する。
 - [R2 1オブジェクトA/B Actions #41835036099](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41835036099) は記載時点で結果未確認。元K4BY真正.blendの隔離コピー内で**非ゲーム研究用K4BY舗装1オブジェクトのみhide_render**、他のK4BQ路面・元Road5・全照明・Camera・本物の木9本・原本は全てそのまま。技術/美術成功は新実画像と監査を見て判断。
+
+## 【K4BZ R2確定・真の1オブジェクトA/B】黒筋の直接原因を実証
+
+- [真正Blender Actions #41835036099](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41835036099) completed/SUCCESS。元K4BY A3編集可能.blend SHA256 f0d3d7a27e5fbf599447b0e784b71684ff634b071d283f8b59bdaf06a179d4e4 を再読込した**独立研究コピー**で、非ゲーム研究用の「K4BY | actual source raycast 1m road surface | NO GAME COLLIDER」1オブジェクトのみ hide_render=True。他のK4BQ写真道路、元Game Road5全頂点面、CHASE、元6Camera、元木9本、全光源の配置と強度は不変。
+- 768×480元CHASE同カメラで実Blender EEVEE再レンダリング。黒筋の6座標は明度が平均**+31.945階調**、黒筋vs正常路面の明度差は平均約**32.56→0.56階調**。正常路面比較6点はほぼ変化なし。**真正A/B画像で黒い三角筋の消失も目視で確認**。
+- これにより**黒筋が生じる直接原因はK4BY研究用PBRロード表面の描画**だと制御試験で確認できた。R1の真Blenderレイは黒筋6/6=K4BY写真路面、正常6/6=K4BQ別写真路面。研究用の2つの道路表面と材質の可視境界による不連続が最も整合的な説明。ただし光の反射・法線など色の生成機構の細分類は未確定で、元Game Road5の不具合と誤認しない。
+- 編集可能な修正研究.blend SHA256 162a7baaf7594b36a134457bee817bd7dcf0ef1b3e581419d6561efa92e45382（271,569,072B）。真正修正CHASE PNG SHA256 d82a367f49623a8ed2a75a4540ba8a6de07f976a51d49f4dbb20673243576df7（478,137B）。[真正旧新比較](research-evidence/k4bz/K4BZ_SINGLE_OBJECT_HIDDEN_VS_CANONICAL_CHASE_TRUE_RENDER_AB.png) SHA256 2b6430801b8b3a75c6e0eeee66f42007e8ebcce83b22a7281a5d41eb04799627。[独立画素監査JSON](research-evidence/k4bz/K4BZ_ONE_OBJECT_ABLATION_AUTHENTIC_NATIVE_AUDIT.json)。[編集可能Blender原本Artifact #13327120155](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41835036099/artifacts/13327120155) ZIP CRC PASS、各画像個別SHA確認済み。
+- **局所黒筋TECH FIX PASS、全画面ART REJECT**。車道全体の広さと単調さ、自然地形と港の建築の模型感は残存。正式ART採用0、Slope2 DNA0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。
+- K4BZ R3として、真A3 PNG/修正R2 PNGのSHAと6組の画素RGB、元ゲーム不変、非表示にしたオブジェクト1つのみという監査を軽量CIで再検証する。これは限定的な**再発防止テスト**であり「世界水準ART」の定量合格基準ではない。[R3 Actions #41840882396](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41840882396) は本文追記時点で結果未確認。再レンダリングなし。
+
+### 次K4CAへの条件
+
+ゲーム原本の表面に新たな別舗装を重複させず、証拠のある唯一の修正（K4BYの研究用問題表層非表示）を保護。**写真材質の継ぎ目を憶測で修正する反復は終了**。次は同CHASE全画面で本物の沿岸都市の建築・地形・画面構図の美術品質を上げる工程へ戻る。ただし新Game Road5/6Camera/COLLIDER/MAIN/PR #46/本番への変更・採用は禁止。元Game blob af076d67492a677d2235e4730aef8cdf4808e106、元Road5 SHA f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2 を保護。
