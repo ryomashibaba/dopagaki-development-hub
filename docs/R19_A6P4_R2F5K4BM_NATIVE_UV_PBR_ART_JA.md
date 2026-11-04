@@ -27,3 +27,8 @@
 [専用初回 CI #41756146305](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41756146305) で、元Game Blob、Nodeテスト、K4BL親Blend SHA256、Python syntax、Blender 4 EEVEE実3D、control11307 + ultra11341二原Camera、比較PNG、独立 SHA JSON、研究ブランチPNG保存を実施。初回記録時点で実画像・最終CI結果は**未確定**。後に実結果と失敗原因を追記する。
 
 美術的な合格には、(a)実路面表面が細部までリアル、(b)近景・中景・遠景と港湾機能が走行カメラで読める、(c)素材・影と地形・景観が世界級、(d)全画面の空白や模型感を解消、(e)両視点で安定、を要求。CI SUCCESSやUV数だけで合格は不許可。実目視の結果が不足なら`ART_REJECT`、正式採用0件／Slope2 DNA0mで保存。ART合格前に他6Roadのコピー展開／WebGL2ゲーム改修／公式PR merge／本番公開は禁止。
+
+## 初回実機の失敗と再試験
+
+- [K4BM初回Actions #41756146305](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41756146305) は **completed/FAILURE**。親K4BL真正原本.blend全バイトSHA、元Game git blob、B48 Source Node testsとBlender依存ソフトのインストールはPASS。ただし植栽用の独立Blenderメッシュを生成中に、Camera横方向ベクトル`S`を未定義の`R`と誤参照したため`NameError`、レンダリング前に停止。**初回画像、新BLEND、Artifactは生成されていない**。元ゲーム/元B48は未変更。
+- 隔離研究Pythonのみ修正commit `3841be073af6edfad77912974fa03c255d5fde0e`、変数`S`へ統一。再[GitHub Actions #41756329982](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41756329982)の画像・原Blender・実UVとSHAを再検証するまでSUCCESS/ART合格の主張は禁止。K4BL ART REJECT、正式ART0件・Slope2 DNA0m維持。
