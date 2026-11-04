@@ -1,0 +1,81 @@
+{
+  "schema": "dopagaki.K4BV.one-real-CC0-coastal-tree-SHA-protected-native-art/1",
+  "parentK4BURealNativeSHA256": "2536375f40e6a20e0061b80aba100c2469cfeacde814f4c127ff194201ba3064",
+  "originalSourceGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalSourceRoad5Fingerprint": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "vendorOfficialVerifiedReceiptSHA256": "ba0ff57c07fd9f78d57a8b83a18918ccb4787784b1d10ebaed03a9e5889e97ae",
+  "vendorAsset": "island_tree_02",
+  "vendorLicense": "CC0 1.0",
+  "genuineImportedNativeTriangles": 1072212,
+  "genuineImportedMeshCount": 1,
+  "genuineVendorImagesPackedCount": 9,
+  "genuineVendorBoundsXYZ_M": [
+    4.20775,
+    4.0707,
+    3.40661
+  ],
+  "placement": {
+    "dRoadM": 62,
+    "sRoadM": -24,
+    "rotationZDeg": 60,
+    "nativeBroadCanopyXYPreserved": true,
+    "groundFootClearanceM": 0.15,
+    "canopyExperimentalRoadsideGapM": 5.179,
+    "validCameraCandidates": 79,
+    "nativeProjectedBBox768x480": [
+      532.665,
+      233.661,
+      628.593,
+      290.775
+    ],
+    "projectedWidthPx": 95.928,
+    "projectedHeightPx": 57.114,
+    "projectedEnvelopePct": 1.48623,
+    "selectionScore": 0.49102
+  },
+  "unchangedOriginalSixCameras": true,
+  "unchangedResearchChaseCamera": true,
+  "unchangedAuthenticOriginalRoad5": true,
+  "sourceB48RoadCount": 7,
+  "sourceB51MoverCount": 28,
+  "sourcePhysicsHz": 240,
+  "ballRadiusM": 0.65,
+  "oldK4BUSharedPinesKeptButRenderHidden": 8,
+  "priorK4BUPineTransformsUnchanged": true,
+  "realNativeRender": true,
+  "realNativeRenderSizePx": [
+    768,
+    480
+  ],
+  "notWebGLGame": true,
+  "actualVisibleLeafPixels": "NOT_MEASURED",
+  "ART": "UNJUDGED_HOLD",
+  "formalArtAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "realGameNewColliders": 0,
+  "realGameSourceEdited": false,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BV_ONE_GENUINE_COASTAL_CANOPY_EDITABLE_NATIVE_ART_HOLD.blend": {
+      "bytes": 259059020,
+      "sha256": "7c28000ad1a75afb7f64958a6d48ec5ff205849c37d5a2878f17bdd1d2d4e1c4"
+    },
+    "K4BV_ONE_COASTAL_TREE_SAME_CHASE_NATIVE_768x480_ART_HOLD_NOT_GAME.png": {
+      "bytes": 465418,
+      "sha256": "390a2ca19cd98eba204f697c1f70532ca86ee77e504e4692c62d8a6c5244d665"
+    }
+  },
+  "comparison": {
+    "file": "K4BV_VS_K4BU_SAME_CHASE_TRUE_COASTAL_CANOPY_ART_REVIEW_NOT_GAME.png",
+    "sha256": "ac5db3dfe01701ab48d15351841e4cf47c505bd2599c76718f582b7d2756a232",
+    "bytes": 448481,
+    "trueSameCamera": true,
+    "sameResolution": true,
+    "isArtPassMetric": false
+  }
+}
