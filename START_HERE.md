@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BU実制作・K4BT真正投影から1本だけ向きと位置を実Blender低負荷検証】
+
+最新の独立研究枝 `research/k4bu-upright-pine-single-frame-art-study-20261104`。[**K4BU真正CC0松の長軸/画面外配置を修正する最小1画像美術試験**](docs/R19_A6P4_R2F5K4BU_UPRIGHT_NATIVE_PINE_SINGLE_FRAME_ART_JA.md)を第一に読み、次に[K4BT真正Screen投影診断](docs/R19_A6P4_R2F5K4BT_NATIVE_PINE_CAMERA_PROJECTION_DIAGNOSIS_JA.md)、K4BS写真地表と木の正本を参照。下の旧「最新」は履歴。
+
+- K4BT Actions #41799311517は**SUCCESS**：元真正8本の研究GLTF松のうち3本はカメラ画像外、5本は投影BBoxが画面内。BBox≠実の木の視認画素。実木0の見かけの幅が高さより大きいため、アセットの向きも再検討。
+- K4BUはオフスクリーンの**木0のみに**、元CC0 GLTFの長軸を鉛直に立てて一様な樹高に正規化し、元CHASE Cameraで画面内投影BBoxを評価する限定改修。実Blender **768×480 1枚のみ**＋編集可能原本をGitHub Actions Artifactで取得する。新素材なし・元Road5/元6Camera変更なし。
+- [K4BU初回GitHub Actions #41800959567](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41800959567) は本記述時点で結果未確認。実画像とCI結果を確認するまでは技術成功や視覚改善を断定しない。
+- main、公式P101、Draft PR#46、本番2サイト不変更、正式ART0件、Slope2DNA0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。追加課金0、ユーザーのWindows操作0、Work/Computer Use事前承認。
+
+---
+
 # 【2026-11-04 K4BT研究継承・Native木の投影診断／ART REJECT継続】
 
 **現行隔離研究枝** `research/k4bt-native-pine-camera-projection-gate-20261104`。最初に[**K4BT真正K4BS原本から実松のカメラ投影bbox・不変保護・次工程K4BUへの分岐**](docs/R19_A6P4_R2F5K4BT_NATIVE_PINE_CAMERA_PROJECTION_DIAGNOSIS_JA.md)、次に[**K4BS真正Native原本と元CHASE画像の美術REJECT**](docs/R19_A6P4_R2F5K4BS_PINE_PHOTO_VEGETATION_ART_JA.md)を読む。以下の「最新」は過去の履歴。
