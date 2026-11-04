@@ -1,0 +1,157 @@
+name: DOPAGAKI K4BN original road paint + ship-crane hero fixed-source Blender ART HOLD
+on:
+  push:
+    branches: [research/k4bn-track-surface-harbor-silhouette-20261104]
+    paths:
+      - scripts/p101-k4bn-authored-track-harbor-hero.py
+      - scripts/p101-k4bn-painted-track-atlas.py
+      - .github/workflows/p101-k4bn-native-track-and-harbor-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: k4bn-fixed-camera-harbor-road-art
+  cancel-in-progress: true
+jobs:
+  source-camera-editable-3d-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Keep all original playable game source frozen and validate author code
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bn-track-surface-harbor-silhouette-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bn-authored-track-harbor-hero.py scripts/p101-k4bn-painted-track-atlas.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Obtain pinned previous actual editable K4BM Blender source camera artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BM_TRUE_SOURCE_CAMERA_UVPBR_EDITABLE_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41757027430
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bn/parent
+      - name: Independently verify K4BM parent bytes and genuine immutable source game
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('research/evidence/k4bn/parent')
+          j=json.loads((p/'K4BM_ORIGINAL_CAMERA_UVPBR_PROVENANCE.json').read_text())
+          assert j['frozenSourceGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5VertexAndFaceFingerprintPreserved']
+          assert j['sourceCameraNumericPosesAndLensUnchanged']
+          assert j['originalB48Roads']==7 and j['originalB51Movers']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusM']==.65
+          assert j['formalArtAccepted']==0 and j['formalSlope2DNAacceptedMetres']==0
+          for n,m in j['files'].items():
+            raw=(p/n).read_bytes()
+            assert len(raw)==m['bytes'] and hashlib.sha256(raw).hexdigest()==m['sha256'],n
+          assert j['files']['K4BM_UV_PBR_AUTHOR_SCULPTED_EDITABLE_DCC_ART_HOLD.blend']['sha256']=='7297b0ea17ffacb7f2c84cecf901947ce11de4e0a91ff4c93703f43cbe7b4a80'
+          print('K4BN_ACTUAL_SOURCE_PRESERVED_K4BM_PARENT_VERIFIED')
+          PY
+      - name: Install verified native Blender EEVEE software GL and original Pillow atlas dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil fonts-dejavu-core xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: Render ORIGINAL authored painted track atlas with immutable source-coordinate mapping
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bn/render
+          /usr/bin/python3 scripts/p101-k4bn-painted-track-atlas.py --out research/evidence/k4bn/render
+          /usr/bin/python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          import json,hashlib
+          p=Path('research/evidence/k4bn/render')
+          j=json.loads((p/'K4BN_ATLAS_METADATA.json').read_text())
+          a=p/j['atlas']
+          im=Image.open(a)
+          assert im.mode=='RGBA' and im.size==(2048,4096)
+          assert hashlib.sha256(a.read_bytes()).hexdigest()==j['sha256']
+          assert j['game_source_modified'] is False
+          print('K4BN_TRUE_PIXEL_ATLAS_ORIGINAL_DESIGN_VERIFIED')
+          PY
+      - name: Sculpt and render two genuine fixed original source cameras in Blender
+        run: |
+          set -euo pipefail
+          xvfb-run -a -s '-screen 0 1920x1200x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4bn-authored-track-harbor-hero.py -- \
+              --base research/evidence/k4bn/parent/K4BM_UV_PBR_AUTHOR_SCULPTED_EDITABLE_DCC_ART_HOLD.blend \
+              --out research/evidence/k4bn/render \
+              --atlas research/evidence/k4bn/render/K4BN_ORIGINAL_TRACK_MARKING_ATLAS_RGBA.png
+      - name: Prove native bytes, original B48 camera parity and neutral K4BM side-by-side
+        run: |
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          p=Path('research/evidence/k4bn/parent')
+          o=Path('research/evidence/k4bn/render')
+          j=json.loads((o/'K4BN_ORIGINAL_CAMERA_UVPBR_PROVENANCE.json').read_text())
+          assert j['frozenSourceGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5VertexAndFaceFingerprintPreserved']
+          assert j['sourceCameraNumericPosesAndLensUnchanged']
+          assert j['originalB48Roads']==7 and j['originalB51Movers']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusM']==.65
+          assert len(j['realRoad5SectionsMeasured'])==9
+          assert j['paintAtlasPackedInNativeBlender'] is True
+          assert j['originalRacePaintAtlasSHA256']==hashlib.sha256((o/'K4BN_ORIGINAL_TRACK_MARKING_ATLAS_RGBA.png').read_bytes()).hexdigest()
+          assert not j['gameSourceModified'] and j['newPlayableGameCollisionMeshes']==0
+          assert not j['isGameWebGLFrame'] and j['formalArtAccepted']==0
+          assert j['formalSlope2DNAacceptedMetres']==0 and j['ART']=='UNJUDGED_HOLD'
+          for n,m in j['files'].items():
+           raw=(o/n).read_bytes()
+           assert len(raw)==m['bytes'] and hashlib.sha256(raw).hexdigest()==m['sha256'],n
+          assert len(j['originalFixedSourceCameraDCCImages'])==2
+          canvas=Image.new('RGB',(2080,1450),(18,19,23))
+          dr=ImageDraw.Draw(canvas)
+          for i,x in enumerate(j['originalFixedSourceCameraDCCImages']):
+           m=x['mode'];t=x['tick']
+           prev=p/f'K4BM_{m.upper()}_{t}_ACTUAL_SOURCE_CAMERA_UVPBR_ART_HOLD.png'
+           curr=o/x['file']
+           before=Image.open(prev).convert('RGB').resize((998,670))
+           after=Image.open(curr).convert('RGB').resize((998,670))
+           assert sum(ImageStat.Stat(after).stddev)>12
+           assert ImageChops.difference(before,after).getbbox() is not None
+           canvas.paste(before,(18,36+710*i))
+           canvas.paste(after,(1050,36+710*i))
+           dr.text((18,12+710*i),f'K4BM rejected genuine source-camera DCC {m} {t}',fill='white')
+           dr.text((1050,12+710*i),f'K4BN racing atlas + real 3D harbor / {m} {t} / NOT GAME',fill='white')
+          name='K4BN_VS_K4BM_SAME_TRUE_SOURCE_CAMERA_ART_REVIEW_NOT_GAME.png'
+          canvas.save(o/name)
+          raw=(o/name).read_bytes()
+          j['independentlyVerifiedSameCameraAB']={'file':name,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+          (o/'K4BN_ORIGINAL_CAMERA_UVPBR_PROVENANCE.json').write_text(json.dumps(j,indent=2))
+          print('K4BN_NATIVE_TRUE_CAMERA_AND_PAINTED_SOURCE_DCC_TECH_PASS_NOT_ART_ACCEPTED')
+          PY
+      - name: Save only actual native art evidence to separate isolated K4BN branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bn-track-surface-harbor-silhouette-20261104
+          mkdir -p docs/research-evidence/k4bn
+          cp research/evidence/k4bn/render/K4BN_*_ACTUAL_SOURCE_CAMERA_UVPBR_ART_HOLD.png docs/research-evidence/k4bn/
+          cp research/evidence/k4bn/render/K4BN_VS_K4BM_SAME_TRUE_SOURCE_CAMERA_ART_REVIEW_NOT_GAME.png docs/research-evidence/k4bn/
+          cp research/evidence/k4bn/render/K4BN_ORIGINAL_CAMERA_UVPBR_PROVENANCE.json docs/research-evidence/k4bn/
+          cp research/evidence/k4bn/render/K4BN_ATLAS_METADATA.json docs/research-evidence/k4bn/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4bn
+          if ! git diff --cached --quiet; then
+           git commit -m "evidence(k4bn): genuine fixed-source racing atlas, 3D port scene and immutable original geometry, ART HOLD"
+           git fetch --no-tags origin "$GITHUB_REF_NAME"
+           git rebase FETCH_HEAD
+           git push origin HEAD:refs/heads/research/k4bn-track-surface-harbor-silhouette-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BN_SOURCE_CAMERA_EDITABLE_RACING_SURFACE_AND_HARBOR_ART_HOLD
+          path: research/evidence/k4bn/render/
+          retention-days: 21
+          if-no-files-found: warn
