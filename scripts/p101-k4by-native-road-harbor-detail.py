@@ -126,6 +126,47 @@ skin['K4BY_VIRTUAL_SURFACE_NOT_PHYSICS']=True
 coll=bpy.data.collections.new('K4BY | one occupied harbor hall | DCC visual only')
 sc.collection.children.link(coll)
 added=[]
+
+# A1 genuine screenshot rejected the persistent wedge/triangle along the
+# prior K4BW virtual road skin. That artifact was already visible in the
+# K4BX A3 baseline and became black under the authentic PBR shader.
+# Keep it editable but NOT rendered, and coat an exact GEOMETRY DUPLICATE
+# of the true original source Road5. This is an independent virtual
+# rendering mesh and has no collider/physics and no actual Road5 edits.
+skin.hide_render=True
+parent_road=source[0]
+coating=parent_road.copy()
+coating.data=parent_road.data.copy()
+coating.name='K4BY | genuine Road5 topology photo pavement proxy | NO GAME COLLIDER'
+coll.objects.link(coating)
+coating.matrix_world=parent_road.matrix_world.copy()
+coating.matrix_world.translation.z+=.027
+coating['NOT_GAME_COLLIDER']=True
+coating['RESEARCH_DCC_ONLY']=True
+coating['AUTHENTIC_SOURCE_ROAD5_GEOMETRY_SHA256']=ROAD_SHA
+assert fingerprint(coating)==ROAD_SHA
+# Preserve SOURCE geometry and use its real material on vertical faces,
+# photo asphalt ONLY on up-facing actual original pavement polygons.
+old_source_material=parent_road.data.materials[0] if parent_road.data.materials else None
+coating.data.materials.clear()
+coating.data.materials.append(realmat)
+coating.data.materials.append(old_source_material if old_source_material else realmat)
+upfaces=0
+for poly in coating.data.polygons:
+ normal=coating.matrix_world.to_3x3()@poly.normal
+ poly.material_index=0 if normal.z>.50 else 1
+ if poly.material_index==0:upfaces+=1
+assert upfaces>30,('no authentic upward asphalt road faces',upfaces)
+cuv=coating.data.uv_layers.get('K4BY | source road full-width PBR UV')
+if not cuv:cuv=coating.data.uv_layers.new(name='K4BY | source road full-width PBR UV')
+for poly in coating.data.polygons:
+ for li in poly.loop_indices:
+  p=coating.matrix_world@coating.data.vertices[coating.data.loops[li].vertex_index].co
+  off=p-C
+  cuv.data[li].uv=(float(off.dot(S))/2.0,float(off.dot(F))/2.0)
+uv.uv_map=cuv.name
+normal.uv_map=cuv.name
+added.append(coating)
 def material(name,color,rough=.79,metal=0):
  m=bpy.data.materials.new('K4BY | '+name);m.diffuse_color=(*color,1)
  m.use_nodes=True
@@ -271,6 +312,10 @@ audit={'schema':'dopagaki.K4BY.true-PBR-road-rebuilt-harbor-one-native-frame/1',
  'frozenResearchChaseUnchanged':True,'sourceTreesNinePositionsUnchanged':True,
  'sourceB48Roads':7,'sourceB51Movers':28,'sourcePhysicsHz':240,'sourceBallRadiusM':.65,
  'originalResearchRoadSkinMaterial':original_skin_mat,
+ 'a1WedgeResearchSkinKeptButRenderHidden':True,
+ 'newTrueSourceRoad5RenderingDuplicateNoCollider':True,
+ 'renderProxyRealRoad5ExactVertexFacesSHA256':fingerprint(coating),
+ 'renderProxyOriginalUpwardSurfacePolygons':upfaces,
  'originalGameRoad5MaterialAndGeometryUnmodified':True,'newGameColliders':0,
  'originalSourceGameEdited':False,'researchOnlyNotWebGL':True,
  'officialPolyHavenLicense':'CC0','officialAsset':'asphalt_track',
