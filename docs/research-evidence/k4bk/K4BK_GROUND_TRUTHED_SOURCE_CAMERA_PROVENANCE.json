@@ -111,7 +111,7 @@
     "K4BJ | 05 OFFROAD HANDCRAFTED BARRIERS",
     "K4BJ | 06 PRACTICAL LIGHTING"
   ],
-  "newIndependentlyEditableBlenderObjects": 70,
+  "newIndependentlyEditableBlenderObjects": 128,
   "originalSourceCameraNativeBlenderImages": [
     {
       "mode": "control",
@@ -139,21 +139,21 @@
   "MERGE": "HOLD",
   "files": {
     "K4BK_GROUND_TRUTHED_CIVIC_ROADSIDE_EDITABLE_ART_HOLD.blend": {
-      "sha256": "a9a8f7ad82c8b3edf63212d0dc88fd9d083cdab2ccbd9c22c70a6d868c0948af",
-      "bytes": 34602396
+      "sha256": "8874f09c868218879bcc6a346303819b17f38ffda11177c44555e022167a1c9c",
+      "bytes": 35000624
     },
     "K4BK_CONTROL_11307_SOURCE_CAMERA_GROUND_TRUTH_ART_UNJUDGED.png": {
-      "sha256": "1ddb71a42bac44aed107f1ceeeab5162f64d15aec159ae2a7576e07f3f8f8dc7",
-      "bytes": 1820268
+      "sha256": "7ea389f5ce76c868434e063530431e4f3fe7312c1d570b9c06c68ff94dbddc2e",
+      "bytes": 1796964
     },
     "K4BK_ULTRA_11341_SOURCE_CAMERA_GROUND_TRUTH_ART_UNJUDGED.png": {
-      "sha256": "e9f7f9ccd92f8ba6438d96a78a8f94fec90e8d5e389b90dbd623482d7634b18c",
-      "bytes": 1789717
+      "sha256": "1a55e374e172720f11690b23ae472abea163c173f178ccef769257e49008ad74",
+      "bytes": 1800214
     }
   },
   "verifiedA_B": {
     "file": "K4BK_ACTUAL_SOURCE_CAMERA_K4BJ_VS_NEW_DCC_NOT_GAME.png",
-    "sha256": "408a34eeac4d916f9b26f91be84abc1c8962f1aa7dfc4ec0532f7d26234d1205",
-    "bytes": 3887659
+    "sha256": "a2dac82c77fba0d94b27d08e7be78800a78df7e06fdbaa578a40050805e4a4d0",
+    "bytes": 3888626
   }
 }
