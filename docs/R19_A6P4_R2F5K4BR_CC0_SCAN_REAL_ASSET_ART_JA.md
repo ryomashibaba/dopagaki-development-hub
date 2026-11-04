@@ -25,3 +25,10 @@ Poly Haven公式[Asset License](https://polyhaven.com/license)：全素材CC0、
 
 ## 3. 実行履歴
 最初の[GitHub Actions #41789921118](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41789921118)は初稿執筆時点では結果未確認。実ローダー/素材/画像が全て成功するまで、その点を成功したと主張しない。失敗したら原因・修正を追記し、前工程の確定した成果物は保護する。
+
+
+## 第1回／第2回CI実行事実と再試験（2026-11-04）
+
+- 初回[#41789921118](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41789921118)はPython通常コマンドに`--`がない引数パーサの不具合で**FAILURE**。実アセットは未取得、原ゲーム/親SHA照合のみPASS。修正commit `6e385c3168bc557aaa6904ff15718517e5da3b6c`。
+- 修正版[#41790126272](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41790126272)は**全CC0実アセットの公式API取得・バイト/MD5/独立SHA検証PASS**！実際にPoly Haven `asphalt_01` の2K diffuse（3,118,607B）、OpenGL Normal（4,845,665B）、Rough（1,599,661B）と、`rock_ground_02` の2K diffuse（3,469,687B）、OpenGL Normal（5,566,160B）、Rough（2,107,834B）を取得。また`rock_face_01`のglTFモデルと公式指定の外部依存をあわせた**5実ファイル**も取得・配布元MD5/Byteと独立SHA検証PASS。`K4BR_REAL_CC0_PBR_INDEPENDENT_BYTES_SHA256_AND_VENDOR_MD5_PASS`をCIログで実確認。ただし、次のUbuntu native BlenderのglTFインポーター内でPython `numpy`が見つからず`ModuleNotFoundError: No module named numpy`。**第2回CIはcompleted/FAILURE、新Blender画像/原本の完了無し**。重要：アセット実ダウンロードは成功したが、3D作品の完成ではない。
+- システムBlenderの実glTF importer依存`python3-numpy`を新たにインストールするCI修正commit `1dff4257deb01b32ddcc5f7c93dac7a4d288c3f5`。最新[再試験 #41790588687](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41790588687)は**現時点では結果未確認**。CI/新本物の実レンダリング/Source SHA/Blender packの全件を実照合するまではK4BR技術成功・ART成功と断定しない。旧K4BQの正式ART0件／DNA0m維持。
