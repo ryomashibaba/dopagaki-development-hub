@@ -232,9 +232,11 @@ tube('sliding accessible door seam',
 # not add another dozen decorative poles.
 
 # Far halls: roof thickness only, no new giant faux background buildings.
-far_roofs=[x for x in bpy.data.objects if x.name.startswith('K4BX | ')
-           and 'folded twin-pitch real standing seam roof' in x.name and x.type=='MESH']
-assert len(far_roofs)==6,(len(far_roofs),[x.name for x in far_roofs])
+# Blender truncates long object names, so the K4BX-authored semantic
+# mesh attribute is the stable identifier: actual structural roof use.
+far_roofs=[x for x in bpy.data.objects if x.type=='MESH'
+           and x.get('ACTUAL_USE')=='WEATHERPROOF_HARBOR_ROOF']
+assert len(far_roofs)==6,(len(far_roofs),[(x.name,x.get('ACTUAL_USE')) for x in far_roofs])
 for o in far_roofs:
  solid=o.modifiers.new('K4BY physically thick real harbor metal sheeting','SOLIDIFY')
  solid.thickness=.22;solid.offset=-1
