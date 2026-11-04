@@ -47,3 +47,10 @@ DOPAGAKI SLOPE — HYPER RUSHは世界水準の超高速3Dレースゲームと�
 - 初回実画像のART審査は **REJECT**。旧K4BKの巨大な道路跨ぎ梁を外して視野が開き、路面が落ち着いた暗色となり、ノイズの少ない原Blender EEVEE画面は明確な技術品質改善。ただし左の緑がかった大きな屋根、右の白い巨大屋根、水平線に見える単純なアイボリーの円筒塔、道路の過半占有は単純な模型的景観で、港の機能や生活感、海景観・都市の密度・遠近のレイヤーが未完成。**世界水準のビジュアル達成を絶対に宣言しない。正式ART採用0件、Slope2 DNA0m**。
 - 第2修正 `f2f93507e1648c8d1e5a156f7e0132e4e51a400b`：初回の実画像観察に基づき、両公共建築の屋根の高さ／遠方への投影面積を大幅縮小。簡素な遠景円筒塔を現実用途のある中低層の公共建築／立体的金属骨格／実屋上通路・大きな切り込みがある窓へ再設計。物理的に編集可能な港湾ターミナルサインと港湾船体を遠景に加え、真正Road5道路最奥の背後へ海面を上げて港としての地理を見せる。設計の品質は**未確定**。[修正版CI #41750596888](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41750596888)で実画像・元mesh SHA・BLEND・Artifactの独立再検証が必須。
 - いずれも本物のWebGL2ゲーム画面ではない。新ゲームCollider0。SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD。元main/公式p101/Draft PR #46/本番、B48全7/B51全28/240Hz/球0.65m/Camera6不変更。追加課金/Work禁止継承。
+
+
+## K4BL revision 2 : Blender参照ミスと再試験（2026-11-04）
+
+- [修正版初回CI #41750596888](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41750596888) は **completed/FAILURE**。元Source、親Blender SHA、Blender実行環境の検査は通過。ただし実レンダー開始前に、追加した実船体の材質を未定義の`charcoal`で参照してしまい、`NameError`が発生。**修正版の画像・.blend・新Art合格は一切成立していない**。前回の技術PASS成果物を保持。
+- 研究ブランチのコード `37d3bbf39991590ccc2750dea4194d576ba3c6f7` で存在する`basalt`材質を正しく指定。変更はK4BL研究用Blender作者コードのみ。
+- [再実行CI #41751060525](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41751060525)の**実状態、真正Sourceカメラ2画像と.Artifact、SHAが得られるまで成功と判定しない**。これは1つの美術候補の試行であり、元B48を移植した結果ではない。
