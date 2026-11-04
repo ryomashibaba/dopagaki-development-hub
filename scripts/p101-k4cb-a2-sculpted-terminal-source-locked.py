@@ -13,7 +13,7 @@ def getarg(k):
 parent=getarg("--base")
 out=getarg("--out")
 out.mkdir(parents=True,exist_ok=True)
-PARENT_SHA="9df956acf164d7a0f4d861585644e15f87faa5d85683f2e8ae79bb438c03333d"
+PARENT_SHA="ea0cadc1db9dde9b01faac17d1cddc7b81c4d6c011eae2ea3c8bf68e90ec5b5d"
 GAME="af076d67492a677d2235e4730aef8cdf4808e106"
 ROAD="f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
 def sha(path):

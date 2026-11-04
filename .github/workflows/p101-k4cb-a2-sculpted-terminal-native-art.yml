@@ -51,7 +51,7 @@ jobs:
               raw=(d/name).read_bytes()
               assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
           name='K4CB_TRUE_MARITIME_EXCHANGE_ARCADES_EDITABLE_ART_HOLD.blend'
-          assert a['files'][name]['sha256']=='9df956acf164d7a0f4d861585644e15f87faa5d85683f2e8ae79bb438c03333d',('PARENT_SHA_CHANGED',a['files'][name])
+          assert a['files'][name]['sha256']=='ea0cadc1db9dde9b01faac17d1cddc7b81c4d6c011eae2ea3c8bf68e90ec5b5d',('PARENT_SHA_CHANGED',a['files'][name])
           print('K4CB_A2_TRUE_A1_PARENT_AND_SOURCE_INTEGRITY_PASS')
           PY
       - name: Install actual Blender EEVEE, Python image verification and protect K4BZ black seam
@@ -78,7 +78,7 @@ jobs:
           from PIL import Image,ImageChops,ImageDraw
           d=Path('research/evidence/k4cb-a2/render')
           a=json.loads((d/'K4CB_A2_REAL_NATIVE_AUDIT.json').read_text())
-          assert a['parentK4CB_A1_exact_sha256']=='9df956acf164d7a0f4d861585644e15f87faa5d85683f2e8ae79bb438c03333d'
+          assert a['parentK4CB_A1_exact_sha256']=='ea0cadc1db9dde9b01faac17d1cddc7b81c4d6c011eae2ea3c8bf68e90ec5b5d'
           assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
           assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
           for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged','originalElevenTreeTransformsUnchanged','originalLightsUnchanged','K4BZ_bad_duplicate_road_hidden','allOriginalObjectVisibilityUnchanged','originalRoofAndPiersUnmodified','noExtraRoadSurfaceAdded'):
