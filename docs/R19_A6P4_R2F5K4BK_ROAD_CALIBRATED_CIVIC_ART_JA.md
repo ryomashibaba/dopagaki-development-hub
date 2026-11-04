@@ -39,3 +39,16 @@ K4BJの実2DCC原カメラ画像は、SOURCE/DCC 技術PASS、**ART REJECT**。�
 - しかし**初回の実control/ultra画像の美術判定：ART REJECT**。左右屋根の大部分が巨大な無地の淡色/緑の壁のように投影され、中央ガラス連絡路は太い梁として画面上部を塞ぎ、道路と空白も広い。内部の使い勝手や公共施設の奥行きが見えず、極めて人工的で模型の延長。道路の実寸に合わせた事実はTECH成果だが、美術全体の完成は達成していない。**正式ART採用0件、Slope2 DNA0m**。
 - **改修**：この失敗を受けて研究ブランチのPython制作コードを修正（commit `d45c86cdafb7beec6bedd6c544fdd668c756df39`）。西側屋根・東側銅屋根を大きな塊から薄い断面に作り直す。中央ガラス連絡路も源道路のd=152〜169mの薄い意匠へ位置と断面を改め、独立した実寸のダークガラス玄関・室内・ブロンズ枠・見通しのある開口を道路外端に設計。露出調整。旧Blender原本／元B48／元カメラ／原ゲームは不変。修正版[CI #41747761082](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41747761082)の実結果は**成功推定禁止、要再照合**。
 - 修正版でも世界品質に届かなければART REJECTを維持し、設計方法そのもの（メッシュの巨大な一体壁と貧弱なカメラの遠景）を見直す。追加課金/Workなし。メイン・公式・PR・本番・物理原本は厳重保護。
+
+
+## 【K4BK最終判定 2026-11-04】実物ROAD5尺度PASS／DCC技術PASS／ART REJECT
+
+**実行事実と改修**：
+1. 初回[Actions #41747047424](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41747047424) は completed/SUCCESS、元Road5の実メッシュ9距離地点Raycast、真source Control11307/Ultra11341元カメラPNG、ネイティブ編集可能BLEND、独立SHA、研究枝Git保存が成功した。しかしレンダリングは左右の巨大な無地の壁と太い青緑の上部通路、画面大半が路面となり**ART REJECT**。
+2. 修正commit `d45c86cdafb7beec6bedd6c544fdd668c756df39` は旧の過大屋根を薄く成形し直し、ガラス開口・実室内・人間寸法の柱・庇をカメラに面した実物道路端付近へ追加し、上部のSkybridgeを小規模化。元ゲームも元B48本物meshも元Cameraも無変更。
+3. **修正版が真の最終実行**：[Actions #41747761082](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41747761082) は **completed/SUCCESS**。CIの本物Blender 3D造形、2元Camera画像、BLEND・PNG SHA照合、同Camera K4BJとのA/B比較、隔離研究ブランチ証拠保存、Artifactが全PASS。
+4. 正真正銘の[修正版Artifact #13284094495](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41747761082/artifacts/13284094495)。ZIP SHA256 `86879b1dd3a4a03ed7cb9d6db676cd2ba971dc2a3e9b61a39f9ac80dbd910904`、ZIP CRC全PASS。編集可能原本 `K4BK_GROUND_TRUTHED_CIVIC_ROADSIDE_EDITABLE_ART_HOLD.blend` 35,000,624B、元Camera Control11307 1,796,964B、Ultra11341 1,800,214B、新旧A/B 3,888,626B、JSON原本SHAが**独立再ハッシュ全一致**。DCC研究オブジェクト128個は評価指標ではない。
+5. **実際の画像を2視点と旧版K4BJの4面A/Bで目視**：巨大な単調屋根を減らし、左右の開口・ブロンズ枠・真暗い部屋がカメラから見えるようになったことは進歩。しかし画像の大半は平凡で粗い広大な灰色道路、右の建物は不均一な矩形の寄せ集めに見え、左も重い壁、センターに薄い青緑の「ただの橋」のような造形、奥の都市・海・交通・生活・環境のデザインが無く、路面照明は粒状ノイズが多い。**世界水準の高速3Dレーシングコースのビジュアルには程遠い：ART REJECT**。
+6. **達成できた確かな正しい前進**：Road5源9断面の実高さ／両端サンプリングが全PASS。実DCCを見ても道路近傍に意匠を置けている。元source本物Road5 mesh fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2` 不変、Control/Ultra Camera数値不変、元ゲームBlob `af076d67492a677d2235e4730aef8cdf4808e106`不変、物理7Road/28movers/240Hz/球半径0.65m変更なし、実ゲームCollider追加0。B51安全距離、全SAT/CCD、人間プレイ、FPS、WebGL2ゲーム実機、リリース統合は未実行。
+7. **次工程K4BLの正しい美術技術方針**：実寸是正は達成したが、Pythonで長い箱・屋根・同じ質感を生成する「メッシュ密度勝負」を停止。まずSource Camera構図で道路と建物・遠景・地形・光を高品質な実アートとして別立てで作成する。仮想市街地の公園・海岸・都市物語・使われる公共空間・実素材・局所的なオクルージョン・陰影・カメラフレーミングを作り込む。可能なら静止画像だけでなく**本ゲーム実WebGL2同Cameraのフレームと独立検証**を次の大きなゲートに据える。美術合格前に他6Roadへ数を広げたり、main/公式/本番へ入れない。Work事前承認／ユーザー操作最小化を維持。
+8. **最終STATUS**：`SOURCE_GEOMETRY_PASS`、`BLENDER_DCC_TECH_PASS`、`ART_REJECT`。**正式ART採用0件／Slope2 DNA認定0m**、HUMAN/SAT/CCD/FPS/ART/RELEASE/MERGE全HOLD。K4BK新候補を合格・安全な走行路・本番適用と報告しない。
