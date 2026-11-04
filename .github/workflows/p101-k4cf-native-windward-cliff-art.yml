@@ -1,0 +1,172 @@
+name: DOPAGAKI K4CF true 3D author windward escarpment two directions ART HOLD
+on:
+  push:
+    branches: [research/k4cf-windward-cliff-hero-frame-20261105]
+    paths:
+      - scripts/p101-k4cf-native-windward-cliff-art-directions.py
+      - .github/workflows/p101-k4cf-native-windward-cliff-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4cf-native-headland-art
+  cancel-in-progress: true
+jobs:
+  protected-authentic-native-k4cf:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preflight source Game, Blender author syntax and real Road5 lineage
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cf-windward-cliff-hero-frame-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4cf-native-windward-cliff-art-directions.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download exact genuine successful K4CE native editable Blender and true source CHASE
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CE_TRUE_FOREGROUND_FERRY_BERTH_EDITABLE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41935099728
+          github-token: ${{ github.token }}
+          path: research/evidence/k4cf/parent
+      - name: Authenticate exact K4CE DCC and all frozen source/camera/road locks
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          d=Path('research/evidence/k4cf/parent')
+          a=json.loads((d/'K4CE_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['exactK4CDSourceParentSHA256']=='c81111664d4703ec044aeaaeee1e7b659d95343dbf762ebf9892c6636a7d5a0a'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged','originalElevenTreeTransformsUnchanged','originalLightsUnchanged','K4BZ_bad_duplicate_road_hidden','allOriginalObjectsPreserved','K4CDWaterGeometryAndPoseUnchanged','K4CDOriginalFerryMeshTopologyUnchanged'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['independentSameChaseImageQA']['realFerryAndBridgeVisiblePixelsNotArtScore']==4528
+          for name,m in a['files'].items():
+              blob=(d/name).read_bytes()
+              assert len(blob)==m['bytes'] and hashlib.sha256(blob).hexdigest()==m['sha256'],name
+          assert a['files']['K4CE_REAL_COHERENT_FOREGROUND_FERRY_EDITABLE_ART_HOLD.blend']['sha256']=='3f0bc2f048dec39bc263151e2117b374d40b7422478c7e9b49583865c836d63e'
+          print('K4CF_PARENT_AUTHENTIC_DCC_ARTIFACT_AND_GAME_SOURCE_PASS')
+          PY
+      - name: Install actual Blender EEVEE, Python image verification and protect K4BZ black seam
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+          /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
+      - name: Actually sculpt TWO alternative genuinely 3D single-headland landscapes with frozen Road5
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4cf/render
+          xvfb-run -a -s '-screen 0 1280x900x24' env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4cf-native-windward-cliff-art-directions.py -- \
+            --base research/evidence/k4cf/parent/K4CE_REAL_COHERENT_FOREGROUND_FERRY_EDITABLE_ART_HOLD.blend \
+            --out research/evidence/k4cf/render 2>&1 | tee research/evidence/k4cf/render/K4CF_REAL_BLENDER.log
+      - name: Independent actual Blender dual-headland source SHA and native side-by-side frame QA
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageChops,ImageDraw
+          d=Path('research/evidence/k4cf/render')
+          a=json.loads((d/'K4CF_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CEExactSHA256']=='3f0bc2f048dec39bc263151e2117b374d40b7422478c7e9b49583865c836d63e'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged','originalElevenTreeTransformsUnchanged','originalLightsUnchanged','K4BZ_bad_duplicate_road_hidden','allSourceObjectsRetainedAndSourceGeometryUnmodified','K4CCOriginalResearchRockHiddenInK4CFRenderOnly','noFakeImagesOrBillboards'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['realNewResearchMeshes']==2 and a['ART']=='UNJUDGED_HOLD'
+          assert a['renderEngine']=='BLENDER_EEVEE' and a['defaultEditableBlendVariant']=='A'
+          for k,s in a['headlandRealGeometry'].items():
+              assert s['realSculptedVertices']>250 and s['maxHeightDeltaWorldMetres']>3
+              assert s['maxProjectedXOfAffectedVertices']<.455
+              assert s['totalEditableVertices']>12000
+          for name,m in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==m['bytes'] and hashlib.sha256(raw).hexdigest()==m['sha256'],name
+          prev=Image.open('research/evidence/k4cf/parent/K4CE_REAL_FERRY_CONNECTED_TO_QUAY_CHASE_NOT_GAME.png').convert('RGB')
+          A=Image.open(d/'K4CF_A_WARM_STRATIFIED_HEADLAND_TRUE_CHASE_NOT_GAME.png').convert('RGB')
+          B=Image.open(d/'K4CF_B_DARK_FOLDED_ESCARPMENT_TRUE_CHASE_NOT_GAME.png').convert('RGB')
+          assert prev.size==A.size==B.size==(768,480)
+          left_box=(0,130,270,460)
+          right_box=(510,130,768,460)
+          road=(330,260,490,475)
+          def count(diff,area,cut=17):
+              return sum(max(p)>cut for p in diff.crop(area).getdata())
+          vs={}
+          for label,new in (('A',A),('B',B)):
+              diff=ImageChops.difference(prev,new)
+              l=count(diff,left_box)
+              r=count(diff,right_box)
+              center=count(diff,road,15)
+              assert l>1400,('NEW_LEFT_CLIFF_NOT_VISIBLE',label,l)
+              assert r<110,('RIGHT_PORT_OR_FERRY_UNEXPECTEDLY_CHANGED',label,r)
+              assert center<75,('ORIGINAL_ROAD_RENDER_CHANGED',label,center)
+              vs[label]={'actualLeftChangedPixelsNotArtScore':l,
+                         'rightHarborPixelDifference':r,
+                         'protectedRoadPixelDifference':center}
+          variant_delta=count(ImageChops.difference(A,B),left_box)
+          assert variant_delta>700,('TWO_ACTUAL_ART_DIRECTIONS_LOOK_IDENTICAL',variant_delta)
+          pts=[(390,270),(400,320),(380,380),(420,440),(470,465)]
+          for image,label in ((A,'A'),(B,'B')):
+              for pt in pts:
+                  p=prev.getpixel(pt);n=image.getpixel(pt)
+                  assert max(abs(p[k]-n[k]) for k in range(3))<=10,('SOURCE_ROAD_CHANGED',label,pt,p,n)
+              pairs=[((292,300),(317,300)),((280,330),(310,330)),
+                     ((267,360),(310,360)),((250,400),(295,400)),
+                     ((235,440),(280,440)),((225,470),(270,470))]
+              for dark,normal in pairs:
+                  previous=(sum(prev.getpixel(normal))-sum(prev.getpixel(dark)))/3
+                  current=(sum(image.getpixel(normal))-sum(image.getpixel(dark)))/3
+                  assert abs(current-previous)<12,('K4BZ_BLACK_WEDGE_REINTRODUCED',label,dark,previous,current)
+          sheet=Image.new('RGB',(2340,560),(13,18,22))
+          for i,(im,title) in enumerate(((prev,'K4CE baseline | ART REJECT'),
+                                        (A,'K4CF A: warm cliff | ART UNJUDGED'),
+                                        (B,'K4CF B: slate escarpment | ART UNJUDGED'))):
+              left=10+780*i
+              sheet.paste(im,(left,48))
+              ImageDraw.Draw(sheet).text((left,16),title,fill='white')
+          ImageDraw.Draw(sheet).text((10,535),'True Blender native CHASE 768x480 each, editable DCC only, NOT game or ART acceptance',fill='white')
+          name='K4CF_TRUE_CHASE_BASELINE_VS_TWO_REAL_HEADLAND_DIRECTIONS_ART_REVIEW.png'
+          sheet.save(d/name)
+          a['independentSameChaseImageQA']={
+             'baselineVsVariants':vs,'actualDifferentPixelsBetweenVariantsNotArtScore':variant_delta,
+             'comparisonName':name,'comparisonSHA256':hashlib.sha256((d/name).read_bytes()).hexdigest(),
+             'ART':'UNJUDGED_HOLD'}
+          (d/'K4CF_REAL_NATIVE_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n')
+          print('K4CF_TWO_TRUE_NATIVE_SOURCE_PROTECTED_GEOLOGICAL_DIRECTIONS_PASS',json.dumps(vs))
+          PY
+      - name: Commit only actual research evidence and never merge original source
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cf-windward-cliff-hero-frame-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4cf
+          cp research/evidence/k4cf/render/*.png docs/research-evidence/k4cf/
+          cp research/evidence/k4cf/render/*.json docs/research-evidence/k4cf/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4cf
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4cf): actual native two sculpted coastal cliff directions same-CHASE ART HOLD"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4cf-windward-cliff-hero-frame-20261105
+          fi
+      - name: Archive actual K4CD Blender PNG logs source hashes and audit even when ART holds
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CF_TRUE_DUAL_HEADLAND_NATIVE_EDITABLE_ART_HOLD
+          path: research/evidence/k4cf/render/
+          if-no-files-found: warn
+          retention-days: 21
