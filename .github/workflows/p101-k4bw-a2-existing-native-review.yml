@@ -1,0 +1,119 @@
+name: DOPAGAKI K4BW A2 reuse true native artifact and independently review without rerender
+on:
+  push:
+    branches: [research/k4bw-coastal-viaduct-harbor-composition-20261104]
+    paths:
+      - .github/workflows/p101-k4bw-a2-existing-native-review.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bw-a2-review-existing-artifact
+  cancel-in-progress: true
+jobs:
+  true-native-a2-review-without-rerender:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Freeze original source and the committed K4BV baseline image
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bw-coastal-viaduct-harbor-composition-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 - <<'PY'
+          import hashlib
+          from pathlib import Path
+          p=Path('docs/research-evidence/k4bv/K4BV_ONE_COASTAL_TREE_SAME_CHASE_NATIVE_768x480_ART_HOLD_NOT_GAME.png')
+          assert hashlib.sha256(p.read_bytes()).hexdigest()=='390a2ca19cd98eba204f697c1f70532ca86ee77e504e4692c62d8a6c5244d665'
+          print('K4BW_A2_AUTHENTIC_PREVIOUS_CHASE_BASELINE_SHA_OK')
+          PY
+      - name: Reuse completed A2 failed-at-metric real Blender artifact (no fresh render)
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BW_TRUE_NATIVE_HARBOR_ROAD_AUTHOR_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41818853277
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bw/a2
+      - name: Validate all actual native bytes, same camera and image change, NOT art score
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-pil
+          /usr/bin/python3 - <<'PY'
+          from PIL import Image,ImageChops,ImageStat,ImageDraw
+          from pathlib import Path
+          import hashlib,json
+          d=Path('research/evidence/k4bw/a2')
+          j=json.loads((d/'K4BW_COHERENT_HARBOR_ROAD_NATIVE_ART_AUDIT.json').read_text())
+          assert j['originalK4BVNativeSHA256']=='7c28000ad1a75afb7f64958a6d48ec5ff205849c37d5a2878f17bdd1d2d4e1c4'
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalB48Road5Fingerprint']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert j['originalSixCamerasNumericallyUnchanged'] and j['originalResearchChaseUnchanged'] and j['originalRoad5VertexFaceUnchanged']
+          assert j['originalEightK4BSPineTransformsUnchanged'] and j['originalRealK4BVCanopyTreeUnchanged']
+          assert j['authorStudyElements']==141
+          assert j['leftRidgeExperimentSavedButRenderHiddenAfterA1ArtReject'] is True
+          assert j['fakeStraightWheelMarkStudyRemovedAfterA1ArtReject'] is True
+          assert j['sourceB48Roads']==7 and j['sourceB51Movers']==28 and j['sourcePhysicsHz']==240 and j['sourceBallRadiusM']==.65
+          assert j['newGameColliders']==0 and j['gameSourceChanged'] is False and j['ART']=='UNJUDGED_HOLD'
+          assert j['formalArtAccepted']==0 and j['formalSlope2DNAMetres']==0
+          assert all(j[k]=='HOLD' for k in ('SAT','CCD','HUMAN','FPS','RELEASE','MERGE'))
+          assert j['frameProjections']['functional-harbor-visitor-hall']['insideFrame']
+          for filename,meta in j['files'].items():
+            p=d/filename
+            assert p.stat().st_size==meta['bytes'],filename
+            assert hashlib.sha256(p.read_bytes()).hexdigest()==meta['sha256'],filename
+          baseline=Image.open('docs/research-evidence/k4bv/K4BV_ONE_COASTAL_TREE_SAME_CHASE_NATIVE_768x480_ART_HOLD_NOT_GAME.png').convert('RGB')
+          latest=Image.open(d/'K4BW_SAME_CHASE_ONE_COHERENT_COASTAL_CIVIC_ROAD_ART_HOLD_NOT_GAME.png').convert('RGB')
+          assert baseline.size==latest.size==(768,480)
+          diff=ImageChops.difference(baseline,latest)
+          assert diff.getbbox() is not None,'No actual native image changes at same camera'
+          avg=round(sum(ImageStat.Stat(diff).mean)/3,6)
+          assert avg>0,'This is only a difference test, never a quality threshold'
+          canvas=Image.new('RGB',(1560,552),(16,19,22))
+          canvas.paste(baseline,(12,50));canvas.paste(latest,(780,50))
+          pen=ImageDraw.Draw(canvas)
+          pen.text((12,18),'K4BV SAME CHASE / source true CC0 canopy / ART REJECT',fill='white')
+          pen.text((780,18),'K4BW A2 SAME CHASE / art defect rejection / REVIEW PENDING',fill='white')
+          pen.text((12,536),'Native Blender original frozen. Mean RGB change not a quality score. NOT GAME.',fill='white')
+          name='K4BW_A2_VS_K4BV_SAME_CHASE_REAL_ART_REVIEW_NOT_GAME.png'
+          canvas.save(d/name)
+          raw=(d/name).read_bytes()
+          j['a2ArtReview']={'file':name,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),
+             'reusedExactRun':41818853277,'noRerender':True,'sameCameraAndResolution':True,
+             'meanRGBDifferenceNOTQuality':avg,'changeConfirmed':True,
+             'originalRunFailureWasArbitraryDifferenceThreshold':True,'ART':'UNJUDGED_HOLD'}
+          (d/'K4BW_COHERENT_HARBOR_ROAD_NATIVE_ART_AUDIT.json').write_text(json.dumps(j,ensure_ascii=False,indent=2))
+          print('K4BW_A2_REAL_NATIVE_PREVIOUSLY_RENDERED_ALL_SHA_PASS_ART_UNJUDGED',avg)
+          PY
+      - name: Publish only source-protected small genuine A2 images and audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bw-coastal-viaduct-harbor-composition-20261104
+          mkdir -p docs/research-evidence/k4bw
+          cp research/evidence/k4bw/a2/*.png docs/research-evidence/k4bw/
+          cp research/evidence/k4bw/a2/K4BW_COHERENT_HARBOR_ROAD_NATIVE_ART_AUDIT.json docs/research-evidence/k4bw/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4bw
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bw): reuse A2 immutable native shot, independent true SHA and ART HOLD without rerender"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bw-coastal-viaduct-harbor-composition-20261104
+          fi
+      - name: Archive real A2 images and source-check audit only
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BW_A2_REAL_NATIVE_REPLAY_NO_RERENDER_ART_HOLD
+          path: |
+            research/evidence/k4bw/a2/*.png
+            research/evidence/k4bw/a2/K4BW_COHERENT_HARBOR_ROAD_NATIVE_ART_AUDIT.json
+          if-no-files-found: warn
+          retention-days: 21
