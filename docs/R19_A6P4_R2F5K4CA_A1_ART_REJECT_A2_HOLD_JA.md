@@ -20,3 +20,18 @@
 ## 恒久的な保護
 
 元Game Blob af076d67492a677d2235e4730aef8cdf4808e106。元Road5全頂点面 f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2。B48 7Road/B51 28Mover/240Hz/球0.65m、元6Camera、研究CHASE、9本の木、main、公式P101、Draft PR #46、本番2サイト不変。正式ART採用0件／Slope2 DNA0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD。Work/Computer Use事前承認、追加有料API0円、Windows操作0。
+
+## A2 完了：真の編集可能Blenderと画像再照合
+
+- [真正Blender CI #41849818268](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41849818268) は **completed/SUCCESS**。同じK4BZ R2親.blendの固定SHAをチェックし、旧6Camera/CHASE/木9本/光源/元B48 Road5/元Game Blobを変えず、左K4BQの同一丘陵メッシュに付ける研究マテリアルの地質カラーパレットのみを低輝度暖色砂岩へ修正した。新しい崖/二重舗装/偽スクリーン材はなし。元K4BZの黒い路面筋も再発せず、真正CC0 tree master由来の2本は同じRaycast座標。
+- A2真編集可能Blender 271,620,488 B、SHA256 299f1972e3383a7fc0047409a0f58581da3884988749dff6842a80cdf49a3ffa。
+- A2真同CHASE 768×480 PNG 476,441 B、SHA256 e864aa1cdcc7707370c47e0542580cd6963f8e2fb9deada8cf0a9752dd8f84d6。
+- [K4BZ→K4CA A2真同Camera比較](research-evidence/k4ca/K4CA_VS_K4BZ_TRUE_SAME_CHASE_COASTAL_SLOPE_PHOTO_CANOPY_ART_REVIEW_NOT_GAME.png) 430,170 B、SHA256 a7843378e17a113e07d6d6a9b3ea4e090b55458fb49a4c1bd389db4b31b3b1f9。
+- [A2研究原本+画像 Artifact #13334366579](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41849818268/artifacts/13334366579) ZIP 122,648,582 B、SHA256 201a290b04165b5f70da4f88705f34d9c7fdc27edca6e42c2311674807708788。実ファイルのZIP全CRC PASS、個別PNGと監査SHA一致。
+- 真正A1/A2同画面の左斜面RGB比較：例、(70,350) A1 (160,163,157) → A2 (132,133,126)。色は明瞭に改善。旧K4BZでは同位置(111,104,88)。ただしこの色差をARTスコアにはしない。
+- A2画像の局所目視判定：A1の不自然な白っぽさを抑えた。真正2本の樹木は接地して映る一方、地面は起伏・自然な風化の表現不足、右港湾も薄い模型的な建築のまま。道路占有面積も過大。**A2 TECH PASS／ART REJECT、正式採用0件、Slope2 DNA0m**。本番へ素材採用しない。
+- [K4CA A2ソース保護・実画像12ピクセル回帰CI #41850910734](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41850910734) を新設。元K4BZ真正PNGとK4CA A2の固定SHA、既知6組の黒筋消失、右港や中央元道路の8座標が完全に同じRGB、左地形のみ変化を軽量検証。これはTECH/回帰テストのみで美術合格の指標ではない。CI結果は実行完了後に確定する。
+
+## 次K4CBの論点：色だけの改善では不足
+
+写真レベルの自然な地質マテリアル、岩層と走行路肩の接地、生活感のある右港の施設と街路、速度感のある全画面構図が未解決。K4CAの樹木2本+材質トーン補正を過大評価して正式採用へ進めず、**次は低品質な単純3Dの追加よりも実材質と元建築の造形の根本改善**へ集中する。元Game Road5/6Camera/物理/B48/B51/公式PR/main/本番保護とART REJECTは継承。
