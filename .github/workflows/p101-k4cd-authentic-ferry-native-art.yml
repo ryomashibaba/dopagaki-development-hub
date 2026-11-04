@@ -1,0 +1,155 @@
+name: DOPAGAKI K4CD genuine maritime passenger ferry and tidal basin true CHASE ART HOLD
+on:
+  push:
+    branches: [research/k4cd-real-ferry-waterfront-hero-20261105]
+    paths:
+      - scripts/p101-k4cd-authentic-marine-ferry-sea-hero.py
+      - .github/workflows/p101-k4cd-authentic-ferry-native-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4cd-real-marine-ferry
+  cancel-in-progress: true
+jobs:
+  protected-authentic-native-k4cd:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preflight source Game, Blender author syntax and real Road5 lineage
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cd-real-ferry-waterfront-hero-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4cd-authentic-marine-ferry-sea-hero.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Fetch pinned genuine K4CC R2 editable Blender and same CHASE evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CC_TRUE_SCULPTED_COASTAL_RELIEF_EDITABLE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41922703441
+          github-token: ${{ github.token }}
+          path: research/evidence/k4cd/parent
+      - name: Authenticate immutable K4CC R2 actual source and DCC file bytes
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          d=Path('research/evidence/k4cd/parent')
+          a=json.loads((d/'K4CC_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CB_A3_exact_sha256']=='0b581f45de4d4e215515e8dbef9a4038c7f1b9bdb0e1935943c4445529193e6c'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged','originalElevenTreeTransformsUnchanged','originalLightsUnchanged','K4BZ_bad_duplicate_road_hidden','originalResearchA3MeshesUnedited','sourceTerrainRenderedBehindRaisedSculpt'):assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert a['files']['K4CC_COASTAL_RELIEF_EDITABLE_DCC_ART_HOLD.blend']['sha256']=='4fcd20db998696c270df95f624fed1a229ae2703322c180de1f3bfbc15abd6da'
+          print('K4CD_SOURCE_LOCK_TRUE_PARENT_A3_AND_K4CC_SHA_PASS')
+          PY
+      - name: Install actual Blender EEVEE, Python image verification and protect K4BZ black seam
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+          /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
+      - name: Actually author editable true ferry hull and coherent 3D sea in native Blender CHASE
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4cd/render
+          xvfb-run -a -s '-screen 0 1280x900x24' env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4cd-authentic-marine-ferry-sea-hero.py -- \
+            --base research/evidence/k4cd/parent/K4CC_COASTAL_RELIEF_EDITABLE_DCC_ART_HOLD.blend \
+            --out research/evidence/k4cd/render 2>&1 | tee research/evidence/k4cd/render/K4CD_REAL_BLENDER.log
+      - name: Independently verify authentic 3D ferry and unchanged original road full-frame pixels
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          from PIL import Image,ImageChops,ImageDraw
+          d=Path('research/evidence/k4cd/render')
+          a=json.loads((d/'K4CD_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CC_R2ExactSHA256']=='4fcd20db998696c270df95f624fed1a229ae2703322c180de1f3bfbc15abd6da'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged',
+                    'originalElevenTreeTransformsUnchanged','originalLightsUnchanged',
+                    'allParentObjectsVisibilityAndPosesUnchanged','K4BZ_bad_duplicate_road_hidden',
+                    'originalSourceGeoUnchanged','genuineEditableDCC'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['ART']=='UNJUDGED_HOLD' and a['renderEngine']=='BLENDER_EEVEE'
+          assert a['newResearchEditableObjects']==6
+          assert a['real3DBoatVisibleVertexCount']>300 and a['trueCHASEFerryProjectedBoxAreaNotArtScore']>.003
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          prev=Image.open('research/evidence/k4cd/parent/K4CC_TRUE_SAME_CHASE_COASTAL_RELIEF_NOT_GAME.png').convert('RGB')
+          new=Image.open(d/'K4CD_TRUE_SAME_CHASE_FERRY_TIDAL_BASIN_NOT_GAME.png').convert('RGB')
+          assert prev.size==new.size==(768,480)
+          diff=ImageChops.difference(prev,new)
+          region=diff.crop((490,130,768,435))
+          n=sum(max(p)>14 for p in region.getdata())
+          assert n>1200,('FERRY_AND_REAL_SEA_NOT_VISIBLE_IN_PORT',n)
+          # Protected original road and known K4BZ seam: no source changes.
+          roadpts=[(390,270),(400,320),(380,380),(420,440),(470,465)]
+          for pt in roadpts:
+              before=prev.getpixel(pt);after=new.getpixel(pt)
+              assert max(abs(before[i]-after[i]) for i in range(3))<=10,('RACING_SURFACE_VIEW_CHANGED',pt,before,after)
+          wedge=[((292,300),(317,300)),((280,330),(310,330)),
+                 ((267,360),(310,360)),((250,400),(295,400)),
+                 ((235,440),(280,440)),((225,470),(270,470))]
+          contrasts=[]
+          for dark,normal in wedge:
+              p=(sum(prev.getpixel(normal))-sum(prev.getpixel(dark)))/3.
+              q=(sum(new.getpixel(normal))-sum(new.getpixel(dark)))/3.
+              assert abs(q-p)<12,('K4BZ_BLACK_WEDGE_RETURNED',dark,p,q)
+              contrasts.append({'dark':dark,'normal':normal,'before':round(p,3),'after':round(q,3)})
+          sheet=Image.new('RGB',(1560,552),(13,18,20))
+          sheet.paste(prev,(12,50));sheet.paste(new,(780,50))
+          draw=ImageDraw.Draw(sheet)
+          draw.text((12,18),'K4CC TRUE CHASE / TECH ONLY / ART REJECT',fill='white')
+          draw.text((780,18),'K4CD TRUE CHASE / 3D FERRY WATER / ART UNJUDGED',fill='white')
+          draw.text((12,536),'Authentic Blender DCC art study, NOT real native WebGL2 game or final quality.',fill='white')
+          name='K4CD_VS_K4CC_TRUE_SAME_CHASE_WORKING_PORT_ART_REVIEW_NOT_GAME.png'
+          sheet.save(d/name)
+          a['independentImageQA']={'rightPortChangedPixelsNotArtScore':n,
+             'originalRaceSurfaceStablePixels':roadpts,
+             'K4BZWedgeContrasts':contrasts,'comparisonName':name,
+             'comparisonSHA256':hashlib.sha256((d/name).read_bytes()).hexdigest(),
+             'ART':'UNJUDGED_HOLD'}
+          (d/'K4CD_REAL_NATIVE_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n')
+          print('K4CD_ACTUAL_NATIVE_FERRY_AND_SOURCE_PROTECTED_PIXEL_QA_PASS',n)
+          PY
+      - name: Commit only actual research evidence and never merge original source
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cd-real-ferry-waterfront-hero-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4cd
+          cp research/evidence/k4cd/render/*.png docs/research-evidence/k4cd/
+          cp research/evidence/k4cd/render/*.json docs/research-evidence/k4cd/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4cd
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4cd): actual native 3D ferry and sea with all original road source locks, ART HOLD"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4cd-real-ferry-waterfront-hero-20261105
+          fi
+      - name: Archive actual K4CD editable genuine Blender render and QA even when ART HOLD
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CD_TRUE_GENUINE_FERRY_AND_TIDAL_BASIN_ART_HOLD
+          path: research/evidence/k4cd/render/
+          if-no-files-found: warn
+          retention-days: 21
