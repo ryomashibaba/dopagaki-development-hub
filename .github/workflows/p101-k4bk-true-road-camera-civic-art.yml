@@ -1,0 +1,132 @@
+name: DOPAGAKI K4BK true Road5 measured scenic corridor source-camera ART HOLD
+on:
+  push:
+    branches: [research/k4bk-ground-truthed-civic-roadside-20261104]
+    paths:
+      - scripts/p101-k4bk-true-road-civic-corridor.py
+      - .github/workflows/p101-k4bk-true-road-camera-civic-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bk-physical-road5-art-only
+  cancel-in-progress: true
+jobs:
+  native-3d-civic-hero-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify frozen gameplay original and isolated research branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bk-ground-truthed-civic-roadside-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bk-true-road-civic-corridor.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Retrieve pinned real K4BJ editable Blender original
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BJ_HAND_AUTHORED_NATIVE_SOURCE_CAMERA_ART_UNJUDGED_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41743823084
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bk/parent
+      - name: Independently audit full immutable K4BJ Blender parent bytes
+        run: |
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          folder=Path('research/evidence/k4bk/parent')
+          prov=json.loads((folder/'K4BJ_SOURCE_ART_PROVENANCE.json').read_text())
+          assert prov['frozenOriginalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert prov['originalRoad5VertexFaceFingerprintUnchanged']
+          assert prov['originalSourceCameraNumericsUnchanged']
+          assert prov['original7B48RoadsAnd28B51MovingHazardsUnchanged']
+          assert prov['originalPhysicsHz']==240 and prov['originalBallRadiusM']==.65
+          assert prov['formalArtAccepted']==0 and prov['slope2DNAAcceptedMetres']==0
+          for name,meta in prov['files'].items():
+              raw=(folder/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert prov['files']['K4BJ_HAND_AUTHORED_CIVIC_CANYON_EDITABLE_DCC_ART_HOLD.blend']['sha256']=='36d6508d431cb10c2f085707658af556a8a311fd12506567d0276bff8769081a'
+          print('K4BK_PARENT_ACTUAL_EDITABLE_BLENDER_BYTES_PASS_ART_UNJUDGED')
+          PY
+      - name: Install native Blender and Pillow (do not enable missing OIDN)
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+      - name: Actual source-road measured Blender sculpt and two unchanged cameras
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bk/render
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bk-true-road-civic-corridor.py -- \
+            --base research/evidence/k4bk/parent/K4BJ_HAND_AUTHORED_CIVIC_CANYON_EDITABLE_DCC_ART_HOLD.blend \
+            --out research/evidence/k4bk/render
+      - name: Independently validate genuine DCC images and A-B comparison
+        run: |
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          import hashlib,json
+          p=Path('research/evidence/k4bk/parent')
+          d=Path('research/evidence/k4bk/render')
+          prov=json.loads((d/'K4BK_GROUND_TRUTHED_SOURCE_CAMERA_PROVENANCE.json').read_text())
+          assert prov['frozenOriginalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert prov['sourceRoad5FingerprintPreserved'] and prov['originalSourceCameraNumericsPreserved']
+          assert prov['originalB48Roads']==7 and prov['originalB51Movers']==28
+          assert prov['physicsHz']==240 and prov['ballRadiusMetres']==.65
+          assert len(prov['trueOriginalRoad5MeasuredSections'])==9
+          assert prov['gameCodeEdited'] is False and prov['newNativeColliderCount']==0
+          assert prov['actualWebGL2GameplayCapture'] is False
+          assert prov['ART']=='UNJUDGED_HOLD' and prov['formalARTAccepted']==0
+          assert prov['slope2DNAacceptedMetres']==0
+          for name,meta in prov['files'].items():
+              data=(d/name).read_bytes()
+              assert len(data)==meta['bytes'] and hashlib.sha256(data).hexdigest()==meta['sha256'],name
+          canvas=Image.new('RGB',(2060,1450),(16,17,20))
+          draw=ImageDraw.Draw(canvas)
+          for i,shot in enumerate(prov['originalSourceCameraNativeBlenderImages']):
+              mode=shot['mode'];tick=shot['tick']
+              old=p/f'K4BJ_{mode.upper()}_{tick}_NATIVE_SOURCE_CAMERA_ART_UNJUDGED.png'
+              new=d/shot['file']
+              aa=Image.open(old).convert('RGB').resize((990,660))
+              bb=Image.open(new).convert('RGB').resize((990,660))
+              assert sum(ImageStat.Stat(bb).stddev)>13
+              assert ImageChops.difference(aa,bb).getbbox() is not None
+              canvas.paste(aa,(20,35+i*710))
+              canvas.paste(bb,(1050,35+i*710))
+              draw.text((20,10+i*710),f'K4BJ ART REJECT / {mode} {tick}',fill='white')
+              draw.text((1050,10+i*710),f'K4BK ACTUAL ROAD SURVEY / ART UNJUDGED / {mode} {tick}',fill='white')
+          comp='K4BK_ACTUAL_SOURCE_CAMERA_K4BJ_VS_NEW_DCC_NOT_GAME.png'
+          canvas.save(d/comp)
+          raw=(d/comp).read_bytes()
+          prov['verifiedA_B']={'file':comp,'sha256':hashlib.sha256(raw).hexdigest(),'bytes':len(raw)}
+          (d/'K4BK_GROUND_TRUTHED_SOURCE_CAMERA_PROVENANCE.json').write_text(json.dumps(prov,indent=2))
+          print('K4BK_TRUE_SOURCE_CAMERA_COMPARISON_AND_BLENDER_BYTES_PASS_NOT_ART_APPROVAL')
+          PY
+      - name: GitHub save exact original camera image evidence only to research branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bk-ground-truthed-civic-roadside-20261104
+          mkdir -p docs/research-evidence/k4bk
+          cp research/evidence/k4bk/render/K4BK_*_SOURCE_CAMERA_GROUND_TRUTH_ART_UNJUDGED.png docs/research-evidence/k4bk/
+          cp research/evidence/k4bk/render/K4BK_ACTUAL_SOURCE_CAMERA_K4BJ_VS_NEW_DCC_NOT_GAME.png docs/research-evidence/k4bk/
+          cp research/evidence/k4bk/render/K4BK_GROUND_TRUTHED_SOURCE_CAMERA_PROVENANCE.json docs/research-evidence/k4bk/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4bk
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bk): actual B48 source camera art and immutable mesh survey proof"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bk-ground-truthed-civic-roadside-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BK_TRUE_ROAD5_GROUND_TRUTHED_EDITABLE_DCC_ART_HOLD
+          path: research/evidence/k4bk/render/
+          retention-days: 14
+          if-no-files-found: warn
