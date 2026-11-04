@@ -1,0 +1,156 @@
+name: DOPAGAKI K4CC real Blender native coastal relief full-frame ART HOLD
+on:
+  push:
+    branches: [research/k4cc-coastal-relief-fullframe-art-20261105]
+    paths:
+      - scripts/p101-k4cc-source-locked-coastal-relief-fullframe.py
+      - .github/workflows/p101-k4cc-native-coastal-relief-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4cc-native-coastal-relief
+  cancel-in-progress: true
+jobs:
+  protected-authentic-native-k4cc:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preflight source Game, Blender author syntax and real Road5 lineage
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cc-coastal-relief-fullframe-art-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4cc-source-locked-coastal-relief-fullframe.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download the exact genuine A3 editable Blender and source camera frame
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CB_A3_TRUE_INTEGRATED_QUAY_ARRIVAL_EDITABLE_CHASE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41918497448
+          github-token: ${{ github.token }}
+          path: research/evidence/k4cc/parent
+      - name: Independently verify actual A3 parent bytes against source locks
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          d=Path('research/evidence/k4cc/parent')
+          a=json.loads((d/'K4CC_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CB_A2_exact_sha256']=='5f57d64654ff8df6b6ecd852699432cda50f1afc1af3723779170ccb4cbed5b1'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ['originalSixCameraPosesUnchanged','originalCHASEUnchanged','originalElevenTreeTransformsUnchanged','originalLightsUnchanged','K4BZ_bad_duplicate_road_hidden','sourceA2ObjectsUnchanged']:
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert a['files']['K4CB_A3_INTEGRATED_QUAY_ARRIVAL_EDITABLE_NATIVE_ART_HOLD.blend']['sha256']=='0b581f45de4d4e215515e8dbef9a4038c7f1b9bdb0e1935943c4445529193e6c'
+          print('K4CC_ACTUAL_A3_PARENT_AND_SOURCE_IDENTITY_PASS')
+          PY
+      - name: Install actual Blender EEVEE, Python image verification and protect K4BZ black seam
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+          /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
+      - name: Actually sculpt original non-game coastal geology and render same true CHASE
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4cc/render
+          xvfb-run -a -s '-screen 0 1280x900x24' env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4cc-source-locked-coastal-relief-fullframe.py -- \
+            --base research/evidence/k4cc/parent/K4CB_A3_INTEGRATED_QUAY_ARRIVAL_EDITABLE_NATIVE_ART_HOLD.blend \
+            --out research/evidence/k4cc/render 2>&1 | tee research/evidence/k4cc/render/K4CC_REAL_BLENDER.log
+      - name: Independent source DCC SHA terrain geometry and full-frame image verification
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          from PIL import Image,ImageChops,ImageDraw
+          d=Path('research/evidence/k4cc/render')
+          a=json.loads((d/'K4CC_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CB_A3_exact_sha256']=='0b581f45de4d4e215515e8dbef9a4038c7f1b9bdb0e1935943c4445529193e6c'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged','originalElevenTreeTransformsUnchanged',
+                    'originalLightsUnchanged','K4BZ_bad_duplicate_road_hidden','originalResearchA3MeshesUnedited',
+                    'noExtraRoadSurfaceAdded','sourceTerrainObjectRetained'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['ART']=='UNJUDGED_HOLD' and a['renderEngine']=='BLENDER_EEVEE'
+          assert len(a['researchOnlyVisibilityChanges'])==6
+          assert a['sculptedVertexCount']>=80 and a['maximumTrueRockVerticalReliefMetres']>=1.0
+          assert a['sculptedRealTerrainNewVertexCount']>a['subdividedRealTerrainOldVertexCount']
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          prev=Image.open('research/evidence/k4cc/parent/K4CB_A3_TRUE_SAME_CHASE_INTEGRATED_QUAY_ARRIVAL_NOT_GAME.png').convert('RGB')
+          new=Image.open(d/'K4CC_TRUE_SAME_CHASE_COASTAL_RELIEF_NOT_GAME.png').convert('RGB')
+          assert prev.size==new.size==(768,480)
+          diff=ImageChops.difference(prev,new)
+          left=sum(max(px)>14 for px in diff.crop((0,160,260,430)).getdata())
+          right=sum(max(px)>14 for px in diff.crop((490,140,768,420)).getdata())
+          assert left>500,('LEFT_TRUE_GEOLOGY_NOT_VISIBLE',left)
+          assert right>400,('RIGHT_OCCLUDING_WALL_REMOVAL_NOT_VISIBLE',right)
+          roadpts=[(390,270),(400,320),(380,380),(420,440),(470,465)]
+          for pt in roadpts:
+              p=prev.getpixel(pt);q=new.getpixel(pt)
+              assert max(abs(p[k]-q[k]) for k in range(3))<=10,('ORIGINAL_ROAD_VISUAL_CHANGED',pt,p,q)
+          pairs=[((292,300),(317,300)),((280,330),(310,330)),
+                 ((267,360),(310,360)),((250,400),(295,400)),
+                 ((235,440),(280,440)),((225,470),(270,470))]
+          wedge=[]
+          for dark,normal in pairs:
+              before=(sum(prev.getpixel(normal))-sum(prev.getpixel(dark)))/3
+              after=(sum(new.getpixel(normal))-sum(new.getpixel(dark)))/3
+              assert abs(after-before)<12,('K4BZ_WEDGE_REAPPEARED',dark,before,after)
+              wedge.append({'dark':dark,'normal':normal,'before':round(before,3),'after':round(after,3)})
+          sheet=Image.new('RGB',(1560,552),(13,18,20))
+          sheet.paste(prev,(12,50));sheet.paste(new,(780,50))
+          draw=ImageDraw.Draw(sheet)
+          draw.text((12,18),'K4CB A3 ACTUAL Blender CHASE - ART REJECT',fill='white')
+          draw.text((780,18),'K4CC ACTUAL Blender CHASE - ART UNJUDGED',fill='white')
+          draw.text((12,536),'Source-locked DCC research, not WebGL game or ART acceptance.',fill='white')
+          name='K4CC_A3_VS_TRUE_COASTAL_RELIEF_ART_REVIEW_NOT_GAME.png'
+          sheet.save(d/name)
+          a['imageIndependentQA']={'leftTerrainChangedPixelsNotArtScore':left,
+             'rightPortChangedPixelsNotArtScore':right,'roadSamples':roadpts,
+             'K4BZOriginalWedgePairs':wedge,'comparisonName':name,
+             'comparisonSHA256':hashlib.sha256((d/name).read_bytes()).hexdigest(),
+             'ART':'UNJUDGED_HOLD'}
+          (d/'K4CC_REAL_NATIVE_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n')
+          print('K4CC_NATIVE_SOURCE_SHA_GEOMETRY_PIXEL_QA_PASS',left,right)
+          PY
+      - name: Commit only actual research evidence and never merge original source
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cc-coastal-relief-fullframe-art-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4cc
+          cp research/evidence/k4cc/render/*.png docs/research-evidence/k4cc/
+          cp research/evidence/k4cc/render/*.json docs/research-evidence/k4cc/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4cc
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4cc): genuine native geology edited from source and native same-CHASE ART HOLD"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4cc-coastal-relief-fullframe-art-20261105
+          fi
+      - name: Archive actual K4CC Blender PNG JSON logs even if art hold
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CC_TRUE_SCULPTED_COASTAL_RELIEF_EDITABLE_ART_HOLD
+          path: research/evidence/k4cc/render/
+          if-no-files-found: warn
+          retention-days: 21
