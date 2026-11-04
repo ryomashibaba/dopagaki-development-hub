@@ -1,3 +1,14 @@
+# 【2026-11-05 K4CB A1 真正Blender画像・GitHub研究保存確認／ART REJECT → 次K4CB作者造形改善】
+
+**現行隔離研究枝** `research/k4cb-maritime-exchange-true-chase-20261105`。最初に[**K4CB A1 真同CHASE実レンダー・直接目視ART REJECT・原因と次工程**](docs/R19_A6P4_R2F5K4CB_A1_NATIVE_CHASE_ART_REJECT_JA.md)と[実監査JSON](docs/research-evidence/k4cb/K4CB_SOURCE_LOCKED_TRUE_MARITIME_EXCHANGE_AUDIT.json)を開く。歴史的な下段の「未確認」「次K4CB」は以前の時点であり、今の状況を上書きしない。
+
+- A1初回Actions #41857056044はBlender樹木長名prefixの不一致でFAIL。元A2.blendを実バイト検査しBlender ID 63バイト制限が原因と同定、[修正 `78e72df`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/78e72df6ce08c13448e761ae9335b2be196fe331)。K4BS 8／K4BV 1／K4CA 2は保存原本に存在、個別件数・CC0/非Collider・元姿勢を再ASSERT。
+- **本物のK4CB A1 Blender同CHASE 768×480 PNGと旧K4CA A2比較**を[研究証拠](docs/research-evidence/k4cb/K4CB_VS_K4CA_TRUE_SAME_CHASE_MARITIME_EXCHANGE_ART_REVIEW_NOT_GAME.png)としてGitHubで確認・画像を直接開いて評価。24 DCC研究メッシュ、港の実画像領域2,083画素が変化、6対の既知黒筋が再発しなかったことを監査。**3連アーチは小さすぎて模型感の港／極端に広く平坦な道／単調な左地形を改善しきれないため全画面ART REJECT**。
+- A1編集可能.blendの監査記録SHA `9df956acf164d7a0f4d861585644e15f87faa5d85683f2e8ae79bb438c03333d`／同CHASE PNG `0aa667522b327e2ace253c3e5acff56b77ff05139024e7aaab517c8ef70d99b7`／比較画像 `ab908c1b15aaee1f397fd1a67253dcee64a5036e39634aa48cd1282fb95089fd`。**これらはActions研究監査の記録値で、新編集可能A1.blendをこの会話内で独立再ダウンロードして照合したわけではない**。最終Actions run conclusionは未照合。
+- 次は**K4CBの作者再構成**：アーチを量産するのではなく実CHASEで支配力を持つ建物の構造、厚い屋根・壁・入口、岸壁・地形との立体連続と遠近スケールを根本改善し同条件画像で採否。元Game Blob `af076d...`／元Road5 `f7c609...`／6 Camera＋CHASE／元9樹＋新2樹／光源／K4BZの1研究重複Road非表示を不変。正式ART採用0件、Slope2 DNA 0m、SAT/CCD/FPS/HUMAN/RELEASE/MERGE HOLD、main/公式P101/Draft PR #46/本番2サイト保護。Work/Computer Useは個別事前承認、追加有料API0円。
+
+---
+
 # 【2026-11-05 K4CB A1実Blender初回FAIL → Blender 63-byte ID切詰め原因を実親.blendで特定・研究枝で修正】
 
 **現在の隔離研究ブランチ** `research/k4cb-maritime-exchange-true-chase-20261105`。K4CA A2から3コミット進んで真正港湾Exchange作者研究コード・Blender EEVEE Actionsを実装し、さらにK4CB A1初回の失敗を原因に応じて修正した。詳細は[**K4CB A1制作・厳密原本保護・結果未確認**](docs/R19_A6P4_R2F5K4CB_SOURCE_LOCKED_MARITIME_EXCHANGE_A1_JA.md)。
