@@ -40,7 +40,7 @@ jobs:
           import hashlib,json
           from pathlib import Path
           d=Path('research/evidence/k4cc/parent')
-          a=json.loads((d/'K4CC_REAL_NATIVE_AUDIT.json').read_text())
+          a=json.loads((d/'K4CB_A3_REAL_NATIVE_AUDIT.json').read_text())
           assert a['parentK4CB_A2_exact_sha256']=='5f57d64654ff8df6b6ecd852699432cda50f1afc1af3723779170ccb4cbed5b1'
           assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
           assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
