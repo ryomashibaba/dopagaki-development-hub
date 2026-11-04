@@ -32,3 +32,48 @@ Poly Haven公式[Asset License](https://polyhaven.com/license)：全素材CC0、
 - 初回[#41789921118](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41789921118)はPython通常コマンドに`--`がない引数パーサの不具合で**FAILURE**。実アセットは未取得、原ゲーム/親SHA照合のみPASS。修正commit `6e385c3168bc557aaa6904ff15718517e5da3b6c`。
 - 修正版[#41790126272](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41790126272)は**全CC0実アセットの公式API取得・バイト/MD5/独立SHA検証PASS**！実際にPoly Haven `asphalt_01` の2K diffuse（3,118,607B）、OpenGL Normal（4,845,665B）、Rough（1,599,661B）と、`rock_ground_02` の2K diffuse（3,469,687B）、OpenGL Normal（5,566,160B）、Rough（2,107,834B）を取得。また`rock_face_01`のglTFモデルと公式指定の外部依存をあわせた**5実ファイル**も取得・配布元MD5/Byteと独立SHA検証PASS。`K4BR_REAL_CC0_PBR_INDEPENDENT_BYTES_SHA256_AND_VENDOR_MD5_PASS`をCIログで実確認。ただし、次のUbuntu native BlenderのglTFインポーター内でPython `numpy`が見つからず`ModuleNotFoundError: No module named numpy`。**第2回CIはcompleted/FAILURE、新Blender画像/原本の完了無し**。重要：アセット実ダウンロードは成功したが、3D作品の完成ではない。
 - システムBlenderの実glTF importer依存`python3-numpy`を新たにインストールするCI修正commit `1dff4257deb01b32ddcc5f7c93dac7a4d288c3f5`。最新[再試験 #41790588687](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41790588687)は**現時点では結果未確認**。CI/新本物の実レンダリング/Source SHA/Blender packの全件を実照合するまではK4BR技術成功・ART成功と断定しない。旧K4BQの正式ART0件／DNA0m維持。
+
+## 【K4BR最終監査 2026-11-04】公式CC0素材実取得・Blender原本に組み込みTECH PASS／美術ART REJECT
+
+### 3回のCIの真実
+
+1. [初回 #41789921118](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41789921118)＝**FAILURE**。通常Pythonの引数解析で`--`要求ミス。原ゲームとK4BQ正本SHA検査はPASS、素材/Blender未着手。
+2. [第2回 #41790126272](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41790126272)＝**FAILURE**。公式APIから2K写真PBR 6ファイルとRock Face 01 glTF＋外部依存4ファイル、計11ファイル**実ダウンロード・公式MD5/実バイト/独立SHA256すべてPASS**。ただしUbuntu Blender 4 glTFプラグイン実行時に`numpy`が欠けて`ModuleNotFoundError`。本物のBlender成果物未完成。修正commit `1dff4257deb01b32ddcc5f7c93dac7a4d288c3f5`で`python3-numpy`を導入。
+3. [最終 #41790588687](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41790588687)＝**completed/SUCCESS**。元ゲームGit Blob／元Source Nodeテスト／親K4BQ編集可能Blenderの正SHA256、上記6枚＋glTF/依存4枚のメーカーMD5・Byte数/独立SHA、Ubuntu Blender glTF本体の実読込、実写3ch材質(PBR)、2研究カメラの本物のEEVEEレンダリング、別名保存の編集可能.blend、旧K4BQと同一CHASE研究カメラの中立A/B PNG、原Source Road5全頂点面fingerprint、元6Cameraと2研究Camera数値不変、GitHub研究ブランチの実画像/出典/sha保存、最終Artifact全PASS。
+
+### 本物のアセットとマニフェスト
+
+正本の[Poly Haven取得監査マニフェスト](research-evidence/k4br/K4BR_CC0_LIVE_ASSET_RECEIPTS.json)で、公式API由来の**実URL／実バイトサイズ／公式MD5／実SHA256／配布元著作者／取得UTC**を記録。
+
+- [Asphalt 01](https://polyhaven.com/a/asphalt_01)：2K JPEG 実Diffuse3,118,607B・実Normal(GL)4,845,665B・実Rough1,599,661B。Blenderのアスファルト表面材質を置換。
+- [Rock Ground 02](https://polyhaven.com/a/rock_ground_02)：2K JPEG 実Diffuse3,469,687B・実Normal(GL)5,566,160B・実Rough2,107,834B。Blenderの斜面の岩材、歩行路石材の実材質を置換。
+- [Rock Face 01](https://polyhaven.com/a/rock_face_01)：実glTFメッシュ2,793B、bin476,436B、外部JPEG 3ファイル（1K）853,749B・1,023,400B・693,610B、元Vendor MD5全一致。Blenderへ**1実モデルを3回独立読み込み、各20,174三角形**。配置は研究カメラの元Road5に対する(d,s)=(38,-30),(84,34),(137,-42)m。元B48/実ゲームに統合・Collider追加は一切無し。
+- 公式Poly Havenは素材がCC0であると明示。公式APIを使用したため固有User-Agentと`Powered by Poly Haven`出典表記をマニフェストに含める。**個別Rock Face 01のモデル生成手法が実際に写真測量だったかは公式アセット説明から断定できない**。このモデルは`実際に配布される詳細3D岩壁モデル`であり、実際の写真測量を個別証明したものではない。写真由来だと確認できるのはPoly Havenのテクスチャ制作方法である。誤ったモデル由来の認定を避ける。
+
+### 編集可能成果物と独立SHAs
+
+[真正最終Artifact #13303311443](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41790588687/artifacts/13303311443) ダウンロードZIP SHA256 `208522d022cb24dda51c07bf0c63723ef472d18b84d2dad4fb36fce76c8291dc`、ZIP CRC **全部PASS**。
+
+- 編集可能Blender正本 `K4BR_ACTUAL_CC0_PHOTOSCAN_ROCKS_EDITABLE_NATIVE_DCC_ART_HOLD.blend` **74,454,543B**、SHA256 `7f229b9fbc0d736c056e1494f64192e64b7915f768a6fb38f05c87901229fa69`。写真PBR画像はBlender内にPacked、実3D岩壁はBlenderネイティブMESHで編集可能。
+- 真CHASE_NARROW研究カメラPNG 1,860,386B、SHA256 `3c98b22ba9f8fa7d2540d646e260eeac3595e6863e46e849627ab569b88e3049`。真NARROW_FIXED_ORIGINAL_POSE研究カメラPNG1,894,149B、SHA256 `4394ee5ec041e8cc61cab994146fbcf9f94d843b6f0145bb21f3c3262b1c4b63`。
+- 同CHASEの旧K4BQ→K4BR実画像A/B比較 `K4BR_K4BQ_SAME_CHASE_CAMERA_ACTUAL_CC0_MATERIAL_AB_NOT_GAME.png` 2,091,894B、SHA256 `d4e5b816707818fb18fd0667139125bc4fb6a5ab8e0ef6c4121ae796e12405f9`。像差はmean RGB `9.5449`（0〜255値、品質指標ではない）。
+- 取得監査JSON本体のSHA256 `b1589199e22d7f815833853e1d50911cdc0896b708cd221b23d76dbdd09ed344`。ZIP/Native BLENDと2画像/比較画像の全原バイトSHA、マニフェスト自身のSHAをGitHub CIとは別のコンテナで独立再計算し完全一致。
+- 新写真マテリアルが実研究モデルに適用された元材質スロット数：岩地形4、路側石材7、レース研究Road1。研究ソフトのBlender実画像でアスファルト骨材・地面の写真ディテール・詳細岩モデルが見える。
+
+### 実画像のART判定：REJECT
+
+同CHASE_NARROW研究カメラ旧K4BQとの比較を実目視。**良い変更**：路面の単純なグレー一色から自然な色ムラ／舗装骨材が追加され、両側の地表は細かな粒度・岩の実画像で情報量が上がった。前K4BQの単純な八面体落石を表示OFFにして実配布の詳細岩を3カ所配置し、「中身がない色塗りモデル」から実材質に進んだ。
+
+**美術REJECTの主因**：
+- **左の緑の地表が矩形の色パッチで覆われている**（2種類の地面材を元の四角形ポリゴン単位で割り当てたため）。写真材質でも画面全体が人工的に見え、実現実の草地ではない。
+- **木が単純な三角形の円錐を重ねたローポリ樹冠**のまま、写真岩の近くでは見た目が大きく乖離している。実際の沿岸森林、植生密度や自然な形状として不合格。
+- 左上の公共建築の**巨大で不自然な切れ方**、右の**寸胴な単独灯台**、遠景空と海・港の大きな空白が残る。光/大気/建物のスケール・用途・街区全体の説得力も不足。
+- 道路は素材は改善しても大きな直線平面としてカメラ視野の大部分を占め、**高速レースの速度感・路面勾配・近景の利用シーンが不足**。
+- 写真岩モデルは今の画面で段状の塊として少し見えるだけで、**道路と地形の造形自体を高品質に再建したわけではない**。
+- 依然として世界水準のART PASSには程遠い。**正式美術採用0件、Slope2 DNA認定0m**。元Source Control11307/Road5全6カメラは不変、DCCの研究画面をゲームWebGL2画面と誤称しない。
+
+### K4BS（次の研究）の固定優先度と反省
+
+今回で「実ライセンス照合→実アセット取得→ネイティブBlenderにパック→SHA証拠保存」の**再利用可能な無料制作パイプライン**を作れた。しかしこれを「高品質ゲームが完成した」と誤解しない。
+
+次は最優先で、**(1)矩形に塗り分けられた地面を自然な連続した写真ベース植生・岩の遷移へ改修、(2)著作権/モデル利用条件を確認して実3Dの樹木をLODを考えながら1〜2種類本当に試す、(3)近景の不自然な巨大建築と単柱の灯台を現実的な構造・用途に合う一画面へ抜本的に整理、(4)道路を含む画面全体のライティング・構図・デザイン意匠の再考**。写真の枚数や樹木の数の増加を美術PASSとしない。無料で利用できる公式ソースの真正配布物と出典・編集可能BLEND・同CHASE DCC比較・元Sourceの不変更を1工程で検証する。実ゲームのFPSや28動体、SAT/CCDなどの安全は別途HOLD。公式採用・main統合・公開に勝手に進まない。
