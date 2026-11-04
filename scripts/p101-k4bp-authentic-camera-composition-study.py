@@ -174,6 +174,13 @@ study_cams['NARROW_FIXED_ORIGINAL_POSE']=duplicate_camera(control,
 assert tuple(study_cams['NARROW_FIXED_ORIGINAL_POSE'].location)==tuple(control.location)
 assert tuple(study_cams['NARROW_FIXED_ORIGINAL_POSE'].rotation_euler)==tuple(control.rotation_euler)
 assert study_cams['NARROW_FIXED_ORIGINAL_POSE'].data.lens==control.data.lens
+# D) The missing controlled 2x2 factorial: same CHASE pose on the separate
+# narrow visual course; this is a CLONE of the A camera and never the source.
+study_cams['CHASE_NARROW']=duplicate_camera(
+ study_cams['CHASE_OBLIQUE_LOW'],'CHASE_NARROW')
+assert tuple(study_cams['CHASE_NARROW'].location)==tuple(study_cams['CHASE_OBLIQUE_LOW'].location)
+assert tuple(study_cams['CHASE_NARROW'].rotation_euler)==tuple(study_cams['CHASE_OBLIQUE_LOW'].rotation_euler)
+assert study_cams['CHASE_NARROW'].data.lens==study_cams['CHASE_OBLIQUE_LOW'].data.lens
 # This alternative road is NOT B48 road and no collisions/safety proven.
 # Native 3D geometry follows measured real source centre-line terrain only
 # to respect slopes, but narrow width is new artistic hypothesis.
@@ -298,7 +305,7 @@ def visibility(narrow=False):
  bpy.context.view_layer.update()
 shots=[]
 for label,cam in study_cams.items():
- narrow=label=='NARROW_FIXED_ORIGINAL_POSE'
+ narrow=label in ('NARROW_FIXED_ORIGINAL_POSE','CHASE_NARROW')
  visibility(narrow)
  sc.camera=cam
  fn='K4BP_'+label+'_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png'
@@ -320,7 +327,7 @@ for fn in [blend]+[x['file'] for x in shots]:
  assert size>30000,(fn,size)
  files[fn]={'bytes':size,'sha256':checksum(path)}
 report={
- 'schema':'dopagaki.K4BP.separate-camera-vs-alternative-road-source-protected-study/1',
+ 'schema':'dopagaki.K4BP.controlled-2x2-camera-and-road-factorial/2',
  'verifiedParentK4BOBlendSHA256':PARENT_SHA,
  'frozenOriginalGameGitBlob':'af076d67492a677d2235e4730aef8cdf4808e106',
  'originalRoad5VertexFaceFingerprintUnchanged':True,
