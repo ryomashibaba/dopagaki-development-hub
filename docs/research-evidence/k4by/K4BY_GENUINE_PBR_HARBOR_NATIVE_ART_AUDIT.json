@@ -13,16 +13,18 @@
   "sourceBallRadiusM": 0.65,
   "originalResearchRoadSkinMaterial": "K4BX | road microaggregate no giant cloudy swirls",
   "a1WedgeResearchSkinKeptButRenderHidden": true,
-  "newTrueSourceRoad5RenderingDuplicateNoCollider": true,
-  "renderProxyRealRoad5ExactVertexFacesSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
-  "renderProxyOriginalUpwardSurfacePolygons": 2160,
+  "a2FullRoad5PhotoProxyRejectedAfterTrueImage": true,
+  "a3DenseSourceRaycastPhotoRibbonNoncolliding": true,
+  "a3DensePavementSampleCount": 3978,
+  "a3DensePavementQuads": 3800,
+  "a3SourceVerifiedSurfaceSeparationM": 0.028,
   "originalGameRoad5MaterialAndGeometryUnmodified": true,
   "newGameColliders": 0,
   "originalSourceGameEdited": false,
   "researchOnlyNotWebGL": true,
   "officialPolyHavenLicense": "CC0",
   "officialAsset": "asphalt_track",
-  "vendorReceiptSHA256": "403ccb4440bf1cc5b5a69f88a3f7d606d73a1d2666f262cc62e3877872e0da4f",
+  "vendorReceiptSHA256": "827e0fe8b12c9f4d603c33eaa9b73aaca39c99eb001f0e2c3aa5fe236b73e6ab",
   "vendor2kPBRMaps": {
     "diff": "742d1d79560bd661d5871afc857e981e25dcd563bfd24385cbd063ebcaeef06c",
     "rough": "b934fb6fbe05770df95fa94fee3a12d45eb121621ce96e9b262f403d49ee493e",
@@ -57,20 +59,20 @@
   "MERGE": "HOLD",
   "files": {
     "K4BY_TRUE_CC0_ROAD_OCCUPIED_HARBOR_EDITABLE_NATIVE_ART_HOLD.blend": {
-      "bytes": 271665204,
-      "sha256": "3af89eda96e046183b509612c5792080958e0a2335c9a4a0c21a8ee0b8b2875a"
+      "bytes": 271569072,
+      "sha256": "f0d3d7a27e5fbf599447b0e784b71684ff634b071d283f8b59bdaf06a179d4e4"
     },
     "K4BY_ONE_SAME_CHASE_TRUE_PBR_RACE_ROAD_CIVIC_HARBOR_NOT_GAME.png": {
-      "bytes": 449752,
-      "sha256": "f8f262079b70218c4d80ea24e195044719ec346bda98359d1665d05600e92496"
+      "bytes": 479845,
+      "sha256": "ad46b5377fd9d144c7ab94b428df52d5f97cb7675fe44c3d14389b7858c925f7"
     }
   },
   "sameCameraCompare": {
     "file": "K4BY_VS_K4BX_A3_SAME_CHASE_TRUE_CC0_ROAD_HARBOR_ART_REVIEW_NOT_GAME.png",
-    "bytes": 491669,
-    "sha256": "2acf8c90776ac62a6ae5002840af46675b3d3bab2db2971b1ec6fb38be17b227",
+    "bytes": 402462,
+    "sha256": "366abfe88efd89518d0e7fcf59c2d6c00863fbc09d76edc861c0ad7c368427c0",
     "actualSame768x480AndFrozenCamera": true,
-    "meanRGBDifferenceNOTArtQuality": 5.92838,
+    "meanRGBDifferenceNOTArtQuality": 0.90178,
     "ART": "UNJUDGED_HOLD"
   }
 }
