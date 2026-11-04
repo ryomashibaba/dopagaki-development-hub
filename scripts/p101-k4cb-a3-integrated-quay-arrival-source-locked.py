@@ -307,7 +307,7 @@ bpy.ops.render.render(write_still=True)
 assert blend.stat().st_size>230_000_000 and png.stat().st_size>30000
 audit={
  "schema":"dopagaki.k4cb-a3.integrated-quay-arrival/1",
- "parentK4CB_A3_exact_sha256":PARENT_SHA,
+ "parentK4CB_A2_exact_sha256":PARENT_SHA,
  "originalGameGitBlob":GAME,"originalRoad5FullVertexFaceSHA256":ROAD,
  "originalSixCameraPosesUnchanged":True,"originalCHASEUnchanged":True,
  "originalElevenTreeTransformsUnchanged":True,"originalLightsUnchanged":True,
