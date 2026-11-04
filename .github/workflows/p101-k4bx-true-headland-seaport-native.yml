@@ -1,0 +1,152 @@
+name: DOPAGAKI K4BX true headland and working harbor author CHASE native art
+on:
+  push:
+    branches: [research/k4bx-source-locked-harbor-horizon-composition-20261104]
+    paths:
+      - scripts/p101-k4bx-working-seaport-headland-native.py
+      - .github/workflows/p101-k4bx-true-headland-seaport-native.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bx-one-authentic-harbor-headland
+  cancel-in-progress: true
+jobs:
+  authentic-chase-working-seaport:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assert research-only branch, frozen actual game and syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bx-source-locked-harbor-horizon-composition-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bx-working-seaport-headland-native.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Reuse exactly one prior immutable K4BW A2 real editable native Blender
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BW_TRUE_NATIVE_HARBOR_ROAD_AUTHOR_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41818853277
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bx/parent
+      - name: Check every byte of actual original K4BW A2 native and art image, not just filename
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path("research/evidence/k4bx/parent")
+          j=json.loads((p/"K4BW_COHERENT_HARBOR_ROAD_NATIVE_ART_AUDIT.json").read_text())
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalB48Road5Fingerprint']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert j['originalSixCamerasNumericallyUnchanged'] and j['originalResearchChaseUnchanged'] and j['originalRoad5VertexFaceUnchanged']
+          assert j['sourceB48Roads']==7 and j['sourceB51Movers']==28 and j['sourcePhysicsHz']==240
+          assert j['formalArtAccepted']==0 and j['formalSlope2DNAMetres']==0
+          assert j['leftRidgeExperimentSavedButRenderHiddenAfterA1ArtReject']
+          assert j['fakeStraightWheelMarkStudyRemovedAfterA1ArtReject']
+          assert j['authorStudyElements']==141
+          for name,meta in j['files'].items():
+           f=p/name;raw=f.read_bytes()
+           assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert j['files']['K4BW_ONE_COHERENT_COASTAL_CIVIC_ROAD_EDITABLE_NATIVE_ART_HOLD.blend']['sha256']=='62c2990e6687ea092a8151339b37fdb0cb8ad156b5dffac1a593218b2c517c02'
+          assert j['files']['K4BW_SAME_CHASE_ONE_COHERENT_COASTAL_CIVIC_ROAD_ART_HOLD_NOT_GAME.png']['sha256']=='542c765f92c5bc0007c7883dd407b72467e889504cf02c56b9cc5bc726710372'
+          print("K4BX_PARENT_INDEPENDENT_A2_NATIVE_SHA_PASS")
+          PY
+      - name: Install bounded headless Blender rendering dependencies only
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy python3-pil xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: Actually author 3D coastal hills and operational harbor, real same CHASE 768x480
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bx/render
+          xvfb-run -a -s '-screen 0 1280x900x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4bx-working-seaport-headland-native.py -- \
+              --base research/evidence/k4bx/parent/K4BW_ONE_COHERENT_COASTAL_CIVIC_ROAD_EDITABLE_NATIVE_ART_HOLD.blend \
+              --out research/evidence/k4bx/render
+      - name: Independent strict SHA source/geometry protection, same camera frame, no art success claims
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          from PIL import Image,ImageChops,ImageStat,ImageDraw
+          d=Path("research/evidence/k4bx/render")
+          j=json.loads((d/"K4BX_NATIVE_SOURCE_PROTECTED_HARBOR_HORIZON_ART_AUDIT.json").read_text())
+          assert j['immutableK4BWParentSHA256']=='62c2990e6687ea092a8151339b37fdb0cb8ad156b5dffac1a593218b2c517c02'
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5FullVertexFaceFingerprint']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert j['originalSixCamerasNumericallyUnchanged'] and j['frozenChaseCameraNumericallyUnchanged']
+          assert j['sourceRoad5VertexFaceUnchanged'] and j['protectedOriginalNineTreesTransformUnchanged']
+          assert j['originalB48Roads']==7 and j['originalB51Movers']==28 and j['originalPhysicsHz']==240
+          assert j['originalBallRadiusM']==.65 and j['gameCollidersAdded']==0 and not j['gameSourceEdited']
+          assert j['researchBuildings']==6 and j['researchWorkingBoats']==1 and j['researchCranes']==1
+          assert j['cameraSpaceAnchors']['fishSortingAndVTS']['inFrame']
+          assert j['cameraSpaceAnchors']['ferryTerminal']['inFrame']
+          assert j['cameraSpaceAnchors']['craneJib']['inFrame']
+          assert j['cameraSpaceAnchors']['roadCrest']['inFrame']
+          assert j['formalArtAccepted']==j['formalSlope2DNAMetres']==0 and j['ART']=='UNJUDGED_HOLD'
+          assert all(j[k]=='HOLD' for k in ('SAT','CCD','HUMAN','FPS','RELEASE','MERGE'))
+          for name,meta in j['files'].items():
+           b=(d/name).read_bytes()
+           assert len(b)==meta['bytes'] and hashlib.sha256(b).hexdigest()==meta['sha256'],name
+          old=Image.open('docs/research-evidence/k4bw/K4BW_SAME_CHASE_ONE_COHERENT_COASTAL_CIVIC_ROAD_ART_HOLD_NOT_GAME.png').convert('RGB')
+          new=Image.open(d/'K4BX_SAME_CHASE_HEADLAND_WORKING_SEAPORT_ART_HOLD_NOT_GAME.png').convert('RGB')
+          assert old.size==new.size==(768,480)
+          assert sum(ImageStat.Stat(new).stddev)>10
+          diff=ImageChops.difference(old,new)
+          assert diff.getbbox() is not None
+          mean_diff=round(sum(ImageStat.Stat(diff).mean)/3,5)
+          # No arbitrary RGB threshold: difference != quality.
+          assert mean_diff>0
+          img=Image.new('RGB',(1560,552),(15,18,21))
+          img.paste(old,(12,50));img.paste(new,(780,50))
+          drawer=ImageDraw.Draw(img)
+          drawer.text((12,18),'K4BW A2 same CHASE | incomplete harbor | ART REJECT',fill="white")
+          drawer.text((780,18),'K4BX same CHASE | true 3D headland and working harbor | ART UNJUDGED',fill="white")
+          drawer.text((12,536),'Source Road5 and six cameras untouched. Native Blender, NOT real gameplay. RGB is not an ART metric.',fill="white")
+          name="K4BX_VS_K4BW_A2_SAME_CHASE_TRUE_HARBOR_HEADLAND_ART_REVIEW_NOT_GAME.png"
+          img.save(d/name);raw=(d/name).read_bytes()
+          j['sameChaseIndependentReview']={'file':name,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),
+             'baseline':'authentic K4BW A2 GitHub SHA-verified PNG',
+             'sameCameraAndResolution':True,'rgbDifferenceNotArtScore':mean_diff,'ART':'UNJUDGED_HOLD'}
+          (d/"K4BX_NATIVE_SOURCE_PROTECTED_HARBOR_HORIZON_ART_AUDIT.json").write_text(
+              json.dumps(j,ensure_ascii=False,indent=2))
+          print('K4BX_TRUE_NATIVE_AUDIT_SHA_PASS_ART_UNJUDGED',j['cameraSpaceAnchors'])
+          PY
+      - name: Commit only verified small true Blender review image and audit to research branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bx-source-locked-harbor-horizon-composition-20261104
+          mkdir -p docs/research-evidence/k4bx
+          cp research/evidence/k4bx/render/*.png docs/research-evidence/k4bx/
+          cp research/evidence/k4bx/render/*.json docs/research-evidence/k4bx/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4bx
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bx): source protected true 3D coast and port one CHASE frame, ART UNJUDGED"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bx-source-locked-harbor-horizon-composition-20261104
+          fi
+      - name: Preserve source-locked editable real Blender 3D and PNG even if art is rejected
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4BX_TRUE_3D_WORKING_HARBOR_HEADLAND_EDITABLE_ART_HOLD
+          path: research/evidence/k4bx/render/
+          if-no-files-found: warn
+          retention-days: 21
