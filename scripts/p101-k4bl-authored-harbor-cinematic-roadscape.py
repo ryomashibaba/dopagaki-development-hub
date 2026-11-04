@@ -519,7 +519,7 @@ for dd,ww,ss in ((205,12,27),(215,15,26),(230,15,25),(244,11,24)):
                    P(dd,ss+ww*.85,ground(170,1)+3),
                    P(dd,ss-ww*.85,ground(170,1)+3)])
 loft('TIDAL 05 physically modeled passenger launch hull',vessel,
-     charcoal,harbor,'NONPLAYABLE_WORKING_HARBOR_FERRY')
+     basalt,harbor,'NONPLAYABLE_WORKING_HARBOR_FERRY')
 for a,bb in ((213,223),(227,238)):
     box('ferry accessible full-height glass wheelhouse '+str(a),a,bb,
         15,36,ground(170,1)+4,ground(170,1)+16,
