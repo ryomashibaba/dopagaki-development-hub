@@ -156,9 +156,21 @@ for mat in material_set:
   if name.endswith(('.jpg','.jpeg','.png')):name=Path(name).stem
   if len(name)>=4 and name[-4]=='.' and name[-3:].isdigit():name=name[:-4]
   name=name.removesuffix('_1k')
-  assert name in vendor_image_paths,('unmapped vendor texture',origin.name,list(vendor_image_paths))
-  if name not in loaded_vendor_images:
-   path=vendor_image_paths[name]
+  # The glTF importer creates separate roughness/metallic Image nodes
+  # from a vendor ARM (ambient occlusion / roughness / metallic) map.
+  # Preserve the node's channel decoding; attach the SAME certified
+  # official ARM bytes, never invent a nonexistent '*_rough.jpg'.
+  vendor_name=name
+  if vendor_name not in vendor_image_paths:
+   for suffix in ('_rough','_roughness','_metallic','_occlusion'):
+    if vendor_name.endswith(suffix):
+     arm_name=vendor_name[:-len(suffix)]+'_arm'
+     if arm_name in vendor_image_paths:
+      vendor_name=arm_name
+     break
+  assert vendor_name in vendor_image_paths,('unmapped vendor texture',origin.name,origin.filepath,list(vendor_image_paths))
+  if vendor_name not in loaded_vendor_images:
+   path=vendor_image_paths[vendor_name]
    exact=next(m for m in receipt['files'].values() if ASSETS/m['localFile']==path)
    assert path.stat().st_size==exact['actualBytes'] and sha(path)==exact['sha256']
    image=bpy.data.images.load(str(path),check_existing=False)
@@ -171,11 +183,11 @@ for mat in material_set:
    assert len(vendor_bytes)==exact['actualBytes']
    assert hashlib.sha256(vendor_bytes).hexdigest()==exact['sha256']
    image.pack(data=vendor_bytes,data_len=len(vendor_bytes))
-   assert image.packed_file is not None,('vendor JPEG pack failed',name)
-   assert image.packed_file.size==len(vendor_bytes),('packed JPEG size mismatch',name)
-   assert hashlib.sha256(bytes(image.packed_file.data)).hexdigest()==exact['sha256'],('packed vendor image mismatch',name)
-   loaded_vendor_images[name]=image
-  node.image=loaded_vendor_images[name]
+   assert image.packed_file is not None,('vendor JPEG pack failed',vendor_name)
+   assert image.packed_file.size==len(vendor_bytes),('packed JPEG size mismatch',vendor_name)
+   assert hashlib.sha256(bytes(image.packed_file.data)).hexdigest()==exact['sha256'],('packed vendor image mismatch',vendor_name)
+   loaded_vendor_images[vendor_name]=image
+  node.image=loaded_vendor_images[vendor_name]
 new_images=set(loaded_vendor_images.values())
 assert len(new_images)>=2,('genuine CC0 textures not packed',list(loaded_vendor_images))
 sc.camera=cam;sc.render.engine='BLENDER_EEVEE'
