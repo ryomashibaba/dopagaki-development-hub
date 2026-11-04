@@ -58,7 +58,7 @@ K4BI [Actions #41740606366](https://github.com/ryomashibaba/dopagaki-development
 
 ## 【K4BJ実測による重大な設計誤差の確定】2026-11-04
 
-[Road5実測CI #41744748256](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41744748256)は **completed/SUCCESS**。元K4BI真正Blender原本、元GameBlobをSHAで照合し、**BlenderのRoad5実物2366頂点・4728ポリゴン**とカメラ固定数値を使い、世界空間からカメラ前後・左右・高さ軸へ正しく変換、11箇所×34横オフセットの鉛直Raycastを実施した。原本を書き出さず、元Road5頂点・面Fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2` を前後検証。真正 [Artifact #13283665361](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41744748256/artifacts/13283665361)、[実測JSON全文](../research-evidence/k4bj/K4BJ_REAL_SOURCE_ROAD_CAMERA_SCALE_SURVEY.json)。**この検証は幾何学の計測であって、完成美術、安全な走行幅、動体B51の検査ではない**。
+[Road5実測CI #41744748256](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41744748256)は **completed/SUCCESS**。元K4BI真正Blender原本、元GameBlobをSHAで照合し、**BlenderのRoad5実物2366頂点・4728ポリゴン**とカメラ固定数値を使い、世界空間からカメラ前後・左右・高さ軸へ正しく変換、11箇所×34横オフセットの鉛直Raycastを実施した。原本を書き出さず、元Road5頂点・面Fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2` を前後検証。真正 [Artifact #13283665361](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41744748256/artifacts/13283665361)、[実測JSON全文](research-evidence/k4bj/K4BJ_REAL_SOURCE_ROAD_CAMERA_SCALE_SURVEY.json)。**この検証は幾何学の計測であって、完成美術、安全な走行幅、動体B51の検査ではない**。
 
 - 実Road5 source-control Cameraから測った**前後方向の頂点配置**：−525.804m〜＋188.774m。**前方200m以遠では、このRoad5上の頂点はこの測定範囲で0件**（他の6Roadまで空白と断言するものではない）。
 - カメラから前方0〜25mのRoad5本物の頂点横位置は `s = −39.162m〜＋53.261m`。前方25〜50mでは `−39.465〜＋55.780m`、前方100〜150mでは `−38.821〜＋69.255m`。これは**Road5メッシュの頂点分布**であり、センターライン・道路有効路幅／安全通行幅ではない。
