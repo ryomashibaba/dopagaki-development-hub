@@ -1,0 +1,504 @@
+{
+  "schema": "dopagaki.K4BQ.sculpted-coastal-maritime-design-research/1",
+  "parentK4BPExactBlenderSHA256": "93c3583655eeb48fa06d61239646bb470419c72bf84cd97235be2288240d26aa",
+  "frozenOriginalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "unchangedSourceRoad5Geometry": true,
+  "unchangedSourceCameraPoses": true,
+  "unchangedResearchCameraPoses": true,
+  "sourceB48RoadCount": 7,
+  "sourceB51MoverCount": 28,
+  "originalPhysicsHz": 240,
+  "originalBallRadiusM": 0.65,
+  "researchOnlyAlternativeRoadWidthM": 26.3,
+  "researchOnlyChaseCamera": true,
+  "isRealGameWebGLScreenshot": false,
+  "newGameColliders": 0,
+  "sourceGameEdited": false,
+  "fullAuthorCreatedResearchObjects": 70,
+  "oldRejectedArtPreservedButRenderHidden": [
+    "K4BL | 01 calibrated coastal road margins",
+    "K4BL | 02 WEST quarry-terraced reading institute",
+    "K4BL | 03 EAST offshore passenger terminal",
+    "K4BL | 04 inhabited harbor skyline and quays",
+    "K4BL | 05 tidal geology water and maritime pines",
+    "K4BL | 06 original-camera legible wayfinding",
+    "K4BL | 07 practical and natural lights",
+    "K4BM | 01 manually constructed PBR road surface DCC",
+    "K4BM | 02 fractured geological coastal slopes",
+    "K4BM | 03 West library carved atrium",
+    "K4BM | 04 East passenger terminal fan structure",
+    "K4BM | 05 distant functioning dock structures",
+    "K4BM | 06 human scale details and typography",
+    "K4BM | 07 practical public light sources",
+    "K4BN | 01 manually constructed PBR road surface DCC",
+    "K4BN | 02 fractured geological coastal slopes",
+    "K4BN | 03 West library carved atrium",
+    "K4BN | 04 East passenger terminal fan structure",
+    "K4BN | 05 distant functioning dock structures",
+    "K4BN | 06 human scale details and typography",
+    "K4BN | 07 practical public light sources",
+    "K4BN | 08 road edge signature language",
+    "K4BN | 09 working container ferry original hero",
+    "K4BN | 10 open truss cargo cranes and sea",
+    "K4BN | 11 distant coastal stratified town",
+    "K4BO | 01 genuine low-edge aerofoil guide furniture",
+    "K4BO | 02 actual road-distance human scale reflectors",
+    "K4BP | 01 distinct trial camera duplicates / SOURCE NEVER MOVED",
+    "K4BP | 02 independent smaller course research geometry NOT B48",
+    "K4BP | 03 pilot narrow-course shoulder terrain NOT COLLISION"
+  ],
+  "sourceRoad5ActualGroundSamples": [
+    [
+      -16,
+      -11.898300170898438
+    ],
+    [
+      -14,
+      -11.603561401367188
+    ],
+    [
+      -12,
+      -11.308700561523438
+    ],
+    [
+      -10,
+      -11.013778686523438
+    ],
+    [
+      -8,
+      -10.721298217773438
+    ],
+    [
+      -6,
+      -10.435775756835938
+    ],
+    [
+      -4,
+      -10.149765014648438
+    ],
+    [
+      -2,
+      -9.863632202148438
+    ],
+    [
+      0,
+      -9.577926635742188
+    ],
+    [
+      2,
+      -9.302719116210938
+    ],
+    [
+      4,
+      -9.026351928710938
+    ],
+    [
+      6,
+      -8.749923706054688
+    ],
+    [
+      8,
+      -8.473495483398438
+    ],
+    [
+      10,
+      -8.206527709960938
+    ],
+    [
+      12,
+      -7.9397430419921875
+    ],
+    [
+      14,
+      -7.6728973388671875
+    ],
+    [
+      16,
+      -7.4062347412109375
+    ],
+    [
+      18,
+      -7.1469573974609375
+    ],
+    [
+      20,
+      -6.8898162841796875
+    ],
+    [
+      22,
+      -6.6326141357421875
+    ],
+    [
+      24,
+      -6.3754730224609375
+    ],
+    [
+      26,
+      -6.1242523193359375
+    ],
+    [
+      28,
+      -5.8775482177734375
+    ],
+    [
+      30,
+      -5.6307830810546875
+    ],
+    [
+      32,
+      -5.3841400146484375
+    ],
+    [
+      34,
+      -5.1409149169921875
+    ],
+    [
+      36,
+      -4.9047088623046875
+    ],
+    [
+      38,
+      -4.6684417724609375
+    ],
+    [
+      40,
+      -4.4321746826171875
+    ],
+    [
+      42,
+      -4.1967010498046875
+    ],
+    [
+      44,
+      -3.9709930419921875
+    ],
+    [
+      46,
+      -3.7451629638671875
+    ],
+    [
+      48,
+      -3.5193328857421875
+    ],
+    [
+      50,
+      -3.2935638427734375
+    ],
+    [
+      52,
+      -3.0772552490234375
+    ],
+    [
+      54,
+      -2.8628997802734375
+    ],
+    [
+      56,
+      -2.6484832763671875
+    ],
+    [
+      58,
+      -2.4341278076171875
+    ],
+    [
+      60,
+      -2.2259979248046875
+    ],
+    [
+      62,
+      -2.0229339599609375
+    ],
+    [
+      64,
+      -1.8198089599609375
+    ],
+    [
+      66,
+      -1.6167449951171875
+    ],
+    [
+      68,
+      -1.4164886474609375
+    ],
+    [
+      70,
+      -1.2246551513671875
+    ],
+    [
+      72,
+      -1.0326995849609375
+    ],
+    [
+      74,
+      -0.8408660888671875
+    ],
+    [
+      76,
+      -0.6485443115234375
+    ],
+    [
+      78,
+      -0.4688568115234375
+    ],
+    [
+      80,
+      -0.2891082763671875
+    ],
+    [
+      82,
+      -0.1091766357421875
+    ],
+    [
+      84,
+      0.0747833251953125
+    ],
+    [
+      86,
+      0.2424468994140625
+    ],
+    [
+      88,
+      0.4099884033203125
+    ],
+    [
+      90,
+      0.5781402587890625
+    ],
+    [
+      92,
+      0.7509307861328125
+    ],
+    [
+      94,
+      0.9093170166015625
+    ],
+    [
+      96,
+      1.0649566650390625
+    ],
+    [
+      98,
+      1.2214508056640625
+    ],
+    [
+      100,
+      1.3824615478515625
+    ],
+    [
+      102,
+      1.5320587158203125
+    ],
+    [
+      104,
+      1.6745758056640625
+    ],
+    [
+      106,
+      1.8185577392578125
+    ],
+    [
+      108,
+      1.9668121337890625
+    ],
+    [
+      110,
+      2.1074371337890625
+    ],
+    [
+      112,
+      2.2369537353515625
+    ],
+    [
+      114,
+      2.3687286376953125
+    ],
+    [
+      116,
+      2.5042266845703125
+    ],
+    [
+      118,
+      2.6360626220703125
+    ],
+    [
+      120,
+      2.7525787353515625
+    ],
+    [
+      122,
+      2.8723297119140625
+    ],
+    [
+      124,
+      2.9951324462890625
+    ],
+    [
+      126,
+      3.1179962158203125
+    ],
+    [
+      128,
+      3.2211456298828125
+    ],
+    [
+      130,
+      3.3277740478515625
+    ],
+    [
+      132,
+      3.4369049072265625
+    ],
+    [
+      134,
+      3.5459136962890625
+    ],
+    [
+      136,
+      3.6394805908203125
+    ],
+    [
+      138,
+      3.7332916259765625
+    ],
+    [
+      140,
+      3.8286895751953125
+    ],
+    [
+      142,
+      3.9240264892578125
+    ],
+    [
+      144,
+      4.0081329345703125
+    ],
+    [
+      146,
+      4.0893707275390625
+    ],
+    [
+      148,
+      4.1710968017578125
+    ],
+    [
+      150,
+      4.2528839111328125
+    ],
+    [
+      152,
+      4.3278350830078125
+    ],
+    [
+      154,
+      4.3947906494140625
+    ],
+    [
+      156,
+      4.4616851806640625
+    ],
+    [
+      158,
+      4.5283355712890625
+    ],
+    [
+      160,
+      4.5929107666015625
+    ],
+    [
+      162,
+      4.6377716064453125
+    ],
+    [
+      164,
+      4.6826934814453125
+    ],
+    [
+      166,
+      4.7275543212890625
+    ],
+    [
+      168,
+      4.7730865478515625
+    ],
+    [
+      170,
+      4.8159942626953125
+    ],
+    [
+      172,
+      4.8477325439453125
+    ],
+    [
+      174,
+      4.8794708251953125
+    ],
+    [
+      176,
+      4.9111480712890625
+    ],
+    [
+      178,
+      4.9496612548828125
+    ],
+    [
+      180,
+      4.9820709228515625
+    ],
+    [
+      182,
+      5.0125274658203125
+    ],
+    [
+      184,
+      5.0471954345703125
+    ]
+  ],
+  "originalSourceFingerprints": {
+    "control": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+    "ultra": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+  },
+  "screens": [
+    {
+      "mode": "CHASE_NARROW",
+      "sourceCamera": false,
+      "sourceRoad": false,
+      "newRoadIsResearchOnly": true,
+      "file": "K4BQ_CHASE_NARROW_NEW_AUTHORED_RESEARCH_DCC_ART_UNJUDGED.png"
+    },
+    {
+      "mode": "NARROW_FIXED_ORIGINAL_POSE",
+      "sourceCamera": false,
+      "sourceRoad": false,
+      "newRoadIsResearchOnly": true,
+      "file": "K4BQ_NARROW_FIXED_ORIGINAL_POSE_NEW_AUTHORED_RESEARCH_DCC_ART_UNJUDGED.png"
+    }
+  ],
+  "formalArtAccepted": 0,
+  "formalSlope2DNAAcceptedM": 0,
+  "ART": "UNJUDGED_HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "HUMAN": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BQ_GEOLOGICAL_HARBOR_EDITABLE_RESEARCH_ART_HOLD.blend": {
+      "bytes": 44989436,
+      "sha256": "5fe3ed2569b807af0b04c46cd1672f83a1c93863a19e958c468369985bd60252"
+    },
+    "K4BQ_CHASE_NARROW_NEW_AUTHORED_RESEARCH_DCC_ART_UNJUDGED.png": {
+      "bytes": 1617555,
+      "sha256": "058a5b9f433fe01452dea4acd4b0b98448a220663f857a551c1a71081ae098b8"
+    },
+    "K4BQ_NARROW_FIXED_ORIGINAL_POSE_NEW_AUTHORED_RESEARCH_DCC_ART_UNJUDGED.png": {
+      "bytes": 1608125,
+      "sha256": "ad4d1c0bb2d96772ea0292939b2bb0f8c1b0936d48b67112cd58774cdf21a3f3"
+    }
+  },
+  "sameCameraArtReview": {
+    "file": "K4BQ_VS_K4BP_D_SAME_CHASE_NON_GAME_ROAD_TRUE_BLENDER_COMPARISON.png",
+    "sha256": "ba6fbc07158eeab7dc7f8edd61f76a5dc12dc6fb2da98e0f8ae5d74547dad011",
+    "bytes": 2375531
+  }
+}
