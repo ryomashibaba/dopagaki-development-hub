@@ -107,7 +107,12 @@ for ch in ('diffuse','nor_gl','rough'):
  assert img.packed_file is not None
  photos[ch]=img
 # Prepacked original K4BR rock photo images. Check actual usable data.
-old_gravel=bpy.data.materials['K4BR | ACTUAL CC0 PHOTO PBR | broken coast gravel + cliff lithology']
+# Blender truncates long ID material names on save/reload. Select the
+# uniquely proven K4BR CC0 rock material by stable identity prefix.
+candidates=[m for m in bpy.data.materials
+            if m.name.startswith('K4BR | ACTUAL CC0 PHOTO PBR | broken coast')]
+assert len(candidates)==1,[(m.name) for m in candidates]
+old_gravel=candidates[0]
 image_nodes={n.name:n.image for n in old_gravel.node_tree.nodes if n.type=='TEX_IMAGE'}
 assert all('K4BR_ACTUAL_CC0_'+m in image_nodes for m in ('DIFFUSE','ROUGH','NOR_GL'))
 rockphotos={x:image_nodes['K4BR_ACTUAL_CC0_'+x.upper()] for x in ('diffuse','rough','nor_gl')}
