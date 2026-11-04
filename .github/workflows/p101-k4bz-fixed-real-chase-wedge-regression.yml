@@ -1,0 +1,36 @@
+name: DOPAGAKI K4BZ lightweight genuine CHASE dark-wedge regression guard
+on:
+  push:
+    branches: [research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104]
+    paths:
+      - tests/p101-k4bz-proven-dark-wedge-regression.py
+      - .github/workflows/p101-k4bz-fixed-real-chase-wedge-regression.yml
+      - docs/research-evidence/k4bz/K4BZ_SAME_CHASE_SINGLE_RAYCAST_PROXY_HIDDEN_REAL_AB_NOT_GAME.png
+      - docs/research-evidence/k4bz/K4BZ_ONE_OBJECT_ABLATION_AUTHENTIC_NATIVE_AUDIT.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  assert-known-black-wedge-gone-without-a-new-render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify source protection, official SHA and Python syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile tests/p101-k4bz-proven-dark-wedge-regression.py
+      - name: Install lightweight pixel reader only; do NOT invoke Blender or mutate source
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-pil
+      - name: Prove known six real pixel pairs correct and unaffected control stable
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
