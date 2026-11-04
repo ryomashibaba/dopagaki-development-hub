@@ -1,3 +1,15 @@
+# 【K4BZ 2026-11-04 最終 R1/R2/R3 全技術検証PASS → 次K4CA ART-FIRST】
+
+**現行隔離研究枝** research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104。[K4BZ全根拠・画像・修正・R3再発防止・次工程](docs/R19_A6P4_R2F5K4BZ_TRUE_BLACK_WEDGE_PIXEL_CAUSE_DIAGNOSTIC_JA.md)をまず読む。以下の「実行待ち」「終了未確認」は過去の履歴。
+
+- [R1真のBlender 12地点レイ診断 #41834276872](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41834276872) SUCCESS：黒い筋の6/6点はK4BY研究用Road5 PBRスキン、正常側の6/6点はK4BQ既存別のCC0写真道路が最前面。太陽方向にレイ遮蔽物なし。ソースGame/Road5/Camera全保護。
+- [R2真の同CHASE Blender制御 A/B #41835036099](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41835036099) SUCCESS：**研究用K4BY道路メッシュ1オブジェクトのみhide_render、ほか全不変**で異常6点の明度が平均+31.945階調、正常との明度差は約32.56→0.56階調。真正画像でも黒い三角筋が消えた。黒筋の直接原因はK4BY研究道路オーバーレイの描画と実証。元Game本体の不具合ではない。
+- [R3軽量再発防止 CI #41840882396](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41840882396) **SUCCESS**。固定された元と修正後の768×480真正PNGのSHA256、全6組12ピクセルRGB、元Game Blob/道路形状、非表示の対象1つだけ、比較路面の安定性を再検証。Blender新レンダリング不要。tests/p101-k4bz-proven-dark-wedge-regression.py を保存。
+- 編集可能**R2真.Blend** SHA256 162a7baaf7594b36a134457bee817bd7dcf0ef1b3e581419d6561efa92e45382。[**本物の元K4BY対修正K4BZの画像**](docs/research-evidence/k4bz/K4BZ_SINGLE_OBJECT_HIDDEN_VS_CANONICAL_CHASE_TRUE_RENDER_AB.png)、修正PNG SHA256 d82a367f49623a8ed2a75a4540ba8a6de07f976a51d49f4dbb20673243576df7。[真A/B Blender原本 Artifact](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41835036099/artifacts/13327120155)。
+- **局所黒筋のみTECH FIX PASS／正式ART REJECT、正式採用0件、Slope2 DNA0m**。次K4CAは黒筋対策を蒸し返さず、元CHASE全体で道路の平板さ・左自然地形・右の港湾建築・街区の現実感を本物の作者美術として改善する。元Game Blob af076d67492a677d2235e4730aef8cdf4808e106／元Road5頂点面 f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2／元6Camera/CHASE/元9木／B48 7Road/B51 28Mover/240Hz/球半径0.65m／main/公式P101/Draft PR#46/本番不変更。SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD、Work/Computer Use事前承認、追加課金0円。
+
+---
+
 # 【2026-11-04 K4BZ R2原因確定 → R3軽量回帰・次K4CA】研究路面重複由来の黒筋を真正同CHASE A/Bで除去
 
 最新隔離研究枝 research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104。[**K4BZ正式真Blender原因同定・6対6ピクセル・1オブジェクト制御A/B・次K4CAの画面全体ART方針**](docs/R19_A6P4_R2F5K4BZ_TRUE_BLACK_WEDGE_PIXEL_CAUSE_DIAGNOSTIC_JA.md)をまず読む。以下の「結果未確認」「最新」は履歴。
