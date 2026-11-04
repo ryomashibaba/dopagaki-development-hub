@@ -1,3 +1,15 @@
+# 【2026-11-04 K4BK 新しい継続入口】元Road5の実寸座標に建築を合わせたART-FIRST研究
+
+最新研究隔離枝：`research/k4bk-ground-truthed-civic-roadside-20261104`。必ず[K4BK真正道路実寸を用いたBlender制作・不変条件・美術審査正本](docs/R19_A6P4_R2F5K4BK_ROAD_CALIBRATED_CIVIC_ART_JA.md)を先に読む。K4BJの**実測発見**とART REJECTを継承し、旧来のCamera前方550m・横±160m以上というRoad5の尺度と噛み合わない建築を再利用しない。
+
+- [K4BJ実道路測量](docs/research-evidence/k4bj/K4BJ_REAL_SOURCE_ROAD_CAMERA_SCALE_SURVEY.json)で真Road5 Camera前方0〜25mの頂点横位置−39.162〜+53.261m、100〜150mで−38.821〜+69.255m、前方の最大到達188.774mと実測。これは安全可走幅ではなく幾何の頂点分布。
+- K4BK `scripts/p101-k4bk-true-road-civic-corridor.py` をGitHub保存済み。真正元Blender・元Road5・元Cameraを厳密SHAで保持したまま、9地点の真Blender RaycastでRoad5左右境界と高さを採寸し、その**道路外**に歩行者用街並み・西陶板図書館・東港湾ターミナルを構築、実Camera前方約132〜157mにガラス空中公共駅をデザインする。旧模型ARTは削除せずRender OFF。元Road5はDCCマテリアル以外変更しない。
+- [専用実制作CI #41747047424](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41747047424) は実結果を必ず再照会。真正control11307/ultra11341のDCC元カメラ画像、編集可能.blend、独立SHA、旧K4BJ同Camera比較、研究隔離枝へ画像保存を試みる。成功・ART合格は実検証前に断言しない。
+- 不変更：ゲーム blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5 fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元6Camera／B48実7道路／B51実28動体／240Hz／球0.65m／ゲーム安全表示、main・公式`p101-velocity-overdrive-native-trial`・Draft PR #46・本番2サイト。Work事前承認、ユーザーWindows操作要求なし。
+- 正式採用ART0件・Slope2 DNA正式認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。今回のDCC研究画像は実WebGL2ゲーム画面ではない。**新しい真実の画面を見て質が低ければ必ずART REJECT。** 他6Roadへの展開、元ゲーム統合、本番反映は禁止。
+
+---
+
 # 【2026-11-04 K4BJ最終引継ぎ・最重要発見】モデルを量産する前にRoad5実寸尺度を是正する
 
 **現研究正本**：`research/k4bj-hand-authored-hero-civic-canyon-20261104`。最優先で[K4BJ真正画像・品質不合格・実Road5幾何測量を統合した正本](docs/R19_A6P4_R2F5K4BJ_TIDAL_CIVIC_CANYON_TRUE_CAMERA_JA.md)を読む。古いK4BI以下の「最新」表記はすべて履歴。
