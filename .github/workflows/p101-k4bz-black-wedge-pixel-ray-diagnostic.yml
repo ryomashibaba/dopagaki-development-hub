@@ -1,0 +1,146 @@
+name: DOPAGAKI K4BZ exact native CHASE black wedge pixel-to-geometry root cause investigation
+on:
+  push:
+    branches: [research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104]
+    paths:
+      - scripts/p101-k4bz-true-pixel-object-shadow-audit.py
+      - .github/workflows/p101-k4bz-black-wedge-pixel-ray-diagnostic.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bz-one-source-locked-pixel-object-audit
+  cancel-in-progress: true
+jobs:
+  inspect-genuine-source-without-new-render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify immutable game blob, branch and Blender diagnostic syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bz-true-pixel-object-shadow-audit.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Fetch EXACT K4BY A3 successful original editable native and real same camera PNG
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BY_TRUE_CC0_PHOTO_ROAD_OCCUPIED_HARBOR_EDITABLE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41831182680
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bz/parent
+      - name: Independently verify true Blender and screenshot SHA before diagnostic
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path('research/evidence/k4bz/parent/render')
+          j=json.loads((p/'K4BY_GENUINE_PBR_HARBOR_NATIVE_ART_AUDIT.json').read_text())
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5FullVertexFaceFingerprint']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert j['sourceRoad5VertexFacesUnchanged'] and j['sourceSixCameraPoseUnchanged']
+          assert j['frozenResearchChaseUnchanged'] and j['sourceTreesNinePositionsUnchanged']
+          assert j['a3DenseSourceRaycastPhotoRibbonNoncolliding']
+          assert j['newGameColliders']==0 and not j['originalSourceGameEdited']
+          assert j['formalArtAccepted']==0 and j['formalSlope2DNAMetres']==0
+          for name,meta in j['files'].items():
+           raw=(p/name).read_bytes()
+           assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert j['files']['K4BY_TRUE_CC0_ROAD_OCCUPIED_HARBOR_EDITABLE_NATIVE_ART_HOLD.blend']['sha256']=='f0d3d7a27e5fbf599447b0e784b71684ff634b071d283f8b59bdaf06a179d4e4'
+          assert j['files']['K4BY_ONE_SAME_CHASE_TRUE_PBR_RACE_ROAD_CIVIC_HARBOR_NOT_GAME.png']['sha256']=='ad46b5377fd9d144c7ab94b428df52d5f97cb7675fe44c3d14389b7858c925f7'
+          print('K4BZ_TRUE_SOURCE_SHA_VERIFIED_NO_FAKE_INPUT')
+          PY
+      - name: Install bounded authentic Blender for ray casts and PIL for source-pixel analysis
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil python3-numpy libegl1 libgl1-mesa-dri
+      - name: Raycast exact dark pixels and normal controls in real Blender with actual source camera
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bz/report
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bz-true-pixel-object-shadow-audit.py -- \
+            --base research/evidence/k4bz/parent/render/K4BY_TRUE_CC0_ROAD_OCCUPIED_HARBOR_EDITABLE_NATIVE_ART_HOLD.blend \
+            --image research/evidence/k4bz/parent/render/K4BY_ONE_SAME_CHASE_TRUE_PBR_RACE_ROAD_CIVIC_HARBOR_NOT_GAME.png \
+            --out research/evidence/k4bz/report
+      - name: Independently confirm precise real pixel values and draw neutral point annotations on true screenshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          from PIL import Image,ImageDraw
+          import hashlib,json,collections
+          from pathlib import Path
+          out=Path('research/evidence/k4bz/report')
+          path=Path('research/evidence/k4bz/parent/render/K4BY_ONE_SAME_CHASE_TRUE_PBR_RACE_ROAD_CIVIC_HARBOR_NOT_GAME.png')
+          aud_path=out/'K4BZ_REAL_CHASE_BLACK_WEDGE_PER_PIXEL_GEOMETRY_SHADOW_CANDIDATES.json'
+          j=json.loads(aud_path.read_text())
+          assert j['sourceRealScreenshotSHA256']==hashlib.sha256(path.read_bytes()).hexdigest()
+          assert j['sourceBlendSHA256']=='f0d3d7a27e5fbf599447b0e784b71684ff634b071d283f8b59bdaf06a179d4e4'
+          assert j['actualOriginalRoad5VertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert j['frozenOriginalSixCameras'] and j['frozenResearchChaseCamera'] and j['frozenActual9OriginalTrees']
+          assert not j['gameSourceEdited'] and not j['originalNativeEdited'] and j['newBlenderRender'] is False
+          assert j['actualRootCause']=='NOT_ESTABLISHED_BY_RAY_ONLY' and j['ART']=='REJECT'
+          assert j['formalArtAccepted']==0 and j['formalSlope2DNAMetres']==0
+          im=Image.open(path).convert('RGB')
+          assert im.size==(768,480)
+          annotated=im.copy();draw=ImageDraw.Draw(annotated)
+          rows=[]
+          for pair in j['darkTargetVsComparisonPairs']:
+           a=pair['darkPixel'];b=pair['comparisonPixel']
+           dark=im.getpixel(tuple(a));light=im.getpixel(tuple(b))
+           diff=sum(light)/3-sum(dark)/3
+           assert 20<diff<60,(a,diff)
+           rows.append({'darkPixel':a,'normalRoadPixel':b,'darkRGB':list(dark),
+             'comparisonRGB':list(light),'meanRGBDeltaNotCauseProof':round(diff,4)})
+           for point,color in ((a,(255,63,64)),(b,(76,239,109))):
+            x,y=point;draw.ellipse((x-3,y-3,x+3,y+3),outline=color,width=2)
+           draw.line((a[0],a[1],b[0],b[1]),fill=(249,204,66),width=1)
+          draw.text((10,10),'K4BZ genuine same CHASE: red=dark wedge / green=control; ray cause audit',fill=(255,255,255))
+          name='K4BZ_SOURCE_IMAGE_12_REAL_PIXEL_GEOMETRY_AUDIT_MARKERS_NOT_GAME.png'
+          annotated.save(out/name)
+          j['independentExactImageSamples']=rows
+          j['annotation']={'file':name,'bytes':(out/name).stat().st_size,
+             'sha256':hashlib.sha256((out/name).read_bytes()).hexdigest(),
+             'noContentReplacement':True,'sourcePNGUnmodified':True}
+          j['diagnosticStatus']='RAY_AUDIT_COMPLETE_ROOT_CAUSE_NOT_YET_PROVEN'
+          aud_path.write_text(json.dumps(j,ensure_ascii=False,indent=2))
+          print('K4BZ_INDEPENDENT_EXACT_SOURCE_PIXEL_AND_NATIVE_RAY_VALIDATION_PASS')
+          print('FIRST_HIT_DARK',collections.Counter(j['firstHitDarkObjects']))
+          print('FIRST_HIT_CONTROL',collections.Counter(j['firstHitControlObjects']))
+          print('SUN_OCCLUSION_DIFFERENCES',j['SUNShadowRayCandidateDifferences'])
+          PY
+      - name: Commit only diagnostic JSON and annotated genuine image on protected research branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104
+          mkdir -p docs/research-evidence/k4bz
+          cp research/evidence/k4bz/report/*.json docs/research-evidence/k4bz/
+          cp research/evidence/k4bz/report/*.png docs/research-evidence/k4bz/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4bz
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bz): real CHASE 12-pixel material, geometry and SUN-ray study without source mutations"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104
+          fi
+      - name: Archive true pixel audit result even on fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4BZ_TRUE_SOURCE_BLACK_WEDGE_PIXEL_GEOMETRY_SHADOW_AUDIT
+          path: research/evidence/k4bz/report/
+          if-no-files-found: warn
+          retention-days: 21
