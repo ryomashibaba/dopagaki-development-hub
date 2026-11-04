@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CE最新・実ゲーム保護：真正K4CDフェリー再構図＋岸壁動線研究／ARTゲート別】
+
+**研究最新正本はこのページ先頭。現在の新研究枝**：`research/k4ce-coherent-berth-ferry-foreground-20261105`。
+最初に[**K4CE既存成功親・真3D再配置・乗船橋・安全・CI状態**](docs/R19_A6P4_R2F5K4CE_BERTH_FERRY_COMPOSITION_ART_HOLD_JA.md)を読み、[真正K4CE Actions #41934329234](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41934329234)の最新結論／Artifactsを再照合する。**この記録時点ではBlender実作者ステップ中**であり結果未確定。下の「最新」「実行中」は当時の履歴。
+
+- 既存K4CDには研究枝が二つある。**正式先祖は成功済み`research/k4cd-harbor-water-ferry-true-chase-20261105` HEAD `ee911286f133c534eabda3fa1c92c332b891631d`**。親の実[Actions #41926752717](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41926752717) completed/SUCCESS、真DCC.blend 273,958,272B／SHA256 `c81111664d4703ec044aeaaeee1e7b659d95343dbf762ebf9892c6636a7d5a0a`、本物の船あり・水のみCHASEにより船2,816px可視TECH PASS。右端で船が切れてART REJECT。他方の`research/k4cd-real-ferry-waterfront-hero-20261105`は別研究で、結果未確認のまま成功と混同しない。
+- **K4CEの真の実装**：既存船を作り直さず、親原本内の編集可能なフェリーの船体・デッキ・旅客室・屋根4メッシュを一体移動し、元CHASE実投影による安全領域（画面x>.505）を守った実世界係留位置だけ採用。研究旧橋はデータを保持して非表示にし、A3真正岸壁スロープ終端と移動後フェリーの甲板を3Dの厚い乗船橋で再接続。水面、元景観、原Road5頂点面、元6Camera/CHASE、樹木11本、照明を固定。専用コードと真正BlenderWorkflowをGitHub研究枝に実装。
+- **GitHub Actions #41934329234**はこの段階で親SHA・原Game blob・Road5等の前検査PASS→真正Blender中。成功の認定には編集可能原本、Blenderログ、実同CHASE画像を直接開いたART評価、独立ZIP／全CRC／各SHA・研究GitHub保存が必要。失敗の場合は検証閾値を安易に緩めず、投影・位置・空間接続という実原因に沿って修正。証拠なしにK4CEのTECHやART PASSを宣言しない。
+- **厳格ゲート不変**：元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、原Road5 vertex-face SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48 7実Road／B51 28Mover／240Hz／0.65m球、main・正式P101・Draft PR #46・原Slope・凍結Gold・本番2サイトを保護。**正式ART採用0件／Slope2 DNA0m**、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。Work/Computer Useは個別事前承認、追加有料API原則0円、ユーザーPC操作0。他6路面の美術展開不可。
+
+---
+
 # 【2026-11-05 K4CD最新：真正Blender船あり/なし2画像・船2,816px実可視TECH PASS／ART REJECT】
 
 **現行隔離研究枝**：`research/k4cd-harbor-water-ferry-true-chase-20261105`。最初に[**K4CD実コード・実Blender・直接画像ART REJECT・独立ZIP/SHA・全保護条件・次工程**](docs/R19_A6P4_R2F5K4CD_REAL_FERRY_VISIBLE_ART_REJECT_JA.md)を読み、[**K4CCとK4CDの真同CHASE比較画像**](docs/research-evidence/k4cd/K4CD_K4CC_VS_TRUE_HARBOR_FERRY_SAME_CHASE_ART_REVIEW_NOT_GAME.png)、[**研究真正監査JSON**](docs/research-evidence/k4cd/K4CD_REAL_NATIVE_AUDIT.json)を直接照合。下の「最新」「実行中」は過去時点の履歴でありこの先頭記録より優先しない。
