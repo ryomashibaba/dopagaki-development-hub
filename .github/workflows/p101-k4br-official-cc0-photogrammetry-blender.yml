@@ -1,0 +1,174 @@
+name: DOPAGAKI K4BR real CC0 photoscan rock + PBR Blender research ART HOLD
+on:
+  push:
+    branches: [research/k4br-cc0-phototexture-source-verified-20261104]
+    paths:
+      - scripts/p101-k4br-fetch-official-cc0-pbr.py
+      - scripts/p101-k4br-native-cc0-scanned-art.py
+      - .github/workflows/p101-k4br-official-cc0-photogrammetry-blender.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4br-source-locked-cc0-scans
+  cancel-in-progress: true
+jobs:
+  real-photogrammetry-and-native-3d:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Strict frozen original game source and author script preflight
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4br-cc0-phototexture-source-verified-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4br-fetch-official-cc0-pbr.py scripts/p101-k4br-native-cc0-scanned-art.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Retrieve exact immutable K4BQ native source-protected Blender parent
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BQ_NATIVE_REAL_COASTAL_SCENE_EDITABLE_DCC_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41783578592
+          github-token: ${{ github.token }}
+          path: research/evidence/k4br/parent
+      - name: Validate original source and every parent artifact byte
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('research/evidence/k4br/parent')
+          j=json.loads((p/'K4BQ_ACTUAL_NATIVE_AUTHOR_PROVENANCE.json').read_text())
+          assert j['frozenOriginalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['unchangedSourceRoad5Geometry'] and j['unchangedSourceCameraPoses']
+          assert j['unchangedResearchCameraPoses']
+          assert j['sourceB48RoadCount']==7 and j['sourceB51MoverCount']==28
+          assert j['originalPhysicsHz']==240 and j['originalBallRadiusM']==.65
+          assert j['formalArtAccepted']==0 and j['formalSlope2DNAAcceptedM']==0
+          for name,meta in j['files'].items():
+            data=(p/name).read_bytes()
+            assert len(data)==meta['bytes'] and hashlib.sha256(data).hexdigest()==meta['sha256'],name
+          assert j['files']['K4BQ_GEOLOGICAL_HARBOR_EDITABLE_RESEARCH_ART_HOLD.blend']['sha256']=='5fe3ed2569b807af0b04c46cd1672f83a1c93863a19e958c468369985bd60252'
+          print('K4BR_EXACT_SOURCE_B48_AND_K4BQ_EDITABLE_PARENT_ALL_SHA_PASS')
+          PY
+      - name: Install genuine Blender 4 EEVEE Xvfb and PIL
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: Actually download 2 CC0 photogrammetry textures and 1 real 3D glTF model
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4br/assets research/evidence/k4br/render
+          python3 scripts/p101-k4br-fetch-official-cc0-pbr.py \
+            --out research/evidence/k4br/assets
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          d=Path('research/evidence/k4br/assets')
+          j=json.loads((d/'K4BR_CC0_LIVE_ASSET_RECEIPTS.json').read_text())
+          assert j['license']=='CC0 1.0'
+          assert 'Poly Haven' in j['attribution']
+          assert set(j['photoscannedAssetsActuallyDownloaded'])=={'asphalt_01','rock_ground_02'}
+          assert j['verifiedCC0NativePhotogrammetryModel']['id']=='rock_face_01'
+          for asset in j['photoscannedAssetsActuallyDownloaded'].values():
+            assert set(asset['maps'])=={'diffuse','nor_gl','rough'}
+            for m in asset['maps'].values():
+              data=(d/m['localFile']).read_bytes()
+              assert len(data)==m['actualBytes']
+              assert hashlib.sha256(data).hexdigest()==m['sha256']
+          assert len(j['verifiedCC0NativePhotogrammetryModel']['files'])>=1
+          for m in j['verifiedCC0NativePhotogrammetryModel']['files'].values():
+              data=(d/m['localFile']).read_bytes()
+              assert len(data)==m['actualBytes']
+              assert hashlib.sha256(data).hexdigest()==m['sha256']
+          print('K4BR_REAL_PHYSICAL_CC0_VENDOR_MD5_AND_LOCAL_SHA_PASS')
+          PY
+      - name: Pack actual phototextures and genuine native 3D scan into Blender and render unchanged research cameras
+        run: |
+          set -euo pipefail
+          xvfb-run -a -s '-screen 0 1920x1200x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4br-native-cc0-scanned-art.py -- \
+              --base research/evidence/k4br/parent/K4BQ_GEOLOGICAL_HARBOR_EDITABLE_RESEARCH_ART_HOLD.blend \
+              --assets research/evidence/k4br/assets \
+              --out research/evidence/k4br/render
+      - name: Independently validate actual native .blend/maps/scan and compare same camera
+        run: |
+          /usr/bin/python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageStat,ImageChops,ImageDraw
+          import json,hashlib
+          p=Path('research/evidence/k4br/parent')
+          d=Path('research/evidence/k4br/render')
+          a=Path('research/evidence/k4br/assets')
+          j=json.loads((d/'K4BR_NATIVE_SCANNED_ASSET_AUDIT.json').read_text())
+          assert j['parentK4BQVerifiedSHA256']=='5fe3ed2569b807af0b04c46cd1672f83a1c93863a19e958c468369985bd60252'
+          assert j['originalSourceRoad5VertexFaceUnchanged']
+          assert j['allSixOriginalSourceCameraNumericPosesUnchanged']
+          assert j['bothResearchCameraNumericPosesUnchanged']
+          assert j['actualVendorAssetBytesVerifiedMD5AndSHA256']
+          assert j['sourceB48Roads']==7 and j['sourceB51Movers']==28
+          assert j['sourceHz']==240 and j['sourceBallRadiusM']==.65
+          assert len(j['actualGLTFScannedModelInstances'])==3
+          assert all(q['importedTriangles']>=2000 for q in j['actualGLTFScannedModelInstances'])
+          assert all(all(v.values()) for v in j['actualPBRPhotoMapsInEditableBlendPacked'].values())
+          assert len(j['replacedPriorOnlyProceduralMaterialInstances'])==3
+          assert j['newGameColliders']==0 and j['originalGameSourceEdited'] is False
+          assert j['realWebGL2GameScreenshot'] is False
+          assert j['ART']=='UNJUDGED_HOLD' and j['formalArtAccepted']==0 and j['formalSlope2DNAMetres']==0
+          assert hashlib.sha256((a/j['assetReceiptsJSON']).read_bytes()).hexdigest()==j['assetReceiptSHA256']
+          for name,meta in j['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert len(j['screens'])==2
+          old=Image.open(p/'K4BQ_CHASE_NARROW_NEW_AUTHORED_RESEARCH_DCC_ART_UNJUDGED.png').convert('RGB')
+          new=Image.open(d/'K4BR_CHASE_NARROW_REAL_CC0_PBR_AND_PHOTOSCAN_NATIVE_DCC_UNJUDGED.png').convert('RGB')
+          assert old.size==new.size==(1520,950)
+          delta=ImageChops.difference(old,new)
+          mean_delta=round(sum(ImageStat.Stat(delta).mean)/3,4)
+          assert delta.getbbox() is not None and mean_delta>=2.5,mean_delta
+          comp=Image.new('RGB',(3100,1050),(17,20,25))
+          pen=ImageDraw.Draw(comp)
+          comp.paste(old,(15,62));comp.paste(new,(1565,62))
+          pen.text((15,20),'K4BQ: PRIOR HAND-PROCEDURAL ART / ART REJECTED',fill='white')
+          pen.text((1565,20),'K4BR: ACTUAL POLY HAVEN CC0 PHOTOTEXTURE/REAL CLIFF GLTF - RESEARCH DCC',fill='white')
+          name='K4BR_K4BQ_SAME_CHASE_CAMERA_ACTUAL_CC0_MATERIAL_AB_NOT_GAME.png'
+          comp.save(d/name)
+          raw=(d/name).read_bytes()
+          j['sameCameraImageDifference']={
+             'file':name,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),
+             'meanRGBDifference':mean_delta,
+             'qualityJudgement':'UNJUDGED_HOLD_NOT_A_PROXY_FOR_ART'}
+          (d/'K4BR_NATIVE_SCANNED_ASSET_AUDIT.json').write_text(json.dumps(j,ensure_ascii=False,indent=2))
+          print('K4BR_NATIVE_ACTUAL_POLYHAVEN_ASSET_AND_SAME_CAMERA_PIXEL_DELTA_TECH_PASS',mean_delta)
+          PY
+      - name: Commit truthful source/license audit and only genuinely rendered images into isolated research branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4br-cc0-phototexture-source-verified-20261104
+          mkdir -p docs/research-evidence/k4br
+          cp research/evidence/k4br/render/K4BR_*_NATIVE_DCC_UNJUDGED.png docs/research-evidence/k4br/
+          cp research/evidence/k4br/render/K4BR_K4BQ_SAME_CHASE_CAMERA_ACTUAL_CC0_MATERIAL_AB_NOT_GAME.png docs/research-evidence/k4br/
+          cp research/evidence/k4br/render/K4BR_NATIVE_SCANNED_ASSET_AUDIT.json docs/research-evidence/k4br/
+          cp research/evidence/k4br/assets/K4BR_CC0_LIVE_ASSET_RECEIPTS.json docs/research-evidence/k4br/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4br
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4br): vendor-MD5-verified real CC0 scans and native Blender same-camera art audit, never game"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4br-cc0-phototexture-source-verified-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BR_REAL_CC0_PBR_PHOTOSCAN_NATIVE_BLENDER_ART_HOLD
+          path: |
+            research/evidence/k4br/render/
+            research/evidence/k4br/assets/K4BR_CC0_LIVE_ASSET_RECEIPTS.json
+          retention-days: 21
+          if-no-files-found: warn
