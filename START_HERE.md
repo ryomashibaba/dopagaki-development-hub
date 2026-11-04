@@ -1,3 +1,15 @@
+# 【2026-11-04 K4BZ R2原因確定 → R3軽量回帰・次K4CA】研究路面重複由来の黒筋を真正同CHASE A/Bで除去
+
+最新隔離研究枝 research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104。[**K4BZ正式真Blender原因同定・6対6ピクセル・1オブジェクト制御A/B・次K4CAの画面全体ART方針**](docs/R19_A6P4_R2F5K4BZ_TRUE_BLACK_WEDGE_PIXEL_CAUSE_DIAGNOSTIC_JA.md)をまず読む。以下の「結果未確認」「最新」は履歴。
+
+- [K4BZ R1 Actions #41834276872](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41834276872) **SUCCESS**。実CHASEの暗部6/6最前面=K4BY研究PBRレイキャスト道路、正常部6/6最前面=K4BQ既存別CC0写真道路。元太陽光レイの遮蔽物は12/12なし。原因は「二種類の研究用道路表面・材質が重なり交替すること」の可能性が高いとしてR2で制御実験。
+- [K4BZ R2 Actions #41835036099](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41835036099) **SUCCESS**。元K4BY A3真.blendをSHA256 f0d3d7a27e5fbf599447b0e784b71684ff634b071d283f8b59bdaf06a179d4e4で独立ロードし、**K4BY非ゲーム研究路面オブジェクト1つだけ描画OFF**。元Road5／元6Camera／元CHASE／真木9本／全照明／物理保持。同カメラの真正768×480 Blender画面で6個の異常座標が平均+31.945階調明るくなり、異常対正常差約32.56→0.56階調で実際の黒い三角筋が消失。直接原因となった研究オーバーレイの表示は確定。ゲーム本体の不具合とは認定しない。
+- 編集可能真R2.blend SHA256 162a7baaf7594b36a134457bee817bd7dcf0ef1b3e581419d6561efa92e45382、新実CHASE PNG SHA256 d82a367f49623a8ed2a75a4540ba8a6de07f976a51d49f4dbb20673243576df7。[旧K4BY→K4BZの真正A/B比較](docs/research-evidence/k4bz/K4BZ_SINGLE_OBJECT_HIDDEN_VS_CANONICAL_CHASE_TRUE_RENDER_AB.png)・[ピクセル監査JSON](docs/research-evidence/k4bz/K4BZ_ONE_OBJECT_ABLATION_AUTHENTIC_NATIVE_AUDIT.json)・[Blender原本Artifact](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41835036099/artifacts/13327120155)を保存。**局所黒筋TECH FIX PASSでも、美術ART REJECT・正式採用0件・Slope2 DNA0mは継続**。路面・地形・港湾の質は依然不足。
+- **R3の軽量な回帰試験** [Actions #41840882396](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41840882396) は記述時点で終了未確認。tests/p101-k4bz-proven-dark-wedge-regression.py と .github/workflows/p101-k4bz-fixed-real-chase-wedge-regression.yml を実装。元と修正済み真正PNGのSHA/6組のRGBから既知黒筋の消失と正常路面の維持を判定。**再レンダリング不要・美術合格判定ではない**。
+- 次K4CAは道路の推測重ね塗りを止め、同CHASE全体の風景・沿岸公共建築・自然地形の美術品質を集中改善。元Game blob af076d67492a677d2235e4730aef8cdf4808e106、元B48 Road5全頂点面 f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2、B48 7Road/B51 28Mover/240Hz/0.65m球、元6Camera・研究CHASE、真木9本、main/公式P101/Draft PR#46/本番2サイト保護。SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD、追加課金0、Work/Computer Use事前承認。
+
+---
+
 # 【2026-11-04 K4BZ実診断】左車線の黒い筋＝別々の研究道路メッシュの交差を実12ピクセルで確認
 
 新研究枝 `research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104`。[**K4BZ真正Blenderの元CHASE12ピクセル・レイ・材質・Sun遮蔽調査、源保護、1オブジェクト真正A/B**](docs/R19_A6P4_R2F5K4BZ_TRUE_BLACK_WEDGE_PIXEL_CAUSE_DIAGNOSTIC_JA.md)を第一に読む。以下の「最新」記述は前工程の履歴。
