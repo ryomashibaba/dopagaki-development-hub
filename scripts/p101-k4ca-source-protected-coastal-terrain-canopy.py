@@ -145,9 +145,9 @@ links.new(xyz.outputs["Position"],tex.inputs["Vector"])
 ramp=ns.new("ShaderNodeValToRGB")
 ramp.color_ramp.elements.remove(ramp.color_ramp.elements[1])
 for pos,color in [
- (.14,(.18,.20,.17,1)),(.32,(.26,.27,.22,1)),
- (.52,(.36,.35,.28,1)),(.69,(.48,.45,.35,1)),
- (.85,(.56,.53,.43,1))
+ (.14,(.105,.100,.078,1)),(.32,(.155,.146,.115,1)),
+ (.52,(.210,.195,.153,1)),(.69,(.265,.240,.182,1)),
+ (.85,(.315,.285,.220,1))
 ]:
  elem=ramp.color_ramp.elements[0] if pos==.14 else ramp.color_ramp.elements.new(pos)
  elem.position=pos;elem.color=color
@@ -240,6 +240,8 @@ audit={
  "slopeOriginalMeshFingerprint":old_slope_geometry,
  "oldTerrainMaterialNames":old_slope_materials,
  "newTerrainPBRMaterial":rock.name,
+ "A1ArtReview":"REJECT_WASHED_OUT_CHALKY_WHITE_SLOPE",
+ "A2Correction":"warmer lower-luminance weathered sandstone preserves original terrain silhouette and original K4BZ black-wedge fix",
  "leftActualVisibleSurfaceRaycastSamples":[{
   "pixel":x["screen"],"object":x["object"].name,
   "faceIndex":x["face"],"normalZ":round(float(x["normal"].z),4),
