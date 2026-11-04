@@ -1,0 +1,3257 @@
+{
+  "schema": "dopagaki.k4bz.actual-source-locked-screen-pixel-ray-shadow-candidate-audit/1",
+  "sourceBlendSHA256": "f0d3d7a27e5fbf599447b0e784b71684ff634b071d283f8b59bdaf06a179d4e4",
+  "sourceRealScreenshotSHA256": "ad46b5377fd9d144c7ab94b428df52d5f97cb7675fe44c3d14389b7858c925f7",
+  "actualOriginalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "actualOriginalRoad5VertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "frozenOriginalSixCameras": true,
+  "frozenResearchChaseCamera": true,
+  "frozenActual9OriginalTrees": true,
+  "gameSourceEdited": false,
+  "originalNativeEdited": false,
+  "newBlenderRender": false,
+  "newGameColliders": 0,
+  "cameraName": "K4BP | EXPERIMENT CAMERA | CHASE_NARROW | UNAPPROVED",
+  "cameraType": "PERSP",
+  "imageSize": [
+    768,
+    480
+  ],
+  "screenPixelOrigin": "top-left",
+  "nativeLights": [
+    {
+      "name": "BOTANICAL WATER GARDEN / indoor light 0.92206",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1250.0
+    },
+    {
+      "name": "BOTANICAL WATER GARDEN / indoor light 0.9672",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1250.0
+    },
+    {
+      "name": "Civic facade warm practical -10.75",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 800.0
+    },
+    {
+      "name": "Civic facade warm practical -10.81",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 800.0
+    },
+    {
+      "name": "Civic facade warm practical -10.87",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 800.0
+    },
+    {
+      "name": "Civic facade warm practical -10.93",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 800.0
+    },
+    {
+      "name": "Civic facade warm practical 10.75",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 800.0
+    },
+    {
+      "name": "Civic facade warm practical 10.81",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 800.0
+    },
+    {
+      "name": "Civic facade warm practical 10.87",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 800.0
+    },
+    {
+      "name": "Civic facade warm practical 10.93",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 800.0
+    },
+    {
+      "name": "HARBOR LIBRARY hall daylit warm foyer 0.742",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 2500.0
+    },
+    {
+      "name": "HARBOR LIBRARY hall daylit warm foyer 0.942",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 2500.0
+    },
+    {
+      "name": "HARBOR MERIDIAN true terminal soft public art light 100",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1500.0
+    },
+    {
+      "name": "HARBOR MERIDIAN true terminal soft public art light 200",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1500.0
+    },
+    {
+      "name": "HARBOR MERIDIAN true terminal soft public art light 52",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1500.0
+    },
+    {
+      "name": "K4AZ studio sun",
+      "type": "SUN",
+      "hideRender": true,
+      "energy": 1.5499999523162842
+    },
+    {
+      "name": "K4BA authored art sun NOT original",
+      "type": "SUN",
+      "hideRender": true,
+      "energy": 1.7000000476837158
+    },
+    {
+      "name": "K4BB interior human-eye readable ambient",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 3400.0
+    },
+    {
+      "name": "K4BC DCC only summer day sun",
+      "type": "SUN",
+      "hideRender": true,
+      "energy": 1.7999999523162842
+    },
+    {
+      "name": "K4BD editorial lighting is NOT GAME",
+      "type": "SUN",
+      "hideRender": true,
+      "energy": 1.100000023841858
+    },
+    {
+      "name": "K4BG warm side daylight",
+      "type": "SUN",
+      "hideRender": true,
+      "energy": 2.4000000953674316
+    },
+    {
+      "name": "K4BH gallery interior fixture",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 19000.0
+    },
+    {
+      "name": "K4BH gallery interior fixture.001",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 19000.0
+    },
+    {
+      "name": "K4BH gallery interior fixture.002",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 19000.0
+    },
+    {
+      "name": "K4BH gallery interior fixture.003",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 19000.0
+    },
+    {
+      "name": "K4BH gallery interior fixture.004",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 19000.0
+    },
+    {
+      "name": "K4BH gallery interior fixture.005",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 19000.0
+    },
+    {
+      "name": "K4BH low sunlight wide soft shadow",
+      "type": "SUN",
+      "hideRender": true,
+      "energy": 2.9000000953674316
+    },
+    {
+      "name": "K4BI / physical ceiling fixture -1 196",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7500.0
+    },
+    {
+      "name": "K4BI / physical ceiling fixture -1 298",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7500.0
+    },
+    {
+      "name": "K4BI / physical ceiling fixture -1 98",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7500.0
+    },
+    {
+      "name": "K4BI / physical ceiling fixture 1 196",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7500.0
+    },
+    {
+      "name": "K4BI / physical ceiling fixture 1 298",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7500.0
+    },
+    {
+      "name": "K4BI / physical ceiling fixture 1 98",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7500.0
+    },
+    {
+      "name": "K4BJ / real usable civic floor interior illumination 134/-190",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 14500.0
+    },
+    {
+      "name": "K4BJ / real usable civic floor interior illumination 134/189",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 14500.0
+    },
+    {
+      "name": "K4BJ / real usable civic floor interior illumination 326/190",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 14500.0
+    },
+    {
+      "name": "K4BJ / real usable civic floor interior illumination 333/-190",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 14500.0
+    },
+    {
+      "name": "K4BJ / real usable civic floor interior illumination 655/-40",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 14500.0
+    },
+    {
+      "name": "K4BJ / real usable civic floor interior illumination 665/70",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 14500.0
+    },
+    {
+      "name": "K4BJ warm strongly readable natural low light",
+      "type": "SUN",
+      "hideRender": true,
+      "energy": 3.200000047683716
+    },
+    {
+      "name": "K4BK / east hall area light",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 9000.0
+    },
+    {
+      "name": "K4BK / east marina area light",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 9000.0
+    },
+    {
+      "name": "K4BK / west atrium area light",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 9000.0
+    },
+    {
+      "name": "K4BK / west library area light",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 9000.0
+    },
+    {
+      "name": "K4BK deliberate natural warm directional sunlight",
+      "type": "SUN",
+      "hideRender": true,
+      "energy": 3.0
+    },
+    {
+      "name": "K4BL / harbor lights room light",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 6500.0
+    },
+    {
+      "name": "K4BL / library room light",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 6500.0
+    },
+    {
+      "name": "K4BL / terminal room light",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 6500.0
+    },
+    {
+      "name": "K4BL sunset camera shadow shape",
+      "type": "SUN",
+      "hideRender": true,
+      "energy": 2.700000047683716
+    },
+    {
+      "name": "K4BM / archive lighting fixture",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7600.0
+    },
+    {
+      "name": "K4BM / concourse lighting fixture",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7600.0
+    },
+    {
+      "name": "K4BM / ferry lighting fixture",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7600.0
+    },
+    {
+      "name": "K4BM / library lighting fixture",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7600.0
+    },
+    {
+      "name": "K4BM / visible sun gobo raking illumination",
+      "type": "SUN",
+      "hideRender": true,
+      "energy": 2.700000047683716
+    },
+    {
+      "name": "K4BN / archive lighting fixture",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7600.0
+    },
+    {
+      "name": "K4BN / concourse lighting fixture",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7600.0
+    },
+    {
+      "name": "K4BN / ferry lighting fixture",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7600.0
+    },
+    {
+      "name": "K4BN / library lighting fixture",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 7600.0
+    },
+    {
+      "name": "K4BN / visible sun gobo raking illumination",
+      "type": "SUN",
+      "hideRender": true,
+      "energy": 2.700000047683716
+    },
+    {
+      "name": "K4BQ / natural sun eastward cut",
+      "type": "SUN",
+      "hideRender": false,
+      "energy": 2.5999999046325684
+    },
+    {
+      "name": "K4BQ east gallery task light",
+      "type": "AREA",
+      "hideRender": false,
+      "energy": 4200.0
+    },
+    {
+      "name": "K4BQ seaside docking task light",
+      "type": "AREA",
+      "hideRender": false,
+      "energy": 4200.0
+    },
+    {
+      "name": "MARITIME FOOD HALL / indoor light 0.73892",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1250.0
+    },
+    {
+      "name": "MARITIME FOOD HALL / indoor light 0.7804",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1250.0
+    },
+    {
+      "name": "PUBLIC HALL ACTUAL ARCHITECTURAL WARM LIGHT EAST / CENTRAL ",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1850.0
+    },
+    {
+      "name": "PUBLIC HALL ACTUAL ARCHITECTURAL WARM LIGHT EAST / CENTRAL .001",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1850.0
+    },
+    {
+      "name": "PUBLIC HALL ACTUAL ARCHITECTURAL WARM LIGHT EAST / CENTRAL .002",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1850.0
+    },
+    {
+      "name": "PUBLIC HALL ACTUAL ARCHITECTURAL WARM LIGHT EAST / CENTRAL LIBR",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1850.0
+    },
+    {
+      "name": "PUBLIC HALL ACTUAL ARCHITECTURAL WARM LIGHT WEST / HARBOR E",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1850.0
+    },
+    {
+      "name": "PUBLIC HALL ACTUAL ARCHITECTURAL WARM LIGHT WEST / HARBOR E.001",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1850.0
+    },
+    {
+      "name": "PUBLIC HALL ACTUAL ARCHITECTURAL WARM LIGHT WEST / HARBOR E.002",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1850.0
+    },
+    {
+      "name": "PUBLIC HALL ACTUAL ARCHITECTURAL WARM LIGHT WEST / HARBOR EXCHA",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1850.0
+    },
+    {
+      "name": "PUBLIC INTERIOR WARM WALL SCONCE -10.74",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 990.0
+    },
+    {
+      "name": "PUBLIC INTERIOR WARM WALL SCONCE -10.81",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 990.0
+    },
+    {
+      "name": "PUBLIC INTERIOR WARM WALL SCONCE -10.89",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 990.0
+    },
+    {
+      "name": "PUBLIC INTERIOR WARM WALL SCONCE -10.96",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 990.0
+    },
+    {
+      "name": "PUBLIC INTERIOR WARM WALL SCONCE 10.74",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 990.0
+    },
+    {
+      "name": "PUBLIC INTERIOR WARM WALL SCONCE 10.81",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 990.0
+    },
+    {
+      "name": "PUBLIC INTERIOR WARM WALL SCONCE 10.89",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 990.0
+    },
+    {
+      "name": "PUBLIC INTERIOR WARM WALL SCONCE 10.96",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 990.0
+    },
+    {
+      "name": "PUBLIC MOBILITY GALLERY / indoor light 0.8683",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1250.0
+    },
+    {
+      "name": "PUBLIC MOBILITY GALLERY / indoor light 0.911",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1250.0
+    },
+    {
+      "name": "READING EXCHANGE / indoor light 0.7966300000000001",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1250.0
+    },
+    {
+      "name": "READING EXCHANGE / indoor light 0.8436",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1250.0
+    },
+    {
+      "name": "Real courtyard softbox 0",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 2200.0
+    },
+    {
+      "name": "Real courtyard softbox 1",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 2200.0
+    },
+    {
+      "name": "Real courtyard softbox 2",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 2200.0
+    },
+    {
+      "name": "Real courtyard softbox 3",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 2200.0
+    },
+    {
+      "name": "Real gallery area light 0",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1250.0
+    },
+    {
+      "name": "Real gallery area light 1",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1250.0
+    },
+    {
+      "name": "Real gallery area light 2",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1250.0
+    },
+    {
+      "name": "Real gallery area light 3",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 1250.0
+    },
+    {
+      "name": "TIDAL FORUM real atrium gallery area light -78",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 4500.0
+    },
+    {
+      "name": "TIDAL FORUM real atrium gallery area light 0",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 4500.0
+    },
+    {
+      "name": "TIDAL FORUM real atrium gallery area light 78",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 4500.0
+    },
+    {
+      "name": "TIDAL SCIENCE CONSERVATORY hall daylit warm foyer 0.742",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 2500.0
+    },
+    {
+      "name": "TIDAL SCIENCE CONSERVATORY hall daylit warm foyer 0.942",
+      "type": "AREA",
+      "hideRender": true,
+      "energy": 2500.0
+    },
+    {
+      "name": "Warm directional afternoon sun",
+      "type": "SUN",
+      "hideRender": true,
+      "energy": 3.4000000953674316
+    }
+  ],
+  "darkTargetVsComparisonPairs": [
+    {
+      "pair": 1,
+      "darkPixel": [
+        292,
+        300
+      ],
+      "comparisonPixel": [
+        317,
+        300
+      ],
+      "rays": [
+        {
+          "role": "dark",
+          "pixel": [
+            292,
+            300
+          ],
+          "cameraOrigin": [
+            933.9984,
+            333.9936,
+            122.7344
+          ],
+          "cameraDirection": [
+            0.764542,
+            0.6347722,
+            -0.1119809
+          ],
+          "firstHit": {
+            "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+            "objectType": "MESH",
+            "faceIndex": 799,
+            "materialSlot": 0,
+            "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+            "location": [
+              975.29388,
+              368.27979,
+              116.68591
+            ],
+            "worldNormal": [
+              -0.06238,
+              -0.10561,
+              0.99245
+            ],
+            "normalZ": 0.99245,
+            "distanceM": 54.01342,
+            "hideRender": false,
+            "hideViewport": false,
+            "researchOnly": true,
+            "notGameCollider": true,
+            "semantic": "",
+            "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+          },
+          "firstFiveHits": [
+            {
+              "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+              "objectType": "MESH",
+              "faceIndex": 799,
+              "materialSlot": 0,
+              "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+              "location": [
+                975.29388,
+                368.27979,
+                116.68591
+              ],
+              "worldNormal": [
+                -0.06238,
+                -0.10561,
+                0.99245
+              ],
+              "normalZ": 0.99245,
+              "distanceM": 54.01342,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": true,
+              "notGameCollider": true,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+              "layer": 0
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 1763,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                975.38794,
+                368.35785,
+                116.67213
+              ],
+              "worldNormal": [
+                -0.06251,
+                -0.10558,
+                0.99244
+              ],
+              "normalZ": 0.99244,
+              "distanceM": 0.02299,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 1
+            },
+            {
+              "object": "K4BP / ALTERNATE NON_GAME 26m alpine harbor road; source mesh r",
+              "objectType": "MESH",
+              "faceIndex": 78,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                975.50653,
+                368.45627,
+                116.65477
+              ],
+              "worldNormal": [
+                -0.09318,
+                -0.06243,
+                0.99369
+              ],
+              "normalZ": 0.99369,
+              "distanceM": 0.05507,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 2
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 77,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                975.77185,
+                368.67651,
+                116.61591
+              ],
+              "worldNormal": [
+                -0.0936,
+                -0.0618,
+                0.99369
+              ],
+              "normalZ": 0.99369,
+              "distanceM": 0.24699,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 3
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 3947,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                982.25989,
+                374.06326,
+                115.66563
+              ],
+              "worldNormal": [
+                0.05903,
+                0.10056,
+                -0.99318
+              ],
+              "normalZ": -0.99318,
+              "distanceM": 8.38613,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 4
+            }
+          ],
+          "possibleSunOcclusion": [
+            {
+              "sun": "K4BQ / natural sun eastward cut",
+              "towardsSun": [
+                0.72201,
+                0.13237,
+                0.67911
+              ],
+              "rayOcclusionCandidates": [
+                {
+                  "offsetM": 0.035,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                },
+                {
+                  "offsetM": 0.16,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                }
+              ],
+              "thisIsNotYetRenderedShadowProof": true
+            }
+          ]
+        },
+        {
+          "role": "control",
+          "pixel": [
+            317,
+            300
+          ],
+          "cameraOrigin": [
+            933.9984,
+            333.9936,
+            122.7344
+          ],
+          "cameraDirection": [
+            0.7911003,
+            0.6012254,
+            -0.1126432
+          ],
+          "firstHit": {
+            "object": "K4BQ / physically variegated 26m curved material research test",
+            "objectType": "MESH",
+            "faceIndex": 243,
+            "materialSlot": 0,
+            "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+            "location": [
+              976.57489,
+              366.35114,
+              116.67199
+            ],
+            "worldNormal": [
+              -0.09437,
+              -0.06075,
+              0.99368
+            ],
+            "normalZ": 0.99368,
+            "distanceM": 53.81939,
+            "hideRender": false,
+            "hideViewport": false,
+            "researchOnly": false,
+            "notGameCollider": false,
+            "semantic": "",
+            "geometryFingerprintedAsSourceRoad5": ""
+          },
+          "firstFiveHits": [
+            {
+              "object": "K4BQ / physically variegated 26m curved material research test",
+              "objectType": "MESH",
+              "faceIndex": 243,
+              "materialSlot": 0,
+              "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+              "location": [
+                976.57489,
+                366.35114,
+                116.67199
+              ],
+              "worldNormal": [
+                -0.09437,
+                -0.06075,
+                0.99368
+              ],
+              "normalZ": 0.99368,
+              "distanceM": 53.81939,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 0
+            },
+            {
+              "object": "K4BP / ALTERNATE NON_GAME 26m alpine harbor road; source mesh r",
+              "objectType": "MESH",
+              "faceIndex": 78,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                976.74854,
+                366.48312,
+                116.64726
+              ],
+              "worldNormal": [
+                -0.09318,
+                -0.06243,
+                0.99369
+              ],
+              "normalZ": 0.99369,
+              "distanceM": 0.11952,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 1
+            },
+            {
+              "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+              "objectType": "MESH",
+              "faceIndex": 796,
+              "materialSlot": 0,
+              "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+              "location": [
+                976.96313,
+                366.64624,
+                116.61671
+              ],
+              "worldNormal": [
+                -0.06132,
+                -0.10708,
+                0.99236
+              ],
+              "normalZ": 0.99236,
+              "distanceM": 0.17129,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": true,
+              "notGameCollider": true,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+              "layer": 2
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 1764,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                977.06091,
+                366.72055,
+                116.60278
+              ],
+              "worldNormal": [
+                -0.0614,
+                -0.10707,
+                0.99235
+              ],
+              "normalZ": 0.99235,
+              "distanceM": 0.02361,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 3
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 3948,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                984.20007,
+                372.14621,
+                115.58626
+              ],
+              "worldNormal": [
+                0.05783,
+                0.10214,
+                -0.99309
+              ],
+              "normalZ": -0.99309,
+              "distanceM": 8.92435,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 4
+            }
+          ],
+          "possibleSunOcclusion": [
+            {
+              "sun": "K4BQ / natural sun eastward cut",
+              "towardsSun": [
+                0.72201,
+                0.13237,
+                0.67911
+              ],
+              "rayOcclusionCandidates": [
+                {
+                  "offsetM": 0.035,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                },
+                {
+                  "offsetM": 0.16,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                }
+              ],
+              "thisIsNotYetRenderedShadowProof": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pair": 2,
+      "darkPixel": [
+        280,
+        330
+      ],
+      "comparisonPixel": [
+        310,
+        330
+      ],
+      "rays": [
+        {
+          "role": "dark",
+          "pixel": [
+            280,
+            330
+          ],
+          "cameraOrigin": [
+            933.9984,
+            333.9936,
+            122.7344
+          ],
+          "cameraDirection": [
+            0.7461069,
+            0.6458129,
+            -0.1620191
+          ],
+          "firstHit": {
+            "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+            "objectType": "MESH",
+            "faceIndex": 549,
+            "materialSlot": 0,
+            "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+            "location": [
+              967.10999,
+              362.65424,
+              115.54409
+            ],
+            "worldNormal": [
+              -0.06362,
+              -0.11074,
+              0.99181
+            ],
+            "normalZ": 0.99181,
+            "distanceM": 44.37921,
+            "hideRender": false,
+            "hideViewport": false,
+            "researchOnly": true,
+            "notGameCollider": true,
+            "semantic": "",
+            "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+          },
+          "firstFiveHits": [
+            {
+              "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+              "objectType": "MESH",
+              "faceIndex": 549,
+              "materialSlot": 0,
+              "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+              "location": [
+                967.10999,
+                362.65424,
+                115.54409
+              ],
+              "worldNormal": [
+                -0.06362,
+                -0.11074,
+                0.99181
+              ],
+              "normalZ": 0.99181,
+              "distanceM": 44.37921,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": true,
+              "notGameCollider": true,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+              "layer": 0
+            },
+            {
+              "object": "K4BQ / physically variegated 26m curved material research test",
+              "objectType": "MESH",
+              "faceIndex": 202,
+              "materialSlot": 0,
+              "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+              "location": [
+                967.1947,
+                362.72757,
+                115.52569
+              ],
+              "worldNormal": [
+                -0.09966,
+                -0.06197,
+                0.99309
+              ],
+              "normalZ": 0.99309,
+              "distanceM": 0.01357,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 1
+            },
+            {
+              "object": "K4BP / ALTERNATE NON_GAME 26m alpine harbor road; source mesh r",
+              "objectType": "MESH",
+              "faceIndex": 62,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                967.31219,
+                362.82928,
+                115.50017
+              ],
+              "worldNormal": [
+                -0.09796,
+                -0.06559,
+                0.99303
+              ],
+              "normalZ": 0.99303,
+              "distanceM": 0.05751,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 2
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 61,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                967.51978,
+                363.00897,
+                115.45509
+              ],
+              "worldNormal": [
+                -0.09838,
+                -0.06496,
+                0.99303
+              ],
+              "normalZ": 0.99303,
+              "distanceM": 0.17825,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 3
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 3922,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                972.51453,
+                367.33231,
+                114.37045
+              ],
+              "worldNormal": [
+                0.05997,
+                0.10603,
+                -0.99255
+              ],
+              "normalZ": -0.99255,
+              "distanceM": 6.59444,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 4
+            }
+          ],
+          "possibleSunOcclusion": [
+            {
+              "sun": "K4BQ / natural sun eastward cut",
+              "towardsSun": [
+                0.72201,
+                0.13237,
+                0.67911
+              ],
+              "rayOcclusionCandidates": [
+                {
+                  "offsetM": 0.035,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                },
+                {
+                  "offsetM": 0.16,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                }
+              ],
+              "thisIsNotYetRenderedShadowProof": true
+            }
+          ]
+        },
+        {
+          "role": "control",
+          "pixel": [
+            310,
+            330
+          ],
+          "cameraOrigin": [
+            933.9984,
+            333.9936,
+            122.7344
+          ],
+          "cameraDirection": [
+            0.7781645,
+            0.6064636,
+            -0.163285
+          ],
+          "firstHit": {
+            "object": "K4BQ / physically variegated 26m curved material research test",
+            "objectType": "MESH",
+            "faceIndex": 201,
+            "materialSlot": 0,
+            "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+            "location": [
+              968.37811,
+              360.78745,
+              115.52036
+            ],
+            "worldNormal": [
+              -0.09861,
+              -0.06355,
+              0.99309
+            ],
+            "normalZ": 0.99309,
+            "distanceM": 44.18056,
+            "hideRender": false,
+            "hideViewport": false,
+            "researchOnly": false,
+            "notGameCollider": false,
+            "semantic": "",
+            "geometryFingerprintedAsSourceRoad5": ""
+          },
+          "firstFiveHits": [
+            {
+              "object": "K4BQ / physically variegated 26m curved material research test",
+              "objectType": "MESH",
+              "faceIndex": 201,
+              "materialSlot": 0,
+              "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+              "location": [
+                968.37811,
+                360.78745,
+                115.52036
+              ],
+              "worldNormal": [
+                -0.09861,
+                -0.06355,
+                0.99309
+              ],
+              "normalZ": 0.99309,
+              "distanceM": 44.18056,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 0
+            },
+            {
+              "object": "K4BP / ALTERNATE NON_GAME 26m alpine harbor road; source mesh r",
+              "objectType": "MESH",
+              "faceIndex": 62,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                968.51672,
+                360.89548,
+                115.49126
+              ],
+              "worldNormal": [
+                -0.09796,
+                -0.06559,
+                0.99303
+              ],
+              "normalZ": 0.99303,
+              "distanceM": 0.07813,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 1
+            },
+            {
+              "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+              "objectType": "MESH",
+              "faceIndex": 546,
+              "materialSlot": 0,
+              "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+              "location": [
+                968.65417,
+                361.00259,
+                115.46242
+              ],
+              "worldNormal": [
+                -0.06507,
+                -0.11114,
+                0.99167
+              ],
+              "normalZ": 0.99167,
+              "distanceM": 0.07663,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": true,
+              "notGameCollider": true,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+              "layer": 2
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 3923,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                974.31049,
+                365.41086,
+                114.27553
+              ],
+              "worldNormal": [
+                0.06251,
+                0.10559,
+                -0.99244
+              ],
+              "normalZ": -0.99244,
+              "distanceM": 7.1688,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 3
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 75,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                974.68036,
+                365.6991,
+                114.19792
+              ],
+              "worldNormal": [
+                0.0936,
+                0.0618,
+                -0.99369
+              ],
+              "normalZ": -0.99369,
+              "distanceM": 0.3753,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 4
+            }
+          ],
+          "possibleSunOcclusion": [
+            {
+              "sun": "K4BQ / natural sun eastward cut",
+              "towardsSun": [
+                0.72201,
+                0.13237,
+                0.67911
+              ],
+              "rayOcclusionCandidates": [
+                {
+                  "offsetM": 0.035,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                },
+                {
+                  "offsetM": 0.16,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                }
+              ],
+              "thisIsNotYetRenderedShadowProof": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pair": 3,
+      "darkPixel": [
+        267,
+        360
+      ],
+      "comparisonPixel": [
+        310,
+        360
+      ],
+      "rays": [
+        {
+          "role": "dark",
+          "pixel": [
+            267,
+            360
+          ],
+          "cameraOrigin": [
+            933.9984,
+            333.9936,
+            122.7344
+          ],
+          "cameraDirection": [
+            0.7248574,
+            0.6559865,
+            -0.2103885
+          ],
+          "firstHit": {
+            "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+            "objectType": "MESH",
+            "faceIndex": 374,
+            "materialSlot": 0,
+            "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+            "location": [
+              961.54022,
+              358.91861,
+              114.74039
+            ],
+            "worldNormal": [
+              -0.06906,
+              -0.11463,
+              0.991
+            ],
+            "normalZ": 0.991,
+            "distanceM": 37.99627,
+            "hideRender": false,
+            "hideViewport": false,
+            "researchOnly": true,
+            "notGameCollider": true,
+            "semantic": "",
+            "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+          },
+          "firstFiveHits": [
+            {
+              "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+              "objectType": "MESH",
+              "faceIndex": 374,
+              "materialSlot": 0,
+              "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+              "location": [
+                961.54022,
+                358.91861,
+                114.74039
+              ],
+              "worldNormal": [
+                -0.06906,
+                -0.11463,
+                0.991
+              ],
+              "normalZ": 0.991,
+              "distanceM": 37.99627,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": true,
+              "notGameCollider": true,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+              "layer": 0
+            },
+            {
+              "object": "K4BQ / physically variegated 26m curved material research test",
+              "objectType": "MESH",
+              "faceIndex": 178,
+              "materialSlot": 0,
+              "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+              "location": [
+                961.63666,
+                359.00589,
+                114.7124
+              ],
+              "worldNormal": [
+                -0.10392,
+                -0.06478,
+                0.99247
+              ],
+              "normalZ": 0.99247,
+              "distanceM": 0.03302,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 1
+            },
+            {
+              "object": "K4BP / ALTERNATE NON_GAME 26m alpine harbor road; source mesh r",
+              "objectType": "MESH",
+              "faceIndex": 54,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                961.73297,
+                359.09302,
+                114.68446
+              ],
+              "worldNormal": [
+                -0.10176,
+                -0.0681,
+                0.99248
+              ],
+              "normalZ": 0.99248,
+              "distanceM": 0.03282,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 2
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 53,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                961.90314,
+                359.24701,
+                114.63507
+              ],
+              "worldNormal": [
+                -0.10218,
+                -0.06747,
+                0.99248
+              ],
+              "normalZ": 0.99248,
+              "distanceM": 0.13473,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 3
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 3898,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                965.96454,
+                362.92249,
+                113.45627
+              ],
+              "worldNormal": [
+                0.06337,
+                0.11064,
+                -0.99184
+              ],
+              "normalZ": -0.99184,
+              "distanceM": 5.50298,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 4
+            }
+          ],
+          "possibleSunOcclusion": [
+            {
+              "sun": "K4BQ / natural sun eastward cut",
+              "towardsSun": [
+                0.72201,
+                0.13237,
+                0.67911
+              ],
+              "rayOcclusionCandidates": [
+                {
+                  "offsetM": 0.035,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                },
+                {
+                  "offsetM": 0.16,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                }
+              ],
+              "thisIsNotYetRenderedShadowProof": true
+            }
+          ]
+        },
+        {
+          "role": "control",
+          "pixel": [
+            310,
+            360
+          ],
+          "cameraOrigin": [
+            933.9984,
+            333.9936,
+            122.7344
+          ],
+          "cameraDirection": [
+            0.7706414,
+            0.600666,
+            -0.2128663
+          ],
+          "firstHit": {
+            "object": "K4BQ / physically variegated 26m curved material research test",
+            "objectType": "MESH",
+            "faceIndex": 177,
+            "materialSlot": 0,
+            "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+            "location": [
+              963.06848,
+              356.65189,
+              114.70463
+            ],
+            "worldNormal": [
+              -0.10288,
+              -0.06637,
+              0.99248
+            ],
+            "normalZ": 0.99248,
+            "distanceM": 37.722,
+            "hideRender": false,
+            "hideViewport": false,
+            "researchOnly": false,
+            "notGameCollider": false,
+            "semantic": "",
+            "geometryFingerprintedAsSourceRoad5": ""
+          },
+          "firstFiveHits": [
+            {
+              "object": "K4BQ / physically variegated 26m curved material research test",
+              "objectType": "MESH",
+              "faceIndex": 177,
+              "materialSlot": 0,
+              "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+              "location": [
+                963.06848,
+                356.65189,
+                114.70463
+              ],
+              "worldNormal": [
+                -0.10288,
+                -0.06637,
+                0.99248
+              ],
+              "normalZ": 0.99248,
+              "distanceM": 37.722,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 0
+            },
+            {
+              "object": "K4BP / ALTERNATE NON_GAME 26m alpine harbor road; source mesh r",
+              "objectType": "MESH",
+              "faceIndex": 54,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                963.18591,
+                356.74338,
+                114.6722
+              ],
+              "worldNormal": [
+                -0.10176,
+                -0.0681,
+                0.99248
+              ],
+              "normalZ": 0.99248,
+              "distanceM": 0.05234,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 1
+            },
+            {
+              "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+              "objectType": "MESH",
+              "faceIndex": 396,
+              "materialSlot": 0,
+              "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+              "location": [
+                963.34485,
+                356.86722,
+                114.62831
+              ],
+              "worldNormal": [
+                -0.06872,
+                -0.11513,
+                0.99097
+              ],
+              "normalZ": 0.99097,
+              "distanceM": 0.1062,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": true,
+              "notGameCollider": true,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+              "layer": 2
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 3900,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                968.05664,
+                360.53976,
+                113.32682
+              ],
+              "worldNormal": [
+                0.06469,
+                0.11158,
+                -0.99165
+              ],
+              "normalZ": -0.99165,
+              "distanceM": 6.01411,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 3
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 63,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                968.31488,
+                360.74103,
+                113.2555
+              ],
+              "worldNormal": [
+                0.09838,
+                0.06496,
+                -0.99303
+              ],
+              "normalZ": -0.99303,
+              "distanceM": 0.23507,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 4
+            }
+          ],
+          "possibleSunOcclusion": [
+            {
+              "sun": "K4BQ / natural sun eastward cut",
+              "towardsSun": [
+                0.72201,
+                0.13237,
+                0.67911
+              ],
+              "rayOcclusionCandidates": [
+                {
+                  "offsetM": 0.035,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                },
+                {
+                  "offsetM": 0.16,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                }
+              ],
+              "thisIsNotYetRenderedShadowProof": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pair": 4,
+      "darkPixel": [
+        250,
+        400
+      ],
+      "comparisonPixel": [
+        295,
+        400
+      ],
+      "rays": [
+        {
+          "role": "dark",
+          "pixel": [
+            250,
+            400
+          ],
+          "cameraOrigin": [
+            933.9984,
+            333.9936,
+            122.7344
+          ],
+          "cameraDirection": [
+            0.6947652,
+            0.6658975,
+            -0.2718117
+          ],
+          "firstHit": {
+            "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+            "objectType": "MESH",
+            "faceIndex": 224,
+            "materialSlot": 0,
+            "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+            "location": [
+              956.39215,
+              355.45688,
+              113.9733
+            ],
+            "worldNormal": [
+              -0.07248,
+              -0.11893,
+              0.99025
+            ],
+            "normalZ": 0.99025,
+            "distanceM": 32.23217,
+            "hideRender": false,
+            "hideViewport": false,
+            "researchOnly": true,
+            "notGameCollider": true,
+            "semantic": "",
+            "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+          },
+          "firstFiveHits": [
+            {
+              "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+              "objectType": "MESH",
+              "faceIndex": 224,
+              "materialSlot": 0,
+              "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+              "location": [
+                956.39215,
+                355.45688,
+                113.9733
+              ],
+              "worldNormal": [
+                -0.07248,
+                -0.11893,
+                0.99025
+              ],
+              "normalZ": 0.99025,
+              "distanceM": 32.23217,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": true,
+              "notGameCollider": true,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+              "layer": 0
+            },
+            {
+              "object": "K4BQ / physically variegated 26m curved material research test",
+              "objectType": "MESH",
+              "faceIndex": 154,
+              "materialSlot": 0,
+              "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+              "location": [
+                956.48779,
+                355.54858,
+                113.93586
+              ],
+              "worldNormal": [
+                -0.10818,
+                -0.0676,
+                0.99183
+              ],
+              "normalZ": 0.99183,
+              "distanceM": 0.0377,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 1
+            },
+            {
+              "object": "K4BP / ALTERNATE NON_GAME 26m alpine harbor road; source mesh r",
+              "objectType": "MESH",
+              "faceIndex": 46,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                956.56531,
+                355.62289,
+                113.90553
+              ],
+              "worldNormal": [
+                -0.10601,
+                -0.0709,
+                0.99183
+              ],
+              "normalZ": 0.99183,
+              "distanceM": 0.0116,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 2
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 45,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                956.70184,
+                355.75375,
+                113.85211
+              ],
+              "worldNormal": [
+                -0.10642,
+                -0.07027,
+                0.99183
+              ],
+              "normalZ": 0.99183,
+              "distanceM": 0.09653,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 3
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 3874,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                959.95374,
+                358.87051,
+                112.57988
+              ],
+              "worldNormal": [
+                0.0669,
+                0.1151,
+                -0.9911
+              ],
+              "normalZ": -0.9911,
+              "distanceM": 4.58056,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 4
+            }
+          ],
+          "possibleSunOcclusion": [
+            {
+              "sun": "K4BQ / natural sun eastward cut",
+              "towardsSun": [
+                0.72201,
+                0.13237,
+                0.67911
+              ],
+              "rayOcclusionCandidates": [
+                {
+                  "offsetM": 0.035,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                },
+                {
+                  "offsetM": 0.16,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                }
+              ],
+              "thisIsNotYetRenderedShadowProof": true
+            }
+          ]
+        },
+        {
+          "role": "control",
+          "pixel": [
+            295,
+            400
+          ],
+          "cameraOrigin": [
+            933.9984,
+            333.9936,
+            122.7344
+          ],
+          "cameraDirection": [
+            0.7426083,
+            0.6104035,
+            -0.275573
+          ],
+          "firstHit": {
+            "object": "K4BQ / physically variegated 26m curved material research test",
+            "objectType": "MESH",
+            "faceIndex": 153,
+            "materialSlot": 0,
+            "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+            "location": [
+              957.72913,
+              353.4996,
+              113.92816
+            ],
+            "worldNormal": [
+              -0.10714,
+              -0.06918,
+              0.99183
+            ],
+            "normalZ": 0.99183,
+            "distanceM": 31.95598,
+            "hideRender": false,
+            "hideViewport": false,
+            "researchOnly": false,
+            "notGameCollider": false,
+            "semantic": "",
+            "geometryFingerprintedAsSourceRoad5": ""
+          },
+          "firstFiveHits": [
+            {
+              "object": "K4BQ / physically variegated 26m curved material research test",
+              "objectType": "MESH",
+              "faceIndex": 153,
+              "materialSlot": 0,
+              "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+              "location": [
+                957.72913,
+                353.4996,
+                113.92816
+              ],
+              "worldNormal": [
+                -0.10714,
+                -0.06918,
+                0.99183
+              ],
+              "normalZ": 0.99183,
+              "distanceM": 31.95598,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 0
+            },
+            {
+              "object": "K4BP / ALTERNATE NON_GAME 26m alpine harbor road; source mesh r",
+              "objectType": "MESH",
+              "faceIndex": 46,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                957.82239,
+                353.57623,
+                113.89357
+              ],
+              "worldNormal": [
+                -0.10601,
+                -0.0709,
+                0.99183
+              ],
+              "normalZ": 0.99183,
+              "distanceM": 0.02555,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 1
+            },
+            {
+              "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+              "objectType": "MESH",
+              "faceIndex": 221,
+              "materialSlot": 0,
+              "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+              "location": [
+                957.89917,
+                353.63931,
+                113.86509
+              ],
+              "worldNormal": [
+                -0.07241,
+                -0.11915,
+                0.99023
+              ],
+              "normalZ": 0.99023,
+              "distanceM": 0.00336,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": true,
+              "notGameCollider": true,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+              "layer": 2
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 3875,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                961.69757,
+                356.76147,
+                112.45556
+              ],
+              "worldNormal": [
+                0.06902,
+                0.11467,
+                -0.991
+              ],
+              "normalZ": -0.991,
+              "distanceM": 5.01492,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 3
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 55,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                961.96295,
+                356.97958,
+                112.35709
+              ],
+              "worldNormal": [
+                0.10218,
+                0.06747,
+                -0.99248
+              ],
+              "normalZ": -0.99248,
+              "distanceM": 0.25733,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 4
+            }
+          ],
+          "possibleSunOcclusion": [
+            {
+              "sun": "K4BQ / natural sun eastward cut",
+              "towardsSun": [
+                0.72201,
+                0.13237,
+                0.67911
+              ],
+              "rayOcclusionCandidates": [
+                {
+                  "offsetM": 0.035,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                },
+                {
+                  "offsetM": 0.16,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                }
+              ],
+              "thisIsNotYetRenderedShadowProof": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pair": 5,
+      "darkPixel": [
+        235,
+        440
+      ],
+      "comparisonPixel": [
+        280,
+        440
+      ],
+      "rays": [
+        {
+          "role": "dark",
+          "pixel": [
+            235,
+            440
+          ],
+          "cameraOrigin": [
+            933.9984,
+            333.9936,
+            122.7344
+          ],
+          "cameraDirection": [
+            0.6651067,
+            0.6701407,
+            -0.3294612
+          ],
+          "firstHit": {
+            "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+            "objectType": "MESH",
+            "faceIndex": 124,
+            "materialSlot": 0,
+            "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+            "location": [
+              952.81689,
+              352.95453,
+              113.41259
+            ],
+            "worldNormal": [
+              -0.07064,
+              -0.11943,
+              0.99033
+            ],
+            "normalZ": 0.99033,
+            "distanceM": 28.29402,
+            "hideRender": false,
+            "hideViewport": false,
+            "researchOnly": true,
+            "notGameCollider": true,
+            "semantic": "",
+            "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+          },
+          "firstFiveHits": [
+            {
+              "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+              "objectType": "MESH",
+              "faceIndex": 124,
+              "materialSlot": 0,
+              "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+              "location": [
+                952.81689,
+                352.95453,
+                113.41259
+              ],
+              "worldNormal": [
+                -0.07064,
+                -0.11943,
+                0.99033
+              ],
+              "normalZ": 0.99033,
+              "distanceM": 28.29402,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": true,
+              "notGameCollider": true,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+              "layer": 0
+            },
+            {
+              "object": "K4BQ / physically variegated 26m curved material research test",
+              "objectType": "MESH",
+              "faceIndex": 136,
+              "materialSlot": 0,
+              "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+              "location": [
+                952.89691,
+                353.03516,
+                113.37296
+              ],
+              "worldNormal": [
+                -0.10808,
+                -0.06753,
+                0.99185
+              ],
+              "normalZ": 0.99185,
+              "distanceM": 0.0203,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 1
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 41,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                953.07751,
+                353.21713,
+                113.2835
+              ],
+              "worldNormal": [
+                -0.10642,
+                -0.07027,
+                0.99183
+              ],
+              "normalZ": 0.99183,
+              "distanceM": 0.17153,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 2
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 3851,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                955.7887,
+                355.94882,
+                111.94053
+              ],
+              "worldNormal": [
+                0.07245,
+                0.119,
+                -0.99025
+              ],
+              "normalZ": -0.99025,
+              "distanceM": 3.97629,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 3
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 47,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                956.23761,
+                356.40112,
+                111.71817
+              ],
+              "worldNormal": [
+                0.10642,
+                0.07027,
+                -0.99183
+              ],
+              "normalZ": -0.99183,
+              "distanceM": 0.57493,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 4
+            }
+          ],
+          "possibleSunOcclusion": [
+            {
+              "sun": "K4BQ / natural sun eastward cut",
+              "towardsSun": [
+                0.72201,
+                0.13237,
+                0.67911
+              ],
+              "rayOcclusionCandidates": [
+                {
+                  "offsetM": 0.035,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                },
+                {
+                  "offsetM": 0.16,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                }
+              ],
+              "thisIsNotYetRenderedShadowProof": true
+            }
+          ]
+        },
+        {
+          "role": "control",
+          "pixel": [
+            280,
+            440
+          ],
+          "cameraOrigin": [
+            933.9984,
+            333.9936,
+            122.7344
+          ],
+          "cameraDirection": [
+            0.7124045,
+            0.6169763,
+            -0.334395
+          ],
+          "firstHit": {
+            "object": "K4BQ / physically variegated 26m curved material research test",
+            "objectType": "MESH",
+            "faceIndex": 135,
+            "materialSlot": 0,
+            "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+            "location": [
+              953.95721,
+              351.2789,
+              113.3659
+            ],
+            "worldNormal": [
+              -0.10704,
+              -0.06912,
+              0.99185
+            ],
+            "normalZ": 0.99185,
+            "distanceM": 28.0162,
+            "hideRender": false,
+            "hideViewport": false,
+            "researchOnly": false,
+            "notGameCollider": false,
+            "semantic": "",
+            "geometryFingerprintedAsSourceRoad5": ""
+          },
+          "firstFiveHits": [
+            {
+              "object": "K4BQ / physically variegated 26m curved material research test",
+              "objectType": "MESH",
+              "faceIndex": 135,
+              "materialSlot": 0,
+              "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+              "location": [
+                953.95721,
+                351.2789,
+                113.3659
+              ],
+              "worldNormal": [
+                -0.10704,
+                -0.06912,
+                0.99185
+              ],
+              "normalZ": 0.99185,
+              "distanceM": 28.0162,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 0
+            },
+            {
+              "object": "K4BP / ALTERNATE NON_GAME 26m alpine harbor road; source mesh r",
+              "objectType": "MESH",
+              "faceIndex": 42,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                954.03503,
+                351.34631,
+                113.32937
+              ],
+              "worldNormal": [
+                -0.10601,
+                -0.0709,
+                0.99183
+              ],
+              "normalZ": 0.99183,
+              "distanceM": 0.00925,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 1
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 1691,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                954.11322,
+                351.41406,
+                113.29266
+              ],
+              "worldNormal": [
+                -0.07245,
+                -0.119,
+                0.99025
+              ],
+              "normalZ": 0.99025,
+              "distanceM": 0.00978,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 2
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 3851,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                957.23657,
+                354.11908,
+                111.82658
+              ],
+              "worldNormal": [
+                0.07245,
+                0.119,
+                -0.99025
+              ],
+              "normalZ": -0.99025,
+              "distanceM": 4.28428,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 3
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 47,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                957.49188,
+                354.34021,
+                111.70673
+              ],
+              "worldNormal": [
+                0.10642,
+                0.07027,
+                -0.99183
+              ],
+              "normalZ": -0.99183,
+              "distanceM": 0.25839,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 4
+            }
+          ],
+          "possibleSunOcclusion": [
+            {
+              "sun": "K4BQ / natural sun eastward cut",
+              "towardsSun": [
+                0.72201,
+                0.13237,
+                0.67911
+              ],
+              "rayOcclusionCandidates": [
+                {
+                  "offsetM": 0.035,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                },
+                {
+                  "offsetM": 0.16,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                }
+              ],
+              "thisIsNotYetRenderedShadowProof": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pair": 6,
+      "darkPixel": [
+        225,
+        470
+      ],
+      "comparisonPixel": [
+        270,
+        470
+      ],
+      "rays": [
+        {
+          "role": "dark",
+          "pixel": [
+            225,
+            470
+          ],
+          "cameraOrigin": [
+            933.9984,
+            333.9936,
+            122.7344
+          ],
+          "cameraDirection": [
+            0.6434426,
+            0.670078,
+            -0.3701042
+          ],
+          "firstHit": {
+            "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+            "objectType": "MESH",
+            "faceIndex": 49,
+            "materialSlot": 0,
+            "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+            "location": [
+              950.77814,
+              351.46793,
+              113.08276
+            ],
+            "worldNormal": [
+              -0.0757,
+              -0.12299,
+              0.98952
+            ],
+            "normalZ": 0.98952,
+            "distanceM": 26.07812,
+            "hideRender": false,
+            "hideViewport": false,
+            "researchOnly": true,
+            "notGameCollider": true,
+            "semantic": "",
+            "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2"
+          },
+          "firstFiveHits": [
+            {
+              "object": "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+              "objectType": "MESH",
+              "faceIndex": 49,
+              "materialSlot": 0,
+              "material": "K4BY | genuine CC0 Asphalt Track 2K road PBR study",
+              "location": [
+                950.77814,
+                351.46793,
+                113.08276
+              ],
+              "worldNormal": [
+                -0.0757,
+                -0.12299,
+                0.98952
+              ],
+              "normalZ": 0.98952,
+              "distanceM": 26.07812,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": true,
+              "notGameCollider": true,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+              "layer": 0
+            },
+            {
+              "object": "K4BQ / physically variegated 26m curved material research test",
+              "objectType": "MESH",
+              "faceIndex": 124,
+              "materialSlot": 0,
+              "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+              "location": [
+                950.84595,
+                351.53854,
+                113.04375
+              ],
+              "worldNormal": [
+                -0.11204,
+                -0.07015,
+                0.99122
+              ],
+              "normalZ": 0.99122,
+              "distanceM": 0.00539,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 1
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 37,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                951.00903,
+                351.70837,
+                112.94996
+              ],
+              "worldNormal": [
+                -0.1083,
+                -0.07151,
+                0.99154
+              ],
+              "normalZ": 0.99154,
+              "distanceM": 0.15345,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 2
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 3850,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                953.4234,
+                354.22269,
+                111.56123
+              ],
+              "worldNormal": [
+                0.07055,
+                0.11942,
+                -0.99033
+              ],
+              "normalZ": -0.99033,
+              "distanceM": 3.65227,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 3
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 43,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                953.81921,
+                354.63492,
+                111.33354
+              ],
+              "worldNormal": [
+                0.10642,
+                0.07027,
+                -0.99183
+              ],
+              "normalZ": -0.99183,
+              "distanceM": 0.51518,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 4
+            }
+          ],
+          "possibleSunOcclusion": [
+            {
+              "sun": "K4BQ / natural sun eastward cut",
+              "towardsSun": [
+                0.72201,
+                0.13237,
+                0.67911
+              ],
+              "rayOcclusionCandidates": [
+                {
+                  "offsetM": 0.035,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                },
+                {
+                  "offsetM": 0.16,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                }
+              ],
+              "thisIsNotYetRenderedShadowProof": true
+            }
+          ]
+        },
+        {
+          "role": "control",
+          "pixel": [
+            270,
+            470
+          ],
+          "cameraOrigin": [
+            933.9984,
+            333.9936,
+            122.7344
+          ],
+          "cameraDirection": [
+            0.690048,
+            0.6185204,
+            -0.3758537
+          ],
+          "firstHit": {
+            "object": "K4BQ / physically variegated 26m curved material research test",
+            "objectType": "MESH",
+            "faceIndex": 123,
+            "materialSlot": 0,
+            "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+            "location": [
+              951.80261,
+              349.95233,
+              113.03678
+            ],
+            "worldNormal": [
+              -0.11099,
+              -0.07173,
+              0.99123
+            ],
+            "normalZ": 0.99123,
+            "distanceM": 25.8015,
+            "hideRender": false,
+            "hideViewport": false,
+            "researchOnly": false,
+            "notGameCollider": false,
+            "semantic": "",
+            "geometryFingerprintedAsSourceRoad5": ""
+          },
+          "firstFiveHits": [
+            {
+              "object": "K4BQ / physically variegated 26m curved material research test",
+              "objectType": "MESH",
+              "faceIndex": 123,
+              "materialSlot": 0,
+              "material": "K4BR | ACTUAL CC0 PHOTO PBR | worn asphalt high-resolution surf",
+              "location": [
+                951.80261,
+                349.95233,
+                113.03678
+              ],
+              "worldNormal": [
+                -0.11099,
+                -0.07173,
+                0.99123
+              ],
+              "normalZ": 0.99123,
+              "distanceM": 25.8015,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 0
+            },
+            {
+              "object": "K4BP / ALTERNATE NON_GAME 26m alpine harbor road; source mesh r",
+              "objectType": "MESH",
+              "faceIndex": 38,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                951.87366,
+                350.01602,
+                112.99809
+              ],
+              "worldNormal": [
+                -0.10788,
+                -0.07214,
+                0.99154
+              ],
+              "normalZ": 0.99154,
+              "distanceM": 0.00294,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 1
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 37,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                951.97906,
+                350.1105,
+                112.94067
+              ],
+              "worldNormal": [
+                -0.1083,
+                -0.07151,
+                0.99154
+              ],
+              "normalZ": 0.99154,
+              "distanceM": 0.05273,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 2
+            },
+            {
+              "object": "SOURCE PHYSICAL ROAD5 CONTROL p93-PRISM_CREST-01",
+              "objectType": "MESH",
+              "faceIndex": 3851,
+              "materialSlot": 0,
+              "material": "K4BM | authentic Road5 layered painted asphalt PBR DCC",
+              "location": [
+                954.70868,
+                352.55719,
+                111.45392
+              ],
+              "worldNormal": [
+                0.07245,
+                0.119,
+                -0.99025
+              ],
+              "normalZ": -0.99025,
+              "distanceM": 3.85567,
+              "hideRender": true,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 3
+            },
+            {
+              "object": "K4BP / NARROW track actual sculpted structural base",
+              "objectType": "MESH",
+              "faceIndex": 43,
+              "materialSlot": 0,
+              "material": "K4BP / independent under-track body support",
+              "location": [
+                954.94928,
+                352.77286,
+                111.32287
+              ],
+              "worldNormal": [
+                0.10642,
+                0.07027,
+                -0.99183
+              ],
+              "normalZ": -0.99183,
+              "distanceM": 0.24866,
+              "hideRender": false,
+              "hideViewport": false,
+              "researchOnly": false,
+              "notGameCollider": false,
+              "semantic": "",
+              "geometryFingerprintedAsSourceRoad5": "",
+              "layer": 4
+            }
+          ],
+          "possibleSunOcclusion": [
+            {
+              "sun": "K4BQ / natural sun eastward cut",
+              "towardsSun": [
+                0.72201,
+                0.13237,
+                0.67911
+              ],
+              "rayOcclusionCandidates": [
+                {
+                  "offsetM": 0.035,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                },
+                {
+                  "offsetM": 0.16,
+                  "firstPotentialBlocker": null,
+                  "occluderDetails": null
+                }
+              ],
+              "thisIsNotYetRenderedShadowProof": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "firstHitDarkObjects": [
+    "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+    "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+    "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+    "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+    "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER",
+    "K4BY | actual source raycast 1m road surface | NO GAME COLLIDER"
+  ],
+  "firstHitControlObjects": [
+    "K4BQ / physically variegated 26m curved material research test",
+    "K4BQ / physically variegated 26m curved material research test",
+    "K4BQ / physically variegated 26m curved material research test",
+    "K4BQ / physically variegated 26m curved material research test",
+    "K4BQ / physically variegated 26m curved material research test",
+    "K4BQ / physically variegated 26m curved material research test"
+  ],
+  "sameDarkControlFirstHitObjectCount": 0,
+  "SUNShadowRayCandidateDifferences": [
+    {
+      "darkPotentialBlocker": null,
+      "controlPotentialBlocker": null,
+      "different": false
+    },
+    {
+      "darkPotentialBlocker": null,
+      "controlPotentialBlocker": null,
+      "different": false
+    },
+    {
+      "darkPotentialBlocker": null,
+      "controlPotentialBlocker": null,
+      "different": false
+    },
+    {
+      "darkPotentialBlocker": null,
+      "controlPotentialBlocker": null,
+      "different": false
+    },
+    {
+      "darkPotentialBlocker": null,
+      "controlPotentialBlocker": null,
+      "different": false
+    },
+    {
+      "darkPotentialBlocker": null,
+      "controlPotentialBlocker": null,
+      "different": false
+    }
+  ],
+  "actualRootCause": "NOT_ESTABLISHED_BY_RAY_ONLY",
+  "nextStep": "If dark/control first hit matches but light blockers differ: independent fixed-camera shadow-caster A/B. If object hits differ: isolate exact mesh/material then re-render without source edits. If both identical: investigate material lighting / normals / shadow map.",
+  "ART": "REJECT",
+  "formalArtAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "independentExactImageSamples": [
+    {
+      "darkPixel": [
+        292,
+        300
+      ],
+      "normalRoadPixel": [
+        317,
+        300
+      ],
+      "darkRGB": [
+        74,
+        77,
+        82
+      ],
+      "comparisonRGB": [
+        115,
+        113,
+        112
+      ],
+      "meanRGBDeltaNotCauseProof": 35.6667
+    },
+    {
+      "darkPixel": [
+        280,
+        330
+      ],
+      "normalRoadPixel": [
+        310,
+        330
+      ],
+      "darkRGB": [
+        70,
+        73,
+        78
+      ],
+      "comparisonRGB": [
+        108,
+        107,
+        106
+      ],
+      "meanRGBDeltaNotCauseProof": 33.3333
+    },
+    {
+      "darkPixel": [
+        267,
+        360
+      ],
+      "normalRoadPixel": [
+        310,
+        360
+      ],
+      "darkRGB": [
+        69,
+        72,
+        77
+      ],
+      "comparisonRGB": [
+        107,
+        104,
+        102
+      ],
+      "meanRGBDeltaNotCauseProof": 31.6667
+    },
+    {
+      "darkPixel": [
+        250,
+        400
+      ],
+      "normalRoadPixel": [
+        295,
+        400
+      ],
+      "darkRGB": [
+        65,
+        68,
+        73
+      ],
+      "comparisonRGB": [
+        105,
+        103,
+        102
+      ],
+      "meanRGBDeltaNotCauseProof": 34.6667
+    },
+    {
+      "darkPixel": [
+        235,
+        440
+      ],
+      "normalRoadPixel": [
+        280,
+        440
+      ],
+      "darkRGB": [
+        64,
+        66,
+        71
+      ],
+      "comparisonRGB": [
+        99,
+        97,
+        95
+      ],
+      "meanRGBDeltaNotCauseProof": 30.0
+    },
+    {
+      "darkPixel": [
+        225,
+        470
+      ],
+      "normalRoadPixel": [
+        270,
+        470
+      ],
+      "darkRGB": [
+        63,
+        65,
+        70
+      ],
+      "comparisonRGB": [
+        99,
+        96,
+        93
+      ],
+      "meanRGBDeltaNotCauseProof": 30.0
+    }
+  ],
+  "annotation": {
+    "file": "K4BZ_SOURCE_IMAGE_12_REAL_PIXEL_GEOMETRY_AUDIT_MARKERS_NOT_GAME.png",
+    "bytes": 352222,
+    "sha256": "41bb46e319409f4918dea90c5edb7cc553aac6f5e10b1837d8bfc13ea5c670b3",
+    "noContentReplacement": true,
+    "sourcePNGUnmodified": true
+  },
+  "diagnosticStatus": "RAY_AUDIT_COMPLETE_ROOT_CAUSE_NOT_YET_PROVEN"
+}
