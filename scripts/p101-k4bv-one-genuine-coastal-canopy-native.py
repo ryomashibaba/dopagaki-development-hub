@@ -162,10 +162,18 @@ for mat in material_set:
    exact=next(m for m in receipt['files'].values() if ASSETS/m['localFile']==path)
    assert path.stat().st_size==exact['actualBytes'] and sha(path)==exact['sha256']
    image=bpy.data.images.load(str(path),check_existing=False)
-   assert image.has_data,('verified JPEG still not readable',str(path))
    image.colorspace_settings.name=origin.colorspace_settings.name
    image.alpha_mode=origin.alpha_mode
-   image.pack();assert image.packed_file is not None
+   # Blender 4 background import can have has_data=False until GPU/CPU
+   # pixels are requested. It does NOT establish missing source bytes.
+   # Pack exact SHA-verified vendor JPEG bytes, independent of lazy pixels.
+   vendor_bytes=path.read_bytes()
+   assert len(vendor_bytes)==exact['actualBytes']
+   assert hashlib.sha256(vendor_bytes).hexdigest()==exact['sha256']
+   image.pack(data=vendor_bytes,data_len=len(vendor_bytes))
+   assert image.packed_file is not None,('vendor JPEG pack failed',name)
+   assert image.packed_file.size==len(vendor_bytes),('packed JPEG size mismatch',name)
+   assert hashlib.sha256(bytes(image.packed_file.data)).hexdigest()==exact['sha256'],('packed vendor image mismatch',name)
    loaded_vendor_images[name]=image
   node.image=loaded_vendor_images[name]
 new_images=set(loaded_vendor_images.values())
