@@ -1,3 +1,16 @@
+# 【2026-11-04 K4BR最終確定・K4BSへの制作入口】実CC0 PBR/3D岩壁モデルの真正取得→Blender実装TECH PASS／美術ART REJECT
+
+**現行最終隔離枝**：`research/k4br-cc0-phototexture-source-verified-20261104`。次の作業は[**K4BR実配布素材・全MD5+SHA・本物のBlender原本・比較画像・美術評価・K4BS制作原則**](docs/R19_A6P4_R2F5K4BR_CC0_SCAN_REAL_ASSET_ART_JA.md)を最優先で読む。それ以前の「最新」記事は履歴。
+
+- **実装・検証成果**：[最終Actions #41790588687](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41790588687) **completed/SUCCESS**。最初[#41789921118](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41789921118)はPython引数で失敗、第2回[#41790126272](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41790126272)は実6 PBR +岩壁glTFと全依存4の実取得・公式MD5/独立SHA照合PASS後にUbuntu glTF importerのnumpy欠損で失敗、最終修正版は全部PASS。この失敗と修正も継承。
+- **新実物アセットの証拠**：Poly Haven公式CC0[Asphalt 01](https://polyhaven.com/a/asphalt_01)と[Rock Ground 02](https://polyhaven.com/a/rock_ground_02)の2K実カラー/GL法線/rough各3点、[Rock Face 01](https://polyhaven.com/a/rock_face_01)本物の実3D岩壁glTF＋依存外部4点（各20,174tri、3か所に実ロード）。公式MD5/Bytes/独立SHAを全11ファイルで厳格検証し、Blender実メッシュとPBR packed imagesへ組み込み。同研究CHASEと元Camera同ポーズ複製の2画像＋旧K4BQ同CHASE比較を実レンダリング。**3D岩壁モデルが「写真測量で作られた」かは個別公式データで確証なし**、それは断定しない。ライブAPI UserAgentと`Powered by Poly Haven`を実施、追加有料API0円。
+- [本物の最終Artifact #13303311443](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41790588687/artifacts/13303311443) ZIP SHA256 `208522d022cb24dda51c07bf0c63723ef472d18b84d2dad4fb36fce76c8291dc`、**編集可能Blender`K4BR_ACTUAL_CC0_PHOTOSCAN_ROCKS_EDITABLE_NATIVE_DCC_ART_HOLD.blend` SHA256 `7f229b9fbc0d736c056e1494f64192e64b7915f768a6fb38f05c87901229fa69`**、元画像2枚・同CHASE比較・素材の元URLとMD5/SHA JSONを実原バイトで独立再照合してZIP CRC/個別SHA全PASS。
+- **美術ART REJECT、正式ART採用0件／Slope2 DNA正式認定0m**。実画像で実写由来の岩・舗装の微細材質は明確に見えるが、矩形緑色の地面、ローポリ三角木、大きな切れた建物、単独巨大灯台、薄い港遠景、巨大な単調直線のRoadが残り世界級ではない。物量と素材の実在≠品質合格。
+- **K4BS固定次工程**：これ以上単純な柱/箱/木/塗装を増殖しない。最優先は写真材質を使った自然な**地面マスク/草の接続**、実LODを持つ配布元ライセンス確認済み3D樹木、近景巨大建築と灯台を構図から再設計、道路の本当に高級な視覚と速度感の全体デザイン。同CHASE_NARROW研究Cameraの実Blender比較で審査、良くなければART REJECTと正式ART0/DNA0m継続。実ゲームWebGL2の安全・FPSは未実証。
+- **全ソース保護**：元Game Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、Source B48 Road5全頂点・面fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48実7/B51実28、240Hz/球半径0.65m、元Rig6カメラ・研究CHASEカメラ数値、main/公式`p101-velocity-overdrive-native-trial`/Draft PR#46/本番2URL不変。Work/Computer Use事前承認、Windows操作要求なし、実ゲーム新Collider0。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。過去の公式原本や旧成功B48を改変しない。
+
+---
+
 # 【2026-11-04 K4BR 現行正本】実CC0写真素材＆真3Dスキャンの確実な入手・編集可能Blender実画像研究
 
 **隔離研究枝**：`research/k4br-cc0-phototexture-source-verified-20261104`。最新[K4BR全体制作/配布元CC0とAPI利用条件/実アセット独立検証/美術ゲート](docs/R19_A6P4_R2F5K4BR_CC0_SCAN_REAL_ASSET_ART_JA.md)を先に読む。過去の「最新」は履歴。
