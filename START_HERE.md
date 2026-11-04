@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BR 現行正本】実CC0写真素材＆真3Dスキャンの確実な入手・編集可能Blender実画像研究
+
+**隔離研究枝**：`research/k4br-cc0-phototexture-source-verified-20261104`。最新[K4BR全体制作/配布元CC0とAPI利用条件/実アセット独立検証/美術ゲート](docs/R19_A6P4_R2F5K4BR_CC0_SCAN_REAL_ASSET_ART_JA.md)を先に読む。過去の「最新」は履歴。
+
+- 前工程K4BQ：[真正成功CI #41783578592](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41783578592)、元Road5と6Camera保護、実Blender.blend＋同CHASE研究Camera PNGは技術PASSだが低ポリ模型美術**ART REJECT**。正式ART0件／Slope2DNA0m。
+- **K4BR主方針**：単色の手続き的岩/路面と低ポリ植物の量産を主経路から離れ、Poly Haven公式CC0から本物の「Asphalt 01」「Rock Ground 02」の2K Diffuse／OpenGL Normal／Rough各3マップ、実3D岩壁「Rock Face 01」の1K glTF+全依存ファイルを無償で取得。メーカーMD5、Byte数、独立SHA256全一致が必須。ユーザーへの課金/API追加なし。公式APIの固有User-Agentと`Powered by Poly Haven`の利用元明示を実装。**まだ取得成功の保証はしていない**。
+- 素材が本当に取れた場合だけ、親K4BQ正本の編集可能BLEND SHA `5fe3ed2569b807af0b04c46cd1672f83a1c93863a19e958c468369985bd60252`を保護ロードし、実写真PBRを道路・岩・路側石材へ接続して画像Packed、実スキャン岩壁を個別に編集可能な3D研究モデルとして3カ所に配置する。**元K4BP DのCHASE_NARROW研究Cameraと同じ数値でK4BQ/K4BR真正Blender A/B**を取得し、質を目視で判定。画像の単純な差分が出ただけではART PASS禁止。
+- [初回CI #41789921118](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41789921118) はGit Source/親K4BQ source検証はPASS、Pythonダウンローダーの引数`--`誤要求で**FAILURE**、実素材取得・新Blender未作成。修正commit `6e385c3168bc557aaa6904ff15718517e5da3b6c`で通常Pythonの引数も受理。[再試験CI #41790126272](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41790126272) は実状態・Vendor API・SHA・本画像を確認する。成功前に完了と報告しない。
+- **絶対保護**：元ゲームGit blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5全頂点面 fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48実7/B51実28/240Hz/球0.65m/元6Camera、main、公式`p101-velocity-overdrive-native-trial`、Draft PR#46、本番2サイト不変。Work/Computer Useは事前承認制、ユーザーWindows操作無し。元ゲームの新しいCollider0。正式採用ART0件／Slope2DNA0m、ART/SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD。
+---
+
 # 【2026-11-04 K4BQ 最終確定／K4BR実美術への正本入口】実DCC技術PASS、ポリゴン模型美術はART REJECT
 
 **最新隔離研究枝**：`research/k4bq-geological-harbor-art-direction-20261104`。継続前に[**K4BQの実Blender原本・元Camera同一比較・美術不合格原因・K4BR本格材質転換**](docs/R19_A6P4_R2F5K4BQ_GEOLOGICAL_COASTAL_HARBOR_ART_JA.md)を最初に読む。K4BP以下の「最新」は履歴。
