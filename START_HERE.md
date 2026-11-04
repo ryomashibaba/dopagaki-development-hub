@@ -1,3 +1,15 @@
+# 【2026-11-04 K4BM 最新継続入口】原物Road5＋Sourceカメラ・手成形実UV/PBR美術制作
+
+本研究継続ブランチ：`research/k4bm-uv-pbr-authored-hero-20261104`。次の作業では最初に[K4BM新作者メッシュ／UV-PBR／制作ログと厳格美術判定](docs/R19_A6P4_R2F5K4BM_NATIVE_UV_PBR_ART_JA.md)を読むこと。過去K4BL以下の「最新」は履歴。
+
+- **前K4BL**：真実のSource Camera 2枚とBlender .blendのSHA／元Road5 geometry検証済み [#41751060525](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41751060525) completed/SUCCESS、ただし実画像の美術評価は**ART REJECT**。正式採用ART0件、Slope2 DNA0m。
+- **K4BM実制作**：新`scripts/p101-k4bm-authored-uv-pbr-coastal-hero.py`で、元K4BL編集可能BLEND（SHA256 `220855d6500a74697e41b9bad36cb5c20654ea77d8c8a4be48d5ebf9a4ab2488`）を厳密読込。元Source Road5メッシュ実測9地点と全6 Camera固定。旧不採用ARTを消さずRenderOFF。道路面の細かい骨材と粗さ、石材／陶板／銅色の**作者UVとマテリアル**、実3Dの建築奥行き・海岸地層、公共室内・港湾遠景を手作り構造で制作する。
+- [初回CI #41756146305](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41756146305) は植栽の未定義変数`R`で**失敗**。研究コード修正commit `3841be073af6edfad77912974fa03c255d5fde0e`、[再試験CI #41756329982](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41756329982) を実行中。必ず**最新 run 状態と新原本.blend・元Camera control11307/ultra11341実PNG・SHA・実UVマップを検証してから**技術PASSを記録し、画像を直接見てARTを判断。CI passはART passではない。新DCC画像は**実WebGL2ゲーム画像ではない**。
+- 固定不変：ゲームBlob `af076d67492a677d2235e4730aef8cdf4808e106`、Source Road5 mesh fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48元7/B51元28/元Camera6/240Hz/球半径0.65m/安全表示・物理。main／公式p101／Draft PR#46／本番2サイト保護。Work、Computer Useには事前個別承認。ユーザーにWindows操作要求なし。
+- 正式ART採用0件・Slope2 DNA認定0m。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGEはHOLD。ART合格前の他6Road横展開・ゲーム本体移植は禁止。
+
+---
+
 # 【2026-11-04 K4BL FINAL 正本】元Road5/CAM源保護・港湾美術TECH PASS／ART REJECT
 
 継続する**最新隔離研究ブランチ**：`research/k4bl-harbor-atmosphere-art-reconstruction-20261104`。必ず[2026年11月4日・K4BL本物の編集可能Blender画像・CI・全反省・次工程K4BM美術制作転換](docs/R19_A6P4_R2F5K4BL_COASTAL_HARBOR_ART_DIRECTION_JA.md)を最初に読む。過去K4BK以前の見出しにある「最新」は履歴。
