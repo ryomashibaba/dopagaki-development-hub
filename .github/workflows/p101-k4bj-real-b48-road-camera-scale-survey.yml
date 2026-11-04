@@ -1,0 +1,100 @@
+name: DOPAGAKI K4BJ READONLY actual B48 Road5 source-camera physical-width survey
+on:
+  push:
+    branches: [research/k4bj-hand-authored-hero-civic-canyon-20261104]
+    paths:
+      - scripts/p101-k4bj-readonly-source-road-camera-survey.py
+      - .github/workflows/p101-k4bj-real-b48-road-camera-scale-survey.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bj-real-road-width-survey
+  cancel-in-progress: true
+jobs:
+  read-only-real-road-survey:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify unchanged game blob and native Python
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "research/k4bj-hand-authored-hero-civic-canyon-20261104"
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bj-readonly-source-road-camera-survey.py
+      - name: Download exact unaltered K4BI native editable parent
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BI_GENUINE_SOURCE_CAMERA_EDITABLE_PBR_FACADE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41740606366
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bj/survey-parent
+      - name: Validate source parent and immutable original game contract
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          d=Path('research/evidence/k4bj/survey-parent')
+          j=json.loads((d/'K4BI_ORIGINAL_SOURCE_CAMERA_DCC_PROVENANCE.json').read_text())
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalB48Roads']==7 and j['originalB51Movers']==28
+          assert j['originalRoad5VertexPolygonFingerprintUnchanged'] and j['sourceCameraNumericsUnchanged']
+          for n,m in j['files'].items():
+              b=(d/n).read_bytes()
+              assert len(b)==m['bytes'] and hashlib.sha256(b).hexdigest()==m['sha256']
+          assert j['files']['K4BI_ROAD_MATERIAL_ARCHITECTURAL_DETAIL_EDITABLE_DCC_HOLD.blend']['sha256']=='93526d4adff8f1061081109123f7619de9bb6a0b835b15af6baf9bf6bb3ba086'
+          print('K4BJ_GENUINE_PARENT_READONLY_PASS')
+          PY
+      - name: Install native Blender for actual B48 raycast measurements
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender
+      - name: Read original mesh and source camera numeric widths, do NOT save .blend
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bj/actual-mesh-survey
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bj-readonly-source-road-camera-survey.py -- \
+            --base research/evidence/k4bj/survey-parent/K4BI_ROAD_MATERIAL_ARCHITECTURAL_DETAIL_EDITABLE_DCC_HOLD.blend \
+            --out research/evidence/k4bj/actual-mesh-survey
+      - name: Independently reject missing or placeholder measurement output
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('research/evidence/k4bj/actual-mesh-survey/K4BJ_REAL_SOURCE_ROAD_CAMERA_SCALE_SURVEY.json')
+          j=json.loads(p.read_text())
+          assert j['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert j['originalRoad5GeometryFingerprintPreserved']
+          assert j['physicalSourceRoadMesh']['triangles']==4728
+          assert len(j['actualSourceRoadVerticalRaycastSections'])==11
+          assert j['ART']=='REJECT_PREVIOUS_HOLD'
+          assert j['formalArtAccepted']==0
+          assert j['slope2DNAAcceptedMetres']==0
+          print('K4BJ_TRUE_SOURCE_GEOMETRY_MEASUREMENT_PASS_NOT_SAFETY_OR_ART')
+          PY
+      - name: Save measurement JSON on current isolated research branch only
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bj-hand-authored-hero-civic-canyon-20261104
+          mkdir -p docs/research-evidence/k4bj
+          cp research/evidence/k4bj/actual-mesh-survey/K4BJ_REAL_SOURCE_ROAD_CAMERA_SCALE_SURVEY.json docs/research-evidence/k4bj/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/research-evidence/k4bj/K4BJ_REAL_SOURCE_ROAD_CAMERA_SCALE_SURVEY.json
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bj): actual B48 Road5 camera frame lateral survey, art hold"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bj-hand-authored-hero-civic-canyon-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4BJ_READONLY_TRUE_SOURCE_ROAD5_CAMERA_SCALE_SURVEY_ART_HOLD
+          path: research/evidence/k4bj/actual-mesh-survey/
+          retention-days: 21
+          if-no-files-found: warn
