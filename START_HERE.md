@@ -1,3 +1,13 @@
+# 【2026-11-04 K4BW A2最終・次K4BX】Native技術PASS／真正研究画像ART REJECT
+
+最新研究枝 `research/k4bw-coastal-viaduct-harbor-composition-20261104`。まず[K4BW A2最終判定](docs/research-evidence/k4bw/K4BW_A2_FINAL_STATUS.md)、次に[K4BW作者Blender工程](docs/R19_A6P4_R2F5K4BW_COHERENT_COASTAL_HARBOR_ART_JA.md)とK4BV→K4BU→K4BTの正本を参照。以下の「最新」「実行中」は履歴。
+
+- A1 [CI #41818181545](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41818181545) SUCCESSだが路面筋と左斜面継ぎ目がART REJECT。A2 [CI #41818853277](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41818853277) は本物のBlender原本と実画像を保存したが後段の恣意的平均RGB差分閾値でFAILURE。既存Artifactを**再レンダリングなし**で独立検証した[CI #41819493849](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41819493849)は SUCCESS、技術PASS。技術PASSは美術PASSではない。
+- 真A2編集可能.blend SHA256 `62c2990e6687ea092a8151339b37fdb0cb8ad156b5dffac1a593218b2c517c02`、真正同CHASE 768×480 PNG SHA256 `542c765f92c5bc0007c7883dd407b72467e889504cf02c56b9cc5bc726710372`、[真正旧新比較画像](docs/research-evidence/k4bw/K4BW_A2_VS_K4BV_SAME_CHASE_REAL_ART_REVIEW_NOT_GAME.png)。実画像ART REJECT、正式採用0件・Slope2 DNA0m。
+- 次のK4BXは**道路・自然地形・港湾の実用途と遠景を含む構図の抜本改善**。単純な箱・円錐樹・柵や細い線を量産しない。元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元B48 Road5 fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元6 Camera、B48 7Road/B51 28Mover/240Hz/0.65m球、main/公式P101/Draft PR #46/本番保護。SAT/CCD/FPS/HUMAN/RELEASE/MERGE HOLD。追加課金0、Work/Computer Use事前承認。
+
+---
+
 # 【K4BW 2026-11-04 海辺の港湾・地形・路面を一体で作者設計する工程】
 
 **新しい隔離研究枝** `research/k4bw-coastal-viaduct-harbor-composition-20261104`。[K4BW作者海岸港湾・路面構図、元SOURCE厳守、真正Camera1枚検証](docs/R19_A6P4_R2F5K4BW_COHERENT_COASTAL_HARBOR_ART_JA.md)を第一に読み、以下のK4BV真正高密度木・K4BU木配置・K4BT投影診断を継承する。下の「最新」は履歴。
