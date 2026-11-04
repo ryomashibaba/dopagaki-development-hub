@@ -1,0 +1,650 @@
+{
+  "schema": "dopagaki.K4BP.separate-camera-vs-alternative-road-source-protected-study/1",
+  "verifiedParentK4BOBlendSHA256": "b546174d5ae5186015981f2d6b5ee40f823cb7a4f2f9ba33f07c2bbda84264e6",
+  "frozenOriginalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5VertexFaceFingerprintUnchanged": true,
+  "allSixOriginalSourceCameraPosesLensUnchanged": true,
+  "originalB48RoadCount": 7,
+  "originalB51MoverCount": 28,
+  "originalPhysicsHz": 240,
+  "originalBallRadiusMetres": 0.65,
+  "originalRoad5MeasuredSections": [
+    {
+      "d": -12,
+      "left": -38,
+      "right": 50,
+      "centreZ": -11.308761596679688,
+      "roadWidthApprox": 88,
+      "hitCount": 45
+    },
+    {
+      "d": -5,
+      "left": -38,
+      "right": 50,
+      "centreZ": -10.292770385742188,
+      "roadWidthApprox": 88,
+      "hitCount": 45
+    },
+    {
+      "d": 0,
+      "left": -38,
+      "right": 50,
+      "centreZ": -9.577926635742188,
+      "roadWidthApprox": 88,
+      "hitCount": 45
+    },
+    {
+      "d": 5,
+      "left": -38,
+      "right": 50,
+      "centreZ": -8.888046264648438,
+      "roadWidthApprox": 88,
+      "hitCount": 45
+    },
+    {
+      "d": 10,
+      "left": -38,
+      "right": 52,
+      "centreZ": -8.206527709960938,
+      "roadWidthApprox": 90,
+      "hitCount": 46
+    },
+    {
+      "d": 15,
+      "left": -38,
+      "right": 52,
+      "centreZ": -7.5395965576171875,
+      "roadWidthApprox": 90,
+      "hitCount": 46
+    },
+    {
+      "d": 20,
+      "left": -38,
+      "right": 52,
+      "centreZ": -6.8897552490234375,
+      "roadWidthApprox": 90,
+      "hitCount": 46
+    },
+    {
+      "d": 30,
+      "left": -38,
+      "right": 52,
+      "centreZ": -5.6307830810546875,
+      "roadWidthApprox": 90,
+      "hitCount": 46
+    },
+    {
+      "d": 40,
+      "left": -38,
+      "right": 54,
+      "centreZ": -4.4322357177734375,
+      "roadWidthApprox": 92,
+      "hitCount": 47
+    },
+    {
+      "d": 55,
+      "left": -38,
+      "right": 56,
+      "centreZ": -2.7556610107421875,
+      "roadWidthApprox": 94,
+      "hitCount": 48
+    },
+    {
+      "d": 70,
+      "left": -38,
+      "right": 58,
+      "centreZ": -1.2246551513671875,
+      "roadWidthApprox": 96,
+      "hitCount": 49
+    },
+    {
+      "d": 90,
+      "left": -38,
+      "right": 60,
+      "centreZ": 0.5780792236328125,
+      "roadWidthApprox": 98,
+      "hitCount": 50
+    },
+    {
+      "d": 110,
+      "left": -38,
+      "right": 64,
+      "centreZ": 2.1074371337890625,
+      "roadWidthApprox": 102,
+      "hitCount": 52
+    },
+    {
+      "d": 130,
+      "left": -36,
+      "right": 66,
+      "centreZ": 3.3278350830078125,
+      "roadWidthApprox": 102,
+      "hitCount": 52
+    },
+    {
+      "d": 150,
+      "left": -34,
+      "right": 70,
+      "centreZ": 4.2528228759765625,
+      "roadWidthApprox": 104,
+      "hitCount": 53
+    },
+    {
+      "d": 170,
+      "left": -34,
+      "right": 72,
+      "centreZ": 4.8160552978515625,
+      "roadWidthApprox": 106,
+      "hitCount": 54
+    },
+    {
+      "d": 180,
+      "left": -32,
+      "right": 42,
+      "centreZ": 4.9820709228515625,
+      "roadWidthApprox": 74,
+      "hitCount": 38
+    }
+  ],
+  "originalSourceAndThreeResearchCameraMetrics": {
+    "ORIGINAL_CONTROL_11307": {
+      "cameraPos": [
+        942.8783569335938,
+        335.0636901855469,
+        119.93437194824219
+      ],
+      "cameraEuler": [
+        1.3961244821548462,
+        -5.6563465022918535e-09,
+        -0.9872180819511414
+      ],
+      "lensMm": 21.600000381469727,
+      "samples": [
+        {
+          "d": 5,
+          "screenX": 0.499995,
+          "screenYBottomUp": -0.322697,
+          "depth": 6.4685,
+          "inFrame": false
+        },
+        {
+          "d": 10,
+          "screenX": 0.499997,
+          "screenYBottomUp": 0.120181,
+          "depth": 11.274,
+          "inFrame": true
+        },
+        {
+          "d": 15,
+          "screenX": 0.499999,
+          "screenYBottomUp": 0.297773,
+          "depth": 16.082,
+          "inFrame": true
+        },
+        {
+          "d": 20,
+          "screenX": 0.499998,
+          "screenYBottomUp": 0.393087,
+          "depth": 20.893,
+          "inFrame": true
+        },
+        {
+          "d": 30,
+          "screenX": 0.499999,
+          "screenYBottomUp": 0.492667,
+          "depth": 30.5221,
+          "inFrame": true
+        },
+        {
+          "d": 40,
+          "screenX": 0.5,
+          "screenYBottomUp": 0.543473,
+          "depth": 40.1616,
+          "inFrame": true
+        },
+        {
+          "d": 55,
+          "screenX": 0.499999,
+          "screenYBottomUp": 0.58455,
+          "depth": 54.642,
+          "inFrame": true
+        },
+        {
+          "d": 70,
+          "screenX": 0.499999,
+          "screenYBottomUp": 0.606978,
+          "depth": 69.1476,
+          "inFrame": true
+        },
+        {
+          "d": 90,
+          "screenX": 0.5,
+          "screenYBottomUp": 0.623593,
+          "depth": 88.53,
+          "inFrame": true
+        },
+        {
+          "d": 110,
+          "screenX": 0.5,
+          "screenYBottomUp": 0.632497,
+          "depth": 107.96,
+          "inFrame": true
+        },
+        {
+          "d": 130,
+          "screenX": 0.5,
+          "screenYBottomUp": 0.637015,
+          "depth": 127.4436,
+          "inFrame": true
+        },
+        {
+          "d": 150,
+          "screenX": 0.5,
+          "screenYBottomUp": 0.63895,
+          "depth": 146.9785,
+          "inFrame": true
+        },
+        {
+          "d": 170,
+          "screenX": 0.5,
+          "screenYBottomUp": 0.638935,
+          "depth": 166.5762,
+          "inFrame": true
+        }
+      ],
+      "sourceRoadCenterlineScreenYSpread70to170": 0.031957,
+      "sourceRoadInFrameCount": 12
+    },
+    "CHASE_OBLIQUE_LOW": {
+      "cameraPos": [
+        933.9983520507812,
+        333.9935607910156,
+        122.734375
+      ],
+      "cameraEuler": [
+        1.5628976821899414,
+        3.71588946279644e-08,
+        -1.0371763706207275
+      ],
+      "lensMm": 38.0,
+      "samples": [
+        {
+          "d": 5,
+          "screenX": 0.687053,
+          "screenYBottomUp": -0.536155,
+          "depth": 13.2755,
+          "inFrame": false
+        },
+        {
+          "d": 10,
+          "screenX": 0.625817,
+          "screenYBottomUp": -0.206283,
+          "depth": 18.2637,
+          "inFrame": false
+        },
+        {
+          "d": 15,
+          "screenX": 0.590855,
+          "screenYBottomUp": -0.018687,
+          "depth": 23.2521,
+          "inFrame": false
+        },
+        {
+          "d": 20,
+          "screenX": 0.568244,
+          "screenYBottomUp": 0.101918,
+          "depth": 28.2406,
+          "inFrame": true
+        },
+        {
+          "d": 30,
+          "screenX": 0.540731,
+          "screenYBottomUp": 0.247411,
+          "depth": 38.2178,
+          "inFrame": true
+        },
+        {
+          "d": 40,
+          "screenX": 0.524608,
+          "screenYBottomUp": 0.331178,
+          "depth": 48.1955,
+          "inFrame": true
+        },
+        {
+          "d": 55,
+          "screenX": 0.509975,
+          "screenYBottomUp": 0.404927,
+          "depth": 63.1631,
+          "inFrame": true
+        },
+        {
+          "d": 70,
+          "screenX": 0.500948,
+          "screenYBottomUp": 0.448209,
+          "depth": 78.1319,
+          "inFrame": true
+        },
+        {
+          "d": 90,
+          "screenX": 0.493199,
+          "screenYBottomUp": 0.48248,
+          "depth": 98.092,
+          "inFrame": true
+        },
+        {
+          "d": 110,
+          "screenX": 0.48807,
+          "screenYBottomUp": 0.502413,
+          "depth": 118.0544,
+          "inFrame": true
+        },
+        {
+          "d": 130,
+          "screenX": 0.484425,
+          "screenYBottomUp": 0.513921,
+          "depth": 138.0192,
+          "inFrame": true
+        },
+        {
+          "d": 150,
+          "screenX": 0.481702,
+          "screenYBottomUp": 0.5203,
+          "depth": 157.9863,
+          "inFrame": true
+        },
+        {
+          "d": 170,
+          "screenX": 0.479589,
+          "screenYBottomUp": 0.522833,
+          "depth": 177.9562,
+          "inFrame": true
+        }
+      ],
+      "sourceRoadCenterlineScreenYSpread70to170": 0.074624,
+      "sourceRoadInFrameCount": 10
+    },
+    "HARBOR_3QUARTER": {
+      "cameraPos": [
+        928.695556640625,
+        389.2102355957031,
+        131.9343719482422
+      ],
+      "cameraEuler": [
+        1.5390268564224243,
+        -1.1662057630701383e-07,
+        -1.5427120923995972
+      ],
+      "lensMm": 30.0,
+      "samples": [
+        {
+          "d": 5,
+          "screenX": 2.23135,
+          "screenYBottomUp": -0.585956,
+          "depth": 17.5599,
+          "inFrame": false
+        },
+        {
+          "d": 10,
+          "screenX": 1.824682,
+          "screenYBottomUp": -0.340244,
+          "depth": 21.7843,
+          "inFrame": false
+        },
+        {
+          "d": 15,
+          "screenX": 1.550102,
+          "screenYBottomUp": -0.174867,
+          "depth": 26.0092,
+          "inFrame": false
+        },
+        {
+          "d": 20,
+          "screenX": 1.352245,
+          "screenYBottomUp": -0.056227,
+          "depth": 30.2346,
+          "inFrame": false
+        },
+        {
+          "d": 30,
+          "screenX": 1.086177,
+          "screenYBottomUp": 0.102329,
+          "depth": 38.6867,
+          "inFrame": false
+        },
+        {
+          "d": 40,
+          "screenX": 0.915506,
+          "screenYBottomUp": 0.202837,
+          "depth": 47.1408,
+          "inFrame": true
+        },
+        {
+          "d": 55,
+          "screenX": 0.74993,
+          "screenYBottomUp": 0.298448,
+          "depth": 59.8257,
+          "inFrame": true
+        },
+        {
+          "d": 70,
+          "screenX": 0.642276,
+          "screenYBottomUp": 0.358735,
+          "depth": 72.5152,
+          "inFrame": true
+        },
+        {
+          "d": 90,
+          "screenX": 0.546255,
+          "screenYBottomUp": 0.410013,
+          "depth": 89.4422,
+          "inFrame": true
+        },
+        {
+          "d": 110,
+          "screenX": 0.480796,
+          "screenYBottomUp": 0.442567,
+          "depth": 106.3778,
+          "inFrame": true
+        },
+        {
+          "d": 130,
+          "screenX": 0.433322,
+          "screenYBottomUp": 0.463835,
+          "depth": 123.3233,
+          "inFrame": true
+        },
+        {
+          "d": 150,
+          "screenX": 0.397326,
+          "screenYBottomUp": 0.477992,
+          "depth": 140.2782,
+          "inFrame": true
+        },
+        {
+          "d": 170,
+          "screenX": 0.369102,
+          "screenYBottomUp": 0.486941,
+          "depth": 157.2444,
+          "inFrame": true
+        }
+      ],
+      "sourceRoadCenterlineScreenYSpread70to170": 0.128206,
+      "sourceRoadInFrameCount": 8
+    },
+    "NARROW_FIXED_ORIGINAL_POSE": {
+      "cameraPos": [
+        942.8783569335938,
+        335.0636901855469,
+        119.93437194824219
+      ],
+      "cameraEuler": [
+        1.3961244821548462,
+        -5.6563465022918535e-09,
+        -0.9872180819511414
+      ],
+      "lensMm": 21.600000381469727,
+      "samples": [
+        {
+          "d": 5,
+          "screenX": 0.499995,
+          "screenYBottomUp": -0.322697,
+          "depth": 6.4685,
+          "inFrame": false
+        },
+        {
+          "d": 10,
+          "screenX": 0.499997,
+          "screenYBottomUp": 0.120181,
+          "depth": 11.274,
+          "inFrame": true
+        },
+        {
+          "d": 15,
+          "screenX": 0.499999,
+          "screenYBottomUp": 0.297773,
+          "depth": 16.082,
+          "inFrame": true
+        },
+        {
+          "d": 20,
+          "screenX": 0.499998,
+          "screenYBottomUp": 0.393087,
+          "depth": 20.893,
+          "inFrame": true
+        },
+        {
+          "d": 30,
+          "screenX": 0.499999,
+          "screenYBottomUp": 0.492667,
+          "depth": 30.5221,
+          "inFrame": true
+        },
+        {
+          "d": 40,
+          "screenX": 0.5,
+          "screenYBottomUp": 0.543473,
+          "depth": 40.1616,
+          "inFrame": true
+        },
+        {
+          "d": 55,
+          "screenX": 0.499999,
+          "screenYBottomUp": 0.58455,
+          "depth": 54.642,
+          "inFrame": true
+        },
+        {
+          "d": 70,
+          "screenX": 0.499999,
+          "screenYBottomUp": 0.606978,
+          "depth": 69.1476,
+          "inFrame": true
+        },
+        {
+          "d": 90,
+          "screenX": 0.5,
+          "screenYBottomUp": 0.623593,
+          "depth": 88.53,
+          "inFrame": true
+        },
+        {
+          "d": 110,
+          "screenX": 0.5,
+          "screenYBottomUp": 0.632497,
+          "depth": 107.96,
+          "inFrame": true
+        },
+        {
+          "d": 130,
+          "screenX": 0.5,
+          "screenYBottomUp": 0.637015,
+          "depth": 127.4436,
+          "inFrame": true
+        },
+        {
+          "d": 150,
+          "screenX": 0.5,
+          "screenYBottomUp": 0.63895,
+          "depth": 146.9785,
+          "inFrame": true
+        },
+        {
+          "d": 170,
+          "screenX": 0.5,
+          "screenYBottomUp": 0.638935,
+          "depth": 166.5762,
+          "inFrame": true
+        }
+      ],
+      "sourceRoadCenterlineScreenYSpread70to170": 0.031957,
+      "sourceRoadInFrameCount": 12
+    }
+  },
+  "researchScenarios": [
+    {
+      "scenario": "CHASE_OBLIQUE_LOW",
+      "cameraIsOriginal": false,
+      "originalRoad5Rendered": true,
+      "alternativeRoadVisualOnly": false,
+      "file": "K4BP_CHASE_OBLIQUE_LOW_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png"
+    },
+    {
+      "scenario": "HARBOR_3QUARTER",
+      "cameraIsOriginal": false,
+      "originalRoad5Rendered": true,
+      "alternativeRoadVisualOnly": false,
+      "file": "K4BP_HARBOR_3QUARTER_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png"
+    },
+    {
+      "scenario": "NARROW_FIXED_ORIGINAL_POSE",
+      "cameraIsOriginal": false,
+      "originalRoad5Rendered": false,
+      "alternativeRoadVisualOnly": true,
+      "file": "K4BP_NARROW_FIXED_ORIGINAL_POSE_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png"
+    }
+  ],
+  "narrowResearchTrackHalfWidthMetres": 13.1,
+  "narrowRoadIsNewIndependentNonGameVisualMesh": true,
+  "newGameCollisionCount": 0,
+  "gameSourceEdited": false,
+  "trueWebGL2GameScreenshot": false,
+  "formalArtAcceptedCount": 0,
+  "formalSlope2DNAMetres": 0,
+  "SOURCE_TECH": "PASS",
+  "ART": "UNJUDGED_HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "HUMAN": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BP_CONTROLLED_CAMERA_AND_ALTERNATE_ROAD_EDITABLE_RESEARCH_HOLD.blend": {
+      "bytes": 42142252,
+      "sha256": "0fd170b64880815e46112a557e0966726f1231fb282ecab2b23429c087f7bc68"
+    },
+    "K4BP_CHASE_OBLIQUE_LOW_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png": {
+      "bytes": 1691974,
+      "sha256": "261be564cc15fb908f0747a3afbca08032ea57fe8fb54c9994c2ba9445e1fb78"
+    },
+    "K4BP_HARBOR_3QUARTER_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png": {
+      "bytes": 1688497,
+      "sha256": "6ffb42781007054434b99f1cf4fd7d2195d22147a5629b74a043681b5b2ac446"
+    },
+    "K4BP_NARROW_FIXED_ORIGINAL_POSE_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png": {
+      "bytes": 1585561,
+      "sha256": "303c6961c142cad200e25fd06f142a98a177b56b4a0448c815ff6669ac3f1d24"
+    }
+  },
+  "independentFourFrameComparison": {
+    "file": "K4BP_ORIGINAL_VS_TWO_ALT_CAMERAS_VS_INDEPENDENT_ROAD_ART_STUDY.png",
+    "bytes": 2442429,
+    "sha256": "20c4f3f2e3db4e905d47160ab7e42369a96a24043dfce43f8b36fbf6eec4361d",
+    "labels": [
+      "ORIGINAL B48 / ORIGINAL SOURCE CAMERA (prior K4BO)",
+      "CHASE_OBLIQUE_LOW / RESEARCH ONLY / NOT B48 GAME",
+      "HARBOR_3QUARTER / RESEARCH ONLY / NOT B48 GAME",
+      "NARROW_FIXED_ORIGINAL_POSE / RESEARCH ONLY / NOT B48 GAME"
+    ]
+  }
+}
