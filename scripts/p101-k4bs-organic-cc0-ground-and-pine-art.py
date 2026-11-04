@@ -190,7 +190,9 @@ links.new(mix.outputs[0],outnode.inputs['Surface'])
 terrain_changed={}
 for ob in bpy.data.objects:
  if ob.type!='MESH' or not ob.name.startswith('K4BQ /'):continue
- if 'authored subdivided eroded native coastal topography' not in ob.name:continue
+ # The original K4BQ mesh object IDs are truncated to Blender's limit.
+ # Detect stable unique upstream author prefix, not full long display name.
+ if 'authored subdivided eroded native' not in ob.name:continue
  previous=[sum(1 for p in ob.data.polygons if p.material_index==k) for k in (0,1)]
  ob.data.materials.clear();ob.data.materials.append(new_mat)
  for p in ob.data.polygons:p.material_index=0
