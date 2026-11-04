@@ -32,3 +32,19 @@
 - 以降の堅牢な修正候補は、Python APIの `image.has_data` だけでは成否を決めず、K4BSで技術実証済の `image.pack()` と `packed_file` の存在、Packed実バイト長および元Vendor SHA、独立画像再読込等で検証すること。ただし**この修正のGitHub保存と実行は現段階では未完了**。修正未実行のまま成功扱いは絶対にしない。
 - K4BV正式技術判定：**素材取得/Source一致はPASS、Native material packed・Native.blend・実CHASE画像はBLOCKED**。元K4BU原本および正式Game / B48 / Camera / main / PR #46 / 本番サイトを改変していない。正式ART採用0、Slope2 DNA 0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。モデルの実画面での美しさは**不明**。
 
+
+## 【2026-11-04 K4BV最終確定】真正モデルのNative Blender TECH PASS／同CHASE実画像ART REJECT
+
+### 真正技術と証拠
+
+- CI結果：最終[GitHub Actions #41813863791](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41813863791)は **completed/SUCCESS**。それ以前の #41803574543、#41803979687、#41813263091、#41813606092 はそれぞれ **FAILURE**。最初の2回はBlenderのImage `has_data=False` に関係する安全停止、3回目はGlTFインポータによる合成roughness画像名、4回目は `leaves_diff-leaves_alpha` 合成名と実Vendor原画像名のずれによる停止。失敗を消さず、公式画像の実ファイルパス優先・粗さARM対応・公式SHA実バイトを `image.pack(data=...,data_len=...)` で正確に格納する修正を研究枝に保存。ソース権限外の画像や偽の結果なし。
+- 実公式 Poly Haven `island_tree_02` のGlTF +依存11ファイル **46,172,406 bytes**、元Vendor MD5・sizeと独立SHAを検証。元K4BU編集可能 Native Blender SHA256 `2536375f40e6a20e0061b80aba100c2469cfeacde814f4c127ff194201ba3064` を検証して再読込。
+- 本物のGlTFメッシュ **1,072,212 triangles（1メッシュ）** と**Vendor画像9点のNative Pack検証PASS**。研究用に既存K4BUの旧8本を削除せず RenderOFFし、本物の海岸樹1本を研究位置 **d=62m、s=-24m、yaw=60°、足元地表+0.15m** に置く。研究Road片側の枝葉BBoxとの余裕推定5.179mは**実ゲームのSAT安全値ではない**。真正CHASE投影BBox **95.928×57.114px**（768×480の1.48623%）は葉の実可視ピクセルではなく、単にジオメトリの投影範囲。
+- [真正Artifact #13313382664](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41813863791/artifacts/13313382664)：ZIP実ファイル **112,671,781 bytes**／SHA256 `bb46f9ae2cc801046957f685408e08b7e109c9f980cb86618116cbd81d9cca7e`。GitHub Actionsの外部コンテナでも ZIP全CRC（`testzip()=None`）PASS。編集可能 `K4BV_ONE_GENUINE_COASTAL_CANOPY_EDITABLE_NATIVE_ART_HOLD.blend` **259,059,020 bytes**／SHA256 `7c28000ad1a75afb7f64958a6d48ec5ff205849c37d5a2878f17bdd1d2d4e1c4`、実CHASE画像 `K4BV_ONE_COASTAL_TREE_SAME_CHASE_NATIVE_768x480_ART_HOLD_NOT_GAME.png` **465,418 bytes**／SHA256 `390a2ca19cd98eba204f697c1f70532ca86ee77e504e4692c62d8a6c5244d665`、真正同CHASE K4BU比較画像 `K4BV_VS_K4BU_SAME_CHASE_TRUE_COASTAL_CANOPY_ART_REVIEW_NOT_GAME.png` SHA256 `ac5db3dfe01701ab48d15351841e4cf47c505bd2599c76718f582b7d2756a232`、公式素材レシート SHA256 `ba0ff57c07fd9f78d57a8b83a18918ccb4787784b1d10ebaed03a9e5889e97ae`、すべて ZIP実バイトから独立再計算・PASS。
+- K4BVのNative画像と同Camera旧K4BUとの比較を**目視確認**した結果、右端斜面の木1本に低い横広がりの枝葉が見え、元の細い苗木より樹形の自然さは局所的に改善。ただし木はフレームの小領域に留まり、「成熟樹による景観が成立した」とは認定しない。**幅広い人工的な灰色直線道路、広い空白の空、港湾の生活/公共空間の欠如、地形の単調さ、スピード感不足**が主画面を占める。世界水準の全画面ART判定：**REJECT**。
+- 真正Native.blendはゲーム本体ではない。ART採用0件・Slope2 DNA0m、実ゲーム新Collider0。main、公式P101、Draft PR #46、本番2サイト、元ゲームGit Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5 fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48 7道路/B51 28動体/240Hz/0.65m球/元6Camera全保護。HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
+### K4BW次工程：単独の木ではなく、画面全体の作者構図を解決
+
+同じ木を大量にコピーしたり、新たな素材を数十種類取り込んだりしても、主画面を占める灰色道路と空白の海岸という**本当の美術課題**は解決しない。K4BWはこの `K4BV` 編集可能Native.blendをSHAロックした原本として、**元CHASEの中央遠景～右沿岸の港湾・公共空間・実用途と海岸地形の立体的な構図**を作者設計する。大きな箱、灯台単体、円錐植生や単純反復物量に戻さない。最小の1画面実レンダーで品質が出るかを厳しく評価してから別画面に展開。K4BVの高密度実木は正式ゲームLOD候補としては未検証（HOLD）であり、可走Road5・物理/カメラ/ゲームには反映しない。最終採用は1画面の本物のART改善が成立し、別途SAT/CCD/HUMAN/FPSが合格するまで不許可。
+
