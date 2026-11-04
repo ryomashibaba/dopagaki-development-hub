@@ -160,7 +160,11 @@ for mat in material_set:
   # from a vendor ARM (ambient occlusion / roughness / metallic) map.
   # Preserve the node's channel decoding; attach the SAME certified
   # official ARM bytes, never invent a nonexistent '*_rough.jpg'.
-  vendor_name=name
+  # Prefer the glTF importer's actual source filepath over a synthetic
+  # display name. A composite leaves_diff-leaves_alpha node still points
+  # to the real verified leaves_diff_1k.jpg file.
+  source_stem=Path(origin.filepath).stem.removesuffix('_1k')
+  vendor_name=source_stem if source_stem in vendor_image_paths else name
   if vendor_name not in vendor_image_paths:
    for suffix in ('_rough','_roughness','_metallic','_occlusion'):
     if vendor_name.endswith(suffix):
