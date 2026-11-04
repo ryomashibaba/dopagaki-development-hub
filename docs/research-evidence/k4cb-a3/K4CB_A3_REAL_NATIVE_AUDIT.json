@@ -1,0 +1,129 @@
+{
+  "schema": "dopagaki.k4cb-a3.integrated-quay-arrival/1",
+  "parentK4CB_A2_exact_sha256": "5f57d64654ff8df6b6ecd852699432cda50f1afc1af3723779170ccb4cbed5b1",
+  "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCameraPosesUnchanged": true,
+  "originalCHASEUnchanged": true,
+  "originalElevenTreeTransformsUnchanged": true,
+  "originalLightsUnchanged": true,
+  "K4BZ_bad_duplicate_road_hidden": true,
+  "allOriginalObjectVisibilityUnchanged": true,
+  "originalRoofAndPiersUnmodified": true,
+  "sourceGameEdited": false,
+  "sourcePhysicsEdited": false,
+  "newGameColliders": 0,
+  "noExtraRoadSurfaceAdded": true,
+  "genuineDCCNewObjects": 10,
+  "sourceA2ObjectsUnchanged": true,
+  "singlePortGatewayAndTidalShelfNotGame": true,
+  "actualCHASENewArrivalProjectionBBox": [
+    0.49667197465896606,
+    0.3372038006782532,
+    0.8199570775032043,
+    0.5588915348052979
+  ],
+  "visibleScreenAreaBoxNotArtScore": 0.07166834192656779,
+  "originalChase768x480": true,
+  "renderEngine": "BLENDER_EEVEE",
+  "materialClaims": "Author-created procedural materials only; no new photo-scan or AI-generated image claims.",
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "HUMAN": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CB_A3_INTEGRATED_QUAY_ARRIVAL_EDITABLE_NATIVE_ART_HOLD.blend": {
+      "bytes": 272525680,
+      "sha256": "0b581f45de4d4e215515e8dbef9a4038c7f1b9bdb0e1935943c4445529193e6c"
+    },
+    "K4CB_A3_TRUE_SAME_CHASE_INTEGRATED_QUAY_ARRIVAL_NOT_GAME.png": {
+      "bytes": 475851,
+      "sha256": "94d349036731ab47ed62677e6e7fdc50f80b9ac96060533bd32ae65d7721b6ae"
+    }
+  },
+  "imageIndependentQA": {
+    "changedRightPortPixelsNotArtScore": 4777,
+    "originalK4BZWedgePairs": [
+      {
+        "dark": [
+          292,
+          300
+        ],
+        "normal": [
+          317,
+          300
+        ],
+        "before": 2.667,
+        "after": 2.667
+      },
+      {
+        "dark": [
+          280,
+          330
+        ],
+        "normal": [
+          310,
+          330
+        ],
+        "before": -0.333,
+        "after": -0.333
+      },
+      {
+        "dark": [
+          267,
+          360
+        ],
+        "normal": [
+          310,
+          360
+        ],
+        "before": 0.0,
+        "after": -0.333
+      },
+      {
+        "dark": [
+          250,
+          400
+        ],
+        "normal": [
+          295,
+          400
+        ],
+        "before": 2.333,
+        "after": 2.333
+      },
+      {
+        "dark": [
+          235,
+          440
+        ],
+        "normal": [
+          280,
+          440
+        ],
+        "before": -1.333,
+        "after": -1.333
+      },
+      {
+        "dark": [
+          225,
+          470
+        ],
+        "normal": [
+          270,
+          470
+        ],
+        "before": 0.333,
+        "after": 0.333
+      }
+    ],
+    "comparisonName": "K4CB_A3_VS_A2_TRUE_SAME_CHASE_QUAY_ARRIVAL_ART_REVIEW_NOT_GAME.png",
+    "comparisonSHA256": "f2b1cd01b1c848a2710467289af45bcb23296ab4171ea75397af81dcc64a489b",
+    "ART": "UNJUDGED_HOLD"
+  }
+}
