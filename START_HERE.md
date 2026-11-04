@@ -1,3 +1,15 @@
+# 【2026-11-04 K4BS最終正本・K4BTへ継承】実CC0草+39.8万tri針葉樹Native TECH PASS／画像ART REJECT
+
+最終研究隔離枝`research/k4bs-photo-vegetation-art-direction-20261104`。まず[**K4BS真正Blender原本・全MD5/SHA・実同CHASE画像の美術REJECT・K4BTへの反省**](docs/R19_A6P4_R2F5K4BS_PINE_PHOTO_VEGETATION_ART_JA.md)を読む。以下の旧文書/見出し「最新」はすべて履歴。
+
+- **TECH成功の根拠**：最終[GitHub Actions #41795056558](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41795056558) completed/SUCCESS。初回〜第3回はFAIL、第4回と中間は長時間高密度レンダリングの合理的な条件変更でCANCELLED。[本物の編集可能Blender Native 2研究Camera PNG・旧K4BR同CHASEの中立比較・素材取得SHA JSON Artifact #13305631124](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41795056558/artifacts/13305631124)。ZIP実SHA256 `6c656bf29353b9f81ddb42dceaaa624c2bffd0e021f18c78f47be12bcdac2e71`、原本`K4BS_REAL_PINE_AND_ORGANIC_PHOTO_GROUND_EDITABLE_DCC_ART_HOLD.blend` SHA256 `156e56ce373b731f1f0c8f96278a11977ac93d491973c2e8ef796ec1ea7795de`。全ZIP CRC/Blender/PNG/比較/素材マニフェストSHAをコンテナでCIから独立検算・PASS。
+- **実装した技術**：Poly Haven公式CC0の`sparse_grass` 2K実画像3マップを公式MD5/SHA照合し、元K4BR`rock_ground_02`写真材質と斜面2面各1456polygonsの**自然な連続マスク**に統合。旧人工矩形の草パッチは元Camera研究画像から消えた。実CC0`pine_sapling_small`1K glTF＋8依存ファイルをMD5/SHA実検証、**398,144三角形実モデル**をBlenderへimportして、研究専用8共有インスタンスを保存。元K4BQ低ポリ三角木・大きな形が破綻した模型建築・灯台は本研究画像だけRenderOFF、原本に残す。追加有料API0円・Work/Computer Use不使用。
+- **美術ART REJECT**。最新の実CHASE研究カメラ画像では細かい高密度松が**樹木としてほとんど見えない**。Native import/8配置＝実画面での視認性ではない。巨大建築・灯台の非表示による**空と海岸の空白も増えた**。地面は若干改善したが、道路は巨幅の直線的平面、港・公共空間・自然・走行スピード感は世界級に全く届かない。正式ART採用0件／Slope2 DNA認定0m。Blender研究Camera、非ゲーム幅26.3m Roadを、元ゲームのWebGL2実画面や可走Road5と誤認禁止。
+- **K4BTの固定制作方向**：新アセット大量導入を一旦停止し、**元CHASE研究Cameraに対して真GLTF木オブジェクトのカメラ投影BBox/視認ピクセル数・alpha/配置をまず低コスト1画像で計測**し、樹木が実画面に読めない原因をデータで解決。木が見えるようになる前に別モデル増殖・高負荷の2枚フルレンダリングを繰り返さない。次に空白の多い沿岸に本物の使われる港湾・海岸公共空間と地形の一貫した美術を実作者設計する。1画面の正式ART合格まで他6Road展開なし。
+- **強制保護**：元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、原B48 Road5 vertex-face fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48 7本/B51 28体/240Hz/球0.65m/元Rig6Camera安全UI不変更。main、公式`p101-velocity-overdrive-native-trial`、Draft PR #46、本番2サイトを保護。ゲーム新Collider0、HUMAN/SAT/CCD/FPS/ART/RELEASE/MERGE全HOLD。追加課金0、Work事前承認、ユーザーWindows操作0。
+
+---
+
 # 【2026-11-04 K4BS 最新の実作業正本】実CC0草・松を取得、連続地表＋実モデルを実装・Blender負荷検証中
 
 研究枝 `research/k4bs-photo-vegetation-art-direction-20261104`。[K4BS実CC0素材・地表遷移・松モデル・失敗と安全ゲートの記録](docs/R19_A6P4_R2F5K4BS_PINE_PHOTO_VEGETATION_ART_JA.md)を最優先。過去章の「最新」は履歴。
