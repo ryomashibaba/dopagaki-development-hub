@@ -1,3 +1,16 @@
+# 【2026-11-04 K4BP最終引き継ぎ／K4BQ制作入口】本物B48保護・Camera×道路幅の4条件研究PASS／美術ART REJECT
+
+**最終研究隔離ブランチ**：`research/k4bp-camera-and-road-composition-study-20261104`。まず[**K4BP真正Blender 2×2比較・全GitHub実行・実画像美術判定・K4BQ制作条件**](docs/R19_A6P4_R2F5K4BP_CONTROLLED_CAMERA_ROAD_COMPOSITION_STUDY_JA.md)を読む。過去の「最新」はすべて履歴。
+
+- [最終Actions #41781600578](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41781600578) は**completed/SUCCESS**、[真編集可能Blender .blend＋4条件の研究ネイティブPNG＋2×2比較2画像＋元Camera実投影JSON Artifact #13298834318](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41781600578/artifacts/13298834318)に保存。ZIP SHA256 `c629f226bfc477add3547af17726b8c3efed2b0ee65a49ec1e6ee800fd26ca7b`、Blender原本 SHA256 `93c3583655eeb48fa06d61239646bb470419c72bf84cd97235be2288240d26aa`、原4PNG/2比較/BLENDの全SHAとZIP CRCを独立再読込検証済。
+- **真Camera×Road幅の公平な2×2研究比較**：[比較PNG](docs/research-evidence/k4bp/K4BP_FACTORIAL_SOURCE_CAMERA_X_SOURCE_ROAD_VS_CHASE_X_NARROW_NON_GAME.png)：左上 ORIGINAL SOURCE CAMERA＋ORIGINAL B48 Road5（正本）、右上CHASE研究カメラ＋元B48、左下元Cameraと数値同じ複製＋**独立新規幅26.2m研究Road**、右下CHASE複製＋独立幅26.2m研究Road。元Road5が研究画面で非表示の時も頂点/面データは不変・元Camera全6の位置回転レンズ不変。研究Roadは走行可能なゲームCollisionではなく、採用も安全も未承認。
+- 実測投影：Source Control11307のd70→170mの画面高さは**3.1957%**、CHASEは**7.4624%**、港側斜め研究Cameraは**12.8206%**。しかし港側Bは近距離Roadのうち5/13点が画面外で、追従ゲームCameraにそのまま採用できない。研究別Road C＋Dは元Camera/CHASEの数値投影とそれぞれ完全一致。これは高級ゲーム美術の合否ではない。
+- **世界水準のARTは全4案 REJECT**。追従＋狭い別RoadのDが相対的には最も分かりやすい走行構図だが、灰色の巨大な斜面、モデル風の建物、海と港の不可読性、素材・自然・生活感の大幅不足。正式ART採用0件・Slope2 DNA認定0m。実ゲーム画面ではない。
+- **K4BQの固定方針**：K4BP Dの構図を採用候補ではなく**高品質な美術研究の出発点**として、作者による細密な景観・高解像度物理材質・使われる埠頭や海岸・自然地形を1枚から本当に制作する。「箱・柱・屋根・線をもっと量産」しない。同一研究Cameraの写真比較→ART判定。採用前に現ゲームの全部の物理/安全影響の別検証を要求し、現在の元B48コースやCameraを変更しない。
+- **強制不変**：ゲームgit blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5 source指紋 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元B48全7／B51全28・240Hz・球半径0.65m・元Camera6／main／公式`p101-velocity-overdrive-native-trial`／Draft PR#46／本番2サイト保護。Work/Computer Use事前承認制。ユーザーWindows操作0。HUMAN/SAT/CCD/FPS/ART/RELEASE/MERGE全HOLD。
+
+---
+
 # 【2026-11-04 K4BP 実構図比較の新正本】元B48／元カメラを保持し3つの独立仮説を実Blender比較
 
 **最新研究隔離枝**：`research/k4bp-camera-and-road-composition-study-20261104`。まず[**K4BP全体方針・4画面の条件と安全境界**](docs/R19_A6P4_R2F5K4BP_CONTROLLED_CAMERA_ROAD_COMPOSITION_STUDY_JA.md)を読む。過去K4BO以下の「最新」は履歴。
