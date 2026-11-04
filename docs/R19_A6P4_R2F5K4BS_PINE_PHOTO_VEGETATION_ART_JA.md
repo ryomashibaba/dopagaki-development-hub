@@ -26,3 +26,10 @@ DOPAGAKI SLOPE — HYPER RUSH の世界水準の高速3Dレーシングゲーム
 ## 実行履歴
 
 初回[Actions #41793014896](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793014896)は、執筆時点で最終結果未確認。実Blenderの画像、素材MD5、SHA検証結果が得られたら逐次追記する。完了前に実素材取得・技術PASS・ART合格を報告しない。
+
+
+## 初回・第2回の本物の実行結果（追記）
+
+- 初回[CI #41793014896](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793014896)：`completed/FAILURE`。Node元Sourceテスト、親Artifact取得の開始は通過。K4BRのGitHub Artifactは`render/`サブディレクトリ内に元Native.blendと監査JSONがあるため、親SHA監査パス誤り`FileNotFoundError`で停止。素材の取得や画像生成なし。修正commit`a9ca4b5bb993ca6dd8ec704d5ff34881b42490d0`。
+- 第2回[CI #41793241061](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793241061)：`completed/FAILURE`。元ゲーム・親Blender真SHA・Node Source全PASS。**Poly Haven本物の`sparse_grass`2K写真Diffuse 3,733,797 B／NormalGL 5,892,473 B／Rough 1,729,786 B**実取得・全Vendor MD5/Bytes/独立SHA PASS。**`pine_sapling_small`1K glTF＋外部依存の実8ファイルもメーカーMD5/独立SHA PASS**。容量上限内の実配布物を取得したことは事実。Blender原本を開いた後、Blenderが長い岩マテリアル名を内部のID長さ制約で切り詰めたため、完全一致のPython辞書キーで`KeyError`となり停止。新Blender画像/原本未完成。長い材料名を一意の接頭辞で探す修正commit`9eaec2a155c21ae0117dda084fc5c6d5c54c008c`。
+- 第3回[再試験 CI #41793514129](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793514129)は現時点**結果確認前**。この回の本物のBlend/SHA/実画像成功、木が実際にどう見えるかまで確認してからTECH/ART合否を書く。公式の実木データ取得PASSを実Blender導入PASSと混同しない。正式ART0件・Slope2DNA0m継続。
