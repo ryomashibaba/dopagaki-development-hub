@@ -1,0 +1,121 @@
+name: DOPAGAKI K4BT native K4BS pine camera projection and visibility diagnosis
+on:
+  push:
+    branches: [research/k4bt-native-pine-camera-projection-gate-20261104]
+    paths:
+      - scripts/p101-k4bt-native-pine-screen-projection.py
+      - scripts/p101-k4bt-native-pine-bbox-overlay.py
+      - .github/workflows/p101-k4bt-native-pine-screen-projection.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bt-native-pine-geometry-only
+  cancel-in-progress: true
+jobs:
+  k4bt-one-native-source-screen-space-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify research isolation and immutable game source before Blender
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bt-native-pine-camera-projection-gate-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bt-native-pine-screen-projection.py scripts/p101-k4bt-native-pine-bbox-overlay.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Retrieve exact successful K4BS editable native original without any vendor re-download
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BS_SOURCE_PROTECTED_REAL_PINE_GRASS_EDITABLE_NATIVE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41795056558
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bt/parent
+      - name: Independently verify K4BS original bytes and source camera screenshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          parent=Path('research/evidence/k4bt/parent/render')
+          audit=json.loads((parent/'K4BS_REAL_ORGANIC_RESEARCH_NATIVE_AUDIT.json').read_text())
+          assert audit['formalArtAccepted']==0 and audit['formalSlope2DNAMetres']==0
+          assert audit['sourceGameImmutableBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert audit['originalSixSourceCamerasNumericallyUnchanged']
+          assert audit['bothResearchCamerasNumericallyUnchanged']
+          assert audit['actualImportedRealPineGLTFTriangles']==398144
+          assert audit['researchTreeSharedGeometryInstances']==8
+          for name,meta in audit['files'].items():
+              p=parent/name
+              assert p.stat().st_size==meta['bytes'],name
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==meta['sha256'],name
+          assert audit['files']['K4BS_REAL_PINE_AND_ORGANIC_PHOTO_GROUND_EDITABLE_DCC_ART_HOLD.blend']['sha256']=='156e56ce373b731f1f0c8f96278a11977ac93d491973c2e8ef796ec1ea7795de'
+          print('K4BT_EXACT_K4BS_NATIVE_PARENT_HASHES_AND_SOURCE_PASS')
+          PY
+      - name: Install native Blender and system Pillow only (no fresh CC0 downloads)
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+      - name: Compute actual evaluated native GLTF instance world bounds and frozen CHASE screen projection
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bt/result
+          blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4bt-native-pine-screen-projection.py -- \
+            --base research/evidence/k4bt/parent/render/K4BS_REAL_PINE_AND_ORGANIC_PHOTO_GROUND_EDITABLE_DCC_ART_HOLD.blend \
+            --parent-audit research/evidence/k4bt/parent/render/K4BS_REAL_ORGANIC_RESEARCH_NATIVE_AUDIT.json \
+            --out research/evidence/k4bt/result
+      - name: Overlay measured bbox on unchanged authentic K4BS screenshot and validate diagnostic metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 scripts/p101-k4bt-native-pine-bbox-overlay.py \
+            --image research/evidence/k4bt/parent/render/K4BS_CHASE_NARROW_CONTINUOUS_CC0_GROUND_REAL_PINE_ART_HOLD.png \
+            --audit research/evidence/k4bt/result/K4BT_NATIVE_PINE_PROJECTION_RESEARCH_ONLY.json \
+            --out research/evidence/k4bt/result/K4BT_K4BS_SAME_CHASE_REAL_PINE_PROJECTED_ENVELOPES_NOT_GAME.png
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path('research/evidence/k4bt/result/K4BT_NATIVE_PINE_PROJECTION_RESEARCH_ONLY.json').read_text())
+          assert j['geometryProjectionIsNotActualVisiblePixelMask'] is True
+          assert j['renderPerformed'] is False and j['blendFileWritten'] is False
+          assert len(j['treeInstances'])==8 and j['summary']['trianglesPerTree']==398144
+          assert j['originalSixCameraPosesUnchanged'] and j['sourceB48Road5VertexFacePreserved']
+          assert j['ART']=='REJECT_UNCHANGED'
+          assert j['formalArtAccepted']==j['formalSlope2DNAMetres']==0
+          assert j['realGameCollidersAdded']==0 and j['realGameSourceChanged'] is False
+          assert j['RELEASE']==j['MERGE']=='HOLD'
+          print('K4BT_TECH_DIAGNOSTIC_COMPLETE_NOT_ART_PASS',j['summary'])
+          PY
+      - name: Save only small real research evidence on this isolated research branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bt-native-pine-camera-projection-gate-20261104
+          mkdir -p docs/research-evidence/k4bt
+          cp research/evidence/k4bt/result/K4BT_NATIVE_PINE_PROJECTION_RESEARCH_ONLY.json docs/research-evidence/k4bt/
+          cp research/evidence/k4bt/result/K4BT_K4BS_SAME_CHASE_REAL_PINE_PROJECTED_ENVELOPES_NOT_GAME.png docs/research-evidence/k4bt/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4bt
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bt): native camera-space pine bounding envelope diagnostic; ART REJECT retained"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bt-native-pine-camera-projection-gate-20261104
+          fi
+      - name: Archive native projection audit and overlay even if a gate fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4BT_READ_ONLY_NATIVE_PINE_PROJECTION_ART_REJECT
+          path: research/evidence/k4bt/result/
+          if-no-files-found: warn
+          retention-days: 21
