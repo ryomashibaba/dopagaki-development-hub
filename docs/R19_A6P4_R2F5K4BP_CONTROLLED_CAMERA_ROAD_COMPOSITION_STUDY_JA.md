@@ -32,3 +32,13 @@ K4BOで発覚した本質：正真正銘の元Camera Control11307で、Road5中�
 **変更禁止**：game Git blob `af076d67492a677d2235e4730aef8cdf4808e106`／Road5 vertex-face fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`／元Camera全6／B48 7実道路／B51 28個実移動体／240Hz／球半径0.65m／元ゲームの安全UI・制御・カメラ／main・公式`p101-velocity-overdrive-native-trial`・Draft PR#46・本番URL2つ。Work/Computer Use開始には事前承認。ユーザーWindows操作不要。正式ART採用0件、Slope2DNA0m、HUMAN／SAT／CCD／FPS／RELEASE／MERGEは全部HOLD。
 
 **ART評価は各画像を実見して判定する**。撮影条件や仮道路の見た目が改善しても「実ゲーム美術の正式採用」にはならない。外観が低質なら世界水準のARTはREJECT、次工程へ限定的な研究証拠のみ継承する。
+
+
+## 2026-11-04 第1回真正Blender実画像（再現可能な比較結果）
+
+- 初回 [K4BP CI #41780866652](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41780866652) は **completed/SUCCESS**。本来の元Camera6・元Road5 polygon fingerprint・元source gameのテスト/ハッシュがすべてPASS、3案 A/B/C のBlender EEVEE実画像が作成され、編集可能.blendも保存。[本Artifact #13298614792](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41780866652/artifacts/13298614792) ZIP SHA256 `b28e5dbfb2bf2eac6223c5b49a3f070d35c1b05743b595a1f7ddca30968aec30`。ZIP CRC全PASS、全元出力ファイルのSHAも独立照合して完全一致。正真正銘の編集可能Blender原本42,142,252B、SHA256 `0fd170b64880815e46112a557e0966726f1231fb282ecab2b23429c087f7bc68`。
+- **遠景の実投影改善量（Source Road5 d=70〜170mのscreen Yの絶対差）：元Camera 3.1957%／追従Camera A 7.4624%／港側斜めCamera B 12.8206%。** Aは元Road5の中心点13点中10点を元Camera画角内で捕捉、Bは8点。Cは元Cameraポーズの完全な複製なので、Source Road5への投影数値は3.1957%と**元と完全一致**（画像には元Road5ではなく研究用幅26.2m別メッシュを表示）。数値による明確な比較を達成。
+- **正真正銘の4画面画像を直接確認：世界級美術のART REJECTは継続。** Aの低追従Cameraは従来より若干道路・建物の遠景パースの読解が良いが単調な路面がまだ広すぎる。Bの斜めCameraは港側の壁と遠景クレーンが少し分かりやすいが、手前Road5が画面外で、ゲーム走行を継続するカメラ候補としては欠陥。Cの独立路幅26.2mはゲームらしい明確なコース輪郭が現れるが、両側の岩肌・植生は灰色の簡素な大斜面になり、一般の高級ゲーム美術として認定できない。**元B48安全/Collision/実ゲームCameraは完全に未検証**。
+- **新発見**：構図はカメラだけでも改善可能だが、元のRoad5が実測で約100m幅と非常に大きく、幅を狭める研究道路案がコース認識を大きく変える一方、地形や装飾の美術素材が弱い。AとCの個別差を切り分けられたので、**Aの追従カメラ + Cの研究用独立幅26.2m道路**を同時に使うDを追加すると、2変数の組合せの影響が明確になる。
+- Dの追加実装commit `c2b71187f6bbd610821e30c8b593c01b600d43e4`、CI強化commit `f59bbfb42af19679f78ab4092d16c55232fe0a33`。DはAとCameraデータ数値が完全一致する別複製、研究用狭いRoadだけを使用。**原Source Road5や6元Cameraに触れない**。元Source＋A／C／Dを2×2の公平な実画像グリッドとして作り、別途Bの港側研究画像を保存する。初回A/B/C技術成果は保持したまま追加検証する。
+- 新[正式再検証CI #41781600578](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41781600578)の完了・4つのBlender研究PNG/原本SHAを後から検証しない限り、Dの成果や最終K4BP合格を断言しない。K4BPの美術正式採用0件／Slope2 DNA 0m、SAT/CCD/FPS/HUMAN/ART/RELEASE/MERGE全HOLD、元ゲーム・Road5・main・公式・PR#46不変を厳守。
