@@ -245,6 +245,10 @@ locs=[(14,-31,5.8),(27,-46,7),(43,-52,5.6),(57,-38,6.5),
       (73,-59,8.5),(94,-48,7.3),(118,-53,8.9),
       (18,34,5.8),(37,48,8.2),(63,45,6.9),(86,58,8.1),
       (110,51,7.4),(139,65,8.2),(157,43,6.3)]
+# Bounded high-density pilot after 14-copy research rendering proved too
+# expensive for the free software-GL environment; hold full-scene trees.
+# Balanced 4 west + 4 east native scene instances of the same actual GLTF.
+locs=[locs[i] for i in (0,2,4,6,7,9,11,13)]
 sprouts=[]
 for i,(d,s,target_height) in enumerate(locs):
  location=P(d,s,terrain_height(d,s)-.25)
@@ -262,7 +266,7 @@ for i,(d,s,target_height) in enumerate(locs):
  ob['source_road_station_d']=d
  ob['lodPolicy']='SOURCE_MESH_SHARED_RESEARCH_ONLY_FPS_HOLD'
  sprouts.append({'d':d,'s':s,'heightM':target_height})
-assert len(sprouts)==14
+assert len(sprouts)==8
 for img in bpy.data.images:
  if img.source=='FILE' and img.has_data and img.packed_file is None:
   try:img.pack()
@@ -271,7 +275,7 @@ assert all(x.packed_file is not None for x in photos.values())
 def check_source():protect()
 check_source()
 sc.render.engine='BLENDER_EEVEE'
-sc.render.resolution_x=1520;sc.render.resolution_y=950
+sc.render.resolution_x=1280;sc.render.resolution_y=800
 sc.render.resolution_percentage=100
 sc.render.image_settings.file_format='PNG'
 try:sc.view_settings.view_transform='Filmic'
