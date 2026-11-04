@@ -1,7 +1,7 @@
 {
   "schema": "dopagaki.K4BN.track-painted-livery-and-functioning-harbor/1",
   "parentK4BMNativeBlenderSHA256": "7297b0ea17ffacb7f2c84cecf901947ce11de4e0a91ff4c93703f43cbe7b4a80",
-  "originalRacePaintAtlasSHA256": "8faedfa11c8b3c3ee5e0e8614206230103ada994074646e853422fc8d1e813cb",
+  "originalRacePaintAtlasSHA256": "88a7d9c8cf50a938c92ddb5ed39fffd9f5328a19bea3ab9782b4bace26b256b5",
   "paintAtlasPackedInNativeBlender": true,
   "obsoleteK4BMDistantCityHiddenNotDeleted": true,
   "frozenSourceGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
@@ -149,21 +149,21 @@
   "MERGE": "HOLD",
   "files": {
     "K4BN_UV_PBR_AUTHOR_SCULPTED_EDITABLE_DCC_ART_HOLD.blend": {
-      "bytes": 41360892,
-      "sha256": "41f72017d74fa5a09d33cb5773d52f2e7b487ab9e6e446618de79ac3df6bb386"
+      "bytes": 41352944,
+      "sha256": "fb98af8bccb84c9a6eaf18cabc8444135c5df99df267a5a7562c99c1fbe96a37"
     },
     "K4BN_CONTROL_11307_ACTUAL_SOURCE_CAMERA_UVPBR_ART_HOLD.png": {
-      "bytes": 1656625,
-      "sha256": "b187766786c5a33625700da10837115873cc14deb63bd33ca6e7a1e73688aefd"
+      "bytes": 1649286,
+      "sha256": "8cadc0f79c3c15bb8da8e7bd4012174ea9e54bff435c04e8b78accda98f9507f"
     },
     "K4BN_ULTRA_11341_ACTUAL_SOURCE_CAMERA_UVPBR_ART_HOLD.png": {
-      "bytes": 1632686,
-      "sha256": "8660776d4c1de81f7e4d6763659118ab35805b80b3d7274d90372cfe5958086a"
+      "bytes": 1633546,
+      "sha256": "aaf4c5013e69d91401e52bfd7bd615165549d81347b9d6c26292f029b40c30d3"
     }
   },
   "independentlyVerifiedSameCameraAB": {
     "file": "K4BN_VS_K4BM_SAME_TRUE_SOURCE_CAMERA_ART_REVIEW_NOT_GAME.png",
-    "bytes": 1727357,
-    "sha256": "d951c8f74b04dfa8d7f200659f14cfd2e4304b18124171774e13580e3ee72588"
+    "bytes": 1645127,
+    "sha256": "069613732515b58d34d1740c8e48f17e76b6a24e20ef1a27907b1ebca5643828"
   }
 }
