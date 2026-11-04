@@ -108,7 +108,7 @@
     "K4BK | 05 DISTANT SCALED CITY + TERRACE",
     "K4BK | 06 DAYLIGHT + OCCUPIED ROOMS"
   ],
-  "newIndependentEditableArtObjects": 114,
+  "newIndependentEditableArtObjects": 158,
   "originalCameraDCCScreenshots": [
     {
       "mode": "control",
@@ -137,21 +137,21 @@
   "MERGE": "HOLD",
   "files": {
     "K4BL_HARBOR_ART_DIRECTED_EDITABLE_NATIVE_BLENDER_HOLD.blend": {
-      "bytes": 36300976,
-      "sha256": "0529f15d2a3fb37580ded413d426dfe53b6f12d9c94b905bd68a66859c8afece"
+      "bytes": 36684824,
+      "sha256": "220855d6500a74697e41b9bad36cb5c20654ea77d8c8a4be48d5ebf9a4ab2488"
     },
     "K4BL_CONTROL_11307_GENUINE_SOURCE_CAMERA_HARBOR_ART_HOLD.png": {
-      "bytes": 1358760,
-      "sha256": "4660151896293c0b96c5bdb1fc0788f0badf2f33da595592e2ea530cc84a63e5"
+      "bytes": 1369951,
+      "sha256": "a47eea9df69e8741d7c430a8142788e1cb00aaf040bc26e33dfe77a5679aeb36"
     },
     "K4BL_ULTRA_11341_GENUINE_SOURCE_CAMERA_HARBOR_ART_HOLD.png": {
-      "bytes": 1346853,
-      "sha256": "51cc2a36b0c8ce246c9101414fd006d29d8e03771fbdca572216508c31282c7c"
+      "bytes": 1359190,
+      "sha256": "d9391fbb0ce4bd5942195bc493eb40795cd0f093ec5bfd630b32ce50444ed0a5"
     }
   },
   "independentSamePoseAB": {
     "file": "K4BL_K4BK_VS_HARBOR_ORIGINAL_CAMERA_ART_REVIEW_NOT_GAME.png",
-    "sha256": "8179d891b7bd6de0cb81e36ee39f4bc534a6dcdef489fd4c28d3b2c507611a37",
-    "bytes": 3110947
+    "sha256": "3609e64332a90ccc9582b625c9efe1983bfa9132897df99d5bd4d209e3f1f10a",
+    "bytes": 3119792
   }
 }
