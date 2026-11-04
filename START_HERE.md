@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CC実制作／初回真正Blender TECH PASS・ART REJECT／最新修正版CI確認中】
+
+現在の唯一の研究引き継ぎ入口：`research/k4cc-coastal-relief-fullframe-art-20261105`。最初に[**K4CC真正3D左斜面＋右港画面回復・Native全SHA・初回ART REJECT・修正版の安全な状況**](docs/R19_A6P4_R2F5K4CC_NATIVE_COASTAL_RELIEF_ART_JA.md)を全文読み、[A3とK4CC真同CHASE比較画像](docs/research-evidence/k4cc/K4CC_A3_VS_TRUE_COASTAL_RELIEF_ART_REVIEW_NOT_GAME.png)、[真正監査JSON](docs/research-evidence/k4cc/K4CC_REAL_NATIVE_AUDIT.json)を確認。下の「最新」は旧時点の履歴。
+
+- **実コード・本物Blender保存済**：元K4CB A3真正Blender SHA256 `0b581f45de4d4e215515e8dbef9a4038c7f1b9bdb0e1935943c4445529193e6c`を親としてA3研究用遮蔽壁5個をレンダーだけ非表示にし、K4BQ既存の真左斜面1564頂点→本物の別Blenderメッシュ13426頂点に分割・5587頂点を実立体変形、編集可能原本を別名保存。ゲーム元SOURCE・元B48 Road5・6Camera/CHASE・木11本・光源・元Game Colliderは不変更。
+- [K4CC初回真正Actions #41921803434](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41921803434) completed/SUCCESS。**SOURCE/DCC/RENDER TECH PASS、ART REJECT**。Artifact [#13366199801](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41921803434/artifacts/13366199801) は元ZIP SHA `7ad3616db225c4dbbeac619dc3951e48d3c8f2fbde2a35fb92a69895d0733645`を独立DL／全CRC再検算済。真Blender原本SHA256 `19e9169cf4568f973ac4f178e8bbcdf3d05fa88edd3a4c83da07d921c3563a08`、真正同CHASE PNG `efed6b1052536e6c596f23ca1c0f8e6692787a71fa53ac195c7e298483f5f861`。本物の比較画像を**直接目視**：右港は見通し改善、左斜面も3D化。ただし起伏が不自然で路肩脇の薄茶色の継ぎ目、全画面の道路・港の模型感が未達。**正式ART採用0件／Slope2 DNA認定0m。**
+- 実画像を受けて**原研究地形を下地として再表示し、その上の複製岩肌を0.055m浮かせて、継ぎ目からの露出を防ぐ修正を研究専用コードに実装・GitHub保存済**。旧地形形状・原Gameは不変更。新実行 [#41922703441](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41922703441) は本項目の記録時点で**in_progress／結果未確認**。完了・画像直接評価・CRCを確認するまでは修正版の成功やART判定を上書きしてはならない。中間 #41922678765 はCANCELLED。
+- **今後は技術QAや模型の量産を目的化しない。** 同じCHASE画像で全画面の作者美術（道路対左岩肌対右港、実在の建築用途・遠景・速度）を審査し、ART不合格なら正式候補へ昇格させない。ゲームWebGL2/HUMAN/FPS/SAT/CCDの合格とは絶対に言わない。他6 Roadへの美術展開は禁止。
+- **凍結と保護**：元Game Git Blob `af076d67492a677d2235e4730aef8cdf4808e106`／本物Road5 vertex-face SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`。B48本物7、B51本物28、240Hz、球0.65m、元6Camera全値。main、正式`p101-velocity-overdrive-native-trial`、Draft PR #46、原作Slope、本番2サイト不変。Work/Computer Use個別事前承認／追加有料API原則0円／ユーザー操作0。ART/SAT/CCD/FPS/HUMAN/RELEASE/MERGEすべてHOLD。
+
+---
+
 # 【2026-11-05 K4CB A3最終正本：実装→真正Blender→直接ART REJECT→独立ZIP/SHA→GitHub研究保存完了】
 
 **現在の隔離研究ブランチ** `research/k4cb-a3-integrated-quay-arrival-art-20261105`。まず[**K4CB A3完成技術証拠・実画像直接ART REJECT・失敗/保護・次工程固定方針**](docs/R19_A6P4_R2F5K4CB_A3_TRUE_NATIVE_QUAY_ART_REVIEW_JA.md)を全文確認し、[実同CHASE A2対A3画像](docs/research-evidence/k4cb-a3/K4CB_A3_VS_A2_TRUE_SAME_CHASE_QUAY_ARRIVAL_ART_REVIEW_NOT_GAME.png)、[A3独立監査JSON](docs/research-evidence/k4cb-a3/K4CB_A3_REAL_NATIVE_AUDIT.json)を照合する。下段の「現行」「最新」は当時の履歴でありA3より優先しない。
