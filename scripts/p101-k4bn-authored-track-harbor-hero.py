@@ -351,9 +351,9 @@ def port_crane(name,d,s,height_m,halfwidth,col):
       [P(d+44,s-halfwidth*1.7,z+height_m+9),
        P(d+44,s-halfwidth*1.7,z+12)],
       .2,steel,crane_col,"ACTIVE_HARBOR_CRANE")
-box(name+" realistic navigation beacon",d-1,d+1,
-    s-halfwidth,s-halfwidth+1,z+height_m+2,z+height_m+4,
-    hazard,crane_col,"VISIBLE_OPERATIONAL_WARNING")
+ box(name+" realistic navigation beacon",d-1,d+1,
+     s-halfwidth,s-halfwidth+1,z+height_m+2,z+height_m+4,
+     hazard,crane_col,"VISIBLE_OPERATIONAL_WARNING")
 port_crane("EAST WORKING QUAY 04",225,118,78,13,cargo_yellow)
 port_crane("WEST DOCK 03",276,-125,66,10,steel)
 
