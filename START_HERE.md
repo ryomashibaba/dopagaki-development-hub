@@ -1,3 +1,15 @@
+# 【2026-11-04 K4BL FINAL 正本】元Road5/CAM源保護・港湾美術TECH PASS／ART REJECT
+
+継続する**最新隔離研究ブランチ**：`research/k4bl-harbor-atmosphere-art-reconstruction-20261104`。必ず[2026年11月4日・K4BL本物の編集可能Blender画像・CI・全反省・次工程K4BM美術制作転換](docs/R19_A6P4_R2F5K4BL_COASTAL_HARBOR_ART_DIRECTION_JA.md)を最初に読む。過去K4BK以前の見出しにある「最新」は履歴。
+
+- **最終K4BL TECH**：[Actions #41751060525](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41751060525) completed/SUCCESS。EEVEEネイティブBlender本物DCC、元source Camera control11307/ultra11341の画像二枚、前K4BK同位置A/B比較、全SHA実検証・研究枝GitHub保存PASS。真[Artifact #13286275694](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41751060525/artifacts/13286275694)、ZIP SHA256 `cdcd49068a837e68d155b01824c720f216edeb3c50abe17919e90bc4c9b41b12`、編集可能.blend 36,684,824B SHA `220855d6500a74697e41b9bad36cb5c20654ea77d8c8a4be48d5ebf9a4ab2488`。
+- **美術最終判定：K4BL ART REJECT**。実画像は旧巨大横断梁が消えて見通し改善、路面の色とノイズが改善したが、路面の画面占有が非常に大きく、左右は薄い巨大屋根、遠景は単純な塔＋白い空虚な水平線、港の海・生活・地形の読み取れる情報が不足。3D看板は一部見切れ／建物に隠れる。**世界水準の完成として扱わない**。正式ART採用0件、Slope2 DNA正式認定0m。
+- 旧中間[CI #41749501857](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41749501857)はLinux libEGL欠落でFAILURE、[CI #41749843377](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41749843377)は次の修正でCANCELLED、初回修正版 #41749970400はSUCCESSだがART REJECT、第2修正版[CI #41750596888](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41750596888)は未定義Blender材質でFAILURE、最終 #41751060525 で修正成功。失敗を成功と呼ばず、実作品を継承。
+- **K4BM次工程**：旧大きな箱／長い波型屋根／安価な色塗りのプログラム生成を停止。実寸Road5と元Camera6の完全不変を前提に、本物のUV・高精細PBR・実公共空間を持つ作者メッシュ・海岸地形・港湾機能・遠中近景・ドラマのある照明を、高品質なヒーロー一画面で先に完成させる。**承認されるアートが出るまでゲーム統合/他6Roadへの展開を許さない**。実WebGL2同元CameraフレームとSAT/CCD/FPS/HUMANは未検証。
+- 凍結元Game git blob `af076d67492a677d2235e4730aef8cdf4808e106`、本物Road5 mesh fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`。B48元7・B51元28・240Hz/球半径0.65m・元6Camera・安全表示不変、main/公式p101/Draft PR#46/本番2サイト保護、Work事前承認、ユーザーWindows操作不要。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
+---
+
 # 【2026-11-04 K4BL 現在の作業入口】Road5実寸の港湾景観ART-FIRST全面改修
 
 **継続研究ブランチ**：`research/k4bl-harbor-atmosphere-art-reconstruction-20261104`。[今回の上位方針・実制作コード・厳密な美術受入・真正CI実行記録](docs/R19_A6P4_R2F5K4BL_COASTAL_HARBOR_ART_DIRECTION_JA.md)を最初に読む。
