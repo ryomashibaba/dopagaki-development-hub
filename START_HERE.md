@@ -1,3 +1,13 @@
+# 【2026-11-04 K4BX A3最終確定 → 次K4BY】真正3D岬と港湾 TECH PASS／同CHASE画面 ART REJECT
+
+**研究隔離枝** `research/k4bx-source-locked-harbor-horizon-composition-20261104`。[**K4BX A1～A3 真正Blender原本・SHA256・最終目視ART REJECT・次K4BY品質優先方針**](docs/R19_A6P4_R2F5K4BX_TRUE_HEADLAND_WORKING_HARBOR_JA.md)を最初に読む。以下の古い「最新」「A3実行中」は履歴。
+
+- A1 [CI #41823102768](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41823102768) SUCCESSだが左の黒三角形岬・継ぎ目がART REJECT。A2 [CI #41823924403](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41823924403) SUCCESSだが遠景空白・屋根板・浮いたVTSがART REJECT。A3 [CI #41824656344](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41824656344) **SUCCESS**。元Cameraの本物の射影を用いて**深度265～700mの実メッシュ岬・島影**を作者制作し、前の地形不具合とVTS屋根浮きの悪化物を研究原本に保持・非表示。**真正768×480実画像で道路の先に連続した海岸丘陵・遠景が見えたが、港の小さく板状の建築と路面・近景の現実感不足でART REJECT**。正式採用0件・Slope2 DNA 0m。
+- 真A3編集可能Blender.blend SHA256 `1cdf3233d3b2b91b1e10b6f7b2212ef9ec74331667ca4129a4e96ce43b4c2179`／真正同CHASE研究PNG SHA256 `4f6cb003a57fedefaed44ff39662398f44e3e00f30b5395fd4c0c8b8a2dc80ee`。[本物の同Camera旧新画像比較](docs/research-evidence/k4bx/K4BX_VS_K4BW_A2_SAME_CHASE_TRUE_HARBOR_HEADLAND_ART_REVIEW_NOT_GAME.png)。[実編集可能原本と監査Artifact #13318234253](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41824656344/artifacts/13318234253) ZIP実SHA `9e43fbaf5a6e7fdf44da6810f7fd890045184c4ddebfabea8c73a25d9678c920`、CRC PASS。
+- **次K4BY**：模型の建物・手すり・量産植生を増殖しない。路面と左自然斜面の写真レベルの物理質感、右の港の屋根厚・壁面・出入口・港湾の実用途・生活感など、少数の主役の本物の美術造形を完成させる。元ゲームGit Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元B48 Road5 Vertex/Face SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元6Camera・研究CHASE・旧真木9本・B48 7Road/B51 28Mover/240Hz/球0.65mを保護。Game Collider新規0、main・公式P101・Draft PR #46・本番不変更。SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD。Work/Computer Use事前承認、追加課金0円、Windows操作0。
+
+---
+
 # 【2026-11-04 K4BX実制作】本物の連続3D岬・港湾生業・遠景を同CHASE研究で確認
 
 現行隔離研究枝 `research/k4bx-source-locked-harbor-horizon-composition-20261104`。[K4BX真正3D海岸岬・働く港・源Game不変の制作方針](docs/R19_A6P4_R2F5K4BX_TRUE_HEADLAND_WORKING_HARBOR_JA.md)を第一に読み、[K4BW A2最終ART REJECT](docs/research-evidence/k4bw/K4BW_A2_FINAL_STATUS.md)からK4BV→K4BU→K4BTと過去正本を継承する。以下の「最新」「結果」は履歴。
