@@ -22,3 +22,25 @@
 [専用CI K4BO](https://github.com/ryomashibaba/dopagaki-development-hub/actions/workflows/p101-k4bo-native-frustum-racing-art.yml)、初回[実行 #41779198031](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41779198031)。**初回執筆時点で技術の最終結果や美術完成を未確認**。Source Camera 2元画像を取得して独立PNG/Blender shaを照合する前に成功と報告しない。比較画像の道路下半分のMean RGB差分が1.5未満ならCIはFAILとして、デザインが実画面にほぼ反映されていない可能性を検出する。差分が出ただけではART合格ではない。
 
 最終ART審査では旧来の「実際の路面大半がただの灰色」「背景はきれいな港として読めない」「左右が単調な壁」「超高速感と造形の高級感がない」を厳格に再検討する。1つでも重大な問題が残ればART REJECTし、次工程の美術設計方法を見直す。完成前の他6Road量産、本番映像・安全・FPS PASSの虚偽報告、main/公式へのmergeは禁止。
+
+
+## 【K4BO最終実行・実画像美術判定】2026-11-04
+
+### 技術検証・独立成果物の確定
+- 真正[Actions #41779198031](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41779198031) は **completed/SUCCESS**。元K4BN.BlendのSHA・全個別バイト整合、元ゲームSource Blob、Nodeテスト、真正B48 Road5頂点／面fingerprint、元6 Cameraの数値変化なし、Blender EEVEE真native scene、元Camera control11307 + ultra11341両PNG、独立画像下半分Pixel差分、真source Camera画角へのRoad5投影測定とGitHub研究ブランチ保存までPASS。
+- [Artifact #13298312331](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41779198031/artifacts/13298312331)、本ZIPのSHA256 `e834e6c0254a5da12994d74ed9fbd6383ce23ce56e9d7857600878ef7fc8b472`、ZIP CRC全PASS、Blender原本`K4BO_EDITABLE_GROUND_TRUTHED_VELOCITY_DCC_HOLD.blend` 41,838,860B／SHA256 `b546174d5ae5186015981f2d6b5ee40f823cb7a4f2f9ba33f07c2bbda84264e6`。control PNG 1,700,050B/SHA `02079b390eb9135c68cabe872af13bae12c3a2a5a524d4765dbab6401a0837be`、ultra PNG 1,673,174B/SHA `0106a50a93db52ec64f9c2e815ec165c7636507b7d1c0fabd68ef48296d3d8eb`、本オリジナル塗装Atlas SHA `4d2903e545dfc90f1290d5a6fcd5bebc0b46de78b1d47cdec47ed1f2189ad762`。ZIP元バイトと各Blender/PNG元SHAをコンテナで独立検証し全一致。
+- GitHub研究枝内の[真の画角投影結果JSON](research-evidence/k4bo/K4BO_SOURCE_FRAME_AND_RACING_ART_PROVENANCE.json)参照。Source Road5真正Source Camera control11307の**道路中心線が画面のどの高さに見えるか**（screenYBottomUp、0=最下段／1=最上段）：d10m→0.120、d15m→0.298、d20m→0.393、d30m→0.493、d40m→0.543、d55m→0.585、d70m→0.607、d110m→0.633、d170m→0.639。d0mは画面下の外、d-20mはカメラ背後。実Road5の遠距離方向d70〜170mがほとんど同じ画面高度に集中し、カメラ構図の圧縮を実測で確認。
+- 旧K4BNからの**画面下部RGB差分**：control平均7.3327／ultra3.4632（RGB画素値単位）。両方とも低限の差分下限1.5を超え、元Cameraに新マテリアル・ペイントが可視になった事実は検証PASS。差分の大きさを品質評価や人間プレイ品質と混同しない。
+
+### 真正2視点の美術判定：**ART REJECT**
+- 路面近景まで実オリジナルの琥珀／マリンブルー速度ウェーク・文字・扇形と細いロード端のイルミネーションを投影し、画角外にモデルを作るという前工程の手戻りは一部解消した。
+- しかし両元Camera実画像では、色の広い塗りや細いフィンが依然「平面上に貼り付いたレース模様と単純な側面小物」に見え、道路の巨大な面積と大きな灰色空白はなお変わらない。近景のリアリズムが足りず、道路両脇は単調な長い壁で公共施設／海岸・港の利用実態に見えず、遠景の船もほぼ見えない。透視の圧縮が著しく、港湾の深さが感じられない。**世界水準の超高速3Dレーシングゲームの美術として認定不可、K4BO ART REJECT**。正式採用0件／Slope2 DNA 0m。
+- 元ゲームSourceには変更無し、ゲームCollider0、元Road5/元Camera完全不変。これはBlender DCC元Camera画像であり実WebGL2画面ではない。B51全時間安全／SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD。
+
+### K4BPに向けたプロジェクト方針
+
+**これ以上「元Camera固定の広すぎるRoad5を、塗装／窓／フィン／箱で飾れば世界水準になる」と推定して大量生産しない。** この試験でわかった確かな事実は、見える画面を支配するのがRoad5約100m級の幅と元Cameraの遠近圧縮にあること。次は元ゲームを**保護し続けた隔離DCC**で次の二案を**別物として同じ原本から独立比較**する：
+1. 元Camera／Road5完全固定の既存安全基準画像と、研究用**別カメラでの高品質コース構図試験**（元Cameraデータブロックを変更・移動せず複製）を明確に分離。例：画角・位置・視点高さ・側面パースの違いが「巨大路面・薄い遠景」をどれだけ改善できるか同一景観で比較。この画像を元Source Camera合格やゲーム実映像に偽装しない。
+2. 元Road5の道路実幅・断面そのものが美術を阻む場合、**純研究用別メッシュの1フレームのコース再構成**を美術案として試すが、公式B48/source Road5を変更しない。1コースの研究候補だけに限定し、正式原本への採用や衝突・挙動への適用は美術・安全ゲートが揃うまで禁止。
+
+この方法は過去の「mainや元原本を固定し、安全な3D研究で見る」という方針と両立しつつ、毎回不合格の同じ造形方法に戻ることを防ぐ。ユーザーの承認がない限りゲーム本体のカメラ/元道路/PR/本番は変更しない。正式ART採用0件、Slope2 DNA0m維持。
