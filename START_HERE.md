@@ -1,3 +1,12 @@
+# 【2026-11-04 K4BZ実診断】左車線の黒い筋＝別々の研究道路メッシュの交差を実12ピクセルで確認
+
+新研究枝 `research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104`。[**K4BZ真正Blenderの元CHASE12ピクセル・レイ・材質・Sun遮蔽調査、源保護、1オブジェクト真正A/B**](docs/R19_A6P4_R2F5K4BZ_TRUE_BLACK_WEDGE_PIXEL_CAUSE_DIAGNOSTIC_JA.md)を第一に読む。以下の「最新」記述は前工程の履歴。
+
+- [**診断CI #41834276872**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41834276872) **completed/SUCCESS**。元K4BY A3真.blend SHA256 `f0d3d7a27e5fbf599447b0e784b71684ff634b071d283f8b59bdaf06a179d4e4`＋元CHASE PNG SHA256 `ad46b5377fd9d144c7ab94b428df52d5f97cb7675fe44c3d14389b7858c925f7`を直接検証。実画像の黒筋6点の最初の交差は全6点 **K4BY | actual source raycast 1m road surface | NO GAME COLLIDER** （真2K Asphalt Track PBR材）、隣の普通路面6点の最初の交差は全6点 **K4BQ / physically variegated 26m curved material research test** （K4BR実CC0アスファルト材）。唯一表示有効Sun方向の影遮蔽レイは12点すべて遮蔽物なし。よって**研究用道路サーフェスの前後交差・別材質境界が最有力**だが、レンダー因果関係を完全同定したとする前に**K4BY研究舗装1オブジェクトだけを非表示にした実同CHASE A/B**を行う。
+- [**R2真正Blender A/B CI #41835036099**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41835036099) はこの先頭文書記述時点で結果未確認。元ゲーム・元B48 Road5全頂点面 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元6Camera・研究CHASE、元9木、全照明を保護。元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、B48 7道路/B51 28動体/240Hz/0.65m球不変。正式ART採用0件／Slope2 DNA 0m、ART REJECT、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。main・公式P101・Draft PR#46・本番2サイト不変更。Windows操作0、Work/Computer Use事前承認、追加課金0円。
+
+---
+
 # 【2026-11-04 K4BY A3最終確定 → 次K4BZ】真2K CC0路面と既存港湾建築TECH PASS／真正画像ART REJECT
 
 **最新の研究隔離枝** `research/k4by-photoreal-road-occupied-harbor-art-20261104`。[**K4BY公式PBR路面・港湾建築改修、A1/A2/A3の実画像失敗原因と独立SHA、K4BZのピクセル原因識別**](docs/R19_A6P4_R2F5K4BY_TRUE_CC0_ROAD_OCCUPIED_HARBOR_JA.md)を第一に読む。以下の「最新」「CI実行中」は過去の履歴。
