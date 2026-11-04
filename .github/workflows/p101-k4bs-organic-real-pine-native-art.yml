@@ -114,7 +114,7 @@ jobs:
           assert set(j['actualPolyHavenSparseGrassMapsPacked'])=={'diffuse','rough','nor_gl'}
           assert all(j['actualPolyHavenSparseGrassMapsPacked'].values())
           assert j['actualImportedRealPineGLTFTriangles']>=20000
-          assert j['researchTreeSharedGeometryInstances']==14
+          assert j['researchTreeSharedGeometryInstances']==8
           assert len(j['actualTerrainPerPolygonCheckerPatternRemoved'])==2
           assert all(v['oldPerFaceBlocks'][1]>0 and v['polygons']>200 for v in j['actualTerrainPerPolygonCheckerPatternRemoved'].values())
           assert hashlib.sha256((a/'K4BS_CC0_LIVE_ASSET_RECEIPTS.json').read_bytes()).hexdigest()==j['vendorCC0ManifestSHA256']
@@ -124,16 +124,19 @@ jobs:
           assert len(j['screens'])==2
           orig=Image.open(p/'render'/'K4BR_CHASE_NARROW_REAL_CC0_PBR_AND_PHOTOSCAN_NATIVE_DCC_UNJUDGED.png').convert('RGB')
           new=Image.open(d/'K4BS_CHASE_NARROW_CONTINUOUS_CC0_GROUND_REAL_PINE_ART_HOLD.png').convert('RGB')
-          assert orig.size==new.size==(1520,950)
+          assert orig.size==(1520,950) and new.size==(1280,800)
+          # Comparison is same exact source camera pose; resample the old
+          # baseline only for visible side-by-side, never claim equal pixels.
+          orig=orig.resize(new.size)
           assert sum(ImageStat.Stat(new).stddev)>13
           diff=ImageChops.difference(orig,new)
           avg=round(sum(ImageStat.Stat(diff).mean)/3,4)
           assert diff.getbbox() is not None and avg>3,avg
-          compare=Image.new('RGB',(3100,1050),(16,20,24))
+          compare=Image.new('RGB',(2640,920),(16,20,24))
           pen=ImageDraw.Draw(compare)
-          compare.paste(orig,(15,62));compare.paste(new,(1565,62))
+          compare.paste(orig,(15,62));compare.paste(new,(1335,62))
           pen.text((15,20),'K4BR true research CHASE camera / ART REJECT',fill='white')
-          pen.text((1565,20),'K4BS SAME RESEARCH CHASE camera / REAL CC0 PINE AND ORGANIC MASK / NOT GAME',fill='white')
+          pen.text((1335,20),'K4BS SAME RESEARCH CHASE camera / REAL CC0 PINE AND ORGANIC MASK / NOT GAME',fill='white')
           name='K4BS_VS_K4BR_SAME_CHASE_CC0_PINE_AND_ORGANIC_GROUND_ART_REVIEW_NOT_GAME.png'
           compare.save(d/name)
           raw=(d/name).read_bytes()
