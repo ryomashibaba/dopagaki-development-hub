@@ -333,7 +333,7 @@ for side,label in ((-1,'WEST'),(1,'EAST')):
    for t in (0,.33,.66,1):
     rad=(1-t)*1.8+0.1
     center=tip+F*(t*1.8)+Vector((0,0,t*.7))
-    rows.append([center+rad*(R*cos(a*2*pi/9)+Vector((0,0,1))*sin(a*2*pi/9)*.6)
+    rows.append([center+rad*(S*cos(a*2*pi/9)+Vector((0,0,1))*sin(a*2*pi/9)*.6)
                  for a in range(9)])
    loft(label+' evergreen tapered branch crown '+str(i)+'_'+str(branch),
         rows,pine,cliffs,'REAL_SECTIONED_FOLIAGE')
