@@ -28,3 +28,29 @@
 ## 実実行の証拠リンク
 
 新[GitHub Actions K4BQ #41783578592](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41783578592)を実行中。保存スクリプト`scripts/p101-k4bq-native-geological-harbor-art.py`、証明workflow`.github/workflows/p101-k4bq-geological-harbor-native-art.yml`。文書初稿の段階ではCI最終・Blender画像・ART判定は**未確定**。本物のPNG/BLEND/JSONと各SHA、元ゲーム保護条件の成功証拠が揃うまで「技術PASS」とは報告しない。途中失敗は途中失敗として記録する。
+
+## 【K4BQ最終監査 2026-11-04】本物のnative DCC制作PASS・実画像の美術REJECT
+
+### 実行・成果物の真正性
+
+- [最終CI #41783578592](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41783578592)は**completed/SUCCESS**。元ゲームGit Blob（`af076d67492a677d2235e4730aef8cdf4808e106`）、K4BP親編集可能.blend SHA256（`93c3583655eeb48fa06d61239646bb470419c72bf84cd97235be2288240d26aa`）、Source Node tests、真Road5元頂点面 fingerprint、元6Camera/研究Camera数値不変、Blender 4 headless EEVEE、真CHASE_NARROW／元Control姿勢複製 NARROW_FIXED_ORIGINAL_POSEの2研究PNG、同CHASE研究Cameraでの旧K4BP DとのA/B、結果JSON、GitHub研究枝への実出力画像保存まで実施。**実ゲームWebGL2の画像ではない**。
+- [Artifact #13299639828](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41783578592/artifacts/13299639828)、本ZIP実SHA256 `c689da70ce749ad021083e6d6d13e3a4b7f367ef1424cba66a1a69e08f698717`、ZIP CRCエラーなし。真正編集可能原本 `K4BQ_GEOLOGICAL_HARBOR_EDITABLE_RESEARCH_ART_HOLD.blend` 44,989,436B／SHA256 `5fe3ed2569b807af0b04c46cd1672f83a1c93863a19e958c468369985bd60252`。新しいCHASE_NARROW研究Blender画像1,617,555B／SHA256 `058a5b9f433fe01452dea4acd4b0b98448a220663f857a551c1a71081ae098b8`、元Controlと同ポーズの研究用別Camera画像1,608,125B／SHA256 `ad4d1c0bb2d96772ea0292939b2bb0f8c1b0936d48b67112cd58774cdf21a3f3`。同CHASE研究Camera中立A/B比較画像2,375,531B／SHA256 `ba6fbc07158eeab7dc7f8edd61f76a5dc12dc6fb2da98e0f8ae5d74547dad011`。ZIPをダウンロードして全CRCとBLEND/PNG/ABの元バイトをコンテナで独立計算し、全ハッシュ一致。
+- K4BQ名前空間の独立研究オブジェクト70件の他、岩の生成形状・幹/枝/樹冠・草のジオメトリをバッチメッシュ内に構築。**70という数は美術の質の根拠ではない**。元B48 Road5や他6路面は実メッシュの変更無し、元6Source CameraとK4BP研究Cameraの位置回転レンズも変化無し。研究独立幅26.3mの道路は元B48の物理安全道路ではなく、新Collision0。元ゲームの挙動、B51/SAT/CCD/FPSなども再検証していない。
+
+### 実際のCHASE_NARROW 2画像を見た美術評価：**ART REJECT**
+
+- **部分的前進**：旧K4BP Dの左右ほぼ単一色の巨大法面を、低めの侵食地層・個別の大小の岩・緑の植生・小ぶりな松、片側の港湾木造デッキ・船/灯台、もう一方の起伏と海辺の案内施設に置き換えた。研究用道路は大型文字がなくなり、細い境界表示と低彩度を持つ。旧K4BPと同じCHASE研究Cameraで景観が変わったことを実画像で確認。
+- **しかし本質的な失敗**：松が単純な角のある三角形の重なりにしか見えず、岩も同型の八面体石が繰り返された低品質ゲームアセットに見える。地表面に矩形の草色模様が現れ不自然、道路は暗いほぼ単色で画面大半を占める。旧K4BM/BQ系の曲面建築は離れた造形物のように見え、実在する文化施設・港の働きが読めない。灯台もカメラ近景で唐突な単柱となり自然な海岸線・港湾スケールが十分に成立しない。遠景の空が広く何もなく、超高速カメラに読める商用ゲームらしい空間構成・自然・素材・速度感が未成立。
+- **公式美術として不合格**。現状では「手続き的なオブジェクトで空きを埋めたモデル」から十分抜けられない。元Source Camera/元Road5でのART PASSはもちろん、研究CameraのART PASSも認定しない。正式ART採用**0件**／Slope2 DNA **0m**、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
+### K4BRに進むための実務的な方針転換
+
+これまでK4BK〜K4BQで「Python手続きメッシュ＋単色/Blender Noiseマテリアルを大量生成」しても、3D実レンダリングで世界級の自然・都市の高級感を実現できていない。この方法を**そのまま主経路に戻さず**、1画面の**本当に高品質な作者/写真計測由来の材質とモデル素材**を利用して成立させる。
+
+1. **写真測量を含むライセンス検証済みの高品質PBR素材**を、まず道路・地形・岩壁で1画面テスト。候補：Poly Haven `https://polyhaven.com/a/rock_ground` と CC0アセット、ambientCGのCC0 1K/2Kライブラリ。公式ライセンス、具体的な元ファイルURL、真正ダウンロード・SHAとパックしたBlender出力の実メッシュを確認してから採用。ライセンスが不明、URLが404、実ダウンロード不能なら無理に置換せずHOLD。**追加課金なし**。
+2. 岩と樹木について、Blenderの単純な球・円錐を増殖する代わりに**実写真スキャン/自然な3D樹木アセット**が適切に利用できるか検証する。自動取得が出来ない場合も元原本を保護。景観密度・樹種/寸法、同一形状の反復を目視確認する。
+3. 「道路上に占める画面の大半」をリアルな路面粗さ・局所舗装・金属安全物・構造的な変化で作者制作。広い暗色ベタ塗りを避ける。高解像度の実材質を使ってもゲーム最適化/LOD/FPSが未評価であることを明示。
+4. まず**K4BP Dと同じCHASE複製Camera+研究独立Road、同一姿勢で評価**、実Blender原本と比較PNGで質が上がったかを審査。『路面だけ質感が良いが景観が不自然』もART REJECTとする。品質未確認のまま他6道路・公式ゲームへ導入しない。
+5. 実ゲームの元Road5／Camera本番差し替えは絶対にしない。安全・物理・28動体全時間/CCD/SAT/FPS/元ゲーム実WebGL2の独立検証が必要。最高品質のArt/安全/速度が揃ってからのみユーザーの別承認を求める。
+
+Poly HavenのCC0方針は `https://polyhaven.com/` と `https://github.com/Poly-Haven/Public-API` で事前確認可能。これらのウェブ候補は**今回のK4BQ原本には未ダウンロード・未採用**なので、適用成功・実アセット化を主張しない。
