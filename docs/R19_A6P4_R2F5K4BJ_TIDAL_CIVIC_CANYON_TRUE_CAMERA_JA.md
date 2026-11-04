@@ -37,3 +37,20 @@ K4BI [Actions #41740606366](https://github.com/ryomashibaba/dopagaki-development
 
 初回執筆時点ではCI success、真Blender結果、ART評価は**未確定**。前工程と同じSOURCE/DCC技術成功をART合格へ読み替えない。旧K4BI ART REJECTと正式採用0件／Slope2 DNA0mを維持。実WebGL2画面は1枚も撮影していない。B51全時刻クリアランス、CCD・SAT、180Hz/240Hz真実走行、安全、FPS、人間プレーは新美術について未検証。
 
+
+## 【2026-11-04 K4BJ実物レンダリングの確定評価】
+
+### 真の技術実行
+- 初回[Actions #41743358774](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41743358774) はRaycast結果を3値で受けようとしてBlender 4の4値契約に違反、失敗後**cancelled**。次の[Actions #41743406627](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41743406627) はBlender造形構築までは走ったが、`out`を外装ループのouter lateral値で上書きし、保存先が整数になり**completed/FAILURE**。これらを成功へ読み替えない。
+- 修正commit `e7db92c73a915a2be7e91dbc8a90cf8c68465a74` の真正[Actions #41743823084](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41743823084) は **completed/SUCCESS**。Source Node検査・親K4BI.blend SHA・実元Source Camera二時点・元Road5頂点／面 fingerprint・独立画像/SHA検査・研究ブランチへのPNG/JSON保存・編集可能BlenderのArtifactアップロード成功。これは**SOURCE/DCC技術限定PASS**。
+- 真正[Artifact #13282722868](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41743823084/artifacts/13282722868)、ZIP SHA256 `7b85ebe4c3ef60053c9e5dfdc18e55d9c779714afa8b4319ac3370561b4948b3`。ZIP CRCエラーなし。control11307 PNG 1,933,613 bytes、ultra11341 PNG 1,918,310 bytes、真Blender編集可能原本 33,859,968 bytes、同source camera比較PNG 4,123,651 bytes、真provenance JSON。独立再ハッシュ全件一致。新DCCモデル87件、旧K4BI/K4BHコレクション12個を非破壊render-off。**モデル数を美術評価に使用しない。**
+
+### 実画像を直接見た美術判定：ART REJECT
+- 元K4BIと構図の差は大きい。巨大な白骨梁と緑のSky Lobby、左右の異なる海岸建築へ置換したことは実画像で確認できる。
+- しかし実際にはcontrol/ultraとも**平面路面がフレーム下部の過半を占め**、左右は依然巨大で無地な壁、中央は模型的で小さい接続部・不自然な素材と厚み、大きな空白が広がり、街区に人の生活と道路の速度・緊迫感がない。以前の「二重の細いリング」を捨てたことは新方向の試作として記録するが、世界水準のゲーム画面からは遠い。**K4BJ ART REJECT**。正式ART採用0件／Slope2 DNA正式認定0m。
+- 作成した道路脇の候補は**生成0**。原因：Road5本物メッシュに対し、R側とL側の各42サンプルで`s=±157m`の鉛直レイとの交差が**0/42 + 0/42**。これを「道路脇レール成功」と報告するのは誤り。建物の横位置寸法がそもそもRoad5に合わない可能性があるが、**厳密な路幅はこのデータだけでは不明**。
+- Source/Native DCC ART候補を元のWebGL2ゲームスクリーンショットだと偽らない。元B48 geometry fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`・元control/ultra Camera数値不変。元ゲームソース不変。B51/SAT/CCD/HUMAN/FPS/RELEASE/MERGE安全認証を行っていない。ゲーム統合と他Road展開はHOLD。
+
+### 次の実測の優先順位
+
+現状の道幅・スケールに根ざさないまま新しい壁や塔を追加すると、同じ失敗を繰り返す。`scripts/p101-k4bj-readonly-source-road-camera-survey.py` と[専用Actions #41744748256](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41744748256)を投入し、真正K4BI元BlenderからCamera基準横方向距離とRoad5の三角メッシュ分布、異なる縦方向地点の鉛直レイ交差を**読み取り専用で計測**する。出力が検証できたら、以降の建築幅・位置・安全な道路脇候補を測定根拠で再設計する。これは地物位置測定であって、B51実衝突安全やART合格の証明ではない。
