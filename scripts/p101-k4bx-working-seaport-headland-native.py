@@ -194,6 +194,9 @@ for i in range(len(low_ds)-1):
   n=i*len(low_ss)+k
   low_faces.append((n,n+len(low_ss),n+len(low_ss)+1,n+1))
 new_cliff=mesh("low naturally eroded hillside beyond the original crest A2",low_verts,low_faces,rocklight,"SOURCE_PROTECTED_PALE_HEADLAND",True)
+# A2 has still too little coherent background. Keep this diagnostic
+# mesh but reject painting a fringe unrelated to the silhouette.
+new_cliff.hide_render=True
 # Variation in more distant terrain: broad, low, lighter silhouette.
 h_ds=list(range(290,560,15))
 h_ss=(100,144,187,246)
@@ -204,7 +207,72 @@ for i in range(len(h_ds)-1):
  for k in range(len(h_ss)-1):
   n=i*len(h_ss)+k
   h_faces.append((n,n+len(h_ss),n+len(h_ss)+1,n+1))
-mesh("subtle distant muted maritime headland A2",h_verts,h_faces,distant,"SOURCE_PROTECTED_FAR_GEOLOGY",True)
+old_far=mesh("subtle distant muted maritime headland A2",h_verts,h_faces,distant,"SOURCE_PROTECTED_FAR_GEOLOGY",True)
+old_far.hide_render=True
+
+# A3: derive a readable 3D landform silhouette from the TRUE frozen
+# camera without changing that camera. For every target image-space
+# coastline point, solve the physical lateral + height coordinates on
+# fixed world-forward planes, then connect FOUR separated depth rows
+# (265-580m). This produces an actual continuous 3D hillside with
+# natural relief, not an image plane/card or background texture.
+def real_3d_at_screen(d,ux,uy):
+ lat=(.5-ux)*d*.42
+ height=15.
+ for _ in range(11):
+  q=world_to_camera_view(scene,cam,put(d,lat,height))
+  ex=ux-float(q.x);ey=uy-float(q.y)
+  if abs(ex)+abs(ey)<.000008:break
+  eps=1.0
+  qs=world_to_camera_view(scene,cam,put(d,lat+eps,height))
+  qh=world_to_camera_view(scene,cam,put(d,lat,height+eps))
+  a=float(qs.x-q.x)/eps;b=float(qh.x-q.x)/eps
+  c=float(qs.y-q.y)/eps;e=float(qh.y-q.y)/eps
+  det=a*e-b*c
+  assert abs(det)>1e-10,("K4BX inverse projection singular",d,ux,uy)
+  dl=(ex*e-ey*b)/det
+  dh=(ey*a-ex*c)/det
+  assert abs(dl)<1000 and abs(dh)<1000,("K4BX unsafe projection",dl,dh)
+  lat+=dl;height+=dh
+ z=world_to_camera_view(scene,cam,put(d,lat,height))
+ assert abs(z.x-ux)<.002 and abs(z.y-uy)<.002,("K4BX camera target miss",ux,uy,z)
+ return put(d,lat,height)
+
+x_targets=[.07+i*.021 for i in range(21)]
+depths=(265,328,440,575)
+land=[]
+for row,dd in enumerate(depths):
+ for i,xval in enumerate(x_targets):
+  ripple=sin(i*.58+dd*.01)*.008+sin(i*1.61)*.004
+  top=.56+.055*sin(pi*i/(len(x_targets)-1))**1.2+ripple
+  yval=(.445,.505,top-.015,top)[row]
+  x2=xval+(row-1)*.0025*sin(i*.34)
+  land.append(real_3d_at_screen(dd,x2,yval))
+landfaces=[]
+ncol=len(x_targets)
+for i in range(len(depths)-1):
+ for j in range(ncol-1):
+  p=i*ncol+j
+  landfaces.append((p,p+ncol,p+ncol+1,p+1))
+land_a3=mesh("A3 real topographic maritime headland above the road crest",
+             land,landfaces,rocklight,"CONTINUOUS_3D_COASTAL_TOPOGRAPHY",True)
+# Far coastal forest ridge behind the notch: independent depth,
+# mellow atmospheric tone with lower contrast. Still real geometry.
+x_far=[.345+i*.018 for i in range(19)]
+hill=[]
+for row,dd in enumerate((440,540,700)):
+ for i,xx in enumerate(x_far):
+  peak=.555+.021*sin(pi*i/(len(x_far)-1))+.007*sin(i*.82)
+  yy=(.472,.517,peak)[row]
+  hill.append(real_3d_at_screen(dd,xx,yy))
+hill_faces=[]
+for i in range(2):
+ for j in range(len(x_far)-1):
+  p=i*len(x_far)+j
+  hill_faces.append((p,p+len(x_far),p+len(x_far)+1,p+1))
+mesh("A3 far real rolling island shoulder behind highland",
+     hill,hill_faces,distant,"REAL_DEPTH_ATMOSPHERIC_HILLS",True)
+a3_new_ridge_anchor=real_3d_at_screen(575,.285,.60)
 
 # 2) A broad true waterfront district on the RIGHT behind the crest.
 # Its sloped rock shelf, ferry quay and boat basin are a coherent 3D
@@ -304,14 +372,14 @@ def find_site(targetx,targety,basez,roofheight,ds,ss):
 # Port skyline screened to the frozen actual camera. The two principal
 # occupied halls are deliberately spaced and asymmetric, each serving
 # a concrete destination/use on the right hillside.
-site1=find_site(.75,.61,-10.3,24.0,range(126,218,9),range(-105,-35,7))
-site2=find_site(.88,.605,-12.1,21.0,range(144,239,9),range(-129,-49,8))
+site1=find_site(.765,.585,-10.3,21.0,range(176,269,10),range(-122,-44,8))
+site2=find_site(.885,.575,-12.1,16.0,range(180,290,11),range(-154,-58,9))
 _,d1,s1,q1=site1
 _,d2,s2,q2=site2
 hall1=roofed_hall("working fish auction and cold chain sorting hall",
-                  d1,s1,32,16,-10.3,18.3,5.7,plaster,slate)
+                  d1,s1,23,12,-10.3,15.8,5.2,plaster,slate)
 hall2=roofed_hall("regional island ferry arrivals and weather refuge",
-                  d2,s2,25,13,-12.1,16.9,4.1,ochre,rocklight)
+                  d2,s2,20,11,-12.1,12.5,3.5,ochre,rocklight)
 
 # Port-operations VTS attached to the fish sorting building, not a
 # free-standing false lighthouse: glazed watch-room and a small signal.
@@ -331,7 +399,7 @@ strut("VTS radio equipment antenna",mast+Vector((0,0,15)),mast+Vector((0,0,20)),
 
 # Working quayside crane: finite diagonal truss and actual suspended hook.
 # Just one distinctive machine, not a repeated skyline of poles.
-crane_site=find_site(.685,.635,-9.0,37.0,range(150,245,10),range(-110,-40,10))
+crane_site=find_site(.68,.595,-9.0,37.0,range(174,266,10),range(-120,-48,9))
 _,cd,cs,cq=crane_site
 foot=put(cd,cs,-9)
 apex=foot+Vector((0,0,30))
@@ -421,6 +489,20 @@ for i,dd in enumerate((218,278,342)):
  rocklight,"TRUE_GEOLOGICAL_LIMESTONE_STRATA")
  rejected_strata.hide_render=True
 
+# A2 true image revealed a floating-looking VTS lookout ring and a broad,
+# clipped terminal roof. The A3 roofs are now smaller/distant. Reject
+# the watch ring and its mast in the research render (editable meshes stay).
+rejected_vts=0
+for obj in created:
+ if any(text in obj.name for text in (
+   "occupied harbor lookout glazed ring",
+   "ferry pilotage control mast",
+   "VTS radio equipment antenna",
+ )):
+  obj.hide_render=True
+  rejected_vts+=1
+assert rejected_vts==3,rejected_vts
+
 # Keep natural old geology; no new flat stripe over the real source asphalt.
 assert original_poses()==poses
 assert (tuple(cam.location),tuple(cam.rotation_euler),cam.data.lens)==frozen
@@ -429,6 +511,7 @@ assert all(tuple(tuple(row) for row in o.matrix_world)==protected[o.name] for o 
 assert sha(BASE)==BASE_SHA
 anchors={
  "headlandHigh":screen(put(220,151,49)),
+ "a3ActualHeadlandVisibleAnchor":screen(a3_new_ridge_anchor),
  "distantHill":screen(put(340,300,77)),
  "fishSortingAndVTS":screen(hall1),
  "ferryTerminal":screen(hall2),
@@ -436,6 +519,7 @@ anchors={
  "pilotWorkboat":screen(boat),
  "roadCrest":screen(put(155,0,0))
 }
+assert anchors["a3ActualHeadlandVisibleAnchor"]["inFrame"]
 assert anchors["fishSortingAndVTS"]["inFrame"]
 assert anchors["ferryTerminal"]["inFrame"]
 assert anchors["craneJib"]["inFrame"]
@@ -480,6 +564,9 @@ audit={
  "a1BlackTriangularCliffRejectedAndRenderHidden":True,
  "a1StrataEdgeDefectsRejectedAndRenderHidden":True,
  "a2PaleGeologicalBackdropBuiltBehindRoad":True,
+ "a3PreviousLandmassArtifactsRejectedRenderHidden":True,
+ "a3NewPhysicalWorldDepthHill":True,
+ "a3OldFloatingVTSObjectsKeptButRenderHidden":rejected_vts,
  "realNativeRender":True,"imageSizePx":[768,480],
  "actualColorSilhouettes":"NOT_MEASURED_BY_WORLD_BOUNDS",
  "ART":"UNJUDGED_HOLD","formalArtAccepted":0,"formalSlope2DNAMetres":0,
