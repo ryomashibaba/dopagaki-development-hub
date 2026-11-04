@@ -1,0 +1,171 @@
+name: DOPAGAKI K4BZ single overlapping road proxy true CHASE Blender pixel A-B
+on:
+  push:
+    branches: [research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104]
+    paths:
+      - scripts/p101-k4bz-one-road-proxy-hidden-authentic-ab.py
+      - .github/workflows/p101-k4bz-one-proxy-ab-original-geometry.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4bz-one-authentic-ab-proxy
+  cancel-in-progress: true
+jobs:
+  one-real-render-with-only-one-non-game-road-visibility-change:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Freeze branch, actual source Game blob and syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4bz-one-road-proxy-hidden-authentic-ab.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Fetch precisely one complete successful original true K4BY A3 editable Blender
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BY_TRUE_CC0_PHOTO_ROAD_OCCUPIED_HARBOR_EDITABLE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41831182680
+          github-token: ${{ github.token }}
+          path: research/evidence/k4bz/parent
+      - name: Recheck source and exact object identity already established by real ray diagnosis
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path('research/evidence/k4bz/parent/render')
+          a=json.loads((p/'K4BY_GENUINE_PBR_HARBOR_NATIVE_ART_AUDIT.json').read_text())
+          assert a['originalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceFingerprint']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert a['sourceRoad5VertexFacesUnchanged'] and a['sourceSixCameraPoseUnchanged'] and a['frozenResearchChaseUnchanged']
+          assert not a['originalSourceGameEdited'] and a['newGameColliders']==0
+          for name,m in a['files'].items():
+           raw=(p/name).read_bytes()
+           assert len(raw)==m['bytes'] and hashlib.sha256(raw).hexdigest()==m['sha256']
+          assert a['files']['K4BY_TRUE_CC0_ROAD_OCCUPIED_HARBOR_EDITABLE_NATIVE_ART_HOLD.blend']['sha256']=='f0d3d7a27e5fbf599447b0e784b71684ff634b071d283f8b59bdaf06a179d4e4'
+          q=json.loads(Path('docs/research-evidence/k4bz/K4BZ_REAL_CHASE_BLACK_WEDGE_PER_PIXEL_GEOMETRY_SHADOW_CANDIDATES.json').read_text())
+          assert len(q['darkTargetVsComparisonPairs'])==6
+          assert q['sameDarkControlFirstHitObjectCount']==0
+          assert len(set(q['firstHitDarkObjects']))==len(set(q['firstHitControlObjects']))==1
+          assert q['firstHitDarkObjects'][0]=='K4BY | actual source raycast 1m road surface | NO GAME COLLIDER'
+          assert q['firstHitControlObjects'][0]=='K4BQ / physically variegated 26m curved material research test'
+          assert q['actualRootCause']=='NOT_ESTABLISHED_BY_RAY_ONLY'
+          print('K4BZ_PIXEL_CAUSALITY_AB_REQUIREMENTS_AND_TRUE_NATIVE_SHA_PASS')
+          PY
+      - name: Install bounded headless authentic Blender and Pillow
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: Disable exactly one diagnosed NON-GAME road overlay in copied native, true EEVEE fixed CHASE
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4bz/ab
+          xvfb-run -a -s '-screen 0 1280x900x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4bz-one-road-proxy-hidden-authentic-ab.py -- \
+              --base research/evidence/k4bz/parent/render/K4BY_TRUE_CC0_ROAD_OCCUPIED_HARBOR_EDITABLE_NATIVE_ART_HOLD.blend \
+              --out research/evidence/k4bz/ab
+      - name: Independently compare REAL rendered pixels at identified dark+control coordinates with original unchanged frame
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          from PIL import Image,ImageChops,ImageDraw,ImageStat
+          from pathlib import Path
+          import hashlib,json
+          out=Path('research/evidence/k4bz/ab')
+          auditp=out/'K4BZ_ONE_OBJECT_ABLATION_AUTHENTIC_NATIVE_AUDIT.json'
+          audit=json.loads(auditp.read_text())
+          assert audit['canonicalParentBlenderSHA256']=='f0d3d7a27e5fbf599447b0e784b71684ff634b071d283f8b59bdaf06a179d4e4'
+          assert audit['canonicalOriginalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert audit['canonicalRoad5VertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert audit['sourceRigSixCameraUnchanged'] and audit['researchChaseUnchanged'] and audit['originalNineTreesMatricesUnchanged']
+          assert audit['allLightsIdentical'] and audit['physicalOriginalRoad5Unchanged']
+          assert audit['originalK4BYRoadRibbonHiddenRenderOnly']
+          assert audit['existingPhotographicAlternateRoadRemainsVisible']
+          assert not audit['gameSourceEdited'] and audit['newGameColliders']==0
+          assert audit['formalArtAccepted']==0 and audit['formalSlope2DNAMetres']==0
+          assert all(audit[k]=='HOLD' for k in ('SAT','CCD','FPS','HUMAN','RELEASE','MERGE'))
+          for name,m in audit['files'].items():
+           b=(out/name).read_bytes()
+           assert len(b)==m['bytes'] and hashlib.sha256(b).hexdigest()==m['sha256']
+          basep=Path('research/evidence/k4bz/parent/render/K4BY_ONE_SAME_CHASE_TRUE_PBR_RACE_ROAD_CIVIC_HARBOR_NOT_GAME.png')
+          old=Image.open(basep).convert('RGB')
+          new=Image.open(out/'K4BZ_SAME_CHASE_SINGLE_RAYCAST_PROXY_HIDDEN_REAL_AB_NOT_GAME.png').convert('RGB')
+          assert old.size==new.size==(768,480)
+          assert ImageChops.difference(old,new).getbbox() is not None
+          q=json.loads(Path('docs/research-evidence/k4bz/K4BZ_REAL_CHASE_BLACK_WEDGE_PER_PIXEL_GEOMETRY_SHADOW_CANDIDATES.json').read_text())
+          scores=[]
+          for pair in q['darkTargetVsComparisonPairs']:
+           d=tuple(pair['darkPixel']);c=tuple(pair['comparisonPixel'])
+           old_d=old.getpixel(d);old_c=old.getpixel(c)
+           new_d=new.getpixel(d);new_c=new.getpixel(c)
+           old_contrast=sum(old_c)/3-sum(old_d)/3
+           new_contrast=sum(new_c)/3-sum(new_d)/3
+           scores.append({'darkPixel':list(d),'controlPixel':list(c),
+             'oldDarkRGB':list(old_d),'afterHideDarkRGB':list(new_d),
+             'oldControlRGB':list(old_c),'afterHideControlRGB':list(new_c),
+             'oldContrast':round(old_contrast,3),'afterHideContrast':round(new_contrast,3),
+             'contrastDropNotArtScore':round(old_contrast-new_contrast,3),
+             'darkBrightnessChange':round((sum(new_d)-sum(old_d))/3,3)})
+          mean_drop=round(sum(v['contrastDropNotArtScore'] for v in scores)/len(scores),3)
+          mean_bright=round(sum(v['darkBrightnessChange'] for v in scores)/len(scores),3)
+          comparison=Image.new('RGB',(1560,552),(14,18,21))
+          comparison.paste(old,(12,50));comparison.paste(new,(780,50))
+          pen=ImageDraw.Draw(comparison)
+          pen.text((12,18),'K4BY A3 genuine CHASE / two road research surfaces / ART REJECT',fill='white')
+          pen.text((780,18),'K4BZ exact same CHASE / ONLY non-game road raycast surface hidden / ART UNJUDGED',fill='white')
+          for item in scores:
+           x,y=item['darkPixel']
+           for dx in (12,780):
+            pen.ellipse((dx+x-3,50+y-3,dx+x+3,50+y+3),outline=(255,77,59),width=2)
+          pen.text((12,536),'TRUE native EEVEE research comparison. Game Road5, cameras and all lights unchanged.',fill='white')
+          nm='K4BZ_SINGLE_OBJECT_HIDDEN_VS_CANONICAL_CHASE_TRUE_RENDER_AB.png'
+          comparison.save(out/nm)
+          raw=(out/nm).read_bytes()
+          audit['pixelControlledExperiment']={'sourceOriginalPNG_SHA256':hashlib.sha256(basep.read_bytes()).hexdigest(),
+            'imageSameCameraSame768x480':True,
+            'targetPixelContrasts':scores,'averageContrastDropNotArtScore':mean_drop,
+            'averageDarkBrightnessChangeNotArtScore':mean_bright,
+            'meanRGBFullFrameDifferenceNotQuality':round(sum(ImageStat.Stat(ImageChops.difference(old,new)).mean)/3,5),
+            'comparison':{'file':nm,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()},
+            'interpretation':'Single object removal effects must be inspected; pixel differences do not certify ART PASS'}
+          auditp.write_text(json.dumps(audit,indent=2,ensure_ascii=False))
+          print('K4BZ_TRUE_NATIVE_SINGLE_OBJECT_AB_SOURCE_SHA_PASS mean_drop',mean_drop,'mean_darkbright',mean_bright)
+          PY
+      - name: Store only true diagnostic images and checksums in research branch, no game or source edits
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104
+          mkdir -p docs/research-evidence/k4bz
+          cp research/evidence/k4bz/ab/*.png docs/research-evidence/k4bz/
+          cp research/evidence/k4bz/ab/*.json docs/research-evidence/k4bz/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4bz
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4bz): true native same-CHASE single road overlay hidden A/B, source and pixel hashes frozen"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104
+          fi
+      - name: Preserve editable isolated true Blender A-B and pixels even if art unacceptable
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4BZ_GENUINE_ONE_NON_GAME_ROAD_ABLATION_NATIVE_ART_HOLD
+          path: research/evidence/k4bz/ab/
+          if-no-files-found: warn
+          retention-days: 21
