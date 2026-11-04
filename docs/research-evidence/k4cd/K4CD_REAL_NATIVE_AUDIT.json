@@ -1,0 +1,201 @@
+{
+  "schema": "dopagaki.k4cd.native-maritime-ferry-and-tidal-inlet/1",
+  "parentK4CC_exact_sha256": "4fcd20db998696c270df95f624fed1a229ae2703322c180de1f3bfbc15abd6da",
+  "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCameraPosesUnchanged": true,
+  "originalCHASEUnchanged": true,
+  "originalElevenTreeTransformsUnchanged": true,
+  "originalLightsUnchanged": true,
+  "K4BZ_bad_duplicate_road_hidden": true,
+  "existingObjectsVisibilityUnchanged": true,
+  "originalResearchRockUnmodified": true,
+  "sourceGameEdited": false,
+  "sourcePhysicsEdited": false,
+  "newGameColliders": 0,
+  "noExtraRoadSurfaceAdded": true,
+  "newRealDCCResearchObjects": 6,
+  "nativeVisibleObjectProjectionsNotArtScore": {
+    "K4CD | single coherent physical tidal water inlet": {
+      "visibleVertices": 1449,
+      "bbox": [
+        0.6289355158805847,
+        0.34801849722862244,
+        0.9985516667366028,
+        0.45854881405830383
+      ]
+    },
+    "K4CD | curved seaworthy ferry hull transverse frames": {
+      "visibleVertices": 492,
+      "bbox": [
+        0.69496089220047,
+        0.3879123032093048,
+        0.8228579759597778,
+        0.4549645781517029
+      ]
+    },
+    "K4CD | continuous practical boarding deck": {
+      "visibleVertices": 8,
+      "bbox": [
+        0.6929247975349426,
+        0.4367738962173462,
+        0.8208023905754089,
+        0.45695164799690247
+      ]
+    },
+    "K4CD | single occupiable curved ferry passenger saloon": {
+      "visibleVertices": 319,
+      "bbox": [
+        0.712179958820343,
+        0.44732582569122314,
+        0.7904087901115417,
+        0.49296632409095764
+      ]
+    },
+    "K4CD | single thick formed marine passenger roof": {
+      "visibleVertices": 638,
+      "bbox": [
+        0.7081582546234131,
+        0.48681774735450745,
+        0.7958037257194519,
+        0.5009464025497437
+      ]
+    },
+    "K4CD | short side boarding access bridge": {
+      "visibleVertices": 8,
+      "bbox": [
+        0.6729156970977783,
+        0.44868534803390503,
+        0.7203666567802429,
+        0.4526779353618622
+      ]
+    }
+  },
+  "actualWaterMeshTriangles": 3328,
+  "actualFerryHullFrameCount": 246,
+  "materialClaims": "Author-created procedural real 3D working ferry and tidal basin; not photo-scanned assets.",
+  "originalChase768x480": true,
+  "renderEngine": "BLENDER_EEVEE",
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "HUMAN": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CD_TRUE_MARITIME_HARBOR_FERRY_EDITABLE_NATIVE_ART_HOLD.blend": {
+      "bytes": 273958272,
+      "sha256": "7845e8d94fb99e6a4f44816fe3639692a6fc0548f52c4020440c69e14dd746ec"
+    },
+    "K4CD_TRUE_SAME_CHASE_MARITIME_FERRY_NOT_GAME.png": {
+      "bytes": 484048,
+      "sha256": "1932908b5928c896f4b53c72f3b3d71bb5a9b47e71c969661aa432ea2584698d"
+    }
+  },
+  "imageIndependentQA": {
+    "rightPixelsChangedNotArtScore": 2999,
+    "leftTerrainPixelsChangedNotArtScore": 0,
+    "roadOriginalPixels": [
+      [
+        390,
+        270
+      ],
+      [
+        400,
+        320
+      ],
+      [
+        380,
+        380
+      ],
+      [
+        420,
+        440
+      ],
+      [
+        470,
+        465
+      ]
+    ],
+    "K4BZOriginalWedgePairs": [
+      {
+        "dark": [
+          292,
+          300
+        ],
+        "normal": [
+          317,
+          300
+        ],
+        "before": 2.667,
+        "after": 2.667
+      },
+      {
+        "dark": [
+          280,
+          330
+        ],
+        "normal": [
+          310,
+          330
+        ],
+        "before": -0.333,
+        "after": -0.333
+      },
+      {
+        "dark": [
+          267,
+          360
+        ],
+        "normal": [
+          310,
+          360
+        ],
+        "before": 0.0,
+        "after": 0.0
+      },
+      {
+        "dark": [
+          250,
+          400
+        ],
+        "normal": [
+          295,
+          400
+        ],
+        "before": 2.333,
+        "after": 2.333
+      },
+      {
+        "dark": [
+          235,
+          440
+        ],
+        "normal": [
+          280,
+          440
+        ],
+        "before": -1.333,
+        "after": -1.333
+      },
+      {
+        "dark": [
+          225,
+          470
+        ],
+        "normal": [
+          270,
+          470
+        ],
+        "before": 0.333,
+        "after": 0.333
+      }
+    ],
+    "comparisonName": "K4CD_K4CC_VS_TRUE_HARBOR_FERRY_SAME_CHASE_ART_REVIEW_NOT_GAME.png",
+    "comparisonSHA256": "9993eab342c8ca79aca91101e4cae6fc9658b4176d13133bdad33ccf3dfe1c83",
+    "ART": "UNJUDGED_HOLD"
+  }
+}
