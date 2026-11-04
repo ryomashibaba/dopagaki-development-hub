@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BM 最終正本】本物の作者UV・材質研究TECH PASS／ART REJECT
+
+**最新研究継続枝**：`research/k4bm-uv-pbr-authored-hero-20261104`。K4BM実行・検証・目視美術判定・今後の制作条件は[**K4BM全監査文書**](docs/R19_A6P4_R2F5K4BM_NATIVE_UV_PBR_ART_JA.md)を最優先。過去K4BL以下に「最新」と書かれていても履歴。
+
+- **実技術最終判定SOURCE/BLENDER_UV_PASS**：[Actions #41757027430](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41757027430) はcompleted/SUCCESS、Blender 4 EEVEEで元Camera control11307/ultra11341の2枚を真レンダリング。真正[Artifact #13288142972](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41757027430/artifacts/13288142972) ZIP SHA256 `1a394c2649f109dc4f360f1fb52539cfca5731555fc0f3d63666c4b2d30aed21`、編集可能BLEND 39,880,852B sha `7297b0ea17ffacb7f2c84cecf901947ce11de4e0a91ff4c93703f43cbe7b4a80`。実UVを備えた独立研究メッシュ296件、同じCameraの旧K4BLとのA/B画像、SHA JSONをGitHub保存・独立ZIP全CRC/全sourceファイルSHA再検証済み。
+- **真正画像の美術判定ART REJECT**。UV/道路粗さ・窓枠・ガラスは技術改善、遠景の大型単純柱は第2修正で除去した。しかし両真Cameraで路面が画面の大半、遠景は薄く空白が大きい。世界水準の高速3Dレーシング美術に全く届かない。正式ART採用**0件**、Slope2 DNA正式認定**0m**。新研究DCCをゲーム正式採用としない。これは**実WebGL2ゲーム画面ではない**。初回[CI #41756146305](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41756146305)はPython変数参照ミスでFAIL、初回成功[CI #41756329982](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41756329982)の美術もREJECT、最終 #41757027430まで失敗と反省を記録。
+- **K4BN次工程の固定計画**：単純な箱/屋根/柱を多産する方法に戻らず、実ゲームSource Cameraで実際に見える**道路の素材／コース造形と近景、遠景の港の用途・自然地形・レース速度の表現**を高密度作者制作で完成する。ARTとゲーム機能・安全/FPSは別検査。美術正式承認前に他6Road横展開やゲーム統合、本番公開をしない。必ず元CameraのDCC画像と可能なら実WebGL2撮影を別々に監査。
+- **不変更契約**：元ゲームGit blob `af076d67492a677d2235e4730aef8cdf4808e106`、真Road5 mesh fingerprint `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、B48実7／B51実28／240Hz／球0.65m／元Camera6の全部／操作・安全表示不変。main／公式`p101-velocity-overdrive-native-trial`／Draft PR #46／本番2サイト保護。Work/Computer Useは事前承認、ユーザーWindows操作不要。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
+---
+
 # 【2026-11-04 K4BM 最新継続入口】原物Road5＋Sourceカメラ・手成形実UV/PBR美術制作
 
 本研究継続ブランチ：`research/k4bm-uv-pbr-authored-hero-20261104`。次の作業では最初に[K4BM新作者メッシュ／UV-PBR／制作ログと厳格美術判定](docs/R19_A6P4_R2F5K4BM_NATIVE_UV_PBR_ART_JA.md)を読むこと。過去K4BL以下の「最新」は履歴。
