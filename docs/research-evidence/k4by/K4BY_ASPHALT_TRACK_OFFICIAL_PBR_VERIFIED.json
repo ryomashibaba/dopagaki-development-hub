@@ -1,0 +1,54 @@
+{
+  "schema": "dopagaki.k4by.official-polyhaven-racetrack-pbr-three-verified/1",
+  "assetId": "asphalt_track",
+  "assetUrl": "https://polyhaven.com/a/asphalt_track",
+  "licenseUrl": "https://polyhaven.com/license",
+  "license": "CC0",
+  "officialFilesApi": "https://api.polyhaven.com/files/asphalt_track",
+  "officialInfoApi": "https://api.polyhaven.com/info/asphalt_track",
+  "author": {
+    "Dimitrios Savva": "All"
+  },
+  "vendorDimensionsMm": [
+    2000,
+    2000
+  ],
+  "resolution": "2k",
+  "maps": {
+    "diff": {
+      "localName": "asphalt_track_diff_2k.jpg",
+      "vendorKey": "Diffuse",
+      "format": "jpg",
+      "vendorUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/asphalt_track/asphalt_track_diff_2k.jpg",
+      "bytes": 3779263,
+      "vendorMd5": "faec159f1f29d231581c32bd256b5ede",
+      "sha256": "742d1d79560bd661d5871afc857e981e25dcd563bfd24385cbd063ebcaeef06c",
+      "vendorMD5Pass": true
+    },
+    "rough": {
+      "localName": "asphalt_track_rough_2k.jpg",
+      "vendorKey": "Rough",
+      "format": "jpg",
+      "vendorUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/asphalt_track/asphalt_track_rough_2k.jpg",
+      "bytes": 2182047,
+      "vendorMd5": "213b9f13c03772e24a9cd55c4e43f391",
+      "sha256": "b934fb6fbe05770df95fa94fee3a12d45eb121621ce96e9b262f403d49ee493e",
+      "vendorMD5Pass": true
+    },
+    "nor_gl": {
+      "localName": "asphalt_track_nor_gl_2k.jpg",
+      "vendorKey": "nor_gl",
+      "format": "jpg",
+      "vendorUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/asphalt_track/asphalt_track_nor_gl_2k.jpg",
+      "bytes": 3694762,
+      "vendorMd5": "5381e78d5deda41e9ff5dd9c317bfa62",
+      "sha256": "d9c635867ed0e022580baac711e0dcff679f8301cd906dff162be1bfbad8cfcd",
+      "vendorMD5Pass": true
+    }
+  },
+  "totalDeclaredBytes": 9656072,
+  "costJPY": 0,
+  "originalGameEdited": false,
+  "originalNativeParentEdited": false,
+  "checkedUTC": "2026-11-04T12:27:17Z"
+}

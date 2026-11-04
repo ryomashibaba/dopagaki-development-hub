@@ -1,0 +1,72 @@
+{
+  "schema": "dopagaki.K4BY.true-PBR-road-rebuilt-harbor-one-native-frame/1",
+  "originalK4BXA3NativeSHA256": "1cdf3233d3b2b91b1e10b6f7b2212ef9ec74331667ca4129a4e96ce43b4c2179",
+  "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceFingerprint": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "sourceRoad5VertexFacesUnchanged": true,
+  "sourceSixCameraPoseUnchanged": true,
+  "frozenResearchChaseUnchanged": true,
+  "sourceTreesNinePositionsUnchanged": true,
+  "sourceB48Roads": 7,
+  "sourceB51Movers": 28,
+  "sourcePhysicsHz": 240,
+  "sourceBallRadiusM": 0.65,
+  "originalResearchRoadSkinMaterial": "K4BX | road microaggregate no giant cloudy swirls",
+  "originalGameRoad5MaterialAndGeometryUnmodified": true,
+  "newGameColliders": 0,
+  "originalSourceGameEdited": false,
+  "researchOnlyNotWebGL": true,
+  "officialPolyHavenLicense": "CC0",
+  "officialAsset": "asphalt_track",
+  "vendorReceiptSHA256": "2d95694064bcdee39cd0f1b9b31061e5739807f4523ab232f70d78b9cae98952",
+  "vendor2kPBRMaps": {
+    "diff": "742d1d79560bd661d5871afc857e981e25dcd563bfd24385cbd063ebcaeef06c",
+    "rough": "b934fb6fbe05770df95fa94fee3a12d45eb121621ce96e9b262f403d49ee493e",
+    "nor_gl": "d9c635867ed0e022580baac711e0dcff679f8301cd906dff162be1bfbad8cfcd"
+  },
+  "nativeImagesPackedAndShaVerified": 3,
+  "realPhotographicSurfaceUVMetres": 2,
+  "primaryHarborCanopyRoofThicknessM": 0.28,
+  "otherSixHallRoofThicknessM": 0.22,
+  "primaryBuildingEntryBayOpened": "K4BW | maritime hall floor to clerestory glazed bay 1 5",
+  "primaryHallCameraFacingSideM": 5.85,
+  "primaryHallFrontScreen": {
+    "x": 0.75174,
+    "y": 0.48861,
+    "z": 92.69563,
+    "inFrame": true
+  },
+  "researchAuthorMeshes": 11,
+  "realNativeRender": true,
+  "renderResolution": [
+    768,
+    480
+  ],
+  "ART": "UNJUDGED_HOLD",
+  "formalArtAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BY_TRUE_CC0_ROAD_OCCUPIED_HARBOR_EDITABLE_NATIVE_ART_HOLD.blend": {
+      "bytes": 271175516,
+      "sha256": "cd35b8e85f1f57551b7320799c8be6304690f54bba2db1a2719e5bb1b1577480"
+    },
+    "K4BY_ONE_SAME_CHASE_TRUE_PBR_RACE_ROAD_CIVIC_HARBOR_NOT_GAME.png": {
+      "bytes": 480023,
+      "sha256": "60f996c18fde8cfbc6ff71cd4beb17237cbb22729e6a5e34b632f72dfa0d5c46"
+    }
+  },
+  "sameCameraCompare": {
+    "file": "K4BY_VS_K4BX_A3_SAME_CHASE_TRUE_CC0_ROAD_HARBOR_ART_REVIEW_NOT_GAME.png",
+    "bytes": 472811,
+    "sha256": "7a03fe7af062052f571c82af48495da740d6d39863618c084b5a3b483e1d3cfd",
+    "actualSame768x480AndFrozenCamera": true,
+    "meanRGBDifferenceNOTArtQuality": 0.68281,
+    "ART": "UNJUDGED_HOLD"
+  }
+}
