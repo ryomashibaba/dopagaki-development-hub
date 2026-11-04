@@ -1,3 +1,13 @@
+# 【K4BV最終実行記録・2026-11-04】公式実CC0海岸樹46.17MB取得検証PASS／Blender材質画像ロードHOLD
+
+研究隔離枝 `research/k4bv-real-coastal-canopy-native-art-20261104`。[**K4BV真正素材ハッシュ・CI二度の失敗・未完成箇所・次工程**](docs/R19_A6P4_R2F5K4BV_REAL_CC0_COASTAL_CANOPY_ART_JA.md)を最優先。以下の「最新」「実行中」は履歴。
+
+- [初回CI #41803574543](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41803574543)／[修正版CI #41803979687](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41803979687)ともに**FAILURE**。公式Poly Haven `island_tree_02` 1K native glTF+全依存11ファイル合計**46,172,406バイト**のVendor MD5/Bytesと独立SHA256は検証PASS。真Blenderはモデルimport成功したがVendor JPEG `island_tree_02_diff` のバックグラウンド画像`has_data=False`で安全停止。原因は**未断定**。実K4BV研究PNGや編集可能.blendはまだ作成なし。CI成功、美術改善、FPS改善と誤称禁止。
+- 次は真Vendor JPEGの実ファイルSHAを維持したまま、Blenderの実Packed image byteと再読込を検証する最小材質修正。追加アセットなし／2枚高負荷レンダリングなし。配布元以外の代用品や画像の捏造禁止。
+- 元K4BU真正Blender/元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、B48 Road5指紋`f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、7Road/28Mover/240Hz/球0.65m/元6Cameraと本番・main・公式P101・Draft PR#46完全保護。正式ART採用0件／Slope2 DNA0m／HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。Work事前承認、追加課金0円、ユーザーWindows操作0。
+
+---
+
 # 【2026-11-04 K4BV実制作・真正海岸樹1本のネイティブ検証】
 
 **現行の研究隔離枝** `research/k4bv-real-coastal-canopy-native-art-20261104`。[**K4BV実在CC0海岸樹・本物のモデル取得とCHASE 1フレーム美術試験**](docs/R19_A6P4_R2F5K4BV_REAL_CC0_COASTAL_CANOPY_ART_JA.md) を先に読み、次にK4BU最終正本、K4BT投影診断、K4BS地表正本へ遡ること。以下の「最新」は過去の履歴。
