@@ -1,0 +1,143 @@
+name: DOPAGAKI K4CA authentic native coastal hillside and two genuine CC0 tree source-locked art
+on:
+  push:
+    branches: [research/k4ca-authentic-coastal-terrain-photo-canopy-one-frame-20261104]
+    paths:
+      - scripts/p101-k4ca-source-protected-coastal-terrain-canopy.py
+      - .github/workflows/p101-k4ca-true-native-coastal-landscape.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4ca-authentic-coastal-canopy
+  cancel-in-progress: true
+jobs:
+  protected-source-real-native-cc0-landscape:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assert source game immutable, unique research branch and script syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4ca-authentic-coastal-terrain-photo-canopy-one-frame-20261104
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4ca-source-protected-coastal-terrain-canopy.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+      - name: Download only genuine source K4BZ R2 editable repaired Blender parent
+        uses: actions/download-artifact@v4
+        with:
+          name: K4BZ_GENUINE_ONE_NON_GAME_ROAD_ABLATION_NATIVE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41835036099
+          github-token: ${{ github.token }}
+          path: research/evidence/k4ca/parent
+      - name: Independently verify actual K4BZ repaired editable Blender parent and its one true CHASE frame
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          p=Path('research/evidence/k4ca/parent')
+          a=json.loads((p/'K4BZ_ONE_OBJECT_ABLATION_AUTHENTIC_NATIVE_AUDIT.json').read_text())
+          assert a['canonicalParentBlenderSHA256']=='f0d3d7a27e5fbf599447b0e784b71684ff634b071d283f8b59bdaf06a179d4e4'
+          assert a['canonicalRoad5VertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert a['canonicalOriginalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['onlyRenderVisibilityEdited']==['K4BY | actual source raycast 1m road surface | NO GAME COLLIDER']
+          assert a['originalK4BYRoadRibbonHiddenRenderOnly'] and a['existingPhotographicAlternateRoadRemainsVisible']
+          assert a['physicalOriginalRoad5Unchanged'] and a['allLightsIdentical'] and a['researchChaseUnchanged']
+          assert a['sourceRigSixCameraUnchanged'] and a['originalNineTreesMatricesUnchanged']
+          assert a['formalArtAccepted']==0 and a['formalSlope2DNAMetres']==0
+          for name,meta in a['files'].items():
+           raw=(p/name).read_bytes()
+           assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert a['files']['K4BZ_ONE_OBJECT_DISABLED_PROVEN_ROAD_CROSSFADE_EDITABLE_DCC_HOLD.blend']['sha256']=='162a7baaf7594b36a134457bee817bd7dcf0ef1b3e581419d6561efa92e45382'
+          assert a['files']['K4BZ_SAME_CHASE_SINGLE_RAYCAST_PROXY_HIDDEN_REAL_AB_NOT_GAME.png']['sha256']=='d82a367f49623a8ed2a75a4540ba8a6de07f976a51d49f4dbb20673243576df7'
+          print('K4CA_IMMUTABLE_K4BZ_FIXED_NATIVE_PARENT_SHA_PASS')
+          PY
+      - name: Install bounded actual Blender EEVEE and PIL only
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+      - name: Actually author inland existing hillside shader and two native vendor PBR canopy instances, same CHASE one render
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4ca/render
+          xvfb-run -a -s '-screen 0 1280x900x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4ca-source-protected-coastal-terrain-canopy.py -- \
+            --base research/evidence/k4ca/parent/K4BZ_ONE_OBJECT_DISABLED_PROVEN_ROAD_CROSSFADE_EDITABLE_DCC_HOLD.blend \
+            --out research/evidence/k4ca/render
+      - name: Independently verify actual source, geometry SHA and genuine same-camera art review
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageChops,ImageStat
+          d=Path('research/evidence/k4ca/render')
+          a=json.loads((d/'K4CA_TRUE_NATIVE_SLOPE_CC0_CANOPY_AUDIT.json').read_text())
+          assert a['canonicalParentBlenderSHA256']=='162a7baaf7594b36a134457bee817bd7dcf0ef1b3e581419d6561efa92e45382'
+          assert a['canonicalGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['trueOriginalRoad5VertexFaceFingerprint']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          assert a['fixedOriginalSixSourceCameraPoses'] and a['fixedExperimentChase'] and a['fixedNineOriginalTreesTransforms']
+          assert a['fixedSunAndAreaLights'] and not a['originalGameSourceEdited'] and not a['originalRoad5GeometryEdited']
+          assert a['addedGameColliders']==0 and a['K4BZProvenBlackWedgeOverlayRemainsHidden']
+          assert a['vendor']=='https://polyhaven.com/a/island_tree_02' and a['vendorLicense']=='CC0'
+          assert a['newCC0FullCollectionTreeInstances']==len(a['plantings'])==2
+          assert a['formalArtAccepted']==a['formalSlope2DNAMetres']==0 and a['ART']=='UNJUDGED_HOLD'
+          assert all(a[k]=='HOLD' for k in ('SAT','CCD','HUMAN','FPS','RELEASE','MERGE'))
+          for name,meta in a['files'].items():
+           raw=(d/name).read_bytes()
+           assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          old=Image.open('docs/research-evidence/k4bz/K4BZ_SAME_CHASE_SINGLE_RAYCAST_PROXY_HIDDEN_REAL_AB_NOT_GAME.png').convert('RGB')
+          fresh=Image.open(d/'K4CA_SAME_CHASE_TWO_REAL_CC0_COASTAL_TREES_WEATHERED_HILLSIDE_NOT_GAME.png').convert('RGB')
+          assert old.size==fresh.size==(768,480)
+          assert ImageChops.difference(old,fresh).getbbox() is not None
+          diff=round(sum(ImageStat.Stat(ImageChops.difference(old,fresh)).mean)/3,5)
+          canvas=Image.new('RGB',(1560,552),(15,19,22))
+          canvas.paste(old,(12,50));canvas.paste(fresh,(780,50))
+          dr=ImageDraw.Draw(canvas)
+          dr.text((12,18),'K4BZ exact CHASE proven no black wedge / COAST ART REJECT',fill='white')
+          dr.text((780,18),'K4CA same CHASE true vendor CC0 canopy and inland geology / ART UNJUDGED',fill='white')
+          dr.text((12,536),'Authentic editable Blender research, not game. Camera, game Road5 and 9 original trees unchanged.',fill='white')
+          n='K4CA_VS_K4BZ_TRUE_SAME_CHASE_COASTAL_SLOPE_PHOTO_CANOPY_ART_REVIEW_NOT_GAME.png'
+          canvas.save(d/n);raw=(d/n).read_bytes()
+          a['independentSameCameraReview']={'image':n,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),
+             'sameTrueChaseFixed768x480':True,'averageRGBDifferenceIsNotArtQuality':diff,'ART':'UNJUDGED_HOLD'}
+          (d/'K4CA_TRUE_NATIVE_SLOPE_CC0_CANOPY_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2))
+          print('K4CA_AUTHENTIC_SAME_CHASE_SOURCE_AND_PHOTO_TREE_PASS',diff)
+          PY
+      - name: Commit small native evidence only on guarded research branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4ca-authentic-coastal-terrain-photo-canopy-one-frame-20261104
+          mkdir -p docs/research-evidence/k4ca
+          cp research/evidence/k4ca/render/*.png docs/research-evidence/k4ca/
+          cp research/evidence/k4ca/render/*.json docs/research-evidence/k4ca/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4ca
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4ca): real source-locked coastal lithology and two vendor CC0 canopies, ART UNJUDGED"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4ca-authentic-coastal-terrain-photo-canopy-one-frame-20261104
+          fi
+      - name: Preserve genuine full edit Blender, actual same-camera PNG and independent SHA audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CA_TRUE_COASTAL_TERRAIN_TWO_REAL_CC0_NATIVE_ART_HOLD
+          path: research/evidence/k4ca/render/
+          if-no-files-found: warn
+          retention-days: 21
