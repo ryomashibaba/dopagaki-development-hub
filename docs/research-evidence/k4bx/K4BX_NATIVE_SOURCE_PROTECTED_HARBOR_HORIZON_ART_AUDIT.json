@@ -1,0 +1,190 @@
+{
+  "schema": "dopagaki.K4BX.true-working-coastal-town-headland-native-art/1",
+  "immutableK4BWParentSHA256": "62c2990e6687ea092a8151339b37fdb0cb8ad156b5dffac1a593218b2c517c02",
+  "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceFingerprint": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCamerasNumericallyUnchanged": true,
+  "frozenChaseCameraNumericallyUnchanged": true,
+  "sourceRoad5VertexFaceUnchanged": true,
+  "protectedOriginalNineTreesTransformUnchanged": true,
+  "originalB48Roads": 7,
+  "originalB51Movers": 28,
+  "originalPhysicsHz": 240,
+  "originalBallRadiusM": 0.65,
+  "isResearchOnly": true,
+  "gameSourceEdited": false,
+  "gameCollidersAdded": 0,
+  "realK4BVCC0CanopyPreservedWithoutCopies": true,
+  "authorIntent": "continuous eroded left headland + real distant foothill, right functional ferry/fish market and port navigation, lifting crane, tidal quay, moored vessel; fixed CHASE and physically unchanged source race road",
+  "newResearchObjects": 94,
+  "researchBuildings": 6,
+  "researchWorkingBoats": 1,
+  "researchCranes": 1,
+  "sites": {
+    "fish": [
+      0.5215000000000002,
+      281,
+      -114
+    ],
+    "ferry": [
+      0.33130999999999994,
+      219,
+      -134
+    ],
+    "crane": [
+      0.8787899999999997,
+      269,
+      -78
+    ],
+    "boat": [
+      0.2581599999999999,
+      260,
+      -170
+    ],
+    "village": [
+      {
+        "d": 358,
+        "s": -54,
+        "project": {
+          "x": 0.57989,
+          "y": 0.54526,
+          "inFront": true,
+          "inFrame": true
+        },
+        "roof": {
+          "x": 0.57989,
+          "y": 0.54526,
+          "inFront": true,
+          "inFrame": true
+        }
+      },
+      {
+        "d": 424,
+        "s": -126,
+        "project": {
+          "x": 0.68352,
+          "y": 0.54499,
+          "inFront": true,
+          "inFrame": true
+        },
+        "roof": {
+          "x": 0.68352,
+          "y": 0.54499,
+          "inFront": true,
+          "inFrame": true
+        }
+      },
+      {
+        "d": 270,
+        "s": -126,
+        "project": {
+          "x": 0.80299,
+          "y": 0.56009,
+          "inFront": true,
+          "inFrame": true
+        },
+        "roof": {
+          "x": 0.80299,
+          "y": 0.56009,
+          "inFront": true,
+          "inFrame": true
+        }
+      },
+      {
+        "d": 270,
+        "s": -150,
+        "project": {
+          "x": 0.86411,
+          "y": 0.57237,
+          "inFront": true,
+          "inFrame": true
+        },
+        "roof": {
+          "x": 0.86411,
+          "y": 0.57237,
+          "inFront": true,
+          "inFrame": true
+        }
+      }
+    ]
+  },
+  "cameraSpaceAnchors": {
+    "headlandHigh": {
+      "x": -0.03379,
+      "y": 0.78271,
+      "inFront": true,
+      "inFrame": false
+    },
+    "distantHill": {
+      "x": -0.19941,
+      "y": 0.7905,
+      "inFront": true,
+      "inFrame": false
+    },
+    "fishSortingAndVTS": {
+      "x": 0.7607,
+      "y": 0.5591,
+      "inFront": true,
+      "inFrame": true
+    },
+    "ferryTerminal": {
+      "x": 0.90196,
+      "y": 0.53749,
+      "inFront": true,
+      "inFrame": true
+    },
+    "craneJib": {
+      "x": 0.75638,
+      "y": 0.61161,
+      "inFront": true,
+      "inFrame": true
+    },
+    "pilotWorkboat": {
+      "x": 0.93064,
+      "y": 0.45709,
+      "inFront": true,
+      "inFrame": true
+    },
+    "roadCrest": {
+      "x": 0.48112,
+      "y": 0.52124,
+      "inFront": true,
+      "inFrame": true
+    }
+  },
+  "researchMaterialAsphaltStudyChangedNotSourceRoad": true,
+  "realNativeRender": true,
+  "imageSizePx": [
+    768,
+    480
+  ],
+  "actualColorSilhouettes": "NOT_MEASURED_BY_WORLD_BOUNDS",
+  "ART": "UNJUDGED_HOLD",
+  "formalArtAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "HUMAN": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4BX_HEADLAND_WORKING_SEAPORT_CINEMATIC_EDITABLE_NATIVE_ART_HOLD.blend": {
+      "bytes": 261266484,
+      "sha256": "3fd25a7cf38123f6f034c414a61127b26a1db2aed090f2a8a8e0bba8ac7d1f6f"
+    },
+    "K4BX_SAME_CHASE_HEADLAND_WORKING_SEAPORT_ART_HOLD_NOT_GAME.png": {
+      "bytes": 482933,
+      "sha256": "14c29ac81d3c2df7fab7d5f3625e61ef58e3f503fdd04a8f854459cbc46806d4"
+    }
+  },
+  "sameChaseIndependentReview": {
+    "file": "K4BX_VS_K4BW_A2_SAME_CHASE_TRUE_HARBOR_HEADLAND_ART_REVIEW_NOT_GAME.png",
+    "bytes": 402419,
+    "sha256": "ec25dd62a12cd9682971ed01e1c8b2a0648fa7f197d2cc3d5b8497415a301858",
+    "baseline": "authentic K4BW A2 GitHub SHA-verified PNG",
+    "sameCameraAndResolution": true,
+    "rgbDifferenceNotArtScore": 4.43864,
+    "ART": "UNJUDGED_HOLD"
+  }
+}
