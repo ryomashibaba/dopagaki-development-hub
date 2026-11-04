@@ -1,0 +1,2277 @@
+{
+  "schema": "dopagaki.K4BJ.read-only-source-road5-camera-scale-probe/1",
+  "parentBlendSha256": "93526d4adff8f1061081109123f7619de9bb6a0b835b15af6baf9bf6bb3ba086",
+  "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5GeometryFingerprintPreserved": true,
+  "sourceCamera": {
+    "name": "TRUE ORIGINAL SOURCE EYE 11307",
+    "eye": [
+      942.8783569335938,
+      335.0636901855469,
+      119.93437194824219
+    ],
+    "forwardHorizontal": [
+      0.8344963788986206,
+      0.5510134696960449,
+      0.0
+    ],
+    "rightHorizontal": [
+      -0.5510134696960449,
+      0.8344963788986206,
+      0.0
+    ],
+    "lens": 21.600000381469727
+  },
+  "physicalSourceRoadMesh": {
+    "vertices": 2366,
+    "triangles": 4728,
+    "projectedDistanceForwardM": {
+      "count": 2366,
+      "min": -525.804,
+      "p05": -464.923,
+      "median": -188.665,
+      "p95": 148.518,
+      "max": 188.774
+    },
+    "projectedLateralM": {
+      "count": 2366,
+      "min": -39.531,
+      "p05": -29.166,
+      "median": 50.666,
+      "p95": 230.491,
+      "max": 290.732
+    },
+    "relativeVerticalM": {
+      "count": 2366,
+      "min": -92.122,
+      "p05": -89.965,
+      "median": -43.449,
+      "p95": 3.096,
+      "max": 5.253
+    },
+    "bands": [
+      {
+        "dMin": -200,
+        "dMax": -100,
+        "vertexCount": 325,
+        "s": {
+          "count": 325,
+          "min": -29.166,
+          "p05": -18.894,
+          "median": 25.435,
+          "p95": 64.089,
+          "max": 77.029
+        },
+        "heightRelativeCamera": {
+          "count": 325,
+          "min": -47.359,
+          "p05": -44.96,
+          "median": -35.997,
+          "p95": -26.853,
+          "max": -23.385
+        }
+      },
+      {
+        "dMin": -100,
+        "dMax": -50,
+        "vertexCount": 157,
+        "s": {
+          "count": 157,
+          "min": -36.288,
+          "p05": -32.188,
+          "median": 9.239,
+          "p95": 51.496,
+          "max": 53.163
+        },
+        "heightRelativeCamera": {
+          "count": 157,
+          "min": -29.306,
+          "p05": -27.001,
+          "median": -22.031,
+          "p95": -17.063,
+          "max": -14.85
+        }
+      },
+      {
+        "dMin": -50,
+        "dMax": -25,
+        "vertexCount": 77,
+        "s": {
+          "count": 77,
+          "min": -37.942,
+          "p05": -36.96,
+          "median": 6.938,
+          "p95": 50.835,
+          "max": 51.071
+        },
+        "heightRelativeCamera": {
+          "count": 77,
+          "min": -20.629,
+          "p05": -19.027,
+          "median": -15.822,
+          "p95": -12.57,
+          "max": -11.001
+        }
+      },
+      {
+        "dMin": -25,
+        "dMax": 0,
+        "vertexCount": 79,
+        "s": {
+          "count": 79,
+          "min": -38.595,
+          "p05": -32.775,
+          "median": 21.213,
+          "p95": 51.1,
+          "max": 51.649
+        },
+        "heightRelativeCamera": {
+          "count": 79,
+          "min": -16.561,
+          "p05": -15.262,
+          "median": -11.524,
+          "p95": -7.774,
+          "max": -6.36
+        }
+      },
+      {
+        "dMin": 0,
+        "dMax": 25,
+        "vertexCount": 78,
+        "s": {
+          "count": 78,
+          "min": -39.162,
+          "p05": -38.817,
+          "median": 6.666,
+          "p95": 52.076,
+          "max": 53.261
+        },
+        "heightRelativeCamera": {
+          "count": 78,
+          "min": -13.992,
+          "p05": -12.578,
+          "median": -8.494,
+          "p95": -4.566,
+          "max": -3.283
+        }
+      },
+      {
+        "dMin": 25,
+        "dMax": 50,
+        "vertexCount": 78,
+        "s": {
+          "count": 78,
+          "min": -39.465,
+          "p05": -39.268,
+          "median": 7.366,
+          "p95": 54.001,
+          "max": 55.78
+        },
+        "heightRelativeCamera": {
+          "count": 78,
+          "min": -10.392,
+          "p05": -9.111,
+          "median": -5.412,
+          "p95": -1.736,
+          "max": -0.598
+        }
+      },
+      {
+        "dMin": 50,
+        "dMax": 75,
+        "vertexCount": 79,
+        "s": {
+          "count": 79,
+          "min": -39.531,
+          "p05": -39.411,
+          "median": 9.12,
+          "p95": 56.778,
+          "max": 58.964
+        },
+        "heightRelativeCamera": {
+          "count": 79,
+          "min": -7.132,
+          "p05": -5.996,
+          "median": -2.473,
+          "p95": 0.677,
+          "max": 1.638
+        }
+      },
+      {
+        "dMin": 75,
+        "dMax": 100,
+        "vertexCount": 78,
+        "s": {
+          "count": 78,
+          "min": -39.436,
+          "p05": -39.094,
+          "median": 11.05,
+          "p95": 60.109,
+          "max": 62.455
+        },
+        "heightRelativeCamera": {
+          "count": 78,
+          "min": -4.24,
+          "p05": -3.269,
+          "median": -0.185,
+          "p95": 2.632,
+          "max": 3.372
+        }
+      },
+      {
+        "dMin": 100,
+        "dMax": 150,
+        "vertexCount": 156,
+        "s": {
+          "count": 156,
+          "min": -38.821,
+          "p05": -36.908,
+          "median": 15.059,
+          "p95": 64.789,
+          "max": 69.255
+        },
+        "heightRelativeCamera": {
+          "count": 156,
+          "min": -1.747,
+          "p05": -0.445,
+          "median": 2.406,
+          "p95": 4.74,
+          "max": 5.18
+        }
+      },
+      {
+        "dMin": 150,
+        "dMax": 200,
+        "vertexCount": 116,
+        "s": {
+          "count": 116,
+          "min": -35.482,
+          "p05": -32.678,
+          "median": 11.914,
+          "p95": 70.312,
+          "max": 73.329
+        },
+        "heightRelativeCamera": {
+          "count": 116,
+          "min": 1.863,
+          "p05": 2.325,
+          "median": 3.86,
+          "p95": 5.12,
+          "max": 5.253
+        }
+      },
+      {
+        "dMin": 200,
+        "dMax": 300,
+        "vertexCount": 0,
+        "s": {
+          "count": 0,
+          "min": null,
+          "p05": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "heightRelativeCamera": {
+          "count": 0,
+          "min": null,
+          "p05": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        }
+      },
+      {
+        "dMin": 300,
+        "dMax": 450,
+        "vertexCount": 0,
+        "s": {
+          "count": 0,
+          "min": null,
+          "p05": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "heightRelativeCamera": {
+          "count": 0,
+          "min": null,
+          "p05": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        }
+      },
+      {
+        "dMin": 450,
+        "dMax": 650,
+        "vertexCount": 0,
+        "s": {
+          "count": 0,
+          "min": null,
+          "p05": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "heightRelativeCamera": {
+          "count": 0,
+          "min": null,
+          "p05": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        }
+      },
+      {
+        "dMin": 650,
+        "dMax": 950,
+        "vertexCount": 0,
+        "s": {
+          "count": 0,
+          "min": null,
+          "p05": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "heightRelativeCamera": {
+          "count": 0,
+          "min": null,
+          "p05": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        }
+      }
+    ]
+  },
+  "actualSourceRoadVerticalRaycastSections": [
+    {
+      "distanceForward": -60,
+      "testedOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitOffsetsM": [
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40
+      ],
+      "missOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitCount": 24,
+      "hitHeights": [
+        {
+          "d": -60,
+          "s": -30,
+          "heightRelativeCam": -20.919,
+          "face": 1486
+        },
+        {
+          "d": -60,
+          "s": -25,
+          "heightRelativeCam": -20.59,
+          "face": 1484
+        },
+        {
+          "d": -60,
+          "s": -20,
+          "heightRelativeCam": -20.261,
+          "face": 1482
+        },
+        {
+          "d": -60,
+          "s": -18,
+          "heightRelativeCam": -20.13,
+          "face": 1482
+        },
+        {
+          "d": -60,
+          "s": -15,
+          "heightRelativeCam": -19.933,
+          "face": 1459
+        },
+        {
+          "d": -60,
+          "s": -12,
+          "heightRelativeCam": -19.736,
+          "face": 1457
+        },
+        {
+          "d": -60,
+          "s": -10,
+          "heightRelativeCam": -19.605,
+          "face": 1457
+        },
+        {
+          "d": -60,
+          "s": -8,
+          "heightRelativeCam": -19.474,
+          "face": 1457
+        },
+        {
+          "d": -60,
+          "s": -6,
+          "heightRelativeCam": -19.343,
+          "face": 1455
+        },
+        {
+          "d": -60,
+          "s": -4,
+          "heightRelativeCam": -19.212,
+          "face": 1455
+        },
+        {
+          "d": -60,
+          "s": -2,
+          "heightRelativeCam": -19.082,
+          "face": 1455
+        },
+        {
+          "d": -60,
+          "s": 0,
+          "heightRelativeCam": -18.951,
+          "face": 1454
+        },
+        {
+          "d": -60,
+          "s": 2,
+          "heightRelativeCam": -18.82,
+          "face": 1453
+        },
+        {
+          "d": -60,
+          "s": 4,
+          "heightRelativeCam": -18.689,
+          "face": 1453
+        },
+        {
+          "d": -60,
+          "s": 6,
+          "heightRelativeCam": -18.558,
+          "face": 1453
+        },
+        {
+          "d": -60,
+          "s": 8,
+          "heightRelativeCam": -18.428,
+          "face": 1451
+        },
+        {
+          "d": -60,
+          "s": 10,
+          "heightRelativeCam": -18.297,
+          "face": 1451
+        },
+        {
+          "d": -60,
+          "s": 12,
+          "heightRelativeCam": -18.167,
+          "face": 1451
+        },
+        {
+          "d": -60,
+          "s": 15,
+          "heightRelativeCam": -17.971,
+          "face": 1450
+        },
+        {
+          "d": -60,
+          "s": 18,
+          "heightRelativeCam": -17.775,
+          "face": 1449
+        },
+        {
+          "d": -60,
+          "s": 20,
+          "heightRelativeCam": -17.644,
+          "face": 1449
+        },
+        {
+          "d": -60,
+          "s": 25,
+          "heightRelativeCam": -17.319,
+          "face": 1447
+        },
+        {
+          "d": -60,
+          "s": 30,
+          "heightRelativeCam": -16.993,
+          "face": 1445
+        },
+        {
+          "d": -60,
+          "s": 40,
+          "heightRelativeCam": -16.342,
+          "face": 1443
+        }
+      ]
+    },
+    {
+      "distanceForward": -20,
+      "testedOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitOffsetsM": [
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40
+      ],
+      "missOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitCount": 24,
+      "hitHeights": [
+        {
+          "d": -20,
+          "s": -30,
+          "heightRelativeCam": -14.478,
+          "face": 1581
+        },
+        {
+          "d": -20,
+          "s": -25,
+          "heightRelativeCam": -14.149,
+          "face": 1580
+        },
+        {
+          "d": -20,
+          "s": -20,
+          "heightRelativeCam": -13.82,
+          "face": 1579
+        },
+        {
+          "d": -20,
+          "s": -18,
+          "heightRelativeCam": -13.688,
+          "face": 1578
+        },
+        {
+          "d": -20,
+          "s": -15,
+          "heightRelativeCam": -13.49,
+          "face": 1577
+        },
+        {
+          "d": -20,
+          "s": -12,
+          "heightRelativeCam": -13.293,
+          "face": 1577
+        },
+        {
+          "d": -20,
+          "s": -10,
+          "heightRelativeCam": -13.161,
+          "face": 1576
+        },
+        {
+          "d": -20,
+          "s": -8,
+          "heightRelativeCam": -13.028,
+          "face": 1575
+        },
+        {
+          "d": -20,
+          "s": -6,
+          "heightRelativeCam": -12.897,
+          "face": 1575
+        },
+        {
+          "d": -20,
+          "s": -4,
+          "heightRelativeCam": -12.766,
+          "face": 1575
+        },
+        {
+          "d": -20,
+          "s": -2,
+          "heightRelativeCam": -12.633,
+          "face": 1574
+        },
+        {
+          "d": -20,
+          "s": 0,
+          "heightRelativeCam": -12.502,
+          "face": 1573
+        },
+        {
+          "d": -20,
+          "s": 2,
+          "heightRelativeCam": -12.37,
+          "face": 1573
+        },
+        {
+          "d": -20,
+          "s": 4,
+          "heightRelativeCam": -12.239,
+          "face": 1572
+        },
+        {
+          "d": -20,
+          "s": 6,
+          "heightRelativeCam": -12.106,
+          "face": 1572
+        },
+        {
+          "d": -20,
+          "s": 8,
+          "heightRelativeCam": -11.975,
+          "face": 1571
+        },
+        {
+          "d": -20,
+          "s": 10,
+          "heightRelativeCam": -11.843,
+          "face": 1571
+        },
+        {
+          "d": -20,
+          "s": 12,
+          "heightRelativeCam": -11.711,
+          "face": 1570
+        },
+        {
+          "d": -20,
+          "s": 15,
+          "heightRelativeCam": -11.513,
+          "face": 1569
+        },
+        {
+          "d": -20,
+          "s": 18,
+          "heightRelativeCam": -11.316,
+          "face": 1569
+        },
+        {
+          "d": -20,
+          "s": 20,
+          "heightRelativeCam": -11.184,
+          "face": 1568
+        },
+        {
+          "d": -20,
+          "s": 25,
+          "heightRelativeCam": -10.854,
+          "face": 1567
+        },
+        {
+          "d": -20,
+          "s": 30,
+          "heightRelativeCam": -10.524,
+          "face": 1565
+        },
+        {
+          "d": -20,
+          "s": 40,
+          "heightRelativeCam": -9.865,
+          "face": 1563
+        }
+      ]
+    },
+    {
+      "distanceForward": 0,
+      "testedOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitOffsetsM": [
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40
+      ],
+      "missOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitCount": 24,
+      "hitHeights": [
+        {
+          "d": 0,
+          "s": -30,
+          "heightRelativeCam": -11.501,
+          "face": 1629
+        },
+        {
+          "d": 0,
+          "s": -25,
+          "heightRelativeCam": -11.18,
+          "face": 1629
+        },
+        {
+          "d": 0,
+          "s": -20,
+          "heightRelativeCam": -10.859,
+          "face": 1627
+        },
+        {
+          "d": 0,
+          "s": -18,
+          "heightRelativeCam": -10.731,
+          "face": 1627
+        },
+        {
+          "d": 0,
+          "s": -15,
+          "heightRelativeCam": -10.539,
+          "face": 1625
+        },
+        {
+          "d": 0,
+          "s": -12,
+          "heightRelativeCam": -10.347,
+          "face": 1625
+        },
+        {
+          "d": 0,
+          "s": -10,
+          "heightRelativeCam": -10.219,
+          "face": 1625
+        },
+        {
+          "d": 0,
+          "s": -8,
+          "heightRelativeCam": -10.09,
+          "face": 1623
+        },
+        {
+          "d": 0,
+          "s": -6,
+          "heightRelativeCam": -9.962,
+          "face": 1623
+        },
+        {
+          "d": 0,
+          "s": -4,
+          "heightRelativeCam": -9.834,
+          "face": 1646
+        },
+        {
+          "d": 0,
+          "s": -2,
+          "heightRelativeCam": -9.706,
+          "face": 1646
+        },
+        {
+          "d": 0,
+          "s": 0,
+          "heightRelativeCam": -9.578,
+          "face": 1644
+        },
+        {
+          "d": 0,
+          "s": 2,
+          "heightRelativeCam": -9.45,
+          "face": 1644
+        },
+        {
+          "d": 0,
+          "s": 4,
+          "heightRelativeCam": -9.322,
+          "face": 1644
+        },
+        {
+          "d": 0,
+          "s": 6,
+          "heightRelativeCam": -9.194,
+          "face": 1644
+        },
+        {
+          "d": 0,
+          "s": 8,
+          "heightRelativeCam": -9.066,
+          "face": 1642
+        },
+        {
+          "d": 0,
+          "s": 10,
+          "heightRelativeCam": -8.938,
+          "face": 1642
+        },
+        {
+          "d": 0,
+          "s": 12,
+          "heightRelativeCam": -8.81,
+          "face": 1642
+        },
+        {
+          "d": 0,
+          "s": 15,
+          "heightRelativeCam": -8.618,
+          "face": 1640
+        },
+        {
+          "d": 0,
+          "s": 18,
+          "heightRelativeCam": -8.426,
+          "face": 1640
+        },
+        {
+          "d": 0,
+          "s": 20,
+          "heightRelativeCam": -8.298,
+          "face": 1640
+        },
+        {
+          "d": 0,
+          "s": 25,
+          "heightRelativeCam": -7.978,
+          "face": 1638
+        },
+        {
+          "d": 0,
+          "s": 30,
+          "heightRelativeCam": -7.659,
+          "face": 1636
+        },
+        {
+          "d": 0,
+          "s": 40,
+          "heightRelativeCam": -7.02,
+          "face": 1634
+        }
+      ]
+    },
+    {
+      "distanceForward": 20,
+      "testedOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitOffsetsM": [
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40
+      ],
+      "missOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitCount": 24,
+      "hitHeights": [
+        {
+          "d": 20,
+          "s": -30,
+          "heightRelativeCam": -8.722,
+          "face": 1700
+        },
+        {
+          "d": 20,
+          "s": -25,
+          "heightRelativeCam": -8.414,
+          "face": 1700
+        },
+        {
+          "d": 20,
+          "s": -20,
+          "heightRelativeCam": -8.11,
+          "face": 1698
+        },
+        {
+          "d": 20,
+          "s": -18,
+          "heightRelativeCam": -7.987,
+          "face": 1698
+        },
+        {
+          "d": 20,
+          "s": -15,
+          "heightRelativeCam": -7.804,
+          "face": 1697
+        },
+        {
+          "d": 20,
+          "s": -12,
+          "heightRelativeCam": -7.622,
+          "face": 1696
+        },
+        {
+          "d": 20,
+          "s": -10,
+          "heightRelativeCam": -7.499,
+          "face": 1696
+        },
+        {
+          "d": 20,
+          "s": -8,
+          "heightRelativeCam": -7.377,
+          "face": 1695
+        },
+        {
+          "d": 20,
+          "s": -6,
+          "heightRelativeCam": -7.257,
+          "face": 1695
+        },
+        {
+          "d": 20,
+          "s": -4,
+          "heightRelativeCam": -7.134,
+          "face": 1694
+        },
+        {
+          "d": 20,
+          "s": -2,
+          "heightRelativeCam": -7.011,
+          "face": 1694
+        },
+        {
+          "d": 20,
+          "s": 0,
+          "heightRelativeCam": -6.89,
+          "face": 1693
+        },
+        {
+          "d": 20,
+          "s": 2,
+          "heightRelativeCam": -6.77,
+          "face": 1693
+        },
+        {
+          "d": 20,
+          "s": 4,
+          "heightRelativeCam": -6.647,
+          "face": 1692
+        },
+        {
+          "d": 20,
+          "s": 6,
+          "heightRelativeCam": -6.524,
+          "face": 1692
+        },
+        {
+          "d": 20,
+          "s": 8,
+          "heightRelativeCam": -6.403,
+          "face": 1691
+        },
+        {
+          "d": 20,
+          "s": 10,
+          "heightRelativeCam": -6.283,
+          "face": 1691
+        },
+        {
+          "d": 20,
+          "s": 12,
+          "heightRelativeCam": -6.161,
+          "face": 1690
+        },
+        {
+          "d": 20,
+          "s": 15,
+          "heightRelativeCam": -5.978,
+          "face": 1689
+        },
+        {
+          "d": 20,
+          "s": 18,
+          "heightRelativeCam": -5.798,
+          "face": 1688
+        },
+        {
+          "d": 20,
+          "s": 20,
+          "heightRelativeCam": -5.675,
+          "face": 1688
+        },
+        {
+          "d": 20,
+          "s": 25,
+          "heightRelativeCam": -5.373,
+          "face": 1687
+        },
+        {
+          "d": 20,
+          "s": 30,
+          "heightRelativeCam": -5.068,
+          "face": 1685
+        },
+        {
+          "d": 20,
+          "s": 40,
+          "heightRelativeCam": -4.464,
+          "face": 1683
+        }
+      ]
+    },
+    {
+      "distanceForward": 50,
+      "testedOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitOffsetsM": [
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40
+      ],
+      "missOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitCount": 24,
+      "hitHeights": [
+        {
+          "d": 50,
+          "s": -30,
+          "heightRelativeCam": -4.933,
+          "face": 1773
+        },
+        {
+          "d": 50,
+          "s": -25,
+          "heightRelativeCam": -4.658,
+          "face": 1772
+        },
+        {
+          "d": 50,
+          "s": -20,
+          "heightRelativeCam": -4.384,
+          "face": 1771
+        },
+        {
+          "d": 50,
+          "s": -18,
+          "heightRelativeCam": -4.275,
+          "face": 1771
+        },
+        {
+          "d": 50,
+          "s": -15,
+          "heightRelativeCam": -4.11,
+          "face": 1769
+        },
+        {
+          "d": 50,
+          "s": -12,
+          "heightRelativeCam": -3.947,
+          "face": 1769
+        },
+        {
+          "d": 50,
+          "s": -10,
+          "heightRelativeCam": -3.838,
+          "face": 1769
+        },
+        {
+          "d": 50,
+          "s": -8,
+          "heightRelativeCam": -3.728,
+          "face": 1768
+        },
+        {
+          "d": 50,
+          "s": -6,
+          "heightRelativeCam": -3.62,
+          "face": 1767
+        },
+        {
+          "d": 50,
+          "s": -4,
+          "heightRelativeCam": -3.511,
+          "face": 1767
+        },
+        {
+          "d": 50,
+          "s": -2,
+          "heightRelativeCam": -3.402,
+          "face": 1767
+        },
+        {
+          "d": 50,
+          "s": 0,
+          "heightRelativeCam": -3.294,
+          "face": 1766
+        },
+        {
+          "d": 50,
+          "s": 2,
+          "heightRelativeCam": -3.185,
+          "face": 1765
+        },
+        {
+          "d": 50,
+          "s": 4,
+          "heightRelativeCam": -3.077,
+          "face": 1765
+        },
+        {
+          "d": 50,
+          "s": 6,
+          "heightRelativeCam": -2.969,
+          "face": 1788
+        },
+        {
+          "d": 50,
+          "s": 8,
+          "heightRelativeCam": -2.861,
+          "face": 1788
+        },
+        {
+          "d": 50,
+          "s": 10,
+          "heightRelativeCam": -2.754,
+          "face": 1786
+        },
+        {
+          "d": 50,
+          "s": 12,
+          "heightRelativeCam": -2.647,
+          "face": 1786
+        },
+        {
+          "d": 50,
+          "s": 15,
+          "heightRelativeCam": -2.486,
+          "face": 1786
+        },
+        {
+          "d": 50,
+          "s": 18,
+          "heightRelativeCam": -2.327,
+          "face": 1784
+        },
+        {
+          "d": 50,
+          "s": 20,
+          "heightRelativeCam": -2.22,
+          "face": 1784
+        },
+        {
+          "d": 50,
+          "s": 25,
+          "heightRelativeCam": -1.954,
+          "face": 1783
+        },
+        {
+          "d": 50,
+          "s": 30,
+          "heightRelativeCam": -1.687,
+          "face": 1782
+        },
+        {
+          "d": 50,
+          "s": 40,
+          "heightRelativeCam": -1.157,
+          "face": 1780
+        }
+      ]
+    },
+    {
+      "distanceForward": 100,
+      "testedOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitOffsetsM": [
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60
+      ],
+      "missOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitCount": 25,
+      "hitHeights": [
+        {
+          "d": 100,
+          "s": -30,
+          "heightRelativeCam": 0.209,
+          "face": 1917
+        },
+        {
+          "d": 100,
+          "s": -25,
+          "heightRelativeCam": 0.407,
+          "face": 1916
+        },
+        {
+          "d": 100,
+          "s": -20,
+          "heightRelativeCam": 0.605,
+          "face": 1915
+        },
+        {
+          "d": 100,
+          "s": -18,
+          "heightRelativeCam": 0.683,
+          "face": 1915
+        },
+        {
+          "d": 100,
+          "s": -15,
+          "heightRelativeCam": 0.801,
+          "face": 1914
+        },
+        {
+          "d": 100,
+          "s": -12,
+          "heightRelativeCam": 0.92,
+          "face": 1913
+        },
+        {
+          "d": 100,
+          "s": -10,
+          "heightRelativeCam": 0.996,
+          "face": 1913
+        },
+        {
+          "d": 100,
+          "s": -8,
+          "heightRelativeCam": 1.073,
+          "face": 1913
+        },
+        {
+          "d": 100,
+          "s": -6,
+          "heightRelativeCam": 1.151,
+          "face": 1912
+        },
+        {
+          "d": 100,
+          "s": -4,
+          "heightRelativeCam": 1.23,
+          "face": 1911
+        },
+        {
+          "d": 100,
+          "s": -2,
+          "heightRelativeCam": 1.306,
+          "face": 1911
+        },
+        {
+          "d": 100,
+          "s": 0,
+          "heightRelativeCam": 1.382,
+          "face": 1911
+        },
+        {
+          "d": 100,
+          "s": 2,
+          "heightRelativeCam": 1.459,
+          "face": 1911
+        },
+        {
+          "d": 100,
+          "s": 4,
+          "heightRelativeCam": 1.536,
+          "face": 1909
+        },
+        {
+          "d": 100,
+          "s": 6,
+          "heightRelativeCam": 1.612,
+          "face": 1909
+        },
+        {
+          "d": 100,
+          "s": 8,
+          "heightRelativeCam": 1.688,
+          "face": 1909
+        },
+        {
+          "d": 100,
+          "s": 10,
+          "heightRelativeCam": 1.763,
+          "face": 1932
+        },
+        {
+          "d": 100,
+          "s": 12,
+          "heightRelativeCam": 1.836,
+          "face": 1931
+        },
+        {
+          "d": 100,
+          "s": 15,
+          "heightRelativeCam": 1.947,
+          "face": 1930
+        },
+        {
+          "d": 100,
+          "s": 18,
+          "heightRelativeCam": 2.057,
+          "face": 1930
+        },
+        {
+          "d": 100,
+          "s": 20,
+          "heightRelativeCam": 2.131,
+          "face": 1930
+        },
+        {
+          "d": 100,
+          "s": 25,
+          "heightRelativeCam": 2.311,
+          "face": 1928
+        },
+        {
+          "d": 100,
+          "s": 30,
+          "heightRelativeCam": 2.491,
+          "face": 1927
+        },
+        {
+          "d": 100,
+          "s": 40,
+          "heightRelativeCam": 2.845,
+          "face": 1925
+        },
+        {
+          "d": 100,
+          "s": 60,
+          "heightRelativeCam": 3.541,
+          "face": 1921
+        }
+      ]
+    },
+    {
+      "distanceForward": 150,
+      "testedOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitOffsetsM": [
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60
+      ],
+      "missOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitCount": 25,
+      "hitHeights": [
+        {
+          "d": 150,
+          "s": -30,
+          "heightRelativeCam": 3.688,
+          "face": 2062
+        },
+        {
+          "d": 150,
+          "s": -25,
+          "heightRelativeCam": 3.782,
+          "face": 2061
+        },
+        {
+          "d": 150,
+          "s": -20,
+          "heightRelativeCam": 3.884,
+          "face": 2060
+        },
+        {
+          "d": 150,
+          "s": -18,
+          "heightRelativeCam": 3.922,
+          "face": 2059
+        },
+        {
+          "d": 150,
+          "s": -15,
+          "heightRelativeCam": 3.975,
+          "face": 2059
+        },
+        {
+          "d": 150,
+          "s": -12,
+          "heightRelativeCam": 4.031,
+          "face": 2058
+        },
+        {
+          "d": 150,
+          "s": -10,
+          "heightRelativeCam": 4.072,
+          "face": 2058
+        },
+        {
+          "d": 150,
+          "s": -8,
+          "heightRelativeCam": 4.109,
+          "face": 2057
+        },
+        {
+          "d": 150,
+          "s": -6,
+          "heightRelativeCam": 4.144,
+          "face": 2057
+        },
+        {
+          "d": 150,
+          "s": -4,
+          "heightRelativeCam": 4.179,
+          "face": 2057
+        },
+        {
+          "d": 150,
+          "s": -2,
+          "heightRelativeCam": 4.215,
+          "face": 2056
+        },
+        {
+          "d": 150,
+          "s": 0,
+          "heightRelativeCam": 4.253,
+          "face": 2055
+        },
+        {
+          "d": 150,
+          "s": 2,
+          "heightRelativeCam": 4.287,
+          "face": 2055
+        },
+        {
+          "d": 150,
+          "s": 4,
+          "heightRelativeCam": 4.322,
+          "face": 2055
+        },
+        {
+          "d": 150,
+          "s": 6,
+          "heightRelativeCam": 4.356,
+          "face": 2055
+        },
+        {
+          "d": 150,
+          "s": 8,
+          "heightRelativeCam": 4.391,
+          "face": 2054
+        },
+        {
+          "d": 150,
+          "s": 10,
+          "heightRelativeCam": 4.425,
+          "face": 2053
+        },
+        {
+          "d": 150,
+          "s": 12,
+          "heightRelativeCam": 4.459,
+          "face": 2076
+        },
+        {
+          "d": 150,
+          "s": 15,
+          "heightRelativeCam": 4.506,
+          "face": 2076
+        },
+        {
+          "d": 150,
+          "s": 18,
+          "heightRelativeCam": 4.55,
+          "face": 2074
+        },
+        {
+          "d": 150,
+          "s": 20,
+          "heightRelativeCam": 4.581,
+          "face": 2074
+        },
+        {
+          "d": 150,
+          "s": 25,
+          "heightRelativeCam": 4.657,
+          "face": 2074
+        },
+        {
+          "d": 150,
+          "s": 30,
+          "heightRelativeCam": 4.727,
+          "face": 2072
+        },
+        {
+          "d": 150,
+          "s": 40,
+          "heightRelativeCam": 4.865,
+          "face": 2070
+        },
+        {
+          "d": 150,
+          "s": 60,
+          "heightRelativeCam": 5.116,
+          "face": 2066
+        }
+      ]
+    },
+    {
+      "distanceForward": 250,
+      "testedOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitOffsetsM": [],
+      "missOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitCount": 0,
+      "hitHeights": []
+    },
+    {
+      "distanceForward": 350,
+      "testedOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitOffsetsM": [],
+      "missOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitCount": 0,
+      "hitHeights": []
+    },
+    {
+      "distanceForward": 500,
+      "testedOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitOffsetsM": [],
+      "missOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitCount": 0,
+      "hitHeights": []
+    },
+    {
+      "distanceForward": 750,
+      "testedOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitOffsetsM": [],
+      "missOffsetsM": [
+        -200,
+        -157,
+        -120,
+        -80,
+        -60,
+        -40,
+        -30,
+        -25,
+        -20,
+        -18,
+        -15,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20,
+        25,
+        30,
+        40,
+        60,
+        80,
+        120,
+        157,
+        200
+      ],
+      "hitCount": 0,
+      "hitHeights": []
+    }
+  ],
+  "roadEdgeAt157mPreviouslyNoHits": true,
+  "safetyAndCollisionClearance": "NOT_TESTED_HOLD",
+  "CAVEAT": "Vertex d bands are coarse geometry support, not exact safe rideable width. Rays are surface hits, not dynamic swept-volume clearance.",
+  "ART": "REJECT_PREVIOUS_HOLD",
+  "formalArtAccepted": 0,
+  "slope2DNAAcceptedMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD"
+}
