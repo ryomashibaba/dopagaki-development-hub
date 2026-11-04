@@ -1,3 +1,15 @@
+# 【2026-11-04 K4BJ 最新継続入口】手描き指定の非対称都市キャニオン・Blender真正元カメラ審査
+
+**研究継続ブランチ**：`research/k4bj-hand-authored-hero-civic-canyon-20261104`。まず[K4BJ工程の制作意図・原本不変契約・厳密合否](docs/R19_A6P4_R2F5K4BJ_TIDAL_CIVIC_CANYON_TRUE_CAMERA_JA.md)を読む。
+
+- 前K4BIは[最終SOURCE/DCC CI #41740606366](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41740606366) 完全PASS、しかし**ART REJECT**。技術成功と美術合格を混同しない。正式採用ART0件／Slope2 DNA0m。
+- 今回は単純な旧箱群を増やさず、編集可能Blender原本の旧K4BH/K4BI研究造形をRenderOFF、独立して非対称西図書館・東海洋公共施設、厚い片流れの機能的スカイロビー、異寸法の市街地・本物Road5のRaycastによる路側造形を制作者した。形状／空間の違いはSOURCE Camera 2画像を見て初めて評価。Raw true source-camera DCC images are **not actual WebGL2 screenshots**.
+- [GitHub Actions #41743406627](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41743406627) は修正後CI。必ず実status / 本物PNG / Blender Artifact / SOURCE fingerprintsを検証すること。旧初回 #41743358774 はRaycastの戻り値数誤りで描画前停止しcancelled；成功ではない。レンダリング済み・合格と推測しない。
+- 元凍結Game blob `af076d67492a677d2235e4730aef8cdf4808e106`、Road5メッシュ `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、実B48全7／B51全28・240Hz・球0.65m・元6Camera数値・原安全表示不変更。main / 公式`p101-velocity-overdrive-native-trial` / Draft PR #46 / 本番2サイト保護。Work事前承認、ユーザーのWindows操作要求なし。HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+- 次工程：**必ず真renderを目視し旧K4BIと同じ2source cameraをA/B比較、画面全体で不合格ならART REJECTと正本に固定。** 合格未確認の別Road展開・本番統合不可。
+
+---
+
 # 【2026-11-04 K4BI最終確定・次回第一入口】真正Blender TECH PASS／美術REJECT
 
 **継続最新研究枝**：`research/k4bi-road-surface-facade-craft-20261104`。必ず[K4BI最終実行報告・美術評価](docs/R19_A6P4_R2F5K4BI_ORIGINAL_CAMERA_ROAD_PBR_CIVIC_FACADE_JA.md)を先に読む。
