@@ -47,11 +47,25 @@ def original_road_fingerprint(ob):
   h.update(struct.pack("<3i",*[int(k) for k in f.vertices]))
  return h.hexdigest()
 assert {original_road_fingerprint(o) for o in roads}=={ROAD_SHA}
-orig_trees=[o for o in bpy.data.objects if
-  o.name.startswith("K4BS | genuine CC0 scanned pine tree ") or
-  o.name.startswith("K4BV | TRUE WIND SHAPED CC0 COASTAL CANOPY") or
-  o.name.startswith("K4CA | actual Poly Haven island_tree_02 original CC0 coastal tree ")]
-assert len(orig_trees)==11
+# Blender ID names are limited to 63 UTF-8 bytes. The two genuine K4CA
+# objects saved by the parent are truncated after "...coastal", so searching
+# by their full construction-time names falsely reports 9 trees instead of 11.
+# Check each proven lineage separately; never weaken the original-tree guard.
+pine=[o for o in bpy.data.objects
+      if o.name.startswith("K4BS | genuine CC0 scanned pine tree ")]
+canopy=[o for o in bpy.data.objects
+        if o.name.startswith("K4BV | TRUE WIND SHAPED CC0 COASTAL CANOPY")]
+k4ca_trees=[o for o in bpy.data.objects
+            if o.name.startswith("K4CA | actual Poly Haven island_tree_02")]
+tree_counts=(len(pine),len(canopy),len(k4ca_trees))
+print("K4CB_REAL_PARENT_TREE_LINEAGE",tree_counts,
+      [o.name for o in k4ca_trees],flush=True)
+assert tree_counts==(8,1,2),("K4CB_HOLD_REAL_PARENT_TREE_LINEAGE",tree_counts)
+assert all(o.instance_type=="COLLECTION" and o.instance_collection and
+           o.get("VENDOR_CC0")=="https://polyhaven.com/a/island_tree_02" and
+           o.get("NOT_GAME_COLLIDER") is True for o in k4ca_trees), "K4CB_HOLD_K4CA_CC0_INSTANCE"
+orig_trees=pine+canopy+k4ca_trees
+assert len({o.name for o in orig_trees})==11
 frozen_trees={o.name:tuple(tuple(row) for row in o.matrix_world) for o in orig_trees}
 lights={o.name:(bool(o.hide_render),float(o.data.energy)) for o in bpy.data.objects if o.type=="LIGHT"}
 bad=bpy.data.objects.get("K4BY | actual source raycast 1m road surface | NO GAME COLLIDER")
