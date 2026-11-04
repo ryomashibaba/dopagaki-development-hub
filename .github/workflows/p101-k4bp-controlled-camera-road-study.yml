@@ -85,15 +85,20 @@ jobs:
           assert j['formalSlope2DNAMetres']==0
           assert j['narrowRoadIsNewIndependentNonGameVisualMesh']
           assert abs(j['narrowResearchTrackHalfWidthMetres']-13.1)<1e-6
-          assert len(j['researchScenarios'])==3
+          assert len(j['researchScenarios'])==4
           baseline=j['originalSourceAndThreeResearchCameraMetrics']['ORIGINAL_CONTROL_11307']
           assert 0.025<baseline['sourceRoadCenterlineScreenYSpread70to170']<0.05
           assert all(x in j['originalSourceAndThreeResearchCameraMetrics'] for x in
-                    ['CHASE_OBLIQUE_LOW','HARBOR_3QUARTER','NARROW_FIXED_ORIGINAL_POSE'])
+                    ['CHASE_OBLIQUE_LOW','HARBOR_3QUARTER','NARROW_FIXED_ORIGINAL_POSE','CHASE_NARROW'])
           unchanged=j['originalSourceAndThreeResearchCameraMetrics']['NARROW_FIXED_ORIGINAL_POSE']
           assert unchanged['lensMm']==baseline['lensMm']
           assert unchanged['cameraPos']==baseline['cameraPos']
           assert unchanged['cameraEuler']==baseline['cameraEuler']
+          combined=j['originalSourceAndThreeResearchCameraMetrics']['CHASE_NARROW']
+          chase=j['originalSourceAndThreeResearchCameraMetrics']['CHASE_OBLIQUE_LOW']
+          assert combined['cameraPos']==chase['cameraPos']
+          assert combined['cameraEuler']==chase['cameraEuler']
+          assert combined['lensMm']==chase['lensMm']
           for name,meta in j['files'].items():
             raw=(d/name).read_bytes()
             assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
@@ -101,7 +106,7 @@ jobs:
                  p/'K4BO_CONTROL_11307_TRUE_SOURCE_CAMERA_ART_UNJUDGED.png')]
           imgs += [
               (x['scenario']+' / RESEARCH ONLY / NOT B48 GAME',
-               d/x['file']) for x in j['researchScenarios']]
+               d/x['file']) for x in j['researchScenarios'][:3]]
           canvas=Image.new('RGB',(1980,1310),(16,18,22))
           pen=ImageDraw.Draw(canvas)
           for i,(text,img) in enumerate(imgs):
@@ -121,6 +126,28 @@ jobs:
           j['independentFourFrameComparison']={
              'file':name,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),
              'labels':[x[0] for x in imgs]}
+          # Full 2-by-2 controlled comparison (same art in every cell):
+          # X=camera SOURCE/CHASE; Y=road SOURCE/NON_GAME_NARROW.
+          grid=Image.new('RGB',(1980,1310),(16,18,22))
+          gridPen=ImageDraw.Draw(grid)
+          factorial=[
+           ('A. SOURCE CAMERA + ORIGINAL B48 ROAD',p/'K4BO_CONTROL_11307_TRUE_SOURCE_CAMERA_ART_UNJUDGED.png'),
+           ('B. CHASE CAMERA + ORIGINAL B48 ROAD',d/j['researchScenarios'][0]['file']),
+           ('C. SOURCE-POSE CLONE + ART-ONLY NARROW ROAD',d/j['researchScenarios'][2]['file']),
+           ('D. CHASE CLONE + ART-ONLY NARROW ROAD',d/j['researchScenarios'][3]['file'])]
+          for i,(label,fn) in enumerate(factorial):
+           surface=Image.open(fn).convert('RGB')
+           assert surface.size==(1440,900)
+           xy=(10+(i%2)*990,35+(i//2)*655)
+           grid.paste(surface.resize((955,596)),xy)
+           gridPen.text((xy[0],xy[1]-22),label,fill=(240,237,224))
+          extra='K4BP_FACTORIAL_SOURCE_CAMERA_X_SOURCE_ROAD_VS_CHASE_X_NARROW_NON_GAME.png'
+          grid.save(d/extra)
+          grid_raw=(d/extra).read_bytes()
+          j['independentCameraXRoadFactorial']={
+            'file':extra,'bytes':len(grid_raw),
+            'sha256':hashlib.sha256(grid_raw).hexdigest(),
+            'labels':[x[0] for x in factorial]}
           (d/'K4BP_SOURCE_AND_RESEARCH_CAMERAS_PROVENANCE.json').write_text(
              json.dumps(j,ensure_ascii=False,indent=2))
           print('K4BP_NATIVELY_RENDERED_4_FRAME_SOURCE_PROTECTED_RESEARCH_TECH_ONLY')
@@ -132,6 +159,7 @@ jobs:
           mkdir -p docs/research-evidence/k4bp
           cp research/evidence/k4bp/render/K4BP_*_RESEARCH_ONLY_NATIVE_DCC_NOT_GAME.png docs/research-evidence/k4bp/
           cp research/evidence/k4bp/render/K4BP_ORIGINAL_VS_TWO_ALT_CAMERAS_VS_INDEPENDENT_ROAD_ART_STUDY.png docs/research-evidence/k4bp/
+          cp research/evidence/k4bp/render/K4BP_FACTORIAL_SOURCE_CAMERA_X_SOURCE_ROAD_VS_CHASE_X_NARROW_NON_GAME.png docs/research-evidence/k4bp/
           cp research/evidence/k4bp/render/K4BP_SOURCE_AND_RESEARCH_CAMERAS_PROVENANCE.json docs/research-evidence/k4bp/
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
