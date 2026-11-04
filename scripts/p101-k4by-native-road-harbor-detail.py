@@ -153,8 +153,8 @@ coating.data.materials.append(realmat)
 coating.data.materials.append(old_source_material if old_source_material else realmat)
 upfaces=0
 for poly in coating.data.polygons:
- normal=coating.matrix_world.to_3x3()@poly.normal
- poly.material_index=0 if normal.z>.50 else 1
+ world_normal=coating.matrix_world.to_3x3()@poly.normal
+ poly.material_index=0 if world_normal.z>.50 else 1
  if poly.material_index==0:upfaces+=1
 assert upfaces>30,('no authentic upward asphalt road faces',upfaces)
 cuv=coating.data.uv_layers.get('K4BY | source road full-width PBR UV')
