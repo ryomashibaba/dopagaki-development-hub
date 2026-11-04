@@ -115,8 +115,8 @@
     "K4BL | 06 original-camera legible wayfinding",
     "K4BL | 07 practical and natural lights"
   ],
-  "independentEditableResearchObjects": 274,
-  "nativeUVEditedResearchMeshes": 272,
+  "independentEditableResearchObjects": 298,
+  "nativeUVEditedResearchMeshes": 296,
   "originalFixedSourceCameraDCCImages": [
     {
       "mode": "control",
@@ -145,21 +145,21 @@
   "MERGE": "HOLD",
   "files": {
     "K4BM_UV_PBR_AUTHOR_SCULPTED_EDITABLE_DCC_ART_HOLD.blend": {
-      "bytes": 39685172,
-      "sha256": "6ee9e0fcd6a76b29b6b68ef6dbddcf730f567d90ae37182df486f6a4c3208b8d"
+      "bytes": 39880852,
+      "sha256": "7297b0ea17ffacb7f2c84cecf901947ce11de4e0a91ff4c93703f43cbe7b4a80"
     },
     "K4BM_CONTROL_11307_ACTUAL_SOURCE_CAMERA_UVPBR_ART_HOLD.png": {
-      "bytes": 1653553,
-      "sha256": "094cff4463f7c133dc6591c199ed73a372404f9c0a24f59d23cb9a3509ff4fed"
+      "bytes": 1650501,
+      "sha256": "edc72ddabbe7a7b6ea1fd4cd22234eb81f43a57b2f217681a03eec81576abd70"
     },
     "K4BM_ULTRA_11341_ACTUAL_SOURCE_CAMERA_UVPBR_ART_HOLD.png": {
-      "bytes": 1634023,
-      "sha256": "4350ec39224a789d9123fc3e91592170d228eb9152d5aa45f340fbb261bf9ced"
+      "bytes": 1631799,
+      "sha256": "c0e73889f8729befb80cd147c563f6e6daeb098a3368c62bd37311702aff631a"
     }
   },
   "verifiedSameSourceCameraAB": {
     "file": "K4BM_K4BL_VS_UVPBR_SAME_SOURCE_CAMERA_ART_REVIEW_NOT_GAME.png",
-    "bytes": 2546027,
-    "sha256": "9946ac0a8afbf1c642e84b29193d5620c6487cb80fbfe478b60c8ac1bcb4dadb"
+    "bytes": 2545323,
+    "sha256": "04c71afcabb8a9262cb406db5a158542b93ba548df9e8628fce2da325bcc9827"
   }
 }
