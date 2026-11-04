@@ -1,0 +1,158 @@
+{
+  "schema": "dopagaki.k4ca.real-CC0-two-plantings-authored-rock-slope-native-art/1",
+  "canonicalParentBlenderSHA256": "162a7baaf7594b36a134457bee817bd7dcf0ef1b3e581419d6561efa92e45382",
+  "canonicalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "trueOriginalRoad5VertexFaceFingerprint": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "fixedOriginalSixSourceCameraPoses": true,
+  "fixedExperimentChase": true,
+  "fixedNineOriginalTreesTransforms": true,
+  "fixedSunAndAreaLights": true,
+  "originalGameSourceEdited": false,
+  "originalRoad5GeometryEdited": false,
+  "addedGameColliders": 0,
+  "K4BZProvenBlackWedgeOverlayRemainsHidden": true,
+  "vendor": "https://polyhaven.com/a/island_tree_02",
+  "vendorLicense": "CC0",
+  "genuinePackedVendorPhotosRemainInNative": true,
+  "slopeMaterialAlterationOnly": "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ",
+  "slopeOriginalMeshFingerprint": "ee3b752a4149758137ae1c1b7eb0f9dbabf39a17099b6bf2cbf2857a6146dd54",
+  "oldTerrainMaterialNames": [
+    "K4BS | Continuously masked REAL CC0 green-to-rock coastal erosi"
+  ],
+  "newTerrainPBRMaterial": "K4CA | coastal wind-weathered calcareous sandstone scrub natura",
+  "leftActualVisibleSurfaceRaycastSamples": [
+    {
+      "pixel": [
+        67,
+        265
+      ],
+      "object": "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ",
+      "faceIndex": 468,
+      "normalZ": 0.9832,
+      "oldMaterial": "K4BS | Continuously masked REAL CC0 green-to-rock coastal erosi"
+    },
+    {
+      "pixel": [
+        113,
+        255
+      ],
+      "object": "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ",
+      "faceIndex": 516,
+      "normalZ": 0.9869,
+      "oldMaterial": "K4BS | Continuously masked REAL CC0 green-to-rock coastal erosi"
+    },
+    {
+      "pixel": [
+        151,
+        254
+      ],
+      "object": "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ",
+      "faceIndex": 531,
+      "normalZ": 0.9844,
+      "oldMaterial": "K4BS | Continuously masked REAL CC0 green-to-rock coastal erosi"
+    },
+    {
+      "pixel": [
+        202,
+        274
+      ],
+      "object": "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ",
+      "faceIndex": 497,
+      "normalZ": 0.9672,
+      "oldMaterial": "K4BS | Continuously masked REAL CC0 green-to-rock coastal erosi"
+    },
+    {
+      "pixel": [
+        87,
+        325
+      ],
+      "object": "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ",
+      "faceIndex": 354,
+      "normalZ": 0.9863,
+      "oldMaterial": "K4BS | Continuously masked REAL CC0 green-to-rock coastal erosi"
+    },
+    {
+      "pixel": [
+        156,
+        333
+      ],
+      "object": "DCC ROAD SKIN test band real B48 samples 0.37",
+      "faceIndex": 751,
+      "normalZ": -0.9915,
+      "oldMaterial": "K4BA | inset road precision matrix material"
+    }
+  ],
+  "plantings": [
+    {
+      "sourcePixel": [
+        113,
+        255
+      ],
+      "groundObject": "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ",
+      "originalGeometry": "actual packed CC0 island_tree_02",
+      "groundWorld": [
+        972.2277,
+        390.6002,
+        120.5685
+      ],
+      "scaleRelativeToVerifiedTree": 0.97,
+      "yawRadians": 0.41,
+      "projectedTreeCentre": [
+        0.1476,
+        0.5424
+      ]
+    },
+    {
+      "sourcePixel": [
+        202,
+        274
+      ],
+      "groundObject": "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ",
+      "originalGeometry": "actual packed CC0 island_tree_02",
+      "groundWorld": [
+        975.929,
+        380.9649,
+        118.6274
+      ],
+      "scaleRelativeToVerifiedTree": 0.77,
+      "yawRadians": -0.57,
+      "projectedTreeCentre": [
+        0.2636,
+        0.4891
+      ]
+    }
+  ],
+  "newCC0FullCollectionTreeInstances": 2,
+  "researchOnly": true,
+  "realNativeEEVEEImage": [
+    768,
+    480
+  ],
+  "ART": "UNJUDGED_HOLD",
+  "formalArtAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "HUMAN": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CA_COASTAL_SLOPE_PHOTO_CANOPY_EDITABLE_NATIVE_ART_HOLD.blend": {
+      "bytes": 271620488,
+      "sha256": "7b879e56bc04f2db5b3a8607e2da798f728fd9cfe9b5cbbba1bb0ba9d9375a3e"
+    },
+    "K4CA_SAME_CHASE_TWO_REAL_CC0_COASTAL_TREES_WEATHERED_HILLSIDE_NOT_GAME.png": {
+      "bytes": 477109,
+      "sha256": "e51daeda02ce3e216f797b3dbaf3f7a0e7d93123ee64849d77ea95fd00cfd49a"
+    }
+  },
+  "independentSameCameraReview": {
+    "image": "K4CA_VS_K4BZ_TRUE_SAME_CHASE_COASTAL_SLOPE_PHOTO_CANOPY_ART_REVIEW_NOT_GAME.png",
+    "bytes": 483386,
+    "sha256": "bf6d11ac49c7f49bfcaf3284f710caa788a1b3ddfbb1ffca1ad15559d09cddfc",
+    "sameTrueChaseFixed768x480": true,
+    "averageRGBDifferenceIsNotArtQuality": 6.23592,
+    "ART": "UNJUDGED_HOLD"
+  }
+}
