@@ -127,11 +127,72 @@ for du in range(-27,28,3):
   score=30*abs(cx-.77)+8*abs(cy-.46)+.10*center_deck-8*area
   candidates.append((score,du,ds,delta,bb,center_deck))
 assert candidates,("K4CE_NO_SAFE_REAL_3D_FERRY_RELOCATION",a0,orig_dock,diagnostics)
-candidates.sort(key=lambda c:c[0])
-_,du,ds,translation,quick,dist=candidates[0]
+# A 2D projection can look great while the ship is actually invisible
+# behind the parent terminal building. Require ray-cast visibility, exactly
+# as the actual rendered frame does, before choosing a real mooring.
+# Preserve the parent 3D source and rejected 262px frame for audit.
+ranked=sorted(candidates,key=lambda c:c[0])
+ray_picks=[]
+# Reserve diversity across the whole potential berth; not just the most
+# "centered" projected hull, which caused the preceding occlusion failure.
+for c in sorted(candidates,key=lambda c:(abs((c[4][0]+c[4][2])/2-.83),
+                                         c[5]))[:36]:
+ if c not in ray_picks: ray_picks.append(c)
+for c in ranked[:18]:
+ if c not in ray_picks: ray_picks.append(c)
+assert len(ray_picks)>=8,("INSUFFICIENT_SAFE_RAY_CHOICES",len(candidates))
+original_matrices={o.name:o.matrix_world.copy() for o in ferry}
+def ray_first_rendered(origin,direction,maxdistance):
+ cursor=origin.copy()
+ deps=bpy.context.evaluated_depsgraph_get()
+ for skip in range(18):
+  hit,loc,normal,index,obj,mat=sc.ray_cast(deps,cursor,direction,distance=maxdistance)
+  if not hit:return None
+  if not obj.hide_render:return obj
+  cursor=loc+direction*.08
+  maxdistance-=float((loc-cursor).length)
+  if maxdistance<=0:return None
+ return None
+def actual_ship_ray_hits():
+ hits=0;total=0
+ cp=cam.matrix_world.translation.copy()
+ members={o.name for o in ferry}
+ for obj,step in ((hull,21),(saloon,22),(roof,25),(deck,2)):
+  vs=worldverts(obj)
+  for p in vs[::step]:
+   if not visible(proj(p)):continue
+   d=p-cp
+   if d.length<.1:continue
+   total+=1
+   hit=ray_first_rendered(cp,d.normalized(),d.length+2.0)
+   if hit is not None and hit.name in members:hits+=1
+ return hits,total
+ranked_by_true_visibility=[]
+for c in ray_picks:
+ score,du,ds,delta,bb,dist=c
+ for ob in ferry:ob.matrix_world=Matrix.Translation(delta)@original_matrices[ob.name]
+ bpy.context.view_layer.update()
+ hits,total=actual_ship_ray_hits()
+ full=screen_bbox(ferry)
+ frac=hits/max(1,total)
+ # Visible native 3D surfaces ahead of original structures matter more
+ # than 2D projection. Center composition and quay distance remain secondary.
+ vis_score=frac*14.0+hits*.03 + (full[2]-full[0])*.8 -abs((full[0]+full[2])/2-.83)*1.0-dist*.010
+ ranked_by_true_visibility.append((vis_score,hits,total,du,ds,delta,full,dist))
+for ob in ferry:ob.matrix_world=original_matrices[ob.name]
+bpy.context.view_layer.update()
+ranked_by_true_visibility.sort(key=lambda x:x[0],reverse=True)
+print("K4CE_TRUE_RENDER_OCCLUSION_AWARE_CANDIDATES",
+      json.dumps([{"hits":p[1],"total":p[2],"du":p[3],"ds":p[4],
+                   "bbox":[round(v,4) for v in p[6][:4]],"dockM":round(p[7],2)}
+                  for p in ranked_by_true_visibility[:12]]),flush=True)
+assert ranked_by_true_visibility and ranked_by_true_visibility[0][1]>=6,(
+    "K4CE_ALL_REAL_MOORINGS_OCCLUDED_SAFELY_HOLD",
+    [(p[1],p[2],p[3],p[4]) for p in ranked_by_true_visibility[:8]])
+_,rayhits,raytotal,du,ds,translation,newbbox,dist=ranked_by_true_visibility[0]
 for o in ferry:
- o.matrix_world=Matrix.Translation(translation)@o.matrix_world
-newbbox=screen_bbox(ferry)
+ o.matrix_world=Matrix.Translation(translation)@original_matrices[o.name]
+bpy.context.view_layer.update()
 assert newbbox[0]>.50 and newbbox[2]<.973 and newbbox[4]>.99,("FERRY_NOT_FULLY_FRAMED",newbbox)
 assert newbbox[0]<a0[0]-.015 or newbbox[2]<a0[2]-.04,("NOT_MEANINGFUL_FRAME_RECOVERY",a0,newbbox)
 # Replace only obsolete research ferry bridge. Its data is preserved in the
@@ -221,7 +282,9 @@ audit={
  "originalFerryBBoxNotArtScore":a0[:4],"newFerryBBoxNotArtScore":newbbox[:4],
  "boatTranslationRealMetres":{"along":du,"side":ds},
  "passengerBridgeWorldLengthMetres":gap,"originalDeckToQuayDistanceMetres":orig_dock,
- "candidateCount":len(candidates),"renderEngine":"BLENDER_EEVEE","originalChase768x480":True,
+ "candidateCount":len(candidates),"testedNativeRayCandidates":len(ray_picks),
+ "actuallyVisibleHullRayHits":rayhits,"actuallyTestedHullRays":raytotal,
+ "renderEngine":"BLENDER_EEVEE","originalChase768x480":True,
  "ART":"UNJUDGED_HOLD","formalARTAccepted":0,"formalSlope2DNAMetres":0,
  "SAT":"HOLD","CCD":"HOLD","HUMAN":"HOLD","FPS":"HOLD","RELEASE":"HOLD","MERGE":"HOLD",
  "files":{p.name:{"bytes":p.stat().st_size,"sha256":sha(p)} for p in (blend,png,water_only)}
