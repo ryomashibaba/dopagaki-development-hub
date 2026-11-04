@@ -154,7 +154,9 @@ assert 1.0<scale<12,scale
 candidates=[]
 for d in (55,66,77,88,99,110,121,132,143,154):
     for s in (-26,-32,-38,-44,-50,-56,-62):
-        position=P(d,s,terrain_height(d,s)-.25)
+        # Root the TRUE bounding-box foot at the authored terrain height;
+        # K4BS had placed the bbox centre at ground and buried ~half the tree.
+        position=P(d,s,terrain_height(d,s)+.15+target_height*.5)
         matrix=(Matrix.Translation(position)@
                 Matrix.Rotation(math.radians(12),4,"Z")@
                 Matrix.Rotation(-pi/2,4,"Y")@
@@ -174,6 +176,11 @@ for d in (55,66,77,88,99,110,121,132,143,154):
 assert candidates,("no bounded camera-readable research candidate",extent)
 score,d,s,matrix,p=sorted(candidates,key=lambda v:(v[0],v[1],v[2]))[0]
 hero.matrix_world=matrix
+actual_bounds=bounds([matrix@v for v in mastercorners])
+true_ground_z=P(d,s,terrain_height(d,s)).z
+true_foot_clearance_m=actual_bounds[0][2]-true_ground_z
+assert 0<=true_foot_clearance_m<=.6,(true_foot_clearance_m,actual_bounds)
+assert abs((actual_bounds[1][2]-actual_bounds[0][2])-target_height)<.01
 hero["K4BU_RESEARCH_TRANSFORM_ONLY"]=True
 hero["K4BU_BEST_CANDIDATE_D"]=d
 hero["K4BU_BEST_CANDIDATE_S"]=s
@@ -222,7 +229,10 @@ audit={
     "oneNativeSourceAxisReorientedXToZ":True,
     "originalHeroProjectedEnvelope":originalproj,
     "repositionedUprightHeroProjectedEnvelope":p,
-    "chosenPosition":{"dRoadM":d,"sSideM":s,"heightM":target_height,"candidatesEvaluated":len(candidates),"score":round(score,6)},
+    "chosenPosition":{"dRoadM":d,"sSideM":s,"heightM":target_height,
+                      "actualBoundingFootClearanceM":round(true_foot_clearance_m,5),
+                      "footRootedAtTerrainInsteadOfBuriedCentre":True,
+                      "candidatesEvaluated":len(candidates),"score":round(score,6)},
     "researchRenderActualBlenderEevee":True,
     "researchRenderedPixelSize":[768,480],
     "isOriginalResearchChaseNotWebGL2Game":True,
