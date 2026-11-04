@@ -141,13 +141,35 @@ assert sha(BASE)==S_BLEND
 
 # The imported vendor image textures must actually be available in Blender.
 material_set={slot.material for o in meshes for slot in o.material_slots if slot.material}
-new_images={n.image for m in material_set if m.use_nodes for n in m.node_tree.nodes
-            if n.type=='TEX_IMAGE' and n.image}
-assert len(new_images)>=2,('vendor textures not linked',len(new_images))
-for img in new_images:
- assert img.has_data,('vendor image failed to load',img.name)
- if img.packed_file is None:img.pack()
- assert img.packed_file is not None
+vendor_image_paths={Path(name).stem.removesuffix('_1k'):ASSETS/meta['localFile']
+ for name,meta in receipt['files'].items() if name.startswith('textures/')}
+loaded_vendor_images={}
+for mat in material_set:
+ if not mat.use_nodes:continue
+ for node in mat.node_tree.nodes:
+  if node.type!='TEX_IMAGE' or node.image is None:continue
+  origin=node.image
+  # Blender importer can create an image datablock without loading its
+  # pixels: has_data=False despite a true vendor JPEG on disk. Resolve it
+  # to the EXACT SHA-verified official dependency, never guess/replace art.
+  name=origin.name
+  if name.endswith(('.jpg','.jpeg','.png')):name=Path(name).stem
+  if len(name)>=4 and name[-4]=='.' and name[-3:].isdigit():name=name[:-4]
+  name=name.removesuffix('_1k')
+  assert name in vendor_image_paths,('unmapped vendor texture',origin.name,list(vendor_image_paths))
+  if name not in loaded_vendor_images:
+   path=vendor_image_paths[name]
+   exact=next(m for m in receipt['files'].values() if ASSETS/m['localFile']==path)
+   assert path.stat().st_size==exact['actualBytes'] and sha(path)==exact['sha256']
+   image=bpy.data.images.load(str(path),check_existing=False)
+   assert image.has_data,('verified JPEG still not readable',str(path))
+   image.colorspace_settings.name=origin.colorspace_settings.name
+   image.alpha_mode=origin.alpha_mode
+   image.pack();assert image.packed_file is not None
+   loaded_vendor_images[name]=image
+  node.image=loaded_vendor_images[name]
+new_images=set(loaded_vendor_images.values())
+assert len(new_images)>=2,('genuine CC0 textures not packed',list(loaded_vendor_images))
 sc.camera=cam;sc.render.engine='BLENDER_EEVEE'
 sc.render.resolution_x=768;sc.render.resolution_y=480;sc.render.resolution_percentage=100
 sc.render.image_settings.file_format='PNG'
