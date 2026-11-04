@@ -54,15 +54,32 @@ jobs:
       - name: Install headless native Blender + Pillow (no unavailable OIDN)
         run: |
           sudo apt-get update -qq
-          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
       - name: Actual native Blender 3D harbor model and two immutable source-camera images
         run: |
           set -euo pipefail
           mkdir -p research/evidence/k4bl/render
-          blender -b --factory-startup --python-exit-code 3 \
-            --python scripts/p101-k4bl-authored-harbor-cinematic-roadscape.py -- \
-            --base research/evidence/k4bl/parent/K4BK_GROUND_TRUTHED_CIVIC_ROADSIDE_EDITABLE_ART_HOLD.blend \
-            --out research/evidence/k4bl/render
+          set +e
+          xvfb-run -a -s '-screen 0 1920x1200x24' \
+            env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 \
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4bl-authored-harbor-cinematic-roadscape.py -- \
+              --base research/evidence/k4bl/parent/K4BK_GROUND_TRUTHED_CIVIC_ROADSIDE_EDITABLE_ART_HOLD.blend \
+              --out research/evidence/k4bl/render \
+              --renderer eevee
+          eevee_status=$?
+          set -e
+          if [ "$eevee_status" -ne 0 ]; then
+            echo "K4BL EEVEE_UNSUPPORTED_IN_CI; falling back to independently verified CPU Cycles"
+            rm -f research/evidence/k4bl/render/K4BL_*.png \
+                  research/evidence/k4bl/render/K4BL_*.blend \
+                  research/evidence/k4bl/render/K4BL_TRUE_SOURCE_CAMERA_PROVENANCE.json
+            blender -b --factory-startup --python-exit-code 3 \
+              --python scripts/p101-k4bl-authored-harbor-cinematic-roadscape.py -- \
+              --base research/evidence/k4bl/parent/K4BK_GROUND_TRUTHED_CIVIC_ROADSIDE_EDITABLE_ART_HOLD.blend \
+              --out research/evidence/k4bl/render \
+              --renderer cycles
+          fi
       - name: Independently validate full output bytes, reference camera and side-by-side visuals
         run: |
           /usr/bin/python3 - <<'PY'
