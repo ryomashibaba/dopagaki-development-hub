@@ -36,3 +36,7 @@ DOPAGAKI SLOPE — HYPER RUSH の世界水準の高速3Dレーシングゲーム
 
 
 - 第3回[CI #41793514129](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793514129)：**completed/FAILURE**。素材の公式実ダウンロード・全メーカーMD5/独立SHA・元Source/親BLEND PASS、Blender原本開封後、**K4BQ研究斜面の長いオブジェクト名がBlenderのID上限で短縮され、完全一致部分文字列が存在しないため`terrain_changed={}`**となった。ここでは実材質をシェーダーノードとして構築したが、地形への割当は未実施。源ゲーム不変。修正commit `2270c9da0eeb0366ad53e09b2eff62cfbb4f58de`は、検証済みの一意な`authored subdivided eroded native`という短縮後にも残る接頭語から研究斜面2面だけを選び、2面以外ならHOLD。次[CI #41793831862](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793831862)の結果未確定。前CI失敗を成功としない。
+
+
+- 第4回[CI #41793831862](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41793831862)は元ゲーム/元親SHA・実草2K+本物の松1K全MD5/SHAが再度PASS、実Blender工程まで進んだが、高密度松の研究用インスタンス14本・1520×950の2枚の**ソフトウェア描画が長く継続**。無料のCIで処理効率を重視し、ART判断を得るための実験条件を14本→**8本（左右各4本）**、解像度1280×800に制限。元ツリーglTFのポリゴン品質を落とさず研究用共有インスタンスとして少数配置し、研究用高画質LOD/FPSはHOLDのまま。第4回は**cancelled**、描画成功の証拠は無し。性能の正式な速度測定として扱わない。
+- 上記最小パイロットはスクリプト修正commit `14d7b2cdaa59c5bb7dedf4cda0a650795edd1a9d`、同カメラであることを保持したまま旧画像だけ新解像度へリサンプルして比較するCI修正commit `9b1de479213cc936da315c573c5e3d21bd0c1533`として保存。途中CI #41795019967は追加修正により**cancelled**。現行[CI #41795056558](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41795056558)の本物のBlender画像/原本SHAを独立検証するまでは技術PASS・ART改善とは報告しない。
