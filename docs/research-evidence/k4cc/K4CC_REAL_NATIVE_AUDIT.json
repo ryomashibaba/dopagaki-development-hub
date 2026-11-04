@@ -1,0 +1,165 @@
+{
+  "schema": "dopagaki.k4cc.true-native-coastal-relief/1",
+  "parentK4CB_A3_exact_sha256": "0b581f45de4d4e215515e8dbef9a4038c7f1b9bdb0e1935943c4445529193e6c",
+  "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCameraPosesUnchanged": true,
+  "originalCHASEUnchanged": true,
+  "originalElevenTreeTransformsUnchanged": true,
+  "originalLightsUnchanged": true,
+  "K4BZ_bad_duplicate_road_hidden": true,
+  "originalResearchA3MeshesUnedited": true,
+  "sourceGameEdited": false,
+  "sourcePhysicsEdited": false,
+  "newGameColliders": 0,
+  "noExtraRoadSurfaceAdded": true,
+  "researchOnlyVisibilityChanges": [
+    "K4CB A3 | deep boat service hall western sidewall",
+    "K4CB A3 | deep boat service hall eastern sidewall",
+    "K4CB A3 | single continuous monumental head beam",
+    "K4CB A3 | monolithic entrance shoulder -1",
+    "K4CB A3 | monolithic entrance shoulder 1",
+    "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native "
+  ],
+  "newResearchTerrainMesh": "K4CC | TRUE_EDITABLE_NATIVE_ROCK_RELIEF | NO_GAME_COLLIDER",
+  "terrainSourceObject": "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ",
+  "sourceTerrainMeshFingerprint": "ee3b752a4149758137ae1c1b7eb0f9dbabf39a17099b6bf2cbf2857a6146dd54",
+  "sourceTerrainMaterialNames": [
+    "K4CA | coastal wind-weathered calcareous sandstone scrub natura"
+  ],
+  "subdividedRealTerrainOldVertexCount": 1564,
+  "sculptedRealTerrainNewVertexCount": 13426,
+  "sculptedVertexCount": 5587,
+  "maximumTrueRockVerticalReliefMetres": 4.452351165590233,
+  "raycastVisibleLeftGroundSamples": {
+    "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ": 9,
+    "K4BP / EAST independent rock garden narrowed track edge": 1
+  },
+  "realResearchMeshAdded": 1,
+  "sourceTerrainObjectRetained": true,
+  "originalChase768x480": true,
+  "renderEngine": "BLENDER_EEVEE",
+  "materialClaims": "Editable authored procedural geological mineral strata. Not photoscan nor original Slope source.",
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "HUMAN": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CC_COASTAL_RELIEF_EDITABLE_DCC_ART_HOLD.blend": {
+      "bytes": 273477600,
+      "sha256": "19e9169cf4568f973ac4f178e8bbcdf3d05fa88edd3a4c83da07d921c3563a08"
+    },
+    "K4CC_TRUE_SAME_CHASE_COASTAL_RELIEF_NOT_GAME.png": {
+      "bytes": 486459,
+      "sha256": "efed6b1052536e6c596f23ca1c0f8e6692787a71fa53ac195c7e298483f5f861"
+    }
+  },
+  "imageIndependentQA": {
+    "leftTerrainChangedPixelsNotArtScore": 40482,
+    "rightPortChangedPixelsNotArtScore": 4437,
+    "roadSamples": [
+      [
+        390,
+        270
+      ],
+      [
+        400,
+        320
+      ],
+      [
+        380,
+        380
+      ],
+      [
+        420,
+        440
+      ],
+      [
+        470,
+        465
+      ]
+    ],
+    "K4BZOriginalWedgePairs": [
+      {
+        "dark": [
+          292,
+          300
+        ],
+        "normal": [
+          317,
+          300
+        ],
+        "before": 2.667,
+        "after": 2.667
+      },
+      {
+        "dark": [
+          280,
+          330
+        ],
+        "normal": [
+          310,
+          330
+        ],
+        "before": -0.333,
+        "after": -0.333
+      },
+      {
+        "dark": [
+          267,
+          360
+        ],
+        "normal": [
+          310,
+          360
+        ],
+        "before": -0.333,
+        "after": 0.0
+      },
+      {
+        "dark": [
+          250,
+          400
+        ],
+        "normal": [
+          295,
+          400
+        ],
+        "before": 2.333,
+        "after": 2.333
+      },
+      {
+        "dark": [
+          235,
+          440
+        ],
+        "normal": [
+          280,
+          440
+        ],
+        "before": -1.333,
+        "after": -1.333
+      },
+      {
+        "dark": [
+          225,
+          470
+        ],
+        "normal": [
+          270,
+          470
+        ],
+        "before": 0.333,
+        "after": 0.333
+      }
+    ],
+    "comparisonName": "K4CC_A3_VS_TRUE_COASTAL_RELIEF_ART_REVIEW_NOT_GAME.png",
+    "comparisonSHA256": "a4156f04586ead3831b4b38f8a42424a6b07bed643e4f71a842d3f38ac1d76b0",
+    "ART": "UNJUDGED_HOLD"
+  }
+}
