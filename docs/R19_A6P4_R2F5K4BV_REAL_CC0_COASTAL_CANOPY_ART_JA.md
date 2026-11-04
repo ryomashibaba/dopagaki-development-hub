@@ -24,3 +24,11 @@
 1. 実輸入モデルが視覚的に自然で一目で樹冠として読めれば、**木の大規模な追加より先に**、元CHASE画面中央の海岸地形・実用途のある港湾・人間スケールの公共施設の作者意匠を行い、1画面の質を抜本改善する。
 2. 画像に木が出ない・輪郭が悪い・レンダリングが重すぎるなら、実現原因（モデル座標/葉アルファ/遮蔽/サイズ/資源制約）を修正し、無駄なアセット候補増殖や2枚高負荷レンダリングはしない。
 3. 1画面の正式ARTが合格するまでは他6Road、本番ゲームへの展開はしない。技術上の合格と本物の世界級アート合格を別に判断。
+
+## 2026-11-04 実行記録（修復未完了・HOLD）
+
+- 初回 [Actions #41803574543](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41803574543) は**completed/FAILURE**。K4BU原本・SourceテストPASS、公式Poly Haven `island_tree_02` 1K glTFと全10依存ファイル、実計 **46,172,406 B**（全実URL・Vendor MD5・SHA256）取得検証PASS。真正Blender 4.0.2 glTF importerは約2秒で処理完了。しかしImported image datablock `island_tree_02_diff` の `has_data=False` という画像ロード状態でFail Closed、真研究画像と編集可能新.blendの作成なし。成果の成功を捏造しない。
+- 同画像に対して、Vendor manifestの正確なファイル名から対応を取り、Blender各マテリアルへ元Vendor SHA一致ファイルを明示的に再接続する修正 commit `b715ca7b07d2016d0c50a62bc66d340f881fa249` を実装。[再実行 #41803979687](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41803979687) も **completed/FAILURE**。全モデル実バイト＋Blenderインポートは再度PASSしたが、新しく読み込んだ正しいVendor JPEGでもバックグラウンド Blenderの`has_data=False`で停止。**原因としてBlenderの遅延画像画素読込が疑われるが未確定**。ファイル欠損とは証明されていない。
+- 以降の堅牢な修正候補は、Python APIの `image.has_data` だけでは成否を決めず、K4BSで技術実証済の `image.pack()` と `packed_file` の存在、Packed実バイト長および元Vendor SHA、独立画像再読込等で検証すること。ただし**この修正のGitHub保存と実行は現段階では未完了**。修正未実行のまま成功扱いは絶対にしない。
+- K4BV正式技術判定：**素材取得/Source一致はPASS、Native material packed・Native.blend・実CHASE画像はBLOCKED**。元K4BU原本および正式Game / B48 / Camera / main / PR #46 / 本番サイトを改変していない。正式ART採用0、Slope2 DNA 0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。モデルの実画面での美しさは**不明**。
+
