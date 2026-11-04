@@ -8,7 +8,7 @@ No paid API. No 3D asset or CC0 license claims without actual receipt.
 import os,json,hashlib,urllib.request,urllib.parse,sys,time
 from pathlib import Path
 
-args=sys.argv[sys.argv.index('--')+1:]
+args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else sys.argv[1:]
 OUT=Path(args[args.index('--out')+1]);OUT.mkdir(parents=True,exist_ok=True)
 UA='DOPAGAKI-SLOPE-K4BR-OpenResearch/1.0 (GitHub native Blender source-audit; credit Poly Haven)'
 BASE='https://api.polyhaven.com'
