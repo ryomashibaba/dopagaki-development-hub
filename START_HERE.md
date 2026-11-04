@@ -1,3 +1,15 @@
+# 【2026-11-04 K4BK最終引継ぎ入口】本物B48 Road5測量・Blender DCC技術PASS／ART REJECT
+
+最新研究隔離枝：`research/k4bk-ground-truthed-civic-roadside-20261104`。次のチャットは[実物道路9地点の測量、真Source Camera画像の美術評価、全実行・失敗反省をまとめたK4BK正本](docs/R19_A6P4_R2F5K4BK_ROAD_CALIBRATED_CIVIC_ART_JA.md)を最初に読む。旧K4BJ・K4BI以前の「最新」表記は履歴。
+
+- 9地点のSOURCE B48 Road5実物Raycastと左右境界／道路高さ確認は **PASS**。−25〜+170mのCamera前後方向にて2m刻みの路面側面サンプリングが全地点成功。旧来のd550m・s±170m以上に誤配置した街区構造とは異なり、今回のDCCモデルは測定した道路に沿って制作した。
+- [K4BK最終修正版CI #41747761082](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41747761082) **completed/SUCCESS**。[本物の編集可能Blender DCC・元Camera control11307/ultra11341 2PNG・旧K4BJとのA/B・独立sha JSON Artifact #13284094495](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41747761082/artifacts/13284094495)、ZIP SHA256 `86879b1dd3a4a03ed7cb9d6db676cd2ba971dc2a3e9b61a39f9ac80dbd910904`。BLEND/PNG全SHA独立照合OK。初回[CI #41747047424](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41747047424)も技術SUCCESSだったが、極めて巨大な無地の外壁と連絡梁で美術REJECT。修正版は屋根を薄くし実寸開口と奥行きのある室内を設計し、旧より画面両側は少し改善。
+- **ただし最終K4BKもART REJECT**。実画像を直接見て、安っぽい長い道路、平板な商業建築、青緑の単純な橋、空白の多い遠景と空気感の欠落が残る。SOURCE測量成功、DCC技術PASS、128編集可能モデルはART合格ではない。正式ART採用0件／Slope2 DNA正式認定0m。これは実WebGL2ゲーム画面ではない。
+- **次工程K4BL**：正しいRoad5実寸を維持しつつ、「大きい屋根や箱を増やせば都市に見える」という制作を停止する。道路面の本物の質感・路側の高精度セット/土地利用・人が使う公共内部/自然との接続・都市遠景・照明・カメラ構図を一画面の商用水準の美術に高める。まず真の美術イメージ/3D実原本とsource Camera比較で審査し、合格前に実ゲーム統合・他6Road展開は禁止。ゲーム実WebGL2の同Camera検証も必要。
+- 不変保護：元ゲームgit blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5指紋 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、240Hz/球半径0.65m／元B48全7・B51全28／Camera6／安全表示、main、公式`p101-velocity-overdrive-native-trial`、Draft PR #46、本番2サイト変更なし。Work個別承認制、ユーザーWindows操作不要。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
+---
+
 # 【2026-11-04 K4BK 新しい継続入口】元Road5の実寸座標に建築を合わせたART-FIRST研究
 
 最新研究隔離枝：`research/k4bk-ground-truthed-civic-roadside-20261104`。必ず[K4BK真正道路実寸を用いたBlender制作・不変条件・美術審査正本](docs/R19_A6P4_R2F5K4BK_ROAD_CALIBRATED_CIVIC_ART_JA.md)を先に読む。K4BJの**実測発見**とART REJECTを継承し、旧来のCamera前方550m・横±160m以上というRoad5の尺度と噛み合わない建築を再利用しない。
