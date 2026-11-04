@@ -1,3 +1,14 @@
+# 【2026-11-04 K4CA継続美術制作】真正CC0海岸樹2本と既存岩肌・元CHASEの1画面評価
+
+**現在の隔離研究枝** research/k4ca-authentic-coastal-terrain-photo-canopy-one-frame-20261104。先に[**K4CA写真由来海岸樹・既存斜面の本物のPBR地質・元ゲーム保護方針**](docs/R19_A6P4_R2F5K4CA_SOURCE_LOCKED_REAL_COASTAL_ART_JA.md)を読む。前K4BZ完成済み[引き継ぎ・原因同定／再発防止](docs/R19_A6P4_R2F5K4BZ_TRUE_BLACK_WEDGE_PIXEL_CAUSE_DIAGNOSTIC_JA.md)も固定し、過去の決定を変えない。以下の「最新」記述は履歴。
+
+- K4BZ R1真Blender診断、R2真正固定CHASE A/B、R3軽量RGB回帰の全3工程が**TECH PASS**。問題K4BY研究道路表面1件の描画OFFで黒い筋を除去した**真正Native.blend SHA256 162a7baaf7594b36a134457bee817bd7dcf0ef1b3e581419d6561efa92e45382** をK4CA唯一の親原本とする。K4BZ修正の正式ART採用は禁止。元Game/Road5は変更せず。
+- K4CA は「大量の粗い樹木・新たな不自然な山・道路表面を上塗りしない」方針で、**元CHASE上の左側の斜面実Blender RayCast・同一本物メッシュのPBR地質のみ変更、Photo素材入りの真正Poly Haven CC0 island_tree_02コレクションから風剪定樹を2本のみ接地設置**して、同じ元CHASE 768×480だけをレンダリング。木が自然に見えない場合はART REJECT。真正原本・比較画像・独立SHA監査を守る。
+- [K4CA初回CI #41847033140](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41847033140) はPillow未導入でプリフライト停止。修正CI [#41847318174](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41847318174) はこの記載時点で**完了未確認**。合格を主張する前に実Blender画像を見ること。
+- 元Game Git Blob af076d67492a677d2235e4730aef8cdf4808e106、元B48 Road5全頂点面 f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2、元6Camera/CHASE、既存木9本、B48 7実Road/B51 28Mover/240Hz/0.65m球、main/公式P101/Draft PR#46/本番2サイト不変。正式ART採用0件、Slope2 DNA0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE全HOLD。Work/Computer Use事前承認、追加有料API0円、ユーザーWindows操作0。
+
+---
+
 # 【K4BZ 2026-11-04 最終 R1/R2/R3 全技術検証PASS → 次K4CA ART-FIRST】
 
 **現行隔離研究枝** research/k4bz-true-chase-black-wedge-object-shadow-audit-20261104。[K4BZ全根拠・画像・修正・R3再発防止・次工程](docs/R19_A6P4_R2F5K4BZ_TRUE_BLACK_WEDGE_PIXEL_CAUSE_DIAGNOSTIC_JA.md)をまず読む。以下の「実行待ち」「終了未確認」は過去の履歴。
