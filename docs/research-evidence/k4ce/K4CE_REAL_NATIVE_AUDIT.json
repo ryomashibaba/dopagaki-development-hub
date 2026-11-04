@@ -1,0 +1,172 @@
+{
+  "schema": "dopagaki.k4ce.real-coherent-berth-foreground-ferry/1",
+  "exactK4CDSourceParentSHA256": "c81111664d4703ec044aeaaeee1e7b659d95343dbf762ebf9892c6636a7d5a0a",
+  "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCameraPosesUnchanged": true,
+  "originalCHASEUnchanged": true,
+  "originalElevenTreeTransformsUnchanged": true,
+  "originalLightsUnchanged": true,
+  "K4BZ_bad_duplicate_road_hidden": true,
+  "sourceGameEdited": false,
+  "sourcePhysicsEdited": false,
+  "newGameColliders": 0,
+  "allOriginalObjectsPreserved": true,
+  "K4CDWaterGeometryAndPoseUnchanged": true,
+  "K4CDOriginalFerryMeshTopologyUnchanged": true,
+  "movedResearchOnlyK4CDFerryObjectCount": 4,
+  "originalResearchBoardingBridgeHiddenOnly": "K4CD | short side boarding access bridge",
+  "newPhysicallyConnectedResearchGangway": "K4CE | full-width physically connected ferry boarding bridge",
+  "newTrueResearchGeometryOnly": true,
+  "originalFerryBBoxNotArtScore": [
+    0.8074433207511902,
+    0.34556710720062256,
+    1.029279112815857,
+    0.49858492612838745
+  ],
+  "newFerryBBoxNotArtScore": [
+    0.7295321822166443,
+    0.32852330803871155,
+    0.938299298286438,
+    0.49770089983940125
+  ],
+  "boatTranslationRealMetres": {
+    "along": -6,
+    "side": 13
+  },
+  "passengerBridgeWorldLengthMetres": 28.612172948900575,
+  "originalDeckToQuayDistanceMetres": 38.248682335989734,
+  "candidateCount": 90,
+  "testedNativeRayCandidates": 54,
+  "actuallyVisibleHullRayHits": 11,
+  "actuallyTestedHullRays": 69,
+  "renderEngine": "BLENDER_EEVEE",
+  "originalChase768x480": true,
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "HUMAN": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CE_REAL_COHERENT_FOREGROUND_FERRY_EDITABLE_ART_HOLD.blend": {
+      "bytes": 273964752,
+      "sha256": "3f0bc2f048dec39bc263151e2117b374d40b7422478c7e9b49583865c836d63e"
+    },
+    "K4CE_REAL_FERRY_CONNECTED_TO_QUAY_CHASE_NOT_GAME.png": {
+      "bytes": 485953,
+      "sha256": "0519dfb082d83a46244e182aa6aca7329ec68c0b559203efe1919302a5f13bef"
+    },
+    "K4CE_REAL_WATER_AND_QUAY_ONLY_CHASE_CONTROL.png": {
+      "bytes": 484137,
+      "sha256": "52734442bc47f557c1d28abb3bdc25b99cf78b0a0d9c55c58994504c496f2a68"
+    }
+  },
+  "independentSameChaseImageQA": {
+    "rightPortChangedPixelsNotArtScore": 6933,
+    "realFerryAndBridgeVisiblePixelsNotArtScore": 4528,
+    "frozenLeftTerrainPixelDifference": 0,
+    "protectedRoadSamples": [
+      [
+        390,
+        270
+      ],
+      [
+        400,
+        320
+      ],
+      [
+        380,
+        380
+      ],
+      [
+        420,
+        440
+      ],
+      [
+        470,
+        465
+      ]
+    ],
+    "K4BZOriginalBlackSeamPairs": [
+      {
+        "dark": [
+          292,
+          300
+        ],
+        "normal": [
+          317,
+          300
+        ],
+        "before": 2.667,
+        "after": 2.667
+      },
+      {
+        "dark": [
+          280,
+          330
+        ],
+        "normal": [
+          310,
+          330
+        ],
+        "before": -0.333,
+        "after": -0.333
+      },
+      {
+        "dark": [
+          267,
+          360
+        ],
+        "normal": [
+          310,
+          360
+        ],
+        "before": 0.0,
+        "after": 0.0
+      },
+      {
+        "dark": [
+          250,
+          400
+        ],
+        "normal": [
+          295,
+          400
+        ],
+        "before": 2.333,
+        "after": 2.333
+      },
+      {
+        "dark": [
+          235,
+          440
+        ],
+        "normal": [
+          280,
+          440
+        ],
+        "before": -1.333,
+        "after": -1.333
+      },
+      {
+        "dark": [
+          225,
+          470
+        ],
+        "normal": [
+          270,
+          470
+        ],
+        "before": 0.333,
+        "after": 0.333
+      }
+    ],
+    "comparisonName": "K4CE_K4CD_TRUE_SAME_CHASE_FOREGROUND_BERTH_ART_REVIEW_NOT_GAME.png",
+    "comparisonSHA256": "b551a1b7e448fcb19094be0ba80b1bad0740ac8833ae45a9aab4fe49546730b2",
+    "ART": "UNJUDGED_HOLD"
+  }
+}
