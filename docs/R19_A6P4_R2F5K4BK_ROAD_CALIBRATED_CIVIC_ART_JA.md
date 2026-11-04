@@ -29,3 +29,13 @@ K4BJの実2DCC原カメラ画像は、SOURCE/DCC 技術PASS、**ART REJECT**。�
 [専用Actions K4BK](https://github.com/ryomashibaba/dopagaki-development-hub/actions/workflows/p101-k4bk-true-road-camera-civic-art.yml) を起動。今回の記録作成時点ではCI/レンダリング結果・Blender Art/正本SHAの最終状態をまだ認定していない。
 
 **ART正式採用0件／Slope2 DNA正式認定0m**を引き継ぎ、SOURCE/DCC技術PASSと「ユーザーが認める美術世界水準」を決して混同しない。新しい画像を必ず実見し、低品質ならART REJECTを明記する。ゲーム統合と横展開はしない。
+
+
+## 初回K4BKの本物の実行・美術評価と修正版
+
+- [初回CI #41747047424](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41747047424)は **completed/SUCCESS**。親K4BJ .blend SHA、凍結ゲームGit blob、Python・元Source Node tests、B48 Road5元頂点と面 fingerprint、元Camera control11307/ultra11341数値、編集可能真Blender原本、同Camera2PNG、独立PNG RGB＋SHA、GitHub研究ブランチ内画像保存まで成功。**SOURCE/DCC技術限定PASS**。
+- [実Artifact #13284710962](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41747047424/artifacts/13284710962)、ZIP SHA256 `5b74d4e2fca3aa4f0162c7c178b4898aea003f631baf14e75539df801c561a42`、CRC異常なし。BLEND 34,602,396B、control PNG 1,820,268B、ultra PNG 1,789,717B、AB PNG 3,887,659B、検証JSON。独立実バイトSHA全件一致。新編集可能Blender研究形状70件。数値は美術価値の証明ではない。
+- **元Road5の実ロード上のRaycastが9地点全てで成立**：カメラ前方d=-25,0,25,50,75,100,125,150,170mにて、実ポリゴンの左端と右端は以下のとおり。`(-37,+49),(-37,+51),(-39,+53),(-39,+55),(-39,+59),(-37,+63),(-37,+65),(-35,+69),(-33,+71)`m。これは2m間隔の実Raycast推定路面端であり、安全通行幅でもゲーム衝突検査でもない。**初回の道路/建物の尺度不整合は大きく是正**。
+- しかし**初回の実control/ultra画像の美術判定：ART REJECT**。左右屋根の大部分が巨大な無地の淡色/緑の壁のように投影され、中央ガラス連絡路は太い梁として画面上部を塞ぎ、道路と空白も広い。内部の使い勝手や公共施設の奥行きが見えず、極めて人工的で模型の延長。道路の実寸に合わせた事実はTECH成果だが、美術全体の完成は達成していない。**正式ART採用0件、Slope2 DNA0m**。
+- **改修**：この失敗を受けて研究ブランチのPython制作コードを修正（commit `d45c86cdafb7beec6bedd6c544fdd668c756df39`）。西側屋根・東側銅屋根を大きな塊から薄い断面に作り直す。中央ガラス連絡路も源道路のd=152〜169mの薄い意匠へ位置と断面を改め、独立した実寸のダークガラス玄関・室内・ブロンズ枠・見通しのある開口を道路外端に設計。露出調整。旧Blender原本／元B48／元カメラ／原ゲームは不変。修正版[CI #41747761082](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41747761082)の実結果は**成功推定禁止、要再照合**。
+- 修正版でも世界品質に届かなければART REJECTを維持し、設計方法そのもの（メッシュの巨大な一体壁と貧弱なカメラの遠景）を見直す。追加課金/Workなし。メイン・公式・PR・本番・物理原本は厳重保護。
