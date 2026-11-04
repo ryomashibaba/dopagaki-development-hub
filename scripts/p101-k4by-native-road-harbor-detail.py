@@ -127,47 +127,65 @@ coll=bpy.data.collections.new('K4BY | one occupied harbor hall | DCC visual only
 sc.collection.children.link(coll)
 added=[]
 
-# A1 genuine screenshot rejected the persistent wedge/triangle along the
-# prior K4BW virtual road skin. That artifact was already visible in the
-# K4BX A3 baseline and became black under the authentic PBR shader.
-# Keep it editable but NOT rendered, and coat an exact GEOMETRY DUPLICATE
-# of the true original source Road5. This is an independent virtual
-# rendering mesh and has no collider/physics and no actual Road5 edits.
+# A2 real image revealed that copying the FULL source Road5 and tinting
+# upward faces makes the off-road shoulder uniformly dark. REJECT that
+# method entirely: no full source copy in the new render.
+# The older sparse 5m road skin ALSO creates a visual wedge from z-error.
+# Keep the photo material + original sparse skin editable but render OFF.
 skin.hide_render=True
 parent_road=source[0]
-coating=parent_road.copy()
-coating.data=parent_road.data.copy()
-coating.name='K4BY | genuine Road5 topology photo pavement proxy | NO GAME COLLIDER'
+road_inv=parent_road.matrix_world.inverted()
+ray_local=(road_inv.to_3x3()@Vector((0,0,-1))).normalized()
+def true_surface(d,s):
+ world_start=C+F*d+S*s+Vector((0,0,650))
+ origin=road_inv@world_start
+ hit,loc,normal_hit,poly_index=parent_road.ray_cast(origin,ray_local,distance=1900)
+ assert hit,('NO_ORIGINAL_TRUE_ROAD5_TOP_AT',d,s)
+ return parent_road.matrix_world@loc
+
+# Densely tessellate ONLY the natural driving ribbon, sampling the
+# genuine actual source Road5 for every vertex rather than reinterpolating
+# from the old 5m x 3m skin. All 3D points are z +0.025m above EXACT
+# source; the physical Road5 is never written.
+ds=list(range(14,167,1))
+ss=[-10.0+i*.8 for i in range(26)]
+vertices=[]
+for d in ds:
+ for s in ss:
+  p=true_surface(d,s)
+  vertices.append(p+Vector((0,0,.028)))
+faces=[]
+ns=len(ss)
+for i in range(len(ds)-1):
+ for j in range(ns-1):
+  k=i*ns+j
+  faces.append((k,k+ns,k+ns+1,k+1))
+surface=bpy.data.meshes.new('K4BY | genuine source-raycast dense photo pavement research')
+surface.from_pydata([tuple(p) for p in vertices],[],faces)
+surface.update()
+coating=bpy.data.objects.new('K4BY | actual source raycast 1m road surface | NO GAME COLLIDER',surface)
 coll.objects.link(coating)
-coating.matrix_world=parent_road.matrix_world.copy()
-coating.matrix_world.translation.z+=.027
-coating.hide_render=False
-coating.hide_viewport=False
 coating['NOT_GAME_COLLIDER']=True
 coating['RESEARCH_DCC_ONLY']=True
-coating['AUTHENTIC_SOURCE_ROAD5_GEOMETRY_SHA256']=ROAD_SHA
-assert fingerprint(coating)==ROAD_SHA
-# Preserve SOURCE geometry and use its real material on vertical faces,
-# photo asphalt ONLY on up-facing actual original pavement polygons.
-old_source_material=parent_road.data.materials[0] if parent_road.data.materials else None
-coating.data.materials.clear()
-coating.data.materials.append(realmat)
-coating.data.materials.append(old_source_material if old_source_material else realmat)
-upfaces=0
-for poly in coating.data.polygons:
- world_normal=coating.matrix_world.to_3x3()@poly.normal
- poly.material_index=0 if world_normal.z>.50 else 1
- if poly.material_index==0:upfaces+=1
-assert upfaces>30,('no authentic upward asphalt road faces',upfaces)
-cuv=coating.data.uv_layers.get('K4BY | source road full-width PBR UV')
-if not cuv:cuv=coating.data.uv_layers.new(name='K4BY | source road full-width PBR UV')
-for poly in coating.data.polygons:
+coating['ACTUAL_SOURCE_SHA256']=ROAD_SHA
+coating['TRUE_SOURCE_RAYCAST_VERTEX_SPACING_M']=1.0
+surface.materials.append(realmat)
+cuv=surface.uv_layers.new(name='K4BY | source raycast full lane photo PBR UV')
+for poly in surface.polygons:
  for li in poly.loop_indices:
-  p=coating.matrix_world@coating.data.vertices[coating.data.loops[li].vertex_index].co
-  off=p-C
-  cuv.data[li].uv=(float(off.dot(S))/2.0,float(off.dot(F))/2.0)
+  v=surface.vertices[surface.loops[li].vertex_index].co
+  p=coating.matrix_world@v
+  r=p-C
+  cuv.data[li].uv=(float(r.dot(S))/2.0,float(r.dot(F))/2.0)
 uv.uv_map=cuv.name
 normal.uv_map=cuv.name
+# This verifies the actual final vertex XY lies at exactly the source
+# raycast point, with the deliberate 2.8cm cosmetic surface separation.
+for i in (0,200,len(vertices)-1):
+ p=vertices[i]
+ d=ds[i//ns];s=ss[i%ns]
+ target=true_surface(d,s)
+ assert (p-target).length>.025 and (p-target).length<.031
 added.append(coating)
 def material(name,color,rough=.79,metal=0):
  m=bpy.data.materials.new('K4BY | '+name);m.diffuse_color=(*color,1)
@@ -315,9 +333,11 @@ audit={'schema':'dopagaki.K4BY.true-PBR-road-rebuilt-harbor-one-native-frame/1',
  'sourceB48Roads':7,'sourceB51Movers':28,'sourcePhysicsHz':240,'sourceBallRadiusM':.65,
  'originalResearchRoadSkinMaterial':original_skin_mat,
  'a1WedgeResearchSkinKeptButRenderHidden':True,
- 'newTrueSourceRoad5RenderingDuplicateNoCollider':True,
- 'renderProxyRealRoad5ExactVertexFacesSHA256':fingerprint(coating),
- 'renderProxyOriginalUpwardSurfacePolygons':upfaces,
+ 'a2FullRoad5PhotoProxyRejectedAfterTrueImage':True,
+ 'a3DenseSourceRaycastPhotoRibbonNoncolliding':True,
+ 'a3DensePavementSampleCount':len(vertices),
+ 'a3DensePavementQuads':len(faces),
+ 'a3SourceVerifiedSurfaceSeparationM':.028,
  'originalGameRoad5MaterialAndGeometryUnmodified':True,'newGameColliders':0,
  'originalSourceGameEdited':False,'researchOnlyNotWebGL':True,
  'officialPolyHavenLicense':'CC0','officialAsset':'asphalt_track',
