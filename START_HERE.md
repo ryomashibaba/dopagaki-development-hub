@@ -1,3 +1,14 @@
+# 【2026-11-05 K4CB A1実Blender初回FAIL → Blender 63-byte ID切詰め原因を実親.blendで特定・研究枝で修正】
+
+**現在の隔離研究ブランチ** `research/k4cb-maritime-exchange-true-chase-20261105`。K4CA A2から3コミット進んで真正港湾Exchange作者研究コード・Blender EEVEE Actionsを実装し、さらにK4CB A1初回の失敗を原因に応じて修正した。詳細は[**K4CB A1制作・厳密原本保護・結果未確認**](docs/R19_A6P4_R2F5K4CB_SOURCE_LOCKED_MARITIME_EXCHANGE_A1_JA.md)。
+
+- 初回真正[Actions #41857056044](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41857056044)は**FAILURE**。親A2 Artifact/本物のSHA、元Game保護、K4BZ/K4CAの回帰テストはPASS。Blender 4.0.2で親.blendを直接再読込した直後、スクリプトの `len(orig_trees)==11` で停止。**新しいK4CBレンダー／原本／成功画像は生成されず**、ART判定不可。
+- GitHubのA2 Artifact #13334366579 の真.blendを独立取得し、ZIP CRC PASS。Blenderファイルのオブジェクト名をバイナリで点検するとK4BS 8／K4BV 1／K4CA 2を実確認。**K4CAの新規2件は長いBlender Object IDが63バイトへ切り詰められ、元の長いprefix指定から漏れていた**。原本の樹木が2本欠落したのではない。
+- [修正コミット `78e72df6ce08`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/78e72df6ce08c13448e761ae9335b2be196fe331)：K4CA検索prefixを実際の保存名に合わせ、**8+1+2別個数・2本のCC0 collection instance/vendor/非Collider・11名称一意・全姿勢不変**をASSERT。原本保護の緩和なし。workflowはscript pushで再試験する仕様。**修正後の実Blender完了はこの記載時点で未確認**。新規A1のTECH PASS/ART PASSを宣言しない。
+- 保護：元Game blob `af076d67492a677d2235e4730aef8cdf4808e106`、Road5形状SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、6Camera＋CHASE、元9樹＋K4CA 2樹、K4BZ黒筋オーバーレイ非描画、元物理・Collider、main／公式P101／Draft PR #46／本番を保護。**正式ART採用0／Slope2 DNA 0m、ART REJECT、HUMAN/FPS/SAT/CCD/RELEASE/MERGE HOLD**。Work/Computer Useは個別事前承認。追加有料API0円。次工程は同CHASE真正レンダーと人間の全画面ART判定であり、大量の箱やRoadオーバーレイ増殖ではない。
+
+---
+
 # 【2026-11-04 K4CA A1/A2実制作・真正画像・QA完了 → 次K4CB】
 
 **現行研究ブランチ** research/k4ca-authentic-coastal-terrain-photo-canopy-one-frame-20261104。[**K4CA A1→A2の真のBlender SHA・比較画像・ART REJECT・軽量再発防止**](docs/R19_A6P4_R2F5K4CA_A1_ART_REJECT_A2_HOLD_JA.md)を最初に読む。[制作時に固定した安全条件](docs/R19_A6P4_R2F5K4CA_SOURCE_LOCKED_REAL_COASTAL_ART_JA.md)、[前K4BZ黒筋の直接原因を真A/Bで確定](docs/R19_A6P4_R2F5K4BZ_TRUE_BLACK_WEDGE_PIXEL_CAUSE_DIAGNOSTIC_JA.md)も継承。以下の「最新」「未確認」は履歴。
