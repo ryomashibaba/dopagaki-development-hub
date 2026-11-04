@@ -1,3 +1,14 @@
+# 【2026-11-04 K4BT研究継承・Native木の投影診断／ART REJECT継続】
+
+**現行隔離研究枝** `research/k4bt-native-pine-camera-projection-gate-20261104`。最初に[**K4BT真正K4BS原本から実松のカメラ投影bbox・不変保護・次工程K4BUへの分岐**](docs/R19_A6P4_R2F5K4BT_NATIVE_PINE_CAMERA_PROJECTION_DIAGNOSIS_JA.md)、次に[**K4BS真正Native原本と元CHASE画像の美術REJECT**](docs/R19_A6P4_R2F5K4BS_PINE_PHOTO_VEGETATION_ART_JA.md)を読む。以下の「最新」は過去の履歴。
+
+- K4BS最終Actions #41795056558は**completed/SUCCESS**、本物のBlender/草/39.8万tri実松8本の技術PASS。ただし木の実画面可視性・巨大な空白・単調道路は**ART REJECT**。
+- K4BTでは**K4BS正本BLEND SHAをロックしたまま**、元同CHASE研究Cameraで8本の木のdepsgraph実ジオメトリ投影bbox/画面面積・画面内外を診断し、旧真正画像に輪郭枠のみを上書き。**新規重いレンダリング・有料API・ゲーム変更・原本変更なし**。投影BBoxは葉の実際の可視ピクセル/alpha/遮蔽の証明ではない。
+- [K4BT初回Actions #41799311517](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41799311517)は**この文書追記時点で結果未確認**。成功・失敗・計測結果を事実として再取得してから次へ進む。重いQA増殖をしない。
+- main、公式p101、Draft PR #46、本番、元B48 7道路/B51 28体/240Hz/球0.65m/6Camera/元Game Blob/Road5 fingerprintを完全保護。正式ART 0件、Slope2 DNA 0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。Work/Computer Use事前承認。
+
+---
+
 # 【2026-11-04 K4BS最終正本・K4BTへ継承】実CC0草+39.8万tri針葉樹Native TECH PASS／画像ART REJECT
 
 最終研究隔離枝`research/k4bs-photo-vegetation-art-direction-20261104`。まず[**K4BS真正Blender原本・全MD5/SHA・実同CHASE画像の美術REJECT・K4BTへの反省**](docs/R19_A6P4_R2F5K4BS_PINE_PHOTO_VEGETATION_ART_JA.md)を読む。以下の旧文書/見出し「最新」はすべて履歴。
