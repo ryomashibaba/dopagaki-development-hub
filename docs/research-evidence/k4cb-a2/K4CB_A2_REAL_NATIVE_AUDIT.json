@@ -1,0 +1,127 @@
+{
+  "schema": "dopagaki.k4cb-a2.source-protected-sculpted-terminal/1",
+  "parentK4CB_A1_exact_sha256": "ea0cadc1db9dde9b01faac17d1cddc7b81c4d6c011eae2ea3c8bf68e90ec5b5d",
+  "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCameraPosesUnchanged": true,
+  "originalCHASEUnchanged": true,
+  "originalElevenTreeTransformsUnchanged": true,
+  "originalLightsUnchanged": true,
+  "K4BZ_bad_duplicate_road_hidden": true,
+  "allOriginalObjectVisibilityUnchanged": true,
+  "originalRoofAndPiersUnmodified": true,
+  "sourceGameEdited": false,
+  "sourcePhysicsEdited": false,
+  "newGameColliders": 0,
+  "noExtraRoadSurfaceAdded": true,
+  "genuineDCCNewObjects": 11,
+  "roofActualCHASEProjectionBBox": [
+    0.6200624704360962,
+    0.5492852330207825,
+    0.8412795662879944,
+    0.6667338013648987
+  ],
+  "roofVisibleScreenAreaBoxNotArtScore": 0.02598163120104857,
+  "originalChase768x480": true,
+  "renderEngine": "BLENDER_EEVEE",
+  "materialClaims": "Author-created procedural materials only; not photogrammetry or PBR scan.",
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "HUMAN": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CB_A2_SCULPTED_FERRY_TERMINAL_EDITABLE_NATIVE_ART_HOLD.blend": {
+      "bytes": 272243520,
+      "sha256": "5f57d64654ff8df6b6ecd852699432cda50f1afc1af3723779170ccb4cbed5b1"
+    },
+    "K4CB_A2_TRUE_SAME_CHASE_SCULPTED_TERMINAL_NOT_GAME.png": {
+      "bytes": 480154,
+      "sha256": "dc633bc0a89a14cdd85b7de48c18c115bfad0a4c374eb6471196cd98cd8496d1"
+    }
+  },
+  "imageIndependentQA": {
+    "changedRightPortPixelsNotArtScore": 10277,
+    "originalWedgePairs": [
+      {
+        "dark": [
+          292,
+          300
+        ],
+        "normal": [
+          317,
+          300
+        ],
+        "before": 2.667,
+        "after": 2.667
+      },
+      {
+        "dark": [
+          280,
+          330
+        ],
+        "normal": [
+          310,
+          330
+        ],
+        "before": -0.333,
+        "after": -0.333
+      },
+      {
+        "dark": [
+          267,
+          360
+        ],
+        "normal": [
+          310,
+          360
+        ],
+        "before": 0.0,
+        "after": 0.0
+      },
+      {
+        "dark": [
+          250,
+          400
+        ],
+        "normal": [
+          295,
+          400
+        ],
+        "before": 2.333,
+        "after": 2.333
+      },
+      {
+        "dark": [
+          235,
+          440
+        ],
+        "normal": [
+          280,
+          440
+        ],
+        "before": -1.333,
+        "after": -1.333
+      },
+      {
+        "dark": [
+          225,
+          470
+        ],
+        "normal": [
+          270,
+          470
+        ],
+        "before": 0.333,
+        "after": 0.333
+      }
+    ],
+    "comparisonName": "K4CB_A2_VS_A1_TRUE_SAME_CHASE_SCULPTED_TERMINAL_ART_REVIEW_NOT_GAME.png",
+    "comparisonSHA256": "09d9ae06064dfe91e9a36e7ff738b9999bc0f6b9b7d9e5a60b57b5e38cb493ca",
+    "ART": "UNJUDGED_HOLD"
+  }
+}
