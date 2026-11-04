@@ -139,7 +139,7 @@ water=make("single coherent physical tidal water inlet",verts,faces,sea,"CONTINU
 # Hull cross-sections taper to a rounded bow; 6 vertical rings and 42
 # transverse slices form curved surfaces, not a stack of cuboid props.
 L=40;K=6
-boat_u=18.0;boat_t=-6.5
+boat_u=-7.0;boat_t=-14.5
 def hullpoint(i,k):
  x=2*i/L-1
  bow=max(0,(x-.69)/.31)
@@ -215,7 +215,7 @@ roof=make("single thick formed marine passenger roof",roofverts,rfaces,metal,
 # An open starboard boarding gate aligned to the source gangway.
 # Keep deck as a real continuous plane, never a game road collider.
 gangwaygate=cuboid("short side boarding access bridge",boat_u+2,boat_u+5,
-                   boat_t+3.55,boat_t+10.0,-.13,.09,deckmat,
+                   boat_t+3.55,boat_t+14.0,-.13,.09,deckmat,
                    "FERRY_GANGWAY_PHYSICAL_ACCESS")
 # Visibility check: the vessel and water must actually appear in CHASE
 # at scale, without covering the camera's protected racing focal center.
@@ -249,10 +249,19 @@ try:sc.eevee.taa_render_samples=8
 except AttributeError:pass
 blend=out/"K4CD_TRUE_MARITIME_HARBOR_FERRY_EDITABLE_NATIVE_ART_HOLD.blend"
 bpy.ops.wm.save_as_mainfile(filepath=str(blend))
+# Controlled authentic two-image Blender ablation: the water+quay alone
+# against the exact same camera with the *real ferry* enabled.  This catches
+# a ship that projects into the screen but is hidden behind existing buildings.
+control=out/"K4CD_WATER_ONLY_NO_FERRY_TRUE_CHASE_NOT_GAME.png"
+for ob in new:
+ if ob is not water:ob.hide_render=True
+sc.render.filepath=str(control)
+bpy.ops.render.render(write_still=True)
+for ob in new:ob.hide_render=False
 png=out/"K4CD_TRUE_SAME_CHASE_MARITIME_FERRY_NOT_GAME.png"
 sc.render.filepath=str(png)
 bpy.ops.render.render(write_still=True)
-assert blend.stat().st_size>230_000_000 and png.stat().st_size>30000
+assert blend.stat().st_size>230_000_000 and png.stat().st_size>30000 and control.stat().st_size>30000
 audit={
  "schema":"dopagaki.k4cd.native-maritime-ferry-and-tidal-inlet/1",
  "parentK4CC_exact_sha256":PARENT_SHA,
@@ -271,7 +280,7 @@ audit={
  "originalChase768x480":True,"renderEngine":"BLENDER_EEVEE",
  "ART":"UNJUDGED_HOLD","formalARTAccepted":0,"formalSlope2DNAMetres":0,
  "SAT":"HOLD","CCD":"HOLD","FPS":"HOLD","HUMAN":"HOLD","RELEASE":"HOLD","MERGE":"HOLD",
- "files":{f.name:{"bytes":f.stat().st_size,"sha256":sha(f)} for f in (blend,png)}
+ "files":{f.name:{"bytes":f.stat().st_size,"sha256":sha(f)} for f in (blend,png,control)}
 }
 (out/"K4CD_REAL_NATIVE_AUDIT.json").write_text(json.dumps(audit,ensure_ascii=False,indent=2)+"\n")
 print("K4CD_REAL_MARITIME_FERRY_BLENDER_RENDER_COMPLETE_ART_HOLD",json.dumps(
