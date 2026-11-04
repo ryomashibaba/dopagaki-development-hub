@@ -18,9 +18,9 @@
     "K4CB A3 | deep boat service hall eastern sidewall",
     "K4CB A3 | single continuous monumental head beam",
     "K4CB A3 | monolithic entrance shoulder -1",
-    "K4CB A3 | monolithic entrance shoulder 1",
-    "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native "
+    "K4CB A3 | monolithic entrance shoulder 1"
   ],
+  "sourceTerrainRenderedBehindRaisedSculpt": true,
   "newResearchTerrainMesh": "K4CC | TRUE_EDITABLE_NATIVE_ROCK_RELIEF | NO_GAME_COLLIDER",
   "terrainSourceObject": "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ",
   "sourceTerrainMeshFingerprint": "ee3b752a4149758137ae1c1b7eb0f9dbabf39a17099b6bf2cbf2857a6146dd54",
@@ -29,8 +29,8 @@
   ],
   "subdividedRealTerrainOldVertexCount": 1564,
   "sculptedRealTerrainNewVertexCount": 13426,
-  "sculptedVertexCount": 5587,
-  "maximumTrueRockVerticalReliefMetres": 4.452351165590233,
+  "sculptedVertexCount": 5691,
+  "maximumTrueRockVerticalReliefMetres": 4.507351165590233,
   "raycastVisibleLeftGroundSamples": {
     "K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ": 9,
     "K4BP / EAST independent rock garden narrowed track edge": 1
@@ -52,15 +52,15 @@
   "files": {
     "K4CC_COASTAL_RELIEF_EDITABLE_DCC_ART_HOLD.blend": {
       "bytes": 273477600,
-      "sha256": "19e9169cf4568f973ac4f178e8bbcdf3d05fa88edd3a4c83da07d921c3563a08"
+      "sha256": "4fcd20db998696c270df95f624fed1a229ae2703322c180de1f3bfbc15abd6da"
     },
     "K4CC_TRUE_SAME_CHASE_COASTAL_RELIEF_NOT_GAME.png": {
-      "bytes": 486459,
-      "sha256": "efed6b1052536e6c596f23ca1c0f8e6692787a71fa53ac195c7e298483f5f861"
+      "bytes": 484486,
+      "sha256": "210ef2464b2f2d23f8de17a9a71dfc7f6ef764d6065be04b535e86df87acad71"
     }
   },
   "imageIndependentQA": {
-    "leftTerrainChangedPixelsNotArtScore": 40482,
+    "leftTerrainChangedPixelsNotArtScore": 41355,
     "rightPortChangedPixelsNotArtScore": 4437,
     "roadSamples": [
       [
@@ -159,7 +159,7 @@
       }
     ],
     "comparisonName": "K4CC_A3_VS_TRUE_COASTAL_RELIEF_ART_REVIEW_NOT_GAME.png",
-    "comparisonSHA256": "a4156f04586ead3831b4b38f8a42424a6b07bed643e4f71a842d3f38ac1d76b0",
+    "comparisonSHA256": "1ddcadbe94b861b1108653af73e474206ac70f9e9b965a54220f02afd1ad6676",
     "ART": "UNJUDGED_HOLD"
   }
 }
