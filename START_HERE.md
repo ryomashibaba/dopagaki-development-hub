@@ -1,3 +1,15 @@
+# 【2026-11-04 K4CA A1/A2実制作・真正画像・QA完了 → 次K4CB】
+
+**現行研究ブランチ** research/k4ca-authentic-coastal-terrain-photo-canopy-one-frame-20261104。[**K4CA A1→A2の真のBlender SHA・比較画像・ART REJECT・軽量再発防止**](docs/R19_A6P4_R2F5K4CA_A1_ART_REJECT_A2_HOLD_JA.md)を最初に読む。[制作時に固定した安全条件](docs/R19_A6P4_R2F5K4CA_SOURCE_LOCKED_REAL_COASTAL_ART_JA.md)、[前K4BZ黒筋の直接原因を真A/Bで確定](docs/R19_A6P4_R2F5K4BZ_TRUE_BLACK_WEDGE_PIXEL_CAUSE_DIAGNOSTIC_JA.md)も継承。以下の「最新」「未確認」は履歴。
+
+- A1 [真Blender CI #41847858655](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41847858655) **SUCCESS**。K4BZ R2で黒筋を修正済みの本物の編集可能.blend SHA256 162a7baaf7594b36a134457bee817bd7dcf0ef1b3e581419d6561efa92e45382 を直接入力。既存の本当に見える左K4BQ丘陵の材質だけ改修し、本当のCC0 island_tree_02写真樹木モデル2本を地面Raycastで植えた。黒筋再発なし、Road5/Cameraは保護。ただし**明るすぎる白い左斜面でART REJECT**。
+- A2 [真正Blender CI #41849818268](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41849818268) **SUCCESS**。同じ親Native・同じCamera・同じ2本の樹木で、左斜面を低輝度・暖色砂岩の研究マテリアルに再調整。真編集可能 A2.blend **271,620,488 B／SHA256 299f1972e3383a7fc0047409a0f58581da3884988749dff6842a80cdf49a3ffa**。真同CHASE 768×480 PNG SHA256 **e864aa1cdcc7707370c47e0542580cd6963f8e2fb9deada8cf0a9752dd8f84d6**。[K4BZからの本物の同カメラA2比較](docs/research-evidence/k4ca/K4CA_VS_K4BZ_TRUE_SAME_CHASE_COASTAL_SLOPE_PHOTO_CANOPY_ART_REVIEW_NOT_GAME.png) SHA256 a7843378e17a113e07d6d6a9b3ea4e090b55458fb49a4c1bd389db4b31b3b1f9。[真A2編集可能.blendと画像 Artifact #13334366579](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41849818268/artifacts/13334366579) ZIP実CRC全PASS。**A2の色は改善したが地形と港湾・道路の実在感は不十分、ART REJECT継続**。
+- [K4CA軽量Sourceと真画像回帰CI #41850910734](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41850910734) **SUCCESS**。元K4BZ黒筋6対の再発なし、元CHASE Road5・右港の8ピクセルは元画像と完全一致、左斜面だけ真画像が変わり、元ゲームと元Road5指紋を保護。Blender再実行なし。tests/p101-k4ca-protected-coastal-frame-regression.pyを永続化。
+- **正式ART採用0件／Slope2 DNA0m、SAT/CCD/HUMAN/FPS/RELEASE/MERGE HOLD**。新ゲームCollider0。main、公式p101-velocity-overdrive-native-trial、Open/Draft PR #46、本番2サイトは不変更。元Game Blob af076d67492a677d2235e4730aef8cdf4808e106、元B48 Road5全頂点面 SHA f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2、元B48 7 Road/B51 28 Mover/240Hz/球半径0.65m、6 Camera/CHASE/真木9本保持。追加課金0円、Work/Computer Use事前承認、ユーザーWindows操作0。
+- **次K4CB**：追加の円錐の木や重複Roadを量産しない。画像で確認した左岩肌の平板さ、右港の箱型建築・実材質不足、道路が画面を占める構図と速度感を根本改善する真の美術作者工程へ移行。単なる配色差やRGB差分をART評価と誤認せず、実Blender画面のART基準を守る。6Road展開/公式PR組込は禁止。
+
+---
+
 # 【2026-11-04 K4CA継続美術制作】真正CC0海岸樹2本と既存岩肌・元CHASEの1画面評価
 
 **現在の隔離研究枝** research/k4ca-authentic-coastal-terrain-photo-canopy-one-frame-20261104。先に[**K4CA写真由来海岸樹・既存斜面の本物のPBR地質・元ゲーム保護方針**](docs/R19_A6P4_R2F5K4CA_SOURCE_LOCKED_REAL_COASTAL_ART_JA.md)を読む。前K4BZ完成済み[引き継ぎ・原因同定／再発防止](docs/R19_A6P4_R2F5K4BZ_TRUE_BLACK_WEDGE_PIXEL_CAUSE_DIAGNOSTIC_JA.md)も固定し、過去の決定を変えない。以下の「最新」記述は履歴。
