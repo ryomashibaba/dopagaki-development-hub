@@ -161,7 +161,7 @@ def make_mat(name,colors,scale=.13,bump=.13,rough=.87,metallic=0):
  links.new(n2.outputs["Fac"],bn.inputs["Height"])
  links.new(bn.outputs["Normal"],surface.inputs["Normal"])
  return m
-slate=make_mat("bedrock dark schist natural large-scale variation",[(.09,(.032,.046,.055)),(.29,(.066,.077,.084)),(.53,(.11,.124,.127)),(.76,(.176,.173,.165)),(.94,(.244,.221,.188))],.14,.19)
+slate=make_mat("bedrock dark schist natural large-scale variation",[(.09,(.045,.055,.061)),(.29,(.076,.084,.090)),(.53,(.126,.129,.123)),(.76,(.195,.190,.166)),(.94,(.280,.258,.212))],.14,.19)
 seam=make_mat("stratified mineral fault faces",[(.1,(.053,.061,.059)),(.32,(.088,.099,.097)),(.60,(.158,.153,.131)),(.85,(.237,.211,.169))],.29,.18)
 weather=make_mat("erosion salt-bleached upper cap",[(.12,(.14,.146,.135)),(.36,(.19,.183,.155)),(.65,(.245,.227,.181)),(.89,(.296,.272,.216))],.17,.20)
 concrete=make_mat("cast marine civic breakwater",[(.11,(.105,.115,.12)),(.36,(.162,.166,.157)),(.64,(.223,.221,.206)),(.90,(.303,.293,.263))],.23,.11)
@@ -185,11 +185,17 @@ for v in rock.data.vertices:
  f=max(0.,min(1.,(lat-19.)/13.))
  # Three asymmetrical rock promontories and two through-cut catchments; the
  # near shoulder remains precisely where the parent placed it.
- ridge=(7.6*math.sin(d*.027+.72)+5.5*math.sin(d*.061-.8))
- gully=sum(h*math.exp(-((d-x)/w)**2) for x,w,h in ((24,14,9.1),(104,17,12.3),(173,13,7.8)))
- striation=1.7*math.sin(d*.21+lat*.27)
- uplift=f*(ridge-gully+striation+7.6*max(0.,(lat-36.)/22.))
- outward=f*2.6*math.sin(d*.043+.25)
+ ridge=(5.0*math.sin(d*.029+.72)+5.1*math.sin(d*.079-.8))
+ gully=sum(h*math.exp(-((d-x)/w)**2) for x,w,h in ((28,12,10.3),(101,12,13.1),(166,14,9.2)))
+ # An irregular stepped rock-face fold in actual 3D. The lower near-road
+ # contact stays graded; deep notches separate the three massive faces.
+ fault_ledge=(3.8*max(0.,math.sin(lat*.31+d*.055+.2))
+              +1.65*math.sin(d*.26-lat*.18))
+ striation=1.5*math.sin(d*.39+lat*.19)+.8*math.cos(d*.57-lat*.37)
+ distant_mass=10.2*max(0.,(lat-37.)/21.)
+ near_falloff=.53+.47*max(0.,min(1.,(d-12.)/58.))
+ uplift=f*(ridge-gully+fault_ledge+striation+distant_mass)*near_falloff
+ outward=f*(1.8*math.sin(d*.045+.25)+.85*math.cos(d*.12+lat*.06))
  q=p+S*(leftsign*outward)+Vector((0,0,uplift))
  v.co=rock_ref@q;amplitudes.append(abs(uplift))
 assert len(rock.data.vertices)==1600 and max(amplitudes)>13
@@ -247,12 +253,12 @@ def station(d,s,raisez):return P(d,rightsign*s,ground(d)+raisez)
 # Quay platform founded at the road height: 142m long industrial wharf.
 # Deliberately one connected dock platform instead of scores of toy buildings.
 for d in range(12,153,3):
- box3(station(d,46,-7.4),5.05,29,1.6,0)
+ box3(station(d,39.5,-7.4),5.05,25,1.6,0)
 # One high roof with four continuously curved wide bands; actual roof
 # has thickness and is physically held by lower concrete load-bearing piers.
 lo,hi=31,125
 dd=list(range(lo,hi+1,2))
-sec=[(37,12.0),(40,17.8),(46,20.8),(55,20.0),(65,15.4),(69,11.0)]
+sec=[(27.2,10.5),(31,15.0),(37,18.7),(45,19.3),(53,16.2),(58.5,11.2)]
 rnodes=[]
 for d in dd:
  row=[]
@@ -266,17 +272,27 @@ for k in range(len(rnodes)-1):
 # Metal span is supported by real terminals anchored into quay, with a
 # navigable-length, open public/industrial interior, not a wall of opaque cubes.
 for d in (33,58,84,109,124):
- for s,top in ((39,17.5),(65,15.1)):
-  box3(station(d,s,-7.0),2.5,2.3,top+7.0,1)
- box3(station(d,51,17.5),2.7,31,2.0,1)
+ for s,top in ((31,15.0),(53,16.2)):
+  box3(station(d,s,-7.0),2.6,2.7,top+7.0,1)
+ box3(station(d,42,16.7),2.7,26,2.0,1)
 # A longitudinal solid sea wall and two lower separate functional loading lips.
-for s in (29,73):
+for s in (25.5,60):
  for d in range(26,142,6):
   box3(station(d,s,-9.5),9.03,2.8,5.3,0)
 # Two large working machine halls for ferry handling: credible actual
 # enclosed rooms, off-road and under one open-span crane roof.
 for d,l,w,h in ((52,30,12,8),(104,34,14,10)):
- box3(station(d,61,-5),l,w,h,1)
+ box3(station(d,48,-5),l,w,h,1)
+# Long continuous articulated sea-facing retaining face: substantial
+# shore engineering tied into the dock, not a scattering of tiny props.
+outer=[(26,-10.0),(29,-8.7),(31,-7.5),(34,-7.0),(57,-7.2),(60,-10.3)]
+shoreline=[]
+for d in range(18,149,3):
+ shoreline.append([vtx(station(d,s,h)) for s,h in outer])
+for i in range(len(shoreline)-1):
+ for j in range(len(outer)-1):
+  face((shoreline[i][j],shoreline[i+1][j],
+        shoreline[i+1][j+1],shoreline[i][j+1]),0)
 assert len(V)>1000 and len(T)>800,("INSUFFICIENT_GENUINE_WORLDSCAPE_MASS",len(V),len(T))
 mesh=bpy.data.meshes.new("K4CN | real large structural port volume")
 mesh.from_pydata(V,[],T);mesh.update()
