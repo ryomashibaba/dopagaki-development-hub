@@ -5,6 +5,9 @@ on:
       - research/k4ct-two-native-b51-choice-consequence-20261105
     paths:
       - scripts/p101-k4ct-native-contact-retry.mjs
+      - scripts/p101-k4ct-dcc-source-export.mjs
+      - scripts/p101-k4ct-native-spillway-dcc.py
+      - scripts/p101-k4ct-install-authored-dcc.mjs
       - scripts/p101-k4ct-private-native-two-choice-game.mjs
       - .github/workflows/p101-k4ct-two-original-b51-playable-decision.yml
   workflow_dispatch:
@@ -13,7 +16,7 @@ permissions:
 jobs:
   native-b51-contact-and-retry:
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,6 +27,9 @@ jobs:
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           node --check scripts/p101-k4ct-private-native-two-choice-game.mjs
           node --check scripts/p101-k4ct-native-contact-retry.mjs
+          node --check scripts/p101-k4ct-dcc-source-export.mjs
+          node --check scripts/p101-k4ct-install-authored-dcc.mjs
+          python3 -m py_compile scripts/p101-k4ct-native-spillway-dcc.py
       - name: Reuse native K4CT original WebGL2 and 240Hz physics research build
         run: |
           npm install --no-save --no-package-lock --no-audit --no-fund
@@ -34,6 +40,29 @@ jobs:
           node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
           node scripts/p101-k4ct-private-native-two-choice-game.mjs
           node --check dist-private/k4ct/drive3d.mjs
+      - name: Export EXACT original B48/B51 physical site for Blender authorship
+        run: |
+          node scripts/p101-k4ct-dcc-source-export.mjs
+      - name: True Blender editable integrated tidal spillway / functional seaport
+        id: k4ct_dcc
+        timeout-minutes: 22
+        continue-on-error: true
+        run: |
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|g; s|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/apt-mirrors.txt
+          fi
+          sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 900s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender libegl1 libgl1-mesa-dri libopengl0 libgbm1
+          blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4ct-native-spillway-dcc.py
+      - name: Install only genuine Blender-emitted scene in PRIVATE original WebGL2 game
+        if: steps.k4ct_dcc.outcome == 'success'
+        run: |
+          node scripts/p101-k4ct-install-authored-dcc.mjs
+          node --check dist-private/k4ct/drive3d.mjs
+          node --check dist-private/k4ct/k4ct-dcc-world-geometry.mjs
       - name: Truly run native keyboard through contact and native retry without proxies
         continue-on-error: true
         run: |
@@ -79,6 +108,19 @@ jobs:
             'realContact13':j['contactEventsB51_13'],'realContact14':j['contactEventsB51_14'],
             'noAutomaticPlayFairnessCertification':True,'ART':'REJECT','HUMAN':'HOLD',
             'SAT':'HOLD','CCD':'HOLD','FPS':'HOLD','RELEASE':'HOLD','MERGE':'HOLD'}
+          (d/'K4CT_INDEPENDENT_ACTUAL_VERDICT.json').write_text(json.dumps(report,indent=2)+'\n')
+          dcc=d/'K4CT_BLENDER_TO_ORIGINAL_WEBGL2_INSTALL_AUDIT.json'
+          if dcc.exists():
+            x=json.loads(dcc.read_text())
+            assert x['createdViaRealBlender'] and x['extraCollisionSolids']==0
+            assert x['newWebGLNonCollidingTriangles']>2500
+            assert x['originalRoads']==7 and x['originalMovingB51']==28
+            assert (d/'K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend').stat().st_size>30000
+            report['genuineEditableDccIntegrated']=True
+            report['dccNonCollidingTriangles']=x['newWebGLNonCollidingTriangles']
+          else:
+            report['genuineEditableDccIntegrated']=False
+            report['dccVerdict']='HOLD_BLENDER_NOT_PROVEN'
           (d/'K4CT_INDEPENDENT_ACTUAL_VERDICT.json').write_text(json.dumps(report,indent=2)+'\n')
           print(json.dumps(report))
           PY

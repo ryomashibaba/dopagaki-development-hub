@@ -79,6 +79,7 @@ async function steerAfterChoice(page,key,holdUntilEnd=false){
   await page.waitForFunction(k=>document.getElementById('view').dataset.k4csLastInputUsed==='ORIGINAL_MANUAL_KEYBOARD'&&
     document.getElementById('view').dataset.k4csActualManualSteer===(k==='KeyA'?'-1':'1'),key,{timeout:15000});
   await awaitOutcome(page,64.05);
+  if(key==='KeyA')await page.screenshot({path:path.join(out,'K4CT_B51_LEFT_T64_05_NATIVE_GAME_RAW.png')});
   await page.keyboard.up(key);
   const ended=await page.locator('#view').getAttribute('data-r15s3d10-status');
   if(!['failed','finished'].includes(ended)){
@@ -119,11 +120,12 @@ try{
   page.on('pageerror',e=>errs.push(e.message));page.on('console',m=>{if(m.type()==='error')errs.push(m.text().slice(0,250))});
   try{
    await setup(page);await arriveAtChoice(page);
+   if(spec.label==='NEUTRAL')await page.screenshot({path:path.join(out,'K4CT_B51_APPROACH_T63_70_NATIVE_GAME_RAW.png')});
    await steerAfterChoice(page,spec.key,spec.hold);
    const primary=await collect(page,spec.label);
    primary.jsErrors=errs;
    report.trials.push(primary);
-   if(!report.retry&&primary.result.lastStatus==='failed'){
+   if(!report.retry&&spec.label==='LEFT_PULSE'&&primary.result.lastStatus==='failed'){
     await page.locator('#retryRun').click({timeout:10000});
     await page.waitForFunction(()=>Number(document.getElementById('view').dataset.r15s3d10NativeTicks)<120&&
      document.getElementById('view').dataset.r15s3d10OriginalGame==='REAL_WEBGL2_SOURCE_240HZ',undefined,{timeout:10000});
