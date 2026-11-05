@@ -1,3 +1,12 @@
+# 【K4CP／2026-11-05：全画面一体ART研究・元K4CO R2 TECH PASS/ART REJECT継承／K4CP自身は未判定】
+
+**現在の隔離研究ブランチ：`research/k4cp-stratified-coast-tidal-basin-20261105`。** まず[**K4CP本当の地質・海面・港湾を一体制作する工程正本**](docs/R19_A6P4_R2F5K4CP_STRATIFIED_COAST_TIDAL_BASIN_ART_JA.md)を読む。前工程はK4CO R2 [真正Actions #42012187718](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42012187718) TECH PASS／直接ART REJECT、[真CHASE比較画像](docs/research-evidence/k4co/K4CO_VS_K4CN_TRUE_SOURCE_CHASE_ART_REVIEW.png)を採用判断の基準とする。下段の「K4CO最新」は過去の結果の履歴。
+
+- **今回の実制作コード**：`scripts/p101-k4cp-native-stratified-coast-tidal-basin.py`。真正親K4CO R2 .blend SHA256 `9574e6f49865cf962280caa073f2c5583cf1a3ed1ae41a9efb2a4167d6ed3c91`を固定して、左の不自然な尖塔地質を1件の同トポロジー実岩盤メッシュに再著作、右の働く港を開いた一定海水位の実潮汐海岸メッシュで再構成。橋の地形固定支持部と既存港の親形状は保護する。**真正レンダー/CI/ART結果の確証が出るまではK4CP自身TECH/ARTともHOLD**。
+- **固定方針継承**：QUALITY-FIRST／ART-FIRST／DCC-FIRST／統合縦スライス、元Game/全B48 Road5/Camera/240Hz物理、元木11・ライト・親全Meshの不変。main・公式P101・Gold/原Slope・Draft PR#46・正式QA・本番2サイト・有料API／Work/Computer Useは個別事前承認。**正式ART採用0件・Slope2 DNA認定0m・HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。小物やCI量産を避け、実走行としての世界水準美術を最優先。
+
+---
+
 # 【2026-11-05 K4CO R2最終：真正Blender・独立Artifact全CRC/SHA TECH PASS／実画像直接ART REJECT】
 
 **この研究ブランチの最新確定結論はK4CO R2。** まず[**K4CO R2最終・R1失敗・真正Blender・直接ART・次工程・永久保護**](docs/R19_A6P4_R2F5K4CO_SOURCE_GROUNDED_VIADUCT_ART_JA.md)と[**K4CN R2（左）対K4CO R2（右）の実SOURCE CHASE比較**](docs/research-evidence/k4co/K4CO_VS_K4CN_TRUE_SOURCE_CHASE_ART_REVIEW.png)、[**監査JSON**](docs/research-evidence/k4co/K4CO_REAL_NATIVE_AUDIT.json)を最優先で確認。下段「K4CO実制作開始」「K4CN最新」「K4CM最新」は履歴であり現行判定を上書きしない。
