@@ -1,3 +1,36 @@
+# 【K4CL最終：本物の研究舗装A/B・真正Blender・独立ZIP/CRC/SHA TECH PASS／実画像ART REJECT】
+
+**2026-11-05 JST。これが確定した最終結果であり、下段の「queued」は古い時点の記録。正式ART採用0件、Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。**
+
+## 本物の3D造形、2つの実CHASE画像、独立検証完了
+
+- **[Actions #41985567281](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41985567281) completed/SUCCESS、全12工程成功**。元K4CK真編集可能Blender親 `K4CK_EDITABLE_TWO_TRUE_COHERENT_COASTAL_CORRIDOR_DIRECTIONS_ART_HOLD.blend` SHA256 `80eff12f48b2913d8f700d14f7d84ba86b10dd7ea622033f61fbe51859271330`を真正GitHub Artifactから取得・SHA固定。元ゲームGit blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5全頂点/面 SHA256 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元6 Camera/CHASE、元11木、全光源、全既存メッシュ座標の厳密照合PASS。元のゲーム物理・Colliderは未変更。新Game Collider追加0。
+- **真正Blender4.0.2 EEVEE**で、元K4BQ研究道路（非ゲームCollidable）の形状をSHA認証し、**同一形状の2つの独立した非衝突道路研究Mesh**へ新材質を直接適用。A＝ワールド進行方向と骨材粒子に沿う暗色グラファイト・アスファルトと路肩材、B＝風化した鉱物舗装と実際の継ぎ目。さらに元SOURCE道路地盤高を参照した2つの**編集可能な世界空間の真のポリゴン塗装**（A46面、B26面）を作成。合計研究新規Mesh4件。画面に描く線やBlenderコンポジットでの虚像ではない。A/BともK4CK Aの道路沿い海岸岩盤・実石造擁壁を背景に使用、画面中で同一SOURCE CHASE768×480の真のBlender画像をそれぞれ作成。
+- **真正Artifact [#13396116054](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41985567281/artifacts/13396116054)** ZIP **127,363,725 bytes**／SHA256 `395c828a1ec289569c7c077d4326502add473d76699eb7a4f3ad4d3061e5a280`。本会話でGitHubから再ダウンロード、ZIP全CRC/各.blend・PNGバイト・SHAをストリームで独立検証しすべて一致PASS。編集可能.blend `K4CL_TRUE_EDITABLE_DUAL_PHYSICAL_PAVEMENT_STUDIES_ART_HOLD.blend` **282,087,560B** SHA256 `2b5288333b3b633649aefd349fbdc79837775719a6175eba23d72dbdbada7da1`。真正A PNG `K4CL_A_TRUE_CHASE_GRAPHITE_RACING_ASPHALT_NOT_GAME.png` SHA256 `ef65ca08caded92e7ed0fcb824341438e7082ce7427e74f1ff2b5ac4cb693d1b`、真正B PNG `K4CL_B_TRUE_CHASE_MINERAL_HIGHWAY_ROAD_NOT_GAME.png` SHA256 `477fc7d06cdc2c2e386cc6b772f1646c07dba84d22e5fa6f4e98134199cc15db`。真正3画面比較PNG `K4CL_K4CK_TRUE_CHASE_ROAD_SURFACE_A_B_COMPARISON.png` SHA256 `03918af03a1547cb404bb8f4aedbc1eb057ac5c78d87af04149f7b2e9221bb32`。
+- **独立A/B画像QA**：旧K4CK Aを基準に本物の路面がA **33,097画素**、B **33,101画素**それぞれ変更（閾値12）。A vs B道路差 **36,489画素**。路面中央3点ではA/B両案とも前作から14階調を超える変化を確認。**元の左岩壁・右港の画像差はいずれも0画素**。今回は元道路を意図的に塗装しなおした研究のみを変えたので「道路中心ピクセル0」の旧限定QAを要求しない。代わりに元Road5完全形状SHAと元K4BQ研究道路メッシュ形状SHA `6e5241e0b519f40d62cffe43771accf98510c54b87519ca0c3d01199f2840f38`を研究A/Bの各コピーと完全一致で保証。真のRoad5を新しい舗装に置換・上書き・Game配布したわけではない。
+
+## 最終実画像を直接開いたART判断と反省
+
+[**K4CK A旧舗装（左）／K4CL暗色A（中央）／K4CL鉱物系B（右）の真正同CHASE画像**](research-evidence/k4cl/K4CL_K4CK_TRUE_CHASE_ROAD_SURFACE_A_B_COMPARISON.png)を実際に開き、A/Bの個別の本物のPNGも直接観察した。
+
+- **相対的にはA（暗色グラファイト・アスファルト）が大幅に有望**。旧路面の広い灰色一枚板の見た目から、より自然な路面骨材、実3D進行方向の模様、複数の本物の路面車線マークによって道路自体の視覚的な進行方向を強調できた。真のゲーム物理や速度が改善された証拠ではない。**正式ART PASSとは認定しない**。
+- B案は風化した鉱物系舗装という別デザインだが、画面の大面積で白灰色に見え、岸壁・背景と差がなく、疾走のための道路の奥行きとコントラストに劣る。今後の主方向としてはAを比較基準に残し、Bは研究資料としてだけ保存。
+- **両方ART REJECT**。道路外観が目に見えて改善しても、左側の切土が不自然に一定で自然な巨大地質の層とレース世界としての説得力が弱い。右港の銅屋根や荷役ゲートも用途に対する空間規模と港湾生活が玩具的。道路の直線的な視界が画像の大部分を占め、疾走感の実ゲームプレイ評価/HUMAN/FPSはない。高品質ゲーム完成の宣言や世界水準の正式ART採用を行わない。
+
+## 全失敗の因果関係と復旧
+
+1. [初回Actions #41983551452](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41983551452)は実Blender研究コピー/塗装の形状生成まで実行したがBポリゴン18枚＜作者検証26枚で安全停止。新.blendやPNGの保存前に失敗。
+2. [修正版Actions #41983863947](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41983863947)は**Blenderの編集可能.blend＋真正A/B PNG完成／ZIP全CRC・各SHA256独立PASS**だが、独立画像QAのA舗装中央点`(365,335)`で差14階調、`(410,380)`で差13階調と基準`>14`に満たずFAIL。Aの現実画像が旧灰色に近すぎるのが根因（Bの同3点は40階調以上）。技術SUCCESSとして水増ししてはならない。
+3. 原本Game/道路/Cameraに触れず、実3Dの**Aグラファイト舗装Materialのベース色・コントラストだけを大きく下げる作者修正**を加えた（commit `43826e0137b177a7c4827e22d8b9d14be338ff80`）。**独立QA画素数・閾値・原SOURCE認証は一切緩和していない**。その実修正版 [#41985567281](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41985567281) を成功まで確認・元Artifact独立再検算完了。
+
+## 次のK4CM工程へ一貫継承
+
+**K4CL Aの暗色道路を暫定研究美術基準に固定（正式採用ではない）。BおよびK4CK A/Bの元親研究を編集可能原本に保存。** 同じ道路色・車線ダッシュの小変更を延々繰り返さず、K4CMは元Road5/元6 Camera/実物理を凍結したまま、**大断面の自然地形と走る路面の交通土木・右の港湾空間の関係を、一つの世界の実スケールで作家制作**することを検討。実ゲームの高品質な走行を最重要とし、Blenderスクリーンショットをゲームの真正人間プレイ証拠と偽らない。ARTとHUMAN/FPS等のゲートは再検証までHOLD。不要な小QAループや小物増殖を避ける。
+
+**永久保護** main、公式P101、Draft PR#46、元SOURCE・Game、元Road5/全物理/Camera・凍結Gold、本番サイト。Work/Computer Useは個別事前承認、追加有料API原則0円、ユーザー操作0。
+
+---
+
 # 【K4CL試験履歴：初回失敗・実コード修正・最新再試験の状態】
 
 - 初回真正[Actions #41983551452](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41983551452)は**completed/FAILURE**。元Game/元Road5/親K4CK.blend全SHA認証、Blender4.0.2インストール、K4CL研究舗装2コピー・A実標示メッシュ・B実標示メッシュ作成までは実行。しかし作者コードがB案もA案と同じ最低26以上の塗装面数を要求し、当初Bは意図した疎なデザインで18面しかなかったため、`assert len(vv)>100 and len(ff)>25`で安全停止。**新.blend保存も画像の実描画にも到達しておらず、TECH PASSやART評価と誤記しないこと**。
