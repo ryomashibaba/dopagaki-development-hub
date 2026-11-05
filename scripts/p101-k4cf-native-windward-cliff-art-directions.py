@@ -80,55 +80,50 @@ def smoothstep(x):
 # Screen-position is a conservative ART composition envelope, NOT a rendered
 # billboard, fake geometry, camera pose change, or replacement source road.
 def weight(x,y):
- return (smoothstep((x-.017)/.055)*smoothstep((.34-x)/.075)*
-         smoothstep((y-.26)/.12)*smoothstep((.78-y)/.095))
+ return (smoothstep((x-.017)/.065)*smoothstep((.345-x)/.095)*
+         smoothstep((y-.235)/.17)*smoothstep((.84-y)/.16))
 def mineral_material(label,variant):
- m=bpy.data.materials.new("K4CF "+label+" | original authored real rock strata")
+ # The R1 SINE(Z) material produced regular zebra-like stripes that read as
+ # fabricated layered cakes, not real weathered rock. R2 uses irregular
+ # low-contrast mineral noise and true world-surface bump instead.
+ m=bpy.data.materials.new("K4CF R2 | "+label+" | natural mineral aggregate")
  m.use_nodes=True
  n=m.node_tree.nodes;n.clear();links=m.node_tree.links
  output=n.new("ShaderNodeOutputMaterial")
  bs=n.new("ShaderNodeBsdfPrincipled")
- bs.inputs["Roughness"].default_value=.84 if variant=="A" else .91
- bs.inputs["Metallic"].default_value=.0
+ bs.inputs["Roughness"].default_value=.88 if variant=="A" else .93
+ bs.inputs["Metallic"].default_value=0.
  links.new(bs.outputs["BSDF"],output.inputs["Surface"])
- geo=n.new("ShaderNodeNewGeometry")
- sep=n.new("ShaderNodeSeparateXYZ")
- links.new(geo.outputs["Position"],sep.inputs["Vector"])
+ pos=n.new("ShaderNodeNewGeometry")
  large=n.new("ShaderNodeTexNoise")
- large.inputs["Scale"].default_value=.16
- large.inputs["Detail"].default_value=5.
- large.inputs["Roughness"].default_value=.64
- links.new(geo.outputs["Position"],large.inputs["Vector"])
- multiply=n.new("ShaderNodeMath");multiply.operation="MULTIPLY"
- multiply.inputs[1].default_value=1.7 if variant=="A" else 2.7
- links.new(sep.outputs["Z"],multiply.inputs[0])
- noiseamount=n.new("ShaderNodeMath");noiseamount.operation="MULTIPLY"
- noiseamount.inputs[1].default_value=3.6 if variant=="A" else 4.0
- links.new(large.outputs["Fac"],noiseamount.inputs[0])
- add=n.new("ShaderNodeMath");add.operation="ADD"
- links.new(multiply.outputs[0],add.inputs[0]);links.new(noiseamount.outputs[0],add.inputs[1])
- strata=n.new("ShaderNodeMath");strata.operation="SINE";links.new(add.outputs[0],strata.inputs[0])
- half=n.new("ShaderNodeMath");half.operation="MULTIPLY"
- half.inputs[1].default_value=.5;links.new(strata.outputs[0],half.inputs[0])
- shift=n.new("ShaderNodeMath");shift.operation="ADD"
- shift.inputs[1].default_value=.5;links.new(half.outputs[0],shift.inputs[0])
+ large.inputs["Scale"].default_value=.24 if variant=="A" else .31
+ large.inputs["Detail"].default_value=4.
+ large.inputs["Roughness"].default_value=.69
+ links.new(pos.outputs["Position"],large.inputs["Vector"])
  ramp=n.new("ShaderNodeValToRGB")
  if variant=="A":
-  shades=[(.07,(.14,.15,.14)),(.24,(.28,.29,.26)),(.45,(.44,.40,.33)),(.62,(.49,.41,.30)),(.82,(.63,.58,.48))]
+  # Naturally worn coastal limestone, no high-contrast horizontal bands.
+  shades=[(.18,(.23,.25,.24)),(.33,(.32,.33,.31)),
+          (.48,(.40,.40,.36)),(.63,(.46,.45,.39)),
+          (.82,(.53,.51,.46))]
  else:
-  shades=[(.07,(.09,.13,.16)),(.24,(.16,.20,.21)),(.45,(.29,.29,.27)),(.62,(.41,.32,.25)),(.82,(.53,.43,.32))]
+  # Darker fracture slabs without the former striped-cone illusion.
+  shades=[(.18,(.16,.20,.21)),(.33,(.24,.28,.29)),
+          (.48,(.32,.34,.34)),(.63,(.40,.40,.38)),
+          (.82,(.47,.46,.43))]
  ramp.color_ramp.elements.remove(ramp.color_ramp.elements[1])
  for i,(loc,c) in enumerate(shades):
   el=ramp.color_ramp.elements[0] if i==0 else ramp.color_ramp.elements.new(loc)
   el.position=loc;el.color=(*c,1.)
- links.new(shift.outputs[0],ramp.inputs["Fac"])
+ links.new(large.outputs["Fac"],ramp.inputs["Fac"])
  links.new(ramp.outputs["Color"],bs.inputs["Base Color"])
- fine=n.new("ShaderNodeTexNoise");fine.inputs["Scale"].default_value=3.7
+ fine=n.new("ShaderNodeTexNoise")
+ fine.inputs["Scale"].default_value=2.8
  fine.inputs["Detail"].default_value=3.
- links.new(geo.outputs["Position"],fine.inputs["Vector"])
+ links.new(pos.outputs["Position"],fine.inputs["Vector"])
  bump=n.new("ShaderNodeBump")
- bump.inputs["Strength"].default_value=.22
- bump.inputs["Distance"].default_value=.1
+ bump.inputs["Strength"].default_value=.13 if variant=="A" else .20
+ bump.inputs["Distance"].default_value=.095
  links.new(fine.outputs["Fac"],bump.inputs["Height"])
  links.new(bump.outputs["Normal"],bs.inputs["Normal"])
  return m
@@ -162,11 +157,18 @@ for variant in ("A","B"):
   if w<.008:continue
   # Extensive macro layers are real spatial sculpting. Continuous masked
   # displacement makes one coherent cliff rather than multiple pasted rocks.
-  uplift=(11.0 if variant=="A" else 15.0) * math.exp(-((sx-.125)/.104)**2-((sy-.555)/.205)**2)
-  shoulder=(5.4 if variant=="A" else 7.8)*math.exp(-((sx-.248)/.070)**2-((sy-.52)/.18)**2)
-  cut=(3.5 if variant=="A" else 5.1)*math.exp(-((sx-.195)/.035)**2-((sy-.56)/.19)**2)
-  geology=(.7*math.sin(p.x*.21+p.y*.16)+.35*math.sin(p.x*.47-p.y*.20))
-  dz=w*max(-.35,uplift+shoulder-cut+geology)
+  # R1's pixel-space Gaussian lobes formed two perfect cones with a
+  # detached triangular foot. R2 is one gently descending, broad continuous
+  # limestone escarpment, with subdued world-space fault erosion.
+  # This is *actual world-Z deformation*, not image warping.
+  profile=1.-.40*smoothstep((sx-.07)/.27)
+  plateau=math.exp(-((sy-.52)/.32)**4)
+  high=(4.5 if variant=="A" else 5.6)*profile*plateau
+  # Two shallow fault gullies break symmetry without mountain-like peaks.
+  crevasse=(.82 if variant=="A" else 1.30)*math.exp(-((sx-.19)/.033)**2)*plateau
+  streamcut=(.42 if variant=="A" else .68)*math.exp(-((sx-.277)/.021)**2)*plateau
+  grain=(.30*math.sin(p.x*.13+p.y*.11)+.18*math.sin(p.x*.31-p.y*.17))
+  dz=w*max(.035,high-crevasse-streamcut+grain)
   if abs(dz)<.009:continue
   np=p+Vector((0.,0.,dz))
   sx2,sy2,sz2=project(np)
