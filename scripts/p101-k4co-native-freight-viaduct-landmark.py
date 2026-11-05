@@ -124,6 +124,16 @@ assert all(o.get("DCC_RESEARCH_ONLY") is True and o.get("NOT_GAME_COLLIDER") is 
 assert not cliff.hide_render and not portland.hide_render and not terminal.hide_render
 d_cross=94.
 z_road=ground(d_cross)
+# Read the genuinely existing Road5 across the complete crossing footprint,
+# not merely its center point. A local 3D deck must clear the highest sampled
+# native physical road triangle without editing or replacing that triangle.
+real_road_clearance_samples=[]
+for d_sample in (d_cross-4.6,d_cross,d_cross+4.6):
+ for s_sample in (-11.0,0.,11.0):
+  h=source_height(d_sample,s_sample)
+  if h is not None:real_road_clearance_samples.append(h)
+assert len(real_road_clearance_samples)>=6,("SOURCE_ROAD_CROSS_SECTION_UNVERIFIABLE",real_road_clearance_samples)
+highest_source_road=max(real_road_clearance_samples)
 def actual_anchor(o,side,target):
  pts=[o.matrix_world@v.co for v in o.data.vertices]
  assert len(pts)>700
@@ -136,7 +146,7 @@ right_anchor=actual_anchor(portland,rightsign,49.)
 # Deck sits *above* original 26.3m SOURCE road at every intersection.
 # The pre-existing on-road motion/physics is absolutely untouched.
 base_deck=max(z_road+28.,left_anchor.z-C.z+6.,right_anchor.z-C.z+12.)
-assert base_deck-z_road>=28.,("SOURCE_ROAD_CLEARANCE_UNSAFE",base_deck-z_road)
+assert base_deck-1.30-highest_source_road>20.,("SOURCE_ROAD_ENVELOPE_CLEARANCE_UNSAFE",base_deck-1.30-highest_source_road)
 start_s=-51.
 end_s=44.
 assert start_s<-13.15 and end_s>13.15 and end_s-start_s>90
@@ -288,7 +298,8 @@ audit={
  "allInheritedMeshGeometryAndTransformsUnchanged":True,
  "newNativeEditableResearchMeshes":1,
  "realSpanBetweenGroundedAbutmentsMetres":end_s-start_s,
- "realSourceRoadClearanceMetres":base_deck-z_road-1.3,
+ "realSourceRoadClearanceMetres":base_deck-highest_source_road-1.3,
+ "road5CrossingNativeSamplesCount":len(real_road_clearance_samples),
  "actualLeftSourceHeadlandAnchorMetres":list(left_anchor),
  "actualRightSourceQuayAnchorMetres":list(right_anchor),
  "trueViaductVertices":len(V),"trueViaductFaces":len(faces),
@@ -301,5 +312,5 @@ audit={
 }
 (out/"K4CO_REAL_NATIVE_AUDIT.json").write_text(json.dumps(audit,ensure_ascii=False,indent=2)+"\n")
 print("K4CO_ONE_SOURCE_GROUNDED_VIADUCT_NATIVE_BLENDER_ART_HOLD",
- json.dumps({"spanMetres":end_s-start_s,"clearanceMetres":base_deck-z_road-1.3,
+ json.dumps({"spanMetres":end_s-start_s,"clearanceMetres":base_deck-highest_source_road-1.3,
  "visibleNativeVertices":bridge_visible,"faces":len(faces),"originalRoad5SHA":ROAD}),flush=True)
