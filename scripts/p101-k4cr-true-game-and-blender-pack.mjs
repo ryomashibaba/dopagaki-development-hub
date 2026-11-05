@@ -11,7 +11,7 @@ import {sample} from '../private/reference_only/director/surface.js';
 const root=process.cwd(),dist=path.resolve('dist-private'),generated=path.join(dist,'generated');
 const sha=d=>crypto.createHash('sha256').update(JSON.stringify(d)).digest('hex');
 const old=fs.readFileSync('web/p101-w9c2-g4e7ci-integrated-streetscape.mjs');
-const blob=crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+old.length+'\\0'),old])).digest('hex');
+const blob=crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+old.length+'\0'),old])).digest('hex');
 assert.equal(blob,'af076d67492a677d2235e4730aef8cdf4808e106');
 const prior=path.join(dist,'k4cq','drive3d.mjs');
 assert.ok(fs.existsSync(prior),'K4CQ genuine private renderer MUST be built first');
