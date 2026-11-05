@@ -50,6 +50,17 @@ const moduleFile=path.join(target,'k4ct-dcc-world-geometry.mjs');
 replace("gl.clearColor(.019,.041,.083,1);","gl.clearColor(.115,.168,.192,1);");
 replace("vec3(.019,.041,.083),haze","vec3(.115,.168,.192),haze");
 
+// Remove the previous P97 neon decorative gates and automated flow-trail
+// visuals ONLY in this isolated K4CT DCC renderer. Preserve the real B51
+// meshes, native moving collision, original warning calculation and A/D input.
+// The new rock-anchored physical-station beacons supply world-scale context.
+replace('draw(hazardGateSolidMesh);',
+ "if(!k4ctDccMesh)draw(hazardGateSolidMesh);");
+replace('draw(hazardGateMesh,[0,0,0],[1,1,1],0,gl.LINES);',
+ "if(!k4ctDccMesh)draw(hazardGateMesh,[0,0,0],[1,1,1],0,gl.LINES);");
+replace('draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);',
+ "if(!k4ctDccMesh)draw(flowRoads,[0,0,0],[1,1,1],0,gl.LINES);");
+
 const raw=JSON.stringify(dcc.vertices);
 fs.writeFileSync(moduleFile,
  '/** REAL Blender-author output, from editable .blend. PRIVATE game artwork only, no colliders. */\n'+
