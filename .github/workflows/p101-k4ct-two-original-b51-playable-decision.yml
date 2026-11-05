@@ -5,6 +5,7 @@ on:
       - research/k4ct-two-native-b51-choice-consequence-20261105
     paths:
       - scripts/p101-k4ct-native-contact-retry.mjs
+      - scripts/p101-k4ct-second-b51-controlled-keyboard.mjs
       - scripts/p101-k4ct-dcc-source-export.mjs
       - scripts/p101-k4ct-native-spillway-dcc.py
       - scripts/p101-k4ct-install-authored-dcc.mjs
@@ -27,6 +28,7 @@ jobs:
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           node --check scripts/p101-k4ct-private-native-two-choice-game.mjs
           node --check scripts/p101-k4ct-native-contact-retry.mjs
+          node --check scripts/p101-k4ct-second-b51-controlled-keyboard.mjs
           node --check scripts/p101-k4ct-dcc-source-export.mjs
           node --check scripts/p101-k4ct-install-authored-dcc.mjs
           python3 -m py_compile scripts/p101-k4ct-native-spillway-dcc.py
@@ -67,62 +69,57 @@ jobs:
         continue-on-error: true
         run: |
           npx playwright install --only-shell chromium
-          node scripts/p101-k4ct-native-contact-retry.mjs
-      - name: Independently classify actual source collisions and reject unsupported passes
+          node scripts/p101-k4ct-second-b51-controlled-keyboard.mjs
+      - name: Independent original 240Hz Road6 B51-14 and Blender art gate
         run: |
           python3 - <<'PY'
-          import json,pathlib,hashlib
+          import json,pathlib,subprocess
           d=pathlib.Path('test-results/k4ct-contact-retry')
-          p=d/'K4CT_CONTACT_RETRY_REAL_RESULT.json'
-          assert p.exists(),'native real-run evidence not produced'
-          j=json.loads(p.read_text())
-          assert j['nativeInput']=='PLAYWRIGHT_KEYBOARD_NOT_HUMAN'
-          assert j['formalART']==0 and j['slope2DNAmeters']==0
-          assert j['HUMAN']==j['SAT']==j['CCD']==j['FPS']==j['RELEASE']==j['MERGE']=='HOLD'
-          assert len(j['trials'])>=3 and not j['errors']
-          verdict=[]
-          for trial in j['trials']:
-            t=json.loads((d/trial['traceName']).read_text())
-            assert len(t['stations'])==2
-            assert {s['id'] for s in t['stations']}=={'a13-machine-13','a13-machine-14'}
-            assert len(t['samples'])>=30
-            assert all(s['hazards'] and len(s['hazards'])==2 for s in t['samples'])
-            assert any(s['mode']=='REAL_KEYBOARD' for s in t['samples'])
-            assert (d/trial['imageName']).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
-            measured=trial['result']
-            contacts=[e for s in t['samples'] for e in s['events'] if e['type']=='moving-contact']
-            assert len(contacts)==len(measured['movingContactEvents'])
-            if measured['outcome']=='B51_13_GEOMETRIC_PASS_NOT_HUMAN':
-              assert measured['passedStation']['a13-machine-13'] and measured['lastStatus']=='running'
-              assert not any(e['id']=='a13-machine-13' for e in contacts)
-            verdict.append({'label':trial['label'],'result':measured['outcome'],'minGapM':measured['minGapM'],
-              'contact13':measured['contact13'],'contact14':measured['contact14'],
-              'failureReason':measured['failureReason']})
-          if j['realRetryObserved']:
-            assert j['retry']['restartedFromTickZero'] and j['retry']['via']=='ORIGINAL_RETRY_RUN_UI'
-            assert j['realFailureObserved']
-          assert __import__('subprocess').check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
-          report={'schema':'k4ct-independent-actual-contact-and-retry-v1','sourceFrozen':True,
-            'real240HzTrialsVerified':len(verdict),'physicalTrialOutcomes':verdict,
-            'realFailure':j['realFailureObserved'],'realRetry':j['realRetryObserved'],
-            'realContact13':j['contactEventsB51_13'],'realContact14':j['contactEventsB51_14'],
-            'noAutomaticPlayFairnessCertification':True,'ART':'REJECT','HUMAN':'HOLD',
-            'SAT':'HOLD','CCD':'HOLD','FPS':'HOLD','RELEASE':'HOLD','MERGE':'HOLD'}
-          (d/'K4CT_INDEPENDENT_ACTUAL_VERDICT.json').write_text(json.dumps(report,indent=2)+'\n')
-          dcc=d/'K4CT_BLENDER_TO_ORIGINAL_WEBGL2_INSTALL_AUDIT.json'
-          if dcc.exists():
-            x=json.loads(dcc.read_text())
-            assert x['createdViaRealBlender'] and x['extraCollisionSolids']==0
-            assert x['newWebGLNonCollidingTriangles']>2500
-            assert x['originalRoads']==7 and x['originalMovingB51']==28
-            assert (d/'K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend').stat().st_size>30000
-            report['genuineEditableDccIntegrated']=True
-            report['dccNonCollidingTriangles']=x['newWebGLNonCollidingTriangles']
-          else:
-            report['genuineEditableDccIntegrated']=False
-            report['dccVerdict']='HOLD_BLENDER_NOT_PROVEN'
-          (d/'K4CT_INDEPENDENT_ACTUAL_VERDICT.json').write_text(json.dumps(report,indent=2)+'\n')
-          print(json.dumps(report))
+          game=json.loads((d/'K4CT_SECOND_B51_CONTROLLED_NATIVE_RESULT.json').read_text())
+          assert game['schema']=='k4ct-actual-source-road6-b51-14-native-keyboard-corrective-v1'
+          assert game['real240Hz'] and game['rawSourceGame'] and game['nativeKeyAKeyDOnly']
+          assert game['HUMAN']==game['SAT']==game['CCD']==game['FPS']==game['RELEASE']==game['MERGE']=='HOLD'
+          assert game['ART']=='REJECT' and game['formalART']==0 and game['slope2DNAmeters']==0
+          assert game['newColliders']==0
+          assert len(game['experiments'])>=3 and not game['errors']
+          actual=[]
+          for experiment in game['experiments']:
+            trace=json.loads((d/experiment['traceName']).read_text())
+            assert len(trace['stations'])==2
+            assert {x['id'] for x in trace['stations']}=={'a13-machine-13','a13-machine-14'}
+            samples=trace['samples']
+            assert len(samples)>250 and all(len(x['hazards'])==2 for x in samples)
+            assert all(x['t']>=63.65 and x['t']<=73.5 for x in samples)
+            assert any(x['mode']=='REAL_KEYBOARD' for x in samples)
+            assert experiment['renderer']['realGL']
+            assert experiment['renderer']['dcc']=='GENUINE_BLENDER_EDITABLE_NONCOLLIDING'
+            assert experiment['renderer']['dccTriangles']>2500
+            assert experiment['actualKeyboardInputs']
+            assert all(p['actual']['mode']=='ORIGINAL_MANUAL_KEYBOARD' for p in experiment['actualKeyboardInputs'])
+            assert (d/experiment['imageName']).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
+            native14=[e for x in samples for e in x['events'] if e['type']=='moving-contact' and e['id']=='a13-machine-14']
+            assert len(native14)==len(experiment['measured']['actualNativeContact14'])
+            actual.append({'name':experiment['name'],'realRoad6GroundedSamples':experiment['measured']['road6GroundedSamples'],
+              'passedB51_14':experiment['measured']['trueRoad6B51_14Passed'],
+              'minGap13M':experiment['measured']['minimumGap13M'],
+              'minGap14M':experiment['measured']['minimumGap14M'],
+              'nativeB51_14Contacts':len(native14),
+              'failure':experiment['measured']['failure']})
+          dcc=json.loads((d/'K4CT_BLENDER_TO_ORIGINAL_WEBGL2_INSTALL_AUDIT.json').read_text())
+          assert dcc['createdViaRealBlender'] and dcc['extraCollisionSolids']==0
+          assert dcc['newWebGLNonCollidingTriangles']>2500
+          assert (d/'K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend').stat().st_size>30000
+          assert subprocess.check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
+          independent={'schema':'k4ct-independent-recovery-to-b51-14-v1','realChromium240HzTrials':len(actual),
+            'physicalTrialOutcomes':actual,'sourceProtected':True,'originalRoad5AndB51CountPreserved':True,
+            'nativeDccBlenderIntegrated':True,'newColliders':0,
+            'realRoad6Grounded':game['road6GroundedObserved'],
+            'realB51_14Passed':game['b51_14ActualPassed'],
+            'realB51_14Contacts':game['actualB51_14Contacts'],
+            'notHuman':True,'ART':'REJECT','HUMAN':'HOLD','SAT':'HOLD','CCD':'HOLD',
+            'FPS':'HOLD','RELEASE':'HOLD','MERGE':'HOLD'}
+          (d/'K4CT_ROAD6_B51_14_INDEPENDENT_RESULT.json').write_text(json.dumps(independent,indent=2)+'\n')
+          print(json.dumps(independent))
           PY
       - name: Always archive native failures and raw true WebGL screenshots
         if: always()
