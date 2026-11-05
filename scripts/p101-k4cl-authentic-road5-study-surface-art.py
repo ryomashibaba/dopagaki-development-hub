@@ -281,9 +281,9 @@ for d in range(5,181,11):
 # transverse panel joints that provide physical perspective. All geometry
 # belongs to the render-only study, not the SOURCE physics route.
 marks_B=[]
-for d in range(0,179,19):
+for d in range(0,179,15):
  marks_B.append((float(d),float(d+4.2),-.11,.11,0))
-for d in range(11,177,21):
+for d in range(11,177,12):
  marks_B.append((float(d),float(d+.11),-11.3,11.3,1))
 paintA=native_paint("A true-road station-based center dashes and shoulder reflectors",
                    marks_A,[paint_white,paint_amber])
