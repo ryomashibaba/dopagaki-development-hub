@@ -158,6 +158,10 @@ for side in (L,R):
        location(u+5.2*(1-top/H),side,top),.22,.28,0)
   beam(location(u+5.2*(1-bottom/H),side,bottom),
        location(u-5.2*(1-top/H),side,top),.22,.28,0)
+# Cross-span tension ties distribute real sea-wind loads between pylons.
+for level in (.38,.62):
+ for shift in (-1.7,1.7):
+  beam(location(u+shift,L,H*level),location(u+shift,R,H*level),.28,.32,0)
 # Overhead main hoisting truss, two real longitudinal rails in F direction.
 for foff in (-1.8,1.8):
  beam(location(u+foff,L,H),location(u+foff,R,H),1.18,2.10,1)
