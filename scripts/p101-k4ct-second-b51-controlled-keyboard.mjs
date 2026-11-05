@@ -145,7 +145,8 @@ try{
  pair.on('console',m=>{if(m.type()==='error')pairErrors.push(m.text().slice(0,250));});
  try{
   const realRenderer=await init(pair);
-  const failTick=await advance(pair,70.5,true);
+  // Original takeoverRun already resumes the real Runner; do not click Pause again.
+  const failTick=await advance(pair,70.5,false);
   const first=await pair.evaluate(()=>window.__k4ctNativeContactTrace);
   const failed=summarize(first);
   assert.equal(failTick.status,'failed','neutral must REALLY fail before replay');
@@ -171,7 +172,7 @@ try{
   await pair.locator('#takeoverRun').click();
   await pair.waitForFunction(()=>document.getElementById('view').dataset.k4csControlMode==='ORIGINAL_MANUAL_UNCERTIFIED',
    undefined,{timeout:15000});
-  let paused=true;
+  let paused=false;
   const genuine=[];
   for(const pulse of [{start:65.25,end:65.36,key:'KeyD'},{start:65.79,end:65.91,key:'KeyD'}]){
    const start=await advance(pair,pulse.start,paused);
