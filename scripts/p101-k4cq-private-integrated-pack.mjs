@@ -24,7 +24,7 @@ const doc=structuredClone(base);
 doc.stageForge={...doc.stageForge,productionPromoted:false,
  k4cqPrivate:{id:scene.id,sourceGameBlob:blob,isolatedCandidateRoad5SHA256:road5Hash,
  researchRoad5AlreadyAlteredByR15S3D9:true,immutableOriginalB48Road5NotClaimed:true,
- genuineRoad5Index:5,roadU:scene.sourceRoadU,nonCollidingSceneTriangles:scene.triangles,
+ genuineRoad5Index:5,roadU:scene.sourceRoadU,genuineRoad6U:scene.sourceRoad6U,nonCollidingSceneTriangles:scene.triangles,
  physicalRoads:7,movingB51:28,newColliders:0,artOfficiallyAdopted:0,officialSlope2Meters:0,
  HUMAN:'HOLD',SAT:'HOLD',CCD:'HOLD',FPS:'HOLD',RELEASE:'HOLD',MERGE:'HOLD'}};
 const id='K4CQ-ONE-ROAD5-TIDAL-APEX';
@@ -55,6 +55,11 @@ replace('function buildVisual(stage){\n const vertex=[],wire=[];',
  "if(authored.triangles!==info.nonCollidingSceneTriangles)throw Error('K4CQ scene triangle drift');\n"+
  "k4cqSceneMesh=mesh(authored.vertices);canvas.dataset.k4cqScene=authored.id;canvas.dataset.k4cqTriangles=String(authored.triangles);\n"+
  "}else canvas.dataset.k4cqScene='off';");
+// Historical D10 stage IDs are not on the public A13/B5 manual-audit allowlist.
+ // Do not start a misleading manual audit on PRIVATE scripted/uncertified scenes.
+ // This is a PRIVATE renderer-only exception, never a source game modification.
+replace("b5ManualAudit=['B5_HYPER_ARC_ISOLATED'",
+ "b5ManualAudit=!(r15s3d10OptIn&&doc.stageForge?.r15s3d10Private)&&['B5_HYPER_ARC_ISOLATED'");
 replace("if((g4e7aiOptIn&&g4e7aiBackdrop==='quiet')||(g4e7akOptIn&&g4e7akBackdrop==='quiet')){",
  "if(k4cqSceneMesh){draw(k4cqSceneMesh);}\nelse if((g4e7aiOptIn&&g4e7aiBackdrop==='quiet')||(g4e7akOptIn&&g4e7akBackdrop==='quiet')){");
 fs.writeFileSync(path.join(target,'drive3d.mjs'),js);
