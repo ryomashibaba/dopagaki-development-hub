@@ -10,7 +10,7 @@ const out=path.resolve('test-results/k4cq-integrated');fs.mkdirSync(out,{recursi
 await new Promise((resolve,reject)=>server.once('error',reject).listen(0,'127.0.0.1',resolve));
 const url='http://127.0.0.1:'+server.address().port;
 const cases=[
- {name:'BASELINE_R15S3D10',prefix:'r15s3d10',q:'r15s3d10',stage:'R15S3D10-TRUE-PINCH'},
+ {name:'BASELINE_R15S3D10',prefix:'k4cq',q:'k4cq',stage:'R15S3D10-TRUE-PINCH'},
  {name:'K4CQ_RESEARCH',prefix:'k4cq',q:'k4cq',stage:'K4CQ-ONE-ROAD5-TIDAL-APEX'}
 ];
 const report={schema:'k4cq-true-webgl2-original-game-native-240hz-one-sector-v1',
@@ -38,7 +38,7 @@ try{
    });
    assert.ok(gl.actualWebGL2,'real original WebGL2 context is unavailable');
    if(spec.name==='K4CQ_RESEARCH'){
-    assert.equal(gl.renderedSector,'K4CQ_ONE_ROAD5_TIDAL_APEX_R1_PRIVATE');
+    assert.equal(gl.renderedSector,'K4CQ_ONE_ROAD5_TO6_COASTAL_LANDING_R2_PRIVATE');
     assert.ok(gl.triangles>1000);
    }
    await page.locator('#cameraCompare').click();
@@ -70,6 +70,7 @@ try{
     assert.ok(bytes.length>30000,'not a meaningfully rendered original game screenshot');
     pictures.push({file,bytes:bytes.length,seconds:time,...v});
    }
+   assert.deepEqual(errors,[],spec.name+' browser page/console errors');
    report.sessions.push({...spec,gpu:gl,pictures,jsErrors:errors});
   }catch(e){report.failures.push({name:spec.name,reason:String(e.stack||e).slice(0,1100),jsErrors:errors});
    try{await page.screenshot({path:path.join(out,spec.name+'_ERROR.png')});}catch{}
