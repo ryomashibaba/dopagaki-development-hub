@@ -25,7 +25,7 @@ jobs:
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           python3 -m py_compile scripts/p101-k4co-native-freight-viaduct-landmark.py
           node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
-      - name: Download true editable K4CM native 3D, never substitute a proxy
+      - name: Download genuine K4CN R2 native parent without any proxy
         uses: actions/download-artifact@v4
         with:
           name: K4CN_TRUE_COASTAL_CANYON_WORKING_PORT_EDITABLE_ART_HOLD
@@ -82,7 +82,7 @@ jobs:
           blender -b -noaudio --factory-startup --python-expr "import bpy; print('K4CO_REAL_BLENDER_VERSION', bpy.app.version_string)"
           /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
           /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
-      - name: Actually render true protected K4CO 3D coastal landscape and port
+      - name: Render authentic protected K4CO source-grounded freight landmark
         run: |
           set -euo pipefail
           mkdir -p research/evidence/k4co/render
@@ -109,6 +109,7 @@ jobs:
           assert a['realSpanBetweenGroundedAbutmentsMetres']>=90
           assert a['realSourceRoadClearanceMetres']>20
           assert a['trueViaductVertices']>500 and a['trueViaductFaces']>400
+          assert a['realSourceVertexAnchoredButtressCount']==4
           assert a['ART']=='UNJUDGED_HOLD' and a['renderEngine']=='BLENDER_EEVEE'
           for name,meta in a['files'].items():
               raw=(d/name).read_bytes()
