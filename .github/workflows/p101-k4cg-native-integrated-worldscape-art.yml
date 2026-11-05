@@ -95,7 +95,9 @@ jobs:
                     'genuine3DNoBillboard'):
               assert a[k],k
           assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
-          assert a['genuineResearchEditableNewObjectCount']==3
+          assert a['genuineResearchEditableNewObjectCount']==5
+          assert a['trueVisibleOriginalBackingAlteredVerticesInClone']>50
+          assert a['nonDestructiveResearchBackdropAndHarborOnlyHidden']
           assert a['ART']=='UNJUDGED_HOLD' and a['renderEngine']=='BLENDER_EEVEE'
           assert a['realOffshoreWorldMeshVertices']>=1000
           assert a['realOceanExtensionWorldMeshVertices']>=2500
