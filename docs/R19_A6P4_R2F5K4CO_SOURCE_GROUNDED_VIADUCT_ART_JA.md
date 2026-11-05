@@ -1,3 +1,11 @@
+## 2026-11-05 CI実測補足：旧コードrunはCANCELLEDであり、K4CO最終成功ではない
+
+- [真正Actions #42008835265](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42008835265)：GitHub APIの実ジョブ結果で`completed/cancelled`。元Gameチェック、Python構文、K4CN R2親Artifact取得と実SHA認証は成功。Blenderインストールでcancelled、実制作・画像独立QA・研究Artifactはスキップ。**TECH PASS/ART PASSとして数えない**。
+- このrunの`workflowSourceCommit=425e5f30465fa96cb39502206b9374f7b8967bc8`。後続で真正Road5の9地点（3×3）標高ray検証、最小実道路クリアランス20m超を厳格化した別コミット`4ce63d5fa03e11d412f6d38cc70b78a4f48318c1`とその独立CI変更`bdf3efb394a2fd67b6c0a35a6cde0497ad76d8ce`が存在する。**旧runのキャンセルJSONを最新実装の検証結果に取り違えない**。
+- 最新コードに対して独立Blenderの完走runと真正PNG・別取得ZIP全CRC/SHA・直接ART判定が必要であり、記録がない間はHOLD。
+
+---
+
 ## 2026-11-05 K4CO接地実装と実行状態の自動保存（結果は未確認）
 
 - 研究高架橋の橋脚について、当初は元地形の座標から高さのみを引用し、平面上の端点位置が真の地形頂点に一致していなかった。この構造矛盾を修正した。**計4本の支持バットレスをK4CN R2親岩盤・岸壁の真正頂点に下端接続**し、接続の位置と道路外側をコード上で確認する。元研究親の全頂点・行列は不変。修正したのはK4CO専用追加Meshのみ。
