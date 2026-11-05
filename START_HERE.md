@@ -1,3 +1,13 @@
+# 【2026-11-05 K4CO実制作開始：元K4CN R2真正Blender固定、95m港湾連絡高架ランドマークを1件作者実装／真正Blender結果・ARTはHOLD】
+
+**現行の研究正本**：`research/k4co-source-locked-freight-viaduct-landmark-20261105`。最初に[**K4COの制作内容・真正試験・SOURCE保護・未確認状態**](docs/R19_A6P4_R2F5K4CO_SOURCE_GROUNDED_VIADUCT_ART_JA.md)を確認。前段K4CN R2 [Actions #42003004167](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42003004167)は **真正TECH PASS／直接ART REJECT** であり、再試験しない。下段K4CN R2・K4CM R3の「最新」は各当時の記録であって、本K4COの未完成結果を上書きしない。
+
+- **制作を実際にGitHubへ保存済み**：`scripts/p101-k4co-native-freight-viaduct-landmark.py` と `.github/workflows/p101-k4co-native-freight-viaduct-landmark-art.yml`。親の真正K4CN R2可編集Blender SHA256 `f66531d8596e67a19f4c6f2debcf2521efbae54d9fc5ac911f94963dd6a45156` に固定し、元Road5のSOURCE標高・本物の岩盤・港湾地盤を参照して、画面進行方向の大型95m港湾連絡高架を新3D研究Meshとして作者制作する。真Blender/ART画面・ZIP/SHAの**最終結果はまだ未確認**。形式上のTECH PASS・ART PASSは宣言しない。
+- **固定品質目標**：小物追加や左壁・右屋根の微調整の反復を止め、道路前景に意味のある遠景高架インフラで全画面構図と速度方向の読みやすさを改善する。元Game/Road5・Camera・240Hz物理・既存研究の全Mesh/Transform・木11・ライトに触らない。元ゲームCollider追加0。実WebGL2や人間プレイの証拠としない。
+- **永久保護**：main、公式P101、原Slope/Gold、Draft PR#46、本番2サイト、元Game blob `af076d67492a677d2235e4730aef8cdf4808e106`、Road5全頂点面SHA256 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`。正式ART採用0件・Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。Work/Computer Use・追加課金・採用・merge・公開は都度事前承認。ユーザー操作最小。
+
+---
+
 # 【2026-11-05 K4CN R2 最終：真正Blender TECH PASS／実画面直接ART REJECT・保存済み】
 
 **本研究ブランチの最新確定美術結果はK4CN R2、親K4CM R3は過去の比較基準**。次に再開する場合は、まず[**K4CN R1/R2の本物の3D制作・真正Blender CI・全CRC/SHA・直接ART REJECT記録**](docs/R19_A6P4_R2F5K4CN_COASTAL_CANYON_WORKING_PORT_ART_JA.md)と[**K4CN R2 対 K4CM 実CHASE全画面比較**](docs/research-evidence/k4cn/K4CN_VS_K4CM_TRUE_SOURCE_CHASE_WHOLEFRAME_ART_REVIEW.png)、[**独立監査JSON**](docs/research-evidence/k4cn/K4CN_REAL_NATIVE_AUDIT.json)を確認する。下段K4CMやK4CN初回「最新」「実行中」は履歴であり、この最終R2判定を上書きしない。
