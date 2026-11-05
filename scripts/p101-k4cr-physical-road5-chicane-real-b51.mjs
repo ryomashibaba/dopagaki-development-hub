@@ -1,7 +1,7 @@
 /** K4CR: PHYSICAL, not scenic, one-sector Road5 banked two-choice chicane.
  * Modifies only an isolated research JSON (already separate D9 16m Road5).
  * Restores original Road4/5/6 seams, original native Runner/240Hz/Camera.
- * D11 B_INNER_CROSSING keeps original 28 actual B51 machines, relocates SIX.
+ * D11 A_EDGE_READABLE keeps original 28 actual B51 machines, relocates SIX.\n * R1 INNER: actual a13-machine-12 ended native demo near 60.81s (FAIL); R2 keeps center corridor physically open.
  * No source/Gold/main/official P101 write and NO official approval.
  */
 import assert from 'node:assert/strict';
@@ -17,8 +17,8 @@ const diff=(a,b)=>a.map((v,i)=>v-b[i]);
 const norm=x=>{const n=vlen(x)||1;return x.map(v=>v/n)};
 const beforeHash='39d66c47cfce3718871c5450f8594dfd10a2a31b7bbb70dd5634d1cb4c73922f';
 const originalGameBlob='af076d67492a677d2235e4730aef8cdf4808e106';
-const anchors=[{road:5,u:.16,v:.66},{road:5,u:.43,v:.34},{road:5,u:.74,v:.66},
-  {road:6,u:.18,v:.34},{road:6,u:.47,v:.66},{road:6,u:.77,v:.34}];
+const anchors=[{road:5,u:.16,v:.93},{road:5,u:.43,v:.07},{road:5,u:.74,v:.93},
+  {road:6,u:.18,v:.07},{road:6,u:.47,v:.93},{road:6,u:.77,v:.07}];
 const rnd=n=>+n.toFixed(5);
 export function makeK4CRPhysical(source){
  assert.ok(source.stageForge?.r15s3d10Private?.world==='true-pinch');
@@ -65,7 +65,7 @@ export function makeK4CRPhysical(source){
  assert.ok(same(s.points.slice(-5),base.points.slice(-5)));
  assert.ok(same(doc.surfaces.slice(0,5),source.surfaces.slice(0,5)));
  assert.ok(same(doc.surfaces[6],source.surfaces[6]));
- const realB51=buildR15S3D11('true-pinch','B_INNER_CROSSING');
+ const realB51=buildR15S3D11('true-pinch','A_EDGE_READABLE');
  assert.ok(same(realB51.surfaces,source.surfaces),'D11 must inherit exactly original D9 macro');
  assert.ok(same(realB51.movingObstacles.slice(0,22),source.movingObstacles.slice(0,22)));
  doc.movingObstacles=structuredClone(realB51.movingObstacles);
@@ -76,7 +76,7 @@ export function makeK4CRPhysical(source){
     const s=doc.surfaces[5],p=sample(s,a.u,a.v),l=sample(s,a.u,0),r=sample(s,a.u,1);
     const axis=norm([r[0]-l[0],0,r[2]-l[2]]);
     o.position=[p[0],p[1]+1.9,p[2]];
-    if(o.type==='slider')o.motion={...o.motion,axis,amplitude:3.2};
+    if(o.type==='slider')o.motion={...o.motion,axis,amplitude:1.8};
   }
   assert.equal(o.id,old.id);assert.equal(o.type,old.type);
   assert.equal(o.period,old.period);assert.equal(o.phase,old.phase);
@@ -101,7 +101,7 @@ export function makeK4CRPhysical(source){
  assert.equal(JSON.stringify(source),immutable);
  const signature=sha(s.points),hazardSignature=sha(doc.movingObstacles);
  assert.notEqual(signature,beforeHash);
- doc.name=source.name+' K4CR genuine 2-lobe banked chicane / B51 INNER CROSSING PRIVATE HOLD';
+ doc.name=source.name+' K4CR genuine 2-lobe banked chicane / B51 EDGE READABLE PRIVATE HOLD';
  doc.stageForge={...doc.stageForge,productionPromoted:false,recordStageId:'K4CR-PHYSICAL-HOLD',
   k4crPrivate:{schema:'k4cr-real-road5-banked-s-bend-6-true-b51-v1',
    sourceOriginalGameBlob:originalGameBlob,sourceR15S3D9Road5SHA256:beforeHash,
