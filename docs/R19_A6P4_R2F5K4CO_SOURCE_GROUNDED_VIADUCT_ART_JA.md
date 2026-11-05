@@ -1,3 +1,17 @@
+# K4CO R2 最終確定 — 真正Blender TECH PASS／直接ART REJECT（2026-11-05 JST）
+
+**この節を本ファイルの最新判定とする。下段のR1未確認やCI実行待ちは過去の時点の記録。**
+
+- **最終真正[Actions #42012187718](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42012187718) はcompleted/SUCCESS。** 入力作者R2 commit [e956f46e7f280e63c7f4f45f085a99f66d65992f](https://github.com/ryomashibaba/dopagaki-development-hub/commit/e956f46e7f280e63c7f4f45f085a99f66d65992f)。K4CN R2可編集真正親SHA `f66531d8596e67a19f4c6f2debcf2521efbae54d9fc5ac911f94963dd6a45156` から元SOURCE Road5/元CHASE/元Game/240Hz物理・木11・全ライト・親Mesh形状と行列を不変に、道路の遠景実地形へ実95m港湾貨物連絡高架を新編集可能MeshとしてBlender4.0.2 EEVEEで制作した。橋デッキ、アーチ、ハンガー、地盤接続を実立体で生成。**新ゲームCollider 0、旧Game改変0**。
+- **真正Artifact [#13408380356](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42012187718/artifacts/13408380356)**をGitHubから独立再取得。ZIP **127,282,138 B**、SHA256 **`4b6eb3dfbad73b8256d0fac77d7b5cddf818d8f3f6d234566a15f5b79cbd9736`**、全ZIPメンバー読取CRC PASS。真編集可能`K4CO_TRUE_SOURCE_LOCKED_FREIGHT_VIADUCT_EDITABLE_ART_HOLD.blend` **283,834,548 B**、SHA256 `9574e6f49865cf962280caa073f2c5583cf1a3ed1ae41a9efb2a4167d6ed3c91`。真CHASE PNG **522,452 B**、SHA256 `d176d88ff1b0f3bc0323f8926bec6b0b0e6cca95ab311429d16330617b6e3b65`。独立照合でBlender/Pngの実サイズ・SHAが監査JSONと完全一致。
+- **[K4CO R2とK4CN R2の真CHASE同画面比較](research-evidence/k4co/K4CO_VS_K4CN_TRUE_SOURCE_CHASE_ART_REVIEW.png)**、[独立監査JSON](research-evidence/k4co/K4CO_REAL_NATIVE_AUDIT.json)、[CI確定実run JSON](research-evidence/k4co/K4CO_CI_LATEST.json)。真R2では道路遠景方向へ架橋位置をSOURCE沿い約60m移す実作者修正（道路source前方d=94→154m）により、上部構造が画面内へ収まり、橋による元道路中央の画像差は前R1の**1,482px→R2 24px**に低減。独立固定ゲート**120px未満**を閾値変更なしにPASS。遠景ランドマーク差**8,804px**。真正SOURCE横断面9地点測量、最小道路上クリアランス**26.4016m**、アーチ式貨物高架95m／940頂点740面／真地形接続橋脚4本。これらはいずれも**技術確認でありART評価点ではない**。
+- **元画像を直接開いて独立ART評価：K4CO R2もART REJECT。** R1の橋影が交通車線を覆い、上部アーチが上端で切れていた問題は解消した。R2は遠景に実在感ある連続高架が入ったが、高架1基だけでは、前景の広すぎる直線ロード、左の三角尖塔的な地質、右の港が独立の薄い模型/骨組みに見える欠陥を解消していない。進行方向の高速走行感・生活/港湾機能・海水面と街/地質の奥行き・劇的な走行体験の総合水準は未達。色替え・橋小物・繰り返しQAでART PASS扱い禁止。**本番実装・実WebGL2/Chromium・人間走行・FPS・SAT/CCD未実施**。
+- **旧R1失敗を保存**：[Actions #42011378602](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42011378602) は元SOURCE保護・真Blender出力・親認証まで成功、ただし画像独立ゲートで`ORIGINAL_GAME_ROAD5_VISUAL_CORRIDOR_CHANGED,1482`のためFAILURE。ART未判定。過去のCANCELLED runs #42008835265などもR2成功と混同しない。K4CO R2は元道路やQA閾値を改変するのではなく、真3D橋のSOURCE軸上の位置を変えて解消した。
+- **次工程方針（既存ART-FIRST/QUALITY-FIRSTの継承）**：K4COの幾何・ソース・画像ゲートを再試行せず、局所的な桁/手すり/小屋等の増殖を止める。最重要は本当に遊びたい世界水準の高速3Dゲーム。次は**ゲームの走行方向と地形/水面/港の用途が一体で読み取れる全画面の芸術的な走行空間**を1つの統合垂直スライスとして再設計する。元Road5/Camera固定のSOURCEが前景の幅を占める制約を認め、道幅を偽装/狭くするなどの基準すり替えをしない。作者が具体的な全画面構図を定義できなければ、追加DCC模型を作らず現状ART HOLDで停止。ARTと実ゲームの別々のゲートを通るまでは正式採用・公開しない。
+- **不変ロック**：main、公式P101、Draft PR #46、Gold/原作Slope、本番2サイト、元Game git blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5 SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、240Hz物理/6Camera/CHASE/木11・全ライト。**正式ART採用0件、Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。追加課金原則0円。Work/Computer Use・main/公式P101・公開・merge・正式採用は個別事前承認。ユーザー操作最小。
+
+---
+
 ## 2026-11-05 CI実測補足：旧コードrunはCANCELLEDであり、K4CO最終成功ではない
 
 - [真正Actions #42008835265](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42008835265)：GitHub APIの実ジョブ結果で`completed/cancelled`。元Gameチェック、Python構文、K4CN R2親Artifact取得と実SHA認証は成功。Blenderインストールでcancelled、実制作・画像独立QA・研究Artifactはスキップ。**TECH PASS/ART PASSとして数えない**。
