@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CI最終 — 本物の船舶荷役ゲートを港湾へ制作／真正Blender・独立ZIP/SHA TECH PASS、直接ART REJECT】
+
+**最新の研究正本ブランチ**：`research/k4ci-maritime-gateway-gantry-real-chase-20261105`。最初に[**K4CI真正作品・初回独立QA失敗と実構造修正・正式ART REJECT・固定安全・次の走行視界アート方針**](docs/R19_A6P4_R2F5K4CI_MARITIME_TIDEGATE_ART_JA.md)を読む。次に[**K4CH元とK4CI真正同CHASE比較画像**](docs/research-evidence/k4ci/K4CI_VS_K4CH_REAL_SOURCE_CHASE_ART_REVIEW_NOT_GAME.png)を直接確認し、[**K4CI監査JSON**](docs/research-evidence/k4ci/K4CI_REAL_NATIVE_AUDIT.json)とCIの実結果を照合する。下段のK4CH「最新」「現行」は歴史上の正本であり、今回の結果に優先しない。
+
+- **K4CI真正[Actions #41966161805](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41966161805) completed/SUCCESS、全ステップTECH PASS**。実K4CH編集可能親.blend SHA256 `74dadf53327e7fff0fd3b57a9b9ff369371e2c0fffa43241eb27bee1ca19cace`をGitHub Artifactから独立認証し、Blender4.0.2 EEVEEで港に作業用の**幅56m／高さ44mの1つの大規模荷役ガントリー・実構造Xブレース・荷役横断通路・実端末接続橋・ホイストを実3D作者制作（640頂点480面）**。新研究編集可能.blend／本物の元CHASE768×480画像／研究証拠GitHub保存まで成功。親オブジェクトの元mesh・行列・レンダリング表示・原GameとRoad5全頂点面を不変に保護。新Game Collider追加0。
+- **真GitHub Artifact [#13387547631](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41966161805/artifacts/13387547631)** ZIP125,772,766B SHA256 `dec5baf575b62c77b554bc1b769c082605781fa6c0fd41d17a9e3116451745e5`を本会話で別途ダウンロードし、**全ZIP CRCと.blend／PNG各サイズ・SHA256完全一致PASS**。真正編集可能.blend279,476,100B／SHA256 `f1ce87fff6c88841890b6fc2dd4840db4b35a86be75236d90c02613a26ac7bb4`、実CHASE PNG SHA256 `e25f24cfcfa05a1c4d33bfffe661d747994682f3d9b198523f72efb783bde56d`。元道路中心・左岩肌の画像変化**いずれも0px**。右港の実可視差分：上側9,927px、建築側3,317px（これは品質点数でなく可視TECH）。
+- **初回[Actions #41965535258](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41965535258)は独立QA FAILURE**。初回も本物Blender.blend／PNGは作成したが港右の実変化2,104px＜元基準2,500px。真画像で下部トラスが細く見えたため、操作通路・横断補強梁・荷役機械室を**研究Meshに物理的に接続して改善**。CIの画像/元Road5安全閾値は**一切緩めず**成功させた。途中の#41965424873/#41965499085はCANCELLEDでPASSではない。
+- **直接ART判定はREJECT**。大型荷役ゲートで港の高さと使用目的は以前より表現できたが、広すぎる単調な灰色Road5、左の丸い明色地形と走行視線のリズム不足、港とレース環境のつながり不足は継続。正式ART採用0件／Slope2 DNA認定0m、元WebGL2実走、人間プレイ、SAT/CCD/FPS/RELEASE/MERGEはHOLD。次工程はもうガントリーを増殖せず、**元道路に沿う実スケールの切土・風防・道路肩の連続空間と遠近ランドマーク**で「走るゲームの迫力」を作家制作し、実CHASEで必ずART審査する。
+- **永久保護**：元Game git blob `af076d67492a677d2235e4730aef8cdf4808e106`、Road5全頂点面SHA256 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元6 Camera/CHASE、木11・灯光、元Physics／Collider、原作Slope、main、公式P101 `p101-velocity-overdrive-native-trial`、Draft PR#46、凍結Gold、本番2サイト。Work/Computer Useは個別事前承認、追加有料API原則0円、ユーザー操作最小。
+
+---
+
 # 【2026-11-05 K4CH最終：真正Blenderの沿岸断面＋港大屋根の同時作者改修／SOURCE・DCC・PNG・CRC TECH PASS／直接ART REJECT】
 
 **現在の研究正本**：`research/k4ch-basalt-copper-harbor-art-20261105`。まず[**K4CH実完了・初回からの全安全停止根拠・独立Blender証拠・直接ART REJECT・次のレース体験の景観構図工程**](docs/R19_A6P4_R2F5K4CH_NATIVE_BASALT_COPPER_ART_JA.md)を読む。次に[**K4CG R2 vs K4CH元CHASE真正Blender比較**](docs/research-evidence/k4ch/K4CH_VS_K4CG_R2_TRUE_CHASE_FULL_HARBOR_ART_REVIEW_NOT_GAME.png)を直接開き、研究監査JSON `docs/research-evidence/k4ch/K4CH_REAL_NATIVE_AUDIT.json` を照合する。下段の「実行中」「未判定」は過去時点の記録。
