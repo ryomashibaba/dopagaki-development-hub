@@ -246,12 +246,12 @@ def box3(p,dx,dy,dz,mi=0):
 def station(d,s,raisez):return P(d,rightsign*s,ground(d)+raisez)
 # Quay platform founded at the road height: 142m long industrial wharf.
 # Deliberately one connected dock platform instead of scores of toy buildings.
-for d in range(12,153,5):
+for d in range(12,153,3):
  box3(station(d,46,-7.4),5.05,29,1.6,0)
 # One high roof with four continuously curved wide bands; actual roof
 # has thickness and is physically held by lower concrete load-bearing piers.
 lo,hi=31,125
-dd=list(range(lo,hi+1,3))
+dd=list(range(lo,hi+1,2))
 sec=[(37,12.0),(40,17.8),(46,20.8),(55,20.0),(65,15.4),(69,11.0)]
 rnodes=[]
 for d in dd:
@@ -271,7 +271,7 @@ for d in (33,58,84,109,124):
  box3(station(d,51,17.5),2.7,31,2.0,1)
 # A longitudinal solid sea wall and two lower separate functional loading lips.
 for s in (29,73):
- for d in range(26,142,9):
+ for d in range(26,142,6):
   box3(station(d,s,-9.5),9.03,2.8,5.3,0)
 # Two large working machine halls for ferry handling: credible actual
 # enclosed rooms, off-road and under one open-span crane roof.
