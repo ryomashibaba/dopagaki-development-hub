@@ -1,3 +1,14 @@
+# 【K4CJ R1実Blender TECH PASS・直接ART REJECT、R2の真正造形・検証待ち】
+
+- 初回[真正Actions #41967984673](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41967984673) は**completed/SUCCESS**。実K4CI編集可能原本`f1ce87fff6c88841890b6fc2dd4840db4b35a86be75236d90c02613a26ac7bb4`を認証し、元Road5のSOURCEメッシュを上向きレイで調べ、元CHASE投影から本当に画面左にある側（`+S`方向）を決定したうえで、198m×100縦断地点の真正3D切土と10区間の実風防を作者制作。編集可能Blender.blend・真正同CHASE画像・独立画素QA・研究Github証拠保存完了。
+- 初回真Artifact [#13388895436](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41967984673/artifacts/13388895436) は ZIP **125,908,912B**／SHA256 `7b806ab065d241caf01f424f9de7eca3caf187ffaa2aa961e6d298e6ff0f496c`。本会話でGitHubから別途実ZIPを再DL、**ZIP全CRC PASS／新.blend 279,856,868B SHA256 `a376a651c787751843c9a4391bed90f08d023cf314710c303808416133c264d8`／実PNG 509,201B SHA256 `bb63798e05e355c55977430903a33afda961a44e52280d987acd52d8885e7804` と監査JSON一致**。元道路中心と右港は各0画素変化、左は27,558画素変化。初回実メッシュ1,100頂点／1,980三角面、実風防392頂点／294面。オリジナルGame/Camera/Road5/木11・全ライト・研究親不変。
+- [**K4CJ R1とK4CI元の真正CHASE比較**](research-evidence/k4cj/K4CJ_VS_K4CI_TRUE_SOURCE_CHASE_ROAD_DEPTH_ART_REVIEW.png)を本会話内で**直接開いて評価**：画面左の地形に高さと遠近が追加されたが、特に手前の斜めの鋼材風防が浮き、岩壁の角面が白く荒く、源流の丸い旧岩との連続が弱い。車が走る時の自然な迫力として不足。**TECH PASSでもART REJECT**。正式ART採用0、Slope2 DNA0m。
+- 実画像の反省に基づく**R2の実コード修正**：暗い片岩の岩肌の低コントラストの面変化、切土の急峻さを緩和して元の地形と連続する断面に修正。手前で浮いて見える風防は元SOURCE前方向`d=33m`以降へ後退し、手前大梁を増殖しない。実K4CH研究可視岩壁2件を**原本とMeshを改変せず新DCC研究コピーとして再作者化**し、R2の表示だけ切替。元Camera・Road5・Game・物理、右港は一切変更しない。新研究編集可能Mesh計4件、元研究親を削除しない。
+- R2真正最新[Actions #41968702663](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41968702663)は本記録作成時点で**待機・結果未確定**。途中旧HEAD Run #41968665046は版が異なるため最新評価に使用禁止。最新Runのログ／DCC／全画素安全QA／ART画像を確認するまでTECHやART成功の主張は禁止。QA閾値の緩和は禁止。
+- 主方針：小物の大量追加、遠景だけの差分、技術CI達成自体を目的にしない。**ゲームの走行視線から世界水準の連続した道路脇の速度体験が得られるか**を評価。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
+---
+
 # K4CJ — Original Road5地理を使った連続切土と風防の真正3D作者制作
 
 ## 出発点と不変の優先順位（2026-11-05 JST）
