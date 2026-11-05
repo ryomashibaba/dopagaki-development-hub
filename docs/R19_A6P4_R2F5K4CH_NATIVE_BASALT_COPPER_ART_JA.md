@@ -1,3 +1,26 @@
+# 【K4CH最終確定：本物のBlender DCCと独立SHA/CRC TECH PASS／直接ART REJECT】
+
+**2026-11-05 JST／最新の確定記録。正式ART採用0件、Slope2 DNA正式認定0m。** 以下の古い「進行中」は歴史上の状態であり本記録の最終結果に優先しない。
+
+## 実装から真正アート完成画像までの根拠
+
+- K4CG R2実編集可能親 `K4CG_INTEGRATED_COASTAL_WORLD_GEOMETRY_EDITABLE_ART_HOLD.blend` SHA256 `5a2215677fd41c420bac3b44b78b65b0e42aa74b79399498a87a57b7b85946f1`をSHAで固定して研究専用アート生成。原Game git blob `af076d67492a677d2235e4730aef8cdf4808e106`、Road5全頂点・面SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、原6 Camera／CHASE、木11本、灯光、K4BZ hide_render不正道路の保護PASS。元ゲームCollider0増、元のゲーム物理・WebGL2は未編集。
+- 初回[Actions #41950843684](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41950843684)はFAILURE：Azure Ubuntu apt mirrorでBlender依存ファイル取得が約6分半かかりtimeout 124。次[#41951907166](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41951907166)はUbuntu公式archiveに切替成功したが、Blender64byteオブジェクト名短縮を考慮せず、長名の元研究メッシュ検索がFAIL。[#41952195139](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41952195139)は3D船港アート作者工程で研究可視メッシュの名前補正後、本物の`bpy_prop_collection`のスライスで失敗。コード型を修正し[#41952601548](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41952601548)は本物のBlender.blendと真PNGを生成したが、実画面右屋根の差分は2134画素、基準3500に満たず独立画像QA FAIL。つまり**それ以前の完走できない試行やQA失敗をTECH PASSとして扱わない**。
+- [#41953338664](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41953338664)もFAILURE。新しい実Blenderカメラレイ検査で本当にCHASEに映る青灰色大屋根が`K4CB A2 | 52m sculpted marine terminal roof actual volumetric s`（検査8点中5点に投影）と実測できたが、研究名の許可条件が`K4CB A3`等に限定されていたため安全停止。**元Gameを選び直してはいない**。許可対象を唯一の可視研究屋根`K4CB A2`に厳密化して実装を修正。
+- **最終[真正Actions #41957682964](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41957682964) completed/SUCCESS／全12ステップ成功**。元ゲームと親DCCのハッシュ検証→本物のBlender4.0.2→左沿岸の実4900頂点の節理付き岩地形変形・1539ポリゴンの実角面、右実カメラ可視銅色屋根858頂点の再作家造形、元の12支柱から生成した統一木質構造、港海面／沖合世界地形（研究Mesh計7件）→可編集.blend保存→原CHASE768×480実PNG→独立画像QA→研究GitHub証拠を保存、成功を確認。
+- **真Artifact [#13383802521](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41957682964/artifacts/13383802521)**、GitHub元ZIP **125,763,699 bytes**／SHA256 `7a120c628df92f35096186bb5bf056c66f23f22406dd7ccf1a001b01dc89de52`。本会話で実際に別途ダウンロードして**ZIP全CRC PASS、.blendとPNG全個別bytes/SHA一致**。真編集可能原本 `K4CH_BASALT_AND_COPPER_HARBOR_FULL_FRAME_EDITABLE_ART_HOLD.blend` **279,347,364B／SHA256 `74dadf53327e7fff0fd3b57a9b9ff369371e2c0fffa43241eb27bee1ca19cace`**。真CHASE画像 `K4CH_TRUE_CHASE_BASALT_COPPER_HARBOR_NOT_GAME.png` SHA256 `23351704fd5d13e1d537fa0a311dce4fa120dda0ffd3fe3515320075fd165b69`。比較画像 `K4CH_VS_K4CG_R2_TRUE_CHASE_FULL_HARBOR_ART_REVIEW_NOT_GAME.png` SHA256 `e999628138edcf87615c59e8b25aa90cb3fedd20dd713ee3214c8109619efbd6`。
+- 真CHASE画像を実際に開いて画面全体を観察。元K4CGと比べて**左岩壁40181画素・右大屋根6863画素**の実視認変化、研究港下部85画素、原Game道路中心0画素。K4BZ黒筋6組、元Road5独立5点、元カメラ全姿勢・木11・灯光・既存メッシュ形状/行列は不変。数値はTECHの可視証拠でART点数ではない。
+
+## 画像の独立ART判断と大切な反省
+
+[**真正K4CG R2（左）とK4CH（右）の同CHASE画像を直接開いて目視比較**](research-evidence/k4ch/K4CH_VS_K4CG_R2_TRUE_CHASE_FULL_HARBOR_ART_REVIEW_NOT_GAME.png)。
+
+- 以前の青銀色の大屋根を経年銅系の明るい屋根へ**実画面で変更できた**。これは見えない研究屋根を作者化した失敗を解消した事実。左岩肌も灰青系へ寄り、形状が前より読み取れるようになった。しかし**左側はいまだ丸く均質な、灰色の砂丘・粘土に近い表面**で、本物の断崖に必要な目立つ割れ目・層の垂直断面・荒れた起伏・道路脇との構造関係が弱い。銅屋根は可視化したがターミナル全体の用途を絵として強く伝えず、船の存在も弱い。
+- 最大問題は**灰色の広いRoad5が画像の中心・前景を過剰に占め、疾走している体験が見えないこと**。その原ROADを動かして見栄えの良い別ゲームへ変えてはならない。Road5の形状・Physics・Cameraを固定したまま、**走行視線に沿う実ランドマーク・路肩断面・連続する風景の奥行きやリズム・主役の港施設と海との地理的関係**を自然な3D空間で緊密に設計する必要がある。ポリゴン・画素差・CI数の増大だけでは世界水準ARTに届かない。**ART REJECTを正式確定**する。
+- 次に同じ岩色・屋根色を少し変える微修正を大量ループしない。K4CI以降は**元CHASEの構図を基点として、レースで流れていく道路側空間と右港の一貫した大規模空間演出を最優先**し、真編集可能DCC＋本人評価可能な実CHASE画像にてQUALITYを判断する。現時点でHUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。真Blender映像をWebGL2正式ゲームや人間プレイ証拠と偽ってはならない。
+
+---
+
 # 【K4CH実装済み・真正Blender環境修復後の試験中／成功を先取りしない】
 
 - 新隔離枝 `research/k4ch-basalt-copper-harbor-art-20261105`。左海岸実3D地形・右銅屋根実メッシュ・既存柱から組み上げた単一支柱構造・港海面・沖合岬の、**一つの統合作家モデル**を実装・GitHub研究枝に保存。元Game/物理/Road5/6Camera/CHASE/原樹・ライトを不変更に保護。
