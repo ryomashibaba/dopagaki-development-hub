@@ -262,7 +262,7 @@ for v in offshore.data.vertices:
  v.co=inv@q
 offshore.data.update();island.hide_render=True
 # The shore silhouette must stay off the roadway center under unchanged CHASE.
-samples=[screen(offshore.matrix_world@v.co) for v in offshore.data.vertices[::14]]
+samples=[screen(offshore.matrix_world@v.co) for v in list(offshore.data.vertices)[::14]]
 assert all(p[2]>0 for p in samples)
 xrange=(min(p[0] for p in samples),max(p[0] for p in samples))
 assert xrange[0]>.50,("OFFSHORE_CLIFF_OVERLAPS_ORIGINAL_ROAD",xrange)
