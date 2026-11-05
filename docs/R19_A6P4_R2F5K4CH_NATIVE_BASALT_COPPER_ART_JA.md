@@ -1,3 +1,12 @@
+# 【K4CH実装済み・真正Blender環境修復後の試験中／成功を先取りしない】
+
+- 新隔離枝 `research/k4ch-basalt-copper-harbor-art-20261105`。左海岸実3D地形・右銅屋根実メッシュ・既存柱から組み上げた単一支柱構造・港海面・沖合岬の、**一つの統合作家モデル**を実装・GitHub研究枝に保存。元Game/物理/Road5/6Camera/CHASE/原樹・ライトを不変更に保護。
+- 初回[Actions #41950843684](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41950843684)は**completed/FAILURE**。原Gameテスト・K4CG R2親真正Blender SHAと全Artifact照合まで成功。Blenderのインストール中に公式Azure apt配信元から35.9MBの`blender-data`取得が約6分28秒かかり、続く他パッケージの取得前に`timeout 420s`の**exit 124**で停止。**Blender起動・新DCC・新画像のTECH/ARTは未確認**。アートや元道路保護の失敗と混同禁止。
+- この実ログに限定して、Ubuntu24 GitHub runnerの取得経路を`azure.archive.ubuntu.com`から**公式`archive.ubuntu.com`へ差し替え**、インストールの安全上限を延長した。元ソース・真研究Blender親SHA／元Game／Camera／Road5回帰／比較画像の閾値は一切緩めていない。修正run [#41951907166](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41951907166) を起動。本記録時点で**最終判定は未取得**。Actions run/ジョブログ/Artifactを次に確認する。失敗の場合でもART/TECH PASSと記録しない。
+- **正式ART採用0件、Slope2 DNA認定0m、ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。Work/Computer Use個別事前承認、追加有料API原則0円、ユーザー操作0、main・正式P101・Draft PR#46・本番2サイト保護。
+
+---
+
 # K4CH — 真正DCCによる可視主要景観の大幅な作者再設計
 
 日付：2026-11-05 JST。正式採用は **ART 0件、Slope2 DNA 0m**。K4CG R2の単なるパラメータ変更や模型増殖ではなく、主要画面を占める景観の実3D作者制作。
