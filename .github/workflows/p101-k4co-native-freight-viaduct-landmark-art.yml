@@ -11,7 +11,7 @@ permissions:
   actions: read
 concurrency:
   group: dopagaki-k4co-genuine-native-art
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   native-k4co-source-frozen:
     runs-on: ubuntu-24.04
