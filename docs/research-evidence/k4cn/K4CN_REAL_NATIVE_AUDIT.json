@@ -1,0 +1,65 @@
+{
+  "schema": "dopagaki.k4cn.source-locked-true-coastal-canyon-and-working-port-v1",
+  "parentK4CMExactSHA256": "273c6ab1ec334ff8b2524c43c611da43831aaef3374056f3ab02352e3e914aab",
+  "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "sourceGameEdited": false,
+  "sourcePhysicsEdited": false,
+  "newGameColliders": 0,
+  "originalSixCameraPosesUnchanged": true,
+  "originalCHASEUnchanged": true,
+  "originalElevenTreeTransformsUnchanged": true,
+  "originalLightsUnchanged": true,
+  "allInheritedMeshGeometryAndTransformsUnchanged": true,
+  "oldResearchScarpAndQuayHiddenOnly": true,
+  "originalFerryPassengerWalkwayUnchanged": true,
+  "newNativeEditableResearchMeshes": 3,
+  "newTrueFaultVertices": 1600,
+  "sourceTrueCoastalFoldAdditionalMaxMetres": 20.232454711134185,
+  "newWorkingQuayVertices": 737,
+  "newMaritimeMegaterminalVertices": 1120,
+  "newMaritimeMegaterminalFaces": 859,
+  "newVisibleWorldVertexCountsNotArtScore": {
+    "left": 1243,
+    "right": 1321
+  },
+  "newProjectedWorldBoundsNotArtScore": {
+    "left": [
+      -5.933154582977295,
+      0.41401076316833496
+    ],
+    "right": [
+      0.5422425866127014,
+      2.2038819789886475
+    ]
+  },
+  "realNativeCHASE768x480": true,
+  "renderEngine": "BLENDER_EEVEE",
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CN_TRUE_COASTAL_CANYON_WORKING_PORT_EDITABLE_ART_HOLD.blend": {
+      "bytes": 283606796,
+      "sha256": "766b34c1a947915648d16d4ddacf54a84557607114964f63152c1c32ac3bd5e1"
+    },
+    "K4CN_TRUE_SOURCE_CHASE_REAL_COASTAL_CANYON_WORKING_PORT_NOT_GAME.png": {
+      "bytes": 504217,
+      "sha256": "1541f656d065d660b6ef0a74d61660ca4cae4f81b262f2f6846abf4fb2895ef2"
+    }
+  },
+  "independentSameTrueChaseImageQA": {
+    "leftChangedPixelsNotArtScore": 17554,
+    "rightChangedPixelsNotArtScore": 9740,
+    "sourceRoadCentreChangedPixels": 24,
+    "comparisonName": "K4CN_VS_K4CM_TRUE_SOURCE_CHASE_WHOLEFRAME_ART_REVIEW.png",
+    "comparisonSHA256": "fee520a97a56312e529fc5c94b42279ed1a9decdc8210c08a346096fa3df609f",
+    "ART": "UNJUDGED_HOLD"
+  }
+}
