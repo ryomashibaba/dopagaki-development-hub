@@ -25,18 +25,25 @@ let browser=null;
 async function waitPause(page,t){
  await page.waitForFunction(t=>{
   const c=document.getElementById('view');
-  return Math.abs(Number(c.dataset.r15s3d10PausedAt)-t)<0.009||
+  const ticks=Number(c.dataset.r15s3d10NativeTicks);
+  // Source canvas does not reset old pause-at metadata between native retries.
+  // A new 240Hz tick count is REQUIRED to prove the second physical traversal.
+  return (ticks>=Math.floor(t*240)-2 &&
+    Math.abs(Number(c.dataset.r15s3d10PausedAt)-t)<0.009 &&
+    c.dataset.r15s3d10Status==='running') ||
     ['failed','finished'].includes(c.dataset.r15s3d10Status);
  },t,{timeout:120000,polling:50});
  return await page.evaluate(()=>({status:document.getElementById('view').dataset.r15s3d10Status,
-   pausedAt:Number(document.getElementById('view').dataset.r15s3d10PausedAt)}));
+   pausedAt:Number(document.getElementById('view').dataset.r15s3d10PausedAt),
+   nativeTicks:Number(document.getElementById('view').dataset.r15s3d10NativeTicks)}));
 }
 async function advance(page,t,paused){
  await page.evaluate(x=>window.__r15s3d10PauseAt=x,t);
  if(paused)await page.locator('#pause').click();
  const state=await waitPause(page,t);
- return {paused:state.status==='running'&&Math.abs(state.pausedAt-t)<0.009,
-  status:state.status,time:state.pausedAt};
+ return {paused:state.status==='running'&&state.nativeTicks>=Math.floor(t*240)-2&&
+   Math.abs(state.pausedAt-t)<0.009,
+  status:state.status,time:state.pausedAt,nativeTicks:state.nativeTicks};
 }
 async function init(page){
  await page.goto(base+'/k4ct/?k4ct=on&stage=K4CT-TWO-REAL-B51-CHOICE',{waitUntil:'domcontentloaded'});
@@ -163,12 +170,14 @@ try{
        c.dataset.r15s3d10OriginalGame==='REAL_WEBGL2_SOURCE_240HZ';
   },undefined,{timeout:10000});
   const resetTick=Number(await pair.locator('#view').getAttribute('data-r15s3d10-native-ticks'));
+  assert.ok(resetTick<120,'retry must reset real Runner native tick count');
   // The original renderer restarts from spawn; only ORIGINAL scripted steering
   // brings it to the same pre-choice 63.70s. No synthetic Runner state.
   await pair.evaluate(()=>window.__r15s3d10PauseAt=63.70);
   await pair.locator('#demoRun').click();
   const pre=await waitPause(pair,63.70);
   assert.equal(pre.status,'running');
+  assert.ok(pre.nativeTicks>=Math.floor(63.70*240)-2,'retry demo must really replay from 0 to 63.70s');
   await pair.locator('#takeoverRun').click();
   await pair.waitForFunction(()=>document.getElementById('view').dataset.k4csControlMode==='ORIGINAL_MANUAL_UNCERTIFIED',
    undefined,{timeout:15000});

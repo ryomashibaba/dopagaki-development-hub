@@ -38,7 +38,13 @@ replace(buildAnchor,buildAnchor+"\n"+
  " canvas.dataset.k4ctNativeDcc='GENUINE_BLENDER_EDITABLE_NONCOLLIDING';"+
  "}else{canvas.dataset.k4ctNativeDccTriangles='0';canvas.dataset.k4ctNativeDcc='off';}");
 replace('if(k4cqSceneMesh){draw(k4cqSceneMesh);}',
- 'if(k4ctDccMesh){draw(k4ctDccMesh);}else if(k4cqSceneMesh){draw(k4cqSceneMesh);}');
+ 'if(k4cqSceneMesh&&!k4ctDccMesh){draw(k4cqSceneMesh);}');
+// PRIVATE K4CT only. B48 original physics/mesh is drawn normally, then
+// true Blender-authored noncolliding skin replaces legacy saturated striping.
+// Machine B51, hazard signs, camera, input and CCD remain original.
+const oldRoadVisual="draw(roads);draw(g4e7pQuietMesh||(g4e7kUi?.quiet&&g4e7kQuietMesh?g4e7kQuietMesh:a13RoadArtMesh));if(g4e7iUi?.active&&g4e7iContour?.active)draw(g4e7iMesh);if(g4e7cCueActive)draw(g4e7cCueMesh);draw(g4e7xCueMesh);draw(g4e7zCueMesh);draw(w9c1MarkMesh);draw(p100RoadRead);draw(p101B5RoadOptic);draw(lines,[0,0,0],[1,1,1],0,gl.LINES);";
+replace(oldRoadVisual,"draw(roads);if(k4ctDccMesh){draw(k4ctDccMesh);canvas.dataset.k4ctRoadArtMode='ORIGINAL_B48_PLUS_DCC_CONFORMAL';}else{"+oldRoadVisual.slice('draw(roads);'.length)+"}");
+
 const moduleFile=path.join(target,'k4ct-dcc-world-geometry.mjs');
 const raw=JSON.stringify(dcc.vertices);
 fs.writeFileSync(moduleFile,

@@ -256,9 +256,15 @@ assert all(len(f)>0 for f in GROUPS.values())
 
 # The production data is exported BY this Blender authoring process itself.
 flat=[]
+sun_unit=unit((.42,.78,-.40))
 for group,faces in GROUPS.items():
  for a,b,c,mat in faces:
-  for p in (a,b,c):flat.extend((*p,*COLORS[mat]))
+  normal=unit(cross(sub(b,a),sub(c,a)))
+  direct=max(0.0,sum(normal[i]*sun_unit[i] for i in range(3)))
+  ambient=0.58+0.36*direct
+  if mat in ('roadmark','roadedge','asphalt'):ambient=max(.78,ambient)
+  color=tuple(min(1.0,max(0.0,ch*ambient)) for ch in COLORS[mat])
+  for p in (a,b,c):flat.extend((*p,*color))
 assert len(flat)==sum(counts.values())*18
 authored={'schema':'k4ct-blender-authored-true-source-integrated-scene/1',
  'nativeBlenderVersion':bpy.app.version_string,
