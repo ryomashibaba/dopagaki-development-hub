@@ -1,0 +1,163 @@
+name: DOPAGAKI K4CG genuine Blender full coastal worldscape ART HOLD
+on:
+  push:
+    branches: [research/k4cg-integrated-coastal-worldscape-20261105]
+    paths:
+      - scripts/p101-k4cg-native-integrated-coastal-worldscape.py
+      - .github/workflows/p101-k4cg-native-integrated-worldscape-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4cg-integrated-coastal-world
+  cancel-in-progress: true
+jobs:
+  protected-authentic-native-k4cg:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preflight source Game, Blender author syntax and real Road5 lineage
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cg-integrated-coastal-worldscape-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4cg-native-integrated-coastal-worldscape.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download genuine exact K4CF R2 Blender and true comparison images
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CF_TRUE_DUAL_HEADLAND_NATIVE_EDITABLE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41939899891
+          github-token: ${{ github.token }}
+          path: research/evidence/k4cg/parent
+      - name: Authenticate true K4CF R2 parent and immutable original source
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          d=Path('research/evidence/k4cg/parent')
+          a=json.loads((d/'K4CF_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CEExactSHA256']=='3f0bc2f048dec39bc263151e2117b374d40b7422478c7e9b49583865c836d63e'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged',
+                    'originalElevenTreeTransformsUnchanged','originalLightsUnchanged',
+                    'K4BZ_bad_duplicate_road_hidden','allSourceObjectsRetainedAndSourceGeometryUnmodified','noFakeImagesOrBillboards'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert a['files']['K4CF_TWO_REAL_GEOLOGICAL_HEADLAND_DIRECTIONS_EDITABLE_ART_HOLD.blend']['sha256']=='1a17dc522b4d7df85c92023df5b580f1e5fe155b27264dfcb9d7a511d99d8533'
+          print('K4CG_TRUE_K4CF_R2_PARENT_SHA_AND_GAME_SOURCE_PASS')
+          PY
+      - name: Install actual Blender EEVEE with bounded apt recovery and source regression
+        timeout-minutes: 10
+        run: |
+          set -euo pipefail
+          # Some hosted apt mirrors hang indefinitely during metadata refresh;
+          # limit it, then try the runner's existing signed package indexes.
+          if ! sudo timeout --signal=TERM --kill-after=10s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 update -qq; then
+            echo 'K4CF_APT_UPDATE_SLOW_USING_EXISTING_SIGNED_RUNNER_INDEX'
+          fi
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 420s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=30 install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          command -v blender
+          blender -b -noaudio --factory-startup --python-expr "import bpy; print('K4CF_REAL_BLENDER_VERSION', bpy.app.version_string)"
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+          /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
+      - name: Actually author genuine integrated foreground geology offshore peninsula and physical tidal sea
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4cg/render
+          xvfb-run -a -s '-screen 0 1280x900x24' env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4cg-native-integrated-coastal-worldscape.py -- \
+            --base research/evidence/k4cg/parent/K4CF_TWO_REAL_GEOLOGICAL_HEADLAND_DIRECTIONS_EDITABLE_ART_HOLD.blend \
+            --out research/evidence/k4cg/render 2>&1 | tee research/evidence/k4cg/render/K4CG_REAL_BLENDER.log
+      - name: Independently prove real DCC ocean and offshore landscape visible with source safety
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageChops,ImageDraw
+          d=Path('research/evidence/k4cg/render')
+          a=json.loads((d/'K4CG_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CFR2ExactSHA256']=='1a17dc522b4d7df85c92023df5b580f1e5fe155b27264dfcb9d7a511d99d8533'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged',
+                    'originalElevenTreeTransformsUnchanged','originalLightsUnchanged',
+                    'K4BZ_bad_duplicate_road_hidden','originalParentObjectsAndGeometryUnchanged',
+                    'genuine3DNoBillboard'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['genuineResearchEditableNewObjectCount']==3
+          assert a['ART']=='UNJUDGED_HOLD' and a['renderEngine']=='BLENDER_EEVEE'
+          assert a['realOffshoreWorldMeshVertices']>=1000
+          assert a['realOceanExtensionWorldMeshVertices']>=2500
+          for name,m in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==m['bytes'] and hashlib.sha256(raw).hexdigest()==m['sha256'],name
+          old=Image.open('research/evidence/k4cg/parent/K4CF_A_WARM_STRATIFIED_HEADLAND_TRUE_CHASE_NOT_GAME.png').convert('RGB')
+          new=Image.open(d/'K4CG_TRUE_CHASE_INTEGRATED_COASTAL_WORLDSCAPE_NOT_GAME.png').convert('RGB')
+          assert old.size==new.size==(768,480)
+          diff=ImageChops.difference(old,new)
+          count=lambda area,cut:sum(max(px)>cut for px in diff.crop(area).getdata())
+          left=count((0,150,265,454),17)
+          horizon=count((465,120,768,258),15)
+          harbor=count((510,258,768,435),17)
+          road=count((330,265,487,475),14)
+          assert left>1000,('LEFT_COAST_MATERIAL_WORLD_NOT_VISIBLE',left)
+          assert horizon>350,('ACTUAL_OFFSHORE_LANDSCAPE_NOT_VISIBLE_IN_TRUE_CHASE',horizon)
+          assert road<60,('ORIGINAL_ROAD_VIEW_CHANGED',road)
+          for pt in ((390,270),(400,320),(380,380),(420,440),(470,465)):
+              a0=old.getpixel(pt);b0=new.getpixel(pt)
+              assert max(abs(a0[k]-b0[k]) for k in range(3))<=10,('FROZEN_ROAD_PIXEL_CHANGED',pt,a0,b0)
+          canvas=Image.new('RGB',(1560,560),(13,17,20))
+          canvas.paste(old,(12,50));canvas.paste(new,(780,50))
+          draw=ImageDraw.Draw(canvas)
+          draw.text((12,19),'K4CF R2 true CHASE | TECH PASS ART REJECT',fill='white')
+          draw.text((780,19),'K4CG real 3D worldscape true CHASE | ART UNJUDGED',fill='white')
+          draw.text((12,539),'Real editable Blender only; no native game or human play certification.',fill='white')
+          filename='K4CG_VS_K4CF_R2_TRUE_CHASE_INTEGRATED_WORLD_ART_REVIEW.png'
+          canvas.save(d/filename)
+          a['independentSameChaseImageQA']={
+              'leftRockChangedPixelsNotArtScore':left,
+              'realHorizonChangedPixelsNotArtScore':horizon,
+              'rightHarborChangedPixelsNotArtScore':harbor,
+              'frozenRoadPixelDeltaNotArtScore':road,
+              'comparisonName':filename,
+              'comparisonSHA256':hashlib.sha256((d/filename).read_bytes()).hexdigest(),
+              'ART':'UNJUDGED_HOLD'}
+          (d/'K4CG_REAL_NATIVE_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n')
+          print('K4CG_REAL_INTEGRATED_WORLD_NATIVE_QA_PASS',left,horizon,harbor,road)
+          PY
+      - name: Commit only actual research evidence and never merge original source
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cg-integrated-coastal-worldscape-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4cg
+          cp research/evidence/k4cg/render/*.png docs/research-evidence/k4cg/
+          cp research/evidence/k4cg/render/*.json docs/research-evidence/k4cg/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4cg
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4cg): true editable coastline plus physical sea/peninsula same-CHASE ART HOLD"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4cg-integrated-coastal-worldscape-20261105
+          fi
+      - name: Archive actual K4CG Blender worldscape and independent audit even when ART HOLD
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CG_TRUE_INTEGRATED_COASTAL_WORLD_EDITABLE_ART_HOLD
+          path: research/evidence/k4cg/render/
+          if-no-files-found: warn
+          retention-days: 21
