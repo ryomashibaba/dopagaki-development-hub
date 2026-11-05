@@ -122,7 +122,12 @@ portland=unique("K4CN | extended physically integrated")
 terminal=unique("K4CN | one built maritime megaterminal")
 assert all(o.get("DCC_RESEARCH_ONLY") is True and o.get("NOT_GAME_COLLIDER") is True for o in (cliff,portland,terminal))
 assert not cliff.hide_render and not portland.hide_render and not terminal.hide_render
-d_cross=94.
+# R1 genuine CHASE image put the 95m bridge shadow across 1,482 protected
+# road pixels (independent maximum <120) and clipped the crown above frame.
+# Translate the WHOLE actual 3D landmark farther along source Road5 while
+# retaining true terrain-sourced abutments, road-ray clearance and the same
+# original camera. Never relax image QA or patch pixels after rendering.
+d_cross=154.
 z_road=ground(d_cross)
 # Read the genuinely existing Road5 across the complete crossing footprint,
 # not merely its center point. A local 3D deck must clear the highest sampled
