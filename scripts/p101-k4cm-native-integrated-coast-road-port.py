@@ -331,6 +331,14 @@ for sign in (-1,1):
   top=p+Vector((0,0,1.05))
   if prev is not None:beam(prev,top,.11,.13,1)
   prev=top
+# Three genuinely load-bearing under-deck transversal cross ties link both
+# sides of the short real 18.1m passenger gangway. Native initial 348 faces
+# did not meet the independent structural minimum (>350). Reinforce actual
+# geometry; never weaken or bypass the test's threshold.
+for i in sorted(set((3,steps//2,steps-3))):
+ t=i/steps
+ centre=entry*(1-t)+goal*t+Vector((0,0,-.32))
+ beam(centre-across*(half-.30),centre+across*(half-.30),.17,.22,1)
 walkway=worldmesh("one structurally linked real ferry passenger shore access",
                   walk_v,walk_f,[bridge,guard],walk_id,
                   "HIGHWAY_SHOULDER_TO_REAL_EXISTING_PASSENGER_TERMINAL_NOT_GAME_COLLIDER")
