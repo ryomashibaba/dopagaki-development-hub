@@ -7,18 +7,24 @@
   "originalCHASEUnchanged": true,
   "originalElevenTreeTransformsUnchanged": true,
   "originalLightsUnchanged": true,
-  "allInheritedResearchAndSourceObjectsIdentical": true,
+  "allInheritedSourceAndResearchGeometryIdentical": true,
+  "nonDestructiveResearchRockRenderSwaps": [
+    "K4CH | true broken coastal bedrock and fractured road cut",
+    "K4CH | connected same-basalt coastal ground beneath headland"
+  ],
   "sourceGameEdited": false,
   "sourcePhysicsEdited": false,
   "K4BZ_bad_duplicate_road_hidden": true,
   "newGameColliders": 0,
-  "trueResearchEditableMeshes": 2,
+  "trueResearchEditableMeshes": 4,
+  "actualReauthoredForegroundRockCopyCount": 2,
   "actualRoadCutRealWorldVertices": 1100,
   "actualRoadCutRealWorldTriangleFaces": 1980,
   "actualRealWindbreakVertices": 392,
   "actualRealWindbreakFaces": 294,
   "realLongitudinalRoadCutStations": 100,
   "realIntegratedWindbreakBays": 10,
+  "windbreakStartsAfterSourceStationMetres": 33,
   "roadOriginalApproxHalfWidthMetres": 13.15,
   "minimumRoadCentreLateralDistanceOfNewCoastMetres": 16.65,
   "leftSignFromRealFrozenCHASE": 1,
@@ -27,9 +33,9 @@
     "1": 0.2918035089969635
   },
   "actualRoadcutCameraVisibleVertices": 853,
-  "actualWindbreakCameraVisibleVertices": 348,
+  "actualWindbreakCameraVisibleVertices": 392,
   "maxVisibleNewRoadCutXNotArtScore": 0.41420385241508484,
-  "maxVisibleWindbreakXNotArtScore": 0.40270674228668213,
+  "maxVisibleWindbreakXNotArtScore": 0.4060814380645752,
   "renderEngine": "BLENDER_EEVEE",
   "trueCHASE768x480": true,
   "ART": "UNJUDGED_HOLD",
@@ -43,20 +49,20 @@
   "MERGE": "HOLD",
   "files": {
     "K4CJ_SOURCE_ROAD5_CONTINUOUS_COAST_CUT_EDITABLE_ART_HOLD.blend": {
-      "bytes": 279856868,
-      "sha256": "a376a651c787751843c9a4391bed90f08d023cf314710c303808416133c264d8"
+      "bytes": 280884764,
+      "sha256": "296326d18c446e70c25ca45598ad623affaf20c07a26e263b1789e9dc2bb04d2"
     },
     "K4CJ_TRUE_CHASE_ROAD_EDGE_SPEED_RHYTHM_NOT_GAME.png": {
-      "bytes": 509201,
-      "sha256": "bb63798e05e355c55977430903a33afda961a44e52280d987acd52d8885e7804"
+      "bytes": 506506,
+      "sha256": "20f056de4bb037c6b587f261557cd5649a98dba1a59daa5d947f6a8376b3abcf"
     }
   },
   "independentSameChaseImageQA": {
-    "genuineLeftRoadcutVisibleChangedPixelsNotArtScore": 27558,
+    "genuineLeftRoadcutVisibleChangedPixelsNotArtScore": 42488,
     "unchangedRightPortPixelDifference": 0,
     "unchangedSourceRoadCentrePixelDifference": 0,
     "comparisonName": "K4CJ_VS_K4CI_TRUE_SOURCE_CHASE_ROAD_DEPTH_ART_REVIEW.png",
-    "comparisonSHA256": "cd78a8245db295e3f472b0c200c270aa62287e96714181360a3858d4b12aa50b",
+    "comparisonSHA256": "72067ce17ebffb2e09f2d0a603211026e73656609a77eba62d68a2a81f48189d",
     "ART": "UNJUDGED_HOLD"
   }
 }
