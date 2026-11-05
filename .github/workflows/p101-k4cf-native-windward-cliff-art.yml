@@ -54,11 +54,18 @@ jobs:
           assert a['files']['K4CE_REAL_COHERENT_FOREGROUND_FERRY_EDITABLE_ART_HOLD.blend']['sha256']=='3f0bc2f048dec39bc263151e2117b374d40b7422478c7e9b49583865c836d63e'
           print('K4CF_PARENT_AUTHENTIC_DCC_ARTIFACT_AND_GAME_SOURCE_PASS')
           PY
-      - name: Install actual Blender EEVEE, Python image verification and protect K4BZ black seam
+      - name: Install actual Blender EEVEE with bounded apt recovery and source regression
+        timeout-minutes: 10
         run: |
           set -euo pipefail
-          sudo apt-get update -qq
-          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          # Some hosted apt mirrors hang indefinitely during metadata refresh;
+          # limit it, then try the runner's existing signed package indexes.
+          if ! sudo timeout --signal=TERM --kill-after=10s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 update -qq; then
+            echo 'K4CF_APT_UPDATE_SLOW_USING_EXISTING_SIGNED_RUNNER_INDEX'
+          fi
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 420s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=30 install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          command -v blender
+          blender -b -noaudio --factory-startup --python-expr "import bpy; print('K4CF_REAL_BLENDER_VERSION', bpy.app.version_string)"
           /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
           /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
       - name: Actually sculpt TWO alternative genuinely 3D single-headland landscapes with frozen Road5
