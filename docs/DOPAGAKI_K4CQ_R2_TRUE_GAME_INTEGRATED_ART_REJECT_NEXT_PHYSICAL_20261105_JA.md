@@ -11,7 +11,7 @@
 ## 2. 真の実行結果と独立証拠
 - 最新の成功run [Actions #42023232471](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42023232471) は **completed/SUCCESS**。研究コードの該当HEAD `51ff35469859582384b21eccf6ade29946de1ec3`。
 - [Artifact #13411764422](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42023232471/artifacts/13411764422) は実WebGL2画像6枚、同一240Hz時刻の無加工2列比較3枚、監査JSON、ネイティブOBJ/MTLと実編集可能Blenderを収録。
-- Ubuntu GitHub Actions実Chromium WebGL2 2セッション、58s/64s/67sにそれぞれ正規1/240s tick `13920/15360/16080` で停止、BASELINE対K4CQの**球・道路・HUD速度が一致**。17xx?などの推定値は使わず、実HUD速度 **171.1 / 178.5 / 186.6 m/s**を記録。物理接地Roadは58/64s `p93-PRISM_CREST-01`、67s `p93-FINISH_RIDGE-01`。オート操舵P96→P94、**NOT HUMAN**。
+- Ubuntu GitHub Actions実Chromium WebGL2 2セッション、58s/64s/67sにそれぞれ正規1/240s tick `13920/15360/16080` で停止、BASELINE対K4CQの**球・道路・HUD速度が一致**。実HUD速度 **171.1 / 178.5 / 186.6 m/s**を記録。物理接地Roadは58/64s `p93-PRISM_CREST-01`、67s `p93-FINISH_RIDGE-01`。オート操舵P96→P94、**NOT HUMAN**。
 - 以前のPRIVATE研究ステージIDが`p75-survival.mjs`の記録キー規則に不適合だったため、双方の**研究コピーにのみ独立記録ID**を発行。元スコア/正式QAは変更せず、ブラウザ`jsErrors=[]`両ケースを確認。旧失敗runをPASSに書き換えない。
 - 真Blender **4.0.2**で同じ著作OBJを読み、`K4CQ_EDITABLE_TRUE_SOURCE_COORDINATE_COAST_ART_HOLD.blend`別名保存成功。**4616三角形、OBJ由来の13848頂点、編集可能Mesh 1**。WebGL2候補の三角形数と独立一致。
 - GitHub Actionと独立監査：圧縮Artifactを別取得してZIP全CRC正常、実物のPNG/Blender/JSON存在確認。これは**TECHのみ**。FPSはCIのSwiftShader/ソフトウェア条件に左右され、正式パフォーマンス合格としない。
