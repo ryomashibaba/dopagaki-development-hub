@@ -2,7 +2,6 @@
 
 **最新の唯一の引き継ぎ・批判的計画正本**：[K4CT R5後・全体方針再評価と次チャット実制作計画](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R5_20261106_JA.md) をまず全文読む。**過去の全戦略とR2〜R5は[旧完全統合正本](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R2_20261105_JA.md)とその上位方針に継承**。過去の全記録は[旧START_HEREの原文アーカイブ](docs/archive/START_HERE_SNAPSHOT_K4CT_R2_20261105.md)に**省略・上書きなし**で保存。これは歴史や固定方針の撤回ではなく索引の短縮である。
 
-## 次の唯一の制作目標（R5後・最新判断）
 ## K4CT R6：真正DCC＋元ゲーム一体実走行成功／元CHASE ART REJECT（2026-11-06）
 - [R6統合実証 #42122293541](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42122293541) **completed/SUCCESS**、作者・修正実装HEAD `114805aa8a73e6fc707589df0148ba53a2a37bbf`。最初の [#42121628304](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42121628304) はB51描画アンカーが一意でない安全停止により**FAILのまま保持**。元描画ループを一切触れず修復。
 - Blender4.0.2／25可編集機能群／27,254三角形、隔離PRIVATE元WebGL2／元Camera／240Hz／B48×7／B51×28、新Collider0。実Keyboard KeyD2操作で69.941667秒`finished`、無操作69.483333秒落下→元UI`retryRun`→出発位置差0mで完走再現。HUMANではない。
@@ -11,7 +10,8 @@
 - **TECH PASS ≠ ART PASS。ART REJECT／正式ART採用0件／正式Slope2 DNA認定0m／HUMAN・SAT・CCD・FPS・RELEASE・MERGE全HOLD。** R6で旧模型を積み増すだけでは元CHASEの主要画面が変わらないことが実証された。同じ元場面に集中し、次は真の非衝突発光物体の描画源と元CHASEで見える主役画面設計の解決が必要。無意味な物理QAや装飾増設の反復は禁止。詳細は[R6恒久判定JSON](research-evidence/k4ct/K4CT_R6_NATIVE_DCC_SOURCE_CHASE_NEGATIVE_ART_AUDIT_20261106.json)。
 
 
-**K4CT R6研究：** 真正元CHASE 65.25／66.35／68.05秒で残る黄/シアン反復構造の非衝突レイヤー由来を研究COPYでA/B分離し、元B51の真ボリューム/元Camera/240Hzを保持したまま、港湾崖・潮汐水門・高架・路面・素材光を一体で再構成する。真Blender→WebGL2/240Hz→3時点RAW直接ART批評→研究GitHub保存まで**一括**で進める。単なる小HUDやQA反復で完了しない。ART REJECT、HUMANほかHOLD、正式採用0件を維持。最新値と手順は上記R5新統合正本が優先。
+## R5時点のR6制作指示（履歴・今回TECH検証済み、ARTは未達）
+**K4CT R6研究：** 真正元CHASE 65.25／66.35／68.05秒で残る黄/シアン反復構造の非衝突レイヤー由来を研究COPYでA/B分離し、元B51の真ボリューム/元Camera/240Hzを保持したまま、港湾崖・潮汐水門・高架・路面・素材光を一体で再構成する。真Blender→WebGL2/240Hz→3時点RAW直接ART批評→研究GitHub保存まで**一括**で進める。単なる小HUDやQA反復で完了しない。ART REJECT、HUMANほかHOLD、正式採用0件を維持。最新の実結果・次の判断は上記R6欄とその恒久監査JSONが優先。
 
 ## K4CT R5：真正「潮汐水門・岩盤切削港湾」の一体制作／ART REJECT（2026-11-06 JST）
 - **実制作検証HEAD** `bcdc6c4cd88dd321c50bca9a73f86bf5d32e8725`、[真正Blender＋Chromium CI #42112944511](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42112944511) **completed/SUCCESS**。[Artifact #13454208718](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42112944511/artifacts/13454208718)（2026-11-12期限）、ZIP SHA256 `573e59ddec0f88f397d43459213858ad26936992c68bb8cbbb04109c4f3ae5b0`、ZIP CRC PASS。失敗CI #42110848613/#42111324074は元のままFAIL、原因はBlenderスクリプト内の名前衝突とカメラの未定義変数、研究枝の修正後に成功。

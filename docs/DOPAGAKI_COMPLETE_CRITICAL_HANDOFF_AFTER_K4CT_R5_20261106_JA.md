@@ -2,7 +2,7 @@
 # 完全統合・批判的方針再評価・次チャット正本（K4CT R5後／2026-11-06 JST）
 
 **これは継続開発であり新規企画・正式採用・方針撤回ではない。**
-**現在の唯一の「次に進む」判断は本書の第6〜8章。** 本書に記載したGitHub HEADとCIは作成時点の値。次回は生のGitHub HEADを必ず再取得する。古い正本内の「現最新」「次工程」は歴史的な記述として扱い、当時の正しい事実・安全条件は撤回しない。
+**最新のR6実測否定結果を反映した「次に進む」判断は本書のR6追補および第6〜8章の固定安全条件の併読による。** 本書に記載したGitHub HEADとCIは作成時点の値。次回は生のGitHub HEADを必ず再取得する。古い正本内の「現最新」「次工程」は歴史的な記述として扱い、当時の正しい事実・安全条件は撤回しない。
 
 ## K4CT R6 新しい真正結論（R5以前の固定方針は不変）
 - 真正修正後CI [#42122293541](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42122293541) completed/SUCCESS、実行HEAD `114805aa8a73e6fc707589df0148ba53a2a37bbf`。初回[#42121628304](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42121628304)はFAIL履歴維持。真正Blender4.0.2、25編集可能機能群／27,254面、元WebGL2・元Camera・元240Hz・Road5/B51原本保護・追加Collider0。元KeyD×2で69.941667s finished、元UIリトライ0m状態差から再完走。人間ではない。
