@@ -88,8 +88,36 @@ island=get("K4CG | one broad true offshore eroded peninsula with contoured ridge
 roofs=[o for o in bpy.data.objects if o.name.startswith("K4BW | folded coastal museum and boat service canopy shell")]
 piers=[o for o in bpy.data.objects if o.name.startswith("K4BW | galvanized slender structural pier")]
 assert len(roofs)==1 and len(piers) in (12,14)
-roof=roofs[0]
+# Actual K4CH first true same-CHASE PNG showed the visible large blue
+# ferry roof was NOT materially altered: identify the actual first visible
+# native research mesh, not an off-screen roof by name assumption.
+frame=cam.data.view_frame(scene=sc)
+fx0=min(p.x for p in frame);fx1=max(p.x for p in frame)
+fy0=min(p.y for p in frame);fy1=max(p.y for p in frame)
+fz=sum(p.z for p in frame)/len(frame)
+deps=bpy.context.evaluated_depsgraph_get()
+def visible_roof_ray(nx,ny):
+ q=Vector((fx0+(fx1-fx0)*nx,fy0+(fy1-fy0)*ny,fz))
+ direction=(cam.matrix_world.to_quaternion()@q).normalized()
+ cursor=cam.matrix_world.translation.copy()
+ for retry in range(22):
+  hit,pt,normal,idx,obj,mx=sc.ray_cast(deps,cursor,direction,distance=1800)
+  if not hit:return None
+  if obj.type=="MESH" and not obj.hide_render:return obj
+  cursor=pt+direction*.11
+ return None
+roof_pixels=((.655,.615),(.700,.665),(.740,.667),(.783,.626),
+             (.810,.588),(.695,.595),(.756,.590),(.837,.558))
+ray_names=[o.name if (o:=visible_roof_ray(x,y)) is not None else None for x,y in roof_pixels]
+from collections import Counter
+counts=Counter(x for x in ray_names if x)
+print("K4CH_ACTUAL_VISIBLE_MAIN_ROOF_RAYS",dict(counts),ray_names,flush=True)
+valid=[(n,c) for n,c in counts.most_common()
+       if n.startswith(("K4CB A3 |","K4BW |"))]
+assert valid and valid[0][1]>=2,("NO_RESEARCH_ROOF_VISIBLE_IN_ACTUAL_CHASE",ray_names)
+roof=bpy.data.objects[valid[0][0]]
 assert roof.type=="MESH" and not roof.hide_render and roof not in roads
+assert roof.get("NOT_GAME_COLLIDER") is True,("VISIBLE_ROOF_IS_NOT_SAFE_RESEARCH",roof.name)
 assert all(o.type=="MESH" and not o.hide_render for o in piers)
 parent_geom={o.name:fingerprint(o) for o in [left,back,sea1,sea2,island,roof,*piers]}
 replaced=[left,back,sea1,sea2,island,roof,*piers]
@@ -139,12 +167,12 @@ def material(name,swatches,scale,rough=.8,metal=.0,cracks=False):
   ln.new(geo.outputs["Position"],vor.inputs["Vector"])
   line=n.new("ShaderNodeValToRGB")
   line.color_ramp.elements[0].position=.008
-  line.color_ramp.elements[0].color=(.22,.25,.24,1)
-  line.color_ramp.elements[1].position=.065
+  line.color_ramp.elements[0].color=(.52,.58,.54,1)
+  line.color_ramp.elements[1].position=.055
   line.color_ramp.elements[1].color=(1,1,1,1)
   ln.new(vor.outputs["Distance"],line.inputs["Fac"])
   mult=n.new("ShaderNodeMixRGB");mult.blend_type="MULTIPLY"
-  mult.inputs[0].default_value=.78
+  mult.inputs[0].default_value=.27
   ln.new(ramp.outputs["Color"],mult.inputs[1])
   ln.new(line.outputs["Color"],mult.inputs[2])
   ln.new(mult.outputs[0],bs.inputs["Base Color"])
@@ -164,8 +192,8 @@ basalt=material("broken weathered coastal blue-grey basalt with real joint crack
  [(.12,(.075,.095,.098)),(.29,(.15,.17,.16)),(.49,(.25,.27,.25)),
   (.66,(.32,.33,.29)),(.86,(.42,.41,.36))],.22,.91,0.,True)
 copper=material("aged deep bronze oxidized copper ferry terminal",[
- (.09,(.095,.17,.16)),(.29,(.20,.30,.27)),(.49,(.31,.33,.30)),
- (.68,(.46,.37,.25)),(.89,(.58,.44,.29))],.13,.45,.67)
+ (.09,(.19,.13,.095)),(.29,(.29,.19,.12)),(.49,(.40,.26,.15)),
+ (.68,(.53,.33,.17)),(.89,(.63,.43,.24))],.13,.48,.61)
 wood=material("weather-resistant warm laminated harbor timber",[
  (.12,(.13,.09,.07)),(.34,(.29,.18,.12)),(.53,(.40,.29,.20)),
  (.76,(.50,.36,.25)),(.88,(.55,.43,.31))],.23,.62,0.)
