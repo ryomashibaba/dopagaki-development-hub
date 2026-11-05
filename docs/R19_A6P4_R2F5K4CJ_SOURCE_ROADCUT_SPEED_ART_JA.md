@@ -1,3 +1,25 @@
+# 【K4CJ R2最終確定：本物の道路沿い198m実地形DCC・ZIP全CRC/SHA／TECH PASS、直接ART REJECT】
+
+**2026-11-05 JSTの最新確定成果。正式ART採用0件／Slope2 DNA認定0m。** ここより下にある「未完了」「進行中」は各過去時点の記録。R2完了の根拠にはならない。
+
+## 正式な実装・独立実証
+
+- **最終R2 [Actions #41968702663](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41968702663) completed/SUCCESS、全12ジョブ工程PASS**。元K4CI編集可能.blend SHA256 `f1ce87fff6c88841890b6fc2dd4840db4b35a86be75236d90c02613a26ac7bb4`を実Artifactから固定照合し、元Game Git blob `af076d67492a677d2235e4730aef8cdf4808e106`と元Road5頂点・面SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`を事前・事後確認。元6 Camera/CHASE・元11木/灯光・研究原本メッシュのジオメトリと行列不変、元道路・物理・ゲームCollider変更0。**K4CHの可視研究岩壁2件は原本保持、研究R2での`hide_render`切替のみを独立監査**。
+- 真のBlender EEVEEによる**198mにわたる元SOURCE Road5と標高の一致する100縦断地点×11横断面、1,100頂点/1,980三角面の沿岸切土**。ほかに**392頂点/294面の1体の10区間風防**と、親研究岩壁を複製した可編集研究岩2件。合計4つの編集可能な研究メッシュ。道路の物理的半幅約13.15mに対し、切土は道路中心から最短16.65m離して実ワールドに配置。SOURCE11307 Camera／実Road5のレイから地盤と進行方向、元CHASEの投影から**真の左海岸側`+S`**を特定して配置。風防の最初の区間はSOURCE座標で33mから開始。全可視頂点の元CHASE xは切土最大0.4142、風防最大0.4061（元道路内のフェイク表示ではない）。
+- 真正[**Artifact #13389450314**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41968702663/artifacts/13389450314) ZIP **126,423,375 bytes**／SHA256 `9b0e898b6b7a39ce7785cf6d84a254eb5c1596fef1c91b1575c0c2abec662775`。**本会話で元ArtifactをGitHubから独立再DLし、ZIP全CRC PASS／内部Blender・PNGのバイト数・SHA256一致PASS**。真Blender原本 `K4CJ_SOURCE_ROAD5_CONTINUOUS_COAST_CUT_EDITABLE_ART_HOLD.blend` **280,884,764 bytes** SHA256 `296326d18c446e70c25ca45598ad623affaf20c07a26e263b1789e9dc2bb04d2`。真CHASE PNG `K4CJ_TRUE_CHASE_ROAD_EDGE_SPEED_RHYTHM_NOT_GAME.png` **506,506 bytes** SHA256 `20f056de4bb037c6b587f261557cd5649a98dba1a59daa5d947f6a8376b3abcf`。比較PNG `K4CJ_VS_K4CI_TRUE_SOURCE_CHASE_ROAD_DEPTH_ART_REVIEW.png` SHA256 `72067ce17ebffb2e09f2d0a603211026e73656609a77eba62d68a2a81f48189d`。
+- **同一真CHASE 768×480の独立画像検査で左の可視変更42,488px、元道路中央0px、右港全域0px**。元Road5中央5点とK4BZ既知黒筋6対の独立回帰PASS。画素変化は可視TECHの根拠でありART合格の根拠ではない。R2実WebGL2や人間操作・240Hz物理・FPSの成功を意味しない。
+- 初回[Actions #41967984673](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41967984673)はTECH PASSだが実画像ART REJECT。手前に巨大な斜材が浮いたように映り、新切土の色・形が元岩と不統一だった。旧ソース変更run #41968665046はCANCELLED。R2は元岩を非破壊複製し元岩表示のみ研究切替、切土高さと色を調整、風防開始位置を路面後方へ変更。**新規ゲームソースに変更なし**。
+
+## 直接画像ART判定
+
+[**K4CI左／K4CJ R2右の真正CHASE比較**](research-evidence/k4cj/K4CJ_VS_K4CI_TRUE_SOURCE_CHASE_ROAD_DEPTH_ART_REVIEW.png)を実際に開いた。前回に比べて手前の巨大斜材は減り、左岩のトーンが統一され、ロード沿いに地形の遠近ができた。しかし**ほぼ同じ大きさの淡い三角形リブが周期的に現れ、斜面に浮いた柵・模型のように映る**。背景の地形も丸く単調で、自然の崖の大きな断面・雨水侵食・道路と地理的に繋がる必然性を感じない。中央の巨大なアスファルト平面、港への視線、明確なレースの速度感も根本未解決。**独立TECH PASSでもART REJECTを確定**。
+
+今後は**同じ10組の風防三角フレームに数本の横材を足す/色を替える/可視画素差を増やすR3小改変を主経路にしない**。次のK4CK以降は原SOURCE/Road5/Cameraを完全凍結したまま、遠近に伴う視線誘導を含めた道路と崖の断面・港との空間接続・道路自体の陰影と速度感を**ゲーム美術全体の構図として再作者設計**すること。自然な地質と構造の説得力が必須で、真正CHASE画像を直接観察してART合格前に元ゲーム・本番へ採用しない。
+
+**正式ART採用0件／Slope2 DNA正式認定0m／HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。main、公式P101 `p101-velocity-overdrive-native-trial`、Draft PR#46、原作Slope・物理・凍結Gold・本番2サイトは不変更。追加有料API原則0円、Work/Computer Use個別事前承認、ユーザー操作0。
+
+---
+
 # 【K4CJ R1実Blender TECH PASS・直接ART REJECT、R2の真正造形・検証待ち】
 
 - 初回[真正Actions #41967984673](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41967984673) は**completed/SUCCESS**。実K4CI編集可能原本`f1ce87fff6c88841890b6fc2dd4840db4b35a86be75236d90c02613a26ac7bb4`を認証し、元Road5のSOURCEメッシュを上向きレイで調べ、元CHASE投影から本当に画面左にある側（`+S`方向）を決定したうえで、198m×100縦断地点の真正3D切土と10区間の実風防を作者制作。編集可能Blender.blend・真正同CHASE画像・独立画素QA・研究Github証拠保存完了。
