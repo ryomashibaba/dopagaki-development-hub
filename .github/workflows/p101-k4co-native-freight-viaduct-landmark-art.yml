@@ -108,6 +108,7 @@ jobs:
           assert a['newNativeEditableResearchMeshes']==1
           assert a['realSpanBetweenGroundedAbutmentsMetres']>=90
           assert a['realSourceRoadClearanceMetres']>20
+          assert a['road5CrossingNativeSamplesCount']>=6
           assert a['trueViaductVertices']>500 and a['trueViaductFaces']>400
           assert a['realSourceVertexAnchoredButtressCount']==4
           assert a['ART']=='UNJUDGED_HOLD' and a['renderEngine']=='BLENDER_EEVEE'
