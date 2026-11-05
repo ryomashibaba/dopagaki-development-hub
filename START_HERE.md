@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CJ最終：元Road5由来の198m道路沿い切土＋風防を実3D制作／真正Blender TECH PASS／直接ART REJECT】
+
+**現在の正本研究ブランチ**：`research/k4cj-source-locked-roadcut-speed-rhythm-20261105`。次のチャットでは最初に[**K4CJ R1→R2の実装・真正Blender実画像・全CRC/SHA独立照合・ART REJECT・次の原SOURCE保護方針**](docs/R19_A6P4_R2F5K4CJ_SOURCE_ROADCUT_SPEED_ART_JA.md)を読み、[**真正K4CI（左）／K4CJ R2（右）同一CHASEの比較**](docs/research-evidence/k4cj/K4CJ_VS_K4CI_TRUE_SOURCE_CHASE_ROAD_DEPTH_ART_REVIEW.png)と[監査JSON](docs/research-evidence/k4cj/K4CJ_REAL_NATIVE_AUDIT.json)を直接確認。これより下の「K4CI最新」は歴史記録。
+
+- **K4CJ R2最終[Actions #41968702663](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41968702663) completed/SUCCESS・全12段階PASS**。元K4CI真Blender編集可能親.blend SHA256 `f1ce87fff6c88841890b6fc2dd4840db4b35a86be75236d90c02613a26ac7bb4`を固定認証。源流Road5形状・源流11307カメラから実地盤高さと道路横方向を求め、**198m/100縦断地点、1,100頂点1,980面の連続切土**と**10区間/392頂点294面の実風防**をBlender作者制作。元K4CH可視研究岩2件を原本保存で研究コピー化しトーン統一。真編集可能研究メッシュ4件。元道路半幅約13.15m、新地形最短道路中心距離16.65m。カメラ・ゲーム元ROAD/Physicsにはいっさい変更しない。
+- **真Artifact [#13389450314](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41968702663/artifacts/13389450314)** ZIP126,423,375B／SHA256 `9b0e898b6b7a39ce7785cf6d84a254eb5c1596fef1c91b1575c0c2abec662775`を実GitHubから別途ダウンロードし、ZIP全CRC・中の編集可能.blendと真正CHASE PNGのバイト数・SHA256一致PASS。新真.blend280,884,764B／SHA256 `296326d18c446e70c25ca45598ad623affaf20c07a26e263b1789e9dc2bb04d2`。真CHASE768×480と旧K4CIとの独立画像QA：左42,488pxの可視変化、**元道路中心0px・右港0px**、K4BZ既知黒筋6対と道路5点PASS。これはTECHの可視根拠でありART点数ではない。
+- **正式ART REJECT**：同一CHASE画像を実際に直接開いた結果、初回R1より手前の巨大斜材・岩の色不一致は改善したが、**淡い三角形風防が規則的に並び、自然の崖・道路と一体の防風土木に見えず模型的**。中央Road5は依然単調に大きい平面で走行時の疾走感が弱い。元ロードを勝手に変更して嘘の画面を作るのは禁止、表示差を増やすだけで正式採用しない。
+- **履歴と反省**：初回R1[Actions #41967984673](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41967984673)TECH PASS/ART REJECT、初回の巨大斜材・岩の不連続を真画像で確認して研究コピーと後方風防へ修正。中間R2旧HEAD #41968665046はCANCELLEDで成功ではない。次はR3として三角形リブの横梁や色替えを微調整し続けず、**源流ゲームのRoad5・Cameraを凍結して「道路・切土・港との接続・遠景・速度感」の全体構図を一貫した新美術として再設計**。作家の真DCCと実CHASE画像からART判定し、完成前の他6コース展開や本番採用をしない。
+- **永久保護**：元Game Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5頂点面 SHA256 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元6 Camera/CHASE・木11・ライト・物理/Collider、原作Slope・main、公式P101 `p101-velocity-overdrive-native-trial`・Draft PR#46、凍結Gold・本番2サイト。元K4CH研究岩2件は非破壊の研究レンダー表示切替のみ。正式ART採用0件／Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。追加有料API原則0円、Work/Computer Useは個別事前承認、ユーザー操作0。
+
+---
+
 # 【2026-11-05 K4CI最終 — 本物の船舶荷役ゲートを港湾へ制作／真正Blender・独立ZIP/SHA TECH PASS、直接ART REJECT】
 
 **最新の研究正本ブランチ**：`research/k4ci-maritime-gateway-gantry-real-chase-20261105`。最初に[**K4CI真正作品・初回独立QA失敗と実構造修正・正式ART REJECT・固定安全・次の走行視界アート方針**](docs/R19_A6P4_R2F5K4CI_MARITIME_TIDEGATE_ART_JA.md)を読む。次に[**K4CH元とK4CI真正同CHASE比較画像**](docs/research-evidence/k4ci/K4CI_VS_K4CH_REAL_SOURCE_CHASE_ART_REVIEW_NOT_GAME.png)を直接確認し、[**K4CI監査JSON**](docs/research-evidence/k4ci/K4CI_REAL_NATIVE_AUDIT.json)とCIの実結果を照合する。下段のK4CH「最新」「現行」は歴史上の正本であり、今回の結果に優先しない。
