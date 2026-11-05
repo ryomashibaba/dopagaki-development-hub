@@ -1,0 +1,65 @@
+{
+  "schema": "dopagaki.k4ci.actual-source-locked-tidegate-native-art-v1",
+  "parentK4CHExactSHA256": "74dadf53327e7fff0fd3b57a9b9ff369371e2c0fffa43241eb27bee1ca19cace",
+  "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCameraPosesUnchanged": true,
+  "originalCHASEUnchanged": true,
+  "originalElevenTreeTransformsUnchanged": true,
+  "originalLightsUnchanged": true,
+  "allExistingSourceAndResearchObjectsIdentical": true,
+  "K4BZ_bad_duplicate_road_hidden": true,
+  "sourceGameEdited": false,
+  "sourcePhysicsEdited": false,
+  "newGameColliders": 0,
+  "realGantryEditableObjects": 1,
+  "actualGantryVertices": 640,
+  "actualGantryPolygonFaces": 480,
+  "physicalGantrySpanMetres": 56,
+  "physicalGantryTowerHeightMetres": 44,
+  "gantryPhysicalWorldCoordinate": {
+    "along": 70,
+    "offshore": 46
+  },
+  "realQuayPhysicalConnectionMetres": 72.27733555242968,
+  "gantryTrueChaseProjectedBoundsNotArtScore": [
+    0.679629,
+    0.475752,
+    0.927536,
+    0.789213
+  ],
+  "nativeWorldProjectedCandidateCount": 300,
+  "originalSourceRoadSampleSafety": [
+    "Source Road5 untouched; image QA independently checks road"
+  ],
+  "renderEngine": "BLENDER_EEVEE",
+  "originalChase768x480": true,
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CI_EDITABLE_SOURCE_LOCKED_MARITIME_TIDE_GATE_ART_HOLD.blend": {
+      "bytes": 279476100,
+      "sha256": "f1ce87fff6c88841890b6fc2dd4840db4b35a86be75236d90c02613a26ac7bb4"
+    },
+    "K4CI_TRUE_SOURCE_CHASE_MARITIME_TIDEGATE_NOT_GAME.png": {
+      "bytes": 509837,
+      "sha256": "e25f24cfcfa05a1c4d33bfffe661d747994682f3d9b198523f72efb783bde56d"
+    }
+  },
+  "independentActualImageQA": {
+    "rightSkylineChangedPixelsNotArtScore": 9927,
+    "realPortChangedPixelsNotArtScore": 3317,
+    "frozenLeftRockChangedPixels": 0,
+    "frozenRoadChangedPixels": 0,
+    "comparisonName": "K4CI_VS_K4CH_REAL_SOURCE_CHASE_ART_REVIEW_NOT_GAME.png",
+    "comparisonSHA256": "de0395be5eb37d01500d1f2e8926b24d18bd0a9c1eb52ec743ef96c7826a5450",
+    "ART": "UNJUDGED_HOLD"
+  }
+}
