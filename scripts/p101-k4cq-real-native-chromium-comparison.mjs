@@ -10,7 +10,7 @@ const out=path.resolve('test-results/k4cq-integrated');fs.mkdirSync(out,{recursi
 await new Promise((resolve,reject)=>server.once('error',reject).listen(0,'127.0.0.1',resolve));
 const url='http://127.0.0.1:'+server.address().port;
 const cases=[
- {name:'BASELINE_R15S3D10',prefix:'k4cq',q:'k4cq',stage:'R15S3D10-TRUE-PINCH'},
+ {name:'BASELINE_R15S3D10',prefix:'k4cq',q:'k4cq',stage:'K4CQ-REAL-ROAD5-BASELINE'},
  {name:'K4CQ_RESEARCH',prefix:'k4cq',q:'k4cq',stage:'K4CQ-ONE-ROAD5-TIDAL-APEX'}
 ];
 const report={schema:'k4cq-true-webgl2-original-game-native-240hz-one-sector-v1',
