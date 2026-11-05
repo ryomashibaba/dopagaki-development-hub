@@ -1,3 +1,21 @@
+# 【2026-11-05 K4CF R2最終正本：真正Blender二方向・独立CRC/SHA・直接全画面ART REJECT】
+
+**最終：K4CF R2 SOURCE／DCC／RENDER／画像独立QA TECH PASS、しかしA/BともART REJECT。正式ART採用0件、Slope2 DNA認定0m。** 旧記録の「in_progress」は当時の履歴。
+
+## R2真実績・独立性
+
+- [**R2真正GitHub Actions #41939899891**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41939899891) は**completed/SUCCESS、全ジョブステップSUCCESS**。K4CE真Blender編集可能親`3f0bc2f048dec39bc263151e2117b374d40b7422478c7e9b49583865c836d63e`のSHAを実ダウンロードとCIで検証。Blender4.0.2 EEVEEから原CHASE 768×480の研究A/B両画像を実レンダリング、編集可能.blend、作者研究証拠、独立回帰検証をGitHub研究ブランチへ保存。親Source Game／Road5全vertex・face／元6Camera＋CHASE／木11本・全光源／既存港・船・海・道路を保持、元Game Collider追加0。
+- **[R2真正Artifact #13376376036](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41939899891/artifacts/13376376036)** ZIP **124,889,472 bytes**／SHA256 `afb726787b00813c8298149ef4159da7e779384ba2df47ffe4cc1666f6f80487`。本チャットで**GitHub実ZIPを独立再取得して全CRC=PASS、実.blend／各PNGのサイズとSHA256が監査JSON全値に一致PASS**。
+- **R2真編集可能DCC** `K4CF_TWO_REAL_GEOLOGICAL_HEADLAND_DIRECTIONS_EDITABLE_ART_HOLD.blend` 275,974,128 bytes／SHA256 `1a17dc522b4d7df85c92023df5b580f1e5fe155b27264dfcb9d7a511d99d8533`。A案は**5,728頂点**実変形・最大垂直変形**4.937m**、B案は**5,728頂点**・**6.033m**。原Game Blenderデータ編集ではなく、同じ元Rockを複製した作者研究3D形状2件。A PNG SHA `14b6626fa76dce0fb8cbf6ae49577574e13bc35b8a0bfcb3cca01e71b924aca2`、B PNG SHA `fc8260380b1bab301ec89e4a27269429d72c81a2b1697e3621330e70dd2a9cfe`、三者比較 PNG SHA `bf4e1f23c481428dd68980ff626010b6f381e0adb2d7ad8b65398c5c02c72f13`。
+- **直接ART審査**：[GitHub上の実K4CE／K4CF R2 A／R2 B 三者比較](research-evidence/k4cf/K4CF_TRUE_CHASE_BASELINE_VS_TWO_REAL_HEADLAND_DIRECTIONS_ART_REVIEW.png)を実際に開いた。R1で破綻していた円錐状の頂部・不自然な縞ケーキ模様は解消。R2は元の海岸斜面になじむ一体地形へ前進したが、**地質に鋭い面・岩板・自然破断が不足して丸い砂丘／雪山のように見え**、道路が画面の過半を占め、右港の縮尺や遠景も依然模型感が強い。A/B差は小さく、世界水準ゲーム美術としては**両案ART REJECT**。実地形の制作を再び見た目の小変更と数の増殖へ戻さない。
+- R2独立画像QA：K4CE baselineに対して左変化A **15,308px**・B **17,331px**、AとBの実画像差 **5,523px**。右港変更0px、道路保護中央領域変更0px、元Road5特定5点・K4BZ黒筋6対の回帰PASS。**これら画素差やTECH成功を美術評価スコアに使わない**。ART／HUMAN／SAT／CCD／FPS／RELEASE／MERGEは一切昇格しない。
+
+## 次の制作判断
+
+K4CF R1→R2により「巨大な人工山・横縞」→「連続した実3D風化斜面」へ改善したが、画面全体の主問題は**元ROADの広い単調な画面と左岩肌・右港・地平線の一体的なシネマティック構図不足**。次は**3D地形／樹／小物の単発追加を繰り返さず**、元Camera・元Road5を絶対に固定したまま、可視左斜面と右港建築・水面・遠景の明確な階層／実環境機能／スピード感が一画面で成立する統合作者工程へ進む。作り直した初回・R2の真Artifactを保存し、どれも正式採用しない。**正式ART採用0件／Slope2 DNA0mを維持**。
+
+---
+
 # K4CF初回の真正Blender/独立SHA監査と直接ART評価（2026-11-05）
 
 **厳密な状態：初回TECH PASS／A案・B案ともART REJECT。正式ART採用0件／Slope2 DNA認定0m。修正版R2は現時点では結果未確定。**
