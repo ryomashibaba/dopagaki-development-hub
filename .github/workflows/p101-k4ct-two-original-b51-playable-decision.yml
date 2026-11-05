@@ -1,18 +1,17 @@
-name: K4CT two consecutive original moving B51 and real A D source Runner decision
+name: K4CT original B51-13 to 14 native 240Hz real contact and retry
 on:
   push:
     branches:
       - research/k4ct-two-native-b51-choice-consequence-20261105
     paths:
-      - scripts/p101-k4ct-dual-real-b51-decision.mjs
+      - scripts/p101-k4ct-native-contact-retry.mjs
       - scripts/p101-k4ct-private-native-two-choice-game.mjs
-      - scripts/p101-k4ct-true-chromium-two-consecutive-real-hazards.mjs
       - .github/workflows/p101-k4ct-two-original-b51-playable-decision.yml
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  original-240hz-two-real-b51-choices:
+  native-b51-contact-and-retry:
     runs-on: ubuntu-24.04
     timeout-minutes: 35
     steps:
@@ -20,13 +19,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify frozen original and native real B51 scripts
+      - name: Frozen source and code preflight
         run: |
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
-          node --check scripts/p101-k4ct-dual-real-b51-decision.mjs
           node --check scripts/p101-k4ct-private-native-two-choice-game.mjs
-          node --check scripts/p101-k4ct-true-chromium-two-consecutive-real-hazards.mjs
-      - name: Build isolated real original WebGL2 Runner 240Hz K4CR K4CS K4CT research stage
+          node --check scripts/p101-k4ct-native-contact-retry.mjs
+      - name: Reuse native K4CT original WebGL2 and 240Hz physics research build
         run: |
           npm install --no-save --no-package-lock --no-audit --no-fund
           npm run build:private
@@ -36,71 +34,59 @@ jobs:
           node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
           node scripts/p101-k4ct-private-native-two-choice-game.mjs
           node --check dist-private/k4ct/drive3d.mjs
-          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
-      - name: Native Chromium original game TWO moving B51 and actual near hazard A D consequences
-        id: native_original_game
+      - name: Truly run native keyboard through contact and native retry without proxies
         continue-on-error: true
         run: |
           npx playwright install --only-shell chromium
-          node scripts/p101-k4ct-true-chromium-two-consecutive-real-hazards.mjs
-      - name: Independent fail-closed source game and physical choice evidence
+          node scripts/p101-k4ct-native-contact-retry.mjs
+      - name: Independently classify actual source collisions and reject unsupported passes
         run: |
           python3 - <<'PY'
-          import pathlib,json,struct,hashlib
-          d=pathlib.Path('test-results/k4ct-two-true-b51')
-          a=json.loads((d/'K4CT_NATIVE_GAME_BUILD_AUDIT.json').read_text())
-          assert a['protectedSourceBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
-          assert a['allOriginalB51Identical'] and a['newColliders']==0
-          assert a['unchangedK4CRRoad5SHA256']==a['originalK4CSRoad5SHA256']
-          p=d/'K4CT_TRUE_TWO_B51_NATIVE_CONTROL_RESULT.json'
-          if not p.exists():raise AssertionError('original native WebGL evidence absent')
+          import json,pathlib,hashlib
+          d=pathlib.Path('test-results/k4ct-contact-retry')
+          p=d/'K4CT_CONTACT_RETRY_REAL_RESULT.json'
+          assert p.exists(),'native real-run evidence not produced'
           j=json.loads(p.read_text())
-          report={'schema':'k4ct-real-game-two-consecutive-original-b51-not-human/1',
-            'originalB48AndAll28B51Unchanged':True,'newColliders':0,
-            'sourceNativeSessions':len(j['sessions']),'realKeyboardDirections':len(j.get('nativeKeyboardTrials',[])),
-            'realErrors':j['failures'],'manualPhysicalPositionSeparationM':j.get('originalNativeManualWorldPositionSeparationM'),
-            'manualRealChoiceStatus':j.get('realChoiceEvidence',[]),
-            'ART':'REJECT','formalARTAccepted':0,'slope2DNAmeters':0,'HUMAN':'HOLD',
+          assert j['nativeInput']=='PLAYWRIGHT_KEYBOARD_NOT_HUMAN'
+          assert j['formalART']==0 and j['slope2DNAmeters']==0
+          assert j['HUMAN']==j['SAT']==j['CCD']==j['FPS']==j['RELEASE']==j['MERGE']=='HOLD'
+          assert len(j['trials'])>=3 and not j['errors']
+          verdict=[]
+          for trial in j['trials']:
+            t=json.loads((d/trial['traceName']).read_text())
+            assert len(t['stations'])==2
+            assert {s['id'] for s in t['stations']}=={'a13-machine-13','a13-machine-14'}
+            assert len(t['samples'])>=30
+            assert all(s['hazards'] and len(s['hazards'])==2 for s in t['samples'])
+            assert any(s['mode']=='REAL_KEYBOARD' for s in t['samples'])
+            assert (d/trial['imageName']).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
+            measured=trial['result']
+            contacts=[e for s in t['samples'] for e in s['events'] if e['type']=='moving-contact']
+            assert len(contacts)==len(measured['movingContactEvents'])
+            if measured['outcome']=='B51_13_GEOMETRIC_PASS_NOT_HUMAN':
+              assert measured['passedStation']['a13-machine-13'] and measured['lastStatus']=='running'
+              assert not any(e['id']=='a13-machine-13' for e in contacts)
+            verdict.append({'label':trial['label'],'result':measured['outcome'],'minGapM':measured['minGapM'],
+              'contact13':measured['contact13'],'contact14':measured['contact14'],
+              'failureReason':measured['failureReason']})
+          if j['realRetryObserved']:
+            assert j['retry']['restartedFromTickZero'] and j['retry']['via']=='ORIGINAL_RETRY_RUN_UI'
+            assert j['realFailureObserved']
+          assert __import__('subprocess').check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
+          report={'schema':'k4ct-independent-actual-contact-and-retry-v1','sourceFrozen':True,
+            'real240HzTrialsVerified':len(verdict),'physicalTrialOutcomes':verdict,
+            'realFailure':j['realFailureObserved'],'realRetry':j['realRetryObserved'],
+            'realContact13':j['contactEventsB51_13'],'realContact14':j['contactEventsB51_14'],
+            'noAutomaticPlayFairnessCertification':True,'ART':'REJECT','HUMAN':'HOLD',
             'SAT':'HOLD','CCD':'HOLD','FPS':'HOLD','RELEASE':'HOLD','MERGE':'HOLD'}
-          if len(j['sessions'])==2 and not j['failures']:
-            left,right=[s['pictures'] for s in j['sessions']]
-            assert len(left)==len(right)==5
-            items=[]
-            for x,y in zip(left,right):
-              assert x['nativeTicks']==y['nativeTicks'] and x['runnerStatus']==y['runnerStatus']=='running'
-              assert x['realRoad']==y['realRoad'] and x['sourceSpeedHud']==y['sourceSpeedHud']
-              assert x['actualPosition']==y['actualPosition'],'K4CT warning mutated original Runner pose'
-              assert y['dualDisplayed'] and y['dualCenterErrorPx'] is not None and y['dualCenterErrorPx']<2
-              assert y['dualNativeB51Count']==2,'two actual B51 not on-screen'
-              assert y['firstRealB51']!=y['secondRealB51']
-              ids=[x['firstRealB51'],y['firstRealB51'],y['secondRealB51']]
-              assert ids[1].startswith('a13-machine-') and ids[2].startswith('a13-machine-')
-              for image in [x['file'],y['file']]:
-                raw=(d/image).read_bytes()
-                assert raw[:8]==b'\x89PNG\r\n\x1a\n'
-                w,h=struct.unpack('>II',raw[16:24])
-                assert w>=1100 and h>=700 and len(raw)>30000
-              parsed=json.loads(y['twoHazardDecision'])
-              assert parsed['rowCount']==2 and all(r['safeLaneCertified'] is False for r in parsed['rows'])
-              items.append({'seconds':x['seconds'],'ticks':x['nativeTicks'],
-                  'first':y['firstRealB51'],'second':y['secondRealB51'],
-                  'timeToFirstSeconds':parsed['rows'][0]['etaSeconds'],
-                  'timeToSecondSeconds':parsed['rows'][1]['etaSeconds'],
-                  'realFirstBoxSeparationM':y['firstOriginalBoxSeparation'],
-                  'nativeRunnerSpeedHud':x['sourceSpeedHud']})
-            report['actualTwoConsecutiveHazardSequence']=items
-          (d/'K4CT_INDEPENDENT_REAL_CONSEQUENCE.json').write_text(json.dumps(report,indent=2)+'\n')
-          print('K4CT_TRUE_NATIVE_TWO_REAL_B51_READ_AND_REAL_CHOICE',json.dumps(report))
-          assert report['sourceNativeSessions']==2 and not report['realErrors']
-          assert report['realKeyboardDirections']==2 and report['manualPhysicalPositionSeparationM']>0.2
-          assert len(report.get('actualTwoConsecutiveHazardSequence',[]))==5
+          (d/'K4CT_INDEPENDENT_ACTUAL_VERDICT.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps(report))
           PY
-          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
-      - name: Preserve unmodified actual game screenshots, original B51 boxes and any failed trial
-        uses: actions/upload-artifact@v4
+      - name: Always archive native failures and raw true WebGL screenshots
         if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: K4CT_TRUE_ORIGINAL_TWO_MOVING_B51_PLAYABLE_RESEARCH_HOLD
-          path: test-results/k4ct-two-true-b51/
-          retention-days: 7
+          name: K4CT_B51_13_14_ACTUAL_NATIVE_CONTACT_RETRY_HOLD
+          path: test-results/k4ct-contact-retry/
           if-no-files-found: warn
+          retention-days: 7
