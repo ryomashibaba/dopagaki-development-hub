@@ -47,10 +47,10 @@ const anchor='// G4E-1 physical trials are private opt-in; Gold remains the visi
 replace(anchor,[
  "// K4CQ single opt-in PRIVATE art sector, SOURCE 240Hz physics untouched.",
  "if(r15s3d10OptIn){assets['"+id+"']='"+filename+"';",
- "const baselineOption=document.createElement('option');baselineOption.value='"+baselineId+"';
-baselineOption.textContent='K4CQ R2 real Road5 physical BASELINE (HOLD)';
-assets['"+baselineId+"']='"+baselineFilename+"';$('stage').append(baselineOption);
-const option=document.createElement('option');option.value='"+id+"';",
+ "const baselineOption=document.createElement('option');baselineOption.value='"+baselineId+"';",
+ "baselineOption.textContent='K4CQ R2 real Road5 physical BASELINE (HOLD)';",
+ "assets['"+baselineId+"']='"+baselineFilename+"';$('stage').append(baselineOption);",
+ "const option=document.createElement('option');option.value='"+id+"';",
  "option.textContent='K4CQ real B48 Road5 coastal apex / ART HUMAN HOLD';$('stage').append(option);}",
  anchor
 ].join('\n'));
