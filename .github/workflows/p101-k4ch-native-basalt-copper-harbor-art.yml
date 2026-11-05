@@ -1,0 +1,171 @@
+name: DOPAGAKI K4CH real native reauthored basalt rock and copper harbor ART HOLD
+on:
+  push:
+    branches: [research/k4ch-basalt-copper-harbor-art-20261105]
+    paths:
+      - scripts/p101-k4ch-native-coherent-harbor-basalt-copper-art.py
+      - .github/workflows/p101-k4ch-native-basalt-copper-harbor-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4ch-basalt-copper-harbor
+  cancel-in-progress: true
+jobs:
+  protected-authentic-native-k4ch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preflight source Game, Blender author syntax and real Road5 lineage
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4ch-basalt-copper-harbor-art-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4ch-native-coherent-harbor-basalt-copper-art.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download genuine K4CG R2 editable Blender and unchanged original game evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CG_TRUE_INTEGRATED_COASTAL_WORLD_EDITABLE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41942878730
+          github-token: ${{ github.token }}
+          path: research/evidence/k4ch/parent
+      - name: Verify parent K4CG actual native bytes, safety locks and all hashes
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          d=Path('research/evidence/k4ch/parent')
+          a=json.loads((d/'K4CG_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CFR2ExactSHA256']=='1a17dc522b4d7df85c92023df5b580f1e5fe155b27264dfcb9d7a511d99d8533'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged','originalElevenTreeTransformsUnchanged','originalLightsUnchanged','originalParentObjectsAndGeometryUnchanged','K4BZ_bad_duplicate_road_hidden','genuine3DNoBillboard'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['genuineResearchEditableNewObjectCount']==5
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert a['files']['K4CG_INTEGRATED_COASTAL_WORLD_GEOMETRY_EDITABLE_ART_HOLD.blend']['sha256']=='5a2215677fd41c420bac3b44b78b65b0e42aa74b79399498a87a57b7b85946f1'
+          print('K4CH_EXACT_K4CG_NATIVE_SOURCE_PARENT_SHA_AND_SOURCE_PASS')
+          PY
+      - name: Install actual Blender EEVEE with bounded apt recovery and source regression
+        timeout-minutes: 10
+        run: |
+          set -euo pipefail
+          # Some hosted apt mirrors hang indefinitely during metadata refresh;
+          # limit it, then try the runner's existing signed package indexes.
+          if ! sudo timeout --signal=TERM --kill-after=10s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 update -qq; then
+            echo 'K4CF_APT_UPDATE_SLOW_USING_EXISTING_SIGNED_RUNNER_INDEX'
+          fi
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 420s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=30 install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          command -v blender
+          blender -b -noaudio --factory-startup --python-expr "import bpy; print('K4CH_REAL_BLENDER_VERSION', bpy.app.version_string)"
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+          /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
+      - name: Reauthor all visible source-locked basalt cut and occupied copper ferry station in true Blender
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4ch/render
+          xvfb-run -a -s '-screen 0 1280x900x24' env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4ch-native-coherent-harbor-basalt-copper-art.py -- \
+            --base research/evidence/k4ch/parent/K4CG_INTEGRATED_COASTAL_WORLD_GEOMETRY_EDITABLE_ART_HOLD.blend \
+            --out research/evidence/k4ch/render 2>&1 | tee research/evidence/k4ch/render/K4CH_REAL_BLENDER.log
+      - name: Independently prove actual entire-view source protected basalt copper and seaside native render
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageChops,ImageDraw
+          d=Path('research/evidence/k4ch/render')
+          a=json.loads((d/'K4CH_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CGR2ExactSHA256']=='5a2215677fd41c420bac3b44b78b65b0e42aa74b79399498a87a57b7b85946f1'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged',
+                    'originalElevenTreeTransformsUnchanged','originalLightsUnchanged',
+                    'originalParentObjectGeometryAndMatrixUnchanged','K4BZ_bad_duplicate_road_hidden'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['newResearchEditableMeshObjects']==7
+          assert a['newGenuineVisibleGeologicalVertexChanges']>350
+          assert a['newGenuineVisibleAngularRockFacets']>200
+          assert a['actualTerminalOriginalSupportCount'] in (12,14)
+          assert a['trueReformedCopperRoofVertices']>15
+          assert a['ART']=='UNJUDGED_HOLD' and a['renderEngine']=='BLENDER_EEVEE'
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          old=Image.open('research/evidence/k4ch/parent/K4CG_TRUE_CHASE_INTEGRATED_COASTAL_WORLDSCAPE_NOT_GAME.png').convert('RGB')
+          new=Image.open(d/'K4CH_TRUE_CHASE_BASALT_COPPER_HARBOR_NOT_GAME.png').convert('RGB')
+          assert old.size==new.size==(768,480)
+          diff=ImageChops.difference(old,new)
+          def count(region,cut=16):
+              return sum(max(pixel)>cut for pixel in diff.crop(region).getdata())
+          left=count((8,150,240,465),16)
+          canopy=count((460,155,755,365),16)
+          harbor=count((500,280,768,465),16)
+          protected_road=count((325,260,480,470),12)
+          assert left>9000,('VISIBLE_ROCK_MASS_NOT_SUBSTANTIALLY_REAUTHORED',left)
+          assert canopy>3500,('VISIBLE_HARBOR_ARCHITECTURE_NOT_SUBSTANTIALLY_REAUTHORED',canopy)
+          assert protected_road<80,('PROTECTED_ORIGINAL_RACING_VIEW_CHANGED',protected_road)
+          for p in ((390,270),(400,320),(380,380),(420,440),(470,465)):
+              a0=old.getpixel(p);b0=new.getpixel(p)
+              assert max(abs(a0[k]-b0[k]) for k in range(3))<=10,('RACE_ROAD_CAMERA_VIEW_CHANGED',p,a0,b0)
+          wedges=[((292,300),(317,300)),((280,330),(310,330)),
+                  ((267,360),(310,360)),((250,400),(295,400)),
+                  ((235,440),(280,440)),((225,470),(270,470))]
+          for dark,light in wedges:
+              before=(sum(old.getpixel(light))-sum(old.getpixel(dark)))/3.
+              after=(sum(new.getpixel(light))-sum(new.getpixel(dark)))/3.
+              assert abs(after-before)<14,('K4BZ_ROAD_BLACK_WEDGE_REGRESSION',dark,before,after)
+          im=Image.new('RGB',(1560,552),(13,18,22))
+          im.paste(old,(12,50));im.paste(new,(780,50))
+          draw=ImageDraw.Draw(im)
+          draw.text((12,18),'K4CG R2 authentic Blender CHASE | ART REJECT',fill='white')
+          draw.text((780,18),'K4CH basalt copper true Blender CHASE | ART UNJUDGED',fill='white')
+          draw.text((12,536),'Editable native DCC ART research only, NOT source WebGL2 play certification.',fill='white')
+          name='K4CH_VS_K4CG_R2_TRUE_CHASE_FULL_HARBOR_ART_REVIEW_NOT_GAME.png'
+          im.save(d/name)
+          a['independentTrueChaseQA']={
+             'leftCoastChangedPixelsNotArtScore':left,
+             'harborCanopyChangedPixelsNotArtScore':canopy,
+             'lowerHarborChangedPixelsNotArtScore':harbor,
+             'protectedOriginalRoadChangedPixelsNotArtScore':protected_road,
+             'comparisonName':name,
+             'comparisonSHA256':hashlib.sha256((d/name).read_bytes()).hexdigest(),
+             'ART':'UNJUDGED_HOLD'}
+          (d/'K4CH_REAL_NATIVE_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n')
+          print('K4CH_AUTHENTIC_FULL_COMPOSITION_NATIVE_BLENDER_TECH_PASS',left,canopy,harbor,protected_road)
+          PY
+      - name: Commit only actual research evidence and never merge original source
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4ch-basalt-copper-harbor-art-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4ch
+          cp research/evidence/k4ch/render/*.png docs/research-evidence/k4ch/
+          cp research/evidence/k4ch/render/*.json docs/research-evidence/k4ch/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4ch
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4ch): truly authored basalt-coast and copper ferry-architecture same-CHASE research ART HOLD"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4ch-basalt-copper-harbor-art-20261105
+          fi
+      - name: Archive actual K4CG Blender worldscape and independent audit even when ART HOLD
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CH_TRUE_BASALT_COPPER_HARBOR_EDITABLE_ART_HOLD
+          path: research/evidence/k4ch/render/
+          if-no-files-found: warn
+          retention-days: 21
