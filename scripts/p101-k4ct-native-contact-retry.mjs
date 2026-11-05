@@ -16,7 +16,6 @@ const report={schema:'k4ct-240hz-original-b51-13-14-contact-retry-v1',nativeInpu
  ART:'REJECT',formalART:0,slope2DNAmeters:0,HUMAN:'HOLD',SAT:'HOLD',CCD:'HOLD',FPS:'HOLD',
  RELEASE:'HOLD',MERGE:'HOLD',trials:[],retry:null,errors:[]};
 let browser=null;
-const view=()=>document.getElementById('view');
 const failureText=e=>String(e?.stack||e).slice(0,1500);
 function analyze(trace){
  const stations=trace?.stations??[],samples=trace?.samples??[];
@@ -45,30 +44,30 @@ function analyze(trace){
 }
 async function setup(page){
  await page.goto(base+'/k4ct/?k4ct=on&stage=K4CT-TWO-REAL-B51-CHOICE',{waitUntil:'domcontentloaded',timeout:45000});
- await page.waitForFunction(()=>view()?.dataset.r15s3d10OriginalGame==='REAL_WEBGL2_SOURCE_240HZ'&&
+ await page.waitForFunction(()=>document.getElementById('view')?.dataset.r15s3d10OriginalGame==='REAL_WEBGL2_SOURCE_240HZ'&&
    document.getElementById('stage').value==='K4CT-TWO-REAL-B51-CHOICE',undefined,{timeout:90000});
- const verified=await page.evaluate(()=>{const c=view(),g=c.getContext('webgl2');return {
+ const verified=await page.evaluate(()=>{const c=document.getElementById('view'),g=c.getContext('webgl2');return {
   nativeGL:g instanceof WebGL2RenderingContext,
   nativeStatus:c.dataset.r15s3d10OriginalGame,stage:document.getElementById('stage').value
  }});
  assert.ok(verified.nativeGL&&verified.nativeStatus==='REAL_WEBGL2_SOURCE_240HZ');
  await page.locator('#cameraCompare').click();
- await page.waitForFunction(()=>view().dataset.cameraMode==='ball-lock-unfiltered-heading');
+ await page.waitForFunction(()=>document.getElementById('view').dataset.cameraMode==='ball-lock-unfiltered-heading');
  await page.locator('#demoSpeed').selectOption('2');
 }
 async function arriveAtChoice(page){
  await page.evaluate(()=>window.__r15s3d10PauseAt=63.70);
  await page.locator('#demoRun').click();
- await page.waitForFunction(()=>Math.abs(Number(view().dataset.r15s3d10PausedAt)-63.70)<0.009||
-  ['failed','finished'].includes(view().dataset.r15s3d10Status),undefined,{timeout:120000,polling:50});
+ await page.waitForFunction(()=>Math.abs(Number(document.getElementById('view').dataset.r15s3d10PausedAt)-63.70)<0.009||
+  ['failed','finished'].includes(document.getElementById('view').dataset.r15s3d10Status),undefined,{timeout:120000,polling:50});
  assert.equal(await page.locator('#view').getAttribute('data-r15s3d10-status'),'running',
   'source Runner failed before real B51 choice');
  await page.locator('#takeoverRun').click();
- await page.waitForFunction(()=>view().dataset.k4csControlMode==='ORIGINAL_MANUAL_UNCERTIFIED',undefined,{timeout:15000});
+ await page.waitForFunction(()=>document.getElementById('view').dataset.k4csControlMode==='ORIGINAL_MANUAL_UNCERTIFIED',undefined,{timeout:15000});
 }
 async function awaitOutcome(page,target){
  await page.waitForFunction(t=>{
-  const c=view(),done=Math.abs(Number(c.dataset.r15s3d10PausedAt)-t)<.009;
+  const c=document.getElementById('view'),done=Math.abs(Number(c.dataset.r15s3d10PausedAt)-t)<.009;
   return done||['failed','finished'].includes(c.dataset.r15s3d10Status);
  },target,{timeout:120000,polling:50});
 }
@@ -77,8 +76,8 @@ async function steerAfterChoice(page,key,holdUntilEnd=false){
  if(key&&!holdUntilEnd){
   await page.evaluate(()=>window.__r15s3d10PauseAt=64.05);
   await page.keyboard.down(key);
-  await page.waitForFunction(k=>view().dataset.k4csLastInputUsed==='ORIGINAL_MANUAL_KEYBOARD'&&
-    view().dataset.k4csActualManualSteer===(k==='KeyA'?'-1':'1'),key,{timeout:15000});
+  await page.waitForFunction(k=>document.getElementById('view').dataset.k4csLastInputUsed==='ORIGINAL_MANUAL_KEYBOARD'&&
+    document.getElementById('view').dataset.k4csActualManualSteer===(k==='KeyA'?'-1':'1'),key,{timeout:15000});
   await awaitOutcome(page,64.05);
   await page.keyboard.up(key);
   const ended=await page.locator('#view').getAttribute('data-r15s3d10-status');
@@ -126,8 +125,8 @@ try{
    report.trials.push(primary);
    if(!report.retry&&primary.result.lastStatus==='failed'){
     await page.locator('#retryRun').click({timeout:10000});
-    await page.waitForFunction(()=>Number(view().dataset.r15s3d10NativeTicks)<120&&
-     view().dataset.r15s3d10OriginalGame==='REAL_WEBGL2_SOURCE_240HZ',undefined,{timeout:10000});
+    await page.waitForFunction(()=>Number(document.getElementById('view').dataset.r15s3d10NativeTicks)<120&&
+     document.getElementById('view').dataset.r15s3d10OriginalGame==='REAL_WEBGL2_SOURCE_240HZ',undefined,{timeout:10000});
     await arriveAtChoice(page);
     await steerAfterChoice(page,spec.key==='KeyA'?'KeyD':'KeyA');
     const second=await collect(page,'AFTER_REAL_FAILURE_RETRY');
