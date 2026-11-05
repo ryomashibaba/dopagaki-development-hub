@@ -1,3 +1,13 @@
+# 【K4CI 初回実DCC画像で得た失敗と修正 — 最新判定はActionsを再照合】
+
+- 初回 [**Actions #41965535258**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41965535258) は **completed/FAILURE（独立QAのみ）**。本物のBlender4.0.2でK4CH真正原本をSHA固定し、実3D港湾ガントリー**552頂点・414面**を作成、編集可能.blend保存、実CHASE 768×480 PNG描画までは完了。選定した実世界地理：SOURCE前方向 **+70m**、海方向 **+46m**、開口幅 **56m**、高さ **44m**。真正CHASEでガントリーBBox `x=.6796..9275, y=.4758..7892`。元の道路カメラ変更なし。
+- 初回の本物のPNGを直接開いた結果、上部大梁とAフレームが右港に実表示されるが、その下の空間が空疎で建物の背後に隠れる。独立右港可視変化 **2,104px** と合格基準 **2,500px**に不足したため、**初回TECH PASSにはしない／ART REJECT**。真Artifact [#13387412094](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41965535258/artifacts/13387412094) は研究用.blend/PNG証拠であり正式成功を意味しない。
+- **根因に絞った修正**：最初の実3Dガントリーを壊さず、既存の支柱構造と上梁に物理的に接続する**二重の海上作業キャットウォーク・斜交差耐風トラス・荷役機械室**を真3D梁で加えた。港の仕事内容を構造的に示し、右奥の空白を減らす。可視差分・道路・カメラなどのQA閾値を**一切変更していない**。最終スクリプトcommit `6189f52d3f8786bfddbfd76bbdede705dcb24e56`。
+- **真正再試験 [#41966161805](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41966161805)** は本記録時点で実行中。最新result、独立QA、Artifact、実編集可能DCC全バイトSHA/ZIP CRC、真CHASE画像の直接ART審査を済ませる前にTECH／ARTのPASSを言わない。前のrun #41965424873/#41965499085 はコードの上書きによりCANCELLEDであり成功扱い禁止。
+- **不変**：原Game・Road5・Camera・木11本・ライト・元研究親形状、main、公式P101、Draft PR #46、原作Slope・凍結Gold・本番2サイトの一切を保護。研究のみ、ゲームCollider増加0、正式ART採用0／Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。Work/Computer Use個別事前承認、追加有料API原則0円、ユーザー操作0。
+
+---
+
 # K4CI — 港湾の荷役ガントリーによる「走行視界の奥行き」の実制作
 
 **2026-11-05 JST。研究用DCCのみ、正式ART採用0、Slope2 DNA認定0m。**
