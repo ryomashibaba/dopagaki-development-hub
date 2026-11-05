@@ -149,6 +149,15 @@ for side in (L,R):
  beam(location(u-5.2,side,5.8),location(u+5.2,side,5.8),.86,.88,0)
  beam(location(u-5.2,side,6),location(u+3.4,side,H*.72),.43,.5,1)
  beam(location(u+5.2,side,6),location(u-3.4,side,H*.72),.43,.5,1)
+ # Honest triangulated anti-rack structure: repeated X-bracing is part of
+ # one continuous port gantry, not decorative unrelated props.
+ for k in range(5):
+  bottom=H*(.20+.115*k)
+  top=bottom+H*.095
+  beam(location(u-5.2*(1-bottom/H),side,bottom),
+       location(u+5.2*(1-top/H),side,top),.22,.28,0)
+  beam(location(u+5.2*(1-bottom/H),side,bottom),
+       location(u-5.2*(1-top/H),side,top),.22,.28,0)
 # Overhead main hoisting truss, two real longitudinal rails in F direction.
 for foff in (-1.8,1.8):
  beam(location(u+foff,L,H),location(u+foff,R,H),1.18,2.10,1)
