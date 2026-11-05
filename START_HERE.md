@@ -1,8 +1,16 @@
-# DOPAGAKI SLOPE — HYPER RUSH / 現行研究・START HERE（2026-11-05 K4CT R2後）
+# DOPAGAKI SLOPE — HYPER RUSH / 現行研究・START HERE（2026-11-06 K4CT R4後）
 
 **現行唯一の案内正本**：[DOPAGAKI全計画・批判的評価と新チャット完全統合引き継ぎ](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R2_20261105_JA.md) をまず全文読む。過去の全記録は[旧START_HEREの原文アーカイブ](docs/archive/START_HERE_SNAPSHOT_K4CT_R2_20261105.md)に**省略・上書きなし**で保存。これは歴史や固定方針の撤回ではなく索引の短縮である。
 
-## K4CT R3実測・最新（2026-11-05 JST、R2履歴は下記参照）
+## 現在の最優先実証：K4CT R4（2026-11-06 JST）
+- **真正R4研究CI**：[Actions #42053864244](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42053864244) **SUCCESS**。実行HEAD `80e922493d262107db6e2832f5aacbf0ec53cde5`。Artifact [#13426704665](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42053864244/artifacts/13426704665)（2026-11-12期限）、GitHub報告digest `sha256:9838caba31ee9374531996340d3057a29a0690446fde30bddcb4012349774ad6`。ZIP全CRC検証済み。
+- **初めて、同じ真正Chromiumの元ゲーム・同じ出発物理状態（63.70秒位置差0m）で**、無操作は元Runnerが69.483333秒に「コースから落下」`failed` → 元UIの`retryRun`でゼロから再走 → Playwright真正KeyDを65.25–65.36秒と65.79–65.91秒の2回のみ押す → 元Runnerが69.941667秒に`finished`、Road6のB51-14地点を通過、B51-13/14との接触イベント0、最小OBB表面距離それぞれ3.852m / 3.149m。**スクリプト入力であり人間ではない**。失敗CI #42050817518 と #42052034384 はFAILのまま履歴保存。
+- Blender 4.0.2で本当に編集可能な**11機能群／14,232三角形**を生成して、元のB48 7本・B51 28体・240Hz物理・Cameraを変更せず、隔離PRIVATEゲームへ非衝突統合。旧蛍光色の路面光学表示は研究コピーの描画でのみ抑え、元形状に一致するDCC表面に置換。元原本Blob `af076d67…`、研究Road5 SHA256 `4957a0e1…`は不変。
+- **真のRAWゲーム画像を直接評価：ART REJECT継続**。蛍光帯の過剰は軽減した一方、港湾建築はなお模型的、海岸の巨大平面、強い色の遮蔽物、欠字、見通しの悪さが残る。**正式ART0件・Slope2 DNA 0m・HUMAN/SAT/CCD/FPS/RELEASE/MERGEすべてHOLD**。TECH PASS≠世界水準の作品完成。
+- **次の唯一の優先工程：** 実B51-13/14の選択・失敗・再挑戦の物理的因果は研究実証済み。旧「接触まで試す」を繰り返さず、同じ実ゲームカメラで速度183m/s時にも危険を前方から読める、本格的に統合された港湾崖・潮汐水門・高架・路面の**DCC全面構図再著作と真正RAW映像評価**へ重点を移す。操作許容幅の人間妥当性とWindows FPSは別の節目で検証し、現時点で合格扱いしない。
+- [R4恒久証拠](research-evidence/k4ct/K4CT_R4_REAL_NATIVE_FAILURE_RETRY_FINISH_ART_HOLD.json) ／過去のR3実績と上位方針は下に履歴として保存。保護対象への変更・Work・課金・本番公開・正式採用・mergeは個別承認制。今回のユーザー操作0回。
+
+## K4CT R3過去実証（2026-11-05、R4の以前の成功・撤回なし）
 - 真正研究コードHEAD `0727c52b27759d06d8b2e5336ede15b8bbc2a525`。実証 [Actions #42048634777](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42048634777) **completed/SUCCESS**。[Artifact #13425699087](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42048634777/artifacts/13425699087)、SHA256 `8fdbe45ccd775c913ef2c2f838bc4c2230b77f0188a7f766ee44c8b160435abc`、全ZIP CRC PASS（現時点の独立ダウンロード検査）。
 - 既存R2の63.70→64.05秒・A/D位置差14.27mは**過去の実証**。新実測R3は同じ元Game／真正WebGL2／240Hz原Runner／原Camera／K4CR研究Road5／元28 B51を継承し、B51-13→B51-14の連続区間を実物理で通過させた。人間操作ではなく**Playwright真正KeyD自動操作**。
 - R3の4つの実KeyD短時間入力（65.15–65.30、65.48–65.66、65.82–66.00、65.25–65.36＋65.79–65.91）は**全てRoad6へ接地しB51-14設置地点+20mを実走行**。原B51-13/14の実moving-contactは4件とも0、失敗0。B51-14実OBB表面最短距離順に6.891m／5.609m／5.681m／3.149m。2回入力の試行は元Runner.status=`finished`、実時間69.941667s、他の3試行は70.500s時点`running`。これは**研究コピーの自動操作技術実証**であり、正式な人間完走認定ではない。

@@ -1,0 +1,74 @@
+{
+  "schema": "dopagaki.k4ct.native-b51-13-14-failure-retry-finish-r4/1",
+  "state": "RESEARCH_TECH_PASS_ART_REJECT",
+  "verifiedAt": "2026-11-06 JST",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "runCommit": "80e922493d262107db6e2832f5aacbf0ec53cde5",
+  "runId": 42053864244,
+  "runConclusion": "SUCCESS",
+  "artifact": {
+    "id": 13426704665,
+    "digest": "sha256:9838caba31ee9374531996340d3057a29a0690446fde30bddcb4012349774ad6",
+    "zipCrc": "PASS",
+    "expiry": "2026-11-12"
+  },
+  "sourceIntegrity": {
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "privateResearchRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalRoads": 7,
+    "originalMovingB51": 28,
+    "collidersAdded": 0,
+    "cameraPhysicsInputUnmodified": true
+  },
+  "actualPair": {
+    "sameBrowserContext": true,
+    "originalRetryControl": "retryRun",
+    "firstTimeSeconds": 69.4833333333523,
+    "firstStatus": "failed",
+    "firstReason": "コースから落下",
+    "restartNativeTicksNearZero": true,
+    "preChoicePositionSeparationMetres": 0,
+    "originalKeyboardPulses": [
+      {
+        "key": "KeyD",
+        "start": 65.25,
+        "end": 65.36
+      },
+      {
+        "key": "KeyD",
+        "start": 65.79,
+        "end": 65.91
+      }
+    ],
+    "recoveryTimeSeconds": 69.94166666668522,
+    "recoveryStatus": "finished",
+    "realB51_14Passed": true,
+    "minOriginalB51_13OBBSurfaceSeparationMetres": 3.8516884950110035,
+    "minOriginalB51_14OBBSurfaceSeparationMetres": 3.148671054349772,
+    "realMovingContactsB51_13_14": 0,
+    "notHuman": true
+  },
+  "dcc": {
+    "blenderVersion": "4.0.2",
+    "editableBlend": true,
+    "functionalObjects": 11,
+    "nonCollidingTriangles": 14232,
+    "privateNativeWebglIntegrated": true,
+    "ART": "REJECT",
+    "formalAccepted": 0,
+    "slope2DNAMetres": 0
+  },
+  "gates": {
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "olderFailedRunsRemainFailed": [
+    42050817518,
+    42052034384
+  ],
+  "nextPriority": "Integrated source-chase-quality DCC world redevelopment; do not repeat proved physical trials or count triangle/hud quantity as quality"
+}
