@@ -1,3 +1,13 @@
+## 【2026-11-05 K4CN R1独立実証・直接ART REJECT／R2作者修正】
+- R1真正Actions [#42000172721](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42000172721) completed/SUCCESS。SHA固定のK4CM編集可能親.blendから真正Blender4.0.2で新研究Mesh3件を生成し、ゲーム原Game/Road5/6Camera/CHASE/木11/光源/240Hz物理の保護検証に成功。元Game Collider追加0。**TECHのみ成功、正式ART採用0件／DNA0m**。
+- R1真正Artifact #13402321747を本チャットで別途再取得：ZIP **127,226,891B**、SHA256 **cf7cf8cdd005d705a86d06d35aca5e2e5b293cbe1c7dfa72c9e706ea7076435a**、全ZIP CRC PASS、個別.blend（283,606,796B、SHA256 **766b34c1a947915648d16d4ddacf54a84557607114964f63152c1c32ac3bd5e1**）とPNG（504,217B、SHA256 **1541f656d065d660b6ef0a74d61660ca4cae4f81b262f2f6846abf4fb2895ef2**）の独立bytes/hash一致PASS。画像では左**17,554px**、右**9,740px**、路面中央**24px**変化。元路面形状はSHA固定、画像差は可視性のTECH証拠でART評価ではない。
+- **直接同じ真正CHASEの全画面比較を開いてART REJECT**：左の暗い大型岩盤は滑らかな山腹状の単一斜面に近く、地質の岩割れ・断層・自然な段丘が画面上で十分読めない。右の広大な港屋根と柱は上半分が画面外に寄り、大きな骨組み・平板状で港の生活／機能／街とのつながりが分からない。中央の道路はK4CM同様に単調で速度感も不足。CI緑から正式採用へ昇格しない。
+- **R2実制作変更コミット** [c2c626c9](https://github.com/ryomashibaba/dopagaki-development-hub/commit/c2c626c99f16c8754e170d530577070fab88e139)：親K4CMから独立3Dとして、左は近景量感を抑えながら奥の断層・谷と岩の段差を深く彫刻。右は約94mの本物の港屋根・支柱・床・閉鎖機械室・連続防波土木をSOURCEから可視な道路外側へ再配置し、構造体の支柱接続を維持。**研究用コードのみ更新、原Game/原Road5/カメラ/物理/Colliderは未変更**。
+- R2真正Actions [#42003004167](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42003004167) の独立Blender/実PNG/全CRC/直接ART評価は、この節記述時点では**進行中**。未完了の成功や合格は主張しない。R2が終了したら最新結果でこの節の暫定文を更新する。
+- 恒久条件：**ART REJECT（R1）、R2はHOLD、正式ART採用0件、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。main、公式P101、Gold/元原作/旧Road5、Draft PR#46、2本番サイト、元GAME・240Hz物理とCameraを保護。Work/Computer Use・有料API・正式統合・本番公開は個別事前承認。
+
+---
+
 # K4CN — 原SOURCE固定・自然断層海岸と実働港湾の一体構図（研究／ART HOLD）
 
 記録日：2026-11-05 JST。**これは新方針ではなくK4CM R3のTECH PASS／ART REJECTを受けた次工程**。正式ART採用0件、Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGEはHOLD。
