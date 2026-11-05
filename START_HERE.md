@@ -1,3 +1,16 @@
+# 【2026-11-05 K4CO R2最終：真正Blender・独立Artifact全CRC/SHA TECH PASS／実画像直接ART REJECT】
+
+**この研究ブランチの最新確定結論はK4CO R2。** まず[**K4CO R2最終・R1失敗・真正Blender・直接ART・次工程・永久保護**](docs/R19_A6P4_R2F5K4CO_SOURCE_GROUNDED_VIADUCT_ART_JA.md)と[**K4CN R2（左）対K4CO R2（右）の実SOURCE CHASE比較**](docs/research-evidence/k4co/K4CO_VS_K4CN_TRUE_SOURCE_CHASE_ART_REVIEW.png)、[**監査JSON**](docs/research-evidence/k4co/K4CO_REAL_NATIVE_AUDIT.json)を最優先で確認。下段「K4CO実制作開始」「K4CN最新」「K4CM最新」は履歴であり現行判定を上書きしない。
+
+- **真正[Actions #42012187718](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42012187718) completed/SUCCESS**。入力R2 `e956f46e7f280e63c7f4f45f085a99f66d65992f`、K4CN R2の実可編集Blender SHA固定を親に、元Game/全Road5/6Camera/CHASE/240Hz物理/木11・全光源・親Mesh行列不変。Blender4.0.2で真95m貨物連絡高架（940頂点740面、実地形接続支持部4本、9点の元道路高差から真正最小クリアランス26.40m）を1編集可能非衝突研究Meshとして制作。新ゲームCollider0。
+- **実Artifact [#13408380356](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42012187718/artifacts/13408380356)** ZIP127,282,138B／SHA256 `4b6eb3dfbad73b8256d0fac77d7b5cddf818d8f3f6d234566a15f5b79cbd9736`。GitHubから別途再取得して**全CRC PASS、個別Blender/PNG実バイト数・SHA256全一致**。編集可能.blend SHA `9574e6f49865cf962280caa073f2c5583cf1a3ed1ae41a9efb2a4167d6ed3c91`、真CHASE PNG SHA `d176d88ff1b0f3bc0323f8926bec6b0b0e6cca95ab311429d16330617b6e3b65`。
+- **実CHASE画面独立QA**：旧R1橋（Actions #42011378602）は上部が画面外＋影が路面中央1,482pxを侵食しFAILURE。R2でSOURCE Road5方向の真の橋配置をd=94→154mへ後退して元道路中央変化**24px**（保護上限120px未満）と遠景橋可視差**8,804px**、真正TECH PASS。元道路/Camera変更や画像ペイントは一切なし。
+- **実画像を直接開いてK4CO R2 ART REJECT確定**。橋アーチが構図内に収まり、交通道路の保護域が解決したが、画面全体は依然として広く単調な高速道路と尖塔型岩盤・模型的な港に留まり、世界水準の速度感・海辺都市の臨場感と機能の連続性は未達。可視画素やBlender成功をART/人間プレイの証明として使わない。**正式ART採用0件／Slope2 DNA認定0m／HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。
+- **次の方針は過去のQUALITY-FIRST・ART-FIRST・DCC-FIRST・INTEGRATED VERTICAL SLICEを維持**。K4CO TECHを再試行せず、橋・岩・屋根の微修正を止め、実道路・港湾機能・海・地形・高速走行の視線が全画面で一体になる**根本的作品構図**へ移行する。元Road5/6Camera/240Hz物理を勝手に狭く/移動/置換しない。1区間の美術品質と実プレイ・SAT/CCD/FPS/HUMANが未認定の間は他の6道路へ横展開も公開も禁止。
+- **永久保護**：main、公式P101、Draft PR#46、Gold/原作Slope、元Game Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5 SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元Camera/物理、元研究親、正式QA、本番2サイト。Work/Computer Use・追加課金・正式ART採用・main/PR merge・本番公開は個別承認。ユーザー操作最小。
+
+---
+
 # 【2026-11-05 K4CO実制作開始：元K4CN R2真正Blender固定、95m港湾連絡高架ランドマークを1件作者実装／真正Blender結果・ARTはHOLD】
 
 **現行の研究正本**：`research/k4co-source-locked-freight-viaduct-landmark-20261105`。最初に[**K4COの制作内容・真正試験・SOURCE保護・未確認状態**](docs/R19_A6P4_R2F5K4CO_SOURCE_GROUNDED_VIADUCT_ART_JA.md)を確認。前段K4CN R2 [Actions #42003004167](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42003004167)は **真正TECH PASS／直接ART REJECT** であり、再試験しない。下段K4CN R2・K4CM R3の「最新」は各当時の記録であって、本K4COの未完成結果を上書きしない。
