@@ -143,6 +143,7 @@ jobs:
               'ART':'UNJUDGED_HOLD'}
           (d/'K4CO_REAL_NATIVE_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n')
           print('K4CO_TRUE_BLENDER_TECH_ONLY_INDEPENDENT_PASS',horizon,road)
+          (d/'K4CO_NATIVE_GATE_PASSED.flag').write_text('Genuine SOURCE-locked independent geometry and CHASE image QA PASS. ART UNJUDGED.\n')
           PY
       - name: Save actual independent research evidence, not protected game content
         run: |
@@ -169,3 +170,44 @@ jobs:
           path: research/evidence/k4co/render/
           if-no-files-found: warn
           retention-days: 21
+
+      - name: Persist true job conclusion to research branch even on failure
+        if: always()
+        env:
+          K4CO_JOB_STATUS: ${{ job.status }}
+          K4CO_RUN_ID: ${{ github.run_id }}
+          K4CO_RUN_ATTEMPT: ${{ github.run_attempt }}
+          K4CO_SOURCE_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4co-source-locked-freight-viaduct-landmark-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4co
+          python3 - <<'PY'
+          import os,json
+          from pathlib import Path
+          status=os.environ['K4CO_JOB_STATUS']
+          assert status in ('success','failure','cancelled'),status
+          rendered=Path('research/evidence/k4co/render/K4CO_REAL_NATIVE_AUDIT.json').is_file()
+          verified=(status=='success' and Path('research/evidence/k4co/render/K4CO_NATIVE_GATE_PASSED.flag').is_file())
+          d={'schema':'dopagaki.k4co.native-ci-state-v1',
+             'workflowRunId':int(os.environ['K4CO_RUN_ID']),
+             'runAttempt':int(os.environ['K4CO_RUN_ATTEMPT']),
+             'workflowSourceCommit':os.environ['K4CO_SOURCE_SHA'],
+             'jobStatus':status,
+             'nativeAuditGenerated':rendered,
+             'independentNativeGateVerified':verified,
+             'art':'UNJUDGED_HOLD','formalARTAccepted':0,'formalSlope2DNAMetres':0,
+             'human':'HOLD','release':'HOLD','merge':'HOLD'}
+          Path('docs/research-evidence/k4co/K4CO_CI_LATEST.json').write_text(json.dumps(d,indent=2)+'\n')
+          print('K4CO_PERSISTED_ACTUAL_JOB_CONCLUSION',d)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4co/K4CO_CI_LATEST.json
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4co): persist actual CI status without claiming ART PASS"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4co-source-locked-freight-viaduct-landmark-20261105
+          fi
