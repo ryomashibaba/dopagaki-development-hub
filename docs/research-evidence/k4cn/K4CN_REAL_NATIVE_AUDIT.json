@@ -15,22 +15,22 @@
   "originalFerryPassengerWalkwayUnchanged": true,
   "newNativeEditableResearchMeshes": 3,
   "newTrueFaultVertices": 1600,
-  "sourceTrueCoastalFoldAdditionalMaxMetres": 20.232454711134185,
+  "sourceTrueCoastalFoldAdditionalMaxMetres": 17.444484775623934,
   "newWorkingQuayVertices": 737,
-  "newMaritimeMegaterminalVertices": 1120,
-  "newMaritimeMegaterminalFaces": 859,
+  "newMaritimeMegaterminalVertices": 1384,
+  "newMaritimeMegaterminalFaces": 1074,
   "newVisibleWorldVertexCountsNotArtScore": {
-    "left": 1243,
-    "right": 1321
+    "left": 1248,
+    "right": 1619
   },
   "newProjectedWorldBoundsNotArtScore": {
     "left": [
-      -5.933154582977295,
+      -3.411438465118408,
       0.41401076316833496
     ],
     "right": [
       0.5422425866127014,
-      2.2038819789886475
+      1.9439460039138794
     ]
   },
   "realNativeCHASE768x480": true,
@@ -46,20 +46,20 @@
   "MERGE": "HOLD",
   "files": {
     "K4CN_TRUE_COASTAL_CANYON_WORKING_PORT_EDITABLE_ART_HOLD.blend": {
-      "bytes": 283606796,
-      "sha256": "766b34c1a947915648d16d4ddacf54a84557607114964f63152c1c32ac3bd5e1"
+      "bytes": 283623560,
+      "sha256": "f66531d8596e67a19f4c6f2debcf2521efbae54d9fc5ac911f94963dd6a45156"
     },
     "K4CN_TRUE_SOURCE_CHASE_REAL_COASTAL_CANYON_WORKING_PORT_NOT_GAME.png": {
-      "bytes": 504217,
-      "sha256": "1541f656d065d660b6ef0a74d61660ca4cae4f81b262f2f6846abf4fb2895ef2"
+      "bytes": 504228,
+      "sha256": "6d12e33d530fb58789ad47637b55ab80d04c5f6f72c036453e6212292bdde160"
     }
   },
   "independentSameTrueChaseImageQA": {
-    "leftChangedPixelsNotArtScore": 17554,
-    "rightChangedPixelsNotArtScore": 9740,
+    "leftChangedPixelsNotArtScore": 17532,
+    "rightChangedPixelsNotArtScore": 11562,
     "sourceRoadCentreChangedPixels": 24,
     "comparisonName": "K4CN_VS_K4CM_TRUE_SOURCE_CHASE_WHOLEFRAME_ART_REVIEW.png",
-    "comparisonSHA256": "fee520a97a56312e529fc5c94b42279ed1a9decdc8210c08a346096fa3df609f",
+    "comparisonSHA256": "b0dc7faef29f74dca2543c91ba098da568eb124a6e9c26e3e765c53b8af21d4d",
     "ART": "UNJUDGED_HOLD"
   }
 }
