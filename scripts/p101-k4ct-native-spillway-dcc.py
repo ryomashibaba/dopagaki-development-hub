@@ -19,7 +19,7 @@ bpy.ops.object.select_all(action='SELECT')
 bpy.ops.object.delete(use_global=False)
 
 # In game Y is vertical. Blender Z is vertical. This proper rotation preserves scale.
-def B(p):return (p[0],-p[2],p[1])
+def world_to_blender(p):return (p[0],-p[2],p[1])
 def add(a,b):return tuple(a[i]+b[i] for i in range(3))
 def sub(a,b):return tuple(a[i]-b[i] for i in range(3))
 def mul(v,k):return tuple(t*k for t in v)
@@ -381,7 +381,7 @@ counts={}
 for group,faces in GROUPS.items():
  verts=[];tris=[];mi=[]
  for a,b,c,mat in faces:
-  i=len(verts);verts.extend((B(a),B(b),B(c)));tris.append((i,i+1,i+2));mi.append(mat)
+  i=len(verts);verts.extend((world_to_blender(a),world_to_blender(b),world_to_blender(c)));tris.append((i,i+1,i+2));mi.append(mat)
  mesh=bpy.data.meshes.new(group+'_EDITABLE_MESH')
  mesh.from_pydata(verts,[],tris);mesh.update()
  obj=bpy.data.objects.new(group,mesh);bpy.context.collection.objects.link(obj)
@@ -425,7 +425,7 @@ look=add(p['center'],add(mul(fw,120),(0,26,0)))
 cam_data=bpy.data.cameras.new('DCC_ONLY_NOT_ORIGINAL_SOURCE_CAMERA')
 cam=bpy.data.objects.new('DCC_CONCEPT_VIEW_NOT_GAME_CAMERA',cam_data)
 bpy.context.collection.objects.link(cam);bpy.context.scene.camera=cam
-cam.location=B(cam_pos);direction=Vector(B(look))-cam.location
+cam.location=world_to_blender(cam_pos);direction=Vector(world_to_blender(look))-cam.location
 cam.rotation_euler=direction.to_track_quat('-Z','Y').to_euler()
 cam_data.type='PERSP';cam_data.lens=27
 sun=bpy.data.lights.new('DCC_SHADOWS_SUN','SUN');sun.energy=2.1
