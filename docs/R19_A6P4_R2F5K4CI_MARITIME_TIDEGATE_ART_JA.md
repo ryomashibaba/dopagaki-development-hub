@@ -1,3 +1,30 @@
+# 【K4CI 最終：真正Blender単体港湾ランドマーク・独立ZIP CRC/SHA TECH PASS／直接ART REJECT】
+
+**最終確認：2026-11-05 JST。正式ART採用0件、Slope2 DNA正式認定0m。** 以下の「run中」「未取得」は各時点での歴史記録であり、最終判定より優先しない。
+
+## 実制作と独立監査が完了した事実
+
+- **[最終Actions #41966161805](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41966161805) completed/SUCCESS、全ワークフロー工程PASS**。元K4CH実編集可能親 `K4CH_BASALT_AND_COPPER_HARBOR_FULL_FRAME_EDITABLE_ART_HOLD.blend` SHA256 `74dadf53327e7fff0fd3b57a9b9ff369371e2c0fffa43241eb27bee1ca19cace`をGitHub Artifactから取得・実バイトを照合後、真のBlender4.0.2 EEVEEで研究用の港の大規模船舶荷役ガントリーを可編集Meshとして作者制作。研究コード `scripts/p101-k4ci-native-source-locked-maritime-tidegate.py`と独立CI `.github/workflows/p101-k4ci-native-maritime-tidegate-art.yml`を研究枝に保存。
+- 実ワールド座標で**幅56m／高さ44m**、元の実ターミナル建築からの接続歩廊72.277m。単なる2D画像・billboard・写真背景ではなく、**640頂点・480ポリゴン**の1つの編集可能な構造用Meshとして左右Aフレーム、耐風Xブレース、二重荷役上梁、支柱横断通路、オペレーター荷役機械室、荷役ケーブルと実ターミナルへの通路を組み上げた。元CHASEが映す実画面で港の荷役機能が一歩読み取れるようになった。
+- **元Game Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5全vertex-face SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元SOURCE 6 Camera/CHASE、木11、全光源、既存K4BZ不正重複Road非表示、元研究物体すべての行列・表示を完全保持**。新ゲームCollider0、元Game WebGL2/物理/本番に変更0。独立QAの元道路中心画像差 **0画素**、左岩壁差 **0画素**。K4BZ既知黒筋6対と元Road5独立5画素の回帰PASS。
+- **真GitHub Artifact [#13387547631](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41966161805/artifacts/13387547631)** ZIP **125,772,766B**／SHA256 `dec5baf575b62c77b554bc1b769c082605781fa6c0fd41d17a9e3116451745e5`。本会話で実際にGitHubからZIPを独立再取得し**全ZIP CRC=PASS、編集可能.blendとPNGのバイト数・SHA256全件一致PASS**。真.blend `K4CI_EDITABLE_SOURCE_LOCKED_MARITIME_TIDE_GATE_ART_HOLD.blend` **279,476,100B／SHA256 `f1ce87fff6c88841890b6fc2dd4840db4b35a86be75236d90c02613a26ac7bb4`**。真CHASE PNG `K4CI_TRUE_SOURCE_CHASE_MARITIME_TIDEGATE_NOT_GAME.png` SHA256 `e25f24cfcfa05a1c4d33bfffe661d747994682f3d9b198523f72efb783bde56d`。比較PNG `K4CI_VS_K4CH_REAL_SOURCE_CHASE_ART_REVIEW_NOT_GAME.png` SHA256 `de0395be5eb37d01500d1f2e8926b24d18bd0a9c1eb52ec743ef96c7826a5450`。
+- 真CHASE同一768x480の独立PNG A/Bで、右港**9,927画素（上側空間）／3,317画素（右側建築）**の実視認変化を確認。これらは可視性のTECH証拠であり、美術の点数ではない。
+- 初回[Actions #41965535258](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41965535258)は実3D/blend/PNG作成まで成功したが、独立QAの右側差分**2,104px**が固定最低基準**2,500px**に達せず**FAILURE**。初回真正画像を直接開いて荷役フレームの下が細く空疎と確認し、**物理的に接続する操作通路と作業トラス・機械室を作者が実増築**。安全閾値や原Road5/Cameraには一切変更せず、修正版の独立QA PASS。旧run #41965424873/#41965499085は途中コード更新によるCANCELLEDでTECH PASS扱い禁止。
+
+## 本物の画像を直接開いたART判定
+
+[**K4CH研究元（左）対K4CI最終（右）の真CHASE比較画像**](research-evidence/k4ci/K4CI_VS_K4CH_REAL_SOURCE_CHASE_ART_REVIEW_NOT_GAME.png)を本会話内で直接開き確認。
+
+右港の大型鋼製荷役ゲートが上部視野に新しく現れ、港に実作業用施設があることを表現できている。以前の小さく見える岬・船・単独屋根のような脇役だけより、右側の高さとスケール感は改善。しかし**ロードの過半画面を占める単調な舗装、左の丸く白っぽい地形断面、右港の地理・活動と実走行の関係の弱さ**が、世界水準の高速ゲームアートとして依然重大。薄い構造物が増えただけで、プレイ時の路面際のスピードリズムはほぼ改善できていない。**正式ART REJECT**。
+
+## 次工程への確定制作方針
+
+K4CJ以降でガントリーをさらに何本も増やす、カメラに映らない岩を増やす、小さな模型や少しの色替えを繰り返すことは禁止。次は**凍結Road5の道路端に沿う連続した実スケールの風防/切土断面・視線誘導・巨大な遠近リズム**を、原物理／元Cameraを絶対に変えず、単一の作者景観構図として研究する。これは元のゲームの速度感に実際に貢献する必要がある。真正CHASEで画像を直接確認し、技術が成功してもARTに満たなければ再びHOLD。必要なら特定の完成イメージまで新たな小物量産を停止する。
+
+**不変の禁止・ゲート：** main、正式P101 `p101-velocity-overdrive-native-trial`、Draft PR #46、原作Slope、凍結Gold、元Game/物理/Road5/Camera、本番2サイトを変更しない。正式ART採用 **0件**／Slope2 DNA **0m**。HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。Work/Computer Use開始は個別事前承認。追加有料API原則0円。ユーザー操作最小。
+
+---
+
 # 【K4CI 初回実DCC画像で得た失敗と修正 — 最新判定はActionsを再照合】
 
 - 初回 [**Actions #41965535258**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41965535258) は **completed/FAILURE（独立QAのみ）**。本物のBlender4.0.2でK4CH真正原本をSHA固定し、実3D港湾ガントリー**552頂点・414面**を作成、編集可能.blend保存、実CHASE 768×480 PNG描画までは完了。選定した実世界地理：SOURCE前方向 **+70m**、海方向 **+46m**、開口幅 **56m**、高さ **44m**。真正CHASEでガントリーBBox `x=.6796..9275, y=.4758..7892`。元の道路カメラ変更なし。
