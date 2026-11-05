@@ -1,3 +1,12 @@
+# 【2026-11-05 K4CQ R2 現研究最新：真Chromium WebGL2／240Hz＋実Blender TECH PASS、直接ART REJECT】
+**現行隔離研究ブランチ：`research/k4cq-one-sector-native-playable-coast-20261105`。** 最初に [K4CQ R2 実ゲーム統合・直接ART REJECT・次の物理区間への方針](docs/DOPAGAKI_K4CQ_R2_TRUE_GAME_INTEGRATED_ART_REJECT_NEXT_PHYSICAL_20261105_JA.md) を読む。歴史上の正式上位固定方針は [K4CP完全引継ぎ](docs/DOPAGAKI_COMPLETE_HANDOFF_K4CP_CRITICAL_REVIEW_20261105_JA.md) に従う。
+- 真 [Actions #42023232471](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42023232471) **SUCCESS**。実WebGL2 2研究ケース／58・64・67秒の同一240Hz tick／真Blender4.0.2編集可能4616三角形／独立出力整合。実 [Artifact #13411764422](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42023232471/artifacts/13411764422) に無加工比較画像3枚を保持。
+- **R1/R2とも画像直接ART REJECT**。巨大単調路面と平板的地形、危険予告・操作判断の欠如が残る。K4CQの景観だけをR3/R4に微修正しない。次は原本を守った真Road5研究物理コピーで、実カーブ/高低差/28 B51の操作体験を1区間で真正評価。
+- **正式ART採用0件／正式Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。main・公式P101・Draft PR#46・旧K4CP研究HEAD・元Game/Road5/Camera/240Hz物理・Gold・原作Slope・本番保護。Work/Computer Use・追加課金・公開・merge・正式採用・原本変更は個別事前承認。
+- 下段に残るK4CP等の「最新」は歴史記録であり、R2の判定を上書きしない。
+
+---
+
 # 【2026-11-05 次期開発・新チャット移行の最上位入口：K4CP批判的再評価済み／安全方針継承】
 
 **最新の開発再開は必ず [K4CP完全統合・批判的再評価・次期統合戦略](docs/DOPAGAKI_COMPLETE_HANDOFF_K4CP_CRITICAL_REVIEW_20261105_JA.md) から開始する。** このファイル以降に続く「K4CP最新／K4CO最新／K4CM最新」は当時の歴史記録。新たな研究コミットの上書き防止のためGitHub実HEAD・CI・Artifacts・PRを再照合すること。
