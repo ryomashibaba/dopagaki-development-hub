@@ -115,6 +115,8 @@ try{
   }finally{await ctx.close();}
  }
 
+ // Explicit Playwright waitForFunction(pageFn, ARG, OPTIONS); two-argument
+ // calls silently use the 30s default and falsely timeout at ~58.4s.
  // Use ACTUAL original renderer/demo takeover (not fake telemetry or injected physics)
  // and keyboard KeyA/KeyD in separate native browser sessions. NOT HUMAN.
  const manualTrials=[];
@@ -129,7 +131,7 @@ try{
    await page.locator('#demoSpeed').selectOption('2');
    await page.evaluate(()=>window.__r15s3d10PauseAt=63.70);
    await page.locator('#demoRun').click();
-   await page.waitForFunction(()=>Math.abs(Number(document.getElementById('view').dataset.r15s3d10PausedAt)-63.70)<.009,{timeout:120000});
+   await page.waitForFunction(()=>Math.abs(Number(document.getElementById('view').dataset.r15s3d10PausedAt)-63.70)<.009,undefined,{timeout:120000});
    const before=await page.evaluate(()=>({position:document.getElementById('view').dataset.k4csActualRunnerPosition,dual:document.getElementById('view').dataset.k4ctDecisionJson}));
    assert.ok(before.position&&before.position!=='none'&&JSON.parse(before.dual).rowCount===2,'two B51 must be previewed before A/D choice');
    await page.locator('#takeoverRun').click();
@@ -141,7 +143,7 @@ try{
      return c.dataset.k4csLastInputUsed==='ORIGINAL_MANUAL_KEYBOARD'&&
        c.dataset.k4csActualManualSteer===(key==='KeyA'?'-1':'1');
    },key,{timeout:15000});
-   await page.waitForFunction(()=>Math.abs(Number(document.getElementById('view').dataset.r15s3d10PausedAt)-64.05)<.009||document.getElementById('view').dataset.r15s3d10Status==='failed',{timeout:30000});
+   await page.waitForFunction(()=>Math.abs(Number(document.getElementById('view').dataset.r15s3d10PausedAt)-64.05)<.009||document.getElementById('view').dataset.r15s3d10Status==='failed',undefined,{timeout:45000});
    await page.keyboard.up(key);
    const after=await page.evaluate(()=>{
     const c=document.getElementById('view');
