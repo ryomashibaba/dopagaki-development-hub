@@ -1,3 +1,18 @@
+# K4CF初回の真正Blender/独立SHA監査と直接ART評価（2026-11-05）
+
+**厳密な状態：初回TECH PASS／A案・B案ともART REJECT。正式ART採用0件／Slope2 DNA認定0m。修正版R2は現時点では結果未確定。**
+
+- 真正[GitHub Actions #41939075340](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41939075340) は完了／SUCCESS（Blender4.0.2 EEVEEを実行、2つの編集可能な3D断崖メッシュを同じCHASE768×480でレンダリング、原Game・Road5・6Camera・木・ライト・黒筋・右港・元実形状を保護、画像・監査・ログを研究GitHubにpush）。
+- 親K4CE実.blend SHA256 `3f0bc2f048dec39bc263151e2117b374d40b7422478c7e9b49583865c836d63e`のバイト検査PASS。新しい真3Dの編集可能.blendは276,013,952 bytes、SHA256 `91c51a5986f1ab22e4945bbf36224f7870076539873c6a255b9d34cfcf1904b0`。A：5,601頂点最大+11.779m、B：5,608頂点最大+15.761m、左右の原ROAD5とCameraは元のまま。
+- 真正 [Artifact #13375059698](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41939075340/artifacts/13375059698) ZIP 124,877,555 bytes／SHA256 `b671618a8cd31b5538b34d7dcd98c17b682977bdcc887ed9686f6339a3f2a4a4`。本会話で**独立ダウンロードしてZIP全CRC=PASS、.blend/PNG各バイト数・SHA256全一致**を実測。研究成果は元Gameの真正WebGL2でも人間プレイでもない。
+- [**A3の継承K4CE対K4CF A/Bの本物の同CHASE三者比較**](research-evidence/k4cf/K4CF_TRUE_CHASE_BASELINE_VS_TWO_REAL_HEADLAND_DIRECTIONS_ART_REVIEW.png)を実際に開いて直接美術審査。Aは円錐形状の峰が二つ立ち、Bは過度に巨大な丸い山のような形。両案とも**規則正しい濃淡横縞が目立ち、砂製の層状ケーキ／人工地形に見える**。路肩の足元も途切れたスカート状となり、左の自然地形として成立しない。元道路が広い灰色面として中央を支配し、右港の模型感は一切解消していない。**両案ART REJECT**。A左画像差34,748画素、B38,884画素、A対B33,338画素はすべてTECHの可視性のみで、芸術品質の点数として扱わない。道路/右港の独立画像差0。
+- 「表現が高品質になった」という誤認を避けるため、**初回の真画像/検証証拠をそのまま研究GitHubに保存したまま**、円錐形と横縞の根因を修正した。初回実装のピクセル空間Gaussian upliftとWorld-Z SINE高コントラスト岩縞は採用しない。
+- **研究R2作者修正**：`scripts/p101-k4cf-native-windward-cliff-art-directions.py`で、左右の孤立した大山を減らし、ワールドで緩やかに連続する海岸斜面／低い断層侵食へ変更。色表現は実3D手続き材質の低コントラスト鉱物ノイズへ切替。旧編集可能ソースは不変、元道路・Camera・Game・物理・木11・港・水面の保護閾値も変更しない。[GitHub Actions #41939899891](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41939899891)で本物のR2検証を実行中。この段階ではR2をTECH/ART PASSと断定しない。
+
+今後は画像を必ず直接開き、三枚比較で本物の地形の連続性、自然な地質、道路画面上の読みやすさ、他の景観との一体感を重視。品質不足なら正式採用は0件のまま。小さなQAや地形モデルの量産を目的化しない。
+
+---
+
 # K4CF — 左海岸地形・真正Blender二方向／安全な現行工程（2026-11-05）
 
 ## 固定方針・出発点
