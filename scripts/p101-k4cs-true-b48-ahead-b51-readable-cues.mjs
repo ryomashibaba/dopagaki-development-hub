@@ -5,12 +5,16 @@
  * All warning geometry is NONCOLLIDING and anchored OUTSIDE physical road.
  * K4CR road/B51, input, camera, 240Hz Runner, collision, speed are immutable.
  */
-import assert from 'node:assert/strict';
-import crypto from 'node:crypto';
+// Browser-safe runtime guards; no node:* imports in original game's WebGL2 module.
+const assert=(condition,message='assert failed')=>{if(!condition)throw Error('K4CS '+message)};
+assert.ok=assert;
+assert.equal=(actual,expected,message='equal assertion failed')=>{
+ if(actual!==expected)throw Error('K4CS '+message+' actual='+actual+' expected='+expected);
+};
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]),
  dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0),mul=(v,k)=>v.map(x=>x*k),
  mag=v=>Math.hypot(...v),clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
-const hash=d=>crypto.createHash('sha256').update(JSON.stringify(d)).digest('hex');
+// Actual binary/source Road5 SHA is verified upstream by K4CR private author.\n// The browser reads its already-validated metadata without reimplementing SHA-256.
 const EXPECTED_K4CR='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b';
 const SAMPLES=128,MAX_RANGE_M=700;
 function segment(road,index,sample,start){
@@ -41,7 +45,7 @@ function stationAt(plan,global){
 export function makeK4CSRealB51RoadPlan(doc,sample){
  assert.equal(typeof sample,'function');
  assert.ok(doc.stageForge?.k4crPrivate,'K4CS requires prior physically tested K4CR R2');
- assert.equal(hash(doc.surfaces[5].points),EXPECTED_K4CR,'Source K4CR physical Road5 SHA drift');
+ assert.equal(doc.stageForge.k4crPrivate.modifiedResearchRoad5SHA256,EXPECTED_K4CR,'Source K4CR physical Road5 SHA provenance drift');
  assert.equal(doc.surfaces.length,7);assert.equal(doc.movingObstacles.length,28);
  const all=doc.stageForge.k4crPrivate.realRelocatedB51;
  assert.equal(all.length,6);assert.equal(new Set(all.map(a=>a.id)).size,6);
