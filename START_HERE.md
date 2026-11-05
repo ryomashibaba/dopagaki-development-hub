@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CF R2最終：本物の二方向Blender ART研究・全CRC/SHA独立PASS・直接ART REJECT】
+
+**この研究ブランチの最優先正本**：`research/k4cf-windward-cliff-hero-frame-20261105`。先に[**K4CF初回失敗→R2実装→真正Blender画像／SHA独立検証→A/B直接ART REJECT→次の統合作家工程の完全記録**](docs/R19_A6P4_R2F5K4CF_TRUE_DCC_HEADLAND_AB_JA.md)を全文読む。下記の「最新」「in_progress」は過去段階の履歴であり、今回の確定判定ではない。
+
+- **初回R1真正[Actions #41939075340](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41939075340)** 全ステップSUCCESS／TECH PASS、直接ARTはA/B両案REJECT。初回の二峰コーン形状と高コントラストの定期的World-Z横縞が岩山に見えず、採用禁止。真Artifact #13375059698・ZIP全CRC/各SHA独立検証完了。
+- **R2真正[Actions #41939899891](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41939899891)** **completed/SUCCESS**。K4CE真編集可能親.blend `3f0bc2f048dec39bc263151e2117b374d40b7422478c7e9b49583865c836d63e`を厳格認証し、同じ元CHASE実3D岩肌だけを研究用に複製し再作者制作。ワールド空間で低く幅広い斜面へ彫刻し、縞模様を使わず低コントラスト鉱物変化で表現。A 5728頂点・最大4.937m、B 5728頂点・最大6.033m真地形変形。元Game git blob `af076d67492a677d2235e4730aef8cdf4808e106`／Road5 vertex-face SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、6 Camera/CHASE、木11、灯光、右港、海、船、元ゲームCollider追加0を保証。
+- **真Artifact [#13376376036](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41939899891/artifacts/13376376036)** ZIP124,889,472B／SHA256 `afb726787b00813c8298149ef4159da7e779384ba2df47ffe4cc1666f6f80487`、本会話で別途実ZIPダウンロードして全CRC・各.blend/PNGサイズ・SHAを独立検証PASS。R2真編集可能.blend 275,974,128B／SHA256 `1a17dc522b4d7df85c92023df5b580f1e5fe155b27264dfcb9d7a511d99d8533`。[**R2 K4CE対A/B同一真正CHASE直接ART評価画像**](docs/research-evidence/k4cf/K4CF_TRUE_CHASE_BASELINE_VS_TWO_REAL_HEADLAND_DIRECTIONS_ART_REVIEW.png)を直接目視。R1のコーン・横縞は明確に解消したが、R2も丸い砂丘・雪山状で、岩肌の割れ／路側の説得力・港の生活感・遠景速度感は未達。**R2 A/B両案ART REJECT**。TECH PASSと混同しない。
+- **次は失敗した崖を微修正し続けたり模型・樹木を量産しない。** 原ROAD5/Cameraは触れず、左断崖・右港・地平線を通した**全画面の統合作者景観**を1つの真正CHASEで研究。画像の美術合格まで他6 Road展開不可。
+- **永続制約**：元Slope、main、正式P101 `p101-velocity-overdrive-native-trial`、Draft PR#46、凍結Gold、元ゲームRoad5/物理／Camera、本番2サイトを保護。正式ART採用 **0件**／Slope2 DNA正式認定 **0m**。HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。追加有料API原則0円、Work/Computer Useは個別事前承認、ユーザー操作最小。
+
+---
+
 # 【2026-11-05 K4CF現行：真3D断崖A/B作者実装保存／Blender実Actions #41936765348要判定】
 
 **現行隔離研究枝** `research/k4cf-windward-cliff-hero-frame-20261105`。最初に[**K4CF真正3D断崖A/B・世界景観優先・原Game保護・未完了Actionsと採否ゲート**](docs/R19_A6P4_R2F5K4CF_TRUE_DCC_HEADLAND_AB_JA.md)を読み、[K4CF GitHub Actions #41936765348](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41936765348)の**最新status/conclusion/ジョブログ/Artifacts**を再照合。以下K4CEは終了済の歴史正本であり、K4CF結果を上書きしない。
