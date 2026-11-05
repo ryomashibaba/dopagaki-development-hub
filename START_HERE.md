@@ -1,3 +1,17 @@
+# 【2026-11-05 K4CM最終：真正Blender4.0.2＋独立全CRC/SHA/画像 QA TECH PASS、直接ART REJECT／新チャット完全統合正本】
+
+**現在の開発正本は本研究ブランチ `research/k4cm-integrated-coastal-road-port-20261105`。最初に[**完全統合引き継ぎK4CM正本**](docs/DOPAGAKI_COMPLETE_HANDOFF_K4CM_20261105_JA.md)を全文読み、[**K4CM R3最終実装・失敗・画像ART評価**](docs/R19_A6P4_R2F5K4CM_INTEGRATED_COAST_PORT_ART_JA.md)、[**真正K4CL（左）対K4CM（右）の実CHASE 768×480比較画像**](docs/research-evidence/k4cm/K4CM_VS_K4CL_TRUE_SOURCE_CHASE_WHOLE_FRAME_ART_REVIEW.png)および[**完全監査JSON**](docs/research-evidence/k4cm/K4CM_REAL_NATIVE_AUDIT.json)を直接確認。これ以下の「K4CM実行中」「K4CL最新」は履歴であり現在の判定に優先しない。**
+
+- **真の最終[Actions #41991682479](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41991682479) completed/SUCCESS**、全12工程成功。真Blender4.0.2で左198m海岸褶曲・右198m連続岸壁・既存フェリーに接続する18.100m/勾配2.18％の本物歩行通路・港の大ガントリーと主屋根の研究コピー、計5件の非衝突可編集研究Meshを実作者制作。K4CL A暗舗装と本物の元CHASE・元SOURCE/物理は不変。
+- **真Artifact [#13397694820](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41991682479/artifacts/13397694820)** ZIP126,862,764B／SHA256 `b9aa9aff8d5bb711b6e3f6a2e99eefa4a933e7043f19555120b460a340529a32`、GitHubから別途実ZIPを再取得し**全CRC PASS、個別Blender／PNGバイト数とSHA256全件一致PASS**。真編集可能 `K4CM_TRUE_INTEGRATED_COAST_DRIVE_AND_PORT_EDITABLE_ART_HOLD.blend` 283,002,044B／SHA256 `273c6ab1ec334ff8b2524c43c611da43831aaef3374056f3ab02352e3e914aab`、真正PNG SHA256 `a62ced1d6fe80ea999683e5aac3f40fc023fb780fb4246ddf1c0939b1ada221d`。
+- **画像可視独立QA**：左海岸岩**23,364px**、右港大構造**2,922px**、元道路中心**0px**。これらはART点数ではない。元Game git blob `af076d67492a677d2235e4730aef8cdf4808e106`／元Road5全頂点面SHA256 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元6 Camera/CHASE・木11・灯光、240Hz物理/Collider、全既存Meshと行列不変。新ゲームCollider0。
+- **本物の画像を直接開いてART REJECT確定**。K4CLの元暗色舗装に比べ左岩の自然な起伏と港の落ち着いた金属色は改善したが、巨大な単調道路が広く占める直線画面、左地質の自然なスケール不足、港の模型感・道路との用途接続不足、ゲーム本来の高速感/壮大さ不足。真のWebGL2人間プレイ/FPS/衝突の検証結果ではない。**正式ART採用0件、Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。
+- **R1/R2失敗の教訓**：初回R1 #41989715487は右港新通路が既存建築の陰で**85px**に埋もれ独立QA FAIL。R2 #41990838846は主要港メッシュ再作者制作で右港**2,922px**の可視性が確保できたが歩行通路**348面**で独立ゲート**350面超**に届かずFAIL。R3 #41991682479で実横方向補強梁3本を追加して**366面**とし、**試験閾値/元SOURCEを緩めず成功**。途中run #41990795105はCANCELLED。過去FAILを成功認定禁止。
+- **次工程K4CN：研究技術PASSの再実行や小物の大量追加より、全画面世界観・自然地理・港湾機能・壮大な速度感の本物のART改善を主眼にする**。実SOURCE Road5/カメラ/物理を動かさず研究コピーだけで意味ある大規模編集を行い、真Blender→画像直接ART評価→独立検証→研究GitHub保存。高品質な実ゲーム完成を最優先し、ARTの改善が乏しい小さなQAループを止める。
+- **永久保護**：main（2026-11-05照合 `d402801f271f43163ad85d9303abe9773d3958bd`）、公式P101 `p101-velocity-overdrive-native-trial`（`19d3a32d525c0c2a67082cba646898fab8f2b60f`）、Draft PR#46 Open/Draft/未merge、原作Slope/凍結Gold、元Game/Road5/物理/Camera/B48/B51、本番2サイト。追加有料API原則0円、Work/Computer Useは個別事前承認。ユーザー操作最小。
+
+---
+
 # 【2026-11-05 K4CM実制作中：元Road5固定の海岸褶曲＋港アクセス＋可視主要港建築のART-FIRST修正】
 
 **現在の研究ブランチ**：`research/k4cm-integrated-coastal-road-port-20261105`。まず[**K4CM本物の作者造形・初回Blender可視失敗の原因・R2修正・永久保護・暫定状態**](docs/R19_A6P4_R2F5K4CM_INTEGRATED_COAST_PORT_ART_JA.md)を読む。以下の「K4CL最新」は過去の正本であり、今の研究工程を上書きしない。
