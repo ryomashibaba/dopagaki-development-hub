@@ -1,3 +1,13 @@
+# 【2026-11-05 次期開発・新チャット移行の最上位入口：K4CP批判的再評価済み／安全方針継承】
+
+**最新の開発再開は必ず [K4CP完全統合・批判的再評価・次期統合戦略](docs/DOPAGAKI_COMPLETE_HANDOFF_K4CP_CRITICAL_REVIEW_20261105_JA.md) から開始する。** このファイル以降に続く「K4CP最新／K4CO最新／K4CM最新」は当時の歴史記録。新たな研究コミットの上書き防止のためGitHub実HEAD・CI・Artifacts・PRを再照合すること。
+
+**確定結論：** K4CP R1真正Blender4.0.2／独立ZIP CRC+SHA TECH PASS、真CHASEの画像を直接審査し **ART REJECT**。正式ART採用 **0件**、Slope2 DNA認定 **0m**、HUMAN/SAT/CCD/FPS/RELEASE/MERGE **全HOLD**。研究ARTは実WebGL2人間プレイではない。K4CM～K4CPでの背景3Dの反復に対し、**次は元SOURCEを絶対保護しつつ実高速走行の1場面をART・DCC・真正WebGL2・物理・ゲーム性で統合改善する**。現行Road5を勝手に改変せず、必要な場合も別ID・別ハッシュの隔離研究コピーを使い公式統合/公開しない。
+
+**恒久保護：** main／公式P101／Draft PR #46／元Slope・Gold／原Game git blob af076d67492a677d2235e4730aef8cdf4808e106／Road5 geometry SHA256 f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2／既存240Hz物理・Camera・元Road5／既存2本番サイト。Work/Computer Use・追加課金・原本変更・正式採用・merge・公開は個別事前承認。ユーザー操作は通常0回、必要時のみ1クリックの一括検証。
+
+---
+
 # 【2026-11-05 K4CP R1最終：真正Blender／独立ZIP CRC・全SHA TECH PASS、真正CHASE直接ART REJECT】
 
 **今の開発正本は`research/k4cp-stratified-coast-tidal-basin-20261105`。** 最初に[**K4CP R1真正Blender・個別SHA/全CRC・実画像ART REJECT・失敗と次の統合設計**](docs/R19_A6P4_R2F5K4CP_STRATIFIED_COAST_TIDAL_BASIN_ART_JA.md)、[**K4CP（右）対K4CO（左）の元SOURCE CHASE 768×480真画像**](docs/research-evidence/k4cp/K4CP_VS_K4CO_TRUE_SOURCE_CHASE_WHOLEFRAME_ART_REVIEW.png)、[**真監査JSON**](docs/research-evidence/k4cp/K4CP_REAL_NATIVE_AUDIT.json)を確認。以下の「K4CP開始」「K4CO最新」はその時点の履歴でありR1最終の結論を上書きしない。
