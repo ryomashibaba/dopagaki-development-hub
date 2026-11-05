@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CN R2 最終：真正Blender TECH PASS／実画面直接ART REJECT・保存済み】
+
+**本研究ブランチの最新確定美術結果はK4CN R2、親K4CM R3は過去の比較基準**。次に再開する場合は、まず[**K4CN R1/R2の本物の3D制作・真正Blender CI・全CRC/SHA・直接ART REJECT記録**](docs/R19_A6P4_R2F5K4CN_COASTAL_CANYON_WORKING_PORT_ART_JA.md)と[**K4CN R2 対 K4CM 実CHASE全画面比較**](docs/research-evidence/k4cn/K4CN_VS_K4CM_TRUE_SOURCE_CHASE_WHOLEFRAME_ART_REVIEW.png)、[**独立監査JSON**](docs/research-evidence/k4cn/K4CN_REAL_NATIVE_AUDIT.json)を確認する。下段K4CMやK4CN初回「最新」「実行中」は履歴であり、この最終R2判定を上書きしない。
+
+- **R2真正Actions [#42003004167](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42003004167) completed/SUCCESS**。研究コード R2コミット [c2c626c9](https://github.com/ryomashibaba/dopagaki-development-hub/commit/c2c626c99f16c8754e170d530577070fab88e139)。元K4CM真正BlenderのSHA固定親から、SOURCE Road5/6Camera/原Game/240Hz物理/木11/灯光・全親メッシュ不変の3D岩壁・実働港湾を大規模作者修正し、Blender4.0.2 EEVEE真正CHASE 768x480を生成。実ゲームCollider新設0。新港メガターミナル実1384頂点/1074面、左岩1600頂点、右土木737頂点。
+- **R2本物の[Artifact #13403680959](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42003004167/artifacts/13403680959)を別取得・独立SHA/CRC TECH PASS**。ZIP127,216,248B、SHA256 a606c4ad9be7716c9a8eb6cb11f43ecbd8d535614d056e22980885eec485448c。真編集可能Blender283,623,560B SHA256 f66531d8596e67a19f4c6f2debcf2521efbae54d9fc5ac911f94963dd6a45156。真CHASE PNG504,228B SHA256 6d12e33d530fb58789ad47637b55ab80d04c5f6f72c036453e6212292bdde160。独立ZIP全CRC/個別bytes/SHA一致。画像差は左17,532px、右11,562px、道路中央24px（保護閾値内）。
+- **真正比較画像を直接開いた最終ART REJECT**。R2はR1より大きな港屋根を見せ、岩の谷と稜線を強めたが、左の急な尖塔状岩山は人工的で、右は屋根と鉄骨が大きな平板／骨組みに留まる。海と港の都市機能・奥行き・実ゲームの高速感は未達。中央の単調な広い道路が支配的で、**この構図の微修正ループは止める**。技術PASSや可視画素は作品のART合格ではない。
+- **正式ART採用0件、Slope2 DNA認定0m。HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。真正Blender研究はWebGL2実走行でも人間プレイでもない。次の作品工程も既存方針QUALITY-FIRST・ART-FIRST・DCC-FIRST・INTEGRATED VERTICAL SLICEを維持し、コースと港・地形の実世界として成立する画面全体の抜本改善を1件で作る。小QAや模型量産を目的化しない。
+- **永久保護**：main、公式P101 p101-velocity-overdrive-native-trial、Draft PR#46（Open/Draft未merge）、元Slope/凍結Gold、元Game Git blob af076d67492a677d2235e4730aef8cdf4808e106、元Road5 SHA f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2、元Road5/Camera/240Hz物理/原HUD、2本番サイト。Work/Computer Use・有料API/追加課金・正式統合・公開は個別事前承認。研究枝の安全制作・検証・記録は細かな承認不要。ユーザー操作最小。
+
+---
+
 # 【2026-11-05 K4CM最終：真正Blender4.0.2＋独立全CRC/SHA/画像 QA TECH PASS、直接ART REJECT／新チャット完全統合正本】
 
 **現在の開発正本は本研究ブランチ `research/k4cm-integrated-coastal-road-port-20261105`。最初に[**完全統合引き継ぎK4CM正本**](docs/DOPAGAKI_COMPLETE_HANDOFF_K4CM_20261105_JA.md)を全文読み、[**K4CM R3最終実装・失敗・画像ART評価**](docs/R19_A6P4_R2F5K4CM_INTEGRATED_COAST_PORT_ART_JA.md)、[**真正K4CL（左）対K4CM（右）の実CHASE 768×480比較画像**](docs/research-evidence/k4cm/K4CM_VS_K4CL_TRUE_SOURCE_CHASE_WHOLE_FRAME_ART_REVIEW.png)および[**完全監査JSON**](docs/research-evidence/k4cm/K4CM_REAL_NATIVE_AUDIT.json)を直接確認。これ以下の「K4CM実行中」「K4CL最新」は履歴であり現在の判定に優先しない。**
