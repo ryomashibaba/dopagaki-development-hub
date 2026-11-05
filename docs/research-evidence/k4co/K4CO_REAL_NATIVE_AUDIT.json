@@ -1,0 +1,60 @@
+{
+  "schema": "dopagaki.k4co.real-source-grounded-freight-overpass-v1",
+  "parentK4CNR2ExactSHA256": "f66531d8596e67a19f4c6f2debcf2521efbae54d9fc5ac911f94963dd6a45156",
+  "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "sourceGameEdited": false,
+  "sourcePhysicsEdited": false,
+  "newGameColliders": 0,
+  "originalSixCameraPosesUnchanged": true,
+  "originalCHASEUnchanged": true,
+  "originalElevenTreeTransformsUnchanged": true,
+  "originalLightsUnchanged": true,
+  "allInheritedMeshGeometryAndTransformsUnchanged": true,
+  "newNativeEditableResearchMeshes": 1,
+  "realSpanBetweenGroundedAbutmentsMetres": 95.0,
+  "realSourceRoadClearanceMetres": 26.40159912109375,
+  "road5CrossingNativeSamplesCount": 9,
+  "actualLeftSourceHeadlandAnchorMetres": [
+    1050.9246826171875,
+    450.9151306152344,
+    122.66561889648438
+  ],
+  "actualRightSourceQuayAnchorMetres": [
+    1098.10693359375,
+    377.6439208984375,
+    115.127685546875
+  ],
+  "trueViaductVertices": 940,
+  "trueViaductFaces": 740,
+  "realSourceVertexAnchoredButtressCount": 4,
+  "sourceChaseProjectedViaductVerticesNotArtScore": 940,
+  "realNativeCHASE768x480": true,
+  "renderEngine": "BLENDER_EEVEE",
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CO_TRUE_SOURCE_LOCKED_FREIGHT_VIADUCT_EDITABLE_ART_HOLD.blend": {
+      "bytes": 283834548,
+      "sha256": "9574e6f49865cf962280caa073f2c5583cf1a3ed1ae41a9efb2a4167d6ed3c91"
+    },
+    "K4CO_TRUE_SOURCE_CHASE_FREIGHT_VIADUCT_NOT_GAME.png": {
+      "bytes": 522452,
+      "sha256": "d176d88ff1b0f3bc0323f8926bec6b0b0e6cca95ab311429d16330617b6e3b65"
+    }
+  },
+  "independentSameTrueChaseImageQA": {
+    "landmarkVisibleChangedPixelsNotArtScore": 8804,
+    "sourceRoadCentreChangedPixels": 24,
+    "comparisonName": "K4CO_VS_K4CN_TRUE_SOURCE_CHASE_ART_REVIEW.png",
+    "comparisonSHA256": "281a1b3cbe29106b57b567cd3fb79f742cf34e641689a0dc44e160f5672102d8",
+    "ART": "UNJUDGED_HOLD"
+  }
+}
