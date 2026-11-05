@@ -20,8 +20,15 @@ const baseFrozen=JSON.stringify(base),scene=makeK4CQScene(base,sample);
 assert.equal(JSON.stringify(base),baseFrozen);
 assert.equal(base.surfaces.length,7);assert.equal(base.movingObstacles.length,28);
 const road5Hash=hash(JSON.stringify(base.surfaces[5].points));
+const baseline=structuredClone(base);
+baseline.stageForge={...baseline.stageForge,recordStageId:'K4CQ-R2-BASELINE-PRIVATE',productionPromoted:false};
+const baselineId='K4CQ-REAL-ROAD5-BASELINE';
+const baselineFilename='K4CQ_R2_BASELINE_PRIVATE.json';
+fs.writeFileSync(path.join(dist,'generated',baselineFilename),JSON.stringify(baseline)+'\n');
+assert.equal(JSON.stringify(baseline.surfaces),JSON.stringify(base.surfaces));
+assert.equal(JSON.stringify(baseline.movingObstacles),JSON.stringify(base.movingObstacles));
 const doc=structuredClone(base);
-doc.stageForge={...doc.stageForge,productionPromoted:false,
+doc.stageForge={...doc.stageForge,recordStageId:'K4CQ-R2-COASTAL-PRIVATE',productionPromoted:false,
  k4cqPrivate:{id:scene.id,sourceGameBlob:blob,isolatedCandidateRoad5SHA256:road5Hash,
  researchRoad5AlreadyAlteredByR15S3D9:true,immutableOriginalB48Road5NotClaimed:true,
  genuineRoad5Index:5,roadU:scene.sourceRoadU,genuineRoad6U:scene.sourceRoad6U,nonCollidingSceneTriangles:scene.triangles,
@@ -40,7 +47,10 @@ const anchor='// G4E-1 physical trials are private opt-in; Gold remains the visi
 replace(anchor,[
  "// K4CQ single opt-in PRIVATE art sector, SOURCE 240Hz physics untouched.",
  "if(r15s3d10OptIn){assets['"+id+"']='"+filename+"';",
- "const option=document.createElement('option');option.value='"+id+"';",
+ "const baselineOption=document.createElement('option');baselineOption.value='"+baselineId+"';
+baselineOption.textContent='K4CQ R2 real Road5 physical BASELINE (HOLD)';
+assets['"+baselineId+"']='"+baselineFilename+"';$('stage').append(baselineOption);
+const option=document.createElement('option');option.value='"+id+"';",
  "option.textContent='K4CQ real B48 Road5 coastal apex / ART HUMAN HOLD';$('stage').append(option);}",
  anchor
 ].join('\n'));
@@ -85,7 +95,7 @@ fs.writeFileSync(path.join(evidence,'K4CQ_BUILD_AUDIT.json'),JSON.stringify({
  schema:'k4cq-single-sector-source-integrated-v1',candidateId:id,originalGameBlob:blob,
  baselineK4CQResearchBranchUnmodified:true,originalRoad5SourceNotModified:true,
  researchCandidateRoad5SHA256:road5Hash,road5IsOldR15S3D9ResearchVariant:true,
- nativeRoadIndex:5,roadU:scene.sourceRoadU,realRoads:7,realMovingMachines:28,
+ nativeRoadIndex:5,roadU:scene.sourceRoadU,nativeRoadIndex6:6,road6U:scene.sourceRoad6U,realRoads:7,realMovingMachines:28,
  originalNative240HzAndCameraUnmodified:true,newGameColliders:0,
  sceneTriangles:scene.triangles,seaDatumY:scene.oceanDatumY,
  sourceRenderer:'PRIVATE dist-private/k4cq',webGL2Verified:false,blenderExecuted:false,
