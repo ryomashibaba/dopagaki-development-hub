@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CH：源流・Camera不変の一体的な沿岸岩壁＋渡船ターミナル再設計／真正Blender未判定】
+
+**現行研究正本ブランチ**：`research/k4ch-basalt-copper-harbor-art-20261105`。最初に[**K4CHの本格的な可視全画面アート作者制作／試験・前回環境失敗・永久保護の全記録**](docs/R19_A6P4_R2F5K4CH_NATIVE_BASALT_COPPER_ART_JA.md)を読む。下段「K4CG最新」は過去の履歴。
+
+- **出発根拠**：K4CG R2真Blender [#41942878730](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41942878730) はTECH PASS／直接ART REJECT。親真正.blend `5a2215677fd41c420bac3b44b78b65b0e42aa74b79399498a87a57b7b85946f1`。前作は左の白い砂丘のような斜面・右の模型的屋根・広い灰色道路が根本未解決。小さな岬・樹・小物・AIノイズの量産をせず、**画面の支配的な左右空間を本物の編集可能3Dで同時に作家再設計する**。
+- **実装済みGitHubコード** `scripts/p101-k4ch-native-coherent-harbor-basalt-copper-art.py`：左のK4CG実海岸斜面2研究メッシュを元ジオメトリ保存で研究複製し、割れのある灰青色石材・実ポリゴン角面・非円錐形の地質段差へ変更。右の既存研究屋根を新しい銅色の湾曲ターミナル屋根へ研究3D再成形。既存研究支柱の本物の位置と断面を単一木質構造体に統合。港海面・外洋を同じ海色にし、突起しか見えない沖合岬は低く広い真地形へ変更。元Game・元Road5・原Camera・木11・ライト・物理は不変、Collider追加0。**WebGL2実ゲームはまだ改造しない**。
+- 専用真正Blender Workflow `.github/workflows/p101-k4ch-native-basalt-copper-harbor-art.yml`：固定K4CG R2親原本全SHA・元Game Git blob `af076d67492a677d2235e4730aef8cdf4808e106`・元Road5全vertex/face SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`・元6 Camera/CHASE・木11を独立保持したまま真正Blenderで描画し、**元CHASE画面左岩壁＋右建築に大きな可視変化があり、道路中央不変**であることを別々に独立検査する。TECH判定とART合格を区別。
+- **初回[#41950843684](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41950843684)はFAIL**。親SHAや元GameのチェックはPASS、Ubuntu Azure apt配信元からの本物Blender取得が異常に遅く、インストール7分経過でタイムアウト124。**新Blender DCC・真PNGは未生成**。正規のArchiveから実Blender導入を試す[#41951907166](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41951907166)は本引き継ぎ書作成時点で**in_progress**、最終結果とArtifact／直接ARTの有無を最新取得する。Blenderが成功するまでCODE実装だけでTECH PASSを宣言しない。元保護条件・画像QA閾値の緩和は禁止。
+- **不変**：正式ART採用 **0件**／Slope2 DNA認定 **0m**、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。main、公式P101 `p101-velocity-overdrive-native-trial`、Draft PR#46（Open/Draft）、原作Slope/Gold/元Game、原道路／物理／Camera、本番2サイト保護。追加有料API原則0円、Work/Computer Use個別事前承認、ユーザー操作0。
+
+---
+
 # 【2026-11-05 K4CG最終：全画面の真3D沿岸景観を制作→Blender→独立QA→直接ART REJECT→GitHub保存】
 
 **現在の隔離研究正本** `research/k4cg-integrated-coastal-worldscape-20261105`。最初に[**K4CG R1/R2真正実制作・独立Zip/SHA・同CHASE全画面ART REJECT・本当に必要な次の大規模作者工程**](docs/R19_A6P4_R2F5K4CG_INTEGRATED_WORLD_ART_JA.md)全文と、[**K4CG R2対K4CF R2の真正同CHASE比較画像**](docs/research-evidence/k4cg/K4CG_VS_K4CF_R2_TRUE_CHASE_INTEGRATED_WORLD_ART_REVIEW.png)、[独立監査JSON](docs/research-evidence/k4cg/K4CG_REAL_NATIVE_AUDIT.json)を確認。下段の「最新」「現行」は当時の履歴であり、K4CG結果より優先しない。
