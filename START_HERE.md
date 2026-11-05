@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CL実装済み・研究舗装A/Bの真Blender再試験待機中／成功を先取りしない】
+
+**現行隔離研究ブランチ**：`research/k4cl-true-road-surface-speed-art-20261105`。K4CK最終比較（A/BともART REJECT）の後続。まず[**K4CL SOURCE保護・実舗装研究コード・初回Blender安全停止・修正・最新run・全反省とゲート**](docs/R19_A6P4_R2F5K4CL_ROAD_SURFACE_SPEED_ART_JA.md)を全文確認。下段の「K4CK最新」は履歴であり、K4CL作業の現状と混同しない。
+
+- **制作済み研究コード** `scripts/p101-k4cl-authentic-road5-study-surface-art.py`：元K4CK実編集可能Blender親SHA256 `80eff12f48b2913d8f700d14f7d84ba86b10dd7ea622033f61fbe51859271330`を厳格認証。K4CK A自然岩盤＋擁壁を研究表示のみ切替。真のSOURCE B48 Road5メッシュ／元カメラ／原ゲーム／Physics／木／ライトは元のまま。実CHASEで見えるK4BQ研究舗装（ゲームColliderではない）を**同一メッシュの独立コピー2枚**として、新しいグラファイト系アスファルトAと鉱物系舗装Bの本物のBlender Material/Shaderへ再作者化。元K4BQ道路は原本を保ったままレンダリング表示だけ切替。道路中央と肩の本物の3Dポリゴン標示はSOURCE本物の高さ・前方向から生成する。画面ペイント画像・SOURCE Road5改造ではない。A/Bの真正同CHASE画像と両方向を編集可能な.blendに保存する。
+- **正式なSOURCE保護の考え方**：今回は「研究用路面の画素を変える」ことが目的。前作までの道路中心ピクセル差0を成功条件として誤用しない。代わりに元Game git blob `af076d67492a677d2235e4730aef8cdf4808e106`・元Road5全vertex/face SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`・元6 Camera/CHASEと元研究道路Mesh形状・元研究岩盤・元木11・ライト全不変、ゲームCollider追加0、左地質と右港の本物の画素不変を独立QA。**Road5のゲーム物理や当たり判定は永久保護**。
+- **初回[Actions #41983551452](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41983551452)はFAILURE**。元SHA・Blender環境はPASS、研究用A/B道路コピーと標示の作者モデル生成は実行されたが、Bは標示枚数が初回18枚とコードの最低26枚に満たず安全停止。A/B新Blender保存や実PNGは**未生成**。元Game・公式SOURCEの失敗ではない。設計どおりB路面継ぎ目の実面数を増設して修正（commit `fc13208b6f72bc1caf918f0bd1ead4c6e8561378`）、SOURCE/QA閾値変更なし。
+- **修正版[Actions #41983863947](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41983863947)はこの正本記録時点でqueued**。このrunの最新結果・ログ・Artifactをまず取得すること。**実レンダリング・ZIP/SHA・画像直接ART判定は未完了であり、TECH PASSもART PASSも報告禁止**。成功時はGitHubから実Artifact ZIPを独立DL、全CRC／画像.blendサイズSHA／真正同CHASEの視覚品質を検証し、正本を最終結果に修正。失敗なら原本保護を緩めず実ログで修正。
+- **永久条件**：main、公式P101 `p101-velocity-overdrive-native-trial`、Draft PR #46（Open/Draft/未merge）、原作Slope/Gold、Game・Road5物理とColliderとCamera、本番2サイトは保護。正式ART採用0件／Slope2 DNA 0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGEすべてHOLD。Work/Computer Use開始は個別事前承認。追加有料API原則0円。ユーザー操作0。
+
+---
+
 # 【2026-11-05 K4CK最終：元Road5保護の沿岸A/B二方向真正Blender TECH PASS・独立CRC/SHA PASS／直接ART両案REJECT】
 
 **最新隔離研究正本**：`research/k4ck-continuous-coastal-cut-retaining-wall-20261105`。次に再開する際はまず[**K4CKのA/B真正DCC・実画像・独立ZIP CRC/SHAとART失敗・次工程方針**](docs/R19_A6P4_R2F5K4CK_SOURCE_ROAD5_DUAL_COHERENT_COAST_ART_JA.md)を読み、[**K4CJ R2（左）／K4CK A（中央）／K4CK B（右）真正同CHASE比較**](docs/research-evidence/k4ck/K4CK_K4CJ_TRUE_CHASE_THREE_WORLDSCAPE_ART_COMPARISON.png)と[**監査JSON**](docs/research-evidence/k4ck/K4CK_REAL_NATIVE_AUDIT.json)を直接確認。下のK4CJ「最新」「現行」は過去歴史記録でありK4CK判定に優先しない。
