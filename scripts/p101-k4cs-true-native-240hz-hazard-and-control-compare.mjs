@@ -66,6 +66,7 @@ try{
        earlySeconds:c.dataset.k4csAdvanceSeconds||'none',
        earlySide:c.dataset.k4csPredictedSide||'none',
        cueHud:document.getElementById('k4csNativeHazardNotice')?.textContent||'',
+       cueCanvasCenterErrorPx:(()=>{const n=document.getElementById('k4csNativeHazardNotice');if(!n||n.hidden)return null;const a=n.getBoundingClientRect(),v=c.getBoundingClientRect();return Number(Math.abs(a.left+a.width/2-(v.left+v.width/2)).toFixed(2));})(),
        cueDisplayed:!document.getElementById('k4csNativeHazardNotice')?.hidden,
        realB51Target:c.dataset.hazardTarget,realB51SeparationM:c.dataset.r15s3d10PhysicallyNearB51,
        frameFpsHud:document.getElementById('fps').textContent};
@@ -87,8 +88,9 @@ try{
     assert.ok(genuine.some(p=>Number(p.earlySeconds)>=1.5),'failed to provide at least 1.5s early readable notice');
     assert.ok(genuine.every(p=>p.earlyB51.startsWith('a13-machine-')&&p.earlyMetres!=='none'&&p.cueDisplayed),
       'forecast must identify actual B51 on-screen and not a synthetic marker');
-    assert.ok(genuine.every(p=>p.cueHud.includes('安全レーン未認証')),
+    assert.ok(genuine.every(p=>p.cueHud.includes('NO SAFE LANE CERTIFIED')),
       'must not invent a guaranteed safe lane');
+    assert.ok(genuine.every(p=>p.cueCanvasCenterErrorPx!==null&&p.cueCanvasCenterErrorPx<2),'warning must be centered on actual game canvas');
    }
    assert.deepEqual(errors,[],spec.name+' browser page/console errors');
    report.sessions.push({...spec,gpu:gl,pictures,jsErrors:errors});

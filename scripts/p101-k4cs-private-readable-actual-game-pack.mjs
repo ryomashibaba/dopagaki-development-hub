@@ -52,7 +52,7 @@ replace("let k4cqSceneMesh=null;",
  "const k4csNotice=document.createElement('aside');",
  "k4csNotice.id='k4csNativeHazardNotice';k4csNotice.hidden=true;",
  "k4csNotice.setAttribute('role','status');k4csNotice.setAttribute('aria-live','polite');",
- "k4csNotice.style.cssText='position:fixed;top:85px;left:50%;transform:translateX(-50%);z-index:1100;max-width:min(600px,90vw);border:2px solid #ffd166;border-radius:12px;background:#05131be8;color:#fef9e6;font:700 18px/1.45 system-ui;padding:9px 15px;text-align:center;pointer-events:none;box-shadow:0 3px 12px #000b';",
+ "k4csNotice.style.cssText='position:fixed;top:0;left:0;transform:translateX(-50%);z-index:1100;max-width:min(510px,72vw);border:2px solid #ffd166;border-radius:10px;background:#05131bef;color:#fef9e6;font:700 16px/1.3 system-ui,Arial,sans-serif;padding:7px 12px;text-align:center;white-space:pre-line;pointer-events:none;box-shadow:0 3px 12px #000b';",
  "document.body.append(k4csNotice);",
  "let k4csReader=null,k4csMarkerMesh=null;",
  "let k4cqSceneMesh=null;"
@@ -82,8 +82,8 @@ replace(cueSlot,cueSlot+"\n"+
  " canvas.dataset.k4csUrgency=early?.urgency||'none';"+
  " canvas.dataset.k4csActualRunnerPosition=runner.p.map(x=>x.toFixed(3)).join(',');"+
  " canvas.dataset.k4csControlMode=demoMode?'SCRIPTED_NOT_HUMAN':'ORIGINAL_MANUAL_UNCERTIFIED';"+
- " if(early){const jp=early.side==='LEFT'?'左寄り':early.side==='RIGHT'?'右寄り':'中央付近';"+
- " k4csNotice.textContent='実B51 '+early.id.slice(-2)+'｜約'+Math.round(early.metres)+'m・現速度換算'+early.etaSeconds.toFixed(1)+'秒先｜未来位置 '+jp+'（安全レーン未認証）';"+
+ " if(early){const position=canvas.getBoundingClientRect();k4csNotice.style.left=(position.left+position.width/2).toFixed(1)+'px';k4csNotice.style.top=Math.max(8,position.top+69).toFixed(1)+'px';const jp=early.side==='LEFT'?'左寄り':early.side==='RIGHT'?'右寄り':'中央付近';"+
+ " k4csNotice.textContent='B51-'+early.id.slice(-2)+' | '+Math.round(early.metres)+' m / '+early.etaSeconds.toFixed(1)+' s | '+early.side+' SIDE\\nESTIMATE - NO SAFE LANE CERTIFIED';k4csNotice.setAttribute('aria-label','実B51 '+early.id.slice(-2)+'。約'+Math.round(early.metres)+'メートル、'+early.etaSeconds.toFixed(1)+'秒先。未来位置 '+jp+'。安全レーン未認証');"+
  " k4csNotice.dataset.state=early.urgency;"+
  " k4csNotice.style.borderColor=early.urgency==='NOW'?'#ff576b':early.urgency==='READY'?'#ffc15a':'#50e1ee';"+
  " }"+
