@@ -1,3 +1,13 @@
+# 【K4CM R1実レンダーの発見とR2の可視港湾作者修正／最新結果待ち】
+
+- **R1 [真正Actions #41989715487](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41989715487) completed/FAILURE（画像QAのみ）**。元SOURCE Game/Road5/本物K4CL親.blendの全SHAと実Blender4.0.2起動はPASS。実3D作者制作は、**左1600頂点2970面の褶曲断層、右737頂点1320面の200m連続盛土、実フェリー支柱へ接続する452頂点348面の18.100m歩行デッキ（勾配2.18%）**ができ、編集可能Blender原本と同CHASE PNGも実保存。実出力監査は`originalRoad5FullVertexFaceSHA256=f7c6091d5...`、SOURCE6Camera・木11・全ライト・K4CL暗舗装が不変で通過。**しかし独立右港画像可視差85px＜固定基準2400pxで失敗**。技術全ゲートPASSやART成功と偽らない。
+- 実GitHub初回Artifact [#13397299387](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41989715487/artifacts/13397299387) を別途取得して元ZIP全CRCと監査JSONを検査。真K4CM R1 Blender.blend282,699,764B SHA256 `d01d610ee5a409d57cf340df02b06a8b30b983bb234bcc286b2cc1b9fd0d140e`、真PNG SHA256 `34def421f75ef0c2e817d0d5d042ae8fd69935c7901d9c07fd3dcad1538a7197`。画像直接確認では**左岩盤23,364px変化、右は85pxだけ、道路中央0px**。右の盛土・歩行通路は実物の建築の裏に隠れてしまい、デザイン意図が走行画面に伝わらなかった。これが直接原因。
+- **R2は画素閾値を緩和せず、主要港湾建築そのものを大きく再作者設計**。本当に固定CHASEに映るK4CIの実研究荷役ガントリーとK4CHの実研究フェリー屋根を、原形状と位置を保存した`DCC_RESEARCH_ONLY` Meshの2研究コピーとして新しく作者制作。現役船舶荷役としての合理的な本体を維持しつつ、鮮やかすぎる玩具的な青緑＋黄から塩害を受けた暗海鋼＋深銅色に変え、門型荷役構造の上部を3Dで少し絞り、巨大なドーム屋根を落ち着いた現実的な曲率へ再形状化。**元Ganrty/屋根を削除・改変せず研究レンダー表示だけ非表示**。港の舟艇・既存道・SOURCEに変更はない。左の褶曲・道路右の物理的に本物の盛土・ターミナル実接続通路はそのまま継続。合計5編集可能研究Mesh。
+- 新コードcommit `629ad719f9b7d11510c42e6db034d3ad7dfaf4a1`／厳密な可視港湾研究コピーの追加検証Workflow commit `80c1c52a3f620b294cf31f438cf7c05961f7e044`。**最新Run [#41990838846](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41990838846)** を次に照合。途中run #41990795105 は旧HEADであり最新判定に使用しない。本記録時点では新R2の真Blender画像・Artifact・ARTの合否は未確定。まず最新実ジョブログ、実Artifact、独立真画像を見てから判定すること。
+- **禁止事項は不変**：元Game／Road5／6Camera／Physics／11木／全ライト／原研究メッシュ頂点行列保護、main、公式P101、Draft PR#46、凍結Gold、本番2サイトは不変更。新ゲームCollider0。正式ART採用0件、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。追加有料API原則0円、Work/Computer Use個別事前承認、ユーザー操作0。
+
+---
+
 # K4CM — 既存SOURCE道路と港の一体化：海岸断層の大地形とフェリー歩行接続
 
 **2026-11-05 JST／ART-FIRST研究のみ。これは新方針の再審議ではない。**
