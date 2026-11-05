@@ -1,0 +1,124 @@
+name: K4CR isolated real B48 chicane original B51 true WebGL2 and Blender (HOLD)
+on:
+  push:
+    branches:
+      - research/k4cr-genuine-b48-bank-chicane-b51-native-20261105
+    paths:
+      - scripts/p101-k4cr-physical-road5-chicane-real-b51.mjs
+      - scripts/p101-k4cr-true-game-and-blender-pack.mjs
+      - scripts/p101-k4cr-native-real-240hz-gameplay-comparison.mjs
+      - scripts/p101-k4cr-editable-real-physical-b48-blender.py
+      - .github/workflows/p101-k4cr-actual-physical-road5-b51-one-sector.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  one-real-original-physical-play-scene-research-hold:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Immutable source protection and real physical script parse
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-k4cr-physical-road5-chicane-real-b51.mjs
+          node --check scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node --check scripts/p101-k4cr-native-real-240hz-gameplay-comparison.mjs
+          python3 -m py_compile scripts/p101-k4cr-editable-real-physical-b48-blender.py
+      - name: Build actual isolated original 240Hz engine with REAL B48 and native B51 variant
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node --check dist-private/k4cr/drive3d.mjs
+          test -f test-results/k4cr-native-physical/K4CR_ROAD5.obj
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Real original Chromium WebGL2 240Hz two-variant physical course and real B51
+        id: chromium
+        continue-on-error: true
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/p101-k4cr-native-real-240hz-gameplay-comparison.mjs
+      - name: Native Blender 4.x editable REAL source sampled physical Road5 and full world
+        id: blender
+        timeout-minutes: 19
+        continue-on-error: true
+        run: |
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|g; s|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/apt-mirrors.txt
+          fi
+          sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 900s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender python3-pil libegl1 libgl1-mesa-dri libopengl0 libgbm1
+          blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4cr-editable-real-physical-b48-blender.py
+      - name: Independent native source parity and REAL physical gameplay outcomes (no fake PASS)
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, hashlib
+          from PIL import Image, ImageDraw, ImageChops
+          d=pathlib.Path('test-results/k4cr-native-physical')
+          a=json.loads((d/'K4CR_BUILD_AUDIT.json').read_text())
+          assert a['oldR15S3D9Road5SHA256']!=a['isolatedK4CRPhysicalRoad5SHA256']
+          assert a['changedRoadIndices']==[5] and len(a['relocatedOriginalB51'])==6
+          assert a['physicsMetrics']['exactRoad4To5AndRoad5To6FiveVertexSeams']
+          assert a['physicsMetrics']['extraColliders']==0
+          assert a['nativeRoad5ExportTriangles']==2400
+          results={'realB48PhysicallyChanged':True,'sixOfOriginal28B51Relocated':True,
+                   'officialART':0,'Slope2DNAmetres':0,'HUMAN':'HOLD','SAT':'HOLD',
+                   'CCD':'HOLD','FPS':'HOLD','RELEASE':'HOLD','MERGE':'HOLD'}
+          if (d/'K4CR_REAL_CHROMIUM_RESULT.json').is_file():
+            j=json.loads((d/'K4CR_REAL_CHROMIUM_RESULT.json').read_text())
+            results['realWebGL2Sessions']=len(j['sessions'])
+            results['realNativeFailures']=j['failures']
+            if len(j['sessions'])==2 and not j['failures']:
+              old,new=[s['pictures'] for s in j['sessions']]
+              assert len(old)==len(new)==3
+              differences=[]
+              for x,y in zip(old,new):
+                assert x['seconds']==y['seconds'] and x['nativeTicks']==y['nativeTicks']
+                assert x['runnerStatus']==y['runnerStatus']=='running'
+                im1=Image.open(d/x['file']).convert('RGB')
+                im2=Image.open(d/y['file']).convert('RGB')
+                assert im1.size==im2.size
+                dif=ImageChops.difference(im1,im2).convert('L')
+                changed=sum(v for n,v in enumerate(dif.histogram()) if n>25)
+                differences.append({'seconds':x['seconds'],'rawDifferentPixels':changed,
+                   'baselineSpeed':x['sourceSpeedHud'],'physicalSpeed':y['sourceSpeedHud'],
+                   'baselineRealB51':x.get('realB51Target'),'physicalRealB51':y.get('realB51Target')})
+                w,h=im1.size
+                sheet=Image.new('RGB',(w*2,h+50),'#111827')
+                sheet.paste(im1,(0,50));sheet.paste(im2,(w,50))
+                ImageDraw.Draw(sheet).text((10,16),f"TRUE SOURCE baseline LEFT / PHYSICAL bank+6 real B51 RIGHT; t={x['seconds']}s ART/HUMAN HOLD",fill='white')
+                sheet.save(d/f"K4CR_TRUE_SOURCE_PHYSICAL_T{x['seconds']}_RAW.png")
+              assert all(v['rawDifferentPixels']>1000 for v in differences)
+              results['realPhysicalImageDifference']=differences
+            else: results['realSourcePlayability']='FAIL_OR_HOLD'
+          if (d/'K4CR_NATIVE_DCC_RESULT.json').is_file():
+            n=json.loads((d/'K4CR_NATIVE_DCC_RESULT.json').read_text())
+            assert n['editable'] and n['road5Triangles']==a['nativeRoad5ExportTriangles']
+            assert n['sceneTriangles']==a['noncollidingEnvironmentTriangles']
+            assert n['actualRoad5SourceGeometrySHA256']==a['isolatedK4CRPhysicalRoad5SHA256']
+            results['genuineNativeBlender']=True
+          (d/'K4CR_INDEPENDENT_REAL_PLAY_REPORT.json').write_text(json.dumps(results,indent=2)+'\n')
+          print('K4CR_INDEPENDENT_TECH_EVIDENCE_NOT_ART_OR_HUMAN_PASS',json.dumps(results))
+          assert (d/'K4CR_REAL_CHROMIUM_RESULT.json').is_file()
+          assert (d/'K4CR_NATIVE_DCC_RESULT.json').is_file()
+          assert not results.get('realNativeFailures') and results.get('realWebGL2Sessions')==2
+          assert results.get('genuineNativeBlender')==True
+          PY
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Preserve unedited native original game screenshots REAL Blender and even failed evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4CR_REAL_B48_B51_SOURCE_240HZ_NATIVE_EDITABLE_GAMEPLAY_HOLD
+          path: test-results/k4cr-native-physical/
+          retention-days: 7
+          if-no-files-found: warn
