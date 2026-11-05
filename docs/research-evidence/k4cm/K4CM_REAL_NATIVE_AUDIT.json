@@ -1,0 +1,77 @@
+{
+  "schema": "dopagaki.k4cm.actual-integrated-geological-highway-waterfront-v1",
+  "parentK4CLExactSHA256": "2b5288333b3b633649aefd349fbdc79837775719a6175eba23d72dbdbada7da1",
+  "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCameraPosesUnchanged": true,
+  "originalCHASEUnchanged": true,
+  "originalElevenTreeTransformsUnchanged": true,
+  "originalLightsUnchanged": true,
+  "allInheritedGeometryAndTransformsUnchanged": true,
+  "originalK4CLResearchPavementGeometryIdentical": true,
+  "originalHarborPassengerFerrySupportGeometryIdentical": true,
+  "K4CKStudyCoastRenderHiddenOnly": true,
+  "originalPortGantryAndCanopyHiddenOnlyInStudy": true,
+  "sourceGameEdited": false,
+  "sourcePhysicsEdited": false,
+  "newGameColliders": 0,
+  "newNativeEditableResearchMeshes": 5,
+  "largeReauthoredResearchVisiblePortMeshes": 2,
+  "visibleActualGantryAuthorVertexCount": 640,
+  "visibleActualTerminalRoofAuthorVertexCount": 858,
+  "originalGantryAndCanopyGeometryUnchanged": true,
+  "geologicalRealEditableVertices": 1600,
+  "geologicalRealFaces": 2970,
+  "actualFoldDisplacementMaxMetres": 10.28876079844953,
+  "continuousShorelineGradeVertices": 737,
+  "continuousShorelineGradeFaces": 1320,
+  "realExistingFerryFootwayVertices": 476,
+  "realExistingFerryFootwayFaces": 366,
+  "realTerminalAnchorSourceDMetres": 82.99999570846558,
+  "realTerminalAnchorSourceSMetres": -38.00003242492676,
+  "realConnectedPedestrianAccessLengthMetres": 18.10003858530558,
+  "realConnectedPedestrianAccessSlope": 0.021808219490662945,
+  "realCoastalCutLengthMetres": 198,
+  "cameraVisibleSculptVerticesLeft": 1226,
+  "cameraVisiblePortGroundAndAccessVerticesRight": 1014,
+  "projectedNewWorldBoundsNotArtScore": {
+    "left": [
+      -2.8935844898223877,
+      0.41401076316833496
+    ],
+    "right": [
+      0.5422425866127014,
+      1.6516342163085938
+    ]
+  },
+  "realNativeCHASE768x480": true,
+  "renderEngine": "BLENDER_EEVEE",
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CM_TRUE_INTEGRATED_COAST_DRIVE_AND_PORT_EDITABLE_ART_HOLD.blend": {
+      "bytes": 283002044,
+      "sha256": "273c6ab1ec334ff8b2524c43c611da43831aaef3374056f3ab02352e3e914aab"
+    },
+    "K4CM_TRUE_SOURCE_CHASE_FOLDED_ROCKCUT_AND_PORT_ACCESS_NOT_GAME.png": {
+      "bytes": 516379,
+      "sha256": "a62ced1d6fe80ea999683e5aac3f40fc023fb780fb4246ddf1c0939b1ada221d"
+    }
+  },
+  "independentSameTrueChaseImageQA": {
+    "naturalGeologyScreenChangedPixelsNotArtScore": 23364,
+    "operationalPortRoadAccessChangedPixelsNotArtScore": 2922,
+    "originalRoadCentreChangedPixels": 0,
+    "comparisonName": "K4CM_VS_K4CL_TRUE_SOURCE_CHASE_WHOLE_FRAME_ART_REVIEW.png",
+    "comparisonSHA256": "8c45825cef0d2239a933855ab0f1de855a8959b6c14d17c492c1b40113aaf77b",
+    "roadGeometryAndCameraStillUnchanged": true,
+    "ART": "UNJUDGED_HOLD"
+  }
+}
