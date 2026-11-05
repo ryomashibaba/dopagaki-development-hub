@@ -10,6 +10,7 @@ from mathutils import Vector
 
 OUT=Path('test-results/k4ct-contact-retry')
 site=json.loads((OUT/'K4CT_DCC_AUTHENTIC_SITE.json').read_text())
+stations={s['id']:s for s in site['stations']}
 assert site['schema']=='k4ct-authentic-source-physical-spillway-dcc-v1'
 assert site['originalB48Count']==7 and site['originalB51Count']==28
 assert site['newColliders']==0
