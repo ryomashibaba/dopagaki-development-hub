@@ -1,3 +1,12 @@
+# 【K4CL試験履歴：初回失敗・実コード修正・最新再試験の状態】
+
+- 初回真正[Actions #41983551452](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41983551452)は**completed/FAILURE**。元Game/元Road5/親K4CK.blend全SHA認証、Blender4.0.2インストール、K4CL研究舗装2コピー・A実標示メッシュ・B実標示メッシュ作成までは実行。しかし作者コードがB案もA案と同じ最低26以上の塗装面数を要求し、当初Bは意図した疎なデザインで18面しかなかったため、`assert len(vv)>100 and len(ff)>25`で安全停止。**新.blend保存も画像の実描画にも到達しておらず、TECH PASSやART評価と誤記しないこと**。
+- 修正は**研究B案の標示実物を増設**し、交通標示と鉱物路面の継ぎ目の実間隔を変更：縦方向15mの中央ダッシュ12組と12m間隔の鉱物舗装目地14組で**計26面（104実頂点）**とした。QA顔色を変えて閾値を下げたり、元Road5・元カメラ・Game/Physicsを変更していない。修正SHA commit `fc13208b6f72bc1caf918f0bd1ead4c6e8561378`。
+- [修正版Actions #41983863947](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41983863947) をGitHub実行キューに登録済。本記録時点の実行状態は**queued（実画像・新.blend・ART結果なし）**。**次に呼び出すChatGPTはこのrunの最新ジョブ・ログ・Artifactを先に確認**する。完走なら実ZIPを独立ダウンロードして全CRC・SHAと画像の直接ART判定を行い、結果をこの文書とSTART_HEREに追記。もしqueuedのままなら、時間が経っただけで成功と記載しない。
+- 元Game・元Road5全ジオメトリ・カメラ・木11・全ライト・K4CK A岩盤は凍結。意図的に変更するのは研究路面の見た目だけ（新4研究Mesh+4研究表示切替）。新ゲームCollider0、正式ART採用0、Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。main/P101/PR#46/本番保護、Work/Computer Use個別承認・有料API追加0円・ユーザー操作0。
+
+---
+
 # K4CL — 非衝突研究レイヤーだけで実Road5の視覚的な疾走感を制作
 
 **2026-11-05 JST／ART-FIRST研究。正式ART採用0件・Slope2 DNA認定0m・HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。**
