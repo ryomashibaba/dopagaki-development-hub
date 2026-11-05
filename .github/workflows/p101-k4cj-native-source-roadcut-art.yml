@@ -100,11 +100,14 @@ jobs:
           assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
           for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged',
                     'originalElevenTreeTransformsUnchanged','originalLightsUnchanged',
-                    'allInheritedResearchAndSourceObjectsIdentical',
+                    'allInheritedSourceAndResearchGeometryIdentical',
                     'K4BZ_bad_duplicate_road_hidden'):
               assert a[k],k
           assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
-          assert a['trueResearchEditableMeshes']==2
+          assert a['trueResearchEditableMeshes']==4
+          assert a['actualReauthoredForegroundRockCopyCount']==2
+          assert len(a['nonDestructiveResearchRockRenderSwaps'])==2
+          assert a['windbreakStartsAfterSourceStationMetres']>=30
           assert a['actualRoadCutRealWorldVertices']>850
           assert a['actualRoadCutRealWorldTriangleFaces']>1600
           assert a['actualRealWindbreakVertices']>350
