@@ -2,6 +2,14 @@
 
 **現行唯一の案内正本**：[DOPAGAKI全計画・批判的評価と新チャット完全統合引き継ぎ](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R2_20261105_JA.md) をまず全文読む。過去の全記録は[旧START_HEREの原文アーカイブ](docs/archive/START_HERE_SNAPSHOT_K4CT_R2_20261105.md)に**省略・上書きなし**で保存。これは歴史や固定方針の撤回ではなく索引の短縮である。
 
+## K4CT R3実測・最新（2026-11-05 JST、R2履歴は下記参照）
+- 真正研究コードHEAD `0727c52b27759d06d8b2e5336ede15b8bbc2a525`。実証 [Actions #42048634777](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42048634777) **completed/SUCCESS**。[Artifact #13425699087](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42048634777/artifacts/13425699087)、SHA256 `8fdbe45ccd775c913ef2c2f838bc4c2230b77f0188a7f766ee44c8b160435abc`、全ZIP CRC PASS（現時点の独立ダウンロード検査）。
+- 既存R2の63.70→64.05秒・A/D位置差14.27mは**過去の実証**。新実測R3は同じ元Game／真正WebGL2／240Hz原Runner／原Camera／K4CR研究Road5／元28 B51を継承し、B51-13→B51-14の連続区間を実物理で通過させた。人間操作ではなく**Playwright真正KeyD自動操作**。
+- R3の4つの実KeyD短時間入力（65.15–65.30、65.48–65.66、65.82–66.00、65.25–65.36＋65.79–65.91）は**全てRoad6へ接地しB51-14設置地点+20mを実走行**。原B51-13/14の実moving-contactは4件とも0、失敗0。B51-14実OBB表面最短距離順に6.891m／5.609m／5.681m／3.149m。2回入力の試行は元Runner.status=`finished`、実時間69.941667s、他の3試行は70.500s時点`running`。これは**研究コピーの自動操作技術実証**であり、正式な人間完走認定ではない。
+- 直前の [Actions #42046550320](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42046550320) SUCCESSでは真正Blender4.0.2編集可・9機能群／9,336三角形の非衝突DCCを同じK4CT実WebGL2場面に接続。4つのA/D/中立試行は全て路外落下、元UIの失敗→再挑戦（左失敗→右試行）が実測された。**本R3では短い追加入力だけでRoad6復帰が成立**。過去FAIL runはFAIL履歴として保全。
+- 実Game RAW画像を直接評価し**ART REJECT**。巨大単調岸壁、模型的港、構図の弱さ、原HUD CJK欠字と警告の重なりが残る。真正DCCを作ったことと高品質な世界・人間にとって面白いことは別。**正式ART採用0件／Slope2 DNA認定0m／HUMAN・SAT・CCD・FPS・RELEASE・MERGE全HOLD**。本番・main・公式P101・PR#46・凍結Game/Camera/Physics/Road5・Gold・元Slopeは不変。
+- 詳細値と将来の照合には [K4CT R3恒久研究判定](research-evidence/k4ct/K4CT_R3_TWO_NATIVE_B51_ROAD6_PHYSICAL_RESCUE_VERDICT.json) を使う。GitHub Artifactには元の240Hz全ステップ・本物のRAW画像・編集可能BLEND（有効期限あり）がある。
+
 ## 現在位置
 - 現行研究枝：`research/k4ct-two-native-b51-choice-consequence-20261105`。検証コードHEAD `22f29ab42740bf6ba363ce78237cbab928ae8251`。**本索引・引継ぎコミット後はHEADが変化するため、毎回GitHubの実最新を確認すること**。
 - [K4CT R2・真正240Hz Actions](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42038776523)：**completed/SUCCESS**。[Artifact #13420511782](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42038776523/artifacts/13420511782)。元28 B51のうち次の2体を本物の原Game WebGL2で同時提示。63.70→64.05sの実KeyA/D自動入力で球位置差14.27156m、A/Dともrunning、衝突までの回避成功は未証明。
@@ -9,8 +17,8 @@
 - main `d402801f271f43163ad85d9303abe9773d3958bd`／公式P101 `19d3a32d525c0c2a67082cba646898fab8f2b60f`／Draft PR #46 Open/Draft/未mergedは本書作成前の照合値であり今後再確認。元Game Blob SHA1 `af076d67492a677d2235e4730aef8cdf4808e106`。
 - 本番2サイト、原作Slope、Gold、Freeze、元Game/Road5/Camera/240Hz物理、正式QA、main、公式P101、PR#46を保護。Work/Computer Use、追加課金、原本変更、本番公開、正式採用・mergeには個別事前承認。研究枝での安全制作・検証・GitHub保存は自律可。ユーザーの通常操作0回。
 
-## 次の一つの制作目的
-**元のK4CT真B51-13→14の連続2障害物について、A/D/中立を実接触時刻まで走らせ、回避・衝突・最小距離・失敗・リトライを真の240Hz Runnerで確認する。同じシーンの意味が読める本格的DCC空間デザインへ統合する。** 単なるポール・HUD・Blender平壁・小QAの量産には戻らない。結果不明ならHOLD。ART正式採用はなし。
+## 次の一つの制作目的（K4CT R3実測を受けて更新）
+**R3で通過可能性と失敗／本物のリトライは原ゲームで実証した。次は「65秒台の0.15秒程度の右操作を人間が画面を見て選べるか」と「同じ真正走行場面が世界水準の美術を持つか」を一体で解く。** 元の物理を弱めず、単純なタイミングテストの量産も旧Blender模型の微修正も止める。次の縦スライスは、リアルな大型港湾構造・水際・地形の意味が原CHASEから読み取れる本格DCCの再構成と、見通し・操作可能時間・カメラを含む少数の実ゲーム観測を統合する。人間の楽しさは本人の実操作を得るまでHOLD、正式ART採用なし。
 
 ## 一次資料
 - [今後の全方針・反省と唯一の新チャット引継ぎ](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R2_20261105_JA.md)

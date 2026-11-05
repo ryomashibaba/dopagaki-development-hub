@@ -4,6 +4,16 @@
 
 > 最上位の結論：**守るべき安全・品質方針は妥当。変えるべきなのは「何を完成と数えるか」「何を最初に作るか」「失敗時の反復の仕方」「引き継ぎに必要な手間」**。目標は実際に人が遊んで面白い世界水準・有料インディー級の超高速3Dアーケードゲームの完成。TECH PASSやコミット数ではない。
 
+## 2026-11-05 K4CT R3：K4CT R2後の実測追記（固定方針は変更しない）
+**本節が後続の「次のバッチ」旧計画より新しい。下のR2時点の課題と計画・反省は履歴として保存し、完了した工程をやり直さない。**
+
+- GitHub研究HEAD（実測コード）：`0727c52b27759d06d8b2e5336ede15b8bbc2a525`。真正 [Actions #42048634777](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42048634777) completed/SUCCESS。独立ダウンロードArtifact #13425699087 ZIP SHA256 `8fdbe45ccd775c913ef2c2f838bc4c2230b77f0188a7f766ee44c8b160435abc`／ZIP CRC全PASS。K4CT R2の#42038776523 SUCCESSも履歴として維持。
+- **通過の因果が前進：** R2では本物のA/Dを0.35秒押しただけで初障害物は70m以上先だった。K4CT接触実験の [Actions #42046550320](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42046550320) SUCCESSで、実B51-13地点通過・4つの操作の実落下・実UIの失敗後再挑戦を実証したがRoad6/B51-14は未通過だった。K4CT R3では元KeyDを65秒台で0.15–0.23秒のみ入力した**4つの真正240Hzブラウザ試行全部がRoad6接地＋B51-14設置地点を20m以上通過**。B51-14との最短元OBB表面距離は6.891/5.609/5.681/3.149m、全4件B51-13/14接触イベント0／落下0。2回の短押し試行は元Runner.status `finished`、69.941667s、残り3件は70.500sで`running`。全て**Playwright実Keyboard（人間ではない）**。後処理や代理Runnerではなく、同じ元Game/Camera/240Hz/SAT/CCD衝突機構を使った限定的研究結果。
+- **DCCの真正統合：** Blender4.0.2で道路元座標と実B51-13/14を基準とした非衝突の港湾・潮汐・高架シーンを新規制作、可編集BLEND／9機能群／9,336三角形をゲームPRIVATE WebGL2へ統合。元7道路・28実B51・元Game blob `af076d67...`・原Camera・物理・原本・PR・main不変、新Collider0。**原ゲームのRAW映像とDCCコンセプトは直接審査しART REJECT**：大きな平板面、機能が読めない港、暗い視界と粗い材質・原HUD欠字が残る。TECHとART/人間が楽しいことを混同しない。
+- **今後の最優先（旧第6節の未接触目標は実測上更新）：** 同じB51-13→14場面で、短い操舵が成功する「操作タイミングの許容幅」を本物のゲーム画像・視認性・分岐・風景と一体設計する。最初から世界を作り直さず、意味が読める主役構造／水際／路面と本物の危険が1画面で関係する強い一体DCC制作を進める。細かいHUDだけ/小QAだけ/Blender平面模型の量産に戻らない。人間試験は完成度が上がってから1クリック1回に集約。
+- 正式ART 0件／正式Slope2 DNA 0m／HUMAN・SAT・CCD・FPS・RELEASE・MERGE全HOLD。実自動`finished`を正式Goldや人間の完走へ転記しない。個別承認境界は不変。
+- 長期保存する最小の独立研究結果：[K4CT R3数値正本](../research-evidence/k4ct/K4CT_R3_TWO_NATIVE_B51_ROAD6_PHYSICAL_RESCUE_VERDICT.json)。巨大原始ログ・RAW・BLENDは[Actions Artifact #13425699087](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42048634777/artifacts/13425699087)（期限あり）。原本/再現用ソースは研究ブランチに保存。
+
 ## 0. 情報の権威と新チャットでの読み方
 - GitHub正本：https://github.com/ryomashibaba/dopagaki-development-hub
 - 現行の継続研究ブランチ：`research/k4ct-two-native-b51-choice-consequence-20261105`

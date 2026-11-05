@@ -1,0 +1,123 @@
+{
+  "schema": "dopagaki.k4ct-true-native-road6-b51-14-rescue-evidence/1",
+  "date_jst": "2026-11-05",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "code_commit": "0727c52b27759d06d8b2e5336ede15b8bbc2a525",
+  "originalGameBlobSHA1": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "isolatedResearchPhysicalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+  "originalPhysicalSourceAndCameraUnmodified": true,
+  "original240HzRunner": true,
+  "originalB48RoadCount": 7,
+  "originalMovingB51Count": 28,
+  "realNativeInput": "Playwright KeyD through original keyboard code path, NOT HUMAN",
+  "priorNativeFailureRetryRun": 42046550320,
+  "priorNativeFailureRetryResult": "SUCCESS; neutral+A/D trials all failed off edge; original retry UI used from KeyA failure to KeyD retry",
+  "newNativeB51PassRun": 42048634777,
+  "conclusion": "success",
+  "artifactId": 13425699087,
+  "artifactZIP_SHA256": "8fdbe45ccd775c913ef2c2f838bc4c2230b77f0188a7f766ee44c8b160435abc",
+  "zipCRCPass": true,
+  "gameStation13": {
+    "id": "a13-machine-13",
+    "metres": 3353.126950049203,
+    "roadIndex": 5
+  },
+  "gameStation14": {
+    "id": "a13-machine-14",
+    "metres": 3829.276296819087,
+    "roadIndex": 6
+  },
+  "comparison": [
+    {
+      "label": "CORRECT_RIGHT_EARLY",
+      "pulses": [
+        {
+          "key": "KeyD",
+          "from": 65.15,
+          "to": 65.3
+        }
+      ],
+      "b51_14_min_surface_separation_m": 6.891,
+      "passed_road6_b51_14": true,
+      "lastNativeTimeS": 70.5,
+      "runnerStatus": "running",
+      "nativeMovingContacts13And14": 0,
+      "runnerFailures": 0
+    },
+    {
+      "label": "CORRECT_RIGHT_MID",
+      "pulses": [
+        {
+          "key": "KeyD",
+          "from": 65.48,
+          "to": 65.66
+        }
+      ],
+      "b51_14_min_surface_separation_m": 5.609,
+      "passed_road6_b51_14": true,
+      "lastNativeTimeS": 70.5,
+      "runnerStatus": "running",
+      "nativeMovingContacts13And14": 0,
+      "runnerFailures": 0
+    },
+    {
+      "label": "CORRECT_RIGHT_LATE",
+      "pulses": [
+        {
+          "key": "KeyD",
+          "from": 65.82,
+          "to": 66
+        }
+      ],
+      "b51_14_min_surface_separation_m": 5.681,
+      "passed_road6_b51_14": true,
+      "lastNativeTimeS": 70.5,
+      "runnerStatus": "running",
+      "nativeMovingContacts13And14": 0,
+      "runnerFailures": 0
+    },
+    {
+      "label": "TWO_SHORT_RIGHT_RESCUES",
+      "pulses": [
+        {
+          "key": "KeyD",
+          "from": 65.25,
+          "to": 65.36
+        },
+        {
+          "key": "KeyD",
+          "from": 65.79,
+          "to": 65.91
+        }
+      ],
+      "b51_14_min_surface_separation_m": 3.149,
+      "passed_road6_b51_14": true,
+      "lastNativeTimeS": 69.94166666668522,
+      "runnerStatus": "finished",
+      "nativeMovingContacts13And14": 0,
+      "runnerFailures": 0
+    }
+  ],
+  "independentB51PassedRule": "Actual Runner sampled road-surface centreline progress > original B51 stationM +20m while grounded and within 75m of real Road6 centreline, with no original moving-contact events",
+  "previousNeutralFailReason": "fall from road near 69.483s; Road5 lateral normalized about 0.92 at 66.4s and off edge by 66.5s",
+  "genuineBlender": {
+    "version": "4.0.2",
+    "editableBlend": true,
+    "sceneMeshGroups": 9,
+    "triangles": 9336,
+    "actualGameWebGL2Integrated": true,
+    "newColliders": 0,
+    "artVerdict": "REJECT",
+    "issue": "Low density / slab-like marine architecture, coarse original high-contrast road visual, dark ground, HUD CJK missing; world-class quality not reached"
+  },
+  "officialARTAccepted": 0,
+  "officialSlope2DNA_M": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "historicalFailureRunsUnchanged": true,
+  "recommendedNext": "ART-first native DCC composition and real visual warning / control timing redesign for same successful B51 13->14 integrated slice, before minimal one-click human review"
+}
