@@ -81,7 +81,19 @@ jobs:
           assert game['HUMAN']==game['SAT']==game['CCD']==game['FPS']==game['RELEASE']==game['MERGE']=='HOLD'
           assert game['ART']=='REJECT' and game['formalART']==0 and game['slope2DNAmeters']==0
           assert game['newColliders']==0
-          assert len(game['experiments'])>=3 and not game['errors']
+          assert len(game['experiments'])==1 and not game['errors']
+          assert game.get('pairedLoopProven'), 'must prove same-session actual failure-retry-finish'
+          pair=game['pairedLoop']
+          assert pair['sameBrowserContext'] and pair['restartFromZero']
+          assert pair['originalRetryButton']=='retryRun' and pair['startPositionDriftM']<.25
+          assert pair['failed']['finalStatus']=='failed' and pair['failed']['failure']['reason']=='コースから落下'
+          assert pair['finished']['finalStatus']=='finished' and pair['finished']['trueRoad6B51_14Passed']
+          assert not pair['finished']['actualNativeContact14']
+          assert len(pair['realRecoveryKeys'])==2
+          for label in ['failed','finished']:
+            t=json.loads((d/pair[label+'Trace']).read_text())
+            assert len(t['samples'])>250 and {s['id'] for s in t['stations']}=={'a13-machine-13','a13-machine-14'}
+            assert (d/pair[label+'Image']).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
           actual=[]
           for experiment in game['experiments']:
             trace=json.loads((d/experiment['traceName']).read_text())
@@ -116,6 +128,10 @@ jobs:
             'realRoad6Grounded':game['road6GroundedObserved'],
             'realB51_14Passed':game['b51_14ActualPassed'],
             'realB51_14Contacts':game['actualB51_14Contacts'],
+            'nativeSameBrowserNeutralFailOriginalRetryFinish':game['pairedLoopProven'],
+            'pairedFailureReason':pair['failed']['failure']['reason'],
+            'pairedNativeRecoveredFinishTime':pair['finished']['lastTime'],
+            'samePrechoicePositionDriftM':pair['startPositionDriftM'],
             'notHuman':True,'ART':'REJECT','HUMAN':'HOLD','SAT':'HOLD','CCD':'HOLD',
             'FPS':'HOLD','RELEASE':'HOLD','MERGE':'HOLD'}
           (d/'K4CT_ROAD6_B51_14_INDEPENDENT_RESULT.json').write_text(json.dumps(independent,indent=2)+'\n')

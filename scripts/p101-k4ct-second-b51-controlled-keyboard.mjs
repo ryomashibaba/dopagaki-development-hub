@@ -11,10 +11,9 @@ const OUT=path.resolve('test-results/k4ct-contact-retry');
 fs.mkdirSync(OUT,{recursive:true});
 await new Promise((ok,fail)=>server.once('error',fail).listen(0,'127.0.0.1',ok));
 const base='http://127.0.0.1:'+server.address().port;
+// Retain the already verified three timing variants in run #42048634777.
+// Focus this batch on ONE genuine outcome-changing, same-browser failure/retry.
 const proposals=[
- {name:'CORRECT_RIGHT_EARLY',pulses:[{start:65.15,end:65.30,key:'KeyD'}]},
- {name:'CORRECT_RIGHT_MID',pulses:[{start:65.48,end:65.66,key:'KeyD'}]},
- {name:'CORRECT_RIGHT_LATE',pulses:[{start:65.82,end:66.00,key:'KeyD'}]},
  {name:'TWO_SHORT_RIGHT_RESCUES',pulses:[{start:65.25,end:65.36,key:'KeyD'},{start:65.79,end:65.91,key:'KeyD'}]}
 ];
 const result={schema:'k4ct-actual-source-road6-b51-14-native-keyboard-corrective-v1',
@@ -137,6 +136,90 @@ try{
    try{await page.screenshot({path:path.join(OUT,'K4CT_'+spec.name+'_ERROR_RAW.png')});}catch{}
   }finally{await context.close();}
  }
+ // Paired actual gameplay experiment: fail by NEUTRAL on the SAME native
+ // physical course, click the original retry control, then apply the TWO
+ // previously-measured real KeyD pulses to CLEAR. Not a teleport or human test.
+ const pairCtx=await browser.newContext({viewport:{width:1365,height:930},deviceScaleFactor:1});
+ const pair=await pairCtx.newPage(),pairErrors=[];
+ pair.on('pageerror',e=>pairErrors.push(e.message));
+ pair.on('console',m=>{if(m.type()==='error')pairErrors.push(m.text().slice(0,250));});
+ try{
+  const realRenderer=await init(pair);
+  const failTick=await advance(pair,70.5,true);
+  const first=await pair.evaluate(()=>window.__k4ctNativeContactTrace);
+  const failed=summarize(first);
+  assert.equal(failTick.status,'failed','neutral must REALLY fail before replay');
+  assert.equal(failed.finalStatus,'failed');
+  assert.equal(failed.failure?.reason,'コースから落下');
+  const failureFile='K4CT_PAIR_NEUTRAL_FAILED_ORIGINAL_TRACE.json';
+  const failureImage='K4CT_PAIR_NEUTRAL_FAILED_REAL_GAME_RAW.png';
+  fs.writeFileSync(path.join(OUT,failureFile),JSON.stringify(first)+'\n');
+  await pair.screenshot({path:path.join(OUT,failureImage)});
+  await pair.locator('#retryRun').click({timeout:10000});
+  await pair.waitForFunction(()=>{
+   const c=document.getElementById('view');
+   return Number(c.dataset.r15s3d10NativeTicks)<120 &&
+       c.dataset.r15s3d10OriginalGame==='REAL_WEBGL2_SOURCE_240HZ';
+  },undefined,{timeout:10000});
+  const resetTick=Number(await pair.locator('#view').getAttribute('data-r15s3d10-native-ticks'));
+  // The original renderer restarts from spawn; only ORIGINAL scripted steering
+  // brings it to the same pre-choice 63.70s. No synthetic Runner state.
+  await pair.evaluate(()=>window.__r15s3d10PauseAt=63.70);
+  await pair.locator('#demoRun').click();
+  const pre=await waitPause(pair,63.70);
+  assert.equal(pre.status,'running');
+  await pair.locator('#takeoverRun').click();
+  await pair.waitForFunction(()=>document.getElementById('view').dataset.k4csControlMode==='ORIGINAL_MANUAL_UNCERTIFIED',
+   undefined,{timeout:15000});
+  let paused=true;
+  const genuine=[];
+  for(const pulse of [{start:65.25,end:65.36,key:'KeyD'},{start:65.79,end:65.91,key:'KeyD'}]){
+   const start=await advance(pair,pulse.start,paused);
+   assert.ok(start.paused && start.status==='running');
+   await pair.keyboard.down(pulse.key);
+   const stop=await advance(pair,pulse.end,true);
+   const used=await pair.evaluate(()=>({
+    path:document.getElementById('view').dataset.k4csLastInputUsed,
+    steer:document.getElementById('view').dataset.k4csActualManualSteer
+   }));
+   await pair.keyboard.up(pulse.key);
+   assert.equal(used.path,'ORIGINAL_MANUAL_KEYBOARD');
+   assert.equal(used.steer,'1');
+   assert.equal(stop.status,'running');
+   genuine.push({...pulse,observed:used});
+   paused=true;
+  }
+  const finish=await advance(pair,70.5,paused);
+  const second=await pair.evaluate(()=>window.__k4ctNativeContactTrace);
+  const recovered=summarize(second);
+  assert.equal(finish.status,'finished','same-session real retry must finish');
+  assert.equal(recovered.finalStatus,'finished');
+  assert.ok(recovered.trueRoad6B51_14Passed,'recovered native Runner never crossed second true B51 station');
+  assert.equal(recovered.actualNativeContact14.length,0);
+  assert.ok(recovered.minimumGap13M>0 && recovered.minimumGap14M>0);
+  const startPose=t=>t.samples.find(s=>Math.abs(s.t-63.70)<.006)?.position;
+  const a=startPose(first),c=startPose(second);
+  assert.ok(a&&c,'same 63.70s pre-choice sample absent');
+  const startPositionDrift=Math.hypot(...a.map((v,i)=>v-c[i]));
+  assert.ok(startPositionDrift<0.25,'source pre-choice physical state not reproduced');
+  const recoveryFile='K4CT_PAIR_RETRIED_FINISHED_ORIGINAL_TRACE.json';
+  const recoveryImage='K4CT_PAIR_RETRIED_FINISHED_REAL_GAME_RAW.png';
+  fs.writeFileSync(path.join(OUT,recoveryFile),JSON.stringify(second)+'\n');
+  await pair.screenshot({path:path.join(OUT,recoveryImage)});
+  if(pairErrors.length)throw Error('native pair browser errors: '+JSON.stringify(pairErrors));
+  result.pairedLoop={sameBrowserContext:true,sourceRunnerOriginal:true,
+    originalRetryButton:'retryRun',restartFromZero:resetTick<120,
+    startPositionDriftM:startPositionDrift,
+    nativeRenderer:realRenderer,failed,failedTrace:failureFile,failedImage:failureImage,
+    realRecoveryKeys:genuine,finished:recovered,finishedTrace:recoveryFile,finishedImage:recoveryImage,
+    actualB51ContactNotDemonstrated:true,
+    status:'ORIGINAL_NEUTRAL_FAILURE_TO_NATIVE_RETRY_FINISH_NOT_HUMAN',
+    pageErrors:pairErrors};
+ }catch(e){
+  result.errors.push({name:'ORIGINAL_SAME_SESSION_FAILURE_RETRY_FINISH',reason:String(e.stack||e).slice(0,1600),pageErrors:pairErrors});
+  try{await pair.screenshot({path:path.join(OUT,'K4CT_PAIR_FAILURE_ERROR_RAW.png')});}catch{}
+ }finally{await pairCtx.close();}
+
 }finally{
  if(browser)await browser.close();
  await new Promise(done=>server.close(done));
@@ -145,14 +228,20 @@ try{
  result.b51_14ActualPassed=result.experiments.some(x=>x.measured.trueRoad6B51_14Passed);
  result.actualB51_14Contacts=result.experiments.reduce((s,x)=>s+x.measured.actualNativeContact14.length,0);
  result.realRunnerFailures=result.experiments.filter(x=>x.measured.failure).length;
+ result.pairedLoopProven=Boolean(result.pairedLoop?.finished?.finalStatus==='finished' &&
+    result.pairedLoop?.failed?.finalStatus==='failed' &&
+    result.pairedLoop?.restartFromZero && result.pairedLoop?.sameBrowserContext);
  result.evidenceStatus=result.errors.length?'HOLD_INSTRUMENTATION':
+   result.pairedLoopProven?'REAL_NEUTRAL_FAIL_NATIVE_RETRY_FINISH_NOT_HUMAN':
    result.b51_14ActualPassed?'ORIGINAL_SOURCE_ROAD6_STATION_PASS_NOT_HUMAN':
    result.road6GroundedObserved?'REAL_ROAD6_CONTACT_BUT_B51_14_NOT_PASSED':
    'HOLD_NO_ROAD6_GROUNDED';
  fs.writeFileSync(path.join(OUT,'K4CT_SECOND_B51_CONTROLLED_NATIVE_RESULT.json'),JSON.stringify(result,null,2)+'\n');
 }
-assert.ok(result.experimentsCompleted>=3,'not enough real independent browser sessions');
+assert.equal(result.experimentsCompleted,1,'must retain single known successful reference trial');
+assert.ok(result.pairedLoopProven,'same-session original failure, actual retry, and finish not proven');
 assert.deepEqual(result.errors,[],'real native browser experiment errors');
 console.log('K4CT_SECOND_TRUE_B51_SOURCE_REAL_KEYBOARD',JSON.stringify({count:result.experimentsCompleted,
  trueRoad6:result.road6GroundedObserved,passedB51_14:result.b51_14ActualPassed,
+ sameSessionFailRetryFinish:result.pairedLoopProven,
  actualContacts14:result.actualB51_14Contacts,status:result.evidenceStatus,notHuman:true}));

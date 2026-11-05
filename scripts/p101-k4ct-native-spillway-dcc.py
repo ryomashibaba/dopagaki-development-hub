@@ -36,6 +36,7 @@ COLORS={
  'darksteel':(.10,.18,.22),'steel':(.31,.42,.46),'amber':(.95,.54,.13),
  'signal':(.99,.25,.12),'glass':(.20,.60,.69),'lights':(.54,.92,.83),
  'tide':(.035,.27,.33),'shallows':(.10,.37,.40),'foam':(.25,.58,.59),
+ 'asphalt':(.095,.165,.19),'roadmark':(.23,.55,.58),'roadedge':(.80,.51,.24),
  'moss':(.18,.30,.25),'slate':(.32,.33,.32),'roof':(.34,.43,.44)
 }
 GROUPS=defaultdict(list)
@@ -187,6 +188,40 @@ for j,(idx,u) in enumerate(((5,.47),(5,.76),(6,.20))):
  for x in (-48,48):
   a=add(centre,mul(lat,x))
   beam(deck,add(a,(0,12,0)),add(centre,(0,25,0)),1.1,'oxidized')
+
+
+# The ORIGINAL Road5/6 is still the sole collision road. This is a Blender-
+# authored, noncolliding skin whose Y values are sourced from the actual B48
+# lane quadrilateral (+0.12 m air gap to avoid z fighting). It replaces the
+# visually incoherent magenta/cyan stripes *only in the research renderer*.
+# Changing these visible colors DOES NOT change steering, safety, lanes or CCD.
+roadBands=((0,.035,'darksteel'),(.035,.055,'roadedge'),(.055,.46,'asphalt'),
+           (.46,.475,'roadmark'),(.475,.525,'asphalt'),(.525,.54,'roadmark'),
+           (.54,.945,'asphalt'),(.945,.965,'roadedge'),(.965,1,'darksteel'))
+for idx in (5,6):
+ for k in range(128):
+  a=sample(idx,k/128);c=sample(idx,(k+1)/128)
+  def rd(s,t):
+   return add(mix(s['left'],s['right'],t),(0,.12,0))
+  for t0,t1,m in roadBands:
+   quad('00_SOURCE_CONFORMAL_NONCOLLIDING_ROAD_ART',
+        rd(a,t0),rd(c,t0),rd(c,t1),rd(a,t1),m,twoside=False)
+# Two different, authentic source-station warning portal forms. These are
+# spatial landmarks, not extra moving hazards and not certified safe lanes.
+for st in site['stations']:
+ number=int(st['id'].rsplit('-',1)[1])
+ p,fw,side=frame(st['roadIndex'],st['u'])
+ gt='0A_SOURCE_STATION_GATE_CANTILEVERS'
+ # Staggered high sweeping ribs make the 2 hazards legible from approach.
+ for sideLabel,mult in (('L',-1),('R',1)):
+  edge=offset_edge(p,side,24,sideLabel)
+  vertical=41 if number==13 else 59
+  base=add(edge,(0,-9,0))
+  tip=add(edge,add((0,vertical,0),mul(side,mult*10)))
+  beam(gt,base,tip,1.7,'oxidized' if number==14 else 'copper')
+  beam(gt,tip,add(tip,add(mul(fw,34),(0,-13,0))),1.0,'darksteel')
+  # Hot visual navigation marker is OUTSIDE road; no false safe-path guarantee.
+  box(gt,add(tip,(0,2,0)),6,7,5,'amber' if number==14 else 'signal',fw,side)
 
 # Editability: separate mesh objects by functional zones, real Blender materials.
 materials={}
