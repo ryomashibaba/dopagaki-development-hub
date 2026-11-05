@@ -1,0 +1,179 @@
+name: DOPAGAKI K4CI real source locked shipyard tidegate CHASE art hold
+on:
+  push:
+    branches: [research/k4ci-maritime-gateway-gantry-real-chase-20261105]
+    paths:
+      - scripts/p101-k4ci-native-source-locked-maritime-tidegate.py
+      - .github/workflows/p101-k4ci-native-maritime-tidegate-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4ci-maritime-tidegate
+  cancel-in-progress: true
+jobs:
+  protected-authentic-native-k4ci:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preflight source Game, Blender author syntax and real Road5 lineage
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4ci-maritime-gateway-gantry-real-chase-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4ci-native-source-locked-maritime-tidegate.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download exact successful K4CH editable Blender and real CHASE evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CH_TRUE_BASALT_COPPER_HARBOR_EDITABLE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41957682964
+          github-token: ${{ github.token }}
+          path: research/evidence/k4ci/parent
+      - name: Authenticate fixed K4CH actual bytes and frozen source camera/road
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          d=Path('research/evidence/k4ci/parent')
+          a=json.loads((d/'K4CH_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CGR2ExactSHA256']=='5a2215677fd41c420bac3b44b78b65b0e42aa74b79399498a87a57b7b85946f1'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged','originalElevenTreeTransformsUnchanged','originalLightsUnchanged','originalParentObjectGeometryAndMatrixUnchanged','K4BZ_bad_duplicate_road_hidden'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['newResearchEditableMeshObjects']==7
+          for name,m in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==m['bytes'] and hashlib.sha256(raw).hexdigest()==m['sha256'],name
+          assert a['files']['K4CH_BASALT_AND_COPPER_HARBOR_FULL_FRAME_EDITABLE_ART_HOLD.blend']['sha256']=='74dadf53327e7fff0fd3b57a9b9ff369371e2c0fffa43241eb27bee1ca19cace'
+          print('K4CI_AUTHENTIC_K4CH_PARENT_SHA_AND_FROZEN_GAME_PASS')
+          PY
+      - name: Install genuine Blender from official Ubuntu archive instead of stalled Azure mirror
+        timeout-minutes: 18
+        run: |
+          set -euo pipefail
+          # Actual hosted runner failure #41950843684: Azure mirror took over 6m
+          # for the first 35.9MB blender-data, then apt timeout 124.
+          # Fix package transport only, never source, geometry, camera or road.
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|g; s|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/apt-mirrors.txt
+          fi
+          echo 'K4CI_OFFICIAL_UBUNTU_PACKAGE_SOURCE'
+          if ! sudo timeout --signal=TERM --kill-after=10s 120s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq; then
+            echo 'K4CI_OFFICIAL_MIRROR_UPDATE_FAILED_USING_SIGNED_RUNNER_INDEX'
+          fi
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 900s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          command -v blender
+          blender -b -noaudio --factory-startup --python-expr "import bpy; print('K4CI_REAL_BLENDER_VERSION', bpy.app.version_string)"
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+          /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
+      - name: Author one connected true 3D maritime loading gantry and roadway-depth landmark in actual Blender
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4ci/render
+          xvfb-run -a -s '-screen 0 1280x900x24' env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4ci-native-source-locked-maritime-tidegate.py -- \
+            --base research/evidence/k4ci/parent/K4CH_BASALT_AND_COPPER_HARBOR_FULL_FRAME_EDITABLE_ART_HOLD.blend \
+            --out research/evidence/k4ci/render 2>&1 | tee research/evidence/k4ci/render/K4CI_REAL_BLENDER.log
+      - name: Independently verify actual editability and real landmark pixels away from frozen Road5
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageChops,ImageDraw
+          d=Path('research/evidence/k4ci/render')
+          a=json.loads((d/'K4CI_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CHExactSHA256']=='74dadf53327e7fff0fd3b57a9b9ff369371e2c0fffa43241eb27bee1ca19cace'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged',
+                    'originalElevenTreeTransformsUnchanged','originalLightsUnchanged',
+                    'allExistingSourceAndResearchObjectsIdentical',
+                    'K4BZ_bad_duplicate_road_hidden'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['realGantryEditableObjects']==1
+          assert a['actualGantryVertices']>500 and a['actualGantryPolygonFaces']>400
+          assert a['physicalGantrySpanMetres']>=24 and a['physicalGantryTowerHeightMetres']>=27
+          assert a['realQuayPhysicalConnectionMetres']<190
+          assert a['ART']=='UNJUDGED_HOLD' and a['renderEngine']=='BLENDER_EEVEE'
+          for name,m in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==m['bytes'] and hashlib.sha256(raw).hexdigest()==m['sha256'],name
+          old=Image.open('research/evidence/k4ci/parent/K4CH_TRUE_CHASE_BASALT_COPPER_HARBOR_NOT_GAME.png').convert('RGB')
+          new=Image.open(d/'K4CI_TRUE_SOURCE_CHASE_MARITIME_TIDEGATE_NOT_GAME.png').convert('RGB')
+          assert old.size==new.size==(768,480)
+          diff=ImageChops.difference(old,new)
+          def count(area,cut=15):return sum(max(p)>cut for p in diff.crop(area).getdata())
+          sky=count((445,30,768,273),15)
+          right=count((450,160,768,454),15)
+          left=count((10,170,220,420),15)
+          road=count((330,265,482,472),12)
+          assert sky>2300,('TRUE_MARITIME_SKYLINE_NOT_VISIBLE',sky)
+          assert right>2500,('SHIPYARD_TIDE_GATE_NOT_PRESENT_IN_REAL_FRAME',right)
+          assert left<80,('FROZEN_LEFT_ROCK_ALTERED',left)
+          assert road<65,('ORIGINAL_ROAD5_VIEW_CHANGED',road)
+          for pos in ((390,270),(400,320),(380,380),(420,440),(470,465)):
+              p=old.getpixel(pos);q=new.getpixel(pos)
+              assert max(abs(p[k]-q[k]) for k in range(3))<=10,('ROAD_PIXEL_CHANGED',pos,p,q)
+          pairs=[((292,300),(317,300)),((280,330),(310,330)),
+                 ((267,360),(310,360)),((250,400),(295,400)),
+                 ((235,440),(280,440)),((225,470),(270,470))]
+          for dark,normal in pairs:
+              p=(sum(old.getpixel(normal))-sum(old.getpixel(dark)))/3
+              q=(sum(new.getpixel(normal))-sum(new.getpixel(dark)))/3
+              assert abs(p-q)<13,('K4BZ_BLACK_WEDGE_RETURNED',dark,p,q)
+          comp=Image.new('RGB',(1560,552),(13,19,23))
+          comp.paste(old,(12,50));comp.paste(new,(780,50))
+          draw=ImageDraw.Draw(comp)
+          draw.text((12,19),'K4CH frozen actual Blender CHASE | ART REJECT',fill='white')
+          draw.text((780,19),'K4CI new physical ferry loading tide-gate | ART UNJUDGED',fill='white')
+          draw.text((12,536),'Real editable DCC Blender only; not WebGL2 human play or official ART acceptance.',fill='white')
+          name='K4CI_VS_K4CH_REAL_SOURCE_CHASE_ART_REVIEW_NOT_GAME.png'
+          comp.save(d/name)
+          a['independentActualImageQA']={
+              'rightSkylineChangedPixelsNotArtScore':sky,
+              'realPortChangedPixelsNotArtScore':right,
+              'frozenLeftRockChangedPixels':left,
+              'frozenRoadChangedPixels':road,
+              'comparisonName':name,
+              'comparisonSHA256':hashlib.sha256((d/name).read_bytes()).hexdigest(),
+              'ART':'UNJUDGED_HOLD'}
+          (d/'K4CI_REAL_NATIVE_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n')
+          print('K4CI_TRUE_BLENDER_LANDMARK_VISIBLE_PROTECTED_GAME_TECH_PASS',sky,right,road)
+          PY
+      - name: Commit only actual research evidence and never merge original source
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4ci-maritime-gateway-gantry-real-chase-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4ci
+          cp research/evidence/k4ci/render/*.png docs/research-evidence/k4ci/
+          cp research/evidence/k4ci/render/*.json docs/research-evidence/k4ci/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4ci
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4ci): true physical shipyard tidegate with coherent berth and unchanged original roadway"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4ci-maritime-gateway-gantry-real-chase-20261105
+          fi
+      - name: Archive actual K4CG Blender worldscape and independent audit even when ART HOLD
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CI_TRUE_SHIPYARD_TIDEGATE_SOURCE_LOCKED_ART_HOLD
+          path: research/evidence/k4ci/render/
+          if-no-files-found: warn
+          retention-days: 21
