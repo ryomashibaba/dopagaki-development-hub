@@ -1,0 +1,186 @@
+name: DOPAGAKI K4CM native integrated cliff road and functioning passenger port ART HOLD
+on:
+  push:
+    branches: [research/k4cm-integrated-coastal-road-port-20261105]
+    paths:
+      - scripts/p101-k4cm-native-integrated-coast-road-port.py
+      - .github/workflows/p101-k4cm-native-integrated-coast-port-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4cm-integrated-coast
+  cancel-in-progress: true
+jobs:
+  protected-authentic-native-k4cm:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preflight source Game, Blender author syntax and real Road5 lineage
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cm-integrated-coastal-road-port-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4cm-native-integrated-coast-road-port.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download genuine K4CL A fully editable native Blender with connected Game preservation
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CL_TRUE_ROAD_APPEARANCE_EDITABLE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41985567281
+          github-token: ${{ github.token }}
+          path: research/evidence/k4cm/parent
+      - name: Authenticate actual K4CL Source-compatible 3D parent plus original Game Road5 SHA
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          d=Path('research/evidence/k4cm/parent')
+          a=json.loads((d/'K4CL_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CKExactSHA256']=='80eff12f48b2913d8f700d14f7d84ba86b10dd7ea622033f61fbe51859271330'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged',
+                    'originalElevenTreeTransformsUnchanged','originalLightsUnchanged',
+                    'allOriginalSourceAndParentResearchMeshPositionsUnchanged',
+                    'actualSourceRoad5ImportOriginalRenderStateUnchanged',
+                    'bothRoadSkinClonesIdenticalToOldStudyRoadGeometry'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['newResearchEditableMeshObjects']==4
+          assert a['independentTrueRoadVisualAuthoringQA']['originalRoad5ShapeAndPhysicsFrozen']
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert a['files']['K4CL_TRUE_EDITABLE_DUAL_PHYSICAL_PAVEMENT_STUDIES_ART_HOLD.blend']['sha256']=='2b5288333b3b633649aefd349fbdc79837775719a6175eba23d72dbdbada7da1'
+          print('K4CM_AUTHENTIC_GENUINE_K4CL_ROAD5_PARENT_ALL_SHA_PASS')
+          PY
+      - name: Install genuine Blender from official Ubuntu archive instead of stalled Azure mirror
+        timeout-minutes: 18
+        run: |
+          set -euo pipefail
+          # Actual hosted runner failure #41950843684: Azure mirror took over 6m
+          # for the first 35.9MB blender-data, then apt timeout 124.
+          # Fix package transport only, never source, geometry, camera or road.
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|g; s|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/apt-mirrors.txt
+          fi
+          echo 'K4CM_OFFICIAL_UBUNTU_PACKAGE_SOURCE'
+          if ! sudo timeout --signal=TERM --kill-after=10s 120s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq; then
+            echo 'K4CM_OFFICIAL_MIRROR_UPDATE_FAILED_USING_SIGNED_RUNNER_INDEX'
+          fi
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 900s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          command -v blender
+          blender -b -noaudio --factory-startup --python-expr "import bpy; print('K4CM_REAL_BLENDER_VERSION', bpy.app.version_string)"
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+          /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
+      - name: Sculpt native geological folded coast and connected stone seafront route to inherited ferry station
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4cm/render
+          xvfb-run -a -s '-screen 0 1280x900x24' env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4cm-native-integrated-coast-road-port.py -- \
+            --base research/evidence/k4cm/parent/K4CL_TRUE_EDITABLE_DUAL_PHYSICAL_PAVEMENT_STUDIES_ART_HOLD.blend \
+            --out research/evidence/k4cm/render 2>&1 | tee research/evidence/k4cm/render/K4CM_REAL_BLENDER.log
+      - name: Independently verify genuine native new coastal and ferry access art, immutable original road and image evidence
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageChops,ImageDraw
+          d=Path('research/evidence/k4cm/render')
+          a=json.loads((d/'K4CM_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CLExactSHA256']=='2b5288333b3b633649aefd349fbdc79837775719a6175eba23d72dbdbada7da1'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged',
+                    'originalElevenTreeTransformsUnchanged','originalLightsUnchanged',
+                    'allInheritedGeometryAndTransformsUnchanged',
+                    'originalK4CLResearchPavementGeometryIdentical',
+                    'originalHarborPassengerFerrySupportGeometryIdentical',
+                    'K4CKStudyCoastRenderHiddenOnly'):
+              assert a[k],k
+          assert a['sourceGameEdited'] is False and a['sourcePhysicsEdited'] is False
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['newNativeEditableResearchMeshes']==3
+          assert a['geologicalRealEditableVertices']>1400
+          assert a['geologicalRealFaces']>2800
+          assert a['actualFoldDisplacementMaxMetres']>3
+          assert a['continuousShorelineGradeVertices']>600 and a['continuousShorelineGradeFaces']>1100
+          assert a['realExistingFerryFootwayVertices']>300 and a['realExistingFerryFootwayFaces']>350
+          assert 7<a['realConnectedPedestrianAccessLengthMetres']<170
+          assert a['realConnectedPedestrianAccessSlope']<.65
+          assert a['realCoastalCutLengthMetres']>=192
+          assert a['cameraVisibleSculptVerticesLeft']>250
+          assert a['cameraVisiblePortGroundAndAccessVerticesRight']>100
+          assert a['ART']=='UNJUDGED_HOLD' and a['renderEngine']=='BLENDER_EEVEE'
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          old=Image.open('research/evidence/k4cm/parent/K4CL_A_TRUE_CHASE_GRAPHITE_RACING_ASPHALT_NOT_GAME.png').convert('RGB')
+          new=Image.open(d/'K4CM_TRUE_SOURCE_CHASE_FOLDED_ROCKCUT_AND_PORT_ACCESS_NOT_GAME.png').convert('RGB')
+          assert old.size==new.size==(768,480)
+          diff=ImageChops.difference(old,new)
+          def count(bounds,threshold=15):
+              return sum(max(px)>threshold for px in diff.crop(bounds).getdata())
+          left=count((8,148,285,466),15)
+          right=count((510,184,768,448),15)
+          road=count((329,270,476,466),13)
+          assert left>8000,('NATIVE_GEOLOGICAL_WORLD_ART_NOT_VISIBLE_IN_REAL_CHASE',left)
+          assert right>2400,('FERRY_ACCESS_AND_WATERFRONT_NOT_VISIBLE_IN_REAL_CHASE',right)
+          assert road<120,('FROZEN_ORIGINAL_ROAD5_VISUAL_CORRIDOR_OVERLAPPED',road)
+          for pt in ((390,270),(400,320),(380,380),(420,440),(470,465)):
+              before=old.getpixel(pt);after=new.getpixel(pt)
+              assert max(abs(before[k]-after[k]) for k in range(3))<=10,('FROZEN_SOURCE_ROAD_VIEW_CHANGED',pt,before,after)
+          comp=Image.new('RGB',(1560,554),(15,20,24))
+          comp.paste(old,(12,50));comp.paste(new,(780,50))
+          drawer=ImageDraw.Draw(comp)
+          drawer.text((12,20),'K4CL source-locked true graphite road and old port | ART REJECT',fill='white')
+          drawer.text((780,20),'K4CM real folded rockcut, maritime grade and connected ferry access | ART UNJUDGED',fill='white')
+          drawer.text((12,537),'Actual editable source-frozen Blender research only. Not WebGL2 gameplay or official visual acceptance.',fill='white')
+          name='K4CM_VS_K4CL_TRUE_SOURCE_CHASE_WHOLE_FRAME_ART_REVIEW.png'
+          comp.save(d/name)
+          a['independentSameTrueChaseImageQA']={
+              'naturalGeologyScreenChangedPixelsNotArtScore':left,
+              'operationalPortRoadAccessChangedPixelsNotArtScore':right,
+              'originalRoadCentreChangedPixels':road,
+              'comparisonName':name,
+              'comparisonSHA256':hashlib.sha256((d/name).read_bytes()).hexdigest(),
+              'roadGeometryAndCameraStillUnchanged':True,
+              'ART':'UNJUDGED_HOLD'}
+          (d/'K4CM_REAL_NATIVE_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n')
+          print('K4CM_TRUE_NATIVE_ALL_SOURCE_LOCKED_ART_AND_EVIDENCE_TECH_PASS',left,right,road)
+          PY
+      - name: Commit only actual research evidence and never merge original source
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cm-integrated-coastal-road-port-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4cm
+          cp research/evidence/k4cm/render/*.png docs/research-evidence/k4cm/
+          cp research/evidence/k4cm/render/*.json docs/research-evidence/k4cm/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4cm
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4cm): true geological cliff plus physically attached ferry terminal access and harbour earthwork source Road5 frozen"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4cm-integrated-coastal-road-port-20261105
+          fi
+      - name: Archive actual K4CG Blender worldscape and independent audit even when ART HOLD
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CM_TRUE_INTEGRATED_COAST_AND_PORT_EDITABLE_ART_HOLD
+          path: research/evidence/k4cm/render/
+          if-no-files-found: warn
+          retention-days: 21
