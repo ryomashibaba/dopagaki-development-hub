@@ -1,0 +1,17 @@
+{
+  "schema": "dopagaki.k4cp.actual-native-run-v1",
+  "runId": 42015008268,
+  "inputCodeCommit": "3a27fda405bbbc54953ad6fbc600e4bb9b76eaf3",
+  "jobStatus": "success",
+  "actualBlenderAuditGenerated": true,
+  "independentOriginalSourceImageQA": true,
+  "art": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "human": "HOLD",
+  "sat": "HOLD",
+  "ccd": "HOLD",
+  "fps": "HOLD",
+  "release": "HOLD",
+  "merge": "HOLD"
+}
