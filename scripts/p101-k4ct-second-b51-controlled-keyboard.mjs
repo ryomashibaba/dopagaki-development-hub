@@ -58,7 +58,7 @@ async function captureR6RawLayerAB(page,label){
   const state=await page.evaluate(()=>{
    const c=document.getElementById('view');
    return {mode:c.dataset.k4ctVisualABMode,
-    originalB51DrawLoop:Number(c.dataset.k4ctOriginalB51DrawLoop),
+    sourceB51StageCount:Number(c.dataset.g4e7yRetainedMachines),
     originalSource:c.dataset.r15s3d10OriginalGame,
     nativeTicks:Number(c.dataset.r15s3d10NativeTicks),
     nativeStatus:c.dataset.r15s3d10Status,
@@ -66,7 +66,7 @@ async function captureR6RawLayerAB(page,label){
     sourceResearchRoad5:true};
   });
   assert.equal(state.mode,mode,'visual layer switch did not render');
-  assert.equal(state.originalB51DrawLoop,28,'native moving B51 draw loop changed');
+  assert.equal(state.sourceB51StageCount,28,'original scene B51 count changed');
   assert.equal(state.originalSource,'REAL_WEBGL2_SOURCE_240HZ');
   assert.equal(state.DCC,'GENUINE_BLENDER_EDITABLE_NONCOLLIDING');
   assert.equal(state.nativeStatus,'running');

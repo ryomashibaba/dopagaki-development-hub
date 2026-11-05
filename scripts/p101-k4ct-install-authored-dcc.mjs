@@ -59,8 +59,6 @@ replace("draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);",
  "if(!k4ctDccMesh||window.__k4ctVisualABMode!=='R6')draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);");
 replace("for(const guide of guideMeshes)draw(guide.mesh,[0,0,0],[1,1,1],0,gl.LINES);",
  "if(!k4ctDccMesh||window.__k4ctVisualABMode!=='R6')for(const guide of guideMeshes)draw(guide.mesh,[0,0,0],[1,1,1],0,gl.LINES);");
-replace("for(const o of doc.movingObstacles){\n   if(!o.enabled)continue;",
- "if(k4ctDccMesh)canvas.dataset.k4ctOriginalB51DrawLoop=String(doc.movingObstacles.length);\n for(const o of doc.movingObstacles){\n   if(!o.enabled)continue;");
 replace("draw(roads);if(k4ctDccMesh){draw(k4ctDccMesh);",
  "if(k4ctDccMesh)canvas.dataset.k4ctVisualABMode=window.__k4ctVisualABMode||'R6';\n draw(roads);if(k4ctDccMesh){draw(k4ctDccMesh);");
 replace("k4ctPanel.textContent=formatK4CTNativeDualCue(dual);",
