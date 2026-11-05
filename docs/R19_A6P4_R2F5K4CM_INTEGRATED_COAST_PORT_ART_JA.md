@@ -1,3 +1,14 @@
+# 【K4CM R2真画像を直接評価・独立QAに基づくデッキ構造補強とR3再試験】
+
+- R2 [**Actions #41990838846**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41990838846) は**completed/FAILURE（独立QAのみ）**。親のK4CL真DCC SHA・元Game/元Road5/CHASE/木/ライトはPASS、Blender4.0.2実DCC→**可編集5研究メッシュ**（左自然岩、右海岸盛土、既存フェリー支柱への実歩行接続、元荷役門型ガントリー研究コピー、元実屋根研究コピー）→本当の768×480 PNGレンダーまで成功。元ゲームCollider追加0。旧元ガントリー・屋根は元頂点・行列を保存したまま研究表示のみ非表示。
+- 真Artifact [#13397697872](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41990838846/artifacts/13397697872) をGitHubから別途取得し、**ZIP全CRC PASS、Blender.blendと真正PNGの各SHA256が監査JSONと一致**。実画像を直接開いて比較した結果、左自然地質**23,364可視画素変化**、右港主要建築が再形状・材質修正により**2,922可視画素変化**となり、元の右港可視最低**2400pxはPASS**。道路中央**0px**で元Road5への影響なし。R1で右が85pxしか見えなかった問題は解消。
+- **しかし独立QAの歩行通路の構造面数条件で安全停止**。R2の実作者歩行デッキは452頂点／348面で、固定ゲートの`>350`面に不足した。**ゲーム元コードを変更しない**。既存フェリーに接続する長さ18.100m・勾配2.18％の通路のデッキ下面に、横幅全体を連続的に繋ぐ**真3Dの海洋構造材3本（実形状18面）**を追加。元SOURCE/QA閾値・画素数閾値は一切緩めずに、実デッキの構造を強める作者修正。修正commit `79feb05d03d03d65bb7eaffc9df998f003cb56af`。
+- **最新R3 [Actions #41991682479](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41991682479)**を実行開始。本記録時点で実最終判定、最新.blend/PNG/Artifactのハッシュ、直接ART評価は未確定。R3成功の根拠は最新実ジョブ・真正画像・全CRC/SHAで独立判定すること。R1/R2の前回失敗をTECH PASSと呼ばない。
+- 美術評価：R2真正画像では以前より左岩の高さの遠近感と右の色調統一は改善するが、依然**暗い舗装がほぼ画面の半分・左岩は大きな灰色の塊・港は小さな模型**の印象。R2は少なくとも正式**ART REJECT**。R3も必ず実画像を開いて初めて独立ART合否を確定する。**正式ART採用0件、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。
+- **永久保護**：main／公式P101／Draft PR#46、元SOURCE Road5／物理／6 Camera／元Gameと本番2サイト／木11・灯光／凍結Gold保護。Work/Computer Useは事前承認、追加有料API原則0円、ユーザー操作0。
+
+---
+
 # 【K4CM R1実レンダーの発見とR2の可視港湾作者修正／最新結果待ち】
 
 - **R1 [真正Actions #41989715487](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41989715487) completed/FAILURE（画像QAのみ）**。元SOURCE Game/Road5/本物K4CL親.blendの全SHAと実Blender4.0.2起動はPASS。実3D作者制作は、**左1600頂点2970面の褶曲断層、右737頂点1320面の200m連続盛土、実フェリー支柱へ接続する452頂点348面の18.100m歩行デッキ（勾配2.18%）**ができ、編集可能Blender原本と同CHASE PNGも実保存。実出力監査は`originalRoad5FullVertexFaceSHA256=f7c6091d5...`、SOURCE6Camera・木11・全ライト・K4CL暗舗装が不変で通過。**しかし独立右港画像可視差85px＜固定基準2400pxで失敗**。技術全ゲートPASSやART成功と偽らない。
