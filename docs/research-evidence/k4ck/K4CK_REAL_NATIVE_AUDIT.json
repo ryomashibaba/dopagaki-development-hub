@@ -1,0 +1,87 @@
+{
+  "schema": "dopagaki.k4ck.two-full-geologic-corridor-art-directions-v1",
+  "parentK4CJR2ExactSHA256": "296326d18c446e70c25ca45598ad623affaf20c07a26e263b1789e9dc2bb04d2",
+  "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCameraPosesUnchanged": true,
+  "originalCHASEUnchanged": true,
+  "originalElevenTreeTransformsUnchanged": true,
+  "originalLightsUnchanged": true,
+  "parentSourceAndAllMeshesMatrixUnchanged": true,
+  "originalResearchCutAndTriangleWindbreakHiddenOnlyInStudy": [
+    "K4CJ | single true world-roadcut coastal rock section, 198m",
+    "K4CJ | one linked marine windbreak and geological buttress rhyt"
+  ],
+  "hiddenResearchOriginalMeshFingerprints": {
+    "K4CJ | single true world-roadcut coastal rock section, 198m": "40cbca84ac1ecc15a40b481bc062ec56f4d8abfd3a259409c613be3f3afd1e29",
+    "K4CJ | one linked marine windbreak and geological buttress rhyt": "49e0d33bc1ad0c119dba76e3163c05cf24c97012e1430521fc2fcb2e4dd535de"
+  },
+  "newGameColliders": 0,
+  "sourceGameEdited": false,
+  "sourcePhysicsEdited": false,
+  "allThreeRealEditableGeometryMeshes": 3,
+  "realCoastLongitudinalStations": 100,
+  "realDirectionACliffVertices": 1600,
+  "realDirectionBCliffVertices": 1600,
+  "realDirectionACliffFaces": 2970,
+  "realDirectionBCliffFaces": 2970,
+  "realConnectedTrafficRetainingWallVertices": 800,
+  "realConnectedTrafficRetainingWallFaces": 792,
+  "sourceOriginalRoad5ApproxHalfWidthMetres": 13.15,
+  "minimumPhysicalNewRoadcutLateralMetres": 16.7,
+  "geologyActualCHASEVisibleLimitsNotArtScore": {
+    "A": [
+      -7.3564653396606445,
+      0.41401076316833496,
+      1232
+    ],
+    "B": [
+      -2.7100346088409424,
+      0.41401124000549316,
+      1217
+    ]
+  },
+  "nativeTrueCHASE768x480": true,
+  "renderEngine": "BLENDER_EEVEE",
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CK_EDITABLE_TWO_TRUE_COHERENT_COASTAL_CORRIDOR_DIRECTIONS_ART_HOLD.blend": {
+      "bytes": 281617680,
+      "sha256": "80eff12f48b2913d8f700d14f7d84ba86b10dd7ea622033f61fbe51859271330"
+    },
+    "K4CK_A_TRUE_CHASE_CONTINUOUS_BASALT_CUT_AND_RETAINING_WALL_NOT_GAME.png": {
+      "bytes": 510315,
+      "sha256": "fe27f030bde17234cf978c4e889036e33c3d5d91d70128b6a1bf9628bc6d1f45"
+    },
+    "K4CK_B_TRUE_CHASE_ERODED_NATURAL_CLIFF_NO_WALL_NOT_GAME.png": {
+      "bytes": 504166,
+      "sha256": "fecf17807e801b1ac51156bc45d07cf4ce927dbee7c0e30e997e0de87a499ee3"
+    }
+  },
+  "independentThreeTrueChaseImagesQA": {
+    "variants": {
+      "A": {
+        "leftRealChangedPixelsNotArtScore": 31114,
+        "originalRoadChangedPixels": 0,
+        "protectedPortChangedPixels": 0
+      },
+      "B": {
+        "leftRealChangedPixelsNotArtScore": 23405,
+        "originalRoadChangedPixels": 0,
+        "protectedPortChangedPixels": 0
+      }
+    },
+    "A_vs_B_left_changed_pixelsNotArtScore": 30983,
+    "comparisonName": "K4CK_K4CJ_TRUE_CHASE_THREE_WORLDSCAPE_ART_COMPARISON.png",
+    "comparisonSHA256": "5439a9da1f5a9e67062fbb70fbfb13a8d3b206c20af7e7e3446769e6589c3c2c",
+    "ART": "UNJUDGED_HOLD"
+  }
+}
