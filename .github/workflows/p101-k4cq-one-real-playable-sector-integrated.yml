@@ -1,0 +1,101 @@
+name: K4CQ genuine one-sector WebGL2 240Hz and editable Blender PRIVATE integrated slice
+on:
+  push:
+    branches:
+      - research/k4cq-one-sector-native-playable-coast-20261105
+    paths:
+      - scripts/p101-k4cq-one-sector-coast-geometry.mjs
+      - scripts/p101-k4cq-private-integrated-pack.mjs
+      - scripts/p101-k4cq-native-editable-coast.py
+      - scripts/p101-k4cq-real-native-chromium-comparison.mjs
+      - .github/workflows/p101-k4cq-one-real-playable-sector-integrated.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-game-one-sector-native-research-hold:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify immutable original game and K4CQ syntax
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/p101-k4cq-one-sector-coast-geometry.mjs
+          node --check scripts/p101-k4cq-private-integrated-pack.mjs
+          node --check scripts/p101-k4cq-real-native-chromium-comparison.mjs
+          python3 -m py_compile scripts/p101-k4cq-native-editable-coast.py
+      - name: Build original real game and one isolated sector from existing physically proven research road
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node --check dist-private/k4cq/drive3d.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test -f test-results/k4cq-integrated/K4CQ_COAST.obj
+      - name: Run real original WebGL2 Chromium / 240Hz scripted input and source camera A-B screenshots
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/p101-k4cq-real-native-chromium-comparison.mjs
+      - name: Native Blender 4.x for SAME authored triangles (not a substitute for actual game browser)
+        timeout-minutes: 19
+        run: |
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|g; s|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/apt-mirrors.txt
+          fi
+          sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 900s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender python3-pil libegl1 libgl1-mesa-dri libopengl0 libgbm1
+          blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4cq-native-editable-coast.py
+      - name: Independent real-frame parity, raw image panel and protected-source audit
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+          from PIL import Image, ImageOps, ImageDraw
+          d=pathlib.Path('test-results/k4cq-integrated')
+          j=json.loads((d/'K4CQ_REAL_CHROMIUM_RESULT.json').read_text())
+          assert len(j['sessions'])==2 and not j['failures']
+          a,b=[x['pictures'] for x in j['sessions']]
+          assert len(a)==len(b)==3
+          for x,y in zip(a,b):
+              assert x['seconds']==y['seconds'] and x['nativeTicks']==y['nativeTicks']
+              assert x['realRoad']==y['realRoad'] and x['runnerStatus']==y['runnerStatus']
+              assert x['sourceSpeedHud']==y['sourceSpeedHud']
+              assert x['sourceCameraMode']==y['sourceCameraMode']
+          audit=json.loads((d/'K4CQ_BUILD_AUDIT.json').read_text())
+          native=json.loads((d/'K4CQ_NATIVE_DCC_RESULT.json').read_text())
+          assert native['editable'] and native['triangles']==audit['sceneTriangles']
+          panels=[]
+          for x,y in zip(a,b):
+              im1=Image.open(d/x['file']).convert('RGB')
+              im2=Image.open(d/y['file']).convert('RGB')
+              assert im1.size==im2.size
+              w,h=im1.size
+              sheet=Image.new('RGB',(2*w,h+52),'#0f1720')
+              sheet.paste(im1,(0,52));sheet.paste(im2,(w,52))
+              ImageDraw.Draw(sheet).text((12,14),f"Real game baseline LEFT / same native 240Hz K4CQ RIGHT; t={x['seconds']}s; ART/HUMAN HOLD",fill='white')
+              panels.append(sheet)
+              sheet.save(d/f"K4CQ_BASELINE_VS_SCENE_T{x['seconds']}_RAW_SOURCE.png")
+          report={'native240HzScreenshotPairs':3,'realWebGL2':True,
+                  'sameActualPhysicalRoadAndHUDSpeedAtSameCommittedTicks':True,
+                  'genuineBlenderEditableScene':True,'sameTriangleCount':True,
+                  'formalART':0,'slope2DNAMetres':0,'HUMAN':'HOLD','SAT':'HOLD',
+                  'CCD':'HOLD','FPS':'HOLD','RELEASE':'HOLD','MERGE':'HOLD'}
+          (d/'K4CQ_INDEPENDENT_COMPARISON.json').write_text(json.dumps(report,indent=2)+'\n')
+          print('K4CQ_INTEGRATED_TECH_PARITY_ONLY',json.dumps(report))
+          PY
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+      - name: Archive true WebGL frames, editable native Blender, genuine program data and failures
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: K4CQ_REAL_ONE_SECTOR_WEBGL2_240HZ_NATIVE_BLENDER_ART_HOLD
+          path: test-results/k4cq-integrated/
+          retention-days: 7
+          if-no-files-found: warn
