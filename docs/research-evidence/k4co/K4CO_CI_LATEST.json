@@ -1,0 +1,15 @@
+{
+  "schema": "dopagaki.k4co.native-ci-state-v1",
+  "workflowRunId": 42008835265,
+  "runAttempt": 1,
+  "workflowSourceCommit": "425e5f30465fa96cb39502206b9374f7b8967bc8",
+  "jobStatus": "cancelled",
+  "nativeAuditGenerated": false,
+  "independentNativeGateVerified": false,
+  "art": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "human": "HOLD",
+  "release": "HOLD",
+  "merge": "HOLD"
+}
