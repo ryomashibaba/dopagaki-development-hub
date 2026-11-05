@@ -172,6 +172,24 @@ for j in range(11):
  if j<10:
   q2=L+w*(j+1)/10
   beam(location(u+1.8,q,H),location(u-1.8,q2,H-3.7),.23,.28,0)
+# Real tide-gate operations gallery across the large upper port opening.
+# In the initial genuine CHASE, the high lattice was legible but the space
+# below looked empty and the original terminal occluded its lower frame.
+# A structural steel skywalk, lifting-machine room and cross-braced ties
+# make the *same* single gantry into useful, visible shipyard architecture.
+for depth in (-2.1,2.1):
+ beam(location(u+depth,L,H*.60),location(u+depth,R,H*.60),2.15,1.45,1)
+ beam(location(u+depth,L,H*.82),location(u+depth,R,H*.46),.48,.51,0)
+ beam(location(u+depth,R,H*.82),location(u+depth,L,H*.46),.48,.51,0)
+ # Roof wind struts support the hoist motor-room, rather than decorative rods.
+ beam(location(u+depth,L+w*.31,H*.60),
+      location(u+depth,L+w*.45,H*.83),.40,.44,0)
+ beam(location(u+depth,L+w*.69,H*.60),
+      location(u+depth,L+w*.55,H*.83),.40,.44,0)
+# Actual enclosed operator's lookout and hoist motor volume, visibly
+# connected to the overhead rails and central walkway.
+beam(location(u,L+w*.37,H*.735),
+     location(u,L+w*.63,H*.735),5.0,3.8,1)
 # Seaworthy suspended container handling block & high-contrast drop lines.
 load_v=L+w*.66
 for dx in (-1.3,1.3):
