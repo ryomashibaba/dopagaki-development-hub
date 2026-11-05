@@ -110,7 +110,12 @@ jobs:
               assert a[k],k
           assert a['sourceGameEdited'] is False and a['sourcePhysicsEdited'] is False
           assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
-          assert a['newNativeEditableResearchMeshes']==3
+          assert a['newNativeEditableResearchMeshes']==5
+          assert a['largeReauthoredResearchVisiblePortMeshes']==2
+          assert a['visibleActualGantryAuthorVertexCount']>500
+          assert a['visibleActualTerminalRoofAuthorVertexCount']>100
+          assert a['originalGantryAndCanopyGeometryUnchanged']
+          assert a['originalPortGantryAndCanopyHiddenOnlyInStudy']
           assert a['geologicalRealEditableVertices']>1400
           assert a['geologicalRealFaces']>2800
           assert a['actualFoldDisplacementMaxMetres']>3
