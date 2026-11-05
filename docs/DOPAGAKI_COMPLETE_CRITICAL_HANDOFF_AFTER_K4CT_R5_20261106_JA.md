@@ -4,6 +4,11 @@
 **これは継続開発であり新規企画・正式採用・方針撤回ではない。**
 **現在の唯一の「次に進む」判断は本書の第6〜8章。** 本書に記載したGitHub HEADとCIは作成時点の値。次回は生のGitHub HEADを必ず再取得する。古い正本内の「現最新」「次工程」は歴史的な記述として扱い、当時の正しい事実・安全条件は撤回しない。
 
+## K4CT R6 新しい真正結論（R5以前の固定方針は不変）
+- 真正修正後CI [#42122293541](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42122293541) completed/SUCCESS、実行HEAD `114805aa8a73e6fc707589df0148ba53a2a37bbf`。初回[#42121628304](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42121628304)はFAIL履歴維持。真正Blender4.0.2、25編集可能機能群／27,254面、元WebGL2・元Camera・元240Hz・Road5/B51原本保護・追加Collider0。元KeyD×2で69.941667s finished、元UIリトライ0m状態差から再完走。人間ではない。
+- 実RAW9枚の元CHASE3時点・描画条件A/B：**LEGACY対NO_A13は各0画素、NO_A13対R6は38/54/70画素のみ**。巨大黄/シアンのレイヤー主犯確定に失敗。主因不明のまま旧建築追加を正当化せず、認識可能な港湾絵・視線・危険を先に解決。**ART REJECT、正式ART採用0件／Slope2 DNA 0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD**。
+- [R6恒久機械可読監査](../research-evidence/k4ct/K4CT_R6_NATIVE_DCC_SOURCE_CHASE_NEGATIVE_ART_AUDIT_20261106.json)／[新RAW/BLEND/全トレースArtifact #13460032580](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42122293541/artifacts/13460032580)。ZIP SHA256 `37bfeee872a51b3358708ef574427aa50494fa0d006009dfcc2749162e503972`、CRC全PASS。これがR5記録より新しい証拠で、R5以前を撤回するものではない。
+
 ## 0. 引き継ぐ文書と情報の優先順位
 
 - Repository: https://github.com/ryomashibaba/dopagaki-development-hub

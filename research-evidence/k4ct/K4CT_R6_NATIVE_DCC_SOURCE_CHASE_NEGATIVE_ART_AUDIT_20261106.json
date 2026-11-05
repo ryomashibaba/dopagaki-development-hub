@@ -1,0 +1,129 @@
+{
+  "schema": "dopagaki-k4ct-r6-native-dcc-source-chase-critical-art-audit-v1",
+  "verdict": "RESEARCH_TECH_PASS_ART_REJECT",
+  "dateJst": "2026-11-06",
+  "researchBranch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "authoringCommits": [
+    "615e05fbd60bcbc80f80545c653e547127394476",
+    "114805aa8a73e6fc707589df0148ba53a2a37bbf"
+  ],
+  "firstRunFailed": {
+    "runId": 42121628304,
+    "reason": "non-unique original B51 draw loop insert anchor; research CI refused installation; original loop left unchanged"
+  },
+  "provenRun": {
+    "runId": 42122293541,
+    "headSHA": "114805aa8a73e6fc707589df0148ba53a2a37bbf",
+    "status": "completed",
+    "conclusion": "success",
+    "job": "native-b51-contact-and-retry"
+  },
+  "artifact": {
+    "id": 13460032580,
+    "name": "K4CT_B51_13_14_ACTUAL_NATIVE_CONTACT_RETRY_HOLD",
+    "zipSHA256": "37bfeee872a51b3358708ef574427aa50494fa0d006009dfcc2749162e503972",
+    "zipAllCrc": "PASS",
+    "expiry": "2026-11-12T22:36:49Z"
+  },
+  "genuineDcc": {
+    "blenderVersion": "4.0.2",
+    "editableBlend": true,
+    "objects": 25,
+    "triangles": 27254,
+    "extraColliders": 0,
+    "artAdded": "source-grounded upper tidal forebay, quarry strata, retaining foundation, single upper sluice-to-lower-water chute"
+  },
+  "nativeGame": {
+    "engine": "ORIGINAL_WEBGL2_CHROMIUM",
+    "physicsHz": 240,
+    "originalCamera": true,
+    "realB48Roads": 7,
+    "realB51MovingObstacles": 28,
+    "sourceOriginalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "researchPhysicalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b"
+  },
+  "actualRun": {
+    "neutralFailureSeconds": 69.4833333333523,
+    "neutralFailureReason": "コースから落下",
+    "realOriginalRetryControl": "retryRun",
+    "retryFromZero": true,
+    "identicalPrechoicePositionDriftMeters": 0,
+    "originalKeyboardKeyDInputs": [
+      {
+        "start": 65.25,
+        "end": 65.36
+      },
+      {
+        "start": 65.79,
+        "end": 65.91
+      }
+    ],
+    "successFinishSeconds": 69.94166666668522,
+    "b51_13MinGapMeters": 3.8516884950110035,
+    "b51_14MinGapMeters": 3.148671054349772,
+    "b51_13ContactCount": 0,
+    "b51_14ContactCount": 0,
+    "notHuman": true
+  },
+  "sourceChaseLayerAB": {
+    "methods": [
+      "LEGACY",
+      "NO_A13",
+      "R6"
+    ],
+    "sourceCamera": true,
+    "originalPhysicsPausedSameTick": true,
+    "viewportPixels": 1269450,
+    "frames": [
+      {
+        "timeSeconds": 65.25,
+        "nativeTick": 15660,
+        "legacyVsNoA13DifferentPixels": 0,
+        "noA13VsR6DifferentPixels": 38
+      },
+      {
+        "timeSeconds": 66.35,
+        "nativeTick": 15924,
+        "legacyVsNoA13DifferentPixels": 0,
+        "noA13VsR6DifferentPixels": 54
+      },
+      {
+        "timeSeconds": 68.05,
+        "nativeTick": 16332,
+        "legacyVsNoA13DifferentPixels": 0,
+        "noA13VsR6DifferentPixels": 70
+      }
+    ],
+    "rawFileTemplate": "K4CT_R6_T{65_25|66_35|68_05}_{LEGACY|NO_A13|R6}_ORIGINAL_CHASE_RAW.png",
+    "screenshotDifferenceMethod": "per-pixel RGB any channel different, no resizing, compare identical native simulation tick",
+    "finding": "A13-removal hypothesis not supported in sampled frames; LEGACY vs NO_A13 0 changed pixels, R6 38–70 changed pixels only, huge amber/cyan fins persist; source of fins not yet proven",
+    "possibleSourcesUnconfirmed": [
+      "other legacy visual layers",
+      "native moving B51 visible volume"
+    ],
+    "causalIdentificationConfirmed": false
+  },
+  "qualitativeArt": {
+    "verdict": "REJECT",
+    "reason": "source chase screenshot shows unchanged amber/cyan repetitive fins, giant sparse barren cliff, port/water/viaduct poorly legible on screen, original right HUD garbled and much screen clutter; added DCC geometries mostly outside visible high-speed chase viewpoint",
+    "notAestheticCompletion": true
+  },
+  "formal": {
+    "artAdopted": 0,
+    "slope2DnaMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "immutablePolicy": [
+    "QUALITY-FIRST",
+    "ART-FIRST",
+    "DCC-FIRST",
+    "INTEGRATED VERTICAL SLICE",
+    "do not change main/P101/PR46/Gold/original Game/Road5/Camera/240Hz/official QA/production"
+  ],
+  "safeNextInvestigativeTarget": "Exactly identify the still-rendered cyan/amber fins by noncollision-only draw provenance and game-camera pixel association without altering actual B51 visual/collision; re-author only a genuinely visible single meaningful vertical slice; avoid repeating already proven physics loops; no acceptance until ART/HUMAN evidence."
+}
