@@ -20,7 +20,7 @@ const result={schema:'k4ct-actual-source-road6-b51-14-native-keyboard-corrective
  previousRun:'https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42046550320',
  rawSourceGame:true,real240Hz:true,nativeKeyAKeyDOnly:true,HUMAN:'HOLD',
  formalART:0,ART:'REJECT',slope2DNAmeters:0,SAT:'HOLD',CCD:'HOLD',FPS:'HOLD',
- RELEASE:'HOLD',MERGE:'HOLD',newColliders:0,experiments:[],errors:[]};
+ RELEASE:'HOLD',MERGE:'HOLD',newColliders:0,experiments:[],errors:[],r6Slices:[]};
 let browser=null;
 async function waitPause(page,t){
  await page.waitForFunction(t=>{
@@ -45,6 +45,42 @@ async function advance(page,t,paused){
    Math.abs(state.pausedAt-t)<0.009,
   status:state.status,time:state.pausedAt,nativeTicks:state.nativeTicks};
 }
+
+/* Same-paused-tick, same-source-camera RAW layer A/B (no retouching).
+ * Three modes only toggle noncolliding scenery; 28 B51 are always drawn.
+ * SCREENSHOT  != HUMAN test and qualitative ART always remains REJECT. */
+async function captureR6RawLayerAB(page,label){
+ const states=[];
+ let tick=null;
+ for(const mode of ['LEGACY','NO_A13','R6']){
+  await page.evaluate(x=>{window.__k4ctVisualABMode=x;},mode);
+  await page.waitForTimeout(110);
+  const state=await page.evaluate(()=>{
+   const c=document.getElementById('view');
+   return {mode:c.dataset.k4ctVisualABMode,
+    originalB51DrawLoop:Number(c.dataset.k4ctOriginalB51DrawLoop),
+    originalSource:c.dataset.r15s3d10OriginalGame,
+    nativeTicks:Number(c.dataset.r15s3d10NativeTicks),
+    nativeStatus:c.dataset.r15s3d10Status,
+    DCC:c.dataset.k4ctNativeDcc,
+    sourceResearchRoad5:true};
+  });
+  assert.equal(state.mode,mode,'visual layer switch did not render');
+  assert.equal(state.originalB51DrawLoop,28,'native moving B51 draw loop changed');
+  assert.equal(state.originalSource,'REAL_WEBGL2_SOURCE_240HZ');
+  assert.equal(state.DCC,'GENUINE_BLENDER_EDITABLE_NONCOLLIDING');
+  assert.equal(state.nativeStatus,'running');
+  if(tick===null)tick=state.nativeTicks;
+  else assert.equal(state.nativeTicks,tick,'A/B changed real physics tick');
+  const file='K4CT_R6_'+label+'_'+mode+'_ORIGINAL_CHASE_RAW.png';
+  await page.screenshot({path:path.join(OUT,file)});
+  states.push({...state,file});
+ }
+ await page.evaluate(()=>{window.__k4ctVisualABMode='R6';});
+ return {label,nativeTick:tick,states,renderOnly:true,
+  originalCamera:true,sourceB51CollisionUnchanged:true,formalART:0,HUMAN:'HOLD'};
+}
+
 async function init(page){
  await page.goto(base+'/k4ct/?k4ct=on&stage=K4CT-TWO-REAL-B51-CHOICE',{waitUntil:'domcontentloaded'});
  await page.waitForFunction(()=>{const c=document.getElementById('view');
@@ -105,6 +141,7 @@ try{
     const first=await advance(page,pulse.start,paused);
     if(spec.name==='TWO_SHORT_RIGHT_RESCUES'&&Math.abs(pulse.start-65.25)<.001){
      await page.screenshot({path:path.join(OUT,'K4CT_R5_T65_25_PRE_INPUT_ORIGINAL_CHASE.png')});
+     result.r6Slices.push(await captureR6RawLayerAB(page,'T65_25'));
     }
     if(first.status!=='running'){terminal=true;break;}
     paused=true;
@@ -123,9 +160,11 @@ try{
     const middle=await advance(page,66.35,paused);
     paused=middle.status==='running';
     await page.screenshot({path:path.join(OUT,'K4CT_'+spec.name+'_T66_35_REAL_GAME_RAW.png')});
+     if(middle.status==='running')result.r6Slices.push(await captureR6RawLayerAB(page,'T66_35'));
     if(middle.status==='running'){
      const critical=await advance(page,68.05,true);
      await page.screenshot({path:path.join(OUT,'K4CT_R5_T68_05_LATE_ORIGINAL_CHASE.png')});
+      if(critical.status==='running')result.r6Slices.push(await captureR6RawLayerAB(page,'T68_05'));
      if(critical.status!=='running'&&critical.status!=='finished'){
       throw Error('original runner failed in late chase scene, original result preserved');
      }
@@ -256,6 +295,8 @@ try{
    'HOLD_NO_ROAD6_GROUNDED';
  fs.writeFileSync(path.join(OUT,'K4CT_SECOND_B51_CONTROLLED_NATIVE_RESULT.json'),JSON.stringify(result,null,2)+'\n');
 }
+fs.writeFileSync(path.join(OUT,'K4CT_R6_THREE_SOURCE_CHASE_LAYER_AB_AUDIT.json'),JSON.stringify({schema:'k4ct-r6-native-visual-ab-v1',slices:result.r6Slices,originalB51:28,originalCamera:true,originalRunner240Hz:true,onlyNoncollisionLayerSwitch:true,ART:'REJECT',HUMAN:'HOLD',formalArt:0})+'\n');
+assert.equal(result.r6Slices.length,3,'R6 must capture all three actual source chase times');
 assert.equal(result.experimentsCompleted,1,'must retain single known successful reference trial');
 assert.ok(result.pairedLoopProven,'same-session original failure, actual retry, and finish not proven');
 assert.deepEqual(result.errors,[],'real native browser experiment errors');

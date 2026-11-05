@@ -311,6 +311,85 @@ for k in range(1,9):
   beam('14_CABLE_STAYED_SERVICE_CAUSEWAY',
        add(at,(0,2,0)),add(way1,(0,70,0)),.42,'copper')
 
+
+# K4CT R6: Camera-led upper tidal channel, carved negative space, and one
+# dramatic hydraulic connection. Authored on original Road5/6 source frames.
+# Noncolliding only. No obstacle portals, no alternate driving road or CCD edits.
+# A single open water datum on each road avoids the previous sloping fake sea.
+for index,begin,end,waterY in ((5,.60,.94,105.0),(6,.025,.36,93.0)):
+ for k in range(72):
+  a=begin+(end-begin)*k/72
+  b=begin+(end-begin)*(k+1)/72
+  p=sample(index,a);q=sample(index,b)
+  def bank(s,dist,y):
+   side=unit(sub(s['right'],s['left']))
+   at=offset_edge(s,side,dist,'R')
+   return (at[0],y,at[2])
+  # One broad upstream forebay, a rock-topped retaining berm and real open
+  # water with shore edges below the ORIGINAL B48 racing surface.
+  for d0,d1,mat in ((32,39,'deepstone'),(39,42,'concrete'),
+                      (42,102,'shallows'),(102,107,'strata'),
+                      (107,114,'deepstone')):
+   y0=waterY+(.8 if d0<42 or d0>=102 else 0)
+   y1=waterY+(.8 if d1<=42 or d1>102 else 0)
+   quad('19_R6_SOURCE_FRAMED_UPPER_TIDAL_FOREBAY',
+        bank(p,d0,y0),bank(q,d0,y0),
+        bank(q,d1,y1),bank(p,d1,y1),mat,False)
+  if k%8==0:
+   for d in (39,107):
+    beam('20_R6_REAL_RETAINING_LOAD_PATHS',
+         bank(p,d,waterY+.8),bank(p,d,waterY-34),2.3,'concrete')
+ # A large shore break does NOT create a passage on the race course.
+ for u in (begin+.06,begin+.17):
+  p,fw,lat=frame(index,u)
+  siteLeft=offset_edge(p,lat,114,'R')
+  beam('20_R6_REAL_RETAINING_LOAD_PATHS',
+       add(siteLeft,(0,waterY-p['right'][1]-25,0)),
+       add(siteLeft,(0,waterY-p['right'][1]+2,0)),5.8,'basalt')
+
+# Angular upper stratified ridge deliberately frames the CHASE without
+# spanning the race lane. Discontinuous facets/readable geological erosion,
+# replacing the impression of a featureless, infinitely smooth bank.
+for index,begin,end in ((5,.57,.93),(6,.04,.42)):
+ for k in range(84):
+  u0=begin+(end-begin)*k/84
+  u1=begin+(end-begin)*(k+1)/84
+  def ridge(u,i):
+   p,fw,lat=frame(index,u)
+   base=p['left']
+   rock=lambda d,h: add(offset_edge(p,lat,d,'L'),(0,h,0))
+   wobble=2.6*math.sin(i*.38)+1.4*math.cos(i*.93)
+   return [rock(31,-7+wobble*.5),rock(46,4+wobble),
+           rock(69,21+wobble*.8),rock(106,43+wobble*1.4)]
+  a=ridge(u0,k);b=ridge(u1,k+1)
+  # A single deep quarry notch opens a genuine view through the cliff mass.
+  openCut=index==5 and .735<(u0+u1)*.5<.805
+  for layer,material in enumerate(('deepstone','dunestone','shale')):
+   if openCut and layer>=1:continue
+   quad('21_R6_BROKEN_QUARRY_STRATA_SOURCE_CHASE',
+        a[layer],b[layer],b[layer+1],a[layer+1],material,False)
+  if k%16==2 and not openCut:
+   beam('22_R6_BASALT_EXPOSED_FAULT_SEAMS',
+        a[1],add(a[2],(0,7,0)),1.4,'strata')
+
+# One hydraulic reason for the place: the upper lock pools actually feed
+# the lower four-bay tidal structure authored in R5. A single sloping open
+# spill channel has a continuous load-bearing foundation into the quay.
+r6Head,headFw,headLat=along(5,.885,'R',88,height=0)
+r6Head=(r6Head[0],105.0,r6Head[2])
+r6Foot=add(gateBase,mul(gateLat,-22))
+for bankSide in (-1,1):
+ top=add(r6Head,mul(headLat,bankSide*14))
+ bottom=add(r6Foot,mul(headLat,bankSide*14))
+ beam('23_R6_SINGLE_TIDAL_HEADRACE_TO_SLUICE',
+      add(top,(0,2,0)),add(bottom,(0,4,0)),3.8,'deepstone')
+ quad('23_R6_SINGLE_TIDAL_HEADRACE_TO_SLUICE',
+      top,add(top,(0,-4,0)),add(bottom,(0,-4,0)),bottom,'concrete',False)
+quad('24_R6_SINGLE_DESCENDING_OPEN_WATER_CHUTE',
+     add(r6Head,mul(headLat,-12)),add(r6Head,mul(headLat,12)),
+     add(r6Foot,mul(headLat,12)),add(r6Foot,mul(headLat,-12)),
+     'foam',False)
+
 # G) Finished harbor logic: outboard quays on real water, steel fenders,
 # freight rails and roof rhythm. No generic flat city or endless pole rows.
 for index,u in ((5,.56),(5,.82),(6,.30)):
