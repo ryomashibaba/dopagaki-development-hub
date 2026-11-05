@@ -14,7 +14,7 @@ const blob=crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+o
 assert.equal(blob,'af076d67492a677d2235e4730aef8cdf4808e106');
 const existing=path.join(dist,'r15s3d10');
 assert.ok(fs.existsSync(path.join(existing,'drive3d.mjs')),'real D10 private game must be generated first');
-const base=JSON.parse(fs.readFileSync(path.join(dist,'generated/R15S3D10_TRUE-PINCH_REAL_PRIVATE_WEBGL.json'),'utf8'));
+const base=JSON.parse(fs.readFileSync(path.join(dist,'generated/R15S3D10_TRUE_PINCH_REAL_PRIVATE_WEBGL.json'),'utf8'));
 assert.equal(base.stageForge.r15s3d9.mode,'A_CONTINUOUS_NARROW_MACRO');
 const baseFrozen=JSON.stringify(base),scene=makeK4CQScene(base,sample);
 assert.equal(JSON.stringify(base),baseFrozen);
