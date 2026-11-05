@@ -69,10 +69,16 @@ def fingerprint(o):
   for q in p.vertices:h.update(struct.pack("<I",int(q)))
  return h.hexdigest()
 def get(name):
- o=bpy.data.objects.get(name)
- assert o and o.type=="MESH",(name,"RESEARCH_MESH_NOT_FOUND")
- assert o not in roads and o not in (bad,good) and not o.hide_render
+ # Blender 4.0 truncates long object display names to its 63-byte ID limit.
+ # Use a long unique semantic research prefix and fail on zero or >1 matches,
+ # rather than guessing an object or ever querying by source-game content.
+ prefix=name[:49]
+ matches=[o for o in bpy.data.objects if o.name==name or o.name.startswith(prefix)]
+ assert len(matches)==1,(name,"RESEARCH_MESH_NAME_NOT_UNIQUE_OR_MISSING",[o.name for o in matches])
+ o=matches[0]
+ assert o.type=="MESH" and o not in roads and o not in (bad,good) and not o.hide_render
  assert o.get("NOT_GAME_COLLIDER") is True,(name,"NOT_RESEARCH_GEO")
+ print("K4CH_REAL_RESEARCH_OBJECT_IDENTITY",name,"=>",o.name,flush=True)
  return o
 left=get("K4CG | physically fractured coastal grey limestone headland")
 back=get("K4CG | true muted mineral ground underlying the entire visible coastal slope")
