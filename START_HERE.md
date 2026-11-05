@@ -1,3 +1,16 @@
+# 【2026-11-05 K4CK最終：元Road5保護の沿岸A/B二方向真正Blender TECH PASS・独立CRC/SHA PASS／直接ART両案REJECT】
+
+**最新隔離研究正本**：`research/k4ck-continuous-coastal-cut-retaining-wall-20261105`。次に再開する際はまず[**K4CKのA/B真正DCC・実画像・独立ZIP CRC/SHAとART失敗・次工程方針**](docs/R19_A6P4_R2F5K4CK_SOURCE_ROAD5_DUAL_COHERENT_COAST_ART_JA.md)を読み、[**K4CJ R2（左）／K4CK A（中央）／K4CK B（右）真正同CHASE比較**](docs/research-evidence/k4ck/K4CK_K4CJ_TRUE_CHASE_THREE_WORLDSCAPE_ART_COMPARISON.png)と[**監査JSON**](docs/research-evidence/k4ck/K4CK_REAL_NATIVE_AUDIT.json)を直接確認。下のK4CJ「最新」「現行」は過去歴史記録でありK4CK判定に優先しない。
+
+- **真正Blender成功[Actions #41980948992](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41980948992) completed/SUCCESS（全12段階）**。元K4CJ R2実編集可能.blend SHA256 `296326d18c446e70c25ca45598ad623affaf20c07a26e263b1789e9dc2bb04d2`を正しく固定。SOURCE11307と元Road5から198m近い真の断面を求め、旧K4CJの人工三角形風防・旧切土を**親研究メッシュ削除せず研究表示だけ非表示**にし、元Road5カメラ完全固定で**2つの別の本物の岩盤切土3D方向**と**一体の実石造低擁壁**を制作。実SOURCE沿道100ステーションで各A/B岩盤1600頂点2970三角面。A用の連続石造擁壁800頂点792面。全3新研究可編集Meshを1つの別名保存.blendに保持、AとBを原CHASE768×480でそれぞれ真レンダリング。同じソースの大事なデータ（元Game/Road5/6Camera/CHASE/11木・全ライト・物理・元研究メッシュ頂点/行列）は不変。新Game Collider0。
+- **真Artifact [#13392704993](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41980948992/artifacts/13392704993)** ZIP127,110,684B／SHA256 `80ac45661c3a6d075c4f50aa056e7139ac590b6a38a3d4544aa2f8e3151ad730`。本会話で元ZIPを別途取得、**全CRCとBlender/各PNGの個別実バイト数・SHA256完全一致PASS**。真編集可能.blend281,617,680B／SHA256 `80eff12f48b2913d8f700d14f7d84ba86b10dd7ea622033f61fbe51859271330`。真正A PNG SHA `fe27f030bde17234cf978c4e889036e33c3d5d91d70128b6a1bf9628bc6d1f45`、B PNG `fecf17807e801b1ac51156bc45d07cf4ce927dbee7c0e30e997e0de87a499ee3`。左画面可視変化A31114px／B23405px、AとBの相違30983px、**両案とも元道路中央0px・右港0px**。これらは可視TECH証拠でART点数ではない。
+- **直接ART判定はA/BともREJECT**。左の旧三角形風防は実画像でなくなった。Aは道路と岩壁の連続性がBより比較上よく、**次工程の研究比較基準には有用だが正式採用ではない**。しかし均一な明るい採石場のような崖・一直線の擁壁。Bは最手前に巨大な丸い岩塊があり玩具的。共通して道路中央は巨大な単調灰面、港との地理的一体感と実走行の速度感は未達。**正式ART採用0件／Slope2 DNA認定0m／HUMAN・SAT・CCD・FPS・RELEASE・MERGE全HOLD**。
+- **初回[#41980694105](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41980694105)はFAILURE**。Blender独自の63-byte研究オブジェクト名切詰めのため旧風防照合が不一致で安全停止。元オブジェクト一意の短い名前の接頭辞で厳格照合へ修正して成功させた。失敗runをTECH成功と混同禁止。
+- **次工程K4CL：同じ崖の色替え・小物追加を増殖しない。** ロードを勝手に移す/細くするのではなく、ゲームSOURCE Road5頂点・面・Physics・カメラを絶対に凍結したまま、研究DCC内の非衝突表示レイヤーで**ロードそのものの可視材質・実陰影・縦方向のスピードリズム**をゲームのプレイ画面で強くする作家研究を検討する。これまでの「路面画素0変化」は側景観改造の限定QAであり、意図した研究表示変更を正式に導入する場合は元SourceジオメトリSHA・Collider不変の独立根拠を追加する。SOURCEの破壊・正式ART採用・本番公開は禁止。
+- **永久保護**：元Game blob `af076d67492a677d2235e4730aef8cdf4808e106`／元Road5 SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、main、公式P101 `p101-velocity-overdrive-native-trial`、Draft PR #46、凍結Gold、原作Slope、本番2サイト、元Game物理/Camera/Collider、元研究親削除禁止。追加有料API原則0円、Work/Computer Use個別事前承認、ユーザー操作最小。
+
+---
+
 # 【2026-11-05 K4CJ最終：元Road5由来の198m道路沿い切土＋風防を実3D制作／真正Blender TECH PASS／直接ART REJECT】
 
 **現在の正本研究ブランチ**：`research/k4cj-source-locked-roadcut-speed-rhythm-20261105`。次のチャットでは最初に[**K4CJ R1→R2の実装・真正Blender実画像・全CRC/SHA独立照合・ART REJECT・次の原SOURCE保護方針**](docs/R19_A6P4_R2F5K4CJ_SOURCE_ROADCUT_SPEED_ART_JA.md)を読み、[**真正K4CI（左）／K4CJ R2（右）同一CHASEの比較**](docs/research-evidence/k4cj/K4CJ_VS_K4CI_TRUE_SOURCE_CHASE_ROAD_DEPTH_ART_REVIEW.png)と[監査JSON](docs/research-evidence/k4cj/K4CJ_REAL_NATIVE_AUDIT.json)を直接確認。これより下の「K4CI最新」は歴史記録。
