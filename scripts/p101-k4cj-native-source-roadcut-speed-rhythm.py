@@ -155,12 +155,12 @@ def mat(label,colors,scale,rough=.89,metal=0.,bump=.18):
  ln.new(finer.outputs["Fac"],bumpnode.inputs["Height"])
  ln.new(bumpnode.outputs["Normal"],shader.inputs["Normal"])
  return m
-schist=mat("coastal uplifted schist cut in genuine road-facing facets",
-           [(.13,(.065,.081,.084)),(.29,(.15,.163,.159)),(.48,(.25,.26,.241)),
-            (.67,(.36,.36,.32)),(.88,(.47,.44,.39))],.20)
-weather=mat("warm wind-polished geological ridge crest",
-            [(.13,(.15,.159,.152)),(.33,(.28,.29,.26)),(.5,(.40,.39,.32)),
-             (.71,(.50,.47,.37)),(.85,(.58,.53,.45))],.13,.90,0.,.09)
+schist=mat("dark marine schist fractured by natural coastal uplift",
+           [(.13,(.042,.054,.057)),(.29,(.081,.099,.105)),(.48,(.13,.145,.15)),
+            (.67,(.19,.201,.194)),(.88,(.26,.26,.245))],.18)
+weather=mat("weathered low-contrast broken-grey mineral crest",
+            [(.13,(.07,.082,.086)),(.33,(.115,.12,.123)),(.50,(.17,.175,.17)),
+             (.71,(.24,.243,.22)),(.85,(.31,.29,.26))],.15,.90,0.,.10)
 joint=mat("dark real fracture seam between shore bedrock scales",
           [(.14,(.035,.047,.048)),(.48,(.12,.14,.14)),(.84,(.22,.23,.22))],.33,.92,0.,.10)
 steel=mat("marine galvanized roadcut wind-shield structure",
@@ -168,13 +168,42 @@ steel=mat("marine galvanized roadcut wind-shield structure",
 bronze=mat("muted coastal navigation rhythm embedded in windbreak",
            [(.14,(.20,.15,.09)),(.50,(.34,.25,.15)),(.84,(.48,.35,.19))],.22,.72,.40,.055)
 
+# The R1 actual CHASE showed a new grey cut but the preexisting foreground
+# rock remained unnaturally bright/soft and visually disconnected. R2 preserves
+# the original research rock geometry, replacing only the study render layer
+# with separate, editable tonal-matched shale copies. Real game/source art,
+# Camera, Road5 and all other parent research objects remain frozen.
+backing_prefixes=("K4CH | true broken coastal bedrock and fractured road cut",
+                  "K4CH | connected same-basalt coastal ground beneath headland")
+replaced_research=[]
+new_rock_layers=[]
+for prefix in backing_prefixes:
+ matches=[o for o in bpy.data.objects if o.name.startswith(prefix)]
+ assert len(matches)==1,("VISIBLE_ROCK_RESEARCH_PARENT_MISSING_OR_DUPLICATED",prefix,[o.name for o in matches])
+ source=matches[0]
+ assert source.type=="MESH" and not source.hide_render
+ assert source.get("DCC_RESEARCH_ONLY") is True and source.get("NOT_GAME_COLLIDER") is True
+ copy=source.copy();copy.data=source.data.copy()
+ copy.name="K4CJ | same-source shale rock non-destructive "+str(len(new_rock_layers))
+ coll.objects.link(copy)
+ copy.data.materials.clear()
+ copy.data.materials.append(schist if not new_rock_layers else weather)
+ copy["DCC_RESEARCH_ONLY"]=True
+ copy["NOT_GAME_COLLIDER"]=True
+ copy["REAL_RACE_WORLD_FUNCTION"]="UNIFIED_NATURAL_EXISTING_LEFT_ROCK_NOT_GAME_ORIGINAL"
+ made.append(copy)
+ source.hide_render=True
+ replaced_research.append(source)
+ new_rock_layers.append(copy)
+
+
 # A continuous actual granite/schist longitudinal cut. Source original road
 # spans +/-13.15 m, and source existing topography starts at +/-16.4 m.
 # Lateral section progresses from the original public shoulder into cliffs.
 # This is not an image, nor a flat wall or rows of floating rocks.
-cross=((16.65,.48),(17.5,.7),(18.7,2.0),(20.0,4.6),
-       (22.3,7.5),(25.2,9.7),(28.3,11.0),
-       (32.0,10.1),(36.4,8.15),(42.4,6.1),(47.,6.4))
+cross=((16.65,.48),(17.5,.65),(18.7,1.85),(20.0,3.8),
+       (22.3,5.9),(25.2,7.2),(28.3,8.45),
+       (32.0,8.05),(36.4,7.15),(42.4,6.0),(47.,6.4))
 stations=list(range(-12,187,2))
 assert len(stations)>80 and len(cross)>9
 rock_v=[];rock_f=[];rock_mat=[]
@@ -232,7 +261,7 @@ def thickbeam(a,b,width=.35,depth=.35,material=0):
  x=side*width*.5;y=up*depth*.5
  block((a-x-y,a+x-y,a+x+y,a-x+y,
         b-x-y,b+x-y,b+x+y,b-x+y),material)
-rib_ds=list(range(4,185,19))
+rib_ds=list(range(33,187,17))
 for index,d in enumerate(rib_ds):
  h=ground(d)
  # physical fin rooted into the geological cut, not a freestanding pylon
@@ -272,11 +301,17 @@ assert (tuple(cam.location),tuple(cam.rotation_euler),float(cam.data.lens))==cam
 assert {roadsha(o) for o in roads.values()}=={ROAD}
 assert {o.name:tuple(tuple(row) for row in o.matrix_world) for o in trees}==tree_state
 assert {o.name:(bool(o.hide_render),float(o.data.energy)) for o in bpy.data.objects if o.type=="LIGHT"}==light_state
+research_only_swaps={ob.name for ob in replaced_research}
 for name,state in parent_state.items():
  ob=bpy.data.objects[name]
- assert (bool(ob.hide_render),bool(ob.hide_viewport),
-         tuple(tuple(row) for row in ob.matrix_world),
-         len(ob.data.vertices) if ob.type=="MESH" else -1)==state,("FROZEN_DCC_SOURCE_MUTATED",name)
+ if name in research_only_swaps:
+  assert ob.hide_render and not state[0],("SOURCE_RESEARCH_LAYER_NOT_HIDDEN",name)
+  assert (bool(ob.hide_viewport),tuple(tuple(row) for row in ob.matrix_world),
+          len(ob.data.vertices) if ob.type=="MESH" else -1)==state[1:]
+ else:
+  assert (bool(ob.hide_render),bool(ob.hide_viewport),
+          tuple(tuple(row) for row in ob.matrix_world),
+          len(ob.data.vertices) if ob.type=="MESH" else -1)==state,("FROZEN_DCC_SOURCE_MUTATED",name)
 assert bad.hide_render and not good.hide_render
 assert sha(parent)==PARENT
 sc.camera=cam;sc.render.engine="BLENDER_EEVEE"
@@ -298,16 +333,19 @@ audit={
  "originalCHASEUnchanged":True,
  "originalElevenTreeTransformsUnchanged":True,
  "originalLightsUnchanged":True,
- "allInheritedResearchAndSourceObjectsIdentical":True,
+ "allInheritedSourceAndResearchGeometryIdentical":True,
+ "nonDestructiveResearchRockRenderSwaps":[ob.name for ob in replaced_research],
  "sourceGameEdited":False,"sourcePhysicsEdited":False,
  "K4BZ_bad_duplicate_road_hidden":True,"newGameColliders":0,
- "trueResearchEditableMeshes":2,
+ "trueResearchEditableMeshes":4,
+ "actualReauthoredForegroundRockCopyCount":len(new_rock_layers),
  "actualRoadCutRealWorldVertices":len(cliff.data.vertices),
  "actualRoadCutRealWorldTriangleFaces":len(cliff.data.polygons),
  "actualRealWindbreakVertices":len(wind.data.vertices),
  "actualRealWindbreakFaces":len(wind.data.polygons),
  "realLongitudinalRoadCutStations":len(stations),
  "realIntegratedWindbreakBays":len(rib_ds),
+ "windbreakStartsAfterSourceStationMetres":rib_ds[0],
  "roadOriginalApproxHalfWidthMetres":13.15,
  "minimumRoadCentreLateralDistanceOfNewCoastMetres":min_real_lateral,
  "leftSignFromRealFrozenCHASE":leftsign,
