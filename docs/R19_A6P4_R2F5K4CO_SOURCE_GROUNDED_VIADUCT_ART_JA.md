@@ -1,3 +1,12 @@
+## 2026-11-05 K4CO接地実装と実行状態の自動保存（結果は未確認）
+
+- 研究高架橋の橋脚について、当初は元地形の座標から高さのみを引用し、平面上の端点位置が真の地形頂点に一致していなかった。この構造矛盾を修正した。**計4本の支持バットレスをK4CN R2親岩盤・岸壁の真正頂点に下端接続**し、接続の位置と道路外側をコード上で確認する。元研究親の全頂点・行列は不変。修正したのはK4CO専用追加Meshのみ。
+- 独立Workflowに `realSourceVertexAnchoredButtressCount==4` を追加。SOURCE保護・道路中央・画像品質閾値の緩和なし。
+- 今後実CIの最終判定が得られれば `docs/research-evidence/k4co/K4CO_CI_LATEST.json` をActions内の最後の `if: always()` 段階で作成する。実run ID、実際の `job.status`、親SOURCE commit、独立native画像ゲートの完走証拠を格納し、後続チャットからGitHub上で取得する。GitHub原本ファイルを変更しない。**未生成／読み取り不能なら未確認のまま。成功と推定しない。**
+- 本記録の段階では真正Blenderの実出力・GitHub Actionsの実run ID・実ZIP CRC/個別SHA・画像直接ART評価はなお未確認。したがって**TECH PASS / ART PASSのいずれも新規認定しない**。
+
+---
+
 # K4CO｜真SOURCE固定の95m港湾連絡高架ランドマーク — 実制作コード・真正検証待ち
 
 作成日：2026-11-05 JST。これは確定済みの方針の継続であり、新たな公式ART認定ではない。
