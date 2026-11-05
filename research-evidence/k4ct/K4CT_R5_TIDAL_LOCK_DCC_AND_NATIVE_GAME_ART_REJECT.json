@@ -1,0 +1,93 @@
+{
+  "schema": "dopagaki.k4ct.r5-tidal-lock-dcc-source-chase-v1",
+  "dateJST": "2026-11-06",
+  "scope": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "runId": 42112944511,
+  "runCodeCommit": "bcdc6c4cd88dd321c50bca9a73f86bf5d32e8725",
+  "result": "TECH_PASS_ART_REJECT",
+  "artifact": {
+    "id": 13454208718,
+    "zipSHA256": "573e59ddec0f88f397d43459213858ad26936992c68bb8cbbb04109c4f3ae5b0",
+    "CRC": "PASS",
+    "expiresAt": "2026-11-12"
+  },
+  "authoredDCC": {
+    "nativeBlender": "4.0.2",
+    "editableBlend": true,
+    "functionalGroups": 19,
+    "triangles": 23592,
+    "newColliders": 0,
+    "sourceRoads": 7,
+    "originalMovingB51": 28,
+    "sameGameNonCollidingIntegration": true
+  },
+  "physics": {
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "privatePhysicalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "sourceCameraAnd240HzUnchanged": true,
+    "realBrowser": "Chromium WebGL2",
+    "nativeRunner": true,
+    "automationNotHuman": true,
+    "neutralFailureSeconds": 69.4833333333523,
+    "neutralFailureReason": "コースから落下",
+    "actualRetryUI": "retryRun",
+    "samePreChoicePositionDeltaMetres": 0,
+    "realKeyD": [
+      {
+        "start": 65.25,
+        "end": 65.36
+      },
+      {
+        "start": 65.79,
+        "end": 65.91
+      }
+    ],
+    "finishedSeconds": 69.94166666668522,
+    "realB51_14Passed": true,
+    "actualB51_13_14Contacts": 0,
+    "minB51_13SeparationMetres": 3.8516884950110035,
+    "minB51_14SeparationMetres": 3.148671054349772
+  },
+  "visualEvaluation": {
+    "status": "ART_REJECT",
+    "reason": [
+      "one coherent tidal facility has been authored, but original chase still shows repetitive cyan/amber structures",
+      "art composition dominated by broad bland rocky slopes and giant source B51",
+      "functional architecture insufficiently readable within less than 1s hazard decision",
+      "Japanese HUD glyphs remain missing / overlaid"
+    ],
+    "legacyP97VisualSuppressedInPrivateStage": true,
+    "largeCyanAmberShapesRemain": true,
+    "sourceOfRemainingShapes": "UNCONFIRMED_NOT_P97_LAYER_ALONE",
+    "noHumanARTAcceptance": true
+  },
+  "formal": {
+    "ARTAccepted": 0,
+    "Slope2DNAMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "previousRuns": [
+    {
+      "id": 42110848613,
+      "result": "FAIL_Blender_TypeError"
+    },
+    {
+      "id": 42111324074,
+      "result": "FAIL_Blender_NameError"
+    },
+    {
+      "id": 42111817107,
+      "result": "SUCCESS_prior_visual_variant"
+    },
+    {
+      "id": 42112944511,
+      "result": "SUCCESS_revised_visual"
+    }
+  ],
+  "nextSingleObjective": "Improve same original chase composition and identifying origin of repetitive visual gates while preserving true B51 hazard silhouettes and no original-source writes"
+}

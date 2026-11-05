@@ -4,7 +4,15 @@
 
 > 最上位の結論：**守るべき安全・品質方針は妥当。変えるべきなのは「何を完成と数えるか」「何を最初に作るか」「失敗時の反復の仕方」「引き継ぎに必要な手間」**。目標は実際に人が遊んで面白い世界水準・有料インディー級の超高速3Dアーケードゲームの完成。TECH PASSやコミット数ではない。
 
-## 2026-11-06 K4CT R4：実失敗→原UIリトライ→実完走＋真正Blender直接統合（この節が最新）
+## K4CT R5：真正「潮汐水門・岩盤切削港湾」の一体制作／ART REJECT（2026-11-06 JST）
+- **実制作検証HEAD** `bcdc6c4cd88dd321c50bca9a73f86bf5d32e8725`、[真正Blender＋Chromium CI #42112944511](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42112944511) **completed/SUCCESS**。[Artifact #13454208718](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42112944511/artifacts/13454208718)（2026-11-12期限）、ZIP SHA256 `573e59ddec0f88f397d43459213858ad26936992c68bb8cbbb04109c4f3ae5b0`、ZIP CRC PASS。失敗CI #42110848613/#42111324074は元のままFAIL、原因はBlenderスクリプト内の名前衝突とカメラの未定義変数、研究枝の修正後に成功。
+- **同じ真正R4物理のままDCC一体世界を新規構成**：編集可能Blender4.0.2、19機能群・23,592三角形。源流Road5/6と実B51-13/14を基準に、起伏・切削崖、4連潮汐水門、発電ポンプ棟、巨大昇降塔、海上連絡橋、荷役桟橋、段状の港湾水面・岸壁を意味のある1つの施設として著作し、隔離PRIVATE WebGL2へ非衝突で取り込んだ。新Collider0、元Game Blob `af076d67...`、研究Road5 SHA `4957a0e1...`、元Camera・240Hz物理・元28 B51・公式PR・main・本番を保護。
+- **走行R4パリティ保持：** 真正Chromiumの元Runner 240Hz／Playwright実KeyD 65.25–65.36s＋65.79–65.91s → B51-14地点を実通過、69.941667s `finished`、元B51-13/14のmoving-contact 0・最短表面距離3.852m/3.149m。無操作側は69.483333sに実落下 `failed` → 元`retryRun` → 同一選択開始位置差0mで再挑戦に成功。人間操作は未試験。
+- **美術の直接評価：ART REJECTを維持。** 元追走Cameraの63–68秒画面では見通しや素材の改善余地が大きい。巨大で単調な斜面・低密度の港湾建築、黄/シアンの反復形状、強すぎる巨大実B51の前景、欠字のままのUIが残る。旧P97非衝突ゲートと蛍光フロー線の描画を研究コピー内で抑えても黄/シアンの大フレームは残存し、原因の一部は別レイヤーである。ソースの実B51や危険計算を消して偽のART PASSを作らない。**正式ART採用0件／Slope2 DNA認定0m／HUMAN・SAT・CCD・FPS・RELEASE・MERGE全HOLD**。三角形数/CI成功は世界水準の美術・人間プレイの合格ではない。
+- **次の最優先、旧工程へ逆行禁止：** 自動での2障害物の回避・失敗・再挑戦・完走は実証済みなので物理テストの量産を停止。真の追走画面を構図基準にして、視界を妨げる元描画レイヤーの出所を特定し、実B51を読みやすく保ったまま、1つの絵として認識できる港湾断面／建築シルエット／光と材料をDCCで再著作する。3視点のRAWを批評し、TECHとART/HUMAN/正式採用を別扱いにする。追加課金・Work・公開・mergeは個別承認、今回のユーザー操作0回。
+- [R5恒久の最小実証JSON](../research-evidence/k4ct/K4CT_R5_TIDAL_LOCK_DCC_AND_NATIVE_GAME_ART_REJECT.json)。過去R4・R3・R2と全上位方針は以下に撤回せず保存。
+
+## 2026-11-06 K4CT R4（R5以前の実証）：実失敗→原UIリトライ→実完走＋真正Blender直接統合（この節が最新）
 **固定方針は不変。以下のR3・R2の数値／FAIL履歴・批判的総点検は履歴。完了した本物の実接触・再挑戦工程に逆戻りしない。**
 
 - **正式な研究技術証拠**：実行HEAD `80e922493d262107db6e2832f5aacbf0ec53cde5`、[Actions #42053864244](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42053864244) **SUCCESS**、[Artifact #13426704665](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42053864244/artifacts/13426704665)（期限2026-11-12）。zip digest `sha256:9838caba31ee9374531996340d3057a29a0690446fde30bddcb4012349774ad6`、ZIP内部CRC全PASS。過去 #42050817518／#42052034384 はFAIL記録を保存、成功へ書き換えない。
