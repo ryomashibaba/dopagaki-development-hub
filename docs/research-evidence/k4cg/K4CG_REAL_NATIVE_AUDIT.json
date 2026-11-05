@@ -1,0 +1,65 @@
+{
+  "schema": "dopagaki.k4cg.real-integrated-coastal-worldscape/1",
+  "parentK4CFR2ExactSHA256": "1a17dc522b4d7df85c92023df5b580f1e5fe155b27264dfcb9d7a511d99d8533",
+  "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCameraPosesUnchanged": true,
+  "originalCHASEUnchanged": true,
+  "originalElevenTreeTransformsUnchanged": true,
+  "originalLightsUnchanged": true,
+  "originalParentObjectsAndGeometryUnchanged": true,
+  "parentResearchCliffHiddenOnlyInStudy": "K4CF | warm layered cliff and wind-eroded headland A",
+  "originalResearchCoastMeshFingerprint": "66df95c5841b7c7e6d51d35297b040e20f95597326a28ac3c2f702596bf2b479",
+  "originalMaritimeSeaMeshFingerprint": "bfb909c0d09d26fd72bc0ee1592214fa1f73ae8c4414bdba644b59092b8a7c1d",
+  "K4BZ_bad_duplicate_road_hidden": true,
+  "sourceGameEdited": false,
+  "sourcePhysicsEdited": false,
+  "newGameColliders": 0,
+  "genuineResearchEditableNewObjectCount": 3,
+  "realForegroundFlatRockFacetCount": 289,
+  "realOffshoreLandformWorldCentre": [
+    320,
+    -145,
+    72
+  ],
+  "realOffshoreLandformScreenBoundsNotArtScore": [
+    0.691999,
+    0.474631,
+    0.929725,
+    0.655051
+  ],
+  "realOffshoreWorldMeshVertices": 1127,
+  "realOceanExtensionWorldMeshVertices": 3053,
+  "trueParentSeaSurfaceWorldZ": 115.2611336993356,
+  "genuine3DNoBillboard": true,
+  "renderEngine": "BLENDER_EEVEE",
+  "originalChase768x480": true,
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CG_INTEGRATED_COASTAL_WORLD_GEOMETRY_EDITABLE_ART_HOLD.blend": {
+      "bytes": 277325320,
+      "sha256": "b3268638946437e7f31c906eb729f5f95d949cdf1837d109c950aa57dc5461a9"
+    },
+    "K4CG_TRUE_CHASE_INTEGRATED_COASTAL_WORLDSCAPE_NOT_GAME.png": {
+      "bytes": 486551,
+      "sha256": "68561f356fc21b898f3421c12c2d7cbf8e77d5cc1101f161df635302ed35a449"
+    }
+  },
+  "independentSameChaseImageQA": {
+    "leftRockChangedPixelsNotArtScore": 1860,
+    "realHorizonChangedPixelsNotArtScore": 807,
+    "rightHarborChangedPixelsNotArtScore": 1139,
+    "frozenRoadPixelDeltaNotArtScore": 0,
+    "comparisonName": "K4CG_VS_K4CF_R2_TRUE_CHASE_INTEGRATED_WORLD_ART_REVIEW.png",
+    "comparisonSHA256": "c829c0ac74f7282910d2a36e1a39f3f5a3a48812b9e7c4befdb9588ef94ecac3",
+    "ART": "UNJUDGED_HOLD"
+  }
+}
