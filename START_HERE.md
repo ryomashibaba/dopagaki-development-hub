@@ -1,3 +1,14 @@
+# 【2026-11-05 K4CR R2 現研究最新：本物のRoad5 S字バンク＋元B51 6体、真240Hz WebGL2・Blender TECH PASS／ART REJECT】
+**現行の唯一の研究最新枝：`research/k4cr-genuine-b48-bank-chicane-b51-native-20261105`。** 必ず最初に [K4CR R2真正物理コース・初回失敗・修正・実WebGL2・直接ART REJECT・安全方針・次工程](docs/DOPAGAKI_K4CR_R2_ACTUAL_PHYSICAL_ROAD5_6B51_REAL_GAME_PASS_ART_REJECT_20261105_JA.md) を読む。正式上位方針は [K4CP批判的完全引継ぎ](docs/DOPAGAKI_COMPLETE_HANDOFF_K4CP_CRITICAL_REVIEW_20261105_JA.md) を不変に継承し、[K4CQ R2](docs/DOPAGAKI_K4CQ_R2_TRUE_GAME_INTEGRATED_ART_REJECT_NEXT_PHYSICAL_20261105_JA.md)のART REJECTから背景微修正をやめた。
+- **真R2 [Actions #42029941216](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42029941216) SUCCESS**、[真Artifact #13415198299](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42029941216/artifacts/13415198299)は外部再取得のZIP CRC・SHA確認済み。元Game blob `af076d67492a677d2235e4730aef8cdf4808e106`、物理道路6本、カメラ、240Hz物理を維持。
+- 研究候補Road5の本物の31×5 B48制御網を改造し、**左右最大43.857mの切返し／実20m追加起伏／実最大5.846°バンク**、元B51 28体保持・6体配置修正。道路/球/Camera本物、隠し補正Collider0。元のD9研究Road5 SHA `39d66c47cfce3718871c5450f8594dfd10a2a31b7bbb70dd5634d1cb4c73922f` からK4CR研究SHA `4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b`、元正式Road5は変更しない。
+- R1 [Actions #42029168415](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42029168415)は60.81sのB51近傍実失敗**FAILのまま**。R2はB51を本物のエッジ予告配置に変更、2ケースとも58/64/67sの真`13920/15360/16080`tickでrunning・ブラウザ失敗0、真Blender4.0.2編集可能Road5 2,400面＋海岸4,616面。**全コース完走・人間実プレイの認証ではない**。
+- **R2も画像直接ART REJECT**。大きい単調なネオン道路と壁・単調な地形が残り、旧K4CQ ART REJECT景観をただ再使用した。次は小QA・監督器・壁の微修正ではなく、人間が実際に予告を読んで左右へ選択できる真のゲーム縦スライスを改良し、その体験に伴うDCC世界全体の再設計へ。
+- **正式ART採用0件／Slope2 DNA認定0m／HUMAN・SAT・CCD・FPS・RELEASE・MERGEすべてHOLD。** main・公式P101・Draft PR#46・元SOURCE/Camera/Road5/Gold/原Slope・正式QA・本番サイト保護。Work/Computer Use・原本変更・追加課金・公開・正式採用・mergeは個別事前承認。ユーザー操作通常0回。
+- 以下のK4CQ/K4CP以前の「最新」は歴史記録であり、この確定結果の優先度を上書きしない。
+
+---
+
 # 【2026-11-05 K4CQ R2 現研究最新：真Chromium WebGL2／240Hz＋実Blender TECH PASS、直接ART REJECT】
 **現行隔離研究ブランチ：`research/k4cq-one-sector-native-playable-coast-20261105`。** 最初に [K4CQ R2 実ゲーム統合・直接ART REJECT・次の物理区間への方針](docs/DOPAGAKI_K4CQ_R2_TRUE_GAME_INTEGRATED_ART_REJECT_NEXT_PHYSICAL_20261105_JA.md) を読む。歴史上の正式上位固定方針は [K4CP完全引継ぎ](docs/DOPAGAKI_COMPLETE_HANDOFF_K4CP_CRITICAL_REVIEW_20261105_JA.md) に従う。
 - 真 [Actions #42023232471](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42023232471) **SUCCESS**。実WebGL2 2研究ケース／58・64・67秒の同一240Hz tick／真Blender4.0.2編集可能4616三角形／独立出力整合。実 [Artifact #13411764422](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42023232471/artifacts/13411764422) に無加工比較画像3枚を保持。
