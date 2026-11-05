@@ -31,13 +31,15 @@ def unit(v):
 def cross(a,b):return (a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0])
 Y=(0,1,0)
 COLORS={
- 'basalt':(.105,.16,.19),'shale':(.22,.30,.32),'chalk':(.48,.49,.43),
- 'limestone':(.72,.68,.55),'copper':(.64,.39,.19),'oxidized':(.19,.49,.47),
- 'darksteel':(.10,.18,.22),'steel':(.31,.42,.46),'amber':(.95,.54,.13),
- 'signal':(.99,.25,.12),'glass':(.20,.60,.69),'lights':(.54,.92,.83),
- 'tide':(.035,.27,.33),'shallows':(.10,.37,.40),'foam':(.25,.58,.59),
- 'asphalt':(.095,.165,.19),'roadmark':(.23,.55,.58),'roadedge':(.80,.51,.24),
- 'moss':(.18,.30,.25),'slate':(.32,.33,.32),'roof':(.34,.43,.44)
+ 'basalt':(.24,.28,.30), 'shale':(.31,.35,.36), 'chalk':(.67,.66,.57),
+ 'limestone':(.69,.67,.59), 'copper':(.69,.44,.27), 'oxidized':(.28,.47,.44),
+ 'darksteel':(.19,.25,.28), 'steel':(.42,.49,.52), 'amber':(.95,.62,.26),
+ 'signal':(.88,.30,.19), 'glass':(.36,.61,.63), 'lights':(.85,.81,.59),
+ 'tide':(.09,.26,.30), 'shallows':(.13,.36,.40), 'foam':(.36,.60,.60),
+ 'moss':(.25,.35,.30), 'slate':(.40,.42,.40), 'roof':(.44,.47,.44),
+ 'asphalt':(.20,.26,.27), 'roadmark':(.42,.62,.60), 'roadedge':(.86,.59,.28),
+ 'concrete':(.56,.54,.48), 'strata':(.45,.43,.38), 'dunestone':(.58,.50,.39),
+ 'window':(.47,.65,.69), 'turbine':(.33,.40,.43), 'deepstone':(.15,.20,.23)
 }
 GROUPS=defaultdict(list)
 def tri(group,a,b,c,mat):
@@ -81,147 +83,287 @@ def offset_edge(p,side,dist,base):
  direction=side if base=='R' else mul(side,-1)
  return add(edge,mul(direction,dist))
 
-# Large-scale geological / maritime composition. The B48 collision road is NOT
-# recreated as a second physical surface. Negative space interrupts the rock mass.
-all_road_centres=[s['center'] for r in site['roads'] for s in r['samples']]
-water_y=min(x[1] for x in all_road_centres)-26
-for idx,u0,u1 in ((5,.05,.99),(6,0,.60)):
- samples=[sample(idx,u0+(u1-u0)*k/120) for k in range(121)]
- for i in range(120):
-  a,b=samples[i],samples[i+1]
-  mid=(i+.5)/120
-  directions=[]
-  for p in (a,b):
-   directions.append(unit((p['right'][0]-p['left'][0],0,p['right'][2]-p['left'][2])))
-  # Four stratified left banks, punctuated by real cuts and stepped landings
-  def left_profile(p,d,i):
-   x=i/120
-   heights=[-12,-7,4+4*math.sin(x*18),17+9*math.sin(x*12),32+12*math.sin(x*7)]
-   offs=[26,46,79,112,168]
-   return [add(offset_edge(p,d,off,'L'),(0,h,0)) for off,h in zip(offs,heights)]
-  A=left_profile(a,directions[0],i)
-  C=left_profile(b,directions[1],i+1)
-  for j in range(4):
-   if j>=2 and ((.19<mid<.31) or (.56<mid<.71)):continue
-   if j>=3 and i%9 in (0,1):continue
-   quad('01_RIFT_AND_SECTIONED_BASALT',A[j],C[j],C[j+1],A[j+1],
-        ('basalt','shale','chalk','moss')[j])
-  # A terraced low seawall opens onto a broad horizontal tide basin.
-  def right_profile(p,d):
-   return [
-    add(offset_edge(p,d,28,'R'),(0,-13,0)),
-    add(offset_edge(p,d,43,'R'),(0,-19,0)),
-    add(offset_edge(p,d,72,'R'),(0,water_y+7-p['right'][1],0)),
-    add(offset_edge(p,d,94,'R'),(0,water_y-p['right'][1],0))]
-  A=right_profile(a,directions[0]);C=right_profile(b,directions[1])
-  for j,m in enumerate(('basalt','slate','chalk')):
-   quad('02_TIDAL_CUT_AND_BANK',A[j],C[j],C[j+1],A[j+1],m)
-  at=add(offset_edge(a,directions[0],94,'R'),(0,water_y-a['right'][1],0))
-  bt=add(offset_edge(b,directions[1],94,'R'),(0,water_y-b['right'][1],0))
-  af=add(offset_edge(a,directions[0],340,'R'),(0,water_y-a['right'][1],0))
-  bf=add(offset_edge(b,directions[1],340,'R'),(0,water_y-b['right'][1],0))
-  quad('03_REAL_HORIZON_TIDAL_WATER',at,bt,bf,af,'shallows' if i%24<3 else 'tide')
-  if i%19==0:
-   quad('03_REAL_HORIZON_TIDAL_WATER',at,bt,add(bt,(0,.17,0)),add(at,(0,.17,0)),'foam')
-
-# Transform road controls into expressive, different B51-13/14 set pieces.
-def shore_anchor(st,side='R',off=40):
- p,fw,lat=frame(st['roadIndex'],st['u'])
- return p,fw,lat,offset_edge(p,lat,off,side)
-
-stations={s['id']:s for s in site['stations']}
-for number,st in ((13,stations['a13-machine-13']),(14,stations['a13-machine-14'])):
- p,fw,lat,L=shore_anchor(st,'L',34)
- _,_,_,R=shore_anchor(st,'R',34)
- # Distinct gate silhouette: hazard 13 has one tilted copper navigation tower;
- # hazard 14 uses split oxidized gantries defining the next part of the journey.
- group='04_13_TILT_GATE' if number==13 else '05_14_SPLIT_GATE'
- height=58 if number==13 else 43
- for side,anchor in (('L',L),('R',R)):
-  foot=add(anchor,(0,-5,0))
-  head=add(anchor,add((0,height,0),mul(lat,(1 if side=='R' else -1)*(7 if number==13 else 2))))
-  beam(group,foot,head,3.2,'darksteel')
-  beam(group,add(foot,mul(fw,10)),head,1.5,'copper' if number==13 else 'oxidized')
-  # Navigational light at human-visible scale, never implies safe lane
-  box(group,add(head,(0,3,0)),8,7,6,'signal' if number==13 else 'amber',fw,lat)
-  box(group,add(head,(0,6,0)),10,9,1.3,'lights',fw,lat)
- # Single overhead open truss above gameplay, not a collider or tunnel wall.
- topL=add(L,(0,height+9,0));topR=add(R,(0,height+9,0))
- beam(group,topL,topR,1.8,'steel')
- for t in (.18,.36,.54,.72):
-  a=mix(topL,topR,t);b=mix(topL,topR,t+.10)
-  beam(group,add(a,mul(fw,-4)),add(b,mul(fw,4)),.85,'copper' if number==13 else 'oxidized')
- # Wharf service deck is OUTBOARD, no central road collision or camera proxy.
- _,_,_,dock=shore_anchor(st,'R',129)
- dock=add(dock,(0,-2,0))
- box('06_WORKING_DOCK_AND_MAINTENANCE',dock,69,85,9,'basalt',fw,lat)
- for dx in (-26,26):
-  support=add(dock,mul(lat,dx))
-  beam('06_WORKING_DOCK_AND_MAINTENANCE',add(support,(0,-5,0)),
-       add(support,(0,-38,0)),2.2,'darksteel')
- # Built roofline has alternating voids / open loading bays, not a solid block.
- terminal=add(dock,add(mul(lat,18),(0,20,0)))
- box('07_PORT_CONTROL_AND_SERVICE',terminal,36,71,29,'darksteel',fw,lat)
- box('07_PORT_CONTROL_AND_SERVICE',add(terminal,(0,15,0)),44,77,4,'roof',fw,lat)
- for k in (-2,-1,0,1,2):
-  q=add(terminal,add(mul(fw,k*11),(0,2,0)))
-  box('07_PORT_CONTROL_AND_SERVICE',add(q,mul(lat,-19)),2.0,6,16,'glass',fw,lat)
- for k in (-1,1):
-  tower=add(dock,add(mul(fw,k*27),mul(lat,47)))
-  beam('08_WORKING_CARGO_CRANES',add(tower,(0,5,0)),add(tower,(0,73,0)),3,'steel')
-  beam('08_WORKING_CARGO_CRANES',add(tower,(0,70,0)),add(tower,add((0,70,0),mul(lat,-83))),2.5,'copper')
-  beam('08_WORKING_CARGO_CRANES',add(tower,(0,74,0)),add(tower,add((0,70,0),mul(lat,-83))),1.1,'oxidized')
-  beam('08_WORKING_CARGO_CRANES',add(tower,add((0,68,0),mul(lat,-72))),
-       add(tower,add((0,20,0),mul(lat,-72))),.5,'darksteel')
-
-# One place-defining spillway/dry dock bridges between real coast and terminal.
-for j,(idx,u) in enumerate(((5,.47),(5,.76),(6,.20))):
+# K4CT R5 one integrated scene: CUT TIDAL FOUNDRY.
+# Design the real Road5/6 high-speed chase first. A single colossal tidal-lock
+# campus is cut into the cliff and linked to working water / pier / service way.
+# Road and original 28 moving B51 are visually recognizable. No made-up racing
+# lane, no fake collision surface, no repeating neon portal arches over the road.
+#
+# Geometry is authored here into genuine independent Blender meshes AND exported
+# from this same source for the original private WebGL2 game. The physical B48
+# surface and the Runner remain IDENTICAL to K4CT R4.
+def along(idx,u,side='R',distance=80,height=0):
  p,fw,lat=frame(idx,u)
- centre=offset_edge(p,lat,174,'R')
- centre=add(centre,(0,water_y+17-p['right'][1],0))
- deck='09_SPILLWAY_SERVICE_BRIDGES'
- box(deck,centre,127,12,5,'copper',fw,lat)
- for x in (-55,-20,20,55):
-  a=add(centre,mul(lat,x))
-  beam(deck,add(a,(0,-3,0)),add(a,(0,-31,0)),2,'basalt')
-  beam(deck,add(a,(0,3,0)),add(a,(0,14,0)),.85,'steel')
- for x in (-48,48):
-  a=add(centre,mul(lat,x))
-  beam(deck,add(a,(0,12,0)),add(centre,(0,25,0)),1.1,'oxidized')
+ at=offset_edge(p,lat,distance,side)
+ return add(at,(0,height,0)),fw,lat
 
+def grain(i,v):
+ return math.sin(i*0.69+v*1.9)*.55+math.sin(i*1.67+v*2.6)*.30+math.sin(i*3.11+v)*.15
 
-# The ORIGINAL Road5/6 is still the sole collision road. This is a Blender-
-# authored, noncolliding skin whose Y values are sourced from the actual B48
-# lane quadrilateral (+0.12 m air gap to avoid z fighting). It replaces the
-# visually incoherent magenta/cyan stripes *only in the research renderer*.
-# Changing these visible colors DOES NOT change steering, safety, lanes or CCD.
-roadBands=((0,.035,'darksteel'),(.035,.055,'roadedge'),(.055,.46,'asphalt'),
-           (.46,.475,'roadmark'),(.475,.525,'asphalt'),(.525,.54,'roadmark'),
-           (.54,.945,'asphalt'),(.945,.965,'roadedge'),(.965,1,'darksteel'))
-for idx in (5,6):
+def drum(g,centre,fw,lat,radius,height,material,segments=14,top_r=None):
+ top_r=radius if top_r is None else top_r
+ def ring(rad,y):
+  return [add(centre,add(mul(fw,rad*math.cos(2*math.pi*k/segments)),
+                           add(mul(lat,rad*math.sin(2*math.pi*k/segments)),(0,y,0))))
+          for k in range(segments)]
+ a=ring(radius,0);b=ring(top_r,height)
+ for k in range(segments):
+  q=(k+1)%segments
+  quad(g,a[k],a[q],b[q],b[k],material)
+ # The road side always sees a real solid volume; no fake alpha/glass walls.
+ for k in range(1,segments-1):
+  tri(g,a[0],a[k+1],a[k],material)
+  tri(g,b[0],b[k],b[k+1],material)
+
+def truss(g,a,b,span_width,depth,material):
+ line=unit(sub(b,a))
+ lateral=unit(cross(line,Y))
+ for k in range(12):
+  t=k/12;u=(k+1)/12
+  A=mix(a,b,t);B=mix(a,b,u)
+  beam(g,add(A,mul(lateral,span_width)),add(B,mul(lateral,span_width)),.75,material)
+  beam(g,add(A,mul(lateral,-span_width)),add(B,mul(lateral,-span_width)),.75,material)
+  if k%2==0:
+   beam(g,add(A,mul(lateral,-span_width)),add(B,mul(lateral,span_width)),.46,material)
+  else:
+   beam(g,add(A,mul(lateral,span_width)),add(B,mul(lateral,-span_width)),.46,material)
+  if k%3==0:
+   beam(g,add(A,mul(lateral,span_width)),add(A,mul(lateral,-span_width)),.68,material)
+  beam(g,add(A,(0,-depth,0)),add(B,(0,-depth,0)),.36,'darksteel')
+
+allRoadHeights=[s['center'][1] for road_ in site['roads'] for s in road_['samples']]
+tideY=min(allRoadHeights)-30
+
+# A) Honest, conformal visible race surface. This is an *air-separated 0.12m
+# visual-only* triangle skin; true B48 collision and speed are not touched.
+roadBands=((0,.026,'darksteel'),(.026,.045,'roadedge'),
+ (.045,.450,'asphalt'),(.450,.462,'roadmark'),(.462,.538,'asphalt'),
+ (.538,.550,'roadmark'),(.550,.955,'asphalt'),
+ (.955,.973,'roadedge'),(.973,1,'darksteel'))
+for index in (5,6):
  for k in range(128):
-  a=sample(idx,k/128);c=sample(idx,(k+1)/128)
-  def rd(s,t):
-   return add(mix(s['left'],s['right'],t),(0,.12,0))
-  for t0,t1,m in roadBands:
-   quad('00_SOURCE_CONFORMAL_NONCOLLIDING_ROAD_ART',
-        rd(a,t0),rd(c,t0),rd(c,t1),rd(a,t1),m,twoside=False)
-# Two different, authentic source-station warning portal forms. These are
-# spatial landmarks, not extra moving hazards and not certified safe lanes.
-for st in site['stations']:
- number=int(st['id'].rsplit('-',1)[1])
- p,fw,side=frame(st['roadIndex'],st['u'])
- gt='0A_SOURCE_STATION_GATE_CANTILEVERS'
- # Staggered high sweeping ribs make the 2 hazards legible from approach.
- for sideLabel,mult in (('L',-1),('R',1)):
-  edge=offset_edge(p,side,24,sideLabel)
-  vertical=41 if number==13 else 59
-  base=add(edge,(0,-9,0))
-  tip=add(edge,add((0,vertical,0),mul(side,mult*10)))
-  beam(gt,base,tip,1.7,'oxidized' if number==14 else 'copper')
-  beam(gt,tip,add(tip,add(mul(fw,34),(0,-13,0))),1.0,'darksteel')
-  # Hot visual navigation marker is OUTSIDE road; no false safe-path guarantee.
-  box(gt,add(tip,(0,2,0)),6,7,5,'amber' if number==14 else 'signal',fw,side)
+  p=sample(index,k/128);q=sample(index,(k+1)/128)
+  def skin(points,t):
+   return add(mix(points['left'],points['right'],t),(0,.12,0))
+  for t0,t1,material in roadBands:
+   quad('00_PHYSICAL_ROAD_CONFORMAL_VISIBLE_SKIN',
+        skin(p,t0),skin(q,t0),skin(q,t1),skin(p,t1),material,False)
+
+# B) Real carved rock rather than repeating planes. Longitudinally coherent
+# strata, differing ledges, erosion cuts, and a robust skyline; keep all solid
+# visual cliff terrain safely OUTBOARD of the native race envelope.
+for index in (5,6):
+ samples=[sample(index,k/144) for k in range(145)]
+ for k in range(144):
+  u=(k+.5)/144
+  aa=samples[k];bb=samples[k+1]
+  _,fw,lat=frame(index,u)
+  levels=[(29,-8),(42,-12),(61,-4),(84,14),(119,37),(158,53),(202,66)]
+  def section(p,key):
+   side=unit(sub(p['right'],p['left']))
+   return [add(offset_edge(p,side,dist,'L'),
+     (0,h+grain(key,j)*(.5+4.4*j/6),0))
+     for j,(dist,h) in enumerate(levels)]
+  A=section(aa,k);B=section(bb,k+1)
+  for layer in range(len(levels)-1):
+   # Deliberate deep cuts: negative space reads as quarry, not a wall.
+   if layer>=3 and ((.18<u<.26) or (.62<u<.705)) and index==5:
+    continue
+   if layer>=4 and (.20<u<.33) and index==6:continue
+   if layer>=5 and (k%17<=1):continue
+   quad('01_CARVED_BASALT_AND_LAYERED_RIFT',
+       A[layer],B[layer],B[layer+1],A[layer+1],
+       ('deepstone','basalt','shale','strata','chalk','moss')[layer])
+  # High irregular eroded buttress against the cliff, not a flat shell.
+  if k%15==0:
+   anchor=A[4];highest=add(anchor,(0,23+5*math.sin(k),0))
+   beam('02_EARTH_ANCHORED_STONE_RIBS',anchor,highest,4.3,'basalt')
+   beam('02_EARTH_ANCHORED_STONE_RIBS',highest,
+        add(anchor,add(mul(lat,-25),(0,-4,0))),2.0,'shale')
+
+# C) Tidal sea, stepped embankment and real industrial retaining wall. Source
+# road is very high above the water, so the quays have structural connections
+# from terrace to sea instead of platforms floating in the sky.
+for index in (5,6):
+ samples=[sample(index,k/144) for k in range(145)]
+ for k in range(144):
+  p=samples[k];q=samples[k+1]
+  _,fw,lat=frame(index,(k+.5)/144)
+  def wall_section(x):
+   side=unit(sub(x['right'],x['left']))
+   base=x['right']
+   def s(dist,y):return add(offset_edge(x,side,dist,'R'),
+                    (0,y-base[1],0))
+   return [s(24,base[1]-10),s(37,base[1]-23),
+           s(61,base[1]-44),s(88,tideY+12),s(105,tideY+3),
+           s(140,tideY),s(440,tideY)]
+  A=wall_section(p);B=wall_section(q)
+  for layer,mat in enumerate(('basalt','shale','strata','concrete','slate','shallows')):
+   if layer==5 and k%7==0:mat='tide'
+   quad('03_CLIFF_TO_WORKING_TIDAL_BASIN',
+        A[layer],B[layer],B[layer+1],A[layer+1],mat,False)
+  if k%11==0:
+   beam('04_MARITIME_CONCRETE_SPILLWAY_BUTTRESSES',
+        add(A[2],(0,5,0)),add(A[4],(0,-8,0)),3.0,'concrete')
+  if k%9==0:
+   # Directional wave whitecap, appears only on the physical sea plane.
+   x=add(A[5],(0,.22,0));z=add(B[5],(0,.22,0))
+   quad('05_WATER_TURBULENCE_AND_FOAM',x,z,
+        add(z,mul(lat,12)),add(x,mul(lat,12)),'foam',False)
+
+# D) The ONE main monument: a working tidal sluice/power-house at the end of
+# road 5. Its four real open arch bays, columns and long turbine ducts create
+# an identifiable port program. Not another repeated road gate.
+gate,gateForward,gateLat=along(5,.88,'R',151,height=0)
+gateBase=(gate[0],tideY+6,gate[2])
+gateGroup='06_ANCHORED_4_BAY_TIDAL_LOCK_AND_SLUICE'
+box(gateGroup,add(gateBase,(0,-6,0)),185,56,17,'deepstone',gateForward,gateLat)
+for bay in range(4):
+ x=(bay-1.5)*42
+ root=add(gateBase,mul(gateForward,x))
+ for delta in (-18,18):
+  pile=add(root,mul(gateForward,delta))
+  beam(gateGroup,add(pile,(0,-3,0)),add(pile,(0,49,0)),5.1,'concrete')
+ # A genuine semi-circular open arch with negative space below the voussoirs.
+ for depth in (-17,17):
+  centre=add(root,add(mul(gateLat,depth),(0,30,0)))
+  for k in range(12):
+   t0=math.pi*k/12;t1=math.pi*(k+1)/12
+   def arc(r,t):return add(centre,add(mul(gateForward,r*math.cos(t)),(0,r*math.sin(t),0)))
+   quad(gateGroup,arc(21,t0),arc(21,t1),arc(16.1,t1),arc(16.1,t0),
+        'limestone',False)
+  for k in range(0,12,3):
+   t=math.pi*(k+.5)/12
+   beam('07_SLUICE_ARCH_SPILLGATES',
+        add(centre,add(mul(gateForward,15*math.cos(t)),(0,15*math.sin(t),0))),
+        add(centre,add(mul(gateForward,15*math.cos(t)),(0,-16,0))),
+        1.1,'copper')
+# Real horizontal mechanical spine, drain slots and raised operating walk.
+box(gateGroup,add(gateBase,(0,54,0)),192,57,8,'steel',gateForward,gateLat)
+for x in (-76,-33,9,51,76):
+ p=add(gateBase,add(mul(gateForward,x),(0,59,0)))
+ box('08_WORKING_HYDRAULICS_AND_SERVICE',p,6,27,3,'oxidized',gateForward,gateLat)
+for x in (-65,-22,22,65):
+ shaft=add(gateBase,add(mul(gateForward,x),(0,67,0)))
+ drum('08_WORKING_HYDRAULICS_AND_SERVICE',shaft,gateForward,gateLat,4.7,16,'turbine',10)
+ beam('08_WORKING_HYDRAULICS_AND_SERVICE',add(shaft,(0,16,0)),
+      add(shaft,add(mul(gateLat,22),(0,21,0))),1.8,'copper')
+
+# E) Main public-industrial silhouette above a cut into cliff: stacked halls
+# with sawtooth clerestory, accessible piers, real structural load paths.
+hall,hf,hl=along(5,.69,'R',125,height=-33)
+hallGroup='09_QUARRY_EMBEDDED_POWERHOUSE_AND_STEPPED_ROOFS'
+box(hallGroup,add(hall,(0,-12,0)),160,64,33,'basalt',hf,hl)
+for offset in (-64,-32,0,32,64):
+ support=add(hall,mul(hf,offset))
+ beam(hallGroup,add(support,(0,-28,0)),
+      add(support,(0,-93,0)),4.2,'concrete')
+ # Sawtooth roof has daylight openings; not just a solid cuboid.
+ for k in range(3):
+  roota=add(support,add(mul(hl,-30+k*21),(0,20,0)))
+  roofb=add(roota,add(mul(hl,18),(0,11,0)))
+  roofc=add(roofb,add(mul(hl,8),(0,-11,0)))
+  beam(hallGroup,roota,roofb,1.3,'steel')
+  beam(hallGroup,roofb,roofc,1.3,'roof')
+  quad(hallGroup,add(roota,mul(hf,-13)),add(roota,mul(hf,13)),
+      add(roofb,mul(hf,13)),add(roofb,mul(hf,-13)),'roof',False)
+for k in range(16):
+ off=(k-7.5)*9.2
+ p=add(hall,add(mul(hf,off),add(mul(hl,-32),(0,2,0))))
+ box('10_CLERESTORY_AND_WORKING_HALL_WINDOWS',p,3.7,1.7,12,'window',hf,hl)
+for k in range(5):
+ origin=add(hall,add(mul(hf,-67+k*31),mul(hl,41)))
+ beam('11_VERTICAL_PUMPS_TO_TIDAL_LOCK',
+      add(origin,(0,-9,0)),add(origin,(0,-74,0)),3.5,'oxidized')
+ box('11_VERTICAL_PUMPS_TO_TIDAL_LOCK',add(origin,(0,-73,0)),7,9,9,'turbine',hf,hl)
+ # The pipes follow geography down to the sluice; not independent artwork.
+ beam('11_VERTICAL_PUMPS_TO_TIDAL_LOCK',
+      add(origin,(0,-74,0)),add(mix(origin,gateBase,.7),(0,12,0)),1.7,'copper')
+
+# F) One visible coastal lift tower, NOT two colorful obstacle-like portal
+# frames. It represents the huge level difference between raceway and tide.
+tower,tf,tl=along(6,.18,'R',138,height=-45)
+towerGroup='12_SINGLE_TIDAL_LIFT_AND_CONTROL_TOWER'
+box(towerGroup,add(tower,(0,-2,0)),66,57,26,'deepstone',tf,tl)
+drum(towerGroup,add(tower,(0,11,0)),tf,tl,21,80,'concrete',18,top_r=13)
+drum(towerGroup,add(tower,(0,91,0)),tf,tl,16,10,'oxidized',18,top_r=16)
+drum(towerGroup,add(tower,(0,102,0)),tf,tl,12,14,'copper',18,top_r=4)
+for k in range(9):
+ t=k*2*math.pi/9
+ local=add(tower,add(mul(tf,17*math.cos(t)),add(mul(tl,17*math.sin(t)),(0,69,0))))
+ box('13_CONTROL_FLOOR_GLAZING',local,6,5,10,'window',tf,tl)
+for d in (-25,25):
+ base=add(tower,mul(tf,d))
+ beam(towerGroup,add(base,(0,-10,0)),add(base,(0,-89,0)),6,'concrete')
+ beam(towerGroup,add(base,(0,15,0)),add(tower,(0,92,0)),2.1,'darksteel')
+# The elevated deck connects tower to hall along offshore sea-wall, staying
+# outboard of B48 so native player doesn't drive on a fake DCC roadway.
+way0=add(hall,add(mul(hl,17),(0,24,0)))
+way1=add(tower,add(mul(tl,-7),(0,45,0)))
+truss('14_CABLE_STAYED_SERVICE_CAUSEWAY',way0,way1,6,7,'steel')
+for k in range(1,9):
+ at=mix(way0,way1,k/9)
+ foot=(at[0],tideY-3,at[2])
+ beam('14_CABLE_STAYED_SERVICE_CAUSEWAY',foot,
+      add(at,(0,-7,0)),2.3,'concrete')
+ if k%2==0:
+  beam('14_CABLE_STAYED_SERVICE_CAUSEWAY',
+       add(at,(0,2,0)),add(way1,(0,70,0)),.42,'copper')
+
+# G) Finished harbor logic: outboard quays on real water, steel fenders,
+# freight rails and roof rhythm. No generic flat city or endless pole rows.
+for index,u in ((5,.56),(5,.82),(6,.30)):
+ wharf,wf,wl=along(index,u,'R',190,height=0)
+ shore=(wharf[0],tideY+5,wharf[2])
+ box('15_WORKING_PORT_QUAYS_AND_BERTHING',shore,104,58,9,'concrete',wf,wl)
+ for x in (-46,-23,0,23,46):
+  at=add(shore,mul(wf,x))
+  for y in (-24,24):
+   foot=add(at,mul(wl,y))
+   beam('15_WORKING_PORT_QUAYS_AND_BERTHING',
+        add(foot,(0,-6,0)),add(foot,(0,-37,0)),2,'darksteel')
+ # A locally recognizable loading hall with an asymmetrical raised roof.
+ centre=add(shore,add(mul(wl,37),(0,18,0)))
+ box('16_ROOFED_PORT_OPERATIONS',centre,73,28,23,'slate',wf,wl)
+ for x in (-33,-17,0,17,33):
+  anchor=add(centre,add(mul(wf,x),(0,15,0)))
+  beam('16_ROOFED_PORT_OPERATIONS',add(anchor,mul(wl,-18)),
+       add(anchor,add(mul(wl,18),(0,11,0))),1.4,'steel')
+  quad('16_ROOFED_PORT_OPERATIONS',
+       add(anchor,mul(wl,-18)),
+       add(anchor,add(mul(wf,16),mul(wl,-18))),
+       add(anchor,add(mul(wf,16),add(mul(wl,18),(0,11,0)))),
+       add(anchor,add(mul(wl,18),(0,11,0))),'roof',False)
+ for x in (-22,-8,8,22):
+  glass=add(centre,add(mul(wf,x),add(mul(wl,-15),(0,1,0))))
+  box('16_ROOFED_PORT_OPERATIONS',glass,7,1.0,8,'glass',wf,wl)
+ # Cargo crane is structurally planted on pier and primarily frames the sea.
+ crane=add(shore,add(mul(wf,-33),mul(wl,10)))
+ beam('17_BERTH_UTILITY_CRANES',crane,add(crane,(0,57,0)),3.0,'darksteel')
+ beam('17_BERTH_UTILITY_CRANES',add(crane,(0,56,0)),
+      add(crane,add(mul(wl,-56),(0,54,0))),1.5,'copper')
+ beam('17_BERTH_UTILITY_CRANES',add(crane,(0,56,0)),
+      add(crane,add(mul(wl,20),(0,52,0))),1.1,'oxidized')
+ beam('17_BERTH_UTILITY_CRANES',add(crane,add(mul(wl,-44),(0,53,0))),
+      add(crane,add(mul(wl,-44),(0,22,0))),.55,'darksteel')
+
+# H) Two different recognizable real-station sightlines: sparse OUTBOARD
+# cut-rock wayfinding pylons (no road-spanning false safe gates).
+for station in site['stations']:
+ index,u=station['roadIndex'],station['u']
+ p,fw,lat=frame(index,u)
+ shore=offset_edge(p,lat,43,'L')
+ pylon=add(shore,(0,-8,0))
+ height=43 if station['id'].endswith('-13') else 60
+ # Use strong mass/silhouette, tiny signal area; original red B51 is still
+ # the clearest danger and remains visually / physically UNCHANGED.
+ drum('18_INTEGRATED_TWO_STATION_QUARRY_BEACONS',
+      pylon,fw,lat,7,8,'deepstone',9,top_r=7)
+ beam('18_INTEGRATED_TWO_STATION_QUARRY_BEACONS',
+      add(pylon,(0,7,0)),add(pylon,(0,height,0)),2.8,'concrete')
+ box('18_INTEGRATED_TWO_STATION_QUARRY_BEACONS',
+     add(pylon,(0,height+2,0)),9,11,4,
+     'amber' if station['id'].endswith('-14') else 'copper',fw,lat)
 
 # Editability: separate mesh objects by functional zones, real Blender materials.
 materials={}

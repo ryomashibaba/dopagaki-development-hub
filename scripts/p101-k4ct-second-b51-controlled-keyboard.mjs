@@ -103,6 +103,9 @@ try{
    const actualKeyboardInputs=[];
    for(const pulse of spec.pulses){
     const first=await advance(page,pulse.start,paused);
+    if(spec.name==='TWO_SHORT_RIGHT_RESCUES'&&Math.abs(pulse.start-65.25)<.001){
+     await page.screenshot({path:path.join(OUT,'K4CT_R5_T65_25_PRE_INPUT_ORIGINAL_CHASE.png')});
+    }
     if(first.status!=='running'){terminal=true;break;}
     paused=true;
     await page.keyboard.down(pulse.key);
@@ -121,7 +124,12 @@ try{
     paused=middle.status==='running';
     await page.screenshot({path:path.join(OUT,'K4CT_'+spec.name+'_T66_35_REAL_GAME_RAW.png')});
     if(middle.status==='running'){
-     const end=await advance(page,70.5,true);
+     const critical=await advance(page,68.05,true);
+     await page.screenshot({path:path.join(OUT,'K4CT_R5_T68_05_LATE_ORIGINAL_CHASE.png')});
+     if(critical.status!=='running'&&critical.status!=='finished'){
+      throw Error('original runner failed in late chase scene, original result preserved');
+     }
+     const end=critical.status==='running'?await advance(page,70.5,true):critical;
      paused=end.status==='running';
     }
    }

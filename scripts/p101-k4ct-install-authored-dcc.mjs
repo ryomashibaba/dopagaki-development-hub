@@ -46,6 +46,10 @@ const oldRoadVisual="draw(roads);draw(g4e7pQuietMesh||(g4e7kUi?.quiet&&g4e7kQuie
 replace(oldRoadVisual,"draw(roads);if(k4ctDccMesh){draw(k4ctDccMesh);canvas.dataset.k4ctRoadArtMode='ORIGINAL_B48_PLUS_DCC_CONFORMAL';}else{"+oldRoadVisual.slice('draw(roads);'.length)+"}");
 
 const moduleFile=path.join(target,'k4ct-dcc-world-geometry.mjs');
+// Isolated K4CT color mood; this does not mutate the original WebGL source.
+replace("gl.clearColor(.019,.041,.083,1);","gl.clearColor(.115,.168,.192,1);");
+replace("vec3(.019,.041,.083),haze","vec3(.115,.168,.192),haze");
+
 const raw=JSON.stringify(dcc.vertices);
 fs.writeFileSync(moduleFile,
  '/** REAL Blender-author output, from editable .blend. PRIVATE game artwork only, no colliders. */\n'+
