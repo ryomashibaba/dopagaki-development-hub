@@ -1,3 +1,14 @@
+# 【2026-11-05 K4CF現行：真3D断崖A/B作者実装保存／Blender実Actions #41936765348要判定】
+
+**現行隔離研究枝** `research/k4cf-windward-cliff-hero-frame-20261105`。最初に[**K4CF真正3D断崖A/B・世界景観優先・原Game保護・未完了Actionsと採否ゲート**](docs/R19_A6P4_R2F5K4CF_TRUE_DCC_HEADLAND_AB_JA.md)を読み、[K4CF GitHub Actions #41936765348](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41936765348)の**最新status/conclusion/ジョブログ/Artifacts**を再照合。以下K4CEは終了済の歴史正本であり、K4CF結果を上書きしない。
+
+- 本物のK4CE編集可能親.blend SHA256 `3f0bc2f048dec39bc263151e2117b374d40b7422478c7e9b49583865c836d63e`を厳密に検証し、元K4CCの実左岩肌を**変更せず**別メッシュに複製して、A:暖色の風化積層崖・B:深い陰影の暗い岩盤を**大きく異なるワールド空間の実地形頂点起伏**で作者制作するスクリプト＋真のBlender EEVEE二枚比較CIを実装・GitHub研究保存した。原Road5・6 Camera+CHASE・物理・原作Game・木11・ライト・港／船体等は変更禁止。新Collider 0。
+- [K4CF実Actions #41936765348](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41936765348)はこの記録時点で**ソース／実K4CE原本SHA保護の前段PASS、Blender導入中**。**K4CF実レンダリング/ART目視/新.blend/独立ZIP検算/TECH PASSは未確認**。実行完了前に達成と書いてはいけない。失敗していればログの原因を特定して実3D品質改善の範囲内で修正し、安全閾値緩和やフェイク画像の代用をしない。
+- 元ゲームGit Blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5全vertex-face SHA256 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`不変。main・公式P101・原Slope・Draft PR#46・本番2サイト不変更。正式ART採用0件／Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。Work/Computer Useは個別事前承認、追加有料API原則0円、ユーザー操作不要。
+- **制作主目的は全画面ARTでありQA件数増ではない**。新真正CHASE画像が存在すれば左岩肌・道路・右港・地平線の画面全体を直接開いて評価し、TECH PASSでもART REJECTなら正式候補にしない。
+
+---
+
 # 【2026-11-05 K4CE最終：真正Blender同CHASE構図改善TECH PASS／画像直接ART REJECT・独立ZIP/SHA完全照合】
 
 **現行研究正本** `research/k4ce-coherent-berth-ferry-foreground-20261105`。真の最終結論は[**K4CE独立レンダリング・失敗/修正・直接ART REJECT・保護・下一工程**](docs/R19_A6P4_R2F5K4CE_BERTH_FERRY_COMPOSITION_ART_HOLD_JA.md)。[K4CD対K4CE本物の同CHASE比較画像](docs/research-evidence/k4ce/K4CE_K4CD_TRUE_SAME_CHASE_FOREGROUND_BERTH_ART_REVIEW_NOT_GAME.png)と[GitHub研究証拠監査JSON](docs/research-evidence/k4ce/K4CE_REAL_NATIVE_AUDIT.json)を開く。以下「K4CE実行中」は当時の履歴。
