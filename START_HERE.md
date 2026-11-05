@@ -1,3 +1,16 @@
+# 【2026-11-05 K4CH最終：真正Blenderの沿岸断面＋港大屋根の同時作者改修／SOURCE・DCC・PNG・CRC TECH PASS／直接ART REJECT】
+
+**現在の研究正本**：`research/k4ch-basalt-copper-harbor-art-20261105`。まず[**K4CH実完了・初回からの全安全停止根拠・独立Blender証拠・直接ART REJECT・次のレース体験の景観構図工程**](docs/R19_A6P4_R2F5K4CH_NATIVE_BASALT_COPPER_ART_JA.md)を読む。次に[**K4CG R2 vs K4CH元CHASE真正Blender比較**](docs/research-evidence/k4ch/K4CH_VS_K4CG_R2_TRUE_CHASE_FULL_HARBOR_ART_REVIEW_NOT_GAME.png)を直接開き、研究監査JSON `docs/research-evidence/k4ch/K4CH_REAL_NATIVE_AUDIT.json` を照合する。下段の「実行中」「未判定」は過去時点の記録。
+
+- **最終[Actions #41957682964](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41957682964) completed/SUCCESS（全12工程）**。真正親.blend `K4CG_INTEGRATED_COASTAL_WORLD_GEOMETRY_EDITABLE_ART_HOLD.blend` SHA256 `5a2215677fd41c420bac3b44b78b65b0e42aa74b79399498a87a57b7b85946f1`を厳密照合し、実Blender4.0.2でK4CH研究7編集可能メッシュ制作、原CHASE768×480の本物のレンダー、新旧独立画像QA、証拠の隔離研究枝コミットまで成功。左岩壁の研究形状4900頂点変形／1539実角面、右**本当にCHASEに映るK4CB A2研究大屋根**858頂点再成形、元12支柱に基づく木構造、海面・沖合低地を統合。元Game／Physics／Road5／元6Camera・研究CHASE／木11／灯光／既存メッシュ頂点・行列は変更なし、研究親メッシュだけレンダリング表示切替、新Game Collider0。
+- **真GitHub Artifact [#13383802521](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41957682964/artifacts/13383802521)** ZIP125,763,699B SHA256 `7a120c628df92f35096186bb5bf056c66f23f22406dd7ccf1a001b01dc89de52`。本会話で独立再DLし**ZIP全CRC・各.blend/PNG bytes/SHA一致PASS**。真編集可能.blend279,347,364B SHA256 `74dadf53327e7fff0fd3b57a9b9ff369371e2c0fffa43241eb27bee1ca19cace`、真正PNG SHA256 `23351704fd5d13e1d537fa0a311dce4fa120dda0ffd3fe3515320075fd165b69`。元Road5中央ピクセル変化0、左岩壁40,181px、右建築6,863px実表示変更。数値は可視TECHだけで**ARTスコアではない**。
+- **直接同CHASE画像比較から正式ART REJECT**。銅系屋根は以前より実画面で読み取れるが、左は丸く灰色砂丘のようで節理・岩の垂直構造が弱い。右の施設の意味やフェリー／海とのつながりも模型感が残り、前景の巨大な灰色Road5が支配的。レーシングの速度・奥行きが十分見えない。研究TECH成功を作品完成と偽らず、**正式ART採用0件／Slope2 DNA認定0m**を不変にする。実WebGL2ゲームと人間プレイ・SAT・CCD・FPS・RELEASE・MERGEはHOLD。
+- **一連の失敗を継承し不要な反復禁止**：初回[#41950843684](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41950843684) Ubuntu Azure apt timeout、次[#41951907166](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41951907166) Blender名63バイト短縮、[#41952195139](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41952195139) bpy_prop_collectionのスライス、[#41952601548](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41952601548) 本物の画像で右建築2,134pxしか変わらず独立QA停止、[#41953338664](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41953338664) 真レイで見える研究大屋根はK4CB A2と判明して研究ホワイトリスト安全停止、最後の独立SUCCESSへ。停止した試行をTECH PASS扱いせず、成功済みの真正Blender作品を親として今後に引き継ぐ。
+- **次のART作者工程**：同じ地質シェーダー色・屋根色の微修正や無関係な模型の追加を続けず、**道路が中心に大きく見える凍結CHASEの条件下で、走行方向に沿う実大地形の断面・リズム・遠景ランドマークと右港の生活目的／水際／船が一体として理解できる全画面3D世界**を作者主導で大幅再構成する。Road5/Camera/元原作の破壊は禁止、技術CI数だけを増やすことは禁止。
+- **永久保護**：Game blob `af076d67492a677d2235e4730aef8cdf4808e106`、Road5 SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、元Slope、main、公式P101 `p101-velocity-overdrive-native-trial`、Draft PR#46、凍結Gold、本番2サイト、元ゲーム物理・道路・カメラ。追加有料API原則0円、Work/Computer Useは個別事前承認、ユーザー操作最小。
+
+---
+
 # 【2026-11-05 K4CH：源流・Camera不変の一体的な沿岸岩壁＋渡船ターミナル再設計／真正Blender未判定】
 
 **現行研究正本ブランチ**：`research/k4ch-basalt-copper-harbor-art-20261105`。最初に[**K4CHの本格的な可視全画面アート作者制作／試験・前回環境失敗・永久保護の全記録**](docs/R19_A6P4_R2F5K4CH_NATIVE_BASALT_COPPER_ART_JA.md)を読む。下段「K4CG最新」は過去の履歴。
