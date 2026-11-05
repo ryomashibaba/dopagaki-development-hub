@@ -210,8 +210,8 @@ def flat_mat(label,rgb,roughness=.53):
  return m
 
 asphalt=track_material("A authentic dark graphite asphalt flow-aligned aggregate",
- [(.09,(.047,.050,.053)),(.31,(.085,.095,.101)),(.51,(.126,.134,.138)),
-  (.73,(.166,.17,.171)),(.91,(.205,.204,.198))],2.4,.135,.87)
+ [(.09,(.025,.027,.029)),(.31,(.044,.049,.053)),(.51,(.066,.073,.077)),
+  (.73,(.093,.099,.102)),(.91,(.122,.121,.118))],2.4,.135,.87)
 shoulder=track_material("A rough aggregate stone shoulder distinct from racing asphalt",
  [(.10,(.115,.125,.118)),(.33,(.19,.19,.175)),(.54,(.27,.26,.23)),
   (.76,(.34,.33,.28))],3.2,.20,.95)
