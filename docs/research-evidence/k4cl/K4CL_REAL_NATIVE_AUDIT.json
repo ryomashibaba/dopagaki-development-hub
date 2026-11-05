@@ -1,0 +1,76 @@
+{
+  "schema": "dopagaki.k4cl.native-source-locked-road-skin-two-material-directions-v1",
+  "parentK4CKExactSHA256": "80eff12f48b2913d8f700d14f7d84ba86b10dd7ea622033f61fbe51859271330",
+  "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "originalRoad5FullVertexFaceSHA256": "f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2",
+  "originalSixCameraPosesUnchanged": true,
+  "originalCHASEUnchanged": true,
+  "originalElevenTreeTransformsUnchanged": true,
+  "originalLightsUnchanged": true,
+  "allOriginalSourceAndParentResearchMeshPositionsUnchanged": true,
+  "actualSourceRoad5ImportOriginalRenderStateUnchanged": true,
+  "originalResearchOnlyVisibilitySwaps": [
+    "K4BQ / physically variegated 26m curved material research test",
+    "K4CK | A one continuous low cast maritime retaining parapet wit",
+    "K4CK | direction A genuinely contiguous eroded coastal cross-se",
+    "K4CK | direction B genuinely contiguous eroded coastal cross-se"
+  ],
+  "sourceRoad5GameEdited": false,
+  "sourcePhysicsEdited": false,
+  "newGameColliders": 0,
+  "newResearchEditableMeshObjects": 4,
+  "bothRoadSkinClonesIdenticalToOldStudyRoadGeometry": true,
+  "originalK4BQVisibleStudyRoadGeometrySHA256": "6e5241e0b519f40d62cffe43771accf98510c54b87519ca0c3d01199f2840f38",
+  "twoNativeWorldSpacePaintMeshes": true,
+  "researchAArtDirectionGeologyRendered": true,
+  "ARealReflectorQuads": 46,
+  "BRealMarkingQuads": 26,
+  "actualRoadVisualAreaMetersSourceWidth": 26.3,
+  "nativeTrueCHASE768x480": true,
+  "renderEngine": "BLENDER_EEVEE",
+  "ART": "UNJUDGED_HOLD",
+  "formalARTAccepted": 0,
+  "formalSlope2DNAMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "files": {
+    "K4CL_TRUE_EDITABLE_DUAL_PHYSICAL_PAVEMENT_STUDIES_ART_HOLD.blend": {
+      "bytes": 282087560,
+      "sha256": "2b5288333b3b633649aefd349fbdc79837775719a6175eba23d72dbdbada7da1"
+    },
+    "K4CL_A_TRUE_CHASE_GRAPHITE_RACING_ASPHALT_NOT_GAME.png": {
+      "bytes": 516206,
+      "sha256": "ef65ca08caded92e7ed0fcb824341438e7082ce7427e74f1ff2b5ac4cb693d1b"
+    },
+    "K4CL_B_TRUE_CHASE_MINERAL_HIGHWAY_ROAD_NOT_GAME.png": {
+      "bytes": 512933,
+      "sha256": "477fc7d06cdc2c2e386cc6b772f1646c07dba84d22e5fa6f4e98134199cc15db"
+    }
+  },
+  "independentTrueRoadVisualAuthoringQA": {
+    "variants": {
+      "A": {
+        "intendedRoadAppearancePixelsChangedNotArtScore": 33097,
+        "protectedLeftGeologyChangedPixels": 0,
+        "protectedPortChangedPixels": 0,
+        "originalRoadGeometryAndGameUnchanged": true
+      },
+      "B": {
+        "intendedRoadAppearancePixelsChangedNotArtScore": 33101,
+        "protectedLeftGeologyChangedPixels": 0,
+        "protectedPortChangedPixels": 0,
+        "originalRoadGeometryAndGameUnchanged": true
+      }
+    },
+    "A_vs_B_roadVisibleChangedPixelsNotArtScore": 36489,
+    "comparisonName": "K4CL_K4CK_TRUE_CHASE_ROAD_SURFACE_A_B_COMPARISON.png",
+    "comparisonSHA256": "03918af03a1547cb404bb8f4aedbc1eb057ac5c78d87af04149f7b2e9221bb32",
+    "deliberateRoadPixelChangeAllowedOnlyForNonCollisionResearchSkin": true,
+    "originalRoad5ShapeAndPhysicsFrozen": true,
+    "ART": "UNJUDGED_HOLD"
+  }
+}
