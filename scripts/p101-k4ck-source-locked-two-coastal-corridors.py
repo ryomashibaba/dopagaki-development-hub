@@ -184,7 +184,7 @@ coping=mat("A hard basalt weathered capstone",
 # previous wrong triangular windbreak. Never erase or mutate it.
 find_prefixes=(
  "K4CJ | single true world-roadcut coastal rock section",
- "K4CJ | one linked marine windbreak and geological buttress rhythm"
+ "K4CJ | one linked marine windbreak"
 )
 old=[]
 def fingerprint(o):
