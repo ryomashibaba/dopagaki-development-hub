@@ -1,0 +1,171 @@
+name: DOPAGAKI K4CN true coastal canyon and working-port native ART HOLD
+on:
+  push:
+    branches: [research/k4cn-source-locked-coastal-canyon-port-20261105]
+    paths:
+      - scripts/p101-k4cn-native-coastal-canyon-working-port.py
+      - .github/workflows/p101-k4cn-source-locked-coastal-canyon-harbor-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4cn-genuine-native-art
+  cancel-in-progress: true
+jobs:
+  native-k4cn-source-frozen:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect actual original Game and validate authored Python
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cn-source-locked-coastal-canyon-port-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4cn-native-coastal-canyon-working-port.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download true editable K4CM native 3D, never substitute a proxy
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CM_TRUE_INTEGRATED_COAST_AND_PORT_EDITABLE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41991682479
+          github-token: ${{ github.token }}
+          path: research/evidence/k4cn/parent
+      - name: Reauthenticate strict K4CM SHA parent and frozen original Road5
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          d=Path('research/evidence/k4cn/parent')
+          a=json.loads((d/'K4CM_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged','originalElevenTreeTransformsUnchanged',
+                    'originalLightsUnchanged','allInheritedGeometryAndTransformsUnchanged',
+                    'originalK4CLResearchPavementGeometryIdentical','originalHarborPassengerFerrySupportGeometryIdentical'):
+              assert a[k],k
+          assert not a['sourceGameEdited'] and not a['sourcePhysicsEdited']
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          for name,meta in a['files'].items():
+              p=d/name
+              assert p.stat().st_size==meta['bytes'],name
+              h=hashlib.sha256()
+              with p.open('rb') as f:
+                  for block in iter(lambda:f.read(1048576),b''):h.update(block)
+              assert h.hexdigest()==meta['sha256'],name
+          assert a['files']['K4CM_TRUE_INTEGRATED_COAST_DRIVE_AND_PORT_EDITABLE_ART_HOLD.blend']['sha256']=='273c6ab1ec334ff8b2524c43c611da43831aaef3374056f3ab02352e3e914aab'
+          print('K4CN_GENUINE_NATIVE_PARENT_ALL_SHA_PASS')
+          PY
+      - name: Install genuine Blender from official Ubuntu archive instead of stalled Azure mirror
+        timeout-minutes: 18
+        run: |
+          set -euo pipefail
+          # Actual hosted runner failure #41950843684: Azure mirror took over 6m
+          # for the first 35.9MB blender-data, then apt timeout 124.
+          # Fix package transport only, never source, geometry, camera or road.
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|g; s|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/apt-mirrors.txt
+          fi
+          echo 'K4CN_OFFICIAL_UBUNTU_PACKAGE_SOURCE'
+          if ! sudo timeout --signal=TERM --kill-after=10s 120s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq; then
+            echo 'K4CN_OFFICIAL_MIRROR_UPDATE_FAILED_USING_SIGNED_RUNNER_INDEX'
+          fi
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 900s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          command -v blender
+          blender -b -noaudio --factory-startup --python-expr "import bpy; print('K4CN_REAL_BLENDER_VERSION', bpy.app.version_string)"
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+          /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
+      - name: Actually render true protected K4CN 3D coastal landscape and port
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4cn/render
+          xvfb-run -a -s '-screen 0 1280x900x24' env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4cn-native-coastal-canyon-working-port.py -- --base research/evidence/k4cn/parent/K4CM_TRUE_INTEGRATED_COAST_DRIVE_AND_PORT_EDITABLE_ART_HOLD.blend --out research/evidence/k4cn/render 2>&1 | tee research/evidence/k4cn/render/K4CN_REAL_BLENDER.log
+      - name: Independent real SOURCE camera protection and large composition evidence
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageChops,ImageDraw
+          d=Path('research/evidence/k4cn/render')
+          a=json.loads((d/'K4CN_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CMExactSHA256']=='273c6ab1ec334ff8b2524c43c611da43831aaef3374056f3ab02352e3e914aab'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged','originalElevenTreeTransformsUnchanged',
+                    'originalLightsUnchanged','allInheritedMeshGeometryAndTransformsUnchanged',
+                    'oldResearchScarpAndQuayHiddenOnly','originalFerryPassengerWalkwayUnchanged'):
+              assert a[k],k
+          assert not a['sourceGameEdited'] and not a['sourcePhysicsEdited']
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['newNativeEditableResearchMeshes']==3
+          assert a['newTrueFaultVertices']>=1500 and a['sourceTrueCoastalFoldAdditionalMaxMetres']>13
+          assert a['newWorkingQuayVertices']>=700 and a['newMaritimeMegaterminalVertices']>1000
+          assert a['newMaritimeMegaterminalFaces']>800
+          assert a['ART']=='UNJUDGED_HOLD' and a['renderEngine']=='BLENDER_EEVEE'
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          old=Image.open('research/evidence/k4cn/parent/K4CM_TRUE_SOURCE_CHASE_FOLDED_ROCKCUT_AND_PORT_ACCESS_NOT_GAME.png').convert('RGB')
+          new=Image.open(d/'K4CN_TRUE_SOURCE_CHASE_REAL_COASTAL_CANYON_WORKING_PORT_NOT_GAME.png').convert('RGB')
+          assert old.size==new.size==(768,480)
+          diff=ImageChops.difference(old,new)
+          def count(region,threshold=15):
+              return sum(max(p)>threshold for p in diff.crop(region).getdata())
+          left=count((8,148,285,466))
+          right=count((510,184,768,448))
+          road=count((329,270,476,466),13)
+          assert left>8000,('AUTHENTIC_LARGE_CLIFF_NOT_VISIBLE',left)
+          assert right>2400,('AUTHENTIC_WORKING_PORT_NOT_VISIBLE',right)
+          assert left+right>20000,('ONLY_TRIVIAL_IMAGE_CHANGE',left,right)
+          assert road<120,('ORIGINAL_ROAD_SOURCE_VIEW_OBSTRUCTED',road)
+          for pt in ((390,270),(400,320),(380,380),(420,440),(470,465)):
+              p=old.getpixel(pt);q=new.getpixel(pt)
+              assert max(abs(p[k]-q[k]) for k in range(3))<=10,('FROZEN_SOURCE_ROAD_PIXEL_CHANGED',pt,p,q)
+          comp=Image.new('RGB',(1560,554),(15,19,23))
+          comp.paste(old,(12,50));comp.paste(new,(780,50))
+          painter=ImageDraw.Draw(comp)
+          painter.text((12,20),'K4CM original source road + coastal environment | ART REJECT',fill='white')
+          painter.text((780,20),'K4CN native 3D canyon + substantial working port | ART UNJUDGED',fill='white')
+          painter.text((12,537),'Genuine Blender research only. NOT official game integration, human gameplay, or ART approval.',fill='white')
+          name='K4CN_VS_K4CM_TRUE_SOURCE_CHASE_WHOLEFRAME_ART_REVIEW.png'
+          comp.save(d/name)
+          a['independentSameTrueChaseImageQA']={
+              'leftChangedPixelsNotArtScore':left,'rightChangedPixelsNotArtScore':right,
+              'sourceRoadCentreChangedPixels':road,
+              'comparisonName':name,'comparisonSHA256':hashlib.sha256((d/name).read_bytes()).hexdigest(),
+              'ART':'UNJUDGED_HOLD'}
+          (d/'K4CN_REAL_NATIVE_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n')
+          print('K4CN_NATIVE_TECH_GATES_PASS_ART_STILL_HOLD',left,right,road)
+          PY
+      - name: Save actual independent research evidence, not protected game content
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cn-source-locked-coastal-canyon-port-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4cn
+          cp research/evidence/k4cn/render/*.png docs/research-evidence/k4cn/
+          cp research/evidence/k4cn/render/*.json docs/research-evidence/k4cn/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4cn
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4cn): native protected source Blender full-view study"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4cn-source-locked-coastal-canyon-port-20261105
+          fi
+      - name: Preserve real Blender scene and logs even if independent QA holds
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CN_TRUE_COASTAL_CANYON_WORKING_PORT_EDITABLE_ART_HOLD
+          path: research/evidence/k4cn/render/
+          if-no-files-found: warn
+          retention-days: 21
