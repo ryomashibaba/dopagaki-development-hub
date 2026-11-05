@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CM実制作中：元Road5固定の海岸褶曲＋港アクセス＋可視主要港建築のART-FIRST修正】
+
+**現在の研究ブランチ**：`research/k4cm-integrated-coastal-road-port-20261105`。まず[**K4CM本物の作者造形・初回Blender可視失敗の原因・R2修正・永久保護・暫定状態**](docs/R19_A6P4_R2F5K4CM_INTEGRATED_COAST_PORT_ART_JA.md)を読む。以下の「K4CL最新」は過去の正本であり、今の研究工程を上書きしない。
+
+- **父研究原本**はK4CLの真正Blender [Actions #41985567281](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41985567281) 成功の編集可能 `K4CL_TRUE_EDITABLE_DUAL_PHYSICAL_PAVEMENT_STUDIES_ART_HOLD.blend` SHA256 `2b5288333b3b633649aefd349fbdc79837775719a6175eba23d72dbdbada7da1`。K4CL Aの暗色アスファルト、K4CK Aの沿岸岩盤、K4CI実港施設がSOURCE/研究の固定基準。単純な舗装・岩の色替え・小物量産は禁止。
+- **K4CM R1実Blender [Actions #41989715487](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41989715487)は独立画像QAでFAIL**。実Blenderは左本物の褶曲岩盤1600頂点／右200m連続土木737頂点と既存実フェリー支柱に接続する18.100m歩道452頂点を作者制作して.blendと元CHASE PNGを保存。しかし初回画像を直接開き、**左23,364px改善に対し右港変化が85pxしかなく、右港への通路が元建築の背後に隠れていた**ため、固定の右港2400px可視ゲートで安全停止。元Game/Road5/物理/Cameras保護PASSであり、ソース破損ではない。初回実Artifact [#13397299387](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41989715487/artifacts/13397299387) ZIP CRC確認済だが、**工程全体のTECH PASSやART合格として扱わない**。
+- **R2で主要可視研究アートを実修正**。右港の元K4CI巨大荷役ガントリーとK4CHフェリー主屋根を、元研究Blender原本の全メッシュ頂点・位置・行列を保護しつつ、研究内の別編集可能コピーで**実構造を再成形し落ち着いた金属材・スケール感へ一体化**。左岩・既存フェリー接続やK4CL A暗舗装は保持。合計5編集可能な新研究Mesh。右港の独立可視最低基準2400pxや元道路中央の保護検査を一切緩めていない。
+- **最新再検証 [Actions #41990838846](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41990838846) はこの記録作成時点で実行中**。最終状態、実Blender log、独立画像QA、Artifact、実PNG直接ART審査を完了する前にTECH/ART PASSと言わない。直前のrun #41990795105は旧HEADにつき最新判定禁止。元Game git blob `af076d67492a677d2235e4730aef8cdf4808e106`／元Road5頂点面SHA256 `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`・元6Camera/CHASE・木11・全ライト・ゲーム物理/Collider保護。研究追加Collider0。
+- **永久に変えないこと**：正式ART採用0件／Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。main、公式P101 `p101-velocity-overdrive-native-trial`、Draft PR#46、原作Slope/凍結Gold、本番2サイトは変更禁止。追加有料API原則0円、Work/Computer Use開始は個別事前承認、ユーザー操作0。ART品質そのものを重視し、可視画素やテスト成功だけを作品完成と偽らない。
+
+---
+
 # 【2026-11-05 K4CL最終：本物の道路舗装2方向／真正Blender・独立ZIP/SHA TECH PASS／直接ART REJECT】
 
 **現行の正本研究ブランチ**：`research/k4cl-true-road-surface-speed-art-20261105`。次に再開する場合、最初に[**K4CLの完成した研究舗装A/Bの真Blender・初回/2回目の安全停止・原因修正・独立CRC/SHA・直接ART評価・次工程方針**](docs/R19_A6P4_R2F5K4CL_ROAD_SURFACE_SPEED_ART_JA.md)を読む。次に[**旧K4CK A（左）／K4CL実A（中央）／K4CL実B（右）の真正同CHASE比較画像**](docs/research-evidence/k4cl/K4CL_K4CK_TRUE_CHASE_ROAD_SURFACE_A_B_COMPARISON.png)および[**K4CL_REAL_NATIVE_AUDIT.json**](docs/research-evidence/k4cl/K4CL_REAL_NATIVE_AUDIT.json)を直接読む。下段のK4CL「queued」「未判定」やK4CK「最新」は過去の記録。
