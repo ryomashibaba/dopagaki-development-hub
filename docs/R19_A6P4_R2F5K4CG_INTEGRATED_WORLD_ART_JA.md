@@ -1,3 +1,23 @@
+# 【2026-11-05 K4CG R2最終：真正統合Blender DCC・独立ZIP/CRC/SHA PASS、直接画像ART REJECT】
+
+**確定判定：K4CG R1/R2ともソース保護・真正Blender・レンダリング・独立証拠TECH PASS、全画面ART REJECT。正式ART採用0件・Slope2 DNA認定0m。元ゲームWebGL2実装・人間プレイ・FPS・SAT・CCD・MERGE・公開は未実施/HOLD。**
+
+## R2実制作と独立検証
+
+- 完成した最終研究[**GitHub Actions #41942878730**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41942878730) は**completed/SUCCESS（全手順PASS）**。中間[#41942840961](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41942840961)はWorkflow編集によりキャンセルであり成功扱い禁止。親K4CF R2真正.blend SHA256 `1a17dc522b4d7df85c92023df5b580f1e5fe155b27264dfcb9d7a511d99d8533`を固定し、新研究作家DCCのみ変更。
+- **初回R1では新旧比較の左岩肌変更が1,860画素しかなく、元K4BQ研究地形が新岩面を遮っていた。** R2では元K4BQ研究下地を非破壊に複製し、実526頂点を浅く変形してマテリアルを統一。元K4CD研究海面も原本保存の研究複製へ置き換え、沖合の外洋3Dメッシュと接続した。遠くに見える岬を同じ海上の実世界座標へ配置し直し、画面投影x=.561664〜.81425、y=.474252〜.656241の1127頂点の岩場を生成。外洋3053頂点、研究編集可能メッシュ計5件。**元Game/道路/Camera/物理/木11/照明・旧岩などのジオメトリ不変、表示切替は研究コピー元だけ**、Collider追加0。
+- [**GitHub Artifact #13377510776**](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41942878730/artifacts/13377510776) ZIP **125,032,903B**, SHA256 `33dd91b49067b2832fded8c9e7f438f836ce36edf516ae8c68e1ff711e4d5cc9`。本会話で原ZIPを独立ダウンロードし、**全ZIP CRC PASS・監査JSON内.blend/PNGの実バイト数と各SHA256全件一致**を検算。真正編集可能Blender原本 `K4CG_INTEGRATED_COASTAL_WORLD_GEOMETRY_EDITABLE_ART_HOLD.blend` **277,556,784B**、SHA256 `5a2215677fd41c420bac3b44b78b65b0e42aa74b79399498a87a57b7b85946f1`。真正CHASE画像SHA256 `d96411f4dc77fbb67d2b8eeea2037dfe49de7a5c0a79d5ed80127c999f1aa9f6`、比較PNG SHA256 `b0fb67c1f8163973d9b8152cd3e15587d8a524a13fdd9a739eb30265416ac52a`。
+- [**K4CG R2対K4CF R2の真正同CHASE比較PNG**](research-evidence/k4cg/K4CG_VS_K4CF_R2_TRUE_CHASE_INTEGRATED_WORLD_ART_REVIEW.png)を実際に直接開いた。左岩肌3,733画素・海遠景1,785画素・港1,142画素に可視差があるが、元Road5保護画面差0。**実際の全画面では左の白く柔らかい砂丘/雪山感が残り、岬は屋根の後ろで尖った1～2個の小岩にしか見えない。** 海と港の使用目的・スケール・地平線・速度感も依然として成立しない。初回からの改善幅は美術採用基準に達せず、**R2もART REJECT**。可視画素数はTECHの変化指標でARTの点数ではない。
+- 真正Blender4.0.2 EEVEEの同一768×480 CHASE研究画像である。Source original WebGL2/実走行映像ではなく、元ゲームの実安全・SAT/CCD/240Hz/HUMAN/FPSや正式美術認定を試験したものではない。
+
+## 失敗への明確な反省／次工程への固定条件
+
+R1/R2で「**新研究オブジェクトの個数・頂点数・実マテリアル・見えているピクセル差は確実に増えたが、画面に支配的な道路・左地形・右港が構図として良くならなかった**」ことが明確になった。これ以降、同じ遠景を増殖させる、地形の色だけを少し変える、微細なプロップを敷く、CI技術合格件数だけを増やす工程は主経路から外す。
+
+次は**源流の道路/Cameraを凍結したまま研究DCCの可視主要空間を統合的に作者が根本再設計する単一の大きな工程**を選ぶ。具体的には左実崖の断面形状とその道路肩への接続、右港の岸壁・海面・建物の実際の用途の見える関係、中心遠景の地理と走行時の速度感を、原CHASE実画面の最終構図から逆算して制作・真正Blender評価する。調整するのは研究専用メッシュに限り、元ROAD5・物理・6 Camera/CHASE・原作SOURCE・本番サイトを変更しない。正式採用0件／Slope2 DNA0mを続行する。Work/Computer Use個別承認・追加課金0円・ユーザー操作最小。
+
+---
+
 # K4CG — 沿岸世界全画面の作者景観、真正Blender、直接ART審査（2026-11-05 JST）
 
 **正式ART採用0件／Slope2 DNA認定0mを維持。** SOURCE/GAME、正式P101、Draft PR #46、main、原作Slope、本番2サイトを変更しない。
