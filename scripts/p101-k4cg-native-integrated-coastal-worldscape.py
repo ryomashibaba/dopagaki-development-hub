@@ -166,6 +166,47 @@ for poly in rock.data.polygons:
   flatcount+=1
 coast.hide_render=True
 assert not rock.hide_render and fingerprint(coast)==coast_original_sha
+# The first K4CG native render showed only ~1,860 changed left pixels:
+# parent K4BQ source-research backing remained the bright white surface
+# ahead of the R2 rock. Correct the *visible* world geography rather than
+# adding invisible distant objects or relaxing the camera/road gate.
+backing=bpy.data.objects.get("K4BQ / EAST_SLOPING_HILLSIDE authored subdivided eroded native ")
+assert backing and backing.type=="MESH" and backing not in roads and not backing.hide_render
+assert len(backing.data.vertices)>1000 and backing not in (coast,rock,sea)
+backing_sha=fingerprint(backing)
+backing_study=backing.copy()
+backing_study.data=backing.data.copy()
+backing_study.name="K4CG | true muted mineral ground underlying the entire visible coastal slope"
+coll.objects.link(backing_study);created.append(backing_study)
+backing_study["DCC_RESEARCH_ONLY"]=True;backing_study["NOT_GAME_COLLIDER"]=True
+backing_study["REAL_WORLDSCAPE_FUNCTION"]="CONTINUOUS_VISIBLE_LEFT_COAST_BEDROCK"
+backing_study.data.materials.clear();backing_study.data.materials.append(natural)
+# A small real 3D erosional correction, kept on the visible slope and clear
+# of the original roadway. The parent mesh is not edited or deleted.
+inv=backing_study.matrix_world.inverted_safe()
+moved_backing=0
+for v in backing_study.data.vertices:
+ p=backing_study.matrix_world@v.co
+ screen=project(p)
+ if screen[2]<=0 or not (.025<screen[0]<.30 and .16<screen[1]<.80):continue
+ fault=.38*math.sin(p.x*.19+p.y*.11)+.16*math.sin(p.x*.40-p.y*.23)
+ shallow=.22*math.exp(-((screen[0]-.225)/.05)**2)
+ dz=fault-shallow
+ v.co=inv@(p+Vector((0,0,dz)))
+ moved_backing+=1
+backing_study.data.update()
+assert moved_backing>50 and fingerprint(backing)==backing_sha
+backing.hide_render=True
+# The native harbor sea was already physically constructed: preserve its
+# real mesh but unify the color/microfacets with the larger offshore ocean.
+sea_study=sea.copy();sea_study.data=sea.data.copy()
+sea_study.name="K4CG | restored natural deep blue harbor basin connected to the open sea"
+coll.objects.link(sea_study);created.append(sea_study)
+sea_study["DCC_RESEARCH_ONLY"]=True;sea_study["NOT_GAME_COLLIDER"]=True
+sea_study["REAL_WORLDSCAPE_FUNCTION"]="COHERENT_ACTUAL_HARBOR_WATERLEVEL"
+sea_study.data.materials.clear();sea_study.data.materials.append(watermat)
+sea.hide_render=True
+assert fingerprint(sea)==sea_original_sha and not sea_study.hide_render
 # Distant sea-facing capes: genuine 3D raised rock above *the same existing*
 # parent maritime water level. Their position is selected using 3D world
 # locations and the frozen source camera, not generated in pixel space.
@@ -210,7 +251,7 @@ for u0 in (120,170,240,320,420,520,680):
     span=(xmax-xmin)*(ymax-ymin)
     if span<.004 or span>.16:continue
     cx=(xmin+xmax)/2;cy=(ymin+ymax)/2
-    score=abs(cx-.805)*2+abs(cy-.637)+abs(span-.038)*1.7 + .0001*u0
+    score=abs(cx-.685)*2.6+abs(cy-.638)+abs(span-.055)*1.4 + .00010*u0
     options.append((score,u0,t0,h,wid,verts,(xmin,ymin,xmax,ymax)))
 assert options,("K4CG_NO_GENUINE_OFFSHORE_ISLAND_OUTSIDE_ROAD_FOCAL_ZONE",
                 "seaLevel",sealevel,"sourceForward",tuple(F))
@@ -234,7 +275,7 @@ extended=addmesh("actual 3D world-scale connected offshore tidal water",
                  sea_v,faces(su,sv),watermat,
                  "REAL_COAST_TO_OFFSHORE_OCEAN_LEVEL_CONTINUITY",False)
 # Geometric authoring is technically honest: no flat world-aligned billboard.
-assert len(created)==3 and all(ob.get("NOT_GAME_COLLIDER") is True for ob in created)
+assert len(created)==5 and all(ob.get("NOT_GAME_COLLIDER") is True for ob in created)
 assert original[coast.name][0] is False and coast.hide_render
 assert fingerprint(coast)==coast_original_sha and fingerprint(sea)==sea_original_sha
 assert poses()==locked_poses
@@ -244,7 +285,7 @@ assert {o.name:tuple(tuple(row) for row in o.matrix_world) for o in trees}==tree
 assert {o.name:(bool(o.hide_render),float(o.data.energy)) for o in bpy.data.objects if o.type=="LIGHT"}==lights
 for name,state in original.items():
  obj=bpy.data.objects[name]
- if obj is coast:
+ if obj is coast or obj is backing or obj is sea:
   assert obj.hide_render and not state[0]
   assert (bool(obj.hide_viewport),tuple(tuple(row) for row in obj.matrix_world),
           len(obj.data.vertices))==state[1:]
@@ -274,6 +315,9 @@ audit={
  "parentResearchCliffHiddenOnlyInStudy":coast.name,
  "originalResearchCoastMeshFingerprint":coast_original_sha,
  "originalMaritimeSeaMeshFingerprint":sea_original_sha,
+ "originalResearchBackingMeshFingerprint":backing_sha,
+ "trueVisibleOriginalBackingAlteredVerticesInClone":moved_backing,
+ "nonDestructiveResearchBackdropAndHarborOnlyHidden":True,
  "K4BZ_bad_duplicate_road_hidden":True,
  "sourceGameEdited":False,"sourcePhysicsEdited":False,"newGameColliders":0,
  "genuineResearchEditableNewObjectCount":len(created),
