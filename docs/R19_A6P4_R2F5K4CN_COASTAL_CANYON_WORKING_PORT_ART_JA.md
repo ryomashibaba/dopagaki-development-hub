@@ -1,3 +1,14 @@
+# K4CN R2 完了確定 — 真正Blender TECH PASS／直接ART REJECT（2026-11-05）
+
+- **最新正式研究HEADはその都度再照合**。R2作者修正 c2c626c99f16c8754e170d530577070fab88e139、真正Actions [#42003004167](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42003004167) は **completed/SUCCESS**。実際のBlender4.0.2 EEVEE、真正固定CHASE 768×480、親K4CM編集可能.blend固定SHAを使用。独立SOURCE回帰・実画像比較QAともSUCCESS。ただしこれはART合格でもWebGL2/人間実走行の検証でもない。
+- **真正Artifact #13403680959の独立再取得確認**：ZIP **127,216,248B**／SHA256 **a606c4ad9be7716c9a8eb6cb11f43ecbd8d535614d056e22980885eec485448c**。再ダウンロードZIP全CRC PASS。個別の真編集可能.blend **283,623,560B**／SHA256 **f66531d8596e67a19f4c6f2debcf2521efbae54d9fc5ac911f94963dd6a45156**、真正CHASE PNG **504,228B**／SHA256 **6d12e33d530fb58789ad47637b55ab80d04c5f6f72c036453e6212292bdde160** のbyte/hash一致PASS。
+- **造形実績**：元K4CMから非破壊コピーした左研究岩1600頂点、連続右岸壁737頂点、港の可編集研究メガターミナル**1384頂点／1074面**。左断層稜線の最大追加起伏17.444m。元Camera、元Game git blob af076d67492a677d2235e4730aef8cdf4808e106、元Road5全頂点面SHA256 f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2、木11・灯光・既存研究親の全Mesh/Transformは保存。新ゲームCollider0。元港の接続歩道不変。
+- **同CHASEでのK4CMとの差分**：左**17,532px**／右港**11,562px**／道路中央**24px**（独立閾値120px未満）で可視TECH成立。R1→R2独立差分は左**10,161px**／右**11,456px**／中央道路**0px**（同画面内ROI maxRGB差15超による計測）。これらはART点数ではない。
+- **真正画像を直接開いた独立美術判断：ART REJECT**。R1より右港の大型構造を視界内へ取り込み、左も稜線の起伏と断層を明確にした。しかし左の輪郭は鋭角の繰り返し・尖塔状で自然侵食の巨大岩盤らしくない。右は大きな機械的プラットフォームと屋根が上端・右端で切れ、実際に使われる港湾都市や水際との意味ある全体構成不足。道幅と真っすぐな単調前景によってレース高速感・道路の目的も伝わらない。**現構図の反復微調整は停止**。元のSOURCE Road5/Cameraを保護したまま、次はストーリーのある一体的景観/ゲーム体験の方向を改めて選ぶ（ただし既存確定方針は変更しない）。
+- **固定ゲート**：正式ART採用**0件**、正式Slope2 DNA認定**0m**。HUMAN/SAT/CCD/FPS/RELEASE/MERGEは全HOLD。main・元Road5・元物理/カメラ・原Slope・Gold・公式P101・Draft PR #46・本番2サイト未変更。Work/Computer Use・追加課金・正式統合・公開は個別事前承認。
+
+---
+
 ## 【2026-11-05 K4CN R1独立実証・直接ART REJECT／R2作者修正】
 - R1真正Actions [#42000172721](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42000172721) completed/SUCCESS。SHA固定のK4CM編集可能親.blendから真正Blender4.0.2で新研究Mesh3件を生成し、ゲーム原Game/Road5/6Camera/CHASE/木11/光源/240Hz物理の保護検証に成功。元Game Collider追加0。**TECHのみ成功、正式ART採用0件／DNA0m**。
 - R1真正Artifact #13402321747を本チャットで別途再取得：ZIP **127,226,891B**、SHA256 **cf7cf8cdd005d705a86d06d35aca5e2e5b293cbe1c7dfa72c9e706ea7076435a**、全ZIP CRC PASS、個別.blend（283,606,796B、SHA256 **766b34c1a947915648d16d4ddacf54a84557607114964f63152c1c32ac3bd5e1**）とPNG（504,217B、SHA256 **1541f656d065d660b6ef0a74d61660ca4cae4f81b262f2f6846abf4fb2895ef2**）の独立bytes/hash一致PASS。画像では左**17,554px**、右**9,740px**、路面中央**24px**変化。元路面形状はSHA固定、画像差は可視性のTECH証拠でART評価ではない。
