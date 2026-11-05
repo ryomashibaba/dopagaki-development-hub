@@ -113,7 +113,7 @@ from collections import Counter
 counts=Counter(x for x in ray_names if x)
 print("K4CH_ACTUAL_VISIBLE_MAIN_ROOF_RAYS",dict(counts),ray_names,flush=True)
 valid=[(n,c) for n,c in counts.most_common()
-       if n.startswith(("K4CB A3 |","K4BW |"))]
+       if n.startswith(("K4CB A2 | 52m sculpted marine terminal roof","K4BW | folded coastal museum and boat service canopy shell"))]
 assert valid and valid[0][1]>=2,("NO_RESEARCH_ROOF_VISIBLE_IN_ACTUAL_CHASE",ray_names)
 roof=bpy.data.objects[valid[0][0]]
 assert roof.type=="MESH" and not roof.hide_render and roof not in roads
