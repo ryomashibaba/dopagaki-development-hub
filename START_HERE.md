@@ -1,3 +1,14 @@
+# 【2026-11-05 K4CT R2 最新：本物の連続B51 2件＋63.7s真正A/D選択の物理結果／TECH PASS・ART REJECT】
+**現行研究枝：`research/k4ct-two-native-b51-choice-consequence-20261105`。** 初めに [K4CT R2真正2危険・左右入力・物理差・失敗からの修正・ART不合格・次工程正本](docs/DOPAGAKI_K4CT_R2_TWO_REAL_B51_NATIVE_CHOICE_CONSEQUENCE_20261105_JA.md) を全文読む。過去の[K4CS R3真正早期警告](docs/DOPAGAKI_K4CS_R3_REAL_B48_B51_EARLY_HUD_MANUAL_CONTROLS_TRUE_EVIDENCE_20261105_JA.md)、[K4CR本物の物理コース](docs/DOPAGAKI_K4CR_R2_ACTUAL_PHYSICAL_ROAD5_6B51_REAL_GAME_PASS_ART_REJECT_20261105_JA.md)、[K4CP固定憲章・批判的引継ぎ](docs/DOPAGAKI_COMPLETE_HANDOFF_K4CP_CRITICAL_REVIEW_20261105_JA.md)をすべて不変に継承。
+- **真R2 [Actions #42038776523](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42038776523) completed/SUCCESS**、[Artifact #13420511782](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42038776523/artifacts/13420511782)：ZIP SHA `49521b40b57f0bb76c8edd0e0ced4196f1d69dcac54c464e108ec9ac59f5ba6c`、全15ファイルCRC PASS。旧K4CS／新K4CT真WebGL2 5地点同物理240Hz・Road・速度・球位置一致／2個の実B51を同時に表示。
+- **63.70→64.05秒の本物のKeyA/KeyD原物理入力**：真球位置差**14.27156m**、路面横位置A=0.951/D=0.063、B51-13実OBB表面距離A=72.57m/D=74.35m、両経路running。**接触までの実回避・人間プレイを認証していない**。
+- 初回 [Actions #42037805620](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42037805620) **FAILを保持**：Playwright waitForFunctionのtimeoutを第2引数に渡したため既定30秒で誤停止、実Gameは58.4s時点running。R2は第3引数へ修正し真検証SUCCESS。
+- **本物の新Blender制作は今回していない**（実Road5と旧K4CS警告3Dは同一）。作品全景は生画像から**ART REJECT**：巨大な平壁と粗い舗装、元HUDのCJK欠字・重なりが残る。2行予告をさらに増やすのではなく、**次はB51実接触までA/D別の真回避/失敗/再挑戦**、その後本物のDCC一体都市建築／ゲーム場面へ。
+- **正式ART採用0件／Slope2 DNA認定0m／HUMAN・SAT・CCD・FPS・RELEASE・MERGE全HOLD。** main・公式P101・Draft PR#46・Gold・元Game/Road5/Camera・正式QA・凍結本番・研究親枝保護、Work/Computer Use/追加課金/元原本変更/公開/正式採用/mergeは個別事前承認。今回ユーザー操作0回。
+- 以下のK4CS以前の「最新」記述は当時の歴史記録であり、現行K4CT R2を上書きしない。
+
+---
+
 # 【2026-11-05 K4CS R3 現研究最新：実B48弧長B51 2.83秒先予告＋真正A/D手動応答／真WebGL2・Blender TECH PASS、直接ART REJECT】
 **現行の唯一の最新研究ブランチ：`research/k4cs-native-road-hazard-early-cue-choice-20261105`。** 初めに [K4CS R3 真正実ゲーム・早期B51危険予告・原操作・Blender・失敗からの改善・次工程正本](docs/DOPAGAKI_K4CS_R3_REAL_B48_B51_EARLY_HUD_MANUAL_CONTROLS_TRUE_EVIDENCE_20261105_JA.md) を全文読む。上位固定方針は [K4CP完全統合批判的引継ぎ](docs/DOPAGAKI_COMPLETE_HANDOFF_K4CP_CRITICAL_REVIEW_20261105_JA.md)を厳守、[K4CR R2物理・28 B51の正本](docs/DOPAGAKI_K4CR_R2_ACTUAL_PHYSICAL_ROAD5_6B51_REAL_GAME_PASS_ART_REJECT_20261105_JA.md)を不変に継承。
 - **真R3 [Actions #42035102211](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42035102211) SUCCESS**／[Artifact #13417758700](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42035102211/artifacts/13417758700)独立ZIP全CRC/SHA確認。元Game blob `af076d67492a677d2235e4730aef8cdf4808e106`、K4CR実Road5全制御ネット／元全28 B51／元物理・Camera・操舵不変更。
