@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CP R1最終：真正Blender／独立ZIP CRC・全SHA TECH PASS、真正CHASE直接ART REJECT】
+
+**今の開発正本は`research/k4cp-stratified-coast-tidal-basin-20261105`。** 最初に[**K4CP R1真正Blender・個別SHA/全CRC・実画像ART REJECT・失敗と次の統合設計**](docs/R19_A6P4_R2F5K4CP_STRATIFIED_COAST_TIDAL_BASIN_ART_JA.md)、[**K4CP（右）対K4CO（左）の元SOURCE CHASE 768×480真画像**](docs/research-evidence/k4cp/K4CP_VS_K4CO_TRUE_SOURCE_CHASE_WHOLEFRAME_ART_REVIEW.png)、[**真監査JSON**](docs/research-evidence/k4cp/K4CP_REAL_NATIVE_AUDIT.json)を確認。以下の「K4CP開始」「K4CO最新」はその時点の履歴でありR1最終の結論を上書きしない。
+
+- **[真正Actions #42015008268](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42015008268) completed/SUCCESS**。Blender4.0.2 EEVEE／可編集別名保存／元6Camera/元Road5/元物理/親全Mesh/木11/灯光SHA固定、元ゲームCollider追加0。親K4CO R2可編集.blend SHA`9574e6f49865cf962280caa073f2c5583cf1a3ed1ae41a9efb2a4167d6ed3c91`。左1600頂点岩盤の1059頂点を連続断崖へ実制作、橋支持遠景336頂点保護、右に一定海面・擁壁639頂点/560面の3D。作業用巨大屋根は研究表示のみ非表示。
+- **実[Artifact #13409096834](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42015008268/artifacts/13409096834)** ZIP127,183,119B SHA256 `c9de661ddaf4a1b02be37b49d90a26a52242acbe76a16895ba50008f9d05a96e`。GitHubから独立再取得し**全ZIP CRC、実BlenderとPNGのbyte/SHA一致PASS**。真.blend SHA `30a61ddfefdd960a621da0c3da802d96f44ad46b3c2115e0bd2bf46ec63cdb18`。真CHASE PNG SHA `3b6b0a4e0c229c7bfeb47c411a581a1a78f0846c62731516aebfd843690a4630`。
+- **真同一CHASE画面変化**：左17,777px／右11,234px、道路中心0px。**これは技術可視性の確認でART点ではない**。画像直接評価：左は尖塔感が減ったが大きな灰色の面、右は大屋根除去でも海面がほぼ読み取れず港は模型的。画面の主役はまだ巨大な単調道路。高速ゲームとしての演出・楽しさ不足につき**正式ART REJECT**。
+- **次はK4CPの海面・岩材の微調整を繰り返さない**。元Road5／Camera／物理を変えず、既存コースの実プレイに意味ある走行場面と地形/都市の全画面構図を一本の統合縦スライスとして設計・真正評価し、最終的には実ゲーム統合へ寄与させる。見かけだけの路幅/代理Camera/仮物理などは禁止。
+- **固定の厳密HOLD**：正式ART採用**0件**、正式Slope2 DNA認定**0m**、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。main・公式P101・元SOURCE Game/Road5/240Hz物理/Camera・元Slope/Gold・Draft PR#46・本番2サイトは無断変更禁止。追加課金原則0円、Work/Computer Use・merge/公開・原本改変は個別事前承認、ユーザー操作最小。
+
+---
+
 # 【K4CP／2026-11-05：全画面一体ART研究・元K4CO R2 TECH PASS/ART REJECT継承／K4CP自身は未判定】
 
 **現在の隔離研究ブランチ：`research/k4cp-stratified-coast-tidal-basin-20261105`。** まず[**K4CP本当の地質・海面・港湾を一体制作する工程正本**](docs/R19_A6P4_R2F5K4CP_STRATIFIED_COAST_TIDAL_BASIN_ART_JA.md)を読む。前工程はK4CO R2 [真正Actions #42012187718](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42012187718) TECH PASS／直接ART REJECT、[真CHASE比較画像](docs/research-evidence/k4co/K4CO_VS_K4CN_TRUE_SOURCE_CHASE_ART_REVIEW.png)を採用判断の基準とする。下段の「K4CO最新」は過去の結果の履歴。
