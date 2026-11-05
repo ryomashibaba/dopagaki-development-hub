@@ -18,18 +18,18 @@
   "noFakeImagesOrBillboards": true,
   "headlandRealGeometry": {
     "A": {
-      "realSculptedVertices": 5601,
-      "maxHeightDeltaWorldMetres": 11.778817083604919,
-      "maxProjectedXOfAffectedVertices": 0.33600687980651855,
+      "realSculptedVertices": 5728,
+      "maxHeightDeltaWorldMetres": 4.937498992693442,
+      "maxProjectedXOfAffectedVertices": 0.33999863266944885,
       "totalEditableVertices": 13426,
-      "geologyMeshSHA256": "5fa6bae18fe0193168d9cdd488f2fe68db6ce2c775314d9ba44ffce44c9692c0"
+      "geologyMeshSHA256": "66df95c5841b7c7e6d51d35297b040e20f95597326a28ac3c2f702596bf2b479"
     },
     "B": {
-      "realSculptedVertices": 5608,
-      "maxHeightDeltaWorldMetres": 15.761354327127055,
-      "maxProjectedXOfAffectedVertices": 0.3360068202018738,
+      "realSculptedVertices": 5728,
+      "maxHeightDeltaWorldMetres": 6.032509606480296,
+      "maxProjectedXOfAffectedVertices": 0.3399985730648041,
       "totalEditableVertices": 13426,
-      "geologyMeshSHA256": "458cb6f517eac08621d5cf1c20317cd895b25748fcc7e583784321a4015d00ec"
+      "geologyMeshSHA256": "5529d749dbc1ad6d2347231d4d326c2fbcbb799e336d96d45acbbb5e7a4b545d"
     }
   },
   "defaultEditableBlendVariant": "A",
@@ -46,34 +46,34 @@
   "MERGE": "HOLD",
   "files": {
     "K4CF_TWO_REAL_GEOLOGICAL_HEADLAND_DIRECTIONS_EDITABLE_ART_HOLD.blend": {
-      "bytes": 276013952,
-      "sha256": "91c51a5986f1ab22e4945bbf36224f7870076539873c6a255b9d34cfcf1904b0"
+      "bytes": 275974128,
+      "sha256": "1a17dc522b4d7df85c92023df5b580f1e5fe155b27264dfcb9d7a511d99d8533"
     },
     "K4CF_A_WARM_STRATIFIED_HEADLAND_TRUE_CHASE_NOT_GAME.png": {
-      "bytes": 491186,
-      "sha256": "3b0297fb90769b8a62ebe2d91acc44733357130e1d67fcf93b3aa8e7dc80417d"
+      "bytes": 484455,
+      "sha256": "14b6626fa76dce0fb8cbf6ae49577574e13bc35b8a0bfcb3cca01e71b924aca2"
     },
     "K4CF_B_DARK_FOLDED_ESCARPMENT_TRUE_CHASE_NOT_GAME.png": {
-      "bytes": 500078,
-      "sha256": "acf1a5509ea4ae5a7ff072dc00ab684919c2567ce9d018b8500262f3cb0f2179"
+      "bytes": 487418,
+      "sha256": "fc8260380b1bab301ec89e4a27269429d72c81a2b1697e3621330e70dd2a9cfe"
     }
   },
   "independentSameChaseImageQA": {
     "baselineVsVariants": {
       "A": {
-        "actualLeftChangedPixelsNotArtScore": 34748,
+        "actualLeftChangedPixelsNotArtScore": 15308,
         "rightHarborPixelDifference": 0,
         "protectedRoadPixelDifference": 0
       },
       "B": {
-        "actualLeftChangedPixelsNotArtScore": 38884,
+        "actualLeftChangedPixelsNotArtScore": 17331,
         "rightHarborPixelDifference": 0,
         "protectedRoadPixelDifference": 0
       }
     },
-    "actualDifferentPixelsBetweenVariantsNotArtScore": 33338,
+    "actualDifferentPixelsBetweenVariantsNotArtScore": 5523,
     "comparisonName": "K4CF_TRUE_CHASE_BASELINE_VS_TWO_REAL_HEADLAND_DIRECTIONS_ART_REVIEW.png",
-    "comparisonSHA256": "bbdba5a2461278aaf85209943d98353ea1ba53118474ba943d7f893eb0135a54",
+    "comparisonSHA256": "bf4e1f23c481428dd68980ff626010b6f381e0adb2d7ad8b65398c5c02c72f13",
     "ART": "UNJUDGED_HOLD"
   }
 }
