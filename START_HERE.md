@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CS R3 現研究最新：実B48弧長B51 2.83秒先予告＋真正A/D手動応答／真WebGL2・Blender TECH PASS、直接ART REJECT】
+**現行の唯一の最新研究ブランチ：`research/k4cs-native-road-hazard-early-cue-choice-20261105`。** 初めに [K4CS R3 真正実ゲーム・早期B51危険予告・原操作・Blender・失敗からの改善・次工程正本](docs/DOPAGAKI_K4CS_R3_REAL_B48_B51_EARLY_HUD_MANUAL_CONTROLS_TRUE_EVIDENCE_20261105_JA.md) を全文読む。上位固定方針は [K4CP完全統合批判的引継ぎ](docs/DOPAGAKI_COMPLETE_HANDOFF_K4CP_CRITICAL_REVIEW_20261105_JA.md)を厳守、[K4CR R2物理・28 B51の正本](docs/DOPAGAKI_K4CR_R2_ACTUAL_PHYSICAL_ROAD5_6B51_REAL_GAME_PASS_ART_REJECT_20261105_JA.md)を不変に継承。
+- **真R3 [Actions #42035102211](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42035102211) SUCCESS**／[Artifact #13417758700](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42035102211/artifacts/13417758700)独立ZIP全CRC/SHA確認。元Game blob `af076d67492a677d2235e4730aef8cdf4808e106`、K4CR実Road5全制御ネット／元全28 B51／元物理・Camera・操舵不変更。
+- **真2ケース同物理5地点（55/58/62/64/67秒）**、実WebGL2／240Hz（13200～16080 tick）、元Road ID・HUD速度完全一致。K4CSは元6個の動体のうち次を**真B48中心弧長と元未来物理Pose**で予測。55s `437m/2.64s`（RIGHT）、58s `481m/2.83s`（LEFT）、62s `433m/2.51s`（RIGHT）先の早期表示を真正証拠で確認。64s `0.48s`、67s `0.11s`しかない危険も残る。
+- **元KeyA／KeyDを実Chromium原手動経路でそれぞれ試行**、54.8→55.15秒で真正原Runner位置差14.263m、成功2本。人間プレイ合格とはしない。3D外側の実警告マーカー18基/648三角形。真Blender4.0.2可編集Road5+海岸+マーカー3メッシュ。
+- R1実ロード失敗 [#42032738730](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42032738730) は永久FAILのまま保存、R2 [#42033717569](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42033717569) はTECH成功でも日本語欠字/キャンバス外警告あり。**R3ではASCII可読2行警告＋実ゲームcanvas中央ズレ0px**へ直接修正し再実測。旧R1/R2を偽PASSにしない。
+- **作品全体は直接ART REJECT**。単調な大舗装と旧K4CQ海岸は世界水準の高速3Dゲームとは認めない。次は二つ以上の実B51の連続予告→回避操作→結果が意味ある一体プレイへ。背景微修正・小QA監督器増設の反復禁止。真ゲーム縦スライスを高品質DCCアートと統合する。
+- **正式ART採用0件／Slope2 DNA認定0m／HUMAN・SAT・CCD・FPS・RELEASE・MERGE全HOLD**。main・公式P101・Draft PR#46・元Game/Road5/Camera/240Hz・Gold/原Slope・正式QA・本番2サイト・元K4CR研究HEAD保護。追加課金0円原則、Work/Computer Use／原本変更／正式採用／公開／mergeは個別事前承認。ユーザー操作0回。
+- 以下のK4CR/K4CQ/K4CP等の「最新」は当時の履歴であり、現行R3の最終判定を上書きしない。
+
+---
+
 # 【2026-11-05 K4CR R2 現研究最新：本物のRoad5 S字バンク＋元B51 6体、真240Hz WebGL2・Blender TECH PASS／ART REJECT】
 **現行の唯一の研究最新枝：`research/k4cr-genuine-b48-bank-chicane-b51-native-20261105`。** 必ず最初に [K4CR R2真正物理コース・初回失敗・修正・実WebGL2・直接ART REJECT・安全方針・次工程](docs/DOPAGAKI_K4CR_R2_ACTUAL_PHYSICAL_ROAD5_6B51_REAL_GAME_PASS_ART_REJECT_20261105_JA.md) を読む。正式上位方針は [K4CP批判的完全引継ぎ](docs/DOPAGAKI_COMPLETE_HANDOFF_K4CP_CRITICAL_REVIEW_20261105_JA.md) を不変に継承し、[K4CQ R2](docs/DOPAGAKI_K4CQ_R2_TRUE_GAME_INTEGRATED_ART_REJECT_NEXT_PHYSICAL_20261105_JA.md)のART REJECTから背景微修正をやめた。
 - **真R2 [Actions #42029941216](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42029941216) SUCCESS**、[真Artifact #13415198299](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42029941216/artifacts/13415198299)は外部再取得のZIP CRC・SHA確認済み。元Game blob `af076d67492a677d2235e4730aef8cdf4808e106`、物理道路6本、カメラ、240Hz物理を維持。
