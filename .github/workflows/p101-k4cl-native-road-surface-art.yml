@@ -1,0 +1,186 @@
+name: DOPAGAKI K4CL genuine editable road-pavement velocity materials ART HOLD
+on:
+  push:
+    branches: [research/k4cl-true-road-surface-speed-art-20261105]
+    paths:
+      - scripts/p101-k4cl-authentic-road5-study-surface-art.py
+      - .github/workflows/p101-k4cl-native-road-surface-art.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: dopagaki-k4cl-road-surface
+  cancel-in-progress: true
+jobs:
+  protected-authentic-native-k4cl:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preflight source Game, Blender author syntax and real Road5 lineage
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cl-true-road-surface-speed-art-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          python3 -m py_compile scripts/p101-k4cl-authentic-road5-study-surface-art.py
+          node --test tests/p101-r19a6p4r2f5k4ay-source-native-context.test.mjs
+      - name: Download exact successful K4CK real editable A-B coastal geometry parent
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CK_TRUE_DUAL_COASTAL_CORRIDOR_EDITABLE_ART_HOLD
+          repository: ryomashibaba/dopagaki-development-hub
+          run-id: 41980948992
+          github-token: ${{ github.token }}
+          path: research/evidence/k4cl/parent
+      - name: Independently authenticate genuine K4CK editable DCC parent and original frozen Road5
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          d=Path('research/evidence/k4cl/parent')
+          a=json.loads((d/'K4CK_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CJR2ExactSHA256']=='296326d18c446e70c25ca45598ad623affaf20c07a26e263b1789e9dc2bb04d2'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged',
+                    'originalElevenTreeTransformsUnchanged','originalLightsUnchanged',
+                    'parentSourceAndAllMeshesMatrixUnchanged'):
+              assert a[k],k
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['allThreeRealEditableGeometryMeshes']==3
+          assert len(a['originalResearchCutAndTriangleWindbreakHiddenOnlyInStudy'])==2
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          assert a['files']['K4CK_EDITABLE_TWO_TRUE_COHERENT_COASTAL_CORRIDOR_DIRECTIONS_ART_HOLD.blend']['sha256']=='80eff12f48b2913d8f700d14f7d84ba86b10dd7ea622033f61fbe51859271330'
+          print('K4CL_GENUINE_K4CK_SOURCE_ROAD5_PARENT_ALL_SHA_PASS')
+          PY
+      - name: Install genuine Blender from official Ubuntu archive instead of stalled Azure mirror
+        timeout-minutes: 18
+        run: |
+          set -euo pipefail
+          # Actual hosted runner failure #41950843684: Azure mirror took over 6m
+          # for the first 35.9MB blender-data, then apt timeout 124.
+          # Fix package transport only, never source, geometry, camera or road.
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|g; s|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/apt-mirrors.txt
+          fi
+          echo 'K4CL_OFFICIAL_UBUNTU_PACKAGE_SOURCE'
+          if ! sudo timeout --signal=TERM --kill-after=10s 120s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq; then
+            echo 'K4CL_OFFICIAL_MIRROR_UPDATE_FAILED_USING_SIGNED_RUNNER_INDEX'
+          fi
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 900s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender python3-pil python3-numpy xvfb libegl1 libgl1-mesa-dri libopengl0 libgbm1 libgl1
+          command -v blender
+          blender -b -noaudio --factory-startup --python-expr "import bpy; print('K4CL_REAL_BLENDER_VERSION', bpy.app.version_string)"
+          /usr/bin/python3 tests/p101-k4bz-proven-dark-wedge-regression.py
+          /usr/bin/python3 tests/p101-k4ca-protected-coastal-frame-regression.py
+      - name: Render true independent physically authored asphalt road and mineral panel road over frozen original Road5
+        run: |
+          set -euo pipefail
+          mkdir -p research/evidence/k4cl/render
+          xvfb-run -a -s '-screen 0 1280x900x24' env LIBGL_ALWAYS_SOFTWARE=1 MESA_GL_VERSION_OVERRIDE=4.5 blender -b --factory-startup --python-exit-code 3 \
+            --python scripts/p101-k4cl-authentic-road5-study-surface-art.py -- \
+            --base research/evidence/k4cl/parent/K4CK_EDITABLE_TWO_TRUE_COHERENT_COASTAL_CORRIDOR_DIRECTIONS_ART_HOLD.blend \
+            --out research/evidence/k4cl/render 2>&1 | tee research/evidence/k4cl/render/K4CL_REAL_BLENDER.log
+      - name: Independently verify original Road5 source unchanged and intentional research road material change in both true CHASE images
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageChops,ImageDraw
+          d=Path('research/evidence/k4cl/render')
+          a=json.loads((d/'K4CL_REAL_NATIVE_AUDIT.json').read_text())
+          assert a['parentK4CKExactSHA256']=='80eff12f48b2913d8f700d14f7d84ba86b10dd7ea622033f61fbe51859271330'
+          assert a['originalGameGitBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert a['originalRoad5FullVertexFaceSHA256']=='f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2'
+          for k in ('originalSixCameraPosesUnchanged','originalCHASEUnchanged',
+                    'originalElevenTreeTransformsUnchanged','originalLightsUnchanged',
+                    'allOriginalSourceAndParentResearchMeshPositionsUnchanged',
+                    'actualSourceRoad5ImportOriginalRenderStateUnchanged',
+                    'bothRoadSkinClonesIdenticalToOldStudyRoadGeometry',
+                    'twoNativeWorldSpacePaintMeshes','researchAArtDirectionGeologyRendered'):
+              assert a[k],k
+          assert len(a['originalResearchOnlyVisibilitySwaps'])==4
+          assert a['sourceRoad5GameEdited'] is False and a['sourcePhysicsEdited'] is False
+          assert a['newGameColliders']==a['formalARTAccepted']==a['formalSlope2DNAMetres']==0
+          assert a['newResearchEditableMeshObjects']==4
+          assert a['ARealReflectorQuads']>38 and a['BRealMarkingQuads']>15
+          assert a['ART']=='UNJUDGED_HOLD' and a['renderEngine']=='BLENDER_EEVEE'
+          for name,meta in a['files'].items():
+              raw=(d/name).read_bytes()
+              assert len(raw)==meta['bytes'] and hashlib.sha256(raw).hexdigest()==meta['sha256'],name
+          old=Image.open('research/evidence/k4cl/parent/K4CK_A_TRUE_CHASE_CONTINUOUS_BASALT_CUT_AND_RETAINING_WALL_NOT_GAME.png').convert('RGB')
+          imageA=Image.open(d/'K4CL_A_TRUE_CHASE_GRAPHITE_RACING_ASPHALT_NOT_GAME.png').convert('RGB')
+          imageB=Image.open(d/'K4CL_B_TRUE_CHASE_MINERAL_HIGHWAY_ROAD_NOT_GAME.png').convert('RGB')
+          assert old.size==imageA.size==imageB.size==(768,480)
+          def count(p,q,area,threshold=15):
+              diff=ImageChops.difference(p.crop(area),q.crop(area))
+              return sum(max(rgb)>threshold for rgb in diff.getdata())
+          variants={}
+          for label,new in (('A',imageA),('B',imageB)):
+              road_change=count(old,new,(315,260,475,467),12)
+              frozen_left=count(old,new,(0,160,102,330),16)
+              frozen_port=count(old,new,(625,130,768,295),16)
+              assert road_change>15000,('NEW_SURFACE_NOT_ACTUALLY_VISIBLE_ON_SOURCE_CHASE',label,road_change)
+              assert frozen_left<120,('PARENT_LEFT_GEOLOGY_UNEXPECTEDLY_CHANGED',label,frozen_left)
+              assert frozen_port<130,('PARENT_PORT_UNEXPECTEDLY_CHANGED',label,frozen_port)
+              for px,py in ((365,335),(410,380),(375,440)):
+                  assert max(abs(old.getpixel((px,py))[k]-new.getpixel((px,py))[k]) for k in range(3))>14,('RACING_ROAD_PAVEMENT_CENTER_NOT_VISIBLY_AUTHORED',label,px,py)
+              variants[label]={
+                  'intendedRoadAppearancePixelsChangedNotArtScore':road_change,
+                  'protectedLeftGeologyChangedPixels':frozen_left,
+                  'protectedPortChangedPixels':frozen_port,
+                  'originalRoadGeometryAndGameUnchanged':True}
+          a_vs_b=count(imageA,imageB,(315,255,485,470),12)
+          assert a_vs_b>12000,('ASPHALT_AND_MINERAL_ROAD_DESIGNS_NOT_DISTINCT',a_vs_b)
+          image=Image.new('RGB',(2340,553),(13,19,23))
+          for x,im in ((12,old),(780,imageA),(1548,imageB)):
+              image.paste(im,(x,50))
+          draw=ImageDraw.Draw(image)
+          draw.text((12,17),'K4CK A | authentic native Blender CHASE baseline | ART REJECT',fill='white')
+          draw.text((780,17),'K4CL A | graphite aggregate racing asphalt | ART UNJUDGED',fill='white')
+          draw.text((1548,17),'K4CL B | mineral track concrete | ART UNJUDGED',fill='white')
+          draw.text((12,536),'Road appearance intentionally changes. Original B48 physical Road5 + Camera/physics frozen; no official gameplay certification.',fill='white')
+          name='K4CL_K4CK_TRUE_CHASE_ROAD_SURFACE_A_B_COMPARISON.png'
+          image.save(d/name)
+          a['independentTrueRoadVisualAuthoringQA']={
+              'variants':variants,'A_vs_B_roadVisibleChangedPixelsNotArtScore':a_vs_b,
+              'comparisonName':name,
+              'comparisonSHA256':hashlib.sha256((d/name).read_bytes()).hexdigest(),
+              'deliberateRoadPixelChangeAllowedOnlyForNonCollisionResearchSkin':True,
+              'originalRoad5ShapeAndPhysicsFrozen':True,
+              'ART':'UNJUDGED_HOLD'}
+          (d/'K4CL_REAL_NATIVE_AUDIT.json').write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n')
+          print('K4CL_SOURCE_ROAD5_SHAPE_LOCKED_TRUE_PAVEMENT_IMAGE_QA_PASS',variants,a_vs_b)
+          PY
+      - name: Commit only actual research evidence and never merge original source
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = research/k4cl-true-road-surface-speed-art-20261105
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          mkdir -p docs/research-evidence/k4cl
+          cp research/evidence/k4cl/render/*.png docs/research-evidence/k4cl/
+          cp research/evidence/k4cl/render/*.json docs/research-evidence/k4cl/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research-evidence/k4cl
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(k4cl): true source-compatible noncollision road appearance A B native same chase, source Road5 SHA unchanged"
+            git fetch --no-tags origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin HEAD:refs/heads/research/k4cl-true-road-surface-speed-art-20261105
+          fi
+      - name: Archive actual K4CG Blender worldscape and independent audit even when ART HOLD
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CL_TRUE_ROAD_APPEARANCE_EDITABLE_ART_HOLD
+          path: research/evidence/k4cl/render/
+          if-no-files-found: warn
+          retention-days: 21
