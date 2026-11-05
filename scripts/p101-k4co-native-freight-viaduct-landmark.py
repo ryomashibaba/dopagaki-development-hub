@@ -220,17 +220,25 @@ for i in (7,18,29):
  s=svals[i];t=(s-start_s)/(end_s-start_s)
  z=base_deck+6.+16.8*(1-(2*t-1)**2)
  girder(source_pos(s,d_cross-3.75,z),source_pos(s,d_cross+3.75,z),.42,.48,1)
-# True terrain-founded supports: each pier ends inside the inherited K4CN
-# left geological headland / right 200m quay, never inside the source lane.
+# True anchored support beams deliberately terminate *in* actual inherited
+# terrain vertices. Earlier nominal s-based foot positions could float away
+# from the real headland/quay: that is not a grounded structure.
+terrain_anchor_footings=0
 for s,anchor in ((end_s,left_anchor),(start_s,right_anchor)):
- foot=anchor.z-C.z-1.5
- assert base_deck-foot>5.
+ foot=anchor-Vector((0,0,1.50))
+ assert base_deck-(foot.z-C.z)>5.
+ assert abs((foot-C).dot(S)-s)<16.,("ABUTMENT_NOT_AT_REAL_TERRAIN",s,tuple(foot))
+ assert ((foot-C).dot(S)*s)>0 and abs((foot-C).dot(S))>19.
  for dside in (-3.35,3.35):
-  girder(source_pos(s,d_cross+dside,foot),
-         source_pos(s,d_cross+dside,base_deck+.1),2.35,3.05,0)
- # large cross-abutment physically bears the bridge ends.
+  # Each inclined buttress embeds its lower end in a measured actual
+  # K4CN rock/quay vertex and reaches the continuous deck end in world space.
+  top=source_pos(s,d_cross+dside,base_deck+.10)
+  girder(foot,top,2.35,3.05,0)
+  terrain_anchor_footings+=1
+ # Large transverse pier cap mechanically unites both deck ribs.
  girder(source_pos(s,d_cross-5.,base_deck-1.2),
         source_pos(s,d_cross+5.,base_deck-1.2),1.55,2.4,0)
+assert terrain_anchor_footings==4
 assert len(V)>500 and len(faces)>400,(len(V),len(faces))
 mesh=bpy.data.meshes.new("K4CO | one continuous freight span over true Road5")
 mesh.from_pydata(V,[],faces);mesh.update()
@@ -284,6 +292,7 @@ audit={
  "actualLeftSourceHeadlandAnchorMetres":list(left_anchor),
  "actualRightSourceQuayAnchorMetres":list(right_anchor),
  "trueViaductVertices":len(V),"trueViaductFaces":len(faces),
+ "realSourceVertexAnchoredButtressCount":terrain_anchor_footings,
  "sourceChaseProjectedViaductVerticesNotArtScore":bridge_visible,
  "realNativeCHASE768x480":True,"renderEngine":"BLENDER_EEVEE",
  "ART":"UNJUDGED_HOLD","formalARTAccepted":0,"formalSlope2DNAMetres":0,
