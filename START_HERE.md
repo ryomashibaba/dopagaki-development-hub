@@ -1,3 +1,15 @@
+# 【2026-11-05 K4CG最終：全画面の真3D沿岸景観を制作→Blender→独立QA→直接ART REJECT→GitHub保存】
+
+**現在の隔離研究正本** `research/k4cg-integrated-coastal-worldscape-20261105`。最初に[**K4CG R1/R2真正実制作・独立Zip/SHA・同CHASE全画面ART REJECT・本当に必要な次の大規模作者工程**](docs/R19_A6P4_R2F5K4CG_INTEGRATED_WORLD_ART_JA.md)全文と、[**K4CG R2対K4CF R2の真正同CHASE比較画像**](docs/research-evidence/k4cg/K4CG_VS_K4CF_R2_TRUE_CHASE_INTEGRATED_WORLD_ART_REVIEW.png)、[独立監査JSON](docs/research-evidence/k4cg/K4CG_REAL_NATIVE_AUDIT.json)を確認。下段の「最新」「現行」は当時の履歴であり、K4CG結果より優先しない。
+
+- **真Blender K4CG初回[Actions #41941951080](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41941951080) completed/SUCCESS、TECH PASS／直接ART REJECT**。元K4CF R2編集可能真Blender.blend SHA256 `1a17dc522b4d7df85c92023df5b580f1e5fe155b27264dfcb9d7a511d99d8533`を厳格に読み込み、左岩肌の作者地質・遠景の実岬・外洋の実メッシュを追加。ただし真CHASEでは新岬が右屋根の裏に小さく見えるだけ、左地形は元の白い研究下地が遮蔽し、目に見える改善不足。初回真正Artifact #13376728614はZIP全CRCと.blend/PNGハッシュ独立再検算済。
+- **K4CG R2最終[Actions #41942878730](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41942878730) completed/SUCCESS**。初回画像で確認した現実の遮蔽問題から、元のK4BQ研究左地形・K4CD研究海を**原本保持で真編集可能な研究複製**へ置換し、526左地形頂点を実変形、岩材質と港湾海面・外洋を地理的に接続。岬は原Cameraを一切変えず実世界位置を変更。研究DCC5メッシュ、元Game・物理・Road5・6Camera/CHASE・樹11/ライト・港・船の既存ソース不変、新ゲームCollider0。
+- **真R2 Artifact [#13377510776](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/41942878730/artifacts/13377510776)** ZIP125,032,903B SHA256 `33dd91b49067b2832fded8c9e7f438f836ce36edf516ae8c68e1ff711e4d5cc9`を別途GitHubから原バイトDLし、全CRC／全.blend・PNGの実バイト数・SHA256一致PASS。真編集可能.blend277,556,784B SHA256 `5a2215677fd41c420bac3b44b78b65b0e42aa74b79399498a87a57b7b85946f1`。真CHASE768×480 PNG2画像比較を直接開き評価：左岩肌3,733px・水平線1,785px・右港1,142pxの変化、元道路中心0px変化、しかし広い白い岩斜面、屋根の裏の小さい尖った岬、巨大な灰色の道路・右港の模型感が改善未達で**ART REJECT**。TECH PASSをART合格と混同禁止。中間CI #41942840961はCANCELLEDでTECH PASSではない。
+- **次の方針を固定**：新地形オブジェクト／ノイズ／色の小さな修正を増殖する主経路は停止。**左右の可視主要空間・道路肩・岸壁水際・遠景の一貫した物理的構図を研究DCCで作者が根本再設計する一工程**を選ぶ。元Game/物理/Road5/Cameraは動かさず、Blenderで本物の完成図が確認できなければ正式ART採用しない。他6道路展開、本番公開、merge禁止。
+- **永久保護**：原Game Git blob `af076d67492a677d2235e4730aef8cdf4808e106`、元Road5全vertex/face SHA `f7c6091d5b6ca1498ac8bfc7808242ba05477d0a8c798cb41753c2e016ec58d2`、原作Slope、main、公式`p101-velocity-overdrive-native-trial`、Draft PR #46、本番2サイト、元6カメラ、原物理、凍結Goldは無変更。**正式ART採用0件／Slope2 DNA認定0m／HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。追加有料API0円、Work/Computer Useは個別事前承認、ユーザー操作不要。
+
+---
+
 # 【2026-11-05 K4CF R2最終：本物の二方向Blender ART研究・全CRC/SHA独立PASS・直接ART REJECT】
 
 **この研究ブランチの最優先正本**：`research/k4cf-windward-cliff-hero-frame-20261105`。先に[**K4CF初回失敗→R2実装→真正Blender画像／SHA独立検証→A/B直接ART REJECT→次の統合作家工程の完全記録**](docs/R19_A6P4_R2F5K4CF_TRUE_DCC_HEADLAND_AB_JA.md)を全文読む。下記の「最新」「in_progress」は過去段階の履歴であり、今回の確定判定ではない。
