@@ -72,9 +72,11 @@
     "restoreOnlyAuthorSource": true,
     "expectedGitBlobSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
     "decision": "REJECT_AND_RESTORE",
-    "restoreCommit": null,
-    "verificationAfterRestore": "pending",
-    "nonForcePush": true
+    "restoreCommit": "1c803fdbee7d4181d7e56865e3d184bb134b78c3",
+    "verificationAfterRestore": "CI triggered; must check completion before success claim",
+    "nonForcePush": true,
+    "restoredBlobGitSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "exactlyMatchesPreviouslyGreenDCCBaseline": true
   },
   "independentGates": {
     "TECH": "PASS_CI_ONLY",
