@@ -1,0 +1,197 @@
+{
+  "schema": "dopagaki-k4ct-r12-real-blender-42-group-native-visual-influence-critical-rejection-restore-v1",
+  "asOf": "2026-11-06 JST",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "researchBranch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "researchHeadBeforeRestore": "8e184b2e865c396505d6aac0d69e0880db564f75",
+  "status": "R12A_TECH_PASS_R12B_TECH_PASS_ART_REJECT_REVERTED_TO_R12A",
+  "scope": "Research-only original Chromium/WebGL2 + original 240Hz and editable Blender: production original untouched",
+  "sourcePreservation": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": {
+      "state": "open",
+      "draft": true,
+      "merged": false
+    },
+    "originalGameBlobSHA1": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "researchRoad5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "sourceB48Sections": 7,
+    "sourceB51MovingObstacles": 28,
+    "originalCamera": true,
+    "originalRunnerHz": 240,
+    "additionalColliders": 0,
+    "originalsProductionGoldFreezePagesPreserved": true
+  },
+  "r12A": {
+    "commit": "9f5639b3f58b19847375edcafcc675f5c11e1c27",
+    "blenderDccBlobSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "ci": 42215413351,
+    "ciConclusion": "success",
+    "artifact": 13502205813,
+    "artifactExpiryUTC": "2026-11-13T12:18:47Z",
+    "artifactZIP_SHA256": "c8bc59a83530eaf2fd00099d6132566ad294c486cb1b1bc2e44f1b4f72acf04e",
+    "artifactFiles": 45,
+    "zipCRC": "PASS",
+    "actualEditableBlenderGroups": 43,
+    "nonroadGroupsMeasured": 42,
+    "actualDccTriangles": 31324,
+    "sourceChaseSeconds": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "sourceTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "originalSceneNonroadGroupTestCount": 126,
+    "mode": "Leave exactly one existing Blender group out of same paused real GL frame, screenshot and compare with all-visible frame",
+    "roi": {
+      "x0": 0,
+      "y0": 80,
+      "x1": 1005,
+      "y1": 705
+    },
+    "metric": "100 × pixels with max RGB channel abs difference >25 / pixels in ROI",
+    "notActualVisibleAreaOwnership": true,
+    "notArtScore": true,
+    "originalSceneRestorePixelDelta": 0,
+    "rankedTop": [
+      {
+        "time": 65.25,
+        "groups": [
+          [
+            "21_R6_BROKEN_QUARRY_STRATA_SOURCE_CHASE",
+            7.187
+          ],
+          [
+            "25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND",
+            6.924
+          ],
+          [
+            "03_CLIFF_TO_WORKING_TIDAL_BASIN",
+            2.261
+          ],
+          [
+            "26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS",
+            1.859
+          ],
+          [
+            "34_R7C_CHASE_VISIBLE_POWER_INTAKE",
+            1.852
+          ]
+        ]
+      },
+      {
+        "time": 66.35,
+        "groups": [
+          [
+            "21_R6_BROKEN_QUARRY_STRATA_SOURCE_CHASE",
+            4.609
+          ],
+          [
+            "12_SINGLE_TIDAL_LIFT_AND_CONTROL_TOWER",
+            3.5
+          ],
+          [
+            "01_CARVED_BASALT_AND_LAYERED_RIFT",
+            3.027
+          ],
+          [
+            "25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND",
+            2.416
+          ],
+          [
+            "19_R6_SOURCE_FRAMED_UPPER_TIDAL_FOREBAY",
+            2.004
+          ]
+        ]
+      },
+      {
+        "time": 68.05,
+        "groups": [
+          [
+            "25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND",
+            7.226
+          ],
+          [
+            "01_CARVED_BASALT_AND_LAYERED_RIFT",
+            4.166
+          ],
+          [
+            "03_CLIFF_TO_WORKING_TIDAL_BASIN",
+            3.879
+          ],
+          [
+            "42_R8J_QUARRY_ANCHORED_TURBINE_PENSTOCK",
+            3.616
+          ],
+          [
+            "33_R7B_SINGLE_HEADLAND_CONTROL_TOWER",
+            2.182
+          ]
+        ]
+      }
+    ],
+    "interpretation": "Different from predicted R11 repeated roofs/conveyor; large screen-impact groups are broad quarry and marine topography. Pixel impact is not equivalent to improvement, exact visibility ownership, human readability or physical hazard."
+  },
+  "r12B": {
+    "candidateCommit": "8e184b2e865c396505d6aac0d69e0880db564f75",
+    "originalSourceDccBlobSHA1": "b5096ce8ff8d4781a65ed6b199fcfb0d0394cd40",
+    "ci": 42217656353,
+    "ciConclusion": "success",
+    "artifact": 13502417573,
+    "artifactExpiryUTC": "2026-11-13T12:33:53Z",
+    "artifactZIP_SHA256": "e776b499a966ea6a4690f7abd03abaee38ae31bc35b709ba11a5fe0c0d8d40a7",
+    "artifactFiles": 45,
+    "zipCRC": "PASS",
+    "editedBlenderGroups": [
+      "21_R6_BROKEN_QUARRY_STRATA_SOURCE_CHASE",
+      "25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND"
+    ],
+    "actualDccTriangles": 32998,
+    "deltaTrianglesVsR12A": 1674,
+    "unchangedTrueSourceRunnerAndB51": true,
+    "sourceCameraPixelDifferencePctRgb25": {
+      "t65_25": 8.775,
+      "t66_35": 6.022,
+      "t68_05": 5.255
+    },
+    "pixelMeasurementOnly": true,
+    "screenArtCritique": "The newly segmented rock remains broadly planar, introduces a large light-gray apron and dark angular bands. Bigger pixel difference is not convincing artistic enhancement. Original HUD clutter and precisely timed human hazard cues also remain.",
+    "technical": "PASS",
+    "art": "REJECT",
+    "formallyAdopted": false
+  },
+  "safetyRestore": {
+    "restoreDccFromBlobSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "strategy": "Revert only R12B authored scenery source in a new non-force research commit. Retain R12A true nonroad group impact instrumentation and historical failed art candidate in Git history.",
+    "exactPreviouslyGreenBaselineCI": 42215413351,
+    "doNotClaimNewPostRestoreCISuccessUntilReported": true
+  },
+  "lessons": [
+    "Do not equate colored pixels or more terrain triangles with superior art.",
+    "Do not choose scenery to edit by guessed silhouette: use native actual camera attribution first.",
+    "Even a measured top-impact terrain group can be badly redesigned as repeated flat quarry benches.",
+    "Avoid expensive overlapping CI and duplicate tests; prepare full generated-code static checks before the single necessary real run.",
+    "Use qualitative real source screenshot critique against architectural coherence, road/B51 readability and spatial scale, not proxy mockups."
+  ],
+  "permanentHolds": {
+    "formalARTAdopted": 0,
+    "formalSlope2DNAmeters": 0,
+    "ART": "REJECT",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "fullPBR": "NOT_PROVEN"
+  },
+  "newPriority": "R13 art-directed genuinely integrated sculptural quarry/coastal hydraulic environment, avoid stripy procedural terraces; before re-authoring, consolidate actual camera three keyframes and specify materially distinct readable focal volume/negative spaces. One visual candidate, real native raw side-by-side and rigorous human cue gate, then restore if ART reject.",
+  "additionalPaidAPI": 0,
+  "workComputerUse": false,
+  "manualUserSteps": 0
+}

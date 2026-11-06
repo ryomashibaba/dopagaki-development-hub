@@ -494,41 +494,27 @@ for index,begin,end,waterY in ((5,.60,.94,105.0),(6,.025,.36,93.0)):
        add(siteLeft,(0,waterY-p['right'][1]-25,0)),
        add(siteLeft,(0,waterY-p['right'][1]+2,0)),5.8,'basalt')
 
-# R12B camera-proven quarry strata re-authorship. Genuine R12A live
-# source WebGL2 leave-one-out establishes this group influences 7.19% of
-# native T65.25 and 4.61% of native T66.35 screen ROI. Previous large
-# uniform sloping faces are replaced with TWO carved geological benches,
-# shadowed abrupt scarps, and narrow mineral ledges, not one beige mask.
-# Original B48/B51/camera and the genuine R6 quarry notch are protected.
+# Angular upper stratified ridge deliberately frames the CHASE without
+# spanning the race lane. Discontinuous facets/readable geological erosion,
+# replacing the impression of a featureless, infinitely smooth bank.
 for index,begin,end in ((5,.57,.93),(6,.04,.42)):
  for k in range(84):
   u0=begin+(end-begin)*k/84
   u1=begin+(end-begin)*(k+1)/84
-  def ridge(u):
+  def ridge(u,i):
    p,fw,lat=frame(index,u)
-   sourceLeft=p['left']
-   # Continuous source-road stations, all strictly outboard >=31m.
-   # Alternating near-vertical scarps and shallow quarry shelves.
-   geologicalWarp=1.4*math.sin(u*37)+.8*math.cos(u*71)
-   def rock(d,h,amplitude):
-    return add(offset_edge(p,lat,d,'L'),
-               (0,h+geologicalWarp*amplitude,0))
-   return [rock(31,-8,.25),rock(44,-7,.5),
-           rock(53,10,.6),rock(70,12,.6),
-           rock(81,25,.8),rock(103,27,.9),
-           rock(124,48,1.0)]
-  a=ridge(u0);b=ridge(u1)
-  centre=(u0+u1)*.5
-  # Preserve the existing real open-air quarry aperture, lower mineral
-  # foundation included. The road/high-speed hazard is never edited.
-  openCut=index==5 and .735<centre<.805
-  for layer,material in enumerate((
-    'deepstone','basalt','strata','basalt','shale','dunestone')):
-   if openCut and layer>=2:continue
+   base=p['left']
+   rock=lambda d,h: add(offset_edge(p,lat,d,'L'),(0,h,0))
+   wobble=2.6*math.sin(i*.38)+1.4*math.cos(i*.93)
+   return [rock(31,-7+wobble*.5),rock(46,4+wobble),
+           rock(69,21+wobble*.8),rock(106,43+wobble*1.4)]
+  a=ridge(u0,k);b=ridge(u1,k+1)
+  # A single deep quarry notch opens a genuine view through the cliff mass.
+  openCut=index==5 and .735<(u0+u1)*.5<.805
+  for layer,material in enumerate(('deepstone','dunestone','shale')):
+   if openCut and layer>=1:continue
    quad('21_R6_BROKEN_QUARRY_STRATA_SOURCE_CHASE',
         a[layer],b[layer],b[layer+1],a[layer+1],material,False)
-  # Keep the real fault seam a subordinate embedded detail, rather
-  # than another false obstacle-like beam ahead of a racing car.
   if k%16==2 and not openCut:
    beam('22_R6_BASALT_EXPOSED_FAULT_SEAMS',
         a[1],add(a[2],(0,7,0)),1.4,'strata')
@@ -607,40 +593,30 @@ for station in site['stations']:
      'amber' if station['id'].endswith('-14') else 'copper',fw,lat)
 
 
-# R12B TRUE CHASE authoring: original screenshot-group attribution
-# proved R7B quarry face materially dominates 7.23% at T68.05
-# and 6.92% at T65.25. The previous four very broad pale planar
-# bands concealed a working port under flat zigzags. Create one
-# continuous carved escarpment with legible stone-cut benches:
-# real rock scarps/stone strata interleave narrower level service shelves.
-# Study remains noncolliding and strictly outside real B48.
+# R7B: true-CHASE camera-framed reauthoring of ONE tidal-power harbor campus.
+# Source trace: at 65.25 Road5 u=.82, 66.35 Road5 u=.969,
+# at 68.05 Road6 u=.430. All geometry sits outside real B48 widths.
+# This is authored editable geometry, never an alternate road / collision hull.
 for idx,u0,u1 in ((5,.81,.995),(6,.395,.79)):
  for i in range(64):
   v=u0+(u1-u0)*i/64
   nextV=u0+(u1-u0)*(i+1)/64
   P,F,S=frame(idx,v);Q,F1,S1=frame(idx,nextV)
-  # Each station uses the same stable, slow geology silhouette function
-  # so adjacent source-road cuts share exact boundary vertices.
-  def cliff(x,u):
-   lateral=unit(sub(x['right'],x['left']))
-   warp=1.35*math.sin(u*51)+.55*math.cos(u*113)
-   levels=((26,-13),(37,-19),(48,-19),
-           (60,-2),(76,-2),(90,16),(111,18),(132,43))
-   return [add(offset_edge(x,lateral,dist,'R'),
-               (0,height+warp*(.25+.10*j),0))
-           for j,(dist,height) in enumerate(levels)]
-  A=cliff(P,v);B=cliff(Q,nextV)
-  # Keep the earlier real cut apertures; upper quarry is not filled
-  # by a new huge wall and never becomes an alternate route.
-  carving=(idx==5 and .887<v<.923) or (idx==6 and .558<v<.594)
-  for j,mat in enumerate((
-    'deepstone','basalt','shale','strata',
-    'basalt','dunestone','slate')):
-   if carving and j>=4:continue
+  # A stepped geologically connected quarry / tidal cut. Interrupted upper
+  # shelves create real skyline voids rather than a long flat wall.
+  for j,(d0,d1,h0,h1,mat) in enumerate((
+     (26,37,-13,-9,'basalt'),(37,58,-9,1,'shale'),
+     (58,86,1,17,'strata'),(86,125,17,45,'chalk'))):
+   if j>=2 and ((idx==5 and .887<v<.923) or (idx==6 and .558<v<.594)):
+    continue
+   grainY=2.3*math.sin(i*.51+j*2.1)
+   def at(p,side,d,h):
+    outward=unit(sub(p['right'],p['left']))
+    return add(offset_edge(p,outward,d,side),(0,h+grainY,0))
    quad('25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND',
-        A[j],B[j],B[j+1],A[j+1],mat,False)
-  # Keep sparse preexisting real quarry load-support elements. Their
-  # original 26-group Blender geometry is untouched in this R12B trial.
+        at(P,'R',d0,h0),at(Q,'R',d0,h0),
+        at(Q,'R',d1,h1),at(P,'R',d1,h1),mat,False)
+  # Actual rock abutments, far apart enough to read at high speed.
   if i%16==5:
    root=offset_edge(P,S,84,'R')
    beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
