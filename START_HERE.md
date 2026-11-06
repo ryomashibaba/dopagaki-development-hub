@@ -1,5 +1,5 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
-**現行：2026-11-07 JST／R18元Chromiumの真正WebGL2深度テスト付き3時点遮蔽監査TECH PASS。R17非採用Blender実メッシュを再利用したところ、岩盤01/21/25による遮蔽は実在するが、除去しても主役施設27の可読性・港湾のART品質は未達。現行Blender作者はR12A検証済みblobを維持。次はR19で危険・水路・岩盤・施設を同一の元CHASE構図として大きく設計してから、限定的な真正3Dへ進む。QUALITY/ART/DCC-FIRST不変。**
+**現行：2026-11-07 JST／R19の元CHASE 3時点に沿う本物Blender 43群・23,090三角形はCI TECH SUCCESS／ART REJECT。岩盤・支柱の減算で道と本来の取水・制御塔・R8J車輪が読みやすくなったが、単調な水面・小物・右の黒い人工地形が残り高品質港湾には未達。現行作者は検証済みR12A Git blobへ安全復元済み。次はR20で未編集の水域・港湾建築の質を根本評価し、同じ岩盤の加減を繰り返さない。QUALITY/ART/DCC-FIRST不変。**
 
 ## まず読む（新チャット最短経路）
 1. **唯一の現行戦略正本**：[R12→R13 統合引き継ぎ・全方針と批判監査](docs/DOPAGAKI_CANONICAL_CRITICAL_HANDOFF_R12_TO_R13_20261106_JA.md)
@@ -11,12 +11,14 @@
 7. **R16元カメラ真正CIの確定座標**：[Road5/6 3時点実測・候補座標、解析ボリュームと実3Dの区別](research-evidence/k4ct/K4CT_R16_NATIVE_REAL_CAMERA_SITE_SELECTION_20261107.json)。
 8. **R17真正Blender制作・RAW批評・安全復元**：[3つの実測候補へ建築を配置したが主役競合・低品質でART REJECT](research-evidence/k4ct/K4CT_R17_ORIGINAL_CAMERA_THREE_BEAT_NATIVE_ART_REJECT_20261107.json)。
 9. **R18元GL深度テスト付き遮蔽監査**：[R17真正BLEND再利用・3時点×12描画条件・岩盤01/21/25と主役27の関係・ART REJECT維持](research-evidence/k4ct/K4CT_R18_TRUE_GL_DEPTH_TESTED_OCCLUSION_CRITICAL_VETO_20261107.json)。
-10. 詳細が必要なときだけ：[R5〜R11旧完全統合と歴史](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R5_20261106_JA.md)、[過去の入口全文](docs/archive/START_HERE_SNAPSHOT_PRE_R12_STRATEGY_20261106_JA.md)。既存R2/K4CP統合・原憲章・旧Gold/Freezeは上記正本からたどる。
+10. **R19真正3時点・美術不採用・安全復元**：[本物Blenderと元Chromiumで岩盤整理の効果は確認したが海面・建築品質未達](research-evidence/k4ct/K4CT_R19_GENUINE_THREE_ACT_BLOCKOUT_ART_REJECT_SAFE_RESTORE_20261107.json)、[事前の固定構図契約](research-evidence/k4ct/K4CT_R19_3ACT_TRUE_CHASE_COMPOSITION_CONTRACT_20261107.json)。
+11. 詳細が必要なときだけ：[R5〜R11旧完全統合と歴史](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R5_20261106_JA.md)、[過去の入口全文](docs/archive/START_HERE_SNAPSHOT_PRE_R12_STRATEGY_20261106_JA.md)。既存R2/K4CP統合・原憲章・旧Gold/Freezeは上記正本からたどる。
 
 ## 現時点で絶対に取り違えないこと
 - GitHub：ryomashibaba/dopagaki-development-hub／研究ブランチ：`research/k4ct-two-native-b51-choice-consequence-20261105`。**HEADは毎回ライブ照合**（本ファイル編集により変化する）。
 - 元ゲームSHA1 blob `af076d67492a677d2235e4730aef8cdf4808e106`、研究Road5 SHA256 `4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b`、元7 B48・28 B51・240HzとCamera。
 - main `d402801f271f43163ad85d9303abe9773d3958bd`、公式P101 `19d3a32d525c0c2a67082cba646898fab8f2b60f`、PR #46 Open/Draft/unmergedは保存前照合。正式GAME/本番/Gold/原作Slope/公式QAの未承認変更禁止。
+- R19[真正CI #42304999606](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42304999606)は**TECH SUCCESS／ART REJECT**。43編集可能Blender群／23,090三角形、元Chromium/WebGL2+240Hz Tick 15660/15924/16332、元B48×7・元B51×28・新Collider0。R12A比RGB差25超21.001/14.539/20.970%（ART点ではない）。取水群34＝65.25秒2.487%、制御塔12＝66.35秒3.781%、既存R8J群42＝68.05秒3.554%の元GL可視影響を確認。岩盤の反復と遮蔽は減ったが、**水面・残余の施設が未完成な平板景観**。候補は採用せず、DCC作者のみR12A Git blob `096fffbc1627915eb0122224955bb02cfba6b3ae`へ復元（`30e44696`）、研究モジュール・RAW保存。元Road5/Camera/240Hz/B51/正式QAは無変更。復元後CIは重複のため未実施、新規PASSを主張しない。**R20は岩盤ではなく、海域・港の造形・材質・主従構図の品質基盤を最初に再検討する。**
 - R18の[真正CI #42301790528](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42301790528)は**TECH SUCCESS**。初回 #42301516040 はArtifact同名ファイル衝突で事前HOLD（元Game/3Dの失敗ではない）→保存フォルダ隔離を修正。R17の本物Blender 31,412三角形を再利用してBlender再実行なし／各時点12条件だけGL深度テスト付き描画。群27の画素影響（元→21/25削除→01/21/25削除）は65.25秒 1.046→1.425→1.449%、66.35秒 0.267→0.368→0.989%、68.05秒 1.140→1.633→1.633%。全時点描画復元差0%、深度24bit有効。岩盤が一部隠しているのは証明できたが、**削るだけでも主役建築は読みにくく正式ART0件**。深度バッファの数値readbackや人間危険可読性認定は実施していない。次はR19の元カメラ大構図事前検討・最小真正DCC→短いRAWの順（高価な全126群CIの量産はしない）。
 - R16真正カメラ位置探索は初回CI #42295180439 で操作上のタイムアウトFAILURE→最初のpause誤操作を修正して、[CI #42295943093](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42295943093) **TECH SUCCESS**。元Camera・元240Hz/B48×7/B51×28の3時点実測で候補場所を確定。ただし概念ボリューム投影は実描画と遮蔽を保証しない。Artifact #13542505738／研究JSONに固定。
 - R17候補 `93361f2b` の[真正CI #42297615144](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42297615144) はTECH SUCCESS。真正Blender 4.0.2／43群／31,412三角形、元Chromium/WebGL2・元240Hz・B51-14通過、実接触0。しかし3時点の元CHASE比較でRGB25差10.081%／4.759%／12.641%、主役群27影響1.046%／0.267%／1.140%。前景の暗い岩盤が施設・水路を圧迫し、**ART REJECT、正式採用0**。研究DCC作者だけR12A検証済みGit blob `096fffbc1627915eb0122224955bb02cfba6b3ae`にコミット `731b0e6c` で復元。非採用モジュールはGit履歴に保全、現行作者から不参照。`[skip ci]` で復元後の重複CIは実行せず、新たなPASSを主張しない。**次は実描画の遮蔽・主役シルエット・危険物視認性を、全126群の重い検証より先に厳格評価。**
