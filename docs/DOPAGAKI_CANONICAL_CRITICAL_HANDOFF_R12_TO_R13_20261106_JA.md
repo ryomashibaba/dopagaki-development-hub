@@ -5,6 +5,16 @@
 > 最重要成果は「超高速で実際に面白く、美術的に完成度が高い、独創的な立体ブラウザゲーム」。工程数・CI成功数・巨大な低品質メッシュを成果に代えない。
 > **最新状態は必ず生のGitHub研究HEAD/Actionsで上書きする**。本文のHEADはこの正本を作った時点の出発点にすぎない。
 
+## R18元WebGL2実深度テストの遮蔽反証と次工程固定（2026-11-07 JST）
+
+- **R17の不採用本物Blenderアートを分析に再利用**：CI [#42297615144](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42297615144) の真正Blender 4.0.2・43群・31,412三角形・BSDF属性をArtifact #13542933482から取り出し、研究用PRIVATE元WebGL2へ再接続。**今の作者DCCは従来通りR12Aの検証済みGit blob `096fffbc1627915eb0122224955bb02cfba6b3ae`であり、R17を正式・研究ART採用したわけではない**。新Blender制作なし、元Game/Camera/道路/28 B51/240Hz/QA/main/P101/PR #46変更なし。
+- **失敗も保全**：初回研究CI [#42301516040](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42301516040) はArtifactを現在の真正B48/B51サイトJSONの展開先へ上書きしようとして衝突し、描画検証以前にFAILURE。研究ワークフローを変更して別ディレクトリへ取得、元B48/B51サイトを保護。修正版 [#42301790528](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42301790528) **TECH SUCCESS**（元コースCIの正式合格とは別）。恒久監査 `research-evidence/k4ct/K4CT_R18_TRUE_GL_DEPTH_TESTED_OCCLUSION_CRITICAL_VETO_20261107.json`、Artifact #13544133866、SHA256 `4ea9be7603ac06339fe7d6fc0c264234f725fc5280e1705af6a7029dbd018d81`（2026-11-13 22:07 UTC期限）。
+- **方法の真正性と限界**：元Chromium WebGL2、元Camera・元240HzのTick 15660/15924/16332を固定。レンダー側で**深度24bit・DEPTH_TEST・書込有効**を確認し、元Blender非衝突group 01/21/25/27だけをグループスパン単位で省略した**各時点12条件の真正奥行き付きDRAW**を同一セッションで比較。原球／元B51／道路／操作／物理は不変。BASE復元時との差分は3時点とも0%。ただしDEPTH_BUFFER値の直接readPixelsは行っていないし、RGB>25画素差率は厳密な物体可視面積や人間の危険認知テストではない。
+- **決定的反証**：主役群27の影響が、65.25秒は**1.046%→1.425%→1.449%**、66.35秒は**0.267%→0.368%→0.989%**、68.05秒は**1.140%→1.633%→1.633%**（順に元のR17／岩盤21+25削除／岩盤01+21+25削除）。66.35秒では01群の遮蔽が重要だが、岩盤を3群とも隠しても施設の画素影響は1%弱。しかも実画面では岩盤を取り除くと広い単調な水面と未完成の柱が露出する。したがって**遮蔽は原因の一つだが、削るだけのR14再発ではART改善にならない**。R17はTECH PASS・ART REJECTのまま、正式ART採用0件。
+- **効率の確認**：真正R18成功CIはおよそ3分41秒、従来のR17大型制作CIはおよそ11分39秒（**実行内容が異なり直接の性能比較ではない**）。R18ではBlenderの再導入・再生成と全42群×3の重複測定を避けた。結果を出せる軽い前工程を今後も優先する。
+- **次の同一方針R19**：65.25秒は上流取水と断崖の抜け、66.35秒は制御設備とB51を同時に見せる視界、68.05秒は既存真正R8Jタービン主役と水際・港湾施設を従役にする、**連続変化する一体的な海港ストーリー**を元CHASE構図で先に設計する。巨大岩・地層帯の単純加減や見えない主役増築は止める。短い3時点RAWで安全・視界VETO可能な最小真正Blender構図案のみを1回検証。美術改善が確認できない限り全42群QA・人間試走・正式ゲートには進まない。
+- **不変**：QUALITY/ART/DCC-FIRST、INTEGRATED VERTICAL SLICE、正式ART 0・Slope2 DNA 0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD、未承認課金・Work/Computer Use・正式採用・公開・merge禁止。
+
 ## R17元CHASE三地点の本物Blender ART不採用・安全復元（2026-11-07 JST）
 
 - **R16本物カメラで位置を先に確定**：初回 [CI #42295180439](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42295180439) は最初の走行pause操作を誤って120秒タイムアウトしたためFAILURE。研究スクリプトのみ修正し、[CI #42295943093](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42295943093) **TECH SUCCESS**。元K4CTのChromium WebGL2、viewForPoseと元240HzのTick 15660 / 15924 / 16332から、65.25秒 Road5 u=.95 R+155m／66.35秒 Road6 u=.48 L+115m／68.05秒 Road6 u=.80 R+155m（高さ+25m）を投影。3画面の読み取り専用RAWと原座標・カメラはArtifact #13542505738、GitHub常設 `research-evidence/k4ct/K4CT_R16_NATIVE_REAL_CAMERA_SITE_SELECTION_20261107.json` に保存。ただし解析上の建築矩形であり**本物の建築・GL遮蔽・安全・ART評価ではない**。
