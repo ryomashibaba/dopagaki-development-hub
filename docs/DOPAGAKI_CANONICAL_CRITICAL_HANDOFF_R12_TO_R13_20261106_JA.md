@@ -5,6 +5,13 @@
 > 最重要成果は「超高速で実際に面白く、美術的に完成度が高い、独創的な立体ブラウザゲーム」。工程数・CI成功数・巨大な低品質メッシュを成果に代えない。
 > **最新状態は必ず生のGitHub研究HEAD/Actionsで上書きする**。本文のHEADはこの正本を作った時点の出発点にすぎない。
 
+## R14真正評価追補（2026-11-06 JST、既定ロードマップ・承認条件を変更しない）
+
+- **真正作者候補**： `77ddb8f208775ba25f3a62f192a0d96a2e38c50a`、Blenderの群21/25と群01を実ソースに従って減算再著作し、壁・地形棚を減らして空と水面を露出。真正Blender4.0.2、43群29,816三角形、元Chromium/WebGL2/元240Hz。CI [#42228341992](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42228341992) **SUCCESS**。同一ブラウザ元retryRunによる失敗→KeyD→69.941667秒完走、B51-14接触0回。ユーザー試走0回、旧Game/Road5/Camera/240Hz/B51変更0。
+- **直接RAW批評**：元CHASE65.25／66.35／68.05秒、最新R12A復元CIとのRGB差率（閾値25）は **16.141%／11.137%／9.026%**。右手前の黒い壁・左地形棚が減り、空と水面が改善。だが白い反復列柱、68秒の巨大屋根、右側の人工的な地形帯が露出。水路と施設が統一された巨大潮汐工業港として読めず、**TECH PASS／ART REJECT／正式採用0**。画素差率はARTの点数ではない。Artifact #13506723822、ZIP SHA256 `8e3abd1c328167aa35620cf8d991c046203c002456ca468760426ebb44b7f788`、45ファイルCRC PASS、期限2026-11-13 UTC。
+- **安全復元**：候補と失敗証拠はGit履歴と `research-evidence/k4ct/K4CT_R14_SOURCE_NEGATIVE_SPACE_TRUE_NATIVE_ART_REJECT_SAFE_RESTORE_20261106.json` に保全。研究Blender作者コードだけR12A検証済みGit blob `096fffbc1627915eb0122224955bb02cfba6b3ae`へ戻したコミットは `1c803fdbee7d4181d7e56865e3d184bb134b78c3`。main、公式P101、Draft PR #46、Gold／原作／本番／正式QAは保護。復元後の新CIは結果が確定するまでPASSと見なさない。
+- **次の学習**：R13の「増やすだけ」もR14の「削るだけ」も完成品質に達しなかった。引き算で見えた巨大な白い反復設備と架構、未連結の水路・タービンを、**前景・中景・遠景に意味のある一つの建築・地形・港湾空間**へ徹底的に再構成する。さらに岩の小段差やRGB変化だけの小バッチを積まない。HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD維持。
+
 ## R13実証追補（2026-11-06 JST、V12.1の上位方針は一切変更しない）
 
 - **今回の真正研究候補**：研究コミット `f1070a94121d162fed6015bb96c39933a0c53c39`。R12Aの群21・25地層を閉じた破断岩盤の体積へ再著作し、外側の潮汐アーチ・放水部を接続。真正Blender 4.0.2／43群／32,766三角形、元Chromium/WebGL2・元240Hz入力のCI [#42223432779](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42223432779)は**TECH SUCCESS**。元B51接触0回、人間試走0回。
