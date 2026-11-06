@@ -5,6 +5,13 @@
 > 最重要成果は「超高速で実際に面白く、美術的に完成度が高い、独創的な立体ブラウザゲーム」。工程数・CI成功数・巨大な低品質メッシュを成果に代えない。
 > **最新状態は必ず生のGitHub研究HEAD/Actionsで上書きする**。本文のHEADはこの正本を作った時点の出発点にすぎない。
 
+## R13実証追補（2026-11-06 JST、V12.1の上位方針は一切変更しない）
+
+- **今回の真正研究候補**：研究コミット `f1070a94121d162fed6015bb96c39933a0c53c39`。R12Aの群21・25地層を閉じた破断岩盤の体積へ再著作し、外側の潮汐アーチ・放水部を接続。真正Blender 4.0.2／43群／32,766三角形、元Chromium/WebGL2・元240Hz入力のCI [#42223432779](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42223432779)は**TECH SUCCESS**。元B51接触0回、人間試走0回。
+- **同一元CHASEの直接ART反証**：復元済みR12Aに対し65.25/66.35/68.05秒のRGB差率（閾値25）は24.664%／17.872%／12.638%。しかし右手前の巨大暗色壁、68秒付近の左側混雑、施設・水路・地形の関係の弱さが残り、**ART REJECT／採用0件**。差分率は品質ではない。証拠 [Artifact #13505267096](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42223432779)（2026-11-13 UTC期限）、GitHub常設監査 `research-evidence/k4ct/K4CT_R13_INTEGRATED_NATIVE_ART_REJECT_SAFE_RESTORE_20261106.json`。
+- **安全復元は実行済み**：非採用R13作者コード**だけ**を真正R12Aの過去合格済みblob `096fffbc1627915eb0122224955bb02cfba6b3ae`へ戻したコミット `325481dca8c71e80ca39ec9caaa8b853d66d8ed9`。元Game/Road5/Camera/240Hz、28 B51、main・P101・PR #46に変更なし。最新復元CI [#42225408461](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42225408461)は結果確認前にSUCCESSと主張しない。
+- **次は既存の正しい優先順位で**：新たな棚・岩塊・箱を画面手前に足さない。まず元カメラの65.25→66.35→68.05で不必要に塞がれた大きな黒い面を減らし、深い空・水路・単一施設の**負空間と位置関係**を読み直してから、1つだけ真正統合DCC候補を制作する。品質改善を直接画像で証明できなければ再び安全復元する。ART/HUMAN/SAT/CCD/FPS/RELEASE/MERGEの正式HOLDは不変。
+
 ## A. 唯一の現行スコープと読む順序
 
 - Repository: https://github.com/ryomashibaba/dopagaki-development-hub
