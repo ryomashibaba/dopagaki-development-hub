@@ -46,6 +46,49 @@ async function advance(page,t,paused){
   status:state.status,time:state.pausedAt,nativeTicks:state.nativeTicks};
 }
 
+// R10A: real Chromium requestAnimationFrame *presentation* pacing only,
+// while the original runner is already PAUSED at an exact 240Hz tick.
+// This does not measure game 240Hz stepping, GPU execution latency,
+// an actual player's FPS, SAT/CCD or any formal performance budget.
+// 22 RAF samples × 9 original-camera capture conditions, all nonintrusive.
+async function measureR10ChaseFramePacing(page){
+ return await page.evaluate(async()=>{
+  const c=document.getElementById('view');
+  const atTick=Number(c.dataset.r15s3d10NativeTicks);
+  const present=[];
+  let last=0;
+  let finished=false;
+  const result=await Promise.race([
+   new Promise(resolve=>{
+    const add=t=>{
+     if(!last){last=t;requestAnimationFrame(add);return;}
+     present.push(t-last);last=t;
+     if(present.length>=22){finished=true;resolve('sampled');}
+     else requestAnimationFrame(add);
+    };
+    requestAnimationFrame(add);
+   }),
+   new Promise(resolve=>setTimeout(()=>resolve('timeout'),6500))
+  ]);
+  const nowTick=Number(c.dataset.r15s3d10NativeTicks);
+  const sorted=present.filter(x=>Number.isFinite(x)&&x>0).sort((a,b)=>a-b);
+  const p=q=>sorted.length?sorted[Math.min(sorted.length-1,Math.floor((sorted.length-1)*q))]:null;
+  return {
+   schema:'k4ct-r10-chromium-paused-source-chase-raf-pacing-v1',
+   backend:'ACTUAL_CHROMIUM_REQUEST_ANIMATION_FRAME',
+   sampled:result,completed:finished,sampleCount:sorted.length,
+   meanMS:sorted.length?sorted.reduce((a,b)=>a+b,0)/sorted.length:null,
+   p50MS:p(.50),p95MS:p(.95),worstMS:p(1),
+   reportedFPSFromMedian:p(.50)?1000/p(.50):null,
+   visualViewport:[c.width,c.height],
+   nativeTicksBefore:atTick,nativeTicksAfter:nowTick,
+   originalRunnerPaused:nowTick===atTick,
+   realHardwareFPSCertified:false,game240HzPerformanceCertified:false,
+   independentGPUTimeMeasured:false
+  };
+ });
+}
+
 /* Same-paused-tick, same-source-camera RAW layer A/B (no retouching).
  * Three modes only toggle noncolliding scenery; 28 B51 are always drawn.
  * SCREENSHOT  != HUMAN test and qualitative ART always remains REJECT. */
@@ -66,6 +109,9 @@ async function captureR6RawLayerAB(page,label){
     c.dataset.k4ctAttributionMode===(x==='CLEAN'?'BASE':x);
   },trial,{timeout:30000,polling:50});
   await page.waitForTimeout(140);
+  const r10Pacing=await measureR10ChaseFramePacing(page);
+  assert.ok(r10Pacing.sampleCount>=12&&r10Pacing.originalRunnerPaused,
+    'R10 original-source frozen camera performance samples missing');
   const state=await page.evaluate(()=>{
    const c=document.getElementById('view');
    return {mode:c.dataset.k4ctVisualABMode,
@@ -101,7 +147,7 @@ async function captureR6RawLayerAB(page,label){
   else assert.equal(state.nativeTicks,tick,'R8B display-only transition changed native tick');
   const file='K4CT_R8B_'+label+'_'+trial+'_EXACT_SOURCE_RAW.png';
   await page.screenshot({path:path.join(OUT,file)});
-  states.push({...state,file});
+  states.push({...state,file,r10Pacing});
  }
  await page.evaluate(()=>{window.__k4ctRenderAttribution='BASE';window.__k4ctSuppressK4CSGateOnly=true;});
  return {label,nativeTick:tick,states,renderOnly:true,
@@ -322,6 +368,16 @@ try{
    'HOLD_NO_ROAD6_GROUNDED';
  fs.writeFileSync(path.join(OUT,'K4CT_SECOND_B51_CONTROLLED_NATIVE_RESULT.json'),JSON.stringify(result,null,2)+'\n');
 }
+fs.writeFileSync(path.join(OUT,'K4CT_R10_REAL_CHROMIUM_9_VIEW_RAF_PACING.json'),
+ JSON.stringify({schema:'k4ct-r10-real-chromium-9-capture-raf-pacing-v1',
+  environment:'Github Actions Ubuntu24.04/Chromium headless, GPU backend unspecified',
+  sourceCameraTimesSec:[65.25,66.35,68.05],sourceOriginalRunnerHz:240,
+  realHumanFPS:false,realGPUtime:false,formalFPS:'HOLD',
+  records:result.r6Slices.flatMap(x=>x.states.map(y=>({
+   time:x.label,mode:y.trial,sourceTick:y.nativeTicks,
+   sourceProgram:y.r9ShaderLinked,roadMode:y.r9SourceRoadUnchanged,
+   materialVertexCount:y.r9BlenderMaterialVertices,pacing:y.r10Pacing
+  })))},null,2)+'\n');
 fs.writeFileSync(path.join(OUT,'K4CT_R8B_K4CS_NONCOLLIDING_GATE_SOURCE_AB_AUDIT.json'),JSON.stringify({schema:'k4ct-r8b-true-k4cs-marker-mesh-safe-draw-ab-v1',slices:result.r6Slices,originalB51:28,originalCamera:true,originalRunner240Hz:true,onlyNoncollisionLayerSwitch:true,ART:'REJECT',HUMAN:'HOLD',formalArt:0})+'\n');
 assert.equal(result.r6Slices.length,3,'R7 must capture all three actual source chase times');
 for(const f of result.r6Slices)assert.deepEqual(f.states.map(x=>x.trial),['BASE','K4CS','CLEAN']);
