@@ -1,0 +1,150 @@
+{
+  "schema": "dopagaki-k4ct-r8k-genuine-quarry-hydraulic-source-camera-critical-rollback-and-r9-material-bridge-v1",
+  "date": "2026-11-06 JST",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "currentStatus": "RESTORED_TO_VERIFIED_R8J_DCC_TECH_PASS_BUT_ART_REJECT",
+  "candidate": {
+    "codeCommit": "461682d284a22aab693e24209e40596956fff8cc",
+    "originalParent": "1be2c2f7be13e55389d7ff9044faccae5d213428",
+    "delta": "Two genuine Blender editable geometry functional groups: high-side quarry forebay and narrow U-trough supplying an existing real 3D wheel, lower 180-degree rock-bearing half-arch, locally terraced drain/catchwork. NONE of this proves a complete opposite-bank tidal-seawater hydraulic connection.",
+    "newGroupTriangles": {
+      "43_R8K_UPPER_QUARRY_WATER_CHANNEL_AND_BEARINGS": 404,
+      "44_R8K_TAILRACE_STONE_QUARRY_CATCHWORK": 310
+    },
+    "nativeBlenderVersion": "4.0.2",
+    "editedObjectGroups": 45,
+    "triangles": 32038,
+    "addedTrianglesComparedToR8J": 714,
+    "claimedSourceOriginalChanges": false,
+    "addedGameColliders": 0
+  },
+  "nativeCandidateValidation": {
+    "originalGameWebGL2": true,
+    "originalChaseCamera": true,
+    "original240Hz": true,
+    "realRunId": 42187505243,
+    "runConclusion": "success",
+    "runURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42187505243",
+    "actualArtifactId": 13488227908,
+    "artifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42187505243/artifacts/13488227908",
+    "originalZipSHA256": "0e063216b70a9191cf59ae6d7a041fa615d8b8e055e3ebdab586734bd1e3bd2b",
+    "artifactCRC": "PASS",
+    "archiveEntries": 27,
+    "sourceRoad5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalB48Count": 7,
+    "originalB51Count": 28,
+    "neutralFailureSeconds": 69.4833333333523,
+    "originalUIRetry": "retryRun",
+    "sameBrowserKeyDPulses": [
+      [
+        65.25,
+        65.36
+      ],
+      [
+        65.79,
+        65.91
+      ]
+    ],
+    "prechoicePositionDeltaMeters": 0,
+    "finishSeconds": 69.94166666668522,
+    "road6GroundedSamples": 817,
+    "trueB51_14Passed": true,
+    "nativeB51Contacts": 0,
+    "minimumB51_13GapMeters": 3.8516884950110035,
+    "minimumB51_14GapMeters": 3.148671054349772,
+    "realHumanPlay": false
+  },
+  "independentSpatialArtifactQA": {
+    "source": "Verified genuine R8K artifact DCC JSON vertices plus original private B48 Road6 129 sampled left boundary points",
+    "newDccTriangles": 714,
+    "newDccVertices": 2142,
+    "allCoordinatesFinite": true,
+    "minHorizontalDistanceFromRealB48LeftBoundaryMeters": 52.6873,
+    "medianHorizontalDistanceMeters": 92.4319,
+    "conservativeIndependentResearchCheckThresholdMeters": 40,
+    "passedThisLocal2DCheck": true,
+    "NOT": "This is not a formal 3D swept-collision or human-safe racing certification. All new shapes are noncolliding in native game."
+  },
+  "sourceCameraArt": {
+    "source": "Actual Chromium original WebGL2 & true CHASE, frame times 65.25/66.35/68.05 seconds, three R8B naming convention CLEAN RAW files, original 240Hz camera ticks. Only the previously approved research-only noncolliding K4CS decorative gate was hidden; real B51 warnings and meshes persist.",
+    "comparison": "R8J prior exact source+source atmospheric R8I; source R8E remains conservative historical visual baseline",
+    "sourceTimesSeconds": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "fullOriginalFrame1005x705ChangedPixelsPercentRGBmaxOver25vsR8J": [
+      0,
+      0.156,
+      3.62
+    ],
+    "sourceCameraRightRegionChangedPercentvsR8J": [
+      0,
+      0.572,
+      12.375
+    ],
+    "changedPixelsARE_NOT_QualityScores": true,
+    "verifiedNegative": "Most added water channel is buried behind the actual rock/retaining mesh and does not make the wheel's hydraulic purpose readable. At 68.05 seconds, a massive pale channel support intrudes into the turbine silhouette and increases structural clutter. Real source comparison is sufficient to reject the art claim.",
+    "verifiedPositive": "The source-game comparison proves real editable Blender geometry was drawn, with no false road surface, no collision additions, and authentic original UI/source runner preserved.",
+    "decision": "ART_REJECT",
+    "researchCandidateAccepted": false,
+    "formalArtAdopted": 0,
+    "reason": "The machine was intended to become architecturally connected, but its real-game appearance is not coherent. A correct physical stand-off and a genuine source render do not establish artistic progress."
+  },
+  "restoration": {
+    "sourceOnlyRestoreCommit": "b4821756a5d4ec818017b15bf76ec28667584be8",
+    "restoredFile": "scripts/p101-k4ct-native-spillway-dcc.py",
+    "restoredFromR8JCodeCommit": "995a8f1edee081950a3e5a00f8d192e94cdcbb99",
+    "restoredGitBlobSHA": "87214f8fc73ceef44947ff6697ef563499636032",
+    "forcePush": false,
+    "historyRewritten": false,
+    "failedCandidatePreserved": true,
+    "trueRetestWorkflowRunId": 42188639045,
+    "realRetestConclusion": "success",
+    "trueRetestArtifactId": 13489081701,
+    "trueRetestArtifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42188639045/artifacts/13489081701",
+    "trueRetestZipSHA256": "5e800b5f461b53c509a981136a693c2f27aa2dea9877b3221564c873d7ec5e95",
+    "zipEntries": 27,
+    "crcAllPass": true,
+    "restoredMeshGroups": 43,
+    "restoredTriangles": 31324,
+    "nativeOriginalB51Pass": true,
+    "sourceCameraR8JART": "REJECT"
+  },
+  "materialPipelineRootCause": {
+    "actualFile": "scripts/p101-k4ct-native-spillway-dcc.py",
+    "actualSourceDataJSON": "K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json",
+    "structuralProof": "Each triangle is serialized as 3*6=(x,y,z,r,g,b) scalars; a standalone materials-name list exists but per-face material indices, vertex normals, UV coordinates and true Blender BSDF node data are NOT exported into the original WebGL2 mesh.",
+    "nativeRendererIntegration": "scripts/p101-k4ct-install-authored-dcc.mjs currently injects the resulting position/RGB array through the existing original game's 6-float-per-vertex buffer / mesh draw format. R8I adds real sky gradient, not PBR materials.",
+    "implication": "Commercial art cannot be established by making more Blender Principled BSDF materials or 30k+ flat-shaded triangles if the actual original game receives only position+RGB; shader-material data path must be researched in a source-safe separated research copy.",
+    "notYetImplemented": "R9 normal/UV/material-index exporter and isolated source-native shader HAVE NOT been built or certified."
+  },
+  "nextResearchPriority": {
+    "title": "R9 research-only genuine DCC material bridge and evidence-driven original camera design",
+    "constraints": "Do not re-run more flat strip/pillar/giant-hopper decorative trials; do not change original game, source B48/B51 physics, camera, 240Hz, official QA or production. No proxy screenshots or PBR success claims before true in-game verification.",
+    "proposedStages": [
+      "R9A original renderer/Blender-output contract unit audit and small isolated test fixture: verify exact face normal, UV/material indices and Blender authored color can survive export without changing native source game buffers.",
+      "R9B isolated DCC-only WebGL2 material/lighting/shader pass, preserving full original B48/B51 materials, warning HUD and the original Runner; realistic rock/water/metal readability without large flat surface additions.",
+      "R9C actual original chase 65.25/66.35/68.05s compare with baseline, independent off-road distance and automated original fall/retry/finish; require genuine human hazard-reading later before any formal promotion."
+    ],
+    "noAutomaticPromotion": true
+  },
+  "protected": {
+    "mainHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "Open Draft Unmerged",
+    "formalARTAdopted": 0,
+    "slope2DNAMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "additionalPaidAPICalls": 0,
+    "workOrComputerUse": false,
+    "userOperations": 0
+  }
+}
