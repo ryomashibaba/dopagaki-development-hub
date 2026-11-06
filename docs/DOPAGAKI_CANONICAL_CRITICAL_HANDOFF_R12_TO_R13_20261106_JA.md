@@ -5,6 +5,15 @@
 > 最重要成果は「超高速で実際に面白く、美術的に完成度が高い、独創的な立体ブラウザゲーム」。工程数・CI成功数・巨大な低品質メッシュを成果に代えない。
 > **最新状態は必ず生のGitHub研究HEAD/Actionsで上書きする**。本文のHEADはこの正本を作った時点の出発点にすぎない。
 
+## R17元CHASE三地点の本物Blender ART不採用・安全復元（2026-11-07 JST）
+
+- **R16本物カメラで位置を先に確定**：初回 [CI #42295180439](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42295180439) は最初の走行pause操作を誤って120秒タイムアウトしたためFAILURE。研究スクリプトのみ修正し、[CI #42295943093](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42295943093) **TECH SUCCESS**。元K4CTのChromium WebGL2、viewForPoseと元240HzのTick 15660 / 15924 / 16332から、65.25秒 Road5 u=.95 R+155m／66.35秒 Road6 u=.48 L+115m／68.05秒 Road6 u=.80 R+155m（高さ+25m）を投影。3画面の読み取り専用RAWと原座標・カメラはArtifact #13542505738、GitHub常設 `research-evidence/k4ct/K4CT_R16_NATIVE_REAL_CAMERA_SITE_SELECTION_20261107.json` に保存。ただし解析上の建築矩形であり**本物の建築・GL遮蔽・安全・ART評価ではない**。
+- **R17本質制作**：実際のR16出典座標を毎回assertし、研究版の本物Blender作者 `scripts/p101-k4ct-r17-three-beat-true-camera-campus.py` を追加（`29405b6b`）、研究DCC接続 `93361f2bd6bd0aca9f186199d3e9cb76c578408e`。Road5上流取水→Road6反対岸制御→Road6放水岸壁の3-beat、石材・開放アーチ・機械円筒・水圧管・支持脚を真正編集可能3Dにした。**非衝突美術のみ**、元Game/Camera/Road5/240Hz/B51、main/P101/Gold/QA/PR #46変更0。
+- **真正CI [#42297615144](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42297615144) はTECH SUCCESS、しかしART REJECT**：Blender 4.0.2、43群、31,412三角形。元Chromium/WebGL2/元240Hzで元B51-14通過、実接触0、失敗→retryRun→69.941667秒完走。しかし元CHASE同一3時点でのR12A比RGB差25超10.081%／4.759%／12.641%。中心的機能群27のleave-one-out画素影響1.046%／0.267%／1.140%。R15のゼロ視野問題は一部改善したが、**65.25と68.05秒の暗色岩盤・大平面が主役を圧迫し、66.35秒の制御施設は依然小さい**。水路と港湾の因果的結合も即座に読めず、不採用。RGB差は美術点・真正可視面積ではない。Artifact #13542933482（2026-11-13 UTC期限）、SHA256 `dacbf07e6c4e11427c8519927dfd420e46a68d190a50a85f7a5009f76088b4c1`、常設監査 `research-evidence/k4ct/K4CT_R17_ORIGINAL_CAMERA_THREE_BEAT_NATIVE_ART_REJECT_20261107.json`。
+- **安全復元実行済み**：R17研究作者DCCだけ先行緑CI #42230306036 で検証されたR12A Git blob `096fffbc1627915eb0122224955bb02cfba6b3ae` に復元、コミット `731b0e6c5a69191bbdc924f4b9feb65dea145d1c`。不採用モジュールは研究ファイルとして保存するが現行Blender作者からは参照なし。新たなpost-restore CIは `[skip ci]` で意図的未実行、**新規PASSとは呼ばない**。
+- **効率の批判的再評価／次工程固定**：R13増築→R14引き算→R15不可視ランドマーク→R16真カメラ選定→R17真正描画の結果、単に実スクリーン投影で候補を選んでも**遮蔽物・既存地景・意味ある主従関係**は解決しない。次は**元WebGL2実深度と短い3時点RAWを使う軽量な大構図・視認性の事前VETO**を先に完成させる。巨大模型・反復地形・見えない発電所の全126群CI量産を禁止する。残存する元42群検証・正式ART・HUMAN/SAT/CCD/FPS/RELEASE/MERGEの保護条件は無変更。
+- **採用・保護の結論**：正式ART採用0件・Slope2 DNA 0m。ユーザー操作0、追加課金0、Work/Computer Use未使用、main/P101/PR #46未マージ。TECH成功と美術品質・人間の楽しさは混同しない。
+
 ## R16真正実画面配置の読み取り専用追補（2026-11-06 JST）
 
 R15不採用の直接原因を、**次の重い真正Blender候補を作る前**に既存の本物のGitHub Artifact RAWを再分析して確認。恒久記録は `research-evidence/k4ct/K4CT_R16_REAL_CAMERA_SCREENSPACE_ART_PLACEMENT_PREFLIGHT_20261106.json`。これは**既存R14/R15 Chromium RAWの分析**であり、新モデルの真正実装／新CI／正式ART成功ではない。
