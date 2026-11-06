@@ -121,7 +121,11 @@ jobs:
             assert r['state']['realWebGL2'] and r['state']['depthTest'] and r['state']['depthBits']>0
             assert r['state']['originalB51']==28
             assert r['restoredBaselineParity']['changedPctRGBgt25']<.5
-            assert r['baselineVsR21TrueSource']['changedPctRGBgt25']<.5
+            assert r['baselineWorldOnlyCrossCI']['changedPctRGBgt25']<1.0
+            assert r['crossCIBaselinePixelExact'] is False
+            assert r['withinOneBrowserSameNativeTickAB'] is True
+            # R21-vs-R22 cross-CI raster drift must be reported, not silently
+            # treated as source changes or exact pixel equivalence.
             assert len(r['actualRawFiles'])==3
             for name in r['actualRawFiles'].values():
               assert (p/name).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
