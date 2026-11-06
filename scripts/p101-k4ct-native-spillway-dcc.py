@@ -494,30 +494,68 @@ for index,begin,end,waterY in ((5,.60,.94,105.0),(6,.025,.36,93.0)):
        add(siteLeft,(0,waterY-p['right'][1]-25,0)),
        add(siteLeft,(0,waterY-p['right'][1]+2,0)),5.8,'basalt')
 
-# Angular upper stratified ridge deliberately frames the CHASE without
-# spanning the race lane. Discontinuous facets/readable geological erosion,
-# replacing the impression of a featureless, infinitely smooth bank.
-for index,begin,end in ((5,.57,.93),(6,.04,.42)):
- for k in range(84):
-  u0=begin+(end-begin)*k/84
-  u1=begin+(end-begin)*(k+1)/84
-  def ridge(u,i):
-   p,fw,lat=frame(index,u)
-   base=p['left']
-   rock=lambda d,h: add(offset_edge(p,lat,d,'L'),(0,h,0))
-   wobble=2.6*math.sin(i*.38)+1.4*math.cos(i*.93)
-   return [rock(31,-7+wobble*.5),rock(46,4+wobble),
-           rock(69,21+wobble*.8),rock(106,43+wobble*1.4)]
-  a=ridge(u0,k);b=ridge(u1,k+1)
-  # A single deep quarry notch opens a genuine view through the cliff mass.
-  openCut=index==5 and .735<(u0+u1)*.5<.805
-  for layer,material in enumerate(('deepstone','dunestone','shale')):
-   if openCut and layer>=1:continue
-   quad('21_R6_BROKEN_QUARRY_STRATA_SOURCE_CHASE',
-        a[layer],b[layer],b[layer+1],a[layer+1],material,False)
-  if k%16==2 and not openCut:
-   beam('22_R6_BASALT_EXPOSED_FAULT_SEAMS',
-        a[1],add(a[2],(0,7,0)),1.4,'strata')
+# R13 INTEGRATED VERTICAL SLICE / genuine source-aligned cliff mass.
+# R12B's flat quarry terraces are explicitly NOT reused. This authored
+# sculptural solid has jagged caps, exposed broken faces, a recessed mass,
+# variable thickness and genuine sky voids between four irregular abutments.
+# Distances below refer to the REAL B48 edge, not a simulated camera.
+# The whole candidate remains research-only / noncolliding / ART REJECT.
+def r13_carved_mass(group, idx, u0, u1, bank, nearest, depth, high, seed):
+ n=10
+ profiles=[]
+ for i in range(n+1):
+  t=i/n;u=u0+(u1-u0)*t
+  P,forward,lateral=frame(idx,u)
+  wave=math.sin(seed*1.71+i*.97)*4.2+math.cos(seed*.83+i*.41)*3.0
+  crest=high+10*math.sin(math.pi*t)**1.8+5*math.sin(seed+i*1.47)
+  # Folded cliff: 3D near scarp, overhanging broken crown, undercut toe,
+  # and far geological foundation. Not a horizontal material ribbon.
+  offsets=((nearest-4,-31),
+           (nearest-6,-11+wave*.30),
+           (nearest+5,10+wave),
+           (nearest+18,crest*.56+wave),
+           (depth-21,crest+wave*.65),
+           (depth+2,crest*.70+wave),
+           (depth+14,-41))
+  profiles.append([add(offset_edge(P,lateral,d,bank),(0,h,0))
+                   for d,h in offsets])
+ for i in range(n):
+  for j in range(6):
+   # Large oriented ROCK FACES, material chosen by fracture and face angle;
+   # no continuous horizontal gray bands. Full back and front topology.
+   faceMats=('basalt','deepstone','shale','dunestone','slate','basalt')
+   m=faceMats[(j+(i//3)+seed)%len(faceMats)]
+   if j==3 and (i+seed)%5 in (0,1):m='chalk'
+   quad(group,profiles[i][j],profiles[i+1][j],
+        profiles[i+1][j+1],profiles[i][j+1],m)
+ for cap,order in ((profiles[0],False),(profiles[-1],True)):
+  for j in range(1,len(cap)-1):
+   a,b,c=(cap[0],cap[j],cap[j+1])
+   tri(group,*( (a,c,b) if order else (a,b,c) ),'deepstone')
+   tri(group,*( (a,b,c) if order else (a,c,b) ),'deepstone')
+ # Big triangular scree fans physically connect the lower rock fault
+ # to the broken shelf rather than repeating decorative rods.
+ mid=profiles[n//2]
+ for a,b,c in ((0,1,2),(1,2,3)):
+  tri(group,mid[a],mid[b],mid[c],'shale')
+
+# LEFT visual foreground: three deliberately unequal quarry blocks / gaps.
+# The B51-13 choice zone and the wheel stay open to the sky.
+for params in ((5,.575,.704,40,125,63,2),
+               (5,.804,.874,39,134,76,4),
+               (5,.907,.959,43,113,48,7),
+               (6,.046,.163,46,129,61,3),
+               (6,.202,.328,41,141,70,6)):
+ idx,u0,u1,near,far,high,seed=params
+ r13_carved_mass('21_R6_BROKEN_QUARRY_STRATA_SOURCE_CHASE',
+                 idx,u0,u1,'L',near,far,high,seed)
+ # Sparse real rock-cut geological joints, not a forest of beams.
+ P,F,S=frame(idx,(u0+u1)*.5)
+ root=offset_edge(P,S,near+10,'L')
+ beam('22_R6_BASALT_EXPOSED_FAULT_SEAMS',
+      add(root,(0,-37,0)),add(root,(0,22+high*.34,0)),
+      2.8,'basalt')
+
 
 # One hydraulic reason for the place: the upper lock pools actually feed
 # the lower four-bay tidal structure authored in R5. A single sloping open
@@ -593,37 +631,78 @@ for station in site['stations']:
      'amber' if station['id'].endswith('-14') else 'copper',fw,lat)
 
 
-# R7B: true-CHASE camera-framed reauthoring of ONE tidal-power harbor campus.
-# Source trace: at 65.25 Road5 u=.82, 66.35 Road5 u=.969,
-# at 68.05 Road6 u=.430. All geometry sits outside real B48 widths.
-# This is authored editable geometry, never an alternate road / collision hull.
-for idx,u0,u1 in ((5,.81,.995),(6,.395,.79)):
- for i in range(64):
-  v=u0+(u1-u0)*i/64
-  nextV=u0+(u1-u0)*(i+1)/64
-  P,F,S=frame(idx,v);Q,F1,S1=frame(idx,nextV)
-  # A stepped geologically connected quarry / tidal cut. Interrupted upper
-  # shelves create real skyline voids rather than a long flat wall.
-  for j,(d0,d1,h0,h1,mat) in enumerate((
-     (26,37,-13,-9,'basalt'),(37,58,-9,1,'shale'),
-     (58,86,1,17,'strata'),(86,125,17,45,'chalk'))):
-   if j>=2 and ((idx==5 and .887<v<.923) or (idx==6 and .558<v<.594)):
-    continue
-   grainY=2.3*math.sin(i*.51+j*2.1)
-   def at(p,side,d,h):
-    outward=unit(sub(p['right'],p['left']))
-    return add(offset_edge(p,outward,d,side),(0,h+grainY,0))
-   quad('25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND',
-        at(P,'R',d0,h0),at(Q,'R',d0,h0),
-        at(Q,'R',d1,h1),at(P,'R',d1,h1),mat,False)
-  # Actual rock abutments, far apart enough to read at high speed.
-  if i%16==5:
-   root=offset_edge(P,S,84,'R')
-   beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
-        add(root,(0,-32,0)),add(root,(0,36,0)),3.1,'deepstone')
-   beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
-        add(root,(0,36,0)),
-        add(offset_edge(P,S,112,'R'),(0,49,0)),1.7,'darksteel')
+# R13 SEA-CUT MASTER: actually volumetric rock headlands with deep
+# negative space / an open shipping channel to the existing R6/R8J works.
+# R12B's four full-length flat quarry stripes are removed entirely.
+# The existing genuine B48 + B51 remains the only drivable / collidable route.
+for params in ((5,.816,.869,114,213,72,13),
+               (5,.936,.990,118,221,77,18),
+               (6,.402,.527,114,225,72,11),
+               (6,.612,.777,120,232,86,16)):
+ idx,u0,u1,near,far,high,seed=params
+ r13_carved_mass('25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND',
+                 idx,u0,u1,'R',near,far,high,seed)
+
+# Broken but actually founded outboard scarps leave an unobstructed WATER
+# corridor from the old right-bank upper forebay to the tidal works.
+for idx,u in ((5,.841),(5,.972),(6,.441),(6,.686)):
+ P,F,S=frame(idx,u)
+ nearRoot=offset_edge(P,S,45,'R')
+ deepRoot=offset_edge(P,S,117,'R')
+ beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
+      add(nearRoot,(0,-40,0)),add(nearRoot,(0,10,0)),
+      4.4,'basalt')
+ beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
+      add(nearRoot,(0,9,0)),add(deepRoot,(0,21,0)),
+      3.2,'darksteel')
+
+# ONE asymmetrical, rock-footed tidal-energy barrage OUTBOARD of the actual
+# Road5. Its 52-metre void admits light and water; the huge crown has real
+# continuous wall depth and load paths to the cut quarry and existing headrace.
+P,F,S=frame(5,.945)
+hydroCentre=offset_edge(P,S,95,'R')
+hydroBase=(hydroCentre[0],P['center'][1]-32,hydroCentre[2])
+def r13_archpoint(fwd,theta,radius):
+ return add(hydroBase,add(mul(F,fwd),
+     add(mul(S,radius*math.cos(theta)),
+         (0,radius*math.sin(theta),0))))
+for fwd in (-6.5,6.5):
+ for i in range(20):
+  a=math.pi*i/20;b=math.pi*(i+1)/20
+  beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
+       r13_archpoint(fwd,a,27),r13_archpoint(fwd,b,27),
+       2.75,'weathered_iron')
+ for side in (-1,1):
+  foot=r13_archpoint(fwd,0 if side>0 else math.pi,27)
+  beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
+       add(foot,(0,-30,0)),foot,4.1,'saltstone')
+for i in (0,5,10,15,20):
+ theta=math.pi*i/20
+ beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
+      r13_archpoint(-6.5,theta,27),
+      r13_archpoint(6.5,theta,27),1.8,'copper')
+# A real hydraulic trunk joins the originally authored upper R6 headrace
+# to this machine's rear manifold. This does NOT pass over the physical lane.
+beam('23_R6_SINGLE_TIDAL_HEADRACE_TO_SLUICE',
+     add(r6Head,(0,-6,0)),
+     add(hydroBase,add(mul(S,-12),(0,-8,0))),4.6,'oxidized')
+
+# Quarry-turbine discharge: several actual spatially contiguous water
+# polygons near the R8J rotor, outside the LEFT true race edge. The water
+# is BELOW the real track (tideY+9); it is never a fake traversable lane.
+for k in range(56):
+ u0=.394+(.757-.394)*k/56
+ u1=.394+(.757-.394)*(k+1)/56
+ P,F,S=frame(6,u0);Q,F1,S1=frame(6,u1)
+ def waterbank(p,d):
+  lat=unit(sub(p['right'],p['left']))
+  at=offset_edge(p,lat,d,'L')
+  return (at[0],tideY+9,at[2])
+ quad('42_R8J_QUARRY_ANCHORED_TURBINE_PENSTOCK',
+      waterbank(P,51),waterbank(Q,51),
+      waterbank(Q,129),waterbank(P,129),'tide',False)
+ # Not another repeated geological strip: keep the water volume open.
+
 
 # R8F: ONE actual open-air tidal turbine campus, not the previous duplicated
 # 115m opaque basalt crates in the chase view. Each bay has an uninterrupted
