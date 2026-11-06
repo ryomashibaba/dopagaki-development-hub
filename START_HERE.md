@@ -1,15 +1,17 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
-**現行：2026-11-06 JST／K4CT R12B ART REJECT・地形のみR12Aに復元／次R13統合制作。**
+**現行：2026-11-06 JST／R13真正Blender・元Chromium TECH PASS／ART REJECT。R13候補の地形はR12Aの検証済み作者blobへ選択的安全復元。次は元CHASE構図から主役位置・負空間を根本修正する同一方針の統合制作。**
 
 ## まず読む（新チャット最短経路）
 1. **唯一の現行戦略正本**：[R12→R13 統合引き継ぎ・全方針と批判監査](docs/DOPAGAKI_CANONICAL_CRITICAL_HANDOFF_R12_TO_R13_20261106_JA.md)
 2. **最新研究・安全・否定結果**：[R12全群画素影響度＋R12B不採用・安全復元](research-evidence/k4ct/K4CT_R12_VISIBILITY_AND_ART_REJECTION_SAFE_RESTORE_20261106.json)
-3. 詳細が必要なときだけ：[R5〜R11旧完全統合と歴史](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R5_20261106_JA.md)、[過去の入口全文](docs/archive/START_HERE_SNAPSHOT_PRE_R12_STRATEGY_20261106_JA.md)。既存R2/K4CP統合・原憲章・旧Gold/Freezeは上記正本からたどる。
+3. **最新の追加監査**：[R13真正3D／元ゲーム3 RAWによるART REJECTと正確なR12A選択的復元](research-evidence/k4ct/K4CT_R13_INTEGRATED_NATIVE_ART_REJECT_SAFE_RESTORE_20261106.json)。
+4. 詳細が必要なときだけ：[R5〜R11旧完全統合と歴史](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R5_20261106_JA.md)、[過去の入口全文](docs/archive/START_HERE_SNAPSHOT_PRE_R12_STRATEGY_20261106_JA.md)。既存R2/K4CP統合・原憲章・旧Gold/Freezeは上記正本からたどる。
 
 ## 現時点で絶対に取り違えないこと
 - GitHub：ryomashibaba/dopagaki-development-hub／研究ブランチ：`research/k4ct-two-native-b51-choice-consequence-20261105`。**HEADは毎回ライブ照合**（本ファイル編集により変化する）。
 - 元ゲームSHA1 blob `af076d67492a677d2235e4730aef8cdf4808e106`、研究Road5 SHA256 `4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b`、元7 B48・28 B51・240HzとCamera。
 - main `d402801f271f43163ad85d9303abe9773d3958bd`、公式P101 `19d3a32d525c0c2a67082cba646898fab8f2b60f`、PR #46 Open/Draft/unmergedは保存前照合。正式GAME/本番/Gold/原作Slope/公式QAの未承認変更禁止。
+- R13候補 `f1070a94` はCI #42223432779 TECH SUCCESS、真正元CHASEのRGB差25超24.664%／17.872%／12.638%でも、巨大な暗い壁状地形と左前景混雑を増やし **ART REJECT**。監査 `K4CT_R13_INTEGRATED_NATIVE_ART_REJECT_SAFE_RESTORE_20261106.json` に否定結果を保存。地形作者ソースをR12A検証済みGit blob `096fffbc1627915eb0122224955bb02cfba6b3ae`へ復元したコミットは `325481dc`。追加CIは結果を実確認するまでSUCCESSと呼ばない。
 - R12Aの42群×3時点可視影響測定は[CI #42215413351](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42215413351) SUCCESS。**岩盤群21/25が上位**。R12B地形の[CI #42217656353](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42217656353)もTECH SUCCESSだがRAWで大きな平面に見え、ART REJECT。**候補不採用で地形だけR12A真正検証済みソースblobへ選択的復元**。
 - 正式ART採用0件／Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。人間初見判断は未実証、元B51実衝突も未実証。R9材質連携は真正TECH PASSだが完全PBRではない。
 - 固定優先順位：**QUALITY-FIRST／ART-FIRST／DCC-FIRST／INTEGRATED VERTICAL SLICE**。低品質背景・帯状岩盤・小物・細分化CIの量産は禁止。**次は実際の主役地形・水路・港湾の立体構図を1バッチで真正制作・RAW批評**。
