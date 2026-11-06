@@ -39,8 +39,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          mkdir -p test-results/k4ct-contact-retry
-          gh run download 42297615144 --repo "$GITHUB_REPOSITORY" --name K4CT_B51_13_14_ACTUAL_NATIVE_CONTACT_RETRY_HOLD --dir test-results/k4ct-contact-retry
+          mkdir -p test-results/k4ct-r18-reused-r17-archive test-results/k4ct-contact-retry
+          gh run download 42297615144 --repo "$GITHUB_REPOSITORY" --name K4CT_B51_13_14_ACTUAL_NATIVE_CONTACT_RETRY_HOLD --dir test-results/k4ct-r18-reused-r17-archive
+          for f in K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend; do
+            test -s "test-results/k4ct-r18-reused-r17-archive/$f"
+            cp "test-results/k4ct-r18-reused-r17-archive/$f" "test-results/k4ct-contact-retry/$f"
+          done
+          # The site JSON was independently exported from current FROZEN original
+          # B48/B51 in the previous step and must never be overwritten by archive.
           python3 - <<'PY'
           import json,pathlib
           p=pathlib.Path('test-results/k4ct-contact-retry')
