@@ -545,6 +545,35 @@ for i in (-18,18):
  beam('33_R7B_SINGLE_HEADLAND_CONTROL_TOWER',
       add(base,(0,-49,0)),add(base,(0,74,0)),2.7,'concrete')
 
+
+# R7C one camera-proximate outboard tidal-power intake and crane, set
+# beside authentic road5 u=.855, OUTSIDE the physical B48 left edge.
+P,F,S=frame(5,.855)
+hydro=add(offset_edge(P,S,45,'L'),(0,2,0))
+box('34_R7C_CHASE_VISIBLE_POWER_INTAKE',
+    add(hydro,(0,7,0)),43,32,34,'deepstone',F,S)
+for shift in (-17,-4,10,18):
+ root=add(hydro,mul(F,shift))
+ beam('34_R7C_CHASE_VISIBLE_POWER_INTAKE',
+      add(root,(0,-8,0)),add(root,(0,-61,0)),3,'concrete')
+ a=add(root,add(mul(S,-14),(0,14,0)))
+ b=add(root,add(mul(S,-42),(0,-44,0)))
+ beam('35_R7C_UTILITY_PENSTOCK_TO_QUARRY',a,b,1.9,'oxidized')
+for k in range(9):
+ front=add(hydro,add(mul(F,(k-4)*4.25),add(mul(S,-17),(0,13,0))))
+ box('36_R7C_INTAKE_CONTROL_GLAZING',
+     front,2.4,1.3,11,'window',F,S)
+mast=add(hydro,add(mul(F,13),mul(S,-4)))
+beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
+     add(mast,(0,-5,0)),add(mast,(0,79,0)),3.4,'darksteel')
+boom=add(mast,add(mul(S,-55),(0,72,0)))
+beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
+     add(mast,(0,73,0)),boom,2.4,'steel')
+beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
+     add(mast,(0,79,0)),add(boom,(0,4,0)),.5,'copper')
+beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
+     boom,add(boom,(0,-34,0)),.6,'darksteel')
+
 # Editability: separate mesh objects by functional zones, real Blender materials.
 materials={}
 for key,color in COLORS.items():

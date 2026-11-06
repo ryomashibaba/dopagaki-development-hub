@@ -26,7 +26,7 @@ const replace=(needle,value)=>{
 };
 const imports="import {readK4CTTwoTrueB51,formatK4CTNativeDualCue} from './k4ct-dual-real-b51-decision.mjs';";
 replace(imports,imports+"\nimport {K4CT_DCC_VERTICES,K4CT_DCC_TRIANGLES} from './k4ct-dcc-world-geometry.mjs';");
-replace('let k4cqSceneMesh=null;', 'let k4ctDccMesh=null;\nwindow.__k4ctVisualABMode=\'R7_DCC\';\nlet k4cqSceneMesh=null;');
+replace('let k4cqSceneMesh=null;', 'let k4ctDccMesh=null;\nlet k4ctResearchB51Meshes={};\nwindow.__k4ctVisualABMode=\'R7C_MATERIAL\';\nlet k4cqSceneMesh=null;');
 const buildAnchor="}else canvas.dataset.k4cqScene='off';";
 replace(buildAnchor,buildAnchor+"\n"+
  "discard(k4ctDccMesh);k4ctDccMesh=null;"+
@@ -73,6 +73,40 @@ replace("if(g4e7yScene!=='open')draw(scenery);",
  "if(!k4ctDccMesh||!['R7_NO_SCENERY','R7_DCC'].includes(window.__k4ctVisualABMode))draw(scenery);");
 replace("draw(g4e7adCityMesh);",
  "if(!k4ctDccMesh||!['R7_NO_SCENERY','R7_DCC'].includes(window.__k4ctVisualABMode))draw(g4e7adCityMesh);");
+
+
+/* K4CT R7C research-only marine industrial body material.
+ * Every XYZ triangle remains byte-identical to the source opaque B51 hull.
+ * Collision B51×28, movingPose, original Camera and 240Hz untouched. */
+replace("for(const type of ['slider','rotator','piston'])for(const mode of ['fail','bounce','push'])\n   {machineMeshes[type+':'+mode]=mesh(obstacleBodyVertices(type,mode));\n    a13MachineMeshes[type+':'+mode]=mesh(a13MachineBodyVertices(type,mode));}",
+"for(const type of ['slider','rotator','piston'])for(const mode of ['fail','bounce','push']){"+
+" const key=type+':'+mode;"+
+" const a=a13MachineBodyVertices(type,mode),base=obstacleBodyVertices(type,mode);"+
+" machineMeshes[key]=mesh(base);a13MachineMeshes[key]=mesh(a);"+
+" const toned=(src)=>{const out=src.slice();"+
+"  const palettes={fail:[[.14,.19,.20],[.80,.23,.16],[.53,.31,.24]],"+
+"    bounce:[[.20,.22,.21],[.89,.57,.18],[.57,.42,.27]],"+
+"    push:[[.15,.22,.24],[.20,.75,.71],[.34,.53,.53]]};"+
+"  const p=palettes[mode];"+
+"  for(let i=0;i<src.length;i+=6){const rgb=src.slice(i+3,i+6);"+
+"   const max=Math.max(...rgb),min=Math.min(...rgb);"+
+"   const target=max<.36?p[0]:(max-min>.28||max>.8?p[1]:p[2]);"+
+"   for(let j=0;j<3;j++)out[i+3+j]=target[j];}"+
+"  if(out.length!==src.length||out.some((v,i)=>i%6<3&&v!==src[i]))"+
+"    throw Error('K4CT source B51 hull geometry invariant violated');"+
+"  return out;};"+
+" k4ctResearchB51Meshes[key]={a13:mesh(toned(a)),early:mesh(toned(base))};"+
+"}");
+replace("draw(o.id.startsWith('a13-machine-')?a13MachineMeshes[key]:machineMeshes[key],obstaclePose.center,obstaclePose.halfSize.map(x=>2*x),obstaclePose.yawRadians);",
+ "const materialCandidate=Boolean(k4ctDccMesh&&doc.stageForge?.k4ctPrivate&&"+
+ " window.__k4ctVisualABMode==='R7C_MATERIAL');"+
+ "const a13=o.id.startsWith('a13-machine-');"+
+ "const originalBody=a13?a13MachineMeshes[key]:machineMeshes[key];"+
+ "const candidateBody=k4ctResearchB51Meshes[key];"+
+ "const selected=materialCandidate?(a13?candidateBody.a13:candidateBody.early):originalBody;"+
+ "draw(selected,obstaclePose.center,obstaclePose.halfSize.map(x=>2*x),obstaclePose.yawRadians);"+
+ "if(k4ctDccMesh)canvas.dataset.k4ctNativeB51MaterialMode=materialCandidate?"+
+ " 'RESEARCH_RECOLOR_SOURCE_OPAQUE_HULL_IDENTICAL_XYZ':'ORIGINAL_SOURCE_VISUAL';");
 
 const moduleFile=path.join(target,'k4ct-dcc-world-geometry.mjs');
 // Isolated K4CT color mood; this does not mutate the original WebGL source.

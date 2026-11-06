@@ -52,7 +52,7 @@ async function advance(page,t,paused){
 async function captureR6RawLayerAB(page,label){
  const states=[];
  let tick=null;
- for(const mode of ['LEGACY','NO_A13','R6','R7_NO_SCENERY','R7_DCC']){
+ for(const mode of ['R7_DCC','R7C_MATERIAL','R7_NO_SCENERY']){
   await page.evaluate(x=>{window.__k4ctVisualABMode=x;},mode);
   await page.waitForFunction(expected=>{const c=document.getElementById('view');return c?.dataset.k4ctVisualABMode===expected;},mode,{timeout:30000,polling:50});
   await page.waitForTimeout(130);
@@ -64,6 +64,7 @@ async function captureR6RawLayerAB(page,label){
     nativeTicks:Number(c.dataset.r15s3d10NativeTicks),
     nativeStatus:c.dataset.r15s3d10Status,
     DCC:c.dataset.k4ctNativeDcc,
+    nativeB51MaterialMode:c.dataset.k4ctNativeB51MaterialMode,
     sourceResearchRoad5:true};
   });
   assert.equal(state.mode,mode,'visual layer switch did not render');
@@ -71,13 +72,14 @@ async function captureR6RawLayerAB(page,label){
   assert.equal(state.originalSource,'REAL_WEBGL2_SOURCE_240HZ');
   assert.equal(state.DCC,'GENUINE_BLENDER_EDITABLE_NONCOLLIDING');
   assert.equal(state.nativeStatus,'running');
+  assert.equal(state.nativeB51MaterialMode,mode==='R7C_MATERIAL'?'RESEARCH_RECOLOR_SOURCE_OPAQUE_HULL_IDENTICAL_XYZ':'ORIGINAL_SOURCE_VISUAL','native B51 skin A/B did not redraw');
   if(tick===null)tick=state.nativeTicks;
   else assert.equal(state.nativeTicks,tick,'A/B changed real physics tick');
   const file='K4CT_R6_'+label+'_'+mode+'_ORIGINAL_CHASE_RAW.png';
   await page.screenshot({path:path.join(OUT,file)});
   states.push({...state,file});
  }
- await page.evaluate(()=>{window.__k4ctVisualABMode='R7_DCC';});
+ await page.evaluate(()=>{window.__k4ctVisualABMode='R7C_MATERIAL';});
  return {label,nativeTick:tick,states,renderOnly:true,
   originalCamera:true,sourceB51CollisionUnchanged:true,formalART:0,HUMAN:'HOLD'};
 }
@@ -298,7 +300,7 @@ try{
 }
 fs.writeFileSync(path.join(OUT,'K4CT_R6_THREE_SOURCE_CHASE_LAYER_AB_AUDIT.json'),JSON.stringify({schema:'k4ct-r6-native-visual-ab-v1',slices:result.r6Slices,originalB51:28,originalCamera:true,originalRunner240Hz:true,onlyNoncollisionLayerSwitch:true,ART:'REJECT',HUMAN:'HOLD',formalArt:0})+'\n');
 assert.equal(result.r6Slices.length,3,'R7 must capture all three actual source chase times');
-for(const f of result.r6Slices)assert.deepEqual(f.states.map(x=>x.mode),['LEGACY','NO_A13','R6','R7_NO_SCENERY','R7_DCC']);
+for(const f of result.r6Slices)assert.deepEqual(f.states.map(x=>x.mode),['R7_DCC','R7C_MATERIAL','R7_NO_SCENERY']);
 assert.equal(result.experimentsCompleted,1,'must retain single known successful reference trial');
 assert.ok(result.pairedLoopProven,'same-session original failure, actual retry, and finish not proven');
 assert.deepEqual(result.errors,[],'real native browser experiment errors');
