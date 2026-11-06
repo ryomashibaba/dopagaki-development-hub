@@ -832,6 +832,15 @@ beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
 beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
      boom,add(boom,(0,-30,0)),.7,'darksteel')
 
+# R17 ONLY: before real Blender mesh instantiation, replace the specific
+# artist-authored noncollision zones with 3 functional harbor beats placed at
+# EXACT source-camera/physical B48-aligned sites from verified R16 CI.
+# Original source Game/Road5/Camera/Runner/B51/QA are never loaded as writes.
+_r17_file=Path('scripts/p101-k4ct-r17-three-beat-true-camera-campus.py')
+assert _r17_file.is_file(),('R17_REQUIRED_AUTHOR_MISSING',str(_r17_file))
+exec(compile(_r17_file.read_text(encoding='utf-8'),str(_r17_file),'exec'),globals())
+assert len(GROUPS)==43 and all(GROUPS.values()),'R17_REAL_EDITABLE_GROUPS_NOT_PRESERVED'
+
 # Editability: separate mesh objects by functional zones, real Blender materials.
 materials={}
 for key,color in COLORS.items():
