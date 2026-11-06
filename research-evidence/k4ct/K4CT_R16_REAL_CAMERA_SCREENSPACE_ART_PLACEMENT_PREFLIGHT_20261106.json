@@ -1,0 +1,188 @@
+{
+  "schema": "dopagaki-k4ct-r16-genuine-source-camera-screen-space-attribution-preflight-v1",
+  "asOf": "2026-11-06 JST",
+  "scope": "READ_ONLY evidence from R14 and R15 true paused original Chromium/WebGL2 source-camera snapshots. Not another authored model, model inference, or approved ART.",
+  "source": {
+    "r14Run": 42228341992,
+    "r15Run": 42235945412,
+    "r14Artifact": 13506723822,
+    "r15Artifact": 13511347900,
+    "seconds": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "nativeTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "viewportPx": [
+      1365,
+      930
+    ],
+    "studyRoiPx": [
+      0,
+      80,
+      1005,
+      705
+    ],
+    "nativeOriginalRunnerHz": 240,
+    "sourceGameCameraUnmodified": true,
+    "method": "42 genuine Blender non-road groups individually hidden and redisplayed in unchanged paused source camera with actual GL depth. Results are changed screenshot pixels, not actual surface visibility or quality."
+  },
+  "group27": {
+    "description": "authored centerpiece tidal-power hall; R14 original repetitive roof vs R15 new architecture",
+    "r14": {
+      "65.25": {
+        "rgb25ChangePct": 2.426,
+        "bboxXYXY": [
+          70,
+          234,
+          670,
+          400
+        ]
+      },
+      "66.35": {
+        "rgb25ChangePct": 0.179,
+        "bboxXYXY": [
+          439,
+          275,
+          511,
+          329
+        ]
+      },
+      "68.05": {
+        "rgb25ChangePct": 4.582,
+        "bboxXYXY": [
+          19,
+          271,
+          298,
+          517
+        ]
+      }
+    },
+    "r15": {
+      "65.25": {
+        "rgb25ChangePct": 0.612,
+        "bboxXYXY": [
+          210,
+          322,
+          655,
+          487
+        ]
+      },
+      "66.35": {
+        "rgb25ChangePct": 0,
+        "bboxXYXY": null
+      },
+      "68.05": {
+        "rgb25ChangePct": 0.678,
+        "bboxXYXY": [
+          115,
+          447,
+          241,
+          626
+        ]
+      }
+    },
+    "interpretation": "The alternative reduces the group27 screenshot impact substantially. At 68.05 the authored hall moves from upper/mid left into small low-left region; at 66.35 it is not detectably changing the frame. A single building may naturally leave a 180-190m/s camera between times, so this fact ALONE is not a failure; the failure is the overall frame still lacks any readable successor landmark linking basin->intake->working quay."
+  },
+  "currentR15OtherVisualContext": {
+    "65.25": {
+      "group19Forebay": {
+        "rgb25ChangePct": 4.583,
+        "bbox": [
+          19,
+          308,
+          630,
+          564
+        ]
+      },
+      "group01Geology": {
+        "rgb25ChangePct": 3.088,
+        "bbox": [
+          680,
+          264,
+          1005,
+          449
+        ]
+      }
+    },
+    "66.35": {
+      "group01Geology": {
+        "rgb25ChangePct": 5.945,
+        "bbox": [
+          642,
+          191,
+          1005,
+          490
+        ]
+      },
+      "group19Forebay": {
+        "rgb25ChangePct": 3.908,
+        "bbox": [
+          19,
+          330,
+          486,
+          521
+        ]
+      }
+    },
+    "68.05": {
+      "group03Basin": {
+        "rgb25ChangePct": 7.056,
+        "bbox": [
+          19,
+          372,
+          428,
+          698
+        ]
+      },
+      "group42ExistingRealWheel": {
+        "rgb25ChangePct": 3.595,
+        "bbox": [
+          769,
+          151,
+          1005,
+          618
+        ]
+      },
+      "group27": {
+        "rgb25ChangePct": 0.678,
+        "bbox": [
+          115,
+          447,
+          241,
+          626
+        ]
+      }
+    }
+  },
+  "criticalDirection": "R16 needs a physical-space auteur composition mapped to original camera at every time step (the visible quarry cut at 65.25; distinct tower/intake at 66.35; final 68.05 wheel and believable shipping-water discharge). No further 3D mass should be committed until one source-camera screen-space hypothesis has a genuinely open, human-readable silhouette and physically logical sequential function. Keep original hazard and road central and do not add misleading portals.",
+  "efficiencyCorrection": {
+    "stop": "Do not reauthor an invisible hero and run 126 expensive group tests just to discover its in-frame absence. Reuse these native screenshot attribution bounds and direct original RAW before new geometry.",
+    "recommendedNext": "Prepare one compact source-aligned site-and-visibility contract for Road5->Road6; then build ONE editable DCC prototype, one native CI, critical RAW ART veto, selective restore only if needed.",
+    "honestLimitations": "This is existing native evidence, NOT a new physical test, NOT a complete projected-pixel occlusion certificate, NOT human validation, NOT formal ART approval."
+  },
+  "gates": {
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "protection": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "Open/Draft/unmerged",
+    "additionalPaidAPI": 0,
+    "workComputerUse": false,
+    "userOperations": 0
+  }
+}
