@@ -832,15 +832,6 @@ beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
 beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
      boom,add(boom,(0,-30,0)),.7,'darksteel')
 
-# R19 RESEARCH ONLY: one concise genuine Blender structural blockout aligned
-# to the three original camera storybeats, reauthor only selected outboard
-# rock and subordinate seaport zones. Existing 34 intake / 12 control /
-# 41+42 wheel, original road and physical B51 remain untouched.
-_r19_author=Path('scripts/p101-k4ct-r19-source-three-act-open-harbor.py')
-assert _r19_author.is_file(),'R19_BLENDER_ARTIST_MODULE_NOT_FOUND'
-exec(compile(_r19_author.read_text(encoding='utf-8'),str(_r19_author),'exec'),globals())
-assert len(GROUPS)==43 and all(GROUPS.values()),'R19_NATIVE_EDITABLE_OBJECT_CONTRACT'
-
 # Editability: separate mesh objects by functional zones, real Blender materials.
 materials={}
 for key,color in COLORS.items():
