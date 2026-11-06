@@ -176,7 +176,7 @@ for index in (5,6):
   # R8D: source CAMERA screen-right = physical LEFT bank. Create an
   # actual open quarry sky aperture (no fake dark polygon, no new road),
   # instead of adding R8C's rejected broad grey corrugated shell.
-  quarryVoid=(index==5 and .755<u<.963) or (index==6 and .335<u<.755)
+  quarryVoid=(index==5 and .816<u<.940) or (index==6 and .415<u<.645)
   for layer in range(len(levels)-1):
    if quarryVoid and layer>=2:continue
    if layer>=3 and ((.18<u<.26) or (.62<u<.705)) and index==5:
@@ -494,68 +494,30 @@ for index,begin,end,waterY in ((5,.60,.94,105.0),(6,.025,.36,93.0)):
        add(siteLeft,(0,waterY-p['right'][1]-25,0)),
        add(siteLeft,(0,waterY-p['right'][1]+2,0)),5.8,'basalt')
 
-# R14: SOURCE-CHASE NEGATIVE-SPACE CUT. This is a subtractive authoring
-# study, NOT R13's oversized black wall and not a sequence of geology bands.
-# Each island is a finite noncolliding 3D excavated promontory with true
-# near/far depth, closed end faces, eroded top and open-water gaps. The original
-# B48 edge/obstacle silhouettes remain untouched; near faces sit BELOW track.
-def r14_real_carved_island(group, idx, u0, u1, bank, near, far, peak, seed):
- profiles=[]
- segmentCount=9
- assert far>near+55 and near>=40
- for i in range(segmentCount+1):
-  t=i/segmentCount
-  u=u0+(u1-u0)*t
-  P,F,S=frame(idx,u)
-  # Large asymmetric rocky fault (not repetitive uniform terraces).
-  nick=3.7*math.sin(i*1.29+seed)+2.2*math.cos(i*.52+seed*.91)
-  crown=peak+5*math.sin(math.pi*t)**1.3+nick
-  widths=(
-    (near, -32),
-    (near+13, -41),
-    (near+38, -19+nick*.25),
-    (far-16, crown-7),
-    (far, crown),
-    (far+22, -39))
-  profiles.append([add(offset_edge(P,S,d,bank),(0,h,0)) for d,h in widths])
- for i in range(segmentCount):
-  a=profiles[i];b=profiles[i+1]
-  for j in range(len(a)-1):
-   # Triangulate diagonal fault faces in physically different planes.
-   # A slender OPEN gorge between islands is intentional and important.
-   mats=('basalt','shale','dunestone','chalk','slate')
-   mat=mats[(j+seed+(i//3))%len(mats)]
-   if j==0:mat='basalt'
-   quad(group,a[j],b[j],b[j+1],a[j+1],mat)
- # Cap actual 3D volume at its two exposed longitudinal ends.
- # No wall ever spans the road and no collider is created.
- for cap in (profiles[0],profiles[-1]):
-  for j in range(1,len(cap)-1):
-   tri(group,cap[0],cap[j],cap[j+1],'basalt')
-   tri(group,cap[0],cap[j+1],cap[j],'basalt')
-
-# Physically LEFT = CHASE frame-right. Replace full-length wall with a
-# deliberately sparse cut scar. The middle sky/basin remains clearly OPEN.
-for spec in (
-  (5,.575,.684,47,129,19,3),
-  (5,.928,.967,54,146,23,8),
-  (6,.045,.139,50,138,23,5),
-  (6,.308,.389,54,135,19,11)
-):
- idx,u0,u1,near,far,peak,seed=spec
- r14_real_carved_island('21_R6_BROKEN_QUARRY_STRATA_SOURCE_CHASE',
-                        idx,u0,u1,'L',near,far,peak,seed)
-
-# Only TWO heavy fault columns (rather than the former periodic rod field),
-# visibly connected to geological mass and far outside the B48 race lane.
-for idx,u in ((5,.631),(6,.35)):
- P,F,S=frame(idx,u)
- base=offset_edge(P,S,110,'L')
- beam('22_R6_BASALT_EXPOSED_FAULT_SEAMS',
-      add(base,(0,-55,0)),add(base,(0,23,0)),3.0,'basalt')
- beam('22_R6_BASALT_EXPOSED_FAULT_SEAMS',
-      add(base,(0,23,0)),
-      add(offset_edge(P,S,145,'L'),(0,-15,0)),2.4,'shale')
+# Angular upper stratified ridge deliberately frames the CHASE without
+# spanning the race lane. Discontinuous facets/readable geological erosion,
+# replacing the impression of a featureless, infinitely smooth bank.
+for index,begin,end in ((5,.57,.93),(6,.04,.42)):
+ for k in range(84):
+  u0=begin+(end-begin)*k/84
+  u1=begin+(end-begin)*(k+1)/84
+  def ridge(u,i):
+   p,fw,lat=frame(index,u)
+   base=p['left']
+   rock=lambda d,h: add(offset_edge(p,lat,d,'L'),(0,h,0))
+   wobble=2.6*math.sin(i*.38)+1.4*math.cos(i*.93)
+   return [rock(31,-7+wobble*.5),rock(46,4+wobble),
+           rock(69,21+wobble*.8),rock(106,43+wobble*1.4)]
+  a=ridge(u0,k);b=ridge(u1,k+1)
+  # A single deep quarry notch opens a genuine view through the cliff mass.
+  openCut=index==5 and .735<(u0+u1)*.5<.805
+  for layer,material in enumerate(('deepstone','dunestone','shale')):
+   if openCut and layer>=1:continue
+   quad('21_R6_BROKEN_QUARRY_STRATA_SOURCE_CHASE',
+        a[layer],b[layer],b[layer+1],a[layer+1],material,False)
+  if k%16==2 and not openCut:
+   beam('22_R6_BASALT_EXPOSED_FAULT_SEAMS',
+        a[1],add(a[2],(0,7,0)),1.4,'strata')
 
 # One hydraulic reason for the place: the upper lock pools actually feed
 # the lower four-bay tidal structure authored in R5. A single sloping open
@@ -631,36 +593,37 @@ for station in site['stations']:
      'amber' if station['id'].endswith('-14') else 'copper',fw,lat)
 
 
-# R14 OUTBOARD SEA-CUT: no blanket of flat, striated quarry benches.
-# Make the existing water, tidal intake, hull-sized harbor space and four-bay
-# working sluice legible THROUGH two true quarry cuts, never by piling up slabs.
-# On Road5 most of the CAMERA-left now reveals real basin/water, while a
-# single rugged deep headland still anchors the hydraulic silhouette.
-# On Road6 preserve enough geology behind the actual R8J turbine to avoid
-# revealing unsupported legacy boxes on the near shore.
-for spec in (
-  (5,.820,.866,56,144,22,16),
-  (5,.962,.994,59,165,30,21),
-  (6,.412,.494,60,157,28,9),
-  (6,.697,.784,61,164,32,14)
-):
- idx,u0,u1,near,far,peak,seed=spec
- r14_real_carved_island('25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND',
-                        idx,u0,u1,'R',near,far,peak,seed)
-
-# The outboard foundations still have genuine load paths into the same port
-# geology. Just two structural ribs rather than dozens of visual distractions.
-for idx,u in ((5,.852),(6,.733)):
- P,F,S=frame(idx,u)
- rockFoot=offset_edge(P,S,119,'R')
- rockCrest=offset_edge(P,S,141,'R')
- beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
-      add(rockFoot,(0,-52,0)),add(rockFoot,(0,12,0)),
-      4.1,'deepstone')
- beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
-      add(rockFoot,(0,12,0)),add(rockCrest,(0,29,0)),
-      2.3,'weathered_iron')
-
+# R7B: true-CHASE camera-framed reauthoring of ONE tidal-power harbor campus.
+# Source trace: at 65.25 Road5 u=.82, 66.35 Road5 u=.969,
+# at 68.05 Road6 u=.430. All geometry sits outside real B48 widths.
+# This is authored editable geometry, never an alternate road / collision hull.
+for idx,u0,u1 in ((5,.81,.995),(6,.395,.79)):
+ for i in range(64):
+  v=u0+(u1-u0)*i/64
+  nextV=u0+(u1-u0)*(i+1)/64
+  P,F,S=frame(idx,v);Q,F1,S1=frame(idx,nextV)
+  # A stepped geologically connected quarry / tidal cut. Interrupted upper
+  # shelves create real skyline voids rather than a long flat wall.
+  for j,(d0,d1,h0,h1,mat) in enumerate((
+     (26,37,-13,-9,'basalt'),(37,58,-9,1,'shale'),
+     (58,86,1,17,'strata'),(86,125,17,45,'chalk'))):
+   if j>=2 and ((idx==5 and .887<v<.923) or (idx==6 and .558<v<.594)):
+    continue
+   grainY=2.3*math.sin(i*.51+j*2.1)
+   def at(p,side,d,h):
+    outward=unit(sub(p['right'],p['left']))
+    return add(offset_edge(p,outward,d,side),(0,h+grainY,0))
+   quad('25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND',
+        at(P,'R',d0,h0),at(Q,'R',d0,h0),
+        at(Q,'R',d1,h1),at(P,'R',d1,h1),mat,False)
+  # Actual rock abutments, far apart enough to read at high speed.
+  if i%16==5:
+   root=offset_edge(P,S,84,'R')
+   beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
+        add(root,(0,-32,0)),add(root,(0,36,0)),3.1,'deepstone')
+   beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
+        add(root,(0,36,0)),
+        add(offset_edge(P,S,112,'R'),(0,49,0)),1.7,'darksteel')
 
 # R8F: ONE actual open-air tidal turbine campus, not the previous duplicated
 # 115m opaque basalt crates in the chase view. Each bay has an uninterrupted
