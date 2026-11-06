@@ -140,7 +140,14 @@
     "FPS": "HOLD",
     "RELEASE": "HOLD",
     "PBR": "NOT_CERTIFIED",
-    "safetyRestore": "PENDING_RETURN_ONLY_ACTIVE_DCC_TO_R12A",
+    "safetyRestore": {
+      "status": "RESTORED_EXACT_VERIFIED_R12A_BLOB",
+      "commit": "30e44696935f6080e09978366ea4856f0a7d0677",
+      "originalVerifiedBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+      "sourceDiff": false,
+      "restoredCI": "SKIPPED_INTENTIONALLY_IDENTICAL_TO_GREEN_PRIOR_RUN_42230306036",
+      "guarantee": "Git blob parity to previously green CI, not a fresh post-restore native run"
+    },
     "expectedBaselineBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
     "preserveR19ModuleAsUnreferencedResearchOnly": true,
     "skipDuplicateRestoredCI": true
