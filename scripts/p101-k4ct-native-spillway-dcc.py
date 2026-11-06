@@ -832,6 +832,18 @@ beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
 beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
      boom,add(boom,(0,-30,0)),.7,'darksteel')
 
+# R20 RESEARCH ONLY: re-use the unadopted R19 open-road composition ONLY
+# as A/B substrate; ART is still REJECT, not adopted in any production path.
+# Replace exactly six genuine Blender sea/shore/working-port groups. Actual
+# original intakes 34, tower 12/13, true rotor41/42, 28 B51 and Road5/240Hz
+# remain source-identical. No fake screen, collider or game changes.
+_r19=Path('scripts/p101-k4ct-r19-source-three-act-open-harbor.py')
+_r20=Path('scripts/p101-k4ct-r20-working-tidal-port-material-author.py')
+assert _r19.is_file() and _r20.is_file()
+exec(compile(_r19.read_text(encoding='utf-8'),str(_r19),'exec'),globals())
+exec(compile(_r20.read_text(encoding='utf-8'),str(_r20),'exec'),globals())
+assert len(GROUPS)==43 and all(GROUPS.values()),'R20_BSDF_REAL_BLENDER_HARBOR_GROUPS'
+
 # Editability: separate mesh objects by functional zones, real Blender materials.
 materials={}
 for key,color in COLORS.items():
