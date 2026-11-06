@@ -1,0 +1,107 @@
+{
+  "schema": "dopagaki-k4ct-r8f-native-camera-blender-material-architecture-critical-art-review-v1",
+  "asOf": "2026-11-06 JST",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "researchCandidate": {
+    "commit": "7c5b288c897169c5b04aa61ed73008f52ea40441",
+    "status": "TECH_PASS_ART_REJECT_NOT_ADOPTED",
+    "selectedArtBaseline": "R8E_BENCHMARK_NOT_SUPERSEDED"
+  },
+  "changes": {
+    "nativeBlender": "4.0.2",
+    "editableBlenderGroups": 43,
+    "authoredNonCollidingTriangles": 32322,
+    "architecture": "Replaced duplicate 115m solid turbine hall blocks with source B48 outboard raised open air structural bays, roof truss, maritime pump columns, turbine cylinders, real tide-connected quays and one landmark freight crane.",
+    "material": "Blender-baked world-space coherent stone/wetline grain, weathering and directional lighting, muted basalt/patina/steel/glass colors; physical road RGB bands kept unchanged; source game shader/camera unmodified.",
+    "addedPhysicsCollisionObjects": 0
+  },
+  "ci": {
+    "runId": 42168058983,
+    "conclusion": "success",
+    "artifactId": 13480311774,
+    "zipSHA256": "ea28fc2e2f1d71863fc1ff51cc44ed034d0f8e249e7ad9d748a6bce2366196b7",
+    "zipCRC": "PASS",
+    "artifactExpiry": "2026-11-13T05:26:52Z"
+  },
+  "sourceIntegrity": {
+    "mainSHA": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101SHA": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46DraftOpenUnmerged": true,
+    "gameBlobSHA": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "researchRoad5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "realOriginalB48": 7,
+    "realOriginalB51": 28,
+    "nativeRunnerHz": 240,
+    "originalCamera": true
+  },
+  "nativeTest": {
+    "realChromiumWebGL2": true,
+    "originalKeyboardKeyDOnly": true,
+    "sameBrowserNativeNeutralFailRestartFinish": true,
+    "neutralFallTimeSec": 69.4833333333523,
+    "realRetryControl": "retryRun",
+    "realRetryFinishTimeSec": 69.94166666668522,
+    "prechoicePositionDriftMeters": 0,
+    "road6B51_14Passed": true,
+    "actualB51_13_14Contacts": 0,
+    "minimumB51_13DistanceMeters": 3.8516884950110035,
+    "minimumB51_14DistanceMeters": 3.148671054349772,
+    "notHuman": true
+  },
+  "nativeImageComparison": {
+    "baseline": "R8E artifact 13476808930",
+    "candidate": "R8F artifact 13480311774",
+    "capture": "same true source camera, pauses at original native ticks 15660/15924/16332; PRIVATE K4CS CLEAN mode",
+    "cropPixels": {
+      "width": 1060,
+      "height": 705
+    },
+    "delta": "RGB per-pixel max channel absolute difference >25",
+    "rows": [
+      {
+        "timeSec": 65.25,
+        "changedPercent": 3.76,
+        "visual": "Open hall / lighter materials partly evident, but dense roof and beam overlap remains."
+      },
+      {
+        "timeSec": 66.35,
+        "changedPercent": 0.399,
+        "visual": "Small change in the race view; weak impact on main composition."
+      },
+      {
+        "timeSec": 68.05,
+        "changedPercent": 4.224,
+        "visual": "Major building mass loses silhouette; repetitive roof/beam rhythm persists."
+      }
+    ],
+    "interpretation": "Difference percentage only proves camera-visible edits, not better aesthetics or human readability."
+  },
+  "criticalArt": {
+    "result": "REJECT",
+    "positives": [
+      "Open-air power hall and water-facing structural path are semantically more integrated",
+      "Muted marine color/ambient materials and saltwater stain baked by native Blender"
+    ],
+    "negatives": [
+      "65s repeated framework visually crowded despite open space",
+      "68s original skyline mass becomes weaker, image remains low-poly schematic",
+      "Readability of B51 hazard timing with noncolliding visual gate suppressed has not been human-tested",
+      "Overall art direction below world-standard target"
+    ],
+    "selectedVisualBenchmark": "R8E native RAW remains the conservative reference, R8F is nonpromoted research hypothesis"
+  },
+  "formal": {
+    "ART_ADOPTED": 0,
+    "SLOPE2_DNA_METERS": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "next": "Do not repeat generic hall skeletons or micro material perturbations. Rework distinct camera-visible landmark silhouette and coherent tide/rock/port hierarchy, with equal true 65.25/66.35/68.05s original camera evidence. Require human play for warning fairness before any promotion.",
+  "userOperations": 0,
+  "additionalPaidAPI": 0,
+  "workOrComputerUse": false
+}

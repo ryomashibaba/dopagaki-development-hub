@@ -9,6 +9,11 @@
 - R8B CLEANと同じ真カメラの65.25/66.35/68.05秒比較で変更画素4.15%/1.40%/3.22%。しかし新たな大きな灰色の面が目立ち、単調な港・岩盤や読みづらいHUDの本質改善には至らず**ART REJECT**。変更面積を品質得点とみなさない。旧K4CS非衝突ゲート整理（R8B）は保持し、R8Cの岩盤フラクタル変更だけを別の安全コミットで戻す（履歴は削除しない）。
 - [R8C非採用監査JSON](../research-evidence/k4ct/K4CT_R8C_REVERT_PLANAR_QUARRY_RAW_ART_REJECT_20261106.json)。品質/美術/DCC/縦スライスの固定方針、正式ART0件・Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD不変。次は細かい同種の岩面揺らぎではなく、真カメラから見える港の構造関係・素材・陰影と文字欠字の改善に集中。
 
+## 最新：K4CT R8F 真正Blender港湾建築＋素材統合研究（TECH PASS／ART REJECT、非採用）
+- [実装 `7c5b288c`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/7c5b288c897169c5b04aa61ed73008f52ea40441) → [真正CI #42168058983](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42168058983) **SUCCESS**。Blender4.0.2可編集43機能群、32,322三角形、新Collider0。重複した不透明なR7Bタービン発電棟を、水面へ実構造が降りる開放型タービンホールに変更し、素材別の連続した石材/金属/潮湿りと光の陰影をBlender側で著作。物理道路の材質色、元B51・Camera・240Hzは変更していない。
+- [Artifact #13480311774](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42168058983/artifacts/13480311774) ZIP SHA256 `ea28fc2e2f1d71863fc1ff51cc44ed034d0f8e249e7ad9d748a6bce2366196b7`、全CRC正常。真正元CHASEのR8EとR8Fを同一時刻で比較すると、画面主要領域の差分は65.25秒 **3.76%**、66.35秒 **0.399%**、68.05秒 **4.224%**。*画素差は美術得点ではない*。65秒に開放感は出たが梁・屋根が乱雑に重なり、68秒は主役建物のシルエットが弱まった。**R8FがR8Eより良いと判断する証拠が不足。R8Eを比較基準として保持し、R8Fの正式採用・昇格はしない。**
+- 元Chromium/240Hz/7 B48/28 B51と真の失敗→元UI`retryRun`→KeyD2回→69.941667秒finishedを保持、B51実接触0件。TECH PASSでも**ART REJECT／正式ART0件／Slope2 DNA0m／HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。[詳細の監査JSON](../research-evidence/k4ct/K4CT_R8F_OPEN_TURBINE_CAMPUS_MATERIAL_TRIAL_ART_REJECT_20261106.json)。次は反復する梁や微細材質ノイズを積み重ねず、元CHASE画面で強い主役シルエットと港湾の意味的な一体感を再設計する。
+
 ## 最新：K4CT R8D→R8E 一体制作の直接評価（2026-11-06）
 - **R8D** [実装 `74d4cbb5`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/74d4cbb5ecd027267c2622829478dfb9c4fbb86f) → [真正CI #42161000893](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42161000893) SUCCESS。Blender4.0.2可編集43機能群／32,106三角形。物理左岸（元CHASE画面右）の岩盤開口・搬送トラスを制作し、日本語フォント欠字の研究CI環境原因を`fonts-noto-cjk`で改善。ただし65.25秒の巨大黒い前景は変わらず、68.05秒の昇降機が大きすぎた。**ART REJECT**。
 - **原因再照合**：元の65.25秒カメラへ真正DCC頂点を再投影すると、前景を塞ぐ主構造は地形ではなく旧`34_R7C_CHASE_VISIBLE_POWER_INTAKE`の不透明箱型設備。近似カメラ投影のため厳密な画素別ID認証とは別扱い。画面差分で修正効果を追加照合。

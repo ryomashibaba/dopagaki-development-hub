@@ -1,6 +1,11 @@
-# DOPAGAKI SLOPE — HYPER RUSH / 現行研究・START HERE（2026-11-06 K4CT R8E真正ART判定後）
+# DOPAGAKI SLOPE — HYPER RUSH / 現行研究・START HERE（2026-11-06 K4CT R8F真正ART判定後）
 
 **最新の唯一の引き継ぎ・批判的計画正本**：[K4CT R5後・全体方針再評価と次チャット実制作計画](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R5_20261106_JA.md) をまず全文読む。**過去の全戦略とR2〜R5は[旧完全統合正本](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R2_20261105_JA.md)とその上位方針に継承**。過去の全記録は[旧START_HEREの原文アーカイブ](docs/archive/START_HERE_SNAPSHOT_K4CT_R2_20261105.md)に**省略・上書きなし**で保存。これは歴史や固定方針の撤回ではなく索引の短縮である。
+
+## 最新：K4CT R8F 真正Blender港湾建築＋素材統合研究（TECH PASS／ART REJECT、非採用）
+- [実装 `7c5b288c`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/7c5b288c897169c5b04aa61ed73008f52ea40441) → [真正CI #42168058983](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42168058983) **SUCCESS**。Blender4.0.2可編集43機能群、32,322三角形、新Collider0。重複した不透明なR7Bタービン発電棟を、水面へ実構造が降りる開放型タービンホールに変更し、素材別の連続した石材/金属/潮湿りと光の陰影をBlender側で著作。物理道路の材質色、元B51・Camera・240Hzは変更していない。
+- [Artifact #13480311774](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42168058983/artifacts/13480311774) ZIP SHA256 `ea28fc2e2f1d71863fc1ff51cc44ed034d0f8e249e7ad9d748a6bce2366196b7`、全CRC正常。真正元CHASEのR8EとR8Fを同一時刻で比較すると、画面主要領域の差分は65.25秒 **3.76%**、66.35秒 **0.399%**、68.05秒 **4.224%**。*画素差は美術得点ではない*。65秒に開放感は出たが梁・屋根が乱雑に重なり、68秒は主役建物のシルエットが弱まった。**R8FがR8Eより良いと判断する証拠が不足。R8Eを比較基準として保持し、R8Fの正式採用・昇格はしない。**
+- 元Chromium/240Hz/7 B48/28 B51と真の失敗→元UI`retryRun`→KeyD2回→69.941667秒finishedを保持、B51実接触0件。TECH PASSでも**ART REJECT／正式ART0件／Slope2 DNA0m／HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD**。[詳細の監査JSON](research-evidence/k4ct/K4CT_R8F_OPEN_TURBINE_CAMPUS_MATERIAL_TRIAL_ART_REJECT_20261106.json)。次は反復する梁や微細材質ノイズを積み重ねず、元CHASE画面で強い主役シルエットと港湾の意味的な一体感を再設計する。
 
 ## 最新：K4CT R8D→R8E 一体制作の直接評価（2026-11-06）
 - **R8D** [実装 `74d4cbb5`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/74d4cbb5ecd027267c2622829478dfb9c4fbb86f) → [真正CI #42161000893](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42161000893) SUCCESS。Blender4.0.2可編集43機能群／32,106三角形。物理左岸（元CHASE画面右）の岩盤開口・搬送トラスを制作し、日本語フォント欠字の研究CI環境原因を`fonts-noto-cjk`で改善。ただし65.25秒の巨大黒い前景は変わらず、68.05秒の昇降機が大きすぎた。**ART REJECT**。
