@@ -1,0 +1,74 @@
+{
+  "schema": "k4ct-r20-working-tidal-port-water-shore-hall-art-brief-v1",
+  "dateJST": "2026-11-07",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "fixedPolicy": "QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "observations": {
+    "trueR19Run": 42304999606,
+    "R19Verdict": "TECH PASS ART REJECT",
+    "sourceTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "actualRaw": "K4CT_R19_REAL_BLENDER_THREE_ACT_ART_HOLD",
+    "qualitative": "R19 succeeded in opening visual road/hazard/three genuine hydraulic landmark hierarchy, but left a flat cyan sea and small scattered structures, and deep black discontinuous overhang on right. R19 rejected, no adoption."
+  },
+  "technical": {
+    "strictProtectedOriginalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "strictProtectedDccRestoredGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "strictRoad5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalB51": 28,
+    "originalRunnerHz": 240,
+    "protectedSourceBlenderGroupIds": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "41",
+      "42"
+    ],
+    "candidateTemporarySubstrate": "Explicit unadopted R19 reduction for research A/B only, NOT ART adoption",
+    "uniqueTargetGroups": [
+      "03",
+      "04",
+      "05",
+      "15",
+      "16",
+      "17"
+    ],
+    "noNewColliders": true,
+    "noNewRoadPath": true,
+    "noCameraHudEngineChange": true
+  },
+  "visualArtDirection": {
+    "workingSite": "One physically coherent tidal shipping berth integrated at REAL right bank of Road5 plus a subordinate Road6 outfall. Sea route recedes naturally from carved high highway wall to wide seaward quay.",
+    "water": "Real editable Blender triangulated tide, nonuniform subtle physically plausible swell (sub-metre), subdued multiple BSDF maritime pigments and a restrained wave break at actual bank and piers. Avoid a flat cyan infinite plane AND avoid high-contrast zebra lines.",
+    "industrialScale": "One large drydock/wet quay with low breakwater and planted footings, one clearly legible weathered covered cargo hall on raised bank, strong asymmetric crane and a SINGLE moored working barge; genuine 3D finite solid faces, no decorative poles as principal subject.",
+    "lighting": "Retain existing source WebGL2 fog and unchanged sky; use authored BSDF roughness, tonal hierarchy, sun-facing polygon normals and varied corrosion/wet concrete. Not certified physical PBR.",
+    "negativeSpace": "Preserve visible sky, physical original road, B51 red moving hazard cue, original intake 34 at 65.25, tower 12 at 66.35, true wheel 41/42 at 68.05. New shore art remains visually subordinate to each.",
+    "realChaseReview": "3 paused original Chromium/WebGL2 frames 65.25, 66.35, 68.05 and only 03/05/15/16/17/34/42 group visual probes; true ART critical A/B versus R12A AND R19 RAW, independent user-human gate still HOLD.",
+    "artVeto": "If landscape remains too synthetic, dock resembles fake racing bridge, B51 legibility weakened, water waves repeat as stripes, barge floats, building looks like cuboid or foreground dominates, ART REJECT, selective DCC-only Git blob restore."
+  },
+  "limits": "No generated image substitute for real native source RAW. Real screenshots prove TECH geometry only; cannot infer formal ART/human/FPS/CCD/SAT.",
+  "safety": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "Open/Draft/unmerged",
+    "formalArtAdopted": 0,
+    "formalSlope2DNAMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "additionalPaidAPI": 0,
+    "workComputerUse": false,
+    "userActions": 0
+  }
+}
