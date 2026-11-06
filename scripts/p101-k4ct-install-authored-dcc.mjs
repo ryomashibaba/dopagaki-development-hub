@@ -26,7 +26,7 @@ const replace=(needle,value)=>{
 };
 const imports="import {readK4CTTwoTrueB51,formatK4CTNativeDualCue} from './k4ct-dual-real-b51-decision.mjs';";
 replace(imports,imports+"\nimport {K4CT_DCC_VERTICES,K4CT_DCC_TRIANGLES} from './k4ct-dcc-world-geometry.mjs';");
-replace('let k4cqSceneMesh=null;', 'let k4ctDccMesh=null;\nwindow.__k4ctVisualABMode=\'R6\';\nlet k4cqSceneMesh=null;');
+replace('let k4cqSceneMesh=null;', 'let k4ctDccMesh=null;\nwindow.__k4ctVisualABMode=\'R7_DCC\';\nlet k4cqSceneMesh=null;');
 const buildAnchor="}else canvas.dataset.k4cqScene='off';";
 replace(buildAnchor,buildAnchor+"\n"+
  "discard(k4ctDccMesh);k4ctDccMesh=null;"+
@@ -50,21 +50,29 @@ replace(oldRoadVisual,"draw(roads);if(k4ctDccMesh){draw(k4ctDccMesh);canvas.data
    LEGACY = old monumental skyline/A13/guides; NO_A13 = old minus A13;
    R6 = authored DCC + original B51 only, with legacy decorative clutter off. */
 replace("if(megaEnabled&&g4e7yScene!=='open'){draw(megaWorld);draw(g5bSceneryMesh);}",
- "if((!k4ctDccMesh||window.__k4ctVisualABMode!=='R6')&&megaEnabled&&g4e7yScene!=='open'){draw(megaWorld);draw(g5bSceneryMesh);}");
+ "if((!k4ctDccMesh||!['R6','R7_NO_SCENERY','R7_DCC'].includes(window.__k4ctVisualABMode))&&megaEnabled&&g4e7yScene!=='open'){draw(megaWorld);draw(g5bSceneryMesh);}");
 replace("if(g4e7yScene!=='open')draw(g4dSkywayMesh);",
- "if((!k4ctDccMesh||window.__k4ctVisualABMode!=='R6')&&g4e7yScene!=='open')draw(g4dSkywayMesh);");
+ "if((!k4ctDccMesh||!['R6','R7_NO_SCENERY','R7_DCC'].includes(window.__k4ctVisualABMode))&&g4e7yScene!=='open')draw(g4dSkywayMesh);");
 replace("draw(a13ArchMesh);if(g4e7yScene!=='open')draw(g4e7sShardMesh);",
  "if(!k4ctDccMesh||window.__k4ctVisualABMode==='LEGACY')draw(a13ArchMesh);if(g4e7yScene!=='open')draw(g4e7sShardMesh);");
 replace("draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);",
- "if(!k4ctDccMesh||window.__k4ctVisualABMode!=='R6')draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);");
+ "if(!k4ctDccMesh||!['R6','R7_NO_SCENERY','R7_DCC'].includes(window.__k4ctVisualABMode))draw(approachBeacons,[0,0,0],[1,1,1],0,gl.LINES);");
 replace("for(const guide of guideMeshes)draw(guide.mesh,[0,0,0],[1,1,1],0,gl.LINES);",
- "if(!k4ctDccMesh||window.__k4ctVisualABMode!=='R6')for(const guide of guideMeshes)draw(guide.mesh,[0,0,0],[1,1,1],0,gl.LINES);");
+ "if(!k4ctDccMesh||!['R6','R7_NO_SCENERY','R7_DCC'].includes(window.__k4ctVisualABMode))for(const guide of guideMeshes)draw(guide.mesh,[0,0,0],[1,1,1],0,gl.LINES);");
 replace("draw(roads);if(k4ctDccMesh){draw(k4ctDccMesh);",
- "if(k4ctDccMesh)canvas.dataset.k4ctVisualABMode=window.__k4ctVisualABMode||'R6';\n draw(roads);if(k4ctDccMesh){draw(k4ctDccMesh);");
+ "if(k4ctDccMesh)canvas.dataset.k4ctVisualABMode=window.__k4ctVisualABMode||'R7_DCC';\n draw(roads);if(k4ctDccMesh){if(window.__k4ctVisualABMode!=='R7_NO_SCENERY')draw(k4ctDccMesh);");
 replace("k4ctPanel.textContent=formatK4CTNativeDualCue(dual);",
  "k4ctPanel.textContent=formatK4CTNativeDualCue(dual);"+
  "const oldCue=document.getElementById('machineCue');"+
  "if(oldCue){oldCue.style.display='none';canvas.dataset.k4ctResearchRedundantCue='hidden-dual-original-B51-retained';}");
+
+
+/* R7 true camera provenance: original source 28 moving B51 always drawn.
+ * A/B changes only existing noncolliding scenery and Blender-drawn environment. */
+replace("if(g4e7yScene!=='open')draw(scenery);",
+ "if(!k4ctDccMesh||!['R7_NO_SCENERY','R7_DCC'].includes(window.__k4ctVisualABMode))draw(scenery);");
+replace("draw(g4e7adCityMesh);",
+ "if(!k4ctDccMesh||!['R7_NO_SCENERY','R7_DCC'].includes(window.__k4ctVisualABMode))draw(g4e7adCityMesh);");
 
 const moduleFile=path.join(target,'k4ct-dcc-world-geometry.mjs');
 // Isolated K4CT color mood; this does not mutate the original WebGL source.

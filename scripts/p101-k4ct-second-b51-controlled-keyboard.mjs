@@ -52,7 +52,7 @@ async function advance(page,t,paused){
 async function captureR6RawLayerAB(page,label){
  const states=[];
  let tick=null;
- for(const mode of ['LEGACY','NO_A13','R6']){
+ for(const mode of ['LEGACY','NO_A13','R6','R7_NO_SCENERY','R7_DCC']){
   await page.evaluate(x=>{window.__k4ctVisualABMode=x;},mode);
   await page.waitForTimeout(110);
   const state=await page.evaluate(()=>{
@@ -76,7 +76,7 @@ async function captureR6RawLayerAB(page,label){
   await page.screenshot({path:path.join(OUT,file)});
   states.push({...state,file});
  }
- await page.evaluate(()=>{window.__k4ctVisualABMode='R6';});
+ await page.evaluate(()=>{window.__k4ctVisualABMode='R7_DCC';});
  return {label,nativeTick:tick,states,renderOnly:true,
   originalCamera:true,sourceB51CollisionUnchanged:true,formalART:0,HUMAN:'HOLD'};
 }
@@ -296,7 +296,8 @@ try{
  fs.writeFileSync(path.join(OUT,'K4CT_SECOND_B51_CONTROLLED_NATIVE_RESULT.json'),JSON.stringify(result,null,2)+'\n');
 }
 fs.writeFileSync(path.join(OUT,'K4CT_R6_THREE_SOURCE_CHASE_LAYER_AB_AUDIT.json'),JSON.stringify({schema:'k4ct-r6-native-visual-ab-v1',slices:result.r6Slices,originalB51:28,originalCamera:true,originalRunner240Hz:true,onlyNoncollisionLayerSwitch:true,ART:'REJECT',HUMAN:'HOLD',formalArt:0})+'\n');
-assert.equal(result.r6Slices.length,3,'R6 must capture all three actual source chase times');
+assert.equal(result.r6Slices.length,3,'R7 must capture all three actual source chase times');
+for(const f of result.r6Slices)assert.deepEqual(f.states.map(x=>x.mode),['LEGACY','NO_A13','R6','R7_NO_SCENERY','R7_DCC']);
 assert.equal(result.experimentsCompleted,1,'must retain single known successful reference trial');
 assert.ok(result.pairedLoopProven,'same-session original failure, actual retry, and finish not proven');
 assert.deepEqual(result.errors,[],'real native browser experiment errors');
