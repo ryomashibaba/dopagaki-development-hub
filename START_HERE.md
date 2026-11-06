@@ -1,6 +1,11 @@
-# DOPAGAKI SLOPE — HYPER RUSH / 現行研究・START HERE（2026-11-06 K4CT R8I真正ART判定後・研究素材/大気候補HOLD）
+# DOPAGAKI SLOPE — HYPER RUSH / 現行研究・START HERE（2026-11-06 K4CT R8J真正ART判定後・研究タービン候補HOLD）
 
 **最新の唯一の引き継ぎ・批判的計画正本**：[K4CT R5後・全体方針再評価と次チャット実制作計画](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R5_20261106_JA.md) をまず全文読む。**過去の全戦略とR2〜R5は[旧完全統合正本](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R2_20261105_JA.md)とその上位方針に継承**。過去の全記録は[旧START_HEREの原文アーカイブ](docs/archive/START_HERE_SNAPSHOT_K4CT_R2_20261105.md)に**省略・上書きなし**で保存。これは歴史や固定方針の撤回ではなく索引の短縮である。
+
+## 最新：K4CT R8J 真正Blender 3D潮汐タービン主役構造と元CHASEの直接評価（TECH PASS／ART REJECT）
+- [真正実装 `995a8f1e`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/995a8f1edee081950a3e5a00f8d192e94cdcbb99) → [CI #42184711612](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42184711612) **SUCCESS**。従来の角張ったR8D鉱石昇降機を元Road6 `u=.625`、真B48左岸から**87m外**の位置で、一つの立体的な24分割タービンリング・12枚のピッチ付き銅色ブレード・軸受基礎・海側配管へ真正Blender4.0.2著作。43編集可機能群、31,324三角形（R8I比+544）、Collider追加0、元Gameソース/Camera/B48×7/B51×28/240Hz保持。
+- [Artifact #13487216241](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42184711612/artifacts/13487216241) ZIP SHA256 `833ce23c266c359921d5f2eb6b410f3c2b50c61661aef5b4bde343b58e30e0be`／27ファイル全CRC PASS。真正元WebGL2同一CHASE RAWのR8J対R8I画素差分は65.25/66.35/68.05秒で**0.444%／0.699%／6.130%**。画素差は美術品質得点ではない。68.05秒画面右上のタービン輪郭は明確に可視化され、以前の角張った設備との差異はある。しかし独立した巨大車輪にも見え、水との機能的な接続・採石港全体の立体奥行き・実人間のB51先読みは未達／未確認。**TECH PASS／ART REJECT／正式ART0件**で保留し、R8Eを保守的な比較基準に保持。
+- 無操作路外落下69.483333秒→元UI `retryRun`→実KeyD2操作→69.941667秒完走、B51-13/14実接触0件、最短距離約3.852m／3.149m（**実衝突や人間操作の立証ではない**）。Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。[R8J詳細批判監査](research-evidence/k4ct/K4CT_R8J_NATIVE_TIDAL_ROTOR_TRUE_CHASE_ART_CRITICAL_20261106.json)。次は孤立した機械増殖を止め、潮汐水路・岩盤・構造基礎のつながりを真正景観として作り、実CHASE三時点と人間の危険可読性で採否判定。
 
 ## 最新：K4CT R8I 真正WebGL2の港湾昼光・Blender素材統一研究（TECH PASS／ART REJECT）
 - [実装 `a96f701d`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/a96f701d8f7e0ce6bfa536b10d24042ef790ce85)で元Gameの研究用隔離コピーに**本物のWebGL2空グラデーション**を描画。Blenderの43編集可DCC機能群・30,780三角形の素材色と太陽光/潮の湿りを著作。Camera・元B48×7/B51×28・240Hz・追加Collider0は不変。空の変更はPNG後加工ではなく実ゲームフレームの描画。画像上の空サンプル画素がRGB `29,43,49→35,69,94`に変化。

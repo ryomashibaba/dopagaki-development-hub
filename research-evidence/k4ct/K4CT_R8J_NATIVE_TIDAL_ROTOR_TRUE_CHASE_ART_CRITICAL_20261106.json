@@ -1,0 +1,142 @@
+{
+  "schema": "dopagaki-k4ct-r8j-true-native-blender-tidal-rotor-chase-critical-art-audit-v1",
+  "date": "2026-11-06 JST",
+  "repository": "ryomashibaba/dopagaki-development-hub",
+  "researchBranch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "candidateCommit": "995a8f1edee081950a3e5a00f8d192e94cdcbb99",
+  "status": "TECH_PASS_ART_REJECT_RESEARCH_ONLY_NOT_PROMOTED",
+  "implementation": {
+    "authorSource": "scripts/p101-k4ct-native-spillway-dcc.py",
+    "genuineBlenderVersion": "4.0.2",
+    "change": "Replace the original R8D two-column generic outboard Road6 ore lift with an authentic 24-sector annular tidal generator crown, 12 pitched copper rotor blades, machined axle, rock-embedded bearing foundations and dual tide-facing penstocks. No duplicate road portal or false race surface.",
+    "originalRoad6Placement": {
+      "u": 0.625,
+      "physicalSide": "LEFT",
+      "distanceBeyondTrueB48EdgeMeters": 87
+    },
+    "editableGroups": 43,
+    "realNonCollidingTriangles": 31324,
+    "priorR8INonCollidingTriangles": 30780,
+    "triangleDelta": 544,
+    "specificBlenderGroups": {
+      "41_R8J_COASTAL_TIDAL_TURBINE_CROWN": 520,
+      "42_R8J_QUARRY_ANCHORED_TURBINE_PENSTOCK": 336
+    },
+    "otherPreexistingGeometry": "Unchanged (preserves R8I research atmosphere and material pass)",
+    "gamePhysicsChanged": false,
+    "originalCameraChanged": false,
+    "addedColliders": 0,
+    "sourceGameCodeChanged": false
+  },
+  "evidence": {
+    "runId": 42184711612,
+    "CI": "SUCCESS",
+    "headSha": "995a8f1edee081950a3e5a00f8d192e94cdcbb99",
+    "artifactId": 13487216241,
+    "artifactUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42184711612/artifacts/13487216241",
+    "zipSHA256": "833ce23c266c359921d5f2eb6b410f3c2b50c61661aef5b4bde343b58e30e0be",
+    "zipEntryCount": 27,
+    "zipCRC": "PASS",
+    "expiresAt": "2026-11-13T08:06:38Z",
+    "sameTrueChromiumWebGL2": true,
+    "realNative240Hz": true,
+    "origRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newCollisionObjects": 0,
+    "neutralFailedAtSeconds": 69.4833333333523,
+    "nativeUIRetry": "retryRun",
+    "sameBrowserPrechoicePositionDriftMeters": 0,
+    "keyDPhysicalInputs": [
+      {
+        "startSeconds": 65.25,
+        "endSeconds": 65.36
+      },
+      {
+        "startSeconds": 65.79,
+        "endSeconds": 65.91
+      }
+    ],
+    "finishAtSeconds": 69.94166666668522,
+    "road6GroundedSamples": 817,
+    "passedB51_14": true,
+    "realB51ContactCount": 0,
+    "minimumB51_13GapMeters": 3.8516884950110035,
+    "minimumB51_14GapMeters": 3.148671054349772,
+    "humanRun": false
+  },
+  "visual": {
+    "source": "Saved real Chromium original WebGL2 three CLEAN RAW frames (not proxy image or concept render), exact source original camera 240Hz ticks at 65.25,66.35,68.05s. Only preexisting R8B research noncolliding K4CS decorative gate hidden; true B51 still displayed.",
+    "images": [
+      "K4CT_R8B_T65_25_CLEAN_EXACT_SOURCE_RAW.png",
+      "K4CT_R8B_T66_35_CLEAN_EXACT_SOURCE_RAW.png",
+      "K4CT_R8B_T68_05_CLEAN_EXACT_SOURCE_RAW.png"
+    ],
+    "comparisonBase": [
+      "R8I same original camera/source, previous source material and real sky",
+      "R8E conservative historical artwork baseline"
+    ],
+    "viewport": {
+      "x0": 0,
+      "y0": 0,
+      "x1": 1005,
+      "y1": 705,
+      "colorMetric": "RGB maximum-channel difference greater than 25. % changed is NOT an art score"
+    },
+    "r8jVsR8IPixelChangedPct": [
+      0.444,
+      0.699,
+      6.13
+    ],
+    "r8jVsR8EPixelChangedPct": [
+      25.965,
+      39.435,
+      36.032
+    ],
+    "r8jVsR8IRightHalfPixelChangedPct": [
+      0.417,
+      0.885,
+      13.196
+    ],
+    "at65_25": "The circular device is a minor, distant addition on the source screen-right behind existing quarry faces. Main road and B51 sightline not visibly occluded.",
+    "at66_35": "Small recognizable ring on source screen-right background; minor composition change.",
+    "at68_05": "The open turbine wheel is prominently visible in right-upper quarry skyline, unlike previous angular generic lift, offering a distinct recognizable object and constructive 3D silhouette. However, it visually reads as a giant standalone wheel; duct/plinth/water-channel connection is unclear.",
+    "positives": [
+      "One identifiable source-camera-visible large-scale industrial geometry instead of repeating opaque boxes",
+      "Outboard, source geometry preserving: original B51 and road still shown",
+      "Localized source 68.05s improvement hypothesis without broad R8H-type wall regression"
+    ],
+    "negatives": [
+      "Machine's true working relationship to the tide, cliffs and harbor is not readable; can look like a Ferris wheel or detached prop",
+      "World still low-poly, repetitive planar walls and uncoordinated support structures remain",
+      "At 68.05s next B51 is very near; prominent wheel could compete for attention. Actual human hazard anticipation is NOT verified.",
+      "Improvement at earlier two true camera moments is marginal and does not represent an integrated vertical-slice art upgrade"
+    ],
+    "formalDecision": "ART_REJECT",
+    "artFormalAdopted": 0,
+    "candidateDisposition": "Preserve R8J within research branch only. This is a non-adopted visual and physical-parity experiment; retain R8E historical conservative reference."
+  },
+  "safety": {
+    "mainSHA": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101SHA": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": {
+      "state": "open",
+      "draft": true,
+      "merged": false
+    },
+    "ART_ADOPTED": 0,
+    "SLOPE2_DNA_METERS": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "workUsed": false,
+    "computerUseUsed": false,
+    "paidAPICalls": 0,
+    "manualUserOperations": 0
+  },
+  "next": "Before another independent mechanical prop, integrate the existing rotor with real sculpted water-duct/rock cut/harbor basin in a continuous truthful landscape and remove superfluous repeating scaffold geometry. First satisfy three true original camera frames, then human hazard readability. No promotion for technical PASS alone."
+}
