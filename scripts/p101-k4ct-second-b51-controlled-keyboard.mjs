@@ -54,7 +54,8 @@ async function captureR6RawLayerAB(page,label){
  let tick=null;
  for(const mode of ['LEGACY','NO_A13','R6','R7_NO_SCENERY','R7_DCC']){
   await page.evaluate(x=>{window.__k4ctVisualABMode=x;},mode);
-  await page.waitForTimeout(110);
+  await page.waitForFunction(expected=>{const c=document.getElementById('view');return c?.dataset.k4ctVisualABMode===expected;},mode,{timeout:30000,polling:50});
+  await page.waitForTimeout(130);
   const state=await page.evaluate(()=>{
    const c=document.getElementById('view');
    return {mode:c.dataset.k4ctVisualABMode,
