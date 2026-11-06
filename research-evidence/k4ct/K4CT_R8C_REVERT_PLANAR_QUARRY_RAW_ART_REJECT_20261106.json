@@ -1,0 +1,69 @@
+{
+  "schema": "dopagaki-k4ct-r8c-true-chase-art-negative-rollback-v1",
+  "project": "DOPAGAKI SLOPE - HYPER RUSH",
+  "dateJST": "2026-11-06",
+  "researchBranch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "failedArtCandidate": {
+    "commit": "ae065f0944673a0c99a1b5e63e94cd75c4f2caa5",
+    "workflowRunId": 42159236198,
+    "status": "TECH_PASS_ART_REJECT",
+    "artifactId": 13475898161,
+    "artifactZipSHA256": "45faf8133b2cccb9b4d8eb8ae7f2bb1d6a567f26d8191a88c9a18a0a008bf1c4",
+    "artifactZipCRC": "PASS",
+    "authoringBlender": "4.0.2",
+    "sourceAlignedEditableObjects": 38,
+    "triangles": 32174,
+    "newColliders": 0,
+    "originalB51Count": 28,
+    "originalSourceB48Count": 7,
+    "originalCamera": true,
+    "originalRunner240Hz": true,
+    "nativeFailureRetryFinish": "PASS",
+    "humanNotTested": true
+  },
+  "baseCandidate": {
+    "researchSourceCommit": "421d5ebb326f12bcf05d07168fd50f5c90cf0202",
+    "runId": 42158287850,
+    "artifactId": 13475981155,
+    "authoredBlenderObjects": 38,
+    "triangles": 31226,
+    "sourceDccBlobSha": "153bc1bc9652c65345b30d570422f064306facd1"
+  },
+  "matchedSourceChasePixelComparison": {
+    "method": "same real Chromium 240Hz camera, K4CS clean gate mode, RGB max channel absolute difference >25, game crop 1090x710",
+    "perTime": [
+      {
+        "t": 65.25,
+        "changedPx": 32125,
+        "percent": 4.15
+      },
+      {
+        "t": 66.35,
+        "changedPx": 10867,
+        "percent": 1.4
+      },
+      {
+        "t": 68.05,
+        "changedPx": 24950,
+        "percent": 3.22
+      }
+    ]
+  },
+  "qualitativeFinding": "R8C eroded layer code changes visible game pixels, but forms a new broad grey triangular mass and does not resolve flat low-poly silhouettes or illegible HUD. Strict ART REJECT. No world-class improvement verified.",
+  "action": "REVERT_ONLY_R8C_DCC_FILE_BY_NEW_NONFORCE_COMMIT_KEEP_ALL_FAIL_HISTORY",
+  "safety": {
+    "sourceGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "researchRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "mainUnchanged": true,
+    "officialPRUnchanged": true,
+    "officialART": 0,
+    "SLOPE2_DNA": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "nextCreativeHypothesis": "Keep R8B clear noncolliding gate outcome; stop adding sinusoidal strata to existing strips. Rework actual port/hydraulic visual hierarchy and rendering/material language in one camera-led DCC block. Human hazard anticipation and Japanese glyphs remain unsolved."
+}

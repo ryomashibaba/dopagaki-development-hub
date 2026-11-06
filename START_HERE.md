@@ -2,6 +2,11 @@
 
 **最新の唯一の引き継ぎ・批判的計画正本**：[K4CT R5後・全体方針再評価と次チャット実制作計画](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R5_20261106_JA.md) をまず全文読む。**過去の全戦略とR2〜R5は[旧完全統合正本](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R2_20261105_JA.md)とその上位方針に継承**。過去の全記録は[旧START_HEREの原文アーカイブ](docs/archive/START_HERE_SNAPSHOT_K4CT_R2_20261105.md)に**省略・上書きなし**で保存。これは歴史や固定方針の撤回ではなく索引の短縮である。
 
+## K4CT R8C 実制作の批判的結果：真正TECH PASS／ART REJECT → 研究内で非採用・原地形へ戻す
+- [R8C真正Blender4.0.2／元WebGL2・240Hz実走行 #42159236198](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42159236198) **SUCCESS**、実装候補 `ae065f0944673a0c99a1b5e63e94cd75c4f2caa5`、[Artifact #13475898161](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42159236198/artifacts/13475898161) SHA256 `45faf8133b2cccb9b4d8eb8ae7f2bb1d6a567f26d8191a88c9a18a0a008bf1c4`／CRC PASS。38編集可能DCC機能群／32,174三角形、新Collider0。元Runnerの落下→元UIリトライ→KeyD完走は継続。
+- R8B CLEANと同じ真カメラの65.25/66.35/68.05秒比較で変更画素4.15%/1.40%/3.22%。しかし新たな大きな灰色の面が目立ち、単調な港・岩盤や読みづらいHUDの本質改善には至らず**ART REJECT**。変更面積を品質得点とみなさない。旧K4CS非衝突ゲート整理（R8B）は保持し、R8Cの岩盤フラクタル変更だけを別の安全コミットで戻す（履歴は削除しない）。
+- [R8C非採用監査JSON](research-evidence/k4ct/K4CT_R8C_REVERT_PLANAR_QUARRY_RAW_ART_REJECT_20261106.json)。品質/美術/DCC/縦スライスの固定方針、正式ART0件・Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD不変。次は細かい同種の岩面揺らぎではなく、真カメラから見える港の構造関係・素材・陰影と文字欠字の改善に集中。
+
 ## K4CT R8B：旧K4CS非衝突ゲートの出所確定・元CHASE清掃（ART HOLD）
 - 最新の真正実行HEAD `421d5ebb326f12bcf05d07168fd50f5c90cf0202`、[CI #42158287850](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42158287850) **SUCCESS**。真正Blender 4.0.2／38機能群／31,226三角形、元WebGL2/Camera/240Hz、B48×7/B51×28、新Collider0、元UI落下リトライ→KeyDで69.941667秒finished再現。HUMANではない。
 - 3時点×BASE/K4CS/CLEANの本物のRAW比較で黄・シアンの大きな柱は**非衝突旧K4CS `k4csMarkerMesh`**由来だと直接確定。旧柱のみ研究用で表示しない候補にすると65.25秒の変更1.61%、66.35秒7.57%、68.05秒0.07%。旧B51本体/現物危険と予告HUDは残る。消えた柱による実人間危険先読みの公平性は未検証。

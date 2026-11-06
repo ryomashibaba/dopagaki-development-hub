@@ -455,39 +455,20 @@ for idx,u0,u1 in ((5,.81,.995),(6,.395,.79)):
   v=u0+(u1-u0)*i/64
   nextV=u0+(u1-u0)*(i+1)/64
   P,F,S=frame(idx,v);Q,F1,S1=frame(idx,nextV)
-  # R8C: REPLACE the old broad two-triangle planar quarry bands rather
-  # than stacking new polygons above them. Three-dimensional jagged eroded
-  # bedding (two independent faceted widths) is conditioned by actual 65-68s
-  # Road5/6 chase world coordinates. All geometry begins >= 23m OUTBOARD
-  # of the actual B48 right edge; no physics/route/bridge is added.
+  # A stepped geologically connected quarry / tidal cut. Interrupted upper
+  # shelves create real skyline voids rather than a long flat wall.
   for j,(d0,d1,h0,h1,mat) in enumerate((
      (26,37,-13,-9,'basalt'),(37,58,-9,1,'shale'),
      (58,86,1,17,'strata'),(86,125,17,45,'chalk'))):
-   upperScar=(idx==5 and .887<v<.923) or (idx==6 and .558<v<.594)
-   if j>=2 and upperScar:
-    # The upper benches are truly absent; visible open sky, not a painted
-    # black rectangle. Avoid a long continuous horizon obstruction.
+   if j>=2 and ((idx==5 and .887<v<.923) or (idx==6 and .558<v<.594)):
     continue
-   midD=(d0+d1)*.5
-   def eroded(p,u,d,h,layer,crest=False):
-    lateral=unit(sub(p['right'],p['left']))
-    # Staggered faults instead of uniform sloped material rectangles.
-    fine=math.sin(133*u+layer*2.21)*1.7+math.sin(57*u-layer*1.83)*2.8
-    long=math.sin(29*u+layer*.89)*3.9
-    shift=2.0*math.sin(53*u+d*.087+layer*1.44)
-    yshift=(fine+long)*(.38 if layer==0 else 1.0)
-    if crest:yshift+=4.0+2.0*math.sin(u*97+layer)
-    return add(offset_edge(p,lateral,d+shift,'R'),(0,h+yshift,0))
-   a=eroded(P,v,d0,h0,j);b=eroded(Q,nextV,d0,h0,j)
-   c=eroded(Q,nextV,d1,h1,j);d=eroded(P,v,d1,h1,j)
-   ridgeP=eroded(P,v,midD,(h0+h1)*.5,j,crest=True)
-   ridgeQ=eroded(Q,nextV,midD,(h0+h1)*.5,j,crest=True)
+   grainY=2.3*math.sin(i*.51+j*2.1)
+   def at(p,side,d,h):
+    outward=unit(sub(p['right'],p['left']))
+    return add(offset_edge(p,outward,d,side),(0,h+grainY,0))
    quad('25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND',
-        a,b,ridgeQ,ridgeP,mat,False)
-   quad('25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND',
-        ridgeP,ridgeQ,c,d,
-        ('deepstone' if j==0 and i%9==0 else
-         'dunestone' if j==3 and i%7==1 else mat),False)
+        at(P,'R',d0,h0),at(Q,'R',d0,h0),
+        at(Q,'R',d1,h1),at(P,'R',d1,h1),mat,False)
   # Actual rock abutments, far apart enough to read at high speed.
   if i%16==5:
    root=offset_edge(P,S,84,'R')
