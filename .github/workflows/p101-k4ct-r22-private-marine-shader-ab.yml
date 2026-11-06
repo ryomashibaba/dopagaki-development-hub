@@ -1,0 +1,131 @@
+name: K4CT R22 original native GL 3-mode marine material ART study
+on:
+  push:
+    branches:
+      - research/k4ct-two-native-b51-choice-consequence-20261105
+    paths:
+      - scripts/k4ct-r22-reconstruct-verified-r21-bridge.py
+      - scripts/k4ct-r22-private-shader-three-mode-patch.mjs
+      - scripts/k4ct-r22-original-native-three-shader-ab.mjs
+      - .github/workflows/p101-k4ct-r22-private-marine-shader-ab.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  genuine-native-material-shader-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original source git blobs, R22 storyboard and JS/Python syntax preflight
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+          node --check scripts/k4ct-r22-private-shader-three-mode-patch.mjs
+          node --check scripts/k4ct-r22-original-native-three-shader-ab.mjs
+          node --check scripts/p101-k4ct-install-authored-dcc.mjs
+          python3 -m py_compile scripts/k4ct-r22-reconstruct-verified-r21-bridge.py
+          python3 - <<'PY'
+          import json,pathlib
+          d=json.loads(pathlib.Path('research-evidence/k4ct/K4CT_R22_TRUE_SOURCE_PRIVATE_SHADER_MATERIAL_SENSITIVITY_CONTRACT_20261107.json').read_text())
+          assert d['schema']=='k4ct-r22-source-private-webgl2-marine-shader-sensitivity-v1'
+          assert d['previous']['R20CI']==42307252065
+          assert d['previous']['R21CI']==42309755398
+          assert [x['mode'] for x in d['study']['variants']]==[0,1,2]
+          assert d['study']['noNewMesh'] and d['study']['noAdditionalBlenderRun']
+          assert d['gates']['formalArtAdopted']==d['gates']['slope2DNAmeters']==0
+          print('R22_PROTECTED_ORIGINAL_SOURCE_SHADER_AB_CONTRACT_PASS')
+          PY
+      - name: Retrieve R20 true Blender 25,700 triangle export and R21 node proof/RAW
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-results/k4ct-r22-source-r20 test-results/k4ct-r22-source-r21
+          gh run download 42307252065 --repo "$GITHUB_REPOSITORY" --name K4CT_R20_REAL_BLENDER_THREE_ACT_ART_HOLD --dir test-results/k4ct-r22-source-r20
+          gh run download 42309755398 --repo "$GITHUB_REPOSITORY" --name K4CT_R21_ACTUAL_BLENDER_MATERIAL_ONLY_NO_ART --dir test-results/k4ct-r22-source-r21
+          python3 - <<'PY'
+          import pathlib,json,hashlib
+          a=pathlib.Path('test-results/k4ct-r22-source-r20/k4ct-contact-retry')
+          b=pathlib.Path('test-results/k4ct-r22-source-r21')
+          d=json.loads((a/'K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+          r9=json.loads((a/'K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json').read_text())
+          proof=json.loads((b/'k4ct-r21-native-material/K4CT_R21_GENUINE_BLENDER_MARINE_BSDF_PROOF.json').read_text())
+          assert d['triangles']==25700 and len(d['objects'])==43 and d['originalB51']==28
+          assert r9['triangles']==21092 and len(r9['materials'])==41
+          assert proof['realSavedAndReopenedPrincipledNodes']
+          assert hashlib.sha256((a/'K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_bytes()).hexdigest()==proof['originalDccSha256']
+          assert proof['outputR9Sha256']=='8dd79489dc37a45b62211fa31c66a6da55ba9ac224038ba8ccd605851ea56a14'
+          for t in ('65_25','66_35','68_05'):
+            assert (b/('k4ct-r21-native-blockout/R21_TRUE_SOURCE_CHASE_T'+t+'_CLEAN_RAW.png')).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
+          print('R22_PREVIOUS_GENUINE_R20_GEOMETRY_AND_R21_MATERIAL_RAW_PROVENANCE_PASS')
+          PY
+      - name: Build only original PRIVATE game and frozen physical road/B51 site
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-dcc-source-export.mjs
+      - name: Recreate exact true R21 saved-Blender bridge HASH without new Blender
+        run: |
+          python3 scripts/k4ct-r22-reconstruct-verified-r21-bridge.py
+      - name: Install source-safe genuine R21 geometry/BSDF attribute bridge only
+        run: |
+          node scripts/p101-k4ct-install-authored-dcc.mjs
+          node --check dist-private/k4ct/drive3d.mjs
+      - name: Inject only optional study mode into generated PRIVATE WebGL2 shader
+        run: |
+          node scripts/k4ct-r22-private-shader-three-mode-patch.mjs
+          node --check dist-private/k4ct/drive3d.mjs
+          node --check dist-private/k4ct/k4ct-dcc-world-geometry.mjs
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+      - name: Real original Chromium 240Hz camera 3 ticks and 3 shader A-B modes
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/k4ct-r22-original-native-three-shader-ab.mjs
+      - name: Independently audit baseline parity, 3x3 source RAW, no art acceptance
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,subprocess
+          p=pathlib.Path('test-results/k4ct-r22-native-shader')
+          d=json.loads((p/'K4CT_R22_NATIVE_SOURCE_THREE_MODE_SHADER_AB.json').read_text())
+          assert d['schema']=='k4ct-r22-original-source-private-r21-genuine-blender-marine-shader-ab-v1'
+          assert d['sourceExactR21MaterialBridgeSHA256']=='8dd79489dc37a45b62211fa31c66a6da55ba9ac224038ba8ccd605851ea56a14'
+          assert d['trueOriginalCameraNative240Hz'] and d['realOriginalChromiumWebGL2']
+          assert d['originalB48']==7 and d['originalB51']==28 and d['newColliders']==0
+          assert d['originalBlenderEditableMeshes']==43 and d['realTriangles']==25700
+          assert d['noNew3DMeshOrArtistModels'] and d['sourceWebGL2ShaderAndPhysicsUnmodified']
+          assert d['shaderPatchPrivateOnly'] and not d['fullPBR']
+          assert d['ART']=='REJECT' and d['formalARTAdopted']==d['slope2DNAmeters']==0
+          assert all(d[x]=='HOLD' for x in ['HUMAN','SAT','CCD','FPS','RELEASE','MERGE'])
+          assert [x['originalSourceTick'] for x in d['trueSourceAB']]==[15660,15924,16332]
+          for r in d['trueSourceAB']:
+            assert r['state']['realWebGL2'] and r['state']['depthTest'] and r['state']['depthBits']>0
+            assert r['state']['originalB51']==28
+            assert r['restoredBaselineParity']['changedPctRGBgt25']<.5
+            assert r['baselineVsR21TrueSource']['changedPctRGBgt25']<.5
+            assert len(r['actualRawFiles'])==3
+            for name in r['actualRawFiles'].values():
+              assert (p/name).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
+          assert subprocess.check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert subprocess.check_output(['git','hash-object','scripts/p101-k4ct-native-spillway-dcc.py'],text=True).strip()=='096fffbc1627915eb0122224955bb02cfba6b3ae'
+          print('R22_TRUE_ORIGINAL_SOURCE_3_MODE_WEBGL2_NATIVE_PASS_ART_HOLD')
+          PY
+      - name: Save real Chromium 9 PNGs and independent source SHA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CT_R22_TRUE_GL_MARINE_SHADER_MODES_ART_HOLD
+          path: |
+            test-results/k4ct-r22-native-shader/
+            test-results/k4ct-r22-proofs/
+          if-no-files-found: warn
+          retention-days: 7
