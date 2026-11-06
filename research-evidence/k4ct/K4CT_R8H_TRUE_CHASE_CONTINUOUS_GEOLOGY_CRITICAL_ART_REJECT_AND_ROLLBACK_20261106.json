@@ -127,5 +127,16 @@
     "WorkOrComputerUse": false,
     "userManualOperations": 0
   },
-  "next": "Art-direction method change required. Stop incremental procedural cliff bands, flat wedges and repeated beams; create a cohesive large-scale sculptural industrial port scene (not schematic terrain strips). Establish visible shape/light/material blockout that preserves coastal depth and hazards at all 65.25,66.35,68.05s original chase frames before more implementation. Require true source captures, independent real keyboard QA and eventual human hazard fairness testing. No formal adoption without artistic evidence."
+  "next": "Art-direction method change required. Stop incremental procedural cliff bands, flat wedges and repeated beams; create a cohesive large-scale sculptural industrial port scene (not schematic terrain strips). Establish visible shape/light/material blockout that preserves coastal depth and hazards at all 65.25,66.35,68.05s original chase frames before more implementation. Require true source captures, independent real keyboard QA and eventual human hazard fairness testing. No formal adoption without artistic evidence.",
+  "postRollbackVerification": {
+    "restoredCommit": "c666b69fd4c0dbaf6dc6059616aa52433c1c8e65",
+    "realWorkflowRunId": 42176852702,
+    "realWorkflowStatus": "completed",
+    "realWorkflowConclusion": "success",
+    "realWorkflowUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42176852702",
+    "artifactId": 13484155371,
+    "artifactDigest": "sha256:2143a7770b542434ab819628d9f1e8b6c0c2044f8fc4af4824cda208ce2932e4",
+    "restoredR8GDccGitBlobSHA": "b0eb484c816dd1576ae6fb054ebf445ef4d013dc",
+    "comment": "Restore-only run passed native Blender, original WebGL2 true Runner B51/road QA; no human or ART pass inferred."
+  }
 }
