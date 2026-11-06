@@ -57,7 +57,9 @@ jobs:
             sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/apt-mirrors.txt
           fi
           sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq
-          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 900s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender libegl1 libgl1-mesa-dri libopengl0 libgbm1
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 900s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender libegl1 libgl1-mesa-dri libopengl0 libgbm1 fonts-noto-cjk
+          fc-cache -f >/dev/null
+          fc-match -f '%{family}\n' ':lang=ja'
           blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4ct-native-spillway-dcc.py
       - name: Install only genuine Blender-emitted scene in PRIVATE original WebGL2 game
         if: steps.k4ct_dcc.outcome == 'success'

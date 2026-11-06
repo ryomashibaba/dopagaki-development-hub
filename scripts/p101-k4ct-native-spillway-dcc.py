@@ -166,21 +166,87 @@ for index in (5,6):
      (0,h+grain(key,j)*(.5+4.4*j/6),0))
      for j,(dist,h) in enumerate(levels)]
   A=section(aa,k);B=section(bb,k+1)
+  # R8D: source CAMERA screen-right = physical LEFT bank. Create an
+  # actual open quarry sky aperture (no fake dark polygon, no new road),
+  # instead of adding R8C's rejected broad grey corrugated shell.
+  quarryVoid=(index==5 and .816<u<.940) or (index==6 and .415<u<.645)
   for layer in range(len(levels)-1):
-   # Deliberate deep cuts: negative space reads as quarry, not a wall.
+   if quarryVoid and layer>=2:continue
    if layer>=3 and ((.18<u<.26) or (.62<u<.705)) and index==5:
     continue
    if layer>=4 and (.20<u<.33) and index==6:continue
    if layer>=5 and (k%17<=1):continue
+   # The lower foundation lip is exposed rock, not pitch-black fake cave.
+   material=('basalt' if layer==0 else 'shale') if quarryVoid else (
+     'deepstone','basalt','shale','strata','chalk','moss')[layer]
    quad('01_CARVED_BASALT_AND_LAYERED_RIFT',
-       A[layer],B[layer],B[layer+1],A[layer+1],
-       ('deepstone','basalt','shale','strata','chalk','moss')[layer])
+       A[layer],B[layer],B[layer+1],A[layer+1],material)
   # High irregular eroded buttress against the cliff, not a flat shell.
-  if k%15==0:
+  if k%15==0 and not quarryVoid:
    anchor=A[4];highest=add(anchor,(0,23+5*math.sin(k),0))
    beam('02_EARTH_ANCHORED_STONE_RIBS',anchor,highest,4.3,'basalt')
    beam('02_EARTH_ANCHORED_STONE_RIBS',highest,
         add(anchor,add(mul(lat,-25),(0,-4,0))),2.0,'shale')
+
+
+# R8D ONE integrated ore route, supported by two real-road-adjacent rock
+# abutments, consistently >=48m OUTBOARD of left B48. Not across a lane:
+# no collision, no fake safe path, no modification to B51, CCD or camera.
+p0,fw0,side0=frame(5,.835)
+p1,fw1,side1=frame(5,.936)
+head=add(offset_edge(p0,side0,66,'L'),(0,36,0))
+tail=add(offset_edge(p1,side1,80,'L'),(0,42,0))
+truss('38_R8D_ONE_SUSPENDED_QUARRY_CONVEYOR',
+      head,tail,6.4,7.5,'darksteel')
+for u in (.835,.936):
+ p,fw,side=frame(5,u)
+ footing=offset_edge(p,side,74,'L')
+ for d in (-5.8,5.8):
+  base=add(footing,mul(fw,d))
+  beam('39_R8D_CLIFF_ANCHORED_LOAD_PATHS',
+       add(base,(0,-27,0)),add(base,(0,43,0)),3.2,'concrete')
+  beam('39_R8D_CLIFF_ANCHORED_LOAD_PATHS',
+       add(base,(0,41,0)),add(base,add(mul(side,-24),(0,9,0))),
+       1.8,'oxidized')
+# Large dark cargo hopper establishes purpose; visible open loading hall
+# underneath and a corrosion-colour structure integrated with quarry strata.
+p,fw,side=frame(5,.917)
+ore=add(offset_edge(p,side,81,'L'),(0,10,0))
+box('40_R8D_QUARRY_ORE_HOPPER_OPEN_LOADING_BAY',
+    add(ore,(0,21,0)),37,31,24,'basalt',fw,side)
+for dx in (-14,14):
+ base=add(ore,mul(fw,dx))
+ beam('40_R8D_QUARRY_ORE_HOPPER_OPEN_LOADING_BAY',
+      add(base,(0,-24,0)),add(base,(0,33,0)),2.4,'steel')
+beam('40_R8D_QUARRY_ORE_HOPPER_OPEN_LOADING_BAY',
+     add(ore,(0,36,0)),add(ore,add(mul(side,23),(0,14,0))),
+     3.6,'copper')
+
+# The second 68.05s CHASE landmark, same quarry-service program but
+# asymmetrical and open-sided. Not a bright, repeating gate over the race lane.
+p,fw,side=frame(6,.557)
+lift=add(offset_edge(p,side,72,'L'),(0,7,0))
+for dx in (-20,20):
+ q=add(lift,mul(fw,dx))
+ beam('41_R8D_SINGLE_OPEN_SHAFT_ORE_LIFT',
+      add(q,(0,-43,0)),add(q,(0,90,0)),4.1,'concrete')
+ beam('41_R8D_SINGLE_OPEN_SHAFT_ORE_LIFT',
+      add(q,(0,70,0)),add(q,add(mul(side,-30),(0,8,0))),
+      1.6,'darksteel')
+for y in (14,81):
+ beam('41_R8D_SINGLE_OPEN_SHAFT_ORE_LIFT',
+      add(lift,add(mul(fw,-20),(0,y,0))),
+      add(lift,add(mul(fw,20),(0,y,0))),2.5,'steel')
+box('42_R8D_INSET_LIFT_CABIN_AND_POWER_BRIDGE',
+    add(lift,(0,43,0)),23,19,18,'oxidized',fw,side)
+for i in range(5):
+ base=add(lift,add(mul(fw,(i-2)*7.8),add(mul(side,-13),(0,41,0))))
+ box('42_R8D_INSET_LIFT_CABIN_AND_POWER_BRIDGE',
+     base,3.8,1.2,10,'window',fw,side)
+beam('42_R8D_INSET_LIFT_CABIN_AND_POWER_BRIDGE',
+     add(lift,(0,79,0)),
+     add(lift,add(mul(side,-66),(0,3,0))),
+     1.25,'copper')
 
 # C) Tidal sea, stepped embankment and real industrial retaining wall. Source
 # road is very high above the water, so the quays have structural connections
