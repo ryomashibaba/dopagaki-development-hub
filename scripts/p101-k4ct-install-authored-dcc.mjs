@@ -36,6 +36,21 @@ for(let i=0;i<r9.triangles*3;i++){
  assert.ok(r9.vertices[v+12]>=0&&r9.vertices[v+12]<=1&&r9.vertices[v+13]>=0&&r9.vertices[v+13]<=1);
 }
 const r9WaterMaterialIds=r9.materials.filter(x=>['tide','shallows','foam'].includes(x.name)).map(x=>x.id);
+// R12: original Blender polygon-order group map is used unchanged.
+// The original road remains on its own source-safe shader, so only
+// non-road Blender groups can be hidden in the isolated research renderer.
+const r12NonroadSpans=[];
+let r12VertexOffset=0;
+for(const [name,count] of Object.entries(dcc.objects)){
+ assert.ok(Number.isInteger(count)&&count>=0);
+ if(name==='00_PHYSICAL_ROAD_CONFORMAL_VISIBLE_SKIN')continue;
+ r12NonroadSpans.push({name,first:r12VertexOffset,count:count*3});
+ r12VertexOffset+=count*3;
+}
+assert.equal(r12VertexOffset,r9.triangles*3);
+assert.equal(r12NonroadSpans.length,Object.keys(dcc.objects).length-1);
+assert.equal(r12NonroadSpans.length,42);
+assert.equal(new Set(r12NonroadSpans.map(x=>x.name)).size,42);
 assert.equal(r9WaterMaterialIds.length,3);
 assert.equal(dcc.schema,'k4ct-blender-authored-true-source-integrated-scene/1');
 assert.ok(fs.existsSync(path.join(out,'K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend')));
@@ -53,7 +68,7 @@ const replace=(needle,value)=>{
  js=js.replace(needle,value);
 };
 const imports="import {readK4CTTwoTrueB51,formatK4CTNativeDualCue} from './k4ct-dual-real-b51-decision.mjs';";
-replace(imports,imports+"\nimport {K4CT_DCC_VERTICES,K4CT_DCC_TRIANGLES,K4CT_R9_ROAD_VERTICES,K4CT_R9_MATERIAL_VERTICES,K4CT_R9_WATER_MATERIAL_IDS} from './k4ct-dcc-world-geometry.mjs';");
+replace(imports,imports+"\nimport {K4CT_DCC_VERTICES,K4CT_DCC_TRIANGLES,K4CT_R9_ROAD_VERTICES,K4CT_R9_MATERIAL_VERTICES,K4CT_R9_WATER_MATERIAL_IDS,K4CT_R12_NONROAD_GROUP_SPANS} from './k4ct-dcc-world-geometry.mjs';");
 replace('let k4cqSceneMesh=null;', "let k4ctDccMesh=null;\nlet k4ctResearchB51Meshes={};\nlet k4ctFixtureIdentityTagMesh=null;\n\nfunction k4ctIndustrialMaterialOnly(src,mode){\n const out=src.slice();\n const palettes={\n fail:[[.14,.19,.20],[.80,.23,.16],[.53,.31,.24]],\n bounce:[[.20,.22,.21],[.89,.57,.18],[.57,.42,.27]],\n push:[[.15,.22,.24],[.20,.75,.71],[.34,.53,.53]]\n };\n const p=palettes[mode];\n for(let i=0;i<src.length;i+=6){\n  const rgb=src.slice(i+3,i+6),max=Math.max(...rgb),min=Math.min(...rgb);\n  const target=max<.36?p[0]:(max-min>.28||max>.8?p[1]:p[2]);\n  for(let j=0;j<3;j++)out[i+3+j]=target[j];\n }\n if(out.length!==src.length||out.some((v,i)=>i%6<3&&v!==src[i]))throw Error('B51 geometry modified');\n return out;\n}\n\nwindow.__k4ctVisualABMode='R7C_MATERIAL';\nwindow.__k4ctSuppressK4CSGateOnly=true;\nlet k4cqSceneMesh=null;");
 const buildAnchor="}else canvas.dataset.k4cqScene='off';";
 replace(buildAnchor,buildAnchor+"\n"+
@@ -222,7 +237,23 @@ function k4ctR9DrawMaterialWorld(view,aspectRatio,fogStrength){
   gl.enableVertexAttribArray(slot);
   gl.vertexAttribPointer(slot,width,gl.FLOAT,false,stride,offset*4);
  }
- gl.drawArrays(gl.TRIANGLES,0,k4ctR9MaterialVertexCount);
+ // R12 noncolliding original-source CHASE visibility attribution:
+ // leave ONE real Blender DCC group absent from this frame, and render
+ // all other original meshes in ORIGINAL draw order with real GL depth.
+ // No new geometry, no projection proxy, no original B51/road masking.
+ const r12Skip=window.__k4ctR12SkipGroup??null;
+ if(r12Skip===null){
+  gl.drawArrays(gl.TRIANGLES,0,k4ctR9MaterialVertexCount);
+ }else{
+  let found=false;
+  for(const part of K4CT_R12_NONROAD_GROUP_SPANS){
+   if(part.name===r12Skip){found=true;continue;}
+   gl.drawArrays(gl.TRIANGLES,part.first,part.count);
+  }
+  if(!found)throw Error('R12 unknown Blender group in original scene '+r12Skip);
+ }
+ canvas.dataset.k4ctR12SkippedGroup=r12Skip??'ALL';
+ canvas.dataset.k4ctR12GroupCount=String(K4CT_R12_NONROAD_GROUP_SPANS.length);
  for(let slot=2;slot<=6;slot++)gl.disableVertexAttribArray(slot);
  gl.useProgram(program); // Restore original road, B51 and ball renderer.
  canvas.dataset.k4ctR9Material='REAL_BLENDER_POLYGON_NORMAL_UV_BSDF_ATTRIBUTE_WEBGL2';
@@ -350,7 +381,8 @@ fs.writeFileSync(moduleFile,
  'export const K4CT_DCC_VERTICES='+raw+';\n'+
  'export const K4CT_R9_ROAD_VERTICES='+roadRaw+';\n'+
  'export const K4CT_R9_MATERIAL_VERTICES='+r9Raw+';\n'+
- 'export const K4CT_R9_WATER_MATERIAL_IDS='+waterIdsRaw+';\n');
+ 'export const K4CT_R9_WATER_MATERIAL_IDS='+waterIdsRaw+';\n'+
+ 'export const K4CT_R12_NONROAD_GROUP_SPANS='+JSON.stringify(r12NonroadSpans)+';\n');
 fs.writeFileSync(file,js);
 assert.ok(!fs.readFileSync('dist-private/k4cs/drive3d.mjs','utf8').includes('k4ctDccMesh'));
 assert.ok(!fs.readFileSync('dist-private/drive3d/drive3d.mjs','utf8').includes('k4ctDccMesh'));
@@ -368,6 +400,11 @@ const audit={schema:'k4ct-real-blender-to-native-webgl2-integrated-v1',
  r9BSDFBaseColorMetallicRoughnessFromRealBlender:true,
  r9LegacyGeometryXYZParity:true,
  r9RoadRetainsOriginalShader:true,fullPBRProven:false,
+ r12RealBlenderNonroadGroups:r12NonroadSpans.length,
+ r12All42GroupsLeaveOneOutAvailable:true,
+ r12AttributionMethod:'ORIGINAL_SOURCE_BROWSER_RGBA_SCREENSHOT_DIFF_WITH_DEPTH',
+ r12GroupsAreUnmodifiedRealBlenderMeshes:true,
+ r12ArtResearchOnly:true,
  webGLGameDisplayTested:false,originalGameCameraAndSolverUntouched:true,
  extraCollisionSolids:0,formalART:0,slope2DNAmeters:0,ART:'REJECT',HUMAN:'HOLD',
  SAT:'HOLD',CCD:'HOLD',FPS:'HOLD',RELEASE:'HOLD',MERGE:'HOLD'};
