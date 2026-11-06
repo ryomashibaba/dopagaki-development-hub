@@ -1,0 +1,188 @@
+{
+  "schema": "dopagaki-k4ct-r17-real-camera-selected-three-beat-native-technical-pass-art-reject-v1",
+  "dateJST": "2026-11-07",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "policy": "QUALITY-FIRST/ART-FIRST/DCC-FIRST/INTEGRATED VERTICAL SLICE unchanged; no main, official P101, original game, Gold, release, QA, Work, paid API change",
+  "precursor": {
+    "R16OriginalCameraCI": 42295943093,
+    "conclusion": "success",
+    "R16Artifact": 13542505738,
+    "sourceSiteContract": "research-evidence/k4ct/K4CT_R16_NATIVE_REAL_CAMERA_SITE_SELECTION_20261107.json",
+    "selectedTargets": [
+      {
+        "t": 65.25,
+        "road": 5,
+        "u": 0.95,
+        "bank": "R",
+        "distance": 155,
+        "conceptPositionNDC": [
+          -0.4978,
+          0.1804
+        ]
+      },
+      {
+        "t": 66.35,
+        "road": 6,
+        "u": 0.48,
+        "bank": "L",
+        "distance": 115,
+        "conceptPositionNDC": [
+          0.4785,
+          0.1382
+        ]
+      },
+      {
+        "t": 68.05,
+        "road": 6,
+        "u": 0.8,
+        "bank": "R",
+        "distance": 155,
+        "conceptPositionNDC": [
+          -0.4396,
+          0.2563
+        ]
+      }
+    ],
+    "warning": "R16 concept volume projection was NOT actual source GL occlusion or rendered geometry."
+  },
+  "actualCandidate": {
+    "module": "scripts/p101-k4ct-r17-three-beat-true-camera-campus.py",
+    "moduleCommit": "29405b6b659eff4b1934a690a7f3ee78a6fb1045",
+    "enabledDCCAuthor": "scripts/p101-k4ct-native-spillway-dcc.py",
+    "codeCommit": "93361f2bd6bd0aca9f186199d3e9cb76c578408e",
+    "DCCAuthorGitBlobSHA1": "3a6e51755340672094d27b3c01e5e28fe4c47f23",
+    "ciRunId": 42297615144,
+    "ciConclusion": "success",
+    "artifactID": 13542933482,
+    "artifactDigest": "sha256:dacbf07e6c4e11427c8519927dfd420e46a68d190a50a85f7a5009f76088b4c1",
+    "artifactExpiresUTC": "2026-11-13T21:44:22Z",
+    "nativeBlenderVersion": "4.0.2",
+    "realEditableGroups": 43,
+    "realTriangles": 31412,
+    "originalChromeWebGL2": true,
+    "sourceRunnerHz": 240,
+    "originalRoadsB48": 7,
+    "originalMovingB51": 28,
+    "additionalColliders": 0,
+    "realRoad6GroundedSamples": 817,
+    "physicallyPassedOriginalB51_14": true,
+    "sourceB51_14ContactCount": 0,
+    "minimumSourceB51_14GapM": 3.148671054349772,
+    "sameBrowserNeutralFailThenOriginalRetryFinished": true,
+    "finishSec": 69.94166666668522,
+    "scriptedNotHuman": true,
+    "protectedOriginalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "protectedResearchRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b"
+  },
+  "originalSourceChaseCriticalEvidence": {
+    "baselineCI": 42230306036,
+    "viewSeconds": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "ROI": [
+      0,
+      80,
+      1005,
+      705
+    ],
+    "rgb25ChangedPctAgainstR12A": [
+      10.081,
+      4.759,
+      12.641
+    ],
+    "pixelMetricNotArtQuality": true,
+    "actualGroup27LeaveOneOutPctRGB25": [
+      1.046,
+      0.267,
+      1.14
+    ],
+    "actualGroup25LeaveOneOutPctRGB25": [
+      10.248,
+      0.832,
+      2.585
+    ],
+    "actualGroup21LeaveOneOutPctRGB25": [
+      7.181,
+      4.542,
+      0
+    ],
+    "actualGroup03LeaveOneOutPctRGB25": [
+      1.504,
+      1.478,
+      5.995
+    ],
+    "sourceOriginalRotorGroup42RGB25At68_05": 3.6,
+    "r15OldGroup27RGB25": [
+      0.612,
+      0,
+      0.678
+    ],
+    "group27ImprovedButNotHero": true,
+    "actualGroup27RGB25BBoxBySec": [
+      [
+        192,
+        173,
+        679,
+        303
+      ],
+      [
+        472,
+        219,
+        786,
+        377
+      ],
+      [
+        244,
+        162,
+        345,
+        334
+      ]
+    ],
+    "sourceRAWFiles": [
+      "K4CT_R8B_T65_25_CLEAN_EXACT_SOURCE_RAW.png",
+      "K4CT_R8B_T66_35_CLEAN_EXACT_SOURCE_RAW.png",
+      "K4CT_R8B_T68_05_CLEAN_EXACT_SOURCE_RAW.png"
+    ],
+    "artCritique": {
+      "65.25": "Road5 physical RIGHT intake proposal projects but true view still heavily dominated by overlarge near-left angular dark stone; weak legibility of real hydraulic process and periodized harbor connection.",
+      "66.35": "Road6 opposite-bank control gallery appears small and low contrast at high velocity; nearby source hazard remains important and control campus does not form a major geographic vista.",
+      "68.05": "The source true R8J wheel remains the clearest landmark; left foreground dark triangular cut and low roof continue to compete with machine/road/red B51. Even with 1.140% group27 influence the assembled three-site scene is not read as one convincing seaport.",
+      "full": "Three authentic camera-coordinate selected authoring beats solve some placement, but pixel impact and surface proportions still fail QUALITY-FIRST; competing geology, large flat faces, missing semantic hydraulic continuity and high speed readability remain unresolved. No human test."
+    },
+    "methodLimits": "True GL leave-one-out changed pixels are not actual pixel ownership, human quality, artistic certificate, or B51 visibility guarantee."
+  },
+  "decision": {
+    "TECH": "PASS_REAL_CI",
+    "ART": "REJECT",
+    "formalARTAdopted": 0,
+    "slope2DNAMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "fullPBR": "NOT_PROVEN",
+    "restoreOnlyDCCAuthor": true,
+    "expectedSafeRestoreGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "preserveR17ModuleAsUnreferencedResearchHistory": true,
+    "restoralCommit": "PENDING"
+  },
+  "criticalEfficiencyLearning": {
+    "improvement": "R16 resolved camera frame selection before R17, and R17 group27 actually influenced all 3 source frames vs zero in R15 at middle point.",
+    "continuingProblem": "The full 42x3 original WebGL2 leave-one-out test is expensive, and the cinematic/art hierarchy remained weak. Simply moving sites and adding high-poly geometry is not enough.",
+    "nextNeeded": "Create true GL-depth, inexpensive visual-blockout (real Blender author but limited groups and a direct 3-frame exposure veto) to jointly optimize foreground quarry negative space and 3-beat source-camera visibility BEFORE another expensive full 42-group run. Judge actual on-screen silhouette and hazard precedence, not a numeric proxy ART score.",
+    "noMore": "No more repeated R13 oversized mass, R14 subtraction-only or R15 invisible facility iterations; do not carry over unadopted DCC to production."
+  },
+  "safety": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "Open Draft unmerged",
+    "paidAPI": 0,
+    "workComputerUse": false,
+    "userManualSteps": 0
+  }
+}
