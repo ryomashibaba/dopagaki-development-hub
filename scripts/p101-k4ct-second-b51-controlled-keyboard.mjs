@@ -78,7 +78,11 @@ async function captureR6RawLayerAB(page,label){
     nativeStatus:c.dataset.r15s3d10Status,
     DCC:c.dataset.k4ctNativeDcc,
     nativeB51MaterialMode:c.dataset.k4ctNativeB51MaterialMode,
-    sourceResearchRoad5:true};
+    sourceResearchRoad5:true,
+    r9MaterialDrawn:c.dataset.k4ctR9Material,
+    r9ShaderLinked:c.dataset.k4ctR9MaterialProgram,
+    r9BlenderMaterialVertices:Number(c.dataset.k4ctR9MaterialVertexCount),
+    r9SourceRoadUnchanged:c.dataset.k4ctRoadArtMode};
   });
   assert.equal(state.mode,'R7_DCC');
   assert.equal(state.trial,trial);
@@ -87,6 +91,11 @@ async function captureR6RawLayerAB(page,label){
   assert.equal(state.DCC,'GENUINE_BLENDER_EDITABLE_NONCOLLIDING');
   assert.equal(state.nativeStatus,'running');
   assert.equal(state.nativeB51MaterialMode,'ORIGINAL_SOURCE_VISUAL');
+  assert.equal(state.r9MaterialDrawn,'REAL_BLENDER_POLYGON_NORMAL_UV_BSDF_ATTRIBUTE_WEBGL2',
+   'Actual paused source screenshot must use the R9 material bridge draw, not just export JSON');
+  assert.equal(state.r9ShaderLinked,'R9_REAL_BLENDER_ATTRIBUTES_SOURCE_SAFE');
+  assert.ok(state.r9BlenderMaterialVertices>2500,'Blender material scene not drawn in source game');
+  assert.equal(state.r9SourceRoadUnchanged,'ORIGINAL_B48_PLUS_DCC_CONFORMAL');
   assert.equal(state.nativeGateStatus,trial==='CLEAN'?'RESEARCH_ONLY_NONCOLLIDING_GATES_HIDDEN':'ORIGINAL_NONCOLLIDING_GATES_VISIBLE');
   if(tick===null)tick=state.nativeTicks;
   else assert.equal(state.nativeTicks,tick,'R8B display-only transition changed native tick');
