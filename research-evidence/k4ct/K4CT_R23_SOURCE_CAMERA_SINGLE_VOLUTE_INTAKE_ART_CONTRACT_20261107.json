@@ -1,0 +1,112 @@
+{
+  "schema": "k4ct-r23-single-volute-open-intake-original-camera-five-frame-v1",
+  "dateJST": "2026-11-07",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "policy": "QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE. Existing R22 continuation. No new project/changes to main or original source.",
+  "originalEvidence": {
+    "R16TrueCameraRun": 42295943093,
+    "R19TrueCameraRun": 42304999606,
+    "R22TrueGLShaderRun": 42312644485,
+    "R16site": {
+      "timeSec": 65.25,
+      "road": 5,
+      "u": 0.95,
+      "bank": "R",
+      "outboardM": 155,
+      "originalWorldXYZ": [
+        941.373,
+        127.114,
+        -561.447
+      ],
+      "originalViewEye": [
+        903.6426535501384,
+        137.38422932873888,
+        -286.0533508036084
+      ],
+      "originalViewFront": [
+        0.5755974888375591,
+        -0.17378533390904788,
+        -0.7990533077098277
+      ],
+      "projectedNDC": [
+        -0.4978,
+        0.1804
+      ]
+    },
+    "notice": "R16 is ONLY analytically projected camera frustum. Actual GL occlusion and artistic value still unproven."
+  },
+  "artGoal": "One camera-legible, physically founded, open-centered industrial volute sluice connected to original upstream intake, not R17 duplicated 3 portal buildings, R20 unseen quay/barge, or R22 overbright shader. Preserve authentic tower12 at 66.35 and wheel42 at 68.05. Distinctive actual void, corrosion accents, gravity water route; avoid broad solid roofs, invisible machinery and fake race portals.",
+  "candidate": {
+    "sourceR12ABlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "R19RejectedResearchSubstrate": "scripts/p101-k4ct-r19-source-three-act-open-harbor.py",
+    "newSingleArtist": "scripts/p101-k4ct-r23-volute-lock-one-visible-hero.py",
+    "temporarilyReauthor": [
+      "27",
+      "28",
+      "29",
+      "30",
+      "31",
+      "32",
+      "33"
+    ],
+    "mustProtectOriginal": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "41",
+      "42"
+    ],
+    "noNewColliders": true,
+    "noCameraHUD240HzGameChanges": true
+  },
+  "realNativeTest": {
+    "sourceTicks": [
+      15660,
+      15744,
+      15924,
+      16128,
+      16332
+    ],
+    "sourceSeconds": [
+      65.25,
+      65.6,
+      66.35,
+      67.2,
+      68.05
+    ],
+    "selectiveGroupIDs": [
+      "03",
+      "12",
+      "27",
+      "34",
+      "42"
+    ],
+    "compareR19AtKnown3Ticks": true,
+    "noFakeHumanArtPass": true,
+    "noFull42GroupCI": true,
+    "veto": "If mostly invisible, masks actual B51/road, becomes a grey slab, or looks like an unsupported repeated roof, ART REJECT; preserve evidence then EXACT restore only active DCC author to R12A git blob."
+  },
+  "safety": {
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "road5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "B48": 7,
+    "B51": 28,
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "p101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "Draft open unmerged",
+    "formalArtAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "paidAPI": 0,
+    "workComputerUse": false,
+    "userSteps": 0
+  }
+}
