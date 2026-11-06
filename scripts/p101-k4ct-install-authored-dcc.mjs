@@ -312,8 +312,7 @@ const k4ctR11RejectedVS=[
  'C=col;N=n;E=-w;UV=uv;P=p;R=rough;M=metal;ID=int(matId+.5);',
  'H=clamp((length(w)-fogStart)/fogSpan,0.,1.)*fogStrength;}'
 ].join('\n');
-const k4ctR11RockTest=K4CT_R10_ROCK_MATERIAL_IDS.map(i=>'ID=='+i).join('||');
-const k4ctR11MetalTest=K4CT_R10_METAL_MATERIAL_IDS.map(i=>'ID=='+i).join('||');
+// Reuse classifiers defined immediately above from the real Blender material IDs.
 const k4ctR11RejectedFS=[
  '#version 300 es','precision highp float;',
  'in vec3 C;in vec3 N;in vec3 E;in vec2 UV;in vec3 P;',
