@@ -89,8 +89,12 @@
     "expectedDccBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
     "keepCandidateInGitHistory": true,
     "leaveR15ModuleUnreferencedResearchOnly": true,
-    "restoreCommit": "PENDING",
-    "reasonSkipExpensiveDuplicate126GroupCI": "Exact original DCC Git blob parity to previously green run #42230306036, with no modified original source/QA; do not claim fresh run if skipped"
+    "restoreCommit": "ee492ba7aa9012db3b611db8abf7086143819781",
+    "reasonSkipExpensiveDuplicate126GroupCI": "Exact original DCC Git blob parity to previously green run #42230306036, with no modified original source/QA; do not claim fresh run if skipped",
+    "exactRestoredBlobGitSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "exactParityWithGreenPriorCI42230306036": true,
+    "newPostRestoreCI": "INTENTIONALLY_SKIPPED_VIA_COMMIT_MESSAGE_REUSING_IDENTICAL_PREVIOUSLY_VERIFIED_SOURCE; DO_NOT_CLAIM_FRESH_CI",
+    "researchModuleStatus": "PRESENT_IN_REPOSITORY_AS_NONADOPTED_UNREFERENCED_HISTORY"
   },
   "nextCoreWork": "A real source-camera screen-space anchored hero location study BEFORE another heavyweight Blender authored scene; place a SINGLE hydraulically coherent tidal architecture that is visible at the true Road5->Road6 chase and does not distract from red B51/hazards. Avoid both repetitive terrace and invisible expensive structure.",
   "protection": {
