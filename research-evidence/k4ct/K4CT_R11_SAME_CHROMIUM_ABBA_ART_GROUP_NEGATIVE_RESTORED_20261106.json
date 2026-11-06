@@ -1,0 +1,271 @@
+{
+  "schema": "dopagaki-k4ct-r11-same-browser-shader-ABBA-native-art-group-negative-audit-v1",
+  "asOfJST": "2026-11-06",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "researchBranch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "finalSourceHeadBeforeDocumentation": "af927ac7600fd026ba028057c4cd6df2862ab55a",
+  "status": "R11_ABBA_REAL_SOURCE_TECH_PASS_ART_REJECT_R11E_RESTORE_TECH_PASS",
+  "commitTimeline": [
+    {
+      "step": "R11A_RENDERER",
+      "sha": "ad90899f3ab4cfa07ce9f78c4418c0be85ce4277",
+      "truth": "Historical R10B rejected fragment program added for isolated comparison. Original verified R9 is default."
+    },
+    {
+      "step": "R11B_ABBA_RUNNER",
+      "sha": "81392c0063a59e65b0c99fcd53404b1fae6c335a",
+      "truth": "3 exact original camera pauses x R9/R10/R10/R9, paired rAF and RAW, preserves physical source"
+    },
+    {
+      "step": "R11B_FIX",
+      "sha": "74753e26f6aeab29fcc693fd9d240f28d0510e36",
+      "truth": "Removed duplicate JS rock/metal material group constants; initial failure was a generated private source syntax error"
+    },
+    {
+      "step": "R11C_ART_GROUP_TOGGLE",
+      "sha": "5dc56b01fe57c0040a5cb9b4acb9fcdda040fec4",
+      "truth": "Actual authored Blender group offset toggles (default ALL); no source DCC alteration"
+    },
+    {
+      "step": "R11D_ART_NATIVE_CAPTURE",
+      "sha": "59b7d8b21dacbeef83bfb26a325e5800e4a8a0e5",
+      "truth": "Original source camera RAW for ALL/NO_ROOF/NO_CONVEYOR/NO_BOTH at 3 exact ticks"
+    },
+    {
+      "step": "R11E_VERIFIED_RESTORATION",
+      "sha": "af927ac7600fd026ba028057c4cd6df2862ab55a",
+      "truth": "Selective restore of R9 renderer and R10A measuring runner exact known CI-pass blobs; failed candidate remains in history"
+    }
+  ],
+  "ci": [
+    {
+      "run": 42206767783,
+      "conclusion": "failure",
+      "stage": "Install Blender-emitted scene in PRIVATE original WebGL2",
+      "reason": "R11 group selector duplicate declaration in generated JS",
+      "historicalEvidenceRetained": true
+    },
+    {
+      "run": 42206975361,
+      "conclusion": "failure",
+      "stage": "Install Blender-emitted scene in PRIVATE original WebGL2",
+      "reason": "Same duplicate declaration before repair",
+      "historicalEvidenceRetained": true
+    },
+    {
+      "run": 42207456880,
+      "conclusion": "success",
+      "artifactId": 13497262395,
+      "zipSHA256": "5047f2bffdf17d0643022f60980e913e4abfb3f208d4ff3fc3170cdbc3c4d488",
+      "zipCRC": "PASS",
+      "entries": 36
+    },
+    {
+      "run": 42208114948,
+      "conclusion": "success",
+      "description": "Blender group ablation mode can coexist with source game; no ART claim"
+    },
+    {
+      "run": 42208301712,
+      "conclusion": "success",
+      "artifactId": 13498017386,
+      "zipSHA256": "71870a0e58b61ef78b49a1d2763ce94d76c8cf40d9e58818d023941318d707bc",
+      "zipCRC": "PASS",
+      "entries": 49
+    },
+    {
+      "run": 42209800483,
+      "conclusion": "success",
+      "artifactId": 13498224271,
+      "zipSHA256": "c4492fb89eb9e1755f6c43275be2d3206e2353c4bc23da9beeb8f86c8e6d3f52",
+      "zipCRC": "PASS",
+      "entries": 29
+    }
+  ],
+  "originalSourceProtection": {
+    "frozenOriginalBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "road5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "originalSourceCamera": true,
+    "originalRunnerHz": 240,
+    "originalRunnerSourceEdited": false,
+    "newColliders": 0,
+    "existingFormalReleaseAffected": false,
+    "mainSHA": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101SHA": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": {
+      "status": "open",
+      "draft": true,
+      "merged": false
+    }
+  },
+  "realBlenderAndWebGL": {
+    "actualBlenderVersion": "4.0.2",
+    "editableMeshes": 43,
+    "triangles": 31324,
+    "actualOriginalChromiumWebGL2": true,
+    "sourceCameraTimesSec": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "nativeTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "r9VerifiedDefaultShader": true,
+    "originalB51SourceShaderMaintained": true,
+    "originalVisualRoadShaderMaintained": true,
+    "renderOnlyLayerTogglesResearchHistory": true
+  },
+  "sameRunShaderABBA": {
+    "study": "R9_VERIFIED vs historical R10B_REJECTED fragment, same WebGL2 context and exact physics tick, ABBA order",
+    "cameraTimesSec": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "sourceNativeTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "trialsPerTime": 4,
+    "rafIntervalsPerTrial": 22,
+    "totalIntervalsPerCI": 264,
+    "actualRuns": [
+      {
+        "run": 42207456880,
+        "r9TrialP50MS": [
+          133.4,
+          133.4,
+          100,
+          116.6,
+          66.7,
+          83.3
+        ],
+        "r10BTrialP50MS": [
+          150,
+          183.3,
+          100,
+          116.7,
+          66.7,
+          83.3
+        ],
+        "medianOfSixTrialMediansMS": {
+          "r9": 108.3,
+          "r10B": 108.35
+        },
+        "meanOfSixTrialMediansMS": {
+          "r9": 105.57,
+          "r10B": 116.67
+        }
+      },
+      {
+        "run": 42208301712,
+        "medianOfSixTrialMediansMS": {
+          "r9": 108.3,
+          "r10B": 108.35
+        },
+        "meanOfSixTrialMediansMS": {
+          "r9": 113.88,
+          "r10B": 122.23
+        }
+      }
+    ],
+    "RGBDiffCriterion": "max channel absolute difference >25, cropped viewport x0..1005 y80..705",
+    "r10BRGBChangedPixelPercent": [
+      0,
+      0,
+      0
+    ],
+    "centralRoadROIExactPixelMatch": true,
+    "singleRunFpsNotCertified": true,
+    "GPUTimeNotMeasured": true,
+    "inferCause": "Cross-run factor 2.5 slowdown not reproduced in paired median; mean R10B somewhat higher but variable by view and run. Extra GPU cost remains possible. Do not infer precise causation or formal FPS."
+  },
+  "genuineArtAttribution": {
+    "provenSameSourceTicks": true,
+    "modes": [
+      "ALL",
+      "NO_REPEATED_ROOF",
+      "NO_CONVEYOR",
+      "NO_BOTH"
+    ],
+    "groupCandidates": [
+      "09_QUARRY_EMBEDDED_POWERHOUSE_AND_STEPPED_ROOFS",
+      "38_R8D_ONE_SUSPENDED_QUARRY_CONVEYOR"
+    ],
+    "imageChangedPixelsPctVsOriginalALL": {
+      "noRepeatedRoof": [
+        0,
+        0,
+        0
+      ],
+      "noConveyor": [
+        0.241,
+        0,
+        0
+      ],
+      "noBoth": [
+        0.241,
+        0,
+        0
+      ]
+    },
+    "sourceB51CountPerRaw": 28,
+    "originalSourceDCCGeometryAltered": false,
+    "conclusion": "Both initially suspected scene groups are largely invisible or occluded in the 3 original chase cameras. Hiding them is NOT a meaningful art improvement. Do not remove them without proper visibility attribution.",
+    "artAdopted": false
+  },
+  "nativeGameplay": {
+    "neutralNativeFailureTime": 69.4833333333523,
+    "originalNativeRetry": "retryRun",
+    "realKeyDPulsesSeconds": [
+      [
+        65.25,
+        65.36
+      ],
+      [
+        65.79,
+        65.91
+      ]
+    ],
+    "originalNativeFinishedAtSeconds": 69.94166666668522,
+    "actualB51Contacts": 0,
+    "realB51_14Passed": true,
+    "realHumanDriver": false,
+    "noCollisionResponseProof": true
+  },
+  "restoration": {
+    "researchRestoreCommit": "af927ac7600fd026ba028057c4cd6df2862ab55a",
+    "verifiedOriginalInstallerBlob": "18f6f21673e1088e55d526419135c4aee351c6a6",
+    "verifiedR10APacingScriptBlob": "bcb166ab21c7a50262dd4be18da68021f82c1731",
+    "originalNativeR9MaterialScenePreserved": true,
+    "R11RejectedHeavyShaderNotLeftInDefault": true,
+    "originalDCCSourcePreserved": true,
+    "independentNativeRerun": 42209800483,
+    "success": true
+  },
+  "decision": {
+    "tech": "PASS",
+    "formalArtAdopted": 0,
+    "slope2DNAAdoptedMeters": 0,
+    "ART": "REJECT",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "fullPBR": "NOT_PROVEN",
+    "next": "R12: source-camera-accurate per-group visible-pixel attribution using actual original WebGL2 depth & same Blender group spans, identify real skyline/top obstructing objects across T65.25/T66.35/T68.05, then one actual art-first Blender structural reauthoring of proven visible elements, same-run A/B and native physics; do not guess object names or re-add costly per-fragment shader. Commit results and real RAW, keep formal HOLD until true ART/HUMAN proof.",
+    "workflowReflection": "Initial two CI failures resulted from generated-JS duplicate declaration. Batch static/generated-source check before launching heavy Blender CI; avoid multiple overlapping redundant native CI runs.",
+    "additionalPaidAPI": 0,
+    "workComputerUse": false,
+    "userOperations": 0
+  }
+}
