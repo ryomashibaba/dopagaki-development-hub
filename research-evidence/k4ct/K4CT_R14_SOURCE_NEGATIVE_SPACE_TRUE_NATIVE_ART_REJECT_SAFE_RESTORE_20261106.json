@@ -73,7 +73,31 @@
     "expectedGitBlobSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
     "decision": "REJECT_AND_RESTORE",
     "restoreCommit": "1c803fdbee7d4181d7e56865e3d184bb134b78c3",
-    "verificationAfterRestore": "CI triggered; must check completion before success claim",
+    "verificationAfterRestore": {
+      "ciRunId": 42230306036,
+      "ciConclusion": "success",
+      "headSHA": "1c803fdbee7d4181d7e56865e3d184bb134b78c3",
+      "artifactId": 13509531046,
+      "artifactFiles": 45,
+      "zipCRC": "PASS",
+      "artifactSHA256": "2c2d6de7b4e08192e9f043c059061a36cbda47efda3f5a896be49ef561629adf",
+      "artifactExpiryUTC": "2026-11-13T14:09:37Z",
+      "sameTestedR12ADccGitBlob": true,
+      "editedBlenderVersion": "4.0.2",
+      "editableObjects": 43,
+      "triangles": 31324,
+      "sourceOriginalKeyDRetryNativeFinish": true,
+      "actualB51_14Contacts": 0,
+      "parityWithPreviouslyGreenR12A_Run42225408461": {
+        "65.25": "identical_all_RGB_pixels",
+        "66.35": "identical_all_RGB_pixels",
+        "68.05": "identical_all_RGB_pixels"
+      },
+      "art": "REJECT",
+      "formalArtAccepted": 0,
+      "human": "HOLD",
+      "fps": "HOLD"
+    },
     "nonForcePush": true,
     "restoredBlobGitSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
     "exactlyMatchesPreviouslyGreenDCCBaseline": true
