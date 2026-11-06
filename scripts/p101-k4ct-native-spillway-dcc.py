@@ -224,28 +224,28 @@ beam('40_R8D_QUARRY_ORE_HOPPER_OPEN_LOADING_BAY',
 
 # The second 68.05s CHASE landmark, same quarry-service program but
 # asymmetrical and open-sided. Not a bright, repeating gate over the race lane.
-p,fw,side=frame(6,.557)
-lift=add(offset_edge(p,side,72,'L'),(0,7,0))
-for dx in (-20,20):
+p,fw,side=frame(6,.625)
+lift=add(offset_edge(p,side,106,'L'),(0,1,0))
+for dx in (-15,15):
  q=add(lift,mul(fw,dx))
  beam('41_R8D_SINGLE_OPEN_SHAFT_ORE_LIFT',
-      add(q,(0,-43,0)),add(q,(0,90,0)),4.1,'concrete')
+      add(q,(0,-33,0)),add(q,(0,63,0)),2.7,'concrete')
  beam('41_R8D_SINGLE_OPEN_SHAFT_ORE_LIFT',
-      add(q,(0,70,0)),add(q,add(mul(side,-30),(0,8,0))),
+      add(q,(0,54,0)),add(q,add(mul(side,-20),(0,8,0))),
       1.6,'darksteel')
-for y in (14,81):
+for y in (9,59):
  beam('41_R8D_SINGLE_OPEN_SHAFT_ORE_LIFT',
-      add(lift,add(mul(fw,-20),(0,y,0))),
-      add(lift,add(mul(fw,20),(0,y,0))),2.5,'steel')
+      add(lift,add(mul(fw,-15),(0,y,0))),
+      add(lift,add(mul(fw,15),(0,y,0))),2.5,'steel')
 box('42_R8D_INSET_LIFT_CABIN_AND_POWER_BRIDGE',
-    add(lift,(0,43,0)),23,19,18,'oxidized',fw,side)
+    add(lift,(0,31,0)),16,15,12,'oxidized',fw,side)
 for i in range(5):
- base=add(lift,add(mul(fw,(i-2)*7.8),add(mul(side,-13),(0,41,0))))
+ base=add(lift,add(mul(fw,(i-2)*4.2),add(mul(side,-11),(0,31,0))))
  box('42_R8D_INSET_LIFT_CABIN_AND_POWER_BRIDGE',
-     base,3.8,1.2,10,'window',fw,side)
+     base,2.2,1.2,7,'window',fw,side)
 beam('42_R8D_INSET_LIFT_CABIN_AND_POWER_BRIDGE',
-     add(lift,(0,79,0)),
-     add(lift,add(mul(side,-66),(0,3,0))),
+     add(lift,(0,62,0)),
+     add(lift,add(mul(side,-42),(0,3,0))),
      1.25,'copper')
 
 # C) Tidal sea, stepped embankment and real industrial retaining wall. Source
@@ -612,33 +612,56 @@ for i in (-18,18):
       add(base,(0,-49,0)),add(base,(0,74,0)),2.7,'concrete')
 
 
-# R7C one camera-proximate outboard tidal-power intake and crane, set
-# beside authentic road5 u=.855, OUTSIDE the physical B48 left edge.
-P,F,S=frame(5,.855)
-hydro=add(offset_edge(P,S,45,'L'),(0,2,0))
-box('34_R7C_CHASE_VISIBLE_POWER_INTAKE',
-    add(hydro,(0,7,0)),43,32,34,'deepstone',F,S)
-for shift in (-17,-4,10,18):
- root=add(hydro,mul(F,shift))
+# R8E source-camera authored replacement for R7C's original enormous
+# opaque black intake box. Pixel projection of the actual 65.25s CHASE
+# identifies the prior 34_R7C_CHASE_VISIBLE_POWER_INTAKE as the major
+# near-field road-right occluder (visual road-right = source LEFT).
+# Build a TRUE OPEN AIR power-intake with real load paths, a daylight gap,
+# and a recessed turbine duct. All footprints remain >=58m outside B48.
+P,F,S=frame(5,.905)
+hydro=add(offset_edge(P,S,67,'L'),(0,-9,0))
+# Two asymmetrical rock buttresses / walls, not one full-cover box.
+for x,h in ((-22,38),(20,54)):
+ root=add(hydro,mul(F,x))
  beam('34_R7C_CHASE_VISIBLE_POWER_INTAKE',
-      add(root,(0,-8,0)),add(root,(0,-61,0)),3,'concrete')
- a=add(root,add(mul(S,-14),(0,14,0)))
- b=add(root,add(mul(S,-42),(0,-44,0)))
- beam('35_R7C_UTILITY_PENSTOCK_TO_QUARRY',a,b,1.9,'oxidized')
-for k in range(9):
- front=add(hydro,add(mul(F,(k-4)*4.25),add(mul(S,-17),(0,13,0))))
+      add(root,(0,-52,0)),add(root,(0,h,0)),3.1,'concrete')
+ # Grounded diagonal counterbrace goes back into real quarry, away from road.
+ beam('34_R7C_CHASE_VISIBLE_POWER_INTAKE',
+      add(root,(0,h-6,0)),
+      add(root,add(mul(S,-27),(0,6,0))),2.0,'oxidized')
+# A single high asymmetric transverse head beam with the full
+# 36m open air volume underneath; no opaque primitive masks the sky.
+beam('34_R7C_CHASE_VISIBLE_POWER_INTAKE',
+     add(hydro,add(mul(F,-22),(0,38,0))),
+     add(hydro,add(mul(F,20),(0,54,0))),2.8,'darksteel')
+# Four authentic intake pipes plunge down beneath the open gallery.
+for shift in (-18,-6,7,20):
+ root=add(hydro,add(mul(F,shift),mul(S,-10)))
+ a=add(root,(0,16,0))
+ b=add(root,add(mul(S,-37),(0,-47,0)))
+ beam('35_R7C_UTILITY_PENSTOCK_TO_QUARRY',a,b,2.6,'copper')
+ beam('35_R7C_UTILITY_PENSTOCK_TO_QUARRY',
+      add(root,(0,-46,0)),
+      add(root,add(mul(S,-34),(0,-66,0))),2.3,'darksteel')
+# Sparse glass-lit mechanical inspection cabin, well BEHIND the open
+# intake head. It never fills the opening or masquerades as an obstacle.
+cabin=add(hydro,add(mul(S,-26),(0,24,0)))
+box('36_R7C_INTAKE_CONTROL_GLAZING',
+    cabin,25,14,14,'oxidized',F,S)
+for k in (-8,0,8):
+ front=add(cabin,add(mul(F,k),mul(S,7.5)))
  box('36_R7C_INTAKE_CONTROL_GLAZING',
-     front,2.4,1.3,11,'window',F,S)
-mast=add(hydro,add(mul(F,13),mul(S,-4)))
+     front,5,1.0,8,'window',F,S)
+# A single lower boom planted at the outboard face, no tall dark pole
+# near the source camera. The tower is not a frame over the race lane.
+mast=add(hydro,add(mul(F,17),mul(S,-29)))
 beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
-     add(mast,(0,-5,0)),add(mast,(0,79,0)),3.4,'darksteel')
-boom=add(mast,add(mul(S,-55),(0,72,0)))
+     add(mast,(0,-36,0)),add(mast,(0,58,0)),2.5,'steel')
+boom=add(mast,add(mul(S,-44),(0,49,0)))
 beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
-     add(mast,(0,73,0)),boom,2.4,'steel')
+     add(mast,(0,55,0)),boom,1.9,'oxidized')
 beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
-     add(mast,(0,79,0)),add(boom,(0,4,0)),.5,'copper')
-beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
-     boom,add(boom,(0,-34,0)),.6,'darksteel')
+     boom,add(boom,(0,-30,0)),.7,'darksteel')
 
 # Editability: separate mesh objects by functional zones, real Blender materials.
 materials={}
