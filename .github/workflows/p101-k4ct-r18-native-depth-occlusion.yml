@@ -1,0 +1,100 @@
+name: K4CT R18 native GL depth-tested occlusion veto
+on:
+  push:
+    branches:
+      - research/k4ct-two-native-b51-choice-consequence-20261105
+    paths:
+      - scripts/k4ct-r18-reused-native-depth-occlusion.mjs
+      - .github/workflows/p101-k4ct-r18-native-depth-occlusion.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  original-camera-real-gl-depth-veto:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original source, rejected art provenance and script static preflight
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+          node --check scripts/k4ct-r18-reused-native-depth-occlusion.mjs
+          node --check scripts/p101-k4ct-install-authored-dcc.mjs
+      - name: Reuse original PRIVATE WebGL2 240Hz engine without Blender execution
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-dcc-source-export.mjs
+      - name: Retrieve only verified R17 TRUE Blender archive for READ-ONLY GL diagnostic
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-results/k4ct-contact-retry
+          gh run download 42297615144 --repo "$GITHUB_REPOSITORY" --name K4CT_B51_13_14_ACTUAL_NATIVE_CONTACT_RETRY_HOLD --dir test-results/k4ct-contact-retry
+          python3 - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('test-results/k4ct-contact-retry')
+          d=json.loads((p/'K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+          b=json.loads((p/'K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json').read_text())
+          assert d['triangles']==31412 and d['nativeBlenderVersion']=='4.0.2'
+          assert d['originalB48']==7 and d['originalB51']==28 and d['newColliders']==0
+          assert d['ART']=='REJECT'
+          assert b['triangles']==26804 and b['roadLegacyTriangles']==4608
+          assert (p/'K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend').stat().st_size>30000
+          assert d['sourcePhysicalRoad5SHA256']=='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b'
+          print('R18_ORIGINAL_BLENDER_REJECTED_ARTIFACT_PROVENANCE_PASS')
+          PY
+      - name: Reinstall exact R17 Blender-exported genuine mesh into isolated original game
+        run: |
+          node scripts/p101-k4ct-install-authored-dcc.mjs
+          node --check dist-private/k4ct/drive3d.mjs
+          node --check dist-private/k4ct/k4ct-dcc-world-geometry.mjs
+      - name: Actual original 240Hz 3-tick GL depth-tested pairwise scene occlusion
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/k4ct-r18-reused-native-depth-occlusion.mjs
+      - name: Independently validate that no artistic success or B51 gate was inferred
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,subprocess
+          p=pathlib.Path('test-results/k4ct-r18-depth-veto')
+          d=json.loads((p/'K4CT_R18_ACTUAL_GL_OCCLUSION_VETO.json').read_text())
+          assert d['schema']=='k4ct-r18-reused-r17-real-depth-tested-chase-occlusion-v1'
+          assert d['R17Artifact']==13542933482 and d['R17NativeCI']==42297615144
+          assert d['R17ActualTriangles']==31412 and d['nonadoptedR17BlenderArt']
+          assert d['actualWebGLDepthTesting'] and not d['numericDepthBufferReadback']
+          assert d['realOriginalChromiumWebGL2'] and d['actual240HzOriginalCamera']
+          assert d['nativeB48']==7 and d['movingB51']==28
+          assert d['noNew3DArtCreated'] and d['noSourcePhysicsCameraB51OrOriginalCodeChanged']
+          assert d['formalArtAdopted']==d['slope2DNAmeters']==0
+          assert all(d[x]=='HOLD' for x in ['HUMAN','SAT','CCD','FPS','RELEASE','MERGE'])
+          assert d['ART']=='REJECT' and len(d['rawResults'])==3
+          assert [x['nativeTick'] for x in d['rawResults']]==[15660,15924,16332]
+          for result in d['rawResults']:
+            assert result['glState']['depthBits']>0 and result['glState']['depthTestEnabled']
+            assert result['glState']['nativeB51']==28
+            assert result['reproducibility']['changedPctRGBgt25']<0.5
+            for fn in result['rawFiles'].values():
+              assert (p/fn).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
+          assert subprocess.check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert subprocess.check_output(['git','hash-object','scripts/p101-k4ct-native-spillway-dcc.py'],text=True).strip()=='096fffbc1627915eb0122224955bb02cfba6b3ae'
+          print('R18_DEPTH_TESTED_NO_ART_ADOPTION_AND_SOURCE_PROTECTION_PASS')
+          PY
+      - name: Preserve R18 source RAW and critical veto evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CT_R18_TRUE_GL_DEPTH_ART_VETO_RESEARCH_ONLY
+          path: test-results/k4ct-r18-depth-veto/
+          if-no-files-found: warn
+          retention-days: 7
