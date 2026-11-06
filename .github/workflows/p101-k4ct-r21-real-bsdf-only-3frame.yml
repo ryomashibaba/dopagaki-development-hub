@@ -1,0 +1,144 @@
+name: K4CT R21 genuine Blender BSDF-only source native A-B
+on:
+  push:
+    branches:
+      - research/k4ct-two-native-b51-choice-consequence-20261105
+    paths:
+      - scripts/k4ct-r21-reuse-real-blender-bsdf-only.py
+      - scripts/k4ct-r21-3frame-native-bsdf-only-review.mjs
+      - .github/workflows/p101-k4ct-r21-real-bsdf-only-3frame.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  archived-blender-material-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 36
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original source hash and R21 static checks
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+          node --check scripts/k4ct-r21-3frame-native-bsdf-only-review.mjs
+          python3 -m py_compile scripts/k4ct-r21-reuse-real-blender-bsdf-only.py
+          python3 - <<'PY'
+          import json,pathlib
+          d=json.loads(pathlib.Path('research-evidence/k4ct/K4CT_R21_REAL_BSDF_AND_NATIVE_VISIBILITY_VETO_CONTRACT_20261107.json').read_text())
+          assert d['schema']=='k4ct-r21-reused-r20-blender-actual-bsdf-only-visibility-veto-v1'
+          assert len(d['actualBSDFPropertyGoals'])==12
+          assert d['artifact']['id']==13546263695
+          assert d['safety']['formalArtAdopted']==d['safety']['slope2DNAmeters']==0
+          print('R21_SOURCE_AND_MATERIAL_ONLY_CONTRACT_PASS')
+          PY
+      - name: Fetch authentic R20 rejected Blender/R9/RAW into isolated evidence staging
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-results/k4ct-r21-original-artifact
+          gh run download 42307252065 --repo "$GITHUB_REPOSITORY" --name K4CT_R20_REAL_BLENDER_THREE_ACT_ART_HOLD --dir test-results/k4ct-r21-original-artifact
+          python3 - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('test-results/k4ct-r21-original-artifact')
+          d=json.loads((p/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+          r=json.loads((p/'k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json').read_text())
+          assert d['triangles']==25700 and len(d['objects'])==43
+          assert d['originalB48']==7 and d['originalB51']==28 and d['newColliders']==0
+          assert r['triangles']==21092 and r['roadLegacyTriangles']==4608 and len(r['materials'])==41
+          m=[x for x in r['materials'] if x['name'].startswith('harbor_')]
+          assert len(m)==12 and all(abs(x['roughness']-.74)<.0001 and abs(x['metalness']-.08)<.0001 for x in m)
+          assert (p/'k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend').stat().st_size>30000
+          for t in ('65_25','66_35','68_05'):
+            assert (p/('k4ct-r20-native-blockout/R20_TRUE_SOURCE_CHASE_T'+t+'_CLEAN_RAW.png')).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
+          print('R21_R20_SOURCE_ARCHIVE_GENUINE_PASS')
+          PY
+      - name: Build original PRIVATE source 240Hz WebGL2 and site only
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-dcc-source-export.mjs
+          node --check dist-private/k4ct/drive3d.mjs
+      - name: Genuine Blender 4 material-only save and reopen, NO remeshing
+        timeout-minutes: 20
+        run: |
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|g; s|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/apt-mirrors.txt
+          fi
+          sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 900s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender libegl1 libgl1-mesa-dri libopengl0 libgbm1 fonts-noto-cjk
+          blender -b --factory-startup --python-exit-code 3 --python scripts/k4ct-r21-reuse-real-blender-bsdf-only.py
+      - name: Independently verify genuine Blender node and exact geometry bridge
+        run: |
+          python3 - <<'PY'
+          import pathlib,json
+          p=pathlib.Path('test-results/k4ct-r21-native-material/K4CT_R21_GENUINE_BLENDER_MARINE_BSDF_PROOF.json')
+          d=json.loads(p.read_text())
+          assert d['schema']=='k4ct-r21-actual-blender-archive-reopen-bsdf-marine-node-bridge-v1'
+          assert d['realSavedAndReopenedPrincipledNodes']
+          assert d['originalDccByteIdentical'] and d['originalEditableMeshesAndTriangleCountsUnchanged']
+          assert d['originalXYZRGBNormalUVMaterialIdUnchanged']
+          assert d['changedTrueMaterialCount']==12 and d['totalTriangles']==25700
+          assert all(x['before']!=x['after'] and x['trueMeshAttributeVertexCount']>0 for x in d['marineMaterialChanges'].values())
+          assert d['originalB48']==7 and d['originalB51']==28 and d['newColliders']==0
+          assert d['ART']=='REJECT' and d['formalArtAdopted']==0
+          print('R21_ACTUAL_BLENDER_PERSISTED_MARINE_BSDF_PASS')
+          PY
+      - name: Install exact Blender material attributes in unchanged source PRIVATE WebGL2
+        run: |
+          node scripts/p101-k4ct-install-authored-dcc.mjs
+          node --check dist-private/k4ct/drive3d.mjs
+          node --check dist-private/k4ct/k4ct-dcc-world-geometry.mjs
+      - name: True original Chromium source camera 3 ticks R21 vs R20 material-only
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/k4ct-r21-3frame-native-bsdf-only-review.mjs
+      - name: Independent R21 source RAW and no adoption contract
+        run: |
+          python3 - <<'PY'
+          import pathlib,json,subprocess
+          p=pathlib.Path('test-results/k4ct-r21-native-blockout')
+          d=json.loads((p/'K4CT_R21_TRUE_SOURCE_3FRAME_ART_CRITICAL_PREFLIGHT.json').read_text())
+          assert d['schema']=='k4ct-r21-single-true-blender-working-port-native-3frame-source-review-v1'
+          assert d['R21ActualSavedReopenedBlenderBSDFOnly'] and d['R21OriginalR20MeshReusedNoGeometryChange']
+          assert d['newMarineMaterialPropertiesActualBlender'] and d['trueBlenderMarineMaterialCount']==12
+          assert d['originalWebGL2'] and d['originalCamera'] and d['originalRunner240Hz']
+          assert d['editableBlenderGroups']==43 and d['totalTriangles']==25700
+          assert d['originalB48']==7 and d['originalB51']==28 and d['newColliders']==0
+          assert d['originalR20ArtStillRejected'] and d['full42GroupRunIntentionallySkipped']
+          assert len(d['selectiveGroupsOnly'])==4
+          assert d['ART']=='REJECT' and d['formalARTAdopted']==d['slope2DNAmeters']==0
+          assert all(d[x]=='HOLD' for x in ['HUMAN','SAT','CCD','FPS','RELEASE','MERGE'])
+          assert [x['sourceTick'] for x in d['source3FrameRAW']]==[15660,15924,16332]
+          for r in d['source3FrameRAW']:
+            assert r['source']['depthBits']>0 and r['source']['depthEnabled']
+            assert r['reproducibility']['changedPctRGBgt25']<.5
+            assert len(r['selectiveGroupInfluence'])==4
+            assert 'materialOnlyPixelImpactAgainstR20' in r
+            assert (p/r['cleanRAW']).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
+          assert subprocess.check_output(['git','hash-object','scripts/p101-k4ct-native-spillway-dcc.py'],text=True).strip()=='096fffbc1627915eb0122224955bb02cfba6b3ae'
+          assert subprocess.check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
+          print('R21_NATIVE_SOURCE_BSDF_ONLY_AB_TECH_PASS_ART_HOLD')
+          PY
+      - name: Archive original Blender node proof and native 3-frame A-B
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CT_R21_ACTUAL_BLENDER_MATERIAL_ONLY_NO_ART
+          path: |
+            test-results/k4ct-r21-native-material/
+            test-results/k4ct-r21-native-blockout/
+            test-results/k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend
+          if-no-files-found: warn
+          retention-days: 7
