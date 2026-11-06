@@ -1,0 +1,131 @@
+{
+  "schema": "dopagaki-k4ct-r8g-3way-real-source-chase-art-critical-v1",
+  "date": "2026-11-06 JST",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "researchBranch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "implementationCommit": "af32816da3b1b60f1cf72a62a34379a56df5e0c1",
+  "latestArtDecision": "TECH_PASS_ART_REJECT_NOT_ADOPTED",
+  "candidateDcc": {
+    "nativeBlenderVersion": "4.0.2",
+    "realEditableObjects": 43,
+    "actualNoncollidingTriangles": 30780,
+    "priorR8FTriangles": 32322,
+    "decreaseFromR8FTriangles": 1542,
+    "revision": "Replaced original repeated cable-stayed frame (1536 triangles) with a single open tidal water conduit (288 triangles) physically connecting the R5 powerhouse and R6 lift, and replaced the R8F Road6 multi-bay repetitive hall roof with a single folded roof over 2 real turbine bodies.",
+    "sourceDccModifiedOnly": true,
+    "sourceGameCameraUnchanged": true,
+    "originalB48Count": 7,
+    "originalB51Count": 28,
+    "newColliders": 0,
+    "originalGameBlobSHA": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "sourcePhysicalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b"
+  },
+  "independentEvidence": {
+    "realCI": "SUCCESS",
+    "runId": 42173555667,
+    "artifactId": 13482009730,
+    "githubArtifactUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42173555667/artifacts/13482009730",
+    "artifactZIP_SHA256": "a950bd87ac0e42c5dfaf959938ac0b95250aedb999e72982bf9b42f325efd9f3",
+    "zipCRC": "PASS",
+    "zipEntryCount": 27,
+    "artifactExpires": "2026-11-13T06:22:58Z",
+    "realBlenderEditableMesh": true,
+    "realOriginalChromiumWebGL2": true,
+    "real240Hz": true,
+    "originalKeyboardOnly": true,
+    "neutralFailureSec": 69.4833333333523,
+    "pairedFailureReason": "コースから落下",
+    "originalRetryControl": "retryRun",
+    "sameBrowserPositionDriftMeters": 0,
+    "originalKeyDPulses": [
+      {
+        "start": 65.25,
+        "end": 65.36
+      },
+      {
+        "start": 65.79,
+        "end": 65.91
+      }
+    ],
+    "nativeRunnerFinishedSec": 69.94166666668522,
+    "road6GroundedSamples": 817,
+    "actualB51Contacts": 0,
+    "closestB51_13M": 3.8516884950110035,
+    "closestB51_14M": 3.148671054349772,
+    "realHumanPlay": false
+  },
+  "trueCameraComparison": {
+    "comparison": "Same native original source camera and tick, same K4CS legacy-noncolliding-visual-gate suppression used in R8B/R8E/R8F, RAW PNG not separate concept renders.",
+    "timesSec": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "nativeTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "imagePixelDiffMethod": "RGB max-channel absolute difference greater than 25, only original game viewport x15:990,y80:500 (1365x930 full screenshot). Values below are percentage of changed pixels, NOT art scores.",
+    "fromR8EToR8GChangedPct": [
+      7.479,
+      2.633,
+      8.038
+    ],
+    "fromR8FToR8GChangedPct": [
+      1.116,
+      1.784,
+      3.455
+    ],
+    "fromR8FToR8GLeftViewportChangedPct": [
+      1.915,
+      3.494,
+      7.018
+    ],
+    "observation": {
+      "at65_25": "The repeatedly braced struts are somewhat simplified on the visible left, but the road/right bank and the larger overall composition remain visually cluttered and low-poly.",
+      "at66_35": "Clearer service channel silhouette at left of center than the older heavy lattice, but minimal change to road and right-bank composition.",
+      "at68_05": "Single large pale flat roof fan replaces repeated roofing; a structural simplification, yet produces a blunt faceted sheet that weakens industrial depth. No reliable overall art upgrade established."
+    },
+    "imageVisualImprovementVsR8E": "NOT_ESTABLISHED",
+    "imageVisualImprovementVsR8F": "NOT_ESTABLISHED"
+  },
+  "criticalArchitectureAssessment": {
+    "positives": [
+      "Reduced actual scene triangles while keeping original 3D world, game physics and all 43 editable functional groups.",
+      "Replaced 1,536-triangle repeated truss with 288-triangle continuous functionally connected water conduit.",
+      "A testable single terminal roof concept that differs from the repeated open hall."
+    ],
+    "failures": [
+      "65s original left skyline remains busy and material treatment still flat.",
+      "66s visual changes touch a small portion of the environment; hazard legibility still not proven for people.",
+      "68s new roof becomes a broad pale planar wedge, reads as simple polygonal mass rather than convincing operating plant.",
+      "Current original game graphics lack atmospheric/lighting/site context and distinctive large-scale composition; no world-class ART evidence."
+    ],
+    "decision": "ART_REJECT",
+    "selectedComparisonBaseline": "R8E TRUE SOURCE CLEAN RAW, R8F/R8G are retained as separate unpromoted research hypotheses",
+    "candidateDisposition": "Research branch experiment preserved with history; no formal ART promotion, merge, or release. Next design must avoid generic repeated frames and broad blank planes.",
+    "prohibitedConclusion": "Do not infer human hazard cue fairness, full FPS/SAT/CCD certification, or actual B51 collision response from successful near miss."
+  },
+  "formalProtection": {
+    "mainSHA": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101SHA": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": {
+      "state": "open",
+      "draft": true,
+      "merged": false
+    },
+    "formalArtAdopted": 0,
+    "slope2DNAMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "workAndComputerUse": "NOT_USED",
+    "additionalPaidAPI": 0
+  },
+  "nextDevelopment": "Instead of another bar/roof/surface grain mutation, form a real art-direction pass. Target redesign of dominant source chase left skyline, cliff geology/tidal water lighting and the B51 warning visual hierarchy with real playable view; measure at fixed 65.25/66.35/68.05s. Keep research proposals separate, no formal adoption until comparative ART and real-human tests.",
+  "userActions": 0
+}
