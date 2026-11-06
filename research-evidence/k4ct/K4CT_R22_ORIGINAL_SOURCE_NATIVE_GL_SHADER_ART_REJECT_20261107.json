@@ -1,0 +1,190 @@
+{
+  "schema": "k4ct-r22-verified-true-original-chromium-marine-shader-three-mode-critical-art-veto-v1",
+  "dateJST": "2026-11-07",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "policy": "QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE. Unadopted R20/R21 actual Blender meshes/attributes, strict original source and research-only WebGL2 shader changes; no change main/P101/PR46/Game/Road5/Camera/B48/B51/240Hz/Gold or formal QA.",
+  "previous": {
+    "R20TrueBlenderRun": 42307252065,
+    "R20TrueBlenderArtifact": 13546263695,
+    "R21TrueBSDFRun": 42309755398,
+    "R21TrueBSDFArtifact": 13547558795,
+    "R21MaterialBridgeSHA256": "8dd79489dc37a45b62211fa31c66a6da55ba9ac224038ba8ccd605851ea56a14",
+    "R20R21IdenticalGeometrySHA256": "05fe4ba77fd4a66d3622597eadea43a48a9bb4759b114591db17ca12d712ab11",
+    "sourceOriginalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "activeDCCVerifiedR12ABlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5PhysicsSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b"
+  },
+  "researchImplementation": {
+    "plan": "research-evidence/k4ct/K4CT_R22_TRUE_SOURCE_PRIVATE_SHADER_MATERIAL_SENSITIVITY_CONTRACT_20261107.json",
+    "bridgeReconstruction": "scripts/k4ct-r22-reconstruct-verified-r21-bridge.py",
+    "privateShaderPatch": "scripts/k4ct-r22-private-shader-three-mode-patch.mjs",
+    "nativeSourceReviewer": "scripts/k4ct-r22-original-native-three-shader-ab.mjs",
+    "isolatedWorkflow": ".github/workflows/p101-k4ct-r22-private-marine-shader-ab.yml",
+    "sourceGameAndAuthorNeverModified": true,
+    "realR21BlenderMaterialNodesSourceSHA256Verified": true,
+    "geometryAndR9MaterialSHA256ByteExact": true,
+    "newBlenderRuns": 0,
+    "newDCCModels": 0,
+    "newMeshPolygons": 0,
+    "realEditableSourceMeshGroups": 43,
+    "realTriangles": 25700,
+    "realRoadTriangles": 4608,
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliderCount": 0,
+    "r9CurrentShaderStylizedNotFullPBR": true,
+    "mode0": "Original R21 research R9 shader with unchanged real Blender attributes; in private generated renderer only.",
+    "mode1": "PRIVATE marine material-dependent view/normal/roughness/metalness reflection; does not alter source R9 or production.",
+    "mode2": "PRIVATE mode1 plus new harbor water ID recognition and restrained grazing/wave response; no vertices or physics.",
+    "trueSourceNativeTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "trueSourceLocalSeconds": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "trueWebGL2DepthBits": 24,
+    "depthTest": true,
+    "sourceRoadCamera240HzUnchanged": true
+  },
+  "ciProvenance": {
+    "initialRun": 42311500730,
+    "initialConclusion": "failure",
+    "initialFailure": "Cross-CI RAW had mismatched Japanese CJK font because R22 skipped Blender apt install which previously installed fonts-noto-cjk; 65.25 baseline vs archived R21 ROI RGB25 2.7986% due missing HUD glyphs and cross-run rendering. No source physics failure.",
+    "fontFixCommit": "eda968d2f1b1ae17fc541b1034084bdd18dd1641",
+    "secondRun": 42312043280,
+    "secondConclusion": "failure",
+    "secondFailure": "Fonts matched; separate CI source RAW varied 0.497512% at 65.25 and 0.500060% at 66.35; overly strict <0.5% cross-CI UI/world threshold rejected one extra pixel. Same-run source GL mode restored exactly, geometry SHA remained exact.",
+    "intermediateRun": 42312602939,
+    "intermediateConclusion": "failure",
+    "intermediateFinding": "Original Chromium 3-tick shader A/B produced full genuine RAW and stable same-run comparability; independent workflow still used obsolete cross-CI <0.5% check.",
+    "finalVerifiedRun": 42312644485,
+    "finalConclusion": "success",
+    "finalHead": "aaef27980f8c918318170ccc6e667ae27a6146c4",
+    "finalWorkflowCommit": "aaef27980f8c918318170ccc6e667ae27a6146c4",
+    "artifactId": 13549665992,
+    "artifactName": "K4CT_R22_TRUE_GL_MARINE_SHADER_MODES_ART_HOLD",
+    "artifactSHA256": "5e4503a901888e0914f880d72f6073ab326c6ad3224f60a6e5424460284f98a3",
+    "artifactFiles": 12,
+    "archiveCRC": "PASS",
+    "expiryUTC": "2026-11-13T23:36:14Z",
+    "artifactContains": "Original actual WebGL2 source 9 PNGs (3 ticks x3 modes), independent native pixel JSON, material bridge hash evidence, private renderer shader patch evidence.",
+    "baselineR21CrossCIPixelPerfectNotGuaranteed": true,
+    "sameBrowserSameNativeTickShaderMode0RestoreRGB25Pct": [
+      0,
+      0,
+      0
+    ],
+    "archivedR21Mode0BaselineCrossCIRGB25Pct": [
+      0,
+      0,
+      0.3131542289
+    ],
+    "worldOnlyCrossCIRGB25Pct": [
+      0,
+      0,
+      0.3253150057
+    ],
+    "notHumanTest": true,
+    "notFullOriginalB51FailureRetryFinish": false
+  },
+  "nativeTrueGLPixelA_B": {
+    "imageCropROI": [
+      0,
+      80,
+      1005,
+      705
+    ],
+    "RGBMetric": "Share of 628125 ROI pixels where any RGB channel differs by >1, >10 or >25; image visual influence, NOT human aesthetic score or actual object pixel ownership.",
+    "timestamps": [
+      {
+        "sec": 65.25,
+        "tick": 15660,
+        "mode1VsBaselineRGB25Pct": 3.0941293532,
+        "mode2VsBaselineRGB25Pct": 3.0941293532,
+        "mode1VsBaselineRGB10Pct": 5.3632636816,
+        "mode2VsBaselineRGB10Pct": 5.3632636816,
+        "mode2VsMode1RGB25Pct": 0,
+        "mode2VsMode1RGB10Pct": 0,
+        "mode2VsMode1RGB1Pct": 0.0070049751,
+        "localizedRGB25BoundingBox": {
+          "x0": 19,
+          "y0": 209,
+          "x1": 344,
+          "y1": 311
+        },
+        "visualFinding": "Most visible change concentrated on the left gray port hall roof, which becomes brighter/whiter and competes with original road and intake, not a compelling high quality working harbor."
+      },
+      {
+        "sec": 66.35,
+        "tick": 15924,
+        "mode1VsBaselineRGB25Pct": 0,
+        "mode2VsBaselineRGB25Pct": 0,
+        "mode1VsBaselineRGB10Pct": 0.00015920398,
+        "mode2VsBaselineRGB10Pct": 0.00015920398,
+        "mode2VsMode1RGB25Pct": 0,
+        "mode2VsMode1RGB10Pct": 0,
+        "mode2VsMode1RGB1Pct": 0.3515223881,
+        "visualFinding": "Original control tower and gameplay remain similar; no meaningful material redesign visible at original chase view."
+      },
+      {
+        "sec": 68.05,
+        "tick": 16332,
+        "mode1VsBaselineRGB25Pct": 0.0108258706,
+        "mode2VsBaselineRGB25Pct": 0.0108258706,
+        "mode1VsBaselineRGB10Pct": 0.0358208955,
+        "mode2VsBaselineRGB10Pct": 0.0358208955,
+        "mode2VsMode1RGB25Pct": 0,
+        "mode2VsMode1RGB10Pct": 0,
+        "mode2VsMode1RGB1Pct": 2.1454328358,
+        "visualFinding": "Original true R8J wheel still visible; material differences mostly subtle, no authentic visual port uplift. Dynamic original near-miss display remains but no human certification."
+      }
+    ],
+    "sameTickGLDepthAndOriginalB51Protected": true,
+    "baselineAndMode1Mode2ActualChromiumRenderer": true,
+    "baselineShaderMode0BitwiseUnmodifiedExpressions": true,
+    "differentCIImagesNotCalledExactUnlessMeasured": true,
+    "rootCauseReevaluation": "The weak impact R21 identified is not only due to BSDF values: changing private research shader materially affects some existing visible facades at 65.25 but does not make largely invisible ship, gantry, foam visible; selective water ID branch adds no RGB10 or RGB25 differences across three sampled original source frames.",
+    "fullPBRProven": false,
+    "hardwareGPUFPSProven": false,
+    "originalHazardHumanReadabilityProven": false
+  },
+  "criticalART": {
+    "decision": "ART_REJECT",
+    "positive": "Real original source shader branches A/B work without gameplay changes; R21 authentic material bridge byte-identical, tests became faster without new Blender/mesh; original game, HUD, moving hazard and road still rendered.",
+    "negative": "Mode1 over-brightens a broad left industrial roof at first time, worsening dominance rather than giving harbor industrial credibility; missing working ship, dock, gantry, foam in source chase remains. Mode2 maritime water special branch has no meaningful visible effect above RGB10 at all times. No increase in genuine ecological water/coast/industrial narrative or human-authored landmark quality.",
+    "learning": "Stop expanding material name lists, hidden meshes, and shader toggles merely to increase pixels. The next independent improvement must target true camera-facing *architecture and meaningful world geometry*, with continuous source chase plus source hazard visibility and an independent critical art gate before full QA.",
+    "independentExpertHumanReview": false,
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "PBR": "NOT_PROVEN"
+  },
+  "next": {
+    "label": "R23 purposeful high-speed camera-readable single hydraulic/harbor architectural composition",
+    "instruction": "Revisit actual screenshots across short continuous source CHASE, design single large functionally coherent source-aligned feature with credible quay/ship/forebay/wheel causal connection; first small genuine Blender object + actual native GL three-view visibility veto. No more R13 giant slabs, R14 subtractive geology alone, R17 remote structures, R20 invisible ship, R22 overbright shader. ART-first and fixed safety gates. Prioritize visible source game geometry and material hierarchy over another shader-only cycle.",
+    "manualUserOperations": 0,
+    "additionalPaidAPI": 0,
+    "workComputerUse": false
+  },
+  "safety": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "Open/Draft/unmerged",
+    "activeArtistRestoredR12ABlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalSourceGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "noSourceCodeBlenderAuthorWrites": true,
+    "paidAPI": 0,
+    "workComputerUse": false,
+    "userOperations": 0
+  }
+}
