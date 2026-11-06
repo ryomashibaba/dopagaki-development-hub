@@ -89,6 +89,66 @@ async function measureR10ChaseFramePacing(page){
  });
 }
 
+// R11B: paired, order-balanced original CHASE A/B performance inside the
+// SAME paused browser, same viewport, same original 240Hz tick, same
+// source 28 B51. This compares verified R9 shader against EXACT
+// historically rejected R10B shader; neither is formally promoted.
+// requestAnimationFrame is presentation pacing, NOT direct GPU timing.
+async function captureR11SingleRunShaderPairs(page,label){
+ const rows=[];
+ const sequence=['R9_VERIFIED','R10B_REJECTED','R10B_REJECTED','R9_VERIFIED'];
+ let originalTick=null;
+ for(let i=0;i<sequence.length;i++){
+  const shaderMode=sequence[i];
+  await page.evaluate(x=>{window.__k4ctR11MaterialAB=x;},shaderMode);
+  await page.waitForFunction(x=>{
+   const c=document.getElementById('view');
+   return c?.dataset.k4ctR11ActualProgram===x &&
+     c.dataset.k4ctR11ShaderABAvailable==='R9_VERIFIED_VS_R10B_REJECTED_SAME_BROWSER';
+  },shaderMode,{timeout:12000,polling:50});
+  const paced=await measureR10ChaseFramePacing(page);
+  const proof=await page.evaluate(()=>{
+   const c=document.getElementById('view');
+   const gl=c.getContext('webgl2');
+   return {
+    realWebGL2:gl instanceof WebGL2RenderingContext,
+    originalSource:c.dataset.r15s3d10OriginalGame,
+    originalTicks:Number(c.dataset.r15s3d10NativeTicks),
+    originalB51:Number(c.dataset.g4e7yRetainedMachines),
+    originalRoadMode:c.dataset.k4ctRoadArtMode,
+    actualShader:c.dataset.k4ctR11ActualProgram,
+    nonRoadVertexCount:Number(c.dataset.k4ctR9MaterialVertexCount)
+   };
+  });
+  assert.equal(proof.realWebGL2,true);
+  assert.equal(proof.originalSource,'REAL_WEBGL2_SOURCE_240HZ');
+  assert.equal(proof.originalB51,28);
+  assert.equal(proof.originalRoadMode,'ORIGINAL_B48_PLUS_DCC_CONFORMAL');
+  assert.equal(proof.nonRoadVertexCount,80148);
+  assert.equal(proof.actualShader,shaderMode);
+  assert.ok(paced.sampleCount>=12&&paced.originalRunnerPaused);
+  if(originalTick===null)originalTick=proof.originalTicks;
+  else assert.equal(proof.originalTicks,originalTick,'R11 paired shader broke frozen source tick');
+  let screen=null;
+  if(i===0||i===1){
+   screen='K4CT_R11_'+label+'_'+shaderMode+'_REAL_SOURCE_AB_RAW.png';
+   await page.screenshot({path:path.join(OUT,screen)});
+  }
+  rows.push({ordinal:i,mode:shaderMode,proof,pacing:paced,screenshot:screen});
+ }
+ await page.evaluate(()=>{window.__k4ctR11MaterialAB='R9_VERIFIED';});
+ await page.waitForFunction(()=>{
+  const c=document.getElementById('view');
+  return c?.dataset.k4ctR11ActualProgram==='R9_VERIFIED';
+ },null,{timeout:12000,polling:50});
+ assert.deepEqual(rows.map(x=>x.mode),sequence);
+ return {sourceCameraLabel:label,sourceNativeTick:originalTick,
+  design:'ABBA_TO_PARTLY_CONTROL_CHROME_WARMUP_AND_RUN_ORDER',
+  pairedWithinOneBrowser:true,
+  actualGameSource:true,sourceRoadAndB51Untouched:true,
+  formalFPS:'HOLD',human:false,results:rows};
+}
+
 /* Same-paused-tick, same-source-camera RAW layer A/B (no retouching).
  * Three modes only toggle noncolliding scenery; 28 B51 are always drawn.
  * SCREENSHOT  != HUMAN test and qualitative ART always remains REJECT. */
@@ -147,7 +207,12 @@ async function captureR6RawLayerAB(page,label){
   else assert.equal(state.nativeTicks,tick,'R8B display-only transition changed native tick');
   const file='K4CT_R8B_'+label+'_'+trial+'_EXACT_SOURCE_RAW.png';
   await page.screenshot({path:path.join(OUT,file)});
-  states.push({...state,file,r10Pacing});
+  let r11SingleRunAB=null;
+  if(trial==='CLEAN'){
+   r11SingleRunAB=await captureR11SingleRunShaderPairs(page,label);
+   assert.equal(r11SingleRunAB.sourceNativeTick,state.nativeTicks);
+  }
+  states.push({...state,file,r10Pacing,r11SingleRunAB});
  }
  await page.evaluate(()=>{window.__k4ctRenderAttribution='BASE';window.__k4ctSuppressK4CSGateOnly=true;});
  return {label,nativeTick:tick,states,renderOnly:true,
@@ -368,6 +433,27 @@ try{
    'HOLD_NO_ROAD6_GROUNDED';
  fs.writeFileSync(path.join(OUT,'K4CT_SECOND_B51_CONTROLLED_NATIVE_RESULT.json'),JSON.stringify(result,null,2)+'\n');
 }
+const r11AB=result.r6Slices.flatMap(slice=>
+ slice.states.filter(row=>row.trial==='CLEAN').map(row=>row.r11SingleRunAB));
+assert.equal(r11AB.length,3,'R11 must complete all three original source chase source-camera ABBA pairs');
+assert.deepEqual(r11AB.map(x=>x.sourceCameraLabel),['T65_25','T66_35','T68_05']);
+for(const pair of r11AB){
+ assert.ok(pair.pairedWithinOneBrowser&&pair.sourceRoadAndB51Untouched);
+ assert.equal(pair.results.length,4);
+ assert.ok(pair.results.every(r=>r.proof.originalTicks===pair.sourceNativeTick));
+}
+fs.writeFileSync(path.join(OUT,'K4CT_R11_SAME_BROWSER_ABBA_REJECTED_R10_PERFORMANCE.json'),
+ JSON.stringify({schema:'k4ct-r11-same-browser-original-camera-paired-renderer-v1',
+  compared:['R9_VERIFIED','R10B_REJECTED'],
+  design:'ABBA at fixed 3 source-camera ticks, actual Chromium headless',
+  outOfBandShaderCompilation:true,
+  sourceCameraTrue:true,originalB48:7,originalB51:28,
+  actualSourceNativeHz:240,actualSourceGameUnmodified:true,
+  measuredBy:'window.requestAnimationFrame display callback intervals',
+  gpuMillisecondsMeasured:false,gameFrameRateCertified:false,
+  formalArtAdopted:0,formalFPS:'HOLD',formalHUMAN:'HOLD',
+  originalB51CollisionChanged:false,human:false,
+  trials:r11AB},null,2)+'\n');
 fs.writeFileSync(path.join(OUT,'K4CT_R10_REAL_CHROMIUM_9_VIEW_RAF_PACING.json'),
  JSON.stringify({schema:'k4ct-r10-real-chromium-9-capture-raf-pacing-v1',
   environment:'Github Actions Ubuntu24.04/Chromium headless, GPU backend unspecified',
