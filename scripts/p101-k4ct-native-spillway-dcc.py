@@ -229,31 +229,80 @@ beam('40_R8D_QUARRY_ORE_HOPPER_OPEN_LOADING_BAY',
      add(ore,(0,36,0)),add(ore,add(mul(side,23),(0,14,0))),
      3.6,'copper')
 
-# The second 68.05s CHASE landmark, same quarry-service program but
-# asymmetrical and open-sided. Not a bright, repeating gate over the race lane.
+# R8J: a single identifiable working tidal generator wheel, not R8D's
+# two generic cargo-lift rectangular portal columns. This occupies the
+# EXACT original Road6 chase sightline at 68.05 seconds: outboard of
+# physical LEFT B48 by 87m, with completely empty air over the raceway.
+# All objects are real editable Blender meshes and noncolliding WebGL2 art.
 p,fw,side=frame(6,.625)
-lift=add(offset_edge(p,side,106,'L'),(0,1,0))
-for dx in (-15,15):
- q=add(lift,mul(fw,dx))
- beam('41_R8D_SINGLE_OPEN_SHAFT_ORE_LIFT',
-      add(q,(0,-33,0)),add(q,(0,63,0)),2.7,'concrete')
- beam('41_R8D_SINGLE_OPEN_SHAFT_ORE_LIFT',
-      add(q,(0,54,0)),add(q,add(mul(side,-20),(0,8,0))),
-      1.6,'darksteel')
-for y in (9,59):
- beam('41_R8D_SINGLE_OPEN_SHAFT_ORE_LIFT',
-      add(lift,add(mul(fw,-15),(0,y,0))),
-      add(lift,add(mul(fw,15),(0,y,0))),2.5,'steel')
-box('42_R8D_INSET_LIFT_CABIN_AND_POWER_BRIDGE',
-    add(lift,(0,31,0)),16,15,12,'oxidized',fw,side)
-for i in range(5):
- base=add(lift,add(mul(fw,(i-2)*4.2),add(mul(side,-11),(0,31,0))))
- box('42_R8D_INSET_LIFT_CABIN_AND_POWER_BRIDGE',
-     base,2.2,1.2,7,'window',fw,side)
-beam('42_R8D_INSET_LIFT_CABIN_AND_POWER_BRIDGE',
-     add(lift,(0,62,0)),
-     add(lift,add(mul(side,-42),(0,3,0))),
-     1.25,'copper')
+lift=add(offset_edge(p,side,87,'L'),(0,4,0))
+rotorGroup='41_R8J_COASTAL_TIDAL_TURBINE_CROWN'
+plantGroup='42_R8J_QUARRY_ANCHORED_TURBINE_PENSTOCK'
+wheelCenter=add(lift,(0,34,0))
+def wheelPoint(radius,angle,depth):
+ return add(wheelCenter,
+   add(mul(fw,depth),
+     add(mul(side,radius*math.cos(angle)),(0,radius*math.sin(angle),0))))
+# The 24-sector open steel annulus is an actual THICK 3D wheel:
+# two separated circular ribs, outer and inner rim walls, no planar mask.
+nWheel=24
+for k in range(nWheel):
+ t0=2*math.pi*k/nWheel;t1=2*math.pi*(k+1)/nWheel
+ for depth in (-3.7,3.7):
+  quad(rotorGroup,
+       wheelPoint(21.5,t0,depth),wheelPoint(21.5,t1,depth),
+       wheelPoint(26.5,t1,depth),wheelPoint(26.5,t0,depth),
+       'weathered_iron' if depth>0 else 'steel')
+ for radius,mat in ((21.5,'deepstone'),(26.5,'oxidized')):
+  quad(rotorGroup,
+       wheelPoint(radius,t0,-3.7),wheelPoint(radius,t1,-3.7),
+       wheelPoint(radius,t1,3.7),wheelPoint(radius,t0,3.7),mat)
+# Radially pitched bronze blades and a stepped mechanical axle. A real
+# open rotor silhouette, NOT an animated or physically colliding gate.
+for k in range(12):
+ a=2*math.pi*(k+.20)/12
+ a1=a+.145
+ inner0=wheelPoint(7.5,a,-2.7)
+ inner1=wheelPoint(7.5,a1,2.3)
+ outer0=wheelPoint(20.7,a+.09,2.1)
+ outer1=wheelPoint(20.7,a1+.09,-2.4)
+ quad(rotorGroup,inner0,outer0,outer1,inner1,
+      'copper' if k%3 else 'oxidized')
+ for depth in (-5,5):
+  a0=wheelPoint(5.2,2*math.pi*k/12,depth)
+  a1=wheelPoint(5.2,2*math.pi*(k+1)/12,depth)
+  tri(rotorGroup,wheelPoint(0,0,depth),a0,a1,'turbine')
+# The machined annular hub connects to both real structural bearing seats.
+for k in range(16):
+ t0=2*math.pi*k/16;t1=2*math.pi*(k+1)/16
+ quad(rotorGroup,
+      wheelPoint(5.2,t0,-6.8),wheelPoint(5.2,t1,-6.8),
+      wheelPoint(5.2,t1,6.8),wheelPoint(5.2,t0,6.8),'turbine')
+# Two massive load-bearing geology-embedded support feet, with a SINGLE
+# service catwalk under the wheel, never a false raceable route.
+for alongTrack in (-17,17):
+ bearing=add(lift,mul(fw,alongTrack))
+ seat=add(bearing,add(mul(side,-8),(0,17,0)))
+ beam(plantGroup,add(bearing,(0,-42,0)),seat,5.4,'saltstone')
+ beam(plantGroup,seat,add(bearing,add(mul(side,-29),(0,4,0))),
+      3.0,'weathered_iron')
+box(plantGroup,add(lift,add(mul(side,-10),(0,-4,0))),
+    17,57,5,'saltstone',fw,side)
+# One coherent gravity-fed pair of penstocks from the turbine discharge
+# into the existing maritime basin. They DO NOT cross source Road6 B48.
+for x in (-9,9):
+ head=add(lift,add(mul(fw,x),(0,-1,0)))
+ offWater=add(head,add(mul(side,-72),(0,tideY+9-head[1],0)))
+ beam(plantGroup,head,offWater,3.8,'oxidized')
+ beam(plantGroup,offWater,add(offWater,(0,-16,0)),4.4,'deepstone')
+# One enclosed control cabin inset behind the rotor; the main view
+# remains through the ring and across sky, with original B51 legible.
+control=add(lift,add(mul(side,-24),(0,39,0)))
+box(plantGroup,control,22,18,12,'deepstone',fw,side)
+for x in (-6,6):
+ for sideShift in (-9.5,9.5):
+  front=add(control,add(mul(fw,x),mul(side,sideShift)))
+  box(plantGroup,front,5,1.2,6,'window',fw,side)
 
 # C) Tidal sea, stepped embankment and real industrial retaining wall. Source
 # road is very high above the water, so the quays have structural connections
