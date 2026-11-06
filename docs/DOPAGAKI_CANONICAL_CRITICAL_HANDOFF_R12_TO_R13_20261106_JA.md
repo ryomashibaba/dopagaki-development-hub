@@ -5,6 +5,16 @@
 > 最重要成果は「超高速で実際に面白く、美術的に完成度が高い、独創的な立体ブラウザゲーム」。工程数・CI成功数・巨大な低品質メッシュを成果に代えない。
 > **最新状態は必ず生のGitHub研究HEAD/Actionsで上書きする**。本文のHEADはこの正本を作った時点の出発点にすぎない。
 
+## R21本物Blender材質ノードのみの修正と描画効果の否定実証（2026-11-07 JST）
+
+- **完全継承／なぜR21か**：R20は本物Blender／元ChromiumでTECH SUCCESSだがART REJECT。研究海港の新12材質が実際には全て粗さ0.74／金属度0.08で、船15・クレーン17・泡05が元CHASE3時点ではほぼ不可視だった。これを `research-evidence/k4ct/K4CT_R21_REAL_BSDF_AND_NATIVE_VISIBILITY_VETO_CONTRACT_20261107.json` に制作前条件として固定。正式ART0、Slope2 DNA0m、QUALITY/ART/DCC-FIRST・INTEGRATED VERTICAL SLICEは不変。
+- **実装／手間削減**：本物のR20不採用Artifact #13546263695からBlender 4.0.2の元`.blend`を隔離再利用。`scripts/k4ct-r21-reuse-real-blender-bsdf-only.py` は本物のPrincipled BSDFノード12種の**Roughness／Metallicだけ**を変え、保存→再読込してノード数値を検証。ノードから元14-strideのR9属性 `roughness`・`metallic` だけを真正再作成し、元のXYZ／BSDF基本色／実ポリゴン法線／UV／material ID／道路入力を変更しない。元の25,700三角形・43群・元道路4,608三角形・実B48×7/B51×28・新Collider0、source geometry SHA256 `05fe4ba77fd4a66d3622597eadea43a48a9bb4759b114591db17ca12d712ab11`の完全一致を検証。**新しい造形は一切追加しない**。現在の実行DCC作者 `scripts/p101-k4ct-native-spillway-dcc.py` は期間中ずっと旧R12Aの検証済みGit blob `096fffbc1627915eb0122224955bb02cfba6b3ae` と一致し、復元や本来の作品編集は不要。
+- **独立CIと本物描画**：[CI #42309755398](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42309755398)は**TECH SUCCESS**。実Blender`.blend`ノード保存・再読込、非変更メッシュ完全一致、12種の異なる物性値、元Chromium/WebGL2の実24bit深度・元240Hz Tick 15660/15924/16332、各時点4群の限定的な可視影響を取得。比較対象は保存済みR20真正RAWで、**素材物性以外の美術・道路・物理は同一**。Blender/source evidenceは6ファイルArtifact #13547558795、ZIP SHA256 `42cc56a56748897b74ad22cc7271f3f55f6732a9c4f3043e709954d848f0fbcb`、CRC PASS、2026-11-13 23:11 UTC期限。
+- **決定的な反証**：元R20との同時刻画素比較（ROI 628,125画素）は、65.25秒はRGB差1超**2.992%**／差10超**0.172%**、66.35秒は差1超**0%**、68.05秒は差1超**0.019%**／差10超**0.008%**。**差25超は3時点とも0%**。本物の材質値の一律化は修正できたが、元ゲーム画面では極めて弱く、ART改善を認められない。数値は色変化であり正式美術点ではない。
+- **真の描画制約**：元PRIVATE研究R9のWebGL2シェーダーは法線・UV・roughness／metallicを一部の簡易反射に使う**スタイライズドシェーダー**であり完全PBR・環境反射・独立影ではない。水面特別処理の素材IDは元の `tide/shallows/foam` のみで、新しい `harbor_*` 水系素材は同分岐の対象外。さらにR20の船・クレーン・泡は元CHASEの3つの時点ではほぼ写らない。従って名前や物性を区別しただけで高品質な港湾が完成するという見積もりは否定された。なお、視覚差の小ささに対するシェーダー・可視面積・トーンの寄与率までは個別に測定していない。
+- **恒久記録と判定**：`research-evidence/k4ct/K4CT_R21_TRUE_BLENDER_BSDF_ONLY_NATIVE_VISUAL_ART_REJECT_20261107.json` に実測、元Blob、真正BlenderのSHA、R20からの差分、正式HOLDと失敗理由を記録。**材質データの修正TECH PASS、視覚ART REJECT、正式ART採用0、Slope2 DNA0m**。HUMAN/SAT/CCD/FPS/RELEASE/MERGEは全HOLD。元Game／Camera／Road5／B51／PR46／main／公式QA／公開／Work・課金を変更していない。
+- **次R22**：新しい高ポリ海港・船・材質名の量産は禁止。次は**元PRIVATE研究シェーダーの実際の材質応答**を研究隔離下のR20/R21真正RAWに対して小規模A/Bし、反射・照明を適切に区別できるか確認。R21のように物性が正しくても見た目がほぼ変わらないなら、まず描画・カメラ・港湾主役の視認性条件を直す。正式採用判定は本物の連続CHASE・人間のART評価が後日必要で、数字だけで上書きしない。
+
 ## R20海港水面とBSDF材質の真正監査・採用否決・安全復元（2026-11-07 JST）
 
 - **同一開発方針の継承**：R19が元取水34／制御塔12／真R8Jタービン41/42のCHASE主従構図を部分的に整理した一方、海と港湾施設があまりに平板・小さくART REJECTという批判を継承。R19の地形縮減だけを明示的に**不採用の一時研究基盤**として使い、正式ART採用と混同しない。R20固定条件は `research-evidence/k4ct/K4CT_R20_WORKING_TIDAL_PORT_MATERIAL_FORM_ART_CONTRACT_20261107.json`。
