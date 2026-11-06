@@ -26,7 +26,7 @@ const replace=(needle,value)=>{
 };
 const imports="import {readK4CTTwoTrueB51,formatK4CTNativeDualCue} from './k4ct-dual-real-b51-decision.mjs';";
 replace(imports,imports+"\nimport {K4CT_DCC_VERTICES,K4CT_DCC_TRIANGLES} from './k4ct-dcc-world-geometry.mjs';");
-replace('let k4cqSceneMesh=null;', "let k4ctDccMesh=null;\nlet k4ctResearchB51Meshes={};\n\nfunction k4ctIndustrialMaterialOnly(src,mode){\n const out=src.slice();\n const palettes={\n fail:[[.14,.19,.20],[.80,.23,.16],[.53,.31,.24]],\n bounce:[[.20,.22,.21],[.89,.57,.18],[.57,.42,.27]],\n push:[[.15,.22,.24],[.20,.75,.71],[.34,.53,.53]]\n };\n const p=palettes[mode];\n for(let i=0;i<src.length;i+=6){\n  const rgb=src.slice(i+3,i+6),max=Math.max(...rgb),min=Math.min(...rgb);\n  const target=max<.36?p[0]:(max-min>.28||max>.8?p[1]:p[2]);\n  for(let j=0;j<3;j++)out[i+3+j]=target[j];\n }\n if(out.length!==src.length||out.some((v,i)=>i%6<3&&v!==src[i]))throw Error('B51 geometry modified');\n return out;\n}\n\nwindow.__k4ctVisualABMode='R7C_MATERIAL';\nlet k4cqSceneMesh=null;");
+replace('let k4cqSceneMesh=null;', "let k4ctDccMesh=null;\nlet k4ctResearchB51Meshes={};\nlet k4ctFixtureIdentityTagMesh=null;\n\nfunction k4ctIndustrialMaterialOnly(src,mode){\n const out=src.slice();\n const palettes={\n fail:[[.14,.19,.20],[.80,.23,.16],[.53,.31,.24]],\n bounce:[[.20,.22,.21],[.89,.57,.18],[.57,.42,.27]],\n push:[[.15,.22,.24],[.20,.75,.71],[.34,.53,.53]]\n };\n const p=palettes[mode];\n for(let i=0;i<src.length;i+=6){\n  const rgb=src.slice(i+3,i+6),max=Math.max(...rgb),min=Math.min(...rgb);\n  const target=max<.36?p[0]:(max-min>.28||max>.8?p[1]:p[2]);\n  for(let j=0;j<3;j++)out[i+3+j]=target[j];\n }\n if(out.length!==src.length||out.some((v,i)=>i%6<3&&v!==src[i]))throw Error('B51 geometry modified');\n return out;\n}\n\nwindow.__k4ctVisualABMode='R7C_MATERIAL';\nlet k4cqSceneMesh=null;");
 const buildAnchor="}else canvas.dataset.k4cqScene='off';";
 replace(buildAnchor,buildAnchor+"\n"+
  "discard(k4ctDccMesh);k4ctDccMesh=null;"+
@@ -93,6 +93,25 @@ replace("draw(o.id.startsWith('a13-machine-')?a13MachineMeshes[key]:machineMeshe
  "draw(selected,obstaclePose.center,obstaclePose.halfSize.map(x=>2*x),obstaclePose.yawRadians);"+
  "if(k4ctDccMesh)canvas.dataset.k4ctNativeB51MaterialMode=materialCandidate?"+
  " 'RESEARCH_RECOLOR_SOURCE_OPAQUE_HULL_IDENTICAL_XYZ':'ORIGINAL_SOURCE_VISUAL';");
+
+
+/* R7D: source fixture diagnostic: visual triangles/XYZ/OBB retained.
+ * Only paused fixture colors turn magenta, not gameplay or ART. */
+replace("for(const f of stage.fixtures??[]){",
+ "const k4ctFixtureStart=vertex.length;for(const f of stage.fixtures??[]){");
+replace("roads=mesh(vertex);lines=mesh(wire);",
+ "roads=mesh(vertex);lines=mesh(wire);"+
+ "const tagged=vertex.slice();"+
+ "if(k4ctFixtureStart%6||tagged.length%6)throw Error('fixture geometry length invalid');"+
+ "for(let i=k4ctFixtureStart;i<tagged.length;i+=6){"+
+ " tagged[i+3]=.96;tagged[i+4]=.08;tagged[i+5]=.80;}"+
+ "if(tagged.some((v,i)=>i%6<3&&v!==vertex[i]))throw Error('fixture XYZ changed');"+
+ "discard(k4ctFixtureIdentityTagMesh);k4ctFixtureIdentityTagMesh=mesh(tagged);"+
+ "canvas.dataset.k4ctFixtureSourceCount=String(stage.fixtures?.length||0);");
+replace("draw(roads);if(k4ctDccMesh){if(window.__k4ctVisualABMode!=='R7_NO_SCENERY')draw(k4ctDccMesh);",
+ "draw(k4ctDccMesh&&window.__k4ctVisualABMode==='R7D_TAG_FIXTURES'?"+
+ "k4ctFixtureIdentityTagMesh:roads);"+
+ "if(k4ctDccMesh){if(window.__k4ctVisualABMode!=='R7_NO_SCENERY')draw(k4ctDccMesh);");
 
 const moduleFile=path.join(target,'k4ct-dcc-world-geometry.mjs');
 // Isolated K4CT color mood; this does not mutate the original WebGL source.

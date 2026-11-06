@@ -52,7 +52,7 @@ async function advance(page,t,paused){
 async function captureR6RawLayerAB(page,label){
  const states=[];
  let tick=null;
- for(const mode of ['R7_DCC','R7C_MATERIAL','R7_NO_SCENERY']){
+ for(const mode of ['R7_DCC','R7D_TAG_FIXTURES','R7C_MATERIAL']){
   await page.evaluate(x=>{window.__k4ctVisualABMode=x;},mode);
   await page.waitForFunction(expected=>{const c=document.getElementById('view');return c?.dataset.k4ctVisualABMode===expected;},mode,{timeout:30000,polling:50});
   await page.waitForTimeout(130);
@@ -65,10 +65,12 @@ async function captureR6RawLayerAB(page,label){
     nativeStatus:c.dataset.r15s3d10Status,
     DCC:c.dataset.k4ctNativeDcc,
     nativeB51MaterialMode:c.dataset.k4ctNativeB51MaterialMode,
+    fixtureSourceCount:Number(c.dataset.k4ctFixtureSourceCount),
     sourceResearchRoad5:true};
   });
   assert.equal(state.mode,mode,'visual layer switch did not render');
   assert.equal(state.sourceB51StageCount,28,'original scene B51 count changed');
+  assert.ok(Number.isInteger(state.fixtureSourceCount)&&state.fixtureSourceCount>=0,'fixture count not observed');
   assert.equal(state.originalSource,'REAL_WEBGL2_SOURCE_240HZ');
   assert.equal(state.DCC,'GENUINE_BLENDER_EDITABLE_NONCOLLIDING');
   assert.equal(state.nativeStatus,'running');
@@ -300,7 +302,7 @@ try{
 }
 fs.writeFileSync(path.join(OUT,'K4CT_R6_THREE_SOURCE_CHASE_LAYER_AB_AUDIT.json'),JSON.stringify({schema:'k4ct-r6-native-visual-ab-v1',slices:result.r6Slices,originalB51:28,originalCamera:true,originalRunner240Hz:true,onlyNoncollisionLayerSwitch:true,ART:'REJECT',HUMAN:'HOLD',formalArt:0})+'\n');
 assert.equal(result.r6Slices.length,3,'R7 must capture all three actual source chase times');
-for(const f of result.r6Slices)assert.deepEqual(f.states.map(x=>x.mode),['R7_DCC','R7C_MATERIAL','R7_NO_SCENERY']);
+for(const f of result.r6Slices)assert.deepEqual(f.states.map(x=>x.mode),['R7_DCC','R7D_TAG_FIXTURES','R7C_MATERIAL']);
 assert.equal(result.experimentsCompleted,1,'must retain single known successful reference trial');
 assert.ok(result.pairedLoopProven,'same-session original failure, actual retry, and finish not proven');
 assert.deepEqual(result.errors,[],'real native browser experiment errors');
