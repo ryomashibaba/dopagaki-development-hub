@@ -1,0 +1,143 @@
+{
+  "schema": "k4ct-r21-reused-r20-blender-actual-bsdf-only-visibility-veto-v1",
+  "dateJST": "2026-11-07",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "fixed": "QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE. Nonadopted R20 Blender research artifact only. No original source, stage physics, Road5, camera, B51, 240Hz, HUD, production or formal QA changes.",
+  "artifact": {
+    "R20Run": 42307252065,
+    "id": 13546263695,
+    "digest": "sha256:dd11bb8fa5f47f13ca3c5e97624ba35e743b897a186226ab3ce51ab277d368a2",
+    "actualBlender": "4.0.2",
+    "triangles": 25700,
+    "editableGroups": 43,
+    "materials": 41
+  },
+  "original": {
+    "gameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "currentAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "roadPhysicsSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "B48": 7,
+    "B51": 28
+  },
+  "sourceRawNativeGroupInfluenceRGB25Pct": {
+    "65.25": {
+      "15": 0.003,
+      "16": 4.4837,
+      "17": 0.0041,
+      "34": 2.4874,
+      "03": 3.6474,
+      "05": 0
+    },
+    "66.35": {
+      "12": 3.6225,
+      "15": 0,
+      "16": 0,
+      "17": 0,
+      "03": 2.4349,
+      "05": 0
+    },
+    "68.05": {
+      "15": 0.004,
+      "16": 0.0363,
+      "17": 0,
+      "42": 3.5751,
+      "03": 9.2491,
+      "05": 0
+    }
+  },
+  "sourceCameraSiteVeto": {
+    "unseen": [
+      "05_R20_FOAM_3_SAMPLES_ZERO",
+      "15_MOORED_WORKING_BARGE_3_SAMPLES_BELOW_0_005pct",
+      "17_CARGO_CRANE_3_SAMPLES_BELOW_0_005pct"
+    ],
+    "decision": "HOLD further mesh production of foam, barge, gantry until actual source camera evidence of meaningful visual contribution (not numerical ART PASS). Do not claim occlusion safety or human hazard readability.",
+    "seen": [
+      "03 working tidal basin impacts original source RAW",
+      "16 cargo hall dominates first native frame but worsens view, not adoptable"
+    ],
+    "methodLimit": "Leave-one-out changed pixels do not equal exact visible area; only tested 65.25, 66.35, 68.05, not all 180s, not geometry clearance."
+  },
+  "actualBSDFPropertyGoals": {
+    "harbor_abyss": [
+      0.19,
+      0.02
+    ],
+    "harbor_tidal_steel": [
+      0.25,
+      0.03
+    ],
+    "harbor_swell": [
+      0.29,
+      0.02
+    ],
+    "harbor_wet_rock": [
+      0.83,
+      0.02
+    ],
+    "harbor_foam_silver": [
+      0.77,
+      0.01
+    ],
+    "harbor_salt_concrete": [
+      0.88,
+      0.01
+    ],
+    "harbor_laminate": [
+      0.57,
+      0.32
+    ],
+    "harbor_green_iron": [
+      0.5,
+      0.63
+    ],
+    "harbor_aged_copper": [
+      0.41,
+      0.74
+    ],
+    "harbor_crane_gold": [
+      0.44,
+      0.72
+    ],
+    "harbor_ship_hull": [
+      0.56,
+      0.52
+    ],
+    "harbor_window": [
+      0.18,
+      0
+    ]
+  },
+  "testingScope": {
+    "useArchivedActualR20Blender": true,
+    "changeOnlyActualBlenderPrincipledNodeMetallicAndRoughness": true,
+    "copyMeshBSDFBridgeWithPerVertexPropertiesFromActualNodes": true,
+    "preserveOriginalPositionsNormalsUVBaseRGBAndMaterialIDs": true,
+    "rebuildPrivateOriginalWebGL2": true,
+    "nativeTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "compareToR20GenuineRawAtSameTicks": true,
+    "doNotAddNewArt": true,
+    "doNotRun42GroupMatrix": true,
+    "formalART": "REJECT_UNTIL_CRITICAL_HUMAN_APPROVAL",
+    "BSDFRealism": "Stylized source shader, NOT full PBR, material semantic proof != high quality imagery."
+  },
+  "safety": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "open/draft/unmerged",
+    "formalArtAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "paidAPI": 0,
+    "workComputerUse": false
+  }
+}
