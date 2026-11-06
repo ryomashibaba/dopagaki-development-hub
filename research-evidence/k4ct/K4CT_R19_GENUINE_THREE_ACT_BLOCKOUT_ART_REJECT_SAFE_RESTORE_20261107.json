@@ -1,0 +1,157 @@
+{
+  "schema": "k4ct-r19-true-original-chase-single-blender-three-act-art-reject-restore-v1",
+  "date": "2026-11-07 JST",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "fixedPolicy": "QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE, R12->R19 continuous; no new project",
+  "startingHead": "c707ec711de6f245d56c9ff5f54fac4cd16d61e4",
+  "originalBlenderSourceBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+  "plan": "research-evidence/k4ct/K4CT_R19_3ACT_TRUE_CHASE_COMPOSITION_CONTRACT_20261107.json",
+  "authoredResearch": {
+    "module": "scripts/p101-k4ct-r19-source-three-act-open-harbor.py",
+    "commit": "21670b99fa87bb6abc95b6f7a887bd9e9c05a466",
+    "authorIntegration": "scripts/p101-k4ct-native-spillway-dcc.py",
+    "integrationCommit": "7e7486a256f9c8c403fc353e38bc9a20c9a155f2",
+    "integrationBlob": "4e2fe8a8c8c8a9a873629f0c7c0199e27d6e9135",
+    "script": "scripts/k4ct-r19-fast-3frame-native-blender-review.mjs",
+    "scriptFinalCommit": "f3c4e52ddc241e3ed29251c171b57bb57b826bc1",
+    "workflow": ".github/workflows/p101-k4ct-r19-three-act-true-blender-light.yml",
+    "workflowCommit": "17370cb487cb4f19c1e888d43796588ff8a16475",
+    "semanticDelta": "Protected original Road5/6 actual intake group34, control tower group12/13, R8J wheel group41/42. Replaced only noncolliding group01 left overhang, group21/25 quarry shelves and subordinate group27..33 outboard unconnected roof clutter, with lower grounded embankments and one smaller real Blender quay.",
+    "noOriginalCameraChanges": true,
+    "noOriginalB51Changes": true,
+    "noRoad5Changes": true,
+    "noOriginalGameChanges": true,
+    "noNewColliders": true
+  },
+  "nativeTrueCI": {
+    "id": 42304999606,
+    "conclusion": "success",
+    "ciHead": "17370cb487cb4f19c1e888d43796588ff8a16475",
+    "nativeBlenderVersion": "4.0.2",
+    "nativeEditableGroups": 43,
+    "triangles": 23090,
+    "artifactID": 13546625879,
+    "artifactName": "K4CT_R19_REAL_BLENDER_THREE_ACT_ART_HOLD",
+    "artifactDigestSHA256": "598e763673b4162ff4a7b9ad4631943fb0f79d2646756d76b979460926133b4b",
+    "archiveFileCount": 7,
+    "crcCheck": "PASS",
+    "artifactExpiryUTC": "2026-11-13T22:31:49Z",
+    "originalSourceCameraTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "originalChromeWebGL2": true,
+    "actualOriginal240HzRunner": true,
+    "originalMovingB51Rendered": 28,
+    "sourceB48": 7,
+    "originalGameGitBlobSHA1": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalRoad5PhysicsSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "trueSameTickRestoreChangedRGB25Pct": [
+      0,
+      0,
+      0
+    ],
+    "noHumanTrial": true,
+    "noFullSameSessionFailureRetryFinishInR19": true,
+    "noFull42x3GroupQA": true,
+    "noHumanFPSorB51ActualContactCertification": true,
+    "sourceCleans": [
+      "R19_TRUE_SOURCE_CHASE_T65_25_CLEAN_RAW.png",
+      "R19_TRUE_SOURCE_CHASE_T66_35_CLEAN_RAW.png",
+      "R19_TRUE_SOURCE_CHASE_T68_05_CLEAN_RAW.png"
+    ]
+  },
+  "criticalNativeVisualReview": {
+    "baselineSourceRun": 42230306036,
+    "sameSizeChromiumViewport": [
+      1365,
+      930
+    ],
+    "roiXYXY": [
+      0,
+      80,
+      1005,
+      705
+    ],
+    "method": "max abs RGB channel difference >25 for each ROI pixel, exact same true source ticks; differences are visual changes and NOT quality scores",
+    "changedRGB25PctAgainstR12A": {
+      "65.25": 21.001,
+      "66.35": 14.539,
+      "68.05": 20.97
+    },
+    "targetedTrueGLGroupImpactRGB25Pct": {
+      "65.25": {
+        "12": 0.444,
+        "21": 0.09,
+        "25": 0.069,
+        "27": 0,
+        "34": 2.487,
+        "42": 0,
+        "01": 4.462
+      },
+      "66.35": {
+        "12": 3.781,
+        "21": 0.757,
+        "25": 0.843,
+        "27": 0,
+        "34": 0,
+        "42": 0.09,
+        "01": 4.393
+      },
+      "68.05": {
+        "12": 0,
+        "21": 0.54,
+        "25": 0.174,
+        "27": 0,
+        "34": 0,
+        "42": 3.554,
+        "01": 4.267
+      }
+    },
+    "positive": [
+      "Original camera at all three times more legible: reduced giant foreground grey/dark rock stripes and dead scaffolding",
+      "The actual intake at 65.25, source existing control landmark at 66.35 and true real-source R8J wheel at 68.05 create stronger natural three-beat hierarchy, without new fake heroes",
+      "Original road and moving B51 remain in source game, no render-only object hides original physical hazards deliberately"
+    ],
+    "negative": [
+      "Low-lying coast becomes large near-featureless turquoise surface with weak spatial depth and texture",
+      "Remaining long horizontal black strips and unconvincing abrupt rock cut on right, plus scattered little port shapes, do not read as convincing high-quality working tidal industrial harbor",
+      "Visual abstraction, material/shading, original HUD and actual dynamic near-miss readability remain below aspirational quality",
+      "Group27 decorative small pier is invisible at the three studied source moments (0% influence), rightly not a hero but not useful as high-impact art"
+    ],
+    "verdict": "ART_REJECT",
+    "why": "A real and useful compositional clarity improvement, but not a completed high-quality source-native seaport ART concept. No numeric score can authorize it."
+  },
+  "critiqueOfEfficiency": {
+    "improvement": "Deliberately created one 3-act storyboard contract, one true Blender minimal candidate, one original 3-frame native CI. Only seven targeted group leave-one-out probes ×3, not 42×3 repeated. True native green run approximately 3m12s, versus previous R17 ~11m39s with different scope.",
+    "warning": "The visual scene remains too synthetic; repeated small Blender corrections are no longer efficient. Next stage should seek clear art reference, explicit quarry/hydraulic architecture silhouette and real continuous 65-68s camera storyboard before more mesh loops.",
+    "next": "R20: first define artistic target images and test a single strong main intake/wharf working section; preserve original R12A active art unless a genuine visually convincing source-camera comparison passes. Consider dedicated research-only material/lighting/shadow quality blockout rather than just more geometry. Human readability still HOLD."
+  },
+  "decision": {
+    "TECH": "PASS_3FRAME_SOURCE_CI",
+    "ART": "REJECT",
+    "formalARTAdopted": 0,
+    "formalSlope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "PBR": "NOT_CERTIFIED",
+    "safetyRestore": "PENDING_RETURN_ONLY_ACTIVE_DCC_TO_R12A",
+    "expectedBaselineBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "preserveR19ModuleAsUnreferencedResearchOnly": true,
+    "skipDuplicateRestoredCI": true
+  },
+  "safety": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "PR46": "open/draft/unmerged",
+    "GoldOriginalSlopeFormalQAPublicUnmodified": true,
+    "manualUserOperations": 0,
+    "paidApi": 0,
+    "workComputerUse": false
+  }
+}
