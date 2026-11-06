@@ -75,7 +75,11 @@
     "noForcePush": true,
     "preserveR12Attribution": true,
     "doNotScaleUpOrDevelopRepeatedVariants": true,
-    "nextMaterialChange": "First solve original chase framing with a visible deep negative-space quarry silhouette, a physically grounded outboard turbine/lock as one focal volume, and fewer near-camera opaque faces. Only then one genuinely reauthored Blender candidate; validate same 3 chase frames and short native trace."
+    "nextMaterialChange": "First solve original chase framing with a visible deep negative-space quarry silhouette, a physically grounded outboard turbine/lock as one focal volume, and fewer near-camera opaque faces. Only then one genuinely reauthored Blender candidate; validate same 3 chase frames and short native trace.",
+    "restoreCommit": "325481dca8c71e80ca39ec9caaa8b853d66d8ed9",
+    "restoredBlenderAuthorBlobSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "restoreGitBlobMatchesPreviouslyGreenR12ABaseline": true,
+    "newPostRestoreCI": "PENDING_NOT_YET_CLAIMED"
   },
   "permanentHolds": {
     "formalArtAdopted": 0,
