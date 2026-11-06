@@ -6,6 +6,7 @@ on:
     paths:
       - scripts/p101-k4ct-native-contact-retry.mjs
       - scripts/p101-k4ct-second-b51-controlled-keyboard.mjs
+      - scripts/k4ct-r12-real-chromium-png-pixel-impact.mjs
       - scripts/p101-k4ct-dcc-source-export.mjs
       - scripts/p101-k4ct-native-spillway-dcc.py
       - scripts/p101-k4ct-install-authored-dcc.mjs
@@ -29,6 +30,7 @@ jobs:
           node --check scripts/p101-k4ct-private-native-two-choice-game.mjs
           node --check scripts/p101-k4ct-native-contact-retry.mjs
           node --check scripts/p101-k4ct-second-b51-controlled-keyboard.mjs
+          node --check scripts/k4ct-r12-real-chromium-png-pixel-impact.mjs
           node --check scripts/p101-k4ct-dcc-source-export.mjs
           node --check scripts/p101-k4ct-install-authored-dcc.mjs
           python3 -m py_compile scripts/p101-k4ct-native-spillway-dcc.py
