@@ -63,6 +63,16 @@ jobs:
             assert (b/('k4ct-r21-native-blockout/R21_TRUE_SOURCE_CHASE_T'+t+'_CLEAN_RAW.png')).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
           print('R22_PREVIOUS_GENUINE_R20_GEOMETRY_AND_R21_MATERIAL_RAW_PROVENANCE_PASS')
           PY
+      - name: Match actual R21 Chromium CJK text environment before RGB pixel comparison
+        run: |
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|g; s|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::Retries=2 install -y --no-install-recommends fonts-noto-cjk
+          fc-match "Noto Sans CJK JP"
+          fc-list :lang=ja family | grep -i "Noto Sans CJK" | head -2
+          echo R22_MATCHED_R21_JAPANESE_HUD_FONT_PRECHECK_PASS
       - name: Build only original PRIVATE game and frozen physical road/B51 site
         run: |
           npm install --no-save --no-package-lock --no-audit --no-fund
