@@ -1,0 +1,153 @@
+{
+  "schema": "dopagaki-k4ct-r9-blender-material-bridge-source-webgl2-critical-audit-v1",
+  "asOf": "2026-11-06 JST",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "status": "TECH_PASS_ART_REJECT_RESEARCH_ONLY",
+  "evidence": [
+    {
+      "id": "R9A",
+      "commit": "db8b58d2786a41e21cbd043f2d4bc1f6c5457fd1",
+      "run": 42191606860,
+      "artifact": 13489459074,
+      "sha256": "3358d874eed57b0c08db135ed6c9b18773cf3bce58f91e06582ab35296fd13a8",
+      "status": "SUCCESS",
+      "crc": "PASS",
+      "zipEntries": 28
+    },
+    {
+      "id": "R9B",
+      "commit": "89abbf26a5eed39ce10ca477b2dafcc56a53f019",
+      "run": 42191944014,
+      "artifact": 13489864902,
+      "sha256": "5c9949fd699ded38e4b894256874571637ffc8d049cd1bb1da2074fe586d2c14",
+      "status": "SUCCESS",
+      "crc": "PASS",
+      "zipEntries": 28
+    },
+    {
+      "id": "R9C",
+      "commit": "af0ddfb2508c7b50400cfefc7611fcfa0290168b",
+      "run": 42192309644,
+      "artifact": 13490931105,
+      "sha256": "13800737fe51af83c52230f0518c8fb88bf5d88aa9036706fc5afc15e427d7b6",
+      "status": "SUCCESS",
+      "crc": "PASS",
+      "zipEntries": 28
+    }
+  ],
+  "blender": {
+    "version": "4.0.2",
+    "editableObjects": 43,
+    "totalTriangles": 31324,
+    "legacyRoadTriangles": 4608,
+    "nonroadMaterialTriangles": 26716,
+    "materialVertices": 80148,
+    "floatStride": 14,
+    "totalMaterialFloats": 1122072,
+    "materialSlots": 29,
+    "usedMaterialIDs": 24,
+    "source": "Actual Blender polygon normals, editable UV layers, polygon material ids and Principled BSDF base color roughness metallic",
+    "positionsExactlyEqualLegacy": true,
+    "originalRoadRGBExactlyEqual": true
+  },
+  "webgl": {
+    "originalGameSourceBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalRoad5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "sourceCamera": true,
+    "nativeRunnerHz": 240,
+    "originalRoadAndB51ShaderUnchanged": true,
+    "materialShader": "Isolated private WebGL2 scenery-only directional diffuse/specular shader; NOT full PBR"
+  },
+  "realSourceCamera": {
+    "timesSeconds": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "ticks": [
+      15660,
+      15924,
+      16332
+    ],
+    "r9bVsR9aChangePctMaxRgbGt25": [
+      1.871,
+      2.535,
+      2.47
+    ],
+    "metricsNotArtScore": true,
+    "centralRoadROI": [
+      410,
+      410,
+      650,
+      585
+    ],
+    "roiPixelsIdenticalAcross3Frames": true,
+    "r9cProofs": 9,
+    "r9cModes": [
+      "BASE",
+      "K4CS",
+      "CLEAN"
+    ],
+    "recordedMaterialProgram": "R9_REAL_BLENDER_ATTRIBUTES_SOURCE_SAFE",
+    "recordedActualDraw": "REAL_BLENDER_POLYGON_NORMAL_UV_BSDF_ATTRIBUTE_WEBGL2",
+    "recordedVertices": 80148,
+    "recordedRoadMode": "ORIGINAL_B48_PLUS_DCC_CONFORMAL",
+    "recordedB51Count": 28
+  },
+  "gameplay": {
+    "nativeUncontrolledFallSeconds": 69.4833333333523,
+    "fallReason": "コースから落下",
+    "nativeUIRetry": "retryRun",
+    "sameBrowser": true,
+    "positionDriftMeters": 0,
+    "realKeyDIntervals": [
+      [
+        65.25,
+        65.36
+      ],
+      [
+        65.79,
+        65.91
+      ]
+    ],
+    "finishSeconds": 69.94166666668522,
+    "road6GroundedSamples": 817,
+    "passedB51_14": true,
+    "b51_13Contacts": 0,
+    "b51_14Contacts": 0,
+    "minGap13M": 3.8516884950110035,
+    "minGap14M": 3.148671054349772,
+    "realHumanRun": false
+  },
+  "evaluation": {
+    "TECH": "PASS",
+    "ART": "REJECT",
+    "fullPBR": "NOT_PROVEN",
+    "formalArtAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "reasons": [
+      "Genuine Blender attribute delivery and actual scenery shader rendering proven",
+      "Material and facet shading changed at original camera but overall scene remains schematic and flat",
+      "No human hazard anticipation, performance certification, or physically based full PBR demonstrated"
+    ],
+    "next": "R10 integrated high-quality coast/harbor art using verified true DCC material pipeline; keep exact source camera/road/B51, measure real FPS and seek actual human danger-cue validation before any formal promotion"
+  },
+  "safety": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "official": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "OPEN_DRAFT_UNMERGED",
+    "workComputerUse": false,
+    "paidAPI": 0,
+    "manualUserSteps": 0
+  }
+}
