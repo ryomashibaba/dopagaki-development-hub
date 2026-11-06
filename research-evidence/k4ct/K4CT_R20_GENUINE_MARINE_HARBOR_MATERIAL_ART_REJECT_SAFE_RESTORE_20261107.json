@@ -150,7 +150,14 @@
     "RELEASE": "HOLD",
     "MERGE": "HOLD",
     "PBR": "NOT_CERTIFIED",
-    "restoreOnlyResearchDcc": "PENDING_EXACT_RESTORED_R12A_BLOB"
+    "restoreOnlyResearchDcc": {
+      "status": "RESTORED_EXACT_R12A_VERIFIED_GIT_BLOB",
+      "commit": "eca937e3ba6acb010a79b4274824fc2add510e33",
+      "actualRestoredBlobGitSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+      "scope": "only script p101-k4ct-native-spillway-dcc.py; nonadopted R19/R20 modules preserved research only",
+      "postRestoreCI": "NOT_EXECUTED_REASON_IDENTICAL_VERIFIED_BLOB_R12A_CI_42230306036",
+      "note": "This is exact source parity to prior green CI, not a new independent native runtime test"
+    }
   },
   "next": "R21 focus first on REAL Blender material roughness/metalness semantics (not just IDs) plus actual source-camera projection/depth veto for dock, barge and foam before making more geometry. Existing R19 ART REJECT substrate remains unadopted; no full 42x3 CI or user manual tasks until strong visual evidence.",
   "protected": {
