@@ -1,0 +1,90 @@
+{
+  "schema": "k4ct-r19-cinematographic-original-camera-storyboard-contract-v1",
+  "dateJST": "2026-11-07",
+  "premise": "No giant new 3 site hero. Strengthen already visible actual hydraulic visual story and open real highway sightline; R13/R14/R15/R17 ART REJECT and R18 GL depth proof inherited.",
+  "source": {
+    "priorR18Run": 42301790528,
+    "artifact": 13544133866,
+    "originalCameraR16Run": 42295943093,
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "roadSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalB51": 28,
+    "originalTickHz": 240
+  },
+  "threeActs": [
+    {
+      "t": 65.25,
+      "tick": 15660,
+      "visualGoal": "Open the left quarry approach and reveal existing source genuine intake group34 and source group19 upper forebay. Foreground dark rock must not overpower road, machine silhouettes and architectural scale.",
+      "veto": "An opaque >1/3 screen dark geometric wedge, false road gates, tiny disconnected columns, dominant cyan sea strip, moving B51 occluded"
+    },
+    {
+      "t": 66.35,
+      "tick": 15924,
+      "visualGoal": "Use the ALREADY prominent source genuine group12 (observed R14 pixel influence 3.767%) as one open asymmetric control lantern across road, framed by shoreline and visible original road and moving hazard.",
+      "veto": "Losing original B51 body behind new tall tower, two repetitive fake road portals, giant opaque cuboid or false finish gate"
+    },
+    {
+      "t": 68.05,
+      "tick": 16332,
+      "visualGoal": "Existing original-source group41/42 actual R8J tidal rotor is the final main landmark; only supporting rocky outfall and low working quay. Must preserve original red moving B51 and near-miss story.",
+      "veto": "Second competing dark hall, giant left wedge, any new structure mistaken for the true B51 or a safe collision-bearing road"
+    }
+  ],
+  "designIntervention": {
+    "onlyRealEditableBlenderNonRoadGroups": true,
+    "specific": {
+      "34": "refine source Road5 actual existing intake silhouette as recognizably open load-bearing machinery",
+      "01": "lower left quarry visual bank and irregular separate supported rock clusters, without whole-sky slab",
+      "21/25": "replace repeated massive right-side ledges with intermittent genuinely 3D geology/cut, preserve void and water perspective",
+      "12/13": "refine existing source-aligned R6 control tower to open, tapered landmark with clear mechanical function, not new tower elsewhere",
+      "27..33": "subordinate and simplify redundant harbor roof/piers and visually tie them to existing r6Head/gateBase/tideY, instead of three distant self-competing structures"
+    },
+    "doNotEdit": [
+      "00 ORIGINAL B48 road skin",
+      "41/42 existing R8J wheel",
+      "game",
+      "camera",
+      "road5 physical",
+      "240Hz runner",
+      "28 B51",
+      "original HUD",
+      "Gold",
+      "QA",
+      "main",
+      "PR46",
+      "production"
+    ],
+    "physicsNewColliders": 0
+  },
+  "cheapTrueNativeGate": {
+    "oneEditableBlenderCandidate": true,
+    "firstPreflight": [
+      "Python syntax",
+      "frozen git blob",
+      "Blender 43 nonempty editable groups/true B48 ×7 B51 ×28/zero colliders"
+    ],
+    "then": "Original private WebGL2 240Hz source camera at 15660/15924/16332 with actual KeyD timed pulses and fixed same-frame screenshot. Only targeted groups 01/12/21/25/27/34/42 group hide checks; do not 42×3 all-group measurement until real ART quality justifies it.",
+    "neverConflate": "TECH PASS, changed pixel %, silhouette size or toy 3D count with QUALITY-FIRST ART acceptance",
+    "ifReject": "Only source DCC revert exact R12A known green Git blob; audit all real RAW, no duplicate expensive CI; do not adopt."
+  },
+  "gates": {
+    "formalArt": 0,
+    "formalSlope2DNAMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "workComputerUse": false,
+    "paidAPI": 0,
+    "manualUserActions": 0,
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "open/draft/unmerged"
+  }
+}
