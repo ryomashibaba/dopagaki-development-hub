@@ -1,0 +1,99 @@
+{
+  "schema": "dopagaki-k4ct-r13-genuine-native-integrated-art-reject-and-restore-v1",
+  "asOf": "2026-11-06 JST",
+  "repository": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "canonical": "docs/DOPAGAKI_CANONICAL_CRITICAL_HANDOFF_R12_TO_R13_20261106_JA.md",
+  "candidate": {
+    "commit": "f1070a94121d162fed6015bb96c39933a0c53c39",
+    "authoredSource": "scripts/p101-k4ct-native-spillway-dcc.py",
+    "dccGitBlobSHA1": "36749aac90aae214c67617b7e17641a050628933",
+    "ciRun": 42223432779,
+    "ciConclusion": "success",
+    "artifactId": 13505267096,
+    "artifactName": "K4CT_B51_13_14_ACTUAL_NATIVE_CONTACT_RETRY_HOLD",
+    "artifactZIP_SHA256": "c91e2e69c24cd787718745ce4d0cd4093f3d7d4577237c0c1e3f1f4b012a398c",
+    "artifactFileCount": 45,
+    "zipCRC": "PASS",
+    "artifactExpiryUTC": "2026-11-13T13:22:26Z",
+    "editableBlender": "4.0.2",
+    "realDccObjects": 43,
+    "realTriangles": 32766,
+    "sourceOriginalGameSHA1": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "sourceRoad5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "additionalColliders": 0,
+    "realOriginalChromiumWebGL2": true,
+    "realSourceRunner240Hz": true,
+    "sameSessionNeutralFailOriginalRetryKeyDThenFinish": true,
+    "nativeRecoveredFinishSeconds": 69.94166666668522,
+    "actuallyContactedB51_14": 0,
+    "notHuman": true,
+    "originalChaseRawFiles": [
+      "K4CT_R8B_T65_25_CLEAN_EXACT_SOURCE_RAW.png",
+      "K4CT_R8B_T66_35_CLEAN_EXACT_SOURCE_RAW.png",
+      "K4CT_R8B_T68_05_CLEAN_EXACT_SOURCE_RAW.png"
+    ]
+  },
+  "sourceMatchedR12ABaseline": {
+    "ciRun": 42219697334,
+    "ciConclusion": "success",
+    "restoredBlenderGitBlobSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalArtifactId": 13504260317,
+    "baselineRealDccTriangles": 31324
+  },
+  "rgbGreaterThan25DeltaPctAgainstR12A": {
+    "roi": {
+      "x0": 0,
+      "y0": 80,
+      "x1": 1005,
+      "y1": 705
+    },
+    "t65_25": 24.664,
+    "t66_35": 17.872,
+    "t68_05": 12.638,
+    "onlyChangedImagePixels": true,
+    "notVisibleOwnership": true,
+    "notQualityMetric": true
+  },
+  "actualCameraCriticalArt": {
+    "decision": "REJECT",
+    "at65_25": "A new very dark oversized planar-looking cliff mass fills and overpowers the right foreground; cluttered left remains; road and hazard survive but the intended shipping water/gateway hierarchy does not.",
+    "at66_35": "Overbearing angular right dark mass makes the source chase corridor less coherent, despite real volumetric geometry and visible water.",
+    "at68_05": "Additional dark/pale structural foreground on the left increases competition with the useful existing turbine silhouette, B51 cue and road.",
+    "general": "The edited Blender mesh is genuine and alters raw original WebGL2 substantially, but a coherent tidal-power seaport is not immediately legible in one evolving view; giant dark slabs/boxes are a different failure of the same macro-composition.",
+    "roadOcclusionQuantified": false,
+    "humanFirstImpressionMeasured": false,
+    "fullPBRProven": false,
+    "expectedImprovementProven": false
+  },
+  "decision": {
+    "candidateRetainedInGitHistory": true,
+    "restoreOnlyBlenderAuthorSource": true,
+    "expectedRestoreBlobSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "noForcePush": true,
+    "preserveR12Attribution": true,
+    "doNotScaleUpOrDevelopRepeatedVariants": true,
+    "nextMaterialChange": "First solve original chase framing with a visible deep negative-space quarry silhouette, a physically grounded outboard turbine/lock as one focal volume, and fewer near-camera opaque faces. Only then one genuinely reauthored Blender candidate; validate same 3 chase frames and short native trace."
+  },
+  "permanentHolds": {
+    "formalArtAdopted": 0,
+    "formalSlope2DNAmeters": 0,
+    "ART": "REJECT",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "preservation": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "PR46": "Open/Draft/Unmerged",
+    "workComputerUse": false,
+    "additionalPaidAPI": 0,
+    "userManualSteps": 0
+  }
+}
