@@ -5,6 +5,14 @@
 > 最重要成果は「超高速で実際に面白く、美術的に完成度が高い、独創的な立体ブラウザゲーム」。工程数・CI成功数・巨大な低品質メッシュを成果に代えない。
 > **最新状態は必ず生のGitHub研究HEAD/Actionsで上書きする**。本文のHEADはこの正本を作った時点の出発点にすぎない。
 
+## R15真正評価と効率監査追補（2026-11-06 JST、上位方針不変）
+
+- **新しい研究候補／真正実験**：Blender拡張作者 `scripts/p101-k4ct-r15-integrated-tidal-exchange-artist.py`（追加コミット `f6b06f79`）と、元Blender DCCへの研究接続コミット `8aaeb9cd0e3a4eba957d515b8e3fa801dd65d86e`。R14の未採用負空間を*一時的な研究土台*に、群03/04/05/19/20/27〜33の取水路、水際、発電ホール、水圧配管、岸壁・制御塔をまとめて再著作。**R14正式採用を意味しない**。真正Blender4.0.2／43群／25,498三角形、元Chromium/WebGL2／元240Hz実走行、CI [#42235945412](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42235945412) SUCCESS。元ゲームの失敗→`retryRun`→実KeyD→69.941667秒完走、B51実接触0回。元ソース・元7 B48・28 B51・Camera・Road5・本番・QA変更0。
+- **真正元CHASE ART REJECT**：65.25／66.35／68.05秒のR12A比RGB差25超は20.554%／13.720%／15.953%。画面左の抜けは改善した一方、暗い三角形状の岩盤と薄い大水面が突出し、元の狙い「潮汐発電所を中心に機能が読める港湾地景」は達成できず、正式ART採用0。**決定的な反証**：作者が最重要とした群27の元カメラleave-one-out RGB影響は **0.612%／0%／0.678%**。66.35秒に主役がまったく画面を変えないという結果は、新しい3Dの精密化以前の**カメラと構図／主役の位置決め失敗**を示す。見えない施設を大量制作したこと自体が効率悪化。これら画素率は本当の可視面積やARTスコアではない。
+- **保存と安全復元**：Artifact #13511347900、ZIP SHA256 `650d9d8b38ca319c9ad1e9dd78307373fea8e3dcd7440da7edb6bb44755e53ce`、45ファイルCRC PASS、期限2026-11-13。恒久的な否定結果と再現対象を `research-evidence/k4ct/K4CT_R15_INTEGRATED_TIDAL_EXCHANGE_NATIVE_ART_REJECT_SAFE_RESTORE_20261106.json` に保存。作者DCCだけを過去緑CI #42230306036と厳密一致するGit blob `096fffbc1627915eb0122224955bb02cfba6b3ae`へ戻した復元コミット `ee492ba7aa9012db3b611db8abf7086143819781`。非採用R15モジュールは研究履歴に残るが、復元後の実行作者から参照されず無効。同じblobを再テストする重複CIはコミットの `[skip ci]` で意図的省略したため、**新たなCI PASSが生じたとは言わない**。復元の根拠はGit blob完全一致と先行真正CIだけ。
+- **批判的な効率再評価**：固定のQUALITY-FIRST／ART-FIRST／DCC-FIRST／INTEGRATED VERTICAL SLICE、安全保護、ユーザー操作0回は一貫している。一方、R12B〜R15で大きなメッシュを再制作してもART採用0件という事実から、**制作工程としての効率はまだ悪い**。R13の増量、R14の減算、R15の低可視ランドマーク増築をさらに反復するのは不合理。次はR12A/R14/R15の実RAWと元Cameraの射影で「主役の実スクリーン位置・前景の遮蔽・後景の大きさ」を最初に検証し、実画面で主役が成立する場所を選んだ場合だけ次の真正3D統合作成へ進む。元Cameraや物理は変更しない。巨大な模型や画面外施設の重複量産は停止する。
+- **不変ゲート**：HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。正式ART0件、正式Slope2 DNA0m。人間の初見判断、元B51実接触、GPU実機性能は未実証。main、公式P101、Draft PR #46、原作Slope、Gold、Freeze、本番、公式QAは保護。
+
 ## R14真正評価追補（2026-11-06 JST、既定ロードマップ・承認条件を変更しない）
 
 - **真正作者候補**： `77ddb8f208775ba25f3a62f192a0d96a2e38c50a`、Blenderの群21/25と群01を実ソースに従って減算再著作し、壁・地形棚を減らして空と水面を露出。真正Blender4.0.2、43群29,816三角形、元Chromium/WebGL2/元240Hz。CI [#42228341992](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42228341992) **SUCCESS**。同一ブラウザ元retryRunによる失敗→KeyD→69.941667秒完走、B51-14接触0回。ユーザー試走0回、旧Game/Road5/Camera/240Hz/B51変更0。
