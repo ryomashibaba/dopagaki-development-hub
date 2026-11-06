@@ -1,0 +1,70 @@
+name: K4CT R16 original source-camera placement read-only
+on:
+  push:
+    branches:
+      - research/k4ct-two-native-b51-choice-consequence-20261105
+    paths:
+      - scripts/k4ct-r16-original-camera-placement.mjs
+      - .github/workflows/p101-k4ct-r16-original-camera-placement.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-240hz-camera-sites:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate original protected engine and read-only script
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          node --check scripts/k4ct-r16-original-camera-placement.mjs
+      - name: Rebuild only isolated native two-B51 original game (no Blender, no new physics)
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-dcc-source-export.mjs
+          node --check dist-private/k4ct/drive3d.mjs
+      - name: Genuine original viewForPose source-camera projection at 3 actual 240Hz ticks
+        run: |
+          npx playwright install --only-shell chromium
+          node scripts/k4ct-r16-original-camera-placement.mjs
+      - name: Independent read-only evidence contract
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,subprocess
+          p=pathlib.Path('test-results/k4ct-r16-camera-sites')
+          d=json.loads((p/'K4CT_R16_TRUE_CAMERA_PLACEMENT_PREFLIGHT.json').read_text())
+          assert d['schema']=='k4ct-r16-real-original-camera-physical-site-projection-v1'
+          assert d['actualOriginalSourceViewForPose'] and d['actualNativeWebGL2'] and d['actual240Hz']
+          assert d['nativeOriginalB48Count']==7 and d['nativeOriginalB51Count']==28
+          assert d['sourceCameraUnmodified'] and d['siteEnvelopesAnalyticNotMeshes'] and d['notGLDepthOcclusionProven']
+          assert d['actualDccGeometry']=='ABSENT_IN_THIS_LIGHTWEIGHT_PROBE'
+          assert d['officialARTAdopted']==d['slope2DNAmeters']==0
+          assert all(d[k]=='HOLD' for k in ('ART','HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
+          assert len(d['readings'])==3
+          for sec,frame in zip((65.25,66.35,68.05),d['readings']):
+            assert frame['time']==sec and abs(frame['actualNativeTick']-round(sec*240))<=2
+            assert frame['candidateCount']>0
+            assert len(frame['topSites'])>0
+            png=p/frame['nativeNoDCCRaw']
+            assert png.read_bytes()[:8]==b'\x89PNG\r\n\x1a\n'
+          assert subprocess.check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
+          print('R16_NATIVE_CAMERA_READONLY_CONTRACT_PASS')
+          PY
+      - name: Archive source-camera raw and site candidates even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CT_R16_TRUE_SOURCE_CAMERA_PLACEMENT_RESEARCH_ONLY
+          path: test-results/k4ct-r16-camera-sites/
+          if-no-files-found: warn
+          retention-days: 7
