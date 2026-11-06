@@ -21,7 +21,7 @@ jobs:
       - name: Static protected source, R20 storyboard and real author preflight
         run: |
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
-          node --check scripts/k4ct-r20-fast-3frame-native-blender-review.mjs
+          node --check scripts/k4ct-r20-3frame-true-working-port-review.mjs
           node --check scripts/p101-k4ct-install-authored-dcc.mjs
           python3 -m py_compile scripts/p101-k4ct-native-spillway-dcc.py scripts/p101-k4ct-r19-source-three-act-open-harbor.py scripts/p101-k4ct-r20-working-tidal-port-material-author.py
           python3 - <<'PY'
@@ -61,10 +61,10 @@ jobs:
           node scripts/p101-k4ct-install-authored-dcc.mjs
           node --check dist-private/k4ct/drive3d.mjs
           node --check dist-private/k4ct/k4ct-dcc-world-geometry.mjs
-      - name: Three original Chromium 240Hz RAW and seven group-only source observables
+      - name: Three original Chromium 240Hz RAW and eight marine-group source observables
         run: |
           npx playwright install --only-shell chromium
-          node scripts/k4ct-r20-fast-3frame-native-blender-review.mjs
+          node scripts/k4ct-r20-3frame-true-working-port-review.mjs
       - name: Independent tech/safety/art-hold audit
         run: |
           python3 - <<'PY'
@@ -82,7 +82,7 @@ jobs:
           assert len(d['source3FrameRAW'])==3
           for t,r in zip((15660,15924,16332),d['source3FrameRAW']):
             assert r['sourceTick']==t
-            assert len(r['selectiveGroupInfluence'])==7
+            assert len(r['selectiveGroupInfluence'])==8
             assert r['reproducibility']['changedPctRGBgt25']<.5
             assert r['source']['originalB51']==28 and r['source']['depthBits']>0
             assert r['source']['depthEnabled']
