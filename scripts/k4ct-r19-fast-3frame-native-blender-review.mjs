@@ -148,7 +148,7 @@ try{
   notFullCCDOrSAT:true,notHardwareGPUFPS:true,
   pixelInfluenceNotARTScore:true,notTrueObjectVisibleOwnership:true,
   selectiveGroupsOnly:targetIDs,full42GroupRunIntentionallySkipped:true,
-  3frameRAW:result,
+  source3FrameRAW:result,
   formalARTAdopted:0,slope2DNAmeters:0,
   ART:'REJECT',HUMAN:'HOLD',SAT:'HOLD',CCD:'HOLD',FPS:'HOLD',RELEASE:'HOLD',MERGE:'HOLD',
   methodLimit:'Three paused source ticks + selective seven genuine Blender group hide measurements. No human verdict and no independent full moving B51 physical success/retry certificate.'
