@@ -128,7 +128,8 @@ async function captureR6RawLayerAB(page,label){
     r9MaterialDrawn:c.dataset.k4ctR9Material,
     r9ShaderLinked:c.dataset.k4ctR9MaterialProgram,
     r9BlenderMaterialVertices:Number(c.dataset.k4ctR9MaterialVertexCount),
-    r9SourceRoadUnchanged:c.dataset.k4ctRoadArtMode};
+    r9SourceRoadUnchanged:c.dataset.k4ctRoadArtMode,
+    r10MaterialStudy:c.dataset.k4ctR10Study};
   });
   assert.equal(state.mode,'R7_DCC');
   assert.equal(state.trial,trial);
@@ -142,6 +143,8 @@ async function captureR6RawLayerAB(page,label){
   assert.equal(state.r9ShaderLinked,'R9_REAL_BLENDER_ATTRIBUTES_SOURCE_SAFE');
   assert.ok(state.r9BlenderMaterialVertices>2500,'Blender material scene not drawn in source game');
   assert.equal(state.r9SourceRoadUnchanged,'ORIGINAL_B48_PLUS_DCC_CONFORMAL');
+  assert.equal(state.r10MaterialStudy,'SOURCE_REAL_GEOLOGY_METAL_SEA_MATERIAL',
+   'R10 true Blender material-specific shader was not drawn for this source camera frame');
   assert.equal(state.nativeGateStatus,trial==='CLEAN'?'RESEARCH_ONLY_NONCOLLIDING_GATES_HIDDEN':'ORIGINAL_NONCOLLIDING_GATES_VISIBLE');
   if(tick===null)tick=state.nativeTicks;
   else assert.equal(state.nativeTicks,tick,'R8B display-only transition changed native tick');
@@ -376,7 +379,8 @@ fs.writeFileSync(path.join(OUT,'K4CT_R10_REAL_CHROMIUM_9_VIEW_RAF_PACING.json'),
   records:result.r6Slices.flatMap(x=>x.states.map(y=>({
    time:x.label,mode:y.trial,sourceTick:y.nativeTicks,
    sourceProgram:y.r9ShaderLinked,roadMode:y.r9SourceRoadUnchanged,
-   materialVertexCount:y.r9BlenderMaterialVertices,pacing:y.r10Pacing
+   materialVertexCount:y.r9BlenderMaterialVertices,
+   actualMaterialStudy:y.r10MaterialStudy,pacing:y.r10Pacing
   })))},null,2)+'\n');
 fs.writeFileSync(path.join(OUT,'K4CT_R8B_K4CS_NONCOLLIDING_GATE_SOURCE_AB_AUDIT.json'),JSON.stringify({schema:'k4ct-r8b-true-k4cs-marker-mesh-safe-draw-ab-v1',slices:result.r6Slices,originalB51:28,originalCamera:true,originalRunner240Hz:true,onlyNoncollisionLayerSwitch:true,ART:'REJECT',HUMAN:'HOLD',formalArt:0})+'\n');
 assert.equal(result.r6Slices.length,3,'R7 must capture all three actual source chase times');
