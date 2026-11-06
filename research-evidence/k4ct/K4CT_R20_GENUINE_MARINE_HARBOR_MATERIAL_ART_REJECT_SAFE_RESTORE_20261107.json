@@ -1,0 +1,164 @@
+{
+  "schema": "k4ct-r20-true-source-three-frame-marine-BSDF-art-reject-v1",
+  "dateJST": "2026-11-07",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "policy": "QUALITY-FIRST/ART-FIRST/DCC-FIRST/INTEGRATED VERTICAL SLICE; no change of original game, Road5, Camera, 240Hz, 7 B48, 28 B51, Gold, P101, main, Draft PR46, QA or release",
+  "baseDccGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+  "sourceGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "roadPhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+  "plan": "research-evidence/k4ct/K4CT_R20_WORKING_TIDAL_PORT_MATERIAL_FORM_ART_CONTRACT_20261107.json",
+  "implementation": {
+    "temporaryRejectedR19Substrate": "scripts/p101-k4ct-r19-source-three-act-open-harbor.py",
+    "nativeBlenderModule": "scripts/p101-k4ct-r20-working-tidal-port-material-author.py",
+    "moduleCommit": "be3c5f7ff24c662e98a0d3fb2608cf33cdb7f395",
+    "candidateAuthorBlob": "57ca93f9e6bc02b4053937e45d44d947635ed3d9",
+    "authorIntegrationCommit": "97f78ceef197cebb961f6c4aae3ee2613042826c",
+    "actualChanges": "Only real Blender artist groups 03/04/05 tidal water/shore/foam + 15/16/17 working quay, vessel, roof and gantry; new material names=12",
+    "originalProtectedGroups": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "41",
+      "42"
+    ],
+    "newColliders": 0,
+    "formalAdoption": false
+  },
+  "ci": {
+    "initialRun": 42307205003,
+    "initialResult": "FAIL_PREBUILD_INCORRECT_SCRIPT_NAME_AND_7VS8_GROUP_CHECK",
+    "correctedRun": 42307252065,
+    "correctedRunHead": "cdc0594a923b7df6fa94f5d2b287d99816afa54c",
+    "conclusion": "success",
+    "artifactId": 13546263695,
+    "artifactName": "K4CT_R20_REAL_BLENDER_THREE_ACT_ART_HOLD",
+    "zipSHA256": "dd11bb8fa5f47f13ca3c5e97624ba35e743b897a186226ab3ce51ab277d368a2",
+    "files": 7,
+    "crc": "PASS",
+    "expiryUTC": "2026-11-13T22:50:48Z",
+    "nativeBlenderVersion": "4.0.2",
+    "editableGroups": 43,
+    "triangles": 25700,
+    "sourceLegacyRoadTriangles": 4608,
+    "nonroadTriangles": 21092,
+    "totalBSDFMaterials": 41,
+    "addedMarineMaterialNames": 12,
+    "allNewMaterialsSameRoughness": 0.74,
+    "allNewMaterialsSameMetallic": 0.08,
+    "sourceOriginalChromiumWebGL2": true,
+    "real240HzSourceCameraTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "depthBufferBits": 24,
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0,
+    "rendererRestoredPixelDifferenceRGB25Pct": [
+      0,
+      0,
+      0
+    ],
+    "scopeLimit": "TECH genuine Blender polygons, actual source GL frame snapshots and eight nonroad group leave-one-out only. NOT full 240Hz retry/finish, HUMAN, SAT/CCD/FPS or moving hazard human readability certification."
+  },
+  "pixelComparison": {
+    "method": "ROI x0-1005 y80-705, proportion of pixels with any RGB abs difference greater than 25, not ART quality score",
+    "timestampSecs": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "R19vsR12APct": [
+      21.0014,
+      14.5391,
+      20.9703
+    ],
+    "R20vsR12APct": [
+      20.5067,
+      14.7735,
+      19.9543
+    ],
+    "R20vsR19Pct": [
+      6.1486,
+      1.1319,
+      4.742
+    ],
+    "nativeGroupLeaveOneOutPct": {
+      "65.25": {
+        "12": 0.434,
+        "15": 0.003,
+        "16": 4.484,
+        "17": 0.004,
+        "34": 2.487,
+        "42": 0,
+        "03": 3.647,
+        "05": 0
+      },
+      "66.35": {
+        "12": 3.623,
+        "15": 0,
+        "16": 0,
+        "17": 0,
+        "34": 0,
+        "42": 0.09,
+        "03": 2.435,
+        "05": 0
+      },
+      "68.05": {
+        "12": 0,
+        "15": 0.004,
+        "16": 0.036,
+        "17": 0,
+        "34": 0,
+        "42": 3.575,
+        "03": 9.249,
+        "05": 0
+      }
+    }
+  },
+  "sourceTrueRAW": [
+    "R20_TRUE_SOURCE_CHASE_T65_25_CLEAN_RAW.png",
+    "R20_TRUE_SOURCE_CHASE_T66_35_CLEAN_RAW.png",
+    "R20_TRUE_SOURCE_CHASE_T68_05_CLEAN_RAW.png"
+  ],
+  "criticalArt": {
+    "positives": "Source Road5, true B51, 65.25 original intake34, 66.35 original tower12, 68.05 true R8J wheel41/42 remain intact; genuine material/sea polygon exports verified.",
+    "negatives": [
+      "65.25: new huge gray roof overwhelms source-camera left skyline and weakens harbor sense of scale; flat aquatic background persists",
+      "66.35: scarcely changes R19 art (1.13% pixel change), port does not read as one working system",
+      "68.05: dark parallel water lines and feature-poor foreground, weak true port identity",
+      "Genuine modeled barge/quay group15, gantry17, wave foam05 are essentially invisible at the three original-camera priority timestamps; building unseen detail is inefficient",
+      "All 12 new genuine BSDF material names have same actual exported roughness .74 and metallic .08 owing to source author hardcoded classifying recognized names; they are merely different colors, NOT differentiated physical maritime materials."
+    ],
+    "judgment": "ART_REJECT",
+    "independentHumanArtExpertReview": false,
+    "reason": "No convincing native high-quality complete industrial tidal port, despite TECH success and 12 actual new Blender material IDs. Material semantics and screen composition must be addressed before further asset proliferation."
+  },
+  "decision": {
+    "TECH": "PASS_SOURCE_NATIVE",
+    "ART": "REJECT",
+    "formalArtAdopted": 0,
+    "formalSlope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "PBR": "NOT_CERTIFIED",
+    "restoreOnlyResearchDcc": "PENDING_EXACT_RESTORED_R12A_BLOB"
+  },
+  "next": "R21 focus first on REAL Blender material roughness/metalness semantics (not just IDs) plus actual source-camera projection/depth veto for dock, barge and foam before making more geometry. Existing R19 ART REJECT substrate remains unadopted; no full 42x3 CI or user manual tasks until strong visual evidence.",
+  "protected": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "p101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "open/draft/unmerged",
+    "userSteps": 0,
+    "paidAPI": 0,
+    "workComputerUse": false
+  }
+}
