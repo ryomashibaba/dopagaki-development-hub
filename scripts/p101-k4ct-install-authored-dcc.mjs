@@ -26,7 +26,7 @@ const replace=(needle,value)=>{
 };
 const imports="import {readK4CTTwoTrueB51,formatK4CTNativeDualCue} from './k4ct-dual-real-b51-decision.mjs';";
 replace(imports,imports+"\nimport {K4CT_DCC_VERTICES,K4CT_DCC_TRIANGLES} from './k4ct-dcc-world-geometry.mjs';");
-replace('let k4cqSceneMesh=null;', "let k4ctDccMesh=null;\nlet k4ctResearchB51Meshes={};\nlet k4ctFixtureIdentityTagMesh=null;\n\nfunction k4ctIndustrialMaterialOnly(src,mode){\n const out=src.slice();\n const palettes={\n fail:[[.14,.19,.20],[.80,.23,.16],[.53,.31,.24]],\n bounce:[[.20,.22,.21],[.89,.57,.18],[.57,.42,.27]],\n push:[[.15,.22,.24],[.20,.75,.71],[.34,.53,.53]]\n };\n const p=palettes[mode];\n for(let i=0;i<src.length;i+=6){\n  const rgb=src.slice(i+3,i+6),max=Math.max(...rgb),min=Math.min(...rgb);\n  const target=max<.36?p[0]:(max-min>.28||max>.8?p[1]:p[2]);\n  for(let j=0;j<3;j++)out[i+3+j]=target[j];\n }\n if(out.length!==src.length||out.some((v,i)=>i%6<3&&v!==src[i]))throw Error('B51 geometry modified');\n return out;\n}\n\nwindow.__k4ctVisualABMode='R7C_MATERIAL';\nlet k4cqSceneMesh=null;");
+replace('let k4cqSceneMesh=null;', "let k4ctDccMesh=null;\nlet k4ctResearchB51Meshes={};\nlet k4ctFixtureIdentityTagMesh=null;\n\nfunction k4ctIndustrialMaterialOnly(src,mode){\n const out=src.slice();\n const palettes={\n fail:[[.14,.19,.20],[.80,.23,.16],[.53,.31,.24]],\n bounce:[[.20,.22,.21],[.89,.57,.18],[.57,.42,.27]],\n push:[[.15,.22,.24],[.20,.75,.71],[.34,.53,.53]]\n };\n const p=palettes[mode];\n for(let i=0;i<src.length;i+=6){\n  const rgb=src.slice(i+3,i+6),max=Math.max(...rgb),min=Math.min(...rgb);\n  const target=max<.36?p[0]:(max-min>.28||max>.8?p[1]:p[2]);\n  for(let j=0;j<3;j++)out[i+3+j]=target[j];\n }\n if(out.length!==src.length||out.some((v,i)=>i%6<3&&v!==src[i]))throw Error('B51 geometry modified');\n return out;\n}\n\nwindow.__k4ctVisualABMode='R7C_MATERIAL';\nwindow.__k4ctSuppressK4CSGateOnly=true;\nlet k4cqSceneMesh=null;");
 const buildAnchor="}else canvas.dataset.k4cqScene='off';";
 replace(buildAnchor,buildAnchor+"\n"+
  "discard(k4ctDccMesh);k4ctDccMesh=null;"+
@@ -131,14 +131,29 @@ replace(" gl.drawArrays(primitive,0,m.count);",
  "  if(k4ctDccMesh&&doc?.stageForge?.k4ctPrivate){"+
  "   const isB51=Object.values(machineMeshes).includes(m)||Object.values(a13MachineMeshes).includes(m);"+
  "   const group=m===roads||m===k4ctFixtureIdentityTagMesh?'ROAD':"+
+ "    m===k4csMarkerMesh?'K4CS':"+
  "    m===k4ctDccMesh?'DCC':isB51?'B51':'OTHER';"+
  "   const requested=window.__k4ctRenderAttribution||'BASE';"+
- "   if(!['BASE','ROAD','DCC','B51','OTHER'].includes(requested))throw Error('K4CT attribution mode invalid');"+
+ "   if(!['BASE','ROAD','DCC','B51','OTHER','K4CS'].includes(requested))throw Error('K4CT attribution mode invalid');"+
  "   gl.uniform1f(locations.k4ctProbeOn,requested===group?1:0);"+
  "   gl.uniform3fv(locations.k4ctProbeRGB,[1,.015,.85]);"+
  "   canvas.dataset.k4ctAttributionMode=requested;"+
  "  }else gl.uniform1f(locations.k4ctProbeOn,0);"+
  "  gl.drawArrays(primitive,0,m.count);");
+
+
+/* R8B: confirmed K4CS early warning pylons are GPU-only noncolliding.
+ * PRIVATE K4CT trial hides ONLY these 18 legacy tall gates, NOT their B51
+ * predicted-distance HUD, true moving solids, original warnings or physics.
+ * Two source-grounded Blender industrial pylons remain in native DCC.
+ * Flag is reversible at any frozen native tick; no formal ART adoption. */
+replace("if(k4csMarkerMesh){draw(k4csMarkerMesh);}",
+ "if(k4csMarkerMesh){"+
+ " const isolated=Boolean(k4ctDccMesh&&doc?.stageForge?.k4ctPrivate);"+
+ " const hide=Boolean(isolated&&window.__k4ctSuppressK4CSGateOnly);"+
+ " canvas.dataset.k4ctK4csGateStatus=hide?'RESEARCH_ONLY_NONCOLLIDING_GATES_HIDDEN':'ORIGINAL_NONCOLLIDING_GATES_VISIBLE';"+
+ " if(!hide)draw(k4csMarkerMesh);"+
+ "}");
 
 const moduleFile=path.join(target,'k4ct-dcc-world-geometry.mjs');
 // Isolated K4CT color mood; this does not mutate the original WebGL source.

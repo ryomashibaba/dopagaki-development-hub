@@ -52,42 +52,49 @@ async function advance(page,t,paused){
 async function captureR6RawLayerAB(page,label){
  const states=[];
  let tick=null;
- for(const attribution of ['BASE','ROAD','DCC','B51','OTHER']){
-  await page.evaluate(tag=>{
+ for(const trial of ['BASE','K4CS','CLEAN']){
+  await page.evaluate(x=>{
    window.__k4ctVisualABMode='R7_DCC';
-   window.__k4ctRenderAttribution=tag;
-  },attribution);
-  await page.waitForFunction(tag=>
-   document.getElementById('view')?.dataset.k4ctAttributionMode===tag,
-   attribution,{timeout:30000,polling:50});
+   window.__k4ctRenderAttribution=x==='CLEAN'?'BASE':x;
+   window.__k4ctSuppressK4CSGateOnly=x==='CLEAN';
+   window.__k4ctAttributionTrialTag=x;
+  },trial);
+  await page.waitForFunction(x=>{
+   const c=document.getElementById('view');
+   const expected=x==='CLEAN'?'RESEARCH_ONLY_NONCOLLIDING_GATES_HIDDEN':'ORIGINAL_NONCOLLIDING_GATES_VISIBLE';
+   return c?.dataset.k4ctK4csGateStatus===expected &&
+    c.dataset.k4ctAttributionMode===(x==='CLEAN'?'BASE':x);
+  },trial,{timeout:30000,polling:50});
   await page.waitForTimeout(140);
   const state=await page.evaluate(()=>{
    const c=document.getElementById('view');
    return {mode:c.dataset.k4ctVisualABMode,
+    trial:window.__k4ctAttributionTrialTag,
     attribution:c.dataset.k4ctAttributionMode,
+    nativeGateStatus:c.dataset.k4ctK4csGateStatus,
     sourceB51StageCount:Number(c.dataset.g4e7yRetainedMachines),
     originalSource:c.dataset.r15s3d10OriginalGame,
     nativeTicks:Number(c.dataset.r15s3d10NativeTicks),
     nativeStatus:c.dataset.r15s3d10Status,
     DCC:c.dataset.k4ctNativeDcc,
     nativeB51MaterialMode:c.dataset.k4ctNativeB51MaterialMode,
-    fixtureSourceCount:Number(c.dataset.k4ctFixtureSourceCount),
     sourceResearchRoad5:true};
   });
   assert.equal(state.mode,'R7_DCC');
-  assert.equal(state.attribution,attribution,'tag not present on a real Chromium drawn frame');
-  assert.equal(state.sourceB51StageCount,28,'original B51 count changed');
+  assert.equal(state.trial,trial);
+  assert.equal(state.sourceB51StageCount,28);
   assert.equal(state.originalSource,'REAL_WEBGL2_SOURCE_240HZ');
   assert.equal(state.DCC,'GENUINE_BLENDER_EDITABLE_NONCOLLIDING');
   assert.equal(state.nativeStatus,'running');
   assert.equal(state.nativeB51MaterialMode,'ORIGINAL_SOURCE_VISUAL');
+  assert.equal(state.nativeGateStatus,trial==='CLEAN'?'RESEARCH_ONLY_NONCOLLIDING_GATES_HIDDEN':'ORIGINAL_NONCOLLIDING_GATES_VISIBLE');
   if(tick===null)tick=state.nativeTicks;
-  else assert.equal(state.nativeTicks,tick,'physical tick changed across shader-only A/B');
-  const file='K4CT_R8_'+label+'_'+attribution+'_EXACT_SOURCE_RAW.png';
+  else assert.equal(state.nativeTicks,tick,'R8B display-only transition changed native tick');
+  const file='K4CT_R8B_'+label+'_'+trial+'_EXACT_SOURCE_RAW.png';
   await page.screenshot({path:path.join(OUT,file)});
   states.push({...state,file});
  }
- await page.evaluate(()=>{window.__k4ctRenderAttribution='BASE';});
+ await page.evaluate(()=>{window.__k4ctRenderAttribution='BASE';window.__k4ctSuppressK4CSGateOnly=true;});
  return {label,nativeTick:tick,states,renderOnly:true,
   originalCamera:true,sourceB51CollisionUnchanged:true,formalART:0,HUMAN:'HOLD'};
 }
@@ -306,9 +313,9 @@ try{
    'HOLD_NO_ROAD6_GROUNDED';
  fs.writeFileSync(path.join(OUT,'K4CT_SECOND_B51_CONTROLLED_NATIVE_RESULT.json'),JSON.stringify(result,null,2)+'\n');
 }
-fs.writeFileSync(path.join(OUT,'K4CT_R8_THREE_SOURCE_CHASE_SHADER_ATTRIBUTION_AUDIT.json'),JSON.stringify({schema:'k4ct-r8-native-shader-mesh-attribution-v1',slices:result.r6Slices,originalB51:28,originalCamera:true,originalRunner240Hz:true,onlyNoncollisionLayerSwitch:true,ART:'REJECT',HUMAN:'HOLD',formalArt:0})+'\n');
+fs.writeFileSync(path.join(OUT,'K4CT_R8B_K4CS_NONCOLLIDING_GATE_SOURCE_AB_AUDIT.json'),JSON.stringify({schema:'k4ct-r8b-true-k4cs-marker-mesh-safe-draw-ab-v1',slices:result.r6Slices,originalB51:28,originalCamera:true,originalRunner240Hz:true,onlyNoncollisionLayerSwitch:true,ART:'REJECT',HUMAN:'HOLD',formalArt:0})+'\n');
 assert.equal(result.r6Slices.length,3,'R7 must capture all three actual source chase times');
-for(const f of result.r6Slices)assert.deepEqual(f.states.map(x=>x.attribution),['BASE','ROAD','DCC','B51','OTHER']);
+for(const f of result.r6Slices)assert.deepEqual(f.states.map(x=>x.trial),['BASE','K4CS','CLEAN']);
 assert.equal(result.experimentsCompleted,1,'must retain single known successful reference trial');
 assert.ok(result.pairedLoopProven,'same-session original failure, actual retry, and finish not proven');
 assert.deepEqual(result.errors,[],'real native browser experiment errors');
