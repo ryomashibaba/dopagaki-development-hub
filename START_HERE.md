@@ -1,6 +1,11 @@
-# DOPAGAKI SLOPE — HYPER RUSH / 現行研究・START HERE（2026-11-06 K4CT R8G真正ART判定後）
+# DOPAGAKI SLOPE — HYPER RUSH / 現行研究・START HERE（2026-11-06 K4CT R8H真正ART判定後・研究地形復元）
 
 **最新の唯一の引き継ぎ・批判的計画正本**：[K4CT R5後・全体方針再評価と次チャット実制作計画](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R5_20261106_JA.md) をまず全文読む。**過去の全戦略とR2〜R5は[旧完全統合正本](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R2_20261105_JA.md)とその上位方針に継承**。過去の全記録は[旧START_HEREの原文アーカイブ](docs/archive/START_HERE_SNAPSHOT_K4CT_R2_20261105.md)に**省略・上書きなし**で保存。これは歴史や固定方針の撤回ではなく索引の短縮である。
+
+## 最新：K4CT R8H 地形主役の真正再制作と批判的判定 — ART REJECT、地形だけ元に戻す
+- [R8H実制作 `78dde901`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/78dde901ece0833dc8f543d22f1a7a1e25333783) → [真正CI #42175841618](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42175841618) **SUCCESS**。Blender 4.0.2、編集可能43群、35,822三角形（R8G比+5,042）。R7B物理右岸＋R6物理左岸＋ベース岩盤を一体段丘に再著作。元7 B48/28 B51/Camera/240Hz、Collider追加0、実KeyD→落下→元UIリトライ→完走とB51-14通過を保持（人間未検証）。
+- [真正Artifact #13482588834](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42175841618/artifacts/13482588834) ZIP SHA256 `c31c922dc74c0d2bc02223eccb83e2ebacd01ba92cc37203d9b0aa985de8947f`、27ファイル全CRC PASS。元CHASE 65.25/66.35/68.05秒のR8Eとの差分24.459/10.282/17.4%、R8Gとの差分15.189/7.068/14.355%。**画素差は美術得点ではない。**65秒と68秒に巨大な平面ベージュ壁が生じ、海辺の奥行きと既存設備が隠れる。66秒も岩肌が板状。**ART REJECT／R8HはR8G・R8Eより明確に悪化。**
+- **研究用の安全な復元**：この引き継ぎ保存コミットで、失敗したR8HのDCCファイル**のみ**を既往CI成功のR8G実装`af32816d`と同じblob `b0eb484c816dd1576ae6fb054ebf445ef4d013dc` に戻す。R8Hコミット、真正CI、Artifact、監査JSONは履歴に保持。R8GもART REJECTのままで、ART比較正本はR8E。**正式ART0件、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。**[R8H原カメラ3世代批判監査JSON](research-evidence/k4ct/K4CT_R8H_TRUE_CHASE_CONTINUOUS_GEOLOGY_CRITICAL_ART_REJECT_AND_ROLLBACK_20261106.json)。次の改善は微細な段丘・棒・壁の反復ではなく、採石港全体の大きな彫刻的な造形・岸壁の奥行き・光の一体性と危険先読みへ移行。
 
 ## 最新：K4CT R8G 本物の元CHASEで三代直接比較・ART REJECT（2026-11-06）
 - [実装 `af32816d`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/af32816da3b1b60f1cf72a62a34379a56df5e0c1) → [真正CI #42173555667](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42173555667) **SUCCESS**。Blender4.0.2可編集43機能群、30,780三角形（R8F比**-1,542**）。R5→R6で画面を密集させていた1,536三角形の反復架構を288三角形の単一導水路に再著作。Road6の反復屋根も折れ屋根一枚に変更、元B48×7/B51×28、原Camera/240Hz・追加Collider0は不変。

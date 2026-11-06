@@ -1,0 +1,131 @@
+{
+  "schema": "dopagaki-k4ct-r8h-genuine-camera-rock-architecture-art-reject-source-restoration-v1",
+  "time": "2026-11-06 JST",
+  "repository": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "nativeBlenderResearchCandidate": {
+    "commit": "78dde901ece0833dc8f543d22f1a7a1e25333783",
+    "editableBlend": true,
+    "BlenderVersion": "4.0.2",
+    "editableGroups": 43,
+    "nonCollidingTriangles": 35822,
+    "priorR8GTriangles": 30780,
+    "triangleIncrease": 5042,
+    "changedDccGroups": [
+      "01_CARVED_BASALT_AND_LAYERED_RIFT",
+      "02_EARTH_ANCHORED_STONE_RIBS",
+      "21_R6_BROKEN_QUARRY_STRATA_SOURCE_CHASE",
+      "22_R6_BASALT_EXPOSED_FAULT_SEAMS",
+      "25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND",
+      "26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS"
+    ],
+    "addedColliders": 0,
+    "sourceGameCodeChanges": false
+  },
+  "realCI": {
+    "id": 42175841618,
+    "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42175841618",
+    "result": "SUCCESS",
+    "artifactId": 13482588834,
+    "artifactSha256": "c31c922dc74c0d2bc02223eccb83e2ebacd01ba92cc37203d9b0aa985de8947f",
+    "artifactEntries": 27,
+    "allCRC": "PASS",
+    "blenderFileHeader": "BLENDER-v400R",
+    "expiresAt": "2026-11-13T06:45:15Z"
+  },
+  "originalSourceAndPhysics": {
+    "originalB48": 7,
+    "originalB51": 28,
+    "originalWebGL2": true,
+    "originalCamera": true,
+    "originalRunnerHz": 240,
+    "originalSourceBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "road5PhysicalSha256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalPhysicsNewColliders": 0,
+    "realKeyDPulses": [
+      {
+        "start": 65.25,
+        "end": 65.36
+      },
+      {
+        "start": 65.79,
+        "end": 65.91
+      }
+    ],
+    "neutralFallTimeSeconds": 69.4833333333523,
+    "originalSameBrowserRetry": true,
+    "prechoiceDriftMeters": 0,
+    "returnedFinishTimeSeconds": 69.94166666668522,
+    "passedRealB51_14": true,
+    "nativeActualB51Contacts": 0,
+    "minimumGap13Meters": 3.8516884950110035,
+    "minimumGap14Meters": 3.148671054349772,
+    "humanTest": false,
+    "satCcdFpsFormalClaims": false
+  },
+  "cameraEvidence": {
+    "method": "Original source WebGL2 Chromium and chase Camera, native 240Hz ticks 15660/15924/16332, real saved RAW CLEAN frames. Original gates R8B legacy noncolliding K4CS only off; source B51 present. Same frame, same scripted replay. Detailed manual direct visual critical assessment.",
+    "timesSeconds": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "comparisonRegion": "Original 1004x705 game image x15:990 y80:500. Pixel channel max delta >25; this is NOT quality score.",
+    "vsR8EChangedPct": [
+      24.459,
+      10.282,
+      17.4
+    ],
+    "vsR8GChangedPct": [
+      15.189,
+      7.068,
+      14.355
+    ],
+    "vsR8ELeftPct": [
+      28.718,
+      8.403,
+      24.721
+    ],
+    "vsR8ERightPct": [
+      21.085,
+      11.907,
+      10.993
+    ],
+    "critical": [
+      "At 65.25 sec, huge uninterrupted pale tan polygon forms an artificial wall over former visually layered tidal quarry on the left. Industrial waterfront is obscured.",
+      "At 66.35 sec right bank is simplified into a broad jagged dull planar shelf, not natural rock or highly readable industrial aesthetic.",
+      "At 68.05 sec original lively layered left quarry becomes an oversized blank beige wedge. Disproportionate occlusion and loss of depth outweigh any surface cleanup.",
+      "These are directly visible genuine source screenshots, NOT rendered concept art or numerical beauty scores."
+    ]
+  },
+  "art": {
+    "decision": "REJECT",
+    "technical": "PASS",
+    "reason": "Large uninterrupted blank planar cliff walls replace busy but meaningful depth. Three genuine camera frames make regression undeniable.",
+    "formalArtAdopted": 0,
+    "slope2DNAMeters": 0,
+    "human": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "release": "HOLD",
+    "merge": "HOLD"
+  },
+  "criticalRollback": {
+    "sourceFile": "scripts/p101-k4ct-native-spillway-dcc.py",
+    "action": "Restore ONLY R8H-geology candidate source file byte-for-byte from tested R8G source commit. Retain failed R8H commit, real CI, artifact and review JSON for audit. No Git history rewriting or force push.",
+    "restoredFromCommit": "af32816da3b1b60f1cf72a62a34379a56df5e0c1",
+    "expectedRestoredDccGitBlobSha": "b0eb484c816dd1576ae6fb054ebf445ef4d013dc",
+    "restoredCandidate": "R8G TECH PASS but ART REJECT. R8E is conservative visual benchmark; R8H never promoted.",
+    "reason": "Prevent known visual regression becoming implicit current default."
+  },
+  "protected": {
+    "mainSHA": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101SHA": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "PR46OpenDraftUnmerged": true,
+    "paidAPI": 0,
+    "WorkOrComputerUse": false,
+    "userManualOperations": 0
+  },
+  "next": "Art-direction method change required. Stop incremental procedural cliff bands, flat wedges and repeated beams; create a cohesive large-scale sculptural industrial port scene (not schematic terrain strips). Establish visible shape/light/material blockout that preserves coastal depth and hazards at all 65.25,66.35,68.05s original chase frames before more implementation. Require true source captures, independent real keyboard QA and eventual human hazard fairness testing. No formal adoption without artistic evidence."
+}
