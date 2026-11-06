@@ -149,7 +149,9 @@ try{
   analysis.nativeNoDCCRaw=name;readings.push(analysis);
   assert(analysis.candidateCount>0,'no geometrically visible candidate at '+sec);
  }
- await step(65.25);await capture(65.25);
+ // takeoverRun already resumes original runner after the 63.70 pause.
+ // Do not toggle #pause AGAIN at first 65.25 segment: it freezes the runner.
+ await step(65.25,false);await capture(65.25);
  await page.keyboard.down('KeyD');await step(65.36);await page.keyboard.up('KeyD');
  await step(65.79);await page.keyboard.down('KeyD');await step(65.91);
  await page.keyboard.up('KeyD');await step(66.35);await capture(66.35);
