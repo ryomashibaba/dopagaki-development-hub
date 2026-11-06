@@ -36,6 +36,12 @@ for(let i=0;i<r9.triangles*3;i++){
  assert.ok(r9.vertices[v+12]>=0&&r9.vertices[v+12]<=1&&r9.vertices[v+13]>=0&&r9.vertices[v+13]<=1);
 }
 const r9WaterMaterialIds=r9.materials.filter(x=>['tide','shallows','foam'].includes(x.name)).map(x=>x.id);
+const r10RockMaterialIds=r9.materials.filter(x=>
+ ['basalt','shale','chalk','limestone','moss','strata','dunestone','deepstone','saltstone'].includes(x.name)).map(x=>x.id);
+const r10MetalMaterialIds=r9.materials.filter(x=>
+ ['copper','oxidized','darksteel','steel','roof','slate','turbine','weathered_iron'].includes(x.name)).map(x=>x.id);
+assert.equal(r10RockMaterialIds.length,9);
+assert.equal(r10MetalMaterialIds.length,8);
 assert.equal(r9WaterMaterialIds.length,3);
 assert.equal(dcc.schema,'k4ct-blender-authored-true-source-integrated-scene/1');
 assert.ok(fs.existsSync(path.join(out,'K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend')));
@@ -53,7 +59,7 @@ const replace=(needle,value)=>{
  js=js.replace(needle,value);
 };
 const imports="import {readK4CTTwoTrueB51,formatK4CTNativeDualCue} from './k4ct-dual-real-b51-decision.mjs';";
-replace(imports,imports+"\nimport {K4CT_DCC_VERTICES,K4CT_DCC_TRIANGLES,K4CT_R9_ROAD_VERTICES,K4CT_R9_MATERIAL_VERTICES,K4CT_R9_WATER_MATERIAL_IDS} from './k4ct-dcc-world-geometry.mjs';");
+replace(imports,imports+"\nimport {K4CT_DCC_VERTICES,K4CT_DCC_TRIANGLES,K4CT_R9_ROAD_VERTICES,K4CT_R9_MATERIAL_VERTICES,K4CT_R9_WATER_MATERIAL_IDS,K4CT_R10_ROCK_MATERIAL_IDS,K4CT_R10_METAL_MATERIAL_IDS} from './k4ct-dcc-world-geometry.mjs';");
 replace('let k4cqSceneMesh=null;', "let k4ctDccMesh=null;\nlet k4ctResearchB51Meshes={};\nlet k4ctFixtureIdentityTagMesh=null;\n\nfunction k4ctIndustrialMaterialOnly(src,mode){\n const out=src.slice();\n const palettes={\n fail:[[.14,.19,.20],[.80,.23,.16],[.53,.31,.24]],\n bounce:[[.20,.22,.21],[.89,.57,.18],[.57,.42,.27]],\n push:[[.15,.22,.24],[.20,.75,.71],[.34,.53,.53]]\n };\n const p=palettes[mode];\n for(let i=0;i<src.length;i+=6){\n  const rgb=src.slice(i+3,i+6),max=Math.max(...rgb),min=Math.min(...rgb);\n  const target=max<.36?p[0]:(max-min>.28||max>.8?p[1]:p[2]);\n  for(let j=0;j<3;j++)out[i+3+j]=target[j];\n }\n if(out.length!==src.length||out.some((v,i)=>i%6<3&&v!==src[i]))throw Error('B51 geometry modified');\n return out;\n}\n\nwindow.__k4ctVisualABMode='R7C_MATERIAL';\nwindow.__k4ctSuppressK4CSGateOnly=true;\nlet k4cqSceneMesh=null;");
 const buildAnchor="}else canvas.dataset.k4cqScene='off';";
 replace(buildAnchor,buildAnchor+"\n"+
@@ -226,6 +232,7 @@ function k4ctR9DrawMaterialWorld(view,aspectRatio,fogStrength){
  for(let slot=2;slot<=6;slot++)gl.disableVertexAttribArray(slot);
  gl.useProgram(program); // Restore original road, B51 and ball renderer.
  canvas.dataset.k4ctR9Material='REAL_BLENDER_POLYGON_NORMAL_UV_BSDF_ATTRIBUTE_WEBGL2';
+ canvas.dataset.k4ctR10Study='SOURCE_REAL_GEOLOGY_METAL_SEA_MATERIAL';
 }
 `;
 const k4ctR9Setup=String.raw`
@@ -241,18 +248,20 @@ const k4ctR9VS=[
  'layout(location=6) in float metal;',
  'uniform vec3 eye,camRight,camUp,camFront;',
  'uniform float aspect,fogStrength,fogStart,fogSpan;',
- 'out vec3 C;out vec3 N;out vec3 E;out vec2 UV;',
+ 'out vec3 C;out vec3 N;out vec3 E;out vec2 UV;out vec3 P;',
  'out float R;out float M;out float H;flat out int ID;',
  'void main(){vec3 w=p-eye;',
  'float x=dot(w,camRight),y=dot(w,camUp),z=dot(w,camFront);',
  'gl_Position=vec4(1.35*x/aspect,1.35*y,1.00022*z-1.30014,z);',
- 'C=col;N=n;E=-w;UV=uv;R=rough;M=metal;ID=int(matId+.5);',
+ 'C=col;N=n;E=-w;UV=uv;P=p;R=rough;M=metal;ID=int(matId+.5);',
  'H=clamp((length(w)-fogStart)/fogSpan,0.,1.)*fogStrength;}'
 ].join('\n');
 const k4ctR9SeaTest=K4CT_R9_WATER_MATERIAL_IDS.map(i=>'ID=='+i).join('||');
+const k4ctR10RockTest=K4CT_R10_ROCK_MATERIAL_IDS.map(i=>'ID=='+i).join('||');
+const k4ctR10MetalTest=K4CT_R10_METAL_MATERIAL_IDS.map(i=>'ID=='+i).join('||');
 const k4ctR9FS=[
  '#version 300 es','precision highp float;',
- 'in vec3 C;in vec3 N;in vec3 E;in vec2 UV;',
+ 'in vec3 C;in vec3 N;in vec3 E;in vec2 UV;in vec3 P;',
  'in float R;in float M;in float H;flat in int ID;',
  'out vec4 outColor;',
  'void main(){vec3 n=normalize(N),v=normalize(E);',
@@ -260,13 +269,33 @@ const k4ctR9FS=[
  'float sunlight=max(0.,dot(n,sun));',
  'float grain=.012*sin(UV.x*6.3+UV.y*2.8)+.010*cos(UV.y*9.3-UV.x*1.7);',
  'bool sea=('+k4ctR9SeaTest+');',
+ 'bool rock=('+k4ctR10RockTest+');',
+ 'bool metalMat=('+k4ctR10MetalTest+');',
  'float diffuse=.40+.52*sunlight;',
  'float fresnel=pow(1.-max(0.,dot(n,v)),3.);',
  'float spec=pow(max(0.,dot(reflect(-sun,n),v)),mix(55.,8.,clamp(R,0.,1.)));',
  'vec3 rgb=C*(diffuse+grain);',
- 'rgb+=vec3(1.,.84,.65)*spec*(.04+.30*M)*(1.-.28*R);',
- 'if(sea){float wave=.035*sin(UV.x*10.+UV.y*3.)*cos(UV.y*7.);',
- 'rgb=C*(.66+wave+.20*sunlight)+vec3(.16,.34,.37)*(.13*fresnel+.12*spec);}',
+ 'if(rock){',
+ 'float bedding=sin(P.y*.185+sin(P.x*.038+P.z*.029)*1.6);',
+ 'float broken=sin(UV.x*8.2+UV.y*1.9)*cos(UV.y*7.3-UV.x*.67);',
+ 'float antiAlias=1.-smoothstep(.30,1.25,fwidth(UV.y*7.3));',
+ 'float seam=smoothstep(-.78,.60,bedding+broken*.43);',
+ 'float mineral=(seam-.48)*.18+antiAlias*broken*.034;',
+ 'float exposure=.5+.5*clamp(n.y,-1.,1.);',
+ 'rgb=C*(diffuse*(.92+mineral)+grain*.55+exposure*.07);',
+ 'rgb*=vec3(.985,1.,1.018);',
+ '}',
+ 'if(metalMat){',
+ 'float patina=sin(UV.x*5.2+UV.y*.7)*cos(UV.y*2.6);',
+ 'rgb=C*(diffuse*.90+.09+patina*.035);',
+ 'rgb+=vec3(1.,.84,.65)*spec*(.08+.30*M)*(1.-.28*R);',
+ '}',
+ 'if(sea){',
+ 'float ripples=sin(UV.x*16.0+UV.y*4.6)*cos(UV.y*13.-UV.x*1.9);',
+ 'float soft=(1.-smoothstep(.2,.9,fwidth(UV.x*16.)))*ripples;',
+ 'rgb=C*(.59+.15*sunlight+.038*soft);',
+ 'rgb+=vec3(.16,.34,.37)*(.16*fresnel+.16*spec);',
+ '}',
  'rgb=mix(rgb,vec3(.115,.168,.192),H);',
  'outColor=vec4(clamp(rgb,0.,1.),1.);}'
 ].join('\n');
@@ -350,7 +379,9 @@ fs.writeFileSync(moduleFile,
  'export const K4CT_DCC_VERTICES='+raw+';\n'+
  'export const K4CT_R9_ROAD_VERTICES='+roadRaw+';\n'+
  'export const K4CT_R9_MATERIAL_VERTICES='+r9Raw+';\n'+
- 'export const K4CT_R9_WATER_MATERIAL_IDS='+waterIdsRaw+';\n');
+ 'export const K4CT_R9_WATER_MATERIAL_IDS='+waterIdsRaw+';\n'+
+ 'export const K4CT_R10_ROCK_MATERIAL_IDS='+JSON.stringify(r10RockMaterialIds)+';\n'+
+ 'export const K4CT_R10_METAL_MATERIAL_IDS='+JSON.stringify(r10MetalMaterialIds)+';\n');
 fs.writeFileSync(file,js);
 assert.ok(!fs.readFileSync('dist-private/k4cs/drive3d.mjs','utf8').includes('k4ctDccMesh'));
 assert.ok(!fs.readFileSync('dist-private/drive3d/drive3d.mjs','utf8').includes('k4ctDccMesh'));
@@ -368,6 +399,9 @@ const audit={schema:'k4ct-real-blender-to-native-webgl2-integrated-v1',
  r9BSDFBaseColorMetallicRoughnessFromRealBlender:true,
  r9LegacyGeometryXYZParity:true,
  r9RoadRetainsOriginalShader:true,fullPBRProven:false,
+ r10MaterialStudy:'SOURCE_REAL_GEOLOGY_METAL_SEA_MATERIAL',
+ r10RockMaterialIds:r10RockMaterialIds,r10MetalMaterialIds:r10MetalMaterialIds,
+ r10PainterlyProceduralTexturing:true,r10RealImageTextures:false,r10FullPBRProven:false,
  webGLGameDisplayTested:false,originalGameCameraAndSolverUntouched:true,
  extraCollisionSolids:0,formalART:0,slope2DNAmeters:0,ART:'REJECT',HUMAN:'HOLD',
  SAT:'HOLD',CCD:'HOLD',FPS:'HOLD',RELEASE:'HOLD',MERGE:'HOLD'};
