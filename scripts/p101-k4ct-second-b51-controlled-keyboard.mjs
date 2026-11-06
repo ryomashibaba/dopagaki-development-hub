@@ -149,6 +149,51 @@ async function captureR11SingleRunShaderPairs(page,label){
   formalFPS:'HOLD',human:false,results:rows};
 }
 
+// R11C: REAL source game screenshots with exactly TWO already-authored
+// Blender clutter groups temporarily hidden by original group span.
+// No geometry regenerated, no collision, no road/real-B51 visibility
+// changes. These are ART attribution studies, not accepted game variants.
+async function captureR11OriginalChaseClutterAblation(page,label){
+ const modes=['ALL','NO_REPEATED_ROOF','NO_CONVEYOR','NO_BOTH'];
+ const rows=[];
+ let fixedTick=null;
+ await page.evaluate(()=>{window.__k4ctR11MaterialAB='R9_VERIFIED';});
+ for(const mode of modes){
+  await page.evaluate(x=>{window.__k4ctR11ArtLayer=x;},mode);
+  await page.waitForFunction(x=>{
+   const c=document.getElementById('view');
+   return c?.dataset.k4ctR11ActualArtLayer===x &&
+      c.dataset.k4ctR11ActualProgram==='R9_VERIFIED';
+  },mode,{timeout:12000,polling:50});
+  const proof=await page.evaluate(()=>{
+   const c=document.getElementById('view');
+   return {
+    mode:c.dataset.k4ctR11ActualArtLayer,
+    shader:c.dataset.k4ctR11ActualProgram,
+    ticks:Number(c.dataset.r15s3d10NativeTicks),
+    source:c.dataset.r15s3d10OriginalGame,
+    b51:Number(c.dataset.g4e7yRetainedMachines),
+    originalRoad:c.dataset.k4ctRoadArtMode,
+    originalNativeStatus:c.dataset.r15s3d10Status
+   };
+  });
+  assert.equal(proof.source,'REAL_WEBGL2_SOURCE_240HZ');
+  assert.equal(proof.shader,'R9_VERIFIED');
+  assert.equal(proof.b51,28);
+  assert.equal(proof.originalRoad,'ORIGINAL_B48_PLUS_DCC_CONFORMAL');
+  assert.equal(proof.originalNativeStatus,'running');
+  if(fixedTick===null)fixedTick=proof.ticks;
+  else assert.equal(proof.ticks,fixedTick,'R11 art group isolation moved original source physics');
+  const screen='K4CT_R11_'+label+'_'+mode+'_TRUE_SOURCE_CLUTTER_AB_RAW.png';
+  await page.screenshot({path:path.join(OUT,screen)});
+  rows.push({mode,proof,image:screen});
+ }
+ await page.evaluate(()=>{window.__k4ctR11ArtLayer='ALL';});
+ return {sourceCameraLabel:label,originalNativeTick:fixedTick,
+   sourceGroupStudy:true,allBlenderSourceTrianglesPreserved:true,
+   originalSourceB51Untouched:true,noFormalArtPromotion:true,rows};
+}
+
 /* Same-paused-tick, same-source-camera RAW layer A/B (no retouching).
  * Three modes only toggle noncolliding scenery; 28 B51 are always drawn.
  * SCREENSHOT  != HUMAN test and qualitative ART always remains REJECT. */
@@ -208,11 +253,14 @@ async function captureR6RawLayerAB(page,label){
   const file='K4CT_R8B_'+label+'_'+trial+'_EXACT_SOURCE_RAW.png';
   await page.screenshot({path:path.join(OUT,file)});
   let r11SingleRunAB=null;
+  let r11OriginalArtAblation=null;
   if(trial==='CLEAN'){
    r11SingleRunAB=await captureR11SingleRunShaderPairs(page,label);
    assert.equal(r11SingleRunAB.sourceNativeTick,state.nativeTicks);
+   r11OriginalArtAblation=await captureR11OriginalChaseClutterAblation(page,label);
+   assert.equal(r11OriginalArtAblation.originalNativeTick,state.nativeTicks);
   }
-  states.push({...state,file,r10Pacing,r11SingleRunAB});
+  states.push({...state,file,r10Pacing,r11SingleRunAB,r11OriginalArtAblation});
  }
  await page.evaluate(()=>{window.__k4ctRenderAttribution='BASE';window.__k4ctSuppressK4CSGateOnly=true;});
  return {label,nativeTick:tick,states,renderOnly:true,
@@ -442,6 +490,28 @@ for(const pair of r11AB){
  assert.equal(pair.results.length,4);
  assert.ok(pair.results.every(r=>r.proof.originalTicks===pair.sourceNativeTick));
 }
+const r11ArtStudies=result.r6Slices.flatMap(slice=>
+ slice.states.filter(row=>row.trial==='CLEAN').map(row=>row.r11OriginalArtAblation));
+assert.equal(r11ArtStudies.length,3);
+for(const study of r11ArtStudies){
+ assert.equal(study.rows.length,4);
+ assert.deepEqual(study.rows.map(x=>x.mode),
+  ['ALL','NO_REPEATED_ROOF','NO_CONVEYOR','NO_BOTH']);
+ assert.ok(study.rows.every(x=>x.proof.ticks===study.originalNativeTick));
+}
+fs.writeFileSync(path.join(OUT,'K4CT_R11_ORIGINAL_CHASE_DCC_GROUP_CLUTTER_ABLATION.json'),
+ JSON.stringify({schema:'k4ct-r11-original-real-source-camera-art-group-attribution-v1',
+  realOriginalWebGL2:true,realBlenderEditableGroups:true,
+  originalSourceCamera:true,source240Hz:true,
+  isolatedGroupNames:[
+   '09_QUARRY_EMBEDDED_POWERHOUSE_AND_STEPPED_ROOFS',
+   '38_R8D_ONE_SUSPENDED_QUARRY_CONVEYOR'
+  ],
+  originalGameB48:7,originalB51:28,
+  noCollidersChanged:true,originalDCCSourceChanged:false,
+  formalART:0,artDecision:'REJECT_PENDING_REAL_SOURCE_IMAGE_CRITIQUE',
+  ART_not_a_mockup:true,human:'HOLD',
+  sourceTrials:r11ArtStudies},null,2)+'\n');
 fs.writeFileSync(path.join(OUT,'K4CT_R11_SAME_BROWSER_ABBA_REJECTED_R10_PERFORMANCE.json'),
  JSON.stringify({schema:'k4ct-r11-same-browser-original-camera-paired-renderer-v1',
   compared:['R9_VERIFIED','R10B_REJECTED'],
