@@ -41,7 +41,7 @@ export function decodeChromePng(bytes){
    line[x]=(value+predictor)&255;
   }
   for(let x=0;x<w;x++){
-   const i=(y*w+x)*3+x*3,j=x*ch;
+   const i=(y*w+x)*3,j=x*ch;
    pixels[i]=line[j];pixels[i+1]=line[j+1];pixels[i+2]=line[j+2];
   }
   prior=line;
