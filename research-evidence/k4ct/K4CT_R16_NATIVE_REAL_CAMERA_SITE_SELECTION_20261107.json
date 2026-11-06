@@ -1,0 +1,192 @@
+{
+  "schema": "k4ct-r16-source-native-screen-place-observation-v1",
+  "dateJST": "2026-11-07",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "originRun": {
+    "id": 42295180439,
+    "conclusion": "FAILURE",
+    "reason": "native paused-state resumed with extra toggle, timeout"
+  },
+  "verifiedRun": {
+    "id": 42295943093,
+    "head": "a2dec900e8c9b7f0e6217b31e58428cc576403cc",
+    "status": "completed",
+    "conclusion": "success",
+    "artifact": 13542505738,
+    "archiveSHA256": "ada0c73e9989ed5c1c549c6a14d9e4bd987cd5ee0ac0780510c39605371f04bd",
+    "artifactExpiresUTC": "2026-11-13T21:22:37Z",
+    "archiveFiles": 4,
+    "artifactContains": [
+      "K4CT_R16_ORIGINAL_SOURCE_NO_DCC_T65_25.png",
+      "K4CT_R16_ORIGINAL_SOURCE_NO_DCC_T66_35.png",
+      "K4CT_R16_ORIGINAL_SOURCE_NO_DCC_T68_05.png",
+      "K4CT_R16_TRUE_CAMERA_PLACEMENT_PREFLIGHT.json"
+    ]
+  },
+  "source": {
+    "originalGameBlobGitSHA1": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalRoad5PhysicsSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "actualNativeChromiumWebGL2": true,
+    "runnerHz": 240,
+    "B48": 7,
+    "B51": 28,
+    "camera": "true original viewForPose in PRIVATE copied renderer, unfiltered original heading",
+    "deviceScreenshot": [
+      1365,
+      930
+    ],
+    "actualCanvasFramebuffer": [
+      1013,
+      698
+    ],
+    "sourcePlaneDefinition": "World Y vertical, source Road5/6 edge interpolation u from 129 physical B48 samples, signed side offset; screen position in GL NDC",
+    "facilityConceptEnvelopeMeters": [
+      48,
+      28,
+      62
+    ],
+    "actualBlenderFacilityConstructed": false,
+    "actualOcclusionOrB51SafetyVerified": false
+  },
+  "selectedPhaseWindows": [
+    {
+      "timeSec": 65.25,
+      "tick": 15660,
+      "road": 5,
+      "u": 0.95,
+      "side": "R",
+      "outboardM": 155,
+      "heightFromRealRoadEdgeM": 0,
+      "worldXYZ": [
+        941.373,
+        127.114,
+        -561.447
+      ],
+      "NDCcenter": [
+        -0.4978,
+        0.1804
+      ],
+      "depthMeters": 243.6,
+      "NDCbbox": [
+        -0.655,
+        0.1732,
+        -0.3889,
+        0.5828
+      ],
+      "boundingBoxFrameFraction": 0.02725,
+      "possibleFunction": "high-level intake and fractured quarry lock",
+      "allFrustumCandidates": 211,
+      "viewEye": [
+        903.6426535501384,
+        137.38422932873888,
+        -286.0533508036084
+      ],
+      "viewFront": [
+        0.5755974888375591,
+        -0.17378533390904788,
+        -0.7990533077098277
+      ]
+    },
+    {
+      "timeSec": 66.35,
+      "tick": 15924,
+      "road": 6,
+      "u": 0.48,
+      "side": "L",
+      "outboardM": 115,
+      "heightFromRealRoadEdgeM": 0,
+      "worldXYZ": [
+        1426.687,
+        109.032,
+        -463.474
+      ],
+      "NDCcenter": [
+        0.4785,
+        0.1382
+      ],
+      "depthMeters": 342.6,
+      "NDCbbox": [
+        0.4219,
+        0.13,
+        0.5635,
+        0.404
+      ],
+      "boundingBoxFrameFraction": 0.0097,
+      "possibleFunction": "asymmetric control-lock gallery, opposite shore visual relay",
+      "allFrustumCandidates": 244,
+      "viewEye": [
+        1042.237266069381,
+        134.03534436800726,
+        -428.5657451813019
+      ],
+      "viewFront": [
+        0.8319438975948854,
+        -0.1737853339090478,
+        -0.526942130572942
+      ]
+    },
+    {
+      "timeSec": 68.05,
+      "tick": 16332,
+      "road": 6,
+      "u": 0.8,
+      "side": "R",
+      "outboardM": 155,
+      "heightFromRealRoadEdgeM": 25,
+      "worldXYZ": [
+        1564.764,
+        122.845,
+        -808.808
+      ],
+      "NDCcenter": [
+        -0.4396,
+        0.2563
+      ],
+      "depthMeters": 304.8,
+      "NDCbbox": [
+        -0.5509,
+        0.2549,
+        -0.3609,
+        0.5752
+      ],
+      "boundingBoxFrameFraction": 0.01522,
+      "possibleFunction": "turbine-fed outfall/wharf and quay, seaward completion of visible hydraulic story",
+      "allFrustumCandidates": 209,
+      "viewEye": [
+        1331.4624173926613,
+        118.82200335198971,
+        -558.6551223558503
+      ],
+      "viewFront": [
+        0.9124820271767404,
+        -0.17378533390904768,
+        -0.37037171570943056
+      ]
+    }
+  ],
+  "criticalCaveats": [
+    "Only analytic envelopes projected by the ORIGINAL camera; no actual Blender geometry in these RAW frames",
+    "The single-site search score ranks projected target proximity, not ART value, detailed raster occlusion, human gameplay, physical pipe continuity, or a free of B51 collision",
+    "At 66.35 the original red moving hazard is large on the far right, so the real DCC scene must prove the control landmark does not hide it",
+    "Do not make synthetic highways, collision proxies, false safe lane portals, new camera, PBR PASS, or style-only photo manipulation"
+  ],
+  "next": "R17 one genuine editable Blender multi-beat coastal campus, original Chromium/WebGL2 actual 240Hz, 3 native camera RAW and targeted leave-one-out. ART can be REJECT and then restore only DCC. User manual 0.",
+  "safety": {
+    "QUALITY_FIRST": true,
+    "ART_FIRST": true,
+    "DCC_FIRST": true,
+    "INTEGRATED_VERTICAL_SLICE": true,
+    "originalMain": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "PR46": "Open/Draft/unmerged",
+    "formalARTAdopted": 0,
+    "slope2DNAMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  }
+}
