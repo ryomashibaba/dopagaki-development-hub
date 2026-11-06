@@ -90,7 +90,8 @@
       0.3253150057
     ],
     "notHumanTest": true,
-    "notFullOriginalB51FailureRetryFinish": false
+    "notFullOriginalB51FailureRetryFinish": true,
+    "scopeNote": "R22 was a three-timepoint scripted camera/shader screenshot study. It did not perform original B51 collision/retry/full 180s original run certification."
   },
   "nativeTrueGLPixelA_B": {
     "imageCropROI": [
