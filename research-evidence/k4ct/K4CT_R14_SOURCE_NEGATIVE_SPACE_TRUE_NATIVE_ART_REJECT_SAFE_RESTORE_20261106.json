@@ -99,5 +99,77 @@
     "workComputerUse": false,
     "paidAPI": 0,
     "userManualOperations": 0
+  },
+  "secondOrderSourceCameraAttribution": {
+    "method": "same paused original Chromium WebGL2 frame: one real Blender non-road group omitted then original frame restored (R12 instrument still 42 groups). Not exact visible ownership, not artistic grade.",
+    "afterOpeningGroups": {
+      "65.25": [
+        [
+          "19_R6_SOURCE_FRAMED_UPPER_TIDAL_FOREBAY",
+          4.448
+        ],
+        [
+          "01_CARVED_BASALT_AND_LAYERED_RIFT",
+          3.018
+        ],
+        [
+          "03_CLIFF_TO_WORKING_TIDAL_BASIN",
+          3.003
+        ],
+        [
+          "34_R7C_CHASE_VISIBLE_POWER_INTAKE",
+          2.943
+        ],
+        [
+          "27_R7B_QUARRY_EMBEDDED_TIDAL_POWER_HALL",
+          2.426
+        ]
+      ],
+      "66.35": [
+        [
+          "01_CARVED_BASALT_AND_LAYERED_RIFT",
+          5.612
+        ],
+        [
+          "12_SINGLE_TIDAL_LIFT_AND_CONTROL_TOWER",
+          3.767
+        ],
+        [
+          "19_R6_SOURCE_FRAMED_UPPER_TIDAL_FOREBAY",
+          3.264
+        ],
+        [
+          "21_R6_BROKEN_QUARRY_STRATA_SOURCE_CHASE",
+          2.269
+        ],
+        [
+          "03_CLIFF_TO_WORKING_TIDAL_BASIN",
+          1.498
+        ]
+      ],
+      "68.05": [
+        [
+          "03_CLIFF_TO_WORKING_TIDAL_BASIN",
+          5.076
+        ],
+        [
+          "27_R7B_QUARRY_EMBEDDED_TIDAL_POWER_HALL",
+          4.582
+        ],
+        [
+          "01_CARVED_BASALT_AND_LAYERED_RIFT",
+          3.61
+        ],
+        [
+          "42_R8J_QUARRY_ANCHORED_TURBINE_PENSTOCK",
+          3.589
+        ],
+        [
+          "33_R7B_SINGLE_HEADLAND_CONTROL_TOWER",
+          2.959
+        ]
+      ]
+    },
+    "interpretation": "After subtracting occluding group21/25, original source pixels are now meaningfully affected by groups 01,03,19,27 and 34/12/42. Particularly at 68.05 group27 (4.582%) becomes an important exposed facility, consistent with the visually disappointing huge left roof. Next artist should redesign those exact revealed structures into a coherent authored source-camera landmark rather than repeat group21/25 earthwork."
   }
 }
