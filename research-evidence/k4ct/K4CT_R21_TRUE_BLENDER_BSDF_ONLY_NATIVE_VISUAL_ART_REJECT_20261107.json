@@ -1,0 +1,156 @@
+{
+  "schema": "k4ct-r21-source-true-blender-material-only-vs-r20-native-art-reject-v1",
+  "dateJST": "2026-11-07",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "prior": {
+    "R20Run": 42307252065,
+    "R20ArtifactID": 13546263695,
+    "R20Art": "REJECT",
+    "originalDCCVerifiedGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalSourceGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "road5PhysicsSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "insight": "R20 new 12 real Blender material names had identical Principled roughness .74 and metallic .08; barge/foam/crane mostly invisible in 3 original source ticks."
+  },
+  "R21Plan": "research-evidence/k4ct/K4CT_R21_REAL_BSDF_AND_NATIVE_VISIBILITY_VETO_CONTRACT_20261107.json",
+  "R21Implementation": {
+    "blenderNodeModule": "scripts/k4ct-r21-reuse-real-blender-bsdf-only.py",
+    "BlenderModuleCommit": "793900c702a5a0993440770983c57bdb0e1f25ea",
+    "originalChromiumCompareScript": "scripts/k4ct-r21-3frame-native-bsdf-only-review.mjs",
+    "compareScriptCommit": "27705bd47f5c03bc29ce21ee0abd2bfbe39c0f02",
+    "workflow": ".github/workflows/p101-k4ct-r21-real-bsdf-only-3frame.yml",
+    "workflowCommit": "0d5faa9c04ea867a1ad5065550a845863383bf48",
+    "method": "Fetch genuine R20 ART REJECT Blender archive, reopen actual Blender .blend, set 12 actual Principled BSDF node Roughness and Metallic inputs, save and reopen .blend, preserve source polygons, rebuild genuine R9 per-vertex attributes 12/13 from saved nodes while all other 14-stride attributes and legacy road stay identical. Run source original private Chromium WebGL2 in original 240Hz fixed chase camera; no generated proxies or new geometry.",
+    "originalArtworkWasR20Rejected": true,
+    "newlyAuthoredGeometryCount": 0,
+    "noRepoBlenderAuthorCodeEdits": true,
+    "sourcePhysicsAndCameraUnchanged": true,
+    "noNewColliders": true,
+    "NewMaterialNodePropertyCount": 12
+  },
+  "verifiedNativeCI": {
+    "runId": 42309755398,
+    "conclusion": "success",
+    "head": "0d5faa9c04ea867a1ad5065550a845863383bf48",
+    "artifactId": 13547558795,
+    "artifactName": "K4CT_R21_ACTUAL_BLENDER_MATERIAL_ONLY_NO_ART",
+    "zipSHA256": "42cc56a56748897b74ad22cc7271f3f55f6732a9c4f3043e709954d848f0fbcb",
+    "archiveFileCount": 6,
+    "zipCRC": "PASS",
+    "expiresUTC": "2026-11-13T23:11:09Z",
+    "genuineBlender": "4.0.2",
+    "editableMeshes": 43,
+    "triangles": 25700,
+    "originalRoadTriangles": 4608,
+    "nonroadTriangles": 21092,
+    "originalDCCGeometryJSONSHA256": "05fe4ba77fd4a66d3622597eadea43a48a9bb4759b114591db17ca12d712ab11",
+    "reconstructedGeometrySHA256": "05fe4ba77fd4a66d3622597eadea43a48a9bb4759b114591db17ca12d712ab11",
+    "sourceR20BlenderSHA256": "e2bf148e49eb79c2f35f920454ec2b052b8fd974e801d41590b7f7196403dd89",
+    "savedR21BlenderSHA256": "fedf6811d7fc5dcccf6e52dabef422f5a785d98e48c3b3d6f5071465c2051d0c",
+    "trueSavedReopenedActualBlenderNodes": true,
+    "sourceGeometryTextureUVNormalsRGBMaterialIDsExact": true,
+    "actualNewMarineAttributesHave12DifferentProperties": true,
+    "sourceOriginalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "activeResearchDCCGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "sourceRoad5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliderCount": 0,
+    "ChromiumOriginalWebGL2": true,
+    "actualOriginalRunner240Hz": true,
+    "nativeSourceTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "Depth24BitEnabled": true,
+    "materialOnlyBaseRenderRestoredRGB25Pct": [
+      0,
+      0,
+      0
+    ],
+    "selectiveNativeGroupIDs": [
+      "03",
+      "16",
+      "34",
+      "42"
+    ],
+    "noFull42GroupQA": true,
+    "noHumanTest": true,
+    "noFullOriginalFailureRetryFinishTest": true
+  },
+  "materialOnlyTrueNativePixelAB": {
+    "provenance": "R20 vs R21 different genuine source CI with IDENTICAL real R20 geometry and original source game. Only actual Blender roughness/metallic node inputs and identical-by-construction R9 bridge attributes 12/13 differ. Original source camera 3 frames. ROI x0..1005, y80..705, 628125 pixels per frame.",
+    "noOtherModifiedSourceGameOrGeometry": true,
+    "measurements": [
+      {
+        "timeSec": 65.25,
+        "sourceTick": 15660,
+        "pixelsAboveRGB1": 18794,
+        "pixelsAboveRGB10": 1079,
+        "pixelsAboveRGB25": 0,
+        "percentAboveRGB1": 2.9920796,
+        "percentAboveRGB10": 0.17178109,
+        "percentAboveRGB25": 0,
+        "meanMaxChannelAbsoluteDifference": 0.1856748259
+      },
+      {
+        "timeSec": 66.35,
+        "sourceTick": 15924,
+        "pixelsAboveRGB1": 0,
+        "pixelsAboveRGB10": 0,
+        "pixelsAboveRGB25": 0,
+        "percentAboveRGB1": 0,
+        "percentAboveRGB10": 0,
+        "percentAboveRGB25": 0,
+        "meanMaxChannelAbsoluteDifference": 0.00004935323
+      },
+      {
+        "timeSec": 68.05,
+        "sourceTick": 16332,
+        "pixelsAboveRGB1": 122,
+        "pixelsAboveRGB10": 50,
+        "pixelsAboveRGB25": 0,
+        "percentAboveRGB1": 0.0194228856,
+        "percentAboveRGB10": 0.007960199,
+        "percentAboveRGB25": 0,
+        "meanMaxChannelAbsoluteDifference": 0.0062041791
+      }
+    ],
+    "materialSignalConclusion": "Properties are authentic and distinct and minor true GL image changes at two source ticks exist, but ALL three have RGB>25 change 0%. This does not establish perceptual art improvement or render-quality pass.",
+    "baselineDominantProblem": "Archived R20 assets 05 foam, 15 barge/quay and 17 crane were nearly absent in original source camera at all three tested moments. A real BSDF fix cannot improve unshown assets.",
+    "rendererLimitation": "Research R9 shader is stylized diffuse/specular with roughness/metal inputs, NOT full PBR/real reflections/shadows. Its special sea material IDs recognize only original tide/shallows/foam, not newly named harbor_abyss/harbor_tidal_steel/harbor_swell. R21 did not alter this shader.",
+    "attributionLimit": "Group leave-one-out pixel changes are not pixel ownership or human B51 hazard readability. Frames sample only three points, not full 180s."
+  },
+  "criticalDecision": {
+    "materialDataBug": "FIXED_AND_ACTUAL_BLENDER_VERIFIED_IN_RESEARCH_ARTIFACT",
+    "rendererMaterialVisualImpact": "MINIMAL_IN_ORIGINAL_THREE_SOURCE_FRAMES",
+    "artisticQuality": "REJECT",
+    "formalArtAdopted": 0,
+    "formalSlope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "fullPBR": "NOT_PROVEN",
+    "doNotAdoptR20OrR21Artwork": true,
+    "needActiveAuthorRestore": false,
+    "reasonNoRestore": "Research original author never modified during R21; exact R12A blob maintained, only artifact material test."
+  },
+  "nextEfficientWork": {
+    "first": "R22 PRIVATE-only source WebGL2 shader sensitivity test on same archived original R20 geometry: targeted roughness/metal physically credible reflection/lighting response with explicit distinction from PBR; compare original R21 3 RAW and verify actual visible changes without touching physics. Separate genuine ART review afterward.",
+    "second": "Only after original source camera sees asset function, adjust ship/gantry/shore visibility. Avoid more unseen meshes, new material names without native GL impact, inflated triangle count, full 42-group CI before justified.",
+    "formalUserManualTasks": 0
+  },
+  "safety": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "open/draft/unmerged",
+    "originalGameAndRoad5Untouched": true,
+    "additionalPaidAPI": 0,
+    "workComputerUse": false,
+    "userActions": 0
+  }
+}
