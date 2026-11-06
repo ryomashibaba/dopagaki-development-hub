@@ -1,0 +1,113 @@
+{
+  "schema": "k4ct-r8d-r8e-true-native-240hz-source-camera-dcc-critically-audited-v1",
+  "dateJapan": "2026-11-06",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "conservation": {
+    "mainSHA": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101SHA": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": {
+      "open": true,
+      "draft": true,
+      "merged": false
+    },
+    "sourceGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "researchRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "cameraSourceUnmodified": true,
+    "nativePhysicsHz": 240,
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "productionUnmodified": true
+  },
+  "r8D": {
+    "implementationCommit": "74d4cbb5ecd027267c2622829478dfb9c4fbb86f",
+    "workflowRun": 42161000893,
+    "runConclusion": "success",
+    "artifact": 13476892976,
+    "zipSHA256": "20e5e0d0cc67536edf2fa052167d489f4f0a13ed7e1d48d3e339da55afcba7b8",
+    "zipCRC": "PASS",
+    "nativeBlender": "4.0.2",
+    "editableDccGroups": 43,
+    "triangles": 32106,
+    "changes": [
+      "physical-left/source-camera-right geological real voids",
+      "industrial conveyor and ore-lift",
+      "Noto CJK font package in research CI, source Japanese glyphs now visible"
+    ],
+    "qualitative": "TECH PASS / ART REJECT: quarry cut and new ore-lift change 68s source view but 65.25s obstructing monolith unchanged; 68s oversized scaffold."
+  },
+  "occlusionProvenance": {
+    "method": "Project real DCC Blender-authored triangle mesh to approximate source chase camera at t=65.25 and rank frontmost group at screen-right sample points; then compare 65.25s paired original camera RAW for R8B/R8D/R8E.",
+    "frontmostGroup": "34_R7C_CHASE_VISIBLE_POWER_INTAKE",
+    "location": "Road5 at source physical LEFT edge u=.855, 45m outboard (pre-R8E)",
+    "qualification": "Camera heading approximated by real native trace velocity, visual and before/after corroboration; not a formal per-pixel depth/GPU ID assertion."
+  },
+  "r8E": {
+    "implementationCommit": "da82df67c4c6d54ea30087286352403484a8613b",
+    "workflowRun": 42161985638,
+    "runConclusion": "success",
+    "artifact": 13476808930,
+    "zipSHA256": "b8aea22a09017cc61917dc2dcefc01c0bd8057ef431d30e49a2e0e9027fa7c82",
+    "zipCRC": "PASS",
+    "blendHeader": "BLENDER-v400",
+    "editableBlenderVersion": "4.0.2",
+    "editableDccGroups": 43,
+    "triangles": 32058,
+    "changes": [
+      "Replace the giant 34_R7C opaque close-range intake with two open load-bearing industrial piers, sloped transverse girder, open-sky gap, hydraulic penstocks and inset control cabin outside B48",
+      "Move and downscale the Road6 u=.557 oversized ore lift to u=.625 106m outboard.",
+      "Keep R8B K4CS noncolliding gate cleanup and R8D's Japanese glyph renderer."
+    ],
+    "realChromium": true,
+    "nativePhysicalTests": {
+      "neutralFailSeconds": 69.4833333333523,
+      "neutralReason": "コースから落下",
+      "originalRetryControl": "retryRun",
+      "startPositionDriftM": 0,
+      "genuineKeyboardPulses": [
+        {
+          "key": "KeyD",
+          "from": 65.25,
+          "to": 65.36
+        },
+        {
+          "key": "KeyD",
+          "from": 65.79,
+          "to": 65.91
+        }
+      ],
+      "finishedSeconds": 69.94166666668522,
+      "passedRoad6B51_14": true,
+      "actualB51_14Contacts": 0,
+      "minSurfaceGap13Meters": 3.8516884950110035,
+      "minSurfaceGap14Meters": 3.148671054349772,
+      "human": false
+    },
+    "sceneMetrics": {
+      "measure": "RGB max channel change >25 inside source camera screen-right x=600..1004,y=100..514; pixel change is not an aesthetic score",
+      "comparedWithR8BClean": {
+        "t65_25ChangedPercent": 23.97,
+        "t66_35ChangedPercent": 0.27,
+        "t68_05ChangedPercent": 20.49
+      }
+    },
+    "qualitative": "65.25s large foreground black rectangle visibly replaced by open-sided quarry intake and geological overhang; 68s giant lift reduced and moved away. Nonetheless stylized flat large terrain and repeated industrial scaffold remain rough, camera-side occlusion at 65s is not completely resolved, human readability unknown. ART REJECT."
+  },
+  "status": {
+    "technical": "PASS_RESEARCH",
+    "art": "REJECT",
+    "formalArtAdopted": 0,
+    "officialSlope2DnaMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "nextArtworkFocus": "Stop repeating rock noise and model QA. On this same original Road5/6 chase, genuinely re-author port/world material language and visible nautical working spaces with composition and lighting, while preserving original physical bodies and improved Japanese UI; require before/during/after true native RAW direct ART critique, not screenshots from detached DCC camera. Gate warning-human fairness remains unverified.",
+  "userOperations": 0,
+  "additionalPaidAPI": 0,
+  "workOrComputerUse": false
+}

@@ -2,12 +2,20 @@
 # 完全統合・批判的方針再評価・次チャット正本（K4CT R5後／2026-11-06 JST）
 
 **これは継続開発であり新規企画・正式採用・方針撤回ではない。**
-**最新のR6実測否定結果を反映した「次に進む」判断は本書のR6追補および第6〜8章の固定安全条件の併読による。** 本書に記載したGitHub HEADとCIは作成時点の値。次回は生のGitHub HEADを必ず再取得する。古い正本内の「現最新」「次工程」は歴史的な記述として扱い、当時の正しい事実・安全条件は撤回しない。
+**最新R8Eの真正RAW批判判定を反映した『次に進む』判断は本書のR8D/R8E追補と第6〜8章の固定安全条件の併読による。** 本書に記載したGitHub HEADとCIは作成時点の値。次回は生のGitHub HEADを必ず再取得する。古い正本内の「現最新」「次工程」は歴史的な記述として扱い、当時の正しい事実・安全条件は撤回しない。
 
 ## K4CT R8C 実制作の批判的結果：真正TECH PASS／ART REJECT → 研究内で非採用・原地形へ戻す
 - [R8C真正Blender4.0.2／元WebGL2・240Hz実走行 #42159236198](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42159236198) **SUCCESS**、実装候補 `ae065f0944673a0c99a1b5e63e94cd75c4f2caa5`、[Artifact #13475898161](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42159236198/artifacts/13475898161) SHA256 `45faf8133b2cccb9b4d8eb8ae7f2bb1d6a567f26d8191a88c9a18a0a008bf1c4`／CRC PASS。38編集可能DCC機能群／32,174三角形、新Collider0。元Runnerの落下→元UIリトライ→KeyD完走は継続。
 - R8B CLEANと同じ真カメラの65.25/66.35/68.05秒比較で変更画素4.15%/1.40%/3.22%。しかし新たな大きな灰色の面が目立ち、単調な港・岩盤や読みづらいHUDの本質改善には至らず**ART REJECT**。変更面積を品質得点とみなさない。旧K4CS非衝突ゲート整理（R8B）は保持し、R8Cの岩盤フラクタル変更だけを別の安全コミットで戻す（履歴は削除しない）。
 - [R8C非採用監査JSON](../research-evidence/k4ct/K4CT_R8C_REVERT_PLANAR_QUARRY_RAW_ART_REJECT_20261106.json)。品質/美術/DCC/縦スライスの固定方針、正式ART0件・Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD不変。次は細かい同種の岩面揺らぎではなく、真カメラから見える港の構造関係・素材・陰影と文字欠字の改善に集中。
+
+## 最新：K4CT R8D→R8E 一体制作の直接評価（2026-11-06）
+- **R8D** [実装 `74d4cbb5`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/74d4cbb5ecd027267c2622829478dfb9c4fbb86f) → [真正CI #42161000893](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42161000893) SUCCESS。Blender4.0.2可編集43機能群／32,106三角形。物理左岸（元CHASE画面右）の岩盤開口・搬送トラスを制作し、日本語フォント欠字の研究CI環境原因を`fonts-noto-cjk`で改善。ただし65.25秒の巨大黒い前景は変わらず、68.05秒の昇降機が大きすぎた。**ART REJECT**。
+- **原因再照合**：元の65.25秒カメラへ真正DCC頂点を再投影すると、前景を塞ぐ主構造は地形ではなく旧`34_R7C_CHASE_VISIBLE_POWER_INTAKE`の不透明箱型設備。近似カメラ投影のため厳密な画素別ID認証とは別扱い。画面差分で修正効果を追加照合。
+- **R8E** [実装 `da82df67`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/da82df67c4c6d54ea30087286352403484a8613b) → [真正CI #42161985638](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42161985638) SUCCESS。43編集可能機能群／32,058三角形。箱型取水口を外部荷重支持の開放型設備へ再著作、Road6の過大な昇降機を縮小・後退。65.25秒の画面右前景はR8B基準で23.97%画素変化、黒い箱状遮蔽が減った。66.35秒0.27%、68.05秒20.49%。これは**画素変更率であり美術合格率ではない**。港湾の材質、地形の自然さ、左側の重複施設、危険の人間先読みは未達／未検証。
+- **実ゲーム保持**：真正Chromium／元WebGL2／原Camera／240Hz、B48×7、B51×28、Collider追加0。無操作で69.483333秒に路外落下→元`retryRun`→出発位置差0m→真正KeyD 2操作で69.941667秒にfinished。B51-13/14実接触0件、最短間隔3.852m/3.149m。人間の結果ではない。
+- [R8D証拠Artifact #13476892976](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42161000893/artifacts/13476892976) ZIP SHA256 `20e5e0d0cc67536edf2fa052167d489f4f0a13ed7e1d48d3e339da55afcba7b8`／[R8E証拠Artifact #13476808930](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42161985638/artifacts/13476808930) ZIP SHA256 `b8aea22a09017cc61917dc2dcefc01c0bd8057ef431d30e49a2e0e9027fa7c82`、共にCRC PASS。詳細[R8D/R8E批判監査JSON](../research-evidence/k4ct/K4CT_R8D_R8E_GENUINE_CAMERA_ARCHITECTURE_CRITICAL_ART_HOLD_20261106.json)。**現在はTECH PASS／ART REJECT、正式採用0件、Slope2 DNA 0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。**
+- **次の主課題**：同一B51-13→14追走区間で、岩ノイズや箱の量産ではなく、港湾の主役構造・素材/光/陰影・地形/水門/道路の意味ある統合を本物の元CHASE RAWで評価。R8Eでも世界水準のART認定は不可。原本、main、P101、PR #46、正式QAを保護し、Work・課金・公開・mergeは個別承認制。
 
 ## K4CT R8B：旧K4CS非衝突ゲートの出所確定・元CHASE清掃（ART HOLD）
 - 最新の真正実行HEAD `421d5ebb326f12bcf05d07168fd50f5c90cf0202`、[CI #42158287850](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42158287850) **SUCCESS**。真正Blender 4.0.2／38機能群／31,226三角形、元WebGL2/Camera/240Hz、B48×7/B51×28、新Collider0、元UI落下リトライ→KeyDで69.941667秒finished再現。HUMANではない。
