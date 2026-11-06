@@ -445,6 +445,106 @@ for station in site['stations']:
      add(pylon,(0,height+2,0)),9,11,4,
      'amber' if station['id'].endswith('-14') else 'copper',fw,lat)
 
+
+# R7B: true-CHASE camera-framed reauthoring of ONE tidal-power harbor campus.
+# Source trace: at 65.25 Road5 u=.82, 66.35 Road5 u=.969,
+# at 68.05 Road6 u=.430. All geometry sits outside real B48 widths.
+# This is authored editable geometry, never an alternate road / collision hull.
+for idx,u0,u1 in ((5,.81,.995),(6,.395,.79)):
+ for i in range(64):
+  v=u0+(u1-u0)*i/64
+  nextV=u0+(u1-u0)*(i+1)/64
+  P,F,S=frame(idx,v);Q,F1,S1=frame(idx,nextV)
+  # A stepped geologically connected quarry / tidal cut. Interrupted upper
+  # shelves create real skyline voids rather than a long flat wall.
+  for j,(d0,d1,h0,h1,mat) in enumerate((
+     (26,37,-13,-9,'basalt'),(37,58,-9,1,'shale'),
+     (58,86,1,17,'strata'),(86,125,17,45,'chalk'))):
+   if j>=2 and ((idx==5 and .887<v<.923) or (idx==6 and .558<v<.594)):
+    continue
+   grainY=2.3*math.sin(i*.51+j*2.1)
+   def at(p,side,d,h):
+    outward=unit(sub(p['right'],p['left']))
+    return add(offset_edge(p,outward,d,side),(0,h+grainY,0))
+   quad('25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND',
+        at(P,'R',d0,h0),at(Q,'R',d0,h0),
+        at(Q,'R',d1,h1),at(P,'R',d1,h1),mat,False)
+  # Actual rock abutments, far apart enough to read at high speed.
+  if i%16==5:
+   root=offset_edge(P,S,84,'R')
+   beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
+        add(root,(0,-32,0)),add(root,(0,36,0)),3.1,'deepstone')
+   beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
+        add(root,(0,36,0)),
+        add(offset_edge(P,S,112,'R'),(0,49,0)),1.7,'darksteel')
+
+# A genuinely connected city-scale working hydroelectric / shipyard scene.
+# The buildings are a single power campus, with service/structural links
+# descending to the tidal water. No fake overhead safe lane, no B51 changes.
+for idx,u in ((5,.915),(6,.60)):
+ P,F,S=frame(idx,u)
+ station=add(offset_edge(P,S,71,'R'),(0,-10,0))
+ box('27_R7B_QUARRY_EMBEDDED_TIDAL_POWER_HALL',
+     add(station,(0,11,0)),36,115,35,'basalt',F,S)
+ # Continuous structural facade at the racing edge; glass openings break
+ # the silhouette while machinery shafts provide a functional visual story.
+ for i in range(12):
+  alongF=(i-5.5)*9
+  wall=add(station,add(mul(F,alongF),mul(S,-19)))
+  box('28_R7B_TURBINE_HALL_CLERESTORY',
+      add(wall,(0,16,0)),1.7,6.5,12,'window',F,S)
+  if i%3==0:
+   beam('29_R7B_INTEGRAL_GANTRY_FRAME_AND_ROOF',
+        add(wall,(0,-14,0)),add(wall,(0,34,0)),2.1,'concrete')
+ # asymmetric saw-tooth clerestory remains on the building itself,
+ # rather than repeating free-standing glowing road portals.
+ for i in range(5):
+  foff=(i-2)*21
+  a=add(station,add(mul(F,foff),add(mul(S,13),(0,29,0))))
+  b=add(a,add(mul(F,13),(0,11,0)))
+  beam('29_R7B_INTEGRAL_GANTRY_FRAME_AND_ROOF',a,b,1.6,'steel')
+  box('29_R7B_INTEGRAL_GANTRY_FRAME_AND_ROOF',
+      add(a,(0,8,0)),24,18,2,'oxidized' if i%2==0 else 'roof',F,S)
+ # one descended cargo/sluice line physically connected to the source world
+ for i in (-40,0,40):
+  ground=add(station,mul(F,i))
+  root=add(ground,(0,-13,0))
+  foot=add(root,add(mul(S,49),(0,-81,0)))
+  beam('30_R7B_DOWN_TO_WATER_LOAD_SPINE',root,foot,4,'concrete')
+  beam('30_R7B_DOWN_TO_WATER_LOAD_SPINE',
+       add(root,(0,17,0)),add(foot,(0,11,0)),1.7,'copper')
+ # working outboard quay at road height below the cut; does not
+ # masquerade as B48 driveable pavement.
+ pier=add(offset_edge(P,S,95,'R'),(0,-55,0))
+ box('31_R7B_OPERATING_QUAY_AND_SHIPYARD',pier,56,103,9,
+     'concrete',F,S)
+ for i in (-43,-20,12,37):
+  foot=add(pier,mul(F,i))
+  beam('31_R7B_OPERATING_QUAY_AND_SHIPYARD',
+       add(foot,(0,-5,0)),add(foot,(0,-38,0)),3.4,'darksteel')
+ crane=add(pier,add(mul(F,37),mul(S,16)))
+ beam('32_R7B_LANDMARK_SHIPYARD_CRANE',
+      crane,add(crane,(0,66,0)),2.7,'steel')
+ beam('32_R7B_LANDMARK_SHIPYARD_CRANE',
+      add(crane,(0,65,0)),
+      add(crane,add(mul(S,-68),(0,59,0))),1.7,'copper')
+ beam('32_R7B_LANDMARK_SHIPYARD_CRANE',
+      add(crane,add(mul(S,-56),(0,59,0))),
+      add(crane,add(mul(S,-56),(0,18,0))),.7,'darksteel')
+
+P,F,S=frame(6,.72)
+tower=add(offset_edge(P,S,91,'R'),(0,12,0))
+box('33_R7B_SINGLE_HEADLAND_CONTROL_TOWER',
+    tower,29,46,79,'deepstone',F,S)
+for h in (28,49,67):
+ box('33_R7B_SINGLE_HEADLAND_CONTROL_TOWER',
+     add(tower,(0,h,0)),34,39,8,
+     'window' if h==67 else 'oxidized',F,S)
+for i in (-18,18):
+ base=add(tower,mul(F,i))
+ beam('33_R7B_SINGLE_HEADLAND_CONTROL_TOWER',
+      add(base,(0,-49,0)),add(base,(0,74,0)),2.7,'concrete')
+
 # Editability: separate mesh objects by functional zones, real Blender materials.
 materials={}
 for key,color in COLORS.items():
