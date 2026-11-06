@@ -1,0 +1,105 @@
+{
+  "schema": "dopagaki-k4ct-r15-real-chase-art-reject-v1",
+  "asOf": "2026-11-06 JST",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "baseline": {
+    "head": "e43b90b118f050f654eeb4c129a9e814d6e96575",
+    "dccBlobGitSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "greenCI": 42230306036
+  },
+  "candidate": {
+    "moduleCommit": "f6b06f79a2a8e2ad2f39868763d9fb14ebc0e7fa",
+    "module": "scripts/p101-k4ct-r15-integrated-tidal-exchange-artist.py",
+    "dccCommit": "8aaeb9cd0e3a4eba957d515b8e3fa801dd65d86e",
+    "dccBlobGitSHA1": "0fe4bddc574c2392eba2eb4fa62e5bb2eaf6525a",
+    "type": "R14 nonadopted negative-space research substrate plus genuinely new Blender authoring of groups 03,04,05,19,20,27,28,29,30,31,32,33",
+    "techRun": 42235945412,
+    "techConclusion": "success",
+    "artifact": 13511347900,
+    "artifactSHA256": "650d9d8b38ca319c9ad1e9dd78307373fea8e3dcd7440da7edb6bb44755e53ce",
+    "artifactFileCount": 45,
+    "archiveCRC": "PASS",
+    "artifactExpiryUTC": "2026-11-13T14:50:38Z",
+    "blenderVersion": "4.0.2",
+    "editableGroups": 43,
+    "triangles": 25498,
+    "originalChromiumWebGL2": true,
+    "original240Hz": true,
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "additionalColliders": 0,
+    "actualRetryRunFailureKeyDThenFinish": true,
+    "realFinishTimeSec": 69.94166666668522,
+    "actualNativeB51_14Contacts": 0,
+    "sourceGameGitBlobSHA1": "af076d67492a677d2235e4730aef8cdf4808e106"
+  },
+  "sourceChaseEvidence": {
+    "timesSec": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "ROI": [
+      0,
+      80,
+      1005,
+      705
+    ],
+    "changedRGBgt25PctAgainstRestoredR12A": [
+      20.554,
+      13.72,
+      15.953
+    ],
+    "notArtScore": true,
+    "sourceGroup27LeaveOneOutInfluencePct": [
+      0.612,
+      0,
+      0.678
+    ],
+    "sourceGroup19InfluencePct": [
+      4.583,
+      3.908,
+      0
+    ],
+    "sourceGroup03InfluencePct": [
+      1.205,
+      0.514,
+      7.056
+    ],
+    "reproducibilityAfterGroupRestorePct": 0,
+    "notTrueVisibleSurfaceArea": true,
+    "critique": "Genuine edited geometry opens water and sky, but creates dark triangular quarry blocks and a broad shallow cyan sea. The single huge tidal exchange fails to become a readable centerpiece in any original CHASE frame. Group27 is nearly absent (zero at 66.35s) in native pixel attribution. HUD and human fairness remain unproven."
+  },
+  "verdict": {
+    "TECH": "PASS_CI_ONLY",
+    "ART": "REJECT",
+    "formalARTAdopted": 0,
+    "formalSlope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "fullPBR": "NOT_PROVEN"
+  },
+  "restoration": {
+    "decision": "RETURN_AUTHOR_ONLY_TO_R12A",
+    "expectedDccBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "keepCandidateInGitHistory": true,
+    "leaveR15ModuleUnreferencedResearchOnly": true,
+    "restoreCommit": "PENDING",
+    "reasonSkipExpensiveDuplicate126GroupCI": "Exact original DCC Git blob parity to previously green run #42230306036, with no modified original source/QA; do not claim fresh run if skipped"
+  },
+  "nextCoreWork": "A real source-camera screen-space anchored hero location study BEFORE another heavyweight Blender authored scene; place a SINGLE hydraulically coherent tidal architecture that is visible at the true Road5->Road6 chase and does not distract from red B51/hazards. Avoid both repetitive terrace and invisible expensive structure.",
+  "protection": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "Open/Draft/unmerged",
+    "originalGameRoad5Camera240HzB51": true,
+    "paidApi": 0,
+    "workComputerUse": false,
+    "manualUserSteps": 0
+  }
+}
