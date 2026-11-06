@@ -4,6 +4,11 @@
 **これは継続開発であり新規企画・正式採用・方針撤回ではない。**
 **最新のR6実測否定結果を反映した「次に進む」判断は本書のR6追補および第6〜8章の固定安全条件の併読による。** 本書に記載したGitHub HEADとCIは作成時点の値。次回は生のGitHub HEADを必ず再取得する。古い正本内の「現最新」「次工程」は歴史的な記述として扱い、当時の正しい事実・安全条件は撤回しない。
 
+## K4CT R8B：旧K4CS非衝突ゲートの出所確定・元CHASE清掃（ART HOLD）
+- 最新の真正実行HEAD `421d5ebb326f12bcf05d07168fd50f5c90cf0202`、[CI #42158287850](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42158287850) **SUCCESS**。真正Blender 4.0.2／38機能群／31,226三角形、元WebGL2/Camera/240Hz、B48×7/B51×28、新Collider0、元UI落下リトライ→KeyDで69.941667秒finished再現。HUMANではない。
+- 3時点×BASE/K4CS/CLEANの本物のRAW比較で黄・シアンの大きな柱は**非衝突旧K4CS `k4csMarkerMesh`**由来だと直接確定。旧柱のみ研究用で表示しない候補にすると65.25秒の変更1.61%、66.35秒7.57%、68.05秒0.07%。旧B51本体/現物危険と予告HUDは残る。消えた柱による実人間危険先読みの公平性は未検証。
+- [R8B恒久機械監査](../research-evidence/k4ct/K4CT_R8B_K4CS_SOURCE_TRUE_CHASE_GATE_CLEANUP_ART_HOLD_20261106.json)／[Actions Artifact #13475981155](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42158287850/artifacts/13475981155) ZIP SHA256 `f3df8d1c10c064be867a977f36b9d718b9fe118e1faae6a1b508a33aa977c19e`・CRC PASS。**TECH PASS／ART REJECT**。次は新しい模型量産でなく、清掃後の真正視界で見える地形・港をDCCで彫刻的に再構成する。公式ART採用0、Slope2 DNA 0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
 ## K4CT R6 新しい真正結論（R5以前の固定方針は不変）
 - 真正修正後CI [#42122293541](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42122293541) completed/SUCCESS、実行HEAD `114805aa8a73e6fc707589df0148ba53a2a37bbf`。初回[#42121628304](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42121628304)はFAIL履歴維持。真正Blender4.0.2、25編集可能機能群／27,254面、元WebGL2・元Camera・元240Hz・Road5/B51原本保護・追加Collider0。元KeyD×2で69.941667s finished、元UIリトライ0m状態差から再完走。人間ではない。
 - 実RAW9枚の元CHASE3時点・描画条件A/B：**LEGACY対NO_A13は各0画素、NO_A13対R6は38/54/70画素のみ**。巨大黄/シアンのレイヤー主犯確定に失敗。主因不明のまま旧建築追加を正当化せず、認識可能な港湾絵・視線・危険を先に解決。**ART REJECT、正式ART採用0件／Slope2 DNA 0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD**。

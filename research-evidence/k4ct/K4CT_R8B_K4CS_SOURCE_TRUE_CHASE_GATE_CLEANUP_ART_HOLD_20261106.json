@@ -1,0 +1,111 @@
+{
+  "schema": "dopagaki-k4ct-r8b-k4cs-render-provenance-native-game-art-hold-v1",
+  "dateJST": "2026-11-06",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "actualImplementationHead": "421d5ebb326f12bcf05d07168fd50f5c90cf0202",
+  "priorR8Attribution": {
+    "codeHead": "55c8a2e7b1d7acfbc0906076b126bc58eec7309e",
+    "runId": 42157308787,
+    "artifactId": 13474743278,
+    "status": "SUCCESS",
+    "finding": "AMBER_CYAN_OBSTRUCTING_COLUMNS_ARE_OTHER_GPU_DRAW_GROUP_NOT_B48_ROAD_B51_COLLISION_BODY_OR_BLENDER_DCC"
+  },
+  "r8b": {
+    "runId": 42158287850,
+    "status": "SUCCESS",
+    "artifactId": 13475981155,
+    "artifactSha256": "f3df8d1c10c064be867a977f36b9d718b9fe118e1faae6a1b508a33aa977c19e",
+    "zipCRC": "PASS",
+    "sourceGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "sourceResearchRoad5Sha256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "realBlenderVersion": "4.0.2",
+    "editableBlenderObjects": 38,
+    "authoredDccTriangles": 31226,
+    "actualWebGL2": true,
+    "sourceCamera": true,
+    "actualRunner240Hz": true,
+    "sourceB48": 7,
+    "sourceMovingB51": 28,
+    "newColliders": 0,
+    "sourceKeyboardKeyD": true,
+    "actualNeutralFailSeconds": 69.4833333333523,
+    "sourceRetryControl": "retryRun",
+    "actualRetryFinishedSeconds": 69.94166666668522,
+    "samePrechoicePositionDriftMeters": 0,
+    "realB51_13MinSeparationMeters": 3.8516884950110035,
+    "realB51_14MinSeparationMeters": 3.148671054349772,
+    "realB51Contact14": 0
+  },
+  "cause": {
+    "specificMesh": "k4csMarkerMesh",
+    "generator": "buildK4CSOutsideB48Beacons",
+    "source": "scripts/p101-k4cs-true-b48-ahead-b51-readable-cues.mjs",
+    "originalNature": "NONCOLLIDING_EARLY_WARNING_PENNANTS",
+    "identifiedBy": "same-tick shader tag of exact mesh K4CS plus draw-only suppression A/B; yellow cyan columns turn magenta and disappear from original camera",
+    "condition": "K4CT_PRIVATE_ONLY",
+    "colliderRemoved": false,
+    "warningDistancePredictionUnchanged": true,
+    "realB51VisibilityRetained": true,
+    "BlenderTwoStationBeaconsRetained": true,
+    "formalWarningFairnessCertified": false
+  },
+  "measurement": {
+    "method": "pixel max absolute RGB channel difference >25, crop game view [0:705,0:1100], screenshots 1365x930 at paused native simulation tick",
+    "perTime": [
+      {
+        "sec": 65.25,
+        "tick": 15660,
+        "changedPixelsOnClean": 12485,
+        "changedPercentOfGameCrop": 1.61,
+        "oldYellowPixelsAffected": 6846,
+        "oldCyanPixelsAffected": 4889
+      },
+      {
+        "sec": 66.35,
+        "tick": 15924,
+        "changedPixelsOnClean": 58675,
+        "changedPercentOfGameCrop": 7.57,
+        "oldYellowPixelsAffected": 3941,
+        "oldCyanPixelsAffected": 2398
+      },
+      {
+        "sec": 68.05,
+        "tick": 16332,
+        "changedPixelsOnClean": 565,
+        "changedPercentOfGameCrop": 0.07,
+        "oldYellowPixelsAffected": 0,
+        "oldCyanPixelsAffected": 0
+      }
+    ]
+  },
+  "art": {
+    "status": "REJECT",
+    "assessment": "Large cyan/amber noncolliding gate obstruction removed in early chase; harbor structures and road more readable; however source terrain remains low-detail planar quarry, port feels schematic, UI Japanese CJK glyphs and controls are still visually poor; human anticipation of B51 without gate pylons is untested.",
+    "notFormalAdoption": true
+  },
+  "formal": {
+    "ART_ADOPTED": 0,
+    "SLOPE2_DNA_M": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "next": "DCC-FIRST: reshape visible 65-68s quarry/port geometry and verify after no-gate change. Keep B51 body/collision/HUD; not allowed to turn visual simplification into human fairness PASS.",
+  "originalsPreserved": [
+    "main",
+    "official P101",
+    "Draft PR #46",
+    "Game",
+    "Road5",
+    "Camera",
+    "240Hz",
+    "Gold",
+    "Freeze",
+    "Slope",
+    "official QA",
+    "production"
+  ]
+}

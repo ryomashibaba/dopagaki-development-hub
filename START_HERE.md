@@ -2,6 +2,11 @@
 
 **最新の唯一の引き継ぎ・批判的計画正本**：[K4CT R5後・全体方針再評価と次チャット実制作計画](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R5_20261106_JA.md) をまず全文読む。**過去の全戦略とR2〜R5は[旧完全統合正本](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R2_20261105_JA.md)とその上位方針に継承**。過去の全記録は[旧START_HEREの原文アーカイブ](docs/archive/START_HERE_SNAPSHOT_K4CT_R2_20261105.md)に**省略・上書きなし**で保存。これは歴史や固定方針の撤回ではなく索引の短縮である。
 
+## K4CT R8B：旧K4CS非衝突ゲートの出所確定・元CHASE清掃（ART HOLD）
+- 最新の真正実行HEAD `421d5ebb326f12bcf05d07168fd50f5c90cf0202`、[CI #42158287850](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42158287850) **SUCCESS**。真正Blender 4.0.2／38機能群／31,226三角形、元WebGL2/Camera/240Hz、B48×7/B51×28、新Collider0、元UI落下リトライ→KeyDで69.941667秒finished再現。HUMANではない。
+- 3時点×BASE/K4CS/CLEANの本物のRAW比較で黄・シアンの大きな柱は**非衝突旧K4CS `k4csMarkerMesh`**由来だと直接確定。旧柱のみ研究用で表示しない候補にすると65.25秒の変更1.61%、66.35秒7.57%、68.05秒0.07%。旧B51本体/現物危険と予告HUDは残る。消えた柱による実人間危険先読みの公平性は未検証。
+- [R8B恒久機械監査](research-evidence/k4ct/K4CT_R8B_K4CS_SOURCE_TRUE_CHASE_GATE_CLEANUP_ART_HOLD_20261106.json)／[Actions Artifact #13475981155](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42158287850/artifacts/13475981155) ZIP SHA256 `f3df8d1c10c064be867a977f36b9d718b9fe118e1faae6a1b508a33aa977c19e`・CRC PASS。**TECH PASS／ART REJECT**。次は新しい模型量産でなく、清掃後の真正視界で見える地形・港をDCCで彫刻的に再構成する。公式ART採用0、Slope2 DNA 0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。
+
 ## K4CT R6：真正DCC＋元ゲーム一体実走行成功／元CHASE ART REJECT（2026-11-06）
 - [R6統合実証 #42122293541](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42122293541) **completed/SUCCESS**、作者・修正実装HEAD `114805aa8a73e6fc707589df0148ba53a2a37bbf`。最初の [#42121628304](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42121628304) はB51描画アンカーが一意でない安全停止により**FAILのまま保持**。元描画ループを一切触れず修復。
 - Blender4.0.2／25可編集機能群／27,254三角形、隔離PRIVATE元WebGL2／元Camera／240Hz／B48×7／B51×28、新Collider0。実Keyboard KeyD2操作で69.941667秒`finished`、無操作69.483333秒落下→元UI`retryRun`→出発位置差0mで完走再現。HUMANではない。
