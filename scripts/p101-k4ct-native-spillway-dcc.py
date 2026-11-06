@@ -157,44 +157,49 @@ for index in (5,6):
    quad('00_PHYSICAL_ROAD_CONFORMAL_VISIBLE_SKIN',
         skin(p,t0),skin(q,t0),skin(q,t1),skin(p,t1),material,False)
 
-# B) Real carved rock rather than repeating planes. Longitudinally coherent
-# strata, differing ledges, erosion cuts, and a robust skyline; keep all solid
-# visual cliff terrain safely OUTBOARD of the native race envelope.
+# R8H COASTAL GEOLOGY: the physical LEFT bank is a single actual cut cliff,
+# not the former high-frequency stack of grey triangular strips. Site-wide
+# strata are continuous at 144 road source samples; the roadway, true
+# B48/B51 collider/CCD/Camera never changes.
 for index in (5,6):
  samples=[sample(index,k/144) for k in range(145)]
  for k in range(144):
   u=(k+.5)/144
   aa=samples[k];bb=samples[k+1]
   _,fw,lat=frame(index,u)
-  levels=[(29,-8),(42,-12),(61,-4),(84,14),(119,37),(158,53),(202,66)]
+  # Cut faces alternate between nearly horizontal geology ledges and
+  # nearly vertical eroded exposed rock; this is real relief, not texture.
+  levels=[(29,-10),(40,-13),(54,-14),(64,-4),(82,-4),
+          (96,10),(116,10),(147,29),(172,30),(203,49)]
   def section(p,key):
    side=unit(sub(p['right'],p['left']))
+   broad=1.9*math.sin((key/144)*17+index*.7)
+   deep=1.6*math.sin((key/144)*39-index*.4)
    return [add(offset_edge(p,side,dist,'L'),
-     (0,h+grain(key,j)*(.5+4.4*j/6),0))
-     for j,(dist,h) in enumerate(levels)]
+      (0,h+broad*(.35+.10*j)+deep*(.17+.05*j),0))
+      for j,(dist,h) in enumerate(levels)]
   A=section(aa,k);B=section(bb,k+1)
-  # R8D: source CAMERA screen-right = physical LEFT bank. Create an
-  # actual open quarry sky aperture (no fake dark polygon, no new road),
-  # instead of adding R8C's rejected broad grey corrugated shell.
+  # An actual broad mining aperture at exact true CHASE positions. No
+  # screen-facing black patch; the missing upper faces expose real sky.
   quarryVoid=(index==5 and .816<u<.940) or (index==6 and .415<u<.645)
+  cols=('deepstone','basalt','shale','strata','shale','dunestone',
+        'limestone','chalk','moss')
   for layer in range(len(levels)-1):
-   if quarryVoid and layer>=2:continue
-   if layer>=3 and ((.18<u<.26) or (.62<u<.705)) and index==5:
-    continue
-   if layer>=4 and (.20<u<.33) and index==6:continue
-   if layer>=5 and (k%17<=1):continue
-   # The lower foundation lip is exposed rock, not pitch-black fake cave.
-   material=('basalt' if layer==0 else 'shale') if quarryVoid else (
-     'deepstone','basalt','shale','strata','chalk','moss')[layer]
+   if quarryVoid and layer>=4:continue
+   if layer>=7 and index==5 and .19<u<.30:continue
+   if layer>=7 and index==6 and .19<u<.34:continue
+   if layer>=8 and k%31<=1:continue
+   material=('basalt' if layer<=1 else 'shale') if quarryVoid else cols[layer]
    quad('01_CARVED_BASALT_AND_LAYERED_RIFT',
        A[layer],B[layer],B[layer+1],A[layer+1],material)
-  # High irregular eroded buttress against the cliff, not a flat shell.
-  if k%15==0 and not quarryVoid:
-   anchor=A[4];highest=add(anchor,(0,23+5*math.sin(k),0))
-   beam('02_EARTH_ANCHORED_STONE_RIBS',anchor,highest,4.3,'basalt')
-   beam('02_EARTH_ANCHORED_STONE_RIBS',highest,
-        add(anchor,add(mul(lat,-25),(0,-4,0))),2.0,'shale')
-
+  # Exactly two rock-propped geological breaks per bank, not 10-12
+  # artificial poles. Dark weathered seams remain visually subordinate.
+  if k in (34,102) and not quarryVoid:
+   anchor=A[6]
+   peak=add(anchor,(0,20,0))
+   beam('02_EARTH_ANCHORED_STONE_RIBS',anchor,peak,5.1,'basalt')
+   beam('02_EARTH_ANCHORED_STONE_RIBS',peak,
+        add(anchor,add(mul(lat,-29),(0,-9,0))),1.9,'shale')
 
 # R8D ONE integrated ore route, supported by two real-road-adjacent rock
 # abutments, consistently >=48m OUTBOARD of left B48. Not across a lane:
@@ -445,30 +450,40 @@ for index,begin,end,waterY in ((5,.60,.94,105.0),(6,.025,.36,93.0)):
        add(siteLeft,(0,waterY-p['right'][1]-25,0)),
        add(siteLeft,(0,waterY-p['right'][1]+2,0)),5.8,'basalt')
 
-# Angular upper stratified ridge deliberately frames the CHASE without
-# spanning the race lane. Discontinuous facets/readable geological erosion,
-# replacing the impression of a featureless, infinitely smooth bank.
+# R8H: original CHASE screen-right has an ACTUAL multi-tier eroded fault
+# with low water-damaged stone, a mid quarry landing, and one high ridge
+# interrupted by real void. The screen is not filled with fake dark occluders.
+# This entirely replaces the 4 planar R6 bands, without touching B48.
 for index,begin,end in ((5,.57,.93),(6,.04,.42)):
  for k in range(84):
   u0=begin+(end-begin)*k/84
   u1=begin+(end-begin)*(k+1)/84
-  def ridge(u,i):
+  def cliffCut(u):
    p,fw,lat=frame(index,u)
-   base=p['left']
-   rock=lambda d,h: add(offset_edge(p,lat,d,'L'),(0,h,0))
-   wobble=2.6*math.sin(i*.38)+1.4*math.cos(i*.93)
-   return [rock(31,-7+wobble*.5),rock(46,4+wobble),
-           rock(69,21+wobble*.8),rock(106,43+wobble*1.4)]
-  a=ridge(u0,k);b=ridge(u1,k+1)
-  # A single deep quarry notch opens a genuine view through the cliff mass.
+   soft=2.9*math.sin(u*19+index*1.7)+1.6*math.cos(u*37-index*.8)
+   bay=3.4*math.sin(u*8.5+index*.3)
+   def rock(d,h,weight):
+    return add(offset_edge(p,lat,d,'L'),(0,h+soft*weight+bay*(.2+.13*weight),0))
+   return [rock(31,-10,.2),rock(39,-12,.22),
+           rock(53,-11,.35),rock(61,2,.45),
+           rock(77,5,.55),rock(86,21,.65),
+           rock(104,23,.70),rock(123,39,.90),
+           rock(145,43,1.0)]
+  a=cliffCut(u0);b=cliffCut(u1)
+  # SOURCE physical Road5/Road6 outward geology stays >=31m beyond left
+  # B48. No faux driving landings or collision surfaces exist.
   openCut=index==5 and .735<(u0+u1)*.5<.805
-  for layer,material in enumerate(('deepstone','dunestone','shale')):
-   if openCut and layer>=1:continue
+  materials=('basalt','deepstone','shale','strata','dunestone',
+             'limestone','shale','chalk')
+  for layer,material in enumerate(materials):
+   if openCut and layer>=4:continue
    quad('21_R6_BROKEN_QUARRY_STRATA_SOURCE_CHASE',
         a[layer],b[layer],b[layer+1],a[layer+1],material,False)
-  if k%16==2 and not openCut:
+  # One believable dark natural seam in each ~quarter of the cut,
+  # instead of repeated angled poles along the entire road.
+  if k in (21,65) and not openCut:
    beam('22_R6_BASALT_EXPOSED_FAULT_SEAMS',
-        a[1],add(a[2],(0,7,0)),1.4,'strata')
+        a[3],add(a[5],(0,2,0)),1.8,'basalt')
 
 # One hydraulic reason for the place: the upper lock pools actually feed
 # the lower four-bay tidal structure authored in R5. A single sloping open
@@ -544,37 +559,46 @@ for station in site['stations']:
      'amber' if station['id'].endswith('-14') else 'copper',fw,lat)
 
 
-# R7B: true-CHASE camera-framed reauthoring of ONE tidal-power harbor campus.
-# Source trace: at 65.25 Road5 u=.82, 66.35 Road5 u=.969,
-# at 68.05 Road6 u=.430. All geometry sits outside real B48 widths.
-# This is authored editable geometry, never an alternate road / collision hull.
+# R8H TRUE-CHASE CONTINUOUS HARBOR HEADLAND: geometry shapes source
+# screen-left for all three observed input moments. A quarry is read
+# from its dark tidal foundation through stepped terraces and cut rock,
+# not from dozens of independent posts or big flat sawtooth polygons.
 for idx,u0,u1 in ((5,.81,.995),(6,.395,.79)):
  for i in range(64):
   v=u0+(u1-u0)*i/64
   nextV=u0+(u1-u0)*(i+1)/64
   P,F,S=frame(idx,v);Q,F1,S1=frame(idx,nextV)
-  # A stepped geologically connected quarry / tidal cut. Interrupted upper
-  # shelves create real skyline voids rather than a long flat wall.
-  for j,(d0,d1,h0,h1,mat) in enumerate((
-     (26,37,-13,-9,'basalt'),(37,58,-9,1,'shale'),
-     (58,86,1,17,'strata'),(86,125,17,45,'chalk'))):
-   if j>=2 and ((idx==5 and .887<v<.923) or (idx==6 and .558<v<.594)):
-    continue
-   grainY=2.3*math.sin(i*.51+j*2.1)
-   def at(p,side,d,h):
-    outward=unit(sub(p['right'],p['left']))
-    return add(offset_edge(p,outward,d,side),(0,h+grainY,0))
+  # One coherent, broadly eroded headland. Rock is visibly step-cut,
+  # without repeated narrow sawtooth strips and clipped fake portals.
+  # Distances start 29m OUTBOARD of true B48 right edge.
+  shape=((29,-17),(41,-19),(54,-6),(65,-6),
+         (73,10),(96,12),(104,29),(138,32),(153,44))
+  def headland(p,u):
+   outward=unit(sub(p['right'],p['left']))
+   longWave=2.6*math.sin(u*16.0+idx*.8)
+   breakline=2.0*math.sin(u*45.0+idx*.3)
+   return [add(offset_edge(p,outward,d,'R'),
+           (0,h+longWave*(.35+j*.09)+breakline*(.18+j*.055),0))
+           for j,(d,h) in enumerate(shape)]
+  a=headland(P,v);b=headland(Q,nextV)
+  # The seaward upper quarry is opened only where machinery crosses
+  # the cliff: the lower foundation stays continuous and plausible.
+  cut=(idx==5 and .874<v<.938) or (idx==6 and .555<v<.608)
+  rockMats=('deepstone','basalt','shale','dunestone',
+            'shale','limestone','strata','chalk')
+  for j,mat in enumerate(rockMats):
+   if cut and j>=5:continue
    quad('25_R7B_OPEN_QUARRY_CUT_AND_STRATIFIED_HEADLAND',
-        at(P,'R',d0,h0),at(Q,'R',d0,h0),
-        at(Q,'R',d1,h1),at(P,'R',d1,h1),mat,False)
-  # Actual rock abutments, far apart enough to read at high speed.
-  if i%16==5:
-   root=offset_edge(P,S,84,'R')
+        a[j],b[j],b[j+1],a[j+1],mat,False)
+  # Only TWO true rock abutments per side, making the facility's physical
+  # load paths legible without false B51 road-spanning structures.
+  if i in (17,49) and not cut:
+   foot=offset_edge(P,S,97,'R')
    beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
-        add(root,(0,-32,0)),add(root,(0,36,0)),3.1,'deepstone')
+        add(foot,(0,-26,0)),add(foot,(0,32,0)),4.7,'basalt')
    beam('26_R7B_ANCHORED_CLIFF_LOAD_BEARING_RIBS',
-        add(root,(0,36,0)),
-        add(offset_edge(P,S,112,'R'),(0,49,0)),1.7,'darksteel')
+        add(foot,(0,32,0)),
+        add(offset_edge(P,S,130,'R'),(0,38,0)),1.9,'deepstone')
 
 # R8F: ONE actual open-air tidal turbine campus, not the previous duplicated
 # 115m opaque basalt crates in the chase view. Each bay has an uninterrupted
