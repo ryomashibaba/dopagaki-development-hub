@@ -32,22 +32,22 @@ def unit(v):
 def cross(a,b):return (a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0])
 Y=(0,1,0)
 COLORS={
- # Slope is a functioning saltwater tidal harbor rather than a neon-sci-fi
- # testbed: copper warmth only on load-bearing mechanics; water stays cold.
- 'basalt':(.245,.275,.292), 'shale':(.325,.355,.365),
- 'chalk':(.67,.65,.58), 'limestone':(.72,.69,.61),
- 'copper':(.63,.405,.235), 'oxidized':(.235,.445,.425),
- 'darksteel':(.205,.265,.285), 'steel':(.47,.535,.555),
+ # R8I coastal daylight. REAL source obstacle and HUD color is untouched;
+ # the road bands retain their exact prior base RGB values.
+ 'basalt':(.23,.285,.315), 'shale':(.32,.375,.402),
+ 'chalk':(.575,.583,.555), 'limestone':(.655,.650,.595),
+ 'copper':(.70,.445,.265), 'oxidized':(.255,.465,.455),
+ 'darksteel':(.19,.275,.307), 'steel':(.47,.53,.56),
  'amber':(.95,.62,.26), 'signal':(.88,.30,.19),
- 'glass':(.325,.535,.595), 'lights':(.85,.81,.59),
- 'tide':(.095,.245,.29), 'shallows':(.14,.345,.38), 'foam':(.36,.60,.60),
- 'moss':(.285,.375,.325), 'slate':(.39,.425,.43),
- 'roof':(.48,.51,.505), 'asphalt':(.20,.26,.27),
- 'roadmark':(.42,.62,.60), 'roadedge':(.86,.59,.28),
- 'concrete':(.57,.565,.51), 'strata':(.44,.45,.425),
- 'dunestone':(.575,.52,.44), 'window':(.43,.66,.70),
- 'turbine':(.36,.43,.45), 'deepstone':(.19,.235,.26),
- 'saltstone':(.625,.635,.595), 'weathered_iron':(.365,.43,.445)
+ 'glass':(.36,.615,.665), 'lights':(.85,.81,.59),
+ 'tide':(.105,.335,.40), 'shallows':(.14,.425,.478), 'foam':(.43,.66,.68),
+ 'moss':(.265,.382,.34), 'slate':(.34,.41,.44),
+ 'roof':(.375,.46,.50),
+ 'asphalt':(.20,.26,.27), 'roadmark':(.42,.62,.60), 'roadedge':(.86,.59,.28),
+ 'concrete':(.54,.565,.54), 'strata':(.39,.455,.47),
+ 'dunestone':(.49,.50,.465), 'window':(.47,.66,.71),
+ 'turbine':(.325,.425,.48), 'deepstone':(.155,.225,.272),
+ 'saltstone':(.59,.62,.60), 'weathered_iron':(.29,.415,.45)
 }
 GROUPS=defaultdict(list)
 def tri(group,a,b,c,mat):
@@ -815,36 +815,38 @@ assert sum(counts.values())>2500,counts
 assert all(len(f)>0 for f in GROUPS.values())
 
 # The production data is exported BY this Blender authoring process itself.
+# R8I: sun-facing vs shadow and tidal weatherline are authored by REAL
+# Blender into the exact noncolliding source-game 3D mesh, not a PNG filter.
 flat=[]
-sun_unit=unit((.42,.78,-.40))
+sun_unit=unit((.56,.76,-.34))
 stoneMats=frozenset(('basalt','shale','chalk','limestone','strata','dunestone',
                      'deepstone','moss','saltstone'))
 metalMats=frozenset(('steel','darksteel','weathered_iron','copper','oxidized',
                      'roof','slate','turbine'))
 seaMats=frozenset(('tide','shallows','foam'))
+roadMats=frozenset(('asphalt','roadmark','roadedge'))
 for group,faces in GROUPS.items():
  for a,b,c,mat in faces:
   normal=unit(cross(sub(b,a),sub(c,a)))
   direct=max(0.0,sum(normal[i]*sun_unit[i] for i in range(3)))
-  ambient=.67+.30*direct
-  if mat in ('roadmark','roadedge','asphalt'):ambient=max(.78,ambient)
-  if mat in metalMats:ambient=max(.72,ambient)
-  if mat in seaMats:ambient=max(.80,ambient)
-  # World-space material grain is baked by genuine Blender itself, using
-  # the same vertices for the DCC and the original PRIVATE WebGL2 game.
-  # Continuous across shared positions, not random polygon noise. Collision
-  # surfaces, B51 warning colors and ROAD visual bands stay exactly intact.
+  # Keep the previous road material base AND light formula unchanged.
+  ambient=max(.78,.67+.30*direct) if mat in roadMats else .59+.37*direct
+  if mat in metalMats:ambient=max(.70,ambient)
+  if mat in seaMats:ambient=max(.79,ambient)
+  tint=(1.00+direct*.075,.998,.99-.035*direct)
+  if mat in roadMats:tint=(1.,1.,1.)
   for p in (a,b,c):
    grain=1.0
    if mat in stoneMats:
-    grain+=.037*math.sin(.17*p[0]+.063*p[2]+.31*p[1])
-    grain+=.025*math.cos(.072*p[0]-.15*p[2]+.16*p[1])
-    if p[1]<tideY+22:grain*=.93  # grounded saltwater wetline
+    grain+=.028*math.sin(.14*p[0]+.065*p[2]+.22*p[1])
+    grain+=.017*math.cos(.065*p[0]-.12*p[2]+.10*p[1])
+    if p[1]<tideY+22:grain*=.885
    elif mat in metalMats:
-    grain+=.027*math.sin(.07*p[0]+.32*p[1]+.21*p[2])
+    grain+=.021*math.sin(.09*p[0]+.20*p[1]+.15*p[2])
    elif mat in seaMats:
     grain+=.018*math.cos(.09*p[0]-.11*p[2])
-   color=tuple(min(1.0,max(0.0,ch*ambient*grain)) for ch in COLORS[mat])
+   color=tuple(min(1.0,max(0.0,ch*ambient*grain*tint[i]))
+               for i,ch in enumerate(COLORS[mat]))
    flat.extend((*p,*color))
 assert len(flat)==sum(counts.values())*18
 authored={'schema':'k4ct-blender-authored-true-source-integrated-scene/1',

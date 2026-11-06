@@ -155,6 +155,54 @@ replace("if(k4csMarkerMesh){draw(k4csMarkerMesh);}",
  " if(!hide)draw(k4csMarkerMesh);"+
  "}");
 
+
+// R8I source-safe RESEARCH-only sky; genuine WebGL2 framebuffer sky
+// behind ALL source objects, including the true 28 B51. No screenshots,
+// physics, camera, obstacle material, B51 cue or production source edits.
+// This modifies only dist-private/k4ct/drive3d.mjs (isolated copy).
+const k4ctSkyDeclarations=String.raw`
+let k4ctResearchSkyProgram=null;
+let k4ctResearchSkyBuffer=null;
+function k4ctDrawSourceSafeSky(){
+ if(!k4ctDccMesh||!k4ctResearchSkyProgram)return;
+ gl.disable(gl.DEPTH_TEST);
+ gl.useProgram(k4ctResearchSkyProgram);
+ gl.bindBuffer(gl.ARRAY_BUFFER,k4ctResearchSkyBuffer);
+ gl.enableVertexAttribArray(0);
+ gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+ gl.drawArrays(gl.TRIANGLES,0,3);
+ gl.enable(gl.DEPTH_TEST);
+ gl.useProgram(program);
+}
+`;
+const k4ctSkySetup=String.raw`
+const k4ctSkyVS=['#version 300 es','precision highp float;',
+ 'layout(location=0) in vec2 p;out float vSky;',
+ 'void main(){vSky=.5*(p.y+1.);gl_Position=vec4(p,1.0,1.0);}'].join('\\n');
+const k4ctSkyFS=['#version 300 es','precision highp float;',
+ 'in float vSky;out vec4 outColor;',
+ 'void main(){float h=smoothstep(.02,.95,vSky);',
+ 'vec3 low=vec3(.48,.565,.57),high=vec3(.12,.255,.36);',
+ 'vec3 c=mix(low,high,h);float glow=exp(-pow((vSky-.19)/.19,2.0));',
+ 'c=mix(c,vec3(.61,.51,.405),.12*glow);outColor=vec4(c,1.0);}'].join('\\n');
+k4ctResearchSkyProgram=gl.createProgram();
+gl.attachShader(k4ctResearchSkyProgram,shader(gl.VERTEX_SHADER,k4ctSkyVS));
+gl.attachShader(k4ctResearchSkyProgram,shader(gl.FRAGMENT_SHADER,k4ctSkyFS));
+gl.linkProgram(k4ctResearchSkyProgram);
+if(!gl.getProgramParameter(k4ctResearchSkyProgram,gl.LINK_STATUS))
+ throw Error('K4CT real research-only sky shader: '+gl.getProgramInfoLog(k4ctResearchSkyProgram));
+k4ctResearchSkyBuffer=gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER,k4ctResearchSkyBuffer);
+gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+canvas.dataset.k4ctResearchSky='R8I_REAL_WEBGL2_BACKGROUND_ONLY';
+`;
+replace('let k4ctDccMesh=null;',
+ 'let k4ctDccMesh=null;\\n'+k4ctSkyDeclarations);
+replace('gl.useProgram(program);\\n for(const name of [',
+ 'gl.useProgram(program);\\n'+k4ctSkySetup+'\\n for(const name of [');
+replace('gl.viewport(0,0,w,h);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);',
+ 'gl.viewport(0,0,w,h);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);k4ctDrawSourceSafeSky();');
+
 const moduleFile=path.join(target,'k4ct-dcc-world-geometry.mjs');
 // Isolated K4CT color mood; this does not mutate the original WebGL source.
 replace("gl.clearColor(.019,.041,.083,1);","gl.clearColor(.115,.168,.192,1);");
