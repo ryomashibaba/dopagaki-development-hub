@@ -1,6 +1,12 @@
-# DOPAGAKI SLOPE — HYPER RUSH / 現行研究・START HERE（2026-11-06 K4CT R8H真正ART判定後・研究地形復元）
+# DOPAGAKI SLOPE — HYPER RUSH / 現行研究・START HERE（2026-11-06 K4CT R8I真正ART判定後・研究素材/大気候補HOLD）
 
 **最新の唯一の引き継ぎ・批判的計画正本**：[K4CT R5後・全体方針再評価と次チャット実制作計画](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R5_20261106_JA.md) をまず全文読む。**過去の全戦略とR2〜R5は[旧完全統合正本](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_K4CT_R2_20261105_JA.md)とその上位方針に継承**。過去の全記録は[旧START_HEREの原文アーカイブ](docs/archive/START_HERE_SNAPSHOT_K4CT_R2_20261105.md)に**省略・上書きなし**で保存。これは歴史や固定方針の撤回ではなく索引の短縮である。
+
+## 最新：K4CT R8I 真正WebGL2の港湾昼光・Blender素材統一研究（TECH PASS／ART REJECT）
+- [実装 `a96f701d`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/a96f701d8f7e0ce6bfa536b10d24042ef790ce85)で元Gameの研究用隔離コピーに**本物のWebGL2空グラデーション**を描画。Blenderの43編集可DCC機能群・30,780三角形の素材色と太陽光/潮の湿りを著作。Camera・元B48×7/B51×28・240Hz・追加Collider0は不変。空の変更はPNG後加工ではなく実ゲームフレームの描画。画像上の空サンプル画素がRGB `29,43,49→35,69,94`に変化。
+- 初回[CI #42181533989](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42181533989)はGLSL改行エスケープ不備でPRIVATE WebGL2統合時に**FAIL**。隠さず履歴に残す。修正[コミット `baa1de19`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/baa1de195bd9fbd71e802f8e612d890c46f19ed6)後の[真正CI #42181666074](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42181666074)は**SUCCESS**。[Artifact #13485608187](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42181666074/artifacts/13485608187) ZIP SHA256 `1921b26e02726ad49a487680097ff46513907558c0ded6d57ed111f2c8033021`／27ファイルCRC全PASS。
+- 元CHASE RAWのR8I対R8E差分65.25/66.35/68.05秒で**26.422%／39.879%／34.014%**。*空と建材の広域色変化を示すだけでART得点ではない*。暗い空と海のコントラストには一定の改善が見えるが、採石港はなお単調・岩盤は平面的・骨組みが密集し、本物の人間の危険先読みは未測定。**TECH PASS／ART REJECT**、R8Eは比較基準として維持。元の無操作69.483333秒落下→`retryRun`→KeyD2回→69.941667秒完走、B51-13/14実接触0件。正式ART0件・Slope2 DNA0m・HUMAN/SAT/CCD/FPS/RELEASE/MERGE全HOLD。[詳細R8I監査JSON](research-evidence/k4ct/K4CT_R8I_REAL_WEBGL2_DAWN_MATERIAL_AND_SKY_CRITICAL_ART_HOLD_20261106.json)。
+- **次工程**：空や色を整えるだけで終えず、現物3Dの港湾主役造形と地形/水際の大規模な立体的連結を作り、同じ元CHASE RAWで真の美術品質を比較。Work・課金・原本/PR変更は引き続き許可なし。
 
 ## 最新：K4CT R8H 地形主役の真正再制作と批判的判定 — ART REJECT、地形だけ元に戻す
 - **R8Hの地形復元後も真正CI PASS**：[復元commit `c666b69f`](https://github.com/ryomashibaba/dopagaki-development-hub/commit/c666b69fd4c0dbaf6dc6059616aa52433c1c8e65)の[CI #42176852702](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42176852702) **SUCCESS**／[Artifact #13484155371](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42176852702/artifacts/13484155371)。復元したDCC Git blob `b0eb484c816dd1576ae6fb054ebf445ef4d013dc` は既往R8Gと一致。R8H実験は非採用で、技術試験成功を美術採用に読み替えない。

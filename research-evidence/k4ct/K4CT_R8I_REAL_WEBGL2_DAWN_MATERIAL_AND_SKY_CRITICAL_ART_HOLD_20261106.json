@@ -1,0 +1,166 @@
+{
+  "schema": "dopagaki-k4ct-r8i-real-chromium-native-material-and-atmosphere-art-audit-v1",
+  "date": "2026-11-06 JST",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "experimentalResearchHead": "baa1de195bd9fbd71e802f8e612d890c46f19ed6",
+  "implementationCommit": "a96f701d8f7e0ce6bfa536b10d24042ef790ce85",
+  "fixedInstallerCommit": "baa1de195bd9fbd71e802f8e612d890c46f19ed6",
+  "status": "TECH_PASS_ART_REJECT_RESEARCH_ONLY",
+  "baseline": "R8E source true chase screenshot; R8I not officially adopted",
+  "intendedChange": "ART direction shift from failed flat rock geometry and repeated roofs to real dusk/daylight balance in genuine editable Blender materials and a source-safe WebGL2 sky gradient. Does not claim terrain/structural art pass.",
+  "actualAuthoring": {
+    "sourceBlender": "scripts/p101-k4ct-native-spillway-dcc.py",
+    "version": "4.0.2",
+    "editableFunctionalMeshGroups": 43,
+    "nonCollidingTriangles": 30780,
+    "comparedR8GNonCollidingTriangles": 30780,
+    "newColliders": 0,
+    "edit": "Source-aligned Blender material palette, stone/mineral and tide wetline, directional sun/shadow vertex colors. Source asphalt/roadedge/roadmark triplets and their prior lighting formula preserved.",
+    "rendering": {
+      "source": "scripts/p101-k4ct-install-authored-dcc.mjs",
+      "scope": "research-only generated dist-private/k4ct/drive3d.mjs",
+      "implemented": "Authentic Chromium/WebGL2 full-screen triangular sky with gradient plus soft horizon glow in empty background; full depth-state and original mesh shader program restored before original game objects render",
+      "originalShader": "Preserved for source B51 and physics road/runner, aside from preexisting K4CT research-only scene-layer overrides",
+      "originalCameraAndOriginalPhysics": "Unchanged",
+      "skyPixelSample": {
+        "rawOriginalGameImage": "K4CT_R8B_T65_25_CLEAN_EXACT_SOURCE_RAW.png",
+        "pixelCoordinates": {
+          "x": 450,
+          "y": 120
+        },
+        "oldR8E": [
+          29,
+          43,
+          49
+        ],
+        "oldR8G": [
+          29,
+          43,
+          49
+        ],
+        "r8i": [
+          35,
+          69,
+          94
+        ],
+        "interpretation": "Only demonstrates a genuine drawn sky gradient, NOT an art quality score."
+      }
+    }
+  },
+  "validation": {
+    "initialFailedRun": {
+      "id": 42181533989,
+      "conclusion": "failure",
+      "step": "Install only genuine Blender-emitted scene in PRIVATE original WebGL2 game",
+      "cause": "Escaped-newline handling in newly introduced installer shader source",
+      "historyRetained": true
+    },
+    "fixedRun": {
+      "id": 42181666074,
+      "conclusion": "success",
+      "commit": "baa1de195bd9fbd71e802f8e612d890c46f19ed6",
+      "artifactId": 13485608187,
+      "archiveURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42181666074/artifacts/13485608187",
+      "zipSHA256": "1921b26e02726ad49a487680097ff46513907558c0ded6d57ed111f2c8033021",
+      "zipCRC": "PASS",
+      "zipEntries": 27,
+      "expiresAt": "2026-11-13T07:38:37Z"
+    },
+    "sourceIntegrity": {
+      "originalB48": 7,
+      "originalMovingB51": 28,
+      "originalSourceGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+      "physicalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+      "nativeRunnerHz": 240,
+      "sourceCamera": true,
+      "additionalColliders": 0
+    },
+    "trueNativeReplay": {
+      "realChromium": true,
+      "originalWebGL2": true,
+      "originalUIRetryRun": true,
+      "sameBrowser": true,
+      "neutralFallT": 69.4833333333523,
+      "neutralFailureReason": "コースから落下",
+      "sourceKeyDIntervalsSec": [
+        [
+          65.25,
+          65.36
+        ],
+        [
+          65.79,
+          65.91
+        ]
+      ],
+      "restartedPositionDifferenceMeters": 0,
+      "recoveredFinishT": 69.94166666668522,
+      "groundedRoad6Samples": 817,
+      "realB51_14Passed": true,
+      "realB51Contacts": 0,
+      "min13Meters": 3.8516884950110035,
+      "min14Meters": 3.148671054349772,
+      "humanPlay": false
+    }
+  },
+  "realSourceVisualAudit": {
+    "timesSec": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "ticks": [
+      15660,
+      15924,
+      16332
+    ],
+    "source": "Unedited genuine source WebGL2/Chase CLEAN RAW artifact PNGs, same native ticks and actual original B51. Prior research hiding ONLY noncolliding legacy K4CS decorative gates is retained.",
+    "imageViewport": "Crop x=0..1005, y=0..705 from 1365x930; pixels changed if any RGB channel absolute difference >25.",
+    "r8iVsR8EChangedPercent": [
+      26.422,
+      39.879,
+      34.014
+    ],
+    "r8iVsR8GChangedPercent": [
+      25.386,
+      38.944,
+      30.384
+    ],
+    "pixelsNotQuality": true,
+    "positive": [
+      "Single-tone gloomy dark sky replaced by genuine natural bluish gradient; clear silhouette separation and a tangible horizon relative to previous R8E/R8G",
+      "Source native HUD/B51 red obstacle still visible in unchanged real game frames",
+      "Marine material tones are more harmonized with daylight compared with previous mixed warm grays"
+    ],
+    "negative": [
+      "Still a schematic low-poly port: repeated scaffolding and narrow station components compete with hazards",
+      "Right-bank geology remains planar, and the chase course still has overwide flat artificial borders",
+      "Daylight removes some dark silhouette contrast, especially where pale banks meet light water; human speed readability untested",
+      "No physically based dynamic shadows, spray or meaningful land/water convergence has been demonstrated"
+    ],
+    "decision": "ART_REJECT",
+    "compareBaseline": "R8E remains conservative source camera reference, not replaced by the R8I study",
+    "disposition": "Keep research-only R8I hypothesis and comparison images in GitHub history; no formal promotion or source-production change."
+  },
+  "formal": {
+    "ART_ADOPTED": 0,
+    "SLOPE2_DNA_METERS": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "mainSHA": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101SHA": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": {
+      "state": "open",
+      "draft": true,
+      "merged": false
+    },
+    "additionalPaidAPI": 0,
+    "workOrComputerUse": false,
+    "manualUserSteps": 0
+  },
+  "next": "Move beyond ambient palette alone: design one large truly authored 3D harbor focal point and non-flat coastal forms whose source camera silhouettes improve at all 65.25, 66.35, 68.05 seconds. Keep physical source and hazards, capture RAW and have human cue fairness assessed before certification."
+}
