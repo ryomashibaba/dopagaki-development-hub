@@ -5,6 +5,16 @@
 > 最重要成果は「超高速で実際に面白く、美術的に完成度が高い、独創的な立体ブラウザゲーム」。工程数・CI成功数・巨大な低品質メッシュを成果に代えない。
 > **最新状態は必ず生のGitHub研究HEAD/Actionsで上書きする**。本文のHEADはこの正本を作った時点の出発点にすぎない。
 
+## R19元CHASE三幕の真正Blender結果・批判的ART不採用・選択的復元（2026-11-07 JST）
+
+- **継承・根拠**：固定最上位のQUALITY-FIRST／ART-FIRST／DCC-FIRST／INTEGRATED VERTICAL SLICEを維持。R18元WebGL2深度付き遮蔽反証により、群01/21/25を隠すだけでは主役27が1.64%以下の画素影響しかなく、巨大岩盤の加減を繰り返すのは非効率と確定。実際の65.25／66.35／68.05秒RAWを踏まえ、既存の取水装置34→制御塔12→本物の既存R8Jタービン41/42という3幕の主役と、元B51を絶対に隠さない構図を `research-evidence/k4ct/K4CT_R19_3ACT_TRUE_CHASE_COMPOSITION_CONTRACT_20261107.json` に事前固定。
+- **真正制作**：Blenderアーティスト `scripts/p101-k4ct-r19-source-three-act-open-harbor.py`（`21670b99`）を追加し、研究DCC作者 `scripts/p101-k4ct-native-spillway-dcc.py` へ研究専用接続（`7e7486a2`）。元01/21/25の岩盤反復・空間遮蔽と余分な27〜33の重複発電屋根・港湾施設を減算／低地・岸壁・機械につなぎ直した。元12/13・19・34・41/42・00道路、元7 B48/28 B51、原作Camera・ゲーム・物理・HUD・240Hz・Gold／Freeze／正式QAは不変。正式ART採用を意味しない。
+- **1回の短い本物検証**：新設専用 [#42304999606](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42304999606) は**TECH SUCCESS**。Blender 4.0.2編集可能43群・23,090三角形、元Chromium WebGL2／本物の元240Hz Tick 15660/15924/16332、元B51 28・追加Collider0。元カメラRAW3枚と01/12/21/25/27/34/42の**選択的7群のみ** leave-one-out、描画復元RGB差25超0%（3時点）。全42群×3の再測定は意図的に省略。今回はB51の実接触・再戦完走のフル検証ではなく、正式SAT/CCD/FPS/HUMANはHOLD。
+- **元カメラ真正RAWの批判的比較**：R12A比RGB差25超が65.25秒 **21.001%**、66.35秒 **14.539%**、68.05秒 **20.970%**。群の画素影響は65.25秒の既存取水装置34＝2.487%、66.35秒の制御塔12＝3.781%、68.05秒の既存R8J群42＝3.554%、群27は3時点とも0%（現構図では従役）。元道路・真の危険と主役3幕が以前より明瞭になった一方、広く単調な青緑の海面、右側の不自然な黒い面、離散した小さい港湾施設が残る。**ART REJECT／正式採用0**。RGB差は絵の品質点でも厳密な可視面積でもない。従来の高品質港湾完成基準に届かず、人間操作の楽しさも不明。
+- **証拠**：恒久監査 `research-evidence/k4ct/K4CT_R19_GENUINE_THREE_ACT_BLOCKOUT_ART_REJECT_SAFE_RESTORE_20261107.json`。GitHub Artifact #13546625879（7ファイル、zip SHA256 `598e763673b4162ff4a7b9ad4631943fb0f79d2646756d76b979460926133b4b`、CRC PASS、期限2026-11-13 UTC）に本物のBLEND、Blender実メッシュ＋BSDF属性データ、元CHASE3枚・7群測定JSONを保存。安価な初期preflight・1回のBlender実装・短いChromium RAWは実施したが、公式完成／人間評価ではない。
+- **安全な研究復元**：不採用候補は研究履歴と監査JSONへ保全し、**実行中の研究Blender作者だけ**先行真CI #42230306036のR12A Git blob `096fffbc1627915eb0122224955bb02cfba6b3ae`へ厳密一致復元したコミット `30e44696935f6080e09978366ea4856f0a7d0677`。余計なCIを増やさないため `[skip ci]` を使用し、復元後の新規CI SUCCESSは存在しない。独立した復元根拠は**過去の真CIと現在の完全一致Git blob**である。
+- **効率・次工程の批判的修正**：R19は42群×3回の高価な測定を省き、意図した3幕の見え方は改善させた。一方、岩盤整理だけのアート改良もR14の再発に近く、不採用であった。さらに岩盤の縞や小物を再編して低品質背景を量産するのは禁止。次R20は、**左の海・岸壁・船積施設のスケール／水と岩の形態／材質・照明の完成品質が低い本質原因**をまず厳密に批評する。元物理を触らず、実画面で主役を残しながら、一つの明確な港湾景観・機械機能を示すアートディレクションと限定的な3D／材質研究のみを行う。正式HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD、正式ART0件・Slope2 DNA0m、課金／Work／公開／merge／本番改変0を維持。
+
 ## R18元WebGL2実深度テストの遮蔽反証と次工程固定（2026-11-07 JST）
 
 - **R17の不採用本物Blenderアートを分析に再利用**：CI [#42297615144](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42297615144) の真正Blender 4.0.2・43群・31,412三角形・BSDF属性をArtifact #13542933482から取り出し、研究用PRIVATE元WebGL2へ再接続。**今の作者DCCは従来通りR12Aの検証済みGit blob `096fffbc1627915eb0122224955bb02cfba6b3ae`であり、R17を正式・研究ART採用したわけではない**。新Blender制作なし、元Game/Camera/道路/28 B51/240Hz/QA/main/P101/PR #46変更なし。
