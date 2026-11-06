@@ -113,6 +113,33 @@ replace("draw(roads);if(k4ctDccMesh){if(window.__k4ctVisualABMode!=='R7_NO_SCENE
  "k4ctFixtureIdentityTagMesh:roads);"+
  "if(k4ctDccMesh){if(window.__k4ctVisualABMode!=='R7_NO_SCENERY')draw(k4ctDccMesh);");
 
+
+/* R8 DIAGNOSTIC: same paused native source / no collision or camera changes.
+ * Shader-only magenta render provenance: B48 ROAD, Blender DCC, all native
+ * B51 opaque geometry, and OTHER preexisting visible meshes. Suppress NOTHING.
+ * Never adopt tagged materials, never call tagged snapshots ART or HUMAN PASS.
+ * Uniform enabled on private scene only; SOURCE renderer remains unmodified. */
+replace("precision highp float;in vec3 shade;in float haze;out vec4 outColor;",
+ "precision highp float;in vec3 shade;in float haze;uniform float k4ctProbeOn;uniform vec3 k4ctProbeRGB;out vec4 outColor;");
+replace("outColor=vec4(mix(shade,vec3(.019,.041,.083),haze),1.0);",
+ "outColor=vec4(mix(mix(shade,k4ctProbeRGB,k4ctProbeOn),vec3(.019,.041,.083),haze),1.0);");
+replace("for(const name of ['eye','camRight','camUp','camFront','translation','scale','yaw','aspect','fogStrength','fogStart','fogSpan'])locations[name]=gl.getUniformLocation(program,name);",
+ "for(const name of ['eye','camRight','camUp','camFront','translation','scale','yaw','aspect','fogStrength','fogStart','fogSpan'])locations[name]=gl.getUniformLocation(program,name);"+
+ " locations.k4ctProbeOn=gl.getUniformLocation(program,'k4ctProbeOn');"+
+ " locations.k4ctProbeRGB=gl.getUniformLocation(program,'k4ctProbeRGB');");
+replace("  gl.drawArrays(primitive,0,m.count);",
+ "  if(k4ctDccMesh&&doc?.stageForge?.k4ctPrivate){"+
+ "   const isB51=Object.values(machineMeshes).includes(m)||Object.values(a13MachineMeshes).includes(m);"+
+ "   const group=m===roads||m===k4ctFixtureIdentityTagMesh?'ROAD':"+
+ "    m===k4ctDccMesh?'DCC':isB51?'B51':'OTHER';"+
+ "   const requested=window.__k4ctRenderAttribution||'BASE';"+
+ "   if(!['BASE','ROAD','DCC','B51','OTHER'].includes(requested))throw Error('K4CT attribution mode invalid');"+
+ "   gl.uniform1f(locations.k4ctProbeOn,requested===group?1:0);"+
+ "   gl.uniform3fv(locations.k4ctProbeRGB,[1,.015,.85]);"+
+ "   canvas.dataset.k4ctAttributionMode=requested;"+
+ "  }else gl.uniform1f(locations.k4ctProbeOn,0);"+
+ "  gl.drawArrays(primitive,0,m.count);");
+
 const moduleFile=path.join(target,'k4ct-dcc-world-geometry.mjs');
 // Isolated K4CT color mood; this does not mutate the original WebGL source.
 replace("gl.clearColor(.019,.041,.083,1);","gl.clearColor(.115,.168,.192,1);");
