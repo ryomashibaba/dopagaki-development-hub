@@ -1,0 +1,94 @@
+{
+  "schema": "k4ct-r22-source-private-webgl2-marine-shader-sensitivity-v1",
+  "dateJST": "2026-11-07",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "fixedPolicy": "QUALITY-FIRST ART-FIRST DCC-FIRST INTEGRATED VERTICAL SLICE. Reuse unadopted R20 actual Blender geometry with proven R21 node attributes; never modify source Game/Road5/Camera/240Hz/B48/B51/QA or formally adopt art.",
+  "previous": {
+    "R20CI": 42307252065,
+    "R20ArtifactID": 13546263695,
+    "R21CI": 42309755398,
+    "R21ArtifactID": 13547558795,
+    "verifiedR21R9BridgeSHA256": "8dd79489dc37a45b62211fa31c66a6da55ba9ac224038ba8ccd605851ea56a14",
+    "frozenR20GeometrySHA256": "05fe4ba77fd4a66d3622597eadea43a48a9bb4759b114591db17ca12d712ab11",
+    "currentBlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b"
+  },
+  "study": {
+    "sourceRealCameraTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "sourceSeconds": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "variants": [
+      {
+        "mode": 0,
+        "label": "R21_BASELINE_UNCHANGED_SHADER",
+        "note": "Exactly original R9 shader expression and true R21 Blender attribute values"
+      },
+      {
+        "mode": 1,
+        "label": "RESEARCH_MARINE_DIELECTRIC_METAL_RESPONSE",
+        "note": "PRIVATE only restrained microfacet-inspired Fresnel/normal/view shader for genuine harbor materials"
+      },
+      {
+        "mode": 2,
+        "label": "RESEARCH_MARINE_WATER_AND_MATERIAL_RESPONSE",
+        "note": "Mode1 plus selective new real harbor water-material recognition, subtle wave and view-dependent response, no geometry changes"
+      }
+    ],
+    "actualSourceRendererOnly": true,
+    "shaderFileModification": "dist-private/k4ct/drive3d.mjs only (generated PRIVATE copy after original installer); never original web source",
+    "modeAllowedAtFrozenNativeTick": true,
+    "keepRealGLDepthEnabled": true,
+    "marineMaterialsFromTrueBlenderID": true,
+    "includeWaterIDs": [
+      "harbor_abyss",
+      "harbor_tidal_steel",
+      "harbor_swell"
+    ],
+    "evidence": "Actual Chromium WebGL2 screenshot differences R21 baseline vs 2 variants, source camera 3 true 240Hz ticks, ROI and reproducibility. Baseline vs archived R21 original RAW tested for parity.",
+    "noAdditionalBlenderRun": true,
+    "noNewMesh": true,
+    "excludeNewColliders": true,
+    "keepOriginalB48": 7,
+    "keepOriginalB51": 28,
+    "sourceGenuineBlenderEditableGroups": 43,
+    "sourceTrueTriangles": 25700,
+    "doNotClaim": "Full PBR, actual realistic reflection, hardware GPU FPS, human playability, exact entity pixels, hazard visual certification, production art acceptance"
+  },
+  "qualityVeto": {
+    "priority": "Any new shader merely makes sea garish, hides real red moving B51 visual cue, makes landmarks less readable, or causes neon/generic specular should be ART REJECT regardless of numeric pixel change.",
+    "noMoreInvisibleAssetProduction": true,
+    "preserveNonadoptedR20R21Art": true,
+    "explicitArtifactImmutability": true,
+    "artAcceptanceRequiresIndependentLaterReview": true
+  },
+  "gates": {
+    "formalArtAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "PBR": "NOT_PROVEN"
+  },
+  "safety": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "p101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "Open/Draft/unmerged",
+    "originalWorldUnchanged": true,
+    "paidAPI": 0,
+    "workComputerUse": false,
+    "userManualSteps": 0
+  }
+}
