@@ -1,0 +1,186 @@
+{
+  "schema": "k4ct-r22-true-original-source-native-webgl2-three-mode-shader-art-reject-v1",
+  "dateJST": "2026-11-07",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "policy": "QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE. Same R21 continuation, no course, original Game/Camera/Road5/B48/B51, 240Hz, original Blizzard or production QA modification.",
+  "startingResearchHead": "f88d3003c6c467c3ec3fc4261c3c7a5ce4dcde35",
+  "contract": "research-evidence/k4ct/K4CT_R22_TRUE_SOURCE_PRIVATE_SHADER_MATERIAL_SENSITIVITY_CONTRACT_20261107.json",
+  "materials": {
+    "originalR20ActualBlenderArtifact": 13546263695,
+    "originalR20NativeCI": 42307252065,
+    "verifiedR21ActualBlenderNodeCI": 42309755398,
+    "sourceR21Artifact": 13547558795,
+    "reconstructedActualR21BSDFR9HashSHA256": "8dd79489dc37a45b62211fa31c66a6da55ba9ac224038ba8ccd605851ea56a14",
+    "originalGeometryJSONSHA256": "05fe4ba77fd4a66d3622597eadea43a48a9bb4759b114591db17ca12d712ab11",
+    "genuineBlenderSource": "R20 Blender 4.0.2 real saved .blend, R21 real saved/reopened 12 material node values, not newly rendered Blender art",
+    "newBlenderRun": false,
+    "newArtistMesh": false,
+    "originalEditableGroups": 43,
+    "originalTriangles": 25700,
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0
+  },
+  "implementation": {
+    "exactBridgeRebuilder": "scripts/k4ct-r22-reconstruct-verified-r21-bridge.py",
+    "privateShaderPatch": "scripts/k4ct-r22-private-shader-three-mode-patch.mjs",
+    "originalNativeComparison": "scripts/k4ct-r22-original-native-three-shader-ab.mjs",
+    "workflow": ".github/workflows/p101-k4ct-r22-private-marine-shader-ab.yml",
+    "modes": {
+      "0": "unchanged research R21 R9 shader using original true material nodes",
+      "1": "PRIVATE only shader with marine nonroad Fresnel/microfacet-inspired response",
+      "2": "mode1 plus 3 real maritime water material IDs"
+    },
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalActiveResearchBlenderDccGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "unchangedRoad5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "sourceUnchanged": true,
+    "privateShaderOnly": true,
+    "originalMaterialShaderInGameUnchanged": true,
+    "originalRunnerTicks": [
+      15660,
+      15924,
+      16332
+    ],
+    "realChromiumWebGL2": true,
+    "realDepthBuffer": true,
+    "fullPhysicalPBRProven": false,
+    "hardwareGpuFpsProof": false,
+    "artOfficialAdoption": false
+  },
+  "ciHistory": [
+    {
+      "run": 42311500730,
+      "conclusion": "failure",
+      "reason": "First original R21 RAW cross-CI parity gate failed. Missing Japanese Noto CJK fonts in CI replaced HUD glyphs, corrupting screenshot comparison. Material hashes and source were intact.",
+      "artifactId": 13549425009
+    },
+    {
+      "run": 42312043280,
+      "conclusion": "failure",
+      "reason": "With original R21 Noto CJK fonts restored, strict <0.5% cross-CI high-threshold pixel parity still failed near boundary. Across-CI raster/font/antialias differences are not sufficient to invalidate same-session native material A/B.",
+      "artifactId": 13549685121
+    },
+    {
+      "run": 42312602939,
+      "conclusion": "separate intermediate research run, not used as acceptance",
+      "reason": "script-only update triggered overlapping workflow before corresponding independent CI assertion updated"
+    },
+    {
+      "run": 42312644485,
+      "conclusion": "success",
+      "head": "aaef27980f8c918318170ccc6e667ae27a6146c4",
+      "artifactId": 13549665992,
+      "artifactName": "K4CT_R22_TRUE_GL_MARINE_SHADER_MODES_ART_HOLD",
+      "artifactZipSHA256": "5e4503a901888e0914f880d72f6073ab326c6ad3224f60a6e5424460284f98a3",
+      "artifactFiles": 12,
+      "zipCrc": "PASS",
+      "expiresUTC": "2026-11-13T23:36:14Z"
+    }
+  ],
+  "sourceTrueNative3FrameMeasurement": {
+    "ROI": "x0:0 y0:80 x1:1005 y1:705; any RGB channel abs difference >1, >10, >25 is visual delta, NOT subjective quality score",
+    "frames": [
+      {
+        "timeSec": 65.25,
+        "originalTick": 15660,
+        "baselineVsArchivedR21RGB25Pct": 0,
+        "mode1vs0RGB1Pct": 10.1733,
+        "mode1vs0RGB10Pct": 5.3633,
+        "mode1vs0RGB25Pct": 3.0941,
+        "mode2vs0RGB25Pct": 3.0941,
+        "mode2vs1RGB1Pct": 0.007,
+        "mode2vs1RGB10Pct": 0,
+        "mode2vs1RGB25Pct": 0,
+        "actualVisualAssessment": "Genuine research maritime shade makes broad gray cargo hall roof much lighter, overdominant in left source view. Three-beat harbor world depth is not improved."
+      },
+      {
+        "timeSec": 66.35,
+        "originalTick": 15924,
+        "baselineVsArchivedR21RGB25Pct": 0,
+        "mode1vs0RGB1Pct": 1.9041,
+        "mode1vs0RGB10Pct": 0.0002,
+        "mode1vs0RGB25Pct": 0,
+        "mode2vs0RGB25Pct": 0,
+        "mode2vs1RGB1Pct": 0.3515,
+        "mode2vs1RGB10Pct": 0,
+        "mode2vs1RGB25Pct": 0,
+        "actualVisualAssessment": "Control-tower scene changes minimally, does not improve real source port material silhouette or B51 perception."
+      },
+      {
+        "timeSec": 68.05,
+        "originalTick": 16332,
+        "baselineVsArchivedR21RGB25Pct": 0.31315423,
+        "worldOnlyCrossCIRGB25Pct": 0.32531501,
+        "mode1vs0RGB1Pct": 6.5334,
+        "mode1vs0RGB10Pct": 0.0358,
+        "mode1vs0RGB25Pct": 0.0108,
+        "mode2vs0RGB25Pct": 0.0108,
+        "mode2vs1RGB1Pct": 2.1454,
+        "mode2vs1RGB10Pct": 0,
+        "mode2vs1RGB25Pct": 0,
+        "actualVisualAssessment": "True source R8J turbine/near-miss cue preserved but harbor water response hardly visible; source visuals remain low-fidelity."
+      }
+    ],
+    "withinSameChromiumOriginalNativeTickMode0RestoredRGB1Pct": [
+      0,
+      0,
+      0
+    ],
+    "withinSameChromiumOriginalNativeTickMode0RestoredRGB10Pct": [
+      0,
+      0,
+      0
+    ],
+    "withinSameChromiumOriginalNativeTickMode0RestoredRGB25Pct": [
+      0,
+      0,
+      0
+    ],
+    "originalSourceCamera240Hz": true,
+    "depth24BitEnabled": true,
+    "imageProvenance": "9 real source Chromium PNGs, one session, original native source camera; not user photo, not synthetic image generation",
+    "crossCIOriginalRawPixelIdentity": "Not guaranteed across CI runs; recorded separately; at 65.25/66.35 >25 0%, 68.05 .313%. Not conflated with within-run controlled A/B."
+  },
+  "criticalArtAssessment": {
+    "verdict": "ART_REJECT",
+    "reasons": [
+      "Mode1 makes the prominent left source cargo roof at 65.25s brighter and more conspicuous without adding believable tidal-port materials or industrial structure.",
+      "Mode2 new harbor water recognition produces no RGB>10 pixel differences versus Mode1 at all 3 source frames and therefore did not materially improve water appearance.",
+      "At 66.35s only minimal tonal changes; at 68.05s the original rotor and near-miss still dominate but neither shader produces a compelling finished seaport.",
+      "More shader modes, names, reflectance coefficients cannot fix absent visibility of original R20 service barge, working quay, foam and crane in those native source frames.",
+      "Source research shader is NOT full PBR, there is no human hazard readability or quality certificate."
+    ],
+    "positive": "The geometry-free shader experiment did produce measurable original-screen tonal changes in mode1 and verified source material IDs/true Blender attributes without any production impact.",
+    "noFalseClaim": "Raster difference is not ART acceptance, exact object occupancy, hardware fps or collision certification."
+  },
+  "decision": {
+    "technical": "PASS_PRIVATE_SHADER_3MODE_ORIGINAL_NATIVE_ONLY",
+    "ART": "REJECT",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "PBR": "NOT_PROVEN",
+    "noResearchDccRestorationRequired": true,
+    "reason": "Original research DCC author and original Game never changed during R22; only test scripts, contract, workflow and temporary CI PRIVATE renderer. No formal art adoption."
+  },
+  "efficiency": {
+    "R22Result": "Shader edits can alter source camera material tone but do not address fundamental underlying architectural and visibility ART defects. Do not carry these PRIVATE shader variants into source or production.",
+    "next": "R23 quality-first: focus on physically coherent visible source camera architecture/camera-visible water and non-B51-hiding harbor silhouette with small early screenshots BEFORE expensive Blender asset iteration. Avoid repeating changes to unseen assets or additional shader-only modes. Any candidate must show compelling actual source game improvement without sacrificing original red B51, road or true R8J wheel.",
+    "manualUserActions": 0,
+    "additionalPaidApi": 0,
+    "workComputerUse": false
+  },
+  "safety": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "PR46": "Open Draft unmerged"
+  }
+}
