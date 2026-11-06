@@ -169,7 +169,11 @@
     "restoreOnlyDCCAuthor": true,
     "expectedSafeRestoreGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
     "preserveR17ModuleAsUnreferencedResearchHistory": true,
-    "restoralCommit": "PENDING"
+    "restoralCommit": "731b0e6c5a69191bbdc924f4b9feb65dea145d1c",
+    "restoredDCCGitBlobSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "postRestoreNewCI": "NOT_EXECUTED_INTENTIONALLY_SKIPPED_IDENTICAL_R12A_AUTHOR_BLOB",
+    "comparisonPriorGreenCI": 42230306036,
+    "confirmation": "Exact Git blob identical to previously green baseline; not fresh source real-run proof"
   },
   "criticalEfficiencyLearning": {
     "improvement": "R16 resolved camera frame selection before R17, and R17 group27 actually influenced all 3 source frames vs zero in R15 at middle point.",
