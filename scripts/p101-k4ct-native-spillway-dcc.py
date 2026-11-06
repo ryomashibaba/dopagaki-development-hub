@@ -370,19 +370,44 @@ for d in (-25,25):
  base=add(tower,mul(tf,d))
  beam(towerGroup,add(base,(0,-10,0)),add(base,(0,-89,0)),6,'concrete')
  beam(towerGroup,add(base,(0,15,0)),add(tower,(0,92,0)),2.1,'darksteel')
-# The elevated deck connects tower to hall along offshore sea-wall, staying
-# outboard of B48 so native player doesn't drive on a fake DCC roadway.
+# R8G: Re-author R5's 1536-triangle repetitive bridge as ONE open,
+# readable tidal-service water conduit physically connecting the power
+# station and lift. Every segment is far OUTBOARD of B48; no raceable road,
+# collision, camera, source 28 B51, or machine warning has changed.
+# Deliberately no repetitive V bracing or road-spanning false portals.
 way0=add(hall,add(mul(hl,17),(0,24,0)))
 way1=add(tower,add(mul(tl,-7),(0,45,0)))
-truss('14_CABLE_STAYED_SERVICE_CAUSEWAY',way0,way1,6,7,'steel')
-for k in range(1,9):
- at=mix(way0,way1,k/9)
- foot=(at[0],tideY-3,at[2])
- beam('14_CABLE_STAYED_SERVICE_CAUSEWAY',foot,
-      add(at,(0,-7,0)),2.3,'concrete')
- if k%2==0:
+channelAxis=unit(sub(way1,way0))
+channelLat=unit(cross(channelAxis,Y))
+for k in range(18):
+ a=mix(way0,way1,k/18)
+ b=mix(way0,way1,(k+1)/18)
+ def channel(at,across,vertical):
+  return add(at,add(mul(channelLat,across),(0,vertical,0)))
+ # A genuine U-section penstock with cold tidal feed inside;
+ # walls sit ABOVE the narrow water, not a fake driving surface.
+ quad('14_CABLE_STAYED_SERVICE_CAUSEWAY',
+      channel(a,-6.4,-3),channel(b,-6.4,-3),
+      channel(b,6.4,-3),channel(a,6.4,-3),'weathered_iron',False)
+ quad('14_CABLE_STAYED_SERVICE_CAUSEWAY',
+      channel(a,-6,-.9),channel(b,-6,-.9),
+      channel(b,6,-.9),channel(a,6,-.9),'tide',False)
+ for side in (-1,1):
+  quad('14_CABLE_STAYED_SERVICE_CAUSEWAY',
+       channel(a,side*6.4,-3),channel(b,side*6.4,-3),
+       channel(b,side*6.4,3.7),channel(a,side*6.4,3.7),
+       'saltstone',False)
+ # Only two widely spaced seaward foundations, not 8 or 12 frames.
+ if k in (5,13):
+  at=mix(a,b,.5)
+  for side in (-1,1):
+   post=channel(at,side*6.4,-3)
+   foot=(post[0],tideY-8,post[2])
+   beam('14_CABLE_STAYED_SERVICE_CAUSEWAY',
+        foot,post,4.2,'saltstone')
   beam('14_CABLE_STAYED_SERVICE_CAUSEWAY',
-       add(at,(0,2,0)),add(way1,(0,70,0)),.42,'copper')
+       channel(at,-7.2,-5),channel(at,7.2,-5),
+       1.8,'weathered_iron')
 
 
 # K4CT R6: Camera-led upper tidal channel, carved negative space, and one
@@ -556,9 +581,9 @@ for idx,u0,u1 in ((5,.81,.995),(6,.395,.79)):
 # OPEN VOLUME between physically connected columns and an asymmetrical roof.
 # This is a REAL Blender 3D architectural replacement, never a collider.
 # Both sites remain well OFF the right edge of the authentic B48.
-for idx,u in ((5,.915),(6,.60)):
+for idx,u in ((5,.915),):
  P,F,S=frame(idx,u)
- main=(idx==5)
+ main=True
  station=add(offset_edge(P,S,92 if main else 104,'R'),(0,-14,0))
  bays=6 if main else 4
  pitch=19 if main else 16
@@ -635,6 +660,63 @@ for idx,u in ((5,.915),(6,.60)):
        add(crane,(0,62,0)),boom,1.9,'steel')
   beam('32_R7B_LANDMARK_SHIPYARD_CRANE',
        boom,add(boom,(0,-43,0)),.65,'copper')
+
+# R8G distinct second landscape-reading landmark at the Road6 marine
+# terminal. Unlike R8F's four repetitive bays, ONE asymmetric folded
+# powerhouse roof shelters real turbine cylinders and docks. The entire
+# structure sits >=118m outside true right B48; NO road or collider edits.
+P,F,S=frame(6,.60)
+terminal=add(offset_edge(P,S,118,'R'),(0,-14,0))
+def term(x,out,y):
+ return add(terminal,add(mul(F,x),add(mul(S,out),(0,y,0))))
+# A broad but thin founded dock that is visibly subordinate to the raceway.
+box('27_R7B_QUARRY_EMBEDDED_TIDAL_POWER_HALL',
+    term(0,0,-24),47,84,5,'saltstone',F,S)
+# Two unequal sweeping roof planes with ONE ridge, not a comb of roofs.
+# Open side volume remains visible below the folded planes.
+quad('29_R7B_INTEGRAL_GANTRY_FRAME_AND_ROOF',
+     term(-43,-22,26),term(43,-22,26),
+     term(43,4,53),term(-43,4,53),'roof',False)
+quad('29_R7B_INTEGRAL_GANTRY_FRAME_AND_ROOF',
+     term(-43,4,53),term(43,4,53),
+     term(43,24,33),term(-43,24,33),'weathered_iron',False)
+# Continuous structural ridge deliberately forms one visual horizon feature.
+beam('29_R7B_INTEGRAL_GANTRY_FRAME_AND_ROOF',
+     term(-43,4,53),term(43,4,53),2.3,'steel')
+# A small skylight strip is recessed into the pitched upper plane.
+quad('28_R7B_TURBINE_HALL_CLERESTORY',
+     term(-28,5,52),term(29,5,52),
+     term(29,11,46),term(-28,11,46),'window',False)
+for x in (-38,38):
+ for out in (-18,20):
+  # Four authentic structural piers, not a series of decorative portals.
+  beam('27_R7B_QUARRY_EMBEDDED_TIDAL_POWER_HALL',
+       term(x,out,-33),term(x,out,27 if out<0 else 34),
+       4.2,'saltstone')
+ # A single service truss ties the roof to the seaward machinery.
+ beam('29_R7B_INTEGRAL_GANTRY_FRAME_AND_ROOF',
+      term(x,-18,25),term(x,4,52),2,'weathered_iron')
+for x in (-19,19):
+ # These actual mechanical bodies sit under a separate roof: functional,
+ # readable round silhouette instead of another cuboid warehouse.
+ drum('27_R7B_QUARRY_EMBEDDED_TIDAL_POWER_HALL',
+      term(x,0,-10),F,S,9,21,'turbine',18,top_r=7)
+ intake=term(x,34,-67)
+ beam('30_R7B_DOWN_TO_WATER_LOAD_SPINE',
+      term(x,8,-7),intake,4.1,'oxidized')
+ beam('30_R7B_DOWN_TO_WATER_LOAD_SPINE',
+      intake,term(x,34,-88),3.5,'weathered_iron')
+# Open downward seawall supports are connected to tide-water quay, not
+# suspended, and remain visually far below the racing platform.
+quay=term(0,66,tideY+5-terminal[1])
+box('31_R7B_OPERATING_QUAY_AND_SHIPYARD',
+    quay,39,85,7,'saltstone',F,S)
+for x in (-37,37):
+ for out in (-15,15):
+  pier=add(quay,add(mul(F,x),mul(S,out)))
+  beam('31_R7B_OPERATING_QUAY_AND_SHIPYARD',
+       add(pier,(0,-4,0)),add(pier,(0,-42,0)),
+       3.5,'weathered_iron')
 
 P,F,S=frame(6,.72)
 tower=add(offset_edge(P,S,91,'R'),(0,12,0))
