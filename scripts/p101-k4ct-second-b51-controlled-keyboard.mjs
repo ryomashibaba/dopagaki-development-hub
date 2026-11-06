@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import {chromium} from '@playwright/test';
+import {decodeChromePng,pixelImpact} from './k4ct-r12-real-chromium-png-pixel-impact.mjs';
 import {server} from './serve.mjs';
 const OUT=path.resolve('test-results/k4ct-contact-retry');
 fs.mkdirSync(OUT,{recursive:true});
@@ -89,6 +90,86 @@ async function measureR10ChaseFramePacing(page){
  });
 }
 
+// R12A: every Blender non-road group, zero invented source geometry.
+// Exclude exactly one group from the ORIGINAL WebGL2 draw with real depth,
+// screenshot the real Chromium frame, compare to a BASELINE at same fixed
+// 240Hz tick. The pixel counts are image influence, NOT exact raster ownership.
+async function captureR12AllRealGroups(page,label,sourceTick){
+ const names=await page.evaluate(()=>window.__k4ctR12OriginalNonroadGroupNames);
+ assert.ok(Array.isArray(names)&&names.length===42);
+ assert.equal(new Set(names).size,42);
+ await page.evaluate(()=>{window.__k4ctR12SkipGroup=null;});
+ await page.waitForFunction(()=>{
+  const c=document.getElementById('view');
+  return c?.dataset.k4ctR12SkippedGroup==='ALL'&&
+    c.dataset.k4ctR12GroupCount==='42';
+ },undefined,{timeout:12000,polling:50});
+ const baseImage=await page.screenshot({type:'png'});
+ const basePixels=decodeChromePng(baseImage);
+ const imgByName=new Map();
+ const records=[];
+ for(const name of names){
+  await page.evaluate(group=>{window.__k4ctR12SkipGroup=group;},name);
+  await page.waitForFunction(group=>{
+   const c=document.getElementById('view');
+   return c?.dataset.k4ctR12SkippedGroup===group &&
+    c.dataset.k4ctR9Material==='REAL_BLENDER_POLYGON_NORMAL_UV_BSDF_ATTRIBUTE_WEBGL2';
+  },name,{timeout:12000,polling:50});
+  const state=await page.evaluate(()=>{
+   const c=document.getElementById('view');
+   return {
+    skip:c.dataset.k4ctR12SkippedGroup,
+    tick:Number(c.dataset.r15s3d10NativeTicks),
+    nativeSource:c.dataset.r15s3d10OriginalGame,
+    originalRoad:c.dataset.k4ctRoadArtMode,
+    b51:Number(c.dataset.g4e7yRetainedMachines),
+    originalStatus:c.dataset.r15s3d10Status
+   };
+  });
+  assert.equal(state.skip,name);
+  assert.equal(state.tick,sourceTick,'R12 leave-one-out changed original 240Hz tick');
+  assert.equal(state.nativeSource,'REAL_WEBGL2_SOURCE_240HZ');
+  assert.equal(state.originalRoad,'ORIGINAL_B48_PLUS_DCC_CONFORMAL');
+  assert.equal(state.b51,28);
+  assert.equal(state.originalStatus,'running');
+  const png=await page.screenshot({type:'png'});
+  const influence=pixelImpact(basePixels,decodeChromePng(png));
+  imgByName.set(name,png);
+  records.push({group:name,sourceTick:sourceTick,influence:influence});
+ }
+ await page.evaluate(()=>{window.__k4ctR12SkipGroup=null;});
+ await page.waitForFunction(()=>{
+  const c=document.getElementById('view');
+  return c?.dataset.k4ctR12SkippedGroup==='ALL';
+ },undefined,{timeout:12000,polling:50});
+ const after=await page.screenshot({type:'png'});
+ const reproducibility=pixelImpact(basePixels,decodeChromePng(after));
+ const finalTick=await page.evaluate(()=>Number(document.getElementById('view').dataset.r15s3d10NativeTicks));
+ assert.equal(finalTick,sourceTick,'Restored original source tick changed');
+ const byImpact=records.slice().sort((a,b)=>b.influence.changedRGBgt25-a.influence.changedRGBgt25);
+ const top=byImpact.slice(0,5).map((row,i)=>{
+  const file='K4CT_R12_'+label+'_TOP_'+String(i+1).padStart(2,'0')+'_HIDDEN_GROUP_TRUE_SOURCE_RAW.png';
+  fs.writeFileSync(path.join(OUT,file),imgByName.get(row.group));
+  return {rank:i+1,group:row.group,image:file,impact:row.influence};
+ });
+ assert.equal(records.length,42);
+ // Same captured UI, same source camera, noncolliding visuals ONLY.
+ // Nonzero reproducibility delta is recorded rather than hidden.
+ return {schema:'k4ct-r12-all-original-blender-groups-source-pixel-influence-v1',
+  sourceCameraLabel:label,nativeSourceTick:sourceTick,
+  sourceCamera:true,actualChromeWebGL2:true,
+  materialDrawn:'REAL_BLENDER_POLYGON_NORMAL_UV_BSDF_ATTRIBUTE_WEBGL2',
+  originalRoadAndMovingB51Retained:true,
+  method:'42 genuine Blender group leave-one-out real screenshot diffs, depth-tested original scene',
+  notExactVisiblePixelOwnership:true,notProxyProjection:true,
+  imageROI:{x0:0,y0:80,x1:1005,y1:705},
+  thresholdRGBAbsMax:[1,10,25],
+  totalGroups:42,allGroupResults:byImpact,topFiveRAW:top,
+  reproducibilityBaseAfterRestore:reproducibility,
+  evidenceMayContainPostRemovalReveal:true,
+  formalART:0,HUMAN:'HOLD',FPS:'HOLD'};
+}
+
 /* Same-paused-tick, same-source-camera RAW layer A/B (no retouching).
  * Three modes only toggle noncolliding scenery; 28 B51 are always drawn.
  * SCREENSHOT  != HUMAN test and qualitative ART always remains REJECT. */
@@ -147,7 +228,11 @@ async function captureR6RawLayerAB(page,label){
   else assert.equal(state.nativeTicks,tick,'R8B display-only transition changed native tick');
   const file='K4CT_R8B_'+label+'_'+trial+'_EXACT_SOURCE_RAW.png';
   await page.screenshot({path:path.join(OUT,file)});
-  states.push({...state,file,r10Pacing});
+  let r12GroupAttribution=null;
+  if(trial==='CLEAN'){
+   r12GroupAttribution=await captureR12AllRealGroups(page,label,state.nativeTicks);
+  }
+  states.push({...state,file,r10Pacing,r12GroupAttribution});
  }
  await page.evaluate(()=>{window.__k4ctRenderAttribution='BASE';window.__k4ctSuppressK4CSGateOnly=true;});
  return {label,nativeTick:tick,states,renderOnly:true,
@@ -368,6 +453,24 @@ try{
    'HOLD_NO_ROAD6_GROUNDED';
  fs.writeFileSync(path.join(OUT,'K4CT_SECOND_B51_CONTROLLED_NATIVE_RESULT.json'),JSON.stringify(result,null,2)+'\n');
 }
+const r12GroupAttribution=result.r6Slices.flatMap(slice=>
+ slice.states.filter(x=>x.trial==='CLEAN').map(x=>x.r12GroupAttribution));
+assert.equal(r12GroupAttribution.length,3,'R12 must inspect all three true source chase cameras');
+for(const src of r12GroupAttribution){
+ assert.equal(src.totalGroups,42);
+ assert.equal(src.allGroupResults.length,42);
+ assert.equal(src.topFiveRAW.length,5);
+ assert.ok(src.originalRoadAndMovingB51Retained&&src.actualChromeWebGL2);
+}
+fs.writeFileSync(path.join(OUT,'K4CT_R12_ALL_BLENDER_GROUPS_REAL_CHASE_VISIBLE_INFLUENCE.json'),
+ JSON.stringify({schema:'k4ct-r12-42-real-blender-groups-per-source-camera-visual-influence-v1',
+  originalGameSource:true,original240Hz:true,originalB48:7,originalB51:28,
+  sameSourceCameraAndDepthBuffer:true,originalPhysicsUnmodified:true,
+  allGroupsFromActualBlenderAuthoring:true,originalDCCMeshesUnmodified:true,
+  methodLimit:'Screenshot leave-one-out influences rendered pixels, not exact ownership or artistic quality',
+  humansNotTested:true,formalArtAdopted:0,ART:'REJECT',HUMAN:'HOLD',
+  SAT:'HOLD',CCD:'HOLD',FPS:'HOLD',RELEASE:'HOLD',MERGE:'HOLD',
+  actualSourceCameraStudies:r12GroupAttribution},null,2)+'\n');
 fs.writeFileSync(path.join(OUT,'K4CT_R10_REAL_CHROMIUM_9_VIEW_RAF_PACING.json'),
  JSON.stringify({schema:'k4ct-r10-real-chromium-9-capture-raf-pacing-v1',
   environment:'Github Actions Ubuntu24.04/Chromium headless, GPU backend unspecified',
