@@ -216,6 +216,8 @@ function k4ctR9LoadMaterialMesh(){
  gl.bindBuffer(gl.ARRAY_BUFFER,k4ctR9MaterialBuffer);
  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(K4CT_R9_MATERIAL_VERTICES),gl.STATIC_DRAW);
  k4ctR9MaterialVertexCount=K4CT_R9_MATERIAL_VERTICES.length/14;
+ // Read-only metadata from actual DCC export, never model-proxy inference.
+ window.__k4ctR12OriginalNonroadGroupNames=K4CT_R12_NONROAD_GROUP_SPANS.map(x=>x.name);
  canvas.dataset.k4ctR9MaterialVertexCount=String(k4ctR9MaterialVertexCount);
 }
 function k4ctR9DrawMaterialWorld(view,aspectRatio,fogStrength){
