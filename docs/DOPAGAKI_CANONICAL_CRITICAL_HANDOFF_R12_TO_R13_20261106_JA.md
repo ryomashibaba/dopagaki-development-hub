@@ -5,6 +5,17 @@
 > 最重要成果は「超高速で実際に面白く、美術的に完成度が高い、独創的な立体ブラウザゲーム」。工程数・CI成功数・巨大な低品質メッシュを成果に代えない。
 > **最新状態は必ず生のGitHub研究HEAD/Actionsで上書きする**。本文のHEADはこの正本を作った時点の出発点にすぎない。
 
+## R20海港水面とBSDF材質の真正監査・採用否決・安全復元（2026-11-07 JST）
+
+- **同一開発方針の継承**：R19が元取水34／制御塔12／真R8Jタービン41/42のCHASE主従構図を部分的に整理した一方、海と港湾施設があまりに平板・小さくART REJECTという批判を継承。R19の地形縮減だけを明示的に**不採用の一時研究基盤**として使い、正式ART採用と混同しない。R20固定条件は `research-evidence/k4ct/K4CT_R20_WORKING_TIDAL_PORT_MATERIAL_FORM_ART_CONTRACT_20261107.json`。
+- **本物のBlender改修**：`scripts/p101-k4ct-r20-working-tidal-port-material-author.py`（`be3c5f7f`）により、研究DCCの**03海・04護岸・05砕波・15岸壁／作業船・16荷役ホール・17クレーン**だけ再著作。海面は海底と波を実メッシュで微細変形し、作業船と港を桟橋・建築・荷役設備で物理的につながるよう制作。追加のBlender材料名12種。元Road5/6、元カメラ、元240Hz、B48×7、B51×28、00道路美術、12/13制御塔、19源流、34取水、41/42実車輪、元Game/Gold/正式QA/main/公式P101/Draft PR #46を保護し、新Collider 0。
+- **真正CIと最初の障害**：初回CI [#42307205003](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42307205003) は検証ファイル名と群数7/8のずれで事前FAILURE。ワークフローのみ修正後、[CI #42307252065](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42307252065) **TECH SUCCESS**。Blender 4.0.2・編集可能43群／25,700三角形、Blender実ポリゴン由来の非道路21,092三角形＋元道路4,608三角形、BSDF材質41種、元Chromium WebGL2・元240Hz／元CameraのTick 15660/15924/16332、深度24bit、全3時点の描画復元差0%。8群だけ元GLの同一時点leave-one-out、全42群×3の長いQAはしない。人間・SAT・CCD・FPS・本当のB51接触後完走証明は本CIの対象外。
+- **真正RAW批判**：R19比RGB差25超は65.25／66.35／68.05秒に**6.1486%／1.1319%／4.7420%**（R12A比20.5067%／14.7735%／19.9543%）。03海の画素影響3.647%／2.435%／9.249%。しかし15係留船・岸壁は0.003%／0%／0.004%、17巨大クレーンは0.004%／0%／0%、05泡は全時点0%。つまり**追加した労力の大半が元CHASEで見えない**。16作業ホールだけ65.25秒4.484%映るが、巨大な灰色板状屋根が左の景観を覆って奥行きを悪化させ、実船・水路の機能連続も読めない。66.35秒はR19からほぼ変化せず、68.05秒は暗い水面の縞が残る。RGB画素差は美術点・厳密な可視面積・人間危険可読性ではない。
+- **さらなる技術的根本原因**：本物のBlender BSDFノード属性を確認したところ、**新しい12材料全てroughness 0.74、metallic 0.08**。元DCC作者が一部の既存名前だけを金属・水素材として分類するハードコードに依存しており、新しい「港湾鉄／銅／水／ガラス」を本来の物性として書き出せていない。新12種は実際にはほぼ**色替え**であり、材質・照明の完成品質改善や正式PBR PASSとは主張できない。
+- **明確なART REJECT**：本物の3D・本物のGLで検証する技術は成功したが、ゲーム内では港湾のスケール／物理構造／水と工場の視覚的連続が乏しい。正式ART採用0、Slope2 DNA0m。恒久記録 `research-evidence/k4ct/K4CT_R20_GENUINE_MARINE_HARBOR_MATERIAL_ART_REJECT_SAFE_RESTORE_20261107.json`。7ファイル真正ZIPはArtifact #13546263695、SHA256 `dd11bb8fa5f47f13ca3c5e97624ba35e743b897a186226ab3ce51ab277d368a2`、CRC PASS、保存期限2026-11-13 UTC。
+- **正確な選択復元**：非採用モデルは履歴と証拠に保全し、研究Blender作者 `scripts/p101-k4ct-native-spillway-dcc.py` のみ、既存緑CI #42230306036で確認済みの **Git blob `096fffbc1627915eb0122224955bb02cfba6b3ae`**へ、コミット `eca937e3ba6acb010a79b4274824fc2add510e33` で完全一致復元。検証済みコードと同一のため復元後の重複CIは意図的に未実施。新たなCI SUCCESSとは呼ばない。
+- **次R21の本質課題**：新しい材料**名前**だけ増やすのをやめ、Blender Principled BSDF roughness／metallic／属性を実際に素材種別に応じて変える根拠と独立検証を先に成立させる。さらに3時点の元カメラ射影と本物のGL遮蔽を使って、船／クレーン／波が実画面に現れる前提を証明する。大量の見えないメッシュ／小物／平板水面／工場を量産しない。固定保護：QUALITY/ART/DCC-FIRST、INTEGRATED VERTICAL SLICE、main・P101・PR46・原作・Gold・元Game・Camera・240Hz・B51／正式QA／公開／課金／Work／merging禁止、正式ART0・Slope2DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD、ユーザー操作0。
+
 ## R19元CHASE三幕の真正Blender結果・批判的ART不採用・選択的復元（2026-11-07 JST）
 
 - **継承・根拠**：固定最上位のQUALITY-FIRST／ART-FIRST／DCC-FIRST／INTEGRATED VERTICAL SLICEを維持。R18元WebGL2深度付き遮蔽反証により、群01/21/25を隠すだけでは主役27が1.64%以下の画素影響しかなく、巨大岩盤の加減を繰り返すのは非効率と確定。実際の65.25／66.35／68.05秒RAWを踏まえ、既存の取水装置34→制御塔12→本物の既存R8Jタービン41/42という3幕の主役と、元B51を絶対に隠さない構図を `research-evidence/k4ct/K4CT_R19_3ACT_TRUE_CHASE_COMPOSITION_CONTRACT_20261107.json` に事前固定。
