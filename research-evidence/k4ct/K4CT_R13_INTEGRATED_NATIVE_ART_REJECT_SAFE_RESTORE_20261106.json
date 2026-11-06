@@ -79,7 +79,25 @@
     "restoreCommit": "325481dca8c71e80ca39ec9caaa8b853d66d8ed9",
     "restoredBlenderAuthorBlobSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
     "restoreGitBlobMatchesPreviouslyGreenR12ABaseline": true,
-    "newPostRestoreCI": "PENDING_NOT_YET_CLAIMED"
+    "newPostRestoreCI": {
+      "runId": 42225408461,
+      "conclusion": "success",
+      "headSHA": "325481dca8c71e80ca39ec9caaa8b853d66d8ed9",
+      "artifactId": 13504974941,
+      "artifactZIP_SHA256": "b35d90b9c005a3f7674f2c667f107cc386881ae1881f040707397e868c96891c",
+      "artifactFileCount": 45,
+      "zipCRC": "PASS",
+      "sameBaselineSourceBlenderBlob": true,
+      "restoredRealDccTriangles": 31324,
+      "originalNativeRetryFinishPassed": true,
+      "rawR12AFrameParity": {
+        "t65_25": "exact_RGB_pixels",
+        "t66_35": "exact_RGB_pixels",
+        "t68_05_rgb25ChangedPct": 0.154
+      },
+      "pixelVarianceNotQualityEvidence": true,
+      "expiresAt": "2026-11-13T13:36:35Z"
+    }
   },
   "permanentHolds": {
     "formalArtAdopted": 0,
