@@ -908,6 +908,95 @@ authored={'schema':'k4ct-blender-authored-true-source-integrated-scene/1',
  'FPS':'HOLD','RELEASE':'HOLD','MERGE':'HOLD'}
 (OUT/'K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').write_text(json.dumps(authored,separators=(',',':'))+'\n')
 
+# R9A: a second, STRICTLY RESEARCH-ONLY contract extracted from the
+# *genuinely instantiated Blender meshes and Principled BSDF node inputs*.
+# Legacy XYZ+RGB remains byte-for-byte the original source-game input,
+# especially the true B48 conformed road strips and source B51.
+# This bridge is scenery-only. No new colliders, no fake paths, no PBR PASS.
+R9_STRIDE=14  # XYZ, Principled base RGB, world normal XYZ, UV, material ID, roughness, metalness
+R9_ROAD_GROUP='00_PHYSICAL_ROAD_CONFORMAL_VISIBLE_SKIN'
+assert next(iter(GROUPS))==R9_ROAD_GROUP
+r9roadTriangles=counts[R9_ROAD_GROUP]
+r9SceneTriangles=sum(counts.values())-r9roadTriangles
+r9MaterialNames=list(COLORS)
+r9BridgeVertices=[]
+r9BlenderPolygonCount=0
+r9BlenderUVLoopCount=0
+for group,faces in GROUPS.items():
+ object3d=bpy.data.objects[group]
+ mesh=object3d.data
+ assert object3d.type=='MESH' and len(mesh.polygons)==counts[group]
+ uvLayer=mesh.uv_layers.new(name='K4CT_R9_ACTUAL_SOURCE_UV')
+ for poly,sourceFace in zip(mesh.polygons,faces):
+  assert len(poly.vertices)==3 and len(poly.loop_indices)==3
+  mat_id=poly.material_index
+  sourceName=sourceFace[3]
+  assert r9MaterialNames[mat_id]==sourceName
+  realMaterial=mesh.materials[mat_id]
+  assert realMaterial.name=='K4CT_'+sourceName.upper()
+  node=realMaterial.node_tree.nodes.get('Principled BSDF')
+  assert node is not None
+  baseColor=tuple(node.inputs['Base Color'].default_value)[:3]
+  roughness=float(node.inputs['Roughness'].default_value)
+  metalness=float(node.inputs['Metallic'].default_value)
+  assert all(math.isfinite(v) for v in (*baseColor,roughness,metalness))
+  actualN=poly.normal
+  # Same right-handed world <-> Blender transformation as world_to_blender.
+  worldN=unit((actualN.x,actualN.z,-actualN.y))
+  assert abs(length(worldN)-1)<.001
+  for loopId,sourcePos in zip(poly.loop_indices,sourceFace[:3]):
+   vx,vy,vz=sourcePos
+   if abs(worldN[1])>.73:uv=(vx*.031,vz*.031)
+   elif abs(worldN[0])>abs(worldN[2]):uv=(vz*.031,vy*.031)
+   else:uv=(vx*.031,vy*.031)
+   uvLayer.data[loopId].uv=uv
+   r9BlenderUVLoopCount+=1
+   if group!=R9_ROAD_GROUP:
+    r9BridgeVertices.extend((vx,vy,vz,*baseColor,*worldN,*uv,
+                             float(mat_id),roughness,metalness))
+  r9BlenderPolygonCount+=1
+assert r9BlenderPolygonCount==sum(counts.values())
+assert r9BlenderUVLoopCount==r9BlenderPolygonCount*3
+assert len(r9BridgeVertices)==r9SceneTriangles*3*R9_STRIDE
+# Independent structural parity vs the EXACT already authored WebGL input:
+# no R9 material data can displace a vertex, even via float32 quantization.
+r9LegacyScenery=flat[r9roadTriangles*18:]
+assert len(r9LegacyScenery)==r9SceneTriangles*18
+for i in range(r9SceneTriangles*3):
+ assert all(r9BridgeVertices[i*R9_STRIDE+j]==r9LegacyScenery[i*6+j]
+            for j in range(3)),('R9_SCENE_POSITION_PARITY_FAIL',i)
+roadOriginal=flat[:r9roadTriangles*18]
+assert len(roadOriginal)==r9roadTriangles*18
+r9Bridge={
+ 'schema':'k4ct-r9-blender-native-attribute-bridge-v1',
+ 'researchOnly':True,'formalPBRPass':False,'sourceGameBlobUnchanged':True,
+ 'BlenderVersion':bpy.app.version_string,'fromActualBlenderMeshPolygons':True,
+ 'fromActualBlenderBSDFInputs':True,'fromActualBlenderUVLayer':True,
+ 'legacySourceVertexXYZRGBPreserved':True,'originalSourceRoadStillLegacyShader':True,
+ 'attributes':['position_xyz','bsdf_base_rgb','world_normal_xyz','source_uv',
+               'blender_material_id','bsdf_roughness','bsdf_metallic'],
+ 'strideFloats':R9_STRIDE,'triangles':r9SceneTriangles,
+ 'roadLegacyTriangles':r9roadTriangles,'totalDccTriangles':sum(counts.values()),
+ 'originalB48':7,'originalB51':28,'newColliders':0,
+ 'sourcePhysicalRoad5SHA256':site['researchPhysicalRoad5SHA256'],
+ 'materials':[{'id':i,'name':name,
+    'baseColor':list(materials[name].node_tree.nodes.get('Principled BSDF').inputs['Base Color'].default_value)[:3],
+    'roughness':float(materials[name].node_tree.nodes.get('Principled BSDF').inputs['Roughness'].default_value),
+    'metalness':float(materials[name].node_tree.nodes.get('Principled BSDF').inputs['Metallic'].default_value)}
+  for i,name in enumerate(r9MaterialNames)],
+ 'vertices':r9BridgeVertices,'legacyRoadVertices':roadOriginal,
+ 'ART':'REJECT','HUMAN':'HOLD','SAT':'HOLD','CCD':'HOLD','FPS':'HOLD',
+ 'RELEASE':'HOLD','MERGE':'HOLD'
+}
+(OUT/'K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json').write_text(
+ json.dumps(r9Bridge,separators=(',',':'))+'\n')
+print('R9A_GENUINE_BLENDER_POLYGON_UV_MATERIAL_BRIDGE_PARITY_PASS',
+ json.dumps({'triangles':r9SceneTriangles,'roadTriangles':r9roadTriangles,
+             'materialCount':len(r9MaterialNames),
+             'vertexCount':len(r9BridgeVertices)//R9_STRIDE,
+             'blenderUVLoops':r9BlenderUVLoopCount}))
+
+
 # DCC-only composition render, explicitly NOT original chase camera evidence.
 s13=stations['a13-machine-13'];p,fw,lat=frame(s13['roadIndex'],s13['u'])
 cam_pos=add(p['center'],add(mul(fw,-215),add(mul(lat,106),(0,82,0))))
