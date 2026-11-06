@@ -1,0 +1,208 @@
+{
+  "schema": "dopagaki-k4ct-r10-4actual-browser-ci-evaluation-v1",
+  "date": "2026-11-06 JST",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "repository": "ryomashibaba/dopagaki-development-hub",
+  "researchBranch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "latestImplementationCommit": "0bd04128e63313989382cd93b4db361fe0a92a17",
+  "status": "R10A_PERF_BASELINE_TECH_PASS_R10B_C_SHADER_TECH_PASS_ART_REJECT_PERFORMANCE_HOLD_R10D_RESTORE_TECH_PASS",
+  "experiments": [
+    {
+      "stage": "R10A",
+      "head": "1d5a8596ab8b5bcabf63c5b32eb2b9c85b016355",
+      "run": 42201625925,
+      "artifact": 13494053561,
+      "sha256": "6dacd434d35dce64f07541050970a89c2671ad2dd931cc00fea09338cd2c4fb3",
+      "runResult": "SUCCESS",
+      "files": 29,
+      "crc": "PASS",
+      "p50MedianMS": 66.6,
+      "p95MedianMS": 99.9
+    },
+    {
+      "stage": "R10B",
+      "head": "d6453c4f3373a4d1a1f1bfe128654e6a8bb8f6dc",
+      "run": 42201921623,
+      "artifact": 13495840198,
+      "sha256": "95eec2247dd2133b6dd2e76da17373c26fcba17098424c586993bc1873a2f59f",
+      "runResult": "SUCCESS",
+      "files": 29,
+      "crc": "PASS",
+      "p50MedianMS": 166.6,
+      "p95MedianMS": 250.1
+    },
+    {
+      "stage": "R10C",
+      "head": "4c168ed16d00d79fb952ecaf8ad25aa0afe341b2",
+      "run": 42202262702,
+      "artifact": 13495562615,
+      "sha256": "5ba29b5ed6e0bc601c01ad90061c39227222609c7f65d10acc97664650f40d8d",
+      "runResult": "SUCCESS",
+      "files": 29,
+      "crc": "PASS",
+      "p50MedianMS": 133.3,
+      "p95MedianMS": 216.6
+    },
+    {
+      "stage": "R10D",
+      "head": "0bd04128e63313989382cd93b4db361fe0a92a17",
+      "run": 42203136244,
+      "artifact": 13494394480,
+      "sha256": "c16baa5cb3a73484ba5315653f2d67fe4d53eeab1dbbb9affc6f83b13317a564",
+      "runResult": "SUCCESS",
+      "files": 29,
+      "crc": "PASS",
+      "p50MedianMS": 100,
+      "p95MedianMS": 150.1
+    }
+  ],
+  "sourceProtection": {
+    "mainSHA": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101SHA": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": {
+      "state": "open",
+      "draft": true,
+      "merged": false
+    },
+    "sourceOriginalBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "road5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48Sections": 7,
+    "originalB51Moving": 28,
+    "originalCameraUnchanged": true,
+    "original240HzNativeRunnerUnchanged": true,
+    "sourceGamePhysicsEdited": false,
+    "newColliders": 0,
+    "addedGameRoutes": 0,
+    "sourceOriginalFileEdited": false
+  },
+  "genuineRendering": {
+    "blenderVersion": "4.0.2",
+    "editableBlenderGroups": 43,
+    "totalTriangles": 31324,
+    "legacyRoadShaderTriangles": 4608,
+    "materialSceneTriangles": 26716,
+    "materialVertices": 80148,
+    "blenderMaterialIDsRetained": 29,
+    "r9MaterialVertexStrideFloats": 14,
+    "roadB51MaterialsUnmodified": true,
+    "r10Candidate": "9 real Blender rock IDs, 8 real Blender metal IDs, sea 3 IDs; per-fragment sine and derivative procedural weathering added ONLY to isolated DCC nonroad shader",
+    "r10CRealNativeDrawProofs": 9,
+    "r10CActualDrawDataset": "SOURCE_REAL_GEOLOGY_METAL_SEA_MATERIAL",
+    "r10BVisualDiffFromR10A": {
+      "sameOriginalSourceCameraTimesSec": [
+        65.25,
+        66.35,
+        68.05
+      ],
+      "originalNativeTicks": [
+        15660,
+        15924,
+        16332
+      ],
+      "viewport": {
+        "x": [
+          0,
+          1005
+        ],
+        "y": [
+          80,
+          705
+        ]
+      },
+      "method": "RGB max channel difference > 25, unrelated to art quality",
+      "changedViewportPct": [
+        0,
+        0,
+        0.34
+      ],
+      "roadROIChangedPct": [
+        0,
+        0,
+        0.217
+      ],
+      "looksBetter": "NOT_ESTABLISHED",
+      "artOutcome": "ART_REJECT"
+    }
+  },
+  "benchmark": {
+    "method": "Actual headless Chromium requestAnimationFrame presentation cadence, 22 positive frame intervals x 9 source paused-camera conditions per CI run",
+    "sourcePauseTimeSec": [
+      65.25,
+      66.35,
+      68.05
+    ],
+    "displayModes": [
+      "BASE",
+      "K4CS",
+      "CLEAN"
+    ],
+    "perRunFrameIntervalCount": 198,
+    "environment": "GitHub Actions Ubuntu 24.04, Chromium headless, GPU backend and load not independently controlled",
+    "game240HzUnchangedDuringCapture": true,
+    "notRealUserMachineFPS": true,
+    "notGPUTimeMeasurement": true,
+    "noFormalPerformanceTargetDefined": true,
+    "crossRunVariabilityObserved": true,
+    "criticalInterpretation": "R10B and R10C headless pacing slower than R10A; R10D identical restored code still slower than R10A. Source material shader likely contributes, but independent CI runner differences prevent deterministic causal GPU slowdown proof. No performance certification."
+  },
+  "nativeGameplay": {
+    "originalUncontrolledFailureTimeSec": 69.4833333333523,
+    "originalFailureReason": "コースから落下",
+    "originalUIRetry": "retryRun",
+    "sameBrowser": true,
+    "realKeyDPulsesSec": [
+      [
+        65.25,
+        65.36
+      ],
+      [
+        65.79,
+        65.91
+      ]
+    ],
+    "nativeFinishedAtSeconds": 69.94166666668522,
+    "realRoad6B51_14Passed": true,
+    "actualB51Contacts": 0,
+    "newColliders": 0,
+    "originalGameSourcePreserved": true,
+    "humanDriverTest": false
+  },
+  "recovery": {
+    "restorationCommit": "0bd04128e63313989382cd93b4db361fe0a92a17",
+    "restorationFileBlobs": {
+      "scripts/p101-k4ct-install-authored-dcc.mjs": "18f6f21673e1088e55d526419135c4aee351c6a6",
+      "scripts/p101-k4ct-second-b51-controlled-keyboard.mjs": "bcb166ab21c7a50262dd4be18da68021f82c1731"
+    },
+    "restoredRendererFrom": "R9 proven source-native scenery material bridge",
+    "retainedBenchmarkFrom": "R10A genuine 9-view paused Chromium frame pacing",
+    "candidateHistoryPreserved": true,
+    "forcePush": false,
+    "finalSourceRestorationNativeCI": 42203136244,
+    "finalSourceRestorationCIPass": true,
+    "finalArtifactSha256": "c16baa5cb3a73484ba5315653f2d67fe4d53eeab1dbbb9affc6f83b13317a564"
+  },
+  "critical": {
+    "technicalStatus": "RESTORED_TECH_PASS",
+    "visualStatus": "ART_REJECT",
+    "r10BShaderPromoted": false,
+    "formalArtAdopted": 0,
+    "slope2DNAAdoptedMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "fullPBR": "NOT_CERTIFIED",
+    "failureCauses": [
+      "Shader changes were real and source visible but added little broad art value.",
+      "Heavy per-pixel trigonometric procedural detail is a poor trade-off in available headless evidence.",
+      "The dominant world quality deficit remains flat rock and repetitive harbor geometry, not a missing subtle grain shader.",
+      "Cross-CI frame pacing is environment-sensitive, so a same-run A/B and machine-specific GPU test are needed before any performance conclusion."
+    ],
+    "nextResearch": "R11: make paired baseline/new visual renderer measurement within the SAME Chromium/GPU/CI runner and fixed true camera moments; pursue genuinely authored high-quality continuous harbor silhouettes and baked/mipmapped material atlas instead of repeated flat geometry or costly per-pixel trig; get human cue test before formal ART/HUMAN and keep original B48/B51."
+  },
+  "additionalPaidAPICalls": 0,
+  "workComputerUseStarted": false,
+  "userManualSteps": 0
+}
