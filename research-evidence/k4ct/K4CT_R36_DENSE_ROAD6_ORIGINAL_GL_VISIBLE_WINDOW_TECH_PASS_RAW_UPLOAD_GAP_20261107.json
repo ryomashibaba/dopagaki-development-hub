@@ -1,0 +1,174 @@
+{
+  "schema": "k4ct-r36-original-240hz-ten-dense-tick-visibility-v1",
+  "dateJST": "2026-11-07",
+  "policy": "V14 unchanged; original game/source road/240Hz camera and R12A Blender author protected; diagnostic not ART.",
+  "source": {
+    "runId": 42367946121,
+    "head": "1f8b9577b2faf622a6f53f9ed23a7162cbc1de5e",
+    "runConclusion": "SUCCESS",
+    "runUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42367946121",
+    "logJobId": 128389888627,
+    "originalR35BArtifactId": 13571497946,
+    "reusedTrueBlender": true,
+    "blenderReexecuted": false,
+    "artifactSaved": false,
+    "artifactIssue": "R36 upload step accidentally retained R33 path test-results/k4ct-source-ownership/ instead of real test-results/k4ct-r36-visibility/. GitHub Actions emitted No files were found; therefore raw/images/JSON cannot be independently opened from R36 run, but log includes results and all gate assertions passed."
+  },
+  "method": {
+    "actualOriginalChromiumWebGL2": true,
+    "sourceTickHz": 240,
+    "originalCamera": true,
+    "originalDepthTest": true,
+    "sourceR35BMarkerIDs": [
+      "15",
+      "16",
+      "17"
+    ],
+    "realBlenderSite": {
+      "road": 6,
+      "u": 0.15,
+      "side": "R",
+      "distancesMeters": [
+        55,
+        75,
+        95
+      ],
+      "markerCenterY": 100.5,
+      "protectedForebay19Y": 93
+    },
+    "times": [
+      66.1,
+      66.2,
+      66.25,
+      66.3,
+      66.35,
+      66.4,
+      66.45,
+      66.5,
+      66.6,
+      66.7
+    ],
+    "sourceTicks": [
+      15864,
+      15888,
+      15900,
+      15912,
+      15924,
+      15936,
+      15948,
+      15960,
+      15984,
+      16008
+    ]
+  },
+  "observations": {
+    "fullDefaultROIPctPixelsRGBDeltaOver25": {
+      "id15": [
+        0.034,
+        0.114,
+        0.178,
+        0.256,
+        0.321,
+        0.403,
+        0.512,
+        0.653,
+        1.058,
+        1.756
+      ],
+      "id16": [
+        0.145,
+        0.26,
+        0.329,
+        0.4,
+        0.479,
+        0.578,
+        0.708,
+        0.864,
+        1.317,
+        0.595
+      ],
+      "id17": [
+        0.175,
+        0.277,
+        0.334,
+        0.393,
+        0.479,
+        0.59,
+        0.73,
+        0.903,
+        0.565,
+        0
+      ]
+    },
+    "cleanSourceTicks": {
+      "id15": [
+        15900,
+        15912,
+        15924,
+        15936,
+        15948,
+        15960,
+        15984,
+        16008
+      ],
+      "id16": [
+        15888,
+        15900,
+        15912,
+        15924,
+        15936,
+        15948,
+        15960,
+        15984,
+        16008
+      ],
+      "id17": [
+        15864,
+        15888,
+        15900,
+        15912,
+        15924,
+        15936,
+        15948,
+        15960,
+        15984
+      ]
+    },
+    "observedTimeSpans": {
+      "id15": [
+        66.25,
+        66.7
+      ],
+      "id16": [
+        66.2,
+        66.7
+      ],
+      "id17": [
+        66.1,
+        66.6
+      ]
+    },
+    "caveat": "These are intervals between sampled passing ticks, not precisely measured physical continuous visibility durations, and the marker silhouette size does not establish professional art quality. Pixel impact not unique pixel ownership."
+  },
+  "safety": {
+    "gameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "R12AAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "road5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "B48": 7,
+    "B51": 28,
+    "newColliders": 0,
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "MERGE": "HOLD",
+    "RELEASE": "HOLD",
+    "ART": "HOLD",
+    "additionalPaidAPI": false,
+    "Work": false,
+    "ComputerUse": false
+  },
+  "next": "One original source 240Hz WebGL2 genuine Blender R36 authored functional industrial water-gate 3D art candidate at Road6 R55–105 u~0.15. Fix artifact upload path in SAME art-run; capture actual native 66.10–66.70 RAW. Critical ART rejection if it looks like repeated boxes/flat water/obstructs hazard, no immediate full QA."
+}
