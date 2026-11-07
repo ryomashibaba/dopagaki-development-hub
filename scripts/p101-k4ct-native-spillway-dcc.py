@@ -832,16 +832,6 @@ beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
 beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
      boom,add(boom,(0,-30,0)),.7,'darksteel')
 
-# R24 SCIENTIFIC RESEARCH COPY ONLY. R19 terrain is an explicitly REJECTED
-# low-occlusion test substrate; then TRUE author original source stepped water
-# and two-bay lock with real load paths. No original source game/physics writes.
-_r19=Path('scripts/p101-k4ct-r19-source-three-act-open-harbor.py')
-_r24=Path('scripts/p101-k4ct-r24-gravity-cascade-integrated-shoreline.py')
-assert _r19.is_file() and _r24.is_file()
-exec(compile(_r19.read_text(encoding='utf-8'),str(_r19),'exec'),globals())
-exec(compile(_r24.read_text(encoding='utf-8'),str(_r24),'exec'),globals())
-assert len(GROUPS)==43 and all(GROUPS.values())
-
 # Editability: separate mesh objects by functional zones, real Blender materials.
 materials={}
 for key,color in COLORS.items():
