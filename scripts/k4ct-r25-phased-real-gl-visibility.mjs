@@ -11,7 +11,7 @@ import assert from 'node:assert/strict';
 import {chromium} from '@playwright/test';
 import {server} from './serve.mjs';
 import {decodeChromePng,pixelImpact} from './k4ct-r12-real-chromium-png-pixel-impact.mjs';
-const phase=process.argv[2];
+const phase=process.env.K4CT_R25_PHASE;
 assert(['preflight','candidate'].includes(phase),'R25 phase MUST be preflight or candidate');
 const DIR=path.resolve('test-results/k4ct-r25-'+phase+'-native');
 fs.mkdirSync(DIR,{recursive:true});
