@@ -95,7 +95,7 @@ axis=side
 def apoint(theta, radius, depth, drop=0):
     return add(upstream,add(mul(forward,radius*math.cos(theta)),
        add(mul(axis,depth),
-       (0,drop+radius*.82*math.sin(theta)-6))))
+       (0,drop+radius*.82*math.sin(theta)-6,0))))
 # A multi-faceted, thick, open arch with a negative-space throat. The light
 # beneath stays unobstructed to preserve original intake/control landmarks.
 archSegments=28
