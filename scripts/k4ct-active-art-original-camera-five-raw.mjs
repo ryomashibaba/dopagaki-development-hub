@@ -35,7 +35,7 @@ assert(originalTop.every(x=>dcc.objects[x]>0));
 const targetIDs=[]; // no expensive group attribution during ART-first screening
 const manifest=JSON.parse(fs.readFileSync('test-results/k4ct-active-art/R32_SCENE_MANIFEST.json','utf-8'));
 assert.equal(manifest.schema,'k4ct-active-art-r32-camera-anchored-double-drop-intake-turbine-v1');
-assert.equal(manifest.physicalB48,7);assert.equal(manifest.movingB51,28);assert.equal(manifest.newColliders,0);
+assert.equal(manifest.originalB48,7);assert.equal(manifest.originalB51,28);assert.equal(manifest.newColliders,0);
 assert(Object.keys(manifest.reworkedGroups).length===35 && manifest.realBlenderBeveledStoneVolumes.length===3 && manifest.visualWorldDropTotalM===70);
 const result=[];
 await new Promise((ok,fail)=>server.once('error',fail).listen(0,'127.0.0.1',ok));
