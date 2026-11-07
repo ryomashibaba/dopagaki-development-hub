@@ -127,26 +127,11 @@ try{
  await advance(68.05,true);await actualSourceFrame(68.05);
  assert.deepEqual(result.map(x=>x.sourceTick),[15660,15744,15924,16128,16332]);
  assert.deepEqual(errors,[]);
- // Compare each SOURCE-rendered depth-tested marker's actual raster influence
- // against restoration noise IN THE SAME paused source tick. 0.15% is merely
- // a conservative diagnostic floor, NEVER an ART or human acceptance threshold.
- const siteSignals=targetIDs.map(id=>{
-  const observations=result.map(r=>{
-   const impact=r.selectiveGroupInfluence[id].impact.changedPctRGBgt25;
-   const restore=r.reproducibility.changedPctRGBgt25;
-   return {sec:r.timeSec,tick:r.sourceTick,impactRGB25Percent:impact,
-    rendererRestoreNoisePercent:restore,
-    exceedsNoiseFloor:impact>Math.max(0.15,restore+0.05)};
-  });
-  return {id,observations,
-   cleanObservedTicks:observations.filter(o=>o.exceedsNoiseFloor).map(o=>o.tick),
-   maxDiagnosticImpactRGB25Percent:Math.max(...observations.map(o=>o.impactRGB25Percent))};
- });
- const witness=siteSignals;
- const anchorGate=null;
+ // R28 first pass explicitly does not measure influence or restore parity.
+ const siteSignals=[],witness=[],anchorGate=null;
  const output={
   schema:'k4ct-r28-genuine-source-camera-unified-harbor-raw-first-v1',
-  phase,witness,anchorGate,siteSignals,genuineResearchArtCandidate:true,gateMeaning:'R28 one true Blender integrated intake/erosion architecture in ORIGINAL 240Hz WebGL2 GL depth. Group influence is diagnostic only, NOT ART or human judgement',
+  phase,witness,anchorGate,siteSignals,genuineResearchArtCandidate:true,gateMeaning:'One true Blender single integrated harbor candidate in ORIGINAL 240Hz WebGL2. Five clean RAW only. No group attribution or ART pass.',
   originalGameBlob:originalBlob,roadPhysicsSHA256:dcc.sourcePhysicalRoad5SHA256,
   genuineBlenderPolygons: true,editableBlenderGroups:43,totalTriangles:dcc.triangles,
   originalWebGL2:true,originalCamera:true,originalRunner240Hz:true,
@@ -159,7 +144,7 @@ try{
   originalCameraR16AnalyticAnchorWasNotRealGLProof:true,
   R19NonadoptedResearchSubstrate:false,
   R23SourceOriginalFiveFrameCompared:false,
-  realWaterElevationAndTwoGateReauthor:false,
+  realWaterElevationAndTwoGateReauthor:'SOURCE_MESH_UNREVIEWED',
   sourceNativeGroupIDs:targetIDs,
   originalIntakeTowerTurbinePreserved:true,
   formalARTAdopted:0,slope2DNAmeters:0,
