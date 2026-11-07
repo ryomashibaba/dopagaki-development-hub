@@ -1,0 +1,62 @@
+{
+  "schema": "k4ct-r38-water-invisibility-source-depth-nonprotected-occlusion-confirmed-v1",
+  "dateJST": "2026-11-07",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "sourceRun": 42375928902,
+  "artifactId": 13575796328,
+  "artifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42375928902/artifacts/13575796328",
+  "sourceOriginalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+  "r12aOriginalBlenderBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+  "realBrowser": "Chromium",
+  "realWebGL2": true,
+  "original240Hz": true,
+  "sourceTicks": [
+    15900,
+    15924,
+    15972
+  ],
+  "sameTickRestorationExact": true,
+  "observedRGBgt25At3Times": {
+    "naturalGroup23_24": [
+      0,
+      0,
+      0
+    ],
+    "group19OnlyRemoved_pair23_24": [
+      0,
+      0,
+      0
+    ],
+    "localUnprotectedSurroundRemoved_pair23_24": [
+      365,
+      939,
+      1049
+    ],
+    "waterOnlyDepthDisabled_vsNoDcc": [
+      3946,
+      6275,
+      6442
+    ]
+  },
+  "sourceDccWaterTriangles": {
+    "group23": 160,
+    "group24": 83,
+    "nondegenerate": true
+  },
+  "criticalInterpretation": "R36 water23/24 is geometrically present and within source camera frustum. It is invisible in original frame because of depth or surrounding rendered surfaces. Removing protected19 alone does NOT reveal it; temporary removal of selected nonprotected neighbors does. Forced front is a non-gameplay diagnostic only. This supports exactly one open-cut nonprotected DCC redesign but does not prove production art viability or uniquely identify every occluding triangle.",
+  "deeperCpuProjectionNote": "Independent offline projection at 66.35 found nearby screen overlap from nonprotected 03/15/16/25 and protected19/00. The approximate per-triangle centroid projection is heuristic and not a certified GL depth ownership map.",
+  "next": "One candidate R39 new real Blender open cut; one short original WebGL2 RAW review; reject if again flat or unreadable.",
+  "formalARTAdopted": 0,
+  "slope2DNAmeters": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "FPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "protected8Unchanged": true,
+  "userActions": 0,
+  "work": false,
+  "computerUse": false,
+  "additionalPaidAPI": false
+}

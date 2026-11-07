@@ -8,6 +8,8 @@ on:
       - scripts/k4ct-r37-source-water-causality.mjs
       - scripts/k4ct-r38-private-depth-patch.mjs
       - scripts/k4ct-r38-depth-frustum.mjs
+      - scripts/p101-k4ct-r39-open-quarry-hydraulic-cut.py
+      - scripts/k4ct-r39-original-three-raw.mjs
       - scripts/p101-k4ct-r35-true-blender-forebay-markers.py
       - scripts/k4ct-r35-source-forebay-visibility.mjs
       - scripts/k4ct-r36-original-camera-dense-visibility.mjs
@@ -552,5 +554,137 @@ jobs:
           path: |
             test-results/k4ct-r37-water-causality/
             test-results/k4ct-r38-depth/
+          if-no-files-found: warn
+          retention-days: 7
+
+  source-r39-one-real-blender-open-cut-native-review:
+    if: ${{ contains(github.event.head_commit.message, '[R39 art]') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 42
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protected exact blobs and syntax first
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+          node --check scripts/k4ct-r39-original-three-raw.mjs
+          python3 - <<'PY'
+          import ast,pathlib
+          for s in ['scripts/p101-k4ct-native-spillway-dcc.py',
+                    'scripts/p101-k4ct-r36-genuine-sluice-architecture.py',
+                    'scripts/p101-k4ct-r39-open-quarry-hydraulic-cut.py']:
+              ast.parse(pathlib.Path(s).read_text(),filename=s)
+          print('R39_REAL_BLENDER_SOURCE_SYNTAX_CHECKED')
+          PY
+      - name: Build immutable original PRIVATE stage and source DCC station export
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-dcc-source-export.mjs
+      - name: Install REAL Blender and native browser prerequisites
+        timeout-minutes: 17
+        run: |
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|g; s|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 850s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender libegl1 libgl1-mesa-dri libopengl0 libgbm1 fonts-noto-cjk
+          blender --version | head -3
+          npx playwright install --only-shell chromium
+      - name: Genuine Blender R39 authored from isolated verified R12A source
+        timeout-minutes: 9
+        run: |
+          set -euo pipefail
+          blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4ct-native-spillway-dcc.py
+          mkdir -p test-results/k4ct-r39-art
+          cp test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json test-results/k4ct-r39-art/R39_BASELINE_EIGHT_PROTECTED.json
+          python3 - <<'PY'
+          import pathlib,ast,subprocess
+          p=pathlib.Path('scripts/p101-k4ct-native-spillway-dcc.py')
+          assert subprocess.check_output(['git','hash-object',str(p)],text=True).strip()=='096fffbc1627915eb0122224955bb02cfba6b3ae'
+          s=p.read_text()
+          marker='# Editability: separate mesh objects by functional zones'
+          assert s.count(marker)==1
+          inject="exec(compile(Path('scripts/p101-k4ct-r36-genuine-sluice-architecture.py').read_text(),'R36_ISOLATED_PREVIOUS_REJECTED_STUDY','exec'))\nexec(compile(Path('scripts/p101-k4ct-r39-open-quarry-hydraulic-cut.py').read_text(),'R39_ISOLATED_NEW_REAL_OPEN_CUT','exec'))\n"
+          temp=pathlib.Path('test-results/k4ct-r39-isolated-true-author.py')
+          temp.write_text(s.replace(marker,inject+marker))
+          ast.parse(temp.read_text(),filename=str(temp))
+          print('R39_ISOLATED_NO_CANONICAL_AUTHOR_EDIT')
+          PY
+          blender -b --factory-startup --python-exit-code 3 --python test-results/k4ct-r39-isolated-true-author.py
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+      - name: Rebuild source-private renderer and insert REAL edited Blender mesh
+        run: |
+          set -euo pipefail
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-install-authored-dcc.mjs
+      - name: Three native-original 240Hz Chromium WebGL2 RAW for EARLY ART veto
+        timeout-minutes: 10
+        run: node scripts/k4ct-r39-original-three-raw.mjs
+      - name: Independent source and protected 8 XYZRGB safety check
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,subprocess
+          root=pathlib.Path('test-results')
+          base=json.loads((root/'k4ct-r39-art/R39_BASELINE_EIGHT_PROTECTED.json').read_text())
+          new=json.loads((root/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+          m=json.loads((root/'k4ct-r39-art/R39_OPEN_QUARRY_SOURCE_MANIFEST.json').read_text())
+          r=json.loads((root/'k4ct-r39-native-raw/K4CT_R39_TRUE_SOURCE_PHASED_VISIBILITY.json').read_text())
+          assert new['triangles']==m['totalSceneTriangles']
+          assert len(new['objects'])==len(base['objects'])==43
+          assert new['originalB48']==m['originalB48']==7 and new['originalB51']==m['originalB51']==28
+          assert new['newColliders']==m['newColliders']==0
+          assert new['sourcePhysicalRoad5SHA256']=='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b'
+          def vals(j,name):
+              i=0
+              for n,c in j['objects'].items():
+                  if n==name:return j['vertices'][i:i+18*c]
+                  i+=18*c
+              raise AssertionError(name)
+          for n,c in base['objects'].items():
+              if n[:2] in ('00','12','13','19','34','35','41','42'):
+                  assert c==new['objects'][n],('protected count',n)
+                  assert vals(base,n)==vals(new,n),('protected vertices',n)
+          assert m['openCutNoClosedArch'] and m['sourceGroup19Untouched']
+          assert len(m['realEvaluatedBlenderWaterMeshes'])==2
+          assert [x['sourceTick'] for x in r['sourceFramesRAW']]==[15900,15924,15972]
+          assert r['originalWebGL2'] and r['originalRunner240Hz'] and r['originalCamera']
+          assert r['formalARTAdopted']==r['slope2DNAmeters']==0
+          assert all(r[k]=='HOLD' for k in ('ART','HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
+          for f in r['sourceFramesRAW']:
+              assert (root/'k4ct-r39-native-raw'/f['cleanRAW']).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
+          for p,h in [('web/p101-w9c2-g4e7ci-integrated-streetscape.mjs','af076d67492a677d2235e4730aef8cdf4808e106'),('scripts/p101-k4ct-native-spillway-dcc.py','096fffbc1627915eb0122224955bb02cfba6b3ae')]:
+              assert subprocess.check_output(['git','hash-object',p],text=True).strip()==h
+          print('R39_REAL_BLENDER_3_ORIGINAL_WEBGL2_RAW_8_PROTECTED_GROUPS_VERIFIED_TECH_NOT_ART')
+          PY
+      - name: Preserve R39 real Blender and native RAW even when art is rejected
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CT_R39_TRUE_BLENDER_OPEN_HYDRAULIC_CUT_NATIVE_RAW_ART_HOLD
+          path: |
+            test-results/k4ct-r39-art/
+            test-results/k4ct-r39-native-raw/
+            test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json
+            test-results/k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json
+            test-results/k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend
           if-no-files-found: warn
           retention-days: 7
