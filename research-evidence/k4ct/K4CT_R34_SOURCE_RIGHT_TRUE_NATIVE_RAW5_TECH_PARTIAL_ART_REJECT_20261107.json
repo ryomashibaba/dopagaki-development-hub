@@ -1,0 +1,158 @@
+{
+  "schema": "dopagaki-r34-source-right-forebay-site-original-camera-tech-partial-art-reject-v1",
+  "dateJST": "2026-11-07",
+  "policy": "V14.0 QUALITY-FIRST ART-FIRST DCC-FIRST INTEGRATED VERTICAL SLICE. Research only; no formal P101/main/PR#46 changes. Original Game/road/camera/240Hz and protected original R12A DCC author untouched.",
+  "source": {
+    "project": "DOPAGAKI SLOPE — HYPER RUSH",
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "runId": 42364461476,
+    "runHead": "25156277c79a085004af2f0a03ab5504f2708dd4",
+    "runConclusion": "FAILURE",
+    "runURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42364461476",
+    "artifactId": 13571471607,
+    "artifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42364461476/artifacts/13571471607",
+    "artifactName": "K4CT_R34_AUTHORED_OPEN_LOCKYARD_REAL_BLENDER_SOURCE_RAW_ART_HOLD",
+    "R33PriorRun": 42361486705,
+    "R33PriorEvidence": "research-evidence/k4ct/K4CT_R33_REAL_WEBGL2_WATER_GROUP19_RIGHT_SIDE_ROOT_CAUSE_20261107.json",
+    "R32BaselineArtifact": 13568526354
+  },
+  "method": {
+    "name": "R34 genuine Blender source-right gravity-cascade at preserved group19 forebay boundary",
+    "scene": "scripts/p101-k4ct-active-source-camera-art-slice.py",
+    "capture": "scripts/k4ct-active-art-original-camera-five-raw.mjs",
+    "workflow": " .github/workflows/p101-k4ct-active-source-camera-art.yml",
+    "roadSide": "R",
+    "sourceRoad5U": [
+      0.68,
+      0.858
+    ],
+    "outboardRoadRightMeters": [
+      99,
+      192
+    ],
+    "unchangedForebay19RoadRightDistanceMeters": [
+      42,
+      102
+    ],
+    "unchangedForebay19Road5Y": 105,
+    "artWaterUpstreamWorldY": 105.45,
+    "designedFallsApproxMeters": [
+      27.2,
+      23.6
+    ],
+    "realBlenderVersion": "4.0.2",
+    "editableGroups": 43,
+    "totalTriangles": 11078,
+    "newNonprotectedTriangles": 3214,
+    "actualBeveledAbutments": 3,
+    "actualBlenderEvaluatedBeveledTrianglesEach": 188,
+    "caveats": "Only a noncolliding scenic rendering. Source forebay 19 was never modified; not real fluid dynamics nor a physically certified gate."
+  },
+  "technical": {
+    "trueNativeWebGL2": true,
+    "originalCamera": true,
+    "originalRunner240Hz": true,
+    "depthBufferBits": 24,
+    "sourceTimeSeconds": [
+      65.25,
+      65.6,
+      66.35,
+      67.2,
+      68.05
+    ],
+    "sourceTicks": [
+      15660,
+      15744,
+      15924,
+      16128,
+      16332
+    ],
+    "cleanNativeRAW5": true,
+    "validPNGFiles": 5,
+    "DCCSceneNativeBuilt": true,
+    "group19Unmodified": true,
+    "protectedRGBXYZParityWithR32Artifact": true,
+    "originalNoncollisionB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0,
+    "compositeStatus": "PARTIAL_TECH_EVIDENCE",
+    "failureStage": "Independent actual ART scene/source protection audit (no approval)",
+    "exactFailure": "KeyError: 'realBlenderBeveledStoneVolumes' in R34 audit because retained R32 workflow schema check references key absent from new R34 scene manifest.",
+    "passesBeforeFailure": "Original source file hash, TRUE Blender, original WebGL2 capture five frames, exact eight protected groups XYZRGB verification",
+    "noGreenRerunForRejectedArt": true
+  },
+  "originalGLReview": {
+    "verdict": "ART_REJECT",
+    "baseline": "R32 same genuine original WebGL2 game, 1365x930 exact source ticks",
+    "leftWaterROI": "x=0..239, y=280..699 (100800 pixels)",
+    "leftWaterChangedPixelsAboveRGB25": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "widerLeftROI": "x=0..669, y=250..709",
+    "widerLeftChangedPixelsAboveRGB25": [
+      0,
+      0,
+      0,
+      1091,
+      0
+    ],
+    "wholeGameRegionChangedPixelsAboveRGB25": [
+      6751,
+      2676,
+      0,
+      1320,
+      0
+    ],
+    "failure": "R34 succeeded in true DCC creation and proper source RIGHT-side world placement but did not create a visibly legible waterfall/lock in the visually dominant LEFT SCREEN water. Most sampled times the region remained unchanged.",
+    "importantDistinction": "Unlike R32's opposite-bank L placement, R34 corrected to source R but extended mostly beyond group19's road-right 42..102m protected forebay span (R34 distances 99..192m). Whether this is occluded, off-screen, or constrained by source camera is still UNKNOWN; do not assert unique cause without a direct visibility site probe.",
+    "antiLoop": "Do not repeat expensive whole harbor geometry or generic Blender morphs. Do not touch protected 19. First test a few SOURCE-MESH markers on top of currently visible group19 within R-side distance 42..102m at y105+2..8, with genuine native camera site influence. If visible, design one functional estuary spillway at proven pixel area. Reject over-occluding road/HUD."
+  },
+  "protected": {
+    "gameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "physicalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "original19GroupExactR32": true,
+    "allProtectedGroupIDs": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "allEightR32AndR34XYZRGBExact": true,
+    "protectedTriangleSum": 7864,
+    "mainHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46OpenDraftUnmerged": true,
+    "sourceGameEdit": false,
+    "sourceArtistEdit": false,
+    "restorationRequired": false
+  },
+  "gate": {
+    "ART": "REJECT",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "cost": {
+    "userActions": 0,
+    "paidAPI": false,
+    "work": false,
+    "computerUse": false,
+    "githubActionsBilling": "UNKNOWN"
+  },
+  "nextEssentialAction": "R35 LIGHTWEIGHT real source 240Hz WebGL2 site-influence first, no full Blender art re-run: place single isolated provisional original-Blender diagnostic mesh above protected group19 at actual source R d=55,75,95 and worldY>=107 for relevant u. Compare against original camera same ticks. Prove visible surface of forebay and lossless restoration before investing in any new true art. Keep protected group19, camera and game untouched. Only then high-quality functional 3D composition."
+}
