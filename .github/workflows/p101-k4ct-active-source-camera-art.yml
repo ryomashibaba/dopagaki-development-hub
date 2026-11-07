@@ -809,7 +809,7 @@ jobs:
           sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 850s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender libegl1 libgl1-mesa-dri libopengl0 libgbm1 fonts-noto-cjk
           blender --version | head -3
           npx playwright install --only-shell chromium
-      - name: Genuine Blender R39 authored from isolated verified R12A source
+      - name: Genuine Blender R44 authored once on isolated verified R12A research substrate
         timeout-minutes: 9
         run: |
           set -euo pipefail
@@ -827,9 +827,9 @@ jobs:
           temp=pathlib.Path('test-results/k4ct-r44-isolated-true-author.py')
           temp.write_text(s.replace(marker,inject+marker))
           ast.parse(temp.read_text(),filename=str(temp))
-          print('R39_ISOLATED_NO_CANONICAL_AUTHOR_EDIT')
+          print('R44_ISOLATED_NO_CANONICAL_AUTHOR_EDIT')
           PY
-          blender -b --factory-startup --python-exit-code 3 --python test-results/k4ct-r39-isolated-true-author.py
+          blender -b --factory-startup --python-exit-code 3 --python test-results/k4ct-r44-isolated-true-author.py
           test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
       - name: Rebuild source-private renderer and insert REAL edited Blender mesh
         run: |
@@ -851,7 +851,7 @@ jobs:
           root=pathlib.Path('test-results')
           base=json.loads((root/'k4ct-r39-art/R39_BASELINE_EIGHT_PROTECTED.json').read_text())
           new=json.loads((root/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
-          m=json.loads((root/'k4ct-r39-art/R39_OPEN_QUARRY_SOURCE_MANIFEST.json').read_text())
+          m=json.loads((root/'k4ct-r44-art/R44_SOURCE_UNDERBANK_CONDUIT_MANIFEST.json').read_text())
           r=json.loads((root/'k4ct-r44-native-raw/K4CT_R44_THREE_STAGE_WATER_VISIBILITY.json').read_text())
           assert new['triangles']==m['totalSceneTriangles']
           assert len(new['objects'])==len(base['objects'])==43
@@ -868,19 +868,23 @@ jobs:
               if n[:2] in ('00','12','13','19','34','35','41','42'):
                   assert c==new['objects'][n],('protected count',n)
                   assert vals(base,n)==vals(new,n),('protected vertices',n)
-          assert m['allThreeStageSharedBoundaryCoordinates'] and m['sourceGroup19Untouched']
+          assert m['allThreeStageSharedBoundaryCoordinates'] and m['sourceGroup19Untouched'] and m['protectedEightExactBeforeExport']
+          assert m['buriedHydraulicVolumeNotTrueFluidSolver'] and m['sourceIntakeSubmergedY']<m['sourceBankWaterY93']<m['sourceBankCrestY93_8']
           assert len(m['realEvaluatedBlenderWaterMeshes'])==3
           assert [x['sourceTick'] for x in r['frames']]==[15900,15924,15972]
+          assert r['schema']=='k4ct-r44-original-camera-three-stage-water-impact-v1'
           assert r['originalWebGL2'] and r['originalRunner240Hz'] and r['unmodifiedOriginalSourceCamera'] and r['restorationEveryFrameValid']
           assert r['formalARTAdopted']==r['slope2DNAmeters']==0
+          assert r['waterOwnerDetermined'] is False
           assert all(r[k]=='HOLD' for k in ('ART','HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
           for f in r['frames']:
-              assert (root/'k4ct-r39-native-raw'/f['cleanRAW']).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
+              basename='R44_TRUE_ORIGINAL_T'+str(f['seconds']).replace('.','_')+'_BASE.png'
+              assert (root/'k4ct-r44-native-raw'/basename).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
           for p,h in [('web/p101-w9c2-g4e7ci-integrated-streetscape.mjs','af076d67492a677d2235e4730aef8cdf4808e106'),('scripts/p101-k4ct-native-spillway-dcc.py','096fffbc1627915eb0122224955bb02cfba6b3ae')]:
               assert subprocess.check_output(['git','hash-object',p],text=True).strip()==h
           print('R44_REAL_BLENDER_3_ORIGINAL_WEBGL2_RAW_8_PROTECTED_GROUPS_VERIFIED_TECH_NOT_ART')
           PY
-      - name: Preserve R39 real Blender and native RAW even when art is rejected
+      - name: Preserve R44 genuine Blender and native RAW even if art is rejected
         if: always()
         uses: actions/upload-artifact@v4
         with:
