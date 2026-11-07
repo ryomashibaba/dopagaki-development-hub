@@ -1,0 +1,134 @@
+{
+  "schema": "k4ct-r30-true-source-5raw-genuine-blender-tech-pass-art-reject-v1",
+  "dateJST": "2026-11-07",
+  "policy": "Continuation of V14.0 after R29; QUALITY-FIRST/ART-FIRST/DCC-FIRST/INTEGRATED VERTICAL SLICE. No official game or production change.",
+  "provenance": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "runId": 42353473521,
+    "runHead": "e23c04e8828ae5e0a96ebf3e20ca819a5dc36d71",
+    "runConclusion": "SUCCESS",
+    "runUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42353473521",
+    "artifactId": 13566517578,
+    "artifact": "K4CT_R30_TRUE_BLENDER_BOOLEAN_CANYON_FIVE_NATIVE_RAW_HOLD",
+    "artifactUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42353473521/artifacts/13566517578",
+    "referenceR29": {
+      "runId": 42349091008,
+      "artifactId": 13564009905,
+      "tech": "PARTIAL_TRUE_NATIVE_RAW",
+      "art": "REJECT"
+    }
+  },
+  "genuineDCC": {
+    "version": "Blender 4.0.2",
+    "groups": 43,
+    "triangles": 40333,
+    "protectedTriangles": 7864,
+    "newResearchTriangles": 32469,
+    "originalDccAuthor": "scripts/p101-k4ct-native-spillway-dcc.py",
+    "isolatedArtSource": "scripts/p101-k4ct-r30-true-blender-carved-tidal-canyon.py",
+    "trueBlenderEvaluatedMeshes": [
+      13120,
+      8784,
+      9360
+    ],
+    "actualBooleanDifferenceVolumes": 1,
+    "subsurfaceSubdivisionLevel": 2,
+    "r9NativeUVMaterialBridge": true,
+    "editableBlenderSaved": true,
+    "sceneManifest": "k4ct-r30-boolean-canyon/R30_SCENE_MANIFEST.json",
+    "noReleaseBuild": true
+  },
+  "nativeCapture": {
+    "source": "Original Game / 240Hz / WebGL2 / original camera",
+    "genuineRAWCount": 5,
+    "seconds": [
+      65.25,
+      65.6,
+      66.35,
+      67.2,
+      68.05
+    ],
+    "sourceTicks": [
+      15660,
+      15744,
+      15924,
+      16128,
+      16332
+    ],
+    "depthBits": 24,
+    "cleanSourceFramesOnly": true,
+    "pageOrWebglErrors": 0,
+    "captureScript": "scripts/k4ct-r30-original-source-five-raw-boolean-canyon.mjs",
+    "fullSevenFrameProof": false,
+    "sameTickRestoreParity": "NOT_MEASURED",
+    "groupHideAttribution": "NOT_RUN",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD"
+  },
+  "criticalArtReview": {
+    "verdict": "REJECT",
+    "method": "Direct visual comparison of four common matching original-game screenshots from R29 and R30, plus a single R30 65.25s full frame, not a Blender concept render or AI-generated image. Screenshots from original Chromium 1365x930 using source camera.",
+    "positiveChanges": [
+      "R29's sharp jagged near-right polygon peaks became smoothly shaded continuous rock with actual real Blender Subsurf.",
+      "New scene has a genuinely evaluated boolean-excavated volume and nonplanar descending water mesh (technical method improvement).",
+      "Real road, player and top warning HUD remain visible in five scripted frames; this is not a verified fairness or fun assessment."
+    ],
+    "failures": [
+      "65.25 and 65.60: enormous pale sandstone-like cliff occupies the near left frame, reproducing R27's major scene-composition error with smoother geometry.",
+      "66.35 and 67.20: massive dark wall left and pale rock mass right narrowly frame the original road; scale and perspective feel like coarse disconnected shells rather than navigable carved harbor.",
+      "68.05: smooth beige right foreground and very dark left cliff still flank the race; original turbine appears as a separate functional object not visually founded in rock/industrial infrastructure.",
+      "Water remains a mostly uniform turquoise flat strip with no legible 23m waterfall or upper-lower basin transition at full driving camera speed.",
+      "Boolean cave is not recognizable as a convincing excavated aperture in these source-camera views. The distinctive working port, integrated quay and industrial operations remain missing.",
+      "40k triangles and true DCC modifiers did not produce a professional coherent art identity; metrics and green CI cannot substitute ART judgment."
+    ],
+    "rejectionCause": "CAMERA_COMPOSITION_AND_VISUAL_FUNCTION_NOT_MESH_TECH",
+    "continuedMethodRisk": "Formula-driven large continuous 3D landforms created real geometry but remained too dominant in original chase camera; increasing smoothing and polycount is not an art solution.",
+    "scopeLimit": "Qualitative screen review, no human tester, SAT, CCD, full-seven tick camera validation or Windows FPS certification."
+  },
+  "protected": {
+    "gameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "artistBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "road5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "B48": 7,
+    "B51": 28,
+    "newColliders": 0,
+    "originalProtectedGroupIDs": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "allEightProtectedGroupXYZRGBExactR29Equality": true,
+    "verifiedSourceGameAndAuthorAfterRunViaGitHub": true,
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "OPEN_DRAFT_UNMERGED",
+    "otherProtectedEnvironments": "NOT_TOUCHED"
+  },
+  "restoration": "No active source modification; all R30 authoring was in the isolated runner copy and R12A protected author and Game Git blob remained identical. No rollback needed.",
+  "formalArtAdopted": 0,
+  "slope2DNAmeters": 0,
+  "holds": {
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "nextEssentialDirection": "Do not green-rerun or bulk-scale this rejected R30 model. Before any further substantive new candidate, make original camera screenshot a fixed foreground/midground/background silhouette contract: protect road/HUD/air; remove large enclosing terrain; purposefully author a small number of site-specific industrial masses grounded in original 34/12/42 with actual visible carved inlet/outlet. Use direct geometric art manipulation and source-camera feedback, not procedural repetition. Keep formal adoption and release on hold.",
+  "cost": {
+    "userActions": 0,
+    "additionalPaidAPI": false,
+    "workUsed": false,
+    "computerUseUsed": false,
+    "verifiedGitHubActionsBillingAmount": "UNKNOWN"
+  }
+}
