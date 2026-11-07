@@ -40,9 +40,9 @@ def mouth_width(t):
 # CRITICAL: A continuous sculpted rear rock MASS, enclosing the open water void.
 # Its five large asymmetric structural silhouette beats are NOT rows of flat bands.
 # No gray near-camera slope inside 55m of the original road edge.
-stations=(-131.,-105.,-72.,-43.,-20.,0.,26.,53.,84.,118.)
+R28_T_STATIONS=(-131.,-105.,-72.,-43.,-20.,0.,26.,53.,84.,118.)
 profiles=[]
-for i,t in enumerate(stations):
+for i,t in enumerate(R28_T_STATIONS):
     curl=math.sin(t*.019)*11. + math.sin(t*.047)*4.
     inner=140. + curl
     crest=inner+43.+11.*math.sin(.5+i*.77)
@@ -53,7 +53,7 @@ for i,t in enumerate(stations):
                      P(t,inner,channel_level(t)+17.+8.*math.cos(i*.7)),
                      P(t,crest,top),
                      P(t,far,top-16.)))
-for i in range(len(stations)-1):
+for i in range(len(R28_T_STATIONS)-1):
     g=G('21') if i<5 else G('25')
     wedge(g,profiles[i],profiles[i+1],
           ('chalk','saltstone','shale','moss')[i%4],
@@ -138,7 +138,7 @@ for t,d,h in ((-32.,164.,64.),(93.,181.,55.)):
 # No other added colliders; all existing original landmark groups preserved.
 assert all(len(GROUPS[R28N[k]])>0 for k in REWORK)
 assert all(len(GROUPS[k])==v for k,v in KEEP_COUNTS.items())
-assert len(GROUPS)==43
+assert len(GROUPS)==43 and isinstance(stations,dict) and 'a13-machine-13' in stations
 out=Path('test-results/k4ct-r28-one-harbor')
 out.mkdir(parents=True,exist_ok=True)
 audit={
