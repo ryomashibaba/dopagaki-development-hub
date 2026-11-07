@@ -149,8 +149,15 @@
     "FPS": "HOLD",
     "RELEASE": "HOLD",
     "MERGE": "HOLD",
-    "activeDccRestoration": "PENDING_EXACT_R12A_BLOB",
-    "postRestoreCI": "NOT_RUN_UNTIL_SOURCE_RESTORED",
+    "activeDccRestoration": {
+      "status": "RESTORED_EXACT_PREVIOUS_NATIVE_CI_GREEN_R12A_BLOB",
+      "commit": "fd9dd24eaf9283c989a4b425abf8344e640b53d8",
+      "restoredGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+      "scope": "Only isolated research active Blender author, original GAME and main never edited",
+      "postRestoreNativeCI": "NOT_RUN_INTENTIONALLY_REUSE_EXACT_GIT_BLOB_PRIOR_GREEN_42230306036",
+      "limit": "Restored source blob identical to previously green CI, this is not a new post-restore native test"
+    },
+    "postRestoreCI": "NOT_RUN_INTENTIONALLY_REUSE_PRIOR_GREEN_IDENTICAL_BLOB",
     "preserveResearchOnlyR23Module": true
   },
   "nextEfficientDirection": "R24: do not continue R13–R23 invisible/off-camera pieces or repeat freestanding wheel/arch motifs. Instead use the original source 5-frame view to author an integrated identifiable industrial shoreline: observable water-head height variation, massive real-load-bearing bank and functional forebay-to-turbine relationship, one readable left/right time sequence, correct native hazard contrast. Audit material hierarchy and geometry as one composition; reject before expensive full QA if no visible gain.",
