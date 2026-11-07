@@ -5,6 +5,7 @@ on:
       - research/k4ct-two-native-b51-choice-consequence-20261105
     paths:
       - scripts/k4ct-source-camera-group-influence-probe.mjs
+      - scripts/k4ct-r37-source-water-causality.mjs
       - scripts/p101-k4ct-r35-true-blender-forebay-markers.py
       - scripts/k4ct-r35-source-forebay-visibility.mjs
       - scripts/k4ct-r36-original-camera-dense-visibility.mjs
@@ -492,3 +493,53 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  source-r37-original-water-causality:
+    if: ${{ contains(github.event.head_commit.message, '[R37 water causality]') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 23
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify protected source and R37 diagnostic syntax
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+          node --check scripts/k4ct-r37-source-water-causality.mjs
+      - name: Reuse actual R36 editable Blender and original WebGL2 RAW
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CT_R36_SOURCE_ROAD6_FUNCTIONAL_SPILLWAY_TRUE_DCC_NATIVE_RAW_ART_HOLD
+          run-id: 42369037970
+          github-token: ${{ github.token }}
+          path: test-results
+      - name: Rebuild unchanged original PRIVATE 240Hz runner and install R36 genuine DCC
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-dcc-source-export.mjs
+          node scripts/p101-k4ct-install-authored-dcc.mjs
+      - name: One true original-Chromium group-hide 3-tick water causality test
+        timeout-minutes: 9
+        run: |
+          set -euo pipefail
+          sudo apt-get -o Acquire::Retries=1 update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::Retries=1 install -y --no-install-recommends libegl1 libgl1-mesa-dri libopengl0 libgbm1 fonts-noto-cjk
+          npx playwright install --only-shell chromium
+          node scripts/k4ct-r37-source-water-causality.mjs
+      - name: Save direct genuine RAW evidence also when vetoed or test failed
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CT_R37A_ORIGINAL_WEBGL2_WATER_CAUSALITY_ART_HOLD
+          path: test-results/k4ct-r37-water-causality/
+          if-no-files-found: warn
+          retention-days: 7
