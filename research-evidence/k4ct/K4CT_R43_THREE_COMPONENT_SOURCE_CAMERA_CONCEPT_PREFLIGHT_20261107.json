@@ -1,0 +1,216 @@
+{
+  "schema": "dopagaki-k4ct-r43-finite-three-component-water-receiving-basin-schematic-preflight-v1",
+  "dateJST": "2026-11-07",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "objective": "After R42 proved current R39 water24 footprint blocked, find a different but fixed-original-camera Road6 right-forebay concept in which upstream connection region, downward fall, and lower receiver are simultaneously screen-projectable, before allowing a new Blender author pass.",
+  "provenance": {
+    "r38OriginalChromium240HzRun": 42375928902,
+    "r39ActualBlenderRun": 42377482537,
+    "r40TrueOriginalChromium240HzRun": 42378264567,
+    "r38SourceZipSHA256": "5b9c81e6dc15ec9811b9dbf5bdaf9e8101b068b8e8616593f7cae6b99a3e962d",
+    "r40SourceZipSHA256": "0ea313f4b7161e55842357b50a69828e9ad6c183dfffd86197618ab7f6aa9507",
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0,
+    "sourceR39ActualEditableBlenderTriangles": 30904,
+    "r40RealWebGL2Group24RGBgt25ByTick": [
+      0,
+      0,
+      0
+    ],
+    "mainUnchangedHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101PR46Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "draftPR46Status": "OPEN_DRAFT_UNMERGED"
+  },
+  "method": {
+    "type": "OFFLINE_APPROX_CPU_SOURCE_CAMERA_DEPTH__NOT_NATIVE_GL__NOT_BLENDER",
+    "width": 505,
+    "height": 350,
+    "timestampsSeconds": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "nativeSourceTicks": [
+      15900,
+      15924,
+      15972
+    ],
+    "camera": "Actual unchanged source camera vectors read from verified R38 artifact; matching original runner control path R39/R40, not independently recaptured in R43",
+    "geometry": "Genuine original R39 scene (30904 tris), numeric hypothetical isolated water-surface triangulations for submerged inlet/headrace, vertical gravity fall and lower receiving channel; never edited original DCC/GL.",
+    "orientationEstimatedFromR39MaterialMesh": {
+      "localOriginXYZ": [
+        1157.592,
+        0,
+        -494.67
+      ],
+      "road6ForwardXYZ": [
+        0.92049565,
+        0,
+        -0.3907528
+      ],
+      "outboardRightXYZ": [
+        -0.3907528,
+        0,
+        -0.92049565
+      ]
+    },
+    "comparison": "Render hypothetical 3 segments together with reciprocal depth and their OWN mutual occlusion; compare to real R39 DCC depth with rejected water23/24 concept absent (original protected8 unchanged), rather than falsely treating separate stage counts as simultaneous.",
+    "sourceWaterConstraint": "Protected water19 y≈93.0, protected bank top y≈93.8; hypothetical below-water inlet y92.6, gravitational culvert below bank through R100-115 and exposed open headrace beyond R115. The buried intake and functioning hydraulic portal are NOT built/verified; no protected geometry is touched.",
+    "sourceWaterBankApproxXZNearestDCCVertexDistancesMeters": [
+      1.05,
+      1.727,
+      1.25
+    ],
+    "uncertainties": [
+      "Approximate R41/R42 screen coordinates and half-res raster depth; not real Chromium/WebGL2 visual proof, exact native pixel ownership or correct GL culling/fragment behaviour",
+      "Source edge horizontal proximity does not prove water connectivity, underground culvert watertightness, collision clearance or ability to discharge against a protected bank",
+      "An actual playable game must preserve physical road B48 7, moving B51 28, Camera and 240Hz and prove hazard visibility in true screenshots",
+      "Research water geometry is not built as genuine Blender nor rendered in source-native original GL; visual recognizability and art quality remain unproven",
+      "R43 exploratory alternative placements were screened to choose 3 focused contrasts; selection biases these small-sample results, not a formally certified global optimum",
+      "Projection size != legibility at ~180-200m/s. Source 13-17m fall may remain visually too small for premium ART."
+    ],
+    "standaloneReproducibility": "Local calculation has been executed against exact digest-pinned R38+R40 ZIPs, reusing existing scripts/k4ct-r41-offline-depth-feasibility.py CPU raster. The full local R43 Python can be supplied as a working artifact; this GitHub record includes all three concept parameters and stage measurements; R43 Python is not committed to this branch to avoid unnecessary script proliferation."
+  },
+  "concepts": [
+    {
+      "id": "R43_A_COMPACT",
+      "site": "Road6 U≈.15 neighborhood, right outboard branch",
+      "localForwardT": 125,
+      "outboardDropR": 155,
+      "channelWidthM": 45,
+      "receivingWaterY": 80,
+      "outfallLengthM": 35,
+      "sourceSubmergedIntakeY": 92.6,
+      "sourceProtectedForebayY": 93,
+      "protectedBankY": 93.8,
+      "headraceStartR": 100,
+      "headraceEmergesBeyondBankAtR": 115,
+      "approxFallUpperY": 91,
+      "approxFallHeightM": 11,
+      "sourceTotalWaterHeadApproxM": 13,
+      "minSeparateStagePixelsHalfRes": {
+        "headrace": 130,
+        "fall": 145,
+        "outfall": 79
+      },
+      "waterCompositedPixelsByOriginalTick": [
+        {
+          "sec": 66.25,
+          "tick": 15900,
+          "headrace": 130,
+          "fall": 97,
+          "outfall": 27
+        },
+        {
+          "sec": 66.35,
+          "tick": 15924,
+          "headrace": 181,
+          "fall": 121,
+          "outfall": 65
+        },
+        {
+          "sec": 66.55,
+          "tick": 15972,
+          "headrace": 300,
+          "fall": 215,
+          "outfall": 183
+        }
+      ],
+      "decision": "ONLY_CONDITIONAL_SOURCE_NATIVE_TEST_SEED: first case with all three stage silhouettes nonzero after mutual water occlusion and surviving existing nonprotected R39 scenery (except rejected old water groups), but lower receiver very small in first frame and physical intake unproven."
+    },
+    {
+      "id": "R43_B_DEEPER",
+      "localForwardT": 125,
+      "outboardDropR": 170,
+      "channelWidthM": 45,
+      "receivingWaterY": 76,
+      "outfallLengthM": 25,
+      "sourceTotalWaterHeadApproxM": 17,
+      "waterCompositedPixelsByOriginalTick": [
+        {
+          "sec": 66.25,
+          "headrace": 178,
+          "fall": 118,
+          "outfall": 0
+        },
+        {
+          "sec": 66.35,
+          "headrace": 235,
+          "fall": 222,
+          "outfall": 0
+        },
+        {
+          "sec": 66.55,
+          "headrace": 410,
+          "fall": 402,
+          "outfall": 94
+        }
+      ],
+      "decision": "REJECT_PREFLIGHT: receiver invisible first 2 ticks after mutual water depth, even though independent-stage counts looked positive."
+    },
+    {
+      "id": "R43_C_WIDER",
+      "localForwardT": 105,
+      "outboardDropR": 155,
+      "channelWidthM": 60,
+      "receivingWaterY": 80,
+      "outfallLengthM": 25,
+      "sourceTotalWaterHeadApproxM": 13,
+      "waterCompositedPixelsByOriginalTick": [
+        {
+          "sec": 66.25,
+          "headrace": 197,
+          "fall": 58,
+          "outfall": 0
+        },
+        {
+          "sec": 66.35,
+          "headrace": 286,
+          "fall": 110,
+          "outfall": 0
+        },
+        {
+          "sec": 66.55,
+          "headrace": 528,
+          "fall": 288,
+          "outfall": 80
+        }
+      ],
+      "decision": "REJECT_PREFLIGHT: receiver invisible first 2 ticks after mutual water depth; wider flat water also risks repeating R39 generic sea."
+    }
+  ],
+  "criticalVerdict": {
+    "status": "R43_OFFLINE_TECH_VALIDATED_SCREEN_HYPOTHESIS_POSITIVE_A_ONLY",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "r39ExistingART": "REJECT",
+    "method": "HOLD_BEFORE_REAL_3D",
+    "futureGate": "Do ONE bounded ORIGINAL 240Hz Chromium/WebGL2 test for R43_A only after making an actual physically supported submerged-intake/under-bank conduit and short headrace in an isolated DCC copy; include 3 true RAW frames with source-original road+HUD/B51 and independent protected8 XYZ/RGB. If three-act legibility fails, reject immediately. Do NOT build a full monumental arch or repeat R39 fine tuning.",
+    "whyNotPass": "The water section is hypothetical triangles; the real protected bank remains an obstacle for visible causal intake, the receiver is extremely small in early frame and no machinery/ground support was authored. Numerically nonzero does not meet ART-FIRST or human play/fairness tests.",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "fixedV15": true,
+    "newBlenderRuns": 0,
+    "newGithubActionsRuns": 0,
+    "originalGameRoadCamera240HzUnchanged": true,
+    "originalSourceBlenderAndProtectedEightUnchanged": true,
+    "mainUnchanged": true,
+    "PR46Unchanged": true,
+    "newColliders": 0,
+    "noExtraPaidAPI": true,
+    "work": false,
+    "computerUse": false,
+    "userActions": 0
+  }
+}
