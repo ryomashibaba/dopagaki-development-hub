@@ -1,0 +1,147 @@
+{
+  "schema": "k4ct-r32-native-source-five-raw-tech-pass-art-reject-water-visibility-v1",
+  "dateJST": "2026-11-07",
+  "policy": "Existing V14.0 QUALITY-FIRST ART-FIRST DCC-FIRST INTEGRATED VERTICAL SLICE; research branch only; no formal adoption, no source camera or source physics edits.",
+  "source": {
+    "runSuccess": 42357674018,
+    "successfulHead": "61b17d8ed1aef7a8bc3ca0aca40d87702a3cd239",
+    "artifactId": 13568526354,
+    "artifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42357674018/artifacts/13568526354",
+    "runURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42357674018",
+    "initialFailureRun": 42357246360,
+    "initialFailure": "research scene local tuple variable shadowed output Path; Blender stopped before RAW",
+    "secondFailureRun": 42357452593,
+    "secondFailure": "JS manifest field names physicalB48/movingB51 mismatch R32 originalB48/originalB51; stopped before RAW",
+    "successfulWorkflowStatus": "SUCCESS",
+    "comparisonR31Artifact": 13567870831
+  },
+  "realBlender": {
+    "version": "4.0.2",
+    "editableDccGroups": 43,
+    "triangles": 10309,
+    "protectedTriangles": 7864,
+    "researchTriangles": 2445,
+    "actualNewCascades": 2,
+    "steepDropsMeters": [
+      26,
+      26
+    ],
+    "absoluteWorldHeightDifferenceMeters": 70,
+    "sourceWaterMeshGroupsEdited": [
+      "03",
+      "05",
+      "23",
+      "24"
+    ],
+    "sourceWaterGroupTrianglesR31": {
+      "23": 132,
+      "24": 132,
+      "03": 90,
+      "05": 98
+    },
+    "sourceWaterGroupTrianglesR32": {
+      "23": 120,
+      "24": 180,
+      "03": 180,
+      "05": 104
+    },
+    "visualOnlyNoFluidSimulation": true
+  },
+  "nativeWebGL2": {
+    "actualOriginalGame": true,
+    "actualOriginalCamera": true,
+    "original240Hz": true,
+    "realDepthBits": 24,
+    "rawPNGs": 5,
+    "timesSeconds": [
+      65.25,
+      65.6,
+      66.35,
+      67.2,
+      68.05
+    ],
+    "ticks": [
+      15660,
+      15744,
+      15924,
+      16128,
+      16332
+    ],
+    "sevenTickCertification": false,
+    "sameTickRestoration": false,
+    "humanTrial": false
+  },
+  "pixelInspection": {
+    "groundTruth": "Byte-perfect comparison against R31 five same-tick original 1365x930 Chromium/WebGL2 PNGs; Blender preview and AI-generated images not used.",
+    "leftWaterCrop": "x=0..239,y=280..699, 240x420 RGB pixels",
+    "changedPixelsInLeftWaterCrop": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "exactLeftWaterPixelsIdenticalAcrossAllFive": true,
+    "wholeImagePercentPixelsWithMaxRGBDifferenceOver25": [
+      0.796,
+      1.678,
+      0.055,
+      0.518,
+      0.125
+    ],
+    "at65_60ChangedPixelsOver25": 21304,
+    "at65_60DeltaBoundingBoxXY": [
+      797,
+      303,
+      1031,
+      697
+    ],
+    "interpretation": "Water 03/05/23/24 meshes genuinely changed, but the sampled left-screen visible water did not change even at byte level. The larger observed difference was around screen-right turbine/structures. New falls are not demonstrated visible in original chase; this does not prove all possible camera/tick views are invisible."
+  },
+  "protection": {
+    "gameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "activeArtistBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "road5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "all8ProtectedGroupsByteExactEqualToR31": true,
+    "ciOriginalSourceBaselineRGBXYZExact": true,
+    "mainHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "OPEN_DRAFT_UNMERGED",
+    "recoveryNeeded": false
+  },
+  "criticalArt": {
+    "verdict": "REJECT",
+    "improvements": [
+      "R31 open source camera view preserved",
+      "New right turbine/harbor solids create source-GL image changes",
+      "Genuine source Blender / true RAW and protected-group checks pass"
+    ],
+    "failures": [
+      "Two intended visible cascades fail to influence the visually prominent original left-water crop in all 5 exact matched real 240Hz frames",
+      "Water remains an essentially unchanged flat cyan area and industrial hydraulic sequence is still not legible",
+      "At game speed no ART-credible coherent harbor/turbine energy function is evident"
+    ],
+    "noFalseInferences": "70m mesh vertical difference, 10309 polygons, CI success, and original camera metadata do not establish visible waterfall or ART quality."
+  },
+  "adoption": {
+    "formalART": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "next": "Before R33 genuine art candidate, run a cheap true-WebGL2 same-tick targeted group visibility attribution on water groups 03/05/23/24, protected forebay 19 and original 34/41 landmarks. Establish which world-mesh actually owns the visible left water pixel region; locate a genuinely camera-visible hydraulic site without changing camera/physics/road. Do NOT simply increase scene complexity or re-run R32 for a green CI.",
+  "cost": {
+    "userManualActions": 0,
+    "additionalPaidAPI": false,
+    "workUsed": false,
+    "computerUseUsed": false,
+    "GitHubActionsBillUnknown": true
+  }
+}
