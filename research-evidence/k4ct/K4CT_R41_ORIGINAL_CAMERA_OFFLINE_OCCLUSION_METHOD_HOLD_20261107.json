@@ -1,0 +1,206 @@
+{
+  "schema": "dopagaki-k4ct-r41-source-projection-depth-bottleneck-v1",
+  "dateJST": "2026-11-07",
+  "basis": "No new CI. Original R38 real WebGL2 camera evidence, genuine R39 DCC 30904 triangles, original R40 same-tick WebGL2 24 impact zero.",
+  "sources": {
+    "R38": {
+      "run": 42375928902,
+      "sha256": "5b9c81e6dc15ec9811b9dbf5bdaf9e8101b068b8e8616593f7cae6b99a3e962d"
+    },
+    "R39": {
+      "run": 42377482537,
+      "artifacts": 13576017551
+    },
+    "R40": {
+      "run": 42378264567,
+      "artifact": 13576108423,
+      "sha256": "0ea313f4b7161e55842357b50a69828e9ad6c183dfffd86197618ab7f6aa9507"
+    },
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae"
+  },
+  "method": {
+    "type": "OFFLINE_APPROXIMATE_CPU_DEPTH_NOT_WEBGL2_OR_BLENDER_OR_ART_PASS",
+    "camera": "R38 same original camera runner controls, projected onto genuine R39 DCC triangles",
+    "approxPixelsWH": [
+      505,
+      350
+    ],
+    "approxAspect": 1.4506437768240343,
+    "sourceShaderProjection": "vec4(1.35*right/aspect,1.35*up,1.00022*front-1.30014,front)",
+    "depth": "nearest perspective-correct front distance",
+    "shortcomings": [
+      "approx screen canvas",
+      "near-plane crossing triangles skipped",
+      "GL fragment shader, native B48 draw order, fog, culling, exact clipping not recreated",
+      "blocker IDs are heuristic, not ground truth source pixel ownership"
+    ],
+    "reproduce": "python scripts/k4ct-r41-offline-depth-feasibility.py --r38-zip R38_depth_causality.zip --r40-zip R40_original_R39_water_visibility.zip --out r41.json",
+    "dependencies": [
+      "Python 3",
+      "numpy",
+      "numba"
+    ]
+  },
+  "measured": [
+    {
+      "sec": 66.25,
+      "nativeGroup24RGBgt25": 0,
+      "projectedWater24HalfResPixels": 908,
+      "approxWater24FrontmostHalfResPixels": 0,
+      "blockersApprox": [
+        {
+          "id": 25,
+          "n": 440,
+          "protected": false
+        },
+        {
+          "id": 3,
+          "n": 384,
+          "protected": false
+        },
+        {
+          "id": 19,
+          "n": 61,
+          "protected": true
+        },
+        {
+          "id": 15,
+          "n": 23,
+          "protected": false
+        }
+      ],
+      "hypothesisVisibleNoRoadHalfRes": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "sec": 66.35,
+      "nativeGroup24RGBgt25": 0,
+      "projectedWater24HalfResPixels": 1392,
+      "approxWater24FrontmostHalfResPixels": 0,
+      "blockersApprox": [
+        {
+          "id": 3,
+          "n": 539,
+          "protected": false
+        },
+        {
+          "id": 25,
+          "n": 439,
+          "protected": false
+        },
+        {
+          "id": 19,
+          "n": 341,
+          "protected": true
+        },
+        {
+          "id": 15,
+          "n": 71,
+          "protected": false
+        },
+        {
+          "id": 17,
+          "n": 2,
+          "protected": false
+        }
+      ],
+      "hypothesisVisibleNoRoadHalfRes": [
+        0,
+        0,
+        11,
+        49
+      ]
+    },
+    {
+      "sec": 66.55,
+      "nativeGroup24RGBgt25": 0,
+      "projectedWater24HalfResPixels": 1162,
+      "approxWater24FrontmostHalfResPixels": 0,
+      "blockersApprox": [
+        {
+          "id": 19,
+          "n": 1058,
+          "protected": true
+        },
+        {
+          "id": 3,
+          "n": 80,
+          "protected": false
+        },
+        {
+          "id": 17,
+          "n": 24,
+          "protected": false
+        }
+      ],
+      "hypothesisVisibleNoRoadHalfRes": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "hypotheticalTranslations": [
+    {
+      "name": "R39_UNCHANGED",
+      "worldDeltaXZ": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "20m_TOWARD_FIXED_ORIGINAL_CAMERA",
+      "worldDeltaXZ": [
+        -16.64,
+        10.54
+      ]
+    },
+    {
+      "name": "20m_CAMERA_SCREEN_LEFT",
+      "worldDeltaXZ": [
+        -10.7,
+        -16.9
+      ]
+    },
+    {
+      "name": "20m_LEFT_AND_NEAR",
+      "worldDeltaXZ": [
+        -27.34,
+        -6.36
+      ]
+    }
+  ],
+  "interpretation": {
+    "nativeGroundTruth": "R40 real original GL 24 zero impact in all 3 checked ticks. Neither group projection nor source GL pixel count proves human perception.",
+    "researchConclusion": "R39 waterfall24 is in the original camera's approximate frustum but covered by foreground surfaces, likely 03+25 and at later points protected19/12. This is consistent with true GL zero influence but not direct per-pixel owner proof.",
+    "constraint": "Three hypothetical 20m relocations do not produce a three-time continuous observable waterfall. Their 3D hydraulic source connection is unmodeled and likely broken, therefore none is an actual candidate.",
+    "goNoGo": "NO_GO_FOR_R39_LOCAL_REWORK_OR_NEXT_LARGE_DCC",
+    "next": "Only investigate substantially different composition if its real original-camera three-act silhouette and protected-source connection can be established before Blender; until then METHOD HOLD."
+  },
+  "policy": {
+    "fixedV15": true,
+    "newBlender": false,
+    "newWebGLRun": false,
+    "newActionsRun": false,
+    "ART": "REJECT_R39_HOLD_NEW_CANDIDATE",
+    "METHOD": "HOLD",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "mainAndPR46Protected": true,
+    "originalGameAndBlenderProtected": true,
+    "userActions": 0,
+    "paidAPI": false
+  }
+}
