@@ -1,0 +1,125 @@
+{
+  "schema": "dopagaki-k4ct-r33-original-webgl-group-influence-and-road-side-root-cause-v1",
+  "dateJST": "2026-11-07",
+  "source": {
+    "runId": 42361486705,
+    "commit": "80f7d14c4d80340135a5ddca2f96d83d039a09d8",
+    "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42361486705",
+    "conclusion": "SUCCESS",
+    "artifactId": 13570455013,
+    "artifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42361486705/artifacts/13570455013",
+    "originalR32ArtifactRun": 42357674018
+  },
+  "method": "Real 240Hz paused original camera and real Chromium WebGL2 depth-tested 8 specific Blender material groups hide one at a time at 5 ticks. Restore original screenshot and verify changes <0.5% per independent time. Influence is NOT unique pixel ownership.",
+  "inputBlender": "R32 true Blender artifact reused verbatim; Blender re-run skipped",
+  "blenderSourceGroup19": {
+    "path": "scripts/p101-k4ct-native-spillway-dcc.py",
+    "codeLines": [
+      466,
+      484
+    ],
+    "sourceRoadSections": [
+      [
+        5,
+        0.6,
+        0.94,
+        105
+      ],
+      [
+        6,
+        0.025,
+        0.36,
+        93
+      ]
+    ],
+    "actualBankSide": "R",
+    "actualSourceWaterLateralDistancesMeters": [
+      42,
+      102
+    ],
+    "preservedSurfaceYRoad5": 105,
+    "preservedSurfaceYRoad6": 93,
+    "identity": "19_R6_SOURCE_FRAMED_UPPER_TIDAL_FOREBAY",
+    "groupProtected": true
+  },
+  "previousR32Mistake": {
+    "path": "scripts/p101-k4ct-active-source-camera-art-slice.py",
+    "waterSide": "L",
+    "sourceOfL": "R32_WATER uses offset_edge(...,'L')",
+    "reason": "R32 waterfall was authored on opposite side of source road from the dominant R-side protected forebay 19, so its main left-screen source water looked unchanged."
+  },
+  "sourcePix": {
+    "times": [
+      65.25,
+      65.6,
+      66.35,
+      67.2,
+      68.05
+    ],
+    "ticks": [
+      15660,
+      15744,
+      15924,
+      16128,
+      16332
+    ],
+    "leftWaterCrop": {
+      "x0": 0,
+      "y0": 280,
+      "x1": 240,
+      "y1": 700
+    },
+    "group19ChangedPixels": [
+      36244,
+      33193,
+      18109,
+      32531,
+      0
+    ],
+    "group19ChangedPercent": [
+      35.96,
+      32.93,
+      17.97,
+      32.27,
+      0
+    ],
+    "waterGroup03_05_23_24ChangesAllFiveAndLeftCrop": 0,
+    "group34InfluenceMainlyRightOn65_25And65_60": true,
+    "group41And42InfluenceRight68_05": true,
+    "sourceRestoreGameFramePctGt25": [
+      0,
+      0,
+      0,
+      0.1516,
+      0
+    ],
+    "restoreValidAll5": true,
+    "pixelOwnershipStrictlyDetermined": false,
+    "r33ScreenshotReview": "65.60 original water left disappears when 19 hidden; hiding 03 does not alter visible left water. This is genuine screen-visible influence; not single-triangle attribution."
+  },
+  "safety": {
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "road5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "B48": 7,
+    "B51": 28,
+    "newColliders": 0,
+    "mainUnchanged": true,
+    "pr46DraftUnmerged": true,
+    "protected19Unmodified": true,
+    "userManualActions": 0
+  },
+  "verdict": {
+    "tech": "PASS_SourceWebGL_VisibilityAndRestorationOnly",
+    "art": "HOLD_NotAnArtCandidate",
+    "formalART": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "next": "One ART-first true Blender candidate R34: align short hand-authored functional lower spillway/gate outboard of protected forebay 19 along actual source road5 RIGHT R at lateral 42-102m, worldY~105; maintain protected water/roads/camera/240Hz and no near-field wall. First five real RAW, reject if not clearly visible. Do not fake water with material recolor or touch group19."
+}
