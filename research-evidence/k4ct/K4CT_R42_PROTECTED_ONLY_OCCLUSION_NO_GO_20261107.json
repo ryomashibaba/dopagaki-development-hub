@@ -1,0 +1,109 @@
+{
+  "schema": "dopagaki-k4ct-r42-protected-only-original-camera-occlusion-floor-v1",
+  "dateJST": "2026-11-07",
+  "scope": "R41 continuation and V15 quality/ART-first; current R39 geometry unchanged, no extra Blender or WebGL2 run",
+  "sources": {
+    "researchBranch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "r38SourceCameraRun": 42375928902,
+    "r39BlenderRun": 42377482537,
+    "r40TrueChromium240HzWebGL2Run": 42378264567,
+    "r38ArtifactZipSHA256": "5b9c81e6dc15ec9811b9dbf5bdaf9e8101b068b8e8616593f7cae6b99a3e962d",
+    "r40ArtifactZipSHA256": "0ea313f4b7161e55842357b50a69828e9ad6c183dfffd86197618ab7f6aa9507",
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "r39BlenderTriangles": 30904,
+    "r39Group24Triangles": 526,
+    "r39NewBlenderEvaluatedWaterTriangles": 524,
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0
+  },
+  "method": {
+    "type": "OFFLINE_APPROX_HALF_RES_CPU_DEPTH_NOT_NATIVE_WEBGL2",
+    "width": 505,
+    "height": 350,
+    "scene": "R39 Blender original group triangles and original-camera vectors from R38",
+    "comparison": "Against only 8 protected geometry groups 00,12,13,19,34,35,41,42 with all nonprotected scenery absent. No source or protected edits.",
+    "defects": [
+      "No exact native GL depth ownership",
+      "Near-plane triangles skipped",
+      "Original native B48 depth/culling/fog/draw order not fully replicated",
+      "R38 and R40 source camera equivalence inferred from same scripted original controls",
+      "Half-resolution approximation cannot establish perceived hydraulic connectivity"
+    ],
+    "reproduce": "python scripts/k4ct-r41-offline-depth-feasibility.py --r38-zip R38_depth_causality.zip --r40-zip R40_original_R39_water_visibility.zip --protected-floor --out r42.json",
+    "reproducerExtendedNotDuplicated": true,
+    "newCI": 0
+  },
+  "frames": [
+    {
+      "sec": 66.25,
+      "tick": 15900,
+      "water24ProjectedApproxPixels": 908,
+      "protected8OnlyVisibleApproxPixels": 0,
+      "protected8BlockersApprox": {
+        "group19": 496,
+        "group00": 412
+      },
+      "noRoad00VisibleApproxPixels": 107,
+      "protected19HypotheticallyRemovedVisibleApproxPixels": 193,
+      "r40TrueWebGL2RGBgt25": 0
+    },
+    {
+      "sec": 66.35,
+      "tick": 15924,
+      "water24ProjectedApproxPixels": 1392,
+      "protected8OnlyVisibleApproxPixels": 60,
+      "protected8BlockersApprox": {
+        "group19": 1332
+      },
+      "noRoad00VisibleApproxPixels": 60,
+      "protected19HypotheticallyRemovedVisibleApproxPixels": 564,
+      "r40TrueWebGL2RGBgt25": 0
+    },
+    {
+      "sec": 66.55,
+      "tick": 15972,
+      "water24ProjectedApproxPixels": 1162,
+      "protected8OnlyVisibleApproxPixels": 0,
+      "protected8BlockersApprox": {
+        "group19": 1162
+      },
+      "noRoad00VisibleApproxPixels": 0,
+      "protected19HypotheticallyRemovedVisibleApproxPixels": 0,
+      "protected19And12HypotheticallyRemovedVisibleApproxPixels": 1162,
+      "r40TrueWebGL2RGBgt25": 0
+    }
+  ],
+  "decision": {
+    "status": "R42_OFFLINE_AUDIT_PASS__METHOD_HOLD",
+    "question": "Can changing NONPROTECTED scenery only reveal the unchanged R39 outlet24 at all 3 frames?",
+    "answer": "NO-GO under the tested offline approximation: protected source group19 and road00/tower12 overlap the same footprint at crucial frames. R40 original WebGL2 supports actual zero impact in all 3 frames. Removing nonprotected terrain alone is not a meaningful next DCC operation.",
+    "limits": "This does not disprove a distinct connected placement in the fixed Road6 scene nor prove exact native GL occlusion ownership; protected geometry cannot be removed.",
+    "next": "Before new heavy genuine Blender scene, demonstrate an alternative source-camera-grounded connected upstream-edge, actual downward drop, downstream outfall and supported gate outside protected occluder silhouettes, with B51/road legibility. No R39 micro-polish or protected edits.",
+    "R39ART": "REJECT",
+    "METHOD": "HOLD",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "fixedV15": true,
+    "originalSourceGameUnmodified": true,
+    "originalBlenderAuthorUnmodified": true,
+    "protectedEightUntouched": true,
+    "mainProtected": true,
+    "PR46Protected": true,
+    "newGithubActions": 0,
+    "newBlenderBuilds": 0,
+    "paidExternalAPI": false,
+    "work": false,
+    "computerUse": false,
+    "userActions": 0
+  }
+}

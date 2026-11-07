@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""R41 RESEARCH-ONLY: approximate original-camera depth of saved R39 geometry.
+"""R41/R42 RESEARCH-ONLY: approximate original-camera depth of saved R39 geometry.
 
 Run:
   python scripts/k4ct-r41-offline-depth-feasibility.py \
@@ -63,7 +63,7 @@ def blocking(who,mask):
     return [{'group':int(g),'approxHalfResPixels':int(n),
              'protected':int(g) in PROTECTED} for g,n in counts.most_common(10)]
 
-def run(p38,p40):
+def run(p38,p40,protected_floor=False):
     with ZipFile(p38) as z:
         f38=json.loads(z.read('k4ct-r38-depth/K4CT_R38_WATER_DEPTH_FRUSTUM.json'))
     with ZipFile(p40) as z:
@@ -138,8 +138,38 @@ def run(p38,p40):
             'depthApproxVariants':variants,
             'hypotheticalTranslationsNotActualWebGL2':translations
         })
+        if protected_floor:
+            # Diagnostic-only: current unchanged R39 water24 footprint
+            # versus protected source geometry 00/12/13/19/34/35/41/42.
+            # No actual DCC or source renderer/group is ever edited.
+            protected_scenarios={
+                'PROTECTED8_INCLUDING_ROAD00':PROTECTED,
+                'PROTECTED7_WITHOUT_ROAD00':PROTECTED-{0},
+                'PROTECTED8_WITHOUT_FOREBAY19_HYPOTHETICAL':PROTECTED-{19},
+                'PROTECTED8_WITHOUT_TOWER12_HYPOTHETICAL':PROTECTED-{12},
+                'PROTECTED8_WITHOUT_19_AND_12_HYPOTHETICAL':PROTECTED-{19,12},
+                'ONLY_PROTECTED_FOREBAY19':{19},
+                'ONLY_PROTECTED_TOWER12':{12}
+            }
+            protected_results={}
+            for name,kept in protected_scenarios.items():
+                selected=np.isin(ids,sorted(kept))
+                dep,owner=raster(xy[selected],z[selected],ids[selected],W,H)
+                blocked=mask&(water>=dep)
+                protected_results[name]={
+                    'visibleApproxHalfResPixels':int((mask&(water<dep)).sum()),
+                    'blockedApproxHalfResPixels':int(blocked.sum()),
+                    'approximateBlockersNotPixelOwnership':blocking(owner,blocked)
+                }
+            # The source-author code retained two old triangles in group24
+            # and evaluated 524 new Blender water triangles afterwards.
+            assert i1-i0==526
+            authored_only,_=raster(xy[i0+2:i1],z[i0+2:i1],ids[i0+2:i1],W,H)
+            protected_results['NEW_R39_AUTHORED_524_PROJECTED_PIXELS']=int(np.isfinite(authored_only).sum())
+            protected_results['R40_ORIGINAL_WEBGL2_GROUP24_RGBgt25']=real['frames'][j]['groupHideInfluence']['24']['crops']['gameFrame']['changedRGBgt25']
+            frames[-1]['r42ProtectedOnlyFloorApprox']=protected_results
     return {
-        'schema':'k4ct-r41-original-camera-half-res-depth-approx-v1',
+        'schema':('k4ct-r42-protected-only-depth-floor-offline-approx-v1' if protected_floor else 'k4ct-r41-original-camera-half-res-depth-approx-v1'),
         'provenance':{
             'r38OriginalGameRun':42375928902,'r39OriginalBlenderRun':42377482537,
             'r40OriginalGameRun':42378264567,
@@ -160,7 +190,8 @@ def run(p38,p40):
         'formalARTAdopted':0,'slope2DNAmeters':0,'ART':'HOLD_R39_REJECT',
         'METHOD':'HOLD','HUMAN':'HOLD','SAT':'HOLD','CCD':'HOLD',
         'FPS':'HOLD','RELEASE':'HOLD','MERGE':'HOLD',
-        'noNewCI':True,'noGameOrBlenderEdits':True,'userActions':0
+        'noNewCI':True,'noGameOrBlenderEdits':True,'userActions':0,
+        **({'r42Caveat':'Offline approximation ONLY, not exact native WebGL2 pixel ownership or approved art.', 'r42Gate':'NO_GO_CURRENT_R39_WATER24_FOOTPRINT_NONPROTECTED_ONLY'} if protected_floor else {})
     }
 
 if __name__=='__main__':
@@ -168,8 +199,13 @@ if __name__=='__main__':
     parser.add_argument('--r38-zip',type=Path,required=True)
     parser.add_argument('--r40-zip',type=Path,required=True)
     parser.add_argument('--out',type=Path,required=True)
+    parser.add_argument('--protected-floor',action='store_true',
+                        help='R42 offline-only protected8 occlusion floor on current water24')
     args=parser.parse_args()
-    result=run(args.r38_zip,args.r40_zip)
+    if args.protected_floor:
+        assert hashlib.sha256(args.r38_zip.read_bytes()).hexdigest()=='5b9c81e6dc15ec9811b9dbf5bdaf9e8101b068b8e8616593f7cae6b99a3e962d'
+        assert hashlib.sha256(args.r40_zip.read_bytes()).hexdigest()=='0ea313f4b7161e55842357b50a69828e9ad6c183dfffd86197618ab7f6aa9507'
+    result=run(args.r38_zip,args.r40_zip,protected_floor=args.protected_floor)
     args.out.parent.mkdir(parents=True,exist_ok=True)
     args.out.write_text(json.dumps(result,indent=2,ensure_ascii=False)+'\n')
     print('R41_OFFLINE_DEPTH_FEASIBILITY_DONE_NO_NATIVE_GL:',result['verdict'])
