@@ -130,7 +130,12 @@ jobs:
           assert pathlib.Path('test-results/k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend').stat().st_size>30000
           assert subprocess.check_output(['git','hash-object','scripts/p101-k4ct-native-spillway-dcc.py'],text=True).strip()=='096fffbc1627915eb0122224955bb02cfba6b3ae'
           assert subprocess.check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
-          assert not subprocess.check_output(['git','status','--porcelain'],text=True).strip()
+          status=subprocess.check_output(['git','status','--porcelain'],text=True).strip()
+          if status:
+            print('R25_UNEXPECTED_GIT_STATUS_BEGIN')
+            print(status)
+            print('R25_UNEXPECTED_GIT_STATUS_END')
+            raise AssertionError('R25_WORKTREE_NOT_CLEAN: exact paths printed above; candidate must not be called a full QA pass')
           print('R25_NATIVE_ART_REVIEW_READY_NOT_FORMALLY_ACCEPTED')
           PY
       - name: Preserve original + candidate true RAW and real editable Blender only
