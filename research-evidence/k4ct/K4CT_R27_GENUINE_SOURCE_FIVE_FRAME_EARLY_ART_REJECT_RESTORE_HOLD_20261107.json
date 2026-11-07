@@ -1,0 +1,88 @@
+{
+  "schema": "k4ct-r27-genuine-original-chromium-5-frame-early-art-reject-audit-v1",
+  "dateJST": "2026-11-07",
+  "scope": "Research only. The R27 project attempted exactly one site15 open intake informed by R26 true depth-visible placement. Candidate never formally adopted; its active author remained unmodified.",
+  "provenance": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "firstRun": {
+      "id": 42331292085,
+      "head": "1e51a264a484c8e2156f01c4511fe9bd9a1102fe",
+      "conclusion": "failure",
+      "cause": "Malformed 2-component world XYZ tuple at intake arch apoint inside isolated R27 module before candidate Blender output"
+    },
+    "correctedRun": {
+      "id": 42331578695,
+      "head": "47a8512e6b991cdd859b2da516f4dc1d23cf6656",
+      "conclusion": "failure",
+      "failedStep": "Measure one genuine Blender shoreline ART candidate in ORIGINAL 240Hz Chromium seven-source RAW",
+      "cause": "AssertionError: failed same-source-tick render restore, at 67.20s sourceTick16128 after clean PNG was saved; no JSON/group matrix/remaining 67.65 or 68.05 frame output; do not claim completed 7-frame run"
+    },
+    "artifact": {
+      "id": 13557707036,
+      "name": "K4CT_R27_ONE_OPEN_INTAKE_ACTUAL_NATIVE_ART_HOLD",
+      "numberOfFiles": 8,
+      "actualOriginalGameCleanRawTimesSec": [
+        65.25,
+        65.6,
+        66,
+        66.35,
+        67.2
+      ],
+      "otherFiles": [
+        "K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json",
+        "K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json",
+        "K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend"
+      ]
+    },
+    "protectedSource": {
+      "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+      "activeR12ABlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+      "originalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+      "originalB48": 7,
+      "originalB51": 28,
+      "newColliders": 0,
+      "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+      "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+      "draftPR46": "OPEN_DRAFT_UNMERGED"
+    }
+  },
+  "genuineDCC": {
+    "blenderVersion": "4.0.2",
+    "trueEditableMeshes": 43,
+    "trueTriangles": 23723,
+    "tempAuthorOnly": true
+  },
+  "tech": "PARTIAL_GENUINE_BLENDER_AND_5_SOURCE_CHROMIUM_RAW_CAPTURE; CI_OVERALL_FAILURE; no 7-frame certified result",
+  "art": "REJECT",
+  "criticalRealRawReview": [
+    "65.25s: R27 exposes a broad pale-gray near-left floodplain/cut; the hollow intake is small and reads as another isolated industrial arch rather than a hydraulic port integrated with landmarks.",
+    "65.60s: A massive smooth pale gray left bank dominates near foreground, reducing local depth/craft rather than revealing water route; coarse ramp-to-road edge draws attention from the intended open intake.",
+    "66.00s and 66.35s: Long pale-gray diagonal structural or terrain plane appears to sweep across the road visually; the original road/hazard remains functional but scenic readability and predicted risk have not been human validated.",
+    "67.20s: Water remains a cyan sliver, gray triangular banking and detached structures persist; screenshot captured before same-tick restore failed.",
+    "Regardless of mesh counts, group-visible site signal, improved syntax, or real Blender output, actual original game imagery does not establish materially stronger industrial harbor world."
+  ],
+  "criticalMethodFindings": [
+    "R26 GL site proof prevents fully invisible sites, but site15 near-camera form and R27 authored bank geometry still produce oversized occluding planes.",
+    "Changing dark slabs to irregular quadrangulated/faceted gray banks is not an artistic solution; the generator method itself and overall composition must change.",
+    "R27 same-tick restore failure cannot be converted into TECH PASS by unmeasured tolerance relaxation; exact parity value was not logged. Do not rerun the ART-rejected candidate solely for CI green.",
+    "Do not grow another unvalidated water sheet, gray beam, small isolated arch or secondary rotor. Favor a new actual source-camera spatial art approach before expensive DCC."
+  ],
+  "restoration": "No active production/verified author modification: research candidate injected into temporary copy, no rollback required.",
+  "formalArtAdopted": 0,
+  "slope2DNAmeters": 0,
+  "holds": {
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "nextEssentialProduction": "STOP repeating R25/R27 gray planar landscape method. Reconsider photographic shape language, composition, original game camera near-boundary and meaningful hydraulic path from actual RAW; choose one integrated art-scale redesigned geometry with negative space and distinctive natural coastline before new expensive true Blender native capture. Site visibility alone is insufficient. Original Game, Camera, physics and B51 remain protected.",
+  "costs": {
+    "userManualOperations": 0,
+    "paidApiInvoked": false,
+    "workOrComputerUseInvoked": false
+  }
+}
