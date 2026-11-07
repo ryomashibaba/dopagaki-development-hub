@@ -1,0 +1,202 @@
+{
+  "schema": "dopagaki-r35b-original-source-gl-right-forebay-road6-real-blender-three-visible-sites-v1",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "dateJST": "2026-11-07",
+  "policy": "Carry forward V14 QUALITY-FIRST, ART-FIRST, DCC-FIRST, INTEGRATED VERTICAL SLICE; original camera/road/240Hz/physics/B48/B51 protected. Research visual probes, not ART or gameplay approval.",
+  "provenance": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "runId": 42365933796,
+    "runCommit": "aeafc316154166732577fb75eef18895a806a3ba",
+    "runConclusion": "SUCCESS",
+    "runURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42365933796",
+    "artifactId": 13571497946,
+    "artifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42365933796/artifacts/13571497946",
+    "artifactName": "K4CT_R35_GENUINE_BLENDER_FOREBAY_3_SITE_5_NATIVE_RAW_HOLD",
+    "previousRoad5Run": 42365392139,
+    "previousRoad5Artifact": 13571184354,
+    "previousRoad5Audit": "research-evidence/k4ct/K4CT_R35A_ROAD5_FOREBAY_THREE_TRUE_BLENDER_SITE_NO_SIGNAL_20261107.json"
+  },
+  "method": {
+    "realBlenderVersion": "4.0.2",
+    "temporaryIsolatedAuthorCopy": true,
+    "trueBlenderTriangleGroups": [
+      "15_WORKING_PORT_QUAYS_AND_BERTHING",
+      "16_ROOFED_PORT_OPERATIONS",
+      "17_BERTH_UTILITY_CRANES"
+    ],
+    "sitePositions": [
+      {
+        "id": "15",
+        "road": 6,
+        "u": 0.15,
+        "bank": "R",
+        "outboardM": 55,
+        "worldXYZ": [
+          1135.9417754248295,
+          100.5,
+          -543.7590163330542
+        ]
+      },
+      {
+        "id": "16",
+        "road": 6,
+        "u": 0.15,
+        "bank": "R",
+        "outboardM": 75,
+        "worldXYZ": [
+          1128.0071113855397,
+          100.5,
+          -562.1176956587465
+        ]
+      },
+      {
+        "id": "17",
+        "road": 6,
+        "u": 0.15,
+        "bank": "R",
+        "outboardM": 95,
+        "worldXYZ": [
+          1120.0724473462499,
+          100.5,
+          -580.4763749844387
+        ]
+      }
+    ],
+    "protected19Road6ForebayY": 93,
+    "markerBottomWorldY": 95.5,
+    "actualOriginalChromium": true,
+    "actualOriginalGameWebGL2": true,
+    "sourceCameraUnchanged": true,
+    "original240Hz": true,
+    "sourceDepthTest": true,
+    "timeSeconds": [
+      65.25,
+      65.6,
+      66.35,
+      67.2,
+      68.05
+    ],
+    "sourceTicks": [
+      15660,
+      15744,
+      15924,
+      16128,
+      16332
+    ],
+    "measurement": "Independently hide each of 3 REAL Blender groups at the SAME paused genuine original 240Hz source tick, compare original screenshot and restored screenshot in WebGL2 with depth; RGB difference >25 is visibility influence, not unique pixel ownership."
+  },
+  "observed": {
+    "road5AllThreeSitesHadZeroCleanHits": true,
+    "road6AllThreeSitesHaveCleanEvidenceAt66_35": true,
+    "cleanEvidenceTicksBySite": {
+      "15": [
+        15924
+      ],
+      "16": [
+        15924
+      ],
+      "17": [
+        15924
+      ]
+    },
+    "leftWideCrop": {
+      "x0": 0,
+      "y0": 250,
+      "x1": 670,
+      "y1": 710
+    },
+    "leftWideChangedPixelsAt66_35": {
+      "15": 2015,
+      "16": 3011,
+      "17": 3006
+    },
+    "fullOriginalAnalysisCropRGB25PercentAt66_35": {
+      "15": 0.3208,
+      "16": 0.47936,
+      "17": 0.47857
+    },
+    "leftWaterCrop": {
+      "x0": 0,
+      "y0": 280,
+      "x1": 240,
+      "y1": 700
+    },
+    "leftWaterChangedPixelsAt66_35": {
+      "15": 0,
+      "16": 0,
+      "17": 747
+    },
+    "restorationNoisePctAt66_35": 0,
+    "confirmedCleanSiteAt66_35": [
+      "15",
+      "16",
+      "17"
+    ],
+    "tentativePreferredSiteForLeftWater": "17, Road6 U0.15, R95m, Y100.5",
+    "weakOrInvalidEvidence": {
+      "at65_6Site17WiderLeftChangedPixels": 55,
+      "at67_2AllSitesChangedPixelsWiderLeft": 1094,
+      "at67_2SameTickRestoreNoiseDefaultROIChangedPct": 0.2103084577114428,
+      "reason": "The shared 67.20s image change is matched by restore drift; not attributed to any one marker. 65.60 55px is under diagnostic noise floor."
+    },
+    "visibleAtFiveTimesContinuously": false,
+    "actualChaseDurationVisible": "UNKNOWN: only one confirmed sampled tick for each of 3 markers",
+    "notArtApproved": true
+  },
+  "protection": {
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalR12AAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalPhysicalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "protectedEightGroupIDs": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "allOriginalProtectedEightXYZRGBExactMatch": true,
+    "group19PreservedNoSourceMeshEdit": true,
+    "mainHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "OPEN_DRAFT_UNMERGED",
+    "originalGameOrArtistModified": false,
+    "restorationRequired": false
+  },
+  "gates": {
+    "siteVisibilityTech": "PASS for original 240Hz/GL and 66.35s three diagnostic sites",
+    "art": "HOLD: markers are NOT artwork",
+    "formalArtAdoption": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "criticalReview": {
+    "success": "R35A Road5 source site had no clean influence; after moving same dimensions to the source Road6 forebay surface at R55/75/95, true original GL shows 3 distinct amber diagnostic blocks clearly at 66.35s. Group17 R95 has 747px strictly in the visible left-water ROI with zero restore noise.",
+    "limitations": [
+      "Only 66.35s is clean in the 5 sampled instants, not proof of long high-speed readability",
+      "The three 12m box silhouettes are diagnostic measuring objects, cannot be used as game art",
+      "Pixel change cannot establish unique surface ownership or collision safety",
+      "Protected 19 original visible flat water remains unchanged, and actual hydraulic function in final game is not established"
+    ],
+    "next": "R36 should prioritize one true Blender architectural art candidate grounded by the Road6 R75–95m visible water edge at U≈0.15, while not covering hazard/cues or inserting broad, repetitive blocks. Before full artwork commit, use a few denser source ticks around 66.35 to confirm duration of visibility, ideally incorporate into the single R36 ART-first experiment rather than multiplying CI. Do not touch group19 or original camera/road/physics. Stop early if the high-speed functional connection is not legible in source RAW."
+  },
+  "costAndUser": {
+    "userManualActions": 0,
+    "additionalPaidAPI": false,
+    "workUsed": false,
+    "computerUseUsed": false,
+    "githubActionsBillingAmount": "UNKNOWN",
+    "extraAuthorizationsRequested": false
+  }
+}
