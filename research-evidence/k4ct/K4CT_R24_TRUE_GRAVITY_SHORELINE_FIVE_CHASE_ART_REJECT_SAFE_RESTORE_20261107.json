@@ -212,7 +212,14 @@
     "FPS": "HOLD",
     "RELEASE": "HOLD",
     "MERGE": "HOLD",
-    "activeDccRestoration": "PENDING_EXACT_PRIOR_R12A_GIT_BLOB"
+    "activeDccRestoration": {
+      "status": "RESTORED_EXACT_R12A_NATIVE_VERIFIED_GIT_BLOB",
+      "commit": "fb361dd4afe642c2bda2b267fa3c855127b39287",
+      "restoredGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+      "scope": "ONLY research active Blender DCC author. Rejected R24 module retained as unreferenced GitHub research; original game, main, PR and official P101 unchanged.",
+      "newNativeCI": "NOT_RUN_INTENTIONALLY_IDENTICAL_PRIOR_GREEN_R12A_CI_42230306036",
+      "limit": "Exact existing known-good source parity, not an independently run post-restore game certification."
+    }
   },
   "efficiency": {
     "criticalLesson": "STOP repeating source-invisible water/gate geometry. True source screenshots and GL group visibility must be built into a quick site selection BEFORE another major DCC mesh edit. Do not repeat R17 isolated multiple structures, R20 invisible ships, R23 extra wheel, or R24 unshown waterfall.",
