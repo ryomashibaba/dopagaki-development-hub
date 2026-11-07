@@ -35,7 +35,7 @@ assert(originalTop.every(x=>dcc.objects[x]>0));
 const targetIDs=[]; // no expensive group attribution during ART-first screening
 const manifest=JSON.parse(fs.readFileSync('test-results/k4ct-r36-art/R36_ARCHITECTURAL_GATE_MANIFEST.json','utf-8'));
 assert.equal(manifest.schema,'k4ct-r36-source-road6-one-real-blender-hollow-sluice-spillway-v1');
-assert.equal(manifest.originalB48,7);assert.equal(manifest.originalB51,28);assert.equal(manifest.newColliders,0);
+assert.equal(manifest.sourceB48,7);assert.equal(manifest.sourceB51,28);assert.equal(manifest.newColliders,0);
 assert(manifest.archHasRealOpenAperture && !manifest.originalSourceWater19Rewritten && manifest.originalRoadIndex===6);
 assert(manifest.actualBlenderBevelEvaluations.length>=5 && manifest.totalSceneTriangles>7500);
 assert(manifest.sourceB48===7 && manifest.sourceB51===28 && manifest.newColliders===0);

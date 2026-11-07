@@ -138,10 +138,10 @@ for band in range(18):
     fluct=.45*math.sin(band*1.49)
     def stream(d,y,t):
         return R36_AT(d,y+fluct+(.4*math.sin(t*.77+d*.23)),t)
-    stations=[(99.,93.4),(102.8,92.5),(106.,88.),
+    R36_FLOW_KNOTS=[(99.,93.4),(102.8,92.5),(106.,88.),
               (112.,74.),(123.,55.),(134.,53.5)]
-    for k in range(len(stations)-1):
-        u0,v0=stations[k];u1,v1=stations[k+1]
+    for k in range(len(R36_FLOW_KNOTS)-1):
+        u0,v0=R36_FLOW_KNOTS[k];u1,v1=R36_FLOW_KNOTS[k+1]
         color=('r36_water_crest' if k<2 else
                'r36_deep_fall' if k in (2,3) else 'r36_impact_foam')
         quad(R36_N['23' if k<3 else '24'],
