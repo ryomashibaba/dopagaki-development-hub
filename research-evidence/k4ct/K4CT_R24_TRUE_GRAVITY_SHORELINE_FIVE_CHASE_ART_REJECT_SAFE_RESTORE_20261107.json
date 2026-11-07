@@ -1,0 +1,230 @@
+{
+  "schema": "k4ct-r24-real-Blender-native-5frame-gravity-estuary-TECH-pass-ART-reject-v1",
+  "dateJST": "2026-11-07",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "fixedPolicy": "QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE; real original game, 240Hz original camera, R24 art not formally adopted.",
+  "prior": {
+    "R23TrueFiveNativeCI": 42314880298,
+    "R23ArtifactID": 13550297687,
+    "R23Art": "REJECT",
+    "R23ComparedRawAllFive": true,
+    "R19ResearchOnlyArt": "REJECT",
+    "R12AKnownCI": 42230306036,
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalDccGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "researchPhysicalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b"
+  },
+  "hypothesis": "Replace the original on-camera flat turquoise sea (Blender03) and 4-bay long grey gate rail (06/07/08) with a genuine gravity stepped estuary from upper headrace approximately tideY+23.5 to lower tideY, rock/concrete supports, one two-gate lock and a modeled waterfall. Not new isolated wheel, high roof, invisible barge or shader-only edit.",
+  "contract": "research-evidence/k4ct/K4CT_R24_TRUE_SOURCE_GRAVITY_TIDAL_SHORELINE_ART_CONTRACT_20261107.json",
+  "implementation": {
+    "artist": "scripts/p101-k4ct-r24-gravity-cascade-integrated-shoreline.py",
+    "artistCommit": "cf05c091db635f9a657a9199d4cdc5c6052da39b",
+    "reviewer": "scripts/k4ct-r24-real-gravity-estuary-5frame-native-review.mjs",
+    "reviewerCommit": "aea750602c46468d264fd28ea988e8937d2e051a",
+    "workflow": ".github/workflows/p101-k4ct-r24-gravity-estuary-5frame-native.yml",
+    "workflowCommit": "113fc1e4df0ddcc82fe529a4bda993428e916884",
+    "researchDccTemporaryIntegrationCommit": "761056be265fe645850321cc9efe93d1b705152c",
+    "candidateDccGitBlob": "73cd4f5ef6713be25a3b2928c75e796e87c68f6a",
+    "explicitR19RejectedSubstrate": "scripts/p101-k4ct-r19-source-three-act-open-harbor.py",
+    "changedGroups": {
+      "03_real_sea_gravity_contour": 4752,
+      "04_rock_load_buttresses": 384,
+      "05_real_fall_water_mesh": 42,
+      "06_original_long_4_bay_rail_replaced_2_gate": 168,
+      "07_true_gate_leaves": 144,
+      "08_true_undergate_hydraulic_actuation": 232
+    },
+    "protectedOriginalGroups": [
+      "00 road",
+      "12 source tower",
+      "13 control glazing",
+      "19 upstream source forebay",
+      "34 actual native intake",
+      "41 source tidal wheel",
+      "42 source wheel support"
+    ],
+    "originalGameCollisionAndCameraNotModified": true
+  },
+  "genuineCI": {
+    "run": 42320518854,
+    "head": "113fc1e4df0ddcc82fe529a4bda993428e916884",
+    "conclusion": "success",
+    "artifactId": 13552678773,
+    "artifactName": "K4CT_R24_REAL_GRAVITY_SHORELINE_FIVE_FRAME_ART_HOLD",
+    "artifactZipSHA256": "34bbbd26b21474d130064c330907ec33fd6fe1b393f087a24f312b336fc47cca",
+    "artifactFileCount": 9,
+    "artifactZipCRC": "PASS",
+    "artifactExpiresUTC": "2026-11-14T00:54:08Z",
+    "realBlenderVersion": "4.0.2",
+    "editableGroups": 43,
+    "triangles": 22980,
+    "sourceNativeWebGL2": true,
+    "sourceReal240HzTicks": [
+      15660,
+      15744,
+      15924,
+      16128,
+      16332
+    ],
+    "seconds": [
+      65.25,
+      65.6,
+      66.35,
+      67.2,
+      68.05
+    ],
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0,
+    "depthTestUsed": true,
+    "sourceRealOriginalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "sourcePhysicalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "eightMeasuredNativeGroups": [
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "12",
+      "34",
+      "42"
+    ],
+    "full42GroupMatrix": "NOT_RUN_INTENTIONALLY",
+    "fullSourceRetryFinishGameplay": "NOT_RUN",
+    "humanInitialHazardReadability": "NOT_MEASURED",
+    "SATCCDRealHardwareFPS": "NOT_MEASURED"
+  },
+  "nativePixels": {
+    "metric": "Source same-tick WebGL2 REAL group hide changed pixels in ROI x0..1005 y80..705; any RGB abs channel difference >25. This is NOT exact visible area or ART quality.",
+    "R24_vs_R23_realRAW_pctRGB25": [
+      {
+        "sec": 65.25,
+        "pct": 2.4101890547263682
+      },
+      {
+        "sec": 65.6,
+        "pct": 3.6438606965174127
+      },
+      {
+        "sec": 66.35,
+        "pct": 1.5578109452736317
+      },
+      {
+        "sec": 67.2,
+        "pct": 1.6143283582089551
+      },
+      {
+        "sec": 68.05,
+        "pct": 2.9994029850746267
+      }
+    ],
+    "R24_sourceSameRun_GroupImpact_pctRGB25": {
+      "65.25": {
+        "12": 0.433034826,
+        "34": 2.465432836,
+        "42": 0,
+        "03": 2.7527960199,
+        "04": 0.037412935,
+        "05": 0,
+        "06": 0.00047761194,
+        "07": 0
+      },
+      "65.60": {
+        "12": 0.701452736,
+        "34": 1.407681592,
+        "42": 0.096318408,
+        "03": 1.4366567164,
+        "04": 0.060497512,
+        "05": 0,
+        "06": 0,
+        "07": 0
+      },
+      "66.35": {
+        "12": 3.76199005,
+        "34": 0,
+        "42": 0.083900498,
+        "03": 0.4774527363,
+        "04": 0,
+        "05": 0,
+        "06": 0,
+        "07": 0
+      },
+      "67.20": {
+        "12": 0,
+        "34": 0,
+        "42": 0.475542289,
+        "03": 2.518606965,
+        "04": 0,
+        "05": 0,
+        "06": 0,
+        "07": 0
+      },
+      "68.05": {
+        "12": 0,
+        "34": 0,
+        "42": 3.553910448,
+        "03": 8.6688159204,
+        "04": 0.002547264,
+        "05": 0,
+        "06": 0,
+        "07": 0
+      }
+    },
+    "sameBrowserFullRestoreRGB25Pct": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "importantNuance": "Gate 06 at 65.25 had NONZERO 0.000477612% impact, not mathematically zero. All other four times zero. Waterfall 05 and gate leaves07 all five zero. Avoid 0% exaggeration or visibility certification.",
+    "comparisonNotes": "R23-vs-R24 cross-CI RGB differences measured, not guaranteed exact raster identity across jobs. Within-run restore all 5 frames 0%, clean. ART must derive visually from true source RAW."
+  },
+  "criticalVisualReview": {
+    "decision": "ART_REJECT",
+    "positives": [
+      "Actual source native sea material and large shoreline structure changed across five moments; no false camera or extra race collision.",
+      "At 65.25 horizontal grey barrier retained visually but some waterside structural contour changed; at 68.05 R8J true original wheel remained present, original road and B51 HUD retained.",
+      "Tech trial uses 8 groups and five frozen genuine source-camera frames; no expensive 42×5 full matrix."
+    ],
+    "negatives": [
+      "At 65.25 source camera, the longstanding grey horizontal rail still crosses screen-left waterline and overwhelms the meant hydraulic landscape; the new real 2-gate sluice is effectively unseen.",
+      "At 65.6 and 66.35 actual water region remains a low-detail cyan surface; the engineered 23.5m grade difference is not visually comprehensible at speed.",
+      "At 68.05 open sea turned into visibly repetitive tiled / striped synthetic green-blue polygons, a distinct quality regression versus even rejected R23.",
+      "At 68.05 left marine zone shows an incongruous tall, almost isolated structural column; its group provenance is not proven by current selected-group color measurement and must not be guessed.",
+      "Foam/waterfall 05 has 0% high-threshold GL pixel impact in all five shots, gate leaf group07 likewise 0%. Gate group06 only 0.000477612% at 65.25; the main new hydraulic machinery fails its original camera sightline.",
+      "Original tower12 and wheel42 remain the strongest landmarks, but their functional water linkage is not shown. No credible modern industrial seaport ART or native B51 human readability proof."
+    ],
+    "rootCause": "The art authoring location/geometry does not match what source camera shows. More actual geometry and water-grade data in Blender is ineffective unless the lock, falling water and load path are visible during original fast chase. The uniform high-contrast repetitive water surface fragments distract rather than improve composition.",
+    "independentExternalHumanArtReview": false,
+    "sourceHumanCriticalReview": "assistant critical assessment of original Chromium REAL RAW and native pixel impact with user project constraints; not a formal human review panel",
+    "noFalseArtProgress": true
+  },
+  "decision": {
+    "TECH": "PASS_EDITABLE_REAL_BLENDER_AND_5_ORIGINAL_SOURCE_CAMERA_WEBGL2",
+    "ART": "REJECT",
+    "formalArtAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "activeDccRestoration": "PENDING_EXACT_PRIOR_R12A_GIT_BLOB"
+  },
+  "efficiency": {
+    "criticalLesson": "STOP repeating source-invisible water/gate geometry. True source screenshots and GL group visibility must be built into a quick site selection BEFORE another major DCC mesh edit. Do not repeat R17 isolated multiple structures, R20 invisible ships, R23 extra wheel, or R24 unshown waterfall.",
+    "R25First": "Research original camera SCREEN-SIZE + GL DEPTH on group06/05 candidates versus original source R23 5 native camera frames; find a TRUE in-frame source shot site and prove 3D waterfall/gate silhouette visibility at five moments before producing dozens of mesh bands. Design as a functional visual composition, not just a color or geometry change.",
+    "manualUserSteps": 0,
+    "paidAPI": 0,
+    "workComputerUse": false
+  },
+  "safety": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "Open Draft unmerged",
+    "originalGameRoadCameraB51Protected": true
+  }
+}
