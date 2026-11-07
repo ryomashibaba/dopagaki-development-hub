@@ -35,10 +35,10 @@ assert(originalTop.every(x=>dcc.objects[x]>0));
 const targetIDs=[]; // no expensive group attribution during ART-first screening
 const manifest=JSON.parse(fs.readFileSync('test-results/k4ct-r39-art/R39_OPEN_QUARRY_SOURCE_MANIFEST.json','utf-8'));
 assert.equal(manifest.schema,'k4ct-r39-source-road6-single-open-cut-real-blender-integrated-water-v1');
-assert.equal(manifest.sourceB48,7);assert.equal(manifest.sourceB51,28);assert.equal(manifest.newColliders,0);
+assert.equal(manifest.originalB48,7);assert.equal(manifest.originalB51,28);assert.equal(manifest.newColliders,0);
 assert(manifest.openCutNoClosedArch && manifest.sourceGroup19Untouched && manifest.realEvaluatedBlenderWaterMeshes.length===2);
 assert(manifest.totalSceneTriangles===dcc.triangles && dcc.triangles>3500);
-assert(manifest.sourceB48===7 && manifest.sourceB51===28 && manifest.newColliders===0);
+assert(manifest.originalB48===7 && manifest.originalB51===28 && manifest.newColliders===0);
 const result=[];
 await new Promise((ok,fail)=>server.once('error',fail).listen(0,'127.0.0.1',ok));
 let browser;
@@ -129,8 +129,8 @@ try{
  // R39 first pass explicitly does not measure influence or restore parity.
  const siteSignals=[],witness=[],anchorGate=null;
  const output={
-  schema:'k4ct-r39-original-source-8-native-raw-hollow-spillway-v1',
-  phase,witness,anchorGate,siteSignals,genuineResearchArtCandidate:true,gateMeaning:'R39 authored open lockyard/3-step waterfall with source-bounded equipment foundations in ORIGINAL 240Hz/WebGL2. Five clean RAW only. No group attribution or ART pass.',
+  schema:'k4ct-r39-original-source-3-native-raw-open-cut-v1',
+  phase,witness,anchorGate,siteSignals,genuineResearchArtCandidate:true,gateMeaning:'R39 original source 240Hz/WebGL2, 3 genuine depth-tested RAW of one open-cut Blender candidate, no group attribution or ART pass.',
   originalGameBlob:originalBlob,roadPhysicsSHA256:dcc.sourcePhysicalRoad5SHA256,
   genuineBlenderPolygons: true,editableBlenderGroups:43,totalTriangles:dcc.triangles,
   originalWebGL2:true,originalCamera:true,originalRunner240Hz:true,
@@ -148,7 +148,7 @@ try{
   originalIntakeTowerTurbinePreserved:true,
   formalARTAdopted:0,slope2DNAmeters:0,
   ART:'HOLD',HUMAN:'HOLD',SAT:'HOLD',CCD:'HOLD',FPS:'HOLD',RELEASE:'HOLD',MERGE:'HOLD',
-  methodLimit:'Five paused ORIGINAL 240Hz source ticks, one actual Boolean/Subsurf-carved R39 Blender scene, no group-hide, same-tick parity, baseline PNG comparison, human trial or accepted ART; depth-enabled genuine RAW only.'
+  methodLimit:'Three paused ORIGINAL 240Hz source ticks, one actual Boolean/Subsurf-carved R39 Blender scene, no group-hide, same-tick parity, baseline PNG comparison, human trial or accepted ART; depth-enabled genuine RAW only.'
  };
  fs.writeFileSync(path.join(DIR,'K4CT_R39_TRUE_SOURCE_PHASED_VISIBILITY.json'),
   JSON.stringify(output,null,2)+'\n');
