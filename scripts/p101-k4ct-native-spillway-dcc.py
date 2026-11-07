@@ -832,17 +832,6 @@ beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
 beam('37_R7C_ONE_OUTBOARD_CARGO_DERRICK',
      boom,add(boom,(0,-30,0)),.7,'darksteel')
 
-# R23 RESEARCH ONLY: the rejected R19 source opens a camera-readable
-# foreground; it is NEVER adopted or used in any production Game. Author ONE
-# real open volute at the native 65.25sec R16 site, preserving existing true
-# intake34, tower12 and R8J turbine42. Full ART remains REJECT until native RAW.
-_r19=Path('scripts/p101-k4ct-r19-source-three-act-open-harbor.py')
-_r23=Path('scripts/p101-k4ct-r23-volute-lock-one-visible-hero.py')
-assert _r19.is_file() and _r23.is_file()
-exec(compile(_r19.read_text(encoding='utf-8'),str(_r19),'exec'),globals())
-exec(compile(_r23.read_text(encoding='utf-8'),str(_r23),'exec'),globals())
-assert len(GROUPS)==43 and all(GROUPS.values())
-
 # Editability: separate mesh objects by functional zones, real Blender materials.
 materials={}
 for key,color in COLORS.items():
