@@ -1,5 +1,5 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
-**現行入口：2026-11-07 V14.0／R34実証後（R33可視検証PASS・R34 ART REJECT・正式採用0件）**。新規企画・方針変更ではありません。
+**現行入口：2026-11-07 V14.0／R35B本物GL可視地点実証後（R35 SITE TECH PASS・ART採用0件）**。新規企画・方針変更ではありません。
 
 最初に **[V14.0 完全統合・批判的引継ぎ正本](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_R27_V14_20261107_JA.md)** を全文読む。以前のSTART本文は [変更前のアーカイブ](docs/archive/START_HERE_POST_R27_PRE_V14_20261107_JA.md) に保存。V13→V12.1→旧完全統合・Rxx証拠はV14から辿る。旧文書の「次R25」「次R13」「次R6」は歴史情報であって現行指示ではない。
 
@@ -18,5 +18,9 @@
 **R34制作・ART REJECT（2026-11-07）**：R33に基づき保護19は厳密不変のまま、Road5の実R側・横距離99–192mに真正Blenderの開放2段落水と石造水門3件を一候補制作。編集可能43群/11,078三角形＋元240Hz/WebGL2 RAW5枚を取得。R32真正DCC成果と保護8群の全XYZRGBが独立一致。CI [#42364461476](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42364461476) は末尾の監査コードが古いR32属性 `realBlenderBeveledStoneVolumes` を参照してKeyErrorでFAILURE（Blenderと5枚RAWと全8保護XYZRGBはPASS）。**R34も左水域ROIでR32から5時点全てRGB25以上の変化0ピクセル。** ART REJECT、単にCIを緑にする再実行禁止。R34の造形がgroup19の水面R42–102mの外側に多く配置されたが、遮蔽・視界外・他の原因のどれかは未確定。[R34研究根拠](research-evidence/k4ct/K4CT_R34_SOURCE_RIGHT_TRUE_NATIVE_RAW5_TECH_PARTIAL_ART_REJECT_20261107.json)／Artifact 13571471607。
 
 **次R35の本質行動**：もう大きな港湾を作り直さず、まず保護水面19の**内部**R側d55/75/95m・y≳107mに非採用の小さい真正3D可視診断物を配置し、元240Hz同一tickで可視・復元・実画素影響を確認。保護群19・元Camera/Physics/B48/B51・元Game/R12A作者を変更しない。見える位置が立証できた場合にのみ本物の美術制作を1候補行う。TECH/ART/HUMANを混ぜず、ART正式採用0、DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。ユーザー操作0優先、有料API/Work/Computer Use禁止、main・公式P101・Draft PR#46保護。
+
+**R35A/R35B 可視地点の本質検証（2026-11-07）**：従来の港湾再制作を中断し、非採用の小型真正Blender診断3Dを「保護19水面の実位置」に配置。R35A CI [#42365392139](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42365392139) SUCCESS：Road5 U=.80、元R側55/75/95m、Y112.5（箱下端107.5）では、元240Hz/Chromium WebGL2の5時点において**復元ノイズを上回る3地点の有効可視証拠0件**。67.20秒の0.210%の変化は、元画面復元ノイズと完全一致するため不採用。[R35A証拠](research-evidence/k4ct/K4CT_R35A_ROAD5_FOREBAY_THREE_TRUE_BLENDER_SITE_NO_SIGNAL_20261107.json)。同じ手法をR35BでRoad6側に変更。R35B CI [#42365933796](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42365933796) SUCCESS：Road6 U=.15、R55/75/95m、Y100.5（元19水面Y93、箱下端95.5）では、**66.35秒／元tick15924で3地点すべて可視**。広い画面左ROI（670×460）のRGB25超変化は55m=2,015px、75m=3,011px、95m=3,006px、同一tick復元ノイズ0。狭い左水域ROI（240×420）には95mだけ747pxの有効影響。65.25/65.60/67.20/68.05は十分な可視証拠なし（67.20の影響は復元ノイズと同程度）。**5時点中の一時点で実証された可視候補であり、高速走行中に継続表示される保証もART/HUMAN合格もない。** R35の本物Blenderと5時点真正元GL RAW、保護8グループ全XYZRGB厳密一致・元Game/R12A作者/Camera/Road/B48/B51不変。結果とArtifact 13571497946は [R35B詳細](research-evidence/k4ct/K4CT_R35B_ROAD6_TRUE_FOREBAY_THREE_VISIBLE_SITES_TECH_PASS_20261107.json)。R35診断物は正式美術へ転用禁止。
+
+**次R36**：高確度に見えたRoad6 U≈.15・R75〜95m付近を中心に、元保護19の水面・道路・Camera・B51を一切動かさず、**単一の本物Blender工業岸壁／落水縦スライス候補**を検討。早い段階で66.35秒前後のより密な元240Hzカメラ可視時間を実測し、道路危険・HUDが遮蔽されるなら早期ART REJECT。箱型診断物を並べたものをARTとしない。元GL複数時点における機能的一体感・巨視的空間品質・高速度での認識が改善した場合だけ深いQAへ。正式ART採用0、Slope2 DNA認定0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGEすべてHOLD。無意味なCI・同じ作品の緑化再実行を禁止、ユーザー操作0優先。
 
 研究ブランチ：research/k4ct-two-native-b51-choice-consequence-20261105。**HEADは必ずライブ再取得すること。V14文書内のHEADは保存前の履歴値**。
