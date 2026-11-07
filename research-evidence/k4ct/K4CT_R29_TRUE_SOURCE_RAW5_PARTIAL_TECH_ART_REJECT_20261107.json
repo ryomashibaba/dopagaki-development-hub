@@ -1,0 +1,145 @@
+{
+  "schema": "k4ct-r29-true-original-webgl2-five-frame-critical-art-reject-v1",
+  "dateJST": "2026-11-07",
+  "policy": "V14.0 continues unchanged; original game/physical road/camera/240Hz/B48/B51/PR/main protected. R29 is nonadopted research candidate, not a new project.",
+  "provenance": {
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "preRunHead": "d605f3aed40871693e988926c385b80c9252e552",
+    "runId": 42349091008,
+    "runConclusion": "FAILURE",
+    "runURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42349091008",
+    "artifact": {
+      "id": 13564009905,
+      "name": "K4CT_R29_SINGLE_GEOLOGICAL_HARBOR_TRUE_SOURCE_RAW_ART_HOLD",
+      "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42349091008/artifacts/13564009905",
+      "retentionDays": 7
+    },
+    "referenceR28": {
+      "runId": 42339803801,
+      "artifactId": 13560952324,
+      "conclusion": "SUCCESS_TECH_AND_ART_REJECT"
+    }
+  },
+  "genuineDCC": {
+    "blenderVersion": "4.0.2",
+    "editableMeshGroups": 43,
+    "totalTriangles": 8517,
+    "protectedGroupTriangles": 7864,
+    "newNonprotectedSceneryTriangles": 653,
+    "comparisonR28TotalTriangles": 16334,
+    "comparisonR28NonprotectedTriangles": 8470,
+    "replacedUnprotectedGroups": 35,
+    "source": "scripts/p101-k4ct-r29-source-anchored-coastal-rock-harbor.py",
+    "materialBridge": "R9 actual mesh/material/UV",
+    "noSimulatorOrCameraEdits": true
+  },
+  "actualNativeRAW": {
+    "count": 5,
+    "seconds": [
+      65.25,
+      65.6,
+      66.35,
+      67.2,
+      68.05
+    ],
+    "sourceTicks": [
+      15660,
+      15744,
+      15924,
+      16128,
+      16332
+    ],
+    "originalWebGL2": true,
+    "original240Hz": true,
+    "viewport": [
+      1365,
+      930
+    ],
+    "depthBits": 24,
+    "sourceFrameMetadataFile": "k4ct-r29-art-native/K4CT_R29_TRUE_SOURCE_PHASED_VISIBILITY.json",
+    "allPNGVerifiedLocally": true,
+    "matchedR28ActualOriginalWebGL2Frames": true,
+    "noAIImagesOrMockups": true
+  },
+  "physicalProtection": {
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "activeR12ABlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "road5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "keptGroupIds": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "allEightProtectedGroupsXYZRGBByteIdenticalToR28": true,
+    "mainAndP101AndPRNotWritten": true,
+    "sourceCodeHashesRecheckOnCompletion": "PENDING_LIVE_READ",
+    "activeAuthorRestorationRequired": false
+  },
+  "verification": {
+    "workflowScope": "PARTIAL_TECH_SUCCESS_GENUINE_BLENDER_AND_FIVE_ORIGINAL_RAW",
+    "workflowTotalConclusion": "FAILURE",
+    "failedStep": "Independent actual ART scene/source protection audit (no approval)",
+    "preciseCause": "R29 JS metadata emits 'k4ct-r29-genuine-source-camera-geological-harbor-first-five-raw-v1', while workflow audit expects 'k4ct-r29-source-camera-geological-harbor-first-five-raw-v1' (missing 'genuine'). Assertion failed on audit Python line 6. Correct 5 RAW already captured and artifact uploaded. Remaining audit assertions did not execute.",
+    "newRunForSchemaOnly": "PROHIBITED_ON_ART_REJECT",
+    "independentContainerArtifactReadback": "5 authentic PNG source frames, metadata and original-group identical XYZRGB verified without rerunning CI",
+    "fullSevenFrames": "NOT_RUN",
+    "groupHideAttribution": "NOT_RUN",
+    "sameTickRestoreParity": "NOT_MEASURED",
+    "formalQA": "NOT_RUN"
+  },
+  "art": {
+    "verdict": "REJECT",
+    "comparisonMethod": "Direct inspection of matching 65.25/65.60/66.35/67.20/68.05 original 240Hz/WebGL2 RAW pairs. The raster itself was compared, not screenshots from DCC or render-generated concepts.",
+    "improvementOverR28": [
+      "Repeating left-side structural columns disappeared after replacing unprotected legacy geometry",
+      "R28 isolated elements got somewhat more visible dark ground and a rock base",
+      "Genuine Road5/6, original HUD, steering and hazard indications remain visible in captured frames; this is not human fairness proof"
+    ],
+    "criticalFailures": [
+      "The R29 method cleared 35 inherited scene groups and replaced them with only 653 new triangles (versus R28's 8470), creating crude faceted artificial cliffs rather than a high-quality integrated estuary",
+      "At 66.35-68.05 a huge low-poly dark rock slope dominates the near right foreground; its repeated sharp facets and spikes lack geology, believable material variation and architectural transitions",
+      "Water on left still reads as a flat cyan slab with weak discernible upper intake-to-fall-to-lower-basin connection",
+      "The protected turbine at right is still not visually fused with a functioning port; geometric pedestal alone does not create the legible hydraulics, scale and spatial continuity",
+      "The three source landmarks (34,12,42) do not read as one navigable, inhabited, functional industrial harbor; player enjoyment/fairness remain wholly unmeasured"
+    ],
+    "qualityDiagnosis": "A scene-removal strategy improves clutter but trades it for empty low-polygon placeholders. A substantive authored continuous 3D landscape with sculpted negative spaces and higher-order architectural massing is needed. Triangle count is a diagnostic of damaging over-deletion, not an ART PASS threshold.",
+    "rejectedMethods": [
+      "rebuilding regular columns",
+      "color-only water correction",
+      "adding arbitrary random rock patches",
+      "increasing triangle counts without art-directed volumes",
+      "rerunning an art-rejected scene to make CI green"
+    ],
+    "recommendation": "Next substantive attempt should use genuine Blender Boolean/curve/mesh sculpting for one source-camera-specific asymmetric geological channel, retain a few integrated functional facilities, and prove depth/volumetric connection at 3 original RAW frames first. If no art improvement, stop early. Do not alter source physics, B51, camera or protected objects."
+  },
+  "formalArtAdopted": 0,
+  "slope2DNAmeters": 0,
+  "holds": {
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "restoration": "Not required; R29 injected into temporary isolated clone of the protected R12A author, original Game and author never edited.",
+  "operations": {
+    "userManualOperations": 0,
+    "extraPaidApiCalls": 0,
+    "work": false,
+    "computerUse": false,
+    "formalAdoption": false,
+    "publicRelease": false,
+    "merge": false
+  },
+  "next": "R29 complete and ART REJECT. No CI green-only rerun. Preserve evidence and avoid reading V14 'next R28' as actionable. Next actual production must replace planar/simple faceting with truly authored deeply excavated industrial coastline and meaningful in-game visual landmarks, using R29/R28 original RAW as controls."
+}
