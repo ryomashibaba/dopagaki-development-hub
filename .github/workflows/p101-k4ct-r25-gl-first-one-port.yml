@@ -1,0 +1,148 @@
+name: K4CT R25 native GL site gate then ONE temporary real Blender port
+on:
+  push:
+    branches:
+      - research/k4ct-two-native-b51-choice-consequence-20261105
+    paths:
+      - scripts/k4ct-r25-phased-real-gl-visibility.mjs
+      - scripts/p101-k4ct-r25-one-coherent-maritime-cut.py
+      - .github/workflows/p101-k4ct-r25-gl-first-one-port.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-source-art-site-and-one-candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 42
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Refuse altered original game or R12A active Blender author
+        run: |
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+          node --check scripts/k4ct-r25-phased-real-gl-visibility.mjs
+          node --check scripts/p101-k4ct-install-authored-dcc.mjs
+          python3 -m py_compile scripts/p101-k4ct-native-spillway-dcc.py scripts/p101-k4ct-r25-one-coherent-maritime-cut.py
+          test -f research-evidence/k4ct/K4CT_R24_TRUE_GRAVITY_SHORELINE_FIVE_CHASE_ART_REJECT_SAFE_RESTORE_20261107.json
+      - name: Build only original source PRIVATE 240Hz/WebGL2 game and real road/B51 site
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-dcc-source-export.mjs
+      - name: Install actual Blender 4 and original Chromium prerequisites
+        timeout-minutes: 16
+        run: |
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|g; s|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/apt-mirrors.txt
+          fi
+          sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 850s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender libegl1 libgl1-mesa-dri libopengl0 libgbm1 fonts-noto-cjk
+          blender --version | head -3
+          npx playwright install --only-shell chromium
+      - name: R25 gate stage - genuinely editable known-good R12A Blender original DCC
+        timeout-minutes: 9
+        run: |
+          blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4ct-native-spillway-dcc.py
+          node scripts/p101-k4ct-install-authored-dcc.mjs
+          node scripts/k4ct-r25-phased-real-gl-visibility.mjs preflight
+      - name: STOP if originals 34, 12, 42 are not depth-visible in actual source GL
+        run: |
+          python3 - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('test-results/k4ct-r25-preflight-native/K4CT_R25_TRUE_SOURCE_PHASED_VISIBILITY.json')
+          d=json.loads(p.read_text())
+          assert d['schema']=='k4ct-r25-genuine-source-camera-phased-visibility-v1'
+          assert d['phase']=='preflight' and d['anchorGate'] is True
+          assert d['originalWebGL2'] and d['originalCamera'] and d['originalRunner240Hz']
+          assert d['originalB48']==7 and d['originalB51']==28 and d['newColliders']==0
+          assert len(d['sourceFramesRAW'])==5 and all(r['source']['depthEnabled'] and r['source']['depthBits']>0 for r in d['sourceFramesRAW'])
+          assert all(x['pctRGB25']>.10 for x in d['witness'])
+          print('R25_REAL_SOURCE_GL_ANCHOR_GATE_PASS_NOT_ART_PASS', d['witness'])
+          PY
+      - name: Build ONE R25 candidate from isolated TEMP copy, never patch repository author
+        timeout-minutes: 9
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+          p=Path('scripts/p101-k4ct-native-spillway-dcc.py')
+          assert subprocess.check_output(['git','hash-object',str(p)],text=True).strip()=='096fffbc1627915eb0122224955bb02cfba6b3ae'
+          original=p.read_text()
+          marker='# Editability: separate mesh objects by functional zones'
+          assert original.count(marker)==1
+          inject="exec(compile(Path('scripts/p101-k4ct-r25-one-coherent-maritime-cut.py').read_text(), 'R25_RESEARCH_ONLY', 'exec'))\n"
+          isolated=Path('test-results/k4ct-r25-temporary-art-author.py')
+          isolated.parent.mkdir(parents=True,exist_ok=True)
+          isolated.write_text(original.replace(marker,inject+marker))
+          import py_compile
+          py_compile.compile(str(isolated),doraise=True)
+          print('R25_TEMPORARY_AUTHOR_COPIED_WITH_VERIFIED_ORIGINAL_UNCHANGED')
+          PY
+          blender -b --factory-startup --python-exit-code 3 --python test-results/k4ct-r25-temporary-art-author.py
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+      - name: Rebuild pristine PRIVATE renderer to prevent double R9 patch
+        run: |
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-install-authored-dcc.mjs
+      - name: R25 actual 240Hz original camera - SEVEN dense source RAW and selective GL groups
+        timeout-minutes: 9
+        run: |
+          node scripts/k4ct-r25-phased-real-gl-visibility.mjs candidate
+      - name: Independently audit genuine evidence and no source modifications
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,subprocess
+          p=pathlib.Path('test-results/k4ct-r25-candidate-native/K4CT_R25_TRUE_SOURCE_PHASED_VISIBILITY.json')
+          assert p.is_file(),'Never claim R25 TECH success without actual source capture'
+          d=json.loads(p.read_text())
+          assert d['phase']=='candidate' and d['schema']=='k4ct-r25-genuine-source-camera-phased-visibility-v1'
+          assert len(d['sourceFramesRAW'])==7
+          assert [r['sourceTick'] for r in d['sourceFramesRAW']]==[15660,15744,15840,15924,16128,16236,16332]
+          assert d['originalWebGL2'] and d['originalCamera'] and d['originalRunner240Hz']
+          assert d['originalB48']==7 and d['originalB51']==28 and d['newColliders']==0
+          assert d['formalARTAdopted']==d['slope2DNAmeters']==0
+          assert all(d[k]=='HOLD' for k in ('HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
+          assert d['ART']=='HOLD'
+          for frame in d['sourceFramesRAW']:
+            assert frame['source']['depthEnabled'] and frame['source']['depthBits']>0
+            assert frame['reproducibility']['changedPctRGBgt25']<.5
+            assert len(frame['selectiveGroupInfluence'])==8
+            assert (p.parent/frame['cleanRAW']).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
+          x=json.loads(pathlib.Path('test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+          assert x['originalB48']==7 and x['originalB51']==28 and x['newColliders']==0 and len(x['objects'])==43
+          assert x['sourcePhysicalRoad5SHA256']=='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b'
+          assert pathlib.Path('test-results/k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend').stat().st_size>30000
+          assert subprocess.check_output(['git','hash-object','scripts/p101-k4ct-native-spillway-dcc.py'],text=True).strip()=='096fffbc1627915eb0122224955bb02cfba6b3ae'
+          assert subprocess.check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert not subprocess.check_output(['git','status','--porcelain'],text=True).strip()
+          print('R25_NATIVE_ART_REVIEW_READY_NOT_FORMALLY_ACCEPTED')
+          PY
+      - name: Preserve original + candidate true RAW and real editable Blender only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CT_R25_NATIVE_GL_FIRST_SEVEN_FRAME_ART_HOLD
+          path: |
+            test-results/k4ct-r25-preflight-native/
+            test-results/k4ct-r25-candidate-native/
+            test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json
+            test-results/k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json
+            test-results/k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend
+          if-no-files-found: warn
+          retention-days: 7
