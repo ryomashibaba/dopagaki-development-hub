@@ -4,14 +4,17 @@ on:
     branches:
       - research/k4ct-two-native-b51-choice-consequence-20261105
     paths:
+      - scripts/k4ct-source-camera-group-influence-probe.mjs
       - scripts/k4ct-active-art-original-camera-five-raw.mjs
       - scripts/p101-k4ct-active-source-camera-art-slice.py
       - .github/workflows/p101-k4ct-active-source-camera-art.yml
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 jobs:
   active-camera-art-source-r32-five-raw:
+    if: ${{ !contains(github.event.head_commit.message, '[R33 group visibility]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 38
     steps:
@@ -160,5 +163,100 @@ jobs:
             test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json
             test-results/k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json
             test-results/k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend
+          if-no-files-found: warn
+          retention-days: 7
+
+  source-camera-targeted-group-influence:
+    # R33 is a read-only capture/visibility probe. Skip the costlier Blender
+    # art pipeline and reuse immutable TRUE R32 DCC from Actions artifact.
+    if: ${{ contains(github.event.head_commit.message, '[R33 group visibility]') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 19
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: R33 protected source fingerprints and cheap script validation
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+          node --check scripts/k4ct-source-camera-group-influence-probe.mjs
+          node --check scripts/p101-k4ct-install-authored-dcc.mjs
+      - name: Recover exactly R32 true editable Blender geometry without rerunning Blender
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CT_R32_AUTHORED_OPEN_LOCKYARD_REAL_BLENDER_SOURCE_RAW_ART_HOLD
+          run-id: 42357674018
+          github-token: ${{ github.token }}
+          path: test-results
+      - name: Independently verify recovered REAL original R32 geometry and bridge
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,hashlib
+          base=pathlib.Path('test-results')
+          d=json.loads((base/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+          a=json.loads((base/'k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json').read_text())
+          m=json.loads((base/'k4ct-active-art/R32_SCENE_MANIFEST.json').read_text())
+          assert d['schema']=='k4ct-blender-authored-true-source-integrated-scene/1'
+          assert d['triangles']==10309 and len(d['objects'])==43
+          assert d['originalB48']==7 and d['originalB51']==28 and d['newColliders']==0
+          assert d['sourcePhysicalRoad5SHA256']=='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b'
+          assert a['schema']=='k4ct-r9-blender-native-attribute-bridge-v1'
+          assert a['totalDccTriangles']==d['triangles']
+          assert m['schema']=='k4ct-active-art-r32-camera-anchored-double-drop-intake-turbine-v1'
+          assert m['formalArtAdopted']==m['slope2DNAmeters']==0
+          assert (base/'k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend').is_file()
+          print('R33_REUSED_TRUE_R32_BLENDER_SOURCE_BYTES',[(str(x),x.stat().st_size) for x in (base/'k4ct-contact-retry').iterdir()])
+          PY
+      - name: Build only ORIGINAL PRIVATE 240Hz game; no Blender installation or DCC art rerun
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-dcc-source-export.mjs
+          node scripts/p101-k4ct-install-authored-dcc.mjs
+      - name: Install headless Chromium for actual original WebGL2 only
+        timeout-minutes: 6
+        run: |
+          sudo apt-get -o Acquire::Retries=1 update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::Retries=1 install -y --no-install-recommends libegl1 libgl1-mesa-dri libopengl0 libgbm1
+          npx playwright install --only-shell chromium
+      - name: Same-tick 8-group original WebGL2 visible-water influence 5-phase probe
+        timeout-minutes: 9
+        run: |
+          node scripts/k4ct-source-camera-group-influence-probe.mjs
+      - name: Independent R33 genuine original WebGL2 and source protection gate
+        run: |
+          python3 - <<'PY'
+          import pathlib,json,subprocess
+          p=pathlib.Path('test-results/k4ct-source-ownership/K4CT_R33_GROUP_INFLUENCE.json')
+          o=json.loads(p.read_text())
+          assert o['schema']=='k4ct-r33-original-camera-targeted-group-influence-v1'
+          assert o['originalWebGL2'] and o['originalRunner240Hz'] and o['unmodifiedOriginalSourceCamera']
+          assert o['originalB48']==7 and o['originalB51']==28 and o['newColliders']==0
+          assert o['sampledTicks']==[15660,15744,15924,16128,16332]
+          assert o['restorationEveryFrameValid'] and o['validRestorationFrames']==5
+          assert set(o['groups'])=={'03','05','23','24','19','34','41','42'}
+          assert not o['waterOwnerDetermined'] and o['pixelChangeNotUniqueOwnership']
+          assert o['formalARTAdopted']==o['slope2DNAmeters']==0
+          assert all(o[k]=='HOLD' for k in ('ART','HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
+          assert all(x['source']['realWebGL2'] and x['source']['depthEnabled'] and x['source']['depthBits']>0 for x in o['frames'])
+          assert subprocess.check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert subprocess.check_output(['git','hash-object','scripts/p101-k4ct-native-spillway-dcc.py'],text=True).strip()=='096fffbc1627915eb0122224955bb02cfba6b3ae'
+          print('R33_ORIGINAL_SOURCE_TARGETED_PIXEL_INFLUENCE_TECH_PASS')
+          PY
+      - name: Preserve R33 real source RAW and target group leave-one-out
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CT_R33_ORIGINAL_WEBGL2_TARGETED_GROUP_INFLUENCE
+          path: test-results/k4ct-source-ownership/
           if-no-files-found: warn
           retention-days: 7
