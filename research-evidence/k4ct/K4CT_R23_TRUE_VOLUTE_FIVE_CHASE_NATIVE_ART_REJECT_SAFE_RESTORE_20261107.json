@@ -1,0 +1,166 @@
+{
+  "schema": "k4ct-r23-actual-source-fiveframe-genuine-blender-open-volute-ART-reject-v1",
+  "dateJST": "2026-11-07",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "fixedPolicy": "QUALITY-FIRST, ART-FIRST, DCC-FIRST, INTEGRATED VERTICAL SLICE. No formal progress from mere CI success or pixel change.",
+  "startingHead": "12af5fd99f90fe1aa1a70ab1b717e47ae2c1b165",
+  "contract": "research-evidence/k4ct/K4CT_R23_SOURCE_CAMERA_SINGLE_VOLUTE_INTAKE_ART_CONTRACT_20261107.json",
+  "actualAuthor": {
+    "realBlenderModule": "scripts/p101-k4ct-r23-volute-lock-one-visible-hero.py",
+    "newModuleCommit": "f13447ea30bb673797c6e06e7948cb4b8106b24f",
+    "unadoptedR19ResearchClearance": "scripts/p101-k4ct-r19-source-three-act-open-harbor.py",
+    "temporaryResearchDccScript": "scripts/p101-k4ct-native-spillway-dcc.py",
+    "temporaryDccCodeCommit": "0bb8673c70e7660cc2ebcec43609c36f25911090",
+    "temporaryDccGitBlob": "37fdab05c07482e7b263739b0033ea9d7aa2fa53",
+    "protectedVerifiedPriorDccBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "r16ActualOriginalCameraSiteRun": 42295943093,
+    "siteRoad5RBankU": 0.95,
+    "siteDistanceOutboardM": 155,
+    "siteWorldXYZ": [
+      941.373,
+      127.114,
+      -561.447
+    ],
+    "design": "One camera-facing thick open volute with functional forebay penstock and foundations, authoring 27/28/29/30/31/32/33 while true intake34, tower12, rotor41/42, road, camera and 28 moving B51 remain source originals. No duplicate 3-arch halls or new roof slab.",
+    "changedArtistGroupTriangles": {
+      "27": 676,
+      "28": 26,
+      "29": 144,
+      "30": 74,
+      "31": 120,
+      "32": 48,
+      "33": 80
+    },
+    "editableBlenderGroups": 43,
+    "totalTriangles": 23558,
+    "newColliders": 0,
+    "sourceTrueCameraUsedForActualRendering": true
+  },
+  "realCI": {
+    "id": 42314880298,
+    "head": "067114ea306e9914cd442cd93a5048105a6b7880",
+    "conclusion": "success",
+    "actualBlenderVersion": "4.0.2",
+    "trueSourceWebGL2": true,
+    "trueNative240HzCamera": true,
+    "actualSourceTicks": [
+      15660,
+      15744,
+      15924,
+      16128,
+      16332
+    ],
+    "captureSeconds": [
+      65.25,
+      65.6,
+      66.35,
+      67.2,
+      68.05
+    ],
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0,
+    "artifactId": 13550297687,
+    "artifactName": "K4CT_R23_REAL_VOLUTE_SOURCE_FIVE_FRAME_ART_HOLD",
+    "artifactZipSHA256": "5deaadba8f0a87f10a99345aa0ce1d5bb2f52c1eaa4d21be4596b7c0ce893c22",
+    "artifactFileCount": 9,
+    "artifactCRC": "PASS",
+    "artifactExpiryUTC": "2026-11-13T23:58:29Z",
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalPhysicalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "independent5FrameCheck": "PASS_REAL_NATIVE_SCREEN_GL_DEPTH",
+    "scopeLimit": "Five FROZEN original 240Hz source moments with scripted KeyD, not continuous human gameplay video, no independent full source failure→retry→finish/real hazard-contact proof, no 42×5 leave-one-out matrix."
+  },
+  "empiricalNativePixels": {
+    "definition": "% pixels in ROI x0..1005 y80..705 with any max abs RGB channel >25. Group pixels from same-tick true GL leave-one-out are NOT exact object area or ART score.",
+    "R23vsOriginalR19NonadoptedAtCommonTicksRGB25Pct": {
+      "65.25": 0.963821,
+      "66.35": 0.038209,
+      "68.05": 1.337154
+    },
+    "intraRunGroupInfluenceRGB25Pct": {
+      "65.25": {
+        "27_volute": 0.540179,
+        "34_realIntake": 2.487403,
+        "12_trueTower": 0.443542,
+        "42_trueWheel": 0,
+        "03_sea": 3.091423,
+        "sameTickRestore": 0
+      },
+      "65.60": {
+        "27_volute": 1.401791,
+        "34_realIntake": 1.404816,
+        "12_trueTower": 0.71403,
+        "42_trueWheel": 0.100776,
+        "03_sea": 2.337433,
+        "sameTickRestore": 0
+      },
+      "66.35": {
+        "27_volute": 0,
+        "34_realIntake": 0,
+        "12_trueTower": 3.781095,
+        "42_trueWheel": 0.090269,
+        "03_sea": 1.443184,
+        "sameTickRestore": 0
+      },
+      "67.20": {
+        "27_volute_UNCERTIFIED": 0.218746,
+        "34_realIntake_UNCERTIFIED": 0.218746,
+        "12_trueTower_UNCERTIFIED": 0.218746,
+        "42_trueWheel": 0.703522,
+        "03_sea": 3.552796,
+        "sameTickRestore": 0.218746
+      },
+      "68.05": {
+        "27_volute": 0,
+        "34_realIntake": 0,
+        "12_trueTower": 0,
+        "42_trueWheel": 3.575085,
+        "03_sea": 9.865234,
+        "sameTickRestore": 0
+      }
+    },
+    "importantReproducibilityCaveat": "At 67.20 seconds, the exact same 0.218746% RGB>25 appears for hidden 27, hidden 34, hidden 12 AND restoring all; this value is dominated by a same-tick render/raster artifact, NOT reliable evidence that all three groups are truly visible. Do not claim 0.218746% group27 semantic visibility; focused actual influence is clear only at 65.25 and 65.60."
+  },
+  "trueSourceRAWVisualCriticalReview": {
+    "primaryPositive": "A genuinely new single open mechanical spiral silhouette is now visibly present left of original Road5 at 65.25 and more strongly at 65.60, with source tower12 at 66.35 and true wheel42 at 68.05 still dominant. Thus useful proof that actual native source placement can make bespoke engineering shapes seen in time.",
+    "negative": [
+      "At 65.25 the new open spiral reads like a separate small decorative ring behind a long grey horizontal rail, not a monumental powered tidal gate integrated with moving water.",
+      "At 65.60 ring gets bigger, but strongly resembles an additional distant Ferris/water wheel, duplicating the existing authentic R8J wheel visible by 68.05; does not instantly communicate upstream intake/causal function at ~180m/s.",
+      "At 66.35 new hero is fully invisible; merely having architectural footprints in the code does not improve the central tower environment.",
+      "At 67.20 and 68.05 water is still flat cyan with scattered low-poly rocks, and the original rotor is separate; no convincing three-beat visual hydraulic system.",
+      "Physical original B51 red caution/near miss and native lane remain, but their human first-view recognizability remains untested.",
+      "Existing left water and right dark quarry slabs, HUD overlays, and broad low-quality architectural scene remain unaddressed. Single spiral is not a finished industrial harbor."
+    ],
+    "criticalDecision": "ART_REJECT",
+    "causalInsight": "Making geometry nonzero in original source GL is necessary but insufficient. One isolated open metal ring does not communicate facility operation, structural load route, or water-level difference at high speed. Stop iterating ring shape/brightness; next candidate requires purposeful front-to-back environmental composition with realistic water/rock/architecture in ONE view.",
+    "independentHumanArtExpertReview": false,
+    "nativeVisualOnly": true
+  },
+  "decision": {
+    "TECH": "PASS_REAL_BLENDER_AND_NATIVE_FIVE_FRAME_SOURCE",
+    "ART": "REJECT",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "activeDccRestoration": "PENDING_EXACT_R12A_BLOB",
+    "postRestoreCI": "NOT_RUN_UNTIL_SOURCE_RESTORED",
+    "preserveResearchOnlyR23Module": true
+  },
+  "nextEfficientDirection": "R24: do not continue R13–R23 invisible/off-camera pieces or repeat freestanding wheel/arch motifs. Instead use the original source 5-frame view to author an integrated identifiable industrial shoreline: observable water-head height variation, massive real-load-bearing bank and functional forebay-to-turbine relationship, one readable left/right time sequence, correct native hazard contrast. Audit material hierarchy and geometry as one composition; reject before expensive full QA if no visible gain.",
+  "safety": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "Open Draft unmerged",
+    "mainGameGoldRoadSourceUnmodified": true,
+    "userSteps": 0,
+    "additionalPaidAPI": 0,
+    "workComputerUse": false
+  }
+}
