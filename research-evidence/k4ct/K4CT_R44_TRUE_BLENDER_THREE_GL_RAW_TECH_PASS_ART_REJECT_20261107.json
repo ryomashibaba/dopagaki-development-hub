@@ -1,0 +1,197 @@
+{
+  "schema": "dopagaki-k4ct-r44-r43a-true-blender-three-native-water-frames-tech-pass-critical-art-reject-v1",
+  "dateJST": "2026-11-07",
+  "scope": "Existing DOPAGAKI project continuation, V15 QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE unchanged",
+  "provenance": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "sourceR43A": "research-evidence/k4ct/K4CT_R43_THREE_COMPONENT_SOURCE_CAMERA_CONCEPT_PREFLIGHT_20261107.json",
+    "author": "scripts/p101-k4ct-r44-underbank-three-stage.py",
+    "nativeSourceTest": "scripts/k4ct-r44-three-stage-source-raw.mjs",
+    "firstRunId": 42383825205,
+    "firstRunStatus": "FAILURE at wrong isolated Blender author file path, genuine new R44 not constructed in this attempt",
+    "secondRunId": 42384075471,
+    "secondRunStatus": "FAILURE at independent-check JSON path typo after genuine Blender R44 and 3 source-original GL frames executed; 3 GL RAW screenshot files were not uploaded because the artifact path still used -native-raw, not -native-water",
+    "genuineSavedR44DccArtifactId": 13579205890,
+    "genuineSavedR44DccArtifactZipSHA256": "caa12f78427e1119cf065cbe67ac2d2b055821dfe7d6caad485708381e90b546",
+    "recoveryRunId": 42384597099,
+    "recoveryUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42384597099",
+    "recoveryConclusion": "success",
+    "savedFinalArtifactId": 13578848939,
+    "savedFinalArtifactUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42384597099/artifacts/13578848939",
+    "savedFinalArtifactZipSHA256": "c05188982a541d340ec1a1f73ae877712cc46511a23f3c81fed4d2171cdad076",
+    "artifactExpiryUTC": "2026-11-14T15:07:57Z",
+    "artifactZipCRC": "PASS",
+    "rawOriginalFrameCount": 3,
+    "initialGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "initialBlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "mainSHA": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "PR46State": "OPEN_DRAFT_UNMERGED",
+    "PR46Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f"
+  },
+  "actualGeometry": {
+    "genuineEditableBlender": true,
+    "totalSceneTriangles": 32004,
+    "threeEditableEvaluatedBlenderWaterMeshes": [
+      {
+        "name": "R44_SOURCE_TO_EXPOSED_HEADRACE",
+        "group": "23",
+        "triangles": 472
+      },
+      {
+        "name": "R44_TRUE_VERTICAL_GRAVITY_WATER",
+        "group": "24",
+        "triangles": 472
+      },
+      {
+        "name": "R44_LOWER_RECEIVING_CHANNEL",
+        "group": "24",
+        "triangles": 336
+      }
+    ],
+    "static3PartSharedEndCoordinates": true,
+    "submergedInletY": 92.6,
+    "protectedForebay19WaterY": 93,
+    "protectedBankCrestY": 93.8,
+    "culvertRoofY": 92.95,
+    "notRealFluidSimulation": true,
+    "notVerifiedHydraulicallyWatertight": true,
+    "nonprotectedLocalCuts": {
+      "group03": 58,
+      "group20": 0,
+      "group21": 0,
+      "group25": 0,
+      "group26": 0
+    },
+    "sourceProtectedEightIDs": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "protectedEightWholeXYZRGBExactIndependent": true,
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0,
+    "originalSourceCameraAnd240HzUnchanged": true
+  },
+  "actualOriginalGL": {
+    "realChromium": true,
+    "realWebGL2": true,
+    "depthBits": 24,
+    "originalRunner240Hz": true,
+    "sameSourceTicks": [
+      15900,
+      15924,
+      15972
+    ],
+    "sourceSeconds": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "sameTickRestoreAllValid": true,
+    "screenROI": {
+      "x0": 0,
+      "y0": 100,
+      "x1": 1365,
+      "y1": 780
+    },
+    "R39PriorNativeGroup24ImpactRGBgt25": [
+      0,
+      0,
+      0
+    ],
+    "R44NativeGroup23ImpactRGBgt25": [
+      362,
+      491,
+      872
+    ],
+    "R44NativeGroup24ImpactRGBgt25": [
+      215,
+      281,
+      470
+    ],
+    "protectedForebayGroup19ImpactRGBgt25": [
+      7279,
+      13552,
+      26008
+    ],
+    "group24ApproxVisibleChangeBboxes": {
+      "t66_25": [
+        317,
+        338,
+        348,
+        353
+      ],
+      "t66_35": [
+        250,
+        345,
+        293,
+        361
+      ],
+      "t66_55": [
+        117,
+        361,
+        182,
+        382
+      ]
+    },
+    "caveat": "Group-hide screen impact is not unique triangle pixel ownership, human recognition, actual hydraulic continuity, or ART quality. Values can vary slightly between separate original Chromium runs despite stable 240Hz exact ticks and same-tick restored frame validation."
+  },
+  "criticalVisualReview": {
+    "source": "Direct inspection of three saved real source-Chromium/WebGL2 CLEAN RAW screenshots; not an artist's unrelated concept view.",
+    "improvements": [
+      "New genuine gravity group24 makes screen contribution at all three original ticks, unlike the R39 nonvisible group24.",
+      "Real editable scene contains genuine nonprotected water surfaces for intake-to-headrace, gravity face and receiver with matching interface vertices.",
+      "Road, original racing camera/HUD and B51 hazard prewarning remain visible and were not rewritten."
+    ],
+    "artFailures": [
+      "At 66.25, 66.35 and 66.55 the left water remains a broad flat cyan strip or sheet; an actual gravity drop and distinct lower receiver are not identifiable at a glance without a labeled explanation.",
+      "The group24 measurable image differences occupy only 215/281/470 pixels and fit within 32x16, 44x17, 66x22 bounding boxes, far too small in the original game view to establish a readable industrial waterfall.",
+      "The candidate headrace, waterfall and downstream receiver do not read as one mechanically and hydraulically causal huge structure at ~183-184 m/s.",
+      "Existing distant tower/rod/feature shapes and small mechanical blade remain insufficiently supported or legible; the shore/industrial scene still reads generically.",
+      "Static water surface connectivity is not evidence of real fluid simulation, source forebay intake watertightness or safe human B51 choice-consequence."
+    ],
+    "verdict": "EARLY_ART_REJECT",
+    "noArtPromotionDespiteGLInfluence": true,
+    "rejectNoSameCandidateMicroPolish": true
+  },
+  "status": {
+    "TECH": "PASS_VIA_RECOVERY_INDEPENDENT_ARTIFACT_REVIEW",
+    "ART": "REJECT",
+    "METHOD": "HOLD_NO_ADDITIONAL_R44_REBUILD",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "mainUnchanged": true,
+    "officialP101PR46Unchanged": true,
+    "originalGameBlenderRoadCameraPhysicsUnchanged": true,
+    "protectedEightDccXYZRGBUnchanged": true,
+    "originalSlopeGoldProductionAndQAUnchanged": true,
+    "onlyResearchBranchWritten": true,
+    "work": false,
+    "computerUse": false,
+    "paidExternalAPI": false,
+    "userOperations": 0,
+    "githubActionsBilling": "UNKNOWN_ACCOUNT_STATEMENT_NOT_READ",
+    "noPublishNoMergeNoFormalAdoption": true
+  },
+  "next": {
+    "preferred": "Do not create another R44-R39 near-duplicate or generic high polygon arch. The next useful gate is source-native three-act semantic legibility and a functional grounded machine visible during the B51 fast chase; screen pixel contribution alone has been achieved and is no longer the critical bottleneck.",
+    "constraint": "Before a new DCC author, use a short original-camera source screen study showing where the vertical water drop and receiver will occupy legible screen space without covering road/HUD/hazard; preserve all locked groups and physics. If no supported geometry, METHOD HOLD.",
+    "stopCondition": "No further author/CI loop solely to green tests or change materials; avoid duplicating handoffs."
+  }
+}
