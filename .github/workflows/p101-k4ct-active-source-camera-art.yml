@@ -6,6 +6,8 @@ on:
     paths:
       - scripts/k4ct-source-camera-group-influence-probe.mjs
       - scripts/k4ct-r37-source-water-causality.mjs
+      - scripts/k4ct-r38-private-depth-patch.mjs
+      - scripts/k4ct-r38-depth-frustum.mjs
       - scripts/p101-k4ct-r35-true-blender-forebay-markers.py
       - scripts/k4ct-r35-source-forebay-visibility.mjs
       - scripts/k4ct-r36-original-camera-dense-visibility.mjs
@@ -494,7 +496,7 @@ jobs:
           retention-days: 7
 
   source-r37-original-water-causality:
-    if: ${{ contains(github.event.head_commit.message, '[R37 water causality]') }}
+    if: ${{ contains(github.event.head_commit.message, '[R37 water causality]') || contains(github.event.head_commit.message, '[R38 visibility]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 23
     steps:
@@ -508,6 +510,8 @@ jobs:
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
           node --check scripts/k4ct-r37-source-water-causality.mjs
+          node --check scripts/k4ct-r38-private-depth-patch.mjs
+          node --check scripts/k4ct-r38-depth-frustum.mjs
       - name: Reuse actual R36 editable Blender and original WebGL2 RAW
         uses: actions/download-artifact@v4
         with:
@@ -534,12 +538,19 @@ jobs:
           sudo apt-get -o Acquire::Retries=1 update -qq
           sudo env DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::Retries=1 install -y --no-install-recommends libegl1 libgl1-mesa-dri libopengl0 libgbm1 fonts-noto-cjk
           npx playwright install --only-shell chromium
-          node scripts/k4ct-r37-source-water-causality.mjs
+          if git log -1 --format=%s | grep -Fq '[R38 visibility]'; then
+            node scripts/k4ct-r38-private-depth-patch.mjs
+            node scripts/k4ct-r38-depth-frustum.mjs
+          else
+            node scripts/k4ct-r37-source-water-causality.mjs
+          fi
       - name: Save direct genuine RAW evidence also when vetoed or test failed
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: K4CT_R37A_ORIGINAL_WEBGL2_WATER_CAUSALITY_ART_HOLD
-          path: test-results/k4ct-r37-water-causality/
+          name: ${{ contains(github.event.head_commit.message, '[R38 visibility]') && 'K4CT_R38_ORIGINAL_WEBGL2_WATER_DEPTH_FRUSTUM' || 'K4CT_R37A_ORIGINAL_WEBGL2_WATER_CAUSALITY_ART_HOLD' }}
+          path: |
+            test-results/k4ct-r37-water-causality/
+            test-results/k4ct-r38-depth/
           if-no-files-found: warn
           retention-days: 7
