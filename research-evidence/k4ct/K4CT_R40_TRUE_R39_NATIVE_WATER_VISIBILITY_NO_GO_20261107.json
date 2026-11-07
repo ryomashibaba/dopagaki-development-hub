@@ -1,0 +1,170 @@
+{
+  "schema": "dopagaki-k4ct-r40-r39-original-game-webgl2-three-source-frame-group-water-visibility-v1",
+  "dateJST": "2026-11-07",
+  "policy": "Unchanged V15 QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE; original source Game, Camera, 240Hz, B48/B51, protected Blender eight groups retained; no new design line, adoption, production or merge.",
+  "source": {
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "testedCommit": "ee7e74fbeb71086ae2491bff3fc8e5d4c1cc78da",
+    "priorR39SourceRun": 42377482537,
+    "priorR39TrueEditableBlenderArtifact": 13576017551,
+    "actualR40RunId": 42378264567,
+    "actualR40RunUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42378264567",
+    "actualR40RunConclusion": "success",
+    "R40ArtifactId": 13576108423,
+    "R40ArtifactUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42378264567/artifacts/13576108423",
+    "R40ArtifactZipSHA256": "0ea313f4b7161e55842357b50a69828e9ad6c183dfffd86197618ab7f6aa9507",
+    "R40ArtifactExpiresAtUTC": "2026-11-14T13:47:41Z",
+    "artifactVerifiedDownloaded": true,
+    "artifactZipCRC": "PASS",
+    "pngCount": 18,
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalR12ABlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "sourceR39Triangles": 30904,
+    "sourceR39OriginalB48": 7,
+    "sourceR39MovingB51": 28,
+    "newColliders": 0,
+    "sourceCameraOriginal": true,
+    "sourceRunner240HzOriginal": true,
+    "realChromiumWebGL2": true,
+    "depthBits": 24,
+    "retainedR39EditableBlender": true,
+    "protectedEightXYZRGBExact": true,
+    "mainHeadBefore": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101PR46HeadBefore": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "PR46Status": "OPEN_DRAFT_UNMERGED"
+  },
+  "method": {
+    "threeSampledTimesSec": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "threeNativeTicks": [
+      15900,
+      15924,
+      15972
+    ],
+    "gameFramePixels": 928200,
+    "ROI": {
+      "x0": 0,
+      "y0": 100,
+      "x1": 1365,
+      "y1": 780
+    },
+    "sourceGroupLeaveOneOutOneAtATime": [
+      "19",
+      "23",
+      "24",
+      "15",
+      "16",
+      "17"
+    ],
+    "falseClaimsAvoided": [
+      "No literal per-pixel triangle ID or pixel ownership",
+      "No continuous fluid simulation",
+      "No user-human play test",
+      "No full SAT/CCD/GPU FPS"
+    ],
+    "allThreeSameTickRestoredExactlyRGBgt1_10_25": true,
+    "threeOriginalGameRAWCaptured": true,
+    "group24HiddenPNGIdenticalToBaseInGameFrameAtAllThreeTicks": true,
+    "nativeGroup23RGBgt25ScreenChangedPixelBboxXY": [
+      {
+        "sec": 66.25,
+        "bbox": [
+          339,
+          366,
+          353,
+          372
+        ]
+      },
+      {
+        "sec": 66.35,
+        "bbox": [
+          224,
+          378,
+          296,
+          405
+        ]
+      },
+      {
+        "sec": 66.55,
+        "bbox": [
+          86,
+          416,
+          151,
+          438
+        ]
+      }
+    ]
+  },
+  "measuredNativeOriginalGameFrameRGBgt25": {
+    "sec66_25": {
+      "group19": 5610,
+      "group23": 26,
+      "group24": 0,
+      "group15": 1375,
+      "group16": 211,
+      "group17": 2234
+    },
+    "sec66_35": {
+      "group19": 10275,
+      "group23": 68,
+      "group24": 0,
+      "group15": 3886,
+      "group16": 304,
+      "group17": 3414
+    },
+    "sec66_55": {
+      "group19": 23322,
+      "group23": 201,
+      "group24": 0,
+      "group15": 0,
+      "group16": 581,
+      "group17": 5889
+    }
+  },
+  "interpretation": {
+    "TECH": "PASS",
+    "upstreamForebay19": "Significant actual screen contribution at all 3 checked original camera ticks.",
+    "headrace23": "Tiny contribution: 26, 68, 201 affected pixels RGB>25 in the 928,200 pixel game frame; cannot attribute these uniquely to newly authored water rather than retained preexisting 23 geometry. Not an intelligible hydraulic scene.",
+    "fallingWater24": "No detectable contribution (RGB differences >1, >10, >25 all zero) at ALL 3 checked ticks, despite the actual R39 Blender group being present in source geometry and projected source camera frustum. This strongly supports invisibility in the tested R39 frames, but does not prove cause for every time or camera.",
+    "threeActVisibility": "FAIL_NOT_READABLE_IN_TRUE_SOURCE_RAW",
+    "independentVisualReview": "Original true source R39 frames show broad cyan left water, inadequate discernible vertical drop, disconnected small hydraulic gate. K4CT 180-184m/s motion keeps hazard/B51 in primary player focus. This is not a professional art-quality integrated hydraulic vertical slice.",
+    "R39ArtVerdict": "REJECT_UNCHANGED",
+    "R40Gate": "NO_GO_FOR_MORE_LARGE_DCC",
+    "methodStatus": "HOLD",
+    "physicallyContinuousFluidSim": "NOT_IMPLEMENTED_NOT_CLAIMED",
+    "nextRequiredEvidence": "Only if further work is authorized by unchanged V15: one different camera-grounded spatial composition must show real upstream edge, distinguishable descending water, supported mechanical gate, and downstream outfall in a short native 240Hz/WebGL2 sequence without touching protected water19, original camera or road. No new huge gray arch/box, no R39 micro-polish/CI loop. Escalate protection conflict rather than edit protected assets."
+  },
+  "status": {
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "ART": "HOLD_NO_NEW_CANDIDATE",
+    "R39ART": "REJECT",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "productionUnchanged": true,
+    "mainUnchanged": true,
+    "originalSlopeGoldUnchanged": true,
+    "originalGameRoadCamera240HzB48B51Unchanged": true,
+    "originalR12AProtectedBlenderUnchanged": true,
+    "PR46Unchanged": true,
+    "nonprotectedDccNewArtCreated": false,
+    "researchBranchOnly": true,
+    "formalARTAdoption": false,
+    "userOperations": 0,
+    "work": false,
+    "computerUse": false,
+    "additionalPaidAPI": false,
+    "GitHubActionsBilling": "UNKNOWN_ACCOUNT_INVOICE_NOT_CHECKED"
+  }
+}
