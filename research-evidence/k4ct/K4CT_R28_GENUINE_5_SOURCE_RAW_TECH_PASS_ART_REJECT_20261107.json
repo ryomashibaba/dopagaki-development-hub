@@ -1,0 +1,136 @@
+{
+  "schema": "k4ct-r28-five-true-source-raw-critical-art-reject-v1",
+  "dateJST": "2026-11-07",
+  "scope": "Research-only R28. Single integrated harbor source candidate (not formally adopted). Critical ART review of actual original WebGL2 frames against R27 true original WebGL2 RAW.",
+  "provenance": {
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "successfulHead": "f6e76bdb80ef35a7f213dccb3fb4db7ef04ac57d",
+    "firstRun": {
+      "id": 42339622501,
+      "conclusion": "failure",
+      "cause": "Isolated Python scene shadowed the protected artist's stations dictionary with a tuple; real DCC conversion had begun, but final author crashed. No protected source mutation."
+    },
+    "correctedRun": {
+      "id": 42339803801,
+      "conclusion": "success",
+      "jobId": 128304751542,
+      "actualOriginalGameRawSeconds": [
+        65.25,
+        65.6,
+        66.35,
+        67.2,
+        68.05
+      ],
+      "sourceTicks": [
+        15660,
+        15744,
+        15924,
+        16128,
+        16332
+      ]
+    },
+    "artifact": {
+      "id": 13560952324,
+      "name": "K4CT_R28_ONE_UNIFIED_HARBOR_REAL_RAW_ART_HOLD",
+      "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42339803801/artifacts/13560952324",
+      "fileCount": 10,
+      "includes": [
+        "five genuine original Chromium/WebGL2 PNG frames",
+        "source-frame metadata JSON",
+        "single R28 rock/harbor scene manifest",
+        "original DCC polygon export JSON",
+        "R9 material attribute bridge JSON",
+        "genuine editable Blender .blend"
+      ]
+    },
+    "comparison": {
+      "r27Run": 42331578695,
+      "r27ArtifactId": 13557707036,
+      "r27AvailableTimesSeconds": [
+        65.25,
+        65.6,
+        66,
+        66.35,
+        67.2
+      ],
+      "assessmentMethod": "Direct visual comparison of original 1365x930 game screenshots at matched 65.25 / 65.60 / 66.35 / 67.20 seconds, with 68.05 R28-only. Not AI-generated, not DCC concept rendering, not RGB percentage as ART score."
+    }
+  },
+  "protected": {
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "activeR12ABlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "road5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "mainHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "OPEN_DRAFT_UNMERGED",
+    "originalGameAndBlenderAuthorBlobHashesReverifiedAfterR28": true
+  },
+  "genuineDcc": {
+    "blenderVersion": "4.0.2",
+    "editableMeshes": 43,
+    "trueTriangles": 16334,
+    "noncollidingSourceCameraResearchCandidate": true,
+    "r9Bridge": "REAL_BLENDER_POLYGON_NORMAL_UV_BSDF_ATTRIBUTE_WEBGL2",
+    "sceneManifest": "test-results/k4ct-r28-one-harbor/R28_SCENE_MANIFEST.json",
+    "generator": "scripts/p101-k4ct-r28-unified-harbor-rock-gravity.py",
+    "capture": "scripts/k4ct-r28-five-source-raw-first-art.mjs",
+    "isolatedCopyOfVerifiedR12AArtist": true,
+    "activeAuthorUnchanged": true
+  },
+  "tech": {
+    "workflow": "SUCCESS for 5 source frames only",
+    "originalWebGL2": true,
+    "originalCamera": true,
+    "original240HzRunner": true,
+    "depthTest": true,
+    "reportedDepthBits": 24,
+    "newSourceRawCount": 5,
+    "fullSevenSourceTimesCertified": false,
+    "selectiveGLGroupAttribution": "NOT_RUN_EARLY_ART_GATE",
+    "sameSourceTickRestoreParity": "NOT_MEASURED",
+    "humanPlay": "NOT_RUN",
+    "independentSAT": "NOT_RUN",
+    "independentCCD": "NOT_RUN",
+    "WindowsDeviceFPS": "NOT_RUN",
+    "doNotPromoteBeyondVerifiedScope": true
+  },
+  "visualReview": {
+    "verdict": "ART_REJECT",
+    "improvementsOverR27": [
+      "R27's enormous near-left smooth gray bank is materially reduced in the early genuine camera frames",
+      "A larger near-left water area and more open sightline appear; road and top warning HUD remain legible in captured scripted frames"
+    ],
+    "criticalFailures": [
+      "65.25/65.60: repeated regular columns and one long linear deck along screen-left read as an artificial row of props rather than natural erosion or lived-in industrial port",
+      "65.25 through 67.20: expanded blue-cyan basin still reads as a broad flat color sheet, not an apparent gravitational path with convincing upper fall and receiving basin",
+      "66.35/67.20/68.05: screen-right original turbine and assorted structural objects appear detached or floating because surrounding new landform does not visually connect them into a founded mass",
+      "Near/mid/far terrain hierarchy, quay-to-cliff load path, water inlet/sluice/outlet and source groups 34/12/42 are not legible as one coherent harbor at race speed",
+      "True Blender solids and source-GL screenshots do not establish human fun, hazard fairness, artistic acceptance, or release"
+    ],
+    "prohibitedResponse": "Do not simply raise geometry/polycount, recolor the cyan sheet, duplicate columns, patch gray planar R27 terrain, or rerun CI to make rejected art green",
+    "confidence": "Qualitative critical assessment based on four time-matched original RAW pairs; not a measured human preference, and no claim of statistical confidence."
+  },
+  "formalArtAdopted": 0,
+  "slope2DNAmeters": 0,
+  "holds": {
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "restoration": "No restoration needed: temporary research copy only; source Game and active R12A artist Git blob remain unchanged. No protected source reversion attempted.",
+  "nextEssentialAction": "Stop this R28 candidate after ART rejection. In the next substantive art attempt, first inspect actual source-camera near/mid/far composition with fixed original landmarks, and sculpt ONE geological harbor mass whose river gradient, terrain roots, and existing turbine/tower foundations visually connect. Reject cheap at earliest true RAW, do not create repetitive CI or documents.",
+  "costs": {
+    "userManualOperations": 0,
+    "paidAPIInvoked": false,
+    "workInvoked": false,
+    "computerUseInvoked": false,
+    "productionDeployed": false
+  }
+}
