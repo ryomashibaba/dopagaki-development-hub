@@ -81,7 +81,14 @@
     ],
     "allEightProtectedGroupsXYZRGBByteIdenticalToR28": true,
     "mainAndP101AndPRNotWritten": true,
-    "sourceCodeHashesRecheckOnCompletion": "PENDING_LIVE_READ",
+    "sourceCodeHashesRecheckOnCompletion": {
+      "gameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+      "artistBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+      "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+      "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+      "pr46": "OPEN_DRAFT_UNMERGED",
+      "verifiedViaGitHubAfterR29": true
+    },
     "activeAuthorRestorationRequired": false
   },
   "verification": {
