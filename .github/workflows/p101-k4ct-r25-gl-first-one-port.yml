@@ -55,7 +55,7 @@ jobs:
         run: |
           blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4ct-native-spillway-dcc.py
           node scripts/p101-k4ct-install-authored-dcc.mjs
-          node scripts/k4ct-r25-phased-real-gl-visibility.mjs preflight
+          K4CT_R25_PHASE=preflight node scripts/k4ct-r25-phased-real-gl-visibility.mjs
       - name: STOP if originals 34, 12, 42 are not depth-visible in actual source GL
         run: |
           python3 - <<'PY'
@@ -103,7 +103,7 @@ jobs:
       - name: R25 actual 240Hz original camera - SEVEN dense source RAW and selective GL groups
         timeout-minutes: 9
         run: |
-          node scripts/k4ct-r25-phased-real-gl-visibility.mjs candidate
+          K4CT_R25_PHASE=candidate node scripts/k4ct-r25-phased-real-gl-visibility.mjs
       - name: Independently audit genuine evidence and no source modifications
         run: |
           python3 - <<'PY'
