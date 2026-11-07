@@ -1,0 +1,150 @@
+{
+  "schema": "k4ct-r31-active-art-true-source-raw-five-technical-pass-critical-art-reject-v1",
+  "dateJST": "2026-11-07",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH / existing P101 genuine 240Hz original source game",
+  "policy": "V14.0 QUALITY-FIRST ART-FIRST DCC-FIRST INTEGRATED VERTICAL SLICE; no change to official P101, original physical engine, Road5, camera, B48/B51, main, PR46, production; separate ART/TECH/HUMAN/SAT/CCD/FPS. Formal adoption zero.",
+  "provenance": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "runId": 42355445826,
+    "sourceCommit": "dc973c00e849b98df459cb36a5cea097289e7ca6",
+    "runConclusion": "SUCCESS",
+    "runURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42355445826",
+    "artifactId": 13567870831,
+    "artifactName": "K4CT_R31_AUTHORED_OPEN_LOCKYARD_REAL_BLENDER_SOURCE_RAW_ART_HOLD",
+    "artifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42355445826/artifacts/13567870831",
+    "artifactsRetentionDays": 7,
+    "nativeFiveTimesSec": [
+      65.25,
+      65.6,
+      66.35,
+      67.2,
+      68.05
+    ],
+    "sourceTicks": [
+      15660,
+      15744,
+      15924,
+      16128,
+      16332
+    ],
+    "prevR30": {
+      "runId": 42353473521,
+      "artifactId": 13566517578,
+      "artVerdict": "REJECT"
+    }
+  },
+  "implementation": {
+    "generator": "scripts/p101-k4ct-active-source-camera-art-slice.py",
+    "capture": "scripts/k4ct-active-art-original-camera-five-raw.mjs",
+    "workflow": ".github/workflows/p101-k4ct-active-source-camera-art.yml",
+    "approach": "NEW low-profile source-road-anchored authored 3D benches, intake foundation, open three-pool stepped chute, separate lock jaws, source-bounded existing turbine bay and tower footing. Shared active art workflow prevents one-off workflow proliferation.",
+    "blenderVersion": "4.0.2",
+    "actualEditableGroupCount": 43,
+    "totalTriangleCount": 9696,
+    "unchangedProtectedTriangles": 7864,
+    "newNonprotectedTriangles": 1832,
+    "actualBeveledVolumeEvaluations": 3,
+    "originalGroupIDsPreserved": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "actualSourceLandmarks": [
+      "34 preserved intake",
+      "12 preserved control tower",
+      "41 turbine wheel",
+      "42 penstock"
+    ],
+    "detailedDccManifest": "k4ct-active-art/R31_SCENE_MANIFEST.json",
+    "sourceDccBridge": "k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json",
+    "editability": "True Blender scene saved in artifact, original R12A author used in isolated copy only",
+    "originalPhysicalBlenderAuthorChanged": false,
+    "geometryBasedOnSourceCamera": true
+  },
+  "technical": {
+    "verdict": "PASS for original-source 5 paused RAW and DCC/artwork-source provenance only",
+    "workflow": "SUCCESS",
+    "nativeBrowser": "Original Chromium",
+    "nativeWebGL2": true,
+    "nativeCamera": true,
+    "originalRunner240Hz": true,
+    "depthTestEnabled": true,
+    "depthBits": 24,
+    "actualPngs": 5,
+    "sourceMetadata": "k4ct-active-art-raw-native/K4CT_R31_TRUE_SOURCE_PHASED_VISIBILITY.json",
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "noApplicationJSChange": true,
+    "noCameraManipulation": true,
+    "independentSevenTickCertification": false,
+    "sameTickRestoreParity": "NOT_ATTEMPTED",
+    "selectiveGroupInfluence": "NOT_RUN",
+    "humanDrive": "NOT_RUN",
+    "independentSAT": "NOT_RUN",
+    "independentCCD": "NOT_RUN",
+    "actualWindowsHardwareFPS": "NOT_RUN"
+  },
+  "protected": {
+    "gameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "activeAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "road5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "baselineExactParity": {
+      "method": "GitHub Actions baseline unmodified R12A author's freshly produced DCC vs R31 43-group DCC per-name exact 18 floats/triangle; independently compared R30 and R31 downloaded complete exported XYZRGB vertices, all 8 protected groups exact equality",
+      "result": "PASS",
+      "protectedGroupCount": 8,
+      "trianglesExactlyEqual": 7864,
+      "RGBCoordinatesExactlyEqual": true,
+      "sourceNativeObjectCountInvariant": true
+    },
+    "mainHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "OPEN_DRAFT_UNMERGED",
+    "protectedOriginalsNotEdited": true,
+    "restorationRequired": false
+  },
+  "visualArt": {
+    "verdict": "REJECT",
+    "reviewMethod": "Direct visual comparison of 5 genuine 1365x930 original Chromium/WebGL2 RAW images at exact same source 240Hz ticks versus R30. No DCC viewport render, generated image, GL pixel statistic or CI status used to grant ART.",
+    "materialImprovements": [
+      "R30's dominating near-left pale enormous quarry wall at 65.25/65.60 disappeared, revealing a clear sky and open port-water horizon",
+      "R30's looming dark-left and bright-right shell around 66.35/67.20 was greatly reduced; original roadway, HUD, warning and source shoreline remain readable in RAW",
+      "At 68.05 the existing turbine has a visible purpose-built low waterfront base rather than only a sweeping monolithic pale rock wall",
+      "Low-profile scene discipline improved the midrange silhouette and actual source camera continuity, even though its design remains nonadopted"
+    ],
+    "criticalFailures": [
+      "65.25/65.60: new water on left is still a broad flat cyan plane with minimal visible energy or convincing channel bed; 2 designed gravity-drop segments are not legible at real chase speed",
+      "66.35/67.20: authored cliff/industrial bases mostly remain low geometric wedges; the water intake-to-three-basin-to-turbine mechanical program does not read instantly",
+      "68.05: original wheel still dominates right; added support/industrial bay is partially visible but lacks realistic continuous hydraulic operation, scale articulation, engineering detail or high-quality materials",
+      "Existing 34/12/41/42 remain disconnected in visual narrative across source frames, compared with an integrated professional quarry port",
+      "The racing game excitement and fairness remain untested by a human, so cleaner composition cannot be treated as HUMAN, SAT, or ART proof"
+    ],
+    "criticalCounterfactual": "Do not undo the now-successful low-profile near/mid/far view clearance by rebuilding broad rock lofts or repeating columns. Art improvement is meaningful but insufficient. Avoid merely increasing 1832 to many triangles without visible functional design.",
+    "unambiguousWhyNotPass": "Artwork reads as mostly open sea plus isolated low-poly industrial assets, not a coherent dramatic high-quality industrial quarry estuary at 180-190m/s."
+  },
+  "formalArtAdopted": 0,
+  "slope2DNAmeters": 0,
+  "holds": {
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "researchNextDirection": "R32 should reuse R31's newly successful clear original 240Hz chase composition and original protection, NOT start over with cliffs. The next single meaningful ART slice should focus on making the actual source-visible 34 intake to open spill and 41 turbine connection readable, with clearly visible two-level working waterfall and architectural massing. If not observable in true original RAW, reject early. No CI rerun just to turn rejected art green.",
+  "costAndUser": {
+    "userManualActions": 0,
+    "paidAPI": false,
+    "work": false,
+    "computerUse": false,
+    "productionRelease": false,
+    "githubActionsBillingAmount": "UNKNOWN"
+  }
+}
