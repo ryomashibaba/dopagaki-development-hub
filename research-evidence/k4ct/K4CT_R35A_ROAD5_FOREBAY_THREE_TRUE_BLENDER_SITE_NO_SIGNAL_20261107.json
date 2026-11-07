@@ -1,0 +1,121 @@
+{
+  "schema": "dopagaki-r35a-true-blender-forebay19-road5-site-visibility-v1",
+  "researchPhase": "R35A",
+  "dateJST": "2026-11-07",
+  "status": "TECH_PASS_SITE_NOT_VISIBLE",
+  "sourceRunId": 42365392139,
+  "sourceRunConclusion": "SUCCESS",
+  "sourceRunURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42365392139",
+  "runCommit": "8e43fbcf1bcf64a8d45960d5234ce0eabf976ab6",
+  "artifactId": 13571184354,
+  "artifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42365392139/artifacts/13571184354",
+  "methods": {
+    "source": "Untouched original source Game and R12A author; true Blender temporary isolated three geometric marker groups15/16/17 on protected 19 forebay Road5 RIGHT; original 240Hz source Chromium WebGL2 5 tick depth-tested per-group leave-one-out; original camera; actual RAW; restoration measured.",
+    "road": 5,
+    "u": 0.8,
+    "sourceBankSide": "R",
+    "forebayWorldY": 105,
+    "markers": [
+      {
+        "group": "15",
+        "outboardM": 55,
+        "worldXYZ": [
+          840.3727245694598,
+          112.5,
+          -304.7686399379214
+        ]
+      },
+      {
+        "group": "16",
+        "outboardM": 75,
+        "worldXYZ": [
+          824.0640038145142,
+          112.5,
+          -316.34558372016403
+        ]
+      },
+      {
+        "group": "17",
+        "outboardM": 95,
+        "worldXYZ": [
+          807.7552830595686,
+          112.5,
+          -327.9225275024067
+        ]
+      }
+    ],
+    "markerBottomWorldY": 107.5,
+    "sourceFramesSeconds": [
+      65.25,
+      65.6,
+      66.35,
+      67.2,
+      68.05
+    ],
+    "sourceTicks": [
+      15660,
+      15744,
+      15924,
+      16128,
+      16332
+    ],
+    "originalRoadB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0
+  },
+  "observed": {
+    "diagnosticCleanHitsAllThree": 0,
+    "screenLeftWaterChangedPixelsAllThreeAtAllFive": 0,
+    "widerLeftChangedPixelsForEachMarkerAtFiveTicks": [
+      0,
+      0,
+      0,
+      1093,
+      0
+    ],
+    "fullDefaultROIPctGt25ForEachMarkerAtFiveTicks": [
+      0,
+      0,
+      0,
+      0.20999004975124377,
+      0
+    ],
+    "fullDefaultROIRestorePctGt25": [
+      0,
+      0,
+      0,
+      0.20999004975124377,
+      0
+    ],
+    "interpretation": "All three Road5 U.80 markers had 0 confirmed signal above same-tick renderer restoration noise. The apparently positive 67.20s effect is EXACTLY matched by restore noise at that tick and is not valid source-site visibility proof.",
+    "exact8ProtectedGroupXYZRGB": true,
+    "fullCI": "SUCCESS",
+    "sourceGLDepth": true,
+    "originalSource240Hz": true,
+    "pixelOwnershipDetermined": false,
+    "siteVisibilityVerdict": "NOT_DEMONSTRATED"
+  },
+  "safety": {
+    "gameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "artistBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "source19Preserved": true,
+    "mainUnchanged": true,
+    "officialP101Unchanged": true,
+    "pr46OpenDraftUnmerged": true,
+    "formalArtAdopted": 0,
+    "slope2DNAmeters": 0,
+    "ART": "HOLD",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "newPaidAPI": false,
+    "work": false,
+    "computerUse": false,
+    "userManualActions": 0,
+    "githubActionsBillingUnknown": true
+  },
+  "nextControlledHypothesis": "Protected 19 spans Road6 R-side U0.025–0.36 water level y93 as well as Road5. Test R35B in same existing 3-site workflow with Road6 U0.15 R55/75/95 center Y100.5 (bottom95.5) because R35A Road5 U.80 was not source-visible. Do not claim this is the cause before native GL proof. Do not create new art yet."
+}
