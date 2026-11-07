@@ -5,6 +5,8 @@ on:
       - research/k4ct-two-native-b51-choice-consequence-20261105
     paths:
       - scripts/k4ct-source-camera-group-influence-probe.mjs
+      - scripts/p101-k4ct-r35-true-blender-forebay-markers.py
+      - scripts/k4ct-r35-source-forebay-visibility.mjs
       - scripts/k4ct-active-art-original-camera-five-raw.mjs
       - scripts/p101-k4ct-active-source-camera-art-slice.py
       - .github/workflows/p101-k4ct-active-source-camera-art.yml
@@ -14,7 +16,7 @@ permissions:
   actions: read
 jobs:
   active-camera-art-source-r34-five-raw:
-    if: ${{ !contains(github.event.head_commit.message, '[R33 group visibility]') }}
+    if: ${{ !contains(github.event.head_commit.message, '[R33 group visibility]') && !contains(github.event.head_commit.message, '[R35 site probe]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 38
     steps:
@@ -257,5 +259,143 @@ jobs:
         with:
           name: K4CT_R33_ORIGINAL_WEBGL2_TARGETED_GROUP_INFLUENCE
           path: test-results/k4ct-source-ownership/
+          if-no-files-found: warn
+          retention-days: 7
+
+  true-original-source-forebay-site-r35:
+    if: ${{ contains(github.event.head_commit.message, '[R35 site probe]') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 38
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Source-hash protection and cheap syntax before Blender
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+          node --check scripts/k4ct-r35-source-forebay-visibility.mjs
+          node --check scripts/p101-k4ct-install-authored-dcc.mjs
+          python3 - <<'PY'
+          import ast,pathlib
+          for p in ('scripts/p101-k4ct-native-spillway-dcc.py','scripts/p101-k4ct-r35-true-blender-forebay-markers.py'):
+              ast.parse(pathlib.Path(p).read_text(),filename=p)
+          print('R35_SYNTAX_PASS_NO_PYC_WRITTEN')
+          PY
+      - name: Build ORIGINAL PRIVATE native physics and source DCC site
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-dcc-source-export.mjs
+      - name: Install real Blender 4 and original Chromium dependencies
+        timeout-minutes: 16
+        run: |
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|g; s|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|http://archive.ubuntu.com/ubuntu/|g' /etc/apt/apt-mirrors.txt
+          fi
+          sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=35 update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 850s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=45 install -y --no-install-recommends blender libegl1 libgl1-mesa-dri libopengl0 libgbm1 fonts-noto-cjk
+          blender --version | head -3
+          npx playwright install --only-shell chromium
+      - name: Author one low-profile source camera harbor in TEMP verified R12A Blender copy
+        timeout-minutes: 9
+        run: |
+          blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4ct-native-spillway-dcc.py
+          mkdir -p test-results/k4ct-r35-site-probe
+          cp test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json test-results/k4ct-r35-site-probe/R35_ORIGINAL_PROTECTED_BASELINE.json
+          python3 - <<'PY'
+          from pathlib import Path
+          import ast,subprocess
+          p=Path('scripts/p101-k4ct-native-spillway-dcc.py')
+          expected='096fffbc1627915eb0122224955bb02cfba6b3ae'
+          assert subprocess.check_output(['git','hash-object',str(p)],text=True).strip()==expected
+          marker='# Editability: separate mesh objects by functional zones'
+          original=p.read_text()
+          assert original.count(marker)==1
+          inject="exec(compile(Path('scripts/p101-k4ct-r35-true-blender-forebay-markers.py').read_text(), 'R35_TEMP_HARBOR', 'exec'))\n"
+          isolated=Path('test-results/k4ct-r35-temporary-blender-author.py')
+          isolated.parent.mkdir(parents=True,exist_ok=True)
+          isolated.write_text(original.replace(marker,inject+marker))
+          ast.parse(isolated.read_text(),filename=str(isolated))
+          print('R35_ISOLATED_DCC_PROBE_PREPARED_NO_REPO_AUTHOR_CHANGE')
+          PY
+          blender -b --factory-startup --python-exit-code 3 --python test-results/k4ct-r35-temporary-blender-author.py
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+      - name: Rebuild original PRIVATE WebGL2 renderer and install genuine temporary Blender DCC once
+        run: |
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-install-authored-dcc.mjs
+      - name: Capture five actual ORIGINAL 240Hz Chromium RAW for independent ART-first review
+        timeout-minutes: 10
+        run: |
+          node scripts/k4ct-r35-source-forebay-visibility.mjs
+      - name: R35 verify exact original protected 8 groups and diagnostic visibility (not ART)
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,subprocess
+          root=pathlib.Path('test-results')
+          scene=json.loads((root/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+          original=json.loads((root/'k4ct-r35-site-probe/R35_ORIGINAL_PROTECTED_BASELINE.json').read_text())
+          test=json.loads((root/'k4ct-r35-site-probe/K4CT_R35_TRUE_SOURCE_PHASED_VISIBILITY.json').read_text())
+          sites=json.loads((root/'k4ct-r35-site-probe/R35_THREE_REAL_DCC_SITE_COORDINATES.json').read_text())
+          assert scene['sourcePhysicalRoad5SHA256']=='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b'
+          assert scene['originalB48']==7 and scene['originalB51']==28 and scene['newColliders']==0
+          assert test['schema']=='k4ct-r35-original-webgl-forebay-inner-three-point-visibility-v1'
+          assert test['originalWebGL2'] and test['originalCamera'] and test['originalRunner240Hz']
+          assert test['originalB48']==7 and test['originalB51']==28 and test['newColliders']==0
+          assert [x['sourceTick'] for x in test['sourceFramesRAW']]==[15660,15744,15924,16128,16332]
+          assert set(test['selectiveGroupsOnly'])=={'15','16','17'}
+          assert test['sourceRightDistances']==[55,75,95] and test['sourceBankSide']=='R'
+          assert test['ART']==test['HUMAN']==test['SAT']==test['CCD']==test['FPS']=='HOLD'
+          assert test['formalARTAdopted']==test['slope2DNAmeters']==0
+          assert sites['schema']=='k4ct-r35-real-blender-site-probe-v1'
+          assert all(s['bank']=='R' and s['forebayGroup19Protected'] and s['baseWorldYAtBoxCenterMinus5']>105 for s in sites['sites'])
+          assert len(scene['objects'])==len(original['objects'])==43
+          protected=('00','12','13','19','34','35','41','42')
+          def verts(d,name):
+              cur=0
+              for title,count in d['objects'].items():
+                  n=count*18
+                  if title==name:return d['vertices'][cur:cur+n]
+                  cur+=n
+              raise AssertionError('missing source '+name)
+          for name,count in original['objects'].items():
+              if name[:2] in protected:
+                  assert scene['objects'][name]==count,('PROTECTED_TRIANGLE_CHANGED',name)
+                  assert verts(scene,name)==verts(original,name),('PROTECTED_XYZ_RGB_CHANGED',name)
+          assert all(x['reproducibility']['changedPctRGBgt25']<.5 for x in test['sourceFramesRAW'])
+          assert all(x['leftWaterRestore']['changedPctRGBgt25']<.5 for x in test['sourceFramesRAW'])
+          assert subprocess.check_output(['git','hash-object','scripts/p101-k4ct-native-spillway-dcc.py'],text=True).strip()=='096fffbc1627915eb0122224955bb02cfba6b3ae'
+          assert subprocess.check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
+          bad=[s for s in subprocess.check_output(['git','status','--porcelain'],text=True).splitlines() if not(s.startswith('?? ') and s[3:].startswith('test-results/'))]
+          assert not bad,('R35_UNEXPECTED_WORKTREE_CHANGE',bad)
+          print('R35_TRUE_SOURCE_5_TICK_PROBE_AND_ALL_8_PROTECTED_XYZRGB_PARITY_PASS')
+          print('R35_INFLUENCE',[(s['id'],[(o['tick'],o['leftWaterChangedPixels'],o['widerLeftChangedPixels']) for o in s['observations']]) for s in test['siteSignals']])
+          PY
+      - name: Preserve TRUE Blender marker geometry and original source WebGL2 site-influence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CT_R35_GENUINE_BLENDER_FOREBAY_3_SITE_5_NATIVE_RAW_HOLD
+          path: |
+            test-results/k4ct-r35-site-probe/
+            test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json
+            test-results/k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json
+            test-results/k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend
           if-no-files-found: warn
           retention-days: 7
