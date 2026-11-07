@@ -361,10 +361,12 @@ jobs:
           assert [x['sourceTick'] for x in test['sourceFramesRAW']]==[15660,15744,15924,16128,16332]
           assert set(test['selectiveGroupsOnly'])=={'15','16','17'}
           assert test['sourceRightDistances']==[55,75,95] and test['sourceBankSide']=='R'
+          assert test['siteVariant']=='ROAD6_U015_Y100_5'
           assert test['ART']==test['HUMAN']==test['SAT']==test['CCD']==test['FPS']=='HOLD'
           assert test['formalARTAdopted']==test['slope2DNAmeters']==0
           assert sites['schema']=='k4ct-r35-real-blender-site-probe-v1'
-          assert all(s['bank']=='R' and s['forebayGroup19Protected'] and s['baseWorldYAtBoxCenterMinus5']>105 for s in sites['sites'])
+          assert all(s['road']==6 and abs(s['u']-.15)<1e-9 and s['centerWorldY']==100.5 for s in sites['sites'])
+          assert all(s['bank']=='R' and s['forebayGroup19Protected'] and s['baseWorldYAtBoxCenterMinus5']>93 for s in sites['sites'])
           assert len(scene['objects'])==len(original['objects'])==43
           protected=('00','12','13','19','34','35','41','42')
           def verts(d,name):

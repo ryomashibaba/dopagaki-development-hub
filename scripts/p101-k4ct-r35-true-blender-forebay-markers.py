@@ -14,15 +14,15 @@ R35_PROTECTED={key:list(mesh) for key,mesh in GROUPS.items() if key[:2] in R35_P
 assert len(R35_PROTECTED)==len(R35_PROTECTED_IDS) and all(R35_PROTECTED.values())
 R35_NAMES={name[:2]:name for name in GROUPS}
 # THREE genuinely different sites in road-source coordinates; not analytic NDC claims.
-# 15: earlier RH shoreline, 16: midway opposite bank, 17: late RH shoreline.
+# All 3 are co-located in source Road6 U=0.15, varying only RIGHT-bank distance.
 R35_SITES=(
- ('15',5,.800,'R',55.0,112.5),
- ('16',5,.800,'R',75.0,112.5),
- ('17',5,.800,'R',95.0,112.5),
+ ('15',6,.150,'R',55.0,100.5),
+ ('16',6,.150,'R',75.0,100.5),
+ ('17',6,.150,'R',95.0,100.5),
 )
-# R35: All three diagnostic sites are at one actual Road5 cross-section.
-# The immutable source forebay group19 is on Road5 RIGHT d=42..102m
-# and world Y=105m, so all markers occupy its true 3D footprint.
+# R35: All three diagnostic sites are at one actual Road6 cross-section.
+# The immutable source forebay group19 is on Road6 RIGHT d=42..102m
+# and world Y=93m, so all markers occupy its true 3D footprint.
 # The prototype is intentionally amber and conspicuous; it is a measuring
 # instrument, not proposed scenery or a certification.
 R35_PROBES=[]
@@ -33,11 +33,11 @@ for ident,idx,u,bank,offset,worldY in R35_SITES:
     edge=offset_edge(roadpoint,lateral,offset,bank)
     centre=(edge[0],worldY,edge[2])
     # Original Blender authored mesh: a small sealed source-aligned solid
-    # with 10m vertical span, centred 7.5m above protected sea level.
+    # with 10m vertical span, centred 7.5m above protected Road6 sea level.
     box(group,centre,12.,10.,16.,'amber',forward,lateral)
     beam(group,add(centre,(0,0,0)),add(centre,(0,9.,0)),1.7,'lights')
     R35_PROBES.append(dict(id=ident,road=idx,u=u,bank=bank,
-        forebayGroup19Protected=True,forebaySurfaceWorldY=105.,
+        forebayGroup19Protected=True,forebaySurfaceWorldY=93.,
         outboardM=offset,centerWorldY=worldY,
         baseWorldYAtBoxCenterMinus5=worldY-5.,
         worldXYZ=centre,triangles=len(GROUPS[group]),name=group))

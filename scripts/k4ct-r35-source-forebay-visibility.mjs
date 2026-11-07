@@ -41,9 +41,10 @@ const names=Object.fromEntries(targetIDs.map(id=>{
 const sites=JSON.parse(fs.readFileSync('test-results/k4ct-r35-site-probe/R35_THREE_REAL_DCC_SITE_COORDINATES.json','utf8'));
 assert.equal(sites.schema,'k4ct-r35-real-blender-site-probe-v1');
 assert.deepEqual(sites.sites.map(s=>s.outboardM),[55,75,95]);
-assert(sites.sites.every(s=>s.bank==='R'&&s.centerWorldY===112.5&&s.baseWorldYAtBoxCenterMinus5>105));
+assert(sites.sites.every(s=>s.bank==='R'&&s.centerWorldY===100.5&&s.baseWorldYAtBoxCenterMinus5>93));
 const R35_LEFT={x0:0,y0:280,x1:240,y1:700};
 const R35_WIDE={x0:0,y0:250,x1:670,y1:710};
+const R35_PROBE_VARIANT='ROAD6_U015_Y100_5';
 const result=[];
 await new Promise((ok,fail)=>server.once('error',fail).listen(0,'127.0.0.1',ok));
 let browser;
@@ -184,7 +185,8 @@ try{
  const output={
   schema:'k4ct-r35-original-webgl-forebay-inner-three-point-visibility-v1',
   phase,witness,anchorGate,siteSignals,siteProbeForRealDCC:true,
-  gateMeaning:'Three diagnostic TRUE Blender markers on protected group19 forebay at source Road5 R55/75/95m, worldY112.5; own original 240Hz Chromium WebGL2 depth visibility only; never ART pass',
+  siteVariant:R35_PROBE_VARIANT,
+  gateMeaning:'Three diagnostic TRUE Blender markers on protected group19 forebay at source Road6 R55/75/95m, worldY100.5; own original 240Hz Chromium WebGL2 depth visibility only; never ART pass',
   sourceForebayProtectedGroup19:'19_R6_SOURCE_FRAMED_UPPER_TIDAL_FOREBAY',sourceBankSide:'R',sourceRightDistances:[55,75,95],sourceForebayWorldY:105,
   actualBlenderSiteMetadata:sites.sites,
   originalGameBlob:originalBlob,roadPhysicsSHA256:dcc.sourcePhysicalRoad5SHA256,
