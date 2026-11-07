@@ -1,0 +1,154 @@
+{
+  "schema": "dopagaki-r36-original-chromium-webgl2-eight-raw-true-blender-tidal-sluice-tech-pass-art-reject-v1",
+  "dateJST": "2026-11-07",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "policy": "V14.0 unchanged: QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE; original native source game/240Hz camera/road/B48/B51 and R12A author protected; independent TECH/ART/HUMAN gates. No real game ART adoption, no official PR merge.",
+  "source": {
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "R36DenseSourceRunId": 42367946121,
+    "R36DenseSourceEvidence": "research-evidence/k4ct/K4CT_R36_DENSE_ROAD6_ORIGINAL_GL_VISIBLE_WINDOW_TECH_PASS_RAW_UPLOAD_GAP_20261107.json",
+    "R36DenseRunConclusion": "SUCCESS but RAW artifact was absent due wrong upload path, verified numerical samples from GitHub CI job log",
+    "firstArtRunId": 42368828294,
+    "firstArtRunConclusion": "FAILURE",
+    "firstArtFailure": "Temporary R36 Blender add-on declared top-level local 'stations' for water line; shadowed original R12A author global dict needed later, causing TypeError before source RAW; no protected file touched.",
+    "finalArtRunId": 42369037970,
+    "finalArtRunURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42369037970",
+    "finalArtCommit": "e26701506a4324b960a8745e46978b980d5170d3",
+    "finalArtConclusion": "SUCCESS",
+    "finalArtifactId": 13571769848,
+    "finalArtifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42369037970/artifacts/13571769848",
+    "finalArtifactName": "K4CT_R36_SOURCE_ROAD6_FUNCTIONAL_SPILLWAY_TRUE_DCC_NATIVE_RAW_ART_HOLD",
+    "artifactRetentionDays": 7,
+    "artifactVerifiedDownloaded": true
+  },
+  "artCandidate": {
+    "method": "ONE single new TRUE Blender source-aligned Road6 gate at R46–134m, U0.15. Hollow polygonal arch in genuine evaluated bevel mesh, two asymmetrical concrete cut supports, hinged copper/steel gate leaf, water from preserved y93 forebay 19 toward y53.5 beyond R102, two rock cut wings, drum and braces.",
+    "blenderVersion": "4.0.2",
+    "actualGenuineBevelMeshEvaluations": 6,
+    "evaluatedBevelFacesByPart": [
+      672,
+      188,
+      188,
+      188,
+      188,
+      188
+    ],
+    "nativeEditableGroups": 43,
+    "totalNativeSceneTriangles": 31583,
+    "authoredGroup15Triangles": 672,
+    "authoredGroup16Triangles": 376,
+    "authoredGroup17Triangles": 428,
+    "architecturalOpeningExists": true,
+    "original19ForebayUnmodified": true,
+    "originalSourceRoad6RightLateralDistanceM": [
+      46,
+      134
+    ],
+    "waterfallLocalWorldHeight": [
+      93.4,
+      53.5
+    ],
+    "waterSimulationReal": false,
+    "newColliders": 0
+  },
+  "tech": {
+    "verdict": "PASS limited to successful DCC to original WebGL2, protection, captured RAW and source-declared 240Hz",
+    "originalSourceRunner": true,
+    "actualOriginalSourceCamera": true,
+    "realBrowser": "Chromium",
+    "realWebGL2": true,
+    "depthTestEnabled": true,
+    "depthBits": 24,
+    "sourceSeconds": [
+      65.6,
+      66.1,
+      66.25,
+      66.35,
+      66.45,
+      66.55,
+      66.7,
+      67.2
+    ],
+    "nativeTicks": [
+      15744,
+      15864,
+      15900,
+      15924,
+      15948,
+      15972,
+      16008,
+      16128
+    ],
+    "verifiedRawPNGCount": 8,
+    "sourceNativeMetadata": "k4ct-r36-native-raw/K4CT_R36_TRUE_SOURCE_PHASED_VISIBILITY.json",
+    "sourceDccManifest": "k4ct-r36-art/R36_ARCHITECTURAL_GATE_MANIFEST.json",
+    "sourceDccOriginalBridge": "k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json",
+    "sameTickGroupRestoreForCandidate": "NOT_ATTEMPTED (clean RAW capture only)",
+    "humanDrive": "NOT_TESTED",
+    "independentSAT": "NOT_RUN",
+    "independentCCD": "NOT_RUN",
+    "hardwareFPS": "NOT_RUN"
+  },
+  "criticalVisualReview": {
+    "verdict": "ART_REJECT",
+    "method": "Direct inspection of 8 genuine original source 1365×930 Chromium/WebGL2 RAW captures and same 66.35s original chase as prior R35B diagnostic. This is critical quality judgment, not automated RGB threshold.",
+    "observedImprovements": [
+      "The new authored open arch and heavy stone shoulders are visually present in actual original 66.10–66.70s gameplay instead of invisible in a separate DCC viewport, at the correctly proven R35B Road6 site.",
+      "Real opening/negative space can be read in 66.25–66.55; original road centre lanes, stage obstacle warning and HUD remain legible in reviewed frames.",
+      "R36 has replaced the three orange diagnostic boxes with an actual editable studio DCC structure, but this does not imply ART acceptance."
+    ],
+    "failures": [
+      "The dominant visual is still a large, smooth gray angular arch/bridge with attached geometric chunks. It reads as another isolated generic ring, not one original commercially credible integrated tidal lock.",
+      "The 39.9m simulated visual head drop is not clearly visible as working water; the road-facing left sea remains predominantly a flat cyan band, so the intended source 19–gate–plunge basin hydraulic connection is visually unproven.",
+      "The exposed stone landing, mechanical gate, copper pulley and spillway geometry mostly compress into a flat icon/silhouette; their load path and water operation are not readable during a ~0.5s fly-by.",
+      "No convincing coherent industrial architecture beyond one isolated water gate; no high material/detail quality and no artistic spatial depth comparable to the project's quality bar.",
+      "R36 confirms source placement but not human enjoyment, fairness, or predictable high-speed hazard readability as human-tested claims."
+    ],
+    "criticalRejectRule": "V14 excludes an isolated ring/arch, thin sea, simple beams and test-only visibility. Do not promote R36 by counting 31583 triangles or CI SUCCESS.",
+    "nextCriticalDirection": "R37 should NOT enlarge this arch or repeat a ring design. Instead keep the proven source Road6 R75–95m camera-safe viewport and create exactly one lower-profile integrated open mechanical sluice/wet quarry cut detail where flowing water is legible in original WebGL2, with strong visible connection to unchanged group19 edge. If no real visible water drop is possible without editing protected 19, preserve HOLD and request deliberate gate-level policy review rather than cheating by modifying the source camera/physics or protected water. Require direct native RAW at 66.25/66.35/66.55 with early ART veto before deep QA."
+  },
+  "protection": {
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalR12ABlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "sourceRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0,
+    "eightProtectedGroupIDs": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "allOriginalProtectedEightGroupsXYZRGBExact": true,
+    "originalSource19ForebayKept": true,
+    "sourceCameraNotEdited": true,
+    "productionModified": false,
+    "pr46Merge": false,
+    "sourceGameplayPhysicsModified": false,
+    "restorationRequired": false
+  },
+  "formal": {
+    "ART": "REJECT",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "userOps": {
+    "userManualActions": 0,
+    "paidAPI": false,
+    "ChatGPTWork": false,
+    "computerUse": false,
+    "GitHubActionsBilling": "UNKNOWN"
+  }
+}
