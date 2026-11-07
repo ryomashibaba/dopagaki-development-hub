@@ -1,5 +1,5 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
-**現行入口：2026-11-07 V14.0／R30実証後（TECH PASS・ART REJECT・正式採用0件）**。新規企画・方針変更ではありません。
+**現行入口：2026-11-07 V14.0／R31実証後（TECH PASS・ART REJECT・正式採用0件）**。新規企画・方針変更ではありません。
 
 最初に **[V14.0 完全統合・批判的引継ぎ正本](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_R27_V14_20261107_JA.md)** を全文読む。以前のSTART本文は [変更前のアーカイブ](docs/archive/START_HERE_POST_R27_PRE_V14_20261107_JA.md) に保存。V13→V12.1→旧完全統合・Rxx証拠はV14から辿る。旧文書の「次R25」「次R13」「次R6」は歴史情報であって現行指示ではない。
 
@@ -10,5 +10,7 @@
 **R29実行済／ART REJECT（2026-11-07）**：R28の反復柱・浮いた設備に対して、元B48/Camera/240Hz・保護8群不変のまま新しい本物Blender43群／8,517三角形／真正元WebGL2 RAW5時点を取得。CI [#42349091008](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42349091008) は監査スキーマ名不一致のため総合FAILURE。R28から反復柱は減ったが、非保護景観が653三角形だけとなり大きな粗い岩面、薄い水面、見かけの施設接地不足が残ってART REJECT。詳細とArtifact 13564009905は [R29根拠JSON](research-evidence/k4ct/K4CT_R29_TRUE_SOURCE_RAW5_PARTIAL_TECH_ART_REJECT_20261107.json)。CI緑化だけの再実行禁止。元作者・Game SHA不変、復元不要。次は同じ低ポリ地形や灰色平面を繰り返さず、真正DCCの彫刻的な岩盤量塊・浸食開口・施設荷重・水位落差を元カメラに一体化する別の一候補へ。正式ART0、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。
 
 **R30実行済／ART REJECT（2026-11-07）**：従来の単純岩面から真正BlenderのBoolean掘削＋Subsurfへ移行。研究用可編集43群／合計40,333三角形、元240Hz・WebGL2 RAW5時点、CI [#42353473521](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42353473521) SUCCESS。ただし実RAWで、左前景の巨大な淡色岩壁・右側の大きな岩体・水路落差の見えなさ・タービンとの分離が残り **ART REJECT**。正式採用0件。詳細・保護8群XYZRGB完全一致・Artifact 13566517578 は [R30実証JSON](research-evidence/k4ct/K4CT_R30_TRUE_BLENDER_BOOLEAN_SOURCE_RAW5_TECH_PASS_ART_REJECT_20261107.json)。R30の緑化目的再実行は禁止。次工程は広域の岩盤をさらに細分化せず、元カメラの前中後景のシルエットから形態と機能を直接設計し、見える開口・水理・支持構造を少数高品質で制作する。正式ART0・Slope2 DNA0m／HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD／保護源不変・復元不要。ユーザー操作0回、追加課金なしを原則。
+
+**R31実行済／TECH PASS・ART REJECT（2026-11-07）**：R30から構図を根本修正し、元CHASEの大きな左右岩壁を除去。保護8グループ不変のまま、元Road5/6低岸壁、元34/12/41/42の位置から再構成した小規模港湾基礎と三段水路を真正Blenderで制作。編集可能43群・9,696三角形、元Chromium/240Hz/WebGL2実RAW5時点。CI [#42355445826](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42355445826) SUCCESS、保護8群の全XYZRGB・三角形数は元R12Aと厳密一致＋R30実Artifactとも独立一致。実画面で65秒台の左巨大岩壁と66〜68秒台の景観圧迫は大きく改善したが、**平板なシアン水域／見えない水位落差／施設の機能的一体感不足**は依然重大につきART REJECT。データとArtifact 13567870831は [R31批判的実証JSON](research-evidence/k4ct/K4CT_R31_TRUE_SOURCE_CAMERA_RAW5_TECH_PASS_ART_REJECT_20261107.json)。R31をCI緑化・単純多ポリ化で再開しない。次R32では新たに巨大な山を作らず、**R31の開けた元カメラ構図を保ち、34取水→2段落差→41タービンの動作と荷重経路が見える単一機能的3D美術候補**をつくり元RAWで採否判定。固定V14は変更せず、正式ART0・DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD、main/公式PR/元Game・作者保護、ユーザー操作原則0。
 
 研究ブランチ：research/k4ct-two-native-b51-choice-consequence-20261105。**HEADは必ずライブ再取得すること。V14文書内のHEADは保存前の履歴値**。
