@@ -1,0 +1,155 @@
+{
+  "schema": "dopagaki-k4ct-r37a-original-source-webgl2-protected-forebay-versus-falling-water-v1",
+  "dateJST": "2026-11-07",
+  "researchOnly": true,
+  "source": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "preEvidenceHead": "e09ecbc281ca64722fd0ad7b64d36038bf344c8e",
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalR12ABlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "sourceRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0,
+    "originalCameraAnd240HzProtected": true,
+    "genuineR36BlenderArtifactSourceRun": 42369037970,
+    "r37aRun": 42374163497,
+    "r37aRunUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42374163497",
+    "r37aRunConclusion": "success",
+    "r37aArtifactId": 13574648440,
+    "r37aArtifactUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42374163497/artifacts/13574648440",
+    "r37aArtifactZipSHA256": "020827b204152a181dd59b26e8098ea4bd1755e035ed1d81cf1b9795866f6870",
+    "r37aArtifactRetention": "seven days; not permanent",
+    "verifiedOriginalSourceChromiumWebGL2Depth24": true,
+    "ticks": [
+      15900,
+      15924,
+      15972
+    ],
+    "seconds": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "sceneNativeTriangles": 31583,
+    "originalEditableBlenderGroups": 43
+  },
+  "method": {
+    "groupHideOneAtATime": [
+      "19",
+      "23",
+      "24",
+      "15",
+      "16",
+      "17"
+    ],
+    "screenshotViewportPx": [
+      1365,
+      930
+    ],
+    "gameFrameRoi": {
+      "x0": 0,
+      "y0": 100,
+      "x1": 1365,
+      "y1": 780
+    },
+    "testedColorThresholds": [
+      1,
+      10,
+      25
+    ],
+    "sameTickRestoredExactly": true,
+    "validRestorationFrames": 3,
+    "drawMode": "original PRIVATE 240Hz runner with R36 real DCC, source Camera, research group-skip only",
+    "caveat": "group-hide detects visible effect, not direct/unique material/pixel surface ownership; original and added contents of a group are not individually separated by this test"
+  },
+  "actualGameFrameChangedPixelsRGBgt25": [
+    {
+      "sec": 66.25,
+      "tick": 15900,
+      "group19": 3467,
+      "group23": 0,
+      "group24": 0,
+      "group15": 7987,
+      "group16": 2877,
+      "group17": 1506
+    },
+    {
+      "sec": 66.35,
+      "tick": 15924,
+      "group19": 7511,
+      "group23": 0,
+      "group24": 0,
+      "group15": 11107,
+      "group16": 4822,
+      "group17": 2087
+    },
+    {
+      "sec": 66.55,
+      "tick": 15972,
+      "group19": 12993,
+      "group23": 0,
+      "group24": 0,
+      "group15": 23201,
+      "group16": 5046,
+      "group17": 5131
+    }
+  ],
+  "extraPixelIntegrity": {
+    "r36Water23And24HiddenPNGsExactlyByteIdenticalToBaseAtAllThreeTimes": true,
+    "group23And24ChangedPixelsRGBgt1_10_25AllZero": true,
+    "group19AndGate15_16_17HaveNonzeroVisibleInfluence": true,
+    "allThreeGroupRestorationsPixelExact": true
+  },
+  "diagnosticReasoning": {
+    "observed": "The real preserved forebay 19 and gate silhouettes alter native game pixels, but neither group 23 nor 24 alters any pixel at the 66.25/66.35/66.55 original ticks.",
+    "artConstraint": "Intended visually readable upstream-crest-to-working-gate-to-downstream-fall narrative is absent in real game RAW; current R36 is already ART REJECT.",
+    "unresolved": "Exact reason for invisible waterfall is UNKNOWN: possible geometric/depth occlusion by unchanged forebay/other surfaces, view placement or perspective, or draw/visibility mechanics. Cannot infer unique ownership or assert a specific culprit.",
+    "geometryHypothesisNotProof": "R36 physical group19 spans world Y93..105.8; newly authored source crest starts approximately world Y93.4, creating a plausible depth overlap. Must not call it proven from 3D bboxes alone.",
+    "gateDecision": "R37-A negative for visible flowing-fall causality. V15 §6 mandates STOP instead of creating another gray arch, box, higher-poly object, or editing protected surface/camera.",
+    "nextStep": "METHOD HOLD. Only authorize further discriminating geometry/depth diagnosis or scoped protection-policy review as a separate future step, not a retroactive R37-B pass."
+  },
+  "verdict": {
+    "R37A": "TECH_PASS_REAL_WEBGL2_CAUSALITY_NEGATIVE",
+    "R37B": "NOT_EXECUTED_CONDITION_FAILED",
+    "METHOD": "HOLD",
+    "ART": "HOLD",
+    "r36ART": "REJECT",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "untouched": [
+      "main",
+      "officialP101",
+      "draftPR46",
+      "originalSlope",
+      "Gold",
+      "originalGame",
+      "originalR12ABlenderAuthor",
+      "Road5",
+      "sourceCamera",
+      "240Hz",
+      "B48",
+      "B51",
+      "formalQA",
+      "production"
+    ],
+    "sourceDccReauthoring": false,
+    "newCandidateCreated": false,
+    "originalSourceFilesEdited": false,
+    "extraUserActions": 0,
+    "paidAPI": false,
+    "work": false,
+    "computerUse": false,
+    "formalDeployment": false,
+    "runner": "GitHub Actions standard ubuntu-24.04 in public repository; officially free compute tier; actual account billing not directly viewed"
+  }
+}
