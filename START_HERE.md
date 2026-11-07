@@ -1,5 +1,5 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
-**現行入口：2026-11-07 V14.0／R29実証後（RAW5技術成功・CI FAILURE・ART REJECT・正式採用0件）**。新規企画・方針変更ではありません。
+**現行入口：2026-11-07 V14.0／R30実証後（TECH PASS・ART REJECT・正式採用0件）**。新規企画・方針変更ではありません。
 
 最初に **[V14.0 完全統合・批判的引継ぎ正本](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_R27_V14_20261107_JA.md)** を全文読む。以前のSTART本文は [変更前のアーカイブ](docs/archive/START_HERE_POST_R27_PRE_V14_20261107_JA.md) に保存。V13→V12.1→旧完全統合・Rxx証拠はV14から辿る。旧文書の「次R25」「次R13」「次R6」は歴史情報であって現行指示ではない。
 
@@ -7,4 +7,8 @@
 
 **R28実行済／ART REJECT（2026-11-07）**：V14第5章に従い、一候補の真正Blender 4.0.2／43群／16,334三角形と元240Hz/WebGL2 RAW5時点を取得。CI [#42339803801](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42339803801) SUCCESS。しかしR27比較で、近景灰斜面は減った一方、柱列の反復・平板水面・浮いて見える設備が残り **ART REJECT**。証拠：[R28研究JSON](research-evidence/k4ct/K4CT_R28_GENUINE_5_SOURCE_RAW_TECH_PASS_ART_REJECT_20261107.json)／Artifact 13560952324。V14の「次R28」は実行前の指示であり、同一不採用候補のCI再実行禁止。次の実制作は元RAW基準で岩盤・水路・既存施設の接地と奥行きを根本的に改善する一候補のみ。正式ART0・Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。全保護対象・個別事前承認・ユーザー操作0回と課金0円の方針継続。
 
-**R29実行済／ART REJECT（2026-11-07）**：R28の反復柱・浮いた設備に対して、元B48/Camera/240Hz・保護8群不変のまま新しい本物Blender43群／8,517三角形／真正元WebGL2 RAW5時点を取得。CI [#42349091008](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42349091008) は監査スキーマ名不一致のため総合FAILURE。R28から反復柱は減ったが、非保護景観が653三角形だけとなり大きな粗い岩面、薄い水面、見かけの施設接地不足が残ってART REJECT。詳細とArtifact 13564009905は [R29根拠JSON](research-evidence/k4ct/K4CT_R29_TRUE_SOURCE_RAW5_PARTIAL_TECH_ART_REJECT_20261107.json)。CI緑化だけの再実行禁止。元作者・Game SHA不変、復元不要。次は同じ低ポリ地形や灰色平面を繰り返さず、真正DCCの彫刻的な岩盤量塊・浸食開口・施設荷重・水位落差を元カメラに一体化する別の一候補へ。正式ART0、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。\n\n研究ブランチ：research/k4ct-two-native-b51-choice-consequence-20261105。**HEADは必ずライブ再取得すること。V14文書内のHEADは保存前の履歴値**。
+**R29実行済／ART REJECT（2026-11-07）**：R28の反復柱・浮いた設備に対して、元B48/Camera/240Hz・保護8群不変のまま新しい本物Blender43群／8,517三角形／真正元WebGL2 RAW5時点を取得。CI [#42349091008](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42349091008) は監査スキーマ名不一致のため総合FAILURE。R28から反復柱は減ったが、非保護景観が653三角形だけとなり大きな粗い岩面、薄い水面、見かけの施設接地不足が残ってART REJECT。詳細とArtifact 13564009905は [R29根拠JSON](research-evidence/k4ct/K4CT_R29_TRUE_SOURCE_RAW5_PARTIAL_TECH_ART_REJECT_20261107.json)。CI緑化だけの再実行禁止。元作者・Game SHA不変、復元不要。次は同じ低ポリ地形や灰色平面を繰り返さず、真正DCCの彫刻的な岩盤量塊・浸食開口・施設荷重・水位落差を元カメラに一体化する別の一候補へ。正式ART0、Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。
+
+**R30実行済／ART REJECT（2026-11-07）**：従来の単純岩面から真正BlenderのBoolean掘削＋Subsurfへ移行。研究用可編集43群／合計40,333三角形、元240Hz・WebGL2 RAW5時点、CI [#42353473521](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42353473521) SUCCESS。ただし実RAWで、左前景の巨大な淡色岩壁・右側の大きな岩体・水路落差の見えなさ・タービンとの分離が残り **ART REJECT**。正式採用0件。詳細・保護8群XYZRGB完全一致・Artifact 13566517578 は [R30実証JSON](research-evidence/k4ct/K4CT_R30_TRUE_BLENDER_BOOLEAN_SOURCE_RAW5_TECH_PASS_ART_REJECT_20261107.json)。R30の緑化目的再実行は禁止。次工程は広域の岩盤をさらに細分化せず、元カメラの前中後景のシルエットから形態と機能を直接設計し、見える開口・水理・支持構造を少数高品質で制作する。正式ART0・Slope2 DNA0m／HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD／保護源不変・復元不要。ユーザー操作0回、追加課金なしを原則。
+
+研究ブランチ：research/k4ct-two-native-b51-choice-consequence-20261105。**HEADは必ずライブ再取得すること。V14文書内のHEADは保存前の履歴値**。
