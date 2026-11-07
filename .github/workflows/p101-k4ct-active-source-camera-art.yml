@@ -7,6 +7,7 @@ on:
       - scripts/k4ct-source-camera-group-influence-probe.mjs
       - scripts/p101-k4ct-r35-true-blender-forebay-markers.py
       - scripts/k4ct-r35-source-forebay-visibility.mjs
+      - scripts/k4ct-r36-original-camera-dense-visibility.mjs
       - scripts/k4ct-active-art-original-camera-five-raw.mjs
       - scripts/p101-k4ct-active-source-camera-art-slice.py
       - .github/workflows/p101-k4ct-active-source-camera-art.yml
@@ -16,7 +17,7 @@ permissions:
   actions: read
 jobs:
   active-camera-art-source-r34-five-raw:
-    if: ${{ !contains(github.event.head_commit.message, '[R33 group visibility]') && !contains(github.event.head_commit.message, '[R35 site probe]') }}
+    if: ${{ !contains(github.event.head_commit.message, '[R33 group visibility]') && !contains(github.event.head_commit.message, '[R35 site probe]') && !contains(github.event.head_commit.message, '[R36 visibility]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 38
     steps:
@@ -401,3 +402,99 @@ jobs:
             test-results/k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend
           if-no-files-found: warn
           retention-days: 7
+
+  source-camera-dense-site-duration-r36:
+    # R33 is a read-only capture/visibility probe. Skip the costlier Blender
+    # art pipeline and reuse immutable TRUE R32 DCC from Actions artifact.
+    if: ${{ contains(github.event.head_commit.message, '[R36 visibility]') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 19
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: R36 original source fingerprints + cheap dense probe validation
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+          node --check scripts/k4ct-r36-original-camera-dense-visibility.mjs
+          node --check scripts/p101-k4ct-install-authored-dcc.mjs
+      - name: Recover exact R35B true editable Blender source markers without Blender rerun
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CT_R35_GENUINE_BLENDER_FOREBAY_3_SITE_5_NATIVE_RAW_HOLD
+          run-id: 42365933796
+          github-token: ${{ github.token }}
+          path: test-results
+      - name: Validate artifact genuinely R35B marker Blender source, not R32 art
+        run: |
+          python3 - <<'PY'
+          import json,pathlib
+          base=pathlib.Path('test-results')
+          d=json.loads((base/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+          a=json.loads((base/'k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json').read_text())
+          s=json.loads((base/'k4ct-r35-site-probe/R35_THREE_REAL_DCC_SITE_COORDINATES.json').read_text())
+          assert d['schema']=='k4ct-blender-authored-true-source-integrated-scene/1'
+          assert d['originalB48']==7 and d['originalB51']==28 and d['newColliders']==0
+          assert d['sourcePhysicalRoad5SHA256']=='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b'
+          assert len(d['objects'])==43
+          assert a['totalDccTriangles']==d['triangles'] and a['schema']=='k4ct-r9-blender-native-attribute-bridge-v1'
+          assert s['schema']=='k4ct-r35-real-blender-site-probe-v1'
+          assert [(x['road'],x['u'],x['bank'],x['outboardM'],x['centerWorldY']) for x in s['sites']]==[(6,.15,'R',55.,100.5),(6,.15,'R',75.,100.5),(6,.15,'R',95.,100.5)]
+          assert (base/'k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend').is_file()
+          print('R36_AUTHENTIC_REUSED_R35B_SOURCE_BLENDER_AND_3_SITES_OK')
+          PY
+      - name: Build only ORIGINAL PRIVATE 240Hz game; no Blender installation or DCC art rerun
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-dcc-source-export.mjs
+          node scripts/p101-k4ct-install-authored-dcc.mjs
+      - name: Install headless Chromium for actual original WebGL2 only
+        timeout-minutes: 6
+        run: |
+          sudo apt-get -o Acquire::Retries=1 update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::Retries=1 install -y --no-install-recommends libegl1 libgl1-mesa-dri libopengl0 libgbm1
+          npx playwright install --only-shell chromium
+      - name: Same-tick three-marker original WebGL2 10 dense frames 66.10–66.70
+        timeout-minutes: 9
+        run: |
+          node scripts/k4ct-r36-original-camera-dense-visibility.mjs
+      - name: Validate 10 dense true source ticks, original 8 protected, restored frames
+        run: |
+          python3 - <<'PY'
+          import pathlib,json,subprocess
+          d=json.loads(pathlib.Path('test-results/k4ct-r36-visibility/K4CT_R36_DENSE_ROAD6_VISIBILITY.json').read_text())
+          assert d['schema']=='k4ct-r36-dense-original-webgl-road6-site-time-window-v1'
+          assert d['originalWebGL2'] and d['originalCamera'] and d['originalRunner240Hz']
+          assert d['originalB48']==7 and d['originalB51']==28 and d['newColliders']==0
+          assert d['sampledDenseTimes']==[66.10,66.20,66.25,66.30,66.35,66.40,66.45,66.50,66.60,66.70]
+          assert [r['sourceTick'] for r in d['sourceFramesRAW']]==[round(s*240) for s in d['sampledDenseTimes']]
+          assert d['siteVariant']=='ROAD6_U015_Y100_5'
+          assert set(d['selectiveGroupsOnly'])=={'15','16','17'}
+          assert all(r['source']['realWebGL2'] and r['source']['depthEnabled'] and r['source']['depthBits']>0 for r in d['sourceFramesRAW'])
+          assert all(r['reproducibility']['changedPctRGBgt25']<.5 for r in d['sourceFramesRAW'])
+          assert all(r['leftWaterRestore']['changedPctRGBgt25']<.5 for r in d['sourceFramesRAW'])
+          assert d['formalARTAdopted']==d['slope2DNAmeters']==0
+          assert all(d[z]=='HOLD' for z in ('ART','HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
+          for p,h in [('web/p101-w9c2-g4e7ci-integrated-streetscape.mjs','af076d67492a677d2235e4730aef8cdf4808e106'),('scripts/p101-k4ct-native-spillway-dcc.py','096fffbc1627915eb0122224955bb02cfba6b3ae')]:
+            assert subprocess.check_output(['git','hash-object',p],text=True).strip()==h
+          print('R36_REAL_GL_DENSE_SOURCE_TICKS_PASS',[(s['id'],s['cleanObservedTicks']) for s in d['siteSignals']])
+          PY
+      - name: Preserve R36 ten source RAW and marker visibility plus restored frames
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CT_R36_ORIGINAL_WEBGL2_DENSE_ROAD6_VISIBILITY
+          path: test-results/k4ct-source-ownership/
+          if-no-files-found: warn
+          retention-days: 7
+
