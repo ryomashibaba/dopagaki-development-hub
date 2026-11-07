@@ -1,0 +1,158 @@
+{
+  "schema": "k4ct-r26-own-site-real-source-gl-depth-gate-art-critical-review-v1",
+  "dateJST": "2026-11-07",
+  "source": {
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "workflowRun": 42330381747,
+    "runHead": "10b13ed385d76f48ec065e1ddde3afc1fa56b211",
+    "workflowConclusion": "success",
+    "artifactId": 13557437105,
+    "artifactName": "K4CT_R26_THREE_OWN_SITE_REAL_GL_DEPTH_PROBE_HOLD",
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "unmodifiedActiveDCCGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "OPEN_DRAFT_UNMERGED"
+  },
+  "method": {
+    "realEditableBlender4": true,
+    "sourceChromiumWebGL2": true,
+    "sourceCameraUnmodified": true,
+    "original240Hz": true,
+    "sourceTicks": [
+      15660,
+      15744,
+      15840,
+      15924,
+      16128,
+      16236,
+      16332
+    ],
+    "actual3DMarkerCount": 3,
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "liveOriginalGroupLandmarksProtected": true,
+    "markersInIsolatedTempAuthorOnly": true,
+    "perGroupNativeGLDepthTestEnabled": true,
+    "sameTickRestoreRGB25NoisePct": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "pixelAttributionNotStrictDepthBufferReadback": true,
+    "markerNotFinalArt": true
+  },
+  "sites": [
+    {
+      "id": "15",
+      "worldXYZ": [
+        943.0196920049635,
+        141.7709162843909,
+        -405.2530486753593
+      ],
+      "road": 5,
+      "u": 0.89,
+      "bank": "R",
+      "outboardM": 36,
+      "heightOffsetM": 13,
+      "impactPctRGB25": [
+        3.102,
+        11.417791,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "visuallyCleanTicks": [
+        15660,
+        15744
+      ],
+      "criticalReview": "65.60s enormous amber diagnostic mass intrudes left foreground; visible but unsuitable by itself as scale/layout/final art; real harbor would require subordinate open-silhouette form"
+    },
+    {
+      "id": "16",
+      "worldXYZ": [
+        1339.1436983950346,
+        130.70482067702898,
+        -500.6627706402503
+      ],
+      "road": 6,
+      "u": 0.39,
+      "bank": "L",
+      "outboardM": 48,
+      "heightOffsetM": 18,
+      "impactPctRGB25": [
+        0.004,
+        0.108,
+        0.265,
+        0.394,
+        1.795,
+        6.660458,
+        0
+      ],
+      "visuallyCleanTicks": [
+        15840,
+        15924,
+        16128,
+        16236
+      ],
+      "criticalReview": "67.65s huge rectangular marker blocks right side and competes with source turbine; passes actual visibility but fails aesthetic as inserted solid mass"
+    },
+    {
+      "id": "17",
+      "worldXYZ": [
+        1582.9395545196446,
+        115.09806185947069,
+        -701.0938836372618
+      ],
+      "road": 6,
+      "u": 0.79,
+      "bank": "R",
+      "outboardM": 46,
+      "heightOffsetM": 17,
+      "impactPctRGB25": [
+        0.071,
+        0.086,
+        0.099,
+        0.108,
+        0.196,
+        0.299,
+        0.48398
+      ],
+      "visuallyCleanTicks": [
+        16128,
+        16236,
+        16332
+      ],
+      "criticalReview": "Actual but weak screen-space attribution; merely visible near late frames, insufficient as primary hydraulic hero"
+    }
+  ],
+  "artJudgement": "DIAGNOSTIC_ONLY_NO_ART_CANDIDATE_ADOPTED",
+  "visualBasis": "Direct inspection of seven unaltered candidate original-Chromium game RAW PNG screenshots in R26 artifact; no concept mockup treated as original game.",
+  "criticalOutcome": "Real THREE-site depth-tested marker placement is now validated in original source, where R25 wrongly inferred new-site visibility from existing group anchors; high impact does not equal quality and two of three solid debug proxies harm foreground composition.",
+  "nextProductionDecision": "Do not repeat full-size solid blocks, stacked flat gray shore bands, unseen offboard sluices, or mass re-CI. Use the newly measured windows to author exactly ONE subordinate open-silhouette, materially and hydraulically coherent 3D harbor candidate in isolated Blender, retaining road/B51/readability. Compare dense genuine source RAW first. A truly better art candidate is not yet proven.",
+  "technical": "R26_DIAGNOSTIC_CI_SUCCESS",
+  "formalArtAdopted": 0,
+  "slope2DNAmeters": 0,
+  "hold": {
+    "ART": "HOLD",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "restoration": "NOT_REQUIRED_TEMP_DCC_COPY_ONLY_ACTIVE_R12A_UNCHANGED",
+  "userManualOperations": 0,
+  "paidApiInvoked": false,
+  "workOrComputerUseInvoked": false
+}
