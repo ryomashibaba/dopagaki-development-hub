@@ -145,7 +145,7 @@ try{
  const witness=siteSignals;
  const anchorGate=null;
  const output={
-  schema:'k4ct-r28-genuine-source-camera-one-hollow-intake-art-review-v1',
+  schema:'k4ct-r28-genuine-source-camera-unified-harbor-raw-first-v1',
   phase,witness,anchorGate,siteSignals,genuineResearchArtCandidate:true,gateMeaning:'R28 one true Blender integrated intake/erosion architecture in ORIGINAL 240Hz WebGL2 GL depth. Group influence is diagnostic only, NOT ART or human judgement',
   originalGameBlob:originalBlob,roadPhysicsSHA256:dcc.sourcePhysicalRoad5SHA256,
   genuineBlenderPolygons: true,editableBlenderGroups:43,totalTriangles:dcc.triangles,
@@ -169,10 +169,8 @@ try{
  fs.writeFileSync(path.join(DIR,'K4CT_R28_TRUE_SOURCE_PHASED_VISIBILITY.json'),
   JSON.stringify(output,null,2)+'\n');
  console.log('R28_ORIGINAL_WEBGL2_PHASED_SOURCE_VISIBILITY_COMPLETE',
-  JSON.stringify(result.map(r=>({sec:r.timeSec,tick:r.sourceTick,
-   influential:Object.entries(r.selectiveGroupInfluence).map(([id,v])=>
-    [id,Number(v.impact.changedPctRGBgt25.toFixed(3))])}))));
- assert(result.length===7 && targetIDs.length===8,'R28 exact original source ART evidence contract');
+  JSON.stringify(result.map(r=>({sec:r.timeSec,tick:r.sourceTick,cleanRAW:r.cleanRAW,realWebGL2:r.source.realWebGL2}))));
+ assert(result.length===5 && targetIDs.length===0,'R28 five original-source RAW contract');
  await context.close();
 }finally{
  await browser?.close().catch(()=>{});
