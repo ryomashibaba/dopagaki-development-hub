@@ -6,7 +6,7 @@
 **最初に読む現行の批判的再評価・R25実行契約：** [V13.0 完全統合・全方針・R13〜R24否定実証・操作最小化・短い新チャット開始文](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_R24_R25_20261107_JA.md)。R24は真正TECH PASS／ART REJECTでR12A作者へ復元済み。**新チャットではR25の本物GL可視確認→見える一体型Blender景観の実制作へ進むこと**。旧V12.1は全履歴・最上位安全条件の正本として保持する。GitHub HEADは必ずライブ確認し、ここに記載の作成時HEADを将来の現在HEADと取り違えない。
 
 ## まず読む（新チャット最短経路）
-1. **唯一の現行戦略正本**：[R12→R13 統合引き継ぎ・全方針と批判監査](docs/DOPAGAKI_CANONICAL_CRITICAL_HANDOFF_R12_TO_R13_20261106_JA.md)
+1. **上位方針と全履歴の継承正本**：[R12→R13 統合引き継ぎ・全方針と批判監査](docs/DOPAGAKI_CANONICAL_CRITICAL_HANDOFF_R12_TO_R13_20261106_JA.md)
 2. **最新研究・安全・否定結果**：[R12全群画素影響度＋R12B不採用・安全復元](research-evidence/k4ct/K4CT_R12_VISIBILITY_AND_ART_REJECTION_SAFE_RESTORE_20261106.json)
 3. **最新の追加監査**：[R13真正3D／元ゲーム3 RAWによるART REJECTと正確なR12A選択的復元](research-evidence/k4ct/K4CT_R13_INTEGRATED_NATIVE_ART_REJECT_SAFE_RESTORE_20261106.json)。
 4. **新しい真正評価**：[R14の引き算した地形・元CHASE3 RAW、ART REJECT、作者コード選択的復元](research-evidence/k4ct/K4CT_R14_SOURCE_NEGATIVE_SPACE_TRUE_NATIVE_ART_REJECT_SAFE_RESTORE_20261106.json)。
