@@ -1,0 +1,248 @@
+{
+  "schema": "k4ct-r25-original-webgl2-seven-frame-genuine-blender-critical-art-rejection-v1",
+  "dateJST": "2026-11-07",
+  "researchOnly": true,
+  "ownerGoal": "QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE; preserve original Slope and P101; no formal adoption",
+  "status": "ART_REJECT_TECH_EVIDENCE_CAPTURED_FINAL_INDEPENDENT_WORKTREE_AUDIT_FAILED",
+  "conclusions": {
+    "sourcePreflight": "TECH_PASS_original_34_12_42_depth-tested_source-GL-only_NOT_candidate-site-proof",
+    "genuineR25BlenderAuthoring": "TECH_PASS_temporary_copy_only_43_editable_groups_21366_triangles",
+    "genuineOriginalSourceSevenFrames": "TECH_PASS_240Hz_Chase_source_Chromium_WebGL2_depth",
+    "visualArt": "ART_REJECT",
+    "formalArtAdopted": 0,
+    "slope2DNAmeters": 0,
+    "human": "HOLD",
+    "sat": "HOLD",
+    "ccd": "HOLD",
+    "fps": "HOLD",
+    "release": "HOLD",
+    "merge": "HOLD",
+    "CIoverall": "FAILURE_due_to_final_clean_git_status_assertion_at_inline_python_line24",
+    "notClaimed": "No complete workflow green, no source-camera ART PASS, no human fun/fairness proof"
+  },
+  "provenance": {
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "runFirst": {
+      "id": 42326802803,
+      "status": "FAILURE",
+      "cause": "R25 script phase CLI arg leaked into existing scripts/serve.mjs build-dir argument; fixed with environment variable",
+      "artifactId": 13555229655
+    },
+    "runActual": {
+      "id": 42327081772,
+      "status": "FAILURE",
+      "reason": "Final audit git status --porcelain was not clean; 7 source-frame step and Blender candidate completed successfully; exact dirty paths not printed, so root cause cannot be fully verified"
+    },
+    "artifact": {
+      "id": 13556425205,
+      "name": "K4CT_R25_NATIVE_GL_FIRST_SEVEN_FRAME_ART_HOLD",
+      "sha256": "31b25db3e3ae800c00091a253cf6b96cd7e415370d72c3381a9a7a60b45d2536",
+      "files": 17,
+      "expiresAtUTC": "2026-11-14T02:09:23Z",
+      "contains": [
+        "5 genuine preflight source RAW",
+        "7 genuine R25 candidate source RAW",
+        "two actual source WebGL2 GL-depth attribution JSON",
+        "Blender candidate editable .blend",
+        "actual Blender geometry JSON",
+        "native R9 Blender material bridge JSON"
+      ]
+    },
+    "originalProtected": {
+      "gameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+      "activeBlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+      "physicalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+      "originalB48": 7,
+      "originalB51": 28,
+      "newColliders": 0,
+      "gameCameraUnmodified": true,
+      "runner240HzUnmodified": true,
+      "mainAtFinalAudit": "d402801f271f43163ad85d9303abe9773d3958bd",
+      "officialP101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+      "draftPR46": "OPEN_DRAFT_UNMERGED"
+    },
+    "dCC": {
+      "blenderVersion": "4.0.2",
+      "totalRealMeshes": 43,
+      "triangles": 21366,
+      "protectedGroupFaceCounts": {
+        "12": 432,
+        "13": 216,
+        "19": 1440,
+        "34": 120,
+        "35": 192,
+        "41": 520,
+        "42": 336,
+        "00": 4608
+      },
+      "rewrittenIds": [
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "15",
+        "16",
+        "17",
+        "21",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33"
+      ],
+      "activeAuthorRestoration": "NOT_REQUIRED_NOT_MODIFIED_CANDIDATE_EXECUTED_AS_TEMP_COPY"
+    }
+  },
+  "measurements": {
+    "glDepthTestEnabled": true,
+    "sourceTicks": [
+      15660,
+      15744,
+      15840,
+      15924,
+      16128,
+      16236,
+      16332
+    ],
+    "timesSec": [
+      65.25,
+      65.6,
+      66,
+      66.35,
+      67.2,
+      67.65,
+      68.05
+    ],
+    "preflightRealAnchorPercentRGBgt25": {
+      "34_at_65_25": 1.8521791045,
+      "12_at_66_35": 3.5002587065,
+      "42_at_68_05": 3.616318408
+    },
+    "candidateRealInfluencePercentRGBgt25": {
+      "03_tidal_water": [
+        4.6147,
+        3.8018,
+        4.2523,
+        4.3635,
+        5.3446,
+        8.1097,
+        7.8981
+      ],
+      "04_shore": [
+        0.0008,
+        0.0043,
+        0.0043,
+        0,
+        0.2117,
+        0.0092,
+        0
+      ],
+      "05_discharge": [
+        0.189,
+        0,
+        0,
+        0,
+        0.2051,
+        0,
+        0
+      ],
+      "06_gate": [
+        0.1941,
+        0,
+        0,
+        0,
+        0.2051,
+        0,
+        0
+      ],
+      "07_leaf": [
+        0.0091,
+        0.0328,
+        0,
+        0,
+        0.2051,
+        0,
+        0
+      ],
+      "12_original_tower": [
+        0.415,
+        0.6212,
+        1.131,
+        3.0527,
+        0.2051,
+        0,
+        0
+      ],
+      "34_original_intake": [
+        2.7681,
+        1.473,
+        0,
+        0,
+        0.2051,
+        0,
+        0
+      ],
+      "42_original_turbine": [
+        0,
+        0.0486,
+        0.0293,
+        0.1933,
+        0.828,
+        1.4707,
+        3.6163
+      ]
+    },
+    "candidateSamePausedRendererRestorePercentRGBgt25": [
+      0,
+      0,
+      0,
+      0,
+      0.2050547264,
+      0,
+      0
+    ],
+    "warning": "At 67.20 s 0.20505% same-session restore noise; groups with identical approx .20505% attribution are NOT demonstrated visible. Pixel influence is not an ART score, human fun proof, or strict object visibility ownership.",
+    "crossBuildRGBgt25DiffPreflightToCandidate": [
+      19.374,
+      15.934,
+      null,
+      10.824,
+      22.668,
+      null,
+      15.283
+    ],
+    "crossBuildDifferenceMeaning": "Diagnostic only: changed image area under separate build/run, not proof of art improvement."
+  },
+  "independentRawArtReview": {
+    "method": "Direct visual comparison of downloaded original and candidate Chromium native RAW at 65.25/66.35/68.05; no concept render substituted.",
+    "positives": [
+      "R25 eliminates much of the repetitively busy old L-bank environment; more sky and empty areas; native B51 warning and road remain visibly present."
+    ],
+    "rejectionReasons": [
+      "65.25: elongated, flat gray horizontal foreground beam on left still dominates and hides the tidal industrial story; feature river reads as narrow cyan ribbon.",
+      "66.35: broad untextured gray wedge on near-left; distant small blocks look isolated rather than integrated work harbor; right-bank layered slabs still generic.",
+      "68.05: water reads as flat cyan wedge; repeated right dark-gray structural planes and preexisting isolated turbine compete, no visible functioning headrace-to-caisson-to-quay narrative.",
+      "Most of actual group 06 gate geometry is at or below 0.1941% impact at a single clean snapshot, zero at most other clean snapshots. Waterfall 05 and leaves 07 are similarly not legible.",
+      "At roughly 180-191 m/s the essential spatial hierarchy, risk visibility, maritime function, and human fun are not validated. The present module is closer to an authored blockout than a polished art-quality integrated world."
+    ],
+    "judgement": "ART_REJECT",
+    "scope": "Research only; no formal submission or promotion."
+  },
+  "futureWork": {
+    "priority1": "Do not re-run same heavy build merely to turn green a non-ART-accepted candidate; no duplication unless a substantive art/site correction is attempted.",
+    "priority2": "Before detailed Blender, test *candidate site's own* small native-GL depth-visible silhouette (not just pre-existing 34/12/42 anchors) across chase frames; reject positions with large occlusion or hidden machinery.",
+    "priority3": "Reduce long gray slab and eliminate thin cyan strip; design one physically grounded, visually clear water route/caisson/wharf directly in the actual chase foreground and compare with native RAW.",
+    "priority4": "Fix independent QA to print exact dirty git paths, classify tracked vs untracked and verify protected files; do not waive unknown non-clean state as green.",
+    "holdUntil": "Formal ART adopted=0, Slope2 DNA=0, HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD, no main/P101/PR46/production modifications without approval"
+  },
+  "manualActionsRequested": 0,
+  "paidApiInvoked": false,
+  "workOrComputerUseInvoked": false
+}
