@@ -379,10 +379,10 @@ R32_I_Z=sum(R32_INTAKE[2])*.5
 R32_I_Y=R32_INTAKE[1][0]
 for dx,g in ((-9.,'14'),(10.,'18')):
     top=(R32_I_X+dx,R32_I_Y+11.,R32_I_Z-9.)
-    out=(R32_I_X+dx+12.,R32_I_Y-21.,R32_I_Z-34.)
-    beam(R31_G(g),top,out,3.5,'r31_bronze')
-    tri(R31_G(g),top,(out[0]+9.,out[1]-16.,out[2]-5.),
-        (out[0]-7.,out[1]-27.,out[2]+7.),'r31_cutface')
+    R32_SERVICE_END=(R32_I_X+dx+12.,R32_I_Y-21.,R32_I_Z-34.)
+    beam(R31_G(g),top,R32_SERVICE_END,3.5,'r31_bronze')
+    tri(R31_G(g),top,(R32_SERVICE_END[0]+9.,R32_SERVICE_END[1]-16.,R32_SERVICE_END[2]-5.),
+        (R32_SERVICE_END[0]-7.,R32_SERVICE_END[1]-27.,R32_SERVICE_END[2]+7.),'r31_cutface')
 # EXISTING turbine 41/42 is untouched. Architect a real lower-basin
 # outfall in its local coordinate bounds, not disconnected isolated sticks.
 R32_T=R31_ORIGINAL_BBOX['41']
