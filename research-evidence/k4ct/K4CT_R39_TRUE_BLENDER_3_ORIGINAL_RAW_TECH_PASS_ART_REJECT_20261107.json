@@ -1,0 +1,179 @@
+{
+  "schema": "dopagaki-k4ct-r39-real-blender-original-3-raw-critical-art-reject-v1",
+  "dateJST": "2026-11-07",
+  "scope": "Continuation of V15 fixed program; no new game, upper direction or acceptance policy changes",
+  "source": {
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "firstAuthorRun": 42376928483,
+    "firstAuthorRunVerdict": "FAILURE at subsequent RAW preflight due diagnostic field name mismatch; genuine Blender scene saved as Artifact 13576330945; cannot call this CI fully green",
+    "firstAuthorArtifactId": 13576330945,
+    "rawRecoveryAttemptRun": 42377372321,
+    "rawRecoveryAttemptVerdict": "FAILURE due wrong artifact selector; no Blender re-run",
+    "successfulRawRun": 42377482537,
+    "successfulRawRunUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42377482537",
+    "successfulRawConclusion": "SUCCESS",
+    "finalArtifactId": 13576017551,
+    "finalArtifactUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42377482537/artifacts/13576017551",
+    "finalArtifactZipSHA256": "163f0214e9cb1723c3c907536fa55bd3516d6fca5674768f58f43e07f061112a",
+    "artifactRetention": "7 days; expires 2026-11-14 13:34:57 UTC; do not treat 3 PNG and BLEND as permanent",
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalR12ABlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "mainHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialP101DraftPR46Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "draftPR46": "OPEN DRAFT UNMERGED"
+  },
+  "actualBlender": {
+    "author": "scripts/p101-k4ct-r39-open-quarry-hydraulic-cut.py",
+    "previousR36RejectedArchitectureRemoved": true,
+    "oneResearchCandidate": true,
+    "originalR12AExecutedInIsolatedCopy": true,
+    "genuineEditableBlend": true,
+    "originalBaselineTriangles": 31324,
+    "finalNativeTriangles": 30904,
+    "actualEvaluatedBlenderSolidifiedWaterMeshes": [
+      {
+        "name": "CONTINUOUS_HEADRACE_WET_CREST",
+        "group": "23",
+        "evaluatedTriangles": 524
+      },
+      {
+        "name": "DESCENDING_VENTED_OPEN_SPILLWAY",
+        "group": "24",
+        "evaluatedTriangles": 524
+      }
+    ],
+    "nonprotectedLocalGeometryCuts": {
+      "group03": 206,
+      "group20": 356,
+      "group21": 188,
+      "group25": 24,
+      "group26": 24,
+      "previousR36Group15": 672,
+      "previousR36Group16": 376,
+      "previousR36Group17": 428
+    },
+    "groupsReauthored": [
+      "15",
+      "16",
+      "17",
+      "23",
+      "24"
+    ],
+    "protectedEightIDs": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "allEightProtectedXYZRGBExact": true,
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0,
+    "noOriginalGameRoadCamera240HzModification": true,
+    "noRealFluidSimulation": true
+  },
+  "nativeCameraTest": {
+    "realChromium": true,
+    "realWebGL2": true,
+    "source240Hz": true,
+    "sourceCameraUnmodified": true,
+    "depthEnabled": true,
+    "nativeTicks": [
+      15900,
+      15924,
+      15972
+    ],
+    "timeSeconds": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "cleanRAWCount": 3,
+    "rawNames": [
+      "R39_CANDIDATE_TRUE_SOURCE_CHASE_T66_25_CLEAN_RAW.png",
+      "R39_CANDIDATE_TRUE_SOURCE_CHASE_T66_35_CLEAN_RAW.png",
+      "R39_CANDIDATE_TRUE_SOURCE_CHASE_T66_55_CLEAN_RAW.png"
+    ],
+    "frameComparedToR36ChangedPixelsRGBgt25": [
+      {
+        "timeSeconds": 66.25,
+        "gameViewportPixelCount": 17489,
+        "percentOfViewport": 2.879
+      },
+      {
+        "timeSeconds": 66.35,
+        "gameViewportPixelCount": 26104,
+        "percentOfViewport": 4.298
+      },
+      {
+        "timeSeconds": 66.55,
+        "gameViewportPixelCount": 46852,
+        "percentOfViewport": 7.714
+      }
+    ],
+    "caution": "RGB change supports changed scene, not ART, hydraulic flow, unique attribution or human readability. Separate group23/24 hide on R39 not performed. The 3 true RAW were directly visually reviewed."
+  },
+  "criticalArtReview": {
+    "verdict": "REJECT",
+    "directlyReviewedTimes": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "genuineGains": [
+      "The old large smooth polygonal gray arch is absent in true gameplay.",
+      "The left shore water and open silhouette are less dominated by a hollow ring.",
+      "The original racing road, native red B51 prewarning text, main camera framing and HUD remain displayed."
+    ],
+    "observedFailures": [
+      "At 66.25, 66.35 and 66.55 the left water is still predominantly a broad flat cyan band/pond; the actual fall over a vertical level break is not legibly connected from protected group19 source to the outfall during the fast chase.",
+      "The small angular bronze/green mechanical sector near the left lighthouse looks like another detached block/pole rather than a giant functional hydraulic gate. Its working action, support load, and contact with the water cannot be understood at a glance.",
+      "The localized removed cliffs and low bank silhouettes do not yet form a coherent premium-grade excavated industrial space; repeated distant rods and faceted terrain remain visibly generic.",
+      "The authentic 180-184m/s traversal changes the on-screen water/plant relationships within 0.30 s; three static frames do not establish human recognition, fairness, or fun."
+    ],
+    "decisiveRejectRule": "V15 QUALITY/ART/DCC-FIRST rejects flat sea, lone simple boxes, unseen waterfall and isolated machinery even if true Blender and source GL are technically proven.",
+    "notProven": [
+      "R39 exact group23/24 visible native-pixel ownership or influence",
+      "Continuous actual fluid flow simulation",
+      "Real player B51 fail-retry-avoid chain",
+      "Human visual recognition, gameplay interest/fairness",
+      "SAT, CCD, real Windows/iPhone FPS, production readiness"
+    ]
+  },
+  "verdict": {
+    "TECH": "PASS_REAL_BLENDER_NATIVE_ORIGINAL_WEBGL2_THREE_RAW",
+    "ART": "REJECT",
+    "METHOD": "HOLD_NO_R39_CANDIDATE_ITERATION",
+    "FORMAL_ART_ADOPTED": 0,
+    "SLOPE2_DNA_METERS": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "researchBranchOnly": true,
+    "mainUnchanged": true,
+    "officialP101AndDraftPR46Unchanged": true,
+    "sourceAndOriginalAuthorBlobUnchanged": true,
+    "originalSourceRoadCameraPhysicsB48B51Unchanged": true,
+    "originalSlopeGoldProductionFormalQAUnchanged": true,
+    "extraUserActions": 0,
+    "work": false,
+    "computerUse": false,
+    "paidExternalAPI": false,
+    "githubActionsAccountBilling": "UNKNOWN; public standard GitHub Actions runner, no account invoice read",
+    "noPublicRelease": true,
+    "noFormalAdoption": true,
+    "noMerge": true
+  },
+  "next": "Do not rerun R39 just to green CI or polish the same small orange block. Next research, if continued, must first prove in unchanged real source camera a three-act composition where the existing visible upstream sheet, distinguishable downward drop, grounded functional gate, downstream outlet and B51 hazard cues coexist in a short high-speed sequence. If constraints prevent this, keep METHOD HOLD, request separate approval before any protected water19/camera/source modifications."
+}
