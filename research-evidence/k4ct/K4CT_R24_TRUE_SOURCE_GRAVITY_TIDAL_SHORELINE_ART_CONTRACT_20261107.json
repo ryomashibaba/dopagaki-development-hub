@@ -1,0 +1,93 @@
+{
+  "schema": "k4ct-r24-functional-gravity-estuary-source-five-frame-v1",
+  "dateJST": "2026-11-07",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "fixed": "QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE; R23 ART REJECT and exact R12A safe author reset.",
+  "basedOn": {
+    "R23FiveFrameRun": 42314880298,
+    "R23Artifact": 13550297687,
+    "R23Art": "REJECT",
+    "R19TrueNativeRun": 42304999606,
+    "sourceRGBVisual": "R23 screenshot: flat turquoise sea dominates source screen-left, long grey beam impairs industrial readability, isolated volute duplicates wheel.",
+    "sourceGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "roadPhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "authorR12ABlob": "096fffbc1627915eb0122224955bb02cfba6b3ae"
+  },
+  "artHypothesis": "Replace flat sea and oversize 4-bay horizontal slab with a true geometrically stepped right-bank water channel: a high forebay, one 2-gate founded flood weir, a real 15–20 m vertical cascade, and a lower tidal receiving basin. Differentiate silhouette through actual height and negative space, not shader/color alone. Do not make a new circular machine, ship, portal, roof, false road or moving obstacle.",
+  "rewriteGroups": [
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08"
+  ],
+  "protectedGroups": [
+    "00",
+    "12",
+    "13",
+    "19",
+    "34",
+    "41",
+    "42"
+  ],
+  "researchOnlyR19": "R19 ART-REJECT open-view ground is temporary baseline for investigation, never formally adopted.",
+  "run": {
+    "ticks": [
+      15660,
+      15744,
+      15924,
+      16128,
+      16332
+    ],
+    "seconds": [
+      65.25,
+      65.6,
+      66.35,
+      67.2,
+      68.05
+    ],
+    "actualGLGroupProbes": [
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "12",
+      "34",
+      "42"
+    ],
+    "no42GroupMatrix": true,
+    "renderRestoreDriftR23At67_2": true
+  },
+  "rejection": [
+    "flat cyan water remains",
+    "water drop appears painted rather than truly 3D",
+    "large gray bar still blocks the scene",
+    "B51, real tower or rotor obscured",
+    "multiple copy-paste roofs or arches",
+    "any source protection violation"
+  ],
+  "safety": {
+    "main": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "p101": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46": "Draft open unmerged",
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "roadPhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "B48": 7,
+    "B51": 28,
+    "runnerHz": 240,
+    "formalART": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "work": false,
+    "additionalPaidAPI": 0,
+    "userSteps": 0
+  }
+}
