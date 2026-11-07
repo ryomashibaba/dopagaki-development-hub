@@ -1,4 +1,4 @@
-name: K4CT active source camera ART-first genuine Blender inlet harbor R31
+name: K4CT active source camera ART-first true Blender harbor R32
 on:
   push:
     branches:
@@ -11,7 +11,7 @@ on:
 permissions:
   contents: read
 jobs:
-  active-camera-art-source-r31-five-raw:
+  active-camera-art-source-r32-five-raw:
     runs-on: ubuntu-24.04
     timeout-minutes: 38
     steps:
@@ -30,7 +30,7 @@ jobs:
           import ast,pathlib
           for p in ('scripts/p101-k4ct-native-spillway-dcc.py','scripts/p101-k4ct-active-source-camera-art-slice.py'):
               ast.parse(pathlib.Path(p).read_text(),filename=p)
-          print('R31_SYNTAX_PASS_NO_PYC_WRITTEN')
+          print('R32_SYNTAX_PASS_NO_PYC_WRITTEN')
           PY
       - name: Build ORIGINAL PRIVATE native physics and source DCC site
         run: |
@@ -60,7 +60,7 @@ jobs:
         run: |
           blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4ct-native-spillway-dcc.py
           mkdir -p test-results/k4ct-active-art
-          cp test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json test-results/k4ct-active-art/R31_ORIGINAL_PROTECTED_BASELINE.json
+          cp test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json test-results/k4ct-active-art/R32_ORIGINAL_PROTECTED_BASELINE.json
           python3 - <<'PY'
           from pathlib import Path
           import ast,subprocess
@@ -70,14 +70,14 @@ jobs:
           marker='# Editability: separate mesh objects by functional zones'
           original=p.read_text()
           assert original.count(marker)==1
-          inject="exec(compile(Path('scripts/p101-k4ct-active-source-camera-art-slice.py').read_text(), 'R31_TEMP_HARBOR', 'exec'))\n"
-          isolated=Path('test-results/k4ct-r31-temporary-blender-author.py')
+          inject="exec(compile(Path('scripts/p101-k4ct-active-source-camera-art-slice.py').read_text(), 'R32_TEMP_HARBOR', 'exec'))\n"
+          isolated=Path('test-results/k4ct-r32-temporary-blender-author.py')
           isolated.parent.mkdir(parents=True,exist_ok=True)
           isolated.write_text(original.replace(marker,inject+marker))
           ast.parse(isolated.read_text(),filename=str(isolated))
-          print('R31_ISOLATED_DCC_PROBE_PREPARED_NO_REPO_AUTHOR_CHANGE')
+          print('R32_ISOLATED_DCC_PROBE_PREPARED_NO_REPO_AUTHOR_CHANGE')
           PY
-          blender -b --factory-startup --python-exit-code 3 --python test-results/k4ct-r31-temporary-blender-author.py
+          blender -b --factory-startup --python-exit-code 3 --python test-results/k4ct-r32-temporary-blender-author.py
           test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
       - name: Rebuild original PRIVATE WebGL2 renderer and install genuine temporary Blender DCC once
         run: |
@@ -97,10 +97,10 @@ jobs:
           python3 - <<'PY'
           import json,pathlib,subprocess
           d=pathlib.Path('test-results/k4ct-active-art-raw-native')
-          p=d/'K4CT_R31_TRUE_SOURCE_PHASED_VISIBILITY.json'
+          p=d/'K4CT_R32_TRUE_SOURCE_PHASED_VISIBILITY.json'
           assert p.exists(),'Native source probe did not complete'
           v=json.loads(p.read_text())
-          assert v['schema']=='k4ct-active-art-source-camera-r31-five-raw-v1'
+          assert v['schema']=='k4ct-active-art-r32-two-stage-source-camera-five-raw-v1'
           assert v['originalWebGL2'] and v['originalCamera'] and v['originalRunner240Hz']
           assert v['originalB48']==7 and v['originalB51']==28 and v['newColliders']==0
           assert v['formalARTAdopted']==v['slope2DNAmeters']==0 and v['ART']=='HOLD'
@@ -114,7 +114,7 @@ jobs:
               assert (d/f['cleanRAW']).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
           g=json.loads(pathlib.Path('test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
           assert g['originalB48']==7 and g['originalB51']==28 and g['newColliders']==0 and len(g['objects'])==43
-          baseline=json.loads(pathlib.Path('test-results/k4ct-active-art/R31_ORIGINAL_PROTECTED_BASELINE.json').read_text())
+          baseline=json.loads(pathlib.Path('test-results/k4ct-active-art/R32_ORIGINAL_PROTECTED_BASELINE.json').read_text())
           protected=('00','12','13','19','34','35','41','42')
           def read_group(g,name):
               cursor=0
@@ -126,33 +126,37 @@ jobs:
           for name in baseline['objects']:
               if name[:2] in protected:
                   assert g['objects'][name]==baseline['objects'][name]
-                  assert read_group(g,name)==read_group(baseline,name),('R31_PROTECTED_GEOMETRY_OR_COLOR_CHANGED',name)
-          print('R31_ALL_EIGHT_PROTECTED_GROUPS_SOURCE_XYZ_RGB_EXACT_PARITY')
-          scene=json.loads(pathlib.Path('test-results/k4ct-active-art/R31_SCENE_MANIFEST.json').read_text())
+                  assert read_group(g,name)==read_group(baseline,name),('R32_PROTECTED_GEOMETRY_OR_COLOR_CHANGED',name)
+          print('R32_ALL_EIGHT_PROTECTED_GROUPS_SOURCE_XYZ_RGB_EXACT_PARITY')
+          scene=json.loads(pathlib.Path('test-results/k4ct-active-art/R32_SCENE_MANIFEST.json').read_text())
           assert len(scene['protectedGroupCounts'])==8 and len(scene['reworkedGroups'])==35
           assert scene['newColliders']==scene['formalArtAdopted']==scene['slope2DNAmeters']==0
           assert len(scene['realBlenderBeveledStoneVolumes'])==3
           assert sum(x['beveledRealBlenderFaces'] for x in scene['realBlenderBeveledStoneVolumes'])>350
-          assert scene['sourceCameraActualRAW']=='NOT_YET_CAPTURED'
-          assert len(scene['waterfallActualStagedElevation'])==8
-          assert sum(x['gravityVerticalStep'] for x in scene['waterfallActualStagedElevation'])==2
+          assert scene['originalWebGL2ActualRAWRequired'] and scene['R31OriginalChaseViewPreserved']
+          assert len(scene['stagedWatercourse'])==9
+          assert sum(x['visibleCurtain'] for x in scene['stagedWatercourse'])==2
+          assert abs(sum(x['realDropM'] for x in scene['stagedWatercourse'])-70.)<1e-8
+          assert scene['visualWorldDropTotalM']==70
+          assert scene['realGravityFluidSimulation'] is False
+          assert scene['functionalGateAnchorCount']==4
           assert g['sourcePhysicalRoad5SHA256']=='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b'
           assert subprocess.check_output(['git','hash-object','scripts/p101-k4ct-native-spillway-dcc.py'],text=True).strip()=='096fffbc1627915eb0122224955bb02cfba6b3ae'
           assert subprocess.check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
           status=subprocess.check_output(['git','status','--porcelain'],text=True).splitlines()
-          print('R31_EXACT_GIT_STATUS',status)
+          print('R32_EXACT_GIT_STATUS',status)
           bad=[s for s in status if not(s.startswith('?? ') and s[3:].startswith('test-results/'))]
-          assert not bad,'R31_UNEXPECTED_TRACKED_OR_NON_RESULT_UNTRACKED_PATHS'
-          print('R31_FIVE_GENUINE_BLENDER_NATIVE_RAW_EARLY_REVIEW_NOT_ART_PASS',[(s['id'],s['cleanObservedTicks']) for s in v['siteSignals']])
+          assert not bad,'R32_UNEXPECTED_TRACKED_OR_NON_RESULT_UNTRACKED_PATHS'
+          print('R32_FIVE_GENUINE_BLENDER_NATIVE_RAW_EARLY_REVIEW_NOT_ART_PASS',[(s['id'],s['cleanObservedTicks']) for s in v['siteSignals']])
           PY
       - name: Preserve true source RAW, source-depth measurements, real Blender and QA diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: K4CT_R31_AUTHORED_OPEN_LOCKYARD_REAL_BLENDER_SOURCE_RAW_ART_HOLD
+          name: K4CT_R32_AUTHORED_OPEN_LOCKYARD_REAL_BLENDER_SOURCE_RAW_ART_HOLD
           path: |
             test-results/k4ct-active-art-raw-native/
-            test-results/k4ct-active-art/R31_SCENE_MANIFEST.json
+            test-results/k4ct-active-art/R32_SCENE_MANIFEST.json
             test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json
             test-results/k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json
             test-results/k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend

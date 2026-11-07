@@ -1,5 +1,5 @@
 /**
- * R31: first-five true ORIGINAL 240Hz/WebGL2 CLEAN RAW frames of one NEW
+ * R32: first-five true ORIGINAL 240Hz/WebGL2 CLEAN RAW frames of one NEW
  * hand-authored low-profile lockyard, inlet and grounded turbine. No group-hide, delta metric ART pass, or
  * same-tick parity assertion at this early stage. ART requires direct visual review.
  * HUMAN/ART/FPS/SAT/CCD and formal release are never inferred.
@@ -10,7 +10,7 @@ import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 import {chromium} from '@playwright/test';
 import {server} from './serve.mjs';
-const phase='candidate'; // R31 purposeful low-profile site-composed DCC candidate, never formal ART
+const phase='candidate'; // R32 one camera-cleared two-drop hydro-industrial composition, never formal ART
 const DIR=path.resolve('test-results/k4ct-active-art-raw-native');
 fs.mkdirSync(DIR,{recursive:true});
 const game=fs.readFileSync('web/p101-w9c2-g4e7ci-integrated-streetscape.mjs');
@@ -33,10 +33,10 @@ const originalTop=[
 ];
 assert(originalTop.every(x=>dcc.objects[x]>0));
 const targetIDs=[]; // no expensive group attribution during ART-first screening
-const manifest=JSON.parse(fs.readFileSync('test-results/k4ct-active-art/R31_SCENE_MANIFEST.json','utf-8'));
-assert.equal(manifest.schema,'k4ct-active-art-original-camera-r31-single-authored-open-lockyard-v1');
+const manifest=JSON.parse(fs.readFileSync('test-results/k4ct-active-art/R32_SCENE_MANIFEST.json','utf-8'));
+assert.equal(manifest.schema,'k4ct-active-art-r32-camera-anchored-double-drop-intake-turbine-v1');
 assert.equal(manifest.physicalB48,7);assert.equal(manifest.movingB51,28);assert.equal(manifest.newColliders,0);
-assert(Object.keys(manifest.reworkedGroups).length===35 && manifest.realBlenderBeveledStoneVolumes.length===3);
+assert(Object.keys(manifest.reworkedGroups).length===35 && manifest.realBlenderBeveledStoneVolumes.length===3 && manifest.visualWorldDropTotalM===70);
 const result=[];
 await new Promise((ok,fail)=>server.once('error',fail).listen(0,'127.0.0.1',ok));
 let browser;
@@ -102,9 +102,9 @@ try{
   await page.waitForFunction(()=>document.getElementById('view')?.dataset.k4ctR12SkippedGroup==='ALL',
    undefined,{timeout:15000});
   const png=await page.screenshot({type:'png'});
-  const image='R31_'+phase.toUpperCase()+'_TRUE_SOURCE_CHASE_T'+String(sec).replace('.','_')+'_CLEAN_RAW.png';
+  const image='R32_'+phase.toUpperCase()+'_TRUE_SOURCE_CHASE_T'+String(sec).replace('.','_')+'_CLEAN_RAW.png';
   fs.writeFileSync(path.join(DIR,image),png);
-  // R31 first stage: capture genuine CLEAN original-GL RAW only. No expensive
+  // R32 first stage: capture genuine CLEAN original-GL RAW only. No expensive
   // leave-one-out and no brittle same-source-tick parity assertion at this stage.
   result.push({timeSec:sec,sourceTick:state.tick,source:state,
     cleanRAW:image,originalCamera:true,originalGameFrame:true,
@@ -126,11 +126,11 @@ try{
  await advance(68.05,true);await actualSourceFrame(68.05);
  assert.deepEqual(result.map(x=>x.sourceTick),[15660,15744,15924,16128,16332]);
  assert.deepEqual(errors,[]);
- // R31 first pass explicitly does not measure influence or restore parity.
+ // R32 first pass explicitly does not measure influence or restore parity.
  const siteSignals=[],witness=[],anchorGate=null;
  const output={
-  schema:'k4ct-active-art-source-camera-r31-five-raw-v1',
-  phase,witness,anchorGate,siteSignals,genuineResearchArtCandidate:true,gateMeaning:'R31 authored open lockyard/3-step waterfall with source-bounded equipment foundations in ORIGINAL 240Hz/WebGL2. Five clean RAW only. No group attribution or ART pass.',
+  schema:'k4ct-active-art-r32-two-stage-source-camera-five-raw-v1',
+  phase,witness,anchorGate,siteSignals,genuineResearchArtCandidate:true,gateMeaning:'R32 authored open lockyard/3-step waterfall with source-bounded equipment foundations in ORIGINAL 240Hz/WebGL2. Five clean RAW only. No group attribution or ART pass.',
   originalGameBlob:originalBlob,roadPhysicsSHA256:dcc.sourcePhysicalRoad5SHA256,
   genuineBlenderPolygons: true,editableBlenderGroups:43,totalTriangles:dcc.triangles,
   originalWebGL2:true,originalCamera:true,originalRunner240Hz:true,
@@ -148,13 +148,13 @@ try{
   originalIntakeTowerTurbinePreserved:true,
   formalARTAdopted:0,slope2DNAmeters:0,
   ART:'HOLD',HUMAN:'HOLD',SAT:'HOLD',CCD:'HOLD',FPS:'HOLD',RELEASE:'HOLD',MERGE:'HOLD',
-  methodLimit:'Five paused ORIGINAL 240Hz source ticks, one actual Boolean/Subsurf-carved R31 Blender scene, no group-hide, same-tick parity, baseline PNG comparison, human trial or accepted ART; depth-enabled genuine RAW only.'
+  methodLimit:'Five paused ORIGINAL 240Hz source ticks, one actual Boolean/Subsurf-carved R32 Blender scene, no group-hide, same-tick parity, baseline PNG comparison, human trial or accepted ART; depth-enabled genuine RAW only.'
  };
- fs.writeFileSync(path.join(DIR,'K4CT_R31_TRUE_SOURCE_PHASED_VISIBILITY.json'),
+ fs.writeFileSync(path.join(DIR,'K4CT_R32_TRUE_SOURCE_PHASED_VISIBILITY.json'),
   JSON.stringify(output,null,2)+'\n');
- console.log('R31_ORIGINAL_WEBGL2_PHASED_SOURCE_VISIBILITY_COMPLETE',
+ console.log('R32_ORIGINAL_WEBGL2_PHASED_SOURCE_VISIBILITY_COMPLETE',
   JSON.stringify(result.map(r=>({sec:r.timeSec,tick:r.sourceTick,cleanRAW:r.cleanRAW,realWebGL2:r.source.realWebGL2}))));
- assert(result.length===5 && targetIDs.length===0,'R31 original source camera five RAW contract');
+ assert(result.length===5 && targetIDs.length===0,'R32 original source camera five RAW contract');
  await context.close();
 }finally{
  await browser?.close().catch(()=>{});

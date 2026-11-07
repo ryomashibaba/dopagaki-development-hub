@@ -1,4 +1,4 @@
-"""R31 one art-directed working industrial inlet in the REAL original chase camera.
+"""R32 source camera continuation of R31 art-directed working industrial inlet in the REAL original chase camera.
 FIXED camera-composition brief:
   - NO enclosing 100m+ wall/roof in Road5's 65.xx near left foreground.
   - NO near-right cliff at turbine ~68.05.
@@ -260,3 +260,185 @@ report={
 }
 (out/'R31_SCENE_MANIFEST.json').write_text(json.dumps(report,indent=2)+'\n')
 print('R31_REAL_DCC_AUTHORED_CAMERA_FIRST_OPEN_WORKING_LOCKYARD',json.dumps(report))
+
+
+# R32 — ONE functional waterpower vertical-slice revision of the R31 camera-
+# clear candidate. R31 protected silhouettes/functional source groups stay
+# exactly unchanged. Replace *water only*, then add precisely situated
+# excavated working weirs, intake-fed supply and the actual wheel outfall.
+# No blanket cliff regeneration, no repeated skyline columns.
+R32_ORIGINAL_LOCKYARD_OPEN_VIEW=True
+R32_WATER_KEYS=('03','05','23','24')
+for R32_ID in R32_WATER_KEYS:GROUPS[R31_G(R32_ID)].clear()
+R32_SOURCE_Y=sample(5,.755)['center'][1]
+R32_DROPS=[
+ (.749,-18.),(.789,-22.),(.819,-24.),(.836,-26.),
+ (.843,-52.),(.880,-55.),(.901,-58.),(.911,-84.),
+ (.955,-86.),(.992,-88.)]
+R32_WATER_SECTIONS=[]
+def R32_WATER(u,d,height,j=0):
+    p,f,s=frame(5,u)
+    pos=offset_edge(p,s,d+1.5*math.sin(u*31.+d*.11),'L')
+    # Absolute world gravity head, not grade-relative offset that follows
+    # source road slopes. Water cannot climb between weirs.
+    return (pos[0],R32_SOURCE_Y+height+0.33*math.sin(u*53.+j*.82),pos[2])
+def R32_AT(u,sideOffset,worldHeight):
+    p,f,s=frame(5,u)
+    x,y,z=offset_edge(p,s,sideOffset,'L')
+    return (x,worldHeight,z)
+for R32_K in range(len(R32_DROPS)-1):
+    (ua,ha),(ub,hb)=R32_DROPS[R32_K:R32_K+2]
+    waterfall=hb-ha<=-20.
+    sector=('23' if R32_K<4 else '24' if R32_K>6 else '03')
+    for strip in range(20):
+        d0=61.+strip*4.5
+        d1=d0+4.5
+        a=R32_WATER(ua,d0,ha,strip)
+        b=R32_WATER(ua,d1,ha,strip+1)
+        c=R32_WATER(ub,d1,hb,strip+1)
+        d=R32_WATER(ub,d0,hb,strip)
+        m=('r31_foam' if waterfall and strip%4!=0 else
+           'shallows' if strip in (0,19) else 'r31_dark_water')
+        quad(R31_G('05' if waterfall else sector),a,b,c,d,m,False)
+        if waterfall and strip in (1,4,7,11,15,18):
+            mid=mix(a,c,.49)
+            # Shape of a falling curtain with foaming air pocket visibly
+            # projected toward camera, not a same-height sea flat.
+            tri(R31_G('05'),a,c,add(mid,(0,2.8+strip*.06,0)),'foam')
+            tri(R31_G('05'),b,d,add(mid,(0,5.0+math.sin(strip),0)),'r31_foam')
+    R32_WATER_SECTIONS.append({
+      'road5U':[ua,ub],'upperAbsoluteWorldY':R32_SOURCE_Y+ha,
+      'lowerAbsoluteWorldY':R32_SOURCE_Y+hb,'realDropM':ha-hb,
+      'visibleCurtain':waterfall})
+assert sum(x['visibleCurtain'] for x in R32_WATER_SECTIONS)==2
+assert sum(x['realDropM'] for x in R32_WATER_SECTIONS)==70.
+# Hydraulic cutaway bed under both falling water sheets. This creates
+# a dark dimensional scarp behind the visible foam, not transparent water
+# hovering over turquoise background.
+for ua,ub,upper,lower in ((.833,.846,-24.,-54.),(.899,.914,-58.,-86.)):
+    for k in range(14):
+        d0=61.+k*6.3;d1=d0+6.3
+        topa=R32_AT(ua,d0,R32_SOURCE_Y+upper-2.)
+        topb=R32_AT(ua,d1,R32_SOURCE_Y+upper-2.)
+        lowa=R32_AT(ub,d0,R32_SOURCE_Y+lower-11.)
+        lowb=R32_AT(ub,d1,R32_SOURCE_Y+lower-11.)
+        quad(R31_G('02' if ua<.85 else '22'),topa,topb,lowb,lowa,
+             'r31_cutface' if k%3 else 'r31_shelf',False)
+# Two locally massive gate abutment pairs flank the actual 90m wide water
+# corridor, anchored under the pool bed. NOT over Road5 B48.
+def R32_CAISSON(u,d,group,crest):
+    p,forward,side=frame(5,u)
+    anchor=offset_edge(p,side,d,'L')
+    y0=R32_SOURCE_Y+crest
+    def q(t,delta,above):
+        return (anchor[0]+forward[0]*t-side[0]*delta,
+                y0+above,
+                anchor[2]+forward[2]*t-side[2]*delta)
+    a=[q(-5,-5,-52),q(-5,-5,9),q(-5,13,17),q(-5,16,-54)]
+    b=[q(18,-5,-54),q(18,-5,7),q(18,12,13),q(18,16,-55)]
+    for n in range(4):
+        m=(n+1)%4
+        quad(R31_G(group),a[n],a[m],b[m],b[n],
+             'r31_cutface' if n in (0,2) else 'r31_quay',False)
+    quad(R31_G(group),a[0],a[3],a[2],a[1],'r31_quay',False)
+    quad(R31_G(group),b[0],b[1],b[2],b[3],'r31_quay',False)
+    # mechanical lift slot, not an empty decorative highway gate
+    beam(R31_G('08'),q(5,7,-45),q(6,7,12),2.2,'r31_iron')
+    return q(10,5,-9),q(10,5,-33)
+R32_GATE_ANCHORS=[]
+for u,crest in ((.837,-26.),(.905,-58.)):
+    a,ab=R32_CAISSON(u,57.,'04',crest)
+    c,cb=R32_CAISSON(u,157.,'06',crest)
+    R32_GATE_ANCHORS.extend((a,c))
+    # Inboard-to-outboard water lip is placed only across the water, far
+    # beyond the true road edge. No roof/bridge over drivable surface.
+    beam(R31_G('07'),add(a,(0,12,0)),add(c,(0,12,0)),1.9,'r31_bronze')
+    for origin in (a,c):
+        beam(R31_G('11'),origin,add(origin,(0,27,0)),1.35,'r31_iron')
+        # flood control hinge plate with its lower edge in the channel
+        tri(R31_G('36'),origin,add(origin,(0,22,0)),
+            add(origin,(8,3,5)),'r31_operational')
+# Lower basin is recognizable as a collecting pool by dark water, angled
+# piers, impact foam and an outfall; NEVER one uniform cyan wall.
+for u,level in ((.857,-54.),(.925,-84.)):
+    for s in range(10):
+        du=.006*s/10
+        for k in range(5):
+            d0=70.+k*14.; d1=d0+14.
+            a=R32_WATER(u+du,d0,level,k)
+            b=R32_WATER(u+du,d1,level,k)
+            c=R32_WATER(u+du+.006,d1,level,k+1)
+            d=R32_WATER(u+du+.006,d0,level,k+1)
+            quad(R31_G('03' if u<.9 else '24'),a,b,c,d,
+                 'r31_dark_water' if (s+k)%4 else 'shallows',False)
+# Intake 34 isn't movable and cannot be reauthored. Its actual source
+# bounding box anchors a short industrial penstock into the HIGH water.
+R32_INTAKE=R31_ORIGINAL_BBOX['34']
+R32_I_X=sum(R32_INTAKE[0])*.5
+R32_I_Z=sum(R32_INTAKE[2])*.5
+R32_I_Y=R32_INTAKE[1][0]
+for dx,g in ((-9.,'14'),(10.,'18')):
+    top=(R32_I_X+dx,R32_I_Y+11.,R32_I_Z-9.)
+    out=(R32_I_X+dx+12.,R32_I_Y-21.,R32_I_Z-34.)
+    beam(R31_G(g),top,out,3.5,'r31_bronze')
+    tri(R31_G(g),top,(out[0]+9.,out[1]-16.,out[2]-5.),
+        (out[0]-7.,out[1]-27.,out[2]+7.),'r31_cutface')
+# EXISTING turbine 41/42 is untouched. Architect a real lower-basin
+# outfall in its local coordinate bounds, not disconnected isolated sticks.
+R32_T=R31_ORIGINAL_BBOX['41']
+R32_X=sum(R32_T[0])*.5
+R32_Z=sum(R32_T[2])*.5
+R32_B=R32_T[1][0]
+R32_CHANNEL=[
+ (R32_X-37.,R32_B-66.,R32_Z+50.),
+ (R32_X-21.,R32_B-74.,R32_Z+28.),
+ (R32_X+22.,R32_B-78.,R32_Z+21.),
+ (R32_X+37.,R32_B-70.,R32_Z+44.)
+]
+# Open-top powerhouse outfall with thick cut stone side cheeks.
+for i,g in ((0,'31'),(3,'32')):
+    base=R32_CHANNEL[i]
+    top=add(base,(0,41.,0))
+    beam(R31_G(g),base,top,6.5,'r31_quay')
+    tri(R31_G('28'),add(base,(-9,-18,-4)),add(base,(11,-19,7)),
+        add(top,(0,1,9)),'r31_cutface')
+quad(R31_G('30'),R32_CHANNEL[0],R32_CHANNEL[1],R32_CHANNEL[2],
+     R32_CHANNEL[3],'r31_dark_water',False)
+for i in range(7):
+    u=i/7.
+    p=mix(R32_CHANNEL[1],R32_CHANNEL[2],u)
+    q=add(p,(0,8.0+2*math.sin(i*.8),0))
+    tri(R31_G('29'),add(p,(-4,0,-7)),add(p,(4,0,-6)),q,'r31_foam')
+beam(R31_G('17'),(R32_X+17.,R32_B-17.,R32_Z+16.),
+     (R32_X+31.,R32_B-58.,R32_Z+21.),3.0,'r31_iron')
+# This scene is necessarily a visual research candidate. R32 does not
+# replace fluid dynamics, B51 collisions, gameplay or HUMAN judgement.
+assert all(GROUPS[k]==orig for k,orig in R31_PROTECTED.items())
+assert len(GROUPS)==43 and all(GROUPS[R31_G(k)] for k in R31_EDIT)
+assert site['newColliders']==0 and site['originalB51Count']==28
+R32_MANIFEST={
+ 'schema':'k4ct-active-art-r32-camera-anchored-double-drop-intake-turbine-v1',
+ 'candidate':'ONE_LOW_OPEN_SOURCE_VISIBLE_TWO_STAGE_INTAKE_TO_TURBINE',
+ 'R31OriginalChaseViewPreserved':R32_ORIGINAL_LOCKYARD_OPEN_VIEW,
+ 'sameOriginalBlenderAuthorIsolated':True,
+ 'sourceRelativeWaterReferenceY':R32_SOURCE_Y,
+ 'stagedWatercourse':R32_WATER_SECTIONS,
+ 'visualWorldDropTotalM':70.,
+ 'realGravityFluidSimulation':False,
+ 'source34ActualXYZBoundingBox':R32_INTAKE,
+ 'source41ActualXYZBoundingBox':R32_T,
+ 'functionalGateAnchorCount':len(R32_GATE_ANCHORS),
+ 'hydraulicPurpose':'Source intake gallery, two open sluices, recessed receiving water and lower turbine outfall; visual-only',
+ 'protectedGroupCounts':{k:len(v) for k,v in R31_PROTECTED.items()},
+ 'reworkedGroups':{k:len(GROUPS[R31_G(k)]) for k in R31_EDIT},
+ 'realBlenderBeveledStoneVolumes':R31_DCC,
+ 'newColliders':0,'originalB48':7,'originalB51':28,
+ 'formalArtAdopted':0,'slope2DNAmeters':0,
+ 'originalWebGL2ActualRAWRequired':True,
+ 'ART':'HOLD','HUMAN':'HOLD','SAT':'HOLD',
+ 'CCD':'HOLD','FPS':'HOLD','RELEASE':'HOLD','MERGE':'HOLD'
+}
+(out/'R32_SCENE_MANIFEST.json').write_text(
+ json.dumps(R32_MANIFEST,indent=2)+'\n')
+print('R32_TIDAL_DOUBLE_DROP_SOURCE_BOUNDED_MECHANICAL_HARBOR_REAL_DCC',
+      json.dumps(R32_MANIFEST))
