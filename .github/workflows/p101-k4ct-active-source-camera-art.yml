@@ -1,4 +1,4 @@
-name: K4CT active source camera ART-first true Blender harbor R34
+name: K4CT original 240Hz source scene ART-first native Blender R36
 on:
   push:
     branches:
@@ -8,6 +8,8 @@ on:
       - scripts/p101-k4ct-r35-true-blender-forebay-markers.py
       - scripts/k4ct-r35-source-forebay-visibility.mjs
       - scripts/k4ct-r36-original-camera-dense-visibility.mjs
+      - scripts/p101-k4ct-r36-genuine-sluice-architecture.py
+      - scripts/k4ct-r36-original-art-native-raw.mjs
       - scripts/k4ct-active-art-original-camera-five-raw.mjs
       - scripts/p101-k4ct-active-source-camera-art-slice.py
       - .github/workflows/p101-k4ct-active-source-camera-art.yml
@@ -16,8 +18,8 @@ permissions:
   contents: read
   actions: read
 jobs:
-  active-camera-art-source-r34-five-raw:
-    if: ${{ !contains(github.event.head_commit.message, '[R33 group visibility]') && !contains(github.event.head_commit.message, '[R35 site probe]') && !contains(github.event.head_commit.message, '[R36 visibility]') }}
+  single-original-source-road6-art-r36:
+    if: ${{ contains(github.event.head_commit.message, '[R36 art]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 38
     steps:
@@ -30,13 +32,13 @@ jobs:
           set -euo pipefail
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
-          node --check scripts/k4ct-active-art-original-camera-five-raw.mjs
+          node --check scripts/k4ct-r36-original-art-native-raw.mjs
           node --check scripts/p101-k4ct-install-authored-dcc.mjs
           python3 - <<'PY'
           import ast,pathlib
-          for p in ('scripts/p101-k4ct-native-spillway-dcc.py','scripts/p101-k4ct-active-source-camera-art-slice.py'):
+          for p in ('scripts/p101-k4ct-native-spillway-dcc.py','scripts/p101-k4ct-r36-genuine-sluice-architecture.py'):
               ast.parse(pathlib.Path(p).read_text(),filename=p)
-          print('R34_SYNTAX_PASS_NO_PYC_WRITTEN')
+          print('R36_SYNTAX_PASS_NO_PYC_WRITTEN')
           PY
       - name: Build ORIGINAL PRIVATE native physics and source DCC site
         run: |
@@ -65,8 +67,8 @@ jobs:
         timeout-minutes: 9
         run: |
           blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4ct-native-spillway-dcc.py
-          mkdir -p test-results/k4ct-active-art
-          cp test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json test-results/k4ct-active-art/R34_ORIGINAL_PROTECTED_BASELINE.json
+          mkdir -p test-results/k4ct-r36-art
+          cp test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json test-results/k4ct-r36-art/R36_ORIGINAL_PROTECTED_BASELINE.json
           python3 - <<'PY'
           from pathlib import Path
           import ast,subprocess
@@ -76,14 +78,14 @@ jobs:
           marker='# Editability: separate mesh objects by functional zones'
           original=p.read_text()
           assert original.count(marker)==1
-          inject="exec(compile(Path('scripts/p101-k4ct-active-source-camera-art-slice.py').read_text(), 'R34_TEMP_HARBOR', 'exec'))\n"
-          isolated=Path('test-results/k4ct-r34-temporary-blender-author.py')
+          inject="exec(compile(Path('scripts/p101-k4ct-r36-genuine-sluice-architecture.py').read_text(), 'R36_TEMP_HARBOR', 'exec'))\n"
+          isolated=Path('test-results/k4ct-r36-temporary-blender-author.py')
           isolated.parent.mkdir(parents=True,exist_ok=True)
           isolated.write_text(original.replace(marker,inject+marker))
           ast.parse(isolated.read_text(),filename=str(isolated))
-          print('R34_ISOLATED_DCC_PROBE_PREPARED_NO_REPO_AUTHOR_CHANGE')
+          print('R36_ISOLATED_DCC_PROBE_PREPARED_NO_REPO_AUTHOR_CHANGE')
           PY
-          blender -b --factory-startup --python-exit-code 3 --python test-results/k4ct-r34-temporary-blender-author.py
+          blender -b --factory-startup --python-exit-code 3 --python test-results/k4ct-r36-temporary-blender-author.py
           test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
       - name: Rebuild original PRIVATE WebGL2 renderer and install genuine temporary Blender DCC once
         run: |
@@ -94,74 +96,66 @@ jobs:
           node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
           node scripts/p101-k4ct-private-native-two-choice-game.mjs
           node scripts/p101-k4ct-install-authored-dcc.mjs
-      - name: Capture five actual ORIGINAL 240Hz Chromium RAW for independent ART-first review
+      - name: Capture 8 actual ORIGINAL 240Hz Chromium RAW around R36 artistic action
         timeout-minutes: 10
         run: |
-          node scripts/k4ct-active-art-original-camera-five-raw.mjs
-      - name: Independent actual ART scene/source protection audit (no approval)
+          node scripts/k4ct-r36-original-art-native-raw.mjs
+      - name: R36 independent 8 RAW source and exact 8 protected original XYZRGB audit
         run: |
           python3 - <<'PY'
           import json,pathlib,subprocess
-          d=pathlib.Path('test-results/k4ct-active-art-raw-native')
-          p=d/'K4CT_R34_TRUE_SOURCE_PHASED_VISIBILITY.json'
-          assert p.exists(),'Native source probe did not complete'
-          v=json.loads(p.read_text())
-          assert v['schema']=='k4ct-active-art-r34-two-stage-source-camera-five-raw-v1'
+          root=pathlib.Path('test-results')
+          d=root/'k4ct-r36-native-raw'
+          v=json.loads((d/'K4CT_R36_TRUE_SOURCE_PHASED_VISIBILITY.json').read_text())
+          assert v['schema']=='k4ct-r36-original-source-8-native-raw-hollow-spillway-v1'
           assert v['originalWebGL2'] and v['originalCamera'] and v['originalRunner240Hz']
           assert v['originalB48']==7 and v['originalB51']==28 and v['newColliders']==0
-          assert v['formalARTAdopted']==v['slope2DNAmeters']==0 and v['ART']=='HOLD'
-          assert all(v[k]=='HOLD' for k in ('HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
-          assert [x['sourceTick'] for x in v['sourceFramesRAW']]==[15660,15744,15924,16128,16332]
-          assert v['siteSignals']==[] and v['earlyRAWOnly'] and v['restorationParityNotMeasured']
+          assert v['formalARTAdopted']==v['slope2DNAmeters']==0
+          assert all(v[k]=='HOLD' for k in ('ART','HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
+          assert [x['sourceTick'] for x in v['sourceFramesRAW']]==[15744,15864,15900,15924,15948,15972,16008,16128]
+          assert len(v['sourceFramesRAW'])==8 and v['siteSignals']==[]
           for f in v['sourceFramesRAW']:
-              assert f['source']['depthEnabled'] and f['source']['depthBits']>0
-              assert f['source']['depthBits']>0 and f['originalCamera'] and f['originalGameFrame']
-              assert f['independentRestorationMeasurement']=='NOT_ATTEMPTED'
-              assert (d/f['cleanRAW']).read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
-          g=json.loads(pathlib.Path('test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+              assert f['source']['realWebGL2'] and f['source']['depthEnabled'] and f['source']['depthBits']>0
+              assert (d/f['cleanRAW']).read_bytes().startswith(b'\\x89PNG\\r\\n\\x1a\\n')
+          g=json.loads((root/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+          baseline=json.loads((root/'k4ct-r36-art/R36_ORIGINAL_PROTECTED_BASELINE.json').read_text())
+          scene=json.loads((root/'k4ct-r36-art/R36_ARCHITECTURAL_GATE_MANIFEST.json').read_text())
           assert g['originalB48']==7 and g['originalB51']==28 and g['newColliders']==0 and len(g['objects'])==43
-          baseline=json.loads(pathlib.Path('test-results/k4ct-active-art/R34_ORIGINAL_PROTECTED_BASELINE.json').read_text())
-          protected=('00','12','13','19','34','35','41','42')
-          def read_group(g,name):
-              cursor=0
-              for title,count in g['objects'].items():
-                  amount=count*18
-                  if title==name:return g['vertices'][cursor:cursor+amount]
-                  cursor+=amount
-              raise AssertionError('missing protected group '+name)
-          for name in baseline['objects']:
-              if name[:2] in protected:
-                  assert g['objects'][name]==baseline['objects'][name]
-                  assert read_group(g,name)==read_group(baseline,name),('R34_PROTECTED_GEOMETRY_OR_COLOR_CHANGED',name)
-          print('R34_ALL_EIGHT_PROTECTED_GROUPS_SOURCE_XYZ_RGB_EXACT_PARITY')
-          scene=json.loads(pathlib.Path('test-results/k4ct-active-art/R34_SCENE_MANIFEST.json').read_text())
-          assert len(scene['protectedGroupCounts'])==8 and len(scene['reworkedGroups'])==35
-          assert scene['newColliders']==scene['formalArtAdopted']==scene['slope2DNAmeters']==0
-          assert len(scene['realBlenderBeveledStoneVolumes'])==3
-          assert sum(x['beveledRealBlenderFaces'] for x in scene['realBlenderBeveledStoneVolumes'])>350
-          assert scene['requiresActualOriginalCameraWebGL2RAW'] and scene['sourceGameplayPhysicsAndCameraUnchanged']
-          assert scene['bankSide']=='R' and scene['original19ForebayProtectedExact']
-          assert len(scene['realDCCGateAbutments'])==3
-          assert min(scene['realWaterfallDropDepths'])>20
-          assert scene['waterSurfaceFaces']==504 and scene['foamTriangles']==36
-          assert scene['requiresActualOriginalCameraWebGL2RAW']
           assert g['sourcePhysicalRoad5SHA256']=='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b'
-          assert subprocess.check_output(['git','hash-object','scripts/p101-k4ct-native-spillway-dcc.py'],text=True).strip()=='096fffbc1627915eb0122224955bb02cfba6b3ae'
-          assert subprocess.check_output(['git','hash-object','web/p101-w9c2-g4e7ci-integrated-streetscape.mjs'],text=True).strip()=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert scene['schema']=='k4ct-r36-source-road6-one-real-blender-hollow-sluice-spillway-v1'
+          assert scene['archHasRealOpenAperture'] and not scene['originalSourceWater19Rewritten']
+          assert scene['originalRoadIndex']==6 and scene['originalRoadU']==.15 and scene['waterSourceR']
+          assert scene['newColliders']==scene['formalArtAdopted']==scene['slope2DNAmeters']==0
+          assert len(scene['actualBlenderBevelEvaluations'])>=5
+          assert scene['totalSceneTriangles']==g['triangles']
+          protected=('00','12','13','19','34','35','41','42')
+          def values(data,name):
+              cursor=0
+              for title,count in data['objects'].items():
+                  n=count*18
+                  if title==name:return data['vertices'][cursor:cursor+n]
+                  cursor+=n
+              raise AssertionError('missing source group '+name)
+          for name,count in baseline['objects'].items():
+              if name[:2] in protected:
+                  assert g['objects'][name]==count,('R36_PROTECTED_COUNT_CHANGED',name)
+                  assert values(g,name)==values(baseline,name),('R36_PROTECTED_XYZ_RGB_CHANGED',name)
+          for path,h in [('web/p101-w9c2-g4e7ci-integrated-streetscape.mjs','af076d67492a677d2235e4730aef8cdf4808e106'),('scripts/p101-k4ct-native-spillway-dcc.py','096fffbc1627915eb0122224955bb02cfba6b3ae')]:
+              assert subprocess.check_output(['git','hash-object',path],text=True).strip()==h
           status=subprocess.check_output(['git','status','--porcelain'],text=True).splitlines()
-          print('R34_EXACT_GIT_STATUS',status)
           bad=[s for s in status if not(s.startswith('?? ') and s[3:].startswith('test-results/'))]
-          assert not bad,'R34_UNEXPECTED_TRACKED_OR_NON_RESULT_UNTRACKED_PATHS'
-          print('R34_FIVE_GENUINE_BLENDER_NATIVE_RAW_EARLY_REVIEW_NOT_ART_PASS',[(s['id'],s['cleanObservedTicks']) for s in v['siteSignals']])
+          assert not bad,('R36_UNEXPECTED_PROTECTED_WORKTREE_CHANGE',bad)
+          print('R36_EIGHT_ORIGINAL_SOURCE_240HZ_WEBGL2_RAW_AND_8_PROTECTED_GROUP_EXACT_PARITY_PASS',
+                scene['totalSceneTriangles'],scene['actualBlenderBevelEvaluations'])
           PY
       - name: Preserve true source RAW, source-depth measurements, real Blender and QA diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: K4CT_R34_AUTHORED_OPEN_LOCKYARD_REAL_BLENDER_SOURCE_RAW_ART_HOLD
+          name: K4CT_R36_SOURCE_ROAD6_FUNCTIONAL_SPILLWAY_TRUE_DCC_NATIVE_RAW_ART_HOLD
           path: |
-            test-results/k4ct-active-art-raw-native/
-            test-results/k4ct-active-art/R34_SCENE_MANIFEST.json
+            test-results/k4ct-r36-native-raw/
+            test-results/k4ct-r36-art/R36_ARCHITECTURAL_GATE_MANIFEST.json
             test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json
             test-results/k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json
             test-results/k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend
