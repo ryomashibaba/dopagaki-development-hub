@@ -16,7 +16,7 @@ const DIR=path.resolve('test-results/k4ct-source-ownership');
 fs.mkdirSync(DIR,{recursive:true});
 const g=fs.readFileSync('web/p101-w9c2-g4e7ci-integrated-streetscape.mjs');
 const originalBlob=crypto.createHash('sha1').update(Buffer.concat([
- Buffer.from('blob '+g.length+'\\0'),g])).digest('hex');
+ Buffer.from('blob '+g.length+'\0'),g])).digest('hex');
 assert.equal(originalBlob,'af076d67492a677d2235e4730aef8cdf4808e106');
 const DCC=JSON.parse(fs.readFileSync('test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json','utf8'));
 const manifest=JSON.parse(fs.readFileSync('test-results/k4ct-active-art/R32_SCENE_MANIFEST.json','utf8'));
