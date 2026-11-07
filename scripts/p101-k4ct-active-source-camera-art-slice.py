@@ -442,3 +442,165 @@ R32_MANIFEST={
  json.dumps(R32_MANIFEST,indent=2)+'\n')
 print('R32_TIDAL_DOUBLE_DROP_SOURCE_BOUNDED_MECHANICAL_HARBOR_REAL_DCC',
       json.dumps(R32_MANIFEST))
+
+
+# R34: SOURCE-RIGHT open waterpower estuary. R33 genuine original 240Hz
+# WebGL demonstrated 19 preserved forebay influences 35.96% of left-water
+# at 65.25, while R32's newly placed LEFT-side 03/05/23/24 influence 0.
+# This geometric correction is not a redesign of the game or R12A source.
+R34_PRESERVED=R31_PROTECTED['19_R6_SOURCE_FRAMED_UPPER_TIDAL_FOREBAY']
+R34_PROTECTED_BBOX=R31_BBOX('19')
+assert len(R34_PRESERVED)==1440
+assert R34_PROTECTED_BBOX[1][0]<=93.01 and R34_PROTECTED_BBOX[1][1]>=105.79
+R34_FOREBAY_SIDE='R'
+R34_SOURCE_WATER_Y=105.0
+R34_U_START=.68;R34_U_END=.858
+R34_PROFILE=[
+ (99.,105.45),(107.,105.4),(114.,103.4),
+ (128.,76.2),(141.,75.5),(158.,73.6),
+ (172.,50.0),(192.,49.3)]
+assert len(R34_PROFILE)==8 and R34_PROFILE[2][1]-R34_PROFILE[3][1]>26
+assert R34_PROFILE[5][1]-R34_PROFILE[6][1]>23
+# Remove ONLY four nonprotected, demonstrably wrong-side R32 research water
+# groups. The original group19 forebay and 7 other protected groups are intact.
+for R34_ID in ('03','05','23','24'):
+    GROUPS[R31_G(R34_ID)].clear()
+COLORS.update({
+ 'r34_high_head':(.130,.365,.406),
+ 'r34_deep_pool':(.075,.238,.280),
+ 'r34_watercurtain':(.46,.74,.70),
+ 'r34_crystal_foam':(.72,.81,.75),
+ 'r34_wetted_quarry':(.245,.330,.317),
+ 'r34_rust_cut':(.522,.421,.311),
+ 'r34_copper_hydraulics':(.530,.397,.243)
+})
+def R34_RIGHT(u,d,y,delay=0.):
+    p,f,s=frame(5,u)
+    world=offset_edge(p,s,d,'R')
+    return (world[0],y+delay,world[2])
+def R34_WATER_PROFILES(u,k):
+    # A single right-bank gravity channel with an actual upstream seam
+    # 0.4m above the original protected group19 surface.
+    return [R34_RIGHT(u,dist,y,.20*math.sin(u*63.+k*.61))
+            for dist,y in R34_PROFILE]
+R34_UPPER_VISIBLE_MIN_Y=min(R34_PROFILE[0][1],R34_PROFILE[1][1])
+R34_FOAM_COUNT=0
+R34_CONTINUOUS_WATER_FACES=0
+for i in range(36):
+    u0=R34_U_START+(R34_U_END-R34_U_START)*i/36
+    u1=R34_U_START+(R34_U_END-R34_U_START)*(i+1)/36
+    A=R34_WATER_PROFILES(u0,i)
+    B=R34_WATER_PROFILES(u1,i+1)
+    for band in range(7):
+        isFall=band in (2,5)
+        g='05' if isFall else ('23' if band<3 else '24' if band>4 else '03')
+        m='r34_watercurtain' if isFall else (
+          'r34_high_head' if band<2 else 'r34_deep_pool')
+        quad(R31_G(g),A[band],B[band],B[band+1],A[band+1],m,False)
+        R34_CONTINUOUS_WATER_FACES+=2
+        if isFall and i%2==0:
+            # Actual sculpted 3D fall crest, not a colored sea plane.
+            center=mix(A[band],B[band+1],.5)
+            tri(R31_G('05'),A[band],B[band+1],
+                add(center,(0,4.8+3*math.sin(i*.37),0)),'r34_crystal_foam')
+            R34_FOAM_COUNT+=1
+assert R34_CONTINUOUS_WATER_FACES==504 and R34_FOAM_COUNT==36
+# Exposed top edge of the existing group 19 becomes a continuous excavated
+# retaining sill. This is ADDITIVE quarry mass, not editing protected 19.
+def R34_QUARRY_JAW(name,u,d,group,width):
+    origin=R34_RIGHT(u,d,105.)
+    p,fw,side=frame(5,u)
+    # Thick irregular 3D overhanging stone, its load goes to the
+    # lower stepped basin. Height always below the original road surface.
+    def here(a,b,y):
+        return add(origin,add(mul(fw,a),add(mul(side,b),(0,y-105.,0))))
+    verts=[
+      here(-width*.45,-6.,37.),here(-width*.45,-5.,111.),
+      here(-width*.55,12.,115.),here(-width*.50,20.,45.),
+      here(width*.56,-6.,37.),here(width*.45,-5.,111.),
+      here(width*.48,12.,113.),here(width*.57,20.,43.)]
+    faces=[(0,1,2,3),(4,7,6,5),(0,4,5,1),
+           (1,5,6,2),(2,6,7,3),(3,7,4,0)]
+    mesh=bpy.data.meshes.new(name+'_TRUE_QUARRY_CUT_MESH')
+    mesh.from_pydata([world_to_blender(v) for v in verts],[],faces);mesh.update()
+    obj=bpy.data.objects.new(name+'_EDITABLE_GATE_ABUTMENT',mesh)
+    bpy.context.collection.objects.link(obj)
+    bevel=obj.modifiers.new('R34_GENUINE_BLENDER_BEVEL_CUT_ARRIS','BEVEL')
+    bevel.width=2.3;bevel.segments=3;bevel.limit_method='ANGLE';bevel.angle_limit=.65
+    bpy.context.view_layer.update()
+    eo=obj.evaluated_get(bpy.context.evaluated_depsgraph_get())
+    actual=eo.to_mesh()
+    bm=bmesh.new();bm.from_mesh(actual);bmesh.ops.triangulate(bm,faces=list(bm.faces))
+    polys=list(bm.faces)
+    assert len(polys)>25
+    for f in polys:
+        vs=[(float(v.co.x),float(v.co.z),float(-v.co.y)) for v in f.verts]
+        tri(R31_G(group),*vs,'r34_wetted_quarry' if sum(p[1] for p in vs)/3<103 else 'r34_rust_cut')
+    count=len(polys)
+    bm.free();eo.to_mesh_clear()
+    bpy.data.objects.remove(obj,do_unlink=True)
+    return {'name':name,'realBlenderBeveledTriangles':count,'sourceU':u,'rightBankD':d}
+R34_JAWS=[
+ R34_QUARRY_JAW('HEADRACE_LEFT_CUT_GATE',.725,112.,'06',21.),
+ R34_QUARRY_JAW('HEADRACE_RIGHT_CUT_GATE',.790,112.,'07',30.),
+ R34_QUARRY_JAW('LOWER_SPILLWAY_BUTTRESS',.759,161.,'08',26.)
+]
+# Load-bearing and control elements: one asymmetrical open control
+# winch, short angled gate/rack, plunge-basin protecting walls.
+R34_A=R34_RIGHT(.735,116.,110.)
+R34_B=R34_RIGHT(.781,119.,110.)
+beam(R31_G('11'),R34_A,R34_B,2.7,'r34_copper_hydraulics')
+for i in range(3):
+    u=.731+.022*i
+    head=R34_RIGHT(u,117.,110.)
+    drop=R34_RIGHT(u,129.,74.)
+    beam(R31_G('14'),head,drop,2.1,'r34_copper_hydraulics')
+    foot=R34_RIGHT(u,143.,69.)
+    tri(R31_G('16'),drop,foot,
+        R34_RIGHT(u+.006,140.,88.),'r34_wetted_quarry')
+# Lower catchment and sea-facing barge berth: no crossing original B48.
+for i in range(13):
+    u=.718+i*.009
+    for band in range(3):
+        left=R34_RIGHT(u,170+band*10,49.25)
+        right=R34_RIGHT(u+.008,170+band*10,49.25)
+        q=R34_RIGHT(u+.008,180+band*10,49.1)
+        s=R34_RIGHT(u,180+band*10,49.1)
+        quad(R31_G('03'),left,right,q,s,'r34_deep_pool',False)
+# A single outboard industrial bridge to make level/structural logic
+# legible, not ornamental evenly spaced road-spanning columns.
+R34_BERTH_A=R34_RIGHT(.730,187.,61.)
+R34_BERTH_B=R34_RIGHT(.822,185.,61.)
+beam(R31_G('20'),R34_BERTH_A,R34_BERTH_B,3.1,'r34_wetted_quarry')
+beam(R31_G('25'),R34_RIGHT(.733,188.,39.),R34_BERTH_A,3.4,'r34_wetted_quarry')
+beam(R31_G('26'),R34_RIGHT(.817,185.,39.),R34_BERTH_B,3.5,'r34_wetted_quarry')
+# Check the source island is on R, below road skyline, while group 19's
+# original triangle tuples are strictly identical.
+assert GROUPS[R31_G('19')]==R34_PRESERVED
+assert all(GROUPS[k]==v for k,v in R31_PROTECTED.items())
+assert len(GROUPS)==43 and all(GROUPS[R31_G(k)] for k in R31_EDIT)
+assert site['newColliders']==0
+R34_MANIFEST={
+ 'schema':'k4ct-r34-source-right-existing-forebay19-visible-spillway-v1',
+ 'artMethod':'One real Blender geometry gate and two water drops on source RIGHT edge of immutable 19 forebay',
+ 'evidenceR33Run':42361486705,'R33ForebayChangedLeftPctAt65_60':32.93,
+ 'original19ForebayProtectedExact':True,'bankSide':'R',
+ 'upstreamWorldY':105.45,'originalForebayWorldY':105.,
+ 'road5U':[R34_U_START,R34_U_END],
+ 'lateralDistanceFromOriginalRoadRight':[R34_PROFILE[0][0],R34_PROFILE[-1][0]],
+ 'realDCCGateAbutments':R34_JAWS,
+ 'realWaterfallDropDepths':[27.2,23.6],
+ 'waterSurfaceFaces':R34_CONTINUOUS_WATER_FACES,'foamTriangles':R34_FOAM_COUNT,
+ 'sourceGameplayPhysicsAndCameraUnchanged':True,
+ 'realBlenderMeshEditable':True,
+ 'protectedGroupCounts':{k:len(v) for k,v in R31_PROTECTED.items()},
+ 'reworkedGroups':{k:len(GROUPS[R31_G(k)]) for k in R31_EDIT},
+ 'newColliders':0,'originalB48':7,'originalB51':28,
+ 'formalArtAdopted':0,'slope2DNAmeters':0,
+ 'ART':'HOLD','HUMAN':'HOLD','SAT':'HOLD','CCD':'HOLD',
+ 'FPS':'HOLD','RELEASE':'HOLD','MERGE':'HOLD',
+ 'requiresActualOriginalCameraWebGL2RAW':True}
+(out/'R34_SCENE_MANIFEST.json').write_text(
+ json.dumps(R34_MANIFEST,indent=2)+'\n')
+print('R34_SOURCE_RIGHT_GENUINE_DCC_OPEN_SPILLWAY_WITH_FOREBAY19_PROTECTED',
+      json.dumps(R34_MANIFEST))
