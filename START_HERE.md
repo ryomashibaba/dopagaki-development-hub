@@ -1,6 +1,10 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
 **現行：2026-11-07 JST／R24は従来の平坦な海面03と長い4ベイ水門06を真正Blenderで改修し、上流と海で約23.5mの高低差を持つ実3D水路／2門式水門／落水を制作。元Chromium/WebGL2／元240Hzの5時点8群CI #42320518854 TECH SUCCESS、43群・22,980三角形。ただし真GLの水門06影響は65.25秒0.00048%・残り4時点0%、放流水05・門扉07は5時点全0%。元ゲーム画面は長い灰色の梁とシアン水面が残り、68.05秒には不自然な繰返し帯と孤立した海上柱が見えるため**ART REJECT**。研究DCC作者だけ既存成功R12A Git blob `096fffbc...`へ完全一致復元、元Game/Road5/Camera/240Hz/B51・main/公式P101/PR46不変。正式ART0件／Slope2 DNA0m、HUMAN/SAT/CCD/FPS/RELEASE/MERGE HOLD。**次R25は大型DCCの再制作前に真カメラGL深度・画面内可視を直接検証する小さな配置ゲートへ切り替え**、見えない水門や飾りの量産を停止する。QUALITY/ART/DCC-FIRST維持。**
 
+## 2026-11-07 V13.0（R24→R25）新チャット完全移行
+
+**最初に読む現行の批判的再評価・R25実行契約：** [V13.0 完全統合・全方針・R13〜R24否定実証・操作最小化・短い新チャット開始文](docs/DOPAGAKI_COMPLETE_CRITICAL_HANDOFF_AFTER_R24_R25_20261107_JA.md)。R24は真正TECH PASS／ART REJECTでR12A作者へ復元済み。**新チャットではR25の本物GL可視確認→見える一体型Blender景観の実制作へ進むこと**。旧V12.1は全履歴・最上位安全条件の正本として保持する。GitHub HEADは必ずライブ確認し、ここに記載の作成時HEADを将来の現在HEADと取り違えない。
+
 ## まず読む（新チャット最短経路）
 1. **唯一の現行戦略正本**：[R12→R13 統合引き継ぎ・全方針と批判監査](docs/DOPAGAKI_CANONICAL_CRITICAL_HANDOFF_R12_TO_R13_20261106_JA.md)
 2. **最新研究・安全・否定結果**：[R12全群画素影響度＋R12B不採用・安全復元](research-evidence/k4ct/K4CT_R12_VISIBILITY_AND_ART_REJECTION_SAFE_RESTORE_20261106.json)
