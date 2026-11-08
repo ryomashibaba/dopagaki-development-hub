@@ -1,0 +1,229 @@
+{
+  "schema": "dopagaki-k4ct-r45-true-original-gl-temporal-semantic-art-veto-v1",
+  "recordDateJST": "2026-11-08",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "source": {
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "researchBranch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "researchHEADBeforeCommit": "80dba846876aeb1dd06a44fd8eee0f7cc2734b59",
+    "R39OriginalWebGL2Run": 42378264567,
+    "R39ArtifactID": 13576108423,
+    "R39ArtifactSHA256": "0ea313f4b7161e55842357b50a69828e9ad6c183dfffd86197618ab7f6aa9507",
+    "R44OriginalWebGL2Run": 42384597099,
+    "R44ArtifactID": 13578848939,
+    "R44ArtifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42384597099/artifacts/13578848939",
+    "R44ArtifactSHA256": "c05188982a541d340ec1a1f73ae877712cc46511a23f3c81fed4d2171cdad076",
+    "R44ArtifactExpiryUTC": "2026-11-14T15:07:57Z",
+    "R44ActualNativeGL": true,
+    "R44SourceCameraUnmodified": true,
+    "R44Source240HzTicks": [
+      15900,
+      15924,
+      15972
+    ],
+    "R44ProtectedSameTickRestorationValid": true,
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "mainSHA": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "pr46": {
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "19d3a32d525c0c2a67082cba646898fab8f2b60f"
+    }
+  },
+  "method": {
+    "execution": "OFFLINE_REAL_RAW_SCREEN_MASK_AUDIT; no new game engine, native GL or Blender execution",
+    "originalCapturedImageShapeWH": [
+      1365,
+      930
+    ],
+    "ROI": {
+      "x0": 0,
+      "y0": 100,
+      "x1": 1365,
+      "y1": 780,
+      "totalPixels": 928200
+    },
+    "originalMetaPath": "k4ct-r44-native-water/K4CT_R44_THREE_STAGE_WATER_VISIBILITY.json",
+    "sourceFramePattern": "k4ct-r44-native-water/R44_TRUE_ORIGINAL_T{time}_BASE.png",
+    "groupHidePattern": "k4ct-r44-native-water/R44_ORIGINAL_T{time}_HIDE_{group}.png",
+    "maskDefinition": "max(|RGB_source_raw-RGB_groupHidden|) >25 for each same-tick source-original Chromium/WebGL2 frame, restricted to gameFrame ROI",
+    "pixelSetDistance": "min Euclidean distance between pixels in 2 source-gl influence masks; distance 0 indicates a shared affected pixel; NOT real surface contact",
+    "CRCVerified": true,
+    "artifactSHA256Verified": true,
+    "exactNativeLoggedPixelCountsMatchedLocalRecalculation": true,
+    "reviewAnnotationIsNotUnmodifiedRAW": true,
+    "testedTwiceOnR39AndR44": true,
+    "localReproducibleVetoScriptSHA256": "1549b92bb534e7e08577251a11e5f259d7a0a9adc74e67eef537531852353f20",
+    "localEvidenceBundleSHA256": "bff8631c6a9ec0c770343162de19ded32aaa0e0d04be5994727e825819d2210a",
+    "note": "Script and annotated preview were created and executed in the current conversation; they are not asserted to be committed to the repository. GitHub stores this durable measurement record and the original CI code."
+  },
+  "R39Group24NativeImpactRGBgt25": [
+    0,
+    0,
+    0
+  ],
+  "R44Group24NativeImpactRGBgt25": [
+    215,
+    281,
+    470
+  ],
+  "actualR44FrameMeasurements": [
+    {
+      "seconds": 66.25,
+      "tick": 15900,
+      "group23": {
+        "pixelImpactRGBgt25": 362,
+        "bboxInclusive": [
+          347,
+          329,
+          430,
+          338
+        ],
+        "bboxWH": [
+          84,
+          10
+        ]
+      },
+      "group24": {
+        "pixelImpactRGBgt25": 215,
+        "bboxInclusive": [
+          317,
+          338,
+          348,
+          353
+        ],
+        "bboxWH": [
+          32,
+          16
+        ],
+        "coveragePercentOfROI": 0.0231631
+      },
+      "source23ToFall24InfluenceMaskDistancePx": 0,
+      "gate17InfluenceMaskDistancePx": "NOT_COMPUTED_NO_GATE17_HIDDEN_PNG_IN_ARTIFACT"
+    },
+    {
+      "seconds": 66.35,
+      "tick": 15924,
+      "group23": {
+        "pixelImpactRGBgt25": 491,
+        "bboxInclusive": [
+          304,
+          333,
+          386,
+          342
+        ],
+        "bboxWH": [
+          83,
+          10
+        ]
+      },
+      "group24": {
+        "pixelImpactRGBgt25": 281,
+        "bboxInclusive": [
+          250,
+          345,
+          293,
+          361
+        ],
+        "bboxWH": [
+          44,
+          17
+        ],
+        "coveragePercentOfROI": 0.0302736
+      },
+      "gate17": {
+        "pixelImpactRGBgt25": 460,
+        "bboxInclusive": [
+          321,
+          310,
+          353,
+          336
+        ],
+        "bboxWH": [
+          33,
+          27
+        ]
+      },
+      "source23ToFall24InfluenceMaskDistancePx": 13.601,
+      "gate17ToFall24InfluenceMaskDistancePx": 32.28
+    },
+    {
+      "seconds": 66.55,
+      "tick": 15972,
+      "group23": {
+        "pixelImpactRGBgt25": 872,
+        "bboxInclusive": [
+          176,
+          343,
+          304,
+          360
+        ],
+        "bboxWH": [
+          129,
+          18
+        ]
+      },
+      "group24": {
+        "pixelImpactRGBgt25": 470,
+        "bboxInclusive": [
+          117,
+          361,
+          182,
+          382
+        ],
+        "bboxWH": [
+          66,
+          22
+        ],
+        "coveragePercentOfROI": 0.0506356
+      },
+      "source23ToFall24InfluenceMaskDistancePx": 1,
+      "gate17InfluenceMaskDistancePx": "NOT_COMPUTED_NO_GATE17_HIDDEN_PNG_IN_ARTIFACT"
+    }
+  ],
+  "criticalARTReview": {
+    "actualHumanVisualJudgment": "DIRECT RAW REVIEW OF R44 remains EARLY ART REJECT. The segment masks show an important screen-space fracture at the middle source-camera frame (13.601 px) and separation from the mechanically supported gate (32.28 px), while fall bbox remains only 17 px high. All three projected groups being measurable was not enough to communicate a complete causal industrial water machine.",
+    "technologyAdvance": "R39 to R44 solved group24 never contributing (0→nonzero all three) but not continuity or high-speed semantic legibility.",
+    "keyFinding": "Future author's priority must be camera-readable unified structure/source head/descending fall/receiver/support gate, not larger pixel-change ratios, polygon counts, material rename or duplicated R44.",
+    "limits": [
+      "Difference masks are screen contribution, not exclusive visible object pixels.",
+      "Group23/24 world vertices may be connected while visible influence-mask pixels are separated; 13.601 is not a physical gap.",
+      "Only middle tick includes archived gate17 hidden PNG; no gate impact distance was calculated at 66.25/66.55.",
+      "No formal legibility threshold or human perceptual validity assigned to any pixel count.",
+      "No proof of watertight gravity intake, fluid movement, B51 human decision, collision clearance or art acceptance."
+    ],
+    "verdict": "R45_TECH_AUDIT_PASS__R44_EARLY_ART_REJECT_UNCHANGED__METHOD_HOLD"
+  },
+  "nextGate": {
+    "sequence": "FIRST propose one substantially different visual composition by reference to the ORIGINAL raw chase camera and preserved forebay19, with three timepoints visibly articulating actual inlet→fall→receiver and a grounded functional machine while retaining road/HUD/B51. ONLY IF clear visual proof and acceptable protected geometry exists, do one new isolated real Blender candidate and source GL RAW validation.",
+    "stopRule": "No same-candidate R44 visual micro-polish, no extra CI to green completed data, no protected 8/Game/Camera/physics source edits, no formal adoption."
+  },
+  "status": {
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "ART": "R44_REJECT",
+    "METHOD": "HOLD",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "mainUnchanged": true,
+    "PR46OpenDraftUnmerged": true,
+    "originalGameAndBlenderAuthorUnchanged": true,
+    "roadAndB48B51Camera240HzUnchanged": true,
+    "newCI": 0,
+    "newBlenderRuns": 0,
+    "paidAPI": 0,
+    "userOperations": 0,
+    "work": false,
+    "computerUse": false,
+    "published": false,
+    "merged": false
+  }
+}
