@@ -1,8 +1,11 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
-**2026-11-08 JST／R64-A METHOD HOLD・R64-C予測位置HUDの研究修正。V16が最新正本、固定V15不変。**
+**2026-11-08 JST／R72真正ローカル元240Hz試走セット・手動切替とJSON保存PASS／実HUMAN HOLD。V16が最新上位正本、固定V15不変。**
 
 ## 読取順（現在の唯一の移行入口）
-**[V16 R63後・二段階批判的統合引き継ぎ](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)** → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md) → [R50歴史的統合](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md)。V14/V13/V12.1は必要な古い証拠だけ参照。**R53以下の次工程は履歴。新しい指示はV16第7章のR64。不要な長文引継ぎを今後量産しない。**
+**[V16 R63後・二段階批判的統合引き継ぎ](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)** → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md) → [R50歴史的統合](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md)。V14/V13/V12.1は必要な古い証拠だけ参照。**旧R64以前の『次工程』文言は履歴。V16第7章の品質・保護条件を継承し、現在の進捗と次行動は本START_HERE先頭のR72結果を参照。不要な長文引継ぎを今後量産しない。**
+
+## R72結果（2026-11-08）
+[R72真正元240Hz・ローカルB51試走セット＋元Chromium手動移行・結果JSON保存](research-evidence/k4ct/K4CT_R72_LOCAL_REAL_240HZ_B51_TRIAL_BROWSER_PASS_HUMAN_HOLD_20261108.json)を完了。R71で遠方の元B51-14が6.76×5.30pxと判明し、類似小型Blender支柱の増産はNO-GO。代わりにR49真正ART研究段階の元K4CT PRIVATE 240Hz/B48×7/B51×28を同梱したWindowsローカル試走ZIP116ファイルを生成。既存CI3件の技術的不合格（SHA括弧・ZIP原物理モジュール欠落・手動移行後tick固定という誤テスト）を原因限定修正し、最後は既存ZIP再利用でBlender/ゲーム全再ビルドなしの[軽量真正Chromium Run #42467602792](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42467602792) **SUCCESS**。元WebGL2/240Hzで63.70秒＝tick15288から元手動操作モードへ移行、ゲームはtick15342まで実進行しローカルJSON保存PASS、ページエラー0。検証Artifact #13612237779、元ZIP Artifact #13611367732（2026-11-15 UTC期限）。**手動モードに入ることを実証しただけで人間の入力は0回、実際の回避・公平・面白さは未認証。WindowsでCMD起動も未確認。** HUMAN/ART/SAT/CCD/WindowsFPS/RELEASE/MERGE全HOLD、正式ART0/Slope2 DNA0m。保護原本/main/PR46/正式QA/Pages不変、追加課金原則0円。次は本人の自然な試走1回と任意のローカルJSON・感想を扱い、その不具合に直接結び付く改善のみ検討する。
 
 ## R71結果（2026-11-08）
 [R71 元B51-14の真正240Hz画面・全B51 GPU帰属を用いた原衝突箱投影／可視画素／到達までの回転量の定量ゲート](research-evidence/k4ct/K4CT_R71_TRUE_ORIGINAL_B51_14_VISIBILITY_PIXEL_TIME_GATE_20261108.json)。新Blender・CIゼロ、過去R60/R67/R70真正RAWのみ使用。元カメラでB51-14は65.25秒（到達見込み1.89秒前）に物理OBB約**6.76×5.30画素**、研究用全B51着色差分のうち当該OBBに重なる4連結成分**49画素**（元Canvas比0.00693%）；66.35秒（0.75秒前）約**11.25×11.94画素／151画素**（0.02137%）。全B51の帰属差は各71/206画素で、個体別専用GPUマスクではないため「位置一致・推定帰属」、人間可視性の閾値証明ではない。65.60秒は元カメラOBBだけ約8.58×6.51画素、同時刻の全B51着色RAWなし・画素計測**不明**。元回転速度−83.14°/s、到達時間が丸め値1.89/1.52/0.75秒なので到達前回転量は約−157/−126/−62°、今の見た目の向き＝到達時の向きとは限らない。**R70 TECH PASS／ART REJECT・R71新ARTなし**。小型支持柱・微細パーツ・HUD/色変え再実行を止め、次は元カメラ1.9秒前に明瞭な時間順の危険構図を本当に作れるかART-FIRST判断。判断に根拠がなければMETHOD HOLD、自然なHUMANプレイPASSを偽らない。原本/main/PR46/正式QA/Pages不変、正式ART0・Slope2 DNA0m、本人操作0・追加課金0円（Actions実請求不明）。

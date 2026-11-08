@@ -1,0 +1,104 @@
+{
+  "schema": "k4ct-r72-real-native-240hz-local-one-click-manual-trial-verified-v1",
+  "dateJST": "2026-11-08",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "sourceHead": "578526ce01dafe116383afbec3758bca25d80515",
+  "purpose": "Make existing PRIVATE authentic 240Hz gameplay usable for one-click local manual play, while preserving honest ART/HUMAN gates and avoiding more ungrounded Blender mini gantries.",
+  "browser": {
+    "runId": 42467602792,
+    "conclusion": "success",
+    "artifactId": 13612237779,
+    "artifactSHA256": "adba923553dd2f7dc4dfbbd5dbf7a1de788f4b1aaacf6bc82b8db98e43298261",
+    "expiresUTC": "2026-11-15T09:34:18Z",
+    "trueSourceWebGL2": true,
+    "originalRunner240Hz": true,
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "scriptedStartToManualAtNativeTick": 15288,
+    "timeSeconds": 63.7,
+    "continuedOriginalNativeTickAtDownloadedJSON": 15342,
+    "mode": "ORIGINAL_MANUAL_UNCERTIFIED",
+    "oneClickTrialStarts": 1,
+    "localJSONDownloaded": true,
+    "sourceStatusAtDownload": "running",
+    "observedHumanKeyEvents": 0,
+    "realHumanFairnessProven": false,
+    "sourcePageErrors": [],
+    "WindowsLauncherRuntimeVerified": false,
+    "sourceBlenderFormalArt": "REJECT",
+    "HUMAN": "HOLD"
+  },
+  "package": {
+    "sourceRun": 42465824622,
+    "sourceArtifactId": 13611367732,
+    "sourceArtifactSHA256": "c2ad0b9a3a9fbeab5021b7f0406c65c8cae091db0a7e76a0caa412ab0248398e",
+    "sourceArtifactExpiryUTC": "2026-11-15T09:09:47Z",
+    "userZipFilename": "DOPAGAKI_R72_B51_Local_Trial.zip",
+    "userZipSHA256": "d754d4e6e78be9ef4b732656b276c2e20d12613e63e236444389a15595c6c5d2",
+    "zipFiles": 116,
+    "zipBytes": 5097928,
+    "localArchiveIntegrity": "CRC_PASS, launch CMD + trial JS match manifest SHA256, full native source physics module imports resolve",
+    "WindowsRun": "NOT_VERIFIED",
+    "localOnlyServer": "127.0.0.1:4373",
+    "dataAutoUploaded": false,
+    "WindowsInstructions": "Unzip, double-click R72_DOPAGAKI_LOCAL_TRIAL.cmd (Python 3.13 installed), then click B51-14 trial in bottom-right; user can export local JSON."
+  },
+  "debugHistory": [
+    {
+      "runId": 42465061160,
+      "result": "FAIL",
+      "cause": "Manifest SHA256 expression parenthesis error; fixed"
+    },
+    {
+      "runId": 42465284928,
+      "result": "FAIL",
+      "cause": "Missing native physics module reference_only in standalone ZIP; fixed"
+    },
+    {
+      "runId": 42465824622,
+      "result": "FAIL",
+      "cause": "TRUE browser manual handover worked but smoke incorrectly demanded 240Hz ticks stay frozen after handover; fixed TEST ONLY"
+    },
+    {
+      "runId": 42467602792,
+      "result": "PASS",
+      "cause": "Reused exact cached ZIP; no Blender or full game rebuild"
+    }
+  ],
+  "artAndNext": {
+    "R71Basis": "True source moving B51-14 projected only ~6.76x5.30 pixels ~1.89sec before arrival, so tiny gantry repeat ART NO-GO",
+    "R72NewArt": "NONE",
+    "R72LastFormalArtAccepted": 0,
+    "officialSlope2DNAMetres": 0,
+    "next": "First genuine user-run of A/D/arrow steering, actual failure/retry/B51-13→14 perceptions and exported local JSON. Do not substitute a scripted browser run for human QA, do not add repetitive CI, decorative clutter or HUD.",
+    "status": {
+      "SOURCE": "PASS",
+      "BROWSER_HANDOVER": "PASS",
+      "LOCAL_JSON_SAVE": "PASS",
+      "WINDOWS_EXECUTION": "HOLD",
+      "HUMAN": "HOLD",
+      "ART": "HOLD",
+      "SAT": "HOLD",
+      "CCD": "HOLD",
+      "WindowsFPS": "HOLD",
+      "RELEASE": "HOLD",
+      "MERGE": "HOLD"
+    }
+  },
+  "protected": {
+    "mainHEAD": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "PR46": "OPEN_DRAFT_UNMERGED",
+    "gameSourceBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5PhysicsSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "protected8OriginalDCC": "UNMODIFIED",
+    "sourceCamera240HzB51Road": "UNMODIFIED",
+    "formalQA": "UNMODIFIED",
+    "productionMainAndPages": "UNMODIFIED",
+    "actualHumanTrials": 0,
+    "extraPaidAPIJPY": 0,
+    "GitHubActionsActualBilling": "UNKNOWN"
+  }
+}
