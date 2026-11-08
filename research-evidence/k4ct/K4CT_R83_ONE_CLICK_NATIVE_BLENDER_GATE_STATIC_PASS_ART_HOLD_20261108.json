@@ -1,0 +1,83 @@
+{
+  "schema": "k4ct-r83-one-click-real-blender-gate-preflight-and-negative-safety-audit/1",
+  "dateJST": "2026-11-08",
+  "predecessorResearchHEAD": "e95dea3cd95b7edaf0be95db9bfb928a54690a5a",
+  "scope": "Research-only isolated local Blender 5.2 author review. No model/art changes and no native-game edits.",
+  "sourceR82PackageSHA256": "f3845b55865f5fd1ab51ca20328ec35657711629cf9d17f5c7afeaac63cca430",
+  "R80FixedSourceStageSHA256": "786ee9c26ced13055b222dbfd413c9f7b5f090e5abc7a383d58c984389605c4f",
+  "R82FixedVisualGLBSHA256": "86cb7b8bae20e207efc855e6dd7bfb424c9e5cd50a923d8ca36e0c53512447bd",
+  "package": {
+    "filename": "DOPAGAKI_R83_ONE_CLICK_REAL_BLENDER_GATE_ART_HOLD.zip",
+    "path": "current conversation only; not committed or published by GitHub",
+    "sha256": "680a366f852ffa31c68da27b156cc33995075e6120a39acb6f71ef44fa90adc7",
+    "bytes": 1252451,
+    "fileCount": 20,
+    "zipCRC": "PASS",
+    "manifestPerFileSHA256": "PASS",
+    "embeddedR82OriginalFilesByteIdentical": true,
+    "newEntryPoint": "R83_ONE_CLICK_VALIDATE_RENDER_OPEN_BLENDER.cmd",
+    "newStaticAndIndependentVerifier": "R83_VERIFY.py",
+    "newBlender52ExecutionScript": "R83_BLENDER_5_2_SAFE_EXECUTE.py",
+    "actualWindowsBlenderExecution": "NOT_RUN"
+  },
+  "staticValidation": {
+    "Python313Preflight": "PASS",
+    "PythonASTCompilation": "PASS",
+    "sourceR80Roads7": "PASS",
+    "sourceMovingB51x28": "PASS",
+    "sourceGapCells525354": "PASS",
+    "sourceCameraOrthonormalFourSamples": "PASS",
+    "sourceR80Hash": "PASS",
+    "sourceR82GLBHash": "PASS",
+    "negativeTamperedR80Stage": "EXPECTED_HOLD",
+    "negativeTamperedR82GLB": "EXPECTED_HOLD",
+    "negativePreexistingOutputFolder": "EXPECTED_HOLD",
+    "negativeMissingBlenderOutput": "EXPECTED_HOLD",
+    "validateZipManifest": "PASS",
+    "validateZipCRC": "PASS"
+  },
+  "technicalDesign": {
+    "target": "Blender 5.2 from user-installed Windows version only, no software installation",
+    "hardFailBlenderVersionGuard": "5.2.* only",
+    "blenderCLI": "-b --factory-startup -t 2 --python-exit-code 31 --python R83_BLENDER_5_2_SAFE_EXECUTE.py",
+    "independentVerification": "Real .blend magic bytes SHA; four 1008x645 PNG magic/dimensions/SHA; original model source hashes; exactly 23 editable art + 1 protected original road ref",
+    "artCameraTimesSeconds": [
+      0,
+      2,
+      3.2,
+      5.208333
+    ],
+    "noOverwrite": "output folder already exists -> HOLD; unique owned staging then rename after all outputs verified; never changes existing .blend or source stage",
+    "userOperation": "One explicit double-click after ZIP extraction. Opens Blender GUI only after full verified run.",
+    "changesToOriginalGameAndCamera": 0,
+    "newGameColliders": 0,
+    "webNetworkActions": 0,
+    "GitHubWritesFromPackage": 0
+  },
+  "environment": {
+    "pythonStaticPreflight": "PASS container",
+    "actualBlenderExecutable": "NOT_AVAILABLE_IN_CONTAINER",
+    "fetchOfficialBlenderBinary": "FAILED_NETWORK",
+    "sourceNativeWebGL2": "NOT_RUN",
+    "actualUserWindowsFPS": "UNKNOWN",
+    "authoredWorldArt": "R82 STILL REJECTED; R83 is not a new visual design"
+  },
+  "certification": {
+    "ART": "REJECT_R82_SOURCE",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "formalArtAccepted": 0,
+    "officialSlope2DNAMetres": 0
+  },
+  "safety": {
+    "protected": "main, PR #46, formal QA, original P101, original Game/Camera/Runner/7 B48/28 B51, Gold, eight Blender DCC groups, Pages, production, PRIVATE source",
+    "workComputerUseUsed": false,
+    "extraPaidAPIJPY": 0,
+    "newGitHubActionsRequested": 0
+  },
+  "next": "This is a tooling gate, not scenery improvement. Only user-initiated one-click local Blender session can provide genuine editable BLEND/camera images; then do deliberate author redesign of R82 rejected massing based on actual Blender 4 camera shots. Do not spawn more unreviewed boxes, arches, roads or ungrounded ART PASS."
+}
