@@ -1,0 +1,168 @@
+{
+  "schema": "dopagaki.k4ct-r58-original-240hz-real-b51-source-footprint-and-material-no-go-v1",
+  "dateJST": "2026-11-08",
+  "scope": "Existing V15 QUALITY-FIRST/ART-FIRST/DCC-FIRST integrated Road5→Road6, real B51-13→14; no new concept, source or protected geometry modifications",
+  "sources": {
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "headTested": "aa37669b476eb4d8d39820acc4e570a6bdff46ad",
+    "githubActionsRun": 42446740306,
+    "runURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42446740306",
+    "runConclusion": "success",
+    "artifactID": 13604022480,
+    "artifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42446740306/artifacts/13604022480",
+    "artifactSHA256Verified": "197c2ddf3b3c442f1c4c5a47847991494b2a608ebdc9d34172c8c727dcf2d62b",
+    "artifactZIPCRCPass": true,
+    "artifactExpiryUTC": "2026-11-15T04:28:22Z",
+    "trueOriginalChromiumWebGL2": true,
+    "originalRunner240Hz": true,
+    "originalGameSourceBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "protectedR12ABlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5ResearchPhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0,
+    "reusedGenuineR44BlenderSceneArtifact": 13600556658,
+    "genuineBlenderSceneTriangles": 32004,
+    "protected8ExactXYZRGBParityPassedInCI": true,
+    "originalGameCameraRoadPhysicsUnedited": true
+  },
+  "method": {
+    "tripleABAtEachOriginal240HzTick": "BASE unchanged original B51 mesh color vs HULL_RGB_ONLY (original XYZ+OBB unchanged, source R7C alternate RGB) vs diagnostic source WebGL2 B51 body material-only magenta attribution, followed by BASE restore",
+    "originalSourceVisualUpdatedOnlyInGeneratedPrivateRenderer": true,
+    "actualPrivateStage": "K4CT-TWO-REAL-B51-CHOICE with R57 live HUD, original KeyD input and full untouched true B51 physics",
+    "groupScope": "The diagnostic source shader applies to ALL rendered original B51 body meshes in frame, not individually to B51-14. Its pixel influence is NOT a physically correct collision area and not a human-recognition probability.",
+    "pixelMetric": "max absolute RGB channel delta>25 in source image ROI x=19..1032,y=100..697, screenshot resolution 1365x930, source same exact native tick",
+    "originalModeRestoredSameTick": true,
+    "sourceGLImages": 12,
+    "artCandidateSourceBlenderNewlyAuthored": false
+  },
+  "results": [
+    {
+      "nativeTick": 15660,
+      "gameTimeSeconds": 65.25,
+      "nextTrueB51": "a13-machine-14",
+      "nextTrueDistanceM": 338.69,
+      "nextTrueETASeconds": 1.89,
+      "actualOriginalB51ShaderInfluenceGt25PixelsAllVisibleBodies": 65,
+      "shaderB51ChangedBBox": {
+        "x0": 682,
+        "y0": 285,
+        "x1": 720,
+        "y1": 292
+      },
+      "originalMeshRGBOnlyCandidateChangedGt25Pixels": 15,
+      "sourceReproducibilityChangedGt25Pixels": 0,
+      "assessment": "Only a 38x7 screen-pixel bounding region from all visible B51 shader influence at ~1.89s. Source-hull recolor differs in just 15 source pixels. An early reliable human threat shape is not established."
+    },
+    {
+      "nativeTick": 15924,
+      "gameTimeSeconds": 66.35,
+      "nextTrueB51": "a13-machine-14",
+      "nextTrueDistanceM": 137.6,
+      "nextTrueETASeconds": 0.75,
+      "actualOriginalB51ShaderInfluenceGt25PixelsAllVisibleBodies": 199,
+      "shaderB51ChangedBBox": {
+        "x0": 586,
+        "y0": 293,
+        "x1": 622,
+        "y1": 310
+      },
+      "originalMeshRGBOnlyCandidateChangedGt25Pixels": 34,
+      "sourceReproducibilityChangedGt25Pixels": 0,
+      "assessment": "All B51 visible shader influence is still constrained to a 36x17 pixel box ~0.75 seconds before next station; recolor does not add new real geometry."
+    },
+    {
+      "nativeTick": 16332,
+      "gameTimeSeconds": 68.05,
+      "nextTrueB51": "a13-machine-15",
+      "nextTrueDistanceM": 32.67,
+      "nextTrueETASeconds": 0.17,
+      "actualOriginalB51ShaderInfluenceGt25PixelsAllVisibleBodies": 2050,
+      "shaderB51ChangedBBox": {
+        "x0": 425,
+        "y0": 294,
+        "x1": 568,
+        "y1": 363
+      },
+      "originalMeshRGBOnlyCandidateChangedGt25Pixels": 628,
+      "sourceReproducibilityChangedGt25Pixels": 0,
+      "assessment": "B51 body becomes noticeably larger near 0.17 seconds before next station, too late to infer human fair decision timing."
+    }
+  ],
+  "auxiliaryOfflineStation14Visibility": {
+    "source": "Earlier authentic R38 camera matrices and true R44 Blender triangles 32004, 505x350 approximate R41 source-camera CPU depth; NOT actual source Chromium, does not track moving B51 body",
+    "timeSeconds": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "stationaryOriginalB51_14WorldCenter": [
+      1181.5640147661836,
+      122.43275866083378,
+      -487.0341339030744
+    ],
+    "approximateOriginalGameXY": [
+      [
+        629.4,
+        302.3
+      ],
+      [
+        603.5,
+        304
+      ],
+      [
+        569.9,
+        309.1
+      ]
+    ],
+    "samplePatchRoadInFrontCountOutOf25": [
+      5,
+      6,
+      7
+    ],
+    "nonprotectedSceneryInFrontCountOutOf25": [
+      0,
+      0,
+      0
+    ],
+    "interpretation": "The sampled fixed station center was not primarily covered by nonprotected DCC; it is incorrect to assert from these finite samples that no world occlusion can ever occur. Actual native B51 shader A/B provides the meaningful footprint measurements."
+  },
+  "criticalDecision": {
+    "R58": "TECH_PASS_TRUE_ORIGINAL_MOVING_B51_VISIBILITY_PROVEN",
+    "researchARTForHullRGB": "NO_GO_NOT_ART_ADOPTED",
+    "mainFinding": "The genuine native B51 mesh is far too small on screen at 1.89 s and remains tiny at 0.75 s. In the bounded original-source A/B, changing material on exact same geometry affects just 15 and 34 visible source pixels respectively. This does not establish readable obstacle action, natural reaction or human safety.",
+    "notProven": "No human timed perception, no ART acceptance, no individual B51-14 exact ownership, no genuine new Blender-art candidate, no technical proof of all designs impossible.",
+    "next": "Do NOT increase collider, reshape original B51, change 240Hz/camera/speed or paste false safe portal. R59 should test one physically continuous NONCOLLIDING genuinely Blender-authored road-adjacent mechanical approach structure that connects an early visible cue to real B51-14 functional station over a meaningful length of road, remaining outside true B48 driving surface and preserving protected8 XYZRGB. Its source-native camera needs a pre-obstacle temporal reading at >1s before authoring; reject if it resembles repetitive pylons or decorative cyan strips. Single candidate only after world-space site preflight. Avoid low-value new HUD/material/CI matrices."
+  },
+  "status": {
+    "SOURCE": "PASS",
+    "TECH": "PASS_NATIVE_GL_ORIGINAL_240HZ",
+    "ART": "HOLD",
+    "researchHullMaterial": "NO_GO",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "formalArtAdopted": 0,
+    "slope2DNA_M": 0,
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "researchBranchOnly": true,
+    "originalGameAndCameraAnd240HzUnchanged": true,
+    "mainAndP101AndPR46Untouched": true,
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "protectedEightUntouched": true,
+    "numberNewBlenderRuns": 0,
+    "numberNewGithubActionsRuns": 1,
+    "additionalPaidAPIJPY": 0,
+    "githubActionsActualBilling": "UNKNOWN",
+    "Work": false,
+    "ComputerUse": false,
+    "userActions": 0,
+    "noFormalAdoptionNoPublicationNoMerge": true
+  }
+}
