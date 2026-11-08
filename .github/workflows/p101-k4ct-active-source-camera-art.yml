@@ -13,6 +13,8 @@ on:
       - scripts/k4ct-r40-source-water-visibility.mjs
       - scripts/p101-k4ct-r44-underbank-three-stage.py
       - scripts/k4ct-r44-three-stage-source-raw.mjs
+      - scripts/k4ct-r48-install-native-temporal-proxy.mjs
+      - scripts/k4ct-r48-original-source-temporal-gl-probe.mjs
       - scripts/p101-k4ct-r35-true-blender-forebay-markers.py
       - scripts/k4ct-r35-source-forebay-visibility.mjs
       - scripts/k4ct-r36-original-camera-dense-visibility.mjs
@@ -501,7 +503,7 @@ jobs:
           retention-days: 7
 
   source-r37-original-water-causality:
-    if: ${{ contains(github.event.head_commit.message, '[R37 water causality]') || contains(github.event.head_commit.message, '[R38 visibility]') || contains(github.event.head_commit.message, '[R39 raw recovery]') || contains(github.event.head_commit.message, '[R40 source visibility]') || contains(github.event.head_commit.message, '[R44 raw recovery]') }}
+    if: ${{ contains(github.event.head_commit.message, '[R37 water causality]') || contains(github.event.head_commit.message, '[R38 visibility]') || contains(github.event.head_commit.message, '[R39 raw recovery]') || contains(github.event.head_commit.message, '[R40 source visibility]') || contains(github.event.head_commit.message, '[R44 raw recovery]') || contains(github.event.head_commit.message, '[R48 temporal GL]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 23
     steps:
@@ -519,12 +521,14 @@ jobs:
           node --check scripts/k4ct-r38-depth-frustum.mjs
           node --check scripts/k4ct-r39-original-three-raw.mjs
           node --check scripts/k4ct-r40-source-water-visibility.mjs
+          node --check scripts/k4ct-r48-install-native-temporal-proxy.mjs
+          node --check scripts/k4ct-r48-original-source-temporal-gl-probe.mjs
           node --check scripts/k4ct-r44-three-stage-source-raw.mjs
       - name: Reuse actual R36 editable Blender and original WebGL2 RAW
         uses: actions/download-artifact@v4
         with:
-          name: ${{ contains(github.event.head_commit.message, '[R44 raw recovery]') && 'K4CT_R44_ONE_TRUE_BLENDER_SUBMERGED_THREE_STAGE_NATIVE_ART_HOLD' || (contains(github.event.head_commit.message, '[R39 raw recovery]') || contains(github.event.head_commit.message, '[R40 source visibility]')) && 'K4CT_R39_OPEN_CUT_REAL_NATIVE_GL_3_RAW_RECOVERY' || 'K4CT_R36_SOURCE_ROAD6_FUNCTIONAL_SPILLWAY_TRUE_DCC_NATIVE_RAW_ART_HOLD' }}
-          run-id: ${{ contains(github.event.head_commit.message, '[R44 raw recovery]') && 42384075471 || contains(github.event.head_commit.message, '[R40 source visibility]') && 42377482537 || contains(github.event.head_commit.message, '[R39 raw recovery]') && 42376928483 || 42369037970 }}
+          name: ${{ contains(github.event.head_commit.message, '[R48 temporal GL]') && 'K4CT_R44_REUSED_REAL_BLENDER_ORIGINAL_WEBGL2_THREE_RAW' || contains(github.event.head_commit.message, '[R44 raw recovery]') && 'K4CT_R44_ONE_TRUE_BLENDER_SUBMERGED_THREE_STAGE_NATIVE_ART_HOLD' || (contains(github.event.head_commit.message, '[R39 raw recovery]') || contains(github.event.head_commit.message, '[R40 source visibility]')) && 'K4CT_R39_OPEN_CUT_REAL_NATIVE_GL_3_RAW_RECOVERY' || 'K4CT_R36_SOURCE_ROAD6_FUNCTIONAL_SPILLWAY_TRUE_DCC_NATIVE_RAW_ART_HOLD' }}
+          run-id: ${{ contains(github.event.head_commit.message, '[R48 temporal GL]') && 42384597099 || contains(github.event.head_commit.message, '[R44 raw recovery]') && 42384075471 || contains(github.event.head_commit.message, '[R40 source visibility]') && 42377482537 || contains(github.event.head_commit.message, '[R39 raw recovery]') && 42376928483 || 42369037970 }}
           github-token: ${{ github.token }}
           path: test-results
       - name: Rebuild unchanged original PRIVATE 240Hz runner and install R36 genuine DCC
@@ -546,7 +550,48 @@ jobs:
           sudo apt-get -o Acquire::Retries=1 update -qq
           sudo env DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::Retries=1 install -y --no-install-recommends libegl1 libgl1-mesa-dri libopengl0 libgbm1 fonts-noto-cjk
           npx playwright install --only-shell chromium
-          if git log -1 --format=%s | grep -Fq '[R44 raw recovery]'; then
+          if git log -1 --format=%s | grep -Fq '[R48 temporal GL]'; then
+            node scripts/k4ct-r48-install-native-temporal-proxy.mjs
+            node scripts/k4ct-r48-original-source-temporal-gl-probe.mjs
+            python3 - <<'PY'
+          import json,pathlib,subprocess
+          root=pathlib.Path('test-results')
+          baseline=json.loads((root/'k4ct-r39-art/R39_BASELINE_EIGHT_PROTECTED.json').read_text())
+          dcc=json.loads((root/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+          m=json.loads((root/'k4ct-r48-native-diagnostic/R48_GENERATED_PRIVATE_DIAGNOSTIC_MANIFEST.json').read_text())
+          result=json.loads((root/'k4ct-r48-native-diagnostic/R48_ORIGINAL_GL_TEMPORAL_PROXY.json').read_text())
+          assert m['schema']=='k4ct-r48-original-webgl2-temporal-four-flat-proxy-diagnostic-v1'
+          assert result['schema']=='k4ct-r48-actual-original-webgl2-temporal-flat-proxy-v1'
+          assert result['originalWebGL2'] and result['originalRunner240Hz'] and result['restorationEveryFrameValid']
+          assert result['sampledTicks']==[15900,15924,15972]
+          assert result['originalB48']==7 and result['originalB51']==28 and result['newColliders']==0
+          assert dcc['triangles']==m['r44RealBlenderTriangles']==32004 and len(dcc['objects'])==len(baseline['objects'])==43
+          assert dcc['sourcePhysicalRoad5SHA256']=='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b'
+          assert m['diagnosticOnlyFlatProxyNotGenuineBlender'] and m['sourceHydraulicAndMechanicConnectionsUNPROVEN']
+          assert result['proxyMaterialNeverClaimedGenuineBlender'] and result['sourceWaterMachinePhysicalConnectionsNotProven']
+          assert result['formalARTAdopted']==result['slope2DNAmeters']==0
+          assert all(result[k]=='HOLD' for k in ('ART','HUMAN','SAT','CCD','FPS','RELEASE','MERGE'))
+          def vals(g,n):
+              cursor=0
+              for name,count in g['objects'].items():
+                  if name==n:return g['vertices'][cursor:cursor+18*count]
+                  cursor+=18*count
+              raise AssertionError(n)
+          for name,count in baseline['objects'].items():
+              if name[:2] in ('00','12','13','19','34','35','41','42'):
+                  assert dcc['objects'][name]==count and vals(baseline,name)==vals(dcc,name),('PROTECTED_EIGHT_CHANGED',name)
+          assert all(f['sameTickRestorationValid'] for f in result['frames'])
+          assert len(result['frames'])==3
+          for sec in ('66_25','66_35','66_55'):
+              for prefix in ('R48_ORIGINAL_R44_T','R48_PROXY_NATIVE_T'):
+                  img=root/'k4ct-r48-native-diagnostic'/(prefix+sec+'.png')
+                  assert img.read_bytes().startswith(b'\x89PNG\r\n\x1a\n'),img
+          for path,blob in [('web/p101-w9c2-g4e7ci-integrated-streetscape.mjs','af076d67492a677d2235e4730aef8cdf4808e106'),
+                            ('scripts/p101-k4ct-native-spillway-dcc.py','096fffbc1627915eb0122224955bb02cfba6b3ae')]:
+              assert subprocess.check_output(['git','hash-object',path],text=True).strip()==blob
+          print('R48_ORIGINAL_240HZ_WEBGL2_FLAT_TEMPORAL_PROXY_PROTECTED8_TECH_VERIFIED_NOT_ART')
+          PY
+          elif git log -1 --format=%s | grep -Fq '[R44 raw recovery]'; then
             node scripts/k4ct-r44-three-stage-source-raw.mjs
             python3 - <<'PY'
           import json,pathlib,subprocess
@@ -656,7 +701,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ contains(github.event.head_commit.message, '[R44 raw recovery]') && 'K4CT_R44_REUSED_REAL_BLENDER_ORIGINAL_WEBGL2_THREE_RAW' || contains(github.event.head_commit.message, '[R40 source visibility]') && 'K4CT_R40_ORIGINAL_R39_SOURCE_WATER_3_TICK_GL_VISIBILITY' || contains(github.event.head_commit.message, '[R39 raw recovery]') && 'K4CT_R39_OPEN_CUT_REAL_NATIVE_GL_3_RAW_RECOVERY' || contains(github.event.head_commit.message, '[R38 visibility]') && 'K4CT_R38_ORIGINAL_WEBGL2_WATER_DEPTH_FRUSTUM' || 'K4CT_R37A_ORIGINAL_WEBGL2_WATER_CAUSALITY_ART_HOLD' }}
+          name: ${{ contains(github.event.head_commit.message, '[R48 temporal GL]') && 'K4CT_R48_ORIGINAL_WEBGL2_TEMPORAL_DIAGNOSTIC_ART_HOLD' || contains(github.event.head_commit.message, '[R44 raw recovery]') && 'K4CT_R44_REUSED_REAL_BLENDER_ORIGINAL_WEBGL2_THREE_RAW' || contains(github.event.head_commit.message, '[R40 source visibility]') && 'K4CT_R40_ORIGINAL_R39_SOURCE_WATER_3_TICK_GL_VISIBILITY' || contains(github.event.head_commit.message, '[R39 raw recovery]') && 'K4CT_R39_OPEN_CUT_REAL_NATIVE_GL_3_RAW_RECOVERY' || contains(github.event.head_commit.message, '[R38 visibility]') && 'K4CT_R38_ORIGINAL_WEBGL2_WATER_DEPTH_FRUSTUM' || 'K4CT_R37A_ORIGINAL_WEBGL2_WATER_CAUSALITY_ART_HOLD' }}
           path: |
             test-results/k4ct-r37-water-causality/
             test-results/k4ct-r38-depth/
@@ -665,6 +710,7 @@ jobs:
             test-results/k4ct-r40-native-water/
             test-results/k4ct-r44-art/
             test-results/k4ct-r44-native-water/
+            test-results/k4ct-r48-native-diagnostic/
             test-results/k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json
             test-results/k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json
             test-results/k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend
