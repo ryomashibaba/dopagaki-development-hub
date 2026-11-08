@@ -19,12 +19,13 @@
     "R70CameraAndPoseAllThreeExactMatchToR60": true,
     "R71OfflineLocalValidatedScriptSHA256": "a824bc1acdb059bae6a41c606ff195a7e62fbe74b13d63ff570a1bbdda47989a",
     "R71OfflineLocalFullResultJSON_SHA256": "b4b4735bc7d0e43cd49ee9efcbd3d727536f92c4022e77213bac7ea75f9c5b0a",
-    "R71IllustratedRawZoomPNG_SHA256": "a0b4d1e43e3a608aeac57cd41e15c1cc231609f46a906d8168776e95e671ad45",
+    "R71IllustratedRawZoomPNG_SHA256": "2f26f37f9e74bdcc1020faf2bb77200142c61084083a6f63da1d19113de48246",
     "retrievalLimit": "Earlier GitHub Actions artifacts may expire 2026-11-15 UTC; store derived SHA and provenance, not claim permanent image availability.",
     "nativeGeometry": "a13-machine-14 true original rotator OBB half size [1.7,1.7,1.4] m, yaw and centre exactly read from R60; center is offset from original fixed pivot by native +X half length.",
     "sourceProjection": "For eight yaw-rotated original OBB corners, use archived original camera eye/front/right/up with source WebGL2 1.35 projection; native canvas at x19 y0 width1013 height697.5 (viewport 1365x930).",
     "sameTickMask": "Absolute max channel difference of original BASE PNG and source tagged-magenta PNG strictly >25 on original 1365x930 screenshot; 4-connected components; associate by intersecting projected B51-14 OBB at <=1px margin.",
-    "dependenciesOfOfflineAnalysis": "Python 3.13, Pillow, NumPy, no new GitHub Actions or Blender runs"
+    "dependenciesOfOfflineAnalysis": "Python 3.13, Pillow, NumPy, no new GitHub Actions or Blender runs",
+    "R71IllustratedRawZoomLabelCorrection": "Yellow original-OBB outline label corrected in the image; source measurement and original raw screenshots unchanged."
   },
   "canvas": {
     "x": 19,
