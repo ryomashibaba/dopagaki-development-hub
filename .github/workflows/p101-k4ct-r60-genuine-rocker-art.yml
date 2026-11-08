@@ -26,6 +26,15 @@ jobs:
           node --check scripts/k4ct-r72-one-click-human-trial.mjs
           node --check scripts/k4ct-r72-build-local-human-trial-bundle.mjs
           node --check scripts/k4ct-r72-check-local-human-trial-bundle.mjs
+          node - <<'NODE'
+          const fs=require('node:fs'),crypto=require('node:crypto'),assert=require('node:assert/strict');
+          const pack=fs.readFileSync('scripts/k4ct-r72-build-local-human-trial-bundle.mjs','utf8');
+          const exact="UIAddonSHA256:crypto.createHash('sha256').update(fs.readFileSync(path.join(target,'r72-one-click-human-trial.mjs'))).digest('hex')";
+          assert.ok(pack.includes(exact),'R72 SHA digest call contract wrong');
+          const hashed=crypto.createHash('sha256').update(fs.readFileSync('scripts/k4ct-r72-one-click-human-trial.mjs')).digest('hex');
+          assert.equal(hashed.length,64);
+          console.log('R72_EARLY_MANIFEST_DIGEST_GATE_PASS');
+          NODE
       - name: Reuse unchanged actual R49 editable Blender and true original export
         uses: actions/download-artifact@v4
         with:

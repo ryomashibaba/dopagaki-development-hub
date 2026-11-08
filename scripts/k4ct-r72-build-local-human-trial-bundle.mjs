@@ -108,7 +108,7 @@ const diag={
  launchTestedOnWindows:false,sourceCameraOriginal:true,
  bundledGeneratedStageAssets:used.filter(x=>fs.existsSync(path.join(outputGenerated,x))),
  launcherSHA256:crypto.createHash('sha256').update(cmd).digest('hex'),
- UIAddonSHA256:crypto.createHash('sha256').update(fs.readFileSync(path.join(target,'r72-one-click-human-trial.mjs')).digest('hex')),
+ UIAddonSHA256:crypto.createHash('sha256').update(fs.readFileSync(path.join(target,'r72-one-click-human-trial.mjs'))).digest('hex'),
  HUMAN:'HOLD',ART:'HOLD',SAT:'HOLD',CCD:'HOLD',WindowsFPS:'HOLD',RELEASE:'HOLD',MERGE:'HOLD'
 };
 fs.writeFileSync(path.join(dest,'R72_PACKAGE_MANIFEST.json'),JSON.stringify(diag,null,2)+'\n');
