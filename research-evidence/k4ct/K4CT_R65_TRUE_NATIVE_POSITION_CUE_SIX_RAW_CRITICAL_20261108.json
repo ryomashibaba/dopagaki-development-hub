@@ -1,0 +1,152 @@
+{
+  "schema": "dopagaki-k4ct-r65-existing-r57-native-webgl2-original-position-cue-live-integration-v1",
+  "dateJST": "2026-11-08",
+  "purpose": "Verify R64/R54 source predictedObstacleSide textual semantics in a generated PRIVATE scene with original 240Hz, genuine Chromium WebGL2 and native B51; no new art.",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "baseResearchHEAD": "a20dc2c121c7a232f39eefe4a79cb1c64dbf48f7",
+  "testCommitHEAD": "a7c263bc821bc49fb4beefdd90d9c4e0c9063e57",
+  "workflow": "Existing .github/workflows/p101-k4ct-r57-live-hud-native-raw.yml; no new workflow",
+  "run": {
+    "id": 42453636410,
+    "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42453636410",
+    "conclusion": "success",
+    "artifactId": 13606976539,
+    "artifactExpiryUTC": "2026-11-15T06:12:54Z",
+    "artifactSHA256": "d0fa00a11c3f78dda6c1b85113b573bad2eadb493bbede7ac95ba39659ae1637",
+    "jsonFilename": "K4CT_R57_ORIGINAL_NATIVE_WARNING_RESULT.json",
+    "resultStatus": "R57_NATIVE_LIVE_HUD_REVERSION_TECH_PASS_ART_HOLD",
+    "errorCount": 0,
+    "sourceActualChromiumWebGL2": true,
+    "nativeHz": 240,
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "rawPNGCount": 6,
+    "realOriginalA_B_sameTick": true,
+    "reversibleBaseCandidateBase": true,
+    "protected8FullXYZRGBReuseCheck": "PASS_FROM_R49_GENUINE_DCC_ARTIFACT",
+    "blenderNewRuns": 0
+  },
+  "candidateObservations": [
+    {
+      "seconds": 65.25,
+      "tick": 15660,
+      "next": "B51-14",
+      "text": "PREDICTED AT LEFT",
+      "panelPx": {
+        "width": 440,
+        "height": 64.5625
+      },
+      "changedPixelsRGBmaxGT25InsideCue": 1598,
+      "changedPixelsRGBmaxGT25OutsideCue": 0,
+      "raw": "K4CT_R57_T65_25_CANDIDATE_TRUE_ORIGINAL_GL_RAW.png"
+    },
+    {
+      "seconds": 66.35,
+      "tick": 15924,
+      "next": "B51-14",
+      "text": "PREDICTED AT LEFT",
+      "panelPx": {
+        "width": 440,
+        "height": 64.5625
+      },
+      "changedPixelsRGBmaxGT25InsideCue": 1598,
+      "changedPixelsRGBmaxGT25OutsideCue": 0,
+      "raw": "K4CT_R57_T66_35_CANDIDATE_TRUE_ORIGINAL_GL_RAW.png"
+    },
+    {
+      "seconds": 68.05,
+      "tick": 16332,
+      "next": "B51-15",
+      "text": "PREDICTED AT RIGHT",
+      "panelPx": {
+        "width": 440,
+        "height": 64.5625
+      },
+      "changedPixelsRGBmaxGT25InsideCue": 1610,
+      "changedPixelsRGBmaxGT25OutsideCue": 0,
+      "raw": "K4CT_R57_T68_05_CANDIDATE_TRUE_ORIGINAL_GL_RAW.png",
+      "nearMissSuppressedInCandidate": true,
+      "nearMissRestoredInBase": true
+    }
+  ],
+  "screenshotComparison": {
+    "previousActualR57SourceArtifactId": 13602878691,
+    "newActualRunArtifactId": 13606976539,
+    "method": "Byte-decoded source PNG pixel max-channel difference across identical screenshots/ticks; prior R57 CANDIDATE vs new R65 CANDIDATE. Differences tested full 1365x930 viewport.",
+    "changedRGBgt1": {
+      "65.25": 1807,
+      "66.35": 1807,
+      "68.05": 1803
+    },
+    "changedRGBgt25": {
+      "65.25": 1598,
+      "66.35": 1598,
+      "68.05": 1610
+    },
+    "outsideCueChangedPixelsRGBgt1": [
+      0,
+      0,
+      0
+    ],
+    "sourceGameViewportOutsideCueIdenticalAtTheseTicks": true,
+    "important": "Only these three identical native scripted tick pairs; not human play, not all future frames, not new ART."
+  },
+  "actualHUD": {
+    "oldIncorrect": "MOVING LEFT/RIGHT",
+    "newCorrect": "PREDICTED AT LEFT/RIGHT",
+    "derivedFrom": "future moving B51 lateral position pv, NOT velocity",
+    "additionalPredictionDisclaimer": "PREDICTION ONLY - NO GUARANTEED SAFE LANE",
+    "staticNodeRegression": "PASS 5/5",
+    "nativeResult": "PASS original source 240Hz real Chromium WebGL2 generated PRIVATE K4CT"
+  },
+  "criticalReview": {
+    "tech": "PASS",
+    "semantic": "FIX_VERIFIED_IN_TRUE_GENERATED_PRIVATE_SOURCE_GL",
+    "art": "HOLD",
+    "human": "HOLD",
+    "invariants": "PASS_WITHIN_R57_SOURCE_PROTOCOL",
+    "limitations": [
+      "Original PRACTICE overlay still obscures a central road area; observed on real screenshots",
+      "Far actual red B51 remains small at native high speeds",
+      "No evidence that an untrained human can make an early natural avoidance decision",
+      "No new DCC waterfall/source/mechanical cause established; R64-A METHOD HOLD remains",
+      "No independent new SAT/CCD or Windows real FPS trial"
+    ],
+    "next": "Do not add another near-identical HUD/CI. Next gated gameplay work: preserve original input/physics and R57 successful data; design a reversible PRIVATE only reduction of center PRACTICE occlusion, and verify hazard preview/contact→failure→retry→manual-controlled avoidance in one bounded original native session; no human PASS without a real human playtest."
+  },
+  "protection": {
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalDCCAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "mainAndPR46": "UNMODIFIED",
+    "originalCamera240HzB48B51": "UNMODIFIED",
+    "protectedGroups": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "newColliderCount": 0,
+    "newArtAdopted": 0,
+    "slope2DNAmetres": 0,
+    "publicPagesOfficialQA": "UNMODIFIED",
+    "extraPaidAPIJPY": 0,
+    "GitHubActionsActualBilling": "UNKNOWN",
+    "userOperations": 0
+  },
+  "result": {
+    "SOURCE": "PASS",
+    "TECH": "PASS_NEW_NATIVE_SOURCE_WEBGL2",
+    "ART": "HOLD",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  }
+}

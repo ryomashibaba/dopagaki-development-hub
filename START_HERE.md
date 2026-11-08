@@ -4,6 +4,9 @@
 ## 読取順（現在の唯一の移行入口）
 **[V16 R63後・二段階批判的統合引き継ぎ](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)** → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md) → [R50歴史的統合](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md)。V14/V13/V12.1は必要な古い証拠だけ参照。**R53以下の次工程は履歴。新しい指示はV16第7章のR64。不要な長文引継ぎを今後量産しない。**
 
+## R65結果（2026-11-08）
+[元240Hz/Chromium WebGL2・PRIVATE予測位置HUDの真正統合再検証](research-evidence/k4ct/K4CT_R65_TRUE_NATIVE_POSITION_CUE_SIX_RAW_CRITICAL_20261108.json)。既存R57 Workflowを**1回のみ再利用**（新規Workflow0）、[Run #42453636410](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42453636410) SUCCESS、Artifact #13606976539（期限2026-11-15 06:12:54 UTC）。修正「PREDICTED AT LEFT/RIGHT」は生成PRIVATE上の同Tick3時点・6RAWで実証、元B51全28、Node 5/5、保護8群元DCC一致。旧R57同Tick3枚比でRGB差>1の全差分は警告欄内、道路・元B51・背景画素の変化0。パネル440×64.56pxで折返し増なし。**TECH PASS／ART・HUMAN・SAT・CCD・WindowsFPS・RELEASE・MERGE HOLD**、正式ART0件・Slope2 DNA0m。PRACTICE中央遮蔽・高速実B51小像は未改善。次はPRIVATE可逆のPRACTICE表示干渉改善と人間危険認知に直結する最小縦切片を検討する。元Game/Camera/保護群/正式QA/main/PR46不変、新Blender0、ユーザー操作0、追加有料API0円、Actions実請求不明。
+
 ## R64結果（2026-11-08）
 [R64一案の3時点元RAW審査・NO-GOとPRIVATE B51予測位置表示修正](research-evidence/k4ct/K4CT_R64_ONE_CAMERA_THREE_FRAME_CAUSAL_METHOD_HOLD_AND_HUD_SEMANTICS_20261108.json)。R63元Chromium3枚を実画像再確認したが、左岸開放落水→横軸水車→B51駆動という一案は、早期Y93水源不可視・非保護連続経路と実機械連動の立証不足で**R64-A METHOD HOLD**。新Blender/新GL/新CI 0、正式ART0件・Slope2 DNA0m。B51予測側面を実移動方向と誤表示していた `MOVING` を `PREDICTED AT` に研究限定で修正し独立ローカルの対応関数5/5 PASS（リポジトリのNode/Chromium統合試験は未実行）。上位保護不変。根拠のない似たBlenderを量産しない。
 
