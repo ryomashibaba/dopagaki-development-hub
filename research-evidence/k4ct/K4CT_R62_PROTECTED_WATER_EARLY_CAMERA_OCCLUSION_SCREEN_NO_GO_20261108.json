@@ -1,0 +1,150 @@
+{
+  "schema": "dopagaki-k4ct-r62-early-protected-source-water-depth-screen-no-go-v1",
+  "dateJST": "2026-11-08",
+  "policy": "Existing V15 ART-FIRST/DCC-FIRST and source protection unchanged. R61 proposed site assessed before R62 authoring.",
+  "sources": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "startingHEAD": "78d39d42f091bc5fd7772a33552467307726a149",
+    "R49ActualBlenderGeometryArtifactRun": 42437685590,
+    "R49DccJSON_SHA256": "f58c264e137b50b59c38a9ee531ab6775e1c566388abb41f2b6d2b1427ac7530",
+    "R60TrueOriginal240HzCameraArtifactRun": 42448441488,
+    "R60NativeResultJSON_SHA256": "f80c23bf5d5ec25637e7ad80043662f319531e17e7d9ea6551bd59dcd746200c",
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "Road5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0
+  },
+  "method": {
+    "kind": "EXACT ORIGINAL CAMERA PLUS ACTUAL R49 TRIANGLES, APPROX HALF-RES SOFTWARE Z RASTER",
+    "notActualChromiumWaterDepth": true,
+    "resolution": [
+      505,
+      350
+    ],
+    "actualSourceGLFramesReferenced": [
+      15660,
+      15744,
+      15924
+    ],
+    "R49ProtectedWaterGroupPrefix": "19",
+    "originalY93SurfaceTriangles": 144,
+    "nativeSourceWaterEndXYZ": [
+      1105.4104192514728,
+      93,
+      -516.421496256048
+    ],
+    "sourceInputsNotModified": true,
+    "limitations": "CPU depth is approximate; renderer clipping/fog/culling/draw order differs from genuine native. Surface triangles may have subpixel or native-specific differences. Does not prove all possible alternative channels impossible."
+  },
+  "observations": [
+    {
+      "tick": 15660,
+      "sourceTime": 65.25,
+      "B51ETASecondsApprox": 1.89,
+      "originalGroup19AnyVisibleHalfResPixels": 4834,
+      "sourceY93ProjectedHalfResPixels": 628,
+      "sourceY93VisibleAfterDepthHalfResPixels": 0,
+      "sourceEndAtScreenApprox": [
+        549.4,
+        335.8
+      ],
+      "sourceEndNativeDepthM": 307.927,
+      "foregroundRoad00DepthM": 51.668,
+      "foregroundID": "00"
+    },
+    {
+      "tick": 15744,
+      "sourceTime": 65.6,
+      "B51ETASecondsApprox": 1.5,
+      "originalGroup19AnyVisibleHalfResPixels": 2876,
+      "sourceY93ProjectedHalfResPixels": 1094,
+      "sourceY93VisibleAfterDepthHalfResPixels": 0,
+      "sourceEndAtScreenApprox": [
+        530.8,
+        352.2
+      ],
+      "sourceEndNativeDepthM": 246.78,
+      "foregroundRoad00DepthM": 43.821,
+      "foregroundID": "00"
+    },
+    {
+      "tick": 15924,
+      "sourceTime": 66.35,
+      "B51ETASecondsApprox": 0.75,
+      "originalGroup19AnyVisibleHalfResPixels": 4473,
+      "sourceY93ProjectedHalfResPixels": 10090,
+      "sourceY93VisibleAfterDepthHalfResPixels": 3403,
+      "sourceEndAtScreenApprox": [
+        325.8,
+        452.4
+      ],
+      "sourceEndNativeDepthM": 105.983,
+      "foregroundRoad00DepthM": 19.816,
+      "foregroundID": "00"
+    }
+  ],
+  "boundedAlternativeScreenSurvey": {
+    "sampled3DLocations": 1620,
+    "simultaneouslyVisibleAtAllThree": 3,
+    "nearestSamples": [
+      {
+        "localD_T_Y": [
+          155,
+          0,
+          92
+        ],
+        "distanceFromSourceM": 121.22
+      },
+      {
+        "localD_T_Y": [
+          185,
+          20,
+          88
+        ],
+        "distanceFromSourceM": 156.44
+      },
+      {
+        "localD_T_Y": [
+          200,
+          40,
+          84
+        ],
+        "distanceFromSourceM": 178.54
+      }
+    ],
+    "meaning": "A visible outboard outlet is not categorically impossible, but no near original-source surface point in sampled grid was visible across all three. These far candidate points do not by themselves provide believable source→fall→receiver.",
+    "notExhaustive": true
+  },
+  "criticalDecision": {
+    "R62": "EARLY_ORIGINAL_WATER_TO_TURBINE_VISIBILITY_SCREEN_NO_GO",
+    "result": "ART_METHODOLOGY_HOLD",
+    "rationale": "R61 original y93 source/water outlet is in front of original road skin at all three projective samples. Projected y93 protected water surface appears only at 66.35 once only 0.75s remains before native B51; was 0 at the first two ~1.9s and 1.5s windows. Blender reproduction of R61 geometry has a high risk of producing ART-invisible hydraulic causality.",
+    "limits": "Not a true new GL screenshot or proof that any new outboard hydraulic facility is impossible. No new Blender authored in R62 and no person playtested.",
+    "next": "Use a genuinely grounded source-native original camera/depth test or a revised physically connected outboard route without modifying protected water/road/camera. If none is demonstrably readable, hold and request separate permission for scope-changing protected changes only when justified. Do not make a fake safety portal, recolor or repaint the A-frame.",
+    "originalV15Unchanged": true,
+    "formalARTAdopted": 0,
+    "slope2DNA_M": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "researchOnly": true,
+    "mainProtected": true,
+    "PR46Protected": true,
+    "originalWater19Unedited": true,
+    "originalGameRoadCamera240HzB48B51Unchanged": true,
+    "newColliders": 0,
+    "newBlenderRuns": 0,
+    "newGithubActionsRuns": 0,
+    "addedPaidAPIJPY": 0,
+    "userOperations": 0,
+    "GitHubActionsNewBilling": "NONE"
+  }
+}
