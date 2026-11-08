@@ -1,4 +1,7 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
+## R77 2026-11-08｜序盤3D空間の制作・実カメラ代理審査、**ART REJECT**
+R75真正B48×7／B51×28／240Hz固定の独立LOCAL研究で、R76の板状天井と近接岩壁を廃し、左右非対称の開放峡谷・深い谷・道路上方の1つの石造ポータルを試作。先行A0アーチ占有過大でREJECT、B1は位置・寸法を修正したが依然巨大な輪＋暗い空洞に見え、**本人が指摘した未来都市・実走行の面白さと視覚品質の問題は未解決**。研究用ソース [R77 geometry](research-candidates/k4ct/k4ct-r77-fjord-gateway.mjs) と [証拠](research-evidence/k4ct/K4CT_R77_GENUINE_SOURCE_CAMERA_REVIEW_ART_REJECT_20261108.json) だけ保存。元カメラ・実Runnerの0〜6秒読み取り／ソフトウェア描画で検証、ギャップ踏切と着地の12照準レイは追加景観への幾何交差0/12（ただし最後の踏切点は画角外）。**真正Chromium/WebGL2、Blender作者造形、自然人間試走、良いARTの証拠ではない。** 原本変更0、正式ART採用0、Slope2 DNA0m、HUMAN/SAT/CCD/WindowsFPS/RELEASE/MERGE HOLD。次は丸いゲート・棚・箱の微修正ループをやめ、立体道路と関わる一つの大きな建築空間を実3D作者造形から組み直す。追加課金/CI/Workなし、MAB・TPS上位優先維持。
+
 ## R75（2026-11-08）本人R73不合格→独立実物理コース改善・ART HOLD
 [原240Hz実物理の限定証拠](research-evidence/k4ct/K4CT_R75_FIRST_NATIVE_PHYSICAL_PILOT_ART_HOLD_20261108.json)。R73本人の「序盤/後半ビジュアル不合格、道幅過小、飛行/潜行/落下不足、面白くない」を基準に、元原本不変で研究生成ステージを作成。格子161行の水平拡幅、実Road0穴1→3セル、着地高低調整、Road2横断格子の180°反転を研究コピーだけで連続化。元B48×7/B51×28/Camera/240Hz保護。実Runner 240Hz・52m/s・ゼロ操舵（既定ガイド補助）でR73約9.81s落下→R75 12s進行、5.00→5.4875s空中→実Road0再接地。**人間プレイでない、7路全完走未認証、ART世界の欠陥未修復、実Chromium画面失敗（EGL）**。ローカル研究ZIP生成・Python/HTTP/ZIP静的PASS。正式ART0／Slope2 DNA0m、HUMAN/SAT/CCD/WindowsFPS/RELEASE/MERGE HOLD維持。次は人間再試走をまだ求めず、序盤から大地と巨大構造物が接続し本当に潜り抜けられる道路一体ART・真正WebGL実画面・公平なプレイへ。小型装飾/HUD/CI/長文引継ぎ増殖禁止。
 

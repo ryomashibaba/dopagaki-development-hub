@@ -1,0 +1,73 @@
+{
+  "schema": "k4ct-r77-source-camera-art-reject-handoff/1",
+  "dateJST": "2026-11-08",
+  "baseResearchHEAD": "35495ea2ff736e970bdbfb5429fef3cba43968ea",
+  "sourceCode": {
+    "path": "research-candidates/k4ct/k4ct-r77-fjord-gateway.mjs",
+    "gitBlobSHA": "45fc0edbe7f833242141325c189c924118daee42",
+    "SHA256": "e2f17030f1a57b51d343e78111f3d29fc5484574e8caeaead9401bcbc9699d4a"
+  },
+  "sourcePhysicalStage": {
+    "R75StageSHA256": "7593b21f6e1e3951222115815050cf68823dc8368b44a977763c07c131eb292a",
+    "byteIdenticalToR75": true,
+    "physicalRoads": 7,
+    "originalMovingObstacles": 28,
+    "originalNative240Hz": true,
+    "physicalModifications": 0,
+    "voidCells": [
+      52,
+      53,
+      54
+    ]
+  },
+  "nativeRun": {
+    "method": "original Runner and camera pose derived with zero steer, source frame capture 0-6 seconds only",
+    "fullSevenRoadPass": "NOT_TESTED",
+    "humanWindowsPlay": "NOT_TESTED"
+  },
+  "visualEngineering": {
+    "A0": "ART_REJECT_OVERSIZED_PORTAL_DOMINATES_CAMERA",
+    "B1": "ART_REJECT_RING_IS_NOT_AN_INHABITED_WORLD",
+    "B1PortalRoadU": [
+      0.432,
+      0.47
+    ],
+    "B1GateCenterOpeningHeightAboveRoadMetres": 61,
+    "B1NoAddedColliders": true,
+    "environmentTriangles": 5478,
+    "roadOverlayTriangles": 9792,
+    "unapprovedGLB_SHA256": "d825c40bd7f225762e61462661180af385a781e862cfb9efd6c5afce3d8b36d2"
+  },
+  "visibility": {
+    "method": "exact native relative camera + triangle raycast against new visual geometry at t=0,1,2,3.2,4,5.208s times two target points",
+    "rays": 12,
+    "raysHitNewArt": 0,
+    "takeoffLastFrameMayBeBehindCamera": true,
+    "claimedActualBrowserPixelReadability": false
+  },
+  "art": "REJECT",
+  "formalArtAccepted": 0,
+  "officialSlope2DNAMetres": 0,
+  "HUMAN": "HOLD",
+  "SAT": "HOLD",
+  "CCD": "HOLD",
+  "WindowsFPS": "HOLD",
+  "RELEASE": "HOLD",
+  "MERGE": "HOLD",
+  "realChromium": "NOT_VERIFIED_DUE_BROWSER_LOCAL_ACCESS_RESTRICTIONS",
+  "integratedLocalResearchZIP": {
+    "name": "DOPAGAKI_R77_REJECTED_ART_SOURCE_RESEARCH_ONLY.zip",
+    "SHA256": "3918b4f9e467f61a323b00f52ace1c88f0eb7f9def8b2a61fa535a2605930dad",
+    "entries": 133,
+    "localPythonIntegrity": "PASS",
+    "localHTTP": "PASS",
+    "JSParser": "PASS",
+    "GLBExportReimport": "PASS",
+    "zipCRC": "PASS",
+    "location": "conversation-generated attachment only, NOT uploaded to GitHub"
+  },
+  "protected": "main;Gold;P101;PR46;formal QA;original game/physics/Camera/road 7/B51 28;Blender 8 groups;production/Pages untouched",
+  "newGitHubActionsRunRequests": 0,
+  "newPaidAPIJPY": 0,
+  "next": "Stop procedural giant gate/rock facet ART loops. One structurally legible and inhabited road-traversed Blender-authored destination with source camera proof before any new player re-test; keep narrow vertical scope and no heavy CI."
+}
