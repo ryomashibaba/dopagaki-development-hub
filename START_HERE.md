@@ -1,4 +1,7 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
+## R75（2026-11-08）本人R73不合格→独立実物理コース改善・ART HOLD
+[原240Hz実物理の限定証拠](research-evidence/k4ct/K4CT_R75_FIRST_NATIVE_PHYSICAL_PILOT_ART_HOLD_20261108.json)。R73本人の「序盤/後半ビジュアル不合格、道幅過小、飛行/潜行/落下不足、面白くない」を基準に、元原本不変で研究生成ステージを作成。格子161行の水平拡幅、実Road0穴1→3セル、着地高低調整、Road2横断格子の180°反転を研究コピーだけで連続化。元B48×7/B51×28/Camera/240Hz保護。実Runner 240Hz・52m/s・ゼロ操舵（既定ガイド補助）でR73約9.81s落下→R75 12s進行、5.00→5.4875s空中→実Road0再接地。**人間プレイでない、7路全完走未認証、ART世界の欠陥未修復、実Chromium画面失敗（EGL）**。ローカル研究ZIP生成・Python/HTTP/ZIP静的PASS。正式ART0／Slope2 DNA0m、HUMAN/SAT/CCD/WindowsFPS/RELEASE/MERGE HOLD維持。次は人間再試走をまだ求めず、序盤から大地と巨大構造物が接続し本当に潜り抜けられる道路一体ART・真正WebGL実画面・公平なプレイへ。小型装飾/HUD/CI/長文引継ぎ増殖禁止。
+
 ## 2026-11-08 実プレイヤーのR73体験評価：GAMEPLAY / VISUAL REJECT（最新）
 R73の本人試走後、序盤の美術全体を低評価、後半の人工物も浮遊装飾で空間として価値が低い、速度に対して道路が狭すぎる、飛行・潜り抜け・落下がほぼ体験できず面白くないとの直接報告。**定性的な人間の否定評価であり、FPS・物理ログ・正式QA・人間PASSの証明ではない**。元R73の研究TECH成功は残すが、この体験をゲーム品質の採用候補にはしない。
 [実ステージ定量根拠と改善ゲート](research-evidence/k4ct/K4CT_R73_DIRECT_HUMAN_VISUAL_GAMEPLAY_REJECTION_20261108.json)：R73同梱の真正B48計7路のうち後半4路の31行格子幅中央値は約16m、実路面欠損設定は先頭路の `voidLongitudinalCells:[52]` のみ。狭幅・速度・実操舵／接地／到達カメラの整合不足が有力な品質障害。要修正は**序盤からの巨大空間全体と、物理的に飛ぶ・潜る・落ちる・再接地する立体道路の共同設計**。試走後なのでGate Aの感想収集を繰り返さない。研究PRIVATEの**最初の遊べる短区間**を別候補として設計し、幅広い進入部→有限の公平な狭路→本物の上下移動/ジャンプ/再接地を原240Hz・元カメラ・B48/B51正規衝突下で実証する。最初から新しい装飾・HUD・CI/長文正本を増やさない。固定V15/V16・main/PR46/元Game/Camera/Runner/Road/保護8群・正式QA/Gold/本番は変更不可、正式ART0／Slope2 DNA0m／HUMAN/SAT/CCD/WindowsFPS/RELEASE/MERGE HOLD。費用と他プロジェクト優先順位不変。
