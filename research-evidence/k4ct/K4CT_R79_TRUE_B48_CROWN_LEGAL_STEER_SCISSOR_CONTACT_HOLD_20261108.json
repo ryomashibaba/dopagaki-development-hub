@@ -1,0 +1,77 @@
+{
+  "schema": "k4ct-r79-first-crown-shoulder-original-240hz-controlled-physical-evidence/1",
+  "dateJST": "2026-11-08",
+  "parentHEAD": "dd5603365c76a974963795c882335074a5a78ebf",
+  "originalR78StageSHA256": "4ea956114b868c8ab3ec991b780fcf7498d71c994a8a3962bc804e2f907a361f",
+  "r79StageSHA256": "c523d4f68e728b6fe8f15f5275a2b1255cfe17a3a3f3b93fa2de3777c176bc96",
+  "generatorGitBlobSHA": "ea93df9e295b56b37aeaa61ba8cbf0559c9e3abb",
+  "generatorSHA256": "d259d828ac70e6bdacfcb1c0b900015c1715d38d8c1fa8b421d0cab8af7c5bb3",
+  "scope": "PRIVATE/RESEARCH standalone candidate, original game/physics/camera/route/B51/other six B48 roads and void unchanged",
+  "physicalDifference": {
+    "onlyEditedRoad": "p93-CROWN_REVERSAL-01",
+    "rowsEdited": 21,
+    "controlPointsEdited": 84,
+    "maxSymmetricShoulderMPerSide": 12,
+    "centerlineEveryRowUnchanged": true,
+    "elevationEveryPointUnchanged": true,
+    "otherSixRoadsUnchanged": true,
+    "routeAndRouteSegmentsUnchanged": true,
+    "existingNative240HzPhysicsUnchanged": true,
+    "movingObstaclesUnchanged": 28,
+    "road0TrueGapIdentical": [
+      52,
+      53,
+      54
+    ],
+    "collisionTriangleCount": 32988,
+    "invalidTriangles": 0,
+    "minimumHorizontalInterpolatedWidthR78M": 51.27163198506275,
+    "minimumHorizontalInterpolatedWidthR79M": 57.75451687191134
+  },
+  "controlledOriginal240Hz": {
+    "startingSpeedMps": 52,
+    "spawnIndex": 0,
+    "originalAssist": true,
+    "steeringInput": "+0.20 from t=11s until t=23s; zero elsewhere",
+    "referenceR78": {
+      "status": "FAIL",
+      "timeSeconds": 19.7208,
+      "reason": "red moving B51 obstacle collision",
+      "thirdRoadReached": false
+    },
+    "candidateR79": {
+      "statusAt30Seconds": "RUNNING",
+      "firstTrueContactToThirdRoadSeconds": 23.9167,
+      "thirdRoadOriginalSurface": "p93-SCISSOR_RISE-01",
+      "thirdRoadGroundedTicksBefore30Seconds": 537,
+      "subsequentFailureSeconds": 34.35,
+      "subsequentFailureReason": "コースから落下 (on SCISSOR sector)",
+      "fullCourseCompleted": false
+    },
+    "alternativeLegalInputs": {
+      "zeroInputR79FailureSeconds": 18.5292,
+      "shortPlus0p2Until16FailureSeconds": 23.8583,
+      "plus0p2Until23SurvivedFirstTwoRoads": true
+    },
+    "humanGameplay": "NOT_VERIFIED",
+    "note": "The same driving input gives different moving hazard contact; obstacles themselves were not removed or altered."
+  },
+  "nextBlockingProblem": "Road3 SCISSOR_RISE contact/air oscillations 24-34sec then fall at 34.35s; investigate original B48 3D curvature, legitimate steering, native camera and landing without extending fake surfaces. Human ART and all seven-road QA not approved.",
+  "localArtifact": "DOPAGAKI_R79_CROWN_TRUE_B48_SHOULDER_RESEARCH_HOLD.zip",
+  "localArtifactSHA256": "bb3ac17e743f77398de302b9eb6496243ebc2960763ca22274666f41ff62659f",
+  "bundleCRCAndManifest": "PASS",
+  "officialArtAccepted": 0,
+  "certifiedSlope2DNAMetres": 0,
+  "certification": {
+    "TECH": "LIMITED_PASS_TO_ROAD3_ONLY",
+    "HUMAN": "HOLD",
+    "ART": "REJECT_PREVIOUS",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "GitHubActionsRequested": 0,
+  "paidAPIJPY": 0
+}
