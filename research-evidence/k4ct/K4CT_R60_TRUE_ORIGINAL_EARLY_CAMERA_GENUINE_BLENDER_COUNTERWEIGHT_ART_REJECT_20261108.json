@@ -161,8 +161,8 @@
         ],
         "roadCentralROIChangedGt25Pixels": 0,
         "topUIROIGt25Pixels": 0,
-        "oldOriginalSHA256": "e4dbf806801300e3081f332a12282b60b10f291e4f26f594942d130939b0a177",
-        "newActualArtSHA256": "e4dbf806801300e3081f332a12282b60b10f291e4f26f594942d130939b0a177"
+        "oldOriginalSHA256": "b516ec7f0d7afbf27e701b42fb703e9e35736cdefb8c2f2e6c33c63d08f8f3bf",
+        "newActualArtSHA256": "36e89fbed524657ad9ca766aaa217c8f1bc6a2955894314471352592132be51e"
       },
       {
         "seconds": 65.6,
@@ -175,7 +175,9 @@
           322
         ],
         "roadCentralROIChangedGt25Pixels": 0,
-        "topUIROIGt25Pixels": 0
+        "topUIROIGt25Pixels": 0,
+        "oldOriginalSHA256": "ce21bc2d564be78779e7f8efd7dfafa0e2842ff05f98fc0b0ddca717b3e55203",
+        "newActualArtSHA256": "10a7871b3c0f9e04722ef92d5141982a5d80152cec613e2279e3f87f229ca24b"
       },
       {
         "seconds": 66.35,
@@ -188,11 +190,13 @@
           364
         ],
         "roadCentralROIChangedGt25Pixels": 0,
-        "topUIROIGt25Pixels": 0
+        "topUIROIGt25Pixels": 0,
+        "oldOriginalSHA256": "6678238e73c6d0b47ff8d46d799cf2e857bbc8394a8f65e5c800b14ba7969725",
+        "newActualArtSHA256": "af1db68b80d032e9ec275d60bc0c312b0923fbdf007f79689987b15029f81ebb"
       }
     ],
-    "correction": "Pixel differences show a genuinely visible new industrial shape outside the central road, but DO NOT prove human recognition, physical mechanical actuation or ART quality; the old/new image SHA values should be read from actual artifact where needed.",
-    "sourceNativeExactSameTickRestored": true
+    "correction": "The original and authored native screenshots at each 240Hz tick have distinct verified SHA256. True visible RGB pixel differences are attributable to the art candidate within bounded checked ROIs, not proof of human perception or ART.",
+    "sourceOriginalAndCandidateSameTicksVerified": true
   },
   "criticalARTReview": {
     "positive": [
