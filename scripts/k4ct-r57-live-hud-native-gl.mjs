@@ -194,6 +194,53 @@ async function captureAB(page,label){
  return {baseline,candidate,applied,restored};
 }
 
+
+/** R67: tag only actually drawn native B51 opaque hull vertices at a frozen
+ * 240Hz source tick. Reuses R8 shader; no overlay, collider, mesh or camera edit.
+ * This diagnoses screen visibility, never certifies a human reaction time.
+ */
+async function captureR67SourceB51GPU(page,label,frame){
+ const before=await page.locator('#view').evaluate(c=>({
+  tick:Number(c.dataset.r15s3d10NativeTicks),
+  actualB51:Number(c.dataset.g4e7yRetainedMachines),
+  native:c.dataset.r15s3d10OriginalGame,
+  B51Material:c.dataset.k4ctNativeB51MaterialMode,
+  attribution:c.dataset.k4ctAttributionMode
+ }));
+ assert.equal(before.tick,frame.baseline.tick);
+ assert.equal(before.tick,frame.candidate.tick);
+ assert.equal(before.actualB51,28);
+ assert.equal(before.native,'REAL_WEBGL2_SOURCE_240HZ');
+ assert.equal(before.attribution,'BASE','B51 probe start was not untagged native drawing');
+ // Deliberate WHITE/HOT-PINK shader tagging. Shader does not suppress or
+ // substitute road/scenery/B51 depth, it recolors only exact original B51 hulls.
+ await page.evaluate(()=>window.__k4ctRenderAttribution='B51');
+ await page.waitForFunction(()=>document.getElementById('view').dataset.k4ctAttributionMode==='B51',
+  undefined,{timeout:10000});
+ const tagged='K4CT_R67_'+label+'_SOURCE_B51_ONLY_MAGENTA_GL_RAW.png';
+ await page.screenshot({path:path.join(OUT,tagged),type:'png'});
+ const during=await page.locator('#view').evaluate(c=>({
+  tick:Number(c.dataset.r15s3d10NativeTicks),
+  attribution:c.dataset.k4ctAttributionMode,
+  material:c.dataset.k4ctNativeB51MaterialMode
+ }));
+ assert.equal(during.tick,before.tick,'native Runner tick changed during B51 recolor');
+ assert.equal(during.attribution,'B51');
+ await page.evaluate(()=>window.__k4ctRenderAttribution='BASE');
+ await page.waitForFunction(()=>document.getElementById('view').dataset.k4ctAttributionMode==='BASE',
+  undefined,{timeout:10000});
+ const after=await page.locator('#view').evaluate(c=>({
+  tick:Number(c.dataset.r15s3d10NativeTicks),
+  attribution:c.dataset.k4ctAttributionMode
+ }));
+ assert.equal(after.tick,before.tick,'native Runner advanced during shader reversion');
+ return {label,sourceTick:before.tick,originalNativeB51:28,sourceOriginalPNG:frame.baseline.image,
+  taggedSourcePNG:tagged,material:before.B51Material,
+  restoredToOriginalShader:after.attribution==='BASE',
+  noNewGeometryOrPhysics:true,screenVisiblePixelCount:'UNSCORED_UNTIL_RAW_IMAGE_DIFF',
+  note:'GPU provenance of actual original B51 body, NOT human detectability and NOT a safe-lane indicator'};
+}
+
 try{
  browser=await chromium.launch({headless:true,args:['--use-gl=angle','--use-angle=swiftshader',
   '--enable-webgl','--enable-unsafe-swiftshader','--ignore-gpu-blocklist','--disable-dev-shm-usage']});
@@ -216,7 +263,8 @@ try{
  await page.locator('#takeoverRun').click();
  await page.waitForFunction(()=>document.getElementById('view').dataset.k4csControlMode==='ORIGINAL_MANUAL_UNCERTIFIED',undefined,{timeout:15000});
  await advance(page,65.25,false);
- result.frames.push(await captureAB(page,'T65_25'));
+ const a67=await captureAB(page,'T65_25');result.frames.push(a67);
+ result.r67B51Attribution=[await captureR67SourceB51GPU(page,'T65_25',a67)];
  await page.keyboard.down('KeyD');
  await advance(page,65.36,true);
  assert.equal(await page.locator('#view').getAttribute('data-k4cs-last-input-used'),'ORIGINAL_MANUAL_KEYBOARD');
@@ -227,13 +275,17 @@ try{
  assert.equal(await page.locator('#view').getAttribute('data-k4cs-last-input-used'),'ORIGINAL_MANUAL_KEYBOARD');
  await page.keyboard.up('KeyD');
  await advance(page,66.35,true);
- result.frames.push(await captureAB(page,'T66_35'));
+ const b67=await captureAB(page,'T66_35');result.frames.push(b67);
+ result.r67B51Attribution.push(await captureR67SourceB51GPU(page,'T66_35',b67));
  await advance(page,68.05,true);
- result.frames.push(await captureAB(page,'T68_05'));
+ const c67=await captureAB(page,'T68_05');result.frames.push(c67);
+ result.r67B51Attribution.push(await captureR67SourceB51GPU(page,'T68_05',c67));
  assert.equal(result.frames.length,3);
+ assert.equal(result.r67B51Attribution.length,3);
+ assert.ok(result.r67B51Attribution.every(x=>x.restoredToOriginalShader));
  assert.ok(result.frames.some(f=>f.candidate.twoRealCount>0),'no actual native cue was tested');
  assert.deepEqual(result.errors,[],'pageerrors');
- result.status='R66_NATIVE_PRACTICE_PLACEMENT_R57_HUD_REVERSIBLE_PASS';
+ result.status='R67_NATIVE_B51_GPU_PROVENANCE_CAPTURED_TECH_PASS_ART_HOLD';
  await ctx.close();
 }catch(e){
  result.status='HOLD_R57_LIVE_HUD_NOT_PROVEN';
@@ -241,8 +293,8 @@ try{
 }finally{
  if(browser)await browser.close();
  await new Promise(done=>server.close(done));
- fs.writeFileSync(path.join(OUT,'K4CT_R66_ORIGINAL_NATIVE_PRACTICE_RESULT.json'),JSON.stringify(result,null,2)+'\n');
+ fs.writeFileSync(path.join(OUT,'K4CT_R67_ORIGINAL_NATIVE_B51_GPU_VISIBILITY_RESULT.json'),JSON.stringify(result,null,2)+'\n');
 }
-if(result.status!=='R66_NATIVE_PRACTICE_PLACEMENT_R57_HUD_REVERSIBLE_PASS'){
+if(result.status!=='R67_NATIVE_B51_GPU_PROVENANCE_CAPTURED_TECH_PASS_ART_HOLD'){
  console.error('R57_NATIVE_HOLD',JSON.stringify(result.errors));process.exitCode=1;
 }else console.log('R57_NATIVE_PASS',JSON.stringify({frames:3,source:'ORIGINAL_240HZ_WEBGL2',B51:28,ART:'HOLD',HUMAN:'HOLD'}));

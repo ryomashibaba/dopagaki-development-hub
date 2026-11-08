@@ -172,7 +172,8 @@ replace("for(const name of ['eye','camRight','camUp','camFront','translation','s
  " locations.k4ctProbeRGB=gl.getUniformLocation(program,'k4ctProbeRGB');");
 replace(" gl.drawArrays(primitive,0,m.count);",
  "  if(k4ctDccMesh&&doc?.stageForge?.k4ctPrivate){"+
- "   const isB51=Object.values(machineMeshes).includes(m)||Object.values(a13MachineMeshes).includes(m);"+
+ "   const isB51=Object.values(machineMeshes).includes(m)||Object.values(a13MachineMeshes).includes(m)||"+
+ "    Object.values(k4ctResearchB51Meshes).some(pair=>pair.a13===m||pair.early===m);"+
  "   const group=m===roads||m===k4ctFixtureIdentityTagMesh?'ROAD':"+
  "    m===k4csMarkerMesh?'K4CS':"+
  "    m===k4ctDccMesh?'DCC':isB51?'B51':'OTHER';"+

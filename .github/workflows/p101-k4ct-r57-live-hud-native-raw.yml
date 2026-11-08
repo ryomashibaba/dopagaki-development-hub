@@ -1,4 +1,4 @@
-name: K4CT R66 PRIVATE PRACTICE placement with R57 B51 HUD source WebGL2
+name: K4CT R67 original 240Hz B51 true GPU visibility diagnostic
 on:
   push:
     branches:
@@ -25,6 +25,7 @@ jobs:
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
           node --check scripts/k4ct-r57-live-hud-native-gl.mjs
+          node --check scripts/p101-k4ct-install-authored-dcc.mjs
           node --check scripts/k4ct-r57-live-hud.mjs
           node --check scripts/k4ct-r57-install-private-live-hud.mjs
           node --check scripts/p101-k4ct-dual-real-b51-decision.mjs
@@ -90,7 +91,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: K4CT_R66_ORIGINAL_240HZ_PRACTICE_BUTTON_AB_RAW_ART_HOLD
+          name: K4CT_R67_TRUE_B51_NATIVE_GPU_PROVENANCE_ART_HOLD
           path: test-results/k4ct-r57-live-hud/
           if-no-files-found: warn
           retention-days: 7
