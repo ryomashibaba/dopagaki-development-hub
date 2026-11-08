@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/p101-k4ct-r57-live-hud-native-raw.yml
   workflow_dispatch:
+# R66 one bounded retry: first CI checked full-width .drivekeys wrapper rather than buttons.
 permissions:
   contents: read
   actions: read
@@ -89,7 +90,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: K4CT_R66_ORIGINAL_240HZ_PRACTICE_AB_RAW_ART_HOLD
+          name: K4CT_R66_ORIGINAL_240HZ_PRACTICE_BUTTON_AB_RAW_ART_HOLD
           path: test-results/k4ct-r57-live-hud/
           if-no-files-found: warn
           retention-days: 7

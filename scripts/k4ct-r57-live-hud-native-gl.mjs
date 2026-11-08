@@ -41,7 +41,11 @@ async function capture(page,label){
   const c=document.getElementById('view'),e=document.getElementById('k4ctOriginalTwoB51Panel');
   const g=c.getContext('webgl2'),rc=e.getBoundingClientRect(),rr=c.getBoundingClientRect();
   const p=document.getElementById('practiceBanner'),pr=p?.getBoundingClientRect();
-  const keys=document.querySelector('.drivekeys'),kr=keys?.getBoundingClientRect();
+  // The .drivekeys layout spans the entire viewport; compare the actual
+  // interactive button boxes rather than the full-width flex container.
+  const kr=Array.from(document.querySelectorAll('.drivekeys button')).map(el=>{
+   const r=el.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};
+  });
   return {nativeWebGL2:g instanceof WebGL2RenderingContext,
    original240Hz:c.dataset.r15s3d10OriginalGame,
    originalB51:Number(c.dataset.g4e7yRetainedMachines),
@@ -54,7 +58,7 @@ async function capture(page,label){
    practice:p?{hidden:p.hidden,text:p.textContent,placement:c.dataset.k4ctR66PracticePlacement,
     active:c.dataset.k4ctR66PracticeActive,cssActive:Boolean(document.getElementById('k4ctR66PracticeCSS')),
     rect:{x:pr.x,y:pr.y,w:pr.width,h:pr.height},
-    keys:kr?{x:kr.x,y:kr.y,w:kr.width,h:kr.height}:null}:null
+    keys:kr}:null
   };
  });
  assert.ok(v.nativeWebGL2);
@@ -143,9 +147,10 @@ async function captureAB(page,label){
   'candidate PRACTICE outside native viewport height');
  assert.ok(candidate.practice.rect.y>=candidate.canvas.y+candidate.canvas.h*.62,
   'candidate PRACTICE not in bottom right');
- const p=candidate.practice.rect,k=candidate.practice.keys;
- assert.ok(k&&(p.x>=k.x+k.w||p.x+p.w<=k.x||p.y>=k.y+k.h||p.y+p.h<=k.y),
-  'candidate PRACTICE blocks original A/D touch controls');
+ const p=candidate.practice.rect,keys=candidate.practice.keys;
+ assert.equal(keys.length,2,'expected original LEFT/RIGHT touch controls');
+ assert.ok(keys.every(k=>p.x>=k.x+k.w||p.x+p.w<=k.x||p.y>=k.y+k.h||p.y+p.h<=k.y),
+  'candidate PRACTICE blocks an actual A/D touch button');
  result.practicePlacementObservations??=[];
  result.practicePlacementObservations.push({label,source:baseline.practice.rect,candidate:candidate.practice.rect,
   originalGuidanceTextIntact:true,sourceTick:baseline.tick,originalB51TelemetryUnchanged:true});
