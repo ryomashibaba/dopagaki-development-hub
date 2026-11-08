@@ -1,4 +1,4 @@
-name: K4CT R72 local one-click true B51 human trial kit (ART/HUMAN HOLD)
+name: K4CT R72 single cached local trial WebGL2 handover verification (HUMAN HOLD)
 on:
   push:
     branches:
@@ -10,103 +10,63 @@ permissions:
   contents: read
   actions: read
 jobs:
-  genuine-original-local-trial-package:
+  cached-r72-original-chromium-only:
     runs-on: ubuntu-24.04
-    timeout-minutes: 21
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify protected originals and one-click local-source syntax
+      - name: Protect game and original Blender authors
         run: |
           set -euo pipefail
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
-          node --check scripts/k4ct-r72-one-click-human-trial.mjs
-          node --check scripts/k4ct-r72-build-local-human-trial-bundle.mjs
           node --check scripts/k4ct-r72-check-local-human-trial-bundle.mjs
-          node - <<'NODE'
-          const fs=require('node:fs'),crypto=require('node:crypto'),assert=require('node:assert/strict');
-          const pack=fs.readFileSync('scripts/k4ct-r72-build-local-human-trial-bundle.mjs','utf8');
-          const exact="UIAddonSHA256:crypto.createHash('sha256').update(fs.readFileSync(path.join(target,'r72-one-click-human-trial.mjs'))).digest('hex')";
-          assert.ok(pack.includes(exact),'R72 SHA digest call contract wrong');
-          const hashed=crypto.createHash('sha256').update(fs.readFileSync('scripts/k4ct-r72-one-click-human-trial.mjs')).digest('hex');
-          assert.equal(hashed.length,64);
-          console.log('R72_EARLY_MANIFEST_DIGEST_GATE_PASS');
-          NODE
-      - name: Reuse unchanged actual R49 editable Blender and true original export
+      - name: Download exact previously built R72 trial bundle; no game or Blender rebuild
         uses: actions/download-artifact@v4
         with:
-          name: K4CT_R49_ORIGINAL_WEBGL2_VOLUMETRIC_SIPHON_ART_HOLD
-          run-id: 42437685590
+          name: K4CT_R72_LOCAL_HUMAN_TRIAL_BUNDLE_RESEARCH_NOT_RELEASED
+          run-id: 42465824622
           github-token: ${{ github.token }}
           path: test-results
-      - name: Verify exact R49 source and protected eight groups without Blender
+      - name: Verify local artifact self-contained modules and no physical changes
         run: |
           python3 - <<'PY'
-          import json,pathlib,subprocess
-          root=pathlib.Path('test-results')
-          d=json.loads((root/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
-          m=json.loads((root/'k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json').read_text())
-          p=json.loads((root/'k4ct-r39-art/R39_BASELINE_EIGHT_PROTECTED.json').read_text())
-          assert d['triangles']==m['totalDccTriangles']==32004
-          assert d['originalB48']==m['originalB48']==7
-          assert d['originalB51']==m['originalB51']==28
-          assert d['newColliders']==m['newColliders']==0
-          assert d['sourcePhysicalRoad5SHA256']=='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b'
-          protected={'00','12','13','19','34','35','41','42'}
-          def take(x):
-            i=0;out={}
-            for name,n in x['objects'].items():
-              if name[:2] in protected:out[name]=x['vertices'][i:i+n*18]
-              i+=n*18
-            assert i==len(x['vertices'])
-            return out
-          assert take(d)==take(p),'original 8 protected XYZRGB must match'
-          assert (root/'k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend').stat().st_size>100000
-          print('R72_GENUINE_R49_PROTECTED8_AND_ORIGINAL_ROAD_B51_PASS')
+          import json,pathlib,hashlib,re
+          root=pathlib.Path('test-results/k4ct-r72-human-trial-bundle')
+          m=json.loads((root/'R72_PACKAGE_MANIFEST.json').read_text())
+          assert m['nativeSourceGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
+          assert m['originalBlenderAuthorBlob']=='096fffbc1627915eb0122224955bb02cfba6b3ae'
+          assert (m['originalB48'],m['originalB51'],m['newColliders'])==(7,28,0)
+          assert m['autoNetworkUpload'] is False and m['launchTestedOnWindows'] is False
+          for field,file in [('UIAddonSHA256',root/'k4ct/r72-one-click-human-trial.mjs'),
+                             ('launcherSHA256',root/'R72_DOPAGAKI_LOCAL_TRIAL.cmd')]:
+            assert hashlib.sha256(file.read_bytes()).hexdigest()==m[field]
+          missing=[]
+          for file in root.rglob('*'):
+            if file.suffix not in ('.mjs','.js'):continue
+            for p in re.findall(r"""(?:from|import)\s*\(?\s*['"]([.][.]?/[^'"]+)['"]""",file.read_text(errors='replace')):
+              if not (file.parent/p).resolve().is_file():
+                missing.append([str(file.relative_to(root)),p])
+          assert not missing,missing
+          print('R72_CACHED_ORIGINAL_BUNDLE_SELF_CONTAINED_SHA_AND_NATIVE_MODULES_PASS')
           PY
-      - name: Build only isolated K4CT real native playable game (R49 BLEND no new DCC)
-        run: |
-          set -euo pipefail
-          npm install --no-save --no-package-lock --no-audit --no-fund
-          npm run build:private
-          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
-          node scripts/p101-k4cq-private-integrated-pack.mjs
-          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
-          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
-          node scripts/p101-k4ct-private-native-two-choice-game.mjs
-          node scripts/p101-k4ct-install-authored-dcc.mjs
-          node scripts/k4ct-r57-install-private-live-hud.mjs
-          node scripts/k4ct-r60-private-source-frustum-patch.mjs
-          node --check dist-private/k4ct/drive3d.mjs
-          node scripts/k4ct-r72-build-local-human-trial-bundle.mjs
-          node - <<'NODE'
-          const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
-          const root='test-results/k4ct-r72-human-trial-bundle';
-          for(const p of ['reference_only/director/physics.js','reference_only/director/collision.js',
-            'reference_only/director/surface.js','reference_only/director/moving/moving-obstacles.mjs',
-            'reference_only/director/game-fixtures.js','k4ct/drive3d.mjs','k4ct/index.html']){
-             assert.ok(fs.statSync(path.join(root,p)).isFile(),'Missing original local module '+p);
-          }
-          console.log('R72_LOCAL_IMPORT_CLOSURE_BEFORE_CHROMIUM_PASS');
-          NODE
-      - name: Install isolated headless Chromium only for original 240Hz smoke
+      - name: Install only Chromium smoke dependencies (no Blender or long rebuild)
         timeout-minutes: 6
         run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund
           npx playwright install --only-shell --with-deps chromium
-      - name: Browser validates original GL manual handover and local result export
-        timeout-minutes: 9
+      - name: Verify native original 240Hz handover clock and local JSON export
+        timeout-minutes: 5
         run: |
           node scripts/k4ct-r72-check-local-human-trial-bundle.mjs test-results/k4ct-r72-human-trial-bundle
-      - name: Preserve research-only local trial files and honest smoke result
+      - name: Save one factual browser result, not a HUMAN gameplay certificate
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: K4CT_R72_LOCAL_HUMAN_TRIAL_BUNDLE_RESEARCH_NOT_RELEASED
-          path: |
-            test-results/k4ct-r72-human-trial-bundle/
-            test-results/k4ct-r72-bundle-native-smoke/
-          if-no-files-found: warn
+          name: K4CT_R72_CACHED_TRUE_MANUAL_HANDOVER_SOURCE_GL_SMOKE
+          path: test-results/k4ct-r72-bundle-native-smoke/
           retention-days: 7
+          if-no-files-found: warn

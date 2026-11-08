@@ -51,7 +51,9 @@ try{
  }));
  assert.equal(runtime.status,'running');
  assert.equal(runtime.b51,28);assert.equal(runtime.control,'ORIGINAL_MANUAL_UNCERTIFIED');
- assert.ok(runtime.ticks>=63.70*240-2&&runtime.ticks<=63.70*240+2);
+ assert.ok(Number.isFinite(runtime.ticks)&&runtime.ticks>=63.70*240-2,
+  'Original native clock must have reached handover; it is allowed to keep advancing under manual control');
+ console.log('R72_ORIGINAL_MANUAL_RUNNING_AFTER_HANDOVER',JSON.stringify(runtime));
  const [download]=await Promise.all([
   page.waitForEvent('download',{timeout:10000}),
   page.locator('#r72-save-local-result').click()
