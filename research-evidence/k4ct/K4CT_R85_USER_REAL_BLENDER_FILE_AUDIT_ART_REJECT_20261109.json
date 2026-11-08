@@ -1,0 +1,132 @@
+{
+  "schema": "k4ct-r85-user-uploaded-real-blender-evidence-vs-original-verifier/1",
+  "asOfJST": "2026-11-09",
+  "predecessorHEAD": "c15c40e9ab2062ee193f64dc394d51a48ca4019e",
+  "provenance": "User directly uploaded 4 PNG renders, 1 .blend, and 1 R83 execution receipt; assistant independently hashed exact uploaded bytes and inspected all images. This is no longer an inferred or proxy-only Blender render.",
+  "inputs": {
+    "r83SourceZipSHA256": "680a366f852ffa31c68da27b156cc33995075e6120a39acb6f71ef44fa90adc7",
+    "originalR80StageSHA256": "786ee9c26ced13055b222dbfd413c9f7b5f090e5abc7a383d58c984389605c4f",
+    "originalR82GLBSHA256": "86cb7b8bae20e207efc855e6dd7bfb424c9e5cd50a923d8ca36e0c53512447bd",
+    "executionReceiptSHA256": "251005e0a391d633723df3d9b71ee1d306c847b5d6d993d371b8ae5517083bd5",
+    "blend": {
+      "name": "R83_EDITABLE_CIVIC_MASTER_ART_HOLD.blend",
+      "bytes": 329950,
+      "SHA256": "1d0ce3def743f3a471fb6dab73106221f07cd334ee16ebf3791cff92b65cc1bd",
+      "diskMagic": "28b52ffd",
+      "compressed": "Zstandard 4 concatenated frames",
+      "decodedNativeHeader": "BLENDER17-01v0502",
+      "decodedBytes": 1955434,
+      "assistantValidation": "All compressed frames decompressed via system libzstd and native BLENDER version header inspected; user-reported Blender 5.2.1 LTS is consistent with header."
+    },
+    "PNG": [
+      {
+        "time": 0,
+        "file": "R83_BLENDER_SOURCE_CAMERA_0p0.png",
+        "SHA256": "6c271c9fc2554d5a466813ad76a6b361db016eee1438dbc77ea183ab54237ce9",
+        "bytes": 436304,
+        "width": 1008,
+        "height": 645,
+        "nearlyBlackPct": 42.78
+      },
+      {
+        "time": 2,
+        "file": "R83_BLENDER_SOURCE_CAMERA_2p0.png",
+        "SHA256": "a412723fbbb659e5c6178846f63a52982a451fdcc752cc4295e9e43bcedf9641",
+        "bytes": 471740,
+        "width": 1008,
+        "height": 645,
+        "nearlyBlackPct": 38.89
+      },
+      {
+        "time": 3.2,
+        "file": "R83_BLENDER_SOURCE_CAMERA_3p2.png",
+        "SHA256": "e047c11a7724401da94ba0005d3c6b4f02b7837d25795202aa65400a4e85326f",
+        "bytes": 508297,
+        "width": 1008,
+        "height": 645,
+        "nearlyBlackPct": 35.04
+      },
+      {
+        "time": 5.20833,
+        "file": "R83_BLENDER_SOURCE_CAMERA_5p21.png",
+        "SHA256": "23cf640c234b3e507f8cbe9135fba22b44f81b720adab5fc4710be06d8291e2d",
+        "bytes": 477278,
+        "width": 1008,
+        "height": 645,
+        "nearlyBlackPct": 51.55
+      }
+    ],
+    "receiptClaims": {
+      "blenderVersion": "5.2.1 LTS",
+      "editableArtMeshes": 23,
+      "protectedRoadRefMeshes": 1,
+      "sourceCameraCount": 4,
+      "physicsReExecuted": false,
+      "originalWebGL2Executed": false,
+      "art": "REJECT_UNAPPROVED"
+    },
+    "independentlyConfirmedSourceGLB": "trimesh scene has 24 distinct mesh geometry objects including REFERENCE_REAL_R80_B48_ROAD0_READ_ONLY; native .blend object counts are from execution receipt, not separately inspected with Blender GUI in this Chat session"
+  },
+  "originalVerifierBug": {
+    "origin": "R83 package's R83_VERIFY.py, line checking first 7 bytes == b'BLENDER' only",
+    "realCompressedFile": "begins ZSTD 28b52ffd, decoded content begins BLENDER17-01v0502",
+    "observedOriginalVerifierResult": "R83 HOLD RuntimeError('R83 HOLD: BLEND_NOT_REAL'), exit=7",
+    "significance": "The original launcher could incorrectly label a successful real Blender save and four images as verification failure; avoid telling user to rerun.",
+    "fixedPatch": "research-candidates/k4ct/R83_VERIFY_ACCEPT_NATIVE_ZSTD_BLEND.patch",
+    "correctedFullVerifierSHA256": "4d0313843d428c52f1dcc4a94a218f9178aadf34a0d28d1090c321a84e6e7139",
+    "correctedIndependentVerify": "PASS, return code 0 on exact uploaded .blend, 4 PNG and JSON receipt; cross-platform portable check accepts raw BLENDER or zstd file magic + independently matched SHA",
+    "negativeTests": [
+      "Tampered blend SHA => exit 7",
+      "Tampered t2 PNG SHA => exit 7",
+      "Malformed receipt JSON => exit 7"
+    ],
+    "qualification": "Portable standalone checker recognizes ZSTD signature and checks SHA but does not decompress on arbitrary Windows installations; independent zstd decompression of this supplied file was separately completed in the assistant's audit."
+  },
+  "artReview": {
+    "result": "ART_REJECT_NOT_GAME",
+    "observations": [
+      {
+        "t": 0,
+        "problem": "large black void and light gantry; destination and inhabited scale not legible"
+      },
+      {
+        "t": 2,
+        "problem": "thin elevated crossing and dark, uninhabited roadside landforms dominate; no meaningful civic activity"
+      },
+      {
+        "t": 3.2,
+        "problem": "flat teal wall bands and simple strips, shallow boxlike building profile, little legible vertical architecture"
+      },
+      {
+        "t": 5.20833,
+        "problem": "oversized straight crossing lintel and two piers frame a dark empty abyss; distant landing road appears visually detached"
+      }
+    ],
+    "caveat": "All 4 images use Blender Workbench, not final native Chromium/WebGL2 material, lighting, fog, or background; 35-52% near-black pixels may partly arise from preview background/shading, so never infer game FPS or production art just from those percentages.",
+    "specificPriority": [
+      "02_EAST_HOUSING_STATION_BASE and 08_EAST_TRANSIT_GALLERY: directly replace broad blank outer walls with spatially occupiable, multi-depth inhabited transport building",
+      "01_WEST_PUBLIC_CONCOURSE_BASE, 09_ELEVATED_INTERCHANGE_WALKWAY, 10_WEST_VERTICAL_PIER, 11_EAST_VERTICAL_PIER: directly reconstruct one supported station crossing, not free-standing lintel plus empty abyss",
+      "Camera t=5.21 first: retain true road gap and landing visibility, then confirm t=0,2,3.2,5.21. Do not solve with mere recolor, sky, bigger rocks or further procedural portals."
+    ],
+    "antiGoals": "No art upgrade/merge/production; do not repeat R76-R82 box, arch, slab, rock or abandoned-collider shortcuts."
+  },
+  "gateStatus": {
+    "R83NativeBlenderRenderAndEditableFile": "EVIDENCE_VERIFIED_PASS",
+    "realChromiumWebGL2": "HOLD_NOT_RUN",
+    "humanPlay": "HOLD_NOT_TESTED",
+    "formalArtAccepted": 0,
+    "officialSlope2DNAMetres": 0,
+    "ART": "REJECT",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "mainAndOriginalAssets": "NOT_MUTATED_BY_AUDIT"
+  },
+  "billing": {
+    "newPaidAPIJPY": 0,
+    "newGitHubActionsTriggeredByAssistant": 0
+  },
+  "next": "Do not ask for the same four renders again; they now constitute genuine R83 source-frame evidence. First substantive next task is direct high-quality Blender author restructuring of named dominant civic masses in an isolated child .blend, with no original source or 8 DCC group writes, then inspect the original four views; integrate only if strong visual improvement. Do not assume merely changing Workbench background is world-quality improvement."
+}

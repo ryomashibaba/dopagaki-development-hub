@@ -1,0 +1,15 @@
+--- a/R83_VERIFY.py
++++ b/R83_VERIFY.py
+@@ -61,7 +61,11 @@
+     positive(r['sourceCameraCount']==4,'CAMERA_GROUP_MISMATCH')
+     blend=o/'R83_EDITABLE_CIVIC_MASTER_ART_HOLD.blend'
+     positive(blend.is_file() and blend.stat().st_size>1024,'BLEND_MISSING_OR_EMPTY')
+-    with blend.open('rb') as fp: positive(fp.read(7)==b'BLENDER','BLEND_NOT_REAL')
++    # Native Blender 5.2 can save either raw BLENDER files or zstd-compressed
++    # native .blend files (zstd magic 28 b5 2f fd). Do not reject a legitimate
++    # compressed file before verifying the full SHA and all four frame outputs.
++    with blend.open('rb') as fp: magic=fp.read(7)
++    positive(magic==b'BLENDER' or magic[:4]==b'\x28\xb5\x2f\xfd','BLEND_NOT_NATIVE_OR_ZSTD')
+     positive(sha(blend)==r['blendSHA256'],'BLEND_SHA_MISMATCH')
+     dims=[]
+     for f in FILES:
