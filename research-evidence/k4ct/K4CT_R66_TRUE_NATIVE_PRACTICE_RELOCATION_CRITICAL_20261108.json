@@ -1,0 +1,186 @@
+{
+  "schema": "dopagaki-k4ct-r66-native-source-240hz-webgl2-reversible-practice-hud-one-layout-v1",
+  "dateJST": "2026-11-08",
+  "purpose": "Make original PRACTICE instructions move from central ball/road to lower right with reversible generated PRIVATE-only CSS. Keep actual original HUD text, real input controls, physics, and all B51 unchanged.",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "startingHead": "fda5b2f2205076e95506339a1b0b05f52aaf72d3",
+  "implementationCommit": "12ca21783f48ee58b9a11c2ced110aafb422e14c",
+  "correctedTestCommit": "2a200777d602b279fa31ccadb86d3a4ec54eb48b",
+  "touchedCode": [
+    "scripts/k4ct-r57-live-hud.mjs",
+    "scripts/k4ct-r57-live-hud-native-gl.mjs",
+    ".github/workflows/p101-k4ct-r57-live-hud-native-raw.yml"
+  ],
+  "existingWorkflowReused": true,
+  "newWorkflowFiles": 0,
+  "newBlenderRuns": 0,
+  "originalSource": {
+    "gameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "blenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "camera": "UNCHANGED",
+    "runnerHz": 240,
+    "B48": 7,
+    "B51": 28,
+    "newColliders": 0,
+    "protected8XYZRGB": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ]
+  },
+  "experimentalDesign": {
+    "privateModeName": "window.__k4ctPracticePlacement",
+    "values": [
+      "BASE",
+      "CANDIDATE"
+    ],
+    "default": "CANDIDATE_IF_VISIBLE_AND_DESKTOP_VIEW_GT_950",
+    "sourcePracticeCopyUnchanged": true,
+    "noninteractiveOriginalPracticeElement": true,
+    "onlyCSSPositionAndTypography": true,
+    "originalSteeringButtonsUnaffected": true,
+    "identicalOriginalThreeTimeSourceTicks": true
+  },
+  "firstAttempt": {
+    "run": 42454384850,
+    "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42454384850",
+    "conclusion": "failure",
+    "artifactId": 13606574017,
+    "error": "FALSE_TEST_ASSERTION: checked full-width .drivekeys flex wrapper (x span of viewport) instead of actual button rectangles. The practice overlay did not visibly overlap the two real buttons. Prior failure NOT rewritten into PASS.",
+    "repair": "Change test only: measure .drivekeys button rectangles and compare each actual button against overlay. Design code unchanged after failed first attempt."
+  },
+  "verified": {
+    "run": 42454663717,
+    "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42454663717",
+    "conclusion": "success",
+    "artifactId": 13607481149,
+    "artifactExpiryUTC": "2026-11-15T06:27:48Z",
+    "artifactZipSha256": "e1a24513080afaa99f9e445fc947ee49cafa6781ccd0f12719fe05149b6296cc",
+    "zipDigestLocallyVerified": true,
+    "actualOriginalChromiumWebGL2": true,
+    "original240Hz": true,
+    "realInputConditions": "Playwright source KeyD pulses, NOT human",
+    "rawPNGCount": 6,
+    "baselineCandidateAndRestoredSameNativeTick": true,
+    "sourceB51DecisionJsonUnchangedAtAllFrames": true,
+    "originalPRACTICETextUnchanged": true,
+    "cssRemovedAndRectRestoredAll3": true,
+    "R57LiveHUDReversibleTestStillPass": true,
+    "protected8XYZRGBReusePass": true
+  },
+  "frameAudit": [
+    {
+      "t": 65.25,
+      "tick": 15660,
+      "basePracticePx": {
+        "x": 391.711,
+        "y": 531.5,
+        "w": 267.578,
+        "h": 79
+      },
+      "candidatePracticePx": {
+        "x": 803.344,
+        "y": 626.203,
+        "w": 214.656,
+        "h": 59.297
+      }
+    },
+    {
+      "t": 66.35,
+      "tick": 15924,
+      "basePracticePx": {
+        "x": 391.711,
+        "y": 531.5,
+        "w": 267.578,
+        "h": 79
+      },
+      "candidatePracticePx": {
+        "x": 803.344,
+        "y": 626.203,
+        "w": 214.656,
+        "h": 59.297
+      }
+    },
+    {
+      "t": 68.05,
+      "tick": 16332,
+      "basePracticePx": {
+        "x": 391.711,
+        "y": 531.5,
+        "w": 267.578,
+        "h": 79
+      },
+      "candidatePracticePx": {
+        "x": 803.344,
+        "y": 626.203,
+        "w": 214.656,
+        "h": 59.297
+      }
+    }
+  ],
+  "originalTouchButtonsPx": [
+    {
+      "x": 414.5,
+      "y": 625.5,
+      "w": 105,
+      "h": 56
+    },
+    {
+      "x": 531.5,
+      "y": 625.5,
+      "w": 105,
+      "h": 56
+    }
+  ],
+  "candidateDoesNotIntersectEitherTouchButtonAll3": true,
+  "panelRectangleAreaReductionPercent": 39.8,
+  "artReview": {
+    "technicalReadabilityImprovement": "PASS: central near-ball lower portion cleared. Original practice copy moved right-bottom, not erased. Both original A/D buttons remain uncovered.",
+    "visualLimits": [
+      "Smaller Japanese text may be hard to read at game speed; HUMAN untested",
+      "Right-bottom candidate still covers some non-central scenery; not zero occlusion",
+      "Existing PRACTICE and P97/other warnings remain, real distant B51 is still tiny, world DCC R49 ART REJECT",
+      "No source hydrology→machine causal ART improvement, R64-A METHOD HOLD unchanged"
+    ],
+    "ART": "HOLD_NOT_FORMAL_PASS",
+    "HUMAN": "HOLD"
+  },
+  "priorPhysicalReplay": {
+    "R4NativeRun": 42053864244,
+    "proof": "A prior genuine native run observed source falling failure, original retry and scripted subsequent B51-14 completion; no new rerun was necessary. This was not a B51 collision or a human fairness PASS."
+  },
+  "safety": {
+    "mainHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "PR46": "OPEN_DRAFT_UNMERGED_UNCHANGED",
+    "officialP101": "UNMODIFIED",
+    "publishedPages": "UNMODIFIED",
+    "formalQA": "UNMODIFIED",
+    "originalGameCameraPhysics": "UNMODIFIED",
+    "formalARTAdopted": 0,
+    "slope2DNAMetres": 0,
+    "addedPaidApiJPY": 0,
+    "GitHubActionsBilling": "UNKNOWN",
+    "newWorkflowCount": 0,
+    "newActionsRuns": 2,
+    "userOperations": 0
+  },
+  "status": {
+    "SOURCE": "PASS",
+    "TECH": "PASS_NATIVE_SOURCE_240HZ_GL_PRACTICE_A_B",
+    "ART": "HOLD",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "next": "Do not run duplicate DCC or proven native retry. Review initial-user hazard recognition and source B51 small-screen cue through one minimum PRIVATE playable vertical slice, then human one-link trial after ART gate. Do not claim HUMAN pass from automated keyboard."
+}
