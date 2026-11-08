@@ -1,4 +1,4 @@
-name: K4CT R60 genuine Blender rocker and original Chromium real source art
+name: K4CT R68 one genuine excavated shore machine bay original Chromium ART
 on:
   push:
     branches:
@@ -23,10 +23,10 @@ jobs:
           set -euo pipefail
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
-          node --check scripts/k4ct-r60-rocker-native-art.mjs
+          node --check scripts/k4ct-r68-shore-bay-native-art.mjs
           python3 - <<'PY'
           import ast,pathlib
-          ast.parse(pathlib.Path('scripts/p101-k4ct-r60-authored-rocker.py').read_text())
+          ast.parse(pathlib.Path('scripts/p101-k4ct-r68-authored-shore-bay.py').read_text())
           print('R60_AUTHORED_SCRIPT_SYNTAX_PASS')
           PY
       - name: Reuse the R49 actual editable Blender and original data
@@ -52,7 +52,7 @@ jobs:
       - name: Author only ONE genuine 3D research machine on top of actual R49 BLEND
         timeout-minutes: 10
         run: |
-          blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4ct-r60-authored-rocker.py
+          blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4ct-r68-authored-shore-bay.py
       - name: Independent R60 Blender and protected8 exact XYZRGB check
         run: |
           python3 - <<'PY'
@@ -60,7 +60,7 @@ jobs:
           p=pathlib.Path('test-results')
           d=json.loads((p/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
           r=json.loads((p/'k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json').read_text())
-          m=json.loads((p/'k4ct-r60-authored/R60_AUTHORED_MACHINE_MANIFEST.json').read_text())
+          m=json.loads((p/'k4ct-r68-authored/R68_AUTHORED_SHORE_BAY_MANIFEST.json').read_text())
           a=json.loads((p/'k4ct-r39-art/R39_BASELINE_EIGHT_PROTECTED.json').read_text())
           assert m['trueEditableBlenderMeshes']==10 and m['newEvaluatedTriangles']>130
           assert d['triangles']==r['totalDccTriangles']==m['wholeSceneTriangles']>32004
@@ -76,7 +76,7 @@ jobs:
             assert i==len(x['vertices'])
             return z
           assert take(a)==take(d)
-          assert (p/'k4ct-r60-authored/R60_ONE_AUTHORED_COUNTERWEIGHT_UNAPPROVED.blend').stat().st_size>100000
+          assert (p/'k4ct-r68-authored/R68_EXCAVATED_SHORE_BEARING_BAY_ART_HOLD.blend').stat().st_size>100000
           for f,h in [('web/p101-w9c2-g4e7ci-integrated-streetscape.mjs','af076d67492a677d2235e4730aef8cdf4808e106'),('scripts/p101-k4ct-native-spillway-dcc.py','096fffbc1627915eb0122224955bb02cfba6b3ae')]:
             assert subprocess.check_output(['git','hash-object',f],text=True).strip()==h
           print('R60_TRUE_EDITABLE_BLENDER_8_PROTECTED_EXACT_PASS')
@@ -102,14 +102,14 @@ jobs:
       - name: True original source 240Hz WebGL2 at 65.25, 65.60, 66.35
         timeout-minutes: 10
         run: |
-          node scripts/k4ct-r60-rocker-native-art.mjs
+          node scripts/k4ct-r68-shore-bay-native-art.mjs
       - name: Preserve editable Blender mesh and source actual GL RAW
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: K4CT_R60_ONE_EDITABLE_TRUE_BLENDER_ROCKER_NATIVE_RAW_ART_HOLD
+          name: K4CT_R68_ONE_TRUE_BLENDER_SHORE_BAY_NATIVE_RAW_ART_HOLD
           path: |
-            test-results/k4ct-r60-authored/
-            test-results/k4ct-r60-rocker-native-art/
+            test-results/k4ct-r68-authored/
+            test-results/k4ct-r68-shore-bay-native-art/
           if-no-files-found: warn
           retention-days: 7
