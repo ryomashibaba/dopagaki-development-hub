@@ -1,4 +1,4 @@
-name: K4CT R72 single cached local trial WebGL2 handover verification (HUMAN HOLD)
+name: K4CT R74 Windows actual CMD localhost launcher smoke (HUMAN HOLD)
 on:
   push:
     branches:
@@ -10,63 +10,131 @@ permissions:
   contents: read
   actions: read
 jobs:
-  cached-r72-original-chromium-only:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 12
+  r74-windows-cmd-original-source-no-blender:
+    runs-on: windows-2022
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Protect game and original Blender authors
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify protected exact Git source blobs
+        shell: pwsh
         run: |
-          set -euo pipefail
-          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
-          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
-          node --check scripts/k4ct-r72-check-local-human-trial-bundle.mjs
-      - name: Download exact previously built R72 trial bundle; no game or Blender rebuild
+          $ErrorActionPreference = 'Stop'
+          if ((git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs).Trim() -ne 'af076d67492a677d2235e4730aef8cdf4808e106') { throw 'Protected original game changed' }
+          if ((git hash-object scripts/p101-k4ct-native-spillway-dcc.py).Trim() -ne '096fffbc1627915eb0122224955bb02cfba6b3ae') { throw 'Protected Blender author changed' }
+          node --check scripts/k4ct-r73-upgrade-local-trial-bundle.mjs
+          py -3.13 --version
+          if ($LASTEXITCODE -ne 0) { throw 'Windows py -3.13 launcher unavailable' }
+      - name: Reuse archived R72 source native 240Hz game; NO new Blender or build
         uses: actions/download-artifact@v4
         with:
           name: K4CT_R72_LOCAL_HUMAN_TRIAL_BUNDLE_RESEARCH_NOT_RELEASED
           run-id: 42465824622
           github-token: ${{ github.token }}
           path: test-results
-      - name: Verify local artifact self-contained modules and no physical changes
+      - name: Reproduce R73 Windows ZIP source-only and exact dependency hashes
+        shell: pwsh
         run: |
-          python3 - <<'PY'
-          import json,pathlib,hashlib,re
-          root=pathlib.Path('test-results/k4ct-r72-human-trial-bundle')
-          m=json.loads((root/'R72_PACKAGE_MANIFEST.json').read_text())
-          assert m['nativeSourceGameBlob']=='af076d67492a677d2235e4730aef8cdf4808e106'
-          assert m['originalBlenderAuthorBlob']=='096fffbc1627915eb0122224955bb02cfba6b3ae'
-          assert (m['originalB48'],m['originalB51'],m['newColliders'])==(7,28,0)
-          assert m['autoNetworkUpload'] is False and m['launchTestedOnWindows'] is False
-          for field,file in [('UIAddonSHA256',root/'k4ct/r72-one-click-human-trial.mjs'),
-                             ('launcherSHA256',root/'R72_DOPAGAKI_LOCAL_TRIAL.cmd')]:
-            assert hashlib.sha256(file.read_bytes()).hexdigest()==m[field]
-          missing=[]
-          for file in root.rglob('*'):
-            if file.suffix not in ('.mjs','.js'):continue
-            for p in re.findall(r"""(?:from|import)\s*\(?\s*['"]([.][.]?/[^'"]+)['"]""",file.read_text(errors='replace')):
-              if not (file.parent/p).resolve().is_file():
-                missing.append([str(file.relative_to(root)),p])
-          assert not missing,missing
-          print('R72_CACHED_ORIGINAL_BUNDLE_SELF_CONTAINED_SHA_AND_NATIVE_MODULES_PASS')
-          PY
-      - name: Install only Chromium smoke dependencies (no Blender or long rebuild)
-        timeout-minutes: 6
+          $ErrorActionPreference = 'Stop'
+          node scripts/k4ct-r73-upgrade-local-trial-bundle.mjs
+          if ($LASTEXITCODE -ne 0) { throw 'R73 packaging source check failed' }
+          $root='test-results/k4ct-r73-human-trial-bundle'
+          $m=Get-Content "$root/R73_PACKAGE_MANIFEST.json" -Raw -Encoding UTF8 | ConvertFrom-Json
+          if ($m.nativeSourceGameBlob -ne 'af076d67492a677d2235e4730aef8cdf4808e106' -or $m.originalB51 -ne 28 -or $m.originalB48 -ne 7 -or $m.newColliders -ne 0) { throw 'Native original physical metadata mismatch' }
+          foreach ($i in @(@('pythonScriptSHA256','R73_LOCAL_SERVER.py'),@('launcherSHA256','R73_DOPAGAKI_LOCAL_TRIAL.cmd'),@('UIAddonSHA256','k4ct/r72-one-click-human-trial.mjs'))) {
+            $actual=(Get-FileHash -Algorithm SHA256 (Join-Path $root $i[1])).Hash.ToLowerInvariant()
+            if ($actual -ne $m.($i[0])) { throw "R73 manifest hash mismatch: $($i[1])" }
+          }
+          py -3.13 "$root/R73_LOCAL_SERVER.py" --self-check
+          if ($LASTEXITCODE -ne 0) { throw 'R73 actual Windows Python self-check failed' }
+          py -3.13 "$root/R73_LOCAL_SERVER.py" --check-http-only
+          if ($LASTEXITCODE -ne 0) { throw 'R73 actual Windows localhost self-GET failed' }
+      - name: Execute actual R73 Windows CMD; owned process only; assert HTTP and cleanup
+        shell: pwsh
+        timeout-minutes: 4
         run: |
-          npm install --no-save --no-package-lock --no-audit --no-fund
-          npx playwright install --only-shell --with-deps chromium
-      - name: Verify native original 240Hz handover clock and local JSON export
-        timeout-minutes: 5
-        run: |
-          node scripts/k4ct-r72-check-local-human-trial-bundle.mjs test-results/k4ct-r72-human-trial-bundle
-      - name: Save one factual browser result, not a HUMAN gameplay certificate
+          $ErrorActionPreference = 'Stop'
+          $root=(Resolve-Path 'test-results/k4ct-r73-human-trial-bundle').Path
+          $cmd=Join-Path $root 'R73_DOPAGAKI_LOCAL_TRIAL.cmd'
+          $stdout=Join-Path $env:RUNNER_TEMP 'R74_CMD_STDOUT.txt'
+          $stderr=Join-Path $env:RUNNER_TEMP 'R74_CMD_STDERR.txt'
+          $outdir='test-results/k4ct-r74-windows-actual-cmd'
+          New-Item -ItemType Directory -Force -Path $outdir | Out-Null
+          $proc=$null
+          $url=$null
+          $port=0
+          try {
+            $proc=Start-Process -FilePath 'cmd.exe' -ArgumentList @('/d','/c',('"' + $cmd + '"')) -WorkingDirectory $root -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr -WindowStyle Hidden
+            for($i=0;$i -lt 48;$i++) {
+              Start-Sleep -Milliseconds 700
+              $output=if(Test-Path $stdout) { Get-Content $stdout -Raw -ErrorAction SilentlyContinue } else { '' }
+              if($output -match '\[R73\] LOCAL ONLY:\s*(http://127\.0\.0\.1:\d+/k4ct/\?[^\s]+)') {
+                $url=$Matches[1];break
+              }
+              if($proc.HasExited) { throw "R73 CMD exited before opening local URL: $output" }
+            }
+            if(!$url) { throw "R73 CMD did not serve native local game in 34 s" }
+            $u=[uri]$url; $port=$u.Port; $origin="$($u.Scheme)://$($u.Authority)"
+            $response=Invoke-WebRequest -Uri $url -UseBasicParsing -TimeoutSec 12
+            if([int]$response.StatusCode -ne 200 -or $response.Content -notmatch '<html') { throw 'Actual CMD local game HTML is not available' }
+            foreach($asset in @('/k4ct/drive3d.mjs','/reference_only/director/physics.js','/reference_only/director/moving/moving-obstacles.mjs','/generated/K4CT_TWO_REAL_B51_NATIVE_CHOICE_PRIVATE.json')) {
+              $assetResponse=Invoke-WebRequest -Uri ($origin+$asset) -UseBasicParsing -TimeoutSec 10
+              if([int]$assetResponse.StatusCode -ne 200) { throw "Missing original source asset: $asset" }
+            }
+            $deny=Invoke-WebRequest -Uri ($origin+'/R73_PACKAGE_MANIFEST.json') -SkipHttpErrorCheck -UseBasicParsing -TimeoutSec 10
+            if([int]$deny.StatusCode -ne 404) { throw 'Research manifest was exposed over local game HTTP' }
+            $result=[ordered]@{
+              schema='k4ct-r74-actual-windows-cmd-launch-and-owned-http-smoke/1'
+              status='WINDOWS_CMD_SOURCE_GAME_HTTP_AND_LOCAL_ASSETS_PASS_NOT_HUMAN'
+              runner='GitHub-hosted windows-2022'
+              actualCmdExecuted=$true
+              actualPython313=$true
+              actualLocalServerLoopback=$true
+              dynamicPortChosen=$true
+              originalGameHtml200=$true
+              originalPhysicsModulesHTTP200=$true
+              manifestNotServed=$true
+              sourceGameBlob='af076d67492a677d2235e4730aef8cdf4808e106'
+              originalB48=7
+              originalB51=28
+              newColliders=0
+              originalGameEdited=$false
+              WindowsOwnGamingPCVerified=$false
+              humanPlayed=$false
+              actualGameWebGLRevalidatedOnWindows=$false
+              HUMAN='HOLD'
+              ART='HOLD'
+              SAT='HOLD'
+              CCD='HOLD'
+              WindowsFPS='HOLD'
+              RELEASE='HOLD'
+              MERGE='HOLD'
+            }
+            $result | ConvertTo-Json -Depth 5 | Set-Content -Path (Join-Path $outdir 'R74_WINDOWS_CMD_ACTUAL_HTTP_RESULT.json') -Encoding UTF8
+            Write-Host "R74_WINDOWS_CMD_ACTUAL_HTTP_AND_ASSETS_PASS (HUMAN NOT CERTIFIED) port=$port"
+          } finally {
+            if($proc -and !$proc.HasExited) {
+              & taskkill.exe /PID $proc.Id /T /F 2>$null | Out-Null
+            }
+            if(Test-Path $stdout) { Copy-Item $stdout (Join-Path $outdir 'R74_CMD_STDOUT.txt') -Force }
+            if(Test-Path $stderr) { Copy-Item $stderr (Join-Path $outdir 'R74_CMD_STDERR.txt') -Force }
+          }
+          if($port -gt 0) {
+            Start-Sleep -Seconds 2
+            $stillListening=Test-NetConnection -ComputerName '127.0.0.1' -Port $port -InformationLevel Quiet -WarningAction SilentlyContinue
+            if($stillListening) { throw "Owned R73 HTTP process remains on port $port after cleanup" }
+            Write-Host 'R74_ORPHAN_PROCESS_ZERO_PASS'
+          }
+      - name: Preserve factual Windows evidence only (HUMAN still HOLD)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: K4CT_R72_CACHED_TRUE_MANUAL_HANDOVER_SOURCE_GL_SMOKE
-          path: test-results/k4ct-r72-bundle-native-smoke/
-          retention-days: 7
+          name: K4CT_R74_WINDOWS_ACTUAL_CMD_HTTP_NOT_HUMAN
+          path: test-results/k4ct-r74-windows-actual-cmd/
           if-no-files-found: warn
+          retention-days: 7
