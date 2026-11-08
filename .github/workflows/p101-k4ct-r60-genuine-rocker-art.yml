@@ -82,6 +82,16 @@ jobs:
           node scripts/k4ct-r60-private-source-frustum-patch.mjs
           node --check dist-private/k4ct/drive3d.mjs
           node scripts/k4ct-r72-build-local-human-trial-bundle.mjs
+          node - <<'NODE'
+          const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+          const root='test-results/k4ct-r72-human-trial-bundle';
+          for(const p of ['reference_only/director/physics.js','reference_only/director/collision.js',
+            'reference_only/director/surface.js','reference_only/director/moving/moving-obstacles.mjs',
+            'reference_only/director/game-fixtures.js','k4ct/drive3d.mjs','k4ct/index.html']){
+             assert.ok(fs.statSync(path.join(root,p)).isFile(),'Missing original local module '+p);
+          }
+          console.log('R72_LOCAL_IMPORT_CLOSURE_BEFORE_CHROMIUM_PASS');
+          NODE
       - name: Install isolated headless Chromium only for original 240Hz smoke
         timeout-minutes: 6
         run: |

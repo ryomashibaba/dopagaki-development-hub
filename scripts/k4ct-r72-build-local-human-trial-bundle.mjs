@@ -33,6 +33,14 @@ const dest=path.resolve('test-results/k4ct-r72-human-trial-bundle');
 fs.rmSync(dest,{recursive:true,force:true});fs.mkdirSync(dest,{recursive:true});
 const target=path.join(dest,'k4ct');
 fs.cpSync(original,target,{recursive:true});
+// Native game modules import '../reference_only/director/*'. Those are the
+// real original collision/240Hz physics modules, NOT optional dependencies.
+// Missing them makes a superficially complete ZIP load a blank browser.
+const srcReference=path.resolve('dist-private/reference_only');
+assert.ok(fs.statSync(srcReference).isDirectory(),'Original 240Hz physics dependency directory absent');
+fs.cpSync(srcReference,path.join(dest,'reference_only'),{recursive:true});
+if(fs.existsSync('dist-private/build-info.json'))
+ fs.copyFileSync('dist-private/build-info.json',path.join(dest,'build-info.json'));
 const outputGenerated=path.join(dest,'generated');fs.mkdirSync(outputGenerated,{recursive:true});
 // Only explicit game-stage assets referenced by the standalone renderer.
 // Do NOT copy every generated PRIVATE asset or files with secret-like names.
@@ -94,6 +102,29 @@ const readme=[
  ''
 ].join('\n');
 fs.writeFileSync(path.join(dest,'R72_最初に読んでください.txt'),readme,'utf8');
+// Fail CLOSED before the heavy browser smoke if any relative static import
+// is missing. Do not treat a successful dist-private build as a self-contained
+// ZIP proof: the runtime imports outside k4ct into reference_only.
+const missing=[];
+function walkImports(folder){
+ for(const ent of fs.readdirSync(folder,{withFileTypes:true})){
+  const abs=path.join(folder,ent.name);
+  if(ent.isDirectory()){walkImports(abs);continue;}
+  if(!/\.(?:mjs|js)$/.test(ent.name))continue;
+  const txt=fs.readFileSync(abs,'utf8');
+  for(const m of txt.matchAll(/\b(?:from|import)\s*\(?\s*['"]([.][.]?\/[^'"]+)['"]/g)){
+   const targetFile=path.resolve(path.dirname(abs),m[1]);
+   if(!targetFile.startsWith(dest+path.sep)||!fs.existsSync(targetFile))
+    missing.push(path.relative(dest,abs)+' -> '+m[1]);
+  }
+ }
+}
+walkImports(dest);
+assert.deepEqual(missing,[],'R72 bundle unresolved imports');
+for(const relative of ['director/collision.js','director/game-fixtures.js',
+ 'director/moving/moving-obstacles.mjs','director/physics.js','director/surface.js'])
+ assert.ok(fs.existsSync(path.join(dest,'reference_only',relative)),
+  'R72 original source physics missing: '+relative);
 const diag={
  schema:'k4ct-r72-local-human-trial-bundle-static-build/1',
  nativeSourceGameBlob:expectedGame,
