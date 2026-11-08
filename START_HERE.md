@@ -15,3 +15,7 @@ GitHub研究ブランチ `research/k4ct-two-native-b51-choice-consequence-202611
 **QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE**。R48〜R53に類似する薄い水帯・色替え・遮蔽マスク試行を量産しない。次の本質工程は元Cameraの実画面で**水源→荷重が読める機械→明確な落差→受水**が、近景道路・赤B51・空を遮らず時間順に理解できる別の立体空間の成立証拠を先に示すこと。得られたときだけ隔離真正Blender1候補→元240Hz/Chromium WebGL2 RAW3〜5枚→保護QA→ART批判。なければMETHOD HOLD。原本・保護水面19・Camera等の変更、Work/Computer Use、追加有料API、正式採用、公開、mergeは事前個別承認。ユーザー操作原則0回、追加課金原則0円。CI実請求は不明。
 
 R53までの研究記録は上記リンク先。新しい長文引継ぎは作らず必要な実仕事に集中する。
+
+## R54追記（2026-11-08、上位V15不変）
+既存真正Chromium B51-13→14回避成功 Artifact #13425699087 (SHA256 `8fdbe45ccd775c913ef2c2f838bc4c2230b77f0188a7f766ee44c8b160435abc`)を再利用。真正旧RAWでは約183m/s、残0.8秒時点の上部B51予告が長く、周囲HUD・障害物・一部日本語フォント欠落と競合。元Game/物理を触らず、**生成PRIVATE K4CTだけにコピーされる研究専用B51表示formatter**を簡潔化し、危険物の位置を「安全経路」の命令へ誤昇格しない4件の独立Node表示テストを追加。**元240Hzの新実行・人間プレイは未検証、ART/HUMAN/SAT/CCD/FPS等HOLDは不変**。旧成功Artifactだけでは同一ブラウザ内のリトライ一連を再確認できないため、追加PASSと断定しない。
+次は研究用に元Chromium 240Hzの新表示を少数画面で確認し、危険予告・Road5→Road6・B51手動入力のフェアさを厳しく評価する。ART成立前の正式昇格は禁止。不要な再Blender/古い水路の画素探索は禁止。

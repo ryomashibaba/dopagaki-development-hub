@@ -65,11 +65,19 @@ export function readK4CTTwoTrueB51(doc,runner,plan,movingPose,boxSeparation){
   realB48:true,realB51:28,originalRunnerPhysicsUnchanged:true,
   NOT_HUMAN_VERIFIED:true,NOT_COLLISION_PROJECTION:true,NOT_GUARANTEED_SAFE_LANE:true};
 }
+/** R54: fast-chase display only. Predictions do NOT certify any safe lane.
+ * Original B51 movement, B48 road, Runner, camera and input remain untouched.
+ */
 export function formatK4CTNativeDualCue(decision){
- if(!decision||decision.rows.length===0)return 'TWO REAL B51 - NO ROAD CUE';
- const parts=decision.rows.map((r,i)=>
-  (i?'2 NEXT ':'1 NEXT ')+'B51-'+r.id.slice(-2)+'  '+Math.round(r.metres)+'m  '+
-  r.etaSeconds.toFixed(1)+'s  HAZARD '+r.predictedObstacleSide+
-  '  OPEN? '+r.geometricCorridorHypothesis);
- return parts.join('\n')+'\nGEOMETRY ONLY - INPUT A/D - NO SAFE LANE CERTIFIED';
+ if(!decision||!Array.isArray(decision.rows)||decision.rows.length===0)
+  return 'B51 - NO UPCOMING HAZARD';
+ const cleanSide=s=>['LEFT','RIGHT','CENTER'].includes(s)?s:'UNKNOWN';
+ const line=(r,first)=>{
+  const id=String(r.id??'').match(/(\d+)$/)?.[1]??'?';
+  const metres=Number.isFinite(r.metres)?Math.max(0,Math.round(r.metres)):'?';
+  const eta=Number.isFinite(r.etaSeconds)?Math.max(0,r.etaSeconds).toFixed(1):'?';
+  return `${first?'NEXT':'THEN'} B51-${id}  ${metres}m / ${eta}s  MOVING ${cleanSide(r.predictedObstacleSide)}`;
+ };
+ const next=decision.rows.slice(0,2).map((r,i)=>line(r,i===0));
+ return [...next,'A/D STEER  |  PREDICTION ONLY - NO GUARANTEED SAFE LANE'].join('\n');
 }
