@@ -1,0 +1,188 @@
+{
+  "schema": "dopagaki-k4ct-r56-original-240hz-chromium-hud-reversible-same-tick-ab-critical-review-v1",
+  "dateJST": "2026-11-08",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "source": {
+    "candidateCommit": "1606b993dd509e3162fa2276fc6551d60b02d31d",
+    "runId": 42444680687,
+    "runUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42444680687",
+    "runStatus": "completed",
+    "runConclusion": "success",
+    "artifactID": 13603470502,
+    "artifactSHA256Verified": "a56ef6dd8a524936054e1ea7f87a12aaf57f3149d748df036532b46a261af753",
+    "artifactUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42444680687/artifacts/13603470502",
+    "expiresUTC": "2026-11-15T03:57:56Z",
+    "originalSourceGameBlobHashGit": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorBlobHashGit": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoadPhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3f5236d7bbb6ab4e2b",
+    "R49BlenderArtifactReused": 13600556658,
+    "genuineBlenderTriangles": 32004,
+    "exactProtected8GeometryChecked": true,
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "newBlenderRuns": 0,
+    "githubActionsRuns": 1,
+    "newPaidAPIJPY": 0,
+    "githubActionsActualBilling": "UNKNOWN",
+    "screenshotCount": 6,
+    "sameOriginalCameraSource240Hz": true,
+    "realChromiumWebGL2": true
+  },
+  "method": {
+    "experiment": "Actual original 240Hz native Runner and real Chromium WebGL2; fixed source tick three time points. Capture BASE R55 original HUD, then CSS ONLY CANDIDATE, verify same native tick and identical real B51 telemetry, capture RAW, remove style. No game/private source authoring adopted in this step.",
+    "sourceCodeFiles": [
+      "scripts/k4ct-r56-hud-ab-native-gl.mjs",
+      ".github/workflows/p101-k4ct-r56-hud-ab-native-raw.yml"
+    ],
+    "candidate": "Research test CSS moves B51 HUD from centered to fixed 440px left-aligned between original GROUND SPEED and P97 panel; when next B51 ETA<=0.75s, hides only NEAR MISS reward banner via temporary DOM style; original trigger/scoring is not edited.",
+    "abRestorationVerified": true,
+    "screenshotResolution": [
+      1365,
+      930
+    ],
+    "P97IndependentDOMBoundsObtained": false,
+    "P97VisualNonOverlapCheckedFromRaw": true,
+    "visualNarrativeNotAutomatedHumanFairness": true
+  },
+  "frames": [
+    {
+      "seconds": 65.25,
+      "tick": 15660,
+      "firstB51": "a13-machine-14",
+      "firstETA": 1.89,
+      "originalHUDpx": {
+        "x": 270.46,
+        "y": 8,
+        "w": 510.08,
+        "h": 78.78
+      },
+      "candidateHUDpx": {
+        "x": 222.39,
+        "y": 8,
+        "w": 440,
+        "h": 64.56
+      },
+      "originalRAW": "K4CT_R56_T65_25_BASE_TRUE_ORIGINAL_GL_RAW.png",
+      "originalPNG_SHA256": "e5b2fd38ade129b406502f4b7b732462f471e9890f4f1c418ad075a7b507fe2c",
+      "candidateRAW": "K4CT_R56_T65_25_CANDIDATE_TRUE_ORIGINAL_GL_RAW.png",
+      "candidatePNG_SHA256": "b516ec7f0d7afbf27e701b42fb703e9e35736cdefb8c2f2e6c33c63d08f8f3bf",
+      "bonusPresent": false
+    },
+    {
+      "seconds": 66.35,
+      "tick": 15924,
+      "firstB51": "a13-machine-14",
+      "firstETA": 0.75,
+      "originalHUDpx": {
+        "x": 270.46,
+        "y": 8,
+        "w": 510.08,
+        "h": 78.78
+      },
+      "candidateHUDpx": {
+        "x": 222.39,
+        "y": 8,
+        "w": 440,
+        "h": 64.56
+      },
+      "originalRAW": "K4CT_R56_T66_35_BASE_TRUE_ORIGINAL_GL_RAW.png",
+      "originalPNG_SHA256": "21edf9eb5c2c119dc3dcf8c2f2bca68be0998ae7490ebe7e9884f49928579d0d",
+      "candidateRAW": "K4CT_R56_T66_35_CANDIDATE_TRUE_ORIGINAL_GL_RAW.png",
+      "candidatePNG_SHA256": "6678238e73c6d0b47ff8d46d799cf2e857bbc8394a8f65e5c800b14ba7969725",
+      "bonusPresent": false
+    },
+    {
+      "seconds": 68.05,
+      "tick": 16332,
+      "firstB51": "a13-machine-15",
+      "firstETA": 0.17,
+      "originalHUDpx": {
+        "x": 270.46,
+        "y": 8,
+        "w": 510.08,
+        "h": 78.78
+      },
+      "candidateHUDpx": {
+        "x": 222.39,
+        "y": 8,
+        "w": 440,
+        "h": 64.56
+      },
+      "originalRAW": "K4CT_R56_T68_05_BASE_TRUE_ORIGINAL_GL_RAW.png",
+      "originalPNG_SHA256": "11c3d77976c83e8328d2b02d09fe1a99fd5ddb315de7e4c15f130f35cc58984f",
+      "candidateRAW": "K4CT_R56_T68_05_CANDIDATE_TRUE_ORIGINAL_GL_RAW.png",
+      "candidatePNG_SHA256": "5b7a033931daf870f9a5d4d3281ce1667880ea1109c6597848970c3969079fc6",
+      "bonusPresent": true,
+      "bonusText": "NEAR MISS · 3.15m / ×1",
+      "bonusPresentationHidden": true,
+      "centralRewardROI": {
+        "coordsOriginalScreen": [
+          275,
+          460,
+          775,
+          535
+        ],
+        "pixels": 37500,
+        "rgbDiffGt25PixelCount": 15169,
+        "percentRGBDiffGt25": 40.5
+      }
+    }
+  ],
+  "numericalEffect": {
+    "panelAreaBeforePxApprox": 40184,
+    "panelAreaAfterPxApprox": 28406,
+    "relativeAreaReductionPctApprox": 29.3,
+    "panelWidthReductionPxApprox": 70.08,
+    "panelHeightReductionPxApprox": 14.22,
+    "note": "Visible UI rectangle area reduction, not measured readability, human reaction or ART quality; central ROI pixel differences are CSS effect and should not be misinterpreted as physically improved hazard clearance."
+  },
+  "criticalReview": {
+    "positive": [
+      "B51 HUD no longer visually covers most of original P97 REAL ROAD PREWARNING bar in 1365x930 original source RAW; original P97 itself remains drawn.",
+      "66.35 original time has same real B51-14 distance 138m and ETA 0.75s, same original 240Hz tick and world in BASE and CANDIDATE.",
+      "At 68.05s with next real B51-15 ETA 0.17s, decorative NEAR MISS central glow visibly removed, exposing center road; original score/event source code never modified.",
+      "R56 6 raw real-GL frames and JSON preserve reversible exact tick/decision data under one CI."
+    ],
+    "remainingVetoes": [
+      "Top HUD still overlaps different existing faint crest/ridge data under it; layout collision not fully solved and original P97 text DOM bounds were not independently identified.",
+      "Research style is applied by Playwright at captured frozen ticks, NOT integrated as the normal PRIVATE game HUD. This proves one A/B candidate, not a finished real-time UI release.",
+      "At 0.17-0.75 seconds to next actual B51 there remains insufficient proof a first-time human can visually parse the machine and safely steer at ~183-191m/s.",
+      "R44 reused original Blender coastal scene remains ART REJECT, rock/slope visuals and machine visibility still weak. PRACTICE panel remains center-bottom, source design cleanup needed.",
+      "The temporary hiding of NEAR MISS is a presentation hypothesis; score event presence is not changed but actual full gameplay and user enjoyment were not tested."
+    ],
+    "verdict": "TECH_PASS_ACTUAL_WEBGL2_SAME_TICK_AB_WITH_BOUNDED_UI_IMPROVEMENT; ART_HOLD; HUMAN_HOLD",
+    "next": "R57: If proceeding, implement this A/B-tested display layout in the research-only generated PRIVATE K4CT build under a reversible flag, do ONE source true-Chromium capture ensuring ongoing ETA-based behavior and old P97 warning, inspect HUD overlap with other crest/ridge and bottom PRACTICE panel; protect all source originals and B51. Do not turn into official ART or treat scripted avoidance as human test."
+  },
+  "status": {
+    "SOURCE": "PASS",
+    "TECH": "PASS_REAL_CHROMIUM_240HZ_AB",
+    "ART": "HOLD",
+    "METHOD": "BOUNDED_UI_IMPROVEMENT_ONLY",
+    "formalARTAdopted": 0,
+    "slope2DNA_M": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "researchOnly": true,
+    "mainUnchanged": true,
+    "PR46Unchanged": true,
+    "P101Unchanged": true,
+    "originalGameNotEdited": true,
+    "originalCameraRoadPhysicsNotEdited": true,
+    "protected8Unchanged": true,
+    "B48": 7,
+    "B51": 28,
+    "newColliders": 0,
+    "work": false,
+    "computerUse": false,
+    "addedPaidAPIJPY": 0,
+    "userOperations": 0,
+    "noFormalAdoptionNoPublishNoMerge": true
+  }
+}
