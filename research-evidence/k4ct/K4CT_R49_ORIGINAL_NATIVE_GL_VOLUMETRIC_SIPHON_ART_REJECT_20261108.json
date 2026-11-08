@@ -1,0 +1,183 @@
+{
+  "schema": "dopagaki-k4ct-r49-overbank-volumetric-siphon-original-gl-one-study-tech-pass-art-reject-v1",
+  "dateJST": "2026-11-08",
+  "scope": "Existing DOPAGAKI SLOPE — HYPER RUSH V15 ART-FIRST/DCC-FIRST; alternative to R48's FLAT R47 temporal geometry in isolated PRIVATE diagnostic only; NEVER formal DCC art.",
+  "source": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "r48PriorNativeRun": 42436272677,
+    "r49CommitWithResearchCode": "62c2a50bea8ed0b9a798d47ed503588b67904c52",
+    "r49NativeRunId": 42437685590,
+    "r49NativeRunURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42437685590",
+    "r49NativeRunStatus": "SUCCESS",
+    "r49ArtifactID": 13600556658,
+    "r49ArtifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42437685590/artifacts/13600556658",
+    "r49ArtifactZipSHA256": "2dcbd9448cf6c1a4c84b8599f08869a12d79ce26f42024e449b645fff20fda3d",
+    "r49ArtifactExpiresUTC": "2026-11-15T02:18:00Z",
+    "r49ZipCRC": "PASS",
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "mainHEAD": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "PR46Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "PR46Status": "OPEN_DRAFT_UNMERGED",
+    "originalProtected8GroupIds": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "originalR44GenuineEditableBlenderTriangles": 32004,
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0,
+    "nativeOriginalSourceCamera240HzUnchanged": true
+  },
+  "test": {
+    "type": "SINGLE_SOURCE_ORIGINAL_CHROMIUM_WEBGL2_NATIVE_DEPTH_PROOF_OF_NEW_PROCEDURAL_VOLUMETRIC_DIAGNOSTIC",
+    "notBlenderArtwork": true,
+    "notActualWaterFlow": true,
+    "notVerifiedSiphonPrimingOrUnderbankPressure": true,
+    "notOperatingMechanicalActuator": true,
+    "notWatertightConfirmed": true,
+    "newRealBlenderRuns": 0,
+    "newGitHubActionsRuns": 1,
+    "researchGeneratedPrivateRendererOnly": true,
+    "originalR44GenuineBlenderSourceDCCReused": true,
+    "protected8EntireXYZRGBIndependentCIExact": true,
+    "originalSourceWithoutR49ProxyRestoredRGBCutoff25EachTime": [
+      0,
+      0,
+      0
+    ],
+    "sourceTicks": [
+      15900,
+      15924,
+      15972
+    ],
+    "originalSeconds": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "threeFramesActualOriginalWebGL2": true,
+    "realTimeVisualProxyComponents": {
+      "HEADRACE": {
+        "triangles": 196,
+        "description": "curved 12-segment bank intake and overbank penstock/manifold, intakeY92.6 crestY100, no real hydraulic solution"
+      },
+      "FALL": {
+        "triangles": 1008,
+        "description": "correlated-wave 28x18 triangle water curtain crestY100 to lowerY85, procedural opaque diagnostic"
+      },
+      "RECEIVER": {
+        "triangles": 52,
+        "description": "catchment y85 with sloped asymmetric bank-supported spatial channel, not an actual fluid basin"
+      },
+      "GATE_PROXY": {
+        "triangles": 70,
+        "description": "grounded visual support pedestal and linked control tubes, no animation or mechanical proof"
+      }
+    },
+    "actualNativeRGBgt25PerGameFrame": {
+      "HEADRACE": [
+        572,
+        890,
+        1661
+      ],
+      "FALL": [
+        1474,
+        1837,
+        2896
+      ],
+      "RECEIVER": [
+        594,
+        857,
+        2483
+      ],
+      "GATE_PROXY": [
+        63,
+        98,
+        416
+      ]
+    },
+    "priorR48FlatRGBgt25PerGameFrame": {
+      "HEADRACE": [
+        561,
+        699,
+        1143
+      ],
+      "FALL": [
+        1402,
+        1732,
+        2726
+      ],
+      "RECEIVER": [
+        192,
+        349,
+        982
+      ],
+      "GATE_PROXY": [
+        315,
+        687,
+        1146
+      ]
+    },
+    "measuredAreaNotUniqueSurfaceOwnership": true,
+    "actualRawPairsSavedInArtifact": true,
+    "comparisonScreenshotFromRealRawCroppedToGameCanvas": true,
+    "safetyChecksAfterSourceNativeOriginalRebuild": "PASS"
+  },
+  "criticalArt": {
+    "status": "EARLY_ART_REJECT",
+    "actualObserved": "Direct review of 66.25/66.35/66.55 original 240Hz/Chromium/WebGL2 original-vs-diagnostic screenshots. A small cyan striped aqueduct-like strip appears left of the road in all frames. No clearly legible falling-water contour or catchment, no visible causally connected intake, and control assembly nearly absent. Scene still reads as a remote generic teal/white shelf, not a working premium water-control installation.",
+    "evidence": [
+      "Real source camera on-road viewport preserves original road/HUD/B51 hazard warning, original screenshot fully restored by research toggle.",
+      "Raised receiving water Y85 produces larger native influence than R48's Y75 flat proxy (594/857/2483 vs 192/349/982); visibility alone improved.",
+      "Gate support native influence is SMALLER than R48 flat stand-in (63/98/416 vs 315/687/1146); physically motivated volume is not semantically legible in-game.",
+      "Native group FALL influence nonzero in all frames but readable vertical drop/receiver is absent without annotations.",
+      "Physically workable siphon requires priming and pressure; no actual simulation or verified sealed pipe-source interface exists."
+    ],
+    "criticalVerdict": "Renderability and an increased receiver RGB area are insufficient for V15 causal hydro-mechanical ART. No new genuine Blender author candidate, no ART promotion.",
+    "doNotRepeat": "Do not create a new R49 color change, more generic beam/wheel/quad/low-step hydro proxy, large Blender version of this placement, or green-CI iteration."
+  },
+  "next": {
+    "decision": "HOLD_AND_CHANGE_SPATIAL_LANGUAGE",
+    "screenRequirement": "An author-first integrated facility must establish obvious vertical head difference and readable source/descender/receiver on unchanged original chase views, plus grounded mechanically purposeful silhouette that does not interfere with original B51 warning/steering.",
+    "siteStrategy": "Current forebay19 left-of-Road6 line has repeatedly yielded far small cyan bands even for volumetric shapes. Do not keep searching minor values at the exact same outlet strip. Reassess actual native source camera and protected architecture for a fundamentally distinct readable sightline, or document a bounded no-go rather than guessing protected changes.",
+    "nextProof": "One clear original-camera spatial and art-quality justification BEFORE more GitHub Actions/Blender candidate construction. If constrained space fails, METHOD HOLD; changing protected 19 or camera requires separate explicit authorization.",
+    "noUnapprovedPromotion": true
+  },
+  "status": {
+    "TECH": "PASS_ORIGINAL_240HZ_WEBGL2_SINGLE_DIAGNOSTIC",
+    "ART": "REJECT_DIAGNOSTIC_NOT_AUTHORED_ART",
+    "METHOD": "HOLD",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "researchBranchOnly": true,
+    "originalGameAuthorAndRoadUntouched": true,
+    "originalB48B51Camera240HzUntouched": true,
+    "protectedEightXYZRGBUnchanged": true,
+    "mainUnchanged": true,
+    "PR46OpenDraftUnmerged": true,
+    "additionalPaidAPI": 0,
+    "GitHubActionsBilling": "UNKNOWN_NOT_AUDITED",
+    "work": false,
+    "computerUse": false,
+    "userOperations": 0,
+    "published": false,
+    "merged": false
+  }
+}
