@@ -1,0 +1,76 @@
+{
+  "schema": "k4ct-direct-natural-human-rejection-and-physical-stage-readonly-audit/1",
+  "dateJST": "2026-11-08",
+  "researchBaseHEAD": "bf2b11b25940a4ccaf733a6b16f88d5874d53583",
+  "observedFrom": "direct user narrative after R73 Windows trial; no video, JSON export, frame measurements, or instrumented play telemetry inspected",
+  "humanFeedback": {
+    "earlyVisuals": "REJECT_SEVERE",
+    "industrialLaterVisuals": "REJECT_LOW_VALUE_FLOATING_OBJECTS",
+    "difficulty": "TOO_HARD_FOR_SPEED_AND_ROAD_WIDTH",
+    "verticalTraversal": "NEAR_ABSENT_AS_PERCEIVED",
+    "gameEnjoyment": "REJECT_NOT_FUN",
+    "sourceType": "qualitative_first_person_feedback",
+    "notMeasured": [
+      "FPS",
+      "exact control error",
+      "full completion percentage",
+      "time in air",
+      "collision count",
+      "actual Windows frame delivery"
+    ]
+  },
+  "sourceAudit": {
+    "basis": "unchanged original R73 shared stage generated/K4CT_TWO_REAL_B51_NATIVE_CHOICE_PRIVATE.json (read-only)",
+    "roadCount": 7,
+    "movingObstacleCount": 28,
+    "rowsPerRoad": 31,
+    "widthEstimatedFrom": "euclidean distance between first/last row grid control points; not continuous swept/rideable width",
+    "medianRowWidthsM": [
+      48.22,
+      38.347,
+      83.076,
+      16,
+      16,
+      16.021,
+      16
+    ],
+    "lateFourRoadsApprox16m": true,
+    "physicalVoidLongitudinalCellsByRoad": [
+      [
+        52
+      ],
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "limitation": "Stage grid-source analysis, not frame-by-frame Windows physics, rendering or HUMAN-certified driving measurement"
+  },
+  "goNoGo": {
+    "currentR73PlayQuality": "REJECT",
+    "formalArtAccepted": 0,
+    "officialSlope2DNAMetres": 0,
+    "certification": {
+      "HUMAN": "HOLD",
+      "ART": "HOLD",
+      "SAT": "HOLD",
+      "CCD": "HOLD",
+      "WindowsFPS": "HOLD",
+      "RELEASE": "HOLD",
+      "MERGE": "HOLD"
+    },
+    "changeScope": "Isolated research candidate only; no protected asset mutations",
+    "nextTechnicalVerticalSlice": "Make one playable early-course research alternative co-designing wide readable entry, bounded fair narrow passage, genuine takeoff/airborne/landing/underpass with architecturally supported world. Verify native collision and camera, then minimal original WebGL; request human re-test only after a substantial verified playable change",
+    "doNotDo": [
+      "repeat same R73 launcher/CI",
+      "further tiny gantry/scaffolding/cosmetic HUD",
+      "art-only buildings unrelated to road traversal",
+      "approve/merge/publish/force-push",
+      "change existing source Game/Camera/240Hz/B48/B51/Road/Blender-protected eight groups"
+    ],
+    "commercialApiJPY": 0,
+    "gitHubActionsBilling": "UNKNOWN"
+  }
+}
