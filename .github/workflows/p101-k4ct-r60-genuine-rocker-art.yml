@@ -43,6 +43,21 @@ jobs:
           run-id: 42448441488
           github-token: ${{ github.token }}
           path: test-results/k4ct-r60-early
+      - name: R70 assert actual original native B51 fixed pivot in float64 before Blender apt
+        run: |
+          python3 - <<'PY'
+          import math,json,pathlib
+          a=json.loads(pathlib.Path('test-results/k4ct-r60-early/K4CT_R60_ORIGINAL_NATIVE_WARNING_RESULT.json').read_text())
+          assert [x['tick'] for x in a['frames']]==[15660,15744,15924]
+          observed=[]
+          for frame in a['frames']:
+            q=next(x for x in frame['realNativeB51Poses'] if x['id']=='a13-machine-14')
+            c=q['centre'];half=q['halfSize'][0];ang=q['yawRadians']
+            observed.append((c[0]-math.cos(ang)*half,c[1],c[2]+math.sin(ang)*half))
+          P=(1181.5640147661836,122.43275866083378,-487.0341339030744)
+          assert all(math.dist(x,P)<1e-9 for x in observed),observed
+          print('R70_NATIVE_FLOAT64_PIVOT_PRE_BLENDER_PASS')
+          PY
       - name: One Blender installation and original source GL dependencies
         timeout-minutes: 15
         run: |

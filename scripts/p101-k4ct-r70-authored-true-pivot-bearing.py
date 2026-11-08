@@ -37,12 +37,16 @@ O=Vector((1178.7223464542742,0,-493.61728855064536))
 F=Vector((.9194711927942447,0,-.3931573802200958))
 S=Vector((-.3964271885636732,0,-.9180661654627634))
 def world(d,t,h):return O+S*d+F*t+Vector((0,ROAD_Y+h,0))
-P=Vector((1181.5640147661836,122.43275866083378,-487.0341339030744))
+# Validate native 64-bit source positions before Blender mathutils.Vector
+# rounding: doing the subtraction AFTER casting yields ~0.12mm false drift.
+TRUE_PIVOT_XYZ=(1181.5640147661836,122.43275866083378,-487.0341339030744)
 def pivot_of(native):
- c=Vector(native['centre']);yaw=native['yawRadians'];half=native['halfSize'][0]
- return c-Vector((math.cos(yaw)*half,0,-math.sin(yaw)*half))
+ c=native['centre'];yaw=native['yawRadians'];half=native['halfSize'][0]
+ return (c[0]-math.cos(yaw)*half,c[1],c[2]+math.sin(yaw)*half)
 poses=[next(p for p in frame['realNativeB51Poses'] if p['id']=='a13-machine-14') for frame in early['frames']]
-assert all((pivot_of(p)-P).length<1e-6 for p in poses),'true source fixed native B51-14 pivot drift'
+assert all(math.dist(pivot_of(p),TRUE_PIVOT_XYZ)<1e-9 for p in poses),'true source fixed native B51-14 pivot drift'
+P=Vector(TRUE_PIVOT_XYZ)
+
 assert all(p['halfSize']==[1.7,1.7,1.4] for p in poses)
 localD=(P-world(0,0,0)).dot(S);localT=(P-world(0,0,0)).dot(F)
 assert -7.18<localD< -7.16 and abs(localT)<.03,'source pivot is not original left road shoulder'
@@ -171,7 +175,7 @@ report={'schema':'k4ct-r70-authored-one-true-rotor-pivot-bearing-blender/1',
  'originalRoad5Sha':D['sourcePhysicalRoad5SHA256'],'B48':7,'B51':28,
  'newColliders':0,'sourceBlenderSHAUnchanged':oldblob,'objects':manifest,
  'humanProven':False,'actualKinematicCouplingToB51':False,
- 'trueOriginalRotorPivotXYZ':list(P),'nativePivotAcrossThreeActualTicks':True,
+ 'trueOriginalRotorPivotXYZ':list(TRUE_PIVOT_XYZ),'nativePivotAcrossThreeActualTicks':True,
  'fullOriginalRotorSweepRadiusMetres':FULL_ROTATION_SWEEP_RADIUS,
  'leftBankTowerMinimumSweepClearanceM':abs(-12.5-localD)-FULL_ROTATION_SWEEP_RADIUS,
  'cantileverMinimumAboveOriginalRotorM':4.3,
