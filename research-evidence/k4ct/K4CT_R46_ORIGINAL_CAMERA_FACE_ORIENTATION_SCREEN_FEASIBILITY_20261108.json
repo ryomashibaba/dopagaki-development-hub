@@ -1,0 +1,245 @@
+{
+  "schema": "dopagaki-k4ct-r46-real-source-camera-face-orientation-and-four-part-semantic-preflight-v1",
+  "dateJST": "2026-11-08",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "policy": "V15 QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE fixed. No new high-level project or formal ART adoption.",
+  "source": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "originalHEAD": "564b06113c964ccb1a892ca9b03c8ef6773c2c39",
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "R38TrueOriginal240HzWebGL2Run": 42375928902,
+    "R38ArtifactZipSHA256": "5b9c81e6dc15ec9811b9dbf5bdaf9e8101b068b8e8616593f7cae6b99a3e962d",
+    "R44GenuineBlenderAndNativeWebGL2Run": 42384597099,
+    "R44RealArtifactID": 13578848939,
+    "R44ArtifactZipSHA256": "c05188982a541d340ec1a1f73ae877712cc46511a23f3c81fed4d2171cdad076",
+    "R44ArtifactExpiryUTC": "2026-11-14T15:07:57Z",
+    "R44NativeSourceTicks": [
+      15900,
+      15924,
+      15972
+    ],
+    "R44SceneTriangles": 32004,
+    "R44RealOriginalGLGroup24RGBgt25Impact": [
+      215,
+      281,
+      470
+    ],
+    "mainSHA": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialPR46Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "PR46Status": "OPEN_DRAFT_UNMERGED",
+    "sourceZipDigestsIndependentlyValidated": true
+  },
+  "method": {
+    "type": "OFFLINE_CPU_HALF_RES_PROJECTION_DEPTH_REPRODUCTION_AND_VISUAL_SEMANTIC_VETO",
+    "approxScreenWH": [
+      505,
+      350
+    ],
+    "camera": "12 actual original camera coordinates from digest-verified R38 Chromium run; corresponding R44 source 240Hz game RAW are shown unedited in preview top row",
+    "geom": "Digest-verified R44 genuine Blender 32004 triangles used for background projected depth; retained original protected8 groups 00,12,13,19,34,35,41,42; only rejected R44 nonprotected author groups15/16/17/23/24 omitted in hypothetical replacement designs.",
+    "projection": "Known R9 approximate pinhole formula; near-plane crossing triangles skipped; no exact GL depth or shader/alpha/fog/culling; see earlier R41 limitations.",
+    "localScriptSHA256": {
+      "orientationSearch": "9827eb537ced86f39da4483ed268a9258d4c987b6717f1338ccbc12f63dc9453",
+      "sourceBankShortHeadRaceStudy": "4bda2873c2b8dfee61725362301df987648b7bd0a6886d76c9620cc95d2286f7"
+    },
+    "localDiagnosticBundleSHA256": "3aee36579497a220ee0d9a953ed3307169c08b749fa0ac4de6ba69dfc6552f8d",
+    "localPreviewPNG_SHA256": "319aea1038c7c210c4ddc930c02a3e5a330ef8a5d965ff7c9a30f3acb8120de2",
+    "localBundleAndPreviewNotCommittedToGitHub": true,
+    "visualProof": "Original R44 RAW in top row, copied source RAW with four distinct CPU mask overlays in bottom row; overlaid study is NOT true WebGL2 R46 output and NOT real authored DCC.",
+    "studyFramesSec": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "testedSingleFaceRotations": 150,
+    "testedSingleFaceDeepDrops": 252,
+    "testedPreliminaryFourPartLayouts": 63,
+    "testedSourceAnchoredCorrectedFourPartLayouts": 64,
+    "numericPixelsAreOnlyEarlyNegativeHeuristicsNotFormalARTThreshold": true
+  },
+  "actualNewFinding": {
+    "R44FallPlane": "Old gravity fall topography's long axis is roughly Road6 forward F=[0.92049565,0,-0.3907528], normal approximately outboard S=[-0.3907528,0,-0.92049565]; the original source camera looks almost parallel to the plane, more edge-on over time.",
+    "absoluteHorizontalViewDotOldNormalByTime": [
+      0.2401,
+      0.1624,
+      0.0511
+    ],
+    "absoluteHorizontalViewDotRotatedNormalByTime": [
+      0.9708,
+      0.9867,
+      0.9987
+    ],
+    "meaning": "A 90-degree new water-flow dogleg can face the R44 fall surface toward camera, but this solves only one visibility axis, NOT the projected lower receiver and grounded gate.",
+    "oldFallProxyBBoxWHAtThreeTimepointsHalfRes": [
+      [
+        19,
+        12
+      ],
+      [
+        23,
+        14
+      ],
+      [
+        33,
+        19
+      ]
+    ],
+    "sameCentroidRotatedFallProxyBBoxWHHalfRes": [
+      [
+        31,
+        9
+      ],
+      [
+        35,
+        10
+      ],
+      [
+        44,
+        11
+      ]
+    ],
+    "deepDropTradeoff": "Single face with large ~36-41m drop can have approximately 18 half-resolution vertical pixels in the first frame at T125, outboard R160, width70 (not a full 4-stage composition); some deep-drop 4-stage configurations hide the receiving channel entirely.",
+    "deepDropNegativeExample": {
+      "fallAtLongitudinalT": 105,
+      "outboardR": 150,
+      "widthM": 60,
+      "topY": 91,
+      "receivingY": 55,
+      "fullFourStageProxyReceiverPixelsOnThreeFrames": [
+        0,
+        0,
+        0
+      ]
+    },
+    "initialFourStageStudy": {
+      "candidateCount": 63,
+      "allFourNonzeroAtThreeTicks": 3,
+      "proxyArtQualifyingCount": 0,
+      "smallReceiverFirstFramePixels": [
+        6,
+        8
+      ],
+      "warning": "Nonzero source-projected pixels are not enough for visual readability or human choice consequence."
+    },
+    "sourceAnchoredFocusedFourStageStudy": {
+      "candidateCount": 64,
+      "allFourNonzeroAtThreeTicks": 56,
+      "passConservativeScreenOnlyNegativeVeto": 0,
+      "bestIllustrativeNotAdopted": {
+        "sourceForebay19NearestY93VertexXZmeters": 0.86,
+        "submergedUnderbankIntakeY92_6Unproven": true,
+        "fallRoad6LongitudinalT": 125,
+        "outboardR": 145,
+        "spanWidthM": 70,
+        "headraceT125to145": true,
+        "upperFallY": 91,
+        "lowerReceivingY": 80,
+        "receivingExtendsTowardCameraM": 60,
+        "machineAtFarBankProxyOnly": true,
+        "minVisibleByComponentHalfResPixelsAcross3Ticks": {
+          "headrace": 122,
+          "fall": 226,
+          "receiver": 103,
+          "machine": 129
+        },
+        "minFallScreenBBoxHeightHalfResPixels": 9,
+        "approxOriginalScreenPixelsAtWorstTime": 18,
+        "maxScreenMaskGapHalfResAcross3Ticks": {
+          "headraceToFall": 1,
+          "fallToReceiver": 1,
+          "fallToMachine": 1
+        },
+        "frameDetails": [
+          {
+            "seconds": 66.25,
+            "headrace": 122,
+            "fall": 226,
+            "receiver": 103,
+            "machine": 129,
+            "fallBBoxHalfRes": [
+              158,
+              166,
+              203,
+              174
+            ]
+          },
+          {
+            "seconds": 66.35,
+            "headrace": 157,
+            "fall": 281,
+            "receiver": 164,
+            "machine": 159,
+            "fallBBoxHalfRes": [
+              129,
+              169,
+              179,
+              178
+            ]
+          },
+          {
+            "seconds": 66.55,
+            "headrace": 238,
+            "fall": 459,
+            "receiver": 396,
+            "machine": 255,
+            "fallBBoxHalfRes": [
+              72,
+              176,
+              137,
+              186
+            ]
+          }
+        ],
+        "screenProxyFailure": "Even with approximate four-part projected connectivity, the initial fall is only about 18 original display pixels tall; geometrical shape and functional gate load path are unknown. R44 original RAW shows shallow water strip, so do not repeat same geometry/material pattern.",
+        "neverTreatAsRealBlenderOrARTCandidate": true
+      }
+    }
+  },
+  "criticalAssessment": {
+    "positive": "The prior R44 waterfall was roughly edge-on to original camera, independently explaining part of its poor legibility. A dogleg with fall plane facing camera is geometrically possible without requiring original camera edits.",
+    "negative": "No four-part concept in the bounded 64-case source-anchored study clears the conservative screen-only veto, and deep waterfall cases tend to lose the lower receiving surface. A world-connected intake and supported gate have not been authored or approved.",
+    "conclusion": "R46_OFFLINE_ORIENTATION_TECH_STUDY_PASS__NO_GO_FOR_NEXT_LARGE_DCC_AT_THIS_GATE",
+    "ART": "R44_EARLY_ART_REJECT_UNCHANGED",
+    "METHOD": "HOLD",
+    "outOfScope": [
+      "R46 new genuine Blender",
+      "R46 new native Chromium WebGL2 scene output",
+      "actual water simulation / watertight underbank conduit",
+      "human game fairness/steering/retry",
+      "full SAT/CCD/FPS or production release"
+    ],
+    "nextGate": "Before any further DCC or CI, prove a composition in exact unchanged source-camera frames that gives enough physical screen height/recognizable water level difference, visible downstream catchment, connected source intake and mechanically supported gate without obscuring road/HUD/B51. The new design must not repeat R44 color swaps, broad cyan sheet or gray arches. If this cannot be shown, retain METHOD HOLD and seek explicit permission before changing protected source, not a workaround.",
+    "verdictNoFormalAdoption": true
+  },
+  "status": {
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "researchBranchOnly": true,
+    "mainProtected": true,
+    "PR46Protected": true,
+    "originalGameAndBlenderAuthorProtected": true,
+    "protectedEightNotModified": true,
+    "roadCameraPhysicsB48B51NotModified": true,
+    "newCI": 0,
+    "newBlender": 0,
+    "userOperations": 0,
+    "paidAPI": 0,
+    "work": false,
+    "computerUse": false,
+    "formalARTAdoption": false
+  }
+}
