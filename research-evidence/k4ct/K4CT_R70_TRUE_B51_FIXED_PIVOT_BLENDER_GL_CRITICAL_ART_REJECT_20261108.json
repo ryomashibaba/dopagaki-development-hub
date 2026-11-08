@@ -1,0 +1,140 @@
+{
+  "schema": "dopagaki-k4ct-r70-real-fixed-B51-14-pivot-native-Blender-three-times-critical-art-review-v1",
+  "dateJST": "2026-11-08",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "initialAuthoringCommit": "50016ba0cc039d9887ab9a7660597ea655643835",
+  "float64RepairAndExecutionCommit": "31e934728963d782d887f84aee70e242db569ac0",
+  "objective": "Replace R68 opposite-bank decorative slab with ONE original-source anchored true B51-14 fixed pivot bearing, outboard left tower, overhead cantilever and vertical coaxial shaft; examine actual unchanged source 240Hz chase-camera legibility, and reject if visually unrecognizable.",
+  "preflightHistory": {
+    "firstRun": 42460795840,
+    "firstConclusion": "failure",
+    "preciseCause": "Blender mathutils.Vector stores float32 at ~1.2km world coordinates; checking native fixed pivot in converted floats against 1e-6m incorrectly rejected a genuine constant pivot.",
+    "secondRun": 42461084964,
+    "secondConclusion": "success",
+    "remediation": "Evaluate source centre/yaw/OBB in original float64 before passing values into Blender mathutils.Vector; add cheap source-JSON pivot preflight before installing Blender.",
+    "duplicateHeavyWorkflowTriggered": false
+  },
+  "groundTruth": {
+    "originalSource240HzCameraRun": 42448441488,
+    "originalSourceB51": "a13-machine-14",
+    "sourcePivotXYZ": [
+      1181.5640147661836,
+      122.43275866083378,
+      -487.0341339030744
+    ],
+    "positionAcrossNativeTicks": [
+      15660,
+      15744,
+      15924
+    ],
+    "fixedPivotProvenFromNativeCentreMinusLocalHalfArm": true,
+    "originalB51AngularRateRadiansPerSecond": -1.451082057084,
+    "originalB51Count": 28,
+    "originalB48Roads": 7,
+    "originalRoad5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae"
+  },
+  "genuineBlender": {
+    "authoredScript": "scripts/p101-k4ct-r70-authored-true-pivot-bearing.py",
+    "editableBLEND": "k4ct-r70-authored/R70_TRUE_NATIVE_PIVOT_CANTILEVER_ART_HOLD.blend",
+    "meshes": 10,
+    "addedEvaluatedTriangles": 1080,
+    "totalDccTriangles": 33084,
+    "group": "17_BERTH_UTILITY_CRANES",
+    "originalProtected8GroupsXYZRGB": "EXACT_MATCH",
+    "originalR49BLENDSha256": "4442489802cac1bf3e0e6950277228f22f3a203af82f784a968c4b5ea0c3146a",
+    "originalR49BlendUnchanged": true,
+    "newColliders": 0,
+    "sourceNativeMovingObstacleDefinitionUnchanged": true,
+    "rendererOriginalCameraUnchanged": true,
+    "rightVsLeftErrorInR68Corrected": true,
+    "lateralDistanceFromOutboardTowerToConservativeFullRotorSweepMetres": 1.6527510490558441,
+    "sourceClaimedCantileverCentrelineClearanceAboveOriginalRotorM": 4.3,
+    "clearanceCaveat": "4.3m is centreline to original rotor top; evaluated bevel/beam thickness makes actual mesh clearance lower. Do not treat as independently mesh-verified minimum.",
+    "mechanicalPivotVisualAlignedWithSource": true,
+    "actualMotorForceOrDynamicForceTransferredToB51": false,
+    "visuallyNoncollidingSupport": true
+  },
+  "nativeGL": {
+    "run": 42461084964,
+    "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42461084964",
+    "conclusion": "success",
+    "artifactId": 13609911352,
+    "artifactExpiresUTC": "2026-11-15T08:03:38Z",
+    "artifactZipSHA256": "f6a88136cf96f73e284df9d30cfa005a54e035e469ac14b029ae7b7c071f43a6",
+    "independentlyVerifiedZipSHA256": true,
+    "zipAllMembersCRCVerified": true,
+    "rawFrames": [
+      "K4CT_R70_ART_T65_25_TRUE_ORIGINAL_GL_RAW.png",
+      "K4CT_R70_ART_T65_60_TRUE_ORIGINAL_GL_RAW.png",
+      "K4CT_R70_ART_T66_35_TRUE_ORIGINAL_GL_RAW.png"
+    ],
+    "nativeSourceTicks": [
+      15660,
+      15744,
+      15924
+    ],
+    "originalCameraMatrixAllThreeExactlyEqualsR60ArchivedBaseline": true,
+    "originalMovingB51PoseAndDecisionAllThreeExactlyEqualsR60ArchivedBaseline": true,
+    "webgl2": true,
+    "originalRunner240Hz": true,
+    "sourceMovingB51Count": 28,
+    "errors": []
+  },
+  "criticalVisualReview": {
+    "evidenceViewed": [
+      "R70 original Chromium WebGL2 3 times full source screenshots",
+      "R70 near-hazard original-source-versus-candidate three times world crop"
+    ],
+    "verdict": "EARLY_ART_REJECT",
+    "at65_25": "True native B51-14 remains tiny 338.69m ahead (~1.89sec). New small industrial support is barely distinguishable in dense existing coastal scaffolding. Driver cannot identify it as the same rotating B51 risk from screenshot alone.",
+    "at65_60": "The new support is subtly emerging near far bank; no visible rotor-to-support motion or readable single machine silhouette. B51-14 remains 275m ahead (~1.5sec).",
+    "at66_35": "Small gantry-like outboard appendage is visible near the physical left bank as the source hazard approaches ~137.6m (~0.75sec); does not establish early understandable visual causality, remains small and reads as pre-existing cranes rather than a clear articulated apparatus.",
+    "genuineSourceOriginalComparedAtSameTickAndCamera": true,
+    "comparisonCaveat": "Other code changes since archived R60 (especially HUD layout / renderer attribution and screenshot rasterization) affect overall image differences; never count generic original-vs-R70 differing pixels as isolated new R70 silhouette pixels.",
+    "specificFailure": "Correct structural anchoring != sufficient chase-camera readability at ~1.9sec; generic thin shore support is lost in existing complex machine silhouettes.",
+    "artAcceptance": false,
+    "humanReactionMeasured": false,
+    "candidateDisposition": "PRESERVE_UNAPPROVED_RESEARCH_BUT_NO_ART_PROMOTION",
+    "repeatControl": "STOP repeated variants of fixed-pivot mini gantry, minor materials, shift/scale or screenshot-count growth without prior evidence that the actual true moving B51 hazard becomes legible.",
+    "doNotClaim": [
+      "mechanical motor physically drives B51",
+      "certified safe side",
+      "HUMAN trial PASS",
+      "specific pixel area attributable solely to R70",
+      "formal ART acceptance",
+      "release readiness"
+    ]
+  },
+  "nextStage": {
+    "id": "R71_READABILITY_METHOD_DECISION",
+    "currentStatus": "METHOD_HOLD_FOR_SAME_MINI_GANTRY_ART_FAMILY",
+    "ruling": "No near-identical noncolliding B51-14 support variant or expensive duplicate CI. Move assessment upstream to the original full 3D composition / player hazard readability at ~1.9 s. Since only ~71 aggregate true B51 source-shader pixels were visible in R67, adding another thin structure at similar depth cannot automatically solve the warning window. A materially different source-grounded three-time visual direction must be visually identifiable in source camera BEFORE real DCC; if none, hold ART and prioritize proven playable-road / human-readability and actual user testing rather than marketing green QA.",
+    "newHeavyCIRequiredNow": false,
+    "additionalBlenderRunRequiredNow": false
+  },
+  "safety": {
+    "mainHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "PR46": "OPEN_DRAFT_UNMERGED",
+    "originalGame": "PROTECTED_UNMODIFIED",
+    "nativeOriginalCameraPhysics240Hz": "PROTECTED_UNMODIFIED",
+    "formalQA": "PROTECTED_UNMODIFIED",
+    "publicPages": "PROTECTED_UNMODIFIED",
+    "formalArtAccepted": 0,
+    "slope2DNAMetres": 0,
+    "HUMAN": "HOLD",
+    "ART": "REJECT",
+    "METHOD": "HOLD_MINI_GANTRY",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "userOperations": 0,
+    "additionalPaidAPIJPY": 0,
+    "GitHubActionsActualBilling": "UNKNOWN"
+  }
+}
