@@ -1,0 +1,182 @@
+{
+  "schema": "dopagaki.k4ct-r57-real-240hz-private-live-hud-verified-reversible-original-webgl2/1",
+  "dateJST": "2026-11-08",
+  "scope": "Fixed V15 existing game Road5→Road6 B51-13→14. No plan change, research PRIVATE build only.",
+  "source": {
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "implementationCommit": "1f6957bb195b5abf691ab2796ae00ba2bbc1da0b",
+    "instrumentationRepairCommit": "d889ee0a97bc01b9f75c1de83108737236cdac48",
+    "initialRun": {
+      "id": 42445279951,
+      "status": "failure",
+      "cause": "False test assumption: original source P97 road prewarning must be present in document.body.innerText even when visible in original rendered game."
+    },
+    "successfulRun": {
+      "id": 42445492901,
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42445492901"
+    },
+    "artifact": {
+      "id": 13602878691,
+      "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42445492901/artifacts/13602878691",
+      "SHA256Verified": "4743cd29b41bd16fe9acd58b1095548c86a84fb214b5c4188c373687edebdbe1",
+      "expiresUTC": "2026-11-15T04:10:06Z",
+      "files": "One JSON and six genuine native Chrome 1365x930 PNG"
+    },
+    "sourceGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "sourceBlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "sourceRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "reusedOriginalBlenderArtifact": 13600556658,
+    "trueBlenderTriangles": 32004,
+    "originalEightProtectedXYZRGBExactlySame": true,
+    "currentMainHEADConfirmed": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "PR46Confirmed": "OPEN/DRAFT/UNMERGED",
+    "PR46HEADConfirmed": "19d3a32d525c0c2a67082cba646898fab8f2b60f"
+  },
+  "implementation": {
+    "renderLifecycle": "Research ONLY generated PRIVATE game dist-private/k4ct/drive3d.mjs imports a new tiny k4ct-r57-live-hud.mjs module; called at each source render after original B51 dual-cue calculation.",
+    "files": [
+      "scripts/k4ct-r57-live-hud.mjs",
+      "scripts/k4ct-r57-install-private-live-hud.mjs",
+      "scripts/k4ct-r57-live-hud-native-gl.mjs",
+      ".github/workflows/p101-k4ct-r57-live-hud-native-raw.yml"
+    ],
+    "mode": "window.__k4ctR57HudMode=BASE or CANDIDATE, default CANDIDATE",
+    "candidate": "For original 1013px canvas research viewport, B51 HUD width440px, height64.56px, positioned left of original P97 warning, source input/camera unmodified. Suppress ONLY visible NEAR MISS reward banner when next actual B51 ETA <= 0.75 s; do not change event/scoring or text and do not claim safe path.",
+    "baseline": "Original HUD width510.078px,height78.781px. Restoring BASE removes new CSS and restores original bonus visibility.",
+    "onlyGeneratedPrivateBuild": true,
+    "normalDeployedPublicGameModified": false,
+    "originalGameSourceChanged": false,
+    "newColliders": 0,
+    "sourceB48": 7,
+    "sourceMovingB51": 28
+  },
+  "realOriginalNativeComparisons": [
+    {
+      "sec": 65.25,
+      "tick": 15660,
+      "nextB51": "a13-machine-14",
+      "nextMetres": 338.69,
+      "ETAseconds": 1.89,
+      "nextAfter": "a13-machine-15",
+      "BASE_CANDIDATE_IDENTICAL": true,
+      "bonusSuppressed": false,
+      "returnedToBase": true,
+      "rawBaselineSHA256": "c05046dae2c510730645f661113e2f5be5a9229c0eb4565b1aba9449c26db701",
+      "rawCandidateSHA256": "c316403f3fe0f8424eeb6d046b4065c1e8369a4852257f351f455c8c8d724341"
+    },
+    {
+      "sec": 66.35,
+      "tick": 15924,
+      "nextB51": "a13-machine-14",
+      "nextMetres": 137.6,
+      "ETAseconds": 0.75,
+      "nextAfter": "a13-machine-15",
+      "BASE_CANDIDATE_IDENTICAL": true,
+      "bonusSuppressed": false,
+      "returnedToBase": true,
+      "rawBaselineSHA256": "40dd898bd4dd1be182681b34fd1c30d738e64a9e434dc8180233d587ffeffe89",
+      "rawCandidateSHA256": "d285235803bdac4f9599bd46bf951cf7257dd782bb3e844824b3adfafed8b6f3"
+    },
+    {
+      "sec": 68.05,
+      "tick": 16332,
+      "nextB51": "a13-machine-15",
+      "nextMetres": 32.67,
+      "ETAseconds": 0.17,
+      "nextAfter": "a13-machine-16",
+      "BASE_CANDIDATE_IDENTICAL": true,
+      "bonusSuppressed": true,
+      "bonusText": "NEAR MISS · 3.15m / ×1",
+      "bonusDisplayRestoredToVisibleAfterBASE": true,
+      "rawBaselineSHA256": "e7b2248f2499ee92bb0451078e7424c982c7b5d8b384bde5fe79e8e6d8736fea",
+      "rawCandidateSHA256": "658062e4835fe0ddc3ead40fdbf48e30d41e705097fccc0813e80fe28ad1588f"
+    }
+  ],
+  "independentImageDelta": {
+    "method": "Original exact-paused-tick screenshot RGB per-pixel difference threshold absolute per channel >25; baseline vs candidate at 1365x930. This is screenshot change, not artistic improvement certification.",
+    "unchangedSceneryROI": [
+      200,
+      445,
+      0,
+      1033
+    ],
+    "sceneryChangedPixelsEachFrame": [
+      0,
+      0,
+      0
+    ],
+    "centralGameplayROI": [
+      450,
+      545,
+      275,
+      775
+    ],
+    "centralChangedPixels": [
+      0,
+      0,
+      15256
+    ],
+    "centerAt68point05PctChangedApprox": 32.12,
+    "upperHUDROI": [
+      0,
+      120,
+      0,
+      1033
+    ],
+    "upperChangedPixels": [
+      25219,
+      25300,
+      24690
+    ],
+    "interpretation": "Observed raw screenshot differences are limited to intended HUD and NEAR MISS banner in measured ROIs; not a proof of no other pixel difference or collision change by itself."
+  },
+  "criticalReview": {
+    "TECH": "PASS genuine Chromium WebGL2 original 240Hz runner, 6 true original raw A/B and source SHA protection, reversible live PRIVATE HUD",
+    "visualImprovement": "B51 top cue avoids the original right P97 prewarning visual overlap and covers less screen; at 68.05 real NEAR MISS banner disappears from center when next B51 ETA=0.17s, then is visible again after toggling BASE.",
+    "retainedIssues": [
+      "Large centered PRACTICE overlay and bottom arrow keys remain inside original chase camera, visually obstructing the actual road; not within R57 modification.",
+      "A little pale world crest/ridge text is still partly behind B51 HUD; layout hierarchy not complete.",
+      "Actual red moving B51 obstacle remains tiny and difficult to identify at ~183-191m/s, without proven human reaction time.",
+      "R49 reused physical-seaport art was already ART REJECT; this HUD step does not improve DCC/modeling quality.",
+      "Original P97 road warning text is visible in actual raw screenshot but not represented as document.body.innerText; cannot infer DOM presence or exact bbox.",
+      "CI uses scripted original KeyD controls, NOT human reaction, game feel, formal SAT/CCD, or Windows FPS.",
+      "R57 live HUD is in generated PRIVATE build only and not deployed to Pages or formal release."
+    ],
+    "methodRecommendation": "R58 do not iterate cosmetic HUD labels. Next substantive gate is world-space, source-camera-readable real moving B51 early perception and physically convincing connected DCC architecture at same Road5→Road6 encounter. Use existing original camera RAW and frozen protected data before one targeted native art authoring; no repeated unsuccessful water-geometry sweeps or extra CI without new idea.",
+    "verdict": "R57_TECH_PASS__ART_HUMAN_HOLD"
+  },
+  "status": {
+    "SOURCE": "PASS",
+    "TECH": "PASS",
+    "ART": "HOLD",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "formalARTAdopted": 0,
+    "slope2DNAMeters": 0,
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "resource": {
+    "newBlenderRuns": 0,
+    "newGithubActionsRuns": 2,
+    "initialFailedRunIncluded": true,
+    "userActions": 0,
+    "addedPaidAPIJPY": 0,
+    "githubActionsActualBilling": "UNKNOWN",
+    "work": false,
+    "computerUse": false
+  },
+  "safety": {
+    "mainP101PR46OriginalGameCameraPhysicsUnchanged": true,
+    "protected8XYZRGBUnchanged": true,
+    "newColliders": 0,
+    "B48": 7,
+    "B51": 28,
+    "sourceNoMergeNoFormalArtNoRelease": true
+  }
+}
