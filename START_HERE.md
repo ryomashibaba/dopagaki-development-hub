@@ -1,8 +1,8 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
-**2026-11-08 JST／R53後。固定V15は不変。**
+**2026-11-08 JST／R63後、V16統合批判的引き継ぎを最新入口とする。固定V15は不変。**
 
-## 読取順
-[R50完全批判的継承正本](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md) → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md)。V14/V13/V12.1は必要な過去証拠の参照用。旧文書の「次Rxx」は現在の指示ではない。
+## 読取順（現在の唯一の移行入口）
+**[V16 R63後・二段階批判的統合引き継ぎ](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)** → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md) → [R50歴史的統合](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md)。V14/V13/V12.1は必要な古い証拠だけ参照。**R53以下の次工程は履歴。新しい指示はV16第7章のR64。不要な長文引継ぎを今後量産しない。**
 
 ## 最新の実証
 [R53視線と構造の批判的結果](research-evidence/k4ct/K4CT_R53_ELEVATED_QUARRY_TO_PROTECTED_FOREBAY_OFFLINE_ART_VETO_20261108.json)。R50→R52は低い受水路の遮蔽/非保護16・24、R53は**高所の採石場25→既存保護水面19**という別の因果構造を元Camera/既存本物32,004三角形で限定投影。高所水源はほぼ線、落水が単純な板、接続・機械が読めず、**近似ART NO-GO／METHOD HOLD**。R53は真正新GLでも真正新Blenderでもない。水面19を「元の水源」から「受け」に読み替える設計変更は未承認、正式方針ではない。
@@ -14,7 +14,7 @@ GitHub研究ブランチ `research/k4ct-two-native-b51-choice-consequence-202611
 
 **QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE**。R48〜R53に類似する薄い水帯・色替え・遮蔽マスク試行を量産しない。次の本質工程は元Cameraの実画面で**水源→荷重が読める機械→明確な落差→受水**が、近景道路・赤B51・空を遮らず時間順に理解できる別の立体空間の成立証拠を先に示すこと。得られたときだけ隔離真正Blender1候補→元240Hz/Chromium WebGL2 RAW3〜5枚→保護QA→ART批判。なければMETHOD HOLD。原本・保護水面19・Camera等の変更、Work/Computer Use、追加有料API、正式採用、公開、mergeは事前個別承認。ユーザー操作原則0回、追加課金原則0円。CI実請求は不明。
 
-R53までの研究記録は上記リンク先。新しい長文引継ぎは作らず必要な実仕事に集中する。
+R53以前の詳細は各証拠へ。R63後の唯一の統合引継ぎとしてV16を保存した。今後は新しい長文を量産せず実仕事に集中する。
 
 ## R54追記（2026-11-08、上位V15不変）
 既存真正Chromium B51-13→14回避成功 Artifact #13425699087 (SHA256 `8fdbe45ccd775c913ef2c2f838bc4c2230b77f0188a7f766ee44c8b160435abc`)を再利用。真正旧RAWでは約183m/s、残0.8秒時点の上部B51予告が長く、周囲HUD・障害物・一部日本語フォント欠落と競合。元Game/物理を触らず、**生成PRIVATE K4CTだけにコピーされる研究専用B51表示formatter**を簡潔化し、危険物の位置を「安全経路」の命令へ誤昇格しない4件の独立Node表示テストを追加。**元240Hzの新実行・人間プレイは未検証、ART/HUMAN/SAT/CCD/FPS等HOLDは不変**。旧成功Artifactだけでは同一ブラウザ内のリトライ一連を再確認できないため、追加PASSと断定しない。
