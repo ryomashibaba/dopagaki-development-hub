@@ -1,0 +1,126 @@
+{
+  "schema": "k4ct-r80-road4-physical-widening-paided-native-240hz/1",
+  "dateJST": "2026-11-08",
+  "sourceResearchHEAD": "c29e126bd0268fac44a4685eb75241db54fce014",
+  "inputR79StageSHA256": "c523d4f68e728b6fe8f15f5275a2b1255cfe17a3a3f3b93fa2de3777c176bc96",
+  "outputR80StageSHA256": "786ee9c26ced13055b222dbfd413c9f7b5f090e5abc7a383d58c984389605c4f",
+  "generatorGitBlobSHA": "d78ead21c1daaedd81edac153fae8adf7d020031",
+  "generatorSHA256": "a46cbd2f818013c2b8d71c125024ed0a9216ff659ec67c5b5915c6669b8e12aa",
+  "generatorPath": "research-candidates/k4ct/k4ct-r80-lower-turn-real-shoulder.mjs",
+  "actualPhysicalChange": {
+    "road": "p93-LOWER_REVERSAL-01",
+    "roadIndexZeroBased": 3,
+    "editedRows": 17,
+    "editedXZPoints": 34,
+    "outerShoulderAdditionalM": 24,
+    "shoulderGradualFromRow": 12,
+    "shoulderGradualToRow": 30,
+    "centerlineUnchanged": true,
+    "elevationsUnchanged": true,
+    "seamRow0And30Unchanged": true,
+    "otherRoadsByteEquivalentGeometry": true,
+    "routeAndSpawnsUnchanged": true,
+    "originalB51DefinitionsUnchanged": 28,
+    "originalGameRunnerCameraAnd240HzUnmodified": true,
+    "road0RealVoid": [
+      52,
+      53,
+      54
+    ],
+    "worldTriangles": 32988,
+    "invalidTriangles": 0,
+    "physicalHorizontalWidthAtU0p6OriginalM": 32,
+    "physicalHorizontalWidthAtU0p6R80M": 56
+  },
+  "nativeEvidence": {
+    "originalNativePhysicsHz": 240,
+    "spawn": 0,
+    "startSpeedMps": 52,
+    "assistOn": true,
+    "steeringWindows": {
+      "common": "+0.20 from 11s through 23s; -0.20 from 26s through 34s; zero otherwise",
+      "legalLeft20Road4": "common plus -0.20 from 35s through 43s"
+    },
+    "cases": [
+      {
+        "stage": "R79_ORIGINAL",
+        "condition": "LEGAL_REFERENCE",
+        "status": "failed",
+        "seconds": 41.575,
+        "firstRoad3": 23.9167,
+        "firstRoad4": 34.2792,
+        "firstRoad5": null,
+        "road4GroundedTicks": 1443
+      },
+      {
+        "stage": "R79_ORIGINAL",
+        "condition": "LEGAL_LEFT_20_ROAD4",
+        "status": "running",
+        "seconds": 52,
+        "firstRoad3": 23.9167,
+        "firstRoad4": 34.2792,
+        "firstRoad5": 47.6792,
+        "road4GroundedTicks": 3216
+      },
+      {
+        "stage": "R80_OUTER_24",
+        "condition": "LEGAL_REFERENCE",
+        "status": "failed",
+        "seconds": 47.225,
+        "firstRoad3": 23.9167,
+        "firstRoad4": 34.2792,
+        "firstRoad5": null,
+        "road4GroundedTicks": 2768
+      },
+      {
+        "stage": "R80_OUTER_24",
+        "condition": "LEGAL_LEFT_20_ROAD4",
+        "status": "running",
+        "seconds": 52,
+        "firstRoad3": 23.9167,
+        "firstRoad4": 34.2792,
+        "firstRoad5": 47.6792,
+        "road4GroundedTicks": 3216
+      }
+    ],
+    "noMovingContactsObservedInFourRuns": true,
+    "differenceUnderIdenticalInputSeconds": 5.65,
+    "legitimateRoad5ReachabilityAlreadyPossibleWithR79": true,
+    "fullSevenRoadCompletion": "NOT_TESTED",
+    "independentHumanGameplay": "NOT_TESTED",
+    "inferredHumanFairness": "NOT_PROVEN",
+    "windowsWebGL2": "NOT_VERIFIED"
+  },
+  "negativeResults": {
+    "road3ElevationLower22AndSmoothCrest": "both fail around 34s",
+    "road3CenterlineXZShift35And55": "fail around 34s",
+    "road3OuterShoulder30And45": "with same additional legal steering, Road4 reached on baseline also; no causal gain",
+    "road4OuterShoulder40M": "47.7s vs 24m shoulder 47.225s under reference input; larger width not proportionally beneficial"
+  },
+  "localResearchArchive": {
+    "filename": "DOPAGAKI_R80_LOWER_REAL_SHOULDER_RESEARCH_HOLD.zip",
+    "sha256": "8b9b7c2020568f679136c8487394ee306dea769930efb829fde7d68728031961",
+    "entries": 7,
+    "zipCRC": "PASS",
+    "perFileSHA256Manifest": "PASS",
+    "containsOriginalR79AndSeparateR80": true,
+    "notPublishedToGitHub": true,
+    "notAPlayableGameInstaller": true
+  },
+  "certification": {
+    "physical": "LIMITED_ROAD4_SURVIVAL_GAIN_ONLY",
+    "ART": "REJECT_PREVIOUS_UNFIXED",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "formalArtAccepted": 0,
+    "officialSlope2DNAMetres": 0
+  },
+  "protected": "main/PR46/Gold/formalQA/originalGameCameraRunnerRoads7/B51x28/Blender8/Pages/production: unchanged",
+  "githubActionsRequested": 0,
+  "paidAPIJPY": 0,
+  "next": "No further lateral shoulder tuning: user cares about actually enjoyable and coherent city+road. Isolated R80 is still not a game/ART candidate. Before another player trial, integrate usable, native-browser original-camera architectural environment and human-friendly controls; compare original input conditions and preserve all safety gates."
+}
