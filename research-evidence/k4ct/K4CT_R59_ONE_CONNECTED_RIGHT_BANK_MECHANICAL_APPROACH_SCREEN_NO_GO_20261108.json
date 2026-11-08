@@ -1,0 +1,314 @@
+{
+  "schema": "dopagaki-k4ct-r59-connected-road6-right-bank-early-b51-machine-approach-critical-screen-veto-v1",
+  "dateJST": "2026-11-08",
+  "source": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "startingHead": "157b52129ce8e2355b8554d87bfe08c9fc728153",
+    "r38AuthenticCameraTrueGLArtifactZipSHA256": "5b9c81e6dc15ec9811b9dbf5bdaf9e8101b068b8e8616593f7cae6b99a3e962d",
+    "r49OriginalTrueGLZipSHA256": "2dcbd9448cf6c1a4c84b8599f08869a12d79ce26f42024e449b645fff20fda3d",
+    "r44TrueBlenderProtectedDCC32004Triangles": true,
+    "originalCameraTimeSec": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "fixedV15": true,
+    "R58NativeOriginalB51ArtifactID": 13604022480,
+    "R58ActualB51InfluenceGt25PixelsAllBodies": [
+      65,
+      199,
+      2050
+    ],
+    "reason": "R58 found source original moving B51 body too tiny at early 1.89s and 0.75s. R59 tests whether one physically continuous actual-road-adjacent mechanical approach can provide meaningful early world-scale visual route without fake safe portal or changing original B51."
+  },
+  "originalRoadAndSite": {
+    "coordinateSystem": "Local source Road6: original R39 R36 station-near edge basis. d/t/y are local physical meters NOT an adopted new gameplay course.",
+    "originalB51_14World": [
+      1181.5640147661836,
+      122.43275866083378,
+      -487.0341339030744
+    ],
+    "originalB51_14RoadLocalApprox": {
+      "d": -16.4,
+      "t": 19.08,
+      "y": 122.43
+    },
+    "originalB51_14B48RoadSideFromOriginalMesh": {
+      "tMinus300": {
+        "outerRightDApprox": -94,
+        "roadYApprox": 129.9
+      },
+      "tMinus200": {
+        "outerRightDApprox": -41,
+        "roadYApprox": 128.7
+      },
+      "tMinus150": {
+        "outerRightDApprox": -24.7,
+        "roadYApprox": 127.5
+      },
+      "tMinus100": {
+        "outerRightDApprox": -17.6,
+        "roadYApprox": 125.7
+      },
+      "t0": {
+        "outerRightDApprox": -17.3,
+        "roadYApprox": 121.5
+      },
+      "t20": {
+        "outerRightDApprox": -17.2,
+        "roadYApprox": 120.5
+      }
+    },
+    "sourceGameCameraUnmodified": true,
+    "protected8": [
+      0,
+      12,
+      13,
+      19,
+      34,
+      35,
+      41,
+      42
+    ]
+  },
+  "method": {
+    "type": "ONE_BOUNDED_HALF_RES_OFFLINE_SOURCE_CAMERA_PERSPECTIVE_DEPTH_PREFLIGHT_WITH_ONE_INTERNAL_FORM_REVISION",
+    "trueCamera": "Three REAL R38 source Chromium original 240Hz camera matrices.",
+    "trueDcc": "R44 truly Blender-authored 32,004-triangle original geometry / protected source eight untouched.",
+    "trueScreens": "R49 actual WebGL2 RAW as base for ILLUSTRATIVE projected 2D concept overlay. The drawn candidate overlays are NOT actual source WebGL2 nor newly-authored Blender and do NOT prove real runtime material, culling, fog or animation.",
+    "rasterApproxSize": [
+      505,
+      350
+    ],
+    "originalSourceView": [
+      1014,
+      699
+    ],
+    "imageFullIncludingHUD": [
+      1365,
+      930
+    ],
+    "limitations": "Software z-buffer ignores detailed native renderer alpha/material/fog, moving B51 pose, exact near clipping and does not provide true original camera at 65.25s. The main user-goal early 1.89s visibility is NOT measured here.",
+    "actualBlenderRuns": 0,
+    "actualNewChromiumRuns": 0,
+    "githubActionsRuns": 0
+  },
+  "oneContinuityPlan": {
+    "description": "Continuous quarry-bank supported mechanical transmission along outside of original B48 right-bank from local t≈-360 to +45, ending near TRUE B51-14 mechanical rotator. Original camera/road/obstacles/240Hz unchanged; noncolliding scenic candidate only.",
+    "localCentreT_D_Y": [
+      [
+        -360,
+        -135,
+        129.7
+      ],
+      [
+        -310,
+        -104,
+        129.8
+      ],
+      [
+        -265,
+        -80,
+        129.5
+      ],
+      [
+        -230,
+        -61,
+        129.1
+      ],
+      [
+        -195,
+        -49,
+        128.6
+      ],
+      [
+        -165,
+        -41,
+        128
+      ],
+      [
+        -135,
+        -38,
+        126.95
+      ],
+      [
+        -100,
+        -37,
+        125.8
+      ],
+      [
+        -60,
+        -37,
+        124.2
+      ],
+      [
+        -20,
+        -37,
+        122.7
+      ],
+      [
+        18,
+        -36,
+        120.7
+      ],
+      [
+        45,
+        -35,
+        119.3
+      ]
+    ],
+    "originalSourceRoadEdgeSurveyOnlyNotFullContactProof": true,
+    "noNewRaceableRoadOrCollider": true
+  },
+  "alternativeASlab": {
+    "name": "Single continuous tall roadside mechanical enclosure, 4.6m high, with an amber top trace and unequal quarry support braces",
+    "nativeAuthoring": "NOT ATTEMPTED",
+    "realGL": "NOT ATTEMPTED",
+    "approximateHalfResVisibleBaseGroup61": [
+      5824,
+      3992,
+      3090
+    ],
+    "originalFrameSeconds": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "visually": "The projected form is a giant flat orange opaque wall with long boring horizontal band occupying x632..958 and y296..412 at 66.35s, recalling prior ART-rejected slabs and falsely implying a roadside facility. Source road and moving B51 context would be visually weakened.",
+    "verdict": "EARLY_SCREEN_NO_GO_NO_BLENDER"
+  },
+  "alternativeBOpenTruss": {
+    "name": "Same functional continuum, no enclosing slab, two thin separated structural chords, one exposed transmission rod, three unequal founded quarry braces. One within-scope structural revision, not a new waterfall topic.",
+    "approximateHalfResActualWholeR44DccVisibleTrianglePixelsByComponent": [
+      {
+        "seconds": 66.25,
+        "chords": 327,
+        "rodAndSparseWeb": 159,
+        "quarryBraces": 432,
+        "bounds": {
+          "chords": [
+            672,
+            296,
+            1010,
+            414
+          ],
+          "rod": [
+            668,
+            296,
+            1010,
+            394
+          ],
+          "braces": [
+            680,
+            302,
+            1010,
+            526
+          ]
+        }
+      },
+      {
+        "seconds": 66.35,
+        "chords": 181,
+        "rodAndSparseWeb": 49,
+        "quarryBraces": 43,
+        "bounds": {
+          "chords": [
+            640,
+            296,
+            952,
+            384
+          ],
+          "rod": [
+            652,
+            298,
+            944,
+            364
+          ],
+          "braces": [
+            660,
+            300,
+            726,
+            362
+          ]
+        }
+      },
+      {
+        "seconds": 66.55,
+        "chords": 116,
+        "rodAndSparseWeb": 39,
+        "quarryBraces": 83,
+        "bounds": {
+          "chords": [
+            618,
+            298,
+            898,
+            366
+          ],
+          "rod": [
+            620,
+            300,
+            884,
+            348
+          ],
+          "braces": [
+            652,
+            302,
+            742,
+            386
+          ]
+        }
+      }
+    ],
+    "meaning": "Projected right-bank line segments are largely not occluded by existing geometry, but at original chase camera they read as thin cyan/yellow dotted wiring against many quarry strata. There is no intelligible machine load path or obvious causal connection to true moving B51. Numeric visibility cannot be ART GO.",
+    "verdict": "EARLY_SCREEN_NO_GO_NO_BLENDER"
+  },
+  "criticalDecision": {
+    "status": "R59_BOUND_SINGLE_WORLD_STRUCTURE_SCREEN_NO_GO_METHOD_HOLD",
+    "sourceRealArt": "NO NEW BLENDER OR NATIVE GL / source image is authentic but candidate is CPU illustration",
+    "criticalInsight": "Trying to make an early directional approach visually substantial reproduces the old wall; keeping it nonintrusive collapses into a few thin cables that do not communicate the real mechanical hazard. Both are not good enough for ART-first paid-indie quality.",
+    "originalMovingB51StillSmall": true,
+    "r58OriginalB51NotChanged": true,
+    "notExhaustive": "Only one road-bank arrangement with broad solid versus open-web structural revision and three 66.25-66.55 original cameras. Does NOT prove all B51 approaches or native Blender art impossible. Early 65.25 camera not analyzed here.",
+    "nextGate": "Stop right-bank slabs and tiny cables, generic props and new numbered diagnostic CI. R60 should first define a SINGLE visibly different recognizable supported machine at actual hazard and its natural advance warning within the existing road/sightline, without requiring fake safe path or altering original protected 8, B51, road or camera. A genuine original camera early-window (at >=1.5 seconds) must show meaningful silhouette and causal motion BEFORE Blender. If fixed constraints preclude recognizable art, preserve HOLD and present concrete reason rather than claim success.",
+    "originalV15Unchanged": true
+  },
+  "status": {
+    "TECH": "OFFLINE_SCREEN_ONLY",
+    "R59_ART": "NO_GO_SCREEN_PREFLIGHT",
+    "formalARTAdopted": 0,
+    "slope2DNAMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "protected8OriginalXYZRGBUnedited": true,
+    "originalGameCameraRoad240HzB48B51Unchanged": true,
+    "originalB48Count": 7,
+    "originalB51Count": 28,
+    "newColliders": 0,
+    "newBlenderRuns": 0,
+    "newCI": 0,
+    "newPaidAPIJPY": 0,
+    "githubActionsActualBilling": "UNKNOWN",
+    "mainAndPR46AndP101Unchanged": true,
+    "userOperations": 0,
+    "Work": false,
+    "ComputerUse": false,
+    "noFormalAdoptionOrPublishOrMerge": true
+  },
+  "localReproducibleScreensNotUploaded": [
+    {
+      "file": "r59_concept_1.png",
+      "SHA256": "b7eba12a9065d9d1ed95c467b7a825be2ce86084f09bb2e20c60ec07de66e097"
+    },
+    {
+      "file": "r59_open_1.png",
+      "SHA256": "8fa9535aa3d73034ee189a89b9038f14cf77a3d276beac8240a5667b5419edba"
+    }
+  ]
+}
