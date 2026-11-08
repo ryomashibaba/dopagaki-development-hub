@@ -1,0 +1,88 @@
+name: K4CT R55 original B51 cue native Chromium RAW (research only)
+on:
+  push:
+    branches:
+      - research/k4ct-two-native-b51-choice-consequence-20261105
+    paths:
+      - .github/workflows/p101-k4ct-r55-source-b51-cue-native-raw.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  one-real-240hz-webgl2-warning-check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen original code and isolated formatter regression
+        run: |
+          set -euo pipefail
+          test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
+          test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
+          node --check scripts/k4ct-r55-original-b51-cue-native-gl.mjs
+          node --check scripts/p101-k4ct-dual-real-b51-decision.mjs
+          node --test tests/k4ct-r54-native-cue-readability.test.mjs
+      - name: Reuse actual R49 Blender-authored geometry with NO new Blender runs
+        uses: actions/download-artifact@v4
+        with:
+          name: K4CT_R49_ORIGINAL_WEBGL2_VOLUMETRIC_SIPHON_ART_HOLD
+          run-id: 42437685590
+          github-token: ${{ github.token }}
+          path: test-results
+      - name: Verify all original eight protected 3D XYZRGB groups
+        run: |
+          python3 - <<'PY'
+          import json,pathlib
+          root=pathlib.Path('test-results')
+          a=json.loads((root/'k4ct-r39-art/R39_BASELINE_EIGHT_PROTECTED.json').read_text())
+          b=json.loads((root/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+          m=json.loads((root/'k4ct-r44-art/R44_SOURCE_UNDERBANK_CONDUIT_MANIFEST.json').read_text())
+          assert a['originalB48']==b['originalB48']==7 and a['originalB51']==b['originalB51']==28
+          assert a['newColliders']==b['newColliders']==0
+          assert b['triangles']==m['totalSceneTriangles']==32004
+          assert b['sourcePhysicalRoad5SHA256']=='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b'
+          protected={'00','12','13','19','34','35','41','42'}
+          def groups(v):
+            off=0;res={}
+            for name,count in v['objects'].items():
+              length=count*18
+              if name[:2] in protected:res[name]=v['vertices'][off:off+length]
+              off+=length
+            assert off==len(v['vertices'])
+            return res
+          assert groups(a)==groups(b),'protected-eight exact XYZRGB mismatch'
+          assert (root/'k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend').stat().st_size>100000
+          print('R55_REUSED_GENUINE_BLENDER_32004_SOURCE_8_PROTECTED_PASS')
+          PY
+      - name: Build existing PRIVATE original 240Hz game and install retrieved Blender art
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock --no-audit --no-fund
+          npm run build:private
+          node scripts/p101-r15s3d10-private-real-webgl-pack.mjs
+          node scripts/p101-k4cq-private-integrated-pack.mjs
+          node scripts/p101-k4cr-true-game-and-blender-pack.mjs
+          node scripts/p101-k4cs-private-readable-actual-game-pack.mjs
+          node scripts/p101-k4ct-private-native-two-choice-game.mjs
+          node scripts/p101-k4ct-install-authored-dcc.mjs
+          node --check dist-private/k4ct/drive3d.mjs
+      - name: Install Chromium headless only, no Blender
+        timeout-minutes: 6
+        run: |
+          npx playwright install --only-shell --with-deps chromium
+      - name: Real source original WebGL2 B51 warning three RAW
+        timeout-minutes: 10
+        run: |
+          node scripts/k4ct-r55-original-b51-cue-native-gl.mjs
+      - name: Upload 3 original screenshots and result (ART and HUMAN HOLD)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: K4CT_R55_ORIGINAL_240HZ_B51_CUE_NATIVE_RAW_ART_HOLD
+          path: test-results/k4ct-r55-native-warning/
+          if-no-files-found: warn
+          retention-days: 7
