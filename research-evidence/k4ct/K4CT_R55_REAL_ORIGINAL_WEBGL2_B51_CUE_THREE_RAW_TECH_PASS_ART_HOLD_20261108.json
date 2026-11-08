@@ -1,0 +1,128 @@
+{
+  "schema": "dopagaki-k4ct-r55-original-240hz-webgl2-real-b51-warning-three-raw-v1",
+  "dateJST": "2026-11-08",
+  "policy": "Fixed V15 QUALITY-FIRST/ART-FIRST/DCC-FIRST/INTEGRATED VERTICAL SLICE; research only, no formal acceptance",
+  "source": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "headTested": "3cd89ca69cc45d0559f2ec5b7f24410441b0fe88",
+    "nativeGithubActionsRunId": 42443525034,
+    "runUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42443525034",
+    "runStatus": "success",
+    "artifactId": 13602523066,
+    "artifactSHA256Verified": "5c94557bcbedac97e2fd18b5ced59b52b35170f18e52a48b214d551388de0560",
+    "artifactUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42443525034/artifacts/13602523066",
+    "artifactExpiresUTC": "2026-11-15T03:40:10Z",
+    "reusedGenuineBlenderArtifactID": 13600556658,
+    "reusedGenuineBlenderR44Triangles": 32004,
+    "realChromium": true,
+    "realWebGL2": true,
+    "original240Hz": true,
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "originalGameBlobCheckedCI": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorBlobCheckedCI": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoadPhysicalSHA256CheckedCI": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalEightProtectedXYZRGBExact": true,
+    "newBlenderRuns": 0,
+    "newGithubActionsRuns": 1
+  },
+  "candidate": {
+    "subject": "R54 PRIVATE research-only original native B51 warning formatter, no changes to original physics/camera/road/B48/B51",
+    "removed": "Misleading unverified OPEN? LEFT/RIGHT corridor as player instruction",
+    "preserved": "Next/then two actual moving original B51 obstacle IDs, source distance, source ETA, predicted obstacle SIDE and clear no-guaranteed-safe-lane disclaimer",
+    "regression": "Four isolated node:test cases passed as part of R55 successful GitHub Actions run",
+    "playwright": "One actual original Chromium source WebGL2 same Runner + two historically proven original KeyD pulses, not human input",
+    "rawCount": 3,
+    "frames": [
+      {
+        "seconds": 65.25,
+        "sourceTick": 15660,
+        "displayedB51": [
+          "14",
+          "15"
+        ],
+        "text": "NEXT B51-14 339m / 1.9s MOVING LEFT; THEN B51-15 552m / 3.1s MOVING RIGHT",
+        "panelPixels": {
+          "w": 510.1,
+          "h": 78.8
+        },
+        "raw": "K4CT_R55_T65_25_TRUE_ORIGINAL_GL_RAW.png"
+      },
+      {
+        "seconds": 66.35,
+        "sourceTick": 15924,
+        "displayedB51": [
+          "14",
+          "15"
+        ],
+        "text": "NEXT B51-14 138m / 0.8s MOVING LEFT; THEN B51-15 350m / 1.9s MOVING RIGHT",
+        "panelPixels": {
+          "w": 510.1,
+          "h": 78.8
+        },
+        "raw": "K4CT_R55_T66_35_TRUE_ORIGINAL_GL_RAW.png"
+      },
+      {
+        "seconds": 68.05,
+        "sourceTick": 16332,
+        "displayedB51": [
+          "15",
+          "16"
+        ],
+        "text": "NEXT B51-15 33m / 0.2s MOVING RIGHT; THEN B51-16 253m / 1.3s MOVING LEFT",
+        "panelPixels": {
+          "w": 510.1,
+          "h": 78.8
+        },
+        "raw": "K4CT_R55_T68_05_TRUE_ORIGINAL_GL_RAW.png"
+      }
+    ],
+    "actualNativeFrameScreen": [
+      1365,
+      930
+    ],
+    "note": "Screenshots are actual source Chromium WebGL2, not rasterized CPU proxy and not artist render. Results are automated; not human-safe-lane/fairness certificates."
+  },
+  "criticalVisualReview": {
+    "improved": "Old geom-based open-corridor label removed; two true B51 distances/ETA are prominent and dynamically update across frozen actual source ticks. CJK text rendered legibly in R55 Actions runner.",
+    "remainingVetoes": [
+      "Top warning panel overlaps a second preexisting road-prewarning/HUD strip; UI hierarchy is not yet clean despite reducing words.",
+      "At genuine ~183 m/s, B51-14 is 138m/0.8s ahead in the central race view but actual machinery is distant/small. Prediction number does not establish the player can see and decide in time.",
+      "At 68.05s a large near-miss animation overlays the central road while next B51-15 is about 33m/0.2s away; full warning and road center are competing for attention.",
+      "No new natural first-attempt human steering/reaction capture, nor fair-cue qualification, and scene's prior R44 ART rejection remains unchanged."
+    ],
+    "methodCaveat": "A scripted original KeyD success and native screenshots do not prove human readability, safe-lane geometry, game enjoyment or source ART quality. Camera and source GL were genuine; generated PRIVATE K4CT display and original R44 ART-rejected world were used.",
+    "interpretation": "R55 technical display integration PASS with meaningful usability evidence, not an ART promotion. Next change should target research-only UI occlusion and timely perceptual warning, while preserving source physics and original B51."
+  },
+  "status": {
+    "TECH": "PASS_TRUE_SOURCE_240HZ_CHROMIUM_WEBGL2_CUE",
+    "ART": "HOLD_VISUAL_READABILITY_NOT_ACCEPTED",
+    "METHOD": "GO_R56_TARGETED_RESEARCH_HUD_REFINEMENT_ONLY",
+    "formalArtAdopted": 0,
+    "slope2DnaMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "researchOnly": true,
+    "mainAndDraftPR46NotEdited": true,
+    "originalGameCamera240HzRoadNotEdited": true,
+    "originalBlenderProtected": true,
+    "protected8Untouched": true,
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "addedPaidAPIJPY": 0,
+    "githubActionsActualBilling": "UNKNOWN",
+    "work": false,
+    "computerUse": false,
+    "userOperations": 0,
+    "noFormalAdoptionNoPublishNoMerge": true
+  }
+}
