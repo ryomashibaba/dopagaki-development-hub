@@ -1,0 +1,72 @@
+{
+  "schema": "k4ct-r81-source-camera-volumetric-carving-visual-rejection/1",
+  "dateJST": "2026-11-08",
+  "sourceResearchHead": "8e4b9a2b34ed7f3a22100a7cce35618185cab253",
+  "goal": "Replace procedural floating ring and roof art with a source-road registered excavated world that the player actually passes through.",
+  "immutableSourceStage": "R80_LOWER_SHOULDER_24.json",
+  "sourceStageSHA256": "786ee9c26ced13055b222dbfd413c9f7b5f090e5abc7a383d58c984389605c4f",
+  "physicalRoads": 7,
+  "movingObstacles": 28,
+  "originalRunnerCamera240HzModified": false,
+  "sourceRoad0TrueVoid": [
+    52,
+    53,
+    54
+  ],
+  "newColliders": 0,
+  "localFirstMethod": "R81 ruled/lofted terrain and civic tunnel from native B48 positions; ART REJECT because broad suspended slab dominates camera",
+  "localSecondMethod": "Genuine bounded source-aligned volumetric occupancy with passage carved using SDF + marching cubes, native-source camera VTK offline review",
+  "model": {
+    "GLBMeshes": [
+      "R81_ROCK_VOLUME_ART_REJECT",
+      "REAL_B48_ROAD0_VISUAL_ONLY_NO_COLLIDER"
+    ],
+    "rockTriangles": 40762,
+    "roadReferenceTriangles": 5568,
+    "glbSHA256": "d0cd0834c9ddcec3f99a331ec9383d2f0b634c3e02ec40af4499edc15f96d1fe",
+    "rockWatertight": false,
+    "nominalOpeningWidthHalfM": 65,
+    "minApproxTransverseMarginM": 31.54,
+    "openingCenterlineU": [
+      0.4,
+      0.527
+    ]
+  },
+  "images": [
+    {
+      "t": 0,
+      "SHA256": "174c3a734dbc78a741cdefdd64403e8a221ce27783c67339f446f4fc3690dcd5"
+    },
+    {
+      "t": 2,
+      "SHA256": "f3a9623d1dcaef35cd53556d3a02ee50add464603ded8d2976965886e9b21b91"
+    }
+  ],
+  "review": "ART REJECT: rock dominates initial and two-second chase frames, crude uninhabited surface, distant world still empty/dark; no approved city architecture, no credible professional scenic target.",
+  "browser": "Local Chromium HTTP blocked by administrator; stopped rather than bypass policy. VTK is offline reference-frame diagnostics, not actual original WebGL2.",
+  "blender": "No Blender installed in sandbox; did not claim real Blender authoring",
+  "localOnlyArchive": {
+    "filename": "DOPAGAKI_R81_SOURCE_ROAD_HOLLOW_WORLD_ART_REJECT.zip",
+    "SHA256": "f1e7c29182c96eba330086c2dddc8327ad0ac5780c175a9f0d2dfd7c7ee3e914",
+    "zipCRCAndFileManifest": "PASS",
+    "contents": "GLB road+rock, 0/2s stills, generator sources, R80 protected stage copy, full art rejection",
+    "notUploadedToGitHub": true
+  },
+  "nativePhysicsNewPass": "NOT_RUN; original R80 preserved, no new human/play claim",
+  "certification": {
+    "TECH": "VOLUMETRIC_EDITABLE_REFERENCE_ONLY",
+    "ART": "REJECT",
+    "formalARTAccepted": 0,
+    "officialSlope2DNAMetres": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "nextGate": "FREEZE procedural rock/box/portal ART loop. Perform genuine authored 3D city and user-camera preview in an approved Blender-accessible environment before any next art trial. Only then combine with unchanged native B48 road and assess visual/real human value; no further noninteractive review sheets or speculative APPROVED flags.",
+  "protected": "main PR#46 originalGameCameraRunner240Hz physicalB48x7 B51x28 Gold formalQA 8BlenderGroups production Pages",
+  "newActionsRequested": 0,
+  "extraPaidAPIJPY": 0
+}

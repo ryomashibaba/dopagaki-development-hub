@@ -1,4 +1,7 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
+## R81 2026-11-08｜真正元道路に沿う岩盤体積くり抜き・編集可能GLB制作、**ART REJECT**
+[限定証拠](research-evidence/k4ct/K4CT_R81_ACTUAL_ROAD_VOLUME_ART_REJECT_20261108.json)。R80 Stageの実B48先頭路(穴52/53/54)・28動体・元Game/Camera/240Hzを維持し、連続岩盤から道路通過空間を体積的にくり抜く研究GLB(40,762岩盤三角形＋5,568 B48参照三角形)を制作。元Runnerの保存済カメラ0/2秒を再利用したオフラインVTK画像は**大きな岩盤が画面を塞ぎART REJECT**。元ChromiumはローカルHTTPが管理制限で拒否、Blender本体はこの環境に存在せず、真正WebGL/Blender作者ART/HUMAN実証なし。成果GLB・研究元コード・画像は会話内ZIPに保全し、未採用巨大幾何をGitHubへ混入しない。**以降の単純な岩盤/輪/箱造形の反復は禁止**。必要な次ゲートは承認済みBlenderにおける本格的な作者造形・元ゲーム視点画像・実プレイ。正式ART0、Slope2 DNA0m、HUMAN/SAT/CCD/Windows FPS/RELEASE/MERGE HOLD。main/PR46/Gold/本番等保護、追加課金/Actions/Work起動0。
+
 ## R80 2026-11-08｜第IV道路の真B48路肩を24m追加、限定走行改善/HUMAN・ART HOLD
 [生成器](research-candidates/k4ct/k4ct-r80-lower-turn-real-shoulder.mjs)／[元Runner240Hzの独立比較](research-evidence/k4ct/K4CT_R80_TRUE_ROAD4_OUTER_SHOULDER_PAIRED_NATIVE_HOLD_20261108.json)。前R79原本をSHA固定・保護して、第IV道路LOWER REVERSAL旋回外側のみ実B48制御点34個のXZ位置を変更（中心線/Y/道路前後の接続位置/他6道路/28 B51/ガイド/元240Hz/Camera不変）。旋回中央の真正横幅32→56m、無効三角形0。同一合法入力（右0.2 t11〜23、左0.2 t26〜34、以降0）で**R79 41.575秒転落→R80 47.225秒転落**。さらに左0.2 t35〜43を入力すると、**元R79でも新R80でも47.679秒に第V道路へ真正接地、52秒まで走行継続**。これを「R80で新しく第V道路を走破した」と誤認しない。R80新路肩は第IV道路の限定耐性増加のみ。第III道路の微小高低調整・XZ移動・過大路肩案は対照不成立/失敗により棄却。元ステージPRIVATE全量は公開GitHubに置かず、会話内研究ZIPに隔離。正式ART採用0、Slope2 DNA0m、HUMAN/ART/SAT/CCD/WindowsFPS/RELEASE/MERGE HOLD。**これ以上の拡幅数値合わせ・HUD・CI追加は停止**し、ユーザーが不合格とした世界造形・実プレイの面白さの検証へ戻る。他プロジェクト優先/追加課金0円維持。
 
