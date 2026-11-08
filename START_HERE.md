@@ -2,7 +2,10 @@
 **2026-11-08 JST／R74 GitHub Windows 2022でR73実CMD＋元ゲームHTTP／終了処理PASS、本人Windows・HUMAN・ART HOLD。V16上位正本・固定V15不変。**
 
 ## 読取順（現在の唯一の移行入口）
-**[V16 R63後・二段階批判的統合引き継ぎ](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)** → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md) → [R50歴史的統合](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md)。V14/V13/V12.1は必要な古い証拠だけ参照。**旧R64以前の『次工程』文言は履歴。V16第7章の品質・保護条件を継承し、現在の進捗と次行動は本START_HERE先頭のR74結果を参照。不要な長文引継ぎを今後量産しない。**
+**[V16 R63後・二段階批判的統合引き継ぎ](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)** → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md) → [R50歴史的統合](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md)。V14/V13/V12.1は必要な古い証拠だけ参照。**旧R64以前の『次工程』文言は履歴。V16第7章の品質・保護条件を継承し、現在の進捗と次行動は本START_HERE先頭のR74後統合引き継ぎ／R74結果を参照。不要な長文引継ぎを今後量産しない。**
+
+## R74後・新チャット統合引き継ぎ（2026-11-08）
+[**R74後・二段階批判的総点検／新チャット統合引き継ぎ**](docs/DOPAGAKI_R74_POST_CRITICAL_HANDOFF_TO_NEW_CHAT_20261108_JA.md)。**固定V15・上位V16は一切変更しない**。これまでの元Blender/WebGL2技術資産、ART不採用／実HUMAN未認証、R63水源早期不可視・R71 B51-14遠景数画素、R72真Chromium手動切替PASS・R74 GitHub Windows CMD起動PASS、CI/書類増殖・本人負担を二段階で批判し、**新しい同類Blender/CIを止めて本人自然プレイ一回の具体的な不具合発見を最優先**とした。試走は研究上の診断であり正式ART/HUMANのPASSではない。ZIP取得→展開→CMD→画面ボタン→自然A/D操作という負担を過少表現しない。任意JSONは必須でない。未プレイならHOLD、正式ART0・Slope2 DNA0m・原本/main/PR46/正式QA/公開は維持。正本読み順はSTART_HERE→V16→固定V15→R50。本書は補足の一度限りの移行文書。次回、旧Rxxの『次工程』を復活させない。
 
 ## R74結果（2026-11-08）
 [R74 R73ローカルCMDをGitHub Windows環境で実起動した証拠](research-evidence/k4ct/K4CT_R74_WINDOWS_ACTUAL_CMD_LOCAL_HTTP_FIRST_GENUINE_PASS_HUMAN_HOLD_20261108.json)。Windows Server 2022 hosted runnerの既存Workflowを**1件だけ**再利用し、R72保存済み真正ゲームから元R73構成を再梱包。元ゲーム/Blender Git blob一致、元B48×7・B51×28・コライダー増0。Windowsの実 `py -3.13`・元CMD起動→127.0.0.1の空きポート取得（今回は57428）→ゲームHTML/本物の物理JS/元B51 JS/生成ステージJSON HTTP 200→研究manifest HTTP 404→所有プロセス終了・ポート解放まで**PASS**。[Windows CI #42470600717](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42470600717) SUCCESS、証拠 Artifact #13613625907（2026-11-15 UTC期限）・sha256 1cfcc37f…。元Blender/ゲーム生成の再実行ゼロ、配布済みR73 ZIPは変更せず。**Windows上のWebGL2とFPS、本人PCでのダブルクリック、本人の自然なA/D操舵・回避・フェアさは未実施/未証明**。HUMAN/ART/SAT/CCD/WindowsFPS/RELEASE/MERGE HOLD、正式ART0・Slope2 DNA0m。次はR73 ZIPの本人による自然な試走1回と任意のJSON/具体的観察結果だけ。結果なしで類似Blender/CIを増殖しない。
