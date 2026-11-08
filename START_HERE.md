@@ -4,6 +4,9 @@
 ## 読取順（現在の唯一の移行入口）
 **[V16 R63後・二段階批判的統合引き継ぎ](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)** → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md) → [R50歴史的統合](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md)。V14/V13/V12.1は必要な古い証拠だけ参照。**R53以下の次工程は履歴。新しい指示はV16第7章のR64。不要な長文引継ぎを今後量産しない。**
 
+## R68結果（2026-11-08）
+[R68単一真正Blender非衝突岸壁機械室→元240Hz/Chromium WebGL2・批判的ART審査](research-evidence/k4ct/K4CT_R68_TRUE_BLENDER_SHORE_BAY_ORIGINAL_GL_ART_REJECT_20261108.json)。Road6 u=.18の元B51-14に基づき、外側18m以上の非衝突静的設備10メッシュ/856三角形をR49隔離BLENDに追加。総32,860三角形・保護8群全XYZRGB一致・元B48×7/B51×28/Camera/240Hz/Collider0、原本BLEND SHA不変。[Run #42456783674](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42456783674) SUCCESS、Artifact #13607703565（2026-11-15 UTC期限）、真正元GL65.25/65.60/66.35秒3RAW。**TECH PASSだが EARLY ART REJECT／METHOD HOLD**。実画像は遠方で細い黒い板状フィン、後半で巨大な三角面になり、実B51の移動・荷重と機械室が関連して読めない。実動力結合なし（静的景観）を明記。正式ART採用0、Slope2 DNA0m。類似する岸壁板・A字/ゲート・輪・色替え再試行を停止。次は元B51の実軌道と物理的に筋の通った、別形態であることをGL前に立証できる場合のみDCC再開。V16/V15/本番/main/PR46不変、ユーザー操作0、追加有料API0円、Actions実請求不明。
+
 ## R67結果（2026-11-08）
 [R67真正240Hz/Chromium WebGL2・実B51 GPUシェーダ帰属と可視画素計測](research-evidence/k4ct/K4CT_R67_TRUE_SOURCE_B51_GPU_VISIBILITY_THREE_TIMES_20261108.json)。既存R8マゼンタ診断の対象から抜けていたR7C研究B51材質を正しく分類し、元ソース同tick 65.25／66.35／68.05秒、元B51×28の原幾何/Camera/物理無変更、BASE→B51タグ→BASE可逆の9RAWを取得。[Run #42455522356](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42455522356) **SUCCESS**。真正RGB差>25は全可視B51合計で**71px（次のB51まで1.89秒）、206px（0.75秒）、2089px（0.17秒）**。個別B51識別やHUMAN反応閾値ではない。**TECH PASS／ART-HUMAN-METHOD HOLD**、正式ART0、Slope2 DNA0m。別の旧Workflow [#42455522343](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42455522343) も共有DCCインストーラ変更で意図せず自動起動した。重複起動は反省点、次回は全pushパス事前点検（実請求不明）。ART-FIRST次工程は色替え/HUD増殖でなく、本物のB51の大きさ・危険を元3D世界で早期に認識させる単一真正Blender構図をGO判定できるか。V16/V15/本番/main/PR#46保護。
 

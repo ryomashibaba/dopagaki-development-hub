@@ -1,0 +1,147 @@
+{
+  "schema": "dopagaki-k4ct-r68-single-genuine-blender-shore-bay-original-240hz-critical-art-evaluation-v1",
+  "dateJST": "2026-11-08",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "authoredCommit": "556173fbb6c0b09b510c7176576310d003a8cd0b",
+  "priorR67Head": "c6debad0cc84ba1f2f7a92fdab142440ea107c0e",
+  "objective": "One mechanically honest source-grounded, noncolliding excavated shore bay beside actual Road6 B51-14 to improve early original-camera hazard readability; reject if static wedge/black slab instead of functional hazard machine.",
+  "originalGrounding": {
+    "nativeRoad6U": 0.18,
+    "sourceStationM": 3829.276296819087,
+    "physicalRoad6WidthMetres": 16.000000384271868,
+    "sourceRoadCentreXYZ": [
+      1178.7223464542742,
+      120.5326810034845,
+      -493.61728855064536
+    ],
+    "originalB51Id": "a13-machine-14",
+    "originalB51Type": "rotator",
+    "nativeCollisionMode": "bounce",
+    "sourceCameraArtifactRun": 42448441488,
+    "sourceNative240HzTicks": [
+      15660,
+      15744,
+      15924
+    ],
+    "originalB51TruePosesObserved": true,
+    "rightOutboardFoundationClosestDistanceToRoadCentreM": 18,
+    "sourceOriginalCameraUnchanged": true,
+    "preflightOnlyCPUProjectionBoundsAtSeconds": {
+      "65.25": [
+        603.1,
+        228.3,
+        639.9,
+        359.3
+      ],
+      "65.60": [
+        590.1,
+        219.8,
+        634.8,
+        380.2
+      ],
+      "66.35": [
+        429.1,
+        169.6,
+        511.2,
+        486.1
+      ]
+    },
+    "disclaimer": "Projection bounds above were preliminary site-vertex calculations only, never certified original GL silhouettes; review below uses actual native images."
+  },
+  "genuineDCC": {
+    "editableBlender": true,
+    "producedBy": "scripts/p101-k4ct-r68-authored-shore-bay.py",
+    "isolatedBLENDName": "R68_EXCAVATED_SHORE_BEARING_BAY_ART_HOLD.blend",
+    "independentSourceR49OriginalBlendUnchangedSHA256": "4442489802cac1bf3e0e6950277228f22f3a203af82f784a968c4b5ea0c3146a",
+    "researchNoncollidingEditableMeshes": 10,
+    "newEvaluatedTriangles": 856,
+    "wholeDCCSceneTriangles": 32860,
+    "nonProtectedGroup": "17_BERTH_UTILITY_CRANES",
+    "originalEightProtectedGroupsXYZRGB": "EXACT_MATCH",
+    "original7B48": 7,
+    "original28B51": 28,
+    "newColliders": 0,
+    "actualKinematicCouplingToB51": false,
+    "reason": "New station-side facility is fixed scenery and may not be presented as an actual dynamic machine drive."
+  },
+  "sourceNativeGL": {
+    "runId": 42456783674,
+    "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42456783674",
+    "workflowConclusion": "success",
+    "artifactId": 13607703565,
+    "artifactSHA256": "01e2c47147727cbf827e64aec8e182a83907fd9f9492fd1da37db94afbca9070",
+    "artifactExpiryUTC": "2026-11-15T07:00:08Z",
+    "artifactOriginalActualGLImages": [
+      "k4ct-r68-shore-bay-native-art/K4CT_R68_ART_T65_25_TRUE_ORIGINAL_GL_RAW.png",
+      "k4ct-r68-shore-bay-native-art/K4CT_R68_ART_T65_60_TRUE_ORIGINAL_GL_RAW.png",
+      "k4ct-r68-shore-bay-native-art/K4CT_R68_ART_T66_35_TRUE_ORIGINAL_GL_RAW.png"
+    ],
+    "nativeGL": true,
+    "originalRunner240Hz": true,
+    "realB51Count": 28,
+    "nativeTickByFrame": [
+      15660,
+      15744,
+      15924
+    ],
+    "errors": [],
+    "originalRoadAndGameAuthorshipUnchanged": true,
+    "note": "R60 baseline RAW and current R68 use same source-time camera and machine pose route; global pixel differences also include later HUD presentation changes. Do not assign all differences to authored geometry."
+  },
+  "criticalArtReview": {
+    "status": "EARLY_ART_REJECT",
+    "visuallyInspectedOriginalRAW": true,
+    "firstFrame": "65.25 s: a distant dark, sharp faceted fin on the right outboard bank, not an identifiable grounded machine connected with the small original B51 on the road. Early visual causal link is absent.",
+    "middleFrame": "65.60 s: the same static fin/large silhouette is visible, but the machine function and load path are not legible in chase perspective.",
+    "laterFrame": "66.35 s: an oversized black triangular slab dominates the near-bank view; it reads as an abstract rock plate/monolith instead of a believable integrated machine room. Visual scale and composition detract from the original hazard.",
+    "protectedNativeB51": "Original native machine retained but remains visually small, and the new shore architecture is not actually driven by it.",
+    "failures": [
+      "No verified physical/electromechanical cause-and-effect link to the true moving B51",
+      "Broad sharp black flat polygons and towering wedge repeat a prohibited failed ART family",
+      "Candidate does not convincingly establish a legible machinery facility in original chase camera",
+      "No measured improvement in human hazard recognition, road clarity or natural steering"
+    ],
+    "notClaimed": [
+      "ART acceptance",
+      "real Blender production promotion",
+      "native B51 kinematic linkage",
+      "human fair reaction",
+      "new gameplay hazard geometry"
+    ],
+    "disposition": "REJECT candidate as ART, preserve original source + evidence. METHOD HOLD for this static detached shore-wall family. Do not create a near-identical second variant."
+  },
+  "scopeAndSafety": {
+    "sourceOriginalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "sourceOriginalDCCAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "road5SourcePhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalCameraAnd240Hz": "UNMODIFIED",
+    "originalB48": 7,
+    "originalB51": 28,
+    "addedColliders": 0,
+    "mainHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "PR46": "OPEN_DRAFT_UNMERGED",
+    "formalQA": "UNMODIFIED",
+    "pages": "UNMODIFIED",
+    "formalArtAccepted": 0,
+    "officialSlope2DNAMetres": 0,
+    "extraPaidAPIJPY": 0,
+    "GitHubActionsActualBilling": "UNKNOWN",
+    "userOperations": 0,
+    "newWorkflowFiles": 0,
+    "plannedNewActionsRuns": 1
+  },
+  "finalGates": {
+    "SOURCE": "PASS",
+    "TECH": "PASS_GENUINE_BLENDER_AND_NATIVE_GL",
+    "ART": "REJECT",
+    "METHOD": "HOLD_STATIC_OFFROAD_WEDGE_NO_CAUSAL_LINK",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "nextCritical": "R68 is stopped. Before any further DCC or CI, require a mechanically meaningful plan tied to the native B51 swept path and 3 source-camera timepoints without fabricating hitbox, safety guidance or altering protected original camera. If such a source-grounded, clearly different design cannot be shown, keep ART/METHOD HOLD rather than generating more wedges, cranes, rings or color-only experiments."
+}
