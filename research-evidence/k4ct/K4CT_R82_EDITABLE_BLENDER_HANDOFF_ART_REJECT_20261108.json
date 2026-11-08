@@ -1,0 +1,79 @@
+{
+  "schema": "k4ct-r82-first-blender-editability-source-registered-city-package/1",
+  "dateJST": "2026-11-08",
+  "researchParentHEAD": "85c18cc9f001408d21019656f46d189c1b5d2d92",
+  "purpose": "Break rejected procedural arch/rock loop by creating isolated source-matched editable civic architecture and Blender 5.2 one-click AUTHORING environment; not finished GAME/ART.",
+  "stage": {
+    "sourceName": "R80_LOWER_SHOULDER_24.json",
+    "verifiedSHA256": "786ee9c26ced13055b222dbfd413c9f7b5f090e5abc7a383d58c984389605c4f",
+    "sourceRoads": 7,
+    "sourceMovingObstacles": 28,
+    "sourceRoad0VoidCells": [
+      52,
+      53,
+      54
+    ],
+    "originalGameCameraRunnerAnd240HzMutated": false,
+    "newColliders": 0
+  },
+  "geometry": {
+    "modelName": "R82_CIVIC_INTERCHANGE_SOURCE_ALIGNED_UNAPPROVED.glb",
+    "verifiedSHA256": "86cb7b8bae20e207efc855e6dd7bfb424c9e5cd50a923d8ca36e0c53512447bd",
+    "meshes": 24,
+    "authoredStructureMeshes": 23,
+    "sourceRoad0VisualReferenceMeshes": 1,
+    "triangles": 7156,
+    "allMeshesEditorSeparable": true,
+    "minimumEuclideanDistanceAmongSampledCityAndRoadVerticesMetres": 59.74583449111244,
+    "note": "Vertex proximity is NOT full continuous triangle/collider clearance or CCD."
+  },
+  "nativeFrameCamera": {
+    "source": "Previously saved actual R80 240Hz Runner poses t=0,1,2,3.2,4,5.208,6s; no fresh full game run",
+    "screenshots": "Offline VTK source-camera equivalent at 0,2,3.2,5.21s; not original browser or Blender",
+    "originalGameWebGL2": "NOT_VERIFIED_DUE_SANDBOX_BROWSER_LOCAL_HTTP_RESTRICTION",
+    "sightlineRays": 12,
+    "sightlineRaysIntoOriginalCameraFrustum": 11,
+    "raysBlockedByNewArt": 0,
+    "qualification": "This checks 2 target road points x 6 frames only and does not certify navigation, original game pixels or visually readable jump."
+  },
+  "content": {
+    "architecture": "One split-site civic transport station: ground attached west/east bases, public terraces, transit galleries, connected pedestrian ramps, high interchange deck, visible support columns, and road reference",
+    "artAssessment": "REJECT: source-perspective offline stills remain broad side surfaces and a slender elevated deck; world not exciting or inhabited at paid game quality",
+    "reasonNoGameIntegration": "High visual quality not demonstrated; original protected Game/Camera/B48/B51 untouched"
+  },
+  "blender": {
+    "script": "R82_BLENDER_5_2_SAFE_AUTHORING.py",
+    "cmd": "R82_BLENDER_5_2_ONE_CLICK.cmd",
+    "blenderAvailableInAssistantContainer": false,
+    "actualBlenderRun": "NOT_EXECUTED",
+    "promise": "If user explicitly runs a local one-click script on their already-installed Blender 5.2, isolated output folder is created; never overwrite previous output or protected assets",
+    "scriptPythonSyntax": "PASS",
+    "glbSceneReimport": "PASS_24_SEPARABLE_GEOMETRIES",
+    "isolatedPythonGeometryRebuild": "PASS_VERTEX_GEOMETRY_EXACT",
+    "liveBlenderExecution": "HOLD"
+  },
+  "artifact": {
+    "name": "DOPAGAKI_R82_EDITABLE_BLENDER_ONE_CLICK_ART_HOLD.zip",
+    "SHA256": "f3845b55865f5fd1ab51ca20328ec35657711629cf9d17f5c7afeaac63cca430",
+    "files": 18,
+    "bytes": 1248498,
+    "CRC": "PASS",
+    "perFileSHA256": "PASS",
+    "storage": "Current conversation attachment only; not uploaded to GitHub",
+    "containsPrivateResearchStageCopy": true
+  },
+  "certification": {
+    "ART": "REJECT",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "officialArtAccepted": 0,
+    "officialSlope2DNAMetres": 0
+  },
+  "actions": [],
+  "paidAPIJPY": 0,
+  "nextGate": "Run one authorized local Blender authoring review; inspect actual editable .blend and native camera stills; then fix the architecturally meaningful world design by direct artist judgment before adding to game. No more primitive procedural geometry batches or duplicate CI; if Blender cannot be run in approved environment, leave status HOLD and preserve package. Do not ask user to retest unapproved ART."
+}

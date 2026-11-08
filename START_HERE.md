@@ -1,4 +1,7 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
+## R82 2026-11-08｜元R80道路位置＋保存Runnerカメラ→Blender編集入口をパッケージ化、**ART REJECT / 本物Blender未実行**
+[限定証拠](research-evidence/k4ct/K4CT_R82_EDITABLE_BLENDER_HANDOFF_ART_REJECT_20261108.json)。R81の岩盤・板・輪の反復を止め、R80の真Road0参照を保持した交通・居住複合施設を別メッシュ23＋元道路視覚参照1（計7,156tri）で隔離造形。保存元Camera0/1/2/3.2/4/5.21sから第I道路の踏切/着地へ12本レイ→新美術遮蔽0、うち1本は画角外。これは**ソフトウェア幾何検査**であって元WebGL2の画面や高品質なART証明ではない。元カメラ相当VTK画像の輪郭は相変わらず板状・細い横断デッキが目立ち **ART REJECT**。実Blender本体がこの隔離環境にないため、Blender 5.2のローカル実行・真正BLEND・本番への統合は未実施。OneClick Blender隔離制作キット（18ファイル/CRC/SHA/孤立再生成PASS、SHA256 `f3845b55865f5fd1ab51ca20328ec35657711629cf9d17f5c7afeaac63cca430`）を会話添付に保全し、GitHubへ未採用ARTやPRIVATE元ステージ全量をアップロードしない。元Game/Camera/240Hz/B48×7/B51×28・main/PR46/Gold/Pages/8群保護。正式ART0、Slope2 DNA0m、HUMAN/SAT/CCD/WindowsFPS/RELEASE/MERGE HOLD。次はBlender実機への限定持込・本当の人間美術審査が可能になるまでART認証停止。CLI/HUD/CIの増殖禁止。
+
 ## R81 2026-11-08｜真正元道路に沿う岩盤体積くり抜き・編集可能GLB制作、**ART REJECT**
 [限定証拠](research-evidence/k4ct/K4CT_R81_ACTUAL_ROAD_VOLUME_ART_REJECT_20261108.json)。R80 Stageの実B48先頭路(穴52/53/54)・28動体・元Game/Camera/240Hzを維持し、連続岩盤から道路通過空間を体積的にくり抜く研究GLB(40,762岩盤三角形＋5,568 B48参照三角形)を制作。元Runnerの保存済カメラ0/2秒を再利用したオフラインVTK画像は**大きな岩盤が画面を塞ぎART REJECT**。元ChromiumはローカルHTTPが管理制限で拒否、Blender本体はこの環境に存在せず、真正WebGL/Blender作者ART/HUMAN実証なし。成果GLB・研究元コード・画像は会話内ZIPに保全し、未採用巨大幾何をGitHubへ混入しない。**以降の単純な岩盤/輪/箱造形の反復は禁止**。必要な次ゲートは承認済みBlenderにおける本格的な作者造形・元ゲーム視点画像・実プレイ。正式ART0、Slope2 DNA0m、HUMAN/SAT/CCD/Windows FPS/RELEASE/MERGE HOLD。main/PR46/Gold/本番等保護、追加課金/Actions/Work起動0。
 
