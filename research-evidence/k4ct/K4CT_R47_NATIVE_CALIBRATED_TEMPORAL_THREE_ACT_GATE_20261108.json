@@ -1,0 +1,193 @@
+{
+  "schema": "dopagaki-k4ct-r47-native-calibrated-sequential-3act-original-camera-gate-v1",
+  "dateJST": "2026-11-08",
+  "project": "DOPAGAKI SLOPE — HYPER RUSH",
+  "policy": "Existing V15 QUALITY-FIRST / ART-FIRST / DCC-FIRST / INTEGRATED VERTICAL SLICE unchanged, no new release/ART permission.",
+  "source": {
+    "researchBranch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "baseHEAD": "f743b8d0d9096b2ca99af37567e28efad56b3b5c",
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "mainHEAD": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "pr46Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46State": "OPEN_DRAFT_UNMERGED",
+    "realR38NativeSourceCameraRun": 42375928902,
+    "realR44OriginalChromiumWebGL2Run": 42384597099,
+    "R38ArtifactZIP_SHA256": "5b9c81e6dc15ec9811b9dbf5bdaf9e8101b068b8e8616593f7cae6b99a3e962d",
+    "R44ArtifactZIP_SHA256": "c05188982a541d340ec1a1f73ae877712cc46511a23f3c81fed4d2171cdad076",
+    "R44OriginalBlenderTriangles": 32004,
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "R44SampledOriginal240HzTicks": [
+      15900,
+      15924,
+      15972
+    ]
+  },
+  "criticalPolicyCorrection": {
+    "finding": "R43-R46 local exploration imposed all four elements visible at ALL three timestamps. V15 instead asks a temporal causal sequence: early source/forebay, middle falling-water/gate, late receiver. The former is a stronger design screening rule, NOT a V15 nonnegotiable requirement.",
+    "correctedScreening": "Assess early/center/late roles separately. Preserve V15 meaningful water causality, anchored functional machinery, native source game and independent ART veto. Do not confuse any quantitative preflight with user-readable visual acceptance.",
+    "reason": "Repeated screenspace 4x3 all-frame simultaneous negative filters may reject legitimate temporal storytelling; removing this research-only overconstraint does not authorize protected edits or promote any candidate."
+  },
+  "originalNativeProxyCalibration": {
+    "method": "Project the SAME genuine R44 group24 evaluated Blender triangles using real R38 camera on approximate 505x350 CPU z buffer; compare with same-tick actual R44 source Chromium WebGL2 group24 RGB>25 mask downsampled from game canvas.",
+    "timesSec": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "realOriginalGameGroup24RGBgt25Pixels": [
+      215,
+      281,
+      470
+    ],
+    "realDownsampledChangeMaskPixels": [
+      49,
+      71,
+      112
+    ],
+    "approximateCPUSurfacePixels": [
+      219,
+      295,
+      524
+    ],
+    "overlap": [
+      49,
+      68,
+      104
+    ],
+    "nativeChangeMaskFractionIncludedInApprox": [
+      1,
+      0.9577,
+      0.9286
+    ],
+    "intersectionOverUnion": [
+      0.2237,
+      0.2282,
+      0.1955
+    ],
+    "caution": "Native group-hide RGB difference is not unique triangle ownership. 93-100% of the native change mask lies within CPU proxy, but the CPU proxy is 4-5x broader and must not be treated as a faithful native rendered ART screenshot."
+  },
+  "boundedOriginalCameraVisibilityEnvelope": {
+    "method": "R38 exact camera source, R44 true Blender depth keeping protected8; local (d,t) grid 5m, y positions sampled every2m from 91 down to45/57/70m; restrict to left water view x19-234,y116-314 in 505x350 half-res. Intake seed at d100,t+20 within3m XZ of real protected19 Y93 vertices and lateral corridor 65m. Require at least 4 consecutive visible world-y samples at all frames.",
+    "numberOfRawGridColumnsBeforeSourceFilter": 506,
+    "sourceConstrainedEligibleAtBottomY45": 49,
+    "at57": 49,
+    "at70": 37,
+    "max3FrameSharedVerticalScreenHeightHalfResPXByBottomY": {
+      "45": 14,
+      "57": 14,
+      "70": 12
+    },
+    "countWith3FrameSharedHeightAtLeast15HalfResPx": {
+      "45": 0,
+      "57": 0,
+      "70": 0
+    },
+    "examplesBestBottomY45": [
+      {
+        "outboardD": 155,
+        "fallT": 95,
+        "sourceVertexDistanceXZ_M": 1.855,
+        "minHeightHalfResPx": 14
+      },
+      {
+        "outboardD": 160,
+        "fallT": 110,
+        "sourceVertexDistanceXZ_M": 1.138,
+        "minHeightHalfResPx": 14
+      },
+      {
+        "outboardD": 160,
+        "fallT": 115,
+        "sourceVertexDistanceXZ_M": 1.233,
+        "minHeightHalfResPx": 14
+      }
+    ],
+    "limits": "Only sampled POINT-column vertical visibility, not an entire sheet, near-surface splash, machine, or true GL. No mathematical impossibility claim outside grid or constraints. This conservative static envelope still cautions against deep waterfall mesh repetition."
+  },
+  "V15TemporalThreeActBoundedStudy": {
+    "method": "24 explicitly bounded alternatives of signed flow along Road6, two T and three d positions, y91 to65/75, width60, and temporary headrace/fall/receiver/gate quads, composited with each other and R44 actual original DCC background except rejected nonprotected R44 research groups.",
+    "alternativesTested": 24,
+    "passedOnlyCoarseStagePresence": 1,
+    "passedScreenOnlyNegativePreflightVeto": 1,
+    "oneConditionalConcept": {
+      "id": "R47_TEMPORAL_FLOW_NEGATIVE_F_ROAD6_D160_T125_Y91_TO75",
+      "sourceIntakeLocalT": 145,
+      "fallLocalT": 125,
+      "receiverTowardT": 83,
+      "flowDirectionAlongRoadF": -1,
+      "outboardLocalD": 160,
+      "widthM": 60,
+      "fallTopY": 91,
+      "fallBottomY": 75,
+      "protectedForebay19NearestY93VertexXZ_M": 0.86,
+      "selectedFrames": {
+        "66.25_source": {
+          "headraceProxyVisibleHalfResPixels": 121
+        },
+        "66.35_fall_machine": {
+          "fallProxyVisibleHalfResPixels": 414,
+          "machineProxyVisibleHalfResPixels": 160,
+          "fallCenterlineScreenHeightHalfResPixels": 12.97
+        },
+        "66.55_downstream": {
+          "receiverProxyVisibleHalfResPixels": 221
+        }
+      },
+      "approximateMaxSeparationBetweenSuccessiveStageMasksHalfResPx": 1,
+      "sourceProtectedRoad00VisibleSurfacePixelOverlapBySourceFrame": [
+        0,
+        0,
+        0
+      ],
+      "underbankWaterConnectivity": "UNPROVEN; only 0.86m horizontal vertex proximity and static planar proxies",
+      "reverseAlongRoadFlow": "Candidate static water flow progresses negative along Road6 forward F while the player advances positive F. The required perceived chronological cause-and-effect has NOT been established, despite stage-specific projected pixels.",
+      "mechanicalGateSupport": "UNMODELED_PROXY_SURFACE_NOT_AN_ACTUAL_ANCHORED_ACTUATOR",
+      "playerB51AndHUDPerceptualInterference": "NOT_VERIFIED; geometric road00 zero-overlap cannot certify human hazard recognition",
+      "actualOriginalWebGL2NewCandidate": "NOT_RUN",
+      "newGenuineBlender": "NOT_BUILT",
+      "art": "NOT_APPROVED"
+    },
+    "numericVetoScope": "Only 1 of 24 evaded coarse source/middle/receiver mask and screen-adjacency negative tests; chosen thresholds were research heuristics (not V15 quality or formal human recognition standards).",
+    "pathToNextGate": "One small original 240Hz Chromium/WebGL2 source-camera visual-diagnostic study of this temporal geometry before any new LARGE Blender. Human-readable cause/actuator/basin and original road B51 warning must be critically assessed. If native three-act meaning is absent, early ART rejection and METHOD HOLD. Never alter original Game/Camera/protected eight to fabricate a pass."
+  },
+  "reproducibility": {
+    "offlineCalibratedStandalonePython_SHA256": "2ad15e79baf2726cbb326b40739d8e1cb37257306f7dfe6dc122583d755b80be",
+    "offlineDetailedCalibrationJSON_SHA256": "6df0b7a35ad6d4284781756176863acbb4392b88aa8bedd5af66084c1ef1cbed",
+    "temporalFullResultsJsonAvailableInConversationBundle": true,
+    "diagnosticBundleZip_SHA256": "6d82821b75310ead0f06a088217b3637a04aa71375e4bfb2b87ce8156f4064b3",
+    "note": "Reproducible source script and detailed JSON attached as conversation artifacts, not separately committed to the GitHub repo to avoid another unproven workflow and code proliferation. The canonical GitHub record is this factual compact ledger, not a native source run."
+  },
+  "verdict": {
+    "R47Technical": "OFFLINE_VALIDATION_COMPLETED",
+    "selectedOneUnapprovedTemporalSourceNativeTestSeed": true,
+    "method": "HOLD_BEFORE_NEW_BLENDER_AND_UNVERIFIED_SOURCE_GL",
+    "priorR44Art": "EARLY_ART_REJECT",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "mainUnchanged": true,
+    "PR46Unchanged": true,
+    "originalSourceGameBlenderProtected": true,
+    "originalPhysicsB48B51Camera240HzUnmodified": true,
+    "protected8XYZRGBUnmodified": true,
+    "originalGoldSlopeProductionUnmodified": true,
+    "newBlenderRuns": 0,
+    "newGithubActionsRuns": 0,
+    "noRealGLNewCandidateClaim": true,
+    "paidExternalAPI": 0,
+    "work": false,
+    "computerUse": false,
+    "formalArtAdoption": false,
+    "userOperations": 0
+  }
+}
