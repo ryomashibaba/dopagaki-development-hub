@@ -1,4 +1,4 @@
-name: K4CT R57 integrated PRIVATE B51 live HUD reversible source WebGL2 RAW
+name: K4CT R66 PRIVATE PRACTICE placement with R57 B51 HUD source WebGL2
 on:
   push:
     branches:
@@ -74,6 +74,7 @@ jobs:
           node scripts/k4ct-r57-install-private-live-hud.mjs
           node --check dist-private/k4ct/drive3d.mjs
           cmp scripts/p101-k4ct-dual-real-b51-decision.mjs dist-private/k4ct/k4ct-dual-real-b51-decision.mjs
+          cmp scripts/k4ct-r57-live-hud.mjs dist-private/k4ct/k4ct-r57-live-hud.mjs
           grep -q 'PREDICTED AT' dist-private/k4ct/k4ct-dual-real-b51-decision.mjs
           if grep -q ' MOVING ' dist-private/k4ct/k4ct-dual-real-b51-decision.mjs; then echo 'legacy motion label still packaged'; exit 1; fi
       - name: Install Chromium headless only, no Blender
@@ -88,7 +89,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: K4CT_R57_ORIGINAL_240HZ_LIVE_HUD_AB_RAW_ART_HOLD
+          name: K4CT_R66_ORIGINAL_240HZ_PRACTICE_AB_RAW_ART_HOLD
           path: test-results/k4ct-r57-live-hud/
           if-no-files-found: warn
           retention-days: 7

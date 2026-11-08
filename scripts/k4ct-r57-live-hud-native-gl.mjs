@@ -40,6 +40,8 @@ async function capture(page,label){
  const v=await page.evaluate(()=>{
   const c=document.getElementById('view'),e=document.getElementById('k4ctOriginalTwoB51Panel');
   const g=c.getContext('webgl2'),rc=e.getBoundingClientRect(),rr=c.getBoundingClientRect();
+  const p=document.getElementById('practiceBanner'),pr=p?.getBoundingClientRect();
+  const keys=document.querySelector('.drivekeys'),kr=keys?.getBoundingClientRect();
   return {nativeWebGL2:g instanceof WebGL2RenderingContext,
    original240Hz:c.dataset.r15s3d10OriginalGame,
    originalB51:Number(c.dataset.g4e7yRetainedMachines),
@@ -48,7 +50,11 @@ async function capture(page,label){
    decision:JSON.parse(c.dataset.k4ctDecisionJson||'null'),
    hidden:e.hidden,text:e.textContent,
    panel:{x:rc.x,y:rc.y,w:rc.width,h:rc.height},
-   canvas:{x:rr.x,y:rr.y,w:rr.width,h:rr.height}
+   canvas:{x:rr.x,y:rr.y,w:rr.width,h:rr.height},
+   practice:p?{hidden:p.hidden,text:p.textContent,placement:c.dataset.k4ctR66PracticePlacement,
+    active:c.dataset.k4ctR66PracticeActive,cssActive:Boolean(document.getElementById('k4ctR66PracticeCSS')),
+    rect:{x:pr.x,y:pr.y,w:pr.width,h:pr.height},
+    keys:kr?{x:kr.x,y:kr.y,w:kr.width,h:kr.height}:null}:null
   };
  });
  assert.ok(v.nativeWebGL2);
@@ -84,8 +90,8 @@ async function capture(page,label){
  * the integrated per-frame renderer calls applyK4CTR57Hud() at each source tick.
  */
 async function captureAB(page,label){
- await page.evaluate(()=>window.__k4ctR57HudMode='BASE');
- await page.waitForFunction(()=>document.getElementById('view').dataset.k4ctR57HudMode==='BASE',undefined,{timeout:10000});
+ await page.evaluate(()=>{window.__k4ctR57HudMode='BASE';window.__k4ctPracticePlacement='BASE';});
+ await page.waitForFunction(()=>{const d=document.getElementById('view').dataset;return d.k4ctR57HudMode==='BASE'&&d.k4ctR66PracticePlacement==='BASE';},undefined,{timeout:10000});
  const baseline=await capture(page,label+'_BASE');
  const baselineState=await page.evaluate(()=>{
   const c=document.getElementById('view');
@@ -95,8 +101,8 @@ async function captureAB(page,label){
  });
  assert.equal(baselineState.css,false,'BASE mode left research CSS active');
  assert.equal(baselineState.bonusSuppressed,'false','BASE suppressed reward');
- await page.evaluate(()=>window.__k4ctR57HudMode='CANDIDATE');
- await page.waitForFunction(()=>document.getElementById('view').dataset.k4ctR57HudMode==='CANDIDATE',undefined,{timeout:10000});
+ await page.evaluate(()=>{window.__k4ctR57HudMode='CANDIDATE';window.__k4ctPracticePlacement='CANDIDATE';});
+ await page.waitForFunction(()=>{const d=document.getElementById('view').dataset;return d.k4ctR57HudMode==='CANDIDATE'&&d.k4ctR66PracticePlacement==='CANDIDATE'&&d.k4ctR66PracticeActive==='true';},undefined,{timeout:10000});
  const candidate=await capture(page,label+'_CANDIDATE');
  const applied=await page.evaluate(()=>{
   const c=document.getElementById('view'),b=document.querySelectorAll('div,aside,output');
@@ -121,6 +127,28 @@ async function captureAB(page,label){
  assert.equal(JSON.stringify(baseline.decision),JSON.stringify(candidate.decision),
   'real B51 telemetry changed by live research HUD');
  assert.equal(baseline.text,candidate.text);
+ assert.ok(baseline.practice&&!baseline.practice.hidden,'original PRACTICE banner missing');
+ assert.equal(baseline.practice.placement,'BASE');
+ assert.equal(baseline.practice.cssActive,false);
+ assert.equal(candidate.practice.placement,'CANDIDATE');
+ assert.equal(candidate.practice.cssActive,true);
+ assert.equal(candidate.practice.text,baseline.practice.text,'original practice guidance text lost');
+ assert.ok(baseline.practice.rect.x+baseline.practice.rect.w/2>baseline.canvas.x+baseline.canvas.w*.35&&
+  baseline.practice.rect.x+baseline.practice.rect.w/2<baseline.canvas.x+baseline.canvas.w*.65,'source practice not actually central');
+ assert.ok(candidate.practice.rect.x>=candidate.canvas.x+candidate.canvas.w*.68,
+  'candidate PRACTICE still obscures central ball/road');
+ assert.ok(candidate.practice.rect.x+candidate.practice.rect.w<=candidate.canvas.x+candidate.canvas.w+1,
+  'candidate PRACTICE outside native viewport width');
+ assert.ok(candidate.practice.rect.y+candidate.practice.rect.h<=candidate.canvas.y+candidate.canvas.h+1,
+  'candidate PRACTICE outside native viewport height');
+ assert.ok(candidate.practice.rect.y>=candidate.canvas.y+candidate.canvas.h*.62,
+  'candidate PRACTICE not in bottom right');
+ const p=candidate.practice.rect,k=candidate.practice.keys;
+ assert.ok(k&&(p.x>=k.x+k.w||p.x+p.w<=k.x||p.y>=k.y+k.h||p.y+p.h<=k.y),
+  'candidate PRACTICE blocks original A/D touch controls');
+ result.practicePlacementObservations??=[];
+ result.practicePlacementObservations.push({label,source:baseline.practice.rect,candidate:candidate.practice.rect,
+  originalGuidanceTextIntact:true,sourceTick:baseline.tick,originalB51TelemetryUnchanged:true});
  assert.equal(applied.css,true);
  assert.equal(applied.eligible,'true');
  assert.ok(candidate.panel.w>=430&&candidate.panel.w<=441);
@@ -137,9 +165,9 @@ async function captureAB(page,label){
   assert.equal(applied.bonusVisible,'hidden');
   assert.match(applied.bonusText,/NEAR\s+MISS/);
  }
- // True live reversion at the identical source tick, no ad hoc Playwright CSS.
- await page.evaluate(()=>window.__k4ctR57HudMode='BASE');
- await page.waitForFunction(()=>document.getElementById('view').dataset.k4ctR57HudMode==='BASE',undefined,{timeout:10000});
+ // Reversion at the identical source tick for BOTH R57 HUD and R66 practice.
+ await page.evaluate(()=>{window.__k4ctR57HudMode='BASE';window.__k4ctPracticePlacement='BASE';});
+ await page.waitForFunction(()=>{const d=document.getElementById('view').dataset;return d.k4ctR57HudMode==='BASE'&&d.k4ctR66PracticePlacement==='BASE';},undefined,{timeout:10000});
  const restored=await page.evaluate(()=>{
   const c=document.getElementById('view');
   const all=Array.from(document.querySelectorAll('div,aside,output')).filter(e=>
@@ -147,11 +175,16 @@ async function captureAB(page,label){
   const found=all[0];
   return {tick:Number(c.dataset.r15s3d10NativeTicks),styleExists:Boolean(document.getElementById('k4ctR57LiveHudCSS')),
    bonusSuppressed:c.dataset.k4ctR57BonusSuppressed,
+   practiceCssExists:Boolean(document.getElementById('k4ctR66PracticeCSS')),
+   practiceRect:(()=>{const r=document.getElementById('practiceBanner').getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};})(),
    rewardVisible:found?getComputedStyle(found).visibility:null};
  });
  assert.equal(restored.tick,baseline.tick);
  assert.equal(restored.styleExists,false);
  assert.equal(restored.bonusSuppressed,'false');
+ assert.equal(restored.practiceCssExists,false,'original PRACTICE style not restored');
+ for(const dim of ['x','y','w','h'])assert.ok(Math.abs(restored.practiceRect[dim]-baseline.practice.rect[dim])<1,
+  'original PRACTICE placement not restored: '+dim);
  if(label==='T68_05')assert.notEqual(restored.rewardVisible,'hidden','BASE did not restore NEAR MISS');
  return {baseline,candidate,applied,restored};
 }
@@ -195,7 +228,7 @@ try{
  assert.equal(result.frames.length,3);
  assert.ok(result.frames.some(f=>f.candidate.twoRealCount>0),'no actual native cue was tested');
  assert.deepEqual(result.errors,[],'pageerrors');
- result.status='R57_NATIVE_LIVE_HUD_REVERSION_TECH_PASS_ART_HOLD';
+ result.status='R66_NATIVE_PRACTICE_PLACEMENT_R57_HUD_REVERSIBLE_PASS';
  await ctx.close();
 }catch(e){
  result.status='HOLD_R57_LIVE_HUD_NOT_PROVEN';
@@ -203,8 +236,8 @@ try{
 }finally{
  if(browser)await browser.close();
  await new Promise(done=>server.close(done));
- fs.writeFileSync(path.join(OUT,'K4CT_R57_ORIGINAL_NATIVE_WARNING_RESULT.json'),JSON.stringify(result,null,2)+'\n');
+ fs.writeFileSync(path.join(OUT,'K4CT_R66_ORIGINAL_NATIVE_PRACTICE_RESULT.json'),JSON.stringify(result,null,2)+'\n');
 }
-if(result.status!=='R57_NATIVE_LIVE_HUD_REVERSION_TECH_PASS_ART_HOLD'){
+if(result.status!=='R66_NATIVE_PRACTICE_PLACEMENT_R57_HUD_REVERSIBLE_PASS'){
  console.error('R57_NATIVE_HOLD',JSON.stringify(result.errors));process.exitCode=1;
 }else console.log('R57_NATIVE_PASS',JSON.stringify({frames:3,source:'ORIGINAL_240HZ_WEBGL2',B51:28,ART:'HOLD',HUMAN:'HOLD'}));

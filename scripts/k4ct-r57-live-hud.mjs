@@ -53,11 +53,28 @@ export function applyK4CTR57Hud(canvas,panel,dual){
   }
   if(savedBonus)savedBonus.style.setProperty('visibility','hidden','important');
  }else restoreSavedBonus();
+ // R66 PRIVATE-only placement, retaining original practice instructions and state.
+ const placement=window.__k4ctPracticePlacement??'CANDIDATE';
+ if(placement!=='BASE'&&placement!=='CANDIDATE')throw Error('R66 PRACTICE placement not BASE/CANDIDATE');
+ const practice=document.getElementById('practiceBanner');
+ const practiceActive=placement==='CANDIDATE'&&eligible&&Boolean(practice)&&!practice.hidden;
+ let practiceCSS=document.getElementById('k4ctR66PracticeCSS');
+ if(practiceActive){
+  if(!practiceCSS){practiceCSS=document.createElement('style');practiceCSS.id='k4ctR66PracticeCSS';document.head.append(practiceCSS);}
+  const rule='#practiceBanner{left:auto!important;right:14px!important;bottom:12px!important;transform:none!important;min-width:0!important;max-width:234px!important;padding:6px 9px!important;text-align:left!important;box-shadow:0 0 12px #21ffc51a!important;}'+
+   '#practiceBanner strong{font-size:11px!important;letter-spacing:.03em!important;}'+
+   '#practiceBanner span{font-size:10px!important;line-height:1.25!important;}'+
+   '#practiceBanner small{font-size:9px!important;line-height:1.2!important;}';
+  if(practiceCSS.textContent!==rule)practiceCSS.textContent=rule;
+ }else if(practiceCSS)practiceCSS.remove();
+ canvas.dataset.k4ctR66PracticePlacement=placement;
+ canvas.dataset.k4ctR66PracticeActive=String(practiceActive);
+ canvas.dataset.k4ctR66PresentationOnly='true';
  canvas.dataset.k4ctR57HudMode=mode;
  canvas.dataset.k4ctR57HudEligible=String(eligible);
  canvas.dataset.k4ctR57ImmediateHazard=String(immediate);
  canvas.dataset.k4ctR57BonusFound=String(Boolean(savedBonus));
  canvas.dataset.k4ctR57BonusSuppressed=String(Boolean(active&&immediate&&savedBonus));
  canvas.dataset.k4ctR57ProtectedPresentationOnly='true';
- return {mode,active,immediate,bonusSuppressed:Boolean(active&&immediate&&savedBonus)};
+ return {mode,active,immediate,bonusSuppressed:Boolean(active&&immediate&&savedBonus),practicePlacement:placement,practiceActive};
 }
