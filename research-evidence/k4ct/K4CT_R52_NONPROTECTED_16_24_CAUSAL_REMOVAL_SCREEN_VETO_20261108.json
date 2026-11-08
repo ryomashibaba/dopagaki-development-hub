@@ -1,0 +1,278 @@
+{
+  "schema": "dopagaki-k4ct-r52-one-off-source-native-camera-nonprotected16_24-deletion-causal-check-v1",
+  "dateJST": "2026-11-08",
+  "scope": "Existing V15.0 research continuation only; unchanged Road5->Road6 and B51-13->14. R51-only hypothesized occluder 16/24 counterfactual and one nonrepeating nearer open-gorge cross-section.",
+  "sources": {
+    "researchHeadAtStart": "c25cc0c4fda12d56a855512afad5c789933b1e39",
+    "originalR38CameraArtifactID": 13575796328,
+    "originalR38ArtifactSHA256Verified": "5b9c81e6dc15ec9811b9dbf5bdaf9e8101b068b8e8616593f7cae6b99a3e962d",
+    "originalR49NativeWebGL2ArtifactID": 13600556658,
+    "originalR49ArtifactSHA256Verified": "2dcbd9448cf6c1a4c84b8599f08869a12d79ce26f42024e449b645fff20fda3d",
+    "sourceOriginalR44RealBlenderTriangleCount": 32004,
+    "gameBlobPriorCertified": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "blenderAuthorBlobPriorCertified": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5SHA256PriorCertified": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "priorR51": "research-evidence/k4ct/K4CT_R51_BOUNDED_NATIVE_CAMERA_RECEIVER_SIGHTLINE_METHOD_HOLD_20261108.json"
+  },
+  "method": {
+    "type": "BOUNDED_OFFLINE_OCCLUSION_COUNTERFACTUAL_ON_REAL_SOURCE_CAMERA_AND_REAL_DCC_GEOMETRY",
+    "originalCameraSeconds": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "originalSource240HzTicks": [
+      15900,
+      15924,
+      15972
+    ],
+    "halfResolution": [
+      505,
+      350
+    ],
+    "model": "R41 approximate pinhole/perspective-correct software z buffer, no GL alpha/cull/fog/shading, near-plane crossing omitted; group mask/visibility pixels are approximate only. Original R49 screenshot background is genuine previous Chromium/WebGL2; hypothetical colorful overlays are not.",
+    "counterfactual": "In-memory exclusion of nonprotected research groups 16 and 24 only; NO original mesh or game code modified. Also isolate 16-only, 24-only and protected-8-only to attribute obstruction.",
+    "protectedGroupIds": [
+      0,
+      12,
+      13,
+      19,
+      34,
+      35,
+      41,
+      42
+    ],
+    "originalDccGeometryNotWritten": true,
+    "originalGameCameraRoadPhysicsB48_B51NotWritten": true,
+    "sourceToReceiverHydraulicsNotEstablished": true,
+    "mechanicalLoadPathNotAuthored": true
+  },
+  "studyA_r51IdentifiedSite": {
+    "name": "One near-bank open gravity-drop hypothesis at previously identified R51 d200 t163 y72 receiver",
+    "sourceFeedVerticesLocalDTY": [
+      [
+        100,
+        145,
+        92.6
+      ],
+      [
+        111,
+        145,
+        92.6
+      ],
+      [
+        136,
+        163,
+        93
+      ],
+      [
+        125,
+        163,
+        93
+      ]
+    ],
+    "verticalDropVerticesLocalDTY": [
+      [
+        136,
+        163,
+        93
+      ],
+      [
+        205,
+        163,
+        93
+      ],
+      [
+        205,
+        163,
+        72
+      ],
+      [
+        136,
+        163,
+        72
+      ]
+    ],
+    "receiverVerticesLocalDTY": [
+      [
+        190,
+        143,
+        72
+      ],
+      [
+        210,
+        143,
+        72
+      ],
+      [
+        210,
+        167,
+        72
+      ],
+      [
+        190,
+        167,
+        72
+      ]
+    ],
+    "receiverVisibleHalfResPixelsExistingFullR44": [
+      0,
+      0,
+      0
+    ],
+    "receiverVisibleHalfResPixelsRemoveGroup16Only": [
+      0,
+      0,
+      0
+    ],
+    "receiverVisibleHalfResPixelsRemoveGroup24Only": [
+      26,
+      37,
+      45
+    ],
+    "receiverVisibleHalfResPixelsRemoveGroups16And24": [
+      30,
+      45,
+      73
+    ],
+    "receiverVisibleHalfResPixelsProtected8Only": [
+      30,
+      45,
+      73
+    ],
+    "waterSourceFeedVisibleHalfResRemove16_24": [
+      9,
+      13,
+      14
+    ],
+    "verticalFaceVisibleHalfResRemove16_24": [
+      268,
+      314,
+      403
+    ],
+    "sourceFeedVisibleApproxOriginalScreenBoxes": [
+      [
+        400,
+        324,
+        422,
+        328
+      ],
+      [
+        356,
+        328,
+        378,
+        332
+      ],
+      [
+        278,
+        338,
+        298,
+        342
+      ]
+    ],
+    "receiverApproxOriginalScreenBoxesAfterRemoval": [
+      [
+        300,
+        348,
+        334,
+        354
+      ],
+      [
+        240,
+        354,
+        284,
+        362
+      ],
+      [
+        126,
+        370,
+        182,
+        380
+      ]
+    ],
+    "interpretation": "R51 last-blocker claim is causally sharpened: for this specific receiver, group24 is necessary for complete obstruction in all three offline frames, with group16 partially occluding as well. However recovered receiver is a strip only 6/8/10 approximate original-screen pixels tall and feed only 4-6 pixels tall. Two-dimensional presence fails semantic source/drop/catchment evidence; color-coded projection resembles orange slab over thin purple edge in screen review.",
+    "unproven": "Original WebGL2 rendering of a real replacement DCC; physical source connection; working gate or supportive geology; human recognition and B51 fairness"
+  },
+  "studyB_nearerOpenGorge": {
+    "name": "Distinct nearer open-cut 41m fall at local Road6 t70 d143..205, lower catchment t36..70 d151..232 Y52",
+    "sourceFeedStartLocalDTY": [
+      100,
+      145,
+      92.6
+    ],
+    "fallLocalDTY": {
+      "t": 70,
+      "dMin": 143,
+      "dMax": 205,
+      "topY": 93,
+      "bottomY": 52
+    },
+    "receiverY": 52,
+    "originalFrameReceiverVisibleHalfResPixelsAgainstProtected8": [
+      0,
+      0,
+      0
+    ],
+    "receiverVisibleHalfResPixelsAfterRemovingNonprotected16_24": [
+      0,
+      0,
+      0
+    ],
+    "mainProtectedOccluders": [
+      "19",
+      "12"
+    ],
+    "fallVisibleHalfResAgainstProtected8": [
+      68,
+      115,
+      346
+    ],
+    "interpretation": "Closer waterfall face has nonzero projected influence, but protected forebay19/tower12 occlude lower water even if nonprotected16/24 are excluded. Therefore simply replacing groups16/24 at this cross-section does not yield visual causal sequence."
+  },
+  "visualEvidence": {
+    "existingOriginalGlFrames": "Previous actual R49 source-native screenshot triplet (OFF mode), original game and warnings intact; no new Chromium run",
+    "temporaryIllustrativeOverlayFile": "R52_ORIGINAL_VS_OFFLINE_16_24_REMOVAL.png in current conversation attachment, not committed or permanent GitHub artifact",
+    "overlaySHA256": "cf601900868d6d1a60dd445727108437edd5918bfdd80dffa13032bcdcd99a30",
+    "studyArawLocalResultsSHA256": "005c29c05a4e7eeb815343cf7d14bf72d47713e5e10f2e9afc4d38f4802d3cdc",
+    "studyBrawLocalResultsSHA256": "dbeb3f04ba183f4b84fda418d6a6511578ac02c8f348dd6012a73d1965c1b066",
+    "notTrueWebGL2CandidateFrames": true
+  },
+  "criticalDecision": {
+    "R52": "METHOD_HOLD__NO_NATIVE_ART_CANDIDATE_GO",
+    "reason": "Removing nonprotected 16/24 does recover a small amount of projected downstream water at the R51 best site, but real-source view is still dominated by a narrow horizontal cyan strip and unrecognizable feed/drop/catchment. The different near-camera open-cut variant loses its catchment behind protected19 and 12. Neither one earns a true DCC/CI expense.",
+    "bounds": "Two finite cross-section counterfactuals over three original camera timestamps only, not an all-sites impossibility theorem. Approximate software depth does not certify native GL result.",
+    "next": "Do not iterate tiny R48/R49/R51 water colors/pipes or add another CI just to prove pixels. A fundamentally different anchored sightline must be grounded in source-native camera while protecting 19/12 and B51; only if time-sequential water and mechanical support have convincing screen-space justification make one editable Blender scene and native RAW. No approval is implied for game/camera/protected groups changes."
+  },
+  "status": {
+    "SOURCE": "KNOWN_VERIFIED_ARTIFACTS",
+    "TECH": "OFFLINE_PROJECTION_CAUSAL_CHECK_ONLY",
+    "NEW_NATIVE_WEBGL2": "NOT_RUN",
+    "NEW_BLENDER": "NOT_RUN",
+    "ART": "HOLD_NO_NEW_ART",
+    "METHOD": "HOLD",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "researchEvidenceOnly": true,
+    "mainAndPR46AndP101Untouched": true,
+    "originalSourceAndRoadAndPhysicsUntouched": true,
+    "protected8NotEdited": true,
+    "B48": 7,
+    "B51": 28,
+    "collidersAdded": 0,
+    "githubActionsNewRuns": 0,
+    "githubActionsActualBilling": "UNKNOWN",
+    "work": false,
+    "computerUse": false,
+    "addedPaidAPIJPY": 0,
+    "userOperations": 0,
+    "noAdoptionNoPublicationNoMerge": true
+  }
+}
