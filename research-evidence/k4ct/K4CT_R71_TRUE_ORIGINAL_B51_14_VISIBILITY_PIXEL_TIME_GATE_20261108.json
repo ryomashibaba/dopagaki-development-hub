@@ -1,0 +1,195 @@
+{
+  "schema": "k4ct-r71-source-true-b51-14-source-obb-4connected-gpu-attribution-and-arrival-phase-gate/1",
+  "dateJST": "2026-11-08",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "baseHead": "cc2097a0a885294e273c54bcc014ae03ece8cea6",
+  "objective": "Before any more Blender/CI, quantify how much of the TRUE original moving B51-14 is visible at the original 240Hz chase camera, and how far its original native rotor can turn before arrival; do not confuse original hazard physical readability with decorative supports or future safe lanes.",
+  "dataProvenance": {
+    "originalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalR60SourceChaseCameraPoseRun": 42448441488,
+    "originalR60SourceArtifactId": 13604582522,
+    "R60SourceCameraPoseJSON": "K4CT_R60_ORIGINAL_NATIVE_WARNING_RESULT.json",
+    "R60SourceCameraPoseJSON_SHA256": "f80c23bf5d5ec25637e7ad80043662f319531e17e7d9ea6551bd59dcd746200c",
+    "originalR67ReversibleTaggedB51WebGL2Run": 42455522356,
+    "originalR67ArtifactId": 13606539344,
+    "R67GPUAttribution": "All 28 original B51 draw meshes changed to diagnostic magenta ONLY for matching paused source tick; identical geometry and original visual shader restored",
+    "originalR70TrueBlenderNativeGLRun": 42461084964,
+    "R70CameraAndPoseAllThreeExactMatchToR60": true,
+    "R71OfflineLocalValidatedScriptSHA256": "a824bc1acdb059bae6a41c606ff195a7e62fbe74b13d63ff570a1bbdda47989a",
+    "R71OfflineLocalFullResultJSON_SHA256": "b4b4735bc7d0e43cd49ee9efcbd3d727536f92c4022e77213bac7ea75f9c5b0a",
+    "R71IllustratedRawZoomPNG_SHA256": "a0b4d1e43e3a608aeac57cd41e15c1cc231609f46a906d8168776e95e671ad45",
+    "retrievalLimit": "Earlier GitHub Actions artifacts may expire 2026-11-15 UTC; store derived SHA and provenance, not claim permanent image availability.",
+    "nativeGeometry": "a13-machine-14 true original rotator OBB half size [1.7,1.7,1.4] m, yaw and centre exactly read from R60; center is offset from original fixed pivot by native +X half length.",
+    "sourceProjection": "For eight yaw-rotated original OBB corners, use archived original camera eye/front/right/up with source WebGL2 1.35 projection; native canvas at x19 y0 width1013 height697.5 (viewport 1365x930).",
+    "sameTickMask": "Absolute max channel difference of original BASE PNG and source tagged-magenta PNG strictly >25 on original 1365x930 screenshot; 4-connected components; associate by intersecting projected B51-14 OBB at <=1px margin.",
+    "dependenciesOfOfflineAnalysis": "Python 3.13, Pillow, NumPy, no new GitHub Actions or Blender runs"
+  },
+  "canvas": {
+    "x": 19,
+    "y": 0,
+    "width": 1013,
+    "height": 697.5,
+    "viewport": [
+      1365,
+      930
+    ]
+  },
+  "originalB51Count": 28,
+  "originalSourcePhysicalRoads": 7,
+  "newColliders": 0,
+  "originalB51Id": "a13-machine-14",
+  "originalB51Type": "rotator",
+  "originalB51CollisionMode": "bounce",
+  "nativeRotorFixedPivotXYZ": [
+    1181.5640147661836,
+    122.43275866083378,
+    -487.0341339030744
+  ],
+  "nativeRotorOriginalRateDegreesPerSec": -83.14087759807883,
+  "threeTrueSourceFrames": [
+    {
+      "sourceTimeSeconds": 65.25,
+      "sourceOriginalTick": 15660,
+      "originalB51_14PhysicalDistanceAheadM": 338.69,
+      "originalFutureArrivalEstimateSecondsRounded": 1.89,
+      "originalB51RotationRateDegreesPerSecondApprox": -83.14087759807883,
+      "rotationUntilPredictedArrivalDegreesApprox": -157.14,
+      "rotationEstimateCaveat": "Computed from original native angular rate and rounded ETA; predicted arrival time and phase are not a certified contact forecast.",
+      "trueSourceCameraCollisionOBBScreenshotBoundsXYXY": [
+        681.94167444,
+        285.22382294,
+        688.70179904,
+        290.52420593
+      ],
+      "projectedCollisionBoxWidthPx": 6.7601246,
+      "projectedCollisionBoxHeightPx": 5.30038299,
+      "trueSourceCameraDepthMetres": 322.08194287,
+      "spatiallyAssociatedOriginalB51_14VisibleChangedPixels": 49,
+      "all28OriginalB51TaggedVisibleChangedPixels": 71,
+      "otherTaggedOriginalB51VisibleChangedPixels": 22,
+      "spatialComponentBBoxInclusiveXYXY": [
+        681,
+        285,
+        689,
+        290
+      ],
+      "portionOfTrueCanvasPct": 0.006934935,
+      "originalSourceScreenshotSHA256": "1b3101e2eb22f6adeb9a145072e40154b263570f205ddd2b7a69e085fa9e3982",
+      "researchAllB51TaggedScreenshotSHA256": "1c4ae55a26ae5e1bb00c9b73f38924991b15982e298b40e70377ca39c124a456",
+      "note": "Associated contiguous component overlaps the 8-corner original B51-14 source OBB projection, but ALL B51 share this research shader and per-object attribution is not proven."
+    },
+    {
+      "sourceTimeSeconds": 65.6,
+      "sourceOriginalTick": 15744,
+      "originalB51_14PhysicalDistanceAheadM": 275.58,
+      "originalFutureArrivalEstimateSecondsRounded": 1.52,
+      "originalB51RotationRateDegreesPerSecondApprox": -83.14087759807883,
+      "rotationUntilPredictedArrivalDegreesApprox": -126.37,
+      "rotationEstimateCaveat": "Computed from original native angular rate and rounded ETA; predicted arrival time and phase are not a certified contact forecast.",
+      "trueSourceCameraCollisionOBBScreenshotBoundsXYXY": [
+        685.42610617,
+        288.86478321,
+        694.00897737,
+        295.37606864
+      ],
+      "projectedCollisionBoxWidthPx": 8.5828712,
+      "projectedCollisionBoxHeightPx": 6.51128543,
+      "trueSourceCameraDepthMetres": 264.17624986,
+      "spatiallyAssociatedOriginalB51_14VisibleChangedPixels": null,
+      "all28OriginalB51TaggedVisibleChangedPixels": null,
+      "otherTaggedOriginalB51VisibleChangedPixels": null,
+      "spatialComponentBBoxInclusiveXYXY": null,
+      "portionOfTrueCanvasPct": null,
+      "originalSourceScreenshotSHA256": null,
+      "researchAllB51TaggedScreenshotSHA256": null,
+      "note": "Only source OBB and camera exist for 65.60; no same-tick R67 GPU-tagged all-B51 source PNG. Do not invent a visible-pixel number."
+    },
+    {
+      "sourceTimeSeconds": 66.35,
+      "sourceOriginalTick": 15924,
+      "originalB51_14PhysicalDistanceAheadM": 137.6,
+      "originalFutureArrivalEstimateSecondsRounded": 0.75,
+      "originalB51RotationRateDegreesPerSecondApprox": -83.14087759807883,
+      "rotationUntilPredictedArrivalDegreesApprox": -62.36,
+      "rotationEstimateCaveat": "Computed from original native angular rate and rounded ETA; predicted arrival time and phase are not a certified contact forecast.",
+      "trueSourceCameraCollisionOBBScreenshotBoundsXYXY": [
+        598.48685542,
+        297.45850923,
+        609.73434654,
+        309.40066425
+      ],
+      "projectedCollisionBoxWidthPx": 11.24749112,
+      "projectedCollisionBoxHeightPx": 11.94215502,
+      "trueSourceCameraDepthMetres": 147.16286791,
+      "spatiallyAssociatedOriginalB51_14VisibleChangedPixels": 151,
+      "all28OriginalB51TaggedVisibleChangedPixels": 206,
+      "otherTaggedOriginalB51VisibleChangedPixels": 55,
+      "spatialComponentBBoxInclusiveXYXY": [
+        598,
+        297,
+        609,
+        309
+      ],
+      "portionOfTrueCanvasPct": 0.021370924,
+      "originalSourceScreenshotSHA256": "f1054578ea46e3985cda50810e09e9a1e859da5eff3a9424052bf901c74ef0b8",
+      "researchAllB51TaggedScreenshotSHA256": "d4b7d28e0d3898068b174c15e8add1fb5f93f7079555baa937ca44745a64926a",
+      "note": "Associated contiguous component overlaps the 8-corner original B51-14 source OBB projection, but ALL B51 share this research shader and per-object attribution is not proven."
+    }
+  ],
+  "criticalInterpretation": {
+    "earlyActualSourceRiskPixelFraction": "At 65.25 49 source-tagged changed pixels spatially associated with the actual B51-14 physical box; 0.006934935% of original 1013x697.5 canvas.",
+    "actualEarlyBodyBox": "6.76 × 5.30 projected source-camera pixels at original ~322.08m eye depth.",
+    "laterSourceRiskPixelFraction": "At 66.35 analogous 151 source-tagged changed pixels spatially associated with B51-14; 0.021370924% of canvas.",
+    "technicalConclusion": "The whole original hazard body provides only a tiny pixel budget in the early ~1.9 sec window. Adding thin station-side gantries or sub-parts cannot by itself create a legible mechanical causal story from the unchanged native camera.",
+    "newPhaseInsight": "The existing SOURCE native rotor changes orientation about -157° over the rounded first arrival ETA and -62° over the last. Current depicted orientation is not the projected-at-arrival orientation.",
+    "noSafeLaneGuarantee": "Native actual B51 future moving pose and route collision clearance depend on time/steering and adjacent sources; a static visual or ETA-based side guess is not a certified safe path.",
+    "notProven": [
+      "Individual object B51-14 independently GPU-tagged (tag is ALL 28)",
+      "Exact human detection/response threshold",
+      "Driving fairness or naturally achievable avoidance",
+      "That no alternate world-space environmental art could improve early risk legibility",
+      "That all source B51 surfaces appear or have no depth occlusion",
+      "Any valid final art acceptance"
+    ],
+    "artDecision": "R70 genuine fixed-pivot gantry stays EARLY ART REJECT and R71 has no new ART adoption.",
+    "methodDecision": "HOLD_MORE_TINY_B51_HULL_DETAIL_OR_MINI_GANTRIES; favor an ART-FIRST concept with a source-grounded, genuinely legible whole-scene hazard sequence, or a scoped honest first-time human natural-play test on original playable build (requires separate actual human and cannot be replaced by bot keyboard).",
+    "stopConditions": [
+      "No new micro-geometry at B51-14 just to increase triangles or CI green",
+      "No purely color-only 'make it neon' replay and no new crowded extra HUD",
+      "No false colliders, hidden steering assists, fake safe corridor or source camera/physics changes",
+      "Do not claim original B51 49 pixels is a human perception threshold or person-specific eye-tracking result"
+    ]
+  },
+  "gates": {
+    "SOURCE": "PASS",
+    "OFFLINE_GPU_SPATIAL_PROJECTION": "PASS_WITH_NON_UNIQUE_B51_TAG_CAVEAT",
+    "R70_TECH": "PASS",
+    "R70_ART": "REJECT",
+    "R71_NEW_ART": "NOT_MADE",
+    "R71_METHOD": "HOLD_REPETITIVE_DETAIL; SOURCE_CAMERA_RECOGNITION_IS_NEXT_BLOCKER",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "formalArtAccepted": 0,
+    "officialSlope2DNAMetres": 0,
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "protection": {
+    "mainHEAD": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "PR46": "OPEN_DRAFT_UNMERGED",
+    "gameSourceGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "original24oHzPhysicsCameraRoadB48AndB51": "UNMODIFIED",
+    "originalEightProtectedBlenderGroupsXYZRGB": "UNCHANGED",
+    "publicPagesAndFormalQA": "UNMODIFIED",
+    "userActions": 0,
+    "newBlenderJobs": 0,
+    "newGitHubActionsJobs": 0,
+    "additionalPaidAPIJPY": 0,
+    "GitHubActionsRealBilling": "UNKNOWN"
+  }
+}
