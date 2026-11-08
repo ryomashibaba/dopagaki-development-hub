@@ -1,4 +1,7 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
+## 2026-11-09｜ユーザー依頼・R1〜R85批判的総括と新チャット一通引継ぎ（現行入口）
+**[現行・単一運用引き継ぎ／二段階批判評価](docs/DOPAGAKI_CURRENT_CRITICAL_HANDOFF_JA.md)** を先に全文確認。固定V15/V16、原本、正式Road5→6/B51-13→14を上書きしない。R83本人Windows Blender5.2.1・4 PNGと.blend真正SHA照合TECH PASS／ART REJECT、旧R83検証器のZSTD誤FAILはR85研究パッチ記録済み。**本人に4画像/BLEND再提出を求めない。** R78〜80のRoad0/別研究B48物理成功は限定、全7路/HUMAN/正式ARTは未認証。次は資料・簡易岩/箱/輪ではなく、R83編集可能BLENDの名指し6主メッシュ（東02+08、西01+09+10+11）を隔離した真Blenderで直接造形し、元カメラ2秒/5.21秒を先に審査→4視点→真正元WebGL2の順。現行Chatが本人Blenderを勝手に操作できると思わない。main/PR46/Gold/8群/元Game/Camera/240Hz/B48×7/B51×28保護、正式ART0/Slope2 DNA0m、HUMAN/SAT/CCD/WindowsFPS/RELEASE/MERGE HOLD、追加課金0円原則。次回の「続けて」は本質造形へ。
+
 ## R85 2026-11-09｜ユーザー提出の真正Blender5.2.1／4視点／可編集BLENDの独立確認・ART REJECT
 [受領ファイルの技術・美術証拠](research-evidence/k4ct/K4CT_R85_USER_REAL_BLENDER_FILE_AUDIT_ART_REJECT_20261109.json)／[R83検証器の本物.blend誤拒否修正](research-candidates/k4ct/R83_VERIFY_ACCEPT_NATIVE_ZSTD_BLEND.patch)。本人が実R83をWindows Blender 5.2.1 LTSで実行し4PNG＋.blend＋receiptを提供。全5ファイルSHAがreceiptと一致、1008×645、Zstandardの4フレームから独立展開してBLENDER17-01v0502内部ヘッダー確認。**真正Blender保存＋4レンダー TECHの証拠は成立**。旧`R83_VERIFY.py`は生`BLENDER`先頭7バイトに固定しており、正規ZSTD圧縮.blendを`BLEND_NOT_REAL`として誤拒否（exit7）。修正版は同ファイルPASS／改ざん3例拒否PASS。**本人に再実行・再アップロードを求めない**。4枚の画像は黒/暗部35〜52%（Workbench背景の影響含む）、薄い橋桁、平坦な青壁、大きな基部、5.21sの空洞が支配し**ART REJECT**。元カメラ相当だが真WebGL2画面は未認証。既存R84の対象02+08/01+09+10+11の`直接Blender作者造形`を次の実作業とし、単純箱・輪・岩盤再生産/形式QA増殖は禁止。元Game/Camera/240Hz/B48×7/B51×28、8保護DCC群、main/PR46/Gold/Pages不変。正式ART0、Slope2 DNA0m、HUMAN/SAT/CCD/WindowsFPS/RELEASE/MERGE HOLD。
 
