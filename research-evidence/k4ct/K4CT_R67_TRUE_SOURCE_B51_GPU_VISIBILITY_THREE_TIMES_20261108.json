@@ -1,0 +1,154 @@
+{
+  "schema": "dopagaki-k4ct-r67-true-native-original-geometry-b51-shader-tag-visibility-probe-v1",
+  "dateJST": "2026-11-08",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "baseResearchHead": "7548694a00241ab44d5f27d1a8922b375ed836c2",
+  "executionCommit": "382fe205e55fec0e3ae2688d89ea287dfa7757c3",
+  "objective": "Quantify source-native B51 hull visibility at exactly 3 previously successful original-camera 240Hz Chromium WebGL2 frames. One diagnostic study, not a new ART proposal or a real human reaction trial.",
+  "newTechnique": "Reuse existing R8 true GPU magenta attribution for B51. Include R7C research recolored B51 shader meshes in true B51 classification to avoid false zero; no mesh, collision, camera, original source or native runner modification. At each frozen source tick capture untagged BASE and GPU-tagged B51, then restore BASE.",
+  "source": {
+    "gameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "blenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "road5PhysicsSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "sourceCameraUnmodified": true,
+    "original240HzNative": true,
+    "original8Protected3DGroups": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "generatedPrivateOnly": true
+  },
+  "result": {
+    "status": "R67_NATIVE_B51_GPU_PROVENANCE_CAPTURED_TECH_PASS_ART_HOLD",
+    "workflowRun": 42455522356,
+    "workflowURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42455522356",
+    "workflowConclusion": "success",
+    "artifactId": 13606539344,
+    "artifactExpiryUTC": "2026-11-15T06:40:20Z",
+    "artifactZipSHA256": "70781f18db7839cd93188a269eebd4daf0125d90a1bdeb0cc2609e34fdbb25c2",
+    "artifactDigestVerifiedLocally": true,
+    "rawNormalAndTaggedPairCount": 3,
+    "originalRunnerTickUnchangedForTag": true,
+    "shaderRestorationAll3Pass": true,
+    "sourceNativeGLConfirmed": true,
+    "originalB51CountAtAllTicks": 28,
+    "errors": []
+  },
+  "measurement": {
+    "method": "Decode PNG to RGB8 via Pillow/Numpy. For each identical source tick, compare R57 Txx_BASE_TRUE_ORIGINAL_GL_RAW.png to R67 Txx_SOURCE_B51_ONLY_MAGENTA_GL_RAW.png. Count a pixel when max(abs(R-G-B channel differences))>25, restrict to original source canvas. All changed pixels were inside the true game canvas. R7C candidate B51 material, source B51 opaque geometry and source physics untouched. No gamma corrected area equivalence.",
+    "viewportPx": {
+      "w": 1365,
+      "h": 930
+    },
+    "sourceCanvasRectPx": {
+      "x": 19,
+      "y": 0,
+      "w": 1013,
+      "h": 697.5
+    },
+    "frames": [
+      {
+        "seconds": 65.25,
+        "nativeTick": 15660,
+        "nextOriginalB51": "a13-machine-14",
+        "distanceToNextM": 338.69,
+        "predictedETASeconds": 1.89,
+        "allVisibleB51ShaderChangedPixelsGT25": 71,
+        "sourceCanvasCoveragePercent": 0.01005,
+        "changedPixelBoundingBoxXYXY": [
+          681,
+          285,
+          719,
+          291
+        ],
+        "originalImage": "K4CT_R57_T65_25_BASE_TRUE_ORIGINAL_GL_RAW.png",
+        "taggedImage": "K4CT_R67_T65_25_SOURCE_B51_ONLY_MAGENTA_GL_RAW.png"
+      },
+      {
+        "seconds": 66.35,
+        "nativeTick": 15924,
+        "nextOriginalB51": "a13-machine-14",
+        "distanceToNextM": 137.6,
+        "predictedETASeconds": 0.75,
+        "allVisibleB51ShaderChangedPixelsGT25": 206,
+        "sourceCanvasCoveragePercent": 0.02916,
+        "changedPixelBoundingBoxXYXY": [
+          586,
+          292,
+          621,
+          309
+        ],
+        "originalImage": "K4CT_R57_T66_35_BASE_TRUE_ORIGINAL_GL_RAW.png",
+        "taggedImage": "K4CT_R67_T66_35_SOURCE_B51_ONLY_MAGENTA_GL_RAW.png"
+      },
+      {
+        "seconds": 68.05,
+        "nativeTick": 16332,
+        "nextOriginalB51": "a13-machine-15",
+        "distanceToNextM": 32.67,
+        "predictedETASeconds": 0.17,
+        "allVisibleB51ShaderChangedPixelsGT25": 2089,
+        "sourceCanvasCoveragePercent": 0.29565,
+        "changedPixelBoundingBoxXYXY": [
+          424,
+          294,
+          567,
+          363
+        ],
+        "originalImage": "K4CT_R57_T68_05_BASE_TRUE_ORIGINAL_GL_RAW.png",
+        "taggedImage": "K4CT_R67_T68_05_SOURCE_B51_ONLY_MAGENTA_GL_RAW.png"
+      }
+    ],
+    "caveats": [
+      "GPU visibility belongs to all visible source-native B51 meshes combined; does NOT uniquely identify the next B51-14 or B51-15. No per-machine ID segmentation.",
+      "Magenta is a diagnostic temporary shader and NOT the player's original machine appearance.",
+      "Threshold counts reflect screen-space shader color differences, anti-aliasing, occlusion and haze; not the whole 3D model projected area.",
+      "Only 3 paused native ticks, one original camera and one scripted original keyboard trajectory were tested.",
+      "Cannot infer precise human reaction threshold, safe lane or causal relation with the environment. No HUMAN pass."
+    ]
+  },
+  "criticalDecision": {
+    "TECH": "PASS",
+    "ART": "REJECT_AS_FINISHED_ART_OR_HUMAN_EVIDENCE",
+    "METHOD": "HOLD_NEW_ART_NOT_AUTHORED",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "reason": "At ~1.89 sec the total GPU-visible original B51 bodies modify just 71 canvas pixels; at ~0.75 sec only 206; red B51 machines remain too small and confused by world clutter to treat original text HUD as sufficient gameplay warning. Repeating palette changes, hidden Y93 water source, A-frame, floating bands or a fake safe gate is not justified. The next independent art candidate must preserve original physics/camera and communicate a real B51 machine's scale and consequence in-world before hazard; one actual Blender-based noncolliding machine-support silhouette in one original-camera three-time story, subject to independent ART rejection if fake/overlays or blocks source road/sky."
+  },
+  "unintendedSideEffect": {
+    "otherExistingWorkflowId": 408196056,
+    "triggeredRun": 42455522343,
+    "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42455522343",
+    "statusAtEvidenceCreation": "in_progress",
+    "conclusionAtEvidenceCreation": null,
+    "why": "Existing legacy workflow auto-triggered by shared scripts/p101-k4ct-install-authored-dcc.mjs path; it contains an unneeded real Blender / contact-retry regression. No new workflow file created.",
+    "action": "Do not count this as requested R67 GPU proof. No more retries in R67; before next commit inspect all existing push-path workflow triggers. Unwanted CI may have financial cost; exact billing unknown."
+  },
+  "sourceProtection": {
+    "mainHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "PR46": "OPEN_DRAFT_UNMERGED",
+    "officialP101": "UNMODIFIED",
+    "publishedPages": "UNMODIFIED",
+    "formalQA": "UNMODIFIED",
+    "formalArtAccepted": 0,
+    "officialSlope2DNAMetres": 0,
+    "additionalPaidAPIJPY": 0,
+    "GitHubActionsActualBilling": "UNKNOWN",
+    "userOperations": 0
+  },
+  "actionAndNext": "Stop R67 with evidence rather than a new near-identical CI. New source-grounded DCC silhouette requires a genuine original-camera concept and a GO before another CI. No human reaction/FPS certification."
+}
