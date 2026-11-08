@@ -1,8 +1,11 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
-**2026-11-08 JST／R72真正ローカル元240Hz試走セット・手動切替とJSON保存PASS／実HUMAN HOLD。V16が最新上位正本、固定V15不変。**
+**2026-11-08 JST／R73ローカル試走起動改修・元ゲーム不変・Python/HTTP/ZIP PASS／Windows実機とHUMAN HOLD。V16上位正本・固定V15不変。**
 
 ## 読取順（現在の唯一の移行入口）
-**[V16 R63後・二段階批判的統合引き継ぎ](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)** → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md) → [R50歴史的統合](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md)。V14/V13/V12.1は必要な古い証拠だけ参照。**旧R64以前の『次工程』文言は履歴。V16第7章の品質・保護条件を継承し、現在の進捗と次行動は本START_HERE先頭のR72結果を参照。不要な長文引継ぎを今後量産しない。**
+**[V16 R63後・二段階批判的統合引き継ぎ](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)** → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md) → [R50歴史的統合](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md)。V14/V13/V12.1は必要な古い証拠だけ参照。**旧R64以前の『次工程』文言は履歴。V16第7章の品質・保護条件を継承し、現在の進捗と次行動は本START_HERE先頭のR73結果を参照。不要な長文引継ぎを今後量産しない。**
+
+## R73結果（2026-11-08）
+[R73 Windowsローカル試走キットの動的ポート・所有サーバー・安全な一発起動検証](research-evidence/k4ct/K4CT_R73_WINDOWS_LOCAL_LAUNCHER_OWNED_DYNAMIC_PORT_OFFLINE_PASS_20261108.json)。R72真正元B51研究ゲームZIPの元ゲーム/物理/Camera/シーン/B48×7/B51×28と共有ファイル**113件バイト完全一致**のまま起動方式のみ改修。固定4373、3秒待機、不明な別HTTP再利用、別プロセスの残留という問題を防ぐため、Python 3.13の同一プロセスで127.0.0.1:空きポート自動選択→元ゲームHTML HTTP準備確認→既定ブラウザを開く→終了時に所有サーバーを閉じる。実ZIP**117ファイル、SHA256 3b18cb59…**を作成、Nodeによる元R72→R73差分梱包、Python自己検査、元JS・原物理・ステージJSONのHTTP取得、HTTP経由の親ディレクトリ探索防止、ZIP全CRCとファイルSHA検査PASS。**Windows CMD起動・実HUMAN操舵・R73の新たなChromium実行は未検証**。R72 Linux Chromium手動切替/JSON保存 PASSをそのまま継承、HUMAN/SAT/CCD/ART/WindowsFPS/RELEASE/MERGE HOLD、正式ART採用0・Slope2 DNA0m、原本/main/PR46/正式QA/Pages変更なし。新CI/Blenderなし。次はこのローカルZIPをWindowsで一度実プレイし、観察した具体的不具合からのみ改修する。人間の成功と認証を代行したとは言わない。
 
 ## R72結果（2026-11-08）
 [R72真正元240Hz・ローカルB51試走セット＋元Chromium手動移行・結果JSON保存](research-evidence/k4ct/K4CT_R72_LOCAL_REAL_240HZ_B51_TRIAL_BROWSER_PASS_HUMAN_HOLD_20261108.json)を完了。R71で遠方の元B51-14が6.76×5.30pxと判明し、類似小型Blender支柱の増産はNO-GO。代わりにR49真正ART研究段階の元K4CT PRIVATE 240Hz/B48×7/B51×28を同梱したWindowsローカル試走ZIP116ファイルを生成。既存CI3件の技術的不合格（SHA括弧・ZIP原物理モジュール欠落・手動移行後tick固定という誤テスト）を原因限定修正し、最後は既存ZIP再利用でBlender/ゲーム全再ビルドなしの[軽量真正Chromium Run #42467602792](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42467602792) **SUCCESS**。元WebGL2/240Hzで63.70秒＝tick15288から元手動操作モードへ移行、ゲームはtick15342まで実進行しローカルJSON保存PASS、ページエラー0。検証Artifact #13612237779、元ZIP Artifact #13611367732（2026-11-15 UTC期限）。**手動モードに入ることを実証しただけで人間の入力は0回、実際の回避・公平・面白さは未認証。WindowsでCMD起動も未確認。** HUMAN/ART/SAT/CCD/WindowsFPS/RELEASE/MERGE全HOLD、正式ART0/Slope2 DNA0m。保護原本/main/PR46/正式QA/Pages不変、追加課金原則0円。次は本人の自然な試走1回と任意のローカルJSON・感想を扱い、その不具合に直接結び付く改善のみ検討する。
