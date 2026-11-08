@@ -1,0 +1,247 @@
+{
+  "schema": "dopagaki.k4ct-r60-original-early-native-camera-single-real-blender-structural-preflight-tech-pass-art-reject-v1",
+  "dateJST": "2026-11-08",
+  "scope": "Existing V15 unchanged: QUALITY-FIRST / ART-FIRST / DCC-FIRST; same Road5→Road6 original B51-13→14, original source camera, no new gameplay or release.",
+  "source": {
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "implementationHead": "d0ac903d5a3c0db53bd9cfd01ca644e460d7c038",
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalR12ABlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "addedColliders": 0,
+    "originalBlender32004Triangles": true,
+    "protected8GroupPrefixes": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "protected8AllActualXYZRGBExact": true,
+    "previousTrueDccSourceBlendSHA256": "4442489802cac1bf3e0e6950277228f22f3a203af82f784a968c4b5ea0c3146a",
+    "researchBlenderSHA256": "928e4645cdda17f51c99f2949a05ea6089aad6ef20767ea42887e6dd48587927",
+    "researchBlenderBytes": 6519700,
+    "mainHEADAtR60Start": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "PR46AtR60Start": "OPEN/DRAFT/UNMERGED"
+  },
+  "runs": {
+    "earlyExactCamera": {
+      "runId": 42448441488,
+      "conclusion": "failure",
+      "failureCause": "Pure test report status string mismatch; the real native data, three Chrome RAW frames and camera/pose assertions completed with empty errors array.",
+      "artifactId": 13604582522,
+      "artifactSHA256": "2f6565c553ee836cc58e77c6e7d4292d61f6a0d5d72af9f30423080386c33038",
+      "evidenceStatus": "VALID_EARLY_CAMERA_AND_POSES_NOT_CI_TECH_PASS",
+      "originalSourceReal240Hz": true,
+      "realChromiumWebGL2": true
+    },
+    "actualBlenderArt": {
+      "runId": 42448986449,
+      "conclusion": "success",
+      "url": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42448986449",
+      "artifactId": 13605156221,
+      "artifactSHA256": "1ef55a902e499b4f145f575547be20732a63e0fa2e7d5c0eb0cda0bd8c8a4200",
+      "artifactUrl": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42448986449/artifacts/13605156221",
+      "expiresUTC": "2026-11-15T05:03:11Z",
+      "trueEditableBlenderMESHObjects": 10,
+      "newEvaluatedTriangles": 996,
+      "totalGenuineIntegratedTriangles": 33000,
+      "actualNativeOriginalWebGL2Frames": 3,
+      "sourceNativeTicks": [
+        15660,
+        15744,
+        15924
+      ],
+      "originalCameraAndRealMovingB51PositionsExactFromLive": true,
+      "successStatus": "R60_SOURCE_EARLY_CAMERA_AND_REAL_B51_POSE_PASS_NOT_ART",
+      "errors": [],
+      "sourceProtectedExact": true
+    }
+  },
+  "originalEarlyCameraAndMachine": {
+    "timestamps": [
+      65.25,
+      65.6,
+      66.35
+    ],
+    "nativeTicks": [
+      15660,
+      15744,
+      15924
+    ],
+    "originalEyeXYZ": [
+      [
+        903.6426535501384,
+        137.38422932873888,
+        -286.0533508036084
+      ],
+      [
+        943.6060026947403,
+        137.0387858199128,
+        -334.8564987033673
+      ],
+      [
+        1042.237266069381,
+        134.03534436800726,
+        -428.5657451813019
+      ]
+    ],
+    "originalB51_14TrueMovingCentreXYZ": [
+      [
+        1181.9749149653521,
+        122.43275866083378,
+        -485.3845397025744
+      ],
+      [
+        1181.1208117696701,
+        122.43275866083378,
+        -485.39292364723224
+      ],
+      [
+        1179.904519157193,
+        122.43275866083378,
+        -486.6652513692776
+      ]
+    ],
+    "originalB51_14OriginalHalfSizeM": [
+      1.7,
+      1.7,
+      1.4
+    ],
+    "remainingOriginalB51_14DistancesApproxM": [
+      338.69,
+      276,
+      137.6
+    ],
+    "remainingETASecApprox": [
+      1.89,
+      1.5,
+      0.75
+    ],
+    "provenance": "TRUE original source runner/camera/movingObstaclePose, not old fixed station projection, original physical machinery and steering left intact"
+  },
+  "candidate": {
+    "name": "ONE asymmetrical quarry-founded hydraulic counterweight/rocker next to original moving B51-14",
+    "intent": "Early world-space recognizable powered hazard mechanism without long roadside wall, repeated traffic gates, generic cable trail, changed original physical colliders or road crossing.",
+    "BlenderResearchScript": "scripts/p101-k4ct-r60-authored-rocker.py",
+    "actualEditableBLEND": "k4ct-r60-authored/R60_ONE_AUTHORED_COUNTERWEIGHT_UNAPPROVED.blend",
+    "manifest": "k4ct-r60-authored/R60_AUTHORED_MACHINE_MANIFEST.json",
+    "sourceMaterialMethod": "Existing real Blender BSDF from original R49 materials; genuine BMesh evaluated triangle normals and UV exported for original WebGL2 material bridge.",
+    "sourceDCCGroupOnly": "17_BERTH_UTILITY_CRANES NONPROTECTED",
+    "machineParts": "Real beveled asymmetric rock foundation, two load branches, offset counterweight, exposed hydraulic cylinders, terminal spindle/jaw. Single concept, ten Blender editable objects.",
+    "staticOnly": true,
+    "actualKinematicCouplingToNativeB51Proven": false,
+    "originalGameCamera240HzUnchanged": true,
+    "newColliders": 0,
+    "formalArtAdopted": 0,
+    "slope2DNAMeters": 0
+  },
+  "independentTrueChromiumA_vs_OriginalSameTick": {
+    "method": "Compare R60 old ORIGINAL GAME RAW without new DCC with R60 NEW GENUINE BLENDER ART RAW, exactly same 240Hz native ticks and original scene. max absolute RGB delta >25. ROI game x18..1033/y0..700; centre road x150..610/y300..650.",
+    "screenshotResolution": [
+      1365,
+      930
+    ],
+    "frames": [
+      {
+        "seconds": 65.25,
+        "tick": 15660,
+        "newArtRGBDeltaGt25Pixels": 1760,
+        "bboxNewArtChange": [
+          689,
+          228,
+          774,
+          286
+        ],
+        "roadCentralROIChangedGt25Pixels": 0,
+        "topUIROIGt25Pixels": 0,
+        "oldOriginalSHA256": "e4dbf806801300e3081f332a12282b60b10f291e4f26f594942d130939b0a177",
+        "newActualArtSHA256": "e4dbf806801300e3081f332a12282b60b10f291e4f26f594942d130939b0a177"
+      },
+      {
+        "seconds": 65.6,
+        "tick": 15744,
+        "newArtRGBDeltaGt25Pixels": 3750,
+        "bboxNewArtChange": [
+          695,
+          219,
+          817,
+          322
+        ],
+        "roadCentralROIChangedGt25Pixels": 0,
+        "topUIROIGt25Pixels": 0
+      },
+      {
+        "seconds": 66.35,
+        "tick": 15924,
+        "newArtRGBDeltaGt25Pixels": 12209,
+        "bboxNewArtChange": [
+          616,
+          170,
+          828,
+          364
+        ],
+        "roadCentralROIChangedGt25Pixels": 0,
+        "topUIROIGt25Pixels": 0
+      }
+    ],
+    "correction": "Pixel differences show a genuinely visible new industrial shape outside the central road, but DO NOT prove human recognition, physical mechanical actuation or ART quality; the old/new image SHA values should be read from actual artifact where needed.",
+    "sourceNativeExactSameTickRestored": true
+  },
+  "criticalARTReview": {
+    "positive": [
+      "Early ~1.89s original chase viewpoint now shows an actual new silhouette at x689-774 y228-286 with 1760 changed RGB pixels, far above the tiny original B51 body footprint.",
+      "At 0.75s the new shape occupies x616-828 y170-364 and is more visually salient than the original moving 1.7m-scale B51 alone.",
+      "Original central roadway and top HUD remain pixel unchanged in tested ROIs, and protected source stage/camera/8 DCC groups are exact.",
+      "Editable original true Blender plus source real Chromium/WebGL2 bridge achieved for one candidate, no proxy rendered as success."
+    ],
+    "decisiveVetoes": [
+      "From actual source view it resembles a simplified angular A-shaped quarry crane and separate orange hanging jaw, not an immediately understandable operating B51 machine. Critical source B51-14 is still tiny.",
+      "Static rocker/jaw does not really articulate with original moving B51. It would be misleading to claim source motor drive/actuation has been proven.",
+      "Rock socket/load path merges with generic striped quarry geometry; foundation, pivot, jaw and obstacle do not become a single persuasive industrial assembly.",
+      "The fixed 3-act visual narrative source water→load-bearing machine→clearly falling flow→receiver remains absent. Reused R49 water scene remains ART REJECT.",
+      "The existing centred PRACTICE HUD occludes natural chase road and the image has multiple distracting old geometry groups. World art is not paid-indie quality.",
+      "No human first-play reaction window or real-world native GPU/Windows performance test."
+    ],
+    "verdict": "R60_GENUINE_BLENDER_GL_TECH_PASS_ART_REJECT",
+    "next": "Do not keep this R60 A-shape and repaint it. First choose a stronger form/program tied to true B51 motion and the actual source water/fall. Prove a continuous load path and causality from earlier native camera images before new Blender authoring. Maintain original physics/road/camera and protected8; if impossible under those constraints, HOLD with exact evidence and request separate approval rather than altering source. Avoid repeated 2D proxy sweeps, generic beams and unnecessary CI."
+  },
+  "status": {
+    "SOURCE": "PASS",
+    "TECH": "PASS_TRUE_BLENDER_EVALUATED_AND_240HZ_CHROMIUM_WEBGL2",
+    "ART": "REJECT",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "formalArtAdopted": 0,
+    "slope2DNAmeters": 0,
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "resource": {
+    "GitHubActionsRuns": 2,
+    "oneCIpureStatusStringFailure": true,
+    "oneNativeCIcompleteSuccess": true,
+    "newBlenderExecutions": 1,
+    "newPaidAPIJPY": 0,
+    "githubActionsActualBilling": "UNKNOWN",
+    "userOps": 0,
+    "Work": false,
+    "ComputerUse": false
+  },
+  "safety": {
+    "researchBranchOnly": true,
+    "mainOfficialP101PR46Unchanged": true,
+    "originalGameRoadCameraB48B51CCD240HzUntouched": true,
+    "protected8XYZRGBExact": true,
+    "newColliders": 0,
+    "noFormalArtNoPublishNoMerge": true
+  }
+}
