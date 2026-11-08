@@ -4,7 +4,10 @@
 ## 読取順（現在の唯一の移行入口）
 **[V16 R63後・二段階批判的統合引き継ぎ](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)** → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md) → [R50歴史的統合](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md)。V14/V13/V12.1は必要な古い証拠だけ参照。**R53以下の次工程は履歴。新しい指示はV16第7章のR64。不要な長文引継ぎを今後量産しない。**
 
-## 最新の実証
+## 最新の実証（R63／2026-11-08）
+[R63元240Hz/Chromium WebGL2の水面Y93可視性真GL判定](research-evidence/k4ct/K4CT_R63_TRUE_ORIGINAL_WEBGL2_PROTECTED_19_Y93_VISIBILITY_VETO_20261108.json)：Run #42451933825 SUCCESS、水面144三角形だけの描画影響は65.25秒/65.60秒で0画素、66.35秒で10267画素。R61同じ水源端の早期可視案はNO-GO。TECH PASS、ART/METHOD/HUMAN/HOLD、正式ART0件、Slope2 DNA0m。次の実行は[V16 R64契約](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)。
+
+## 旧R53の実証履歴（現在の次工程ではない）
 [R53視線と構造の批判的結果](research-evidence/k4ct/K4CT_R53_ELEVATED_QUARRY_TO_PROTECTED_FOREBAY_OFFLINE_ART_VETO_20261108.json)。R50→R52は低い受水路の遮蔽/非保護16・24、R53は**高所の採石場25→既存保護水面19**という別の因果構造を元Camera/既存本物32,004三角形で限定投影。高所水源はほぼ線、落水が単純な板、接続・機械が読めず、**近似ART NO-GO／METHOD HOLD**。R53は真正新GLでも真正新Blenderでもない。水面19を「元の水源」から「受け」に読み替える設計変更は未承認、正式方針ではない。
 
 直近真正元WebGL2 R49：[CI #42437685590](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42437685590)、Artifact #13600556658（保存期限2026-11-15、永久ではない）、**TECH PASS / ART REJECT**。正式ART採用0件、Slope2 DNA認定0m、HUMAN/SAT/CCD/Windows FPS/RELEASE/MERGEすべてHOLD。
