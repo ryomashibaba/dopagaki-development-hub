@@ -1,0 +1,278 @@
+{
+  "schema": "dopagaki-k4ct-r51-bounded-receiver-original-camera-source-geometry-offline-v1",
+  "dateJST": "2026-11-08",
+  "scope": "Continuation of fixed V15 and R50, source-original Road5→Road6 B51-13→14; no high-level change. One bounded near-bank receiver-placement hypothesis, not an ART or DCC authoring candidate.",
+  "source": {
+    "researchHeadAtStart": "3e7de58f40e1e85c5b431ddb80b23c1c96c24c02",
+    "r50PriorRecord": "research-evidence/k4ct/K4CT_R50_OPEN_GORGE_SOURCE_CAMERA_FEASIBILITY_METHOD_HOLD_20261108.json",
+    "r38CameraArtifactId": 13575796328,
+    "r38ZipVerifiedSHA256": "5b9c81e6dc15ec9811b9dbf5bdaf9e8101b068b8e8616593f7cae6b99a3e962d",
+    "r49OriginalWebGL2ArtifactId": 13600556658,
+    "r49ZipVerifiedSHA256": "2dcbd9448cf6c1a4c84b8599f08869a12d79ce26f42024e449b645fff20fda3d",
+    "realR44BlenderSceneTriangles": 32004,
+    "originalGameBlobPreviouslyRecorded": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorBlobPreviouslyRecorded": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5SHA256PreviouslyRecorded": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "nativeScreenshotReused": "R49_ORIGINAL_R44_T66_25/35/55.png",
+    "newNativeChromiumRun": false,
+    "newBlenderRun": false,
+    "newCI": false
+  },
+  "method": {
+    "question": "Could the lower catchment be positioned on the CAMERA-FACING side of protected source forebay19 instead of hidden behind the R50 cliff / old R48 R49 shelf?",
+    "camera": "Original camera coordinate matrices for source 240Hz ticks 15900,15924,15972 at 66.25/66.35/66.55 seconds from R38 digest-verified original Chromium artifact.",
+    "projection": "R41 approximate 505x350 half-resolution perspective-correct software z buffer, all 32,004 original R44 real Blender triangles; no culling, fog or native GL state; near-plane crossing omitted.",
+    "sourceAnchorHypothesis": {
+      "road6OutboardD": 100,
+      "longitudinalT": 145,
+      "y": 92.6,
+      "waterSourceConnectionNotProven": true
+    },
+    "receiverHypothesis": "Single flat water visibility probe per site; center d/t as below, receiver y72 (~21m below source), extent 20m cross-shore x24m longitudinal. NOT a physical pond, hydraulic seal, machinery or authored art.",
+    "grid": {
+      "outboardD": [
+        80,
+        118,
+        155,
+        200
+      ],
+      "longitudinalT": [
+        55,
+        110,
+        163
+      ],
+      "sampledSites": 12,
+      "frameSeconds": [
+        66.25,
+        66.35,
+        66.55
+      ]
+    },
+    "protected8": [
+      0,
+      12,
+      13,
+      19,
+      34,
+      35,
+      41,
+      42
+    ],
+    "bounds": "Finite visibility feasibility ONLY; 12 sites not exhaustive and no human legibility pixel threshold claimed. Existing source real RAW were viewed, but hypothetical receiver was not run in original WebGL2.",
+    "originalSourceUnchanged": true
+  },
+  "protected8OnlyVisibleHalfResBySite": [
+    {
+      "d": 80,
+      "t": 55,
+      "p": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "d": 80,
+      "t": 110,
+      "p": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "d": 80,
+      "t": 163,
+      "p": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "d": 118,
+      "t": 55,
+      "p": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "d": 118,
+      "t": 110,
+      "p": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "d": 118,
+      "t": 163,
+      "p": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "d": 155,
+      "t": 55,
+      "p": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "d": 155,
+      "t": 110,
+      "p": [
+        4,
+        7,
+        28
+      ]
+    },
+    {
+      "d": 155,
+      "t": 163,
+      "p": [
+        6,
+        10,
+        15
+      ]
+    },
+    {
+      "d": 200,
+      "t": 55,
+      "p": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "d": 200,
+      "t": 110,
+      "p": [
+        0,
+        0,
+        49
+      ]
+    },
+    {
+      "d": 200,
+      "t": 163,
+      "p": [
+        36,
+        47,
+        87
+      ]
+    }
+  ],
+  "bestLimitedSite": {
+    "d": 200,
+    "t": 163,
+    "y": 72,
+    "originalProtected8OnlyVisibleHalfRes": [
+      36,
+      47,
+      87
+    ],
+    "existingFullR44SceneVisibleHalfRes": [
+      0,
+      0,
+      0
+    ],
+    "fullSceneApproxBlockersAtTimes": [
+      {
+        "16": 3,
+        "24": 33
+      },
+      {
+        "16": 6,
+        "24": 41
+      },
+      {
+        "16": 42,
+        "24": 45
+      }
+    ],
+    "protectedOnlyBoxesApproxOriginalCanvasPx": [
+      [
+        300,
+        348,
+        334,
+        354
+      ],
+      [
+        240,
+        354,
+        284,
+        362
+      ],
+      [
+        126,
+        370,
+        188,
+        380
+      ]
+    ],
+    "sourceAnchorProjectedXYOriginalCanvasPx": [
+      [
+        437.1,
+        330.2
+      ],
+      [
+        394.7,
+        334
+      ],
+      [
+        318.9,
+        343.6
+      ]
+    ],
+    "caveat": "Group16/24 are nonprotected existing R44 geometry, so redesigning them could remove this particular last occlusion; however even the optimistic protected-only projected lower receiver remains only a thin strip, with no proven source connection, open 21m drop or supported working machine."
+  },
+  "criticalEvaluation": {
+    "positive": "Previous R50 low catchment at d120-185 y52 had zero visibility against protected8. This limited alternative found a narrow outboard location with nonzero protected-only visibility, so the broad 'protected geometry makes any lower pool impossible' claim is NOT justified.",
+    "negative": "Neither source→true drop→receiving water nor a supported machine is readable in native game images. The sole strongest projected catchment is tiny under protected-only depth and disappears entirely behind existing complete DCC geometry; natural gameplay/B51 awareness is untested for the hypothetical overlay.",
+    "decision": "R51_BOUNDED_CAMERA_RECEIVER_SIGHTLINE_NO_GO__METHOD_HOLD",
+    "scopeOfNoGo": "This family of 12 positions at Y72 only. Not a proof of impossibility for all source-connected architectures, and not evidence of a true GL scene.",
+    "stop": "Do not author another R48/R49-style siphon or color shelf, do not run Blender or CI merely to increase projected RGB, and do not modify protected water19/tower12/original game/camera/road.",
+    "next": "Only proceed to one distinct authored candidate once an actual camera-safe source-to-fall-to-catchment sightline with grounded mechanical supports is justified; prefer a different cross section and existing nonprotected obstruction analysis rather than more narrow-tint masks. Original B51 failure→retry→avoid remains next essential game-play gate after credible ART."
+  },
+  "status": {
+    "TECH": "OFFLINE_CAMERA_AND_REAL_BLENDER_DEPTH_PREFLIGHT_ONLY",
+    "NEW_NATIVE_GL": "NOT_RUN",
+    "NEW_BLENDER": "NOT_RUN",
+    "ART": "HOLD_NO_NEW_ART",
+    "METHOD": "HOLD",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "researchEvidenceWriteOnly": true,
+    "mainGameCameraPhysicsP101PR46GoldProductionUntouched": true,
+    "protected8NotEdited": true,
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0,
+    "work": false,
+    "computerUse": false,
+    "newGithubActionsRuns": 0,
+    "newAddedPaidAPIJPY": 0,
+    "actionsBilling": "UNKNOWN",
+    "userActions": 0,
+    "release": false,
+    "formalAdoption": false,
+    "merge": false
+  }
+}
