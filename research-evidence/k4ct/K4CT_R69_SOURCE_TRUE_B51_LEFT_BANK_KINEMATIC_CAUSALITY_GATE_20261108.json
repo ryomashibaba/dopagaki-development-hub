@@ -1,0 +1,237 @@
+{
+  "schema": "dopagaki-k4ct-r69-source-grounded-bank-and-kinematic-causality-before-blender/1",
+  "dateJST": "2026-11-08",
+  "repo": "ryomashibaba/dopagaki-development-hub",
+  "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+  "baseHead": "fede91921ebceb9508739d69643e911f27e5c65f",
+  "objective": "Correct the root geometric error in R68 before any more expensive Blender/CI: determine original B51-14 physical bank, its native 240Hz moving/rotating pose, conservative observed OBB envelope and three true-camera projections.",
+  "provenance": {
+    "actualPhysicalSite": {
+      "runId": 42053864244,
+      "artifactId": 13426704665,
+      "file": "K4CT_DCC_AUTHENTIC_SITE.json",
+      "sourceGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+      "road5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b"
+    },
+    "actualSource240HzPoseAndCamera": {
+      "runId": 42448441488,
+      "artifactId": 13604582522,
+      "file": "K4CT_R60_ORIGINAL_NATIVE_WARNING_RESULT.json",
+      "nativeGL": "REAL_WEBGL2_SOURCE_240HZ"
+    },
+    "previousR68BlenderAuthor": "scripts/p101-k4ct-r68-authored-shore-bay.py",
+    "localIndependentBankMathSourceSHA256": "ba85bbd29fa5db1f555768d2d9e338fba7a1f500b010adef54aacb1353980508",
+    "sourceOnlyReadAndVerifiedWithoutNewBlenderOrCI": true
+  },
+  "sourceRoad6AtU018": {
+    "sourceStationM": 3829.276296819087,
+    "sourceRoadId": "p93-FINISH_RIDGE-01",
+    "leftXYZ": [
+      1181.89376404,
+      120.532681,
+      -486.27275905
+    ],
+    "centreXYZ": [
+      1178.7223464542742,
+      120.5326810034845,
+      -493.61728855064536
+    ],
+    "rightXYZ": [
+      1175.55092887,
+      120.532681,
+      -500.96181805
+    ],
+    "widthM": 16.000000384271868,
+    "horizontalRightUnitXYZ": [
+      -0.3964271885636732,
+      0,
+      -0.9180661654627634
+    ],
+    "signedLateralConvention": "Physical RIGHT positive / LEFT negative; native source road centre at 0, road edges at +/- 8m."
+  },
+  "trueOriginalObstacle": {
+    "id": "a13-machine-14",
+    "type": "rotator",
+    "collisionMode": "bounce",
+    "original28B51Unmodified": true,
+    "sourceHalfSizeXYZ": [
+      1.7,
+      1.7,
+      1.4
+    ],
+    "yawRadPerSecondFromTwoIndependentIntervals": [
+      -1.4510820570840703,
+      -1.4510820570840224
+    ],
+    "yawRateDegreesPerSecond": -83.14087759807883,
+    "horizontalOBBRadiusConservativeM": 2.202271554554524,
+    "boundedThreeSnapshotLateralEnvelopeM": [
+      -11.049886311178383,
+      -4.648803963713156
+    ],
+    "continuousSweepOutsideThreeSamples": "UNVERIFIED",
+    "mechanicalDriveFromOriginalB51ToAnyExistingNewScenery": "NOT_PROVEN"
+  },
+  "frames": [
+    {
+      "sourceSeconds": 65.25,
+      "sourceTick": 15660,
+      "actualOriginalB51CentreXYZ": [
+        1181.9749149653521,
+        122.43275866083378,
+        -485.3845397025744
+      ],
+      "signedLateralFromRoad6CentreM": -8.847614756623859,
+      "negativeIsPhysicalLeft": true,
+      "originalYawUnwrappedRadians": -95.57445233849135,
+      "previousR68AnchorD18LateralGapM": 26.84761475662386,
+      "cpuProjectionOnly": {
+        "originalB51Center": {
+          "x": 685.3183291806307,
+          "y": 287.8588866882743,
+          "depthM": 322.08194287498054
+        },
+        "hypotheticalPhysicalLeftFoundationDMinus18YPlus15": {
+          "x": 700.6346268598134,
+          "y": 268.4719134630281,
+          "depthM": 315.4143798124511
+        },
+        "historicR68RightFoundationDPlus18YPlus15": {
+          "x": 647.4783970515988,
+          "y": 268.318853328574,
+          "depthM": 333.6088270432033
+        }
+      }
+    },
+    {
+      "sourceSeconds": 65.6,
+      "sourceTick": 15744,
+      "actualOriginalB51CentreXYZ": [
+        1181.1208117696701,
+        122.43275866083378,
+        -485.39292364723224
+      ],
+      "signedLateralFromRoad6CentreM": -8.50132801209293,
+      "negativeIsPhysicalLeft": true,
+      "originalYawUnwrappedRadians": -96.08233105847077,
+      "previousR68AnchorD18LateralGapM": 26.50132801209293,
+      "cpuProjectionOnly": {
+        "originalB51Center": {
+          "x": 689.696676224448,
+          "y": 292.0983847258492,
+          "depthM": 264.17624985699297
+        },
+        "hypotheticalPhysicalLeftFoundationDMinus18YPlus15": {
+          "x": 709.5327313625295,
+          "y": 268.4519287568269,
+          "depthM": 258.40759916754666
+        },
+        "historicR68RightFoundationDPlus18YPlus15": {
+          "x": 644.0245552822303,
+          "y": 268.28260322788793,
+          "depthM": 275.1260913935844
+        }
+      }
+    },
+    {
+      "sourceSeconds": 66.35,
+      "sourceTick": 15924,
+      "actualOriginalB51CentreXYZ": [
+        1179.904519157193,
+        122.43275866083378,
+        -486.6652513692776
+      ],
+      "signedLateralFromRoad6CentreM": -6.85107551826768,
+      "negativeIsPhysicalLeft": true,
+      "originalYawUnwrappedRadians": -97.17064260128379,
+      "previousR68AnchorD18LateralGapM": 24.85107551826768,
+      "cpuProjectionOnly": {
+        "originalB51Center": {
+          "x": 604.1416365467788,
+          "y": 303.3587044472372,
+          "depthM": 147.16286791231306
+        },
+        "hypotheticalPhysicalLeftFoundationDMinus18YPlus15": {
+          "x": 642.0829809044027,
+          "y": 260.72149517553254,
+          "depthM": 144.79478735623474
+        },
+        "historicR68RightFoundationDPlus18YPlus15": {
+          "x": 526.4297876485518,
+          "y": 260.90376895389613,
+          "depthM": 150.33743954754263
+        }
+      }
+    }
+  ],
+  "correctedRootCause": {
+    "previousR68PhysicalBank": "RIGHT",
+    "actualOriginalB51BankAtAllThreeSamples": "LEFT",
+    "R68AuthorDesignInnermostMemberAnchorDPositive18M": true,
+    "discrepancy": "R68 outboard architecture used source physical RIGHT bank, while true B51-14 rotated/slid adjacent to source physical LEFT bank. The road width 16m lies between them.",
+    "originalDesignRightDPlus18ToB51CentreAcrossThreeFramesM": [
+      26.84761475662386,
+      26.50132801209293,
+      24.85107551826768
+    ],
+    "numericCaveat": "D+18 is the previous author's nominal near-side member anchor. This is NOT a measured minimum over every beveled Blender vertex or an actual 3D world-distance minimum.",
+    "conclusion": "REJECT_STATIC_OPPOSITE_BANK_AS_NO_TRUE_INTEGRATED_MACHINE_LINK"
+  },
+  "unbuiltHypotheticalCorrectedFoundation": {
+    "physicalBank": "LEFT",
+    "roadCentreLateralDMinus18M": -18,
+    "metresOutboardBeyondPhysicalLeftRoadEdge": 10,
+    "lowerBoundHorizontalClearanceFromSourceB51ConservativeOBBAtThreeSnapshotsM": 6.950113688821617,
+    "sourceOriginalCameraPointProjectsIntoViewportAtThreeSamples": true,
+    "computerProjectionOnly": true,
+    "structureAuthoredInBlender": false,
+    "actualWorldOcclusionMeasuredInGL": false,
+    "actualMechanicalJointOrKinematicLink": false,
+    "hazardVisualFairnessValidated": false,
+    "note": "One projected point is not a 3D machine. A 6.95m lateral gap from observed B51 OBB swept envelope to hypothetical left support still needs an honestly functional and nonmisleading visual linkage."
+  },
+  "decision": {
+    "SOURCE": "PASS",
+    "MATH": "PASS_THREE_ACTUAL_POSES_AND_NATIVE_CAMERA",
+    "R68_ANTIPATTERN": "CONFIRMED_OPPOSITE_BANK",
+    "NEW_ART_GO": "HOLD",
+    "ART": "REJECT_FOR_R68_NO_NEW_ART",
+    "METHOD": "HOLD_UNTIL_TRUE_B51_SYNCHRONIZED_CONNECTION_WITHOUT_FALSE_COLLISION_OR_ROAD_OCCLUSION",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "formalArtAccepted": 0,
+    "slope2DNAMetres": 0
+  },
+  "repeatPrevention": {
+    "beforeNewBlender": [
+      "Use original physical site with signed LEFT/RIGHT basis from exact B48 Road6 left/centre/right, not camera screen-left/right.",
+      "Read at least three same-source native B51 centres and full OBB/yaw; reject opposite-bank foundations before authoring.",
+      "Verify a true moving, mechanically consistent connection to original B51. Pure static near-object or CGI beam cannot be called a functional drivetrain.",
+      "Require non-colliding extra geometry not to look like a new hazard or fake safe passage; don't hide original road/ball/B51.",
+      "Project intended machine from original unchanged chase camera at 1.9/1.5/0.75s BEFORE requesting Blender/GL; projection is only a prefilter.",
+      "If no safe structural causal design meets gates, keep ART/METHOD HOLD instead of trying another wedge/crane/arch/colored warning."
+    ],
+    "userOperations": 0,
+    "newBlenderRuns": 0,
+    "newCIInvocations": 0,
+    "addedPaidAPIJPY": 0,
+    "GitHubActionsBilling": "UNKNOWN"
+  },
+  "protected": {
+    "mainHEAD": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "PR46": "OPEN_DRAFT_UNMERGED",
+    "originalGameSource": "UNMODIFIED",
+    "originalBlenderAuthor": "UNMODIFIED",
+    "originalCameraAnd240Hz": "UNMODIFIED",
+    "originalB48": 7,
+    "originalB51": 28,
+    "protectedEightGroups": "UNMODIFIED",
+    "officialFormalQA": "UNMODIFIED",
+    "publishedPages": "UNMODIFIED",
+    "ARTAccepted": 0
+  }
+}

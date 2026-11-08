@@ -4,6 +4,9 @@
 ## 読取順（現在の唯一の移行入口）
 **[V16 R63後・二段階批判的統合引き継ぎ](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)** → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md) → [R50歴史的統合](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md)。V14/V13/V12.1は必要な古い証拠だけ参照。**R53以下の次工程は履歴。新しい指示はV16第7章のR64。不要な長文引継ぎを今後量産しない。**
 
+## R69結果（2026-11-08）
+[R69 元Road6/B51-14の真正位置・回転・左右岸を原ソース座標で再計算した制作前ゲート](research-evidence/k4ct/K4CT_R69_SOURCE_TRUE_B51_LEFT_BANK_KINEMATIC_CAUSALITY_GATE_20261108.json)。R4物理サイト＋R60真正240Hzカメラ/実B51 poseを再使用。Road6幅16m、実B51-14中心は65.25/65.60/66.35秒で物理**左**8.848/8.501/6.851m、回転速度は両区間で約−1.45108rad/s（−83.14°/s）。R68は物理**右**外側d≈+18mへ静止BLENDを作っており、実機械と道路を挟む反対岸だったことが根本原因と判明。設計代表支点との横隔たりは26.85/26.50/24.85m（**実メッシュ全頂点の最短3D距離ではない**）。仮想の左岸支点d=−18mは3カメラで投影可能、3時点の保守的OBB横包絡から約6.95m離れるが、連続全時刻・遮蔽・動力接続は未検証。**位置的可能性のみ、ART GOではない**。R69はREAD ONLYでBlender0・CI0・ユーザー操作0、ソース保護。次のDCCは同じ岸、実B51の移動／回転との正しい同期機構、偽衝突なし、元カメラ早期視認の全ゲートで機構GOが成立した場合に限る。成立しなければART/METHOD HOLD維持。V16/V15・正式ART0・Slope2 DNA0m不変。
+
 ## R68結果（2026-11-08）
 [R68単一真正Blender非衝突岸壁機械室→元240Hz/Chromium WebGL2・批判的ART審査](research-evidence/k4ct/K4CT_R68_TRUE_BLENDER_SHORE_BAY_ORIGINAL_GL_ART_REJECT_20261108.json)。Road6 u=.18の元B51-14に基づき、外側18m以上の非衝突静的設備10メッシュ/856三角形をR49隔離BLENDに追加。総32,860三角形・保護8群全XYZRGB一致・元B48×7/B51×28/Camera/240Hz/Collider0、原本BLEND SHA不変。[Run #42456783674](https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42456783674) SUCCESS、Artifact #13607703565（2026-11-15 UTC期限）、真正元GL65.25/65.60/66.35秒3RAW。**TECH PASSだが EARLY ART REJECT／METHOD HOLD**。実画像は遠方で細い黒い板状フィン、後半で巨大な三角面になり、実B51の移動・荷重と機械室が関連して読めない。実動力結合なし（静的景観）を明記。正式ART採用0、Slope2 DNA0m。類似する岸壁板・A字/ゲート・輪・色替え再試行を停止。次は元B51の実軌道と物理的に筋の通った、別形態であることをGL前に立証できる場合のみDCC再開。V16/V15/本番/main/PR46不変、ユーザー操作0、追加有料API0円、Actions実請求不明。
 
