@@ -1,4 +1,4 @@
-name: K4CT R70 one true fixed B51 rotor pivot left-bank Blender cantilever native GL
+name: K4CT R72 local one-click true B51 human trial kit (ART/HUMAN HOLD)
 on:
   push:
     branches:
@@ -10,93 +10,55 @@ permissions:
   contents: read
   actions: read
 jobs:
-  genuine-blender-and-original-camera:
+  genuine-original-local-trial-package:
     runs-on: ubuntu-24.04
-    timeout-minutes: 38
+    timeout-minutes: 21
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Protected original and syntax preflight
+      - name: Verify protected originals and one-click local-source syntax
         run: |
           set -euo pipefail
           test "$(git hash-object web/p101-w9c2-g4e7ci-integrated-streetscape.mjs)" = af076d67492a677d2235e4730aef8cdf4808e106
           test "$(git hash-object scripts/p101-k4ct-native-spillway-dcc.py)" = 096fffbc1627915eb0122224955bb02cfba6b3ae
-          node --check scripts/k4ct-r70-pivot-native-art.mjs
-          python3 - <<'PY'
-          import ast,pathlib
-          ast.parse(pathlib.Path('scripts/p101-k4ct-r70-authored-true-pivot-bearing.py').read_text())
-          print('R70_AUTHORED_SCRIPT_SYNTAX_PASS')
-          PY
-      - name: Reuse the R49 actual editable Blender and original data
+          node --check scripts/k4ct-r72-one-click-human-trial.mjs
+          node --check scripts/k4ct-r72-build-local-human-trial-bundle.mjs
+          node --check scripts/k4ct-r72-check-local-human-trial-bundle.mjs
+      - name: Reuse unchanged actual R49 editable Blender and true original export
         uses: actions/download-artifact@v4
         with:
           name: K4CT_R49_ORIGINAL_WEBGL2_VOLUMETRIC_SIPHON_ART_HOLD
           run-id: 42437685590
           github-token: ${{ github.token }}
           path: test-results
-      - name: Reuse the genuine 65.25/65.60/66.35 original source camera and B51 poses
-        uses: actions/download-artifact@v4
-        with:
-          name: K4CT_R60_REAL_ORIGINAL_240HZ_EARLY_CAMERA_B51_POSES_ART_HOLD
-          run-id: 42448441488
-          github-token: ${{ github.token }}
-          path: test-results/k4ct-r60-early
-      - name: R70 assert actual original native B51 fixed pivot in float64 before Blender apt
-        run: |
-          python3 - <<'PY'
-          import math,json,pathlib
-          a=json.loads(pathlib.Path('test-results/k4ct-r60-early/K4CT_R60_ORIGINAL_NATIVE_WARNING_RESULT.json').read_text())
-          assert [x['tick'] for x in a['frames']]==[15660,15744,15924]
-          observed=[]
-          for frame in a['frames']:
-            q=next(x for x in frame['realNativeB51Poses'] if x['id']=='a13-machine-14')
-            c=q['centre'];half=q['halfSize'][0];ang=q['yawRadians']
-            observed.append((c[0]-math.cos(ang)*half,c[1],c[2]+math.sin(ang)*half))
-          P=(1181.5640147661836,122.43275866083378,-487.0341339030744)
-          assert all(math.dist(x,P)<1e-9 for x in observed),observed
-          print('R70_NATIVE_FLOAT64_PIVOT_PRE_BLENDER_PASS')
-          PY
-      - name: One Blender installation and original source GL dependencies
-        timeout-minutes: 15
-        run: |
-          sudo apt-get -o Acquire::Retries=1 update -qq
-          sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 780s apt-get -o Acquire::Retries=1 install -y --no-install-recommends blender libegl1 libgl1-mesa-dri libopengl0 libgbm1
-          blender --version | head -2
-      - name: Author only ONE genuine 3D research machine on top of actual R49 BLEND
-        timeout-minutes: 10
-        run: |
-          blender -b --factory-startup --python-exit-code 3 --python scripts/p101-k4ct-r70-authored-true-pivot-bearing.py
-      - name: Independent R60 Blender and protected8 exact XYZRGB check
+      - name: Verify exact R49 source and protected eight groups without Blender
         run: |
           python3 - <<'PY'
           import json,pathlib,subprocess
-          p=pathlib.Path('test-results')
-          d=json.loads((p/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
-          r=json.loads((p/'k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json').read_text())
-          m=json.loads((p/'k4ct-r70-authored/R70_TRUE_PIVOT_BEARING_MANIFEST.json').read_text())
-          a=json.loads((p/'k4ct-r39-art/R39_BASELINE_EIGHT_PROTECTED.json').read_text())
-          assert m['trueEditableBlenderMeshes']==10 and m['newEvaluatedTriangles']>130
-          assert d['triangles']==r['totalDccTriangles']==m['wholeSceneTriangles']>32004
-          assert r['roadLegacyTriangles']+r['triangles']==d['triangles']
-          assert d['originalB48']==r['originalB48']==7 and d['originalB51']==r['originalB51']==28
-          assert d['newColliders']==r['newColliders']==0
-          ps={'00','12','13','19','34','35','41','42'}
+          root=pathlib.Path('test-results')
+          d=json.loads((root/'k4ct-contact-retry/K4CT_DCC_BLENDER_TO_NATIVE_GEOMETRY.json').read_text())
+          m=json.loads((root/'k4ct-contact-retry/K4CT_R9_BLENDER_TRUE_MATERIAL_BRIDGE.json').read_text())
+          p=json.loads((root/'k4ct-r39-art/R39_BASELINE_EIGHT_PROTECTED.json').read_text())
+          assert d['triangles']==m['totalDccTriangles']==32004
+          assert d['originalB48']==m['originalB48']==7
+          assert d['originalB51']==m['originalB51']==28
+          assert d['newColliders']==m['newColliders']==0
+          assert d['sourcePhysicalRoad5SHA256']=='4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b'
+          protected={'00','12','13','19','34','35','41','42'}
           def take(x):
-            i=0;z={}
+            i=0;out={}
             for name,n in x['objects'].items():
-              if name[:2] in ps:z[name]=x['vertices'][i:i+18*n]
-              i+=18*n
+              if name[:2] in protected:out[name]=x['vertices'][i:i+n*18]
+              i+=n*18
             assert i==len(x['vertices'])
-            return z
-          assert take(a)==take(d)
-          assert (p/'k4ct-r70-authored/R70_TRUE_NATIVE_PIVOT_CANTILEVER_ART_HOLD.blend').stat().st_size>100000
-          for f,h in [('web/p101-w9c2-g4e7ci-integrated-streetscape.mjs','af076d67492a677d2235e4730aef8cdf4808e106'),('scripts/p101-k4ct-native-spillway-dcc.py','096fffbc1627915eb0122224955bb02cfba6b3ae')]:
-            assert subprocess.check_output(['git','hash-object',f],text=True).strip()==h
-          print('R70_TRUE_EDITABLE_BLENDER_8_PROTECTED_EXACT_PASS')
+            return out
+          assert take(d)==take(p),'original 8 protected XYZRGB must match'
+          assert (root/'k4ct-contact-retry/K4CT_EDITABLE_SOURCE_ALIGNED_TIDAL_SPILLWAY_ART_REJECT.blend').stat().st_size>100000
+          print('R72_GENUINE_R49_PROTECTED8_AND_ORIGINAL_ROAD_B51_PASS')
           PY
-      - name: Build true original private 240Hz game and install the new authored 3D
+      - name: Build only isolated K4CT real native playable game (R49 BLEND no new DCC)
         run: |
           set -euo pipefail
           npm install --no-save --no-package-lock --no-audit --no-fund
@@ -110,21 +72,22 @@ jobs:
           node scripts/k4ct-r57-install-private-live-hud.mjs
           node scripts/k4ct-r60-private-source-frustum-patch.mjs
           node --check dist-private/k4ct/drive3d.mjs
-      - name: Install headless Chromium without any further Blender
+          node scripts/k4ct-r72-build-local-human-trial-bundle.mjs
+      - name: Install isolated headless Chromium only for original 240Hz smoke
         timeout-minutes: 6
         run: |
           npx playwright install --only-shell --with-deps chromium
-      - name: True original source 240Hz WebGL2 at 65.25, 65.60, 66.35
-        timeout-minutes: 10
+      - name: Browser validates original GL manual handover and local result export
+        timeout-minutes: 9
         run: |
-          node scripts/k4ct-r70-pivot-native-art.mjs
-      - name: Preserve editable Blender mesh and source actual GL RAW
+          node scripts/k4ct-r72-check-local-human-trial-bundle.mjs test-results/k4ct-r72-human-trial-bundle
+      - name: Preserve research-only local trial files and honest smoke result
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: K4CT_R70_TRUE_PIVOT_BEARING_BLENDER_NATIVE_GL_ART_HOLD
+          name: K4CT_R72_LOCAL_HUMAN_TRIAL_BUNDLE_RESEARCH_NOT_RELEASED
           path: |
-            test-results/k4ct-r70-authored/
-            test-results/k4ct-r70-pivot-native-art/
+            test-results/k4ct-r72-human-trial-bundle/
+            test-results/k4ct-r72-bundle-native-smoke/
           if-no-files-found: warn
           retention-days: 7
