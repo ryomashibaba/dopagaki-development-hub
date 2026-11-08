@@ -34,8 +34,8 @@ test('zero, one and malformed input remain display-safe',()=>{
 test('predicted future SIDE is a position, never left/right movement velocity',()=>{
  const cue=format({rows:[{id:'a13-machine-14',metres:100,etaSeconds:.4,predictedObstacleSide:'CENTER'}]});
  assert.match(cue,/PREDICTED AT CENTER/);
- assert.doesNotMatch(cue,/\\bMOVING\\b/);
- assert.doesNotMatch(format(rows()),/\\bMOVING\\b/);
+ assert.doesNotMatch(cue,/\bMOVING\b/);
+ assert.doesNotMatch(format(rows()),/\bMOVING\b/);
 });
 test('only first two actual hazards appear',()=>{
  const d=rows(),old=format(d);
