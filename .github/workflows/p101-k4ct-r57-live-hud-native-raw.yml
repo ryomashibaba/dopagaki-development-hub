@@ -81,7 +81,7 @@ jobs:
         timeout-minutes: 10
         run: |
           node scripts/k4ct-r57-live-hud-native-gl.mjs
-      - name: Upload 3 original screenshots and result (ART and HUMAN HOLD)
+      - name: Preserve six actual source A/B RAW and result (ART and HUMAN HOLD)
         if: always()
         uses: actions/upload-artifact@v4
         with:
