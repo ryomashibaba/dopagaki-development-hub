@@ -1,0 +1,194 @@
+{
+  "schema": "dopagaki-k4ct-r61-original-protected-water-to-moving-b51-feasibility-preflight-v1",
+  "dateJST": "2026-11-08",
+  "source": {
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "protectedOriginalGameGitBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorGitBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "R49RealBlenderDccSourceArtifactRun": 42437685590,
+    "R49DccJSON_SHA256": "f58c264e137b50b59c38a9ee531ab6775e1c566388abb41f2b6d2b1427ac7530",
+    "R60OriginalSourceCameraAndB51ArtifactRun": 42448441488,
+    "R60OriginalNativeResultJSON_SHA256": "f80c23bf5d5ec25637e7ad80043662f319531e17e7d9ea6551bd59dcd746200c",
+    "originalRoad5PhysicalSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "protected8": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ]
+  },
+  "realObservation": {
+    "nextObstacle": "a13-machine-14",
+    "originalSourceTimeSeconds": [
+      65.25,
+      65.6,
+      66.35
+    ],
+    "originalCameraTicks": [
+      15660,
+      15744,
+      15924
+    ],
+    "movingB51CentreAt65_25": [
+      1181.9749149653521,
+      122.43275866083378,
+      -485.3845397025744
+    ],
+    "nearestOriginalWaterSurfaceY93XYZ": [
+      1158.0211254523017,
+      93,
+      -539.1404219988002
+    ],
+    "nearestActualWaterSurfaceDistanceM": 65.801,
+    "nearestProtectedBankCrestY93point8XYZ": [
+      1161.9856799975632,
+      93.8,
+      -529.9598824036758
+    ],
+    "nearestBankDistanceM": 56.625,
+    "originalB51AboveWaterSurfaceM": 29.433,
+    "sourceObservedYawRateRadPerSec": -1.4510820570840468,
+    "sourceNativeB51AngleDeltaRadAtTimes": [
+      0,
+      -0.507879,
+      -1.59619
+    ]
+  },
+  "boundedResearchDesign": {
+    "sourceWaterActualEndXYZ": [
+      1105.4104192514728,
+      93,
+      -516.421496256048
+    ],
+    "actualEndLocalCoords": {
+      "d": 40.412,
+      "t": -39.533,
+      "y": 93
+    },
+    "candidateNoncollidingOutflowXYZ": [
+      1101.7284370492653,
+      92.4,
+      -514.8584848902312
+    ],
+    "candidateLowTurbineXYZ": [
+      1075.9545588492654,
+      77,
+      -503.9174064902312
+    ],
+    "candidateMotorPivotXYZ": [
+      1190.4597666,
+      140,
+      -468.42671695
+    ],
+    "approximateSourceEndToTurbineHeadDropM": 15.4,
+    "originalRoadVisualSkinPolylineIntersections": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "sourceScreenCameraTargets": [
+      {
+        "t": 65.25,
+        "water": [
+          569.54,
+          335.3
+        ],
+        "turbine": [
+          545.74,
+          368.19
+        ],
+        "motor": [
+          716.74,
+          262.2
+        ],
+        "B51": [
+          685.16,
+          288.48
+        ]
+      },
+      {
+        "t": 65.6,
+        "water": [
+          550.94,
+          351.74
+        ],
+        "turbine": [
+          521.39,
+          395.89
+        ],
+        "motor": [
+          729.52,
+          260.65
+        ],
+        "B51": [
+          689.55,
+          292.73
+        ]
+      },
+      {
+        "t": 66.35,
+        "water": [
+          345.07,
+          451.74
+        ],
+        "turbine": [
+          247.89,
+          618.07
+        ],
+        "motor": [
+          675.28,
+          246.29
+        ],
+        "B51": [
+          603.81,
+          304.01
+        ]
+      }
+    ],
+    "scope": "projection of hypothetical sites using actual unchanged native camera. No new Blender/Chromium candidate; source road group00 TRIANGLE SKIN line intersections only, not formal B48 collision QA, no guarantee of pipes fitting or of art visibility."
+  },
+  "independentLocalValidation": {
+    "unittestCount": 7,
+    "unittestPassed": 7,
+    "sourceInputsUnchangedSHA256": true,
+    "scriptGeneratedReportSHA256": "9857c58d6d36f6b8ae68145ed688536cbc1ea812bb571dd52284b47cda99cd34"
+  },
+  "verdict": {
+    "SOURCE": "PASS_R49_REAL_GEOMETRY_R60_TRUE_ORIGINAL_B51_CAMERAS",
+    "TECH": "BOUNDED_READ_ONLY_SITE_AND_KINEMATIC_GATE_PASS",
+    "ART": "HOLD_UNPROVEN_CAUSAL_VISIBILITY",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "formalARTAdopted": 0,
+    "slope2DNA_M": 0,
+    "failureRisk": "The protected water group19 bank crest at y93.8 is not the y93 water surface; an unapproved channel through the protected bank would be false. Source-end exit at t=-39.5 is a hypothesis, not visible water flow. A buried cable below original roadway cannot by itself explain causal power flow to a human player.",
+    "next": "Only ONE further real editable Blender/true-original-240Hz-GL integrated causal design if source-end, low turbine, below-road utility route and B51-following visual motor can be read without opaque walls/fake safe portal. Verify true geometry thickness, original B48 margin and moving jaw; if not, METHOD HOLD."
+  },
+  "safety": {
+    "researchBranchOnly": true,
+    "mainAndPR46Unchanged": true,
+    "sourceGameCamera240HzUnchanged": true,
+    "protected8Untouched": true,
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "newBlenderRuns": 0,
+    "newCI": 0,
+    "additionalPaidAPIJPY": 0,
+    "githubActionsBilling": "NO_NEW_RUN",
+    "userOperations": 0
+  }
+}
