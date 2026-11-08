@@ -1,0 +1,202 @@
+{
+  "schema": "dopagaki-k4ct-r53-single-quarry-fed-gravity-section-offline-critical-art-veto-v1",
+  "dateJST": "2026-11-08",
+  "scope": "Research-only extension of fixed V15 and Road5→Road6 true B51-13→14; no new concept adopted or official source/receiver semantic change.",
+  "provenance": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "startingHead": "40f327111d439e3ee253b6c688ca3a8cafaf5c1a",
+    "r38OriginalCameraArtifact": 13575796328,
+    "r38ZipSHA256Confirmed": "5b9c81e6dc15ec9811b9dbf5bdaf9e8101b068b8e8616593f7cae6b99a3e962d",
+    "r49OriginalWebGL2Artifact": 13600556658,
+    "r49ZipSHA256Confirmed": "2dcbd9448cf6c1a4c84b8599f08869a12d79ce26f42024e449b645fff20fda3d",
+    "genuineBlenderR44OriginalSourceTriangles": 32004,
+    "originalGameBlobPrior": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalR12ABlenderBlobPrior": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5SHA256Prior": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalSourceFrameTimesSec": [
+      66.25,
+      66.35,
+      66.55
+    ],
+    "source240HzTicks": [
+      15900,
+      15924,
+      15972
+    ]
+  },
+  "physicalContext": {
+    "originalProtected19ForebayRoad6LocalDRangeApprox": [
+      -257,
+      113
+    ],
+    "tRangeApprox": [
+      101,
+      146
+    ],
+    "yRangeApprox": [
+      93,
+      105.8
+    ],
+    "nonprotected25QuarryAtNearD84_T175_YApprox": [
+      127.5,
+      129.5
+    ],
+    "nonprotected25QuarryNearD123_T176_YApprox": 157.5,
+    "originalR44Nonprotected24ChuteDRangeApprox": [
+      154,
+      190
+    ],
+    "significance": "Prior R50-R52 were blocked by putting a LOWER receiver behind/under protected forebay19. R53 tested the structurally different causal orientation of an elevated quarry-fed waterfall pouring into EXISTING protected19 instead; this also changes source/receiver interpretation and is not approved as canon."
+  },
+  "method": {
+    "kind": "ONE_BOUNDED_OFFLINE_ORIGINAL_CAMERA_SOURCE_GEOMETRY_PERSPECTIVE_DEPTH_PREFLIGHT",
+    "reference": "R41 approximate 505x350 software z-buffer on genuine R44 Blender triangle geometry and the 3 true original R38 camera matrices.",
+    "inMemoryOnly": [
+      "temporary quad elevated source",
+      "one vertical gravity face",
+      "short lower connection",
+      "temporary support silhouette"
+    ],
+    "protected8": [
+      0,
+      12,
+      13,
+      19,
+      34,
+      35,
+      41,
+      42
+    ],
+    "originalSourceRawScreens": "Previous genuine R49 OFF original screenshots reused for illustrative overlays only",
+    "caveats": "R53 proposal was NOT rendered in Chromium WebGL2, NOT authored as Blender, NOT water dynamics. Depth approximation ignores alpha, fog, culling and near-plane clipping; simple colored quads are NOT real ART.",
+    "sourceWaterSupplyProven": false,
+    "source19RoleReinterpretationApproved": false,
+    "protected8EditorWrites": 0,
+    "originalSourceEdits": 0,
+    "CI": 0
+  },
+  "testedSections": [
+    {
+      "name": "A upper quarry high source and drop",
+      "nominalTopWaterY": 148,
+      "dropToY": 94,
+      "sourceRoad6DRange": [
+        100,
+        125
+      ],
+      "sourceTRange": [
+        172,
+        189
+      ],
+      "fallAtT": 168,
+      "originalHalfResVisibleInFrontOfFullOriginalR44": {
+        "elevatedUpperSource": [
+          0,
+          0,
+          3
+        ],
+        "gravityDrop": [
+          595,
+          694,
+          989
+        ],
+        "shortLowerTransfer": [
+          22,
+          32,
+          46
+        ],
+        "temporarySupport": [
+          229,
+          269,
+          400
+        ]
+      },
+      "criticalRead": "Elevated reservoir surface does not read at original chase camera (camera below upper water and hidden by test silhouette); orange vertical slab is visible but the reason for the facility and relation to existing water are not legible."
+    },
+    {
+      "name": "B lower and camera-viewable quarry-fed source",
+      "nominalTopWaterY": 125,
+      "dropToY": 94,
+      "sourceRoad6DRange": [
+        82,
+        111
+      ],
+      "sourceTRange": [
+        151,
+        178
+      ],
+      "fallAtT": 150,
+      "originalHalfResVisibleInFrontOfFullOriginalR44": {
+        "elevatedUpperSource": [
+          21,
+          23,
+          27
+        ],
+        "gravityDrop": [
+          391,
+          452,
+          661
+        ],
+        "shortLowerTransfer": [
+          11,
+          18,
+          11
+        ],
+        "temporarySupport": [
+          178,
+          217,
+          316
+        ]
+      },
+      "criticalRead": "Dropping upper source below camera makes a 21-27 half-resolution pixel top surface numerically visible, but the screenshot shows a narrow top line, large rectangular vertical panel and isolated support. It does not communicate a recognizable upstream waterbody or water falling into existing protected forebay19."
+    }
+  ],
+  "visualGrounding": {
+    "judgedAgainstActualUnmodifiedOriginalR49Frames": true,
+    "actualNewR53SourceGLFrames": false,
+    "comparisonOverlayLocalSHA256": "3fb1fec41e99fa3676b105ab7df776e39d1afa62d22fcce2d42cfd990fff9e6f",
+    "variantAResultLocalSHA256": "7cb1613fa57856496b97aeabed54d60e8a9aeeece61e8d173ff09b2f218b7719",
+    "variantBResultLocalSHA256": "f8a8f55061723229f4737bf46eaca4a16c39c7d7039a6e3e073f6745b6e9b18d",
+    "overlaysNotCommittedToGitHub": true,
+    "nativeR49LegacyART": "REJECT",
+    "R53QualitativeVeto": "Even the alternative source-high/receiver-protected water topology looks like generic orange wall and yellow slab; near-source water is a line and impact splash/loading/hydraulic linkage are unproven."
+  },
+  "decision": {
+    "R53": "RESEARCH_SCREEN_NO_GO_METHOD_HOLD",
+    "whyNotBlenderOrCI": "One decisive visual semantic veto suffices. More triangles, color/pixel tuning or new CI on unapproved source reinterpretation would repeat R48-R52's nonproductive effort.",
+    "scope": "One distinct topology with two height feasibility checks, three source camera frames. This does not prove ALL source-safe designs impossible.",
+    "nextMeaningfulGate": "STOP analogous small quads/position sweeps. Before authoring another hydraulic candidate, establish a different full-frame physically supported and unmistakable source→working machine→vertical drop→receiver temporal sequence IN ORIGINAL SOURCE CAMERA. If source19 must remain upstream, do not silently turn it into receiver. Consider seeking separate explicit authorization ONLY IF evidence supports a targeted protected-source design change; otherwise avoid speculative source changes. Maintain V15 gate order; B51 true failure→retry→avoid is still unqualified."
+  },
+  "status": {
+    "TECH": "OFFLINE_SOURCE_CAMERA_PREFLIGHT_ONLY",
+    "NATIVE_R53": "NOT_RUN",
+    "BLENDER_R53": "NOT_RUN",
+    "ART": "NO_NEW_ART_HOLD",
+    "METHOD": "HOLD",
+    "formalARTAdoption": 0,
+    "slope2DNAMeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "researchBranchOnly": true,
+    "mainAndPR46DraftUntouched": true,
+    "originalP101GameCamera240HzRoadUntouched": true,
+    "protected8Untouched": true,
+    "B48": 7,
+    "B51": 28,
+    "newColliders": 0,
+    "newCIRuns": 0,
+    "newPaidAPIJPY": 0,
+    "githubActionsActualCharges": "UNKNOWN",
+    "work": false,
+    "computerUse": false,
+    "userOperations": 0,
+    "noPublicationNoMergeNoFormalAdoption": true
+  }
+}
