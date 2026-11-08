@@ -1,0 +1,212 @@
+{
+  "schema": "dopagaki-k4ct-r48-native-original-webgl2-temporal-proxy-critical-no-go-v1",
+  "dateJST": "2026-11-08",
+  "scope": "V15 existing DOPAGAKI SLOPE — HYPER RUSH Road6 source-original camera / temporal hydraulic sequence; previous R47 one selected hypothesis ONLY; fixed project/protections unchanged.",
+  "provenance": {
+    "repository": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "sourceCommit": "42c6788e9df1cb882dcb090759b57b0501f236d3",
+    "realNativeWebGL2RunId": 42436272677,
+    "realNativeWebGL2RunURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42436272677",
+    "runStatus": "SUCCESS",
+    "artifactId": 13599148281,
+    "artifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42436272677/artifacts/13599148281",
+    "artifactSha256": "9c06432ce16615ed963ee901ef2089d3e5d7d6e86fa182305c8de41d9eecb1ae",
+    "artifactExpiryUTC": "2026-11-15T01:58:44Z",
+    "artifactZIPCRC": "PASS",
+    "realR44BlenderExistingTriangles": 32004,
+    "existingR44OriginalChromiumWebGL2Run": 42384597099,
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "protectedEightGroupIds": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "protectedEightEntireXYZRGBComparedToOriginalR12AExactly": true,
+    "mainHead": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "officialPR46Head": "19d3a32d525c0c2a67082cba646898fab8f2b60f",
+    "pr46OpenDraftUnmerged": true,
+    "originalRoad5SHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "originalB48": 7,
+    "originalMovingB51": 28,
+    "newColliders": 0
+  },
+  "method": {
+    "type": "GENUINE_ORIGINAL_CHROMIUM_WEBGL2_240HZ_DIAGNOSTIC_PROXY_NOT_NEW_BLENDER",
+    "source": "Reused actual genuine R44 DCC, source-original unchanged Game/Camera/240Hz/road/28 B51/HUD; generated PRIVATE k4ct source module only carries 4 simple diagnostic color quads.",
+    "researchInjectedOnlyIntoGeneratedPrivateRunner": true,
+    "researchRetiredLocalR44NonprotectedFiveGroups": [
+      "15",
+      "16",
+      "17",
+      "23",
+      "24"
+    ],
+    "researchNoChangeToProtectedEight": true,
+    "newGenuineBlenderAuthoredScene": false,
+    "temporaryProxyFourComponentsEachTwoTriangles": [
+      "HEADRACE",
+      "FALL",
+      "RECEIVER",
+      "GATE_PROXY"
+    ],
+    "proxyNotActualWaterFluidOrMachine": true,
+    "candidateR47": {
+      "fallT": 125,
+      "outboardD": 160,
+      "spanD": [
+        130,
+        190
+      ],
+      "sourceT": 145,
+      "receiverT": 83,
+      "topY": 91,
+      "bottomY": 75,
+      "flowDirectionAgainstRoadF": true
+    },
+    "realGLDepth": true,
+    "sourceOriginal240HzTicks": [
+      15900,
+      15924,
+      15972
+    ],
+    "displayDifference": "max RGB absolute channel difference >25 in ROI x0..1364/y100..779 (928200 game pixels), research components one-by-one hidden at IDENTICAL frozen source tick, restored each time.",
+    "recoveredOriginalScreenPixelIdenticalToR44PriorRunAllThree": true,
+    "R48ProxyOFFvsR44PriorTrueRAWRGBgt25": [
+      0,
+      0,
+      0
+    ],
+    "R48ProxyOFFvsR44PriorTrueRAWMaxRGBDelta": [
+      0,
+      0,
+      0
+    ],
+    "researchSameTickRestoredRGBgt25": [
+      0,
+      0,
+      0
+    ],
+    "gameFrameROI": [
+      0,
+      100,
+      1365,
+      780
+    ],
+    "sourceVisualsNotEquivalentToGenuineBlenderArt": true,
+    "limitations": [
+      "Diagnostic colors are intentionally artificial and are NOT real cinematic material or plausible structural mesh.",
+      "B48 and source original 28 B51 are numerically preserved; human safe-lane recognition and play fairness not proven.",
+      "Group-hide screen influence does not identify unique surface ownership or hydraulic/physical connection.",
+      "R47 CPU preflight was calibrated but not human readability certified; this native test is an early negative art check only."
+    ]
+  },
+  "nativeObserved": [
+    {
+      "timeSec": 66.25,
+      "tick": 15900,
+      "headraceRGBgt25": 561,
+      "fallRGBgt25": 1402,
+      "receiverRGBgt25": 192,
+      "gateProxyRGBgt25": 315,
+      "headraceBBoxXYXY": [
+        322,
+        325,
+        416,
+        333
+      ],
+      "fallVisibleAtStart": true
+    },
+    {
+      "timeSec": 66.35,
+      "tick": 15924,
+      "headraceRGBgt25": 699,
+      "fallRGBgt25": 1732,
+      "receiverRGBgt25": 349,
+      "gateProxyRGBgt25": 687,
+      "fallBBoxXYXY": [
+        263,
+        336,
+        354,
+        364
+      ],
+      "gateProxyBBoxXYXY": [
+        242,
+        317,
+        263,
+        355
+      ]
+    },
+    {
+      "timeSec": 66.55,
+      "tick": 15972,
+      "headraceRGBgt25": 1143,
+      "fallRGBgt25": 2726,
+      "receiverRGBgt25": 982,
+      "gateProxyRGBgt25": 1146,
+      "receiverBBoxXYXY": [
+        97,
+        382,
+        216,
+        407
+      ]
+    }
+  ],
+  "criticalHumanVisualAssessment": {
+    "reviewMethod": "Direct view of the unmodified source-original WebGL2 three-frame A/B candidate screenshot strips at full capture 1365x930; annotations, labels and off-camera concept views excluded from acceptance.",
+    "positive": [
+      "Original source camera/240Hz, original road and B51 HUD remained pixel-identical when diagnostic OFF at all 3 frames.",
+      "WebGL2 true source depth rendered all four R47 flat proxy components with nonzero impact at all three 240Hz ticks, and per-component skip/restore matched.",
+      "Compared with previous invisibility issues, proxy shapes can indeed be placed on the left source frame in this original camera without editing the source original game."
+    ],
+    "vetoReasons": [
+      "Even at the middle 66.35s, the visible study consists of a narrow cyan/white horizontal polygon and an isolated orange slab beside the left side of the road. It does not communicate falling water, a receiving pool, or a working hydraulic gate.",
+      "Original real WebGL screenshots do not communicate temporal three-act source→fall+gate→receiver causal progression; all four diagnostic elements influence the picture at every sampled tick, and perceptual significance is not stage-specific.",
+      "The middle waterfall influence box is only about 92x29 screen pixels; the headrace early bbox is 95x9 and receiver late bbox 120x26. Presence of pixels is not enough to read a water-level drop and downstream receiver at 183-184m/s.",
+      "An ungrounded flat gate proxy is not a mechanically supported actuator, and the study has no physically connected source underbank intake. Labeling these art-success would violate V15."
+    ],
+    "interpretation": "R47's sequential screen-pixel preflight predicts renderable masks but does not validate causal visual semantics in source-original WebGL2. A future full DCC generated solely from this geometry would likely repeat R44/R39 flat-water and decorative slab failure modes; there is insufficient evidence to justify it.",
+    "verdict": "R48_TRUE_GL_DIAGNOSTIC_TECH_PASS__THREE_ACT_SEMANTIC_NO_GO__ART_REJECT",
+    "noFormalArtAdoption": true
+  },
+  "status": {
+    "researchTechnicalValidation": "PASS",
+    "candidateR47TemporalProxyART": "REJECT_NOT_GENUINE_ART",
+    "R44Art": "REJECT",
+    "METHOD": "HOLD_DO_NOT_AUTHOR_R47_PROXY_AS_FULL_DCC",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "next": {
+    "bestAction": "Stop near-identical DCC or colored proxy iterations at Road6 R47 geometry. Only propose a genuinely different spatial arrangement with a large recognizable level difference, complete downstream catchment and supported operative gate in natural unchanged original chase views before further true Blender work.",
+    "stopCondition": "No additional CI or same R47 proxy art-authoring merely because REAL native GL pixels are nonzero; if no viable site under protected8 and original camera, METHOD HOLD. Do not modify original Game, protected19, main, PR, official QA or production without explicit permission.",
+    "screenProofVsGameCompletion": "This is source-native screenshot proof and negative art finding, NOT human timed gameplay or project completion."
+  },
+  "safety": {
+    "onlyResearchBranchUpdated": true,
+    "mainAndPR46Unchanged": true,
+    "allSourceOriginalBlobsProtected": true,
+    "protectedEightExact": true,
+    "sourceGameCamera240HzB48B51Unchanged": true,
+    "newRealBlenderRuns": 0,
+    "newGithubActionsRunCount": 1,
+    "paidAPI": 0,
+    "work": false,
+    "computerUse": false,
+    "userOperations": 0,
+    "formalAdoption": false,
+    "githubActionsBilling": "UNKNOWN_ACCOUNT_STATEMENT_NOT_READ"
+  }
+}
