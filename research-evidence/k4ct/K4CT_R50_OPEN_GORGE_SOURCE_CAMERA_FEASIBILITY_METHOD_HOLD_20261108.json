@@ -1,0 +1,151 @@
+{
+  "schema": "dopagaki-k4ct-r50-single-open-gorge-original-camera-offline-negative-preflight-v1",
+  "dateJST": "2026-11-08",
+  "scope": "V15 fixed Road5→Road6 original B51-13→14. R50-A/B only; no new project or policy change.",
+  "source": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "headVerifiedOnceBeforeWork": "3db6d21e3830a410f957689b59b2d18e514c5c55",
+    "r49NativeSourceRun": 42437685590,
+    "r49SourceArtifactId": 13600556658,
+    "r49ArtifactZipSHA256Verified": "2dcbd9448cf6c1a4c84b8599f08869a12d79ce26f42024e449b645fff20fda3d",
+    "r38OriginalCameraSourceRun": 42375928902,
+    "r38ArtifactId": 13575796328,
+    "r38ArtifactZipSHA256Verified": "5b9c81e6dc15ec9811b9dbf5bdaf9e8101b068b8e8616593f7cae6b99a3e962d",
+    "geometry": "R49 Artifact included genuine Blender R44 editable 32,004-triangle native export, with inherited independent protected-eight equality asserted by prior R49 evidence.",
+    "sourceOriginalGameBlobPriorVerified": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "sourceOriginalR12ABlenderBlobPriorVerified": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoadPhysicalSHA256PriorVerified": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "officialPR46": "OPEN_DRAFT_UNMERGED",
+    "mainPRBaseHeadVerified": "d402801f271f43163ad85d9303abe9773d3958bd"
+  },
+  "candidate": {
+    "name": "R50 one-shot open-cut near-bank gravity gorge",
+    "unlikeR48R49": "No color-shelf replacement, no pressurised siphon/overbank tube. A near-camera exposed diagonal cliff section with a 41 m gravity plunge and lower catchment. This is a SINGLE geometry feasibility test, NOT authored Blender artwork.",
+    "frame": "R49 established Road6 local [F=(0.92049565,0,-0.3907528), S=(-0.3907528,0,-0.92049565), O=(1157.592,0,-494.670)].",
+    "upperFeed": "approx d100,t145,y92.6 (actual protected forebay19 nearest XZ relationship described by R46); surface to d120,t95,y93 is hypothetical, no hydraulic connection proven",
+    "fall": "vertical open-cut plane t95, d120..190, top y93, bottom y52 (41m)",
+    "lowerReceiver": "open lower channel Y52 along t50..95, d125..185",
+    "machine": "Not authored: lower receiver visibility tested first. Mechanical load path and working actuator remain unproven."
+  },
+  "method": {
+    "sourceFrames": "Three true original-camera R49 screenshots from a digest-verified GitHub Actions artifact were inspected directly. The R50 candidate does NOT appear in these true screenshots.",
+    "preflight": "R41 approximate camera-projection and half-resolution software depth reproduction over genuine 32,004-triangle R44 export, preserving protected groups 00/12/13/19/34/35/41/42. Candidate consists of six temporary in-memory triangles only.",
+    "scale": "505x350 approximate; full-game bounding boxes scaled x2; not the Chromium/WebGL2 renderer",
+    "limitations": "Approx depth omits actual GL alpha/fog/cull/material state, near-plane crossing triangles, animation and potential water physics; group nearest-depth is not certified ownership. New original-WebGL2/Blender candidate was NOT run.",
+    "protected8RecomparedBytewiseInThisTurn": false,
+    "protected8UnchangedByThisPreflight": true,
+    "originalGameCameraRoadPhysicsNotChanged": true
+  },
+  "frames": [
+    {
+      "seconds": 66.25,
+      "tick": 15900,
+      "fallProjectedHalfResPixels": 1666,
+      "fallVisibleInFrontOfProtected8HalfRes": 321,
+      "fallVisibleApproxFullFrameBBox": [
+        294,
+        336,
+        374,
+        368
+      ],
+      "lowerReceiverProjectedHalfResPixels": 702,
+      "lowerReceiverVisibleInFrontOfProtected8HalfRes": 0,
+      "lowerReceiverApproxBlockers": {
+        "19": 333,
+        "00": 369
+      },
+      "feedProjectedHalfResPixels": 60,
+      "feedVisibleInFrontOfProtected8HalfRes": 13
+    },
+    {
+      "seconds": 66.35,
+      "tick": 15924,
+      "fallProjectedHalfResPixels": 2093,
+      "fallVisibleInFrontOfProtected8HalfRes": 458,
+      "fallVisibleApproxFullFrameBBox": [
+        226,
+        342,
+        322,
+        378
+      ],
+      "lowerReceiverProjectedHalfResPixels": 968,
+      "lowerReceiverVisibleInFrontOfProtected8HalfRes": 0,
+      "lowerReceiverApproxBlockers": {
+        "19": 862,
+        "00": 106
+      },
+      "feedProjectedHalfResPixels": 76,
+      "feedVisibleInFrontOfProtected8HalfRes": 18
+    },
+    {
+      "seconds": 66.55,
+      "tick": 15972,
+      "fallProjectedHalfResPixels": 3473,
+      "fallVisibleInFrontOfProtected8HalfRes": 1099,
+      "fallVisibleApproxFullFrameBBox": [
+        66,
+        360,
+        224,
+        410
+      ],
+      "lowerReceiverProjectedHalfResPixels": 1978,
+      "lowerReceiverVisibleInFrontOfProtected8HalfRes": 0,
+      "lowerReceiverApproxBlockers": {
+        "19": 1978
+      },
+      "feedProjectedHalfResPixels": 132,
+      "feedVisibleInFrontOfProtected8HalfRes": 29
+    }
+  ],
+  "criticalAssessment": {
+    "actualSourceRawObservation": "Existing R49 actual WebGL2 66.25/66.35/66.55 game screens continue to show a small teal shelf left of original road, not a functionally legible hydro-mechanical structure.",
+    "hypothesisFinding": "A materially different, nearer, 41m open gorge would partially project a larger vertical fall, but the approximate original protected geometry occludes all lower receiving channel pixels in every sampled timepoint. Significant face occlusion also recurs from protected19 and tower12. Upper-to-lower water cause is not meaningfully readable.",
+    "decision": "R50-A/B NO-GO FOR THIS ONE CANDIDATE; METHOD HOLD",
+    "doNotInfer": "This is one bounded negative test, not mathematical impossibility at all sites, not a new true-WebGL2 scene, not an authored Blender candidate, not ART/HUMAN qualification.",
+    "noFollowOnBlenderOrCI": "The receiver invisibility fails the pre-authoring causal requirement. Avoid another DCC/Actions run and avoid recolor/scale iterations of R48/R49.",
+    "next": "Only seek a genuinely different safe sightline supported by source-camera/depth evidence before trying one true Blender candidate; protected19/12 or original camera changes require separate prior authorization."
+  },
+  "status": {
+    "TECH": "R50_OFFLINE_GEOMETRIC_PREFLIGHT_COMPLETED_ONLY",
+    "NEW_NATIVE_WEBGL2": "NOT_RUN",
+    "NEW_EDITABLE_BLENDER": "NOT_RUN",
+    "ART": "HOLD_NO_NEW_ART_CANDIDATE",
+    "METHOD": "HOLD",
+    "formalARTAdopted": 0,
+    "slope2DNAmeters": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "FPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "onlyThisResearchEvidenceFileToWrite": true,
+    "mainAndOriginalProtected": true,
+    "originalCameraRoadB48_B51_240Hz": true,
+    "B48": 7,
+    "B51": 28,
+    "newColliders": 0,
+    "originalProtected8Ids": [
+      0,
+      12,
+      13,
+      19,
+      34,
+      35,
+      41,
+      42
+    ],
+    "work": false,
+    "computerUse": false,
+    "newGithubActionsRuns": 0,
+    "addedPaidAPIJPY": 0,
+    "githubActionsActualBilling": "UNKNOWN",
+    "userActions": 0,
+    "formalAdoption": false,
+    "release": false,
+    "merge": false
+  }
+}
