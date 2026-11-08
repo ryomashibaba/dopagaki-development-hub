@@ -73,6 +73,9 @@ jobs:
           node scripts/p101-k4ct-install-authored-dcc.mjs
           node scripts/k4ct-r57-install-private-live-hud.mjs
           node --check dist-private/k4ct/drive3d.mjs
+          cmp scripts/p101-k4ct-dual-real-b51-decision.mjs dist-private/k4ct/k4ct-dual-real-b51-decision.mjs
+          grep -q 'PREDICTED AT' dist-private/k4ct/k4ct-dual-real-b51-decision.mjs
+          if grep -q ' MOVING ' dist-private/k4ct/k4ct-dual-real-b51-decision.mjs; then echo 'legacy motion label still packaged'; exit 1; fi
       - name: Install Chromium headless only, no Blender
         timeout-minutes: 6
         run: |

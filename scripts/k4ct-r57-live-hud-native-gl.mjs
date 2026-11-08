@@ -63,6 +63,9 @@ async function capture(page,label){
   assert.equal(v.decision.originalRunnerPhysicsUnchanged,true);
   assert.equal(v.decision.rowCount,v.twoRealCount);
   assert.match(v.text,/PREDICTION ONLY - NO GUARANTEED SAFE LANE/);
+  assert.doesNotMatch(v.text,/\bMOVING (?:LEFT|RIGHT|CENTER)\b/,'predicted future location must not be called velocity');
+  assert.equal((v.text.match(/PREDICTED AT (?:LEFT|RIGHT|CENTER|UNKNOWN)/g)||[]).length,v.twoRealCount,
+   'every true original B51 warning must describe future location, not motion');
   assert.doesNotMatch(v.text,/OPEN\?|SAFE (RIGHT|LEFT)/);
   assert.ok(v.panel.h>20&&v.panel.h<115&&v.panel.w<=725,'cue panel exceeds fixed view budget');
   assert.ok(v.panel.y>=v.canvas.y-1&&v.panel.y<v.canvas.y+110,'panel outside original view');
