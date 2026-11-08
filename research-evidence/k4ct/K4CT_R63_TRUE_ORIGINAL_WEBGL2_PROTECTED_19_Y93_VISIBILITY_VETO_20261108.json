@@ -1,0 +1,157 @@
+{
+  "schema": "dopagaki-k4ct-r63-real-original-240hz-chromium-webgl2-protected-group19-y93-water-visibility-critical-v1",
+  "dateJST": "2026-11-08",
+  "scope": "Existing V15 QUALITY/ART/DCC FIRST, same Road5→Road6 original moving B51-14, no new game, no policy change",
+  "originalSources": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "baseResearchCommit": "0cfc5f8019a420e5704d9c9cb9a40b80e1305518",
+    "originalGameGitBlobSHA1": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalBlenderAuthorGitBlobSHA1": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "originalRoad5PhysicsSHA256": "4957a0e1ffb1a394c4bbaa2c502caad3fdec219c9713073f5236d7bbb6ab4e2b",
+    "genuineR49BlenderArtifactID": 13600556658,
+    "originalSceneTriangles": 32004,
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "untouchedDCCProtected8GroupIDs": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "originalGroup19": "19_R6_SOURCE_FRAMED_UPPER_TIDAL_FOREBAY",
+    "originalGroup19Triangles": 1440,
+    "exactY93SurfaceTriangles": 144,
+    "materialBridgeRoadTriangles": 4608
+  },
+  "experiment": {
+    "implementationCommit": "0cfc5f8019a420e5704d9c9cb9a40b80e1305518",
+    "githubWorkflow": "K4CT R63 actual original 240Hz GL protected Y93 water visibility",
+    "githubActionsRunID": 42451933825,
+    "githubActionsURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42451933825",
+    "githubActionsConclusion": "success",
+    "artifactID": 13605174584,
+    "artifactURL": "https://github.com/ryomashibaba/dopagaki-development-hub/actions/runs/42451933825/artifacts/13605174584",
+    "artifactSHA256Verified": "f980f0dc54e4a92fbf045833adaaef31a0557dc5c6d19354dda1243d67c8d436",
+    "artifactExpiryUTC": "2026-11-15T05:46:54Z",
+    "artifactFiles": 13,
+    "actualChromiumRealWebGL2": true,
+    "originalSourceNativeRunner240Hz": true,
+    "methodology": "At identical source 240Hz frozen ticks on original 1365x930 Chromium WebGL2 true GL framebuffer compare BASE, draw-suppress ONLY actual 144 protected Y=93 triangles in group19, draw-suppress ALL group19 for positive control, restore exact BASE. RGB per pixel max-channel difference >25 in game ROI x=19..1032,y=108..697. Source vertices, source physics and all native B51 positions unchanged; no actual world geometry was changed.",
+    "playback": "Original normal A/D KeyD pulses, scripted not human. NOT a released renderer.",
+    "exactRestorationForEveryTick": true,
+    "successfulPositiveControl": true,
+    "artifactPNGCount": 12,
+    "sourceReadOnlyOriginalGeometry": true
+  },
+  "frames": [
+    {
+      "seconds": 65.25,
+      "tick": 15660,
+      "originalNextB51ETASecondsApprox": 1.89,
+      "genuineY93VisibleInfluenceRGBgt25Pixels": 0,
+      "genuineY93InfluenceRGBgt1Pixels": 0,
+      "fullGroup19VisibleInfluenceRGBgt25Pixels": 8279,
+      "exactPNGBaseEqualY93Hide": true,
+      "exactPNGBaseEqualRestore": true,
+      "basePNG_SHA256": "b516ec7f0d7afbf27e701b42fb703e9e35736cdefb8c2f2e6c33c63d08f8f3bf",
+      "Y93HiddenPNG_SHA256": "b516ec7f0d7afbf27e701b42fb703e9e35736cdefb8c2f2e6c33c63d08f8f3bf",
+      "fullGroupHiddenPNG_SHA256": "339102276884a06dc03da82c0b6d112a50c37e5121a73fbe207a118f493bc08b"
+    },
+    {
+      "seconds": 65.6,
+      "tick": 15744,
+      "originalNextB51ETASecondsApprox": 1.5,
+      "genuineY93VisibleInfluenceRGBgt25Pixels": 0,
+      "genuineY93InfluenceRGBgt1Pixels": 0,
+      "fullGroup19VisibleInfluenceRGBgt25Pixels": 4652,
+      "exactPNGBaseEqualY93Hide": true,
+      "exactPNGBaseEqualRestore": true,
+      "basePNG_SHA256": "ce21bc2d564be78779e7f8efd7dfafa0e2842ff05f98fc0b0ddca717b3e55203",
+      "Y93HiddenPNG_SHA256": "ce21bc2d564be78779e7f8efd7dfafa0e2842ff05f98fc0b0ddca717b3e55203",
+      "fullGroupHiddenPNG_SHA256": "c9a73c2d77facdb545391c85af98c52f5fa6b95e9fa02bf00df570c8f35affb6"
+    },
+    {
+      "seconds": 66.35,
+      "tick": 15924,
+      "originalNextB51ETASecondsApprox": 0.75,
+      "genuineY93VisibleInfluenceRGBgt25Pixels": 10267,
+      "genuineY93InfluenceRGBgt1Pixels": 13694,
+      "fullGroup19VisibleInfluenceRGBgt25Pixels": 13552,
+      "genuineY93InfluenceBBox": {
+        "x0": 19,
+        "y0": 332,
+        "x1": 493,
+        "y1": 510
+      },
+      "exactPNGBaseEqualY93Hide": false,
+      "exactPNGBaseEqualRestore": true,
+      "basePNG_SHA256": "6678238e73c6d0b47ff8d46d799cf2e857bbc8394a8f65e5c800b14ba7969725",
+      "Y93HiddenPNG_SHA256": "52fb1ff412277fd284118e6e056f3889dda7c1d68823c574810efda51f81b274",
+      "fullGroupHiddenPNG_SHA256": "bc13ef4caa7ea0a7c8ce554335ba0d0465f4599e94522a7829026f3eded1587d"
+    }
+  ],
+  "crossCheckR62": {
+    "cpuHalfResEstimateSurfaceVisiblePixels": [
+      0,
+      0,
+      3403
+    ],
+    "nowActualSourceGLVisibleInfluenceAtThreeTicks": [
+      0,
+      0,
+      10267
+    ],
+    "conclusion": "Early zero pixel influence of Y93 surface is proven in the exact bounded original source GL scene; earlier CPU estimate was consistent in zero-vs-positive timing. Counts are not directly comparable because render size, shading and difference metric differ.",
+    "importantDistinction": "The other group19 meshes are visibly present early; therefore NEVER infer that all source group19 architecture is invisible."
+  },
+  "criticalReview": {
+    "result": "R63_SOURCE_GL_TECH_PASS_ORIGINAL_Y93_SOURCE_EARLY_HIDDEN_R61_SAME_SITE_ART_METHOD_HOLD",
+    "actualFinding": "The specifically protected source Y93 water surface contributes exactly zero pixels at 1.89 and 1.50 seconds before the next real B51 while its full group19 positive control contributes thousands. Its visible impact emerges only around 0.75 seconds in this bounded three-frame test.",
+    "R61DesignVerdict": "NO_GO_AS_EARLY_VISIBLE_WATER_CAUSAL_CUE_UNDER_CURRENT_SOURCE_CAMERA",
+    "R62EstimateStatus": "Corroborated on these three original 240Hz source frames, not a universal physical occlusion proof.",
+    "worldArt": "Existing R49 true Blender scene ART REJECT. Newly proposed R61 inlet, power route, hydraulic turbine and synchronized powered machine NOT built or approved.",
+    "remainingUncertainties": [
+      "A different route, newly authored above-road hydraulic intake, or other time window might become visible without changing protected water.",
+      "No genuinely visible and physically connected outboard water route is proven by this test; R62 coarse 1620 samples included 3 distant screen-positive points >120m from protected water end but no native real-GL connection validation.",
+      "No human perceptual recognition, future B51-safe-lane claim, source fluid simulation, real torque coupling, independent SAT/CCD or real Windows FPS.",
+      "RGB screen-space influence differs from unique pixel ownership; shader leave-one-out only establishes visible influence at these frozen ticks."
+    ],
+    "next": "R64 should not repeat R61 hidden inlet Blender. First perform a single grounded real-GL visibility preflight for an alternate physically continuous and readable outboard location, OR hold and explicitly explain that the protected source water surface cannot serve as early causal cue; do not change protected group19/camera/road/240Hz or invent false machinery and safe portal. Address original B51 warning semantics and human fairness only in later separately verified gate.",
+    "unchangedV15": true,
+    "formalArtAdopted": 0,
+    "slope2DNAmetres": 0
+  },
+  "status": {
+    "SOURCE": "PASS",
+    "TECH": "PASS_NATIVE_SOURCE_CHROMIUM_WEBGL2_SAME_TICK_12RAW",
+    "R61WATER_CAUSAL_SITE": "NO_GO_EARLY_VISIBLE_INLET",
+    "ART": "HOLD",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "researchOnly": true,
+    "mainAndPR46Untouched": true,
+    "originalGameBlenderRoadCameraPhysicsUnchanged": true,
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0,
+    "protected8ExactOriginalXYZRGBUnmodified": true,
+    "newBlenderRuns": 0,
+    "newGitHubActionsRuns": 1,
+    "addedPaidAPIJPY": 0,
+    "githubActionsBilling": "UNKNOWN",
+    "userOperations": 0,
+    "noFormalAdoptionNoPublicationNoMerge": true
+  }
+}
