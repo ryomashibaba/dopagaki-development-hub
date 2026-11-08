@@ -76,7 +76,7 @@ export function formatK4CTNativeDualCue(decision){
   const id=String(r.id??'').match(/(\d+)$/)?.[1]??'?';
   const metres=Number.isFinite(r.metres)?Math.max(0,Math.round(r.metres)):'?';
   const eta=Number.isFinite(r.etaSeconds)?Math.max(0,r.etaSeconds).toFixed(1):'?';
-  return `${first?'NEXT':'THEN'} B51-${id}  ${metres}m / ${eta}s  MOVING ${cleanSide(r.predictedObstacleSide)}`;
+  return `${first?'NEXT':'THEN'} B51-${id}  ${metres}m / ${eta}s  PREDICTED AT ${cleanSide(r.predictedObstacleSide)}`;
  };
  const next=decision.rows.slice(0,2).map((r,i)=>line(r,i===0));
  return [...next,'A/D STEER  |  PREDICTION ONLY - NO GUARANTEED SAFE LANE'].join('\n');

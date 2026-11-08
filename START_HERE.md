@@ -1,10 +1,13 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
-**2026-11-08 JST／R63後、V16統合批判的引き継ぎを最新入口とする。固定V15は不変。**
+**2026-11-08 JST／R64-A METHOD HOLD・R64-C予測位置HUDの研究修正。V16が最新正本、固定V15不変。**
 
 ## 読取順（現在の唯一の移行入口）
 **[V16 R63後・二段階批判的統合引き継ぎ](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)** → [固定V15](docs/DOPAGAKI_V15_COMPLETE_CRITICAL_INTEGRATED_HANDOFF_AFTER_R36_20261107_JA.md) → [R50歴史的統合](docs/DOPAGAKI_R50_COMPLETE_CRITICAL_CONTINUITY_AFTER_R49_20261108_JA.md)。V14/V13/V12.1は必要な古い証拠だけ参照。**R53以下の次工程は履歴。新しい指示はV16第7章のR64。不要な長文引継ぎを今後量産しない。**
 
-## 最新の実証（R63／2026-11-08）
+## R64結果（2026-11-08）
+[R64一案の3時点元RAW審査・NO-GOとPRIVATE B51予測位置表示修正](research-evidence/k4ct/K4CT_R64_ONE_CAMERA_THREE_FRAME_CAUSAL_METHOD_HOLD_AND_HUD_SEMANTICS_20261108.json)。R63元Chromium3枚を実画像再確認したが、左岸開放落水→横軸水車→B51駆動という一案は、早期Y93水源不可視・非保護連続経路と実機械連動の立証不足で**R64-A METHOD HOLD**。新Blender/新GL/新CI 0、正式ART0件・Slope2 DNA0m。B51予測側面を実移動方向と誤表示していた `MOVING` を `PREDICTED AT` に研究限定で修正し独立ローカルの対応関数5/5 PASS（リポジトリのNode/Chromium統合試験は未実行）。上位保護不変。根拠のない似たBlenderを量産しない。
+
+## R63元GLの実証（R64判断の根拠）
 [R63元240Hz/Chromium WebGL2の水面Y93可視性真GL判定](research-evidence/k4ct/K4CT_R63_TRUE_ORIGINAL_WEBGL2_PROTECTED_19_Y93_VISIBILITY_VETO_20261108.json)：Run #42451933825 SUCCESS、水面144三角形だけの描画影響は65.25秒/65.60秒で0画素、66.35秒で10267画素。R61同じ水源端の早期可視案はNO-GO。TECH PASS、ART/METHOD/HUMAN/HOLD、正式ART0件、Slope2 DNA0m。次の実行は[V16 R64契約](docs/DOPAGAKI_V16_COMPLETE_CRITICAL_HANDOFF_AFTER_R63_20261108_JA.md)。
 
 ## 旧R53の実証履歴（現在の次工程ではない）

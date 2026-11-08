@@ -1,0 +1,113 @@
+{
+  "schema": "dopagaki-k4ct-r64-one-native-camera-three-frame-causal-preflight-and-private-cue-position-fix-v1",
+  "dateJST": "2026-11-08",
+  "scope": "Original Road5→Road6, B51-13→14. Fixed V15 and V16 R64, no new product or policy.",
+  "source": {
+    "repo": "ryomashibaba/dopagaki-development-hub",
+    "branch": "research/k4ct-two-native-b51-choice-consequence-20261105",
+    "preflightHEAD": "604ca6be655986c84e84fba9f9df73f4c99537a6",
+    "originalGameBlob": "af076d67492a677d2235e4730aef8cdf4808e106",
+    "originalDccAuthorBlob": "096fffbc1627915eb0122224955bb02cfba6b3ae",
+    "mainHEAD": "d402801f271f43163ad85d9303abe9773d3958bd",
+    "PR46": "OPEN_DRAFT_UNMERGED",
+    "protectedGroups": [
+      "00",
+      "12",
+      "13",
+      "19",
+      "34",
+      "35",
+      "41",
+      "42"
+    ],
+    "originalB48": 7,
+    "originalB51": 28,
+    "newColliders": 0
+  },
+  "originalEvidence": {
+    "R63Run": 42451933825,
+    "R63Artifact": 13605174584,
+    "R63TrueNative240HzChromeWebGL2": true,
+    "originalRenderFile": "K4CT_R63_ORIGINAL_SOURCE_WATER_VISIBILITY_RESULT.json",
+    "reviewedActualNativeBaseRaw": [
+      "K4CT_R63_T65_25_BASE_TRUE_GL.png",
+      "K4CT_R63_T65_60_BASE_TRUE_GL.png",
+      "K4CT_R63_T66_35_BASE_TRUE_GL.png"
+    ],
+    "R62ApproximateAlternativeSiteSamples": 1620
+  },
+  "candidate": {
+    "name": "Open left-bank gravity notch feeding a low transverse waterwheel and short mechanical drive to source B51",
+    "status": "ONE_PRE-DCC_HYPOTHESIS_ONLY_NOT_AUTHORED",
+    "protection": "Keep original y93 water surface and bank; noncolliding outboard extension only, no A-frame, wall, pipe-only silhouette, decorative cyan shelf or safety portal.",
+    "timeline": [
+      {
+        "seconds": 65.25,
+        "tick": 15660,
+        "nextB51ETA": 1.89,
+        "sourceY93GLInfluencePx": 0,
+        "otherFullGroup19InfluencePx": 8279,
+        "artReading": "Original source water absent. Visible portions of group19 are NOT proof of a water-fed generator. No verified source-to-new-channel junction."
+      },
+      {
+        "seconds": 65.6,
+        "tick": 15744,
+        "nextB51ETA": 1.5,
+        "sourceY93GLInfluencePx": 0,
+        "otherFullGroup19InfluencePx": 4652,
+        "artReading": "Source water remains invisible. New machine support, hydraulic throughput, moving B51 linkage and corridor are unverified."
+      },
+      {
+        "seconds": 66.35,
+        "tick": 15924,
+        "nextB51ETA": 0.75,
+        "sourceY93GLInfluencePx": 10267,
+        "otherFullGroup19InfluencePx": 13552,
+        "artReading": "Actual source water becomes visible at late timing; a readable physical drop, receiving basin and mechanical drive are not present in baseline."
+      }
+    ],
+    "connectivity": "R61 source outlet is occluded early; R62 only found three simultaneously screen-positive coarse alternative points, all >120m from source end; no physically connected nonprotected route or same-tick native B51 visibility proof established for proposed extension.",
+    "veto": [
+      "No native-screen evidence for a physically continuous outboard source→drop→receiver before B51 decision",
+      "Would otherwise label invisible source as seen or imply unimplemented hydraulic power-to-moving-B51 linkage",
+      "Would repeat previous art failures if built from unverified disconnected machine or water plane"
+    ],
+    "decision": "R64_A_NO_GO_METHOD_HOLD",
+    "limitations": "Review of existing real R63 three BASE PNGs and documented R61/R62 geometry only. No R64 new true GL render, Blender scene, fluid simulation, machine coupling or human perception test. This does not prove every alternate site impossible."
+  },
+  "cueFix": {
+    "sourceFile": "scripts/p101-k4ct-dual-real-b51-decision.mjs",
+    "testFile": "tests/k4ct-r54-native-cue-readability.test.mjs",
+    "before": "MOVING LEFT/RIGHT/CENTER",
+    "after": "PREDICTED AT LEFT/RIGHT/CENTER",
+    "semantic": "predictedObstacleSide is future lateral position pv, NOT derivative of position / velocity",
+    "originalRealB51TelemetryUnchanged": true,
+    "privatelyGeneratedOnly": true,
+    "safetyInstruction": "PREDICTION ONLY - NO GUARANTEED SAFE LANE",
+    "localIsolatedFormatterReproductionNodeTests": "5/5 PASS",
+    "sourceRepositoryNodeTest": "NOT_EXECUTED",
+    "newNativeWebGL2Test": "NOT_EXECUTED"
+  },
+  "status": {
+    "SOURCE": "LIVE_VERIFIED",
+    "TECH": "R63_PRIOR_NATIVE_GL_PROVEN_R64_NEW_NATIVE_GL_NOT_RUN",
+    "ART": "METHOD_HOLD_NOT_ART_PASS",
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "formalARTAdopted": 0,
+    "slope2DNAmetres": 0
+  },
+  "safety": {
+    "mainGameCameraSourceWaterAuthorFormalQA_PR46Pages": "UNCHANGED_BY_THIS_DOCUMENTED_RESEARCH_COMMIT",
+    "protected8VerticesXYZRGB": "NOT_MUTATED_NO_DCC_CHANGE_NOT_FRESHLY_RETESTED",
+    "newBlenderRuns": 0,
+    "newGithubActionsRunsRequested": 0,
+    "addedPaidAPIJPY": 0,
+    "githubActionsBilling": "NOT_APPLICABLE_NO_NEW_RUN_REQUESTED",
+    "userOperations": 0
+  }
+}

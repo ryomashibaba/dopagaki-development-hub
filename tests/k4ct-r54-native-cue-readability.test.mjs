@@ -17,7 +17,7 @@ const rows=()=>({rows:[
 ]});
 test('original hazard data and order are retained without modifying telemetry',()=>{
  const d=rows(),before=JSON.stringify(d);
- assert.equal(format(d),'NEXT B51-14  138m / 0.8s  MOVING LEFT\nTHEN B51-15  350m / 1.9s  MOVING RIGHT\nA/D STEER  |  PREDICTION ONLY - NO GUARANTEED SAFE LANE');
+ assert.equal(format(d),'NEXT B51-14  138m / 0.8s  PREDICTED AT LEFT\nTHEN B51-15  350m / 1.9s  PREDICTED AT RIGHT\nA/D STEER  |  PREDICTION ONLY - NO GUARANTEED SAFE LANE');
  assert.equal(JSON.stringify(d),before);
 });
 test('do not turn geometric corridor hypothesis into a safe lane instruction',()=>{
@@ -29,7 +29,13 @@ test('zero, one and malformed input remain display-safe',()=>{
  assert.equal(format(null),'B51 - NO UPCOMING HAZARD');
  assert.equal(format({rows:[]}), 'B51 - NO UPCOMING HAZARD');
  assert.equal(format({rows:[{id:'odd',metres:-3,etaSeconds:-1,predictedObstacleSide:'L'}]}),
-  'NEXT B51-?  0m / 0.0s  MOVING UNKNOWN\nA/D STEER  |  PREDICTION ONLY - NO GUARANTEED SAFE LANE');
+  'NEXT B51-?  0m / 0.0s  PREDICTED AT UNKNOWN\nA/D STEER  |  PREDICTION ONLY - NO GUARANTEED SAFE LANE');
+});
+test('predicted future SIDE is a position, never left/right movement velocity',()=>{
+ const cue=format({rows:[{id:'a13-machine-14',metres:100,etaSeconds:.4,predictedObstacleSide:'CENTER'}]});
+ assert.match(cue,/PREDICTED AT CENTER/);
+ assert.doesNotMatch(cue,/\\bMOVING\\b/);
+ assert.doesNotMatch(format(rows()),/\\bMOVING\\b/);
 });
 test('only first two actual hazards appear',()=>{
  const d=rows(),old=format(d);
