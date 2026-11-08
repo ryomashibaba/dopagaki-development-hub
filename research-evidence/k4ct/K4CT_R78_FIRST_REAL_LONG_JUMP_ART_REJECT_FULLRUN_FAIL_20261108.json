@@ -1,0 +1,140 @@
+{
+  "schema": "k4ct-r78-first-actual-120m-vertical-gameplay-candidate/1",
+  "dateJST": "2026-11-08",
+  "source": "R75 isolation stage exact SHA, original Driver/Runner/Camera/240Hz and collision/B51 preserved",
+  "sourceResearchHEAD": "ba08eeb6b3e732597ca6e01949531468d048f3b8",
+  "stageOriginalR75SHA256": "7593b21f6e1e3951222115815050cf68823dc8368b44a977763c07c131eb292a",
+  "r78NativePhysicalStageSHA256": "4ea956114b868c8ab3ec991b780fcf7498d71c994a8a3962bc804e2f907a361f",
+  "generatorSHA256": "440f924e3cb7e43a1f4a1443305f4461d2b3144bbcc12e006ae442193028e81b",
+  "generatorGitBlobExpected": "09133e7b1562b3dd74f4d106acbef2634dc396cd",
+  "mode": "REAL_LOCAL_SOURCE_240HZ_PHYSICS_ONLY_NOT_WEBGL_NOT_HUMAN",
+  "nativeRun": {
+    "speedAtStartMps": 52,
+    "steering": 0,
+    "originalGuideAssist": true,
+    "nativeTickHz": 240,
+    "comparison": [
+      {
+        "name": "R75_REFERENCE",
+        "firstAirSeconds": 0.4875,
+        "firstAirHorizontalDistanceM": 39.397,
+        "verticalSpeedBeforeFirstContactMps": -39.38,
+        "statusAt12s": "RUNNING",
+        "fullRunFailAtSeconds": 16.7,
+        "fullRunFailReason": "fall"
+      },
+      {
+        "name": "R78_BASIN20",
+        "firstAirSeconds": 1.1583,
+        "firstAirHorizontalDistanceM": 94.627,
+        "verticalSpeedBeforeFirstContactMps": -10.85,
+        "statusAt12s": "RUNNING",
+        "fullRunFailAtSeconds": 16.9375,
+        "fullRunFailReason": "fall on subsequent path"
+      },
+      {
+        "name": "R78_DIVE32",
+        "firstAirSeconds": 1.4875,
+        "firstAirHorizontalDistanceM": 122.086,
+        "verticalSpeedBeforeFirstContactMps": -12.69,
+        "statusAt12s": "RUNNING",
+        "fullRunFailAtSeconds": 15.1292,
+        "fullRunFailReason": "fall on subsequent path"
+      },
+      {
+        "name": "R78_DROP45",
+        "firstAirSeconds": 1.7208,
+        "firstAirHorizontalDistanceM": 141.56,
+        "statusAt12s": "RUNNING",
+        "fullRun": "NOT_TESTED"
+      }
+    ],
+    "gapLengthAblation": "R75 three-to-five-cell changes gave no change in first 0.4875s flight; 6-cell candidate fell around t10.0583. Do not attempt easy gap enlargement as gameplay solution.",
+    "selected": "R78_BASIN20_RESEARCH_ONLY",
+    "selectionReason": "meaningful 1.16s flight and recontact with lower impact speed than baseline; full 7 roads still fail",
+    "realGapEffect": {
+      "noGapFirstAirSeconds": 1.0875,
+      "threeCellGapFirstAirSeconds": 1.1583,
+      "deltaSeconds": 0.0708,
+      "note": "Majority of increased airborne duration is height-profile-driven; no false claim that hole alone creates 1.16 seconds"
+    },
+    "sensitivity": [
+      {
+        "case": "smallLeftSteer",
+        "input": "-0.2 from t3.0 through t4.5",
+        "statusAt12s": "RUNNING"
+      },
+      {
+        "case": "smallRightSteer",
+        "input": "+0.2 from t3.0 through t4.5",
+        "statusAt12s": "RUNNING"
+      },
+      {
+        "case": "assistDisabled",
+        "input": "zero",
+        "status": "FAIL",
+        "timeSeconds": 7.9958
+      }
+    ],
+    "full7Roads": "FAIL",
+    "humanFairness": "NOT_TESTED",
+    "humanPlay": "NOT_TESTED",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "art": "HOLD"
+  },
+  "artStudy": {
+    "R78PrimitiveArchitectureAttempt": "ART_REJECT",
+    "sourceCamera3DRenderer": "offline VTK OpenGL renderer using actual captured source Runner relative camera at t0,t2,t3.2",
+    "artFailure": "Despite modifying R77 hoop to occupied cliff houses / single city crossing, in road camera reads as flat bulky boxes, dark voids and huge overpass. No spatial landmark of sufficient quality.",
+    "genuineOriginalChromiumWebGL2": "NOT_VERIFIED_LOCAL_BROWSER_RESTRICTED",
+    "trueBlenderDCC": "NOT_EXECUTED_RUNTIME_NO_BLENDER",
+    "rendererProof": "R78_ART_UNAPPROVED_LOCAL_PROOF_NOT_IN_GAME_ASSET",
+    "artCodeGitHub": "NOT_ADOPTED",
+    "formalArtAccepted": 0,
+    "officialSlope2DNAMetres": 0
+  },
+  "localKit": {
+    "filename": "DOPAGAKI_R78_1p16s_TRUE_B48_JUMP_RESEARCH_ONLY.zip",
+    "sha256": "10907881d81d3b7299a53cae1a805d254ead052193c5ed25f78cf41d9abc6ce3",
+    "entries": 120,
+    "stageSHA256": "4ea956114b868c8ab3ec991b780fcf7498d71c994a8a3962bc804e2f907a361f",
+    "localLoopbackHTTP": "PASS",
+    "selfCheck": "PASS",
+    "nodeSyntax": "PASS",
+    "zipCRC": "PASS",
+    "preservedCommonFiles": 114,
+    "sourceCopyAllowedDifference": "k4ct/drive3d.mjs isolated option registration only",
+    "originalR73AndR75StageByteIdentical": true,
+    "automaticWebUpload": false,
+    "note": "Does not prove actual Windows WebGL2 or real user trial"
+  },
+  "protection": {
+    "originalR73": true,
+    "originalR75": true,
+    "originalGamePhysicsAndCamera": true,
+    "originalB48Roads7": true,
+    "originalMovingB51_28": true,
+    "main": true,
+    "officialP101": true,
+    "PR46": true,
+    "Gold": true,
+    "Blender8": true,
+    "formalQA": true,
+    "Pages": true,
+    "release": true
+  },
+  "certification": {
+    "HUMAN": "HOLD",
+    "ART": "REJECT",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD",
+    "slope2DNAMetres": 0
+  },
+  "newActionsRunsRequested": 0,
+  "paidAPIJPY": 0,
+  "next": "Do not promote R78 and do not request human trial until original-camera true WebGL has a coherent world and natural manually drivable first sector; solve entire road transition and original assist dependence before all-road acceptance. Stop procedural box/hoop repetition. Blender-author one destination rather than cheap generic city walls."
+}

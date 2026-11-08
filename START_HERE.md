@@ -1,4 +1,7 @@
 # DOPAGAKI SLOPE — HYPER RUSH｜START HERE
+## R78 2026-11-08｜本物の序盤降下ジャンプ 1.16s / 後続FAIL / ART REJECT
+R75研究コピーで先頭道路の着地段差を20m級再設計。原Game/Camera/240Hz・B48×7・B51×28・元R73/R75ステージ不変。**ゼロ操舵＋既存ガイド**の真240Hzで第1跳躍が0.4875s/39.4m→**1.1583s/94.63m**、元Road0に再接地（直前鉛直速度 -39.38→-10.85m/s）。32m案1.4875s/122m、45m案1.721s/141.6mだが安易に採用せず。**R75基準16.70s／20m案16.94s／32m案15.13sで全編FAIL**、ガイドOFFの20m案は7.996sでFAIL。ギャップ3→5セル延長だけでは初回跳躍は変化せず、20m案の穴なし対照でも1.0875s飛ぶため、ジャンプの主因は路面高低差と明記。独立R78物理生成コード [R78](research-candidates/k4ct/k4ct-r78-basin20-native-generator.mjs) と [比較証拠](research-evidence/k4ct/K4CT_R78_FIRST_REAL_LONG_JUMP_ART_REJECT_FULLRUN_FAIL_20261108.json) 保存。Windows自己検査／ローカルHTTP／ZIP整合PASS、実Windowsゲーム未認証。**別途R78の建築美術試作は元カメラで箱・暗い空洞に見えART REJECT、不採用**。正式ART0、Slope2 DNA0m、HUMAN/SAT/CCD/WindowsFPS/RELEASE/MERGE HOLD。次は元の連続道路接続／ガイド依存改善と、巨大な居住空間・実道路・地形の美術を真のBlender作者設計＋WebGL映像で一体化。ユーザーに再試走を求める段階ではない。
+
 ## R77 2026-11-08｜序盤3D空間の制作・実カメラ代理審査、**ART REJECT**
 R75真正B48×7／B51×28／240Hz固定の独立LOCAL研究で、R76の板状天井と近接岩壁を廃し、左右非対称の開放峡谷・深い谷・道路上方の1つの石造ポータルを試作。先行A0アーチ占有過大でREJECT、B1は位置・寸法を修正したが依然巨大な輪＋暗い空洞に見え、**本人が指摘した未来都市・実走行の面白さと視覚品質の問題は未解決**。研究用ソース [R77 geometry](research-candidates/k4ct/k4ct-r77-fjord-gateway.mjs) と [証拠](research-evidence/k4ct/K4CT_R77_GENUINE_SOURCE_CAMERA_REVIEW_ART_REJECT_20261108.json) だけ保存。元カメラ・実Runnerの0〜6秒読み取り／ソフトウェア描画で検証、ギャップ踏切と着地の12照準レイは追加景観への幾何交差0/12（ただし最後の踏切点は画角外）。**真正Chromium/WebGL2、Blender作者造形、自然人間試走、良いARTの証拠ではない。** 原本変更0、正式ART採用0、Slope2 DNA0m、HUMAN/SAT/CCD/WindowsFPS/RELEASE/MERGE HOLD。次は丸いゲート・棚・箱の微修正ループをやめ、立体道路と関わる一つの大きな建築空間を実3D作者造形から組み直す。追加課金/CI/Workなし、MAB・TPS上位優先維持。
 
