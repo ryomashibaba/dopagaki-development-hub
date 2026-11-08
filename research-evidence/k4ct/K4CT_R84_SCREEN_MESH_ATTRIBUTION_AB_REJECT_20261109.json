@@ -1,0 +1,143 @@
+{
+  "schema": "k4ct-r84-native-camera-offline-per-mesh-pixel-attribution-and-removal-negative-ab/1",
+  "asOfJST": "2026-11-09",
+  "parentHEAD": "f1e3d615eb429cc5b87c577addcd20aa257cdb67",
+  "goal": "Identify high-value architecture meshes to directly reauthor in real Blender rather than continuing procedural box/hoop/rock production or empty gate docs.",
+  "source": {
+    "R83ArtifactSHA256": "680a366f852ffa31c68da27b156cc33995075e6120a39acb6f71ef44fa90adc7",
+    "sourceR82GLBSHA256": "86cb7b8bae20e207efc855e6dd7bfb424c9e5cd50a923d8ca36e0c53512447bd",
+    "sourceR80StageSHA256": "786ee9c26ced13055b222dbfd413c9f7b5f090e5abc7a383d58c984389605c4f",
+    "preflightR83": "PASS_R80_7_B48_28_B51_GAP_52_53_54_FOUR_NATIVE_CAMERA_TIMES",
+    "zipCRC": "PASS",
+    "actualNativeBlender52": "NOT_EXECUTED_SANDBOX_HAS_NO_BLENDER"
+  },
+  "measurement": {
+    "method": "VTK offscreen depth raster with unique solid ID per source GLB mesh; source Runner-camera samples at t=0,2,3.2,5.2083 seconds, 1008x645. Raster count of 24 visible mesh identities. Not original WebGL2, not human recognition metrics.",
+    "resolution": [
+      1008,
+      645
+    ],
+    "viewportPixels": 650160,
+    "frames": [
+      {
+        "t": 0,
+        "roadPixels": 322021,
+        "artPixels": 48002,
+        "critical": [
+          [
+            "02_EAST_HOUSING_STATION_BASE",
+            15392
+          ],
+          [
+            "08_EAST_TRANSIT_GALLERY",
+            9228
+          ]
+        ]
+      },
+      {
+        "t": 2,
+        "roadPixels": 254309,
+        "artPixels": 140899,
+        "critical": [
+          [
+            "02_EAST_HOUSING_STATION_BASE",
+            65080
+          ],
+          [
+            "08_EAST_TRANSIT_GALLERY",
+            20389
+          ],
+          [
+            "07_WEST_TRANSIT_GALLERY",
+            15263
+          ]
+        ]
+      },
+      {
+        "t": 3.2,
+        "roadPixels": 227295,
+        "artPixels": 192608,
+        "critical": [
+          [
+            "02_EAST_HOUSING_STATION_BASE",
+            60503
+          ],
+          [
+            "08_EAST_TRANSIT_GALLERY",
+            44980
+          ],
+          [
+            "07_WEST_TRANSIT_GALLERY",
+            29957
+          ]
+        ]
+      },
+      {
+        "t": 5.208333333333,
+        "roadPixels": 65995,
+        "artPixels": 244198,
+        "critical": [
+          [
+            "01_WEST_PUBLIC_CONCOURSE_BASE",
+            78982
+          ],
+          [
+            "11_EAST_VERTICAL_PIER",
+            48797
+          ],
+          [
+            "10_WEST_VERTICAL_PIER",
+            38811
+          ],
+          [
+            "09_ELEVATED_INTERCHANGE_WALKWAY",
+            31264
+          ]
+        ]
+      }
+    ],
+    "generatedAuditSHA256": "be7950d878b01757efa8e02d9dcb850c018ca490ec95be4d64c9fc22c735aceb",
+    "warning": "Pixel occupancy is neither proof of road occlusion nor an aesthetic threshold; mesh visibility and original WebGL shading may differ."
+  },
+  "counterfactual": {
+    "t2": {
+      "hiddenMeshes": [
+        "02_EAST_HOUSING_STATION_BASE",
+        "08_EAST_TRANSIT_GALLERY"
+      ],
+      "imageSHA256": "f35fca011606e36e57cee6d33457918260dadb79d5b5fb2d190528662220db58",
+      "verdict": "NEGATIVE_ART: larger sky opening but uninhabited disconnected floating deck and hollow world remain"
+    },
+    "t5p21": {
+      "hiddenMeshes": [
+        "01_WEST_PUBLIC_CONCOURSE_BASE",
+        "09_ELEVATED_INTERCHANGE_WALKWAY",
+        "10_WEST_VERTICAL_PIER",
+        "11_EAST_VERTICAL_PIER"
+      ],
+      "imageSHA256": "7e7dddd15c586abee829dd3593959169ca7921a48ef8ee0b6e49d4a701c4157a",
+      "verdict": "NEGATIVE_ART: physical road reads, but large gap where dominant occupied city should exist; simply deleting elements does not improve world value"
+    },
+    "acceptance": "REJECT_BOTH_EMPTYING_ABLATIONS",
+    "artifactOutput": "temporary chat-only PNGs, no protected GLB/Game/Camera or B48 modifications"
+  },
+  "authorNextAction": "In verified R83 Blender scene, directly reconceive 02+08 as one spatially occupied east cliff/civic transit mass with proper inhabited depth rather than a broad wall. Reconceive 01+09+10+11 as structurally continuous public concourse with convincing road crossing, not isolated piers or a thin plate. Keep native road and R80 stage reference read-only; use four source-camera poses. Do not approve without genuine Blender 4 frames, native Chromium and one real person play test.",
+  "status": {
+    "ART": "REJECT",
+    "formalArtApproved": 0,
+    "slope2DNAMetres": 0,
+    "HUMAN": "HOLD",
+    "SAT": "HOLD",
+    "CCD": "HOLD",
+    "WindowsFPS": "HOLD",
+    "RELEASE": "HOLD",
+    "MERGE": "HOLD"
+  },
+  "safety": {
+    "githubActionsStarted": 0,
+    "extraPaidAPIJPY": 0,
+    "WorkOrComputerUse": "NOT_USED",
+    "mainPR46GoldBlender8OriginalGameB48B51AndPages": "UNMODIFIED"
+  },
+  "blocker": "Authentic Blender 5.2 is installed on user's Windows machine, not accessible from this chat session under existing no-Work-without-approval constraints. User's own optional one-click R83 launch remains necessary for next genuine .blend render evidence; do not invent execution or repeat gate packaging."
+}
